@@ -1,0 +1,34 @@
+# -*- coding: UTF-8 -*-
+
+from django.contrib import admin
+from django.db import models
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+
+from filebrowser.settings import URL_FILEBROWSER_MEDIA
+
+from base_libs.admin import ExtendedModelAdmin
+from base_libs.models.admin import get_admin_lang_section
+
+Exhibition = models.get_model("exhibitions", "Exhibition")
+
+class ExhibitionAdmin(ExtendedModelAdmin):
+    class Media:
+        js = (
+            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
+            )
+    save_on_top = True
+    list_display = ('title', 'slug', 'creation_date', 'status')
+    list_filter = ('creation_date', 'status',)
+    search_fields = ('title', 'subtitle', 'slug')
+    
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'description', 'website'])
+    fieldsets += [(None, {'fields': ('slug', 'museum', 'image')}),]
+    fieldsets += get_admin_lang_section(_("Image Caption"), ['image_caption', ])
+    fieldsets += [(_("Time"), {'fields': ('start','end',)}),]
+    fieldsets += [(_("Status"), {'fields': ('newly_opened','featured','closing_soon','status')}),]
+    
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+admin.site.register(Exhibition, ExhibitionAdmin)
+

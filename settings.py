@@ -259,7 +259,7 @@ ADMIN_APP_INDEX = (
  
 )
 
-PREPEND_WWW = True
+PREPEND_WWW = False
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -330,6 +330,7 @@ CMS_LANGUAGE_CONF = {
     'de':['en'], 
 }
 CMS_FRONTEND_LANGUAGES = ("en", "de")
+CMS_LANGUAGE_FALLBACK = "de"
 CMS_HIDE_UNTRANSLATED = True
 CMS_CACHE_DURATIONS = {
     'content': 60,

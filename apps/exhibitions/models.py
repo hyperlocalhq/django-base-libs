@@ -12,7 +12,15 @@ from base_libs.models.fields import ExtendedTextField # for south
 
 from filebrowser.fields import FileBrowseField
 
-class Exhibition(CreationModificationDateMixin):
+STATUS_CHOICES = (
+    ('draft', _("Draft")),
+    ('published', _("Published")),
+    ('not_listed', _("Not Listed")),
+    ('expired', _("Expired")),
+    ('import', _("Imported")),
+    ) 
+
+class Exhibition(CreationModificationDateMixin, SlugMixin()):
     museum = models.ForeignKey("museums.Museum", verbose_name=_("Museum"),)
     
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -29,11 +37,13 @@ class Exhibition(CreationModificationDateMixin):
     featured = models.BooleanField(_("Featured"))
     closing_soon = models.BooleanField(_("Closing soon"))
     
+    status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
+    
     def __unicode__(self):
         return self.title
         
     class Meta:
         ordering = ['title']
-        verbose_name = _("Museum")
-        verbose_name_plural = _("Museums")
+        verbose_name = _("Exhibition")
+        verbose_name_plural = _("Exhibitions")
 

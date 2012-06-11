@@ -16,7 +16,14 @@ from filebrowser.fields import FileBrowseField
 COUNTRY_CHOICES = (
     ('de', _("Germany")),
     ('-', "Other"),
-)
+    )
+
+STATUS_CHOICES = (
+    ('draft', _("Draft")),
+    ('published', _("Published")),
+    ('not_listed', _("Not Listed")),
+    ('import', _("Imported")),
+    ) 
 
 class MuseumCategory(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -31,9 +38,9 @@ class MuseumCategory(CreationModificationDateMixin, SlugMixin()):
         verbose_name_plural = _("Categories")
     
 
-class Museum(CreationModificationDateMixin):
+class Museum(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
-    subtitle = MultilingualCharField(_("Title"), max_length=255, blank=True)
+    subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), max_length=255, blank=True)
 
     image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
@@ -48,8 +55,11 @@ class Museum(CreationModificationDateMixin):
     country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255)    
     
     phone = models.CharField(_("Phone"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
+    fax = models.CharField(_("Fax"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
     email = models.EmailField(_("Email"), max_length=255, blank=True)
     website = URLField("Website", blank=True)
+    
+    status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
     def __unicode__(self):
         return self.title
