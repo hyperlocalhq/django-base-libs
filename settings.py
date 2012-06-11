@@ -171,6 +171,9 @@ INSTALLED_APPS = (
     "jetson.apps.mailchimp",
     "jetson.apps.blocks",
     
+    ### museumsportal apps ###
+    "museumsportal.apps.museums",
+    "museumsportal.apps.exhibitions",
 )
 
 
@@ -186,16 +189,11 @@ ADMIN_APP_INDEX = (
             ('blocks', {                
                     'models': ('InfoBlock',),
             }),            
-            ('events', {
-                'verbose_name':gettext('Exhibitions'),
-                'models': ('Exhibition',),
+            ('museums', {
+                'models': ('MuseumCategory','Museum',),
                 }),            
-            ('works', {
-                'models':("Work",),                
-                }),
-            ('articles', {
-                'verbose_name':gettext('News'),
-                'models': ('Article',),
+            ('exhibitions', {
+                'models': ('Exhibition',),
                 }),            
          )
     },
@@ -320,8 +318,6 @@ CMS_PLACEHOLDER_CONF = {
 CMS_TEMPLATES = (
     ('cms/default.html', gettext('Default Template')),
     ('cms/start.html', gettext('Start Page Template')),   
-    ('cms/hotels.html', gettext('Hotels Template')),   
-    ('cms/location.html', gettext('Location Template')),   
 )
 
 CMS_APPHOOKS = (

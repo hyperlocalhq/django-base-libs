@@ -1,0 +1,223 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications %}
+<html lang="{{ LANGUAGE_CODE }}"> 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Berliner Museumsportal{% block title %}{% endblock %}</title>
+	<link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+	
+    {% block stylesheet %}
+        <link href="{{ STATIC_URL }}site/css/reset.css" rel="stylesheet" media="screen" type="text/css" />
+        <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen" type="text/css" />
+    {% endblock %}
+	
+    {% render_block "css" %}
+
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.cycle.all.js"></script>
+	
+	<script type="text/javascript">
+	$(function() {
+	
+	    $('#stage').cycle({
+	        fx:      'fade',
+	        timeout:  10000,
+	        speed:    400,
+	        pause:	  1,
+	        prev:    '#prev',
+	        next:    '#next',
+	        pager:   '#nav',
+	        easing:   'easeInOutSine',
+	        
+	        pagerAnchorBuilder: pagerFactory
+	    });
+	
+	    function pagerFactory(idx, slide) {
+	        var s = idx > 2 ? ' ' : '';
+	        return '<li'+s+'><a href="#">'+(idx+1)+'</a></li>';
+	    };
+	    
+	});
+	</script>
+    {% block js %}{% endblock %}
+</head>
+<body>
+	<div class="wrapper">
+		<div id="header" class="clearfix">
+			
+			<ul id="navigation">
+				<li><span>Hier entsteht Berlins neues Museumsportal</span></li><br/>
+				<li><a href="#">Museen</a></li>	 ·
+				<li><a href="#">Besucherinfo</a></li>	 ·
+				<li><a href="#">Über uns</a></li>	 ·
+				<li><a href="#">Shop</a></li>	
+			</ul>
+		</div>
+		<div id="content" class="clearfix">
+		    {% block content %}
+			<div id="kurze_zeit">
+				<ul class="social">
+					<li><a class="facebook" href="#">Facebook</a></li>
+					<li><a class="twitter" href="#">Twitter</a></li>
+					<li><a class="newsletter" href="#">Newsletter</a></li>
+					<li><a class="rss" href="#">RSS</a></li>
+					<li><a class="journal" href="#"><span>Hier erhältlich…</span></a></li>
+				</ul>
+				<h2>→ Nur Noch kurze Zeit</h2>
+				
+					
+                <div>
+                    <a class="img" href="#"></a>
+                    <h4>Martin-Gropius-Bau</h4>
+                    <h3>Pacific Standard Time</h3>
+                    <h5>bis 10.6.12</h5>
+                    <a class="proceed" href="http://www.berlinerfestspiele.de/de/aktuell/festivals/gropiusbau/programm_mgb/mgb12_pacific_standard_time/ausstellung_pacific_standard_time/veranstaltungsdetail_mgb_ausstellung_29334.php">
+                    mehr…</a>
+                </div>					
+                <div>
+                    <a class="img" href="#"></a>
+                    <h4>Bauhaus-Archiv</h4>
+                    <h3>Stühle ohne Beine</h3>
+                    <h5>bis 10.6.12</h5>
+                    <a class="proceed" href="http://www.bauhaus.de/aktuelles/sonderausstellungen.html#c3037">mehr…</a>
+                </div>
+                <div>
+                    <a class="img" href="#"></a>
+                    <h4>Museum für Fotografie</h4>
+                    <h3>Die Metamorphose Japans nach dem Krieg</h3>
+                    <h5>bis 17.6.12	</h5>	
+                    <a class="proceed" href="http://www.smb.museum/smb/kalender/details.php?objID=24903&n=0&datum=09.03.2012">mehr…</a>
+                </div>
+                <div>
+                    <a class="img" href="#"></a>
+                    <h4>Akademie der Künste, Hanseatenweg</h4>
+                    <h3>"John Cage und..."</h3>
+                    <h5>bis 17.6.12</h5>
+                    <a class="proceed" href="http://www.adk.de/de/aktuell/veranstaltungen/index.htm?we_objectID=30736">mehr…</a>		
+                </div>			
+                <div>
+                    <a class="img" href="#"></a>
+                    <h4>Kindergalerie im Bode-Museum</h4>
+                    <h3>Von Drachen und Helden</h3>
+                    <h5>bis 17.6.12</h5>
+                    <a class="proceed" href="http://www.smb.museum/smb/kalender/details.php?objID=28272&typeId=10">mehr…</a>
+                </div>
+            </div>
+		
+			<div class="stage_wrapper">
+				<div id="stage"  class="clearfix">
+					<div class="">
+						<a class="img" href="#">
+							<div class="wrap">
+								<h4>25.8.2012</h4>
+								<h3>31. Lange Nacht der Museen</h3>
+							</div>	
+						</a>
+					</div><!--
+					<div class="">
+						<a class="img" href="#">
+							<div class="wrap">
+							<h4>Berlinische Galerie</h4>
+							<h3>Manifesto Collage</h3>
+							</div>	
+						</a>
+					</div>
+					<div class="">
+						<a class="img" href="#">
+							<div class="wrap">
+							<h4>Akademie der Künste, Pariser Platz</h4>
+							<h3>Choreografie der Massen</h3>
+							</div>	
+						</a>
+					</div>-->
+				</div>
+				
+				<div class="controls">
+				    <a href="#" id="prev"><</a> 
+				    <a href="#" id="next">></a>
+				</div>
+				
+				<ul id="nav"></ul>
+			</div>
+		
+			
+			
+			<div id="neu" class="">
+				<h2>→ Neu eröffnet</h2>
+				<div class="article short">
+					<a class="img" href="#"></a>
+					<h4>Akademie der Künste, Pariser Platz</h4>
+					<h3>Choreografie der Massen</h3>
+					<p>Wie wirken Sport, Architektur und Fankultur aufeinander? Welche gesellschaftliche und politischen Zusammenhänge lassen sich an einem Sportbau ablesen? Die Akademie der Künste gibt…</p>
+					<a class="proceed" href="detail.html">mehr…</a>
+				</div>
+				<div class="article short">
+					<a class="img" href="#"></a>
+					<h4>Berlinische Galerie</h4>
+					<h3>Manifesto Collage</h3>
+					<p>Kleben, Übermalen und Verfremden: Seit ihren Anfängen im frühen 20. Jahrhundert ist die Collage immer wieder ein wichtiges Ausdrucksmittel der Kunst – etwa in den Werken von Hannah Höch…</p>
+					<a class="proceed" href="detail.html">mehr…</a>
+				</div>
+				<div class="article short">
+					<a class="img" href="#"></a>
+					<h4>Berlinische Galerie</h4>
+					<h3>Lorem ipsum dolor sit amet</h3>
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu liend leo…</p>
+					<a class="proceed" href="detail.html">mehr…</a>
+				</div>
+			</div>
+			<div id="redaktion" class="">
+				<h2>→ Aus der Redaktion</h2>
+				<div class="article short">
+					<a class="img" href="#"></a>
+					<h4>Berlinische Galerie</h4>
+					<h3>Manifesto Collage</h3>
+					<p>Wie wirken Sport, Architektur und Fankultur aufeinander? Welche gesellschaftliche und politischen Zusammenhänge lassen sich an einem Sportbau ablesen? Die Akademie der Künste gibt…</p>
+					<a class="proceed" href="detail.html">mehr…</a>
+				</div>
+				<div class="article short">
+					<a class="img" href="#"></a>
+					<h4>Berlinische Galerie</h4>
+					<h3>Manifesto Collage</h3>
+					<p>Kleben, Übermalen und Verfremden: Seit ihren Anfängen im frühen 20. Jahrhundert ist die Collage immer wieder ein wichtiges Ausdrucksmittel der Kunst – etwa in den Werken von Hannah Höch…</p>
+					<a class="proceed" href="detail.html">mehr…</a>
+				</div>
+				<div class="article short">
+					<a class="img" href="#"></a>
+					<h4>Berlinische Galerie</h4>
+					<h3>Lorem ipsum dolor sit amet</h3>
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu liend leo…</p>
+					<a class="proceed" href="detail.html">mehr…</a>
+				</div>
+				
+				
+			</div>
+			{% endblock %}
+		</div>	
+		
+		
+			<div id="footer" class="clearfix">
+				
+				<ul id="navigation">
+					<li><a href="#">Museen</a></li>	 ·
+					<li><a href="#">Besucherinfo</a></li>	 ·
+					<li><a href="#">Über uns</a></li>	 ·
+					<li><a href="#">Shop</a></li>	
+				</ul>
+			</div>
+	</div>
+    {% render_block "js" %}
+	<script type="text/javascript">
+	$(function() {
+	    
+	    if ($('#cms_toolbar').length) { // cms toolbar fix
+	        if ($('body').css('margin-top') == "-43px") {
+	            $('body').css('margin-top', 0);
+	        }
+	    }
+	    
+	});
+	</script>    
+</body>
+</html>
