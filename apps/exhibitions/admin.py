@@ -10,7 +10,18 @@ from filebrowser.settings import URL_FILEBROWSER_MEDIA
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import get_admin_lang_section
 
+from jetson.apps.media_gallery.admin import GenericMediaFileInline
+
 Exhibition = models.get_model("exhibitions", "Exhibition")
+
+class ExhibitionMediaFileInline(GenericMediaFileInline):
+    fieldsets = [
+        (None, {'fields': ("path", )}),
+        ]
+    fieldsets += get_admin_lang_section(_("Description"), ['title', 'description'], True)
+    fieldsets += [(None, {'fields': ("sort_order", )}),]
+    sortable_field_name = "sort_order"
+    classes = ('collapse open',)
 
 class ExhibitionAdmin(ExtendedModelAdmin):
     class Media:
@@ -29,6 +40,9 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Status"), {'fields': ('newly_opened','featured','closing_soon','status')}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+    
+    inlines = [ExhibitionMediaFileInline]
+
 
 admin.site.register(Exhibition, ExhibitionAdmin)
 

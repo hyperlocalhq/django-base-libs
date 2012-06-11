@@ -170,6 +170,7 @@ INSTALLED_APPS = (
     "jetson.apps.external_services",
     "jetson.apps.mailchimp",
     "jetson.apps.blocks",
+    "jetson.apps.media_gallery",
     
     ### museumsportal apps ###
     "museumsportal.apps.museums",
