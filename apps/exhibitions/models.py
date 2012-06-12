@@ -20,6 +20,17 @@ STATUS_CHOICES = (
     ('import', _("Imported")),
     ) 
 
+class ExhibitionManager(models.Manager):
+    def newly_opened(self):
+        return self.filter(newly_opened=True, status="published")
+        
+    def featured(self):
+        return self.filter(featured=True, status="published")
+        
+    def closing_soon(self):
+        return self.filter(closing_soon=True, status="published")
+        
+
 class Exhibition(CreationModificationDateMixin, SlugMixin()):
     museum = models.ForeignKey("museums.Museum", verbose_name=_("Museum"),)
     
@@ -38,6 +49,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin()):
     closing_soon = models.BooleanField(_("Closing soon"))
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
+    
+    objects = ExhibitionManager()
     
     def __unicode__(self):
         return self.title

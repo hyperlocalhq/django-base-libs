@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div id="redaktion" class="">
+    {% with object as museum %}
+        <div class="article short">
+            {% if museum.image %}
+                <img src="{{ MEDIA_URL }}{{ museum.image }}" />
+            {% endif %}
+            <h4>{{ museum.title }}</h4>
+            {{ museum.description }}
+        </div>
+    {% endwith %}
+    </div>
+{% endblock %}

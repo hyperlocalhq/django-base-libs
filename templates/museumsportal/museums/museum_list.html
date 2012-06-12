@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div id="redaktion" class="">
+    {% for museum in object_list %}
+        <div class="article short">
+            {% if museum.image %}
+                <a class="img" href="{% url museum_detail slug=museum.slug %}"><img src="{{ MEDIA_URL }}{{ museum.image }}" /></a>
+            {% endif %}
+            <h4>{{ museum.title }}</h4>
+            {{ museum.description }}
+            <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}…</a>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

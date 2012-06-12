@@ -1,1 +1,91 @@
 {% extends "cms/default.html" %}
+{% load base_tags i18n %}
+
+{% block content %}
+    <div id="kurze_zeit">
+        <ul class="social">
+            <li><a class="facebook" href="#">Facebook</a></li>
+            <li><a class="twitter" href="#">Twitter</a></li>
+            <li><a class="newsletter" href="#">Newsletter</a></li>
+            <li><a class="rss" href="#">RSS</a></li>
+            <li><a class="journal" href="#"><span>Hier erhältlich…</span></a></li>
+        </ul>
+        <h2>→ Nur Noch kurze Zeit</h2>
+        {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
+        {% for exhibition in exhibitions_closing_soon %}
+            <div>
+                <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image }}" alt="" /></a>
+                <h4>{{ exhibition.museum.title }}</h4>
+                <h3>{{ exhibition.title }}</h3>
+                <h5>bis {{ exhibition.end|date:"j.n.y" }}</h5>
+                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}…</a>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div class="stage_wrapper">
+        <div id="stage"  class="clearfix">
+            <div class="">
+                <a class="img" href="#">
+                    <div class="wrap">
+                        <h4>25.8.2012</h4>
+                        <h3>31. Lange Nacht der Museen</h3>
+                    </div>	
+                </a>
+            </div><!--
+            <div class="">
+                <a class="img" href="#">
+                    <div class="wrap">
+                    <h4>Berlinische Galerie</h4>
+                    <h3>Manifesto Collage</h3>
+                    </div>	
+                </a>
+            </div>
+            <div class="">
+                <a class="img" href="#">
+                    <div class="wrap">
+                    <h4>Akademie der Künste, Pariser Platz</h4>
+                    <h3>Choreografie der Massen</h3>
+                    </div>	
+                </a>
+            </div>-->
+        </div>
+        
+        <div class="controls">
+            <a href="#" id="prev"><</a> 
+            <a href="#" id="next">></a>
+        </div>
+        
+        <ul id="nav"></ul>
+    </div>
+    
+    
+    
+    <div id="neu" class="">
+        <h2>→ Neu eröffnet</h2>
+        {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
+        {% for exhibition in exhibitions_newly_opened %}
+            <div class="article short">
+                <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image }}" alt="" /></a>
+                <h4>{{ exhibition.museum.title }}</h4>
+                <h3>{{ exhibition.title }}</h3>
+                <p>{{ exhibition.description|striptags }}</p>
+                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}…</a>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="redaktion" class="">
+        <h2>→ Aus der Redaktion</h2>
+        {% get_objects featured exhibitions.Exhibition 5 as exhibitions_featured %}
+        {% for exhibition in exhibitions_featured %}
+            <div class="article short">
+                <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image }}" alt="" /></a>
+                <h4>{{ exhibition.museum.title }}</h4>
+                <h3>{{ exhibition.title }}</h3>
+                <p>{{ exhibition.description|striptags }}</p>
+                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}…</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
