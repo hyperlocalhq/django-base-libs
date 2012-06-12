@@ -319,6 +319,7 @@ CMS_PLACEHOLDER_CONF = {
 CMS_TEMPLATES = (
     ('cms/default.html', gettext('Default Template')),
     ('cms/start.html', gettext('Start Page Template')),   
+    ('cms/visitor_info.html', 'Besucherinfo Template'),   
 )
 
 CMS_APPHOOKS = (
