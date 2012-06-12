@@ -31,7 +31,8 @@ body {
 }
 
 strong {
-font-weight: 700;}
+	font-weight: 700;
+}
 
 .clearfix:before, .clearfix:after {
 	content: "\0020";
@@ -89,7 +90,7 @@ a:active {
 	height: 100%;
 	padding-bottom: 0;
 	float: right;
-  margin-left: 0;
+	margin-left: 0;
 }
 
 #kurze_zeit div {
@@ -97,10 +98,10 @@ a:active {
 	padding-left: 25px;
 	margin-left: -25px;
 	position: relative;
-  float: left;
-  display: block;
-  width: 285px;
-  padding-top: 11px;
+	float: left;
+	display: block;
+	width: 285px;
+	padding-top: 11px;
 }
 
 #kurze_zeit .img {
@@ -109,7 +110,7 @@ a:active {
 	margin-right: 13px;
 	display: block;
 	float: left;
-  margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 #kurze_zeit div a.proceed {
@@ -132,10 +133,8 @@ a:active {
 }
 
 #kurze_zeit h2.catHead {
-  margin-bottom: -12px;
+	margin-bottom: -12px;
 }
-
-
 
 /* @end */
 
@@ -150,13 +149,12 @@ a:active {
 	width: 950px;
 	padding: 16px 25px 20px;
 	border-bottom: 1px solid #e5e3df;
-
 }
 
 #content #detail {
 	width: 627px;
 	padding-top: 19px;
-  padding-left: 25px;
+	padding-left: 25px;
 }
 
 .navigation li span {
@@ -175,11 +173,13 @@ a:active {
 	padding-bottom: 3px;
 }
 
-#header ul.navigation li.dropdown.ancestor ul {
-  font-size: 12px;
+#header ul.navigation li.dropdown ul {
+	font-size: 12px;
 }
 
-/* @end */
+/* @end *
+
+/
 
 /* @group Content */
 
@@ -275,6 +275,7 @@ ul.social li a.journal:hover span {
 .social li .newsletter:hover {
 	background-image: url(../img/inverted/mail.png);
 }
+
 #content div.cms-plugin-richtext p a,
 #content div a.proceed {
 	background-color: #000;
@@ -285,11 +286,13 @@ ul.social li a.journal:hover span {
 	border-radius: 2px;
 	line-height: 12px;
 	padding: 1px 4px 2px 5px;
-  display: block;
-  width: 28px;
-  margin-top: 9px;
+	display: block;
+	width: 28px;
 }
 
+#content div.cms-plugin-richtext p a {
+	margin-top: 10px;
+}
 
 #content div.cms-plugin-richtext p a:hover,
 #content div a.proceed:hover {
@@ -302,38 +305,43 @@ ul.social li a.journal:hover span {
 }
 
 #content div.cms-plugin-richtext {
-  width: 640px;	
-  border-bottom: 1px solid #e5e3df;
-  border-right: 1px solid #e5e3df;
-  padding: 20px 25px;
+	width: 640px;
+	border-bottom: 1px solid #e5e3df;
+	border-right: 1px solid #e5e3df;
+	padding-top: 15px;
+	padding-left: 25px;
+	padding-right: 25px;
 }
 
 #content div.cms-plugin-richtext h1,
 #content div.cms-plugin-richtext h2,
+#content div.cms-plugin-richtext ul,
 #content div.cms-plugin-richtext p {
-  padding-left: 220px;
+	padding-left: 225px;
 }
 
 #content div.cms-plugin-richtext h2 {
 	font-weight: 700;
-	text-transform: uppercase;	
+	text-transform: uppercase;
 	font-size: 20px;
 	line-height: 22px;
-  margin-bottom: 14px;
+	margin-bottom: 10px;
+	margin-top: 4px;
 }
 
 #content div.cms-plugin-richtext p.img_left {
-  font-size: 11px;
-  line-height: 16px;
-  color: gray;  
-  width: 196px;
-  height: 0;
-  margin-right: 0;
-  margin-top: 0;
-  margin-left: 0;
-  position: relative;
-  top: 7px;
-  padding: 0;
+	font-size: 10px;
+	line-height: 16px;
+	color: gray;
+	width: 196px;
+	height: 0;
+	margin-right: 0;
+	margin-top: 0;
+	margin-left: 0;
+	position: relative;
+	top: 5px;
+	padding: 0;
+	font-weight: 400;
 }
 
 /*#content>div{
@@ -385,40 +393,57 @@ ul.social li a.journal:hover span {
 }
 
 #content div p,
-#content .text {
-	font-size: 12px;
-  line-height: 21px;
-  color: #353535;
-  padding-bottom: 11px;
+#content .text,
+cms-plugin-richtext ul {
+	font-size: 15px;
+	line-height: 24px;
+	color: #131313;
+	padding-bottom: 17px;
+	font-weight: 200;
 }
 
-
+.cms-plugin-richtext ul li {
+	border-bottom: 1px solid #e5e3df;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
 
 .catHead {
 	font-weight: 500;
-	font-size: 15px;
+	font-size: 14px;
 	padding-bottom: 13px;
 	text-indent: -2px;
 	padding-top: 13px;
-  line-height: 16px;
+	line-height: 16px;
 }
 
 .article.short {
-	height: 381px;
+	height: 409px;
 }
 
 .article h3,
 .article h4,
 .article h5 {
 	font-size: 16px;
-	line-height: 21px;
+	line-height: 24px;
 }
 
-h3 {font-weight: 600;}
+#redaktion div.article.short h3,
+#neu div.article.short h3 {
+	padding-bottom: 9px;
+}
 
-h4 {font-weight: 300;}
+h3 {
+	font-weight: 600;
+}
 
-h5 {font-weight: 300;}
+h4 {
+	font-weight: 300;
+}
+
+h5 {
+	font-weight: 300;
+}
 
 .article h3 span {
 	font-size: 6px;
@@ -444,7 +469,9 @@ h5 {font-weight: 300;}
 
 #stage div .img .wrap {
 	position: absolute;
-	/*
+	
+
+/*
 
 left: 0;*/
   bottom: -27px;
@@ -579,9 +606,8 @@ left: 0;*/
 /* @group Footer */
 
 #footer {
-
 	border-top: 1px solid #e5e3df;
-  margin-top: -1px;
+	margin-top: -1px;
 }
 
 #footer .navigation {
