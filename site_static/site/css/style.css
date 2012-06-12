@@ -84,7 +84,6 @@ a:active {
 	height: 100%;
 	padding-bottom: 0;
 	float: right;
-	border-top: 1px solid #e5e3df;
   margin-left: 0;
 }
 
@@ -140,11 +139,14 @@ a:active {
 	line-height: 22px;
 	width: 950px;
 	padding: 16px 25px 20px;
+	border-bottom: 1px solid #e5e3df;
+
 }
 
 #content #detail {
 	width: 627px;
 	padding-top: 19px;
+  padding-left: 25px;
 }
 
 .navigation li span {
@@ -170,7 +172,7 @@ x;
 
 ul.social {
 	margin-left: -25px;
-	height: 304px;
+	height: 305px;
 	border-bottom: 1px solid #e5e3df;
 }
 
@@ -283,6 +285,11 @@ ul.social li a.journal:hover span {
 	position: relative;
 }
 
+/*#content>div{
+  padding-left: 25px;
+  padding-right: 25px;
+}*/
+
 .leftCol,
 .rightCol {
 	font-size: 13px;
@@ -294,7 +301,6 @@ ul.social li a.journal:hover span {
 	padding-bottom: 25px;
 	padding-left: 25px;
 	padding-right: 25px;
-		border-top: 1px solid #e5e3df;
 }
 
 .rightCol {
@@ -305,7 +311,7 @@ ul.social li a.journal:hover span {
 
 
 .img {
-	display: block;
+	display: inline-block;
 	font-size: 15px;
 	line-height: 21px;
 	background-color: #f5f5f5;
@@ -317,7 +323,7 @@ ul.social li a.journal:hover span {
 	position: relative;
 }
 
-a.img img {
+.img img {
 	width: 100%;
 	height: autop;
 	display: block;
@@ -327,10 +333,13 @@ a.img img {
 	float: left;
 }
 
-#content div p {
+#content div p,
+#content .text {
 	padding-bottom: 11px;
 	margin-top: 5px;
 	font-size: 12px;
+  line-height: 21px;
+  color: #353535;
 }
 
 
@@ -377,7 +386,7 @@ h5 {font-weight: 300;}
 	position: relative;
 	width: 641px;
 	height: 284px;
-	border-top: 1px solid #e5e3df;
+	border-bottom: 1px solid #e5e3df;
 	padding-top: 20px;
 	padding-left: 25px;
 	padding-right: 25px;

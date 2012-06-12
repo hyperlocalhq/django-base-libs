@@ -2,15 +2,15 @@
 {% load i18n image_modifications %}
 
 {% block content %}
-    <div id="" class="">
+    <div id="detail" class="">
     {% with object as exhibition %}
-        <div class="article short">
+        <div class="article">
             {% if exhibition.image %}
-                <img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" />
+               <span class="img"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" /></span>
             {% endif %}
             <h4>{{ exhibition.museum.title }}</h4>
             <h3>{{ exhibition.title }}</h3>
-            {{ exhibition.description }}
+            <div class="text">{{ exhibition.description }}</div>
         </div>
     {% endwith %}
     </div>
