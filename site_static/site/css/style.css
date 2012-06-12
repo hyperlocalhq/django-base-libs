@@ -95,7 +95,7 @@ a:active {
   float: left;
   display: block;
   width: 285px;
-  padding-bottom: 7px;
+  padding-top: 11px;
 }
 
 #kurze_zeit .img {
@@ -123,6 +123,10 @@ a:active {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 172px;
+}
+
+#kurze_zeit h2.catHead {
+  margin-bottom: -12px;
 }
 
 
@@ -162,8 +166,7 @@ a:active {
 .navigation li a:link {
 	border-radius: 3px;
 	padding-top: 0;
-	padding-bottom: 3p
-x;
+	padding-bottom: 3px;
 }
 
 /* @end */
@@ -172,7 +175,7 @@ x;
 
 ul.social {
 	margin-left: -25px;
-	height: 305px;
+	height: 304px;
 	border-bottom: 1px solid #e5e3df;
 }
 
@@ -354,7 +357,7 @@ ul.social li a.journal:hover span {
 }
 
 .article.short {
-	height: 351px;
+	height: 381px;
 }
 
 .article h3,
