@@ -300,9 +300,9 @@ ul.social li a.journal:hover span {
   width: 295px;	
   border-bottom: 1px solid #e5e3df;
   border-right: 1px solid #e5e3df;
-  padding: 15px 25px;
+  padding: 20px 25px;
   float: left;
-  height: 189px;
+  height: 400px;
 }
 
 
@@ -329,8 +329,7 @@ ul.social li a.journal:hover span {
 	border-right: 1px solid #e5e3df;
 }
 
-
-
+.cms-plugin-richtext img,
 .img {
 	display: inline-block;
 	font-size: 15px;
@@ -343,10 +342,10 @@ ul.social li a.journal:hover span {
 	background-position: top;
 	position: relative;
 }
-
+.cms-plugin-richtext img,
 .img img {
 	width: 100%;
-	height: autop;
+	height: auto;
 	display: block;
 }
 
