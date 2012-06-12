@@ -74,7 +74,7 @@
                 <h4>{{ exhibition.museum.title }}</h4>
                 <h3>{{ exhibition.title }}</h3>
                 <p>{{ exhibition.description|striptags }}</p>
-                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}…</a>
+                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
             </div>
         {% endfor %}
     </div>
@@ -89,7 +89,7 @@
                 <h4>{{ exhibition.museum.title }}</h4>
                 <h3>{{ exhibition.title }}</h3>
                 <p>{{ exhibition.description|striptags }}</p>
-                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}…</a>
+                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
             </div>
         {% endfor %}
     </div>
