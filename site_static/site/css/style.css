@@ -3,6 +3,7 @@
 	http://h2041646.stratoserver.net/static/7667/site/css/style.css
 	http://127.0.0.1:8000/static/7710/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7715/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7720/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -28,6 +29,9 @@ body {
 	color: #000;
 	font: 16px/29px 'Open Sans', sans-serif;
 }
+
+strong {
+font-weight: 700;}
 
 .clearfix:before, .clearfix:after {
 	content: "\0020";
@@ -282,7 +286,7 @@ ul.social li a.journal:hover span {
 	padding: 1px 4px 2px 5px;
   display: block;
   width: 28px;
-  margin-top: 11px;
+  margin-top: 9px;
 }
 
 
@@ -297,14 +301,39 @@ ul.social li a.journal:hover span {
 }
 
 #content div.cms-plugin-richtext {
-  width: 295px;	
+  width: 640px;	
   border-bottom: 1px solid #e5e3df;
   border-right: 1px solid #e5e3df;
   padding: 20px 25px;
-  float: left;
-  height: 400px;
 }
 
+#content div.cms-plugin-richtext h1,
+#content div.cms-plugin-richtext h2,
+#content div.cms-plugin-richtext p {
+  padding-left: 220px;
+}
+
+#content div.cms-plugin-richtext h2 {
+	font-weight: 700;
+	text-transform: uppercase;	
+	font-size: 20px;
+	line-height: 22px;
+  margin-bottom: 14px;
+}
+
+#content div.cms-plugin-richtext p.img_left {
+  font-size: 11px;
+  line-height: 16px;
+  color: gray;  
+  width: 196px;
+  height: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-left: 0;
+  position: relative;
+  top: 7px;
+  padding: 0;
+}
 
 /*#content>div{
   padding-left: 25px;
@@ -335,13 +364,14 @@ ul.social li a.journal:hover span {
 	font-size: 15px;
 	line-height: 21px;
 	background-color: #f5f5f5;
-	margin-bottom: 13px;
+	margin-bottom: 7px;
 	border: 2px solid white;
 	-webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
 	background-size: cover;
 	background-position: top;
 	position: relative;
 }
+
 .cms-plugin-richtext img,
 .img img {
 	width: 100%;
@@ -355,11 +385,10 @@ ul.social li a.journal:hover span {
 
 #content div p,
 #content .text {
-	padding-bottom: 11px;
-	margin-top: 5px;
 	font-size: 12px;
   line-height: 21px;
   color: #353535;
+  padding-bottom: 11px;
 }
 
 
