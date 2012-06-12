@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n image_modifications %}
 
 {% block content %}
     <div id="redaktion" class="">
     {% for museum in object_list %}
         <div class="article short">
             {% if museum.image %}
-                <a class="img" href="{% url museum_detail slug=museum.slug %}"><img src="{{ MEDIA_URL }}{{ museum.image }}" /></a>
+                <a class="img" href="{% url museum_detail slug=museum.slug %}"><img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }}" /></a>
             {% endif %}
             <h4>{{ museum.title }}</h4>
             {{ museum.description }}

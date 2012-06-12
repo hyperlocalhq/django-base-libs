@@ -1,5 +1,5 @@
 {% extends "cms/default.html" %}
-{% load base_tags i18n %}
+{% load base_tags i18n image_modifications %}
 
 {% block content %}
     <div id="kurze_zeit">
@@ -14,7 +14,9 @@
         {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
         {% for exhibition in exhibitions_closing_soon %}
             <div>
-                <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image }}" alt="" /></a>
+                {% if exhibition.image %}
+                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
+                {% endif %}
                 <h4>{{ exhibition.museum.title }}</h4>
                 <h3>{{ exhibition.title }}</h3>
                 <h5>bis {{ exhibition.end|date:"j.n.y" }}</h5>
@@ -59,14 +61,14 @@
         <ul id="nav"></ul>
     </div>
     
-    
-    
     <div id="neu" class="">
         <h2>→ Neu eröffnet</h2>
         {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
         {% for exhibition in exhibitions_newly_opened %}
             <div class="article short">
-                <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image }}" alt="" /></a>
+                {% if exhibition.image %}
+                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
+                {% endif %}
                 <h4>{{ exhibition.museum.title }}</h4>
                 <h3>{{ exhibition.title }}</h3>
                 <p>{{ exhibition.description|striptags }}</p>
@@ -79,7 +81,9 @@
         {% get_objects featured exhibitions.Exhibition 5 as exhibitions_featured %}
         {% for exhibition in exhibitions_featured %}
             <div class="article short">
-                <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image }}" alt="" /></a>
+                {% if exhibition.image %}
+                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
+                {% endif %}
                 <h4>{{ exhibition.museum.title }}</h4>
                 <h3>{{ exhibition.title }}</h3>
                 <p>{{ exhibition.description|striptags }}</p>
