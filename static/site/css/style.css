@@ -2,6 +2,7 @@
 	http://127.0.0.1:8000/static/7500/site/css/style.css
 	http://h2041646.stratoserver.net/static/7667/site/css/style.css
 	http://127.0.0.1:8000/static/7710/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7715/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -95,7 +96,7 @@ a:active {
   float: left;
   display: block;
   width: 285px;
-  padding-bottom: 7px;
+  padding-top: 11px;
 }
 
 #kurze_zeit .img {
@@ -123,6 +124,10 @@ a:active {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 172px;
+}
+
+#kurze_zeit h2.catHead {
+  margin-bottom: -12px;
 }
 
 
@@ -162,8 +167,11 @@ a:active {
 .navigation li a:link {
 	border-radius: 3px;
 	padding-top: 0;
-	padding-bottom: 3p
-x;
+	padding-bottom: 3px;
+}
+
+#header ul.navigation li.dropdown.ancestor ul {
+  font-size: 12px;
 }
 
 /* @end */
@@ -172,7 +180,7 @@ x;
 
 ul.social {
 	margin-left: -25px;
-	height: 305px;
+	height: 304px;
 	border-bottom: 1px solid #e5e3df;
 }
 
@@ -262,20 +270,23 @@ ul.social li a.journal:hover span {
 .social li .newsletter:hover {
 	background-image: url(../img/inverted/mail.png);
 }
-
+#content div.cms-plugin-richtext p a,
 #content div a.proceed {
 	background-color: #000;
 	color: #fff;
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
 	font-size: 10px;
-	font-weight: 400;
+	font-weight: 600;
 	border-radius: 2px;
 	line-height: 12px;
 	padding: 1px 4px 2px 5px;
   display: block;
-  width: 36px;
+  width: 28px;
+  margin-top: 11px;
 }
 
+
+#content div.cms-plugin-richtext p a:hover,
 #content div a.proceed:hover {
 	background-color: #00aa5a;
 	color: #fff;
@@ -284,6 +295,16 @@ ul.social li a.journal:hover span {
 #content {
 	position: relative;
 }
+
+#content div.cms-plugin-richtext {
+  width: 295px;	
+  border-bottom: 1px solid #e5e3df;
+  border-right: 1px solid #e5e3df;
+  padding: 20px 25px;
+  float: left;
+  height: 400px;
+}
+
 
 /*#content>div{
   padding-left: 25px;
@@ -308,8 +329,7 @@ ul.social li a.journal:hover span {
 	border-right: 1px solid #e5e3df;
 }
 
-
-
+.cms-plugin-richtext img,
 .img {
 	display: inline-block;
 	font-size: 15px;
@@ -322,10 +342,10 @@ ul.social li a.journal:hover span {
 	background-position: top;
 	position: relative;
 }
-
+.cms-plugin-richtext img,
 .img img {
 	width: 100%;
-	height: autop;
+	height: auto;
 	display: block;
 }
 
@@ -354,7 +374,7 @@ ul.social li a.journal:hover span {
 }
 
 .article.short {
-	height: 351px;
+	height: 381px;
 }
 
 .article h3,
@@ -531,6 +551,7 @@ left: 0;*/
 #footer {
 
 	border-top: 1px solid #e5e3df;
+  margin-top: -1px;
 }
 
 #footer .navigation {
