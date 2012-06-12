@@ -132,7 +132,7 @@ a:active {
 
 /* @group Navigation */
 
-#navigation {
+.navigation {
 	padding-top: 16px;
 	text-transform: uppercase;
 	font-weight: 100;
@@ -147,17 +147,17 @@ a:active {
   padding-top: 19px;
 }
 
-#navigation li span {
+.navigation li span {
 	float: left;
 	font-weight: 700;
 	margin-right: 9px;
 }
 
-#navigation li {
+.navigation li {
 	display: inline;
 }
 
-#navigation li a:link {
+.navigation li a:link {
 	border-radius: 3px;
 	padding-top: 0;
 	padding-bottom: 3p
@@ -200,20 +200,20 @@ x
 }
 
 .social li .facebook {
-	background-image: url(_img/facebook.png);
+	background-image: url(../img/facebook.png);
 }
 
 .social li .twitter {
-	background-image: url(_img/twitter.png);
+	background-image: url(../img/twitter.png);
 }
 
 .social li .rss {
-	background-image: url(_img/rss.png);
+	background-image: url(../img/rss.png);
 }
 
 #kurze_zeit ul.social li a.journal {
 	height: 116px;
-	background: url(_img/journal.png) no-repeat center center;
+	background: url(../img/journal.png) no-repeat center center;
 	background-size: 300px;
 	position: relative;
 }
@@ -243,23 +243,23 @@ x
 }
 
 .social li .newsletter {
-	background-image: url(_img/mail.png);
+	background-image: url(../img/mail.png);
 }
 
 .social li .facebook:hover {
-	background-image: url(_img/inverted/facebook.png);
+	background-image: url(../img/inverted/facebook.png);
 }
 
 .social li .twitter:hover {
-	background-image: url(_img/inverted/twitter.png);
+	background-image: url(../img/inverted/twitter.png);
 }
 
 .social li .rss:hover {
-	background-image: url(_img/inverted/rss.png);
+	background-image: url(../img/inverted/rss.png);
 }
 
 .social li .newsletter:hover {
-	background-image: url(_img/inverted/mail.png);
+	background-image: url(../img/inverted/mail.png);
 }
 
 #content div a.proceed {
@@ -368,40 +368,40 @@ div.article.short {
 }
 
 #content div div:nth-child(1) .img {
-	background-image: url(_img/arbeiten/lange.jpg);
+	background-image: url(../img/arbeiten/lange.jpg);
 }
 
 #content div div:nth-child(2) .img {
-	background-image: url(_img/arbeiten/2b.jpg);
+	background-image: url(../img/arbeiten/2b.jpg);
 }
 
 #content div div:nth-child(3) .img {
-	background-image: url(_img/arbeiten/hannah.jpg);
+	background-image: url(../img/arbeiten/hannah.jpg);
 }
 
 #content div div:nth-child(4) .img {
-	background-image: url(_img/arbeiten/1b.jpg);
+	background-image: url(../img/arbeiten/1b.jpg);
 }
 
 #content div div:nth-child(5) .img {
-	background-image: url(_img/arbeiten/2b.jpg);
+	background-image: url(../img/arbeiten/2b.jpg);
 }
 
 #content div div:nth-child(6) .img {
-	background-image: url(_img/arbeiten/1b.jpg);
+	background-image: url(../img/arbeiten/1b.jpg);
 }
 
 #content #redaktion div:nth-child(2) .img {
-	background-image: url(_img/arbeiten/6.jpg);
+	background-image: url(../img/arbeiten/6.jpg);
 	background-position: cover;
 }
 
 #content #redaktion div:nth-child(3) .img {
-	background-image: url(_img/arbeiten/4.jpg);
+	background-image: url(../img/arbeiten/4.jpg);
 }
 
 #content #redaktion div:nth-child(4) .img {
-	background-image: url(_img/arbeiten/5.jpg);
+	background-image: url(../img/arbeiten/5.jpg);
 }
 
 #content div h2 {
@@ -609,8 +609,9 @@ left: 0;*/
 	margin-right: -25px;
 }
 
-#footer #navigation {
+#footer .navigation {
 	font-size: 15px;
 }
+
 
 /* @end */
