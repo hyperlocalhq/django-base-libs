@@ -2,15 +2,20 @@
 {% load i18n image_modifications %}
 
 {% block content %}
-    <div id="redaktion" class="">
+    <div id="museum_list" class="">
     {% for museum in object_list %}
-        <div class="article short">
+        <div class="article">
             {% if museum.image %}
                 <a class="img" href="{% url museum_detail slug=museum.slug %}"><img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }}" /></a>
             {% endif %}
             <h4>{{ museum.title }}</h4>
+            <div class="address">
+	            <span>{{ museum.street_address }}</span>{% if museum.street_address2 %} <span>{{ museum.street_address2 }}</span>{% endif %}<br/>
+	            <span>{{ museum.postal_code }}</span>
+	            <span>{{ museum.city }}</span>
+            </div>
             {{ museum.description }}
-            <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}…</a>
+            <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}</a>
         </div>
     {% endfor %}
     </div>

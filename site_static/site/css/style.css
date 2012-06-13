@@ -4,6 +4,7 @@
 	http://127.0.0.1:8000/static/7710/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7715/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7720/site/css/style.css
+	http://127.0.0.1:8000/static/7720/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -173,15 +174,73 @@ a:active {
 	padding-bottom: 3px;
 }
 
+.selected a:link {
+	color: #00aa5a;
+
+}
+
 #header ul.navigation li.dropdown ul {
 	font-size: 12px;
 }
 
-/* @end *
-
-/
+/* @end */
 
 /* @group Content */
+
+#museum_list div.article {
+  	border-right: 1px solid #e5e3df;
+	border-bottom: 1px solid #e5e3df;
+  width: 950px;
+  float: left;
+  padding: 10px 25px 5px;
+  height: 40px;
+  position: relative;
+  cursor: pointer;
+}
+
+#museum_list div.article:hover {
+background-color: white;}
+
+#museum_list div.article a.proceed {
+  float: right;
+  position: absolute;
+  top: 13px;
+  right: 26px;
+  opacity: 0;
+}
+
+#museum_list div.article div.address {
+  float: right;
+  position: absolute;
+  top: 10px;
+  right: 79px;
+  font-size: 12px;
+  line-height: 17px;
+  text-align: right;
+  opacity: 0;
+	border-right: 1px solid #e5e3df;
+  padding-right: 15px;
+}
+#museum_list div.article:hover div.address,
+#museum_list div.article:hover a.proceed {
+  display: block;
+  opacity: 1;
+}
+
+#museum_list div.article h4 {
+}
+
+#museum_list div.article a.img {
+  float: left;
+  width: 76px;
+  margin-right: 15px;
+  display: none;
+}
+
+#museum_list {
+  width: 1008px;
+  height: 40px;
+}
 
 ul.social {
 	margin-left: -25px;
@@ -344,10 +403,6 @@ ul.social li a.journal:hover span {
 	font-weight: 400;
 }
 
-/*#content>div{
-  padding-left: 25px;
-  padding-right: 25px;
-}*/
 
 .leftCol,
 .rightCol {
@@ -615,3 +670,4 @@ left: 0;*/
 }
 
 /* @end */
+
