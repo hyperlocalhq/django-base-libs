@@ -62,36 +62,37 @@
         
         <ul id="nav"></ul>
     </div>
-    
-    <div id="neu" class="leftCol">
-        <h2 class="catHead">→ Neu eröffnet</h2>
-        {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
-        {% for exhibition in exhibitions_newly_opened %}
-            <div class="article short">
-                {% if exhibition.image %}
-                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
-                {% endif %}
-                <h4>{{ exhibition.museum.title }}</h4>
-                <h3>{{ exhibition.title }}</h3>
-                <p>{{ exhibition.description|striptags }}</p>
-                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
-            </div>
-        {% endfor %}
-    </div>
-    <div id="redaktion" class="rightCol">
-        <h2 class="catHead">→ Aus der Redaktion</h2>
-        {% get_objects featured exhibitions.Exhibition 5 as exhibitions_featured %}
-        {% for exhibition in exhibitions_featured %}
-            <div class="article short">
-                {% if exhibition.image %}
-                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
-                {% endif %}
-                <h4>{{ exhibition.museum.title }}</h4>
-                <h3>{{ exhibition.title }}</h3>
-                <p>{{ exhibition.description|striptags }}</p>
-                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
-            </div>
-        {% endfor %}
+    <div class="colWrapper">
+	    <div id="neu" class="leftCol">
+	        <h2 class="catHead">→ Neu eröffnet</h2>
+	        {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
+	        {% for exhibition in exhibitions_newly_opened %}
+	            <div class="article short">
+	                {% if exhibition.image %}
+	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
+	                {% endif %}
+	                <h4>{{ exhibition.museum.title }}</h4>
+	                <h3>{{ exhibition.title }}</h3>
+	                <p>{{ exhibition.description|striptags }}</p>
+	                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
+	            </div>
+	        {% endfor %}
+	    </div>
+	    <div id="redaktion" class="rightCol">
+	        <h2 class="catHead">→ Aus der Redaktion</h2>
+	        {% get_objects featured exhibitions.Exhibition 5 as exhibitions_featured %}
+	        {% for exhibition in exhibitions_featured %}
+	            <div class="article short">
+	                {% if exhibition.image %}
+	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
+	                {% endif %}
+	                <h4>{{ exhibition.museum.title }}</h4>
+	                <h3>{{ exhibition.title }}</h3>
+	                <p>{{ exhibition.description|striptags }}</p>
+	                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
+	            </div>
+	        {% endfor %}
+	    </div>
     </div>
 {% endblock %}
 
