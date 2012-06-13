@@ -34,7 +34,7 @@ class MuseumAdmin(ExtendedModelAdmin):
             )
     save_on_top = True
     list_display = ('title', 'slug', 'creation_date', 'status')
-    list_filter = ('creation_date', 'status',)
+    list_filter = ('creation_date', 'status', 'categories')
     search_fields = ('title', 'subtitle', 'slug')
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description'])
