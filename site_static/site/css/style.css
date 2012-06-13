@@ -133,7 +133,6 @@ a:active {
 /* @group Navigation */
 
 .navigation {
-	text-transform: uppercase;
 	font-weight: 100;
 	float: left;
 	font-size: 20px;
@@ -141,6 +140,8 @@ a:active {
 	width: 950px;
 	padding: 16px 25px 20px;
 	border-bottom: 1px solid #e5e3df;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
 
 #content #detail {
@@ -171,6 +172,7 @@ a:active {
 
 #header ul.navigation li.dropdown ul {
 	font-size: 12px;
+	display: none;
 }
 
 /* @end */
@@ -179,11 +181,59 @@ a:active {
 
 @group Content */
 
+#filter {
+  padding-top: 11px;
+  padding-bottom: 25px;
+  width: 260px;
+  font-size: 13px;
+  line-height: 23px;
+}
+
+#filter li a {
+  font-weight: 200;
+  text-transform: none;  
+  display: block;
+}
+#filter li a:hover {
+}
+
+#filter li.active  {
+	/*color: #00aa5a;*/
+  text-transform: none;
+  position: relative;
+}
+
+#filter li.active a:link {
+  position: absolute;
+	background-color: rgba(0,0,0,0.15);
+	color: white;
+	border-radius: 30px;
+	height: 16px;
+	width: 16px;
+	display: block;
+	right: -4px;
+	top: 6px;
+	font-weight: 600;
+  text-align: center;
+  font-size: 16px;
+  padding: 0;
+  line-height: 16px;
+}
+
+
+
 /* @group museum_list */
 
 #museum_list {
-	width: 1008px;
+	width: 640px;
 	height: 40px;
+}
+
+#museum_list_map {
+  height: 350px;	
+  border-bottom: 1px solid #e5e3df;
+-webkit-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.125);
+
 }
 
 #museum_list div.article {
@@ -193,7 +243,7 @@ a:active {
 	padding: 10px 25px 5px;
 	height: 30px;
 	position: relative;
-	width: 950px;
+	width: 100%;
 }
 
 #museum_list div.article h2 {
@@ -210,6 +260,12 @@ a:active {
 	-webkit-transition-timing: ease-in-out;
 	-moz-transition-timing: ease-in-out;
 	margin-top: 1px;
+	
+	
+	/*white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 172px;*/
 }
 
 #museum_list div.article a.img {
@@ -247,11 +303,11 @@ a:active {
 	text-align: right;
 	opacity: 0.2;
 	right: 25px;
-	color: gray;
+  color: gray;
 }
 
 #museum_list div.article div.address span {
-	color: black;
+  color: black;
 }
 
 #museum_list div.article:hover div.address,
@@ -261,6 +317,8 @@ a:active {
 }
 
 /* @end */
+
+/* @group museum_detail */
 
 #museum_detail div.article {
 	padding: 25px 25px 10px;
@@ -275,12 +333,15 @@ a:active {
 	margin-top: 4px;
 }
 
+/* @end */
+
 /* @group Social */
 
 ul.social {
 	margin-left: -25px;
 	height: 304px;
 	border-bottom: 1px solid #e5e3df;
+  margin-right: -25px;
 }
 
 .social li a {
@@ -451,7 +512,7 @@ ul.social li a.journal:hover span {
 	position: relative;
 	-webkit-transition-property: opacity;
 	-moz-transition-property: opacity;
-	transition-property: opacity;
+	transition-property: webkit-box-shadow;
 	-webkit-transition-duration: 0.25s;
 	-moz-transition-duration: 0.25s;
 	transition-duration: 0.25s;
@@ -460,8 +521,7 @@ ul.social li a.journal:hover span {
 }
 
 #neu div.article.short a.img:hover {
-	opacity: 0.7;
-}
+opacity: 0.7;}
 
 .cms-plugin-richtext img,
 .img img {
@@ -480,9 +540,7 @@ ul.social li a.journal:hover span {
 
  @end */
 
-/* @group Col
-
-s */
+/* @group Cols */
 
 .leftCol,
 .rightCol {
@@ -512,13 +570,14 @@ s */
 }
 
 .marginal {
-	width: 284px;
+	width: 259px;
 	border-left: 1px solid #e5e3df;
 	padding-left: 25px;
 	height: 100%;
 	padding-bottom: 0;
 	float: right;
 	margin-left: -1px;
+  padding-right: 25px;
 }
 
 /* @end */
@@ -594,9 +653,7 @@ h5 {
 
 /* @end */
 
-/* @group Stage
-
- */
+/* @group Stage */
 
 #content div.stage_wrapper {
 	position: relative;
@@ -610,9 +667,7 @@ h5 {
 
 #stage div .img .wrap {
 	position: absolute;
-	
-
-/*
+	/*
 
 left: 0;*/
   bottom: -27px;
