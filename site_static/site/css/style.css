@@ -247,11 +247,11 @@ a:active {
 	text-align: right;
 	opacity: 0.2;
 	right: 25px;
-  color: gray;
+	color: gray;
 }
 
 #museum_list div.article div.address span {
-  color: black;
+	color: black;
 }
 
 #museum_list div.article:hover div.address,
@@ -449,9 +449,9 @@ ul.social li a.journal:hover span {
 	background-size: cover;
 	background-position: top;
 	position: relative;
-	-webkit-transition-property: border;
-	-moz-transition-property: border;
-	transition-property: border;
+	-webkit-transition-property: opacity;
+	-moz-transition-property: opacity;
+	transition-property: opacity;
 	-webkit-transition-duration: 0.25s;
 	-moz-transition-duration: 0.25s;
 	transition-duration: 0.25s;
@@ -460,10 +460,7 @@ ul.social li a.journal:hover span {
 }
 
 #neu div.article.short a.img:hover {
-	border: 2px solid black;
-	-webkit-transition-duration: 0s;
-	-moz-transition-duration: 0s;
-	transition-duration: 0s;
+	opacity: 0.7;
 }
 
 .cms-plugin-richtext img,
@@ -483,7 +480,9 @@ ul.social li a.journal:hover span {
 
  @end */
 
-/* @group Cols */
+/* @group Col
+
+s */
 
 .leftCol,
 .rightCol {
@@ -595,7 +594,9 @@ h5 {
 
 /* @end */
 
-/* @group Stage */
+/* @group Stage
+
+ */
 
 #content div.stage_wrapper {
 	position: relative;
@@ -609,7 +610,9 @@ h5 {
 
 #stage div .img .wrap {
 	position: absolute;
-	/*
+	
+
+/*
 
 left: 0;*/
   bottom: -27px;
