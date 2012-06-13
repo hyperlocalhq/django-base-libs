@@ -5,6 +5,7 @@
 	http://test.berliner-museumsportal.de/static/7715/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7720/site/css/style.css
 	http://127.0.0.1:8000/static/7720/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7736/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -91,7 +92,7 @@ a:active {
 	height: 100%;
 	padding-bottom: 0;
 	float: right;
-	margin-left: 0;
+	margin-left: -1px;
 }
 
 #kurze_zeit div {
@@ -411,10 +412,9 @@ ul.social li a.journal:hover span {
 .rightCol {
 	font-size: 13px;
 	line-height: 21px;
-	margin-right: -1px;
 	font-weight: 200;
 	float: left;
-	width: 295px;
+	width: 294px;
 	padding-bottom: 25px;
 	padding-left: 25px;
 	padding-right: 25px;
@@ -422,7 +422,15 @@ ul.social li a.journal:hover span {
 
 .rightCol {
 	border-left: 1px solid #e5e3df;
+  width: 295px;
+}
+.leftCol {
 	border-right: 1px solid #e5e3df;
+  margin-right: -1px;
+}
+.colWrapper {
+	border-right: 1px solid #e5e3df;
+  float: left;
 }
 
 .cms-plugin-richtext img,
@@ -460,6 +468,12 @@ cms-plugin-richtext ul {
 	font-weight: 200;
 }
 
+#content .article.short p {
+  font-size: 12px;
+  line-height: 18px;
+  padding-bottom: 12px;
+}
+
 .cms-plugin-richtext ul li {
 	border-bottom: 1px solid #e5e3df;
 	margin-bottom: 5px;
@@ -476,8 +490,11 @@ cms-plugin-richtext ul {
 }
 
 .article.short {
-	height: 409px;
+  padding-bottom: 40px;	
+
 }
+
+
 
 .article h3,
 .article h4,
@@ -488,7 +505,7 @@ cms-plugin-richtext ul {
 
 #redaktion div.article.short h3,
 #neu div.article.short h3 {
-	padding-bottom: 9px;
+	padding-bottom: 8px;
 }
 
 h3 {
