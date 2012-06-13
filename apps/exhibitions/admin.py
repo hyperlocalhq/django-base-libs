@@ -29,7 +29,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
             )
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'start', 'end', 'status', 'newly_opened', 'featured', 'closing_soon')
+    list_display = ('id', 'title', 'slug', 'museum', 'start', 'end', 'status', 'newly_opened', 'featured', 'closing_soon')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'closing_soon')
     search_fields = ('title', 'subtitle', 'slug')
