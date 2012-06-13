@@ -468,6 +468,12 @@ cms-plugin-richtext ul {
 	font-weight: 200;
 }
 
+#content .article.short p {
+  font-size: 12px;
+  line-height: 18px;
+  padding-bottom: 12px;
+}
+
 .cms-plugin-richtext ul li {
 	border-bottom: 1px solid #e5e3df;
 	margin-bottom: 5px;
@@ -484,8 +490,11 @@ cms-plugin-richtext ul {
 }
 
 .article.short {
-	height: 409px;
+  padding-bottom: 40px;	
+
 }
+
+
 
 .article h3,
 .article h4,
@@ -496,7 +505,7 @@ cms-plugin-richtext ul {
 
 #redaktion div.article.short h3,
 #neu div.article.short h3 {
-	padding-bottom: 9px;
+	padding-bottom: 8px;
 }
 
 h3 {

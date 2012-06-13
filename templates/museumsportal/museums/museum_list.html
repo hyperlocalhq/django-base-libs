@@ -14,7 +14,7 @@
 	            <span>{{ museum.postal_code }}</span>
 	            <span>{{ museum.city }}</span>
             </div>
-            {{ museum.description }}
+            {{ museum.get_rendered_description }}
             <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}</a>
         </div>
     {% endfor %}
