@@ -5,16 +5,12 @@
     <div id="museum_list" class="">
     {% for museum in object_list %}
         <div class="article">
-            {% if museum.image %}
-                <a class="img" href="{% url museum_detail slug=museum.slug %}"><img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }}" /></a>
-            {% endif %}
-            <h4>{{ museum.title }}</h4>
+            <h2>{{ museum.title }}</h2>
             <div class="address">
-	            <span>{{ museum.street_address }}</span>{% if museum.street_address2 %} <span>{{ museum.street_address2 }}</span>{% endif %}<br/>
+	            <span>{{ museum.street_address }}</span>{% if museum.street_address2 %} <span>{{ museum.street_address2 }}</span>{% endif %} / 
 	            <span>{{ museum.postal_code }}</span>
 	            <span>{{ museum.city }}</span>
             </div>
-            {{ museum.get_rendered_description }}
             <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}</a>
         </div>
     {% endfor %}

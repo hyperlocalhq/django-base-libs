@@ -8,8 +8,8 @@
             {% if museum.image %}
                 <img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }}" />
             {% endif %}
-            <h4>{{ museum.title }}</h4>
-            {{ museum.description }}
+            <h2>{{ museum.title }}</h2>
+            {{ museum.get_rendered_description }}
         </div>
     {% endwith %}
     </div>
