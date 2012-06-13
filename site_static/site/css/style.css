@@ -190,12 +190,12 @@ a:active {
 #museum_list div.article {
   	border-right: 1px solid #e5e3df;
 	border-bottom: 1px solid #e5e3df;
-  width: 950px;
   float: left;
   padding: 10px 25px 5px;
   height: 40px;
   position: relative;
   cursor: pointer;
+  width: 950px;
 }
 
 #museum_list div.article:hover {
@@ -213,13 +213,13 @@ background-color: white;}
   float: right;
   position: absolute;
   top: 10px;
-  right: 79px;
   font-size: 12px;
   line-height: 17px;
   text-align: right;
   opacity: 0;
 	border-right: 1px solid #e5e3df;
   padding-right: 15px;
+  right: 78px;
 }
 #museum_list div.article:hover div.address,
 #museum_list div.article:hover a.proceed {
@@ -228,6 +228,9 @@ background-color: white;}
 }
 
 #museum_list div.article h4 {
+  font-size: 14px;
+  white-space: normal;
+  line-height: 18px;
 }
 
 #museum_list div.article a.img {
