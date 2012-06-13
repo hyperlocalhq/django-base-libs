@@ -29,10 +29,10 @@ class ExhibitionAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
             )
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'museum', 'start', 'end', 'status', 'newly_opened', 'featured', 'closing_soon')
+    list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'status', 'newly_opened', 'featured', 'closing_soon')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'closing_soon')
-    search_fields = ('title', 'subtitle', 'slug')
+    search_fields = ('title_de','title_en', 'slug', 'museum__title_de', 'museum__title_en',)
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'description', 'website'])
     fieldsets += [(None, {'fields': ('slug', 'museum', 'image')}),]
@@ -44,6 +44,10 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     
     inlines = [ExhibitionMediaFileInline]
 
+    def get_museum_display(self, obj):
+        return '<a href="/admin/museums/museum/%d/">%s</a>' % (obj.museum.id, obj.museum.title)
+    get_museum_display.allow_tags = True
+    get_museum_display.short_description = _("Museum")
 
 admin.site.register(Exhibition, ExhibitionAdmin)
 
