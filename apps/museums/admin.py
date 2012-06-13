@@ -33,7 +33,8 @@ class MuseumAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
             )
     save_on_top = True
-    list_display = ('title', 'slug', 'creation_date', 'status')
+    list_display = ('id', 'title', 'slug', 'creation_date', 'status')
+    list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'categories')
     search_fields = ('title', 'subtitle', 'slug')
     
