@@ -6,6 +6,8 @@
 	http://test.berliner-museumsportal.de/static/7720/site/css/style.css
 	http://127.0.0.1:8000/static/7720/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7736/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7756/site/css/style.css
+	http://127.0.0.1:8000/static/7753/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -97,8 +99,8 @@ a:active {
 }
 
 #kurze_zeit .img {
-	width: 70px;
-	height: 49px;
+	width: 67px;
+	height: 46px;
 	margin-right: 13px;
 	display: block;
 	float: left;
@@ -116,8 +118,8 @@ a:active {
 #kurze_zeit div h3,
 #kurze_zeit div h4,
 #kurze_zeit div h5 {
-	font-size: 12px;
-	line-height: 18px;
+	font-size: 11px;
+	line-height: 17px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -135,13 +137,12 @@ a:active {
 .navigation {
 	font-weight: 100;
 	float: left;
-	font-size: 20px;
+	font-size: 17px;
 	line-height: 22px;
 	width: 950px;
 	padding: 16px 25px 20px;
 	border-bottom: 1px solid #e5e3df;
   white-space: nowrap;
-  text-transform: uppercase;
 }
 
 #content #detail {
@@ -152,7 +153,7 @@ a:active {
 
 .navigation li span {
 	float: left;
-	font-weight: 700;
+	font-weight: 500;
 	margin-right: 9px;
 }
 
@@ -166,13 +167,12 @@ a:active {
 	padding-bottom: 3px;
 }
 
-.selected a:link {
+.selected>a:link {
 	color: #00aa5a;
 }
 
 #header ul.navigation li.dropdown ul {
 	font-size: 12px;
-	display: none;
 }
 
 /* @end */
@@ -623,7 +623,7 @@ cms-plugin-richtext ul {
 .article h4,
 .article h5 {
 	font-size: 16px;
-	line-height: 24px;
+	line-height: 21px;
 }
 
 #redaktion div.article.short h3,
@@ -632,7 +632,7 @@ cms-plugin-richtext ul {
 }
 
 h3 {
-	font-weight: 600;
+	font-weight: 500;
 }
 
 h4 {
