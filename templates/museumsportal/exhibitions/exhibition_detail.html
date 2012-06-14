@@ -10,7 +10,7 @@
             {% endif %}
             <h4>{{ exhibition.museum.title }}</h4>
             <h3>{{ exhibition.title }}</h3>
-            <div class="text">{{ exhibition.description }}</div>
+            <div class="text">{{ exhibition.get_rendered_description }}</div>
         </div>
     {% endwith %}
     </div>
