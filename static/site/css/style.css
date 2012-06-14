@@ -8,6 +8,10 @@
 	http://test.berliner-museumsportal.de/static/7736/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7756/site/css/style.css
 	http://127.0.0.1:8000/static/7753/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7760/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7762/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7765/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7766/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -35,7 +39,7 @@ body {
 }
 
 strong {
-	font-weight: 700;
+	font-weight: 400;
 }
 
 .clearfix:before, .clearfix:after {
@@ -177,9 +181,8 @@ a:active {
 
 /* @end */
 
-/*
 
-@group Content */
+/* @group Content */
 
 #filter {
   padding-top: 11px;
@@ -336,14 +339,12 @@ a:active {
 /* @end */
 
 /* @group Social */
-
 ul.social {
 	margin-left: -25px;
 	height: 304px;
 	border-bottom: 1px solid #e5e3df;
   margin-right: -25px;
 }
-
 .social li a {
 	color: black;
 	font-size: 14px;
@@ -470,17 +471,27 @@ ul.social li a.journal:hover span {
 
 #content div.cms-plugin-richtext h1,
 #content div.cms-plugin-richtext h2,
+#content div.cms-plugin-richtext h3,
+#content div.cms-plugin-richtext h4,
 #content div.cms-plugin-richtext ul,
 #content div.cms-plugin-richtext p {
 	padding-left: 225px;
 }
 
 #content div.cms-plugin-richtext h2 {
-	font-weight: 200;
+	font-weight: 400;
 	font-size: 26px;
-	line-height: 32px;
+	line-height: 34px;
 	margin-bottom: 13px;
 	margin-top: 0;
+}
+
+#content div.cms-plugin-richtext h3 {
+	font-weight: 200;
+	font-size: 26px;
+	line-height: 34px;
+	margin-top: 13px;
+  margin-bottom: 5px;
 }
 
 #content div.cms-plugin-richtext p.img_left {
@@ -596,9 +607,22 @@ cms-plugin-richtext ul {
 	font-size: 15px;
 	line-height: 24px;
 	color: #131313;
-	padding-bottom: 17px;
+	padding-bottom: 15px;
 	font-weight: 200;
 }
+
+/*#content div.cms-plugin-richtext p strong:first-child {
+  display: block;
+  float: left;
+  width: 100%;	border-top: 1px solid #e5e3df;
+  padding-top: 30px;
+}*/
+/*#content div.cms-plugin-richtext p {
+background-color: white;
+  margin-bottom: 5px;
+  margin-left: 220px;
+  padding: 15px 25px;
+}*/
 
 #content .article.short p {
 	font-size: 12px;
@@ -811,3 +835,15 @@ left: 0;*/
 }
 
 /* @end */
+
+.marginal #sub_menu a:link {
+	font-size: 14px;
+	font-weight: 300;
+	display: block;
+	border-top: 1px solid #e5e3df;
+  width: 100%;
+  margin-left: -25px;
+  margin-top: 0;
+  padding: 9px 25px 11px;
+  line-height: 14px;
+}
