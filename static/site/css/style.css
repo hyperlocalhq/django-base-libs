@@ -440,7 +440,7 @@ ul.social li a.journal:hover span {
 
 /* @group richtext */
 
-#content div.cms-plugin-richtext p a,
+#content div.cms-plugin-richtext>a,
 #content div a.proceed {
 	background-color: #000;
 	color: #fff;
@@ -454,11 +454,18 @@ ul.social li a.journal:hover span {
 	width: 28px;
 }
 
+#content div.cms-plugin-richtext>*>a:link {
+	color: #00aa5a;
+}
+#content div.cms-plugin-richtext>*>a:hover {
+	color: #000;
+}
+
 #content div.cms-plugin-richtext p a {
 	margin-top: 10px;
 }
 
-#content div.cms-plugin-richtext p a:hover,
+#content div.cms-plugin-richtext>a:hover,
 #content div a.proceed:hover {
 	background-color: #00aa5a;
 	color: #fff;
@@ -468,9 +475,9 @@ ul.social li a.journal:hover span {
 	width: 640px;
 	border-bottom: 1px solid #e5e3df;
 	border-right: 1px solid #e5e3df;
-	padding-top: 15px;
-	padding-left: 25px;
-	padding-right: 25px;
+  padding-top: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 #content div.cms-plugin-richtext h1,
@@ -486,7 +493,6 @@ ul.social li a.journal:hover span {
 	font-weight: 400;
 	font-size: 26px;
 	line-height: 34px;
-	margin-bottom: 13px;
 	margin-top: 0;
 }
 
@@ -511,6 +517,20 @@ ul.social li a.journal:hover span {
   height: 0;
 }
 
+#content div.cms-plugin-richtext p.img_left_nospacetop {
+	color: gray;
+	width: 196px;
+	position: relative;
+	top: -5px;
+	padding: 0;
+	font-weight: 400;
+  height: 0;
+}
+
+#content div.cms-plugin-richtext p.img_left strong {
+  color: black;
+}
+
 .cms-plugin-richtext img,
 .img {
 	display: inline-block;
@@ -520,6 +540,8 @@ ul.social li a.journal:hover span {
 	margin-bottom: 7px;
 	border: 2px solid white;
 	-webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
 	background-size: cover;
 	background-position: top;
 	position: relative;
@@ -548,6 +570,11 @@ opacity: 0.7;}
 	margin-bottom: 5px;
 	padding-bottom: 5px;
 	font-weight: 300;
+}
+
+.cms-plugin-richtext ul li:last-child {
+	border-bottom: none;
+	margin-bottom: 0px;
 }
 
 /*
@@ -606,7 +633,7 @@ opacity: 0.7;}
 
 #content div p,
 #content .text,
-cms-plugin-richtext ul {
+.cms-plugin-richtext ul {
 	font-size: 15px;
 	line-height: 24px;
 	color: #131313;
