@@ -1,12 +1,10 @@
 {% extends "base.html" %}
-{% load cms_tags %}
-{% load menu_tags %}
-
+{% load cms_tags menu_tags %}
 
 {% block content %}
 	<div class="marginal">
 		<ul id="sub_menu">
-		    {% show_menu 1 100 100 100 "menu/side_menu.html"%}
+            {% show_menu_below_id "start_page" 1 100 100 100 "menu/side_menu.html" %}
 		</ul>
 	</div>
     {% placeholder "main_content" %}
