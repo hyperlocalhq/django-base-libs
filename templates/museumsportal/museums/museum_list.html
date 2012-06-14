@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 {% load i18n image_modifications %}
 
+{% block js %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+	<script type="text/javascript">
+	$(function() {
+
+        var scroller = new StickyScroller("#filter", {
+            start: 428,
+            margin: 0
+        });
+
+	});
+	</script>
+
+{% endblock %}
+
 {% block content %}
 
     <div id="museum_list_map">

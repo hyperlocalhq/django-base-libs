@@ -14,51 +14,7 @@
     {% render_block "css" %}
 
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.min.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.cycle.all.js"></script>
 	
-	
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-	<script type="text/javascript" src="http://www.vertstudios.com/vertlib.min.js"></script>
-	<script type="text/javascript" src="http://www.vertstudios.com/blog/demo/stickyscroller/StickyScroller.min.js"></script>
-	<script type="text/javascript" src="http://www.vertstudios.com/blog/demo/stickyscroller/GetSet.js"></script>
-	
-	<script type="text/javascript">
-	$(function() {
-	
-	    $('#stage').cycle({
-	        fx:      'fade',
-	        timeout:  10000,
-	        speed:    400,
-	        pause:	  1,
-	        prev:    '#prev',
-	        next:    '#next',
-	        pager:   '#nav',
-	        easing:   'easeInOutSine',
-	        
-	        pagerAnchorBuilder: pagerFactory
-	    });
-	
-	    function pagerFactory(idx, slide) {
-	        var s = idx > 2 ? ' ' : '';
-	        return '<li'+s+'><a href="#">'+(idx+1)+'</a></li>';
-	    };
-	    
-	});
-	</script>
-	
-	    <script type="text/javascript">
-	    $(window).load(function()
-	    {
-	        var scroller = new StickyScroller("#filter",
-	        {
-	            start: 428,
-	            margin: 0
-	        });
-	    });
-	
-	    </script>
-	    
     {% block js %}{% endblock %}
 </head>
 <body>

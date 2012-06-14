@@ -8,13 +8,22 @@
 //  interval: What scroll distance triggers the callback
 //  range: How many pixels after the
 //  margin: Margin from the top of the browser
-//  distance: How far the obj will move
 // Dependencies:
 //  GetSet class. Included in Vert Library @ http://vertstudios.com/vertlib.js
 /******************************************************************************/
 
 function StickyScroller(obj, options)
 {        
+    //Keep track of how many scrollers we have
+    if ( typeof StickyScroller.counter === 'undefined' )
+    {
+        StickyScroller.counter = 0;
+    }
+    else
+    {
+        StickyScroller.counter++;
+    }   
+    
     //Store function scope
     var $this = this;
     
@@ -31,10 +40,10 @@ function StickyScroller(obj, options)
     //------------------------------------------------------------
     var defaults = {
     start: 0,
-    end: 1000,
-    interval: 400,
+    end: 10000,
+    interval: $(obj).height(),
     margin: parseInt(top, 10),
-    range: 400
+    range: $(obj).height()
     },	settings = jQuery.extend(defaults,options);
     obj = $(obj);
     
@@ -65,15 +74,13 @@ function StickyScroller(obj, options)
     //Postcondition: Returns an integer
     //=========================================================//
     this.distanceFrom = function(index)
-    {        
-        tempScroll = $(window).scrollTop();
-        
+    {                
         //Check for both references: "Top" of the range and "bottom"
-        var top = index*settings.interval;
-        var bottom = index*settings.interval + settings.range;
+        var top = index*settings.interval + settings.start
+        var bottom = index*settings.interval + settings.range + settings.start
         
-        var distanceFromTop = Math.abs(tempScroll-top);
-        var distanceFromBottom = Math.abs(tempScroll-bottom);
+        var distanceFromTop = Math.abs(scroll-top);
+        var distanceFromBottom = Math.abs(scroll-bottom);        
         
         //Return the smallest distance
         if(distanceFromTop < distanceFromBottom)
@@ -119,14 +126,12 @@ function StickyScroller(obj, options)
     //Purpose: returns index
     //=========================================================//
     var getIndex = function()
-    {        
-        tempScroll = $(window).scrollTop() + settings.margin;        
-        
+    {                
         //Make sure movement would be in the bounds
-        if(tempScroll > settings.start && tempScroll < settings.end)
+        if(scroll > settings.start && scroll < settings.end)
         {                                       
             //Possible new index
-            tempIndex = Math.floor((tempScroll-settings.start)/settings.interval);
+            tempIndex = Math.floor((scroll-settings.start)/settings.interval);            
             
             //Make sure the index is different before reassigning
             //or executing the callback
@@ -139,13 +144,13 @@ function StickyScroller(obj, options)
                 settings.index = tempIndex;                
             }
         }
-        //If tempScroll goes beyond end mark, set distance at end mark
-        else if(tempScroll >= settings.end)
+        //If scroll goes beyond end mark, set distance at end mark
+        else if(scroll >= settings.end)
         {
             settings.oldIndex = settings.index;
             settings.index = Math.floor((settings.end-settings.start)/settings.interval);
         }
-        //If tempScroll goes beyond beginning mark, set distance at start
+        //If scroll goes beyond beginning mark, set distance at start
         else
         {
             settings.oldIndex = settings.index;
@@ -170,7 +175,7 @@ function StickyScroller(obj, options)
     //=========================================================//
     this.lastIndex = function()
     {
-        return Math.floor((settings.end-settings.start)/settings.interval);
+        return Math.floor((settings.end-settings.start+settings.margin)/settings.interval);
     };
     
     //=========================================================//
@@ -179,12 +184,10 @@ function StickyScroller(obj, options)
     //Postcondition: Returns boolean
     //=========================================================//
     this.inRange = function()
-    {      
-        var scroll = $(window).scrollTop() - settings.start + settings.margin;        
-        
-        var inRange = (scroll >= settings.index * settings.interval) &&
-        (scroll <= (settings.index*settings.interval + settings.range));
-
+    {              
+        var upperbound = settings.index * settings.interval + settings.start;
+        var lowerbound = settings.index * settings.interval + settings.start + settings.range;
+        var inRange = (scroll >= upperbound ) && (scroll <= lowerbound);        
         return inRange;
     };
     
@@ -192,18 +195,21 @@ function StickyScroller(obj, options)
     //------------------------------------------------------------//
     //                    On Browser Scroll                       //
     //------------------------------------------------------------//    
-    var wrap = $('<div id="scrollcontainer">').css(
+    var wrap = $('<div id="scrollcontainer' + StickyScroller.counter + '">').css(
     {
         width: obj.width(),
         height: obj.height(),
-        position: "absolute"
+        position: "absolute",
+        top: top,
+        left: left,
+        right: right
     });
 
     obj.wrap(wrap);
-    
+        
     $(window).scroll(function()
     {
-        scroll = $(window).scrollTop() + settings.margin;
+        scroll = $(window).scrollTop();
         
         //Get the current index
         getIndex();
@@ -217,9 +223,9 @@ function StickyScroller(obj, options)
             left: 0,
             right: 0});
            
-           $("#scrollcontainer").css({
+           $("#scrollcontainer"+ StickyScroller.counter).css({
             position : 'absolute',
-            top: settings.start,
+            top: top,
             left: left,
             right: right});
         }
@@ -233,9 +239,9 @@ function StickyScroller(obj, options)
             left: 0,
             right: 0});
            
-           $("#scrollcontainer").css({
+           $("#scrollcontainer"+ StickyScroller.counter).css({
             position : 'absolute',
-            top: settings.end,
+            top: settings.end+settings.margin,
             left: left,
             right: right});
            
