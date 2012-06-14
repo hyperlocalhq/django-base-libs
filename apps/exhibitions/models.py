@@ -35,6 +35,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin()):
     museum = models.ForeignKey("museums.Museum", verbose_name=_("Museum"),)
     
     title = MultilingualCharField(_("Title"), max_length=255)
+    subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
 
