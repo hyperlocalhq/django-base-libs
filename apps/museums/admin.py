@@ -35,13 +35,13 @@ class MuseumAdmin(ExtendedModelAdmin):
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'creation_date', 'status')
     list_display_links = ('title', )
-    list_filter = ('creation_date', 'status', 'categories')
+    list_filter = ('creation_date', 'status', 'categories', 'open_on_mondays', 'free_entrance')
     search_fields = ('title', 'subtitle', 'slug')
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description'])
     fieldsets += [(None, {'fields': ('slug', 'image')}),]
     fieldsets += get_admin_lang_section(_("Image Caption"), ['image_caption', ])
-    fieldsets += [(_("Categories"), {'fields': ('categories',)}),]
+    fieldsets += [(_("Categories"), {'fields': ('categories', 'open_on_mondays', 'free_entrance')}),]
     fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city','country',)}),]
     fieldsets += [(_("Contact"), {'fields': ('phone','fax','email','website',)}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]

@@ -28,7 +28,7 @@ class ExhibitionManager(models.Manager):
         return self.filter(featured=True, status="published")
         
     def closing_soon(self):
-        return self.filter(closing_soon=True, status="published")
+        return self.filter(closing_soon=True, status="published").order_by("end")
         
 
 class Exhibition(CreationModificationDateMixin, SlugMixin()):

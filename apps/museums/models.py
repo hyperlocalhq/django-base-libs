@@ -59,6 +59,10 @@ class Museum(CreationModificationDateMixin, SlugMixin()):
     email = models.EmailField(_("Email"), max_length=255, blank=True)
     website = URLField("Website", blank=True)
     
+    open_on_mondays = models.BooleanField(_("Open on Mondays"))
+    free_entrance = models.BooleanField(_("Free entrance"))
+    
+    
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
     def __unicode__(self):
