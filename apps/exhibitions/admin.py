@@ -20,8 +20,6 @@ class ExhibitionMediaFileInline(GenericMediaFileInline):
         ]
     fieldsets += get_admin_lang_section(_("Description"), ['title', 'description'], True)
     fieldsets += [(None, {'fields': ("sort_order", )}),]
-    sortable_field_name = "sort_order"
-    classes = ('collapse open',)
 
 class ExhibitionAdmin(ExtendedModelAdmin):
     class Media:

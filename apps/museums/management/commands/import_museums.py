@@ -75,14 +75,14 @@ class Command(BaseCommand):
                 museum = Museum()
                 museum.title_de = museum.title_en = title
                 museum.street_address = street_address
-                museum.postal_code = postal_code
+                museum.postal_code = str(postal_code).replace(".0", "")
                 museum.city = city
                 museum.phone = phone
                 museum.fax = fax
                 museum.email = email.replace("(at)", "@")
                 museum.website = website
-                museum.image_caption = image_caption
-                museum.image_caption_markup_type = "pt"
+                museum.image_caption_de = museum.image_caption_en = image_caption
+                museum.image_caption_de_markup_type = museum.image_caption_en_markup_type = "pt"
                 museum.status = "published"
                 museum.save()
                 
