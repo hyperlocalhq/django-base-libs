@@ -15,6 +15,7 @@
 	http://test.berliner-museumsportal.de/static/7769/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7770/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7772/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7776/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -856,7 +857,8 @@ left: 0;*/
 	font-size: 14px;
 	font-weight: 300;
 	display: block;
-	border-bottom: 1px solid #e5e3df;
+	border-top: 1px solid #e5e3df;
+	border-color: #e5e3df;
   width: 100%;
   margin-left: -25px;
   margin-top: 0;
