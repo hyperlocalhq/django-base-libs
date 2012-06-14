@@ -16,12 +16,14 @@ handler500 = "jetson.apps.error_handler.views.server_error"
 
 urlpatterns = patterns(path_in_installed_app('image_mods.views'),
     url(r'^admin/filebrowser/versions/$', 'versions', name="fb_versions"),
+    url(r'^filebrowser/get-version/$', 'get_or_create_modified_path', name="fb_get_version"),
     url(r'^admin/filebrowser/adjust-version/$', 'adjust_version', name="fb_adjust_version"),
     url(r'^admin/filebrowser/delete-version/$', 'delete_version', name="fb_delete_version"),
     )
 
 urlpatterns += patterns('',
-   url(r'^admin/filebrowser/', include(site.urls)),
+    url(r'^admin/filebrowser/', include(site.urls)),
+    url(r'^recrop/', include('jetson.apps.image_mods.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()
