@@ -221,13 +221,15 @@ ul#lang {
 	display: inline;
 }
 
-.navigation li a:link {
+.navigation li a:link,
+.navigation li a:visited {
 	border-radius: 3px;
 	padding-top: 0;
 	padding-bottom: 3px;
+	color: black;
 }
 
-.selected>a:link {
+.navigation li.selected>a:link {
 	color: #00aa5a;
 }
 
