@@ -10,7 +10,7 @@
             {% endif %}
             <h4>{{ exhibition.museum.title }}</h4>
             <h3>{{ exhibition.title }}</h3>
-            {{ exhibition.description }}
+            {{ exhibition.get_rendered_description }}
             <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
         </div>
     {% endfor %}
