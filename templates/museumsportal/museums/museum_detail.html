@@ -23,55 +23,62 @@
     <div id="museum_detail">
         {% with object as museum %}
             <div class="article">
-                {% if museum.image %}
-                    <div class="article_img">
-                        <img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }}" />
-                        <div class="image_caption">
-                            {{ museum.image_caption }}
-                        </div>
-                    </div>
-                {% endif %}
-                <h2>{{ museum.title }}</h2>
-                {% if museum.subtitle %}
-                    <h2 class="subtitle">{{ museum.subtitle }}</h2>
-                {% endif %}
-                
-                <div class="text">{{ museum.get_rendered_description }}</div>
-                
-                <div class="address">
-                    <span>{{ museum.street_address }}</span>{% if museum.street_address2 %} <span>{{ museum.street_address2 }}</span>{% endif %} / 
-                    <span>{{ museum.postal_code }}</span>
-                    <span>{{ museum.city }}</span>
+                <div class="leftCol">
+	                {% if museum.image %}
+	                    <div class="article_img">
+	                        <img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }}" />
+	                        <div class="image_caption">
+	                            {{ museum.image_caption }}
+	                        </div>
+	                    </div>
+	                {% endif %}
+	                
+	                <div class="address">
+	                    <span>{{ museum.street_address }}</span>{% if museum.street_address2 %} <span>{{ museum.street_address2 }}</span>{% endif %} / 
+	                    <span>{{ museum.postal_code }}</span>
+	                    <span>{{ museum.city }}</span>
+	                </div>
+	                
+	                <dl class="phone">
+	                    <dt>{% trans "Phone" %}</dt>
+	                    <dd>{{ museum.phone }}</dd>
+	                </dl>
+	                <dl class="fax">
+	                    <dt>{% trans "Fax" %}</dt>
+	                    <dd>{{ museum.fax }}</dd>
+	                </dl>
+	                <dl class="website">
+	                    <dt>{% trans "Website" %}</dt>
+	                    <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
+	                </dl>
+	                
+	                <dl class="categories">
+	                    <dt>{% trans "Categories" %}</dt>
+	                    <dd>
+	                        {% for cat in museum.categories.all %}
+	                            <a href="{% url museum_list %}?category={{ cat.id }}">{{ cat.title }}</a>{% if not forloop.last %}, {% endif %}
+	                        {% endfor %}
+	                    </dd>
+	                </dl>
+	                
+	                {% if museum.open_on_mondays %}
+	                    <p class="open_on_mondays">{% trans "Open on Mondays" %}</p>
+	                {% endif %}
+	                {% if museum.free_entrance %}
+	                    <p class="free_entrance">{% trans "Free entrance" %}</p>
+	                {% endif %}
                 </div>
                 
-                <dl class="phone">
-                    <dt>{% trans "Phone" %}</dt>
-                    <dd>{{ museum.phone }}</dd>
-                </dl>
-                <dl class="fax">
-                    <dt>{% trans "Fax" %}</dt>
-                    <dd>{{ museum.fax }}</dd>
-                </dl>
-                <dl class="website">
-                    <dt>{% trans "Website" %}</dt>
-                    <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
-                </dl>
                 
-                <dl class="categories">
-                    <dt>{% trans "Categories" %}</dt>
-                    <dd>
-                        {% for cat in museum.categories.all %}
-                            <a href="{% url museum_list %}?category={{ cat.id }}">{{ cat.title }}</a>{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </dd>
-                </dl>
-                
-                {% if museum.open_on_mondays %}
-                    <p class="open_on_mondays">{% trans "Open on Mondays" %}</p>
-                {% endif %}
-                {% if museum.free_entrance %}
-                    <p class="free_entrance">{% trans "Free entrance" %}</p>
-                {% endif %}
+                   
+                    <div class="rightCol">
+                        <h2>{{ museum.title }}</h2>
+                        {% if museum.subtitle %}
+                            <h2 class="subtitle">{{ museum.subtitle }}</h2>
+                        {% endif %}
+                        
+                        <div class="text">{{ museum.get_rendered_description }}</div>
+                    </div>
             </div>
         {% endwith %}
     </div>

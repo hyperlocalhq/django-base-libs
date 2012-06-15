@@ -40,11 +40,6 @@
     {% for museum in object_list %}
         <div class="article">
             <h2>{{ museum.title }}</h2>
-            <div class="address">
-	            <span>{{ museum.street_address }}</span>{% if museum.street_address2 %} <span>{{ museum.street_address2 }}</span>{% endif %} / 
-	            <span>{{ museum.postal_code }}</span>
-	            <span>{{ museum.city }}</span>
-            </div>
             <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}</a>
         </div>
     {% endfor %}
