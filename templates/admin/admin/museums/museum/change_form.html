@@ -1,0 +1,96 @@
+{% extends "admin/change_form.html" %}
+
+<!-- LOADING -->
+{% load url from future %}
+{% load i18n admin_modify adminmedia grp_tags %}
+{% load static %}
+
+<!-- STYLESHEETS -->
+{% block stylesheets %}
+    {{ block.super }}
+    <style type="text/css">
+    #gmap {
+        width:916px;
+        height:300px;
+    }
+    </style>
+{% endblock %}
+
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/gmaps_for_address.js"></script>    
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+    <div class="container-flexible">
+        <div class="form-container">
+            <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %} 
+                <div>
+                    <!-- Popup Hidden Field -->
+                    {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+                    
+                    <!-- Submit-Row -->
+                    {% if save_on_top %}{% submit_row %}{% endif %}
+                    
+                    <!-- Errors -->
+                    {% if errors %}
+                        <p class="errornote">{% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}</p>
+                        <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                    
+                    <!-- Fieldsets -->
+                    {% for fieldset in adminform %}
+                        {% include "admin/includes/fieldset.html" %}
+                        {% if forloop.counter == 7 %}
+                            <fieldset class="module">
+                                <h2 class="collapse-handler">{% trans "Map" %}</h2>
+                                <div class="row cells-1">
+                                    <div id="dyn_set_map"></div>
+                                    <div class="buttonHolder">
+                                        <input id="dyn_locate_geo" type="button" class="secondaryAction" value="{% trans "Relocate on map" %}" />
+                                        <input id="dyn_remove_geo" type="button" class="secondaryAction" value="{% trans "Remove from map" %}" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% block after_field_sets %}{% endblock %}
+                    
+                    <!-- Inlines -->
+                    {% for inline_admin_formset in inline_admin_formsets %}
+                        {% include inline_admin_formset.opts.template %}
+                    {% endfor %}
+                    
+                    {% block after_related_objects %}{% endblock %}
+                    
+                    <!-- Submit-Row -->
+                    {% submit_row %}
+                    
+                    {% if adminform and add %}
+                        {% block extrahead %}
+                            <script type="text/javascript">
+                                (function($){
+                                    $(function(){
+                                        try {
+                                            // focus on first form-field
+                                            $("#{{ adminform.first_field.auto_id }}, #{{ adminform.first_field.auto_id }}_0")
+                                            .eq(0).focus();
+                                        } catch(e) {}
+                                    });
+                                }(django.jQuery));
+                            </script>
+                        {% endblock %}
+                    {% endif %}
+                    
+                    <!-- JS for prepopulated fields -->
+                    {% prepopulated_fields_js %}
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

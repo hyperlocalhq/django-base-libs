@@ -53,6 +53,8 @@ class Museum(CreationModificationDateMixin, SlugMixin()):
     postal_code = models.CharField(_("Postal code"), max_length=255)
     city =  models.CharField(_("City"), default="Berlin", max_length=255)
     country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255)    
+    latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
+    longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
     
     phone = models.CharField(_("Phone"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
     fax = models.CharField(_("Fax"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
