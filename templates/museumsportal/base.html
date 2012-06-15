@@ -28,6 +28,13 @@
 				<li><a href="/">Home</a> ·</li>
                 {% show_menu_below_id "start_page" 0 1 1 1 %}
 			</ul>
+			
+            <ul id="lang">
+                {% block language_chooser %}
+                    {% language_chooser %}
+                {% endblock %}
+            </ul>
+
 		</div>
 		<div id="content" class="clearfix">
 		    {% block content %}
