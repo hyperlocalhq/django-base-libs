@@ -33,7 +33,7 @@ class MuseumAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
             )
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'creation_date', 'status')
+    list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'categories', 'open_on_mondays', 'free_entrance')
     search_fields = ('title', 'subtitle', 'slug')
@@ -48,5 +48,13 @@ class MuseumAdmin(ExtendedModelAdmin):
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories",)
+    
+    def is_geoposition_set(self, obj):
+        if obj.latitude:
+            return '<img alt="True" src="%sgrappelli/img/admin/icon-yes.gif" />' % settings.STATIC_URL
+        return '<img alt="False" src="%sgrappelli/img/admin/icon-no.gif">' % settings.STATIC_URL
+    is_geoposition_set.allow_tags = True
+    is_geoposition_set.short_description = _("Geoposition?")
+        
 
 admin.site.register(Museum, MuseumAdmin)
