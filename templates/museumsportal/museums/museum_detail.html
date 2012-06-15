@@ -33,24 +33,33 @@
 	                    </div>
 	                {% endif %}
 	                
-	                <div class="address">
-	                    <span>{{ museum.street_address }}</span>{% if museum.street_address2 %} <span>{{ museum.street_address2 }}</span>{% endif %} / 
-	                    <span>{{ museum.postal_code }}</span>
-	                    <span>{{ museum.city }}</span>
-	                </div>
+	                <dl class="address">
+	                    <dt>{% trans "Address" %}</dt>
+                        <dd>{{ museum.street_address }}</dd>
+                        {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
+                        <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+	                </dl>
 	                
-	                <dl class="phone">
-	                    <dt>{% trans "Phone" %}</dt>
-	                    <dd>{{ museum.phone }}</dd>
-	                </dl>
-	                <dl class="fax">
-	                    <dt>{% trans "Fax" %}</dt>
-	                    <dd>{{ museum.fax }}</dd>
-	                </dl>
-	                <dl class="website">
-	                    <dt>{% trans "Website" %}</dt>
-	                    <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
-	                </dl>
+	                {% if museum.phone %}
+		                <dl class="phone">
+		                    <dt>{% trans "Phone" %}</dt>
+		                    <dd>{{ museum.phone }}</dd>
+		                </dl>
+	                {% endif %} 
+	                
+	                {% if museum.fax %}
+		                <dl class="fax">
+		                    <dt>{% trans "Fax" %}</dt>
+		                    <dd>{{ museum.fax }}</dd>
+		                </dl>
+	                {% endif %} 
+	                
+	                {% if museum.website %}
+		                <dl class="website">
+		                    <dt>{% trans "Website" %}</dt>
+		                    <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
+		                </dl>
+	                {% endif %} 
 	                
 	                <dl class="categories">
 	                    <dt>{% trans "Categories" %}</dt>
@@ -74,7 +83,7 @@
                     <div class="rightCol">
                         <h2>{{ museum.title }}</h2>
                         {% if museum.subtitle %}
-                            <h2 class="subtitle">{{ museum.subtitle }}</h2>
+                        <h3>{{ museum.subtitle }}</h3>
                         {% endif %}
                         
                         <div class="text">{{ museum.get_rendered_description }}</div>

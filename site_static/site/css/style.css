@@ -292,9 +292,7 @@ background-color: white;}*/
 	-webkit-transition-timing: ease-in-out;
 	-moz-transition-timing: ease-in-out;
 	margin-top: 1px;
-/*whi
-
-te-space: nowrap;
+/*white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 172px;*/
@@ -363,13 +361,21 @@ te-space: nowrap;
   width: 190px;
 }
 
+
 #museum_detail div.article h2 {
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 34px;
+	margin-top: 0;
+}
+
+#museum_detail div.article h3 {
 	font-weight: 200;
 	font-size: 26px;
-	line-height: 27px;
-	margin-bottom: 13px;
-	margin-top: 4px;
+	line-height: 34px;
+	margin-bottom: 5px;
 }
+
 
 /* @end */
 
@@ -655,13 +661,22 @@ a.img:hover {
   padding-right: 0;
   border: none;
   font-size: 12px;
-  line-height: 19px;
+  line-height: 18px;
 }
 
 #museum_detail div.article div.leftCol dl {
   padding-top: 10px;	
   border-top: 1px solid #e5e3df;
   margin-top: 10px;
+}
+
+#museum_detail div.article div.leftCol dl.website dd a {
+  white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 205px;
+	display: block;
+
 }
 
 #museum_detail div.article div.leftCol div.article_img div.image_caption {
@@ -673,9 +688,9 @@ a.img:hover {
 	top: 5px;
 	padding: 0;
 	font-weight: 400;
-	margin-bottom: 45px;
 	margin-right: auto;
   margin-top: -10px;
+  margin-bottom: 17px;
 }
 
 #museum_detail div.article div.leftCol dl dt {
