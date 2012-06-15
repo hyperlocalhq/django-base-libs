@@ -191,13 +191,13 @@ ul#lang {
 }
 
 #lang li a:link {
-	padding: 1px 3px 2px;
+	padding: 0 3px 1px;
 	border-radius: 2px
 }
 
 #lang li a.current:link {
-	background-color: white;
-	color: black;
+	background-color: black;
+	color: white;
 }
 
 #lang li a:hover {
