@@ -20,6 +20,7 @@
 	http://127.0.0.1:8000/static/7783/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7787/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7794/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7798/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -191,13 +192,13 @@ ul#lang {
 }
 
 #lang li a:link {
-	padding: 1px 3px 2px;
+	padding: 0 3px 1px;
 	border-radius: 2px
 }
 
 #lang li a.current:link {
-	background-color: white;
-	color: black;
+	background-color: black;
+	color: white;
 }
 
 #lang li a:hover {
@@ -221,13 +222,15 @@ ul#lang {
 	display: inline;
 }
 
-.navigation li a:link {
+.navigation li a:link,
+.navigation li a:visited {
 	border-radius: 3px;
 	padding-top: 0;
 	padding-bottom: 3px;
+	color: black;
 }
 
-.selected>a:link {
+.navigation li.selected>a:link {
 	color: #00aa5a;
 }
 
@@ -420,9 +423,7 @@ white-space: nowrap;
 
 /* @end */
 
-/* @grou
-
-p museum_detail */
+/* @group museum_detail */
 
 #museum_detail div.article {
 	width: 690px;
@@ -581,10 +582,8 @@ ul.social li a.journal:hover span {
 	width: 640px;
 	border-top: 1px solid #e5e3df;
 	border-right: 1px solid #e5e3df;
-	padding-top: 15px;
-	padding-left: 25px;
-	padding-right: 25px;
 	margin-top: -1px;
+  padding: 15px 25px;
 }
 
 #content div.cms-plugin-richtext h1,
@@ -629,6 +628,8 @@ ul.social li a.journal:hover span {
 	color: gray;
 	font-weight: 400;
 	line-height: 16px;
+  padding-top: 14px;
+  margin-bottom: 5px;
 }
 
 #content div.cms-plugin-richtext p.img_left_nospacetop {
@@ -693,6 +694,29 @@ a.img:hover {
 	border-bottom: none;
 	margin-bottom: 0px;
 }
+
+div.cms-plugin-richtext p:last-child a:link {	
+background-color: #000;
+	color: #fff !important;
+	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
+	font-weight: 600;
+	border-radius: 2px;
+	padding: 0 5px 1px 6px;
+	display: inline-block;
+  width: inherit;
+  margin-top: -10px;
+  top: -7px;
+  position: relative;
+  font-size: 12px;
+  line-height: 19px;
+}
+
+div.cms-plugin-richtext p:last-child a:hover {	
+	background-color: #00aa5a;
+	color: #fff;
+}
+
+
 
 /* @end */
 
@@ -832,6 +856,7 @@ a.img:hover {
 	padding-bottom: 15px;
 	font-weight: 200;
 }
+
 
 #content div.cms-plugin-richtext h4 {
 	font-size: 15px;
