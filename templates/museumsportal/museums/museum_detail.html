@@ -32,9 +32,11 @@
                     </div>
                 {% endif %}
                 <h2>{{ museum.title }}</h2>
-                <h2 class="subtitle">{{ museum.subtitle }}</h2>
+                {% if museum.subtitle %}
+                    <h2 class="subtitle">{{ museum.subtitle }}</h2>
+                {% endif %}
                 
-                {{ museum.get_rendered_description }}
+                <div class="text">{{ museum.get_rendered_description }}</div>
                 
                 <div class="address">
                     <span>{{ museum.street_address }}</span>{% if museum.street_address2 %} <span>{{ museum.street_address2 }}</span>{% endif %} / 

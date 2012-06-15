@@ -24,11 +24,37 @@
     {% with object as exhibition %}
         <div class="article">
             {% if exhibition.image %}
-               <span class="img"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" /></span>
+                <div class="article_img">
+                    <img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" />
+                    <div class="image_caption">
+                        {{ exhibition.image_caption }}
+                    </div>
+                </div>
             {% endif %}
-            <h4>{{ exhibition.museum.title }}</h4>
-            <h3>{{ exhibition.title }}</h3>
+            <h2>{{ exhibition.title }}</h2>
+            {% if exhibition.subtitle %}
+                <h2 class="subtitle">{{ exhibition.subtitle }}</h2>
+            {% endif %}
+            <h3><a href="{% url museum_detail slug=exhibition.museum.slug %}">{{ exhibition.museum.title }}</a></h3>
+            
             <div class="text">{{ exhibition.get_rendered_description }}</div>
+
+            <dl class="website">
+                <dt>{% trans "Start" %}</dt>
+                <dd>{{ exhibition.start|date:"j. M Y" }}</a></dd>
+            </dl>
+            <dl class="website">
+                <dt>{% trans "End" %}</dt>
+                <dd>{{ exhibition.end|date:"j. M Y" }}</a></dd>
+            </dl>
+            
+            {% if exhibition.website %}
+                <dl class="website">
+                    <dt>{% trans "Website" %}</dt>
+                    <dd><a href="{{ exhibition.website }}">{{ exhibition.website }}</a></dd>
+                </dl>
+            {% endif %}
+            
         </div>
     {% endwith %}
     </div>
