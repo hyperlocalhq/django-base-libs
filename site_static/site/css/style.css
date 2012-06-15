@@ -18,6 +18,7 @@
 	http://test.berliner-museumsportal.de/static/7776/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7780/site/css/style.css
 	http://127.0.0.1:8000/static/7783/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7787/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -175,6 +176,35 @@ background-color: white;}*/
 	white-space: nowrap;
 }
 
+ul#lang {
+  position: absolute;
+  top: 0;
+  right: 6px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+#lang li {
+  float: left;
+  margin-left: 2px;
+}
+
+#lang li a:link{
+  padding: 1px 3px 2px;  border-radius: 2px
+
+}
+
+#lang li a.current:link{
+  background-color: black;
+  color: white;
+}
+
+#lang li a:hover{
+  color: white;
+  background-color: #00aa5a;
+
+}
+
 #content #detail {
 	width: 627px;
 	padding-top: 19px;
@@ -228,9 +258,7 @@ background-color: white;}*/
 }
 
 #filter li.active {
-	/
-
-*color: #00aa5a;*/
+	/*color: #00aa5a;*/
   text-transform: none;
 	position: relative;
 }
@@ -352,8 +380,6 @@ background-color: white;}*/
 
 #museum_detail div.article {
 	width: 690px;
-  padding-bottom: 10px;
-  padding-top: 15px;
 }
 
 #museum_detail div.article div.leftSidebar {
@@ -526,7 +552,7 @@ ul.social li a.journal:hover span {
 #content div.cms-plugin-richtext h4,
 #content div.cms-plugin-richtext ul,
 #content div.cms-plugin-richtext p {
-	padding-left: 225px;
+	padding-left: 240px;
 }
 
 #content div.cms-plugin-richtext h2 {
@@ -652,16 +678,21 @@ a.img:hover {
 }
 
 #museum_detail div.article div.rightCol {
-  width: 416px;
-  border: none;
+  width: 400px;
+  border: none;	
+  border-right: 1px solid #e5e3df;
+  margin-right: -1px;
+  padding-top: 15px;
+  margin-left: 20px;
 }
 
 #museum_detail div.article div.leftCol {
-  width: 200px;
+  width: 196px;
   padding-right: 0;
   border: none;
   font-size: 12px;
   line-height: 18px;
+  padding-top: 54px;
 }
 
 #museum_detail div.article div.leftCol dl {
@@ -699,7 +730,7 @@ a.img:hover {
 
 
 #museum_detail div.article div.leftCol img {
-  width: 200px;
+  width: 196px;
 }
 
 
