@@ -19,6 +19,7 @@
 	http://test.berliner-museumsportal.de/static/7780/site/css/style.css
 	http://127.0.0.1:8000/static/7783/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7787/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7794/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -76,7 +77,7 @@ a:hover {
 
 a:visited {
 	text-decoration: none;
-	color: #000;
+	color: #00aa5a;
 }
 
 a:active {
@@ -177,32 +178,31 @@ background-color: white;}*/
 }
 
 ul#lang {
-  position: absolute;
-  top: 0;
-  right: 6px;
-  font-size: 10px;
-  font-weight: 700;
+	position: absolute;
+	top: 0;
+	right: 6px;
+	font-size: 10px;
+	font-weight: 700;
 }
 
 #lang li {
-  float: left;
-  margin-left: 2px;
+	float: left;
+	margin-left: 2px;
 }
 
-#lang li a:link{
-  padding: 1px 3px 2px;  border-radius: 2px
-
+#lang li a:link {
+	padding: 1px 3px 2px;
+	border-radius: 2px
 }
 
-#lang li a.current:link{
-  background-color: black;
-  color: white;
+#lang li a.current:link {
+	background-color: white;
+	color: black;
 }
 
-#lang li a:hover{
-  color: white;
-  background-color: #00aa5a;
-
+#lang li a:hover {
+	color: white;
+	background-color: #00aa5a;
 }
 
 #content #detail {
@@ -258,8 +258,10 @@ ul#lang {
 }
 
 #filter li.active {
-	/*color: #00aa5a;*/
-  text-transform: none;
+	/*
+
+color: #00aa5a;*/
+ text-transform: none;
 	position: relative;
 }
 
@@ -280,13 +282,53 @@ ul#lang {
 	line-height: 16px;
 }
 
+ul#az_filter {
+	float: left;
+	border-bottom: 1px solid #e5e3df;
+	height: 21px;
+	width: 1000px;
+}
+
+ul#az_filter li {
+	float: left;
+	border: 1px solid #e5e3df;
+	margin-top: -1px;
+	margin-left: -1px;
+}
+
+ul#az_filter li.active a:link {
+	background-color: black;
+	color: white;
+	font-weight: 700 !important;
+	border-radius: 3px;
+}
+
+ul#az_filter li:last-child {
+	border-right-style: none;
+}
+
+ul#az_filter li a {
+	width: 32px;
+	height: 17px;
+	display: block;
+	line-height: 17px;
+	text-align: center;
+	margin: 2px;
+	font-size: 12px;
+}
+
+ul#az_filter li a:hover {
+	background-color: white;
+	color: black;
+}
+
 /* @group museum_list */
 
 #museum_list {
 	width: 690px;
-	min-height: 400px;	
+	min-height: 400px;
 	border-right: 1px solid #e5e3df;
-
+	float: left;
 }
 
 #museum_list_map {
@@ -303,7 +345,7 @@ ul#lang {
 	height: 30px;
 	position: relative;
 	width: 640px;
-  margin-right: -1px;
+	margin-right: -1px;
 }
 
 #museum_list div.article h2 {
@@ -320,7 +362,9 @@ ul#lang {
 	-webkit-transition-timing: ease-in-out;
 	-moz-transition-timing: ease-in-out;
 	margin-top: 1px;
-/*white-space: nowrap;
+/*
+
+white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 172px;*/
@@ -376,17 +420,18 @@ ul#lang {
 
 /* @end */
 
-/* @group museum_detail */
+/* @grou
+
+p museum_detail */
 
 #museum_detail div.article {
 	width: 690px;
 }
 
 #museum_detail div.article div.leftSidebar {
-  float: left;
-  width: 190px;
+	float: left;
+	width: 190px;
 }
-
 
 #museum_detail div.article h2 {
 	font-weight: 400;
@@ -401,7 +446,6 @@ ul#lang {
 	line-height: 34px;
 	margin-bottom: 5px;
 }
-
 
 /* @end */
 
@@ -527,10 +571,6 @@ ul.social li a.journal:hover span {
 	color: #000;
 }
 
-#content div.cms-plugin-richtext p a {
-	margin-top: 10px;
-}
-
 #content div.cms-plugin-richtext>a:hover,
 #content div a.proceed:hover {
 	background-color: #00aa5a;
@@ -539,11 +579,12 @@ ul.social li a.journal:hover span {
 
 #content div.cms-plugin-richtext {
 	width: 640px;
-	border-bottom: 1px solid #e5e3df;
+	border-top: 1px solid #e5e3df;
 	border-right: 1px solid #e5e3df;
 	padding-top: 15px;
 	padding-left: 25px;
 	padding-right: 25px;
+	margin-top: -1px;
 }
 
 #content div.cms-plugin-richtext h1,
@@ -587,7 +628,7 @@ ul.social li a.journal:hover span {
 	font-size: 10px;
 	color: gray;
 	font-weight: 400;
-  line-height: 16px;
+	line-height: 16px;
 }
 
 #content div.cms-plugin-richtext p.img_left_nospacetop {
@@ -603,6 +644,7 @@ ul.social li a.journal:hover span {
 #content div.cms-plugin-richtext p.img_left strong {
 	color: black;
 }
+
 #museum_detail div.article div.leftCol div.article_img img,
 .article>img,
 .cms-plugin-richtext img,
@@ -629,8 +671,6 @@ ul.social li a.journal:hover span {
 	-moz-transition-timing: ease-in-out;
 }
 
-
-
 a.img:hover {
 	opacity: 0.7;
 }
@@ -654,9 +694,7 @@ a.img:hover {
 	margin-bottom: 0px;
 }
 
-/*
-
- @end */
+/* @end */
 
 /* @group Cols */
 
@@ -678,40 +716,39 @@ a.img:hover {
 }
 
 #museum_detail div.article div.rightCol {
-  width: 400px;
-  border: none;	
-  border-right: 1px solid #e5e3df;
-  margin-right: -1px;
-  padding-top: 15px;
-  margin-left: 20px;
+	width: 400px;
+	border: none;
+	border-right: 1px solid #e5e3df;
+	margin-right: -1px;
+	padding-top: 15px;
+	margin-left: 20px;
 }
 
 #museum_detail div.article div.leftCol {
-  width: 196px;
-  padding-right: 0;
-  border: none;
-  font-size: 12px;
-  line-height: 18px;
-  padding-top: 54px;
+	width: 196px;
+	padding-right: 0;
+	border: none;
+	font-size: 12px;
+	line-height: 18px;
+	padding-top: 54px;
 }
 
 #museum_detail div.article div.leftCol dl {
-  padding-top: 10px;	
-  border-top: 1px solid #e5e3df;
-  margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #e5e3df;
+	margin-top: 10px;
 }
 
 #museum_detail div.article div.leftCol dl.website dd a {
-  white-space: nowrap;
+	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 205px;
 	display: block;
-
 }
 
 #museum_detail div.article div.leftCol div.article_img div.image_caption {
-  	font-size: 10px;
+	font-size: 10px;
 	line-height: 16px;
 	color: gray;
 	width: 196px;
@@ -720,20 +757,40 @@ a.img:hover {
 	padding: 0;
 	font-weight: 400;
 	margin-right: auto;
-  margin-top: -10px;
-  margin-bottom: 17px;
+	margin-top: -10px;
+	margin-bottom: 17px;
 }
 
 #museum_detail div.article div.leftCol dl dt {
-  font-weight: 600;
+	font-weight: 600;
+	background-repeat: no-repeat;
+	text-indent: 17px;
+	background-position: 0 2px;
 }
 
+#museum_detail div.article div.leftCol dl.address dt {
+	background-image: url(../img/home.gif);
+}
+
+#museum_detail div.article div.leftCol dl.phone dt {
+	background-image: url(../img/phone.gif);
+}
+
+#museum_detail div.article div.leftCol dl.fax dt {
+	background-image: url(../img/fax.gif);
+}
+
+#museum_detail div.article div.leftCol dl.website dt {
+	background-image: url(../img/web.gif);
+}
+
+#museum_detail div.article div.leftCol dl.categories dt {
+	background-image: url(../img/cat.gif);
+}
 
 #museum_detail div.article div.leftCol img {
-  width: 196px;
+	width: 196px;
 }
-
-
 
 .leftCol {
 	border-right: 1px solid #e5e3df;
@@ -790,17 +847,17 @@ a.img:hover {
 }
 
 /*#content div.cms-plugin-richtext p strong:first-child {
-  display: block;
-  float: left;
-  width: 100%;	border-top: 1px solid #e5e3df;
-  padding-top: 30px;
+ display: block;
+ float: left;
+ width: 100%;	border-top: 1px solid #e5e3df;
+ padding-top: 30px;
 }*/
 
 /*#content div.cms-plugin-richtext p {
 background-color: white;
-  margin-bottom: 5px;
-  margin-left: 220px;
-  padding: 15px 25px;
+ margin-bottom: 5px;
+ margin-left: 220px;
+ padding: 15px 25px;
 }*/
 
 #content .article.short p {
@@ -856,7 +913,9 @@ h5 {
 
 /* @end */
 
-/* @group Stage */
+/* @grou
+
+p Stage */
 
 #content div.stage_wrapper {
 	position: relative;
@@ -870,17 +929,6 @@ h5 {
 
 #stage div .img .wrap {
 	position: absolute;
-	
-
-/*
-
-left: 0;*/
-  bottom: -27px;
-	width: 100%;
-}
-
-#stage div .img .wrap {
-	position: absolute;
 	width: 150px;
 	border-radius: 200px;
 	background-color: rgba(255,255,255,0.98);
@@ -890,44 +938,50 @@ left: 0;*/
 	font-size: 25px !important;
 	-webkit-transform: rotate(8deg);
 	right: 21px;
-	padding: 0;
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
 	bottom: 160px;
 }
 
 /*#stage div a.img div.wrap h4 {
-  display: inline-block;
-  margin-right: 5px;
-  font-size: 12px;
+ display: inline-block;
+ margin-right: 5px;
+ font-size: 12px;
 }
 
 #stage div a.img div.wrap h3 {
-  display: inline-block;
-  float: left;
-  margin-right: 6px;
-  font-size: 12px;
+ display: inline-block;
+ float: left;
+ margin-right: 6px;
+ font-size: 12px;
 }*/
 
-#stage div a.img div.wrap h3 {
-	font-size: 22px;
-	position: absolute;
-	top: 10px;
-	padding-top: 30px;
+#stage div a.img .wrap h3 {
+	font-size: 20px;
 	white-space: normal;
-	font-weight: 900;
 	letter-spacing: -1px;
-	line-height: 21px;
+	line-height: 18px;
+	text-align: center;
+	width: 90%;
+	padding-right: 5%;
+	padding-left: 5%;
+	margin-bottom: 2px;
 	text-transform: uppercase;
+	font-weight: 700;
+	margin-top: 5px;
 }
 
-#stage div a.img div.wrap h4 {
+#stage div. a.img table.wrap tbody tr td {
+	padding: 25px;
+}
+
+#stage div a.img .wrap h4 {
 	font-size: 14px;
-	position: absolute;
-	bottom: 20px;
 	left: 0;
-	font-weight: 600;
-	width: 100%;
-	text-transform: uppercase;
+	width: 80%;
+	line-height: 17px;
+	text-align: center;
+	padding-left: 10%;
+	padding-right: 10%;
 }
 
 #stage {
@@ -964,7 +1018,6 @@ left: 0;*/
 	text-align: center;
 	line-height: 270px;
 	color: rgba(0,0,0,0.5);
-	display: none;
 }
 
 #content div.stage_wrapper div.controls #next:hover,
@@ -1017,15 +1070,15 @@ left: 0;*/
 
 /* @end */
 
-.marginal #sub_menu  {
-  margin-top: -1px;
+.marginal #sub_menu {
+	margin-top: -1px;
 }
 
 .marginal #sub_menu li {
 	border-top: 1px solid #e5e3df;
-  padding-left: 25px;
-  margin-left: -25px;
-  width: 284px;
+	padding-left: 25px;
+	margin-left: -25px;
+	width: 284px;
 }
 
 .marginal #sub_menu a:link {
@@ -1037,9 +1090,9 @@ left: 0;*/
 	margin-left: -25px;
 	margin-top: 0;
 	line-height: 14px;
-  padding-top: 9px;
-  padding-bottom: 11px;
-  padding-left: 25px;
+	padding-top: 9px;
+	padding-bottom: 11px;
+	padding-left: 25px;
 }
 
 #sub_menu li ul li a {
