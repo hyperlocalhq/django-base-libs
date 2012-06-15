@@ -258,9 +258,9 @@ ul#lang {
 }
 
 #filter li.active {
-	
+	/*
 
-/*color: #00aa5a;*/
+color: #00aa5a;*/
  text-transform: none;
 	position: relative;
 }
@@ -282,12 +282,53 @@ ul#lang {
 	line-height: 16px;
 }
 
+ul#az_filter {
+	float: left;
+	border-bottom: 1px solid #e5e3df;
+	height: 21px;
+	width: 1000px;
+}
+
+ul#az_filter li {
+	float: left;
+	border: 1px solid #e5e3df;
+	margin-top: -1px;
+	margin-left: -1px;
+}
+
+ul#az_filter li.active a:link {
+	background-color: black;
+	color: white;
+	font-weight: 700 !important;
+	border-radius: 3px;
+}
+
+ul#az_filter li:last-child {
+	border-right-style: none;
+}
+
+ul#az_filter li a {
+	width: 32px;
+	height: 17px;
+	display: block;
+	line-height: 17px;
+	text-align: center;
+	margin: 2px;
+	font-size: 12px;
+}
+
+ul#az_filter li a:hover {
+	background-color: white;
+	color: black;
+}
+
 /* @group museum_list */
 
 #museum_list {
 	width: 690px;
 	min-height: 400px;
 	border-right: 1px solid #e5e3df;
+	float: left;
 }
 
 #museum_list_map {
@@ -321,9 +362,9 @@ ul#lang {
 	-webkit-transition-timing: ease-in-out;
 	-moz-transition-timing: ease-in-out;
 	margin-top: 1px;
+/*
 
-
-/*white-space: nowrap;
+white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 172px;*/
@@ -379,7 +420,9 @@ ul#lang {
 
 /* @end */
 
-/* @group museum_detail */
+/* @grou
+
+p museum_detail */
 
 #museum_detail div.article {
 	width: 690px;
@@ -404,13 +447,11 @@ ul#lang {
 	margin-bottom: 5px;
 }
 
-
 /* @end */
 
 /* @group Social */
 
 ul.social {
-
 	margin-left: -25px;
 	height: 304px;
 	border-bottom: 1px solid #e5e3df;
@@ -543,7 +584,7 @@ ul.social li a.journal:hover span {
 	padding-top: 15px;
 	padding-left: 25px;
 	padding-right: 25px;
-  margin-top: -1px;
+	margin-top: -1px;
 }
 
 #content div.cms-plugin-richtext h1,
@@ -724,28 +765,28 @@ a.img:hover {
 	font-weight: 600;
 	background-repeat: no-repeat;
 	text-indent: 17px;
-  background-position: 0 2px;
+	background-position: 0 2px;
 }
 
 #museum_detail div.article div.leftCol dl.address dt {
-  background-image: url(../img/home.gif);
+	background-image: url(../img/home.gif);
 }
+
 #museum_detail div.article div.leftCol dl.phone dt {
-  background-image: url(../img/phone.gif);
+	background-image: url(../img/phone.gif);
 }
 
 #museum_detail div.article div.leftCol dl.fax dt {
-  background-image: url(../img/fax.gif);
+	background-image: url(../img/fax.gif);
 }
 
 #museum_detail div.article div.leftCol dl.website dt {
-  background-image: url(../img/web.gif);
+	background-image: url(../img/web.gif);
 }
 
 #museum_detail div.article div.leftCol dl.categories dt {
-  background-image: url(../img/cat.gif);
+	background-image: url(../img/cat.gif);
 }
-
 
 #museum_detail div.article div.leftCol img {
 	width: 196px;
@@ -872,7 +913,9 @@ h5 {
 
 /* @end */
 
-/* @group Stage */
+/* @grou
+
+p Stage */
 
 #content div.stage_wrapper {
 	position: relative;
@@ -886,15 +929,6 @@ h5 {
 
 #stage div .img .wrap {
 	position: absolute;
-	/*
-
-left: 0;*/
- bottom: -27px;
-	width: 100%;
-}
-
-#stage div .img .wrap {
-	position: absolute;
 	width: 150px;
 	border-radius: 200px;
 	background-color: rgba(255,255,255,0.98);
@@ -904,7 +938,6 @@ left: 0;*/
 	font-size: 25px !important;
 	-webkit-transform: rotate(8deg);
 	right: 21px;
-	padding: 0;
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
 	bottom: 160px;
 }
@@ -922,26 +955,33 @@ left: 0;*/
  font-size: 12px;
 }*/
 
-#stage div a.img div.wrap h3 {
-	font-size: 22px;
-	position: absolute;
-	top: 10px;
-	padding-top: 30px;
+#stage div a.img .wrap h3 {
+	font-size: 20px;
 	white-space: normal;
-	font-weight: 900;
 	letter-spacing: -1px;
-	line-height: 21px;
+	line-height: 18px;
+	text-align: center;
+	width: 90%;
+	padding-right: 5%;
+	padding-left: 5%;
+	margin-bottom: 2px;
 	text-transform: uppercase;
+	font-weight: 700;
+	margin-top: 5px;
 }
 
-#stage div a.img div.wrap h4 {
+#stage div. a.img table.wrap tbody tr td {
+	padding: 25px;
+}
+
+#stage div a.img .wrap h4 {
 	font-size: 14px;
-	position: absolute;
-	bottom: 20px;
 	left: 0;
-	font-weight: 600;
-	width: 100%;
-	text-transform: uppercase;
+	width: 80%;
+	line-height: 17px;
+	text-align: center;
+	padding-left: 10%;
+	padding-right: 10%;
 }
 
 #stage {
@@ -978,7 +1018,6 @@ left: 0;*/
 	text-align: center;
 	line-height: 270px;
 	color: rgba(0,0,0,0.5);
-	display: none;
 }
 
 #content div.stage_wrapper div.controls #next:hover,
