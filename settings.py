@@ -33,7 +33,8 @@ LANGUAGE_CODE = "de"
 
 SITE_ID = 1
 USE_I18N = True
-USE_L10N = True
+USE_L10N = False # --> no commas in float values for latitude and longitude
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = os.path.join(ROOT_PATH, "museumsportal", "media")
