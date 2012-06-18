@@ -8,6 +8,7 @@ from base_libs.models import SysnameMixin
 from base_libs.models import PublishingMixin
 from base_libs.models.fields import PositionField
 from base_libs.models.fields import MultilingualCharField
+from base_libs.models.fields import MultilingualTextField
 
 from filebrowser.fields import FileBrowseField
 
@@ -28,10 +29,8 @@ class Slide(models.Model):
     path = FileBrowseField(_('File path'), max_length=255, blank=True, directory="slideshows/", help_text=_("A path to a locally stored image or video."))
     link = models.CharField(_('Link'), max_length=255, blank=True)
     alt = MultilingualCharField(_("Alternative text"), max_length=100, blank=True)
-    title = MultilingualCharField(_("Title Line 1"), max_length=255, blank=True)
-    title2 = MultilingualCharField(_("Title Line 2"), max_length=255, blank=True)
-    title3 = MultilingualCharField(_("Title Line 3"), max_length=255, blank=True)
-    subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
+    title = MultilingualTextField(_("Title"), blank=True)
+    subtitle = MultilingualTextField(_("Subtitle"), blank=True)
     credits = MultilingualCharField(_("Photo credits"), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="slideshow")
 
