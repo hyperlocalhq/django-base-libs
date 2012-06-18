@@ -541,8 +541,9 @@ ul.social {
 }
 
 .social li a:hover {
-	color: white;
-	background-color: black;
+	/*color: white;
+	background-color: black;*/
+	cursor: default;
 }
 
 .social li .facebook {
@@ -593,7 +594,7 @@ ul.social li a.journal:hover span {
 	background-image: url(../img/mail.png);
 }
 
-.social li .facebook:hover {
+/*.social li .facebook:hover {
 	background-image: url(../img/inverted/facebook.png);
 }
 
@@ -607,7 +608,7 @@ ul.social li a.journal:hover span {
 
 .social li .newsletter:hover {
 	background-image: url(../img/inverted/mail.png);
-}
+}*/
 
 /* @end */
 
