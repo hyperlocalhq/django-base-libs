@@ -146,7 +146,7 @@
 	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
 	                {% endif %}
 	                <h4>{{ exhibition.museum.title }}</h4>
-	                <h3>{{ exhibition.title }}</h3>
+	                <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
 	                <p>{{ exhibition.description|striptags }}</p>
 	                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
 	            </div>
@@ -161,7 +161,7 @@
 	                    <a class="img" href="{% if exhibition.website %}{{ exhibition.website }}{% else %}{% url exhibition_detail slug=exhibition.slug %}{% endif %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
 	                {% endif %}
 	                <h4>{{ exhibition.museum.title }}</h4>
-	                <h3>{{ exhibition.title }}</h3>
+	                <h3><a href="{% if exhibition.website %}{{ exhibition.website }}{% else %}{% url exhibition_detail slug=exhibition.slug %}{% endif %}">{{ exhibition.title }}</a></h3>
 	                <p>{{ exhibition.description|striptags }}</p>
 	                <a class="proceed" href="{% if exhibition.website %}{{ exhibition.website }}{% else %}{% url exhibition_detail slug=exhibition.slug %}{% endif %}">{% trans "more" %}</a>
 	            </div>
