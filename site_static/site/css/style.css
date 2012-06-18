@@ -1177,14 +1177,22 @@ h5 {
 
 #gmap div div.info_window div div.contact-mapped {
   position: absolute;
-  top: 20px;
+  top: 22px;
   left: 23px;
 }
 
 #gmap div div.info_window div * {
   font-size: 12px;
-  line-height: 18px;
+  line-height: 19px;
   padding: 0;
+  white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 253px;
+}
+
+#gmap div div.info_window div div.contact-mapped h4 {
+  font-weight: 600;
 }
 
 #gmap div div.info_window div div.contact-mapped hr {
@@ -1194,5 +1202,6 @@ h5 {
   	border-top: 1px solid #e5e3df;
   margin-top: 5px;
   margin-bottom: 5px;
+  display: none;
 }
 
