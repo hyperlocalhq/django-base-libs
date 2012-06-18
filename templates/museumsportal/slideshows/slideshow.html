@@ -1,0 +1,48 @@
+{% load image_modifications %}
+
+
+<div id="slideshow" class="pics">
+	<a class="prev" href="#">prev</a>
+	<a class="next" href="#">next</a>
+	<div id="nav"></div>
+    {% for slide in slides %}
+        <div class="slide">
+            {% if slide.link %}<a href="{{ slide.link }}">{% endif %}
+              
+                <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="{{ slide.alt }}" width="640" height="260" />
+             	
+             	<span class="meta">
+	                {% if slide.title_de %}
+	                    <span class="title">{{ slide.title_de }}</span><br/>
+	                {% endif %}
+	                {% if slide.title2_de %}
+	                    <span class="title2">{{ slide.title2_de }}</span><br/>
+	                {% endif %}
+	                {% if slide.title3_de %}
+	                    <span class="title3">{{ slide.title3_de }}</span><br/>
+	                {% endif %}
+	                {% if slide.subtitle_de %}
+	                    <span class="subtitle">{{ slide.subtitle_de }}</span>
+	                {% endif %}
+	                {% if slide.credits_de %}
+	                    <span class="credits">{{ slide.credits_de }}</span>
+	                {% endif %}
+                </span>
+            {% if slide.link %}</a>{% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<script type="text/javascript">
+	$(function() {
+	    $('#slideshow').cycle({
+	        fx:     'fade',
+	        speed:  '500',
+	        timeout: 5000,
+	        pager:  '#nav',
+			slideExpr: '.slide',
+			next:   '.next', 
+			prev:   '.prev'
+	    });
+	});
+</script>

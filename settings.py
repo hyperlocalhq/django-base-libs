@@ -176,6 +176,7 @@ INSTALLED_APPS = (
     ### museumsportal apps ###
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",
+    "museumsportal.apps.slideshows",
 )
 
 
@@ -196,6 +197,9 @@ ADMIN_APP_INDEX = (
                 }),            
             ('exhibitions', {
                 'models': ('Exhibition',),
+                }),            
+            ('slideshows', {
+                'models': ('Slideshow',),
                 }),            
          )
     },
