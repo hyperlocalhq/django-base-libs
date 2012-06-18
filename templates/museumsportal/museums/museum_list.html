@@ -57,6 +57,7 @@
                             latitude: {{ museum.latitude }},
                             longitude: {{ museum.longitude }},
                             content: '<div class="contact-mapped" onclick="location.href=\'{% url museum_detail slug=museum.slug %}\';">'
+                            + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"mapped_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
                             + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
                             + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'
                             + '<hr />'
