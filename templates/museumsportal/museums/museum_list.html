@@ -30,7 +30,7 @@
 
     <div class="marginal">
         <ul id="filter">
-            <li>Filter</li>
+            <li class="catHead">→ Filter</li>
             {% for cat in facets.categories.categories %}
                 {% if cat == facets.selected.category %}
                     <li class="active">{{ cat.title }}<a href="{% append_to_get category="" %}">×</a></li>
