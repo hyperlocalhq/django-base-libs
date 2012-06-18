@@ -1174,3 +1174,25 @@ h5 {
 #sub_menu>li>a:link {
 	font-weight: 500 !important;
 }
+
+#gmap div div.info_window div div.contact-mapped {
+  position: absolute;
+  top: 20px;
+  left: 23px;
+}
+
+#gmap div div.info_window div * {
+  font-size: 12px;
+  line-height: 18px;
+  padding: 0;
+}
+
+#gmap div div.info_window div div.contact-mapped hr {
+  width: 253px;
+  border-width: 1px;
+  border-style: none;
+  	border-top: 1px solid #e5e3df;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
