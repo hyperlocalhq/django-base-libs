@@ -240,7 +240,7 @@ ul#lang {
 	color: black;
 }
 
-.navigation li.selected>a:link {
+.selected>a:link {
 	color: #00aa5a;
 }
 
@@ -1161,9 +1161,30 @@ opacity: 1;}
 
 /* @group Footer */
 
+#footer a.kpb {
+  position: absolute;
+  top: 9px;
+  right: 25px;
+  background-image: url(../img/kulturprojekte.png);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  font-size: 8px;
+  height: 38px;
+  display: block;
+  line-height: 10px;
+  text-align: right;
+  width: 56px;
+  white-space: nowrap;
+}
+
+#footer a.kpb:hover {
+color: black;
+opacity: 0.7;}
+
 #footer {
 	border-top: 1px solid #e5e3df;
 	margin-top: -1px;
+	position: relative;
 }
 
 #footer .navigation {
