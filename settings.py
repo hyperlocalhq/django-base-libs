@@ -322,7 +322,7 @@ CMS_PLACEHOLDER_CONF = {
     },
     'start_page_content': {
         'plugins': ("EditorialContentPlugin",),
-        'name': _("Main Content")
+        'name': _("Start Page Content")
     },
 }
 
