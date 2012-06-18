@@ -20,7 +20,7 @@
         </div>
     </div>
     
-    <div id="detail">
+    <div id="detail" class="clearfix">
         {% with object as museum %}
             <div class="article">
                 <div class="leftCol">
@@ -83,7 +83,7 @@
                     <div class="rightCol">
                         <h2>{{ museum.title }}</h2>
                         {% if museum.subtitle %}
-                        <h3>{{ museum.subtitle }}</h3>
+                        <h3 class="museum_title">{{ museum.subtitle }}</h3>
                         {% endif %}
                         
                         <div class="text">{{ museum.get_rendered_description }}</div>

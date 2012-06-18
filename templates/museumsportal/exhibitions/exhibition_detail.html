@@ -20,7 +20,7 @@
         </div>
     </div>
     
-    <div id="detail" class="">
+    <div id="detail" class="clearfix">
     {% with object as exhibition %}
         <div class="article">
         
@@ -54,7 +54,7 @@
                 {% if exhibition.subtitle %}
                     <h2 class="subtitle">{{ exhibition.subtitle }}</h2>
                 {% endif %}
-                <h3><a href="{% url museum_detail slug=exhibition.museum.slug %}">{{ exhibition.museum.title }}</a></h3>
+                <h3 class="museum_title"><a href="{% url museum_detail slug=exhibition.museum.slug %}">{{ exhibition.museum.title }}</a></h3>
                 
                 <div class="text">{{ exhibition.get_rendered_description }}</div>
             </div>
