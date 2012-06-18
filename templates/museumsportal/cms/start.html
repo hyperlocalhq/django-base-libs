@@ -10,25 +10,7 @@
 	
 	<script type="text/javascript">
 	$(function() {
-	
-	    $('#stage').cycle({
-	        fx:      'fade',
-	        timeout:  10000,
-	        speed:    400,
-	        pause:	  1,
-	        prev:    '#prev',
-	        next:    '#next',
-	        pager:   '#nav',
-	        easing:   'easeInOutSine',
 	        
-	        pagerAnchorBuilder: pagerFactory
-	    });
-	
-	    function pagerFactory(idx, slide) {
-	        var s = idx > 2 ? ' ' : '';
-	        return '<li'+s+'><a href="#">'+(idx+1)+'</a></li>';
-	    };
-	    
         var scroller = new StickyScroller("#filter", {
             start: 428,
             margin: 0
@@ -66,6 +48,8 @@
     </div>
     
     <div class="stage_wrapper">
+        {% slideshow "start_slideshow" %}
+        <!--
         <div id="stage"  class="clearfix">
             <div class="">
                 <a class="img" href="#">
@@ -135,6 +119,7 @@
         </div>
         
         <ul id="nav"></ul>
+        -->
     </div>
     <div class="colWrapper">
 	    <div id="neu" class="leftCol">

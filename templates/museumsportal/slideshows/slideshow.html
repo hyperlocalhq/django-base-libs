@@ -1,48 +1,47 @@
 {% load image_modifications %}
 
-
-<div id="slideshow" class="pics">
-	<a class="prev" href="#">prev</a>
-	<a class="next" href="#">next</a>
-	<div id="nav"></div>
+<div id="stage" class="clearfix">
     {% for slide in slides %}
         <div class="slide">
             {% if slide.link %}<a href="{{ slide.link }}">{% endif %}
               
                 <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="{{ slide.alt }}" width="640" height="260" />
              	
-             	<span class="meta">
-	                {% if slide.title_de %}
-	                    <span class="title">{{ slide.title_de }}</span><br/>
-	                {% endif %}
-	                {% if slide.title2_de %}
-	                    <span class="title2">{{ slide.title2_de }}</span><br/>
-	                {% endif %}
-	                {% if slide.title3_de %}
-	                    <span class="title3">{{ slide.title3_de }}</span><br/>
-	                {% endif %}
-	                {% if slide.subtitle_de %}
-	                    <span class="subtitle">{{ slide.subtitle_de }}</span>
-	                {% endif %}
-	                {% if slide.credits_de %}
-	                    <span class="credits">{{ slide.credits_de }}</span>
-	                {% endif %}
-                </span>
+                <table class="wrap">
+                    <tr>
+                        <td>
+                            <div class="h3">{{ slide.get_rendered_title }}</div>
+                            <div class="h4">{{ slide.get_rendered_subtitle }}</div>
+                        </td>
+                    </tr>
+                </table>	
             {% if slide.link %}</a>{% endif %}
         </div>
     {% endfor %}
+	<a class="prev" href="#">prev</a>
+	<a class="next" href="#">next</a>
+	<div id="nav"></div>
 </div>
 
 <script type="text/javascript">
-	$(function() {
-	    $('#slideshow').cycle({
-	        fx:     'fade',
-	        speed:  '500',
-	        timeout: 5000,
-	        pager:  '#nav',
-			slideExpr: '.slide',
-			next:   '.next', 
-			prev:   '.prev'
-	    });
-	});
+    (function($, undefined) {
+        function pagerFactory(idx, slide) {
+            var s = idx > 2 ? ' ' : '';
+            return '<li'+s+'><a href="#">'+(idx+1)+'</a></li>';
+        };
+    
+        $(function() {
+            $('#stage').cycle({
+                fx:                 'fade',
+                speed:              400,
+                timeout:            10000,
+                pager:              '#nav',
+                slideExpr:          '.slide',
+                next:               '#next', 
+                prev:               '#prev',
+                easing:             'easeInOutSine',
+                pagerAnchorBuilder: pagerFactory
+            });
+        });
+    }(jQuery));
 </script>
