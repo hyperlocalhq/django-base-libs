@@ -109,14 +109,15 @@ a:active {
 /* @group Kurze Zeit */
 
 #kurze_zeit div {
-	border-top: 1px solid #e5e3df;
 	margin-left: -25px;
 	position: relative;
 	float: left;
 	display: block;
 	width: 260px;
-	padding: 10px 25px 16px;
 	min-height: 65px;
+  padding-bottom: 16px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 /*#kurze_zeit div:hover {
@@ -137,7 +138,7 @@ background-color: white;}*/
 	left: 44px;
 	display: inline-block;
 	background-position: 0;
-	top: 65px;
+	top: 52px;
 	opacity: 0;
 	margin-left: -23px;
 	-webkit-transition-property: all;
@@ -321,7 +322,8 @@ ul#az_filter li:last-child {
 	border-right-style: none;
 }
 
-ul#az_filter li a,
+ul#az_filter li a:link,
+ul#az_filter li a:visited,
 ul#az_filter li span {
 	height: 17px;
 	display: block;
@@ -526,6 +528,16 @@ ul.social {
 	height: 40px;
 	background-repeat: no-repeat;
 	background-position: 14px center;
+}
+
+.social li span {
+	color: black;
+	display: block;
+	text-align: left;
+	line-height: 42px;
+	text-indent: 22px;
+  letter-spacing: 1px;
+  font-size: 12px;
 }
 
 .social li a:hover {
