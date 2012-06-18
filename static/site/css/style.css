@@ -25,6 +25,8 @@
 	http://test.berliner-museumsportal.de/static/7808/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7812/site/css/style.css
 	http://127.0.0.1:8000/static/7814/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7818/site/css/style.css
+	http://127.0.0.1:8000/static/7822/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -130,7 +132,7 @@ background-color: white;}*/
 
 #kurze_zeit div a.proceed {
 	position: absolute;
-	left: 48px;
+	left: 44px;
 	display: inline-block;
 	background-position: 0;
 	top: 65px;
@@ -200,7 +202,8 @@ ul#lang {
 	border-radius: 2px
 }
 
-#lang li a.current:link {
+#lang li a.current:link,
+#lang li a.current:visited {
 	background-color: black;
 	color: white;
 }
@@ -211,9 +214,12 @@ ul#lang {
 }
 
 #content #detail {
-	width: 627px;
-	padding-top: 19px;
-	padding-left: 25px;
+	
+		width: 640px;
+	border-top: 1px solid #e5e3df;
+	border-right: 1px solid #e5e3df;
+	margin-top: -1px;
+
 }
 
 .navigation li span {
@@ -343,7 +349,8 @@ ul#az_filter li  a#id_abc_filter_ {
   width: 51px;
 }
 
-ul#az_filter li a:hover {
+ul#az_filter li a:hover,
+ul#az_filter li a:visited {
 	background-color: black;
 	color: white;	
 	font-weight: 700 !important;
@@ -467,23 +474,23 @@ white-space: nowrap;
 
 /* @group museum_detail */
 
-#museum_detail div.article {
+#detail div.article {
 	width: 690px;
 }
 
-#museum_detail div.article div.leftSidebar {
+#detail div.article div.leftSidebar {
 	float: left;
 	width: 190px;
 }
 
-#museum_detail div.article h2 {
+#detail div.article h2 {
 	font-weight: 400;
 	font-size: 26px;
 	line-height: 34px;
 	margin-top: 0;
 }
 
-#museum_detail div.article h3 {
+#detail div.article h3 {
 	font-weight: 200;
 	font-size: 26px;
 	line-height: 34px;
@@ -689,7 +696,7 @@ ul.social li a.journal:hover span {
 	color: black;
 }
 
-#museum_detail div.article div.leftCol div.article_img img,
+#detail div.article div.leftCol div.article_img img,
 .article>img,
 .cms-plugin-richtext img,
 .img {
@@ -783,7 +790,7 @@ div.cms-plugin-richtext p:last-child a:hover {
 	width: 295px;
 }
 
-#museum_detail div.article div.rightCol {
+#detail div.article div.rightCol {
 	width: 400px;
 	border: none;
 	border-right: 1px solid #e5e3df;
@@ -791,8 +798,7 @@ div.cms-plugin-richtext p:last-child a:hover {
 	padding-top: 15px;
 	margin-left: 20px;
 }
-
-#museum_detail div.article div.leftCol {
+#detail div.article div.leftCol {
 	width: 196px;
 	padding-right: 0;
 	border: none;
@@ -801,13 +807,13 @@ div.cms-plugin-richtext p:last-child a:hover {
 	padding-top: 54px;
 }
 
-#museum_detail div.article div.leftCol dl {
+#detail div.article div.leftCol dl {
 	padding-top: 10px;
 	border-top: 1px solid #e5e3df;
 	margin-top: 10px;
 }
 
-#museum_detail div.article div.leftCol dl.website dd a {
+#detail div.article div.leftCol dl.website dd a {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -815,7 +821,7 @@ div.cms-plugin-richtext p:last-child a:hover {
 	display: block;
 }
 
-#museum_detail div.article div.leftCol div.article_img div.image_caption {
+#detail div.article div.leftCol div.article_img div.image_caption {
 	font-size: 10px;
 	line-height: 16px;
 	color: gray;
@@ -829,34 +835,45 @@ div.cms-plugin-richtext p:last-child a:hover {
 	margin-bottom: 17px;
 }
 
-#museum_detail div.article div.leftCol dl dt {
+#detail div.article div.leftCol dl dt {
 	font-weight: 600;
 	background-repeat: no-repeat;
 	text-indent: 17px;
 	background-position: 0 2px;
 }
 
-#museum_detail div.article div.leftCol dl.address dt {
+
+#detail div.article div.leftCol dl.von dt{
+	background-image: url(../img/von.gif);
+}
+
+#detail div.article div.leftCol dl.bis dt {
+	background-image: url(../img/bis.gif);
+}
+
+
+
+#detail div.article div.leftCol dl.address dt {
 	background-image: url(../img/home.gif);
 }
 
-#museum_detail div.article div.leftCol dl.phone dt {
+#detail div.article div.leftCol dl.phone dt {
 	background-image: url(../img/phone.gif);
 }
 
-#museum_detail div.article div.leftCol dl.fax dt {
+#detail div.article div.leftCol dl.fax dt {
 	background-image: url(../img/fax.gif);
 }
 
-#museum_detail div.article div.leftCol dl.website dt {
+#detail div.article div.leftCol dl.website dt {
 	background-image: url(../img/web.gif);
 }
 
-#museum_detail div.article div.leftCol dl.categories dt {
+#detail div.article div.leftCol dl.categories dt {
 	background-image: url(../img/cat.gif);
 }
 
-#museum_detail div.article div.leftCol img {
+#detail div.article div.leftCol img {
 	width: 196px;
 }
 
@@ -1058,7 +1075,7 @@ h5 {
 }
 
 #content #stage div .img {
-	width: 640px;
+	width: 638px;
 	height: 260px;
 	margin-top: 0;
 	margin-right: 0;
@@ -1080,27 +1097,43 @@ h5 {
 #content div.stage_wrapper div.controls #prev {
 	position: absolute;
 	top: 2px;
-	height: 270px;
-	width: 40px;
+	height: 292px;
+	width: 22px;
 	background-color: rgba(0,0,0,0);
 	z-index: 10000;
 	text-align: center;
 	line-height: 270px;
 	color: rgba(0,0,0,0.5);
+	background-repeat: no-repeat;
+	opacity: 0.02;
+	
+	
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0.25s;
+	-moz-transition-duration: 0.25s;
+	transition-duration: 0.25s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
 }
 
 #content div.stage_wrapper div.controls #next:hover,
 #content div.stage_wrapper div.controls #prev:hover {
-	background-color: rgba(0,0,0,0.1);
-	color: rgba(0,0,0,0.1);
-}
+opacity: 1;}
 
 #content div.stage_wrapper div.controls #next {
 	right: 2px;
+	  background-image: url(../img/right.png);
+	background-position: left center;
+
 }
 
 #content div.stage_wrapper div.controls #prev {
 	left: 2px;
+  background-image: url(../img/left.png);	
+  background-position: right center;
+
 }
 
 #nav li {
@@ -1172,3 +1205,34 @@ h5 {
 #sub_menu>li>a:link {
 	font-weight: 500 !important;
 }
+
+#gmap div div.info_window div div.contact-mapped {
+  position: absolute;
+  top: 22px;
+  left: 23px;
+}
+
+#gmap div div.info_window div * {
+  font-size: 12px;
+  line-height: 19px;
+  padding: 0;
+  white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 253px;
+}
+
+#gmap div div.info_window div div.contact-mapped h4 {
+  font-weight: 600;
+}
+
+#gmap div div.info_window div div.contact-mapped hr {
+  width: 253px;
+  border-width: 1px;
+  border-style: none;
+  	border-top: 1px solid #e5e3df;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: none;
+}
+
