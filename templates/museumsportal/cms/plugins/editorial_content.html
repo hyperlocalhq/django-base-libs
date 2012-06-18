@@ -1,0 +1,10 @@
+{% load i18n image_modifications %}
+<div class="cms-plugin-headline article short">
+    {% if object.image %}
+        <a class="img" href="{{ object.website }}"><img src="{{ MEDIA_URL }}{{ object.image|modified_path:"exhibition_list" }}" alt="" /></a>
+    {% endif %}
+    <h4>{{ object.title }}</h4>
+    <h3><a href="{{ object.website }}">{{ object.subtitle }}</a></h3>
+    <p>{{ object.get_rendered_description|striptags }}</p>
+    <a class="proceed" href="{{ object.website }}">{% trans "more" %}</a>
+</div>

@@ -177,6 +177,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",
     "museumsportal.apps.slideshows",
+    "museumsportal.apps.editorial",
 )
 
 
@@ -317,6 +318,10 @@ CMS_PLACEHOLDER_CONF = {
     },
     'main_content': {
         'plugins': ("RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin"),
+        'name': _("Main Content")
+    },
+    'start_page_content': {
+        'plugins': ("EditorialContentPlugin",),
         'name': _("Main Content")
     },
 }
