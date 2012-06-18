@@ -200,7 +200,8 @@ ul#lang {
 	border-radius: 2px
 }
 
-#lang li a.current:link {
+#lang li a.current:link,
+#lang li a.current:visited {
 	background-color: black;
 	color: white;
 }
@@ -343,7 +344,8 @@ ul#az_filter li  a#id_abc_filter_ {
   width: 51px;
 }
 
-ul#az_filter li a:hover {
+ul#az_filter li a:hover,
+ul#az_filter li a:visited {
 	background-color: black;
 	color: white;	
 	font-weight: 700 !important;
