@@ -4,6 +4,8 @@ from django.db import models
 from django import forms
 
 from jetson.apps.utils.views import object_list, object_detail
+from jetson.apps.utils.views import get_abc_list
+from jetson.apps.utils.views import filter_abc
 
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import get_related_queryset
@@ -19,7 +21,7 @@ class MuseumSearchForm(dynamicforms.Form):
 
 def museum_list(request):
     qs = Museum.objects.filter(status="published")
-    
+
     form = MuseumSearchForm(data=request.REQUEST)
     
     facets = {
@@ -37,8 +39,15 @@ def museum_list(request):
                 categories=cat,
                 ).distinct()
     
+    abc_filter = request.GET.get('by-abc', None)
+    abc_list = get_abc_list(qs, "title", abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title", abc_filter)
+    
+    
     extra_context = {}
     extra_context['form'] = form
+    extra_context['abc_list'] = abc_list
     extra_context['facets'] = facets
     
     return object_list(
