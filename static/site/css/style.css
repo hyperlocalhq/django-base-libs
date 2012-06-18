@@ -27,6 +27,8 @@
 	http://127.0.0.1:8000/static/7814/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7818/site/css/style.css
 	http://127.0.0.1:8000/static/7822/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7831/site/css/style.css
+	http://127.0.0.1:8000/static/7834/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -1011,11 +1013,11 @@ h5 {
 	padding-right: 25px;
 }
 
-#stage div .img .wrap {
+#stage .wrap {
 	position: absolute;
 	width: 150px;
 	border-radius: 200px;
-	background-color: rgba(255,255,255,0.5);
+	background-color: rgba(255,255,255,0.96);
 	color: black;
 	height: 150px;
 	text-align: center;
@@ -1023,7 +1025,7 @@ h5 {
 	-webkit-transform: rotate(8deg);
 	right: 21px;
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
-	bottom: 160px;
+  top: -35px;
 }
 
 /*#stage div a.img div.wrap h4 {
@@ -1039,47 +1041,64 @@ h5 {
  font-size: 12px;
 }*/
 
-#stage div a.img .wrap h3 {
-	font-size: 20px;
+#stage .wrap .h3 {
+	width: 100%;
+	margin-top: 5px;
+  margin-right: 0;
+  margin-left: 0;
+  padding: 0;
+}
+
+#stage .wrap .h3 p{
+	font-size: 19px;
 	white-space: normal;
 	letter-spacing: -1px;
 	line-height: 18px;
 	text-align: center;
 	width: 90%;
-	padding-right: 5%;
-	padding-left: 5%;
-	margin-bottom: 2px;
 	text-transform: uppercase;
 	font-weight: 700;
-	margin-top: 5px;
+  margin: 0;
+  padding: 0 5%;
 }
 
 #stage div. a.img table.wrap tbody tr td {
 	padding: 25px;
 }
 
-#stage div a.img .wrap h4 {
+#stage .wrap .h4 {
 	font-size: 13px;
 	left: 0;
-	width: 80%;
+	width: 100%;
+	line-height: 15px;
+	text-align: center;
+	font-weight: 400;
+  margin-top: 2px;
+}
+
+#stage .wrap .h4 p{
+	font-size: 13px;
 	line-height: 15px;
 	text-align: center;
 	padding-left: 10%;
 	padding-right: 10%;
-	font-weight: 400;
-  margin-top: 2px;
+  margin: 0;
+  padding-bottom: 0;
 }
 
 #stage {
 	height: 100%;
 }
 
-#content #stage div .img {
+#content #stage img {
 	width: 638px;
 	height: 260px;
 	margin-top: 0;
 	margin-right: 0;
-	margin-bottom: 0;
+	margin-bottom: 0;	
+	border: 2px solid #fff;
+	-webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
+
 }
 
 #nav {
@@ -1089,9 +1108,18 @@ h5 {
 	z-index: 50;
 	text-align: center;
 	padding-top: 6px;
-	top: 285px;
 	line-height: 0;
+  bottom: 11px;
 }
+
+#stage div.controls {
+  width: 691px;
+  position: absolute;
+  top: -20px;
+  left: -25px;
+}
+
+
 
 #content div.stage_wrapper div.controls #next,
 #content div.stage_wrapper div.controls #prev {
