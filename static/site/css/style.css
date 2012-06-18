@@ -29,6 +29,7 @@
 	http://127.0.0.1:8000/static/7822/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7831/site/css/style.css
 	http://127.0.0.1:8000/static/7834/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7840/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -218,7 +219,7 @@ ul#lang {
 
 #content #detail {
 	
-		width: 640px;
+		width: 690px;
 	border-top: 1px solid #e5e3df;
 	border-right: 1px solid #e5e3df;
 	margin-top: -1px;
@@ -243,8 +244,9 @@ ul#lang {
 	color: black;
 }
 
-.selected>a:link {
-	color: #00aa5a;
+.selected>a:link,
+.selected>a:visited {
+	color: #00aa5a !important;
 }
 
 #header ul.navigation li.dropdown ul {
@@ -499,6 +501,13 @@ white-space: nowrap;
 	font-size: 26px;
 	line-height: 34px;
 	margin-bottom: 5px;
+}
+
+#detail div.article div.rightCol h3.museum_title {
+  font-size: 20px;
+  margin-top: 15px;
+  line-height: 27px;
+  padding-bottom: 5px;
 }
 
 /* @end */
@@ -819,7 +828,7 @@ div.cms-plugin-richtext p:last-child a:hover {
 	border: none;
 	font-size: 12px;
 	line-height: 18px;
-	padding-top: 54px;
+	padding-top: 22px;
 }
 
 #detail div.article div.leftCol dl {
@@ -1204,7 +1213,6 @@ opacity: 1;}
 
 #footer a.kpb {
   position: absolute;
-  top: 9px;
   right: 25px;
   background-image: url(../img/kulturprojekte.png);
   background-repeat: no-repeat;
@@ -1216,6 +1224,7 @@ opacity: 1;}
   text-align: right;
   width: 56px;
   white-space: nowrap;
+  bottom: 20px;
 }
 
 #footer a.kpb:hover {
@@ -1229,7 +1238,8 @@ opacity: 0.7;}
 }
 
 #footer .navigation {
-	font-size: 15px;
+	font-size: 13px;
+  padding-top: 35px;
 }
 
 /* @end */
