@@ -23,6 +23,8 @@
 	http://test.berliner-museumsportal.de/static/7798/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7803/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7808/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7812/site/css/style.css
+	http://127.0.0.1:8000/static/7814/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -80,7 +82,7 @@ a:hover {
 
 a:visited {
 	text-decoration: none;
-	color: #00aa5a;
+	color: #000;
 }
 
 a:active {
@@ -305,29 +307,65 @@ ul#az_filter li.active a:link {
 	background-color: black;
 	color: white;
 	font-weight: 700 !important;
-	border-radius: 3px;
 }
 
 ul#az_filter li:last-child {
 	border-right-style: none;
 }
 
-ul#az_filter li a {
-	width: 32px;
+ul#az_filter li a,
+ul#az_filter li span {
 	height: 17px;
 	display: block;
 	line-height: 17px;
 	text-align: center;
 	margin: 2px;
 	font-size: 12px;
+  width: 30px;	
+  border-radius: 3px;
+  
+  
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0.5s;
+	-moz-transition-duration: 0.5s;
+	transition-duration: 0.5s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
+}
+
+ul#az_filter li span {
+  color: #b4b4b4;
+}
+
+ul#az_filter li  a#id_abc_filter_ {
+  width: 51px;
 }
 
 ul#az_filter li a:hover {
-	background-color: white;
-	color: black;
+	background-color: black;
+	color: white;	
+	font-weight: 700 !important;
+	
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+	transition-duration: 0s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
+
 }
 
 /* @group museum_list */
+
+#object_list div.article div.marker-link a {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
 
 #museum_list {
 	width: 690px;
@@ -422,6 +460,8 @@ white-space: nowrap;
 	display: block;
 	opacity: 1;
 }
+
+
 
 /* @end */
 
@@ -942,9 +982,7 @@ h5 {
 
 /* @end */
 
-/* @grou
-
-p Stage */
+/* @group Stage */
 
 #content div.stage_wrapper {
 	position: relative;
@@ -960,7 +998,7 @@ p Stage */
 	position: absolute;
 	width: 150px;
 	border-radius: 200px;
-	background-color: rgba(255,255,255,0.98);
+	background-color: rgba(255,255,255,0.5);
 	color: black;
 	height: 150px;
 	text-align: center;
@@ -1004,13 +1042,15 @@ p Stage */
 }
 
 #stage div a.img .wrap h4 {
-	font-size: 14px;
+	font-size: 13px;
 	left: 0;
 	width: 80%;
-	line-height: 17px;
+	line-height: 15px;
 	text-align: center;
 	padding-left: 10%;
 	padding-right: 10%;
+	font-weight: 400;
+  margin-top: 2px;
 }
 
 #stage {
