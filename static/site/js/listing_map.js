@@ -21,8 +21,8 @@
         var $oList = $('#object_list');
         if ($oList.length) {
             var oOptions = {
-                zoom: 15,
-                center: new google.maps.LatLng(52.523781, 13.411895),
+                zoom: 13,
+                center: new google.maps.LatLng(52.515306, 13.363863),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControlOptions: {
                     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
@@ -155,7 +155,9 @@
             });
         }
         // FIT MAP
-        fit_map(oMap, aPoints);
+        if (document.location.search) {
+            fit_map(oMap, aPoints);
+        }
 
     }
     
