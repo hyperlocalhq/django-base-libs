@@ -22,57 +22,10 @@
 
 
 {% block content %}
-    <div class="marginal">
-        <ul class="social">
-            <li><a class="facebook" href="#">Facebook</a></li>
-            <li><a class="twitter" href="#">Twitter</a></li>
-            <li><a class="newsletter" href="#">Newsletter</a></li>
-            <li><a class="rss" href="#">RSS</a></li>
-            <li><span>Coming soon…</span></li>
-            
-            <li><a class="journal" href="#"><span>Hier erhältlich…</span></a></li>
-        </ul>
-        <div id="kurze_zeit">
-	        <h2 class="catHead">→ Nur noch kurze Zeit</h2>
-	        {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-	        {% for exhibition in exhibitions_closing_soon %}
-	            <div onclick="location.href='{% url exhibition_detail slug=exhibition.slug %}';">
-	                {% if exhibition.image %}
-	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
-	                {% endif %}
-	                <h4>{{ exhibition.museum.title }}</h4>
-	                <h3>{{ exhibition.title }}</h3>
-	                <h5>bis {{ exhibition.end|date:"j.n.y" }}</h5>
-	                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
-	            </div>
-	        {% endfor %}
-        </div>
-    </div>
-    
-    <div class="stage_wrapper">
-        {% slideshow "start_slideshow" %}
-    </div>
-    
-    <div class="colWrapper">
-	    <div id="neu" class="leftCol">
-	        <h2 class="catHead">→ Neu eröffnet</h2>
-	        {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
-	        {% for exhibition in exhibitions_newly_opened %}
-	            <div class="article short" onclick="location.href='{% url exhibition_detail slug=exhibition.slug %}';">
-	                {% if exhibition.image %}
-	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
-	                {% endif %}
-	                <h4>{{ exhibition.museum.title }}</h4>
-	                <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
-	                <p>{{ exhibition.description|striptags }}</p>
-	                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
-	            </div>
-	        {% endfor %}
-	    </div>
-	    <div id="redaktion" class="rightCol">
-	        <h2 class="catHead">→ Aus der Redaktion</h2>
-            {% placeholder "start_page_content" %}
-	    </div>
-    </div>
+    {% if LANGUAGE_CODE == "de" %}
+        {% include "cms/includes/start_de.html" %}
+    {% else %}
+        {% include "cms/includes/start_en.html" %}
+    {% endif %}
 {% endblock %}
 

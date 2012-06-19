@@ -1,0 +1,30 @@
+{% load base_tags cms_tags i18n image_modifications slideshows %}
+
+<div class="marginal">
+    <ul class="social">
+        <li><a class="facebook" href="#">Facebook</a></li>
+        <li><a class="twitter" href="#">Twitter</a></li>
+        <li><a class="newsletter" href="#">Newsletter</a></li>
+        <li><a class="rss" href="#">RSS</a></li>
+        <li><span>Coming soon…</span></li>
+        
+        <li><a class="journal" href="#"><span>Hier erhältlich…</span></a></li>
+    </ul>
+    <div id="kurze_zeit">
+        {% placeholder "right_column" %}
+    </div>
+</div>
+
+<div class="stage_wrapper">
+    {% slideshow "start_slideshow" %}
+</div>
+
+<div class="colWrapper">
+    <div id="neu" class="leftCol">
+        {% placeholder "left_column" %}
+    </div>
+    <div id="redaktion" class="rightCol">
+        {% placeholder "center_column" %}
+    </div>
+</div>
+

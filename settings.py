@@ -328,6 +328,18 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Start Page Content")
     },
+    'left_column': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Left Column")
+    },
+    'center_column': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Center Column")
+    },
+    'right_column': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Right Column")
+    },
 }
 
 CMS_TEMPLATES = (
