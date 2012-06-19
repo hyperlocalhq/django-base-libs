@@ -178,6 +178,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.exhibitions",
     "museumsportal.apps.slideshows",
     "museumsportal.apps.editorial",
+    "museumsportal.apps.articles",
 )
 
 
@@ -192,16 +193,19 @@ ADMIN_APP_INDEX = (
             }),            
             ('blocks', {                
                     'models': ('InfoBlock',),
-            }),            
+            }),
             ('museums', {
                 'models': ('MuseumCategory','Museum',),
                 }),            
             ('exhibitions', {
                 'models': ('Exhibition',),
-                }),            
+                }),
             ('slideshows', {
                 'models': ('Slideshow',),
-                }),            
+                }),     
+            ('articles', {
+                'models': ('ArticleCategory','Article',),
+                }),
          )
     },
     {
@@ -317,7 +321,7 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Top Image")
     },
     'main_content': {
-        'plugins': ("RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin"),
+        'plugins': ("RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
         'name': _("Main Content")
     },
     'start_page_content': {
@@ -330,6 +334,7 @@ CMS_TEMPLATES = (
     ('cms/default.html', gettext('Default Template')),
     ('cms/start.html', gettext('Start Page Template')),   
     ('cms/visitor_info.html', 'Besucherinfo Template'),   
+    ('cms/series.html', 'Serien Template'),   
 )
 
 CMS_APPHOOKS = (
@@ -367,6 +372,8 @@ FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
 
 execfile(os.path.join(ROOT_PATH, "jetson/settings/grappelli.py"))
 GRAPPELLI_ADMIN_HEADLINE = "Berliner Museumsportal Admin"
+
+ARTICLES_HAVE_TYPES = False
 
 # TEMPLATE TAGS FROM BASE_LIBS
 #from django.utils.importlib import import_module
