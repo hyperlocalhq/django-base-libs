@@ -53,6 +53,7 @@ class ArticleCategory(MPTTModel, CreationModificationDateMixin, UrlMixin, SlugMi
 
 class Article(ArticleBase):
     category = TreeForeignKey("articles.ArticleCategory", verbose_name=_("Category"), blank=True, null=True)
+    short_title = models.CharField(_('short title'), max_length=255, blank=True, default="")
 
 
 class ArticleSelection(CMSPlugin):

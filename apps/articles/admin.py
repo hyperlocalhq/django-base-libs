@@ -35,7 +35,7 @@ class ArticleOptions(ExtendedModelAdmin):
     fieldsets = []
     if ARTICLES_HAVE_TYPES:
         fieldsets += [(None, {'fields': ('article_type',)}),]
-    fieldsets += [(_("Article"), {'fields': ('title', 'subtitle', 'content', 'description', 'category', 'language')})]
+    fieldsets += [(_("Article"), {'fields': ('title', 'subtitle', 'short_title', 'content', 'description', 'category', 'language')})]
     fieldsets += [(None, {'fields': ('slug', 'is_featured')}),]
     fieldsets += [(_('Additional Content'), {
         'classes': ("collapse open",),
