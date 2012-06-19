@@ -33,6 +33,7 @@
 	http://127.0.0.1:8000/static/7851/site/css/style.css
 	http://www.berlin-music-week.de/static/7757/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7860/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7871/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -112,7 +113,7 @@ a:active {
 
 /* @group Kurze Zeit */
 
-#kurze_zeit div {
+#kurze_zeit .article {
 	margin-left: -25px;
 	position: relative;
 	float: left;
@@ -124,7 +125,7 @@ a:active {
   padding-right: 25px;
 }
 
-/*#kurze_zeit div:hover {
+/*#kurze_zeit .article:hover {
 background-color: white;}*/
 
 #kurze_zeit .img {
@@ -137,7 +138,7 @@ background-color: white;}*/
 	margin-top: 2px;
 }
 
-#kurze_zeit div a.proceed {
+#kurze_zeit .article a.proceed {
 	position: absolute;
 	left: 44px;
 	display: inline-block;
@@ -155,20 +156,20 @@ background-color: white;}*/
 	-moz-transition-timing: ease-in-out;
 }
 
-#kurze_zeit div:hover a.proceed {
+#kurze_zeit .article:hover a.proceed {
 	opacity: 1;
 	margin-left: 0px;
 }
 
-#kurze_zeit div h3,
-#kurze_zeit div h4,
-#kurze_zeit div h5 {
+#kurze_zeit .article h3,
+#kurze_zeit .article h4,
+#kurze_zeit .article h5 {
 	font-size: 11px;
 	line-height: 17px;
 	padding-left: 73px;
 }
 
-#kurze_zeit div h3 {
+#kurze_zeit .article h3 {
 	font-weight: 600;
 }
 

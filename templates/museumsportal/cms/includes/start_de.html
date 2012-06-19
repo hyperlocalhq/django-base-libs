@@ -13,7 +13,7 @@
         <h2 class="catHead">→ Nur noch kurze Zeit</h2>
         {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
         {% for exhibition in exhibitions_closing_soon %}
-            <div onclick="location.href='{% url exhibition_detail slug=exhibition.slug %}';">
+            <div class="article" onclick="location.href='{% url exhibition_detail slug=exhibition.slug %}';">
                 {% if exhibition.image %}
                     <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
                 {% endif %}
