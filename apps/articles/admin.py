@@ -8,7 +8,7 @@ ArticleCategory = models.get_model("articles", "ArticleCategory")
 class ArticleCategoryOptions(TreeEditor):
     save_on_top = True
     search_fields = ('title',)    
-    list_display = ['indented_short_title', 'actions_column']
+    list_display = ['actions_column', 'indented_short_title',]
     list_filter = ("creation_date",)
  
     fieldsets = [(None, {'fields': ('slug',)}),]
