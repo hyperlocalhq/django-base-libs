@@ -1,5 +1,5 @@
 {% load i18n image_modifications %}
-<div class="cms-plugin-headline article short">
+<div class="cms-plugin-headline article short" onclick="location.href='{{ object.website }}';">
     {% if object.image %}
         <a class="img" href="{{ object.website }}"><img src="{{ MEDIA_URL }}{{ object.image|modified_path:"exhibition_list" }}" alt="" /></a>
     {% endif %}

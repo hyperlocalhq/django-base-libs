@@ -35,12 +35,15 @@ class ArticleOptions(ExtendedModelAdmin):
     fieldsets = []
     if ARTICLES_HAVE_TYPES:
         fieldsets += [(None, {'fields': ('article_type',)}),]
-    fieldsets += [(_("Article"), {'fields': ('title', 'subtitle', 'content', 'description', 'language')})]
-    fieldsets += [(None, {'fields': ('slug', 'is_featured', 'category')}),]
-    fieldsets += PublishingMixinAdminOptions.fieldsets
+    fieldsets += [(_("Article"), {'fields': ('title', 'subtitle', 'content', 'description', 'category', 'language')})]
+    fieldsets += [(None, {'fields': ('slug', 'is_featured')}),]
     fieldsets += [(_('Additional Content'), {
-        'classes': ("collapse closed",),
+        'classes': ("collapse open",),
         'fields': ['image', (_("Description"), {'fields':['image_title', 'image_description']})]
+    }),]
+    fieldsets += [(_('Publish Status'), {
+        'fields': ('author', 'status', 'published_from', 'published_till',),
+        'classes': ("collapse open",),
         }),
     ]
 

@@ -1,4 +1,5 @@
 {% load menu_tags %}
 {% for language in languages %}
-    <li><a href="{% page_language_url language.0 %}"{% ifequal current_language language.0 %} class="current"{% endifequal %}>{{ language.0|upper }}</a></li>
+    {% comment %}<!--<li><a href="{% page_language_url language.0 %}"{% ifequal current_language language.0 %} class="current"{% endifequal %}>{{ language.0|upper }}</a></li>-->{% endcomment %}
+    <li><a href="/{{ language.0 }}/"{% ifequal current_language language.0 %} class="current"{% endifequal %}>{{ language.0|upper }}</a></li>
 {% endfor %}
