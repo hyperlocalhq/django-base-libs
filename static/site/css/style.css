@@ -30,6 +30,9 @@
 	http://test.berliner-museumsportal.de/static/7831/site/css/style.css
 	http://127.0.0.1:8000/static/7834/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7840/site/css/style.css
+	http://127.0.0.1:8000/static/7851/site/css/style.css
+	http://www.berlin-music-week.de/static/7757/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7860/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -244,6 +247,7 @@ ul#lang {
 	color: black;
 }
 
+.ancestor>a:link,
 .selected>a:link,
 .selected>a:visited {
 	color: #00aa5a !important;
@@ -314,9 +318,10 @@ ul#az_filter li {
 	margin-left: -1px;
 }
 
-ul#az_filter li.active a:link {
+ul#az_filter li.active a:link,
+ul#az_filter li.active a:visited {
 	background-color: black;
-	color: white;
+	color: white !important;
 	font-weight: 700 !important;
 }
 
@@ -355,8 +360,7 @@ ul#az_filter li  a#id_abc_filter_ {
   width: 51px;
 }
 
-ul#az_filter li a:hover,
-ul#az_filter li a:visited {
+ul#az_filter li a:hover {
 	background-color: black;
 	color: white;	
 	font-weight: 700 !important;
@@ -374,10 +378,14 @@ ul#az_filter li a:visited {
 
 /* @group museum_list */
 
-#object_list div.article div.marker-link a {
+#object_list div.article div.marker-link a:link {
   position: absolute;
   top: 5px;
   right: 10px;
+}
+
+#object_list div.article div.marker-link a:hover {
+opacity: 0.4;
 }
 
 #museum_list {
@@ -660,14 +668,52 @@ ul.social li a.journal:hover span {
   padding: 15px 25px;
 }
 
-#content div.cms-plugin-richtext h1,
-#content div.cms-plugin-richtext h2,
-#content div.cms-plugin-richtext h3,
-#content div.cms-plugin-richtext h4,
-#content div.cms-plugin-richtext ul,
-#content div.cms-plugin-richtext p {
+#content div.cms-plugin-richtext>h1,
+#content div.cms-plugin-richtext>h2,
+#content div.cms-plugin-richtext>h3,
+#content div.cms-plugin-richtext>h4,
+#content div.cms-plugin-richtext>ul,
+#content div.cms-plugin-richtext>p {
 	padding-left: 240px;
 }
+
+#content div.cms-plugin-richtext table {
+  vertical-align: text-top;
+  font-size: 19px;
+  margin: -15px -26px -15px -25px;
+}
+
+#content div.cms-plugin-richtext table tr  {
+  vertical-align: top;	
+	border-bottom: 1px solid #e5e3df;
+}
+
+
+#content div.cms-plugin-richtext table tr th {
+  padding: 15px 15px 15px 20px;
+}
+#content div.cms-plugin-richtext table tr td {
+  padding: 12px 15px 15px 20px;
+}
+
+#content div.cms-plugin-richtext table tr td,
+#content div.cms-plugin-richtext table tr th {	
+  border-right: 1px solid #e5e3df;
+}
+
+
+#content div.cms-plugin-richtext table tr td p,
+#content div.cms-plugin-richtext table tr th p{
+  font-size: 12px;
+  padding: 0;
+}
+
+#content div.cms-plugin-richtext table tr th p{
+font-weight: 20000;
+  font-size: 30px;
+}
+
+
 
 #content div.cms-plugin-richtext h2 {
 	font-weight: 400;
@@ -786,7 +832,7 @@ background-color: #000;
   line-height: 19px;
 }
 
-div.cms-plugin-richtext p:last-child a:hover {	
+div.cms-plugin-richtext>p:last-child a:hover {	
 	background-color: #00aa5a;
 	color: #fff;
 }
@@ -1280,18 +1326,30 @@ opacity: 0.7;}
 
 #gmap div div.info_window div div.contact-mapped {
   position: absolute;
-  top: 22px;
+  top: 24px;
   left: 23px;
 }
 
-#gmap div div.info_window div * {
+#gmap div div.info_window div p,
+#gmap div div.info_window div h4,
+#gmap div div.info_window div a:link
+ {
   font-size: 12px;
   line-height: 19px;
   padding: 0;
   white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	width: 253px;
+	width: 153px;
+	float: left;
+}
+
+#gmap div div.info_window div div.contact-mapped img {
+float: left;
+  margin-right: 10px;
+  	border: 2px solid #fff;
+	-webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
+
 }
 
 #gmap div div.info_window div div.contact-mapped h4 {
