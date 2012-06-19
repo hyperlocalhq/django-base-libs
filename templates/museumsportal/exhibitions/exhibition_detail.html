@@ -7,7 +7,7 @@
 	        <h2 class="catHead">→ Nur Noch kurze Zeit</h2>
 	        {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
 	        {% for exhibition in exhibitions_closing_soon %}
-	            <div>
+	            <div class="article">
 	                {% if exhibition.image %}
 	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
 	                {% endif %}
@@ -32,7 +32,15 @@
 	                        {{ exhibition.image_caption }}
 	                    </div>
 	                </div>
-	            {% endif %}	           	
+	            {% endif %}
+                <dl class="address">
+                    <dt>{% trans "Location" %}</dt>
+                    <dd><a href="{% url museum_detail slug=exhibition.museum.slug %}">{{ exhibition.museum.title }}</a></dd>
+                    <dd>{{ exhibition.museum.street_address }}</dd>
+                    {% if exhibition.museum.street_address2 %}<dd>{{ exhibition.museum.street_address2 }}</dd>{% endif %} 
+                    <dd>{{ exhibition.museum.postal_code }} {{ exhibition.museum.city }}</dd>
+                </dl>
+	           	
 	            <dl class="von">
 	                <dt>{% trans "Start" %}</dt>
 	                <dd>{{ exhibition.start|date:"j. M Y" }}</a></dd>

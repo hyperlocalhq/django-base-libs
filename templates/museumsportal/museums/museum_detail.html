@@ -4,17 +4,27 @@
 {% block content %}
     <div class="marginal">
         <div id="kurze_zeit">
-	        <h2 class="catHead">→ Nur Noch kurze Zeit</h2>
-	        {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
-	        {% for exhibition in exhibitions_closing_soon %}
-	            <div>
+	        <h2 class="catHead">→ {% trans "Exhibitions" %}</h2>
+	        {% for exhibition in object.get_published_exhibitions %}
+	            <div class="article">
 	                {% if exhibition.image %}
 	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
 	                {% endif %}
 	                <h4>{{ exhibition.museum.title }}</h4>
 	                <h3>{{ exhibition.title }}</h3>
-	                <h5>bis {{ exhibition.end|date:"j.n.y" }}</h5>
+	                <h5>{% trans "till" %} {{ exhibition.end|date:"j.n.y" }}</h5>
 	                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
+	            </div>
+	        {% endfor %}
+	        <h2 class="catHead">→ {% trans "Museums with the Same Categories" %}</h2>
+	        {% for museum in object.get_museums_with_the_same_categories %}
+	            <div class="article">
+	                {% if museum.image %}
+	                    <a class="img" href="{% url museum_detail slug=museum.slug %}"><img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
+	                {% endif %}
+	                <h4>{{ museum.title }}</h4>
+	                <h3>{{ museum.subtitle }}</h3>
+	                <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}</a>
 	            </div>
 	        {% endfor %}
         </div>
