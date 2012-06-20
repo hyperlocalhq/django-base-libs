@@ -2,12 +2,12 @@
 
 <div id="stage" class="clearfix">
     {% for slide in slides %}
-        <div class="slide{% if slide.highlight %} highlight{% endif %}">
+        <div class="slide">
             {% if slide.link %}<a href="{{ slide.link }}">{% endif %}
               
                 <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="{{ slide.alt }}" width="640" height="260" />
              	
-                <table class="wrap">
+                <table class="wrap{% if slide.highlight %} highlight{% endif %}">
                     <tr>
                         <td>
                             <div class="h3">{{ slide.get_rendered_title }}</div>
