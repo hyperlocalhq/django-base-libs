@@ -35,6 +35,8 @@
 	http://test.berliner-museumsportal.de/static/7860/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7871/site/css/style.css
 	http://127.0.0.1:8000/static/7874/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7884/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7889/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -120,7 +122,7 @@ a:active {
 	float: left;
 	display: block;
 	width: 259px;
-  padding: 15px 25px;	
+  padding: 13px 25px 15px;	
   border-top: 1px solid #e5e3df;
 	border-bottom: 1px solid #e5e3df;
   margin-top: -1px;
@@ -137,7 +139,7 @@ background-color: white;
 	display: block;
 	float: left;
 	margin-bottom: 0;
-	margin-top: 2px;
+	margin-top: 4px;
 }
 
 #kurze_zeit .article a.proceed {
@@ -169,7 +171,14 @@ opacity: 1;
 }
 
 #kurze_zeit h2.catHead {
-	
+  float: left;
+  width: 100%;
+  margin-top: 30px;
+}
+
+#kurze_zeit h2.catHead:first-child {
+
+  margin-top: 0px;
 }
 
 /* @end */
@@ -179,7 +188,7 @@ opacity: 1;
 .navigation {
 	font-weight: 100;
 	float: left;
-	font-size: 17px;
+	font-size: 18px;
 	line-height: 22px;
 	width: 950px;
 	padding: 16px 25px 20px;
@@ -258,7 +267,6 @@ ul#lang {
 /* @group Content */
 
 #filter {
-	padding-top: 11px;
 	padding-bottom: 25px;
 	width: 260px;
 	font-size: 13px;
@@ -498,7 +506,6 @@ white-space: nowrap;
 	font-weight: 200;
 	font-size: 26px;
 	line-height: 34px;
-	margin-bottom: 5px;
 }
 
 #detail div.article div.rightCol h3.museum_title {
@@ -708,15 +715,20 @@ font-weight: 20000;
 #content div.cms-plugin-richtext h2 {
 	font-weight: 400;
 	font-size: 26px;
-	line-height: 34px;
+	line-height: 32px;
 	margin-top: 0;
+  margin-bottom: 13px;
 }
 
 #content div.cms-plugin-richtext h3 {
 	font-weight: 200;
 	font-size: 26px;
-	line-height: 34px;
-	margin-bottom: 6px;
+	line-height: 32px;
+	margin-bottom: 13px;
+}
+
+#content div.cms-plugin-richtext h3:nth-child(2) {
+  margin-top: -13px;
 }
 
 #content div.cms-plugin-richtext p.img_left {
@@ -726,11 +738,11 @@ font-weight: 20000;
 	width: 196px;
 	position: relative;
 	top: 5px;
-	padding: 0;
 	font-weight: 400;
 	margin-bottom: 0;
 	margin-right: auto;
 	height: 0;
+  padding: 0;
 }
 
 #content .cms-plugin-richtext .img_block {
@@ -805,6 +817,7 @@ a.img:hover {
 	margin-bottom: 0px;
 }
 
+div.cms-plugin-richtext p a.proceed,
 div.cms-plugin-richtext p:last-child a:link,
 div.cms-plugin-richtext p:last-child a:visited {	
 background-color: #000;
@@ -865,6 +878,11 @@ div.cms-plugin-richtext>p:last-child a:hover {
 	padding-top: 15px;
 	margin-left: 20px;
 }
+
+#detail div.article div.rightCol div.text {
+  padding-top: 15px;
+}
+
 #detail div.article div.leftCol {
 	width: 196px;
 	padding-right: 0;
@@ -976,13 +994,12 @@ div.cms-plugin-richtext>p:last-child a:hover {
 }
 
 #content div p,
-#content .text,
 .cms-plugin-richtext ul {
 	font-size: 15px;
 	line-height: 24px;
 	color: #131313;
-	padding-bottom: 15px;
 	font-weight: 200;
+  padding-bottom: 15px;
 }
 
 
@@ -1020,12 +1037,14 @@ background-color: white;
 }
 
 .catHead {
-	font-weight: 500;
-	font-size: 14px;
-	padding-bottom: 13px;
-	text-indent: -2px;
-	padding-top: 13px;
-	line-height: 16px;
+
+	
+	  font-size: 18px;
+  line-height: 23px;
+  padding-top: 13px;
+  padding-bottom: 15px;
+  font-weight: 300;
+
 }
 
 .article.short {
@@ -1327,10 +1346,10 @@ opacity: 0.7;}
 	font-weight: 300;
 	display: block;
 	border-color: #e5e3df;
-	width: 100%;
+	width: 284px;
 	margin-left: -25px;
 	margin-top: 0;
-	line-height: 14px;
+	line-height: 18px;
 	padding-top: 8px;
 	padding-bottom: 11px;
 	padding-left: 25px;
@@ -1339,7 +1358,9 @@ opacity: 0.7;}
 background-color: white;
 }
 #sub_menu li ul li a {
-	text-indent: 25px;
+	padding-left: 50px !important;
+  width: 234px !important;
+  padding-right: 25px;
 }
 
 #sub_menu>li>a:link {
