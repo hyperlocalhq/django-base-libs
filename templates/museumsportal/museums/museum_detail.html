@@ -22,9 +22,9 @@
 	                {% if museum.image %}
 	                    <a class="img" href="{% url museum_detail slug=museum.slug %}"><img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
 	                {% endif %}
-	                <h4>{{ museum.title }}</h4>
-	                <h3>{{ museum.subtitle }}</h3>
-	                <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}</a>
+	                <h3> <a href="{% url museum_detail slug=museum.slug %}">{{ museum.title }}</a></h3>
+	                <h4>{{ museum.subtitle }}</h4>
+	               
 	            </div>
 	        {% endfor %}
         </div>
