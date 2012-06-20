@@ -4,7 +4,11 @@
 {% block content %}
 	<div class="marginal">
 		<ul id="sub_menu">
-            {% show_menu_below_id "start_page" 1 100 100 100 "menu/side_menu.html" %}
+		    {% if LANGUAGE_CODE == "de" %}
+                {% show_menu_below_id "visitor_info_de" 0 100 100 100 "menu/side_menu.html" %}
+            {% else %}
+                {% show_menu_below_id "visitor_info_en" 0 100 100 100 "menu/side_menu.html" %}
+            {% endif %}
 		</ul>
 	</div>
     {% placeholder "main_content" %}
