@@ -44,7 +44,7 @@
     <div id="museum_list">
         <div id="object_list">
         {% for museum in object_list %}
-            <div class="article">
+            <div class="article" onclick="location.href='{% url museum_detail slug=museum.slug %}';" style="cursor: pointer">
                 <h2>{{ museum.title }}</h2>
                 <a class="proceed" href="{% url museum_detail slug=museum.slug %}">{% trans "more" %}</a>
                 
