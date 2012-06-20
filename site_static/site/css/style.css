@@ -1130,6 +1130,15 @@ h5 {
   top: -35px;
 }
 
+#stage .wrap.highlight {
+	background-color: #00aa5a;
+	color: white;
+}
+
+#stage .wrap.highlight .h4 p{
+font-weight: 500;
+}
+
 /*#stage div a.img div.wrap h4 {
  display: inline-block;
  margin-right: 5px;
@@ -1161,7 +1170,8 @@ h5 {
 	text-transform: uppercase;
 	font-weight: 700;
   margin: 0;
-  padding: 0 5%;
+  padding: 0 5%;  color: inherit;
+
 }
 
 #stage div. a.img table.wrap tbody tr td {
@@ -1186,6 +1196,7 @@ h5 {
 	padding-right: 10%;
   margin: 0;
   padding-bottom: 0;
+  color: inherit;
 }
 
 #stage {
