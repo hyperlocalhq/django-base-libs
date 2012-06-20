@@ -2,7 +2,7 @@
 
 <div id="stage" class="clearfix">
     {% for slide in slides %}
-        <div class="slide">
+        <div class="slide{% if slide.highlight %} highlight{% endif %}">
             {% if slide.link %}<a href="{{ slide.link }}">{% endif %}
               
                 <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="{{ slide.alt }}" width="640" height="260" />

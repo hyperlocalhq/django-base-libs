@@ -27,7 +27,7 @@ class Slide_Inline(ExtendedStackedInline):
     extra = 0
     fieldsets = get_admin_lang_section(None, ['title', 'subtitle', 'credits', 'alt'])
     fieldsets += [
-        (None, {'fields': ["path", "link"] }),
+        (None, {'fields': ["path", "link", "highlight"] }),
         ]
     fieldsets += [(None, {'fields': ("sort_order", )}),]
     classes = ('collapse open',)

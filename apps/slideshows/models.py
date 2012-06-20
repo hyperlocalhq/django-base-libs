@@ -32,6 +32,7 @@ class Slide(models.Model):
     title = MultilingualTextField(_("Title"), blank=True)
     subtitle = MultilingualTextField(_("Subtitle"), blank=True)
     credits = MultilingualCharField(_("Photo credits"), max_length=255, blank=True)
+    highlight = models.BooleanField(_("Highlight"))
     sort_order = PositionField(_("Sort order"), collection="slideshow")
 
     class Meta:
