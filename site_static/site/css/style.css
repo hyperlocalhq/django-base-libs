@@ -37,6 +37,7 @@
 	http://127.0.0.1:8000/static/7874/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7884/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7889/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7892/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -143,20 +144,9 @@ background-color: white;
 }
 
 #kurze_zeit .article a.proceed {
-	position: absolute;
-	left: 98px;
-	display: inline-block;
-	background-position: 0;
-  font-size: 10px;
-  height: 15px;
-  line-height: 16px;
-  bottom: 15px;
-  opacity: 0;
+display: none
   }
 
-#kurze_zeit .article:hover a.proceed {
-opacity: 1;
-}
 
 #kurze_zeit .article h3,
 #kurze_zeit .article h4,
@@ -805,6 +795,13 @@ a.img:hover {
 	display: block;
 }
 
+#kurze_zeit div.cms-plugin-headline.article.short a.img img {
+  height: 100%;
+}
+
+#kurze_zeit div.cms-plugin-headline.article.short a.img {
+position: relative;}
+
 .cms-plugin-richtext ul li {
 	border-bottom: 1px solid #e5e3df;
 	margin-bottom: 5px;
@@ -1126,6 +1123,8 @@ h5 {
 	text-align: center;
 	font-size: 25px !important;
 	-webkit-transform: rotate(8deg);
+	-moz-transform: rotate(8deg);
+	transform: rotate(8deg);
 	right: 21px;
 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
 	-moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
