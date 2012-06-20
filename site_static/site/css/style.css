@@ -171,7 +171,14 @@ opacity: 1;
 }
 
 #kurze_zeit h2.catHead {
-	
+  float: left;
+  width: 100%;
+  margin-top: 30px;
+}
+
+#kurze_zeit h2.catHead:first-child {
+
+  margin-top: 0px;
 }
 
 /* @end */
@@ -1031,12 +1038,14 @@ background-color: white;
 }
 
 .catHead {
-	font-weight: 500;
-	font-size: 14px;
-	padding-bottom: 13px;
-	text-indent: -2px;
-	padding-top: 13px;
-	line-height: 16px;
+
+	
+	  font-size: 20px;
+  line-height: 23px;
+  padding-top: 13px;
+  padding-bottom: 15px;
+  font-weight: 300;
+
 }
 
 .article.short {
