@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-20 21:06+0200\n"
-"PO-Revision-Date: 2012-06-19 21:47+0100\n"
+"PO-Revision-Date: 2012-06-20 21:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,11 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: settings.py:28 settings.py:305
+#: settings.py:28
+#: settings.py:305
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:29 settings.py:306
+#: settings.py:29
+#: settings.py:306
 msgid "English"
 msgstr "Englisch"
 
@@ -101,8 +103,10 @@ msgstr "Artikel"
 msgid "Additional Content"
 msgstr "Zusätzlicher Inhalt"
 
-#: apps/articles/admin.py:42 apps/editorial/models.py:15
-#: apps/exhibitions/admin.py:21 apps/exhibitions/models.py:39
+#: apps/articles/admin.py:42
+#: apps/editorial/models.py:15
+#: apps/exhibitions/admin.py:21
+#: apps/exhibitions/models.py:39
 #: apps/museums/models.py:44
 msgid "Description"
 msgstr "Beschreibung"
@@ -131,7 +135,8 @@ msgstr "Artikel Kategorie"
 msgid "Article Categories"
 msgstr "Artikel Kategorien"
 
-#: apps/articles/models.py:55 apps/museums/models.py:37
+#: apps/articles/models.py:55
+#: apps/museums/models.py:37
 msgid "Category"
 msgstr "Kategorie"
 
@@ -143,31 +148,41 @@ msgstr "Kurztitel"
 msgid "Editorial Content"
 msgstr "Redaktioneller Inhalt"
 
-#: apps/editorial/models.py:13 apps/exhibitions/admin.py:35
-#: apps/exhibitions/models.py:37 apps/museums/admin.py:21
-#: apps/museums/admin.py:41 apps/museums/models.py:29
-#: apps/museums/models.py:42 apps/slideshows/models.py:32
+#: apps/editorial/models.py:13
+#: apps/exhibitions/admin.py:35
+#: apps/exhibitions/models.py:37
+#: apps/museums/admin.py:21
+#: apps/museums/admin.py:41
+#: apps/museums/models.py:29
+#: apps/museums/models.py:42
+#: apps/slideshows/models.py:32
 msgid "Title"
 msgstr "Titel"
 
-#: apps/editorial/models.py:14 apps/exhibitions/models.py:38
-#: apps/museums/models.py:43 apps/slideshows/models.py:33
+#: apps/editorial/models.py:14
+#: apps/exhibitions/models.py:38
+#: apps/museums/models.py:43
+#: apps/slideshows/models.py:33
 msgid "Subtitle"
 msgstr "Untertitel"
 
-#: apps/editorial/models.py:16 apps/exhibitions/models.py:40
+#: apps/editorial/models.py:16
+#: apps/exhibitions/models.py:40
 #: templates/museumsportal/exhibitions/exhibition_detail.html:54
 #: templates/museumsportal/museums/museum_detail.html:73
 msgid "Website"
 msgstr "Website"
 
-#: apps/editorial/models.py:18 apps/exhibitions/models.py:45
+#: apps/editorial/models.py:18
+#: apps/exhibitions/models.py:45
 #: apps/museums/models.py:46
 msgid "Image"
 msgstr "Bild"
 
-#: apps/editorial/models.py:19 apps/exhibitions/admin.py:37
-#: apps/exhibitions/models.py:46 apps/museums/admin.py:43
+#: apps/editorial/models.py:19
+#: apps/exhibitions/admin.py:37
+#: apps/exhibitions/models.py:46
+#: apps/museums/admin.py:43
 #: apps/museums/models.py:47
 msgid "Image Caption"
 msgstr "Bildbeschreibung"
@@ -184,30 +199,37 @@ msgstr "Redaktionelle Inhalte"
 msgid "Time"
 msgstr "Zeit"
 
-#: apps/exhibitions/admin.py:39 apps/exhibitions/models.py:52
-#: apps/museums/admin.py:47 apps/museums/models.py:68
+#: apps/exhibitions/admin.py:39
+#: apps/exhibitions/models.py:52
+#: apps/museums/admin.py:47
+#: apps/museums/models.py:68
 msgid "Status"
 msgstr "Status"
 
-#: apps/exhibitions/admin.py:48 apps/exhibitions/models.py:35
+#: apps/exhibitions/admin.py:48
+#: apps/exhibitions/models.py:35
 #: apps/museums/models.py:75
 msgid "Museum"
 msgstr "Museum"
 
-#: apps/exhibitions/cms_app.py:8 apps/exhibitions/models.py:62
+#: apps/exhibitions/cms_app.py:8
+#: apps/exhibitions/models.py:62
 #: templates/museumsportal/museums/museum_detail.html:10
 msgid "Exhibitions"
 msgstr "Ausstellungen"
 
-#: apps/exhibitions/models.py:16 apps/museums/models.py:22
+#: apps/exhibitions/models.py:16
+#: apps/museums/models.py:22
 msgid "Draft"
 msgstr "Entwurf"
 
-#: apps/exhibitions/models.py:17 apps/museums/models.py:23
+#: apps/exhibitions/models.py:17
+#: apps/museums/models.py:23
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: apps/exhibitions/models.py:18 apps/museums/models.py:24
+#: apps/exhibitions/models.py:18
+#: apps/museums/models.py:24
 msgid "Not Listed"
 msgstr "Nicht auflisten"
 
@@ -215,7 +237,8 @@ msgstr "Nicht auflisten"
 msgid "Expired"
 msgstr "Abgelaufen"
 
-#: apps/exhibitions/models.py:20 apps/museums/models.py:25
+#: apps/exhibitions/models.py:20
+#: apps/museums/models.py:25
 msgid "Imported"
 msgstr "Importiert"
 
@@ -245,7 +268,8 @@ msgstr "Nur noch kurze Zeit"
 msgid "Exhibition"
 msgstr "Ausstellung"
 
-#: apps/museums/admin.py:44 apps/museums/models.py:38
+#: apps/museums/admin.py:44
+#: apps/museums/models.py:38
 #: apps/museums/models.py:49
 #: templates/museumsportal/museums/museum_detail.html:79
 msgid "Categories"
@@ -264,7 +288,8 @@ msgstr "Kontaktdaten"
 msgid "Geoposition?"
 msgstr "Geoposition?"
 
-#: apps/museums/cms_app.py:8 apps/museums/models.py:76
+#: apps/museums/cms_app.py:8
+#: apps/museums/models.py:76
 msgid "Museums"
 msgstr "Museen"
 
@@ -301,28 +326,16 @@ msgid "Latitude"
 msgstr "Breitengrad"
 
 #: apps/museums/models.py:56
-msgid ""
-"Latitude (Lat.) is the angle between any point and the equator (north pole "
-"is at 90; south pole is at -90)."
-msgstr ""
-"Latitude (Lat.) is the angle between any point and the equator (north pole "
-"is at 90; south pole is at -90)."
+msgid "Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."
+msgstr "Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."
 
 #: apps/museums/models.py:57
 msgid "Longitude"
 msgstr "Längengrad"
 
 #: apps/museums/models.py:57
-msgid ""
-"Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
-"from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
-msgstr ""
-"Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
-"from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+msgid "Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."
+msgstr "Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."
 
 #: apps/museums/models.py:59
 #: templates/museumsportal/museums/museum_detail.html:59
@@ -386,7 +399,7 @@ msgstr "Bildurheber"
 
 #: apps/slideshows/models.py:35
 msgid "Highlight"
-msgstr ""
+msgstr "Highlight"
 
 #: apps/slideshows/models.py:36
 msgid "Sort order"
@@ -428,12 +441,13 @@ msgstr "mehr"
 
 #: templates/museumsportal/museums/museum_detail.html:19
 msgid "till"
-msgstr ""
+msgstr "bis"
 
 #: templates/museumsportal/museums/museum_detail.html:23
 msgid "Museums with the same categories"
-msgstr ""
+msgstr "Themenverwandte Museen"
 
 #: templates/museumsportal/museums/museum_detail.html:51
 msgid "Address"
 msgstr "Adresse"
+
