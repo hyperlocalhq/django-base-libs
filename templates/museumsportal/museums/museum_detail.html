@@ -11,9 +11,9 @@
 	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
 	                {% endif %}
 	                <h4>{{ exhibition.museum.title }}</h4>
-	                <h3>{{ exhibition.title }}</h3>
+	                <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
 	                <h5>{% trans "till" %} {{ exhibition.end|date:"j.n.y" }}</h5>
-	                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
+	                
 	            </div>
 	        {% endfor %}
 	        <h2 class="catHead">→ {% trans "Museums with the Same Categories" %}</h2>
