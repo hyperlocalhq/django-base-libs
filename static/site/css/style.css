@@ -42,6 +42,7 @@
 	http://127.0.0.1:8000/static/7895/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7919/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7921/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7928/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -272,13 +273,12 @@ ul#lang {
 	width: 260px;
 	font-size: 13px;
 	line-height: 23px;
+  margin-left: -25px;
 }
 
-#filter li.open_on_mondays a {
-  margin-top: 15px;
-  padding-top: 15px;	
+#filter li.open_on_mondays>a {
+  margin-top: 30px;	
   border-top: 1px solid #e5e3df;
-
 }
 
 #filter li a {
@@ -291,29 +291,74 @@ ul#lang {
 	
 }
 
-#filter li.active {
-	/*
-
-color: #00aa5a;*/
- text-transform: none;
-	position: relative;
+#filter li {
+  width: 309px;
+  padding-right: 0;
+  position: relative;
 }
 
-#filter li.active a:link {
+#filter li.catHead {
+  padding-left: 25px;
+  padding-right: 0;
+  margin-right: 0;
+  margin-left: 0;
+  width: 283px;
+  height: 17px;
+  line-height: 17px;
+}
+
+#filter li.active {
+ text-transform: none;
+	position: relative;
+	background-color: white;
+  padding-top: 3px;
+  padding-bottom: 3px;
+	border-top: 1px solid #e5e3df;
+	border-bottom: 1px solid #e5e3df;
+  text-indent: 25px;
+  margin-bottom: -1px;
+}
+
+
+#filter li>a{
+ text-transform: none;
+	position: relative;
+  padding-top: 3px;
+  padding-bottom: 3px;
+	border-top: 1px solid #e5e3df;
+	border-bottom: 1px solid #e5e3df;
+  padding-left: 25px;
+  margin-bottom: -1px;
+}
+
+
+
+
+#filter li>a:hover{
+	background-color: white;
+}
+
+
+
+
+#filter li.active a.cancel:link {
 	position: absolute;
-	background-color: rgba(0,0,0,0.15);
-	color: white;
+	background-color: black;
+	color: white !important;
 	border-radius: 30px;
 	height: 16px;
 	width: 16px;
 	display: block;
-	right: -4px;
+	right: 8px;
 	top: 6px;
 	font-weight: 600;
 	text-align: center;
 	font-size: 16px;
 	padding: 0;
 	line-height: 16px;
+  float: right;
+  text-indent: 0;
+  border: none;
 }
 
 ul#az_filter {
@@ -328,10 +373,11 @@ ul#az_filter li {
 	border: 1px solid #e5e3df;
 	margin-top: -1px;
 	margin-left: -1px;
+	
 }
 
-ul#az_filter li.active a:link,
-ul#az_filter li.active a:visited {
+ul#az_filter li.active a.cancel:link,
+ul#az_filter li.active a.cancel:visited {
 	background-color: black;
 	color: white !important;
 	font-weight: 800 !important;  
@@ -385,7 +431,7 @@ ul#az_filter li a:hover {
 
 /* @group museum_list */
 
-#object_list div.article div.marker-link a:link {
+#object_list div.article div.marker-link {
   position: absolute;
   top: 5px;
   right: 10px;
@@ -458,7 +504,7 @@ opacity: 0.4;
 	float: left;
 	top: 12px;
 	left: 25px;
-	opacity: 0;
+	display: none;
   position: absolute;
 }
 
@@ -481,7 +527,6 @@ opacity: 0.4;
 #museum_list div.article:hover div.address,
 #museum_list div.article:hover a.proceed {
 	display: block;
-	opacity: 1;
 }
 
 
@@ -1067,6 +1112,7 @@ div.cms-plugin-richtext>p:last-child a:hover {
 	float: right;
 	margin-left: -10px;
 	padding-right: 25px;
+	min-height: 665px;
 }
 
 /* @end */
