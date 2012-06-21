@@ -41,6 +41,7 @@
 	http://test.berliner-museumsportal.de/static/7912/site/css/style.css
 	http://127.0.0.1:8000/static/7895/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7919/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7921/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -694,7 +695,9 @@ background-position: 7px 7px;
 #content div.cms-plugin-richtext table {
   vertical-align: text-top;
   font-size: 19px;
-  margin: -15px -26px -20px -25px;
+  margin-right: -26px;
+  margin-left: -25px;
+  margin-bottom: -20px;
 }
 
 #content div.cms-plugin-richtext table tbody tr td p a {
