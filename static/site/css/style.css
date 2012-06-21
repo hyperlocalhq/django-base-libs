@@ -43,6 +43,7 @@
 	http://test.berliner-museumsportal.de/static/7919/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7921/site/css/style.css
 	http://test.berliner-museumsportal.de/static/7928/site/css/style.css
+	http://test.berliner-museumsportal.de/static/7935/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -276,9 +277,8 @@ ul#lang {
   margin-left: -25px;
 }
 
-#filter li.open_on_mondays>a {
+#filter li.open_on_mondays {
   margin-top: 30px;	
-  border-top: 1px solid #e5e3df;
 }
 
 #filter li a {
@@ -506,18 +506,6 @@ opacity: 0.4;
 	left: 25px;
 	display: none;
   position: absolute;
-}
-
-#museum_list div.article div.address {
-	float: right;
-	position: absolute;
-	top: 14px;
-	font-size: 12px;
-	line-height: 17px;
-	text-align: right;
-	opacity: 0.2;
-	right: 25px;
-	color: gray;
 }
 
 #museum_list div.article div.address span {
@@ -890,7 +878,7 @@ font-weight: 20000;
 	position: relative;
 	-webkit-transition-property: opacity;
 	-moz-transition-property: opacity;
-	transition-property: webkit-box-shadow;
+	transition-property: opacity;
 	-webkit-transition-duration: 0.25s;
 	-moz-transition-duration: 0.25s;
 	transition-duration: 0.25s;
