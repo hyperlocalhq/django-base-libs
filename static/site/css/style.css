@@ -287,10 +287,6 @@ ul#lang {
 	display: block;
 }
 
-#filter li a:hover {
-	
-}
-
 #filter li {
   width: 309px;
   padding-right: 0;
@@ -305,18 +301,6 @@ ul#lang {
   width: 283px;
   height: 17px;
   line-height: 17px;
-}
-
-#filter li.active {
- text-transform: none;
-	position: relative;
-	background-color: white;
-  padding-top: 3px;
-  padding-bottom: 3px;
-	border-top: 1px solid #e5e3df;
-	border-bottom: 1px solid #e5e3df;
-  text-indent: 25px;
-  margin-bottom: -1px;
 }
 
 
@@ -336,29 +320,22 @@ ul#lang {
 
 #filter li>a:hover{
 	background-color: white;
+	color: black;
 }
 
 
 
 
 #filter li.active a.cancel:link {
-	position: absolute;
-	background-color: black;
-	color: white !important;
-	border-radius: 30px;
-	height: 16px;
-	width: 16px;
-	display: block;
-	right: 8px;
-	top: 6px;
-	font-weight: 600;
-	text-align: center;
-	font-size: 16px;
-	padding: 0;
-	line-height: 16px;
-  float: right;
-  text-indent: 0;
-  border: none;
+	background-position: 286px 6px;
+	background-repeat: no-repeat;
+  background-image: url(../img/cross.png);
+  background-color: white;
+}
+#filter li.active a.cancel:hover {
+	color: grey;
+  background-image: url(../img/cross_light.png);
+  background-color: transparent;
 }
 
 ul#az_filter {
@@ -1344,8 +1321,12 @@ h5 {
 	padding-right: 10%;
   margin: 0;
   padding-bottom: 0;
-  color: inherit;
+  color: white;
   font-weight: 700;
+}
+
+#stage .wrap.highlight .h3 p{
+  color: white;
 }
 
 #stage {
