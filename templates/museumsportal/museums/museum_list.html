@@ -33,7 +33,7 @@
             <li class="catHead">→ Filter</li>
             {% for cat in facets.categories.categories %}
                 {% if cat == facets.selected.category %}
-                    <li class="active">{{ cat.title }}<a href="{% append_to_get category="" %}">×</a></li>
+                    <li class="active">{{ cat.title }}<a class="cancel" href="{% append_to_get category="" %}">×</a></li>
                 {% else %}
                     <li><a href="{% append_to_get category=cat.pk %}">{{ cat.title }}</a></li>
                 {% endif %}
