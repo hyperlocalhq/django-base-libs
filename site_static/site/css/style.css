@@ -427,12 +427,8 @@ opacity: 0.4;
 	-webkit-transition-timing: ease-in-out;
 	-moz-transition-timing: ease-in-out;
 	margin-top: 1px;
-/*
+  float: left; 
 
-white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width: 172px;*/
 }
 
 #museum_list div.article a.img {
@@ -447,18 +443,18 @@ white-space: nowrap;
 }
 
 #museum_list div.article:hover h2 {
-	text-indent: 50px;
+	text-indent: 62px;
 	-webkit-transition-duration: 0s;
 	-moz-transition-duration: 0s;
 	transition-duration: 0s;
 }
 
 #museum_list div.article a.proceed {
-	float: right;
-	position: absolute;
-	top: 14px;
-	opacity: 0;
+	float: left;
+	top: 12px;
 	left: 25px;
+	opacity: 0;
+  position: absolute;
 }
 
 #museum_list div.article div.address {
@@ -644,6 +640,18 @@ ul.social li a.journal:hover span {
   font-size: 12px;
   line-height: 19px;
   text-indent: 0;
+background-repeat: no-repeat;
+background-position: 7px 7px;
+
+	-webkit-transition-property: padding;
+	-moz-transition-property: padding;
+	transition-property: padding;
+	-webkit-transition-duration: 0.125s;
+	-moz-transition-duration: 0.125s;
+	transition-duration: 0.125s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
+
 }
 
 #content div.cms-plugin-richtext>*>a:link {
@@ -658,6 +666,8 @@ ul.social li a.journal:hover span {
 #content div a.proceed:hover {
 	background-color: #00aa5a;
 	color: #fff;
+  background-image: url(../img/more.png);
+  padding-left: 15px;
 }
 
 #content div.cms-plugin-richtext {
@@ -882,11 +892,26 @@ background-color: #000;
   position: relative;
   font-size: 12px;
   line-height: 19px;
+  
+  background-repeat: no-repeat;
+background-position: 7px 7px;
+
+	-webkit-transition-property: padding;
+	-moz-transition-property: padding;
+	transition-property: padding;
+	-webkit-transition-duration: 0.125s;
+	-moz-transition-duration: 0.125s;
+	transition-duration: 0.125s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
 }
 
 div.cms-plugin-richtext>p:last-child a:hover {	
 	background-color: #00aa5a;
 	color: #fff;
+	  background-image: url(../img/more.png);
+  padding-left: 15px;
+
 }
 
 
