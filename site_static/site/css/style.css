@@ -318,20 +318,17 @@ ul#lang {
 	color: black;
 }
 
-#filter li.active a.cancel:link {	
+#filter li.active a:link {	
 	background: white url(../img/cross.png) no-repeat 286px 6px;
 	background-position: 286px 6px;
 	background-repeat: no-repeat;
 	background-image: url(../img/cross.png);
 	background-color: white;	
-
-
 }
 
 #filter li.active a.cancel:hover {
 	color: grey;
 	background: transparent url(../img/cross_light.png) no-repeat 286px 6px;
-
 	background-image: url(../img/cross_light.png);
 	background-color: transparent;
 }
