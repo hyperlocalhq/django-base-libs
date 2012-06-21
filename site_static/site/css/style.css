@@ -278,12 +278,6 @@ ul#lang {
 	margin-top: 30px;
 }
 
-#filter li a {
-	font-weight: 200;
-	text-transform: none;
-	display: block;
-}
-
 #filter li {
 	width: 309px;
 	padding-right: 0;
@@ -300,7 +294,11 @@ ul#lang {
 	line-height: 17px;
 }
 
-#filter li>a {
+
+#filter li a:link {	font-weight: 200;
+	text-transform: none;
+	display: block;
+
 	text-transform: none;
 	position: relative;
 	padding-top: 3px;
@@ -313,24 +311,28 @@ ul#lang {
 	background-repeat: no-repeat;
 }
 
-#filter li>a:hover {
+#filter li a:hover {
 	background-color: white;
 	color: black;
 }
 
 #filter li.active a:link {	
-	background: white url(../img/cross.png) no-repeat 286px 6px;
-	background-position: 286px 6px;
-	background-repeat: no-repeat;
-	background-image: url(../img/cross.png);
 	background-color: white;	
 }
 
-#filter li.active a.cancel:hover {
-	color: grey;
-	background: transparent url(../img/cross_light.png) no-repeat 286px 6px;
-	background-image: url(../img/cross_light.png);
+#filter li.active a.cancel img {
+	position: absolute;
+  right: 10px;
+  top: 6px;
+}
+
+#filter li.active a.cancel:hover img {
+opacity: 0.25;
+}
+
+#filter li.active a:hover {
 	background-color: transparent;
+	color: grey;
 }
 
 ul#az_filter {
