@@ -764,7 +764,7 @@ font-weight: 20000;
 }
 
 #content div.cms-plugin-richtext h3:nth-child(1) {
-  margin-top: 0;
+  margin-top: 15px;
 }
 
 
@@ -1081,6 +1081,14 @@ div.cms-plugin-richtext>p:last-child a:hover {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+#photocredits {
+  	font-size: 12px;
+	line-height: 20px;
+
+}
+
+
 
 #content div>p:last-child,
 .cms-plugin-richtext ul:last-child {
