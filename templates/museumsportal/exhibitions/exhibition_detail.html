@@ -4,7 +4,7 @@
 {% block content %}
     <div class="marginal">
         <div id="kurze_zeit">
-	        <h2 class="catHead">→ Nur Noch kurze Zeit</h2>
+	        <h2 class="catHead">→ Nur noch kurze Zeit</h2>
 	        {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
 	        {% for exhibition in exhibitions_closing_soon %}
 	            <div class="article">
