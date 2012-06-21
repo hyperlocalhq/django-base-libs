@@ -2,6 +2,7 @@
 
 from django.db import models
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from jetson.apps.utils.views import object_list, object_detail
 from jetson.apps.utils.views import get_abc_list
@@ -18,6 +19,12 @@ class MuseumSearchForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(Museum, "categories"),
         )
+    open_on_mondays = forms.BooleanField(
+        required=False,
+        )
+    free_entrance = forms.BooleanField(
+        required=False,
+        )
 
 def museum_list(request):
     qs = Museum.objects.filter(status="published")
@@ -28,6 +35,8 @@ def museum_list(request):
         'selected': {},
         'categories': {
             'categories': MuseumCategory.objects.all(),
+            'open_on_mondays': _("Open on Mondays"),
+            'free_entrance': _("Free entrance"),
             },
         }
     
@@ -38,6 +47,18 @@ def museum_list(request):
             qs  = qs .filter(
                 categories=cat,
                 ).distinct()
+        open_on_mondays = form.cleaned_data['open_on_mondays']
+        if open_on_mondays:
+            facets['selected']['open_on_mondays'] = True
+            qs  = qs .filter(
+                open_on_mondays=True,
+                )
+        free_entrance = form.cleaned_data['free_entrance']
+        if free_entrance:
+            facets['selected']['free_entrance'] = True
+            qs  = qs .filter(
+                free_entrance=True,
+                )
     
     abc_filter = request.GET.get('by-abc', None)
     abc_list = get_abc_list(qs, "title", abc_filter)
