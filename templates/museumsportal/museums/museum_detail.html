@@ -84,19 +84,21 @@
 	                    </dd>
 	                </dl>
 	                
-	                <dl class="additional">
-	                    <dt>{% trans "Plus" %}</dt>
-	                    {% if museum.open_on_mondays %}
-	                        <dd>
-	                            {% trans "Open on Mondays" %}
-	                        </dd>
-	                    {% endif %}
-	                    {% if museum.free_entrance %}
-	                        <dd>
-	                       	 {% trans "Free entrance" %}
-	                        </dd>
-	                    {% endif %}
-	                </dl>
+	                {% if museum.open_on_mondays or museum.free_entrance %}
+		                <dl class="additional">
+		                    <dt>{% trans "Plus" %}</dt>
+		                    {% if museum.open_on_mondays %}
+		                        <dd>
+		                            {% trans "Open on Mondays" %}
+		                        </dd>
+		                    {% endif %}
+		                    {% if museum.free_entrance %}
+		                        <dd>
+		                       	 {% trans "Free entrance" %}
+		                        </dd>
+		                    {% endif %}
+		                </dl>
+	                {% endif %} 
                 </div>
                 
                 
