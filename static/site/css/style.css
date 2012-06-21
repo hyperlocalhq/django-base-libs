@@ -303,11 +303,15 @@ ul#lang {
 #filter li.active a:link {
  border: none;
   display: block;
-  float: left;
+  position: absolute;
+  left: 25px;
+  top: 0;
+  text-indent: 0;
 }
 
 #filter li.active  {	
 background-color: white;  width: 284px;
+  text-indent: 22px;
 }
 
 #filter li.active a:link img {
