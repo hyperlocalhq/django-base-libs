@@ -300,12 +300,15 @@ ul#lang {
   font-size: 18px;
 }
 
-#filter li.active a:link {	
-  width: 30px;
-  height: 30px;
-  display: block;
+#filter li.active a:link {
  border: none;
-  float: right;
+  height: 19px;
+  display: block;
+  width: 16px;
+  float: left;
+  padding-top: 4px;
+  padding-bottom: 6px;
+  padding-right: 9px;
 }
 
 #filter li.active  {	
@@ -313,7 +316,6 @@ background-color: white;  width: 284px;
 }
 
 #filter li.active a:link img {
-  padding: 7px;
 }
 
 #filter li.active a:hover img {
