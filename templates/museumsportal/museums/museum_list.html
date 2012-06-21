@@ -39,14 +39,14 @@
                 {% endif %}
             {% endfor %}
             {% if facets.selected.open_on_mondays %}
-                <li class="open_on_mondays active">{{ facets.categories.open_on_mondays }}<a href="{% append_to_get open_on_mondays="" %}">×</a></li>
+                <li class="open_on_mondays active">{{ facets.categories.open_on_mondays }}<a class="cancel" href="{% append_to_get open_on_mondays="" %}">×</a></li>
             {% else %}
-                <li class="open_on_mondays"><a class="cancel" href="{% append_to_get open_on_mondays=1 %}">{{ facets.categories.open_on_mondays }}</a></li>
+                <li class="open_on_mondays"><a href="{% append_to_get open_on_mondays=1 %}">{{ facets.categories.open_on_mondays }}</a></li>
             {% endif %}
             {% if facets.selected.free_entrance %}
-                <li class="free_entrance active">{{ facets.categories.free_entrance }}<a href="{% append_to_get free_entrance="" %}">×</a></li>
+                <li class="free_entrance active">{{ facets.categories.free_entrance }}<a class="cancel" href="{% append_to_get free_entrance="" %}">×</a></li>
             {% else %}
-                <li class="free_entrance"><a class="cancel" href="{% append_to_get free_entrance=1 %}">{{ facets.categories.free_entrance }}</a></li>
+                <li class="free_entrance"><a href="{% append_to_get free_entrance=1 %}">{{ facets.categories.free_entrance }}</a></li>
             {% endif %}
         </ul>
     </div>
