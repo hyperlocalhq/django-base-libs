@@ -268,7 +268,7 @@ ul#lang {
 
 #filter {
 	padding-bottom: 25px;
-	width: 260px;
+	width: 310px;
 	font-size: 13px;
 	line-height: 23px;
 	margin-left: -25px;
@@ -279,12 +279,14 @@ ul#lang {
 }
 
 #filter li {
-	width: 309px;
-	padding-right: 0;
-	position: relative;
-  text-indent: 25px;
-  height: 29px;
-  line-height: 28px;
+	border-bottom: 1px solid #e5e3df;	
+	font-size: 13px;
+	line-height: 28px;
+  padding-left: 25px;
+  display: block;
+  position: relative;
+  height: 30px;
+  width: 284px;
 }
 
 #filter li.catHead {
@@ -294,36 +296,33 @@ ul#lang {
 	margin-left: 0;
 	width: 283px;
 	height: 17px;
-	line-height: 17px;
-}
-
-
-#filter li a:link {	
-font-weight: 200;
-	text-transform: none;
-	display: block;
-
-	text-transform: none;
-	position: relative;
-	border-top: 1px solid #e5e3df;
-	border-bottom: 1px solid #e5e3df;
-	background-position: 286px 6px;
-	background-repeat: no-repeat;
-  height: 28px;
-  line-height: 28px;
+	line-height: 20px;
+  font-size: 18px;
 }
 
 #filter li.active a:link {	
-  width: 5px;
-  height: 5px;
+  width: 30px;
+  height: 30px;
   display: block;
   position: absolute;
-  top: 7px;
-  right: 5px;
+  top: 0;
+  right: 0;
  border: none;
 }
 
-#filter li a:hover {
+#filter li.active  {	
+background-color: white;  width: 284px;
+}
+
+#filter li.active a:link img {
+  padding: 7px;
+}
+
+#filter li.active a:hover img {
+opacity: 0.25;
+}
+
+/*#filter li a:hover {
 	background-color: white;
 	color: black;
 }
@@ -335,14 +334,12 @@ font-weight: 200;
   position: absolute;
 }
 
-#filter li.active a.cancel:hover img {
-opacity: 0.25;
-}
+
 
 #filter li.active a:hover {
 	background-color: transparent;
 	color: grey;
-}
+}*/
 
 ul#az_filter {
 	float: left;
