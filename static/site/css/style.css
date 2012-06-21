@@ -282,6 +282,9 @@ ul#lang {
 	width: 309px;
 	padding-right: 0;
 	position: relative;
+  text-indent: 25px;
+  height: 29px;
+  line-height: 28px;
 }
 
 #filter li.catHead {
@@ -295,20 +298,29 @@ ul#lang {
 }
 
 
-#filter li a:link {	font-weight: 200;
+#filter li a:link {	
+font-weight: 200;
 	text-transform: none;
 	display: block;
 
 	text-transform: none;
 	position: relative;
-	padding-top: 3px;
-	padding-bottom: 3px;
 	border-top: 1px solid #e5e3df;
 	border-bottom: 1px solid #e5e3df;
-	padding-left: 25px;
-	margin-bottom: -1px;
 	background-position: 286px 6px;
 	background-repeat: no-repeat;
+  height: 28px;
+  line-height: 28px;
+}
+
+#filter li.active a:link {	
+  width: 5px;
+  height: 5px;
+  display: block;
+  position: absolute;
+  top: 7px;
+  right: 5px;
+ border: none;
 }
 
 #filter li a:hover {
@@ -316,14 +328,11 @@ ul#lang {
 	color: black;
 }
 
-#filter li.active a:link {	
-	background-color: white;	
-}
 
 #filter li.active a.cancel img {
-	position: absolute;
-  right: 10px;
-  top: 6px;
+  top: 0;
+  right: 0;
+  position: absolute;
 }
 
 #filter li.active a.cancel:hover img {
