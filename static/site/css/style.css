@@ -306,12 +306,14 @@ ul#lang {
   position: absolute;
   left: 25px;
   top: 0;
-  text-indent: 0;
+  height: 23px;
+  padding: 0;
 }
 
 #filter li.active  {	
-background-color: white;  width: 284px;
-  text-indent: 22px;
+background-color: white; 
+ width: 260px;
+  padding-left: 49px;
 }
 
 #filter li.active a:link img {
