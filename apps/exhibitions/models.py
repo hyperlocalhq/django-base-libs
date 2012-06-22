@@ -22,7 +22,7 @@ STATUS_CHOICES = (
 
 class ExhibitionManager(models.Manager):
     def newly_opened(self):
-        return self.filter(newly_opened=True, status="published").order_by("start")
+        return self.filter(newly_opened=True, status="published").order_by("-start")
         
     def featured(self):
         return self.filter(featured=True, status="published")
