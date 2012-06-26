@@ -107,6 +107,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'cms.context_processors.media',
     'sekizai.context_processors.sekizai',
     "jetson.apps.utils.context_processors.general",
+    "jetson.apps.configuration.context_processors.configuration",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -172,6 +173,7 @@ INSTALLED_APPS = (
     "jetson.apps.mailchimp",
     "jetson.apps.blocks",
     "jetson.apps.media_gallery",
+    "jetson.apps.configuration",
     
     ### museumsportal apps ###
     "museumsportal.apps.museums",
@@ -264,7 +266,9 @@ ADMIN_APP_INDEX = (
              ('external_services', {
                 'models':("Service", "ObjectMapper",),
                 }),
-        
+            ('configuration', {
+                'models':("SiteSettings",),
+                }),
         )
     }
  
