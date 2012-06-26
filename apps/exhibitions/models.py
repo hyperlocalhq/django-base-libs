@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+from datetime import date
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -29,7 +31,22 @@ class ExhibitionManager(models.Manager):
         
     def closing_soon(self):
         return self.filter(closing_soon=True, status="published").order_by("end")
-        
+    
+    def past(self, timestamp=date.today):
+        """ Past events """
+        if callable(timestamp):
+            timestamp = timestamp()
+        return self.filter(
+            end__lt=timestamp,
+            ).distinct()
+            
+    def update_expired(self):
+        queryset = self.past().exclude(
+            status="expired",
+            )
+        for obj in queryset:
+            obj.status = "expired"
+            obj.save()
 
 class Exhibition(CreationModificationDateMixin, SlugMixin()):
     museum = models.ForeignKey("museums.Museum", verbose_name=_("Museum"),)
