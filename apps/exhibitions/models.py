@@ -24,13 +24,13 @@ STATUS_CHOICES = (
 
 class ExhibitionManager(models.Manager):
     def newly_opened(self):
-        return self.filter(newly_opened=True, status="published").order_by("-start")
+        return self.filter(newly_opened=True, status="published").order_by("-featured", "-start")
         
     def featured(self):
         return self.filter(featured=True, status="published")
         
     def closing_soon(self):
-        return self.filter(closing_soon=True, status="published").order_by("end")
+        return self.filter(closing_soon=True, status="published").order_by("-featured", "end")
     
     def past(self, timestamp=date.today):
         """ Past events """

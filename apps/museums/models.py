@@ -76,7 +76,7 @@ class Museum(CreationModificationDateMixin, SlugMixin()):
         verbose_name_plural = _("Museums")
         
     def get_published_exhibitions(self):
-        return self.exhibition_set.filter(status="published").order_by("start")
+        return self.exhibition_set.filter(status="published").order_by("-end")
         
     def get_museums_with_the_same_categories(self):
         categories = list(self.categories.all().values_list("pk", flat=True))

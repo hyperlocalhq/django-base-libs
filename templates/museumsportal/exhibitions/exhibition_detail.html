@@ -13,7 +13,7 @@
 	                {% endif %}
 	                <h4>{{ exhibition.museum.title }}</h4>
 	                <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
-	                <h5>bis {{ exhibition.end|date:"j.n.y" }}</h5>
+	                <h5>bis {{ exhibition.end|date:"j. F Y" }}</h5>
 	                
 	            </div>
 	        {% endfor %}
@@ -43,11 +43,11 @@
 	           	
 	            <dl class="von">
 	                <dt>{% trans "Start" %}</dt>
-	                <dd>{{ exhibition.start|date:"j. M Y" }}</a></dd>
+	                <dd>{{ exhibition.start|date:"j. F Y" }}</a></dd>
 	            </dl>
 	            <dl class="bis">
 	                <dt>{% trans "End" %}</dt>
-	                <dd>{{ exhibition.end|date:"j. M Y" }}</a></dd>
+	                <dd>{{ exhibition.end|date:"j. F Y" }}</a></dd>
 	            </dl>
 	            {% if exhibition.website %}
 	                <dl class="website">

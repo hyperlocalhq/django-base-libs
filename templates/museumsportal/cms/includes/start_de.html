@@ -19,7 +19,7 @@
                 {% endif %}
                 <h4>{{ exhibition.museum.title }}</h4>
                 <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
-                <h5>bis {{ exhibition.end|date:"j.n.y" }}</h5>
+                <h5>bis {{ exhibition.end|date:"j. F Y" }}</h5>
                 
             </div>
         {% endfor %}
@@ -41,7 +41,13 @@
                 {% endif %}
                 <h4>{{ exhibition.museum.title }}</h4>
                 <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
-                <p>{{ exhibition.description|striptags }}</p>
+                <p>
+                    {% with exhibition.get_rendered_description|striptags as description %}
+                        {% with description|slice:"0:220" as sliced_description %}
+                            {{ sliced_description }}{% if description != sliced_description %}...{% endif %}
+                        {% endwith %}
+                    {% endwith %}
+                </p>
                 <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
             </div>
         {% endfor %}

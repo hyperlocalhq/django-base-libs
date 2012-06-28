@@ -16,7 +16,7 @@
                     {% endif %}
                     <h4>{{ exhibition.museum.title }}</h4>
                     <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
-                    <h5>{% trans "till" %} {{ exhibition.end|date:"j.n.y" }}</h5>
+                    <h5>{% trans "till" %} {{ exhibition.end|date:"j. F Y" }}</h5>
                     
                 </div>
             {% endfor %}
