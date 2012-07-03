@@ -1,51 +1,3 @@
-/* @override 
-	http://127.0.0.1:8000/static/7500/site/css/style.css
-	http://h2041646.stratoserver.net/static/7667/site/css/style.css
-	http://127.0.0.1:8000/static/7710/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7715/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7720/site/css/style.css
-	http://127.0.0.1:8000/static/7720/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7736/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7756/site/css/style.css
-	http://127.0.0.1:8000/static/7753/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7760/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7762/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7765/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7766/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7769/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7770/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7772/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7776/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7780/site/css/style.css
-	http://127.0.0.1:8000/static/7783/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7787/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7794/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7798/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7803/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7808/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7812/site/css/style.css
-	http://127.0.0.1:8000/static/7814/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7818/site/css/style.css
-	http://127.0.0.1:8000/static/7822/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7831/site/css/style.css
-	http://127.0.0.1:8000/static/7834/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7840/site/css/style.css
-	http://127.0.0.1:8000/static/7851/site/css/style.css
-	http://www.berlin-music-week.de/static/7757/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7860/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7871/site/css/style.css
-	http://127.0.0.1:8000/static/7874/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7884/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7889/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7892/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7912/site/css/style.css
-	http://127.0.0.1:8000/static/7895/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7919/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7921/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7928/site/css/style.css
-	http://test.berliner-museumsportal.de/static/7935/site/css/style.css
-*/
-
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
 
 /* @group General */
@@ -1232,9 +1184,11 @@ h5 {
 	height: 155px;
 	text-align: center;
 	font-size: 25px !important;
+	/*
 	-webkit-transform: rotate(8deg);
 	-moz-transform: rotate(8deg);
 	transform: rotate(8deg);
+	*/
 	right: 21px;
 	top: -35px;
 	background-image: url(../img/sticker.png);
