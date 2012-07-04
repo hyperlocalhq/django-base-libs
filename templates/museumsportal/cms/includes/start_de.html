@@ -13,12 +13,12 @@
         <h2 class="catHead">→ Nur noch kurze Zeit</h2>
         {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
         {% for exhibition in exhibitions_closing_soon %}
-            <div class="article" onclick="location.href='{% url exhibition_detail slug=exhibition.slug %}';">
+            <div class="article" onclick="location.href='{{ exhibition.get_url_path }}';">
                 {% if exhibition.image %}
-                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
+                    <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
                 {% endif %}
                 <h4>{{ exhibition.museum.title }}</h4>
-                <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
+                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
                 <h5>bis {{ exhibition.end|date:"j. F Y" }}</h5>
                 
             </div>
@@ -35,12 +35,12 @@
         <h2 class="catHead">→ Neu eröffnet</h2>
         {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
         {% for exhibition in exhibitions_newly_opened %}
-            <div class="article short" onclick="location.href='{% url exhibition_detail slug=exhibition.slug %}';">
+            <div class="article short" onclick="location.href='{{ exhibition.get_url_path }}';">
                 {% if exhibition.image %}
-                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
+                    <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
                 {% endif %}
                 <h4>{{ exhibition.museum.title }}</h4>
-                <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
+                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
                 <p>
                     {% with exhibition.get_rendered_description|striptags as description %}
                         {% with description|slice:"0:220" as sliced_description %}
@@ -48,7 +48,7 @@
                         {% endwith %}
                     {% endwith %}
                 </p>
-                <a class="proceed" href="{% url exhibition_detail slug=exhibition.slug %}">{% trans "more" %}</a>
+                <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
             </div>
         {% endfor %}
     </div>

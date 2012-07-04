@@ -2,7 +2,9 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
+from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models import SlugMixin
 
@@ -10,6 +12,7 @@ from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # for south
+from base_libs.middleware import get_current_language
 
 from filebrowser.fields import FileBrowseField
 
@@ -38,7 +41,7 @@ class MuseumCategory(CreationModificationDateMixin, SlugMixin()):
         verbose_name_plural = _("Categories")
     
 
-class Museum(CreationModificationDateMixin, SlugMixin()):
+class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
@@ -75,6 +78,15 @@ class Museum(CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Museum")
         verbose_name_plural = _("Museums")
         
+    def get_url_path(self):
+        try:
+            path = reverse("%s:museum_detail" % get_current_language(), kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
+    
     def get_published_exhibitions(self):
         return self.exhibition_set.filter(status="published").order_by("-end")
         

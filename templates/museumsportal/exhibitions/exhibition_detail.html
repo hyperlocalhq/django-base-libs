@@ -9,10 +9,10 @@
 	        {% for exhibition in exhibitions_closing_soon %}
 	            <div class="article">
 	                {% if exhibition.image %}
-	                    <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
+	                    <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
 	                {% endif %}
 	                <h4>{{ exhibition.museum.title }}</h4>
-	                <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
+	                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
 	                <h5>bis {{ exhibition.end|date:"j. F Y" }}</h5>
 	                
 	            </div>
@@ -35,7 +35,7 @@
 	            {% endif %}
                 <dl class="address">
                     <dt>{% trans "Location" %}</dt>
-                    <dd><a href="{% url museum_detail slug=exhibition.museum.slug %}">{{ exhibition.museum.title }}</a></dd>
+                    <dd><a href="{{ exhibition.museum.get_url_path }}">{{ exhibition.museum.title }}</a></dd>
                     <dd>{{ exhibition.museum.street_address }}</dd>
                     {% if exhibition.museum.street_address2 %}<dd>{{ exhibition.museum.street_address2 }}</dd>{% endif %} 
                     <dd>{{ exhibition.museum.postal_code }} {{ exhibition.museum.city }}</dd>
@@ -62,7 +62,7 @@
                 {% if exhibition.subtitle %}
                     <h2 class="subtitle">{{ exhibition.subtitle }}</h2>
                 {% endif %}
-                <h3><a href="{% url museum_detail slug=exhibition.museum.slug %}">{{ exhibition.museum.title }}</a></h3>
+                <h3><a href="{{ exhibition.museum.get_url_path }}">{{ exhibition.museum.title }}</a></h3>
                 
                 <div class="text">{{ exhibition.get_rendered_description }}</div>
             </div>

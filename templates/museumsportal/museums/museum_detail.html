@@ -12,10 +12,10 @@
                 
                 <div class="article">
                     {% if exhibition.image %}
-                        <a class="img" href="{% url exhibition_detail slug=exhibition.slug %}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
+                        <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
                     {% endif %}
                     <h4>{{ exhibition.museum.title }}</h4>
-                    <h3><a href="{% url exhibition_detail slug=exhibition.slug %}">{{ exhibition.title }}</a></h3>
+                    <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
                     <h5>{% trans "till" %} {{ exhibition.end|date:"j. F Y" }}</h5>
                     
                 </div>
@@ -24,9 +24,9 @@
 	        {% for museum in object.get_museums_with_the_same_categories %}
 	            <div class="article">
 	                {% if museum.image %}
-	                    <a class="img" href="{% url museum_detail slug=museum.slug %}"><img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
+	                    <a class="img" href="{{ museum.get_url_path }}"><img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
 	                {% endif %}
-	                <h3> <a href="{% url museum_detail slug=museum.slug %}">{{ museum.title }}</a></h3>
+	                <h3> <a href="{{ museum.get_url_path }}">{{ museum.title }}</a></h3>
 	                <h4>{{ museum.subtitle }}</h4>
 	               
 	            </div>
@@ -79,7 +79,7 @@
 	                    <dt>{% trans "Categories" %}</dt>
 	                    <dd>
 	                        {% for cat in museum.categories.all %}
-	                            <a href="{% url museum_list %}?category={{ cat.id }}">{{ cat.title }}</a>{% if not forloop.last %}, {% endif %}
+	                            <a href="{% if request.LANGUAGE_CODE == "de" %}{% url de:museum_list %}{% else %}{% url en:museum_list %}{% endif %}?category={{ cat.id }}">{{ cat.title }}</a>{% if not forloop.last %}, {% endif %}
 	                        {% endfor %}
 	                    </dd>
 	                </dl>

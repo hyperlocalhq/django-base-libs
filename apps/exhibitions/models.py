@@ -4,6 +4,7 @@ from datetime import date
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models import SlugMixin
@@ -11,6 +12,7 @@ from base_libs.models import SlugMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # for south
+from base_libs.middleware import get_current_language
 
 from filebrowser.fields import FileBrowseField
 
@@ -77,4 +79,13 @@ class Exhibition(CreationModificationDateMixin, SlugMixin()):
         ordering = ['title']
         verbose_name = _("Exhibition")
         verbose_name_plural = _("Exhibitions")
+
+    def get_url_path(self):
+        try:
+            path = reverse("%s:exhibition_detail" % get_current_language(), kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
 
