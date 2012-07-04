@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
+from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models import SlugMixin
 
@@ -50,7 +51,7 @@ class ExhibitionManager(models.Manager):
             obj.status = "expired"
             obj.save()
 
-class Exhibition(CreationModificationDateMixin, SlugMixin()):
+class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     museum = models.ForeignKey("museums.Museum", verbose_name=_("Museum"),)
     
     title = MultilingualCharField(_("Title"), max_length=255)
