@@ -92,6 +92,9 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         
     def get_museums_with_the_same_categories(self):
         categories = list(self.categories.all().values_list("pk", flat=True))
-        museums = Museum.objects.filter(categories__in=categories).exclude(pk=self.pk).distinct()
+        museums = Museum.objects.filter(
+            categories__in=categories,
+            status="published",
+            ).exclude(pk=self.pk).distinct()
         return museums
         
