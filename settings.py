@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.slideshows",
     "museumsportal.apps.editorial",
     "museumsportal.apps.articles",
+    "museumsportal.apps.twitterwall",
 )
 
 
@@ -224,6 +225,10 @@ ADMIN_APP_INDEX = (
               }),
              ('institutions', {
                 'models':("Institution",),                
+                }),
+             ('twitterwall', {
+                'verbose_name': gettext("Twitter Wall"),
+                'models':("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),                
                 }),
         )
     },
