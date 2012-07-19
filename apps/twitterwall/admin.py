@@ -27,7 +27,7 @@ class TweetMediaAdminInline(admin.StackedInline):
     extra = 0
 
 class TweetAdmin(ExtendedModelAdmin):
-    list_display = ('creation_date', 'text', 'status', 'is_geoposition_set')
+    list_display = ('creation_date', 'user', 'get_text', 'is_geoposition_set', 'status')
     list_filter = ('status', 'by_user', 'from_search', 'creation_date')
     search_fields = ('id_str', 'text')
     inlines = [TweetMediaAdminInline]
@@ -36,6 +36,11 @@ class TweetAdmin(ExtendedModelAdmin):
         (_("Geoposition"), {'fields': ('latitude', 'longitude')}),
         (_("Publishing"), {'fields': ('from_search', 'by_user', 'status', 'sites')}),
     ]
+    def get_text(self, obj):
+        return obj.text
+    get_text.allow_tags = True
+    get_text.short_description = _("Text")
+    
     def is_geoposition_set(self, obj):
         if obj.latitude:
             return '<img alt="True" src="%sgrappelli/img/admin/icon-yes.gif" />' % settings.STATIC_URL

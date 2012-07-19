@@ -44,7 +44,7 @@ class Migration(SchemaMigration):
 
         # Adding model 'TwitterUser'
         db.create_table('twitterwall_twitteruser', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.PositiveIntegerField')(primary_key=True)),
+            ('id', self.gf('django.db.models.fields.CharField')(max_length=20, primary_key=True)),
             ('id_str', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('screen_name', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
@@ -58,7 +58,7 @@ class Migration(SchemaMigration):
 
         # Adding model 'Tweet'
         db.create_table('twitterwall_tweet', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.PositiveIntegerField')(primary_key=True)),
+            ('id', self.gf('django.db.models.fields.CharField')(max_length=20, primary_key=True)),
             ('id_str', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['twitterwall.TwitterUser'])),
@@ -136,7 +136,7 @@ class Migration(SchemaMigration):
             'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
             'from_search': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'html': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.PositiveIntegerField', [], {'primary_key': 'True'}),
+            'id': ('django.db.models.fields.CharField', [], {'max_length': '20', 'primary_key': 'True'}),
             'id_str': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'latitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
             'longitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
@@ -155,7 +155,7 @@ class Migration(SchemaMigration):
         'twitterwall.twitteruser': {
             'Meta': {'ordering': "('screen_name',)", 'object_name': 'TwitterUser'},
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'id': ('django.db.models.fields.PositiveIntegerField', [], {'primary_key': 'True'}),
+            'id': ('django.db.models.fields.CharField', [], {'max_length': '20', 'primary_key': 'True'}),
             'id_str': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'language': ('django.db.models.fields.CharField', [], {'max_length': '5', 'blank': 'True'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),

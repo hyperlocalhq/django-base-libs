@@ -78,7 +78,7 @@ STATUS_CHOICES = (
     ) 
 
 class TwitterUser(models.Model):
-    id = models.PositiveIntegerField(_("ID"), primary_key=True)
+    id = models.CharField(_("ID"), primary_key=True, max_length=20)
     id_str = models.CharField(_("ID String"), help_text=_("Used in URLs"), max_length=20)
     screen_name = models.CharField(_("Screen name"), max_length=20)
     name = models.CharField(_("Name"), max_length=20, blank=True)
@@ -99,7 +99,7 @@ class TwitterUser(models.Model):
 
 
 class Tweet(MultiSiteMixin):
-    id = models.PositiveIntegerField(_("ID"), primary_key=True)
+    id = models.CharField(_("ID"), primary_key=True, max_length=20)
     id_str = models.CharField(_("ID String"), help_text=_("Used in URLs"), max_length=20)
     creation_date = models.DateTimeField(_("Creation date"),)
     user = models.ForeignKey(TwitterUser, verbose_name=_("Twitter user"))
