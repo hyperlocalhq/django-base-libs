@@ -44,6 +44,8 @@ urlpatterns += patterns('',
     url(r'^grappelli/', include('grappelli.urls')),    
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     
+    url(r'^twitterwall/', include('museumsportal.apps.twitterwall.urls')),
+    
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('cms.urls')),
 )

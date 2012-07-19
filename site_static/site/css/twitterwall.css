@@ -1,0 +1,81 @@
+body {
+    font-family: "Helvetica Neue",Arial,sans-serif;
+    color: #333;
+}
+
+a {
+    color: #0084B4;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.tweet-list {
+    clear: both;
+    width: 30000px;
+    border-bottom: 1px solid #E8E8E8;    
+}
+
+.tweet {
+    font-size: 14px;
+    vertical-align: top;
+    display: block;
+    float: left;
+    width: 250px;
+    min-height: 200px;
+    padding: 20px;
+    border-right: 1px solid #E8E8E8;    
+}
+
+.tweet:hover {
+    background-color: whiteSmoke;
+}
+
+.tweet p {
+    word-wrap: break-word;
+}
+
+.tweet-header a,
+.tweet-header a:hover {
+    text-decoration: none;
+}
+.tweet-header .time {
+    float: right;
+    display: block;
+}
+
+.tweet-header .fullname {
+    color: #333;
+    clear: right;
+    font-weight: bold;
+    display: block;
+    margin-left: 58px;
+}
+
+.tweet-header a:hover .fullname {
+    text-decoration: underline;
+}
+
+.tweet-header .username {
+    color: #999;
+    font-size: 12px;
+    display: block;
+    margin-left: 58px;
+    text-decoration: none;
+}
+
+.tweet-header .avatar {
+    float: left;
+    left: 0;
+}
+
+.tweet-text {
+    clear: both;
+    margin-top: 10px;
+}
+
+.hashtag {
+    color: green;
+}
