@@ -1,4 +1,4 @@
-<div class="tweet">
+<div class="tweet" data-tweet-id="t{{ tweet.id }}">
     <div class="tweet-header">
         <small class="time">{{ tweet.creation_date|date:"j.M Y H:i" }}</small>
         <a href="http://twitter.com/{{ tweet.user.screen_name }}/" title="{{ tweet.user.name }}">
