@@ -30,9 +30,9 @@
 		<div id="header" class="clearfix">
 			<ul class="navigation">
 			    {% if LANGUAGE_CODE == "de" %}
-				    <li><span>→ Hier entsteht Berlins neues Museumsportal</span><br/></li>
+				    <li><span>Hier entsteht Berlins neues Museumsportal</span><br/></li>
                 {% else %}
-				    <li><span>→ Berlin's new online platform for museums is being created here</span><br/></li>
+				    <li><span>Berlin's new online platform for museums is being created here</span><br/></li>
                 {% endif %}
 				<li{% if request.path == "/" %} class="selected"{% endif %}><a href="/">Home</a> ·</li>
                 {% show_menu_below_id "start_page" 0 1 1 1 %}
