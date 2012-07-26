@@ -43,8 +43,8 @@
                 <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
                 <p>
                     {% with exhibition.get_rendered_description|striptags as description %}
-                        {% with description|slice:"0:220" as sliced_description %}
-                            {{ sliced_description }}{% if description != sliced_description %}...{% endif %}
+                        {% with description|truncatewords:35 as sliced_description %}
+                            {{ sliced_description }}
                         {% endwith %}
                     {% endwith %}
                 </p>
