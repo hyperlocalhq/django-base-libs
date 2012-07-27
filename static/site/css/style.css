@@ -512,6 +512,7 @@ ul.social {
 	height: 40px;
 	background-repeat: no-repeat;
 	background-position: 14px center;
+  position: relative;
 }
 
 .social li span {
@@ -1512,17 +1513,16 @@ ound-color: rgba(255,255,255,0.96);
 	display: none;
 }
 
-#langenacht_shop { position: absolute;
-top: 1px;
-  right: 0px;
-  width: 309px !important;
-  border: none;
-  	-webkit-box-shadow: none;
+#langenacht_shop { 
+	position: absolute;
+	top: 1px;
+	right: 0px;
+	width: 309px !important;
+	border: none;
+	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
-
 }
-
 
 a.banner {
   margin-left: 18px;
@@ -1537,4 +1537,14 @@ a.banner img{
 	-moz-box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
 	box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
   display: block;
+}
+
+.soon{
+  display: inline-block;
+  position: absolute;
+  right: 24px;
+  top: 0;
+  font-size: 10px !important;
+  text-transform: none;
+  color: rgba(0,0,0,0.53) !important;
 }
