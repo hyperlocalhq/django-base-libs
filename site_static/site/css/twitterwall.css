@@ -29,7 +29,7 @@ a:hover {
   float: left;
   height: 100%;
   padding-bottom: 10px;
-  margin-top: 46px;
+  margin-top: 41px;
   margin-left: auto;
   margin-bottom: auto;
 }
@@ -41,7 +41,7 @@ h2 {
   position: relative;
   font: italic 14px/45px "Arial narrow", Arial, Helvetica, Geneva, sans-serif;
   white-space: nowrap;
-  padding-left: 40px;
+  padding-left: 70px;
   padding-right: 40px;
   float: left;
   position: fixed;
@@ -51,9 +51,8 @@ h2 {
   top: 0;
   height: 44px;
   color: #2b716a;
-  width: 390px; border-bottom: 2px solid rgba(0,0,0,0.12);
-
-
+  width: 390px; 
+  margin-left: -30px;
 }
 
 .cullumn:nth-child(2) h2 {
@@ -61,13 +60,9 @@ h2 {
 }
 
 div#selected_user_tweets.tweet-list {
-    border-left: 2px solid #27b8bb;
-    border-right: 2px solid #27b8bb;
 }
 
 div#tweets_from_search.tweet-list {
-	border-left: 2px solid #27b8bb;
-    border-right: 2px solid #27b8bb;
   width: 466px;
   margin-left: -2px;
 }
@@ -111,12 +106,22 @@ div.tweet_wrapper {
     font-size: 14px;
     vertical-align: top;
     display: block;
-    width: 386px;
+    width: 356px;
     min-height: 125px;
-    border-bottom: 2px solid #27b8bb;
   position: relative;
   padding: 5px 40px 14px;
   float: left;
+  margin-bottom: 0;
+  opacity: 1;
+  margin-top: 3px;
+}
+.tweet:nth-child(1n) {
+  -webkit-transform: skew(-2deg);  background-color: #f4f9f7;
+
+}
+.tweet:nth-child(2n) {
+  -webkit-transform: skew(2deg);  background-color: #fff;
+
 }
 
 div.tweet-media {
