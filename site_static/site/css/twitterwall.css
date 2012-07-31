@@ -1,9 +1,14 @@
-/* @override http://www.berliner-museumsportal.de/static/8192/site/css/twitterwall.css */
+/* @override 
+	http://www.berliner-museumsportal.de/static/8192/site/css/twitterwall.css
+	http://www.berliner-museumsportal.de/static/8205/site/css/twitterwall.css
+*/
 
-body {
+body, html {
     font-family: "georgia",Arial,sans-serif;
     color: #333;
   background-color: #7dc9cc;
+  height: 100%;
+  width: 100%;
 }
 
 a {
@@ -16,22 +21,36 @@ a:hover {
 }
 
 .tweet-list {
-    clear: both;
-    border-bottom: 1px solid #E8E8E8;    
+  width: 500px;
+  margin: auto;    
+  border-right: 3px solid rgba(0,0,0,0.1);
+    border-left: 3px solid rgba(0,0,0,0.1);
+  float: left;
+}
+
+.visual {
+  width: 390px;
+  height: 100%;
+  background: url(../img/twitter_wall.png) no-repeat center center;
+  background-size: cover ;
+  position: fixed;
+}
+
+div.tweet_wrapper {
+  width: 1000px;
+  margin: auto;
 }
 
 .tweet {
     font-size: 14px;
     vertical-align: top;
     display: block;
-    float: left;
-    width: 610px;
+    width: 420px;
     min-height: 125px;
-    border-right: 3px solid rgba(0,0,0,0.1);
     border-bottom: 3px solid rgba(0,0,0,0.1);
   position: relative;
-  padding: 5px 40px 44px;
-  height: 193px;
+  padding: 5px 40px 14px;
+  float: left;
 }
 
 #selected_user_tweets div.tweet div.tweet-media {
