@@ -1,3 +1,5 @@
+/* @override http://127.0.0.1:8000/static/8208/site/css/twitterwall.css */
+
 /* @override 
 	http://www.berliner-museumsportal.de/static/8192/site/css/twitterwall.css
 	http://www.berliner-museumsportal.de/static/8205/site/css/twitterwall.css
@@ -100,8 +102,9 @@ div.langenacht {
 
 div.tweet_wrapper {
   width: 940px;
-  float: right;
   margin-right: 10px;
+  margin: auto;
+  padding-left: 210px;
 }
 
 .tweet {
