@@ -12,12 +12,12 @@ def twitterwall(request):
         by_user=True,
         status="published",
         sites=current_site,
-        ).order_by("-creation_date")[5:50]
+        ).order_by("-creation_date")[0:50]
     tweets_from_search = Tweet.objects.filter(
         from_search=True,
         status="published",
         sites=current_site,
-        ).order_by("-creation_date")[5:50]
+        ).order_by("-creation_date")[0:50]
     return render(request, "twitterwall/index.html", locals())
     
 def load_tweets(request):
