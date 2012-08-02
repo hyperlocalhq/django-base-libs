@@ -33,7 +33,7 @@ a:hover {
 .wrapper {
   width: 1024px;
   margin: auto;
-  height: 100px;
+  position: relative;
 }
 
 .cullumn {
@@ -67,50 +67,57 @@ h2 {
   padding: 10px 50px 14px 40px;
 }
 
-.studio38 {
-	display: block;
-	position: fixed;
-	z-index: 1000000000000;
-  width: 85px;
-  height: 41px;
-  background-color: #fffeff;
-  background-image: url(../img/studio38.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  left: 0;
+/* @group footer */
+
+.footer {
+  background-color: rgba(52,112,106,0.86);
+  position: fixed;
   bottom: 0;
-  
-      -webkit-box-shadow:  0px 2px 6px #7dc9cc;
-    -moz-box-shadow:  0px 0px 0px 6px #7dc9cc;
-    -o-box-shadow:  0px 0px 0px 6px #7dc9cc;
-    box-shadow:  0px 0px 0px 6px #7dc9cc;
+  width: 100%;
+  height: 35px;
+  z-index: 1000000000;
+  color: white;
 
 }
 
-.studio38:hover {
-  background-color: #000;
-  background-image: url(../img/studio382.png);
+.studio38 {
+  color: white;
+  font-size: 12px;
+  float: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .back {
 	display: block;
 	position: fixed;
 	z-index: 1000000000000;
-  bottom: 0;
-  
-      -webkit-box-shadow:  0px 2px 6px #7dc9cc;
-    -moz-box-shadow:  0px 0px 0px 6px #7dc9cc;
-    -o-box-shadow:  0px 0px 0px 6px #7dc9cc;
-    box-shadow:  0px 0px 0px 6px #7dc9cc;
-  right: 0;
-  padding: 5px 8px;
-  background-color: black;
-  font-size: 14px;
+  background-color: #252525;
+  font-size: 17px;
   color: white;
+  bottom: 0;
+  margin: auto auto 2px 390px;
+  padding: 6px 13px 5px;
+  border-radius: 3px;
 }
 .back:hover {
 background-color: white;
 color: black;}
+
+.berlin {
+  width: 57px;
+  height: 66px;
+  background: url(../img/twitter_wall_b.png) no-repeat;
+  position: absolute;
+  color: transparent;
+  z-index: 10000000;
+  left: 13px;
+  bottom: -25px;
+}
+
+/* @end */
+
+
 
 .cullumn:nth-child(2) h2 {
   width: 388px;
@@ -139,18 +146,9 @@ div.langenacht {
   height: 150px;
   background: url(../img/twitter_wall_langenacht.png) no-repeat;
   position: absolute;
-  top: 355px;
-  left: 180px;
+  top: 475px;
+  left: 190px;
   color: transparent;
-}
-.berlin {
-  width: 57px;
-  height: 66px;
-  background: url(../img/twitter_wall_b.png) no-repeat;
-  position: absolute;
-  left: 201px;
-  color: transparent;
-  bottom: 68px;
 }
 
 div.tweet_wrapper {
