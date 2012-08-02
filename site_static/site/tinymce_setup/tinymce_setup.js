@@ -45,8 +45,7 @@ oTinyMCEConfig.style_formats = [
     {title: '[img] Image left-aligned (no top space)', selector: 'img', classes: 'img_left_nospacetop'},
     {title: '[img] Image right-aligned', selector: 'img', classes : 'img_right'},
     {title: '[img] Image right-aligned (no top space)', selector: 'img', classes: 'img_right_nospacetop'},
-    {title: '[img] Image Block', selector: 'img', classes: 'img_block'},
-    {title: '[h1] Image Block', block: 'h1'}
+    {title: '[img] Image Block', selector: 'img', classes: 'img_block'}
 ];
 
 tinyMCE.init(oTinyMCEConfig);
