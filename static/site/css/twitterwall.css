@@ -40,7 +40,7 @@ a:hover {
   width: 380px;    
   float: left;
   height: 100%;
-  padding-bottom: 10px;
+  padding-bottom: 50px;
   margin-top: 111px;
   margin-left: auto;
   margin-bottom: auto;
@@ -77,7 +77,11 @@ h2 {
   height: 35px;
   z-index: 1000000000;
   color: white;
-
+    -webkit-box-shadow:  inset 0px 0px 7px rgba(0,0,0,0.5);
+  margin-bottom: -10px;
+  margin-left: -10px;
+  margin-right: 10px;
+  padding: 4px 10px 13px;
 }
 
 .studio38 {
@@ -96,7 +100,7 @@ h2 {
   font-size: 17px;
   color: white;
   bottom: 0;
-  margin: auto auto 2px 390px;
+  margin: auto auto 5px 390px;
   padding: 6px 13px 5px;
   border-radius: 3px;
 }
