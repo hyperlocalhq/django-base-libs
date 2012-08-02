@@ -35,4 +35,18 @@ oTinyMCEConfig.template_templates = [
     },
 ];
 
+oTinyMCEConfig.style_formats = [
+    {title: '[all] clearfix', selector: "*", classes: 'clearfix'},
+    {title: 'Paragraph styles'},
+    {title: '[p] Image sidebar', selector: 'p', classes: 'img_left'},
+    {title: '[p] Image main', selector: 'p', classes: 'img_block'},
+    {title: 'Image styles'},
+    {title: '[img] Image left-aligned', selector: 'img', classes: 'img_left'},
+    {title: '[img] Image left-aligned (no top space)', selector: 'img', classes: 'img_left_nospacetop'},
+    {title: '[img] Image right-aligned', selector: 'img', classes : 'img_right'},
+    {title: '[img] Image right-aligned (no top space)', selector: 'img', classes: 'img_right_nospacetop'},
+    {title: '[img] Image Block', selector: 'img', classes: 'img_block'},
+    {title: '[h1] Image Block', block: 'h1'}
+];
+
 tinyMCE.init(oTinyMCEConfig);
