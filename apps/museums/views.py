@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from django.db import models
+from django.http import HttpResponse
 from django import forms
+from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
 
 from jetson.apps.utils.views import object_list, object_detail
@@ -9,6 +10,7 @@ from jetson.apps.utils.views import get_abc_list
 from jetson.apps.utils.views import filter_abc
 
 from base_libs.forms import dynamicforms
+from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_related_queryset
 
 MuseumCategory = models.get_model("museums", "MuseumCategory")
@@ -88,3 +90,41 @@ def museum_detail(request, slug):
         slug_field="slug",
         template_name="museums/museum_detail.html",
         )
+
+def export_json_museums(request):    
+    #create queryset
+    qs = Museum.objects.filter(status="published")
+   
+    museums = []
+    for m in qs:        
+        data ={
+            'title': m.title,
+            'subtitle': m.subtitle,
+            'description': m.description,
+            'image_caption': m.image_caption,
+            'street_address': m.street_address,
+            'street_address2': m.street_address2,
+            'postal_code': m.postal_code,
+            'city': m.city,
+            'country': m.country,
+            'latitude': m.latitude,
+            'longitude': m.longitude,
+            'phone': m.phone,
+            'fax': m.fax,
+            'email': m.email,
+            'website': m.website,
+            'open_on_mondays': m.open_on_mondays,
+            'free_entrance': m.free_entrance,
+            'status': m.status,
+        }
+        categories = []
+        for cat in m.categories.all():
+            categories.append({
+                'id': cat.id,
+                'title': cat.title,
+            })
+        data['categories'] = categories
+        museums.append(data)
+    
+    json = simplejson.dumps(museums, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')

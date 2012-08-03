@@ -33,20 +33,22 @@ urlpatterns = patterns('',
     url(r'^jetson-media/\d+/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.JETSON_MEDIA_ROOT}),
 ) + urlpatterns
 
-urlpatterns += patterns('',    
+urlpatterns += patterns('',
     # i18n
     (r'^i18n/', 'jetson.apps.utils.views.set_language'),
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': 'jetson.apps.utils'}),
     
-    url(r'^gmap/$', 'django.views.generic.simple.direct_to_template', {'template': 'gmap/index.html'}),    
+    url(r'^gmap/$', 'django.views.generic.simple.direct_to_template', {'template': 'gmap/index.html'}),
     url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template', {'template': 'settings.js'}, name="jssettings"),
     
-    url(r'^grappelli/', include('grappelli.urls')),    
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     
     url(r'^twitterwall/', include('museumsportal.apps.twitterwall.urls')),
     
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('cms.urls')),
+    
+    
 )
 
