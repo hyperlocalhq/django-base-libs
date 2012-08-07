@@ -153,9 +153,11 @@ div.langenacht {
   height: 150px;
   background: url(../img/twitter_wall_langenacht.png) no-repeat;
   position: absolute;
-  top: 475px;
+  top: 375px;
   left: 190px;
-  color: transparent;
+  white-space: nowrap;
+  text-indent: 1000px;
+  overflow: hidden;
 }
 
 div.tweet_wrapper {
