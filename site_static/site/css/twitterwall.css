@@ -6,6 +6,7 @@
 	http://127.0.0.1:8000/static/8208/site/css/twitterwall.css
 	http://www.berliner-museumsportal.de/static/8216/site/css/twitterwall.css
 	http://127.0.0.1:8000/static/8215/site/css/twitterwall.css
+	http://www.berliner-museumsportal.de/static/8317/site/css/twitterwall.css
 */
 
 body, html {
@@ -71,6 +72,7 @@ h2 {
 
 .footer {
   background-color: rgba(52,112,106,0.86);
+  background-color: rgb(52,112,106);
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -103,6 +105,7 @@ h2 {
   margin: auto auto 5px 390px;
   padding: 6px 13px 5px;
   border-radius: 3px;
+  white-space: nowrap;
 }
 .back:hover {
 background-color: white;
@@ -190,9 +193,16 @@ z-index: 1000;
 }
 .tweet:nth-child(1n) {
   -webkit-transform: skew(-2deg); 
+  -moz-transform: skew(-2deg); 
+  -o-transform: skew(-2deg); 
+  transform: skew(-2deg); 
 }
 .tweet:nth-child(2n) {
-  -webkit-transform: skew(2deg); }
+  -webkit-transform: skew(2deg); 
+  -moz-transform: skew(2deg); 
+  -o-transform: skew(2deg); 
+  transform: skew(2deg); 
+}
 
 div.tweet-media {
   display: none;
