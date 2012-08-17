@@ -4,8 +4,10 @@ from django.utils import simplejson
 from django.http import HttpResponse
 
 from datetime import datetime
+from base_libs.templatetags.base_tags import decode_entities
 
 from base_libs.utils.misc import ExtendedJSONEncoder
+
 
 from jetson.apps.utils.views import object_list, object_detail
 
@@ -39,7 +41,7 @@ def export_json_exhibitions(request):
             'museum': ex.museum,
             'title': ex.title,
             'subtitle': ex.subtitle,
-            'description': ex.description,
+            'description': decode_entities(ex.description),
             'website': ex.website,
             'start': ex.start.strftime('%Y-%m-%dT%H:%M:%S'),
             'end': ex.end.strftime('%Y-%m-%dT%H:%M:%S'),

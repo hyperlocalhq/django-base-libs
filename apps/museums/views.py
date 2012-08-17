@@ -9,6 +9,7 @@ from jetson.apps.utils.views import object_list, object_detail
 from jetson.apps.utils.views import get_abc_list
 from jetson.apps.utils.views import filter_abc
 
+from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_related_queryset
@@ -100,7 +101,7 @@ def export_json_museums(request):
         data ={
             'title': m.title,
             'subtitle': m.subtitle,
-            'description': m.description,
+            'description': decode_entities(m.description),
             'image_caption': m.image_caption,
             'street_address': m.street_address,
             'street_address2': m.street_address2,
