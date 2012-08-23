@@ -47,19 +47,19 @@ def museum_list(request):
         cat = form.cleaned_data['category']
         if cat:
             facets['selected']['category'] = cat
-            qs  = qs .filter(
+            qs = qs.filter(
                 categories=cat,
                 ).distinct()
         open_on_mondays = form.cleaned_data['open_on_mondays']
         if open_on_mondays:
             facets['selected']['open_on_mondays'] = True
-            qs  = qs .filter(
+            qs = qs.filter(
                 open_on_mondays=True,
                 )
         free_entrance = form.cleaned_data['free_entrance']
         if free_entrance:
             facets['selected']['free_entrance'] = True
-            qs  = qs .filter(
+            qs = qs.filter(
                 free_entrance=True,
                 )
     
