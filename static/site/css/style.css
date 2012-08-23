@@ -1,6 +1,7 @@
 /* @override 
 	http://www.berliner-museumsportal.de/static/8123/site/css/style.css
 	http://127.0.0.1:8000/static/8180/site/css/style.css
+	http://127.0.0.1:8000/static/8311/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -506,13 +507,18 @@ ul.social {
 	text-transform: uppercase;
 	line-height: 42px;
 	text-indent: 55px;
-	letter-spacing: 2px;
 	border-bottom: 1px solid #e5e3df;
 	padding-bottom: 5px;
 	height: 40px;
 	background-repeat: no-repeat;
 	background-position: 14px center;
   position: relative;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.social li a:hover {
+opacity: 0.5;
 }
 
 .social li span {
@@ -525,13 +531,6 @@ ul.social {
 	font-size: 12px;
 }
 
-.social li a:hover {
-	
-
-/*color: white;
-	background-color: black;*/
-	cursor: default;
-}
 
 .social li .facebook {
 	background-image: url(../img/facebook.png);
@@ -539,6 +538,10 @@ ul.social {
 
 .social li .twitter {
 	background-image: url(../img/twitter.png);
+}
+
+.social li .information {
+	background-image: url(../img/information.png);
 }
 
 .social li .rss {
