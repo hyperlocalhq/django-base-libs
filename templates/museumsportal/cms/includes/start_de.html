@@ -32,6 +32,8 @@
 <div class="colWrapper">
     <div id="neu" class="leftCol">
         <h2 class="catHead">Neu eröffnet</h2>
+        {% placeholder "left_column" %}
+        {% comment %}<!--
         {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
         {% for exhibition in exhibitions_newly_opened %}
             <div class="article short" onclick="location.href='{{ exhibition.get_url_path }}';">
@@ -50,6 +52,7 @@
                 <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
             </div>
         {% endfor %}
+        -->{% endcomment %}
     </div>
     <div id="redaktion" class="rightCol">
         <h2 class="catHead">Aus der Redaktion</h2>

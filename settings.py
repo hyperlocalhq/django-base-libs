@@ -338,7 +338,7 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Start Page Content")
     },
     'left_column': {
-        'plugins': ("EditorialContentPlugin",),
+        'plugins': ("EditorialContentPlugin","NewlyOpenedExhibitionPlugin",),
         'name': _("Left Column")
     },
     'center_column': {

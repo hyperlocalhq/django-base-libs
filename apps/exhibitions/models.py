@@ -17,6 +17,9 @@ from base_libs.middleware import get_current_language
 
 from filebrowser.fields import FileBrowseField
 
+from cms.models import CMSPlugin
+
+
 STATUS_CHOICES = (
     ('draft', _("Draft")),
     ('published', _("Published")),
@@ -90,3 +93,14 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         else:
             return path
 
+class NewlyOpenedExhibition(CMSPlugin):
+    exhibition = models.ForeignKey(Exhibition, limit_choices_to={'newly_opened': True})
+    
+    def __unicode__(self):
+        return self.exhibition.title
+        
+    class Meta:
+        ordering = ['exhibition__title']
+        verbose_name = _("Newly opened exhibition")
+        verbose_name_plural = _("Newly opened exhibitions")
+    
