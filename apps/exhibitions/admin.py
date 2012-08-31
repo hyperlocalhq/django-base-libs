@@ -28,6 +28,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
             )
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'status', 'newly_opened', 'featured', 'closing_soon')
+    list_editable = ('status', 'newly_opened', 'featured', 'closing_soon')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'closing_soon')
     search_fields = ('title_de','title_en', 'subtitle_de','subtitle_en', 'slug', 'museum__title_de', 'museum__title_en',)
