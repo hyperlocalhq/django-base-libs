@@ -2,6 +2,7 @@
 	http://www.berliner-museumsportal.de/static/8123/site/css/style.css
 	http://127.0.0.1:8000/static/8180/site/css/style.css
 	http://127.0.0.1:8000/static/8311/site/css/style.css
+	http://127.0.0.1:8000/static/8694/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -1528,18 +1529,18 @@ ound-color: rgba(255,255,255,0.96);
 }
 
 a.banner {
-  margin-left: 18px;
+  margin-left: 20px;
   display: block;
   margin-top: 18px;
-}
 
-
-a.banner img{
 	border: 2px solid #fff;
 	-webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
 	-moz-box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
 	box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
   display: block;
+  height: 122px;
+  width: 266px;
+  background: url(../img/banner/berlinartweek.gif) no-repeat;
 }
 
 .soon{
@@ -1550,4 +1551,5 @@ a.banner img{
   font-size: 10px !important;
   text-transform: none;
   color: rgba(0,0,0,0.53) !important;
+  background-image: url(../img/banner/berlinartweek.gif);
 }
