@@ -28,6 +28,18 @@ STATUS_CHOICES = (
     ('import', _("Imported")),
     ) 
 
+class ExhibitionCategory(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+    
+    def __unicode__(self):
+        return self.title
+        
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
+
 class ExhibitionManager(models.Manager):
     def newly_opened(self):
         return self.filter(newly_opened=True, status="published").order_by("-featured", "-start")
@@ -72,6 +84,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     featured = models.BooleanField(_("Featured"))
     closing_soon = models.BooleanField(_("Closing soon"))
     
+    categories = models.ManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
     objects = ExhibitionManager()

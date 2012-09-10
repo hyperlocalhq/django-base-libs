@@ -201,7 +201,7 @@ ADMIN_APP_INDEX = (
                 'models': ('MuseumCategory','Museum',),
                 }),            
             ('exhibitions', {
-                'models': ('Exhibition',),
+                'models': ('ExhibitionCategory','Exhibition',),
                 }),
             ('slideshows', {
                 'models': ('Slideshow',),

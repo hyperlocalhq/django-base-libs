@@ -12,7 +12,22 @@ from base_libs.models.admin import get_admin_lang_section
 
 from jetson.apps.media_gallery.admin import GenericMediaFileInline
 
+ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
+
+class ExhibitionCategoryAdmin(ExtendedModelAdmin):
+        
+    save_on_top = True
+    list_display = ['title', ]
+    
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug', )}),]
+    
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+
+admin.site.register(ExhibitionCategory, ExhibitionCategoryAdmin)
+
 
 class ExhibitionMediaFileInline(GenericMediaFileInline):
     fieldsets = [
@@ -37,9 +52,11 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     fieldsets += [(None, {'fields': ('slug', 'museum', 'image')}),]
     fieldsets += get_admin_lang_section(_("Image Caption"), ['image_caption', ])
     fieldsets += [(_("Time"), {'fields': ('start','end',)}),]
-    fieldsets += [(_("Status"), {'fields': ('newly_opened','featured','closing_soon','status')}),]
+    fieldsets += [(_("Categories"), {'fields': ('categories', 'newly_opened','featured','closing_soon')}),]
+    fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+    filter_horizontal = ("categories",)
     
     inlines = [ExhibitionMediaFileInline]
 
