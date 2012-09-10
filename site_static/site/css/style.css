@@ -634,6 +634,18 @@ ul.social li a.journal:hover span {
 	color: #00aa5a;
 }
 
+#content div.cms-plugin-richtext>h1 a,
+#content div.cms-plugin-richtext>h2 a,
+#content div.cms-plugin-richtext>h3 a,
+#content div.cms-plugin-richtext>h4 a,
+#content div.cms-plugin-richtext>h5 a {
+	color: #00aa5a;
+}
+
+em {
+  font-style: italic !important;
+}
+
 #content div.cms-plugin-richtext>*>a:hover {
 	color: #000;
 }
@@ -1459,6 +1471,8 @@ ound-color: rgba(255,255,255,0.96);
   height: 90px;
   padding-left: 25px;
   padding-right: 25px;
+  z-index: 5000;
+	background-color: #f8f6f2;
 }
 
 #head_filter li.active a.cancel img {
@@ -1588,13 +1602,13 @@ color: black;}
 	width: 1001px;
 	margin-left: -1px;
   float: left;
+  padding-top: 111px;
 }
 
-#object_list {
+#exhibition_list #object_list {
   float: left;	
   overflow: hidden;
-	width: 1004px;	padding-bottom: 263px;
-
+	width: 1004px;
 
 }
 
