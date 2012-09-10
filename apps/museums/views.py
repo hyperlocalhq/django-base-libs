@@ -80,6 +80,7 @@ def museum_list(request):
         template_name="museums/museum_list.html",
         paginate_by=200,
         extra_context=extra_context,
+        httpstate_prefix="museum_list",
         )
 
 def museum_detail(request, slug):

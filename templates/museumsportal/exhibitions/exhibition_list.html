@@ -1,18 +1,59 @@
 {% extends "base.html" %}
-{% load i18n image_modifications %}
+{% load i18n image_modifications base_tags %}
+
+{% block js %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+	<script type="text/javascript">
+	$(function() {
+
+        var scroller = new StickyScroller("#filter", {
+            start: $('#filter').offset().top,
+            margin: 0
+        });
+
+	});
+    var settings = {
+        STATIC_URL: "{{ STATIC_URL }}"
+    }
+    </script>
+{% endblock %}
+
 
 {% block content %}
-    <div id="" class="">
-    {% for exhibition in object_list %}
-        <div class="article short">
-            {% if exhibition.image %}
-                <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" /></a>
-            {% endif %}
-            <h4>{{ exhibition.museum.title }}</h4>
-            <h3>{{ exhibition.title }}</h3>
-            {{ exhibition.get_rendered_description }}
-            <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
+    <div class="marginal">
+        <ul id="filter">
+            <li class="catHead">→ Filter</li>
+            {% for cat in facets.categories.categories %}
+                {% if cat == facets.selected.category %}
+                    <li class="active"><a class="cancel" href="{% append_to_get category="" %}"><img src="{{ STATIC_URL }}site/img/cross.png" alt="" /></a>{{ cat.title }}</li>
+                {% else %}
+                    <li><a href="{% append_to_get category=cat.pk %}">{{ cat.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% for status_code, status_verbose in facets.categories.statuses %}
+                {% if status_code == facets.selected.status %}
+                    <li class="active"><a class="cancel" href="{% append_to_get status="" %}"><img src="{{ STATIC_URL }}site/img/cross.png" alt="" /></a>{{ status_verbose }}</li>
+                {% else %}
+                    <li><a href="{% append_to_get status=status_code %}">{{ status_verbose }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div id="exhibition_list">
+        <div id="object_list">
+            {% for exhibition in object_list %}
+                <div class="article short" style="cursor: pointer">
+                    {% if exhibition.image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" /></a>
+                    {% endif %}
+                    <h4>{{ exhibition.museum.title }}</h4>
+                    <h3>{{ exhibition.title }}</h3>
+                    {{ exhibition.get_rendered_description }}
+                    <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
     </div>
 {% endblock %}
