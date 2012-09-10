@@ -22,7 +22,9 @@
 
 {% block content %}
         <ul id="head_filter">
-<!--            <li class="catHead">Filter</li>-->
+            <!--<li class="catHead">Filter</li>-->
+            
+            <li class="{% if not facets.selected.category and not facets.selected.status %}active{% endif %} filter-all"><a href="{% append_to_get category="",status="" %}">{% trans "All" %}</a></li>
             {% for cat in facets.categories.categories %}
                 {% if cat == facets.selected.category %}
                     <li class="active"><a class="cancel" href="{% append_to_get category="" %}"><img src="{{ STATIC_URL }}site/img/cross_white.png" alt="" /></a>{{ cat.title }}</li>
