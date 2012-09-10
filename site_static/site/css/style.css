@@ -1473,6 +1473,14 @@ ound-color: rgba(255,255,255,0.96);
 
 }
 
+#head_filter li.active a{
+	color: #fff;
+}
+
+#head_filter li.active.filter-all {
+  padding-left: 8px;
+}
+
 #head_filter li.special {
   background-color: #cef4dc;
 }
