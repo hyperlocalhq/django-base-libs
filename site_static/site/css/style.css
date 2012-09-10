@@ -1516,9 +1516,7 @@ color: black;}
 
 
 #object_list div.article.short div.wrapper_description {
-	padding-left: 25px;
 	margin-left: -26px;
-	padding-right: 25px;
 	position: absolute;
 	z-index: 11;
 	overflow: hidden;
@@ -1527,19 +1525,22 @@ color: black;}
 	border-left: 1px solid #e5e3df;
 	border-right: 1px solid #e5e3df;
 	border-bottom: 1px solid #e5e3df;
-	padding-top: 35px;
-	top: 262px;
-	background: url(../img/exhibition_disc_top.png) no-repeat center 20px;
+	top: 282px;
+	background: white url(../img/exhibition_disc_top.png) no-repeat center top;
 	-webkit-transition-property: all;
 	-moz-transition-property: all;
 	transition-property: all;
-	-webkit-transition-duration: 0.25s;
-	-moz-transition-duration: 0.25s;
-	transition-duration: 0.25s;
+	-webkit-transition-duration: 0.5s;
+	-moz-transition-duration: 0.5s;
+	transition-duration: 0.5s;
+	-webkit-transition-delay: 0s;
+	-moz-transition-delay: 0s;
+	transition-delay: 0s;
 	-webkit-transition-timing: ease-in-out;
 	-moz-transition-timing: ease-in-out;
-  margin-top: -20px;	
-
+  margin-top: -20px;
+  padding: 0 25px;
+  opacity: 0;
 }
 
 #object_list div.article.short div.wrapper_description span.bottom {
@@ -1556,12 +1557,20 @@ color: black;}
 	line-height: 17px;
 	margin-bottom: 0;
 	margin-top: 0 !important;
+  padding-top: 15px;
 }
 
 #object_list div.article.short:hover div.wrapper_description {
-	height: 248px;
+	height: 263px;
 	opacity: 1;
-	background-color: white;
+	background-color: white;	
+	-webkit-transition-duration: 0.25s;
+	-moz-transition-duration: 0.25s;
+	transition-duration: 0.25s;
+
+	-webkit-transition-delay: 0.35s;
+	-moz-transition-delay: 0.35s;
+	transition-delay: 0.35s;
 }
 
 
