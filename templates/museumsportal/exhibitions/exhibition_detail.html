@@ -56,7 +56,7 @@
 	                </dl>
 	            {% endif %}
 	            
-                <div id="gmap" style="width: 196px; height: 150px;"></div>
+                <div id="gmap" class="detail_view"></div>
                 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}"></script>
                 <script type="text/javascript">
                     //<![CDATA[
@@ -64,6 +64,9 @@
                         $(document).ready(function() {
                             var latlng = new google.maps.LatLng({{ exhibition.museum.latitude }}, {{ exhibition.museum.longitude }});
                             var myOptions = {
+                            mapTypeControl: false,
+                            zoomControl: false,
+                            streetViewControl: false,
                             zoom: 16,
                             center: latlng,
                             mapTypeId: google.maps.MapTypeId.ROADMAP

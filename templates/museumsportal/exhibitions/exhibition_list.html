@@ -21,27 +21,24 @@
 
 
 {% block content %}
-    <div class="marginal">
-        <ul id="filter">
-            <li class="catHead">→ Filter</li>
+        <ul id="head_filter">
+<!--            <li class="catHead">Filter</li>-->
             {% for cat in facets.categories.categories %}
                 {% if cat == facets.selected.category %}
-                    <li class="active"><a class="cancel" href="{% append_to_get category="" %}"><img src="{{ STATIC_URL }}site/img/cross.png" alt="" /></a>{{ cat.title }}</li>
+                    <li class="active"><a class="cancel" href="{% append_to_get category="" %}"><img src="{{ STATIC_URL }}site/img/cross_white.png" alt="" /></a>{{ cat.title }}</li>
                 {% else %}
                     <li><a href="{% append_to_get category=cat.pk %}">{{ cat.title }}</a></li>
                 {% endif %}
             {% endfor %}
             {% for status_code, status_verbose in facets.categories.statuses %}
                 {% if status_code == facets.selected.status %}
-                    <li class="active"><a class="cancel" href="{% append_to_get status="" %}"><img src="{{ STATIC_URL }}site/img/cross.png" alt="" /></a>{{ status_verbose }}</li>
+                    <li class="active"><a class="cancel" href="{% append_to_get status="" %}"><img src="{{ STATIC_URL }}site/img/cross_white.png" alt="" /></a>{{ status_verbose }}</li>
                 {% else %}
-                    <li><a href="{% append_to_get status=status_code %}">{{ status_verbose }}</a></li>
+                    <li class="special"><a href="{% append_to_get status=status_code %}">{{ status_verbose }}</a></li>
                 {% endif %}
             {% endfor %}
         </ul>
-    </div>
-    
-    <div id="exhibition_list">
+     <div id="exhibition_list">
         <div id="object_list">
             {% for exhibition in object_list %}
                 <div class="article short" style="cursor: pointer">
@@ -49,8 +46,9 @@
                         <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" /></a>
                     {% endif %}
                     <h4>{{ exhibition.museum.title }}</h4>
+                    <h5>{{ exhibition.start|date:"j. F Y" }} {% trans "till" %} {{ exhibition.end|date:"j. F Y" }}</h5>
                     <h3>{{ exhibition.title }}</h3>
-                    {{ exhibition.get_rendered_description }}
+                    <div class="wrapper_description"><span class="bottom">&nbsp;</span><p>{{ exhibition.get_rendered_description|striptags }}</p></div>
                     <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
                 </div>
             {% endfor %}

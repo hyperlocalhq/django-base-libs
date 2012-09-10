@@ -3,6 +3,7 @@
 	http://127.0.0.1:8000/static/8180/site/css/style.css
 	http://127.0.0.1:8000/static/8311/site/css/style.css
 	http://127.0.0.1:8000/static/8694/site/css/style.css
+	http://127.0.0.1:8000/static/8762/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -237,14 +238,14 @@ ul#lang {
 }
 
 #filter li {
-	border-bottom: 1px solid #e5e3df;	
+	border-bottom: 1px solid #e5e3df;
 	font-size: 13px;
 	line-height: 28px;
-  padding-left: 25px;
-  display: block;
-  position: relative;
-  height: 30px;
-  width: 284px;
+	padding-left: 25px;
+	display: block;
+	position: relative;
+	height: 30px;
+	width: 284px;
 }
 
 #filter li.catHead {
@@ -255,30 +256,31 @@ ul#lang {
 	width: 283px;
 	height: 17px;
 	line-height: 20px;
-  font-size: 18px;
+	font-size: 18px;
 }
 
 #filter li.active a:link {
- border: none;
-  display: block;
-  position: absolute;
-  left: 25px;
-  top: 0;
-  height: 23px;
-  padding: 0;
+	border: none;
+	display: block;
+	position: absolute;
+	left: 25px;
+	top: 0;
+	height: 23px;
+	padding: 0;
 }
 
-#filter li.active  {	
-background-color: white; 
- width: 260px;
-  padding-left: 49px;
+#filter li.active {
+	background-color: white;
+	width: 260px;
+	padding-left: 49px;
 }
 
 #filter li.active a:link img {
+	
 }
 
 #filter li.active a:hover img {
-opacity: 0.25;
+	opacity: 0.25;
 }
 
 /*#filter li a:hover {
@@ -415,8 +417,8 @@ ul#az_filter li a:hover {
 	-moz-transition-timing: ease-in-out;
 	margin-top: 1px;
 	float: left;
-  width: 620px;
-  overflow: hidden;
+	width: 620px;
+	overflow: hidden;
 }
 
 #museum_list div.article a.img {
@@ -513,13 +515,13 @@ ul.social {
 	height: 40px;
 	background-repeat: no-repeat;
 	background-position: 14px center;
-  position: relative;
-  cursor: pointer;
-  letter-spacing: 1px;
+	position: relative;
+	cursor: pointer;
+	letter-spacing: 1px;
 }
 
 .social li a:hover {
-opacity: 0.5;
+	opacity: 0.5;
 }
 
 .social li span {
@@ -531,7 +533,6 @@ opacity: 0.5;
 	letter-spacing: 1px;
 	font-size: 12px;
 }
-
 
 .social li .facebook {
 	background-image: url(../img/facebook.png);
@@ -698,14 +699,10 @@ ul.social li a.journal:hover span {
 
 #content div.cms-plugin-richtext table tr th {
 	
-
-
 }
 
 #content div.cms-plugin-richtext table tr td {
 	
-
-
 }
 
 #content div.cms-plugin-richtext table tr td,
@@ -817,10 +814,6 @@ ul.social li a.journal:hover span {
 	-moz-transition-timing: ease-in-out;
 }
 
-a.img:hover {
-	opacity: 0.7;
-}
-
 .cms-plugin-richtext img,
 .img img {
 	width: 100%;
@@ -883,11 +876,7 @@ div.cms-plugin-richtext>p:last-child a:hover {
 	padding-left: 15px;
 }
 
-
-
 /* @end */
-
-
 
 /* @group Cols */
 
@@ -963,7 +952,7 @@ div.cms-plugin-richtext>p:last-child a:hover {
 	margin-bottom: 17px;
 }
 
-#detail div.article div.leftCol div.article_img div.image_caption p{
+#detail div.article div.leftCol div.article_img div.image_caption p {
 	font-size: 10px;
 	line-height: 16px;
 	color: gray;
@@ -1039,9 +1028,7 @@ div.cms-plugin-richtext>p:last-child a:hover {
 	float: right;
 	margin-left: -10px;
 	padding-right: 25px;
-	min-height: 665px
-
-;
+	min-height: 665px;
 }
 
 /* @end */
@@ -1143,7 +1130,7 @@ background-color: white;
 .article h4,
 .article h5 {
 	font-size: 16px;
-	line-height: 21px;
+	line-height: 22px;
 }
 
 #redaktion div.article.short h3,
@@ -1193,7 +1180,9 @@ h5 {
 	height: 155px;
 	text-align: center;
 	font-size: 25px !important;
-	/*
+	
+
+/*
 	-webkit-transform: rotate(8deg);
 	-moz-transform: rotate(8deg);
 	transform: rotate(8deg);
@@ -1201,6 +1190,8 @@ h5 {
 	right: 21px;
 	top: -35px;
 	background-image: url(../img/sticker.png);
+
+
 /*backgr
 
 ound-color: rgba(255,255,255,0.96);
@@ -1403,9 +1394,7 @@ ound-color: rgba(255,255,255,0.96);
 	position: absolute;
 	right: 25px;
 	background-image: url(../img/kulturprojekte.png);
-	background-repeat:
-
- no-repeat;
+	background-repeat: no-repeat;
 	background-position: right bottom;
 	font-size: 8px;
 	height: 38px;
@@ -1434,6 +1423,232 @@ ound-color: rgba(255,255,255,0.96);
 }
 
 /* @end */
+
+#gmap.detail_view {
+  	display: inline-block;
+	font-size: 15px;
+	line-height: 21px;
+	background-color: #f5f5f5;
+	margin-bottom: 6px;
+	border: 2px solid white;
+	-webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+	background-size: cover;
+	background-position: top;
+	position: relative;
+	-webkit-transition-property: opacity;
+	-moz-transition-property: opacity;
+	transition-property: opacity;
+	-webkit-transition-duration: 0.25s;
+	-moz-transition-duration: 0.25s;
+	transition-duration: 0.25s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
+  width: 195px;
+  height: 140px;
+  margin-top: 20px;
+}
+
+#head_filter {
+  float: left;
+  width: 950px;
+  border-bottom: 1px solid #e5e3df;
+  padding-top: 20px;
+  height: 90px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+#head_filter li.active a.cancel img {
+  position: absolute;
+  width: 15px;
+  left: 6px;
+}
+
+#head_filter li.active {
+  padding-left: 20px;	
+  background-color: #00aa5a !important;
+	color: #fff;
+
+}
+
+#head_filter li.special {
+  background-color: #cef4dc;
+}
+#head_filter li.special a{
+color: black;}
+
+#head_filter li:hover {
+  background-color: #00aa5a !important;
+}
+
+#head_filter li:hover a{
+	color: #fff;
+}
+
+#head_filter li.catHead {
+  background-color: transparent;
+  width: 100%;
+  padding: 0;
+  margin: -14px 0 2px;
+  font-size: 10px;
+  font-weight: 600;
+  text-indent: 2px;
+}
+
+
+#head_filter li{
+  float: left;
+  font-size: 12px;
+  padding-right: 7px;
+  padding-left: 7px;
+  margin-right: 2px;
+  background-color: white;
+  border-radius: 20px;
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  margin-bottom: 4px;
+  position: relative;
+}
+
+
+
+#object_list div.article.short div.wrapper_description {
+	padding-left: 25px;
+	margin-left: -26px;
+	padding-right: 25px;
+	position: absolute;
+	z-index: 11;
+	overflow: hidden;
+	height: 0;
+	width: 200px;
+	border-left: 1px solid #e5e3df;
+	border-right: 1px solid #e5e3df;
+	border-bottom: 1px solid #e5e3df;
+	padding-top: 35px;
+	top: 262px;
+	background: url(../img/exhibition_disc_top.png) no-repeat center 20px;
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0.25s;
+	-moz-transition-duration: 0.25s;
+	transition-duration: 0.25s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
+  margin-top: -20px;	
+
+}
+
+#object_list div.article.short div.wrapper_description span.bottom {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 44px;
+	background: url(../img/exhibition_disc_fade.png) 0 bottom;
+}
+
+#object_list div.article.short div.wrapper_description p {
+	font-size: 11px;
+	line-height: 17px;
+	margin-bottom: 0;
+	margin-top: 0 !important;
+}
+
+#object_list div.article.short:hover div.wrapper_description {
+	height: 248px;
+	opacity: 1;
+	background-color: white;
+}
+
+
+#exhibition_list {
+	overflow: hidden;
+	width: 1001px;
+	margin-left: -1px;
+  float: left;
+}
+
+#object_list {
+  float: left;	
+  overflow: hidden;
+	width: 1004px;	padding-bottom: 263px;
+
+
+}
+
+#object_list div.article.short {
+	float: left;
+	width: 200px;
+	margin: -1px -1px 0px 0px;
+	height: 212px;
+	border-left: 1px solid #e5e3df;
+	border-right: 1px solid #e5e3df;
+	position: relative;
+	background-color: #f8f6f2;
+}
+
+#object_list div.article.short:hover {
+	background-color: #ffffff;
+}
+
+#object_list div.article.short a.img {
+	margin-top: -5px;
+}
+
+#object_list div.article.short a.proceed {
+	opacity: 0;
+	top: 45px;
+	position: absolute;
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0.25s;
+	-moz-transition-duration: 0.25s;
+	transition-duration: 0.25s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
+	right: 35px;
+
+}
+
+#object_list div.article.short:hover a.proceed {
+	opacity: 1;
+	top: 33px;
+}
+
+#object_list div.article.short h3,
+#object_list div.article.short h4,
+#object_list div.article.short h5 {
+	font-size: 12px;
+	line-height: 17px;
+}
+
+#object_list div.article.short h4 {
+	font-size: 11px;
+	line-height: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-bottom: 6px;
+  margin-top: -4px;
+}
+
+#object_list div.article.short h5 {
+	font-size: 11px;
+	line-height: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-bottom: 2px;
+  height: 14px;
+}
+
+#object_list div.article.short img {
+	height: 130px;
+	width: 200px;
+}
 
 .marginal #sub_menu {
 	margin-top: -1px;
@@ -1517,7 +1732,7 @@ ound-color: rgba(255,255,255,0.96);
 	display: none;
 }
 
-#langenacht_shop { 
+#langenacht_shop {
 	position: absolute;
 	top: 1px;
 	right: 0px;
@@ -1529,35 +1744,34 @@ ound-color: rgba(255,255,255,0.96);
 }
 
 a.banner {
-  margin-left: 20px;
-  display: block;
-  margin-top: 18px;
-
+	margin-left: 20px;
+	display: block;
+	margin-top: 18px;
 	border: 2px solid #fff;
 	-webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
 	-moz-box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
 	box-shadow: 0px 1px 4px rgba(0,0,0,0.125);
-  display: block;
-  height: 122px;
-  width: 266px;
-  background: url(../img/banner/berlinartweek.gif) no-repeat;
+	display: block;
+	height: 122px;
+	width: 266px;
+	background: url(../img/banner/berlinartweek.gif) no-repeat;
 }
 
 a.banner.de {
-  background: url(../img/banner/berlinartweek_de.gif) no-repeat;
+	background: url(../img/banner/berlinartweek_de.gif) no-repeat;
 }
 
 a.banner.en {
-  background: url(../img/banner/berlinartweek_en.gif) no-repeat;
+	background: url(../img/banner/berlinartweek_en.gif) no-repeat;
 }
 
-.soon{
-  display: inline-block;
-  position: absolute;
-  right: 24px;
-  top: 0;
-  font-size: 10px !important;
-  text-transform: none;
-  color: rgba(0,0,0,0.53) !important;
-  background-image: url(../img/banner/berlinartweek.gif);
+.soon {
+	display: inline-block;
+	position: absolute;
+	right: 24px;
+	top: 0;
+	font-size: 10px !important;
+	text-transform: none;
+	color: rgba(0,0,0,0.53) !important;
+	background-image: url(../img/banner/berlinartweek.gif);
 }
