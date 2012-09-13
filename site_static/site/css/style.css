@@ -4,6 +4,7 @@
 	http://127.0.0.1:8000/static/8311/site/css/style.css
 	http://127.0.0.1:8000/static/8694/site/css/style.css
 	http://127.0.0.1:8000/static/8762/site/css/style.css
+	http://www.museumsportal-berlin.de/static/8770/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -52,17 +53,17 @@ strong {
 
 a:link {
 	text-decoration: none;
-	color: #000;
+	color: #00aa5a;
 }
 
 a:hover {
 	text-decoration: none;
-	color: #00aa5a;
+	color: #000;
 }
 
 a:visited {
 	text-decoration: none;
-	color: #000;
+	color: #00aa5a;
 }
 
 a:active {
@@ -259,6 +260,14 @@ ul#lang {
 	font-size: 18px;
 }
 
+#filter li a {
+	color: black;
+}
+
+#filter li a:hover {
+	color: #00aa5a;
+}
+
 #filter li.active a:link {
 	border: none;
 	display: block;
@@ -338,6 +347,7 @@ ul#az_filter li span {
 	text-align: center;
 	font-size: 12px;
 	width: 32px;
+	color: black;
 }
 
 ul#az_filter li span {
@@ -643,6 +653,7 @@ ul.social li a.journal:hover span {
 }
 
 em {
+	font-weight: inherit;
   font-style: italic !important;
 }
 
@@ -1134,6 +1145,11 @@ background-color: white;
 	color: #fff;
 }
 
+.article.short h3 a,
+#kurze_zeit .article h3 a {
+	color: #000 !important;
+}
+
 .article.short:hover h3 a,
 #kurze_zeit .article:hover h3 a {
 	color: #00aa5a !important;
@@ -1417,6 +1433,7 @@ ound-color: rgba(255,255,255,0.96);
 	width: 56px;
 	white-space: nowrap;
 	bottom: 20px;
+	color: black;
 }
 
 #footer a.kpb:hover {
@@ -1706,6 +1723,7 @@ color: black;}
 	padding-top: 8px;
 	padding-bottom: 11px;
 	padding-left: 25px;
+	color: black;
 }
 
 .marginal #sub_menu a:hover {
