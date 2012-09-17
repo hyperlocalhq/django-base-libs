@@ -1,12 +1,12 @@
-{% load base_tags cms_tags i18n image_modifications slideshows %}
+{% load base_tags cms_tags i18n image_modifications slideshows infoblocks %}
 <div class="marginal">
     <ul class="social">
 		<li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">Facebook</a></li>
 		<li><a class="twitter" href="https://twitter.com/museumsportal">Twitter</a></li>
 		<li><a class="information" href="http://www.berliner-museumsportal.de/de/informationenfuermuseen">Information für Museen</a></li>
-    	 <a href="http://www.berlinartweek.de/de/service/tickets.html" class="banner de">
-    	 	&nbsp;
-    	 </a>
+		<li class="banner">
+		    {% infoblock "banner" %}
+        </li>
     </ul>
     <div id="kurze_zeit">
         <h2 class="catHead">Nur noch kurze Zeit</h2>

@@ -561,6 +561,12 @@ ul.social {
 	background-image: url(../img/rss.png);
 }
 
+.social li.banner a {
+    height: auto;
+    border-bottom: none;
+
+}
+
 ul.social li a.journal {
 	height: 116px;
 	background: url(../img/journal.png) no-repeat center center;
