@@ -6,6 +6,7 @@
 	http://127.0.0.1:8000/static/8762/site/css/style.css
 	http://www.museumsportal-berlin.de/static/8770/site/css/style.css
 	http://127.0.0.1:8000/static/8779/site/css/style.css
+	http://127.0.0.1:8000/static/8811/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -1542,6 +1543,9 @@ color: black;}
   background-color: #00aa5a !important;
 }
 
+#head_filter li a{
+	color: #000;
+}
 #head_filter li:hover a{
 	color: #fff;
 }
