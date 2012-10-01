@@ -130,11 +130,11 @@ Shadowbox.init({
                 </dl>
 	           	
 	            <dl class="von">
-	                <dt>{% trans "Start" %}</dt>
+	                <dt>{% if LANGUAGE_CODE == "de" %}Von{% else %}From{% endif %}</dt>
 	                <dd>{{ exhibition.start|date:"d.m.Y" }}</a></dd>
 	            </dl>
 	            <dl class="bis">
-	                <dt>{% trans "End" %}</dt>
+	                <dt>{% if LANGUAGE_CODE == "de" %}Bis{% else %}Till{% endif %}</dt>
 	                <dd>{{ exhibition.end|date:"d.m.Y" }}</a></dd>
 	            </dl>
 	            {% if exhibition.website %}
