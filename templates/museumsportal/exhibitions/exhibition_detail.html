@@ -101,8 +101,7 @@ Shadowbox.init({
 	                {% endif %}
 	                <h4>{{ exhibition.museum.title }}</h4>
 	                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
-	                <h5>{{ exhibition.start|date:"j. F Y" }} {% trans "till" %} {{ exhibition.end|date:"j. F Y" }}</h5>
-	                
+	                <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
 	            </div>
 	        {% endfor %}
         </div>
@@ -132,11 +131,11 @@ Shadowbox.init({
 	           	
 	            <dl class="von">
 	                <dt>{% trans "Start" %}</dt>
-	                <dd>{{ exhibition.start|date:"j. F Y" }}</a></dd>
+	                <dd>{{ exhibition.start|date:"d.m.Y" }}</a></dd>
 	            </dl>
 	            <dl class="bis">
 	                <dt>{% trans "End" %}</dt>
-	                <dd>{{ exhibition.end|date:"j. F Y" }}</a></dd>
+	                <dd>{{ exhibition.end|date:"d.m.Y" }}</a></dd>
 	            </dl>
 	            {% if exhibition.website %}
 	                <dl class="website">

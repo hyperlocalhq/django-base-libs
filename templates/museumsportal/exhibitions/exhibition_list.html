@@ -48,7 +48,7 @@
                         <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" /></a>
                     {% endif %}
                     <h4>{{ exhibition.museum.title }}</h4>
-                    <h5>{{ exhibition.start|date:"j. F Y" }} {% trans "till" %} {{ exhibition.end|date:"j. F Y" }}</h5>
+                    <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                     <h3>{{ exhibition.title }}</h3>
                     <div class="wrapper_description"><span class="bottom">&nbsp;</span><p>{{ exhibition.get_rendered_description|striptags }}</p></div>
                     <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
