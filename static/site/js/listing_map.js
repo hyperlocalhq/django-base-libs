@@ -22,9 +22,9 @@
         if ($oList.length) {
             var oOptions = {
                 zoom: 13,
-                mapTypeControl: false,
-                zoomControl: true,
-                streetViewControl: true,
+				mapTypeControl: false,
+				zoomControl: true,
+				streetViewControl: true,                
                 center: new google.maps.LatLng(52.515306, 13.363863),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControlOptions: {
@@ -143,17 +143,18 @@
             // DRAW MARKER LINK
             $('.marker-link:eq(' + i + ')').append(
                 $('<a href=""></a>').css({
-                    display: "block",
-                    overflow: "hidden",
-                    height: "35px",
-                    width: "20px",
-                    background: "url(" + sMarkerImg +") no-repeat 0px " + iMarkerImgY + "px"
+                    //display: "block",
+                    //overflow: "hidden",
+                    //height: "35px",
+                    //width: "20px",
+                    //background: "url(" + sMarkerImg +") no-repeat 0px " + iMarkerImgY + "px"
                 })
             ).data('marker_obj', oMarker).click(function() {
                 google.maps.event.trigger($(this).data('marker_obj'), "click");
                 //oMap.setCenter($(this).data('marker_obj').getPosition());
                 //oMap.setZoom(16);
-                $("#museum_list_map").autoscroll();
+                //$("#museum_list_map").autoscroll();
+                $('body').addClass('map_visible');
                 return false;
             });
         }
