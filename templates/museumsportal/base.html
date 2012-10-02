@@ -23,7 +23,8 @@
     {% block js %}{% endblock %}
     
 </head>
-<body>
+<body class="{% block bodyclass %}{% endblock %}">
+
     {% block toolbar %}
         {% cms_toolbar %}
     {% endblock %}

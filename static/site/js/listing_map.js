@@ -22,6 +22,9 @@
         if ($oList.length) {
             var oOptions = {
                 zoom: 13,
+                mapTypeControl: false,
+                zoomControl: true,
+                streetViewControl: true,
                 center: new google.maps.LatLng(52.515306, 13.363863),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControlOptions: {
