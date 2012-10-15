@@ -58,7 +58,7 @@
         	{% endif %}
         	
             {% for exhibition in object_list %}
-                <div class="article short" style="cursor: pointer">
+                <div class="article short{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} {{ cat.title_en|slugify }}{% endfor %}" style="cursor: pointer">
                     {% if exhibition.image %}
                         <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" /></a>
                     {% endif %}
