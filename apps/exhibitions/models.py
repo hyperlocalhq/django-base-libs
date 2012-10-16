@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from datetime import date
+from datetime import datetime, date, timedelta
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -105,6 +105,17 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return ""
         else:
             return path
+
+    def is_newly_open(self):
+        today = date.today()
+        two_weeks = timedelta(days=14)
+        return today - two_weeks < self.start < today
+        
+    def is_closing_soon(self):
+        today = date.today()
+        two_weeks = timedelta(days=14)
+        return today < self.end < today + two_weeks
+        
 
 class NewlyOpenedExhibition(CMSPlugin):
     exhibition = models.ForeignKey(Exhibition, limit_choices_to={'newly_opened': True})

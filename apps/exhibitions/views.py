@@ -45,6 +45,7 @@ def exhibition_list(request):
             },
         }
 
+    status = None
     if form.is_valid():
         cat = form.cleaned_data['category']
         if cat:
@@ -69,7 +70,11 @@ def exhibition_list(request):
                     end__gte=today,
                     end__lt=today+two_weeks,
                     )
-
+    if status == "closing_soon":
+        qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
+    else:
+        qs = qs.order_by("-start", "title_%s" % request.LANGUAGE_CODE)
+        
     extra_context = {}
     extra_context['form'] = form
     extra_context['facets'] = facets
