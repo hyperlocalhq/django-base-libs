@@ -394,12 +394,12 @@ FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
 execfile(os.path.join(ROOT_PATH, "jetson/settings/grappelli.py"))
 GRAPPELLI_ADMIN_HEADLINE = "Berliner Museumsportal Admin"
 
+### OTHER SETTINGS ###
+
 ARTICLES_HAVE_TYPES = False
 
-# TEMPLATE TAGS FROM BASE_LIBS
-#from django.utils.importlib import import_module
-#from django.template import base as django_template_base
-#django_template_base.libraries['base_tags'] = import_module("base_libs.templatetags.base_tags").register
+TWITTER_USERNAME = "museumsportal"
+TWITTER_NUMBER_OF_TWEETS = 3
 
 ### LOCAL SETTINGS ###
 

@@ -45,6 +45,10 @@ urlpatterns += patterns('',
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     
     url(r'^twitterwall/', include('museumsportal.apps.twitterwall.urls')),
+    url(r'^tweets/$', 'museumsportal.apps.twitter.views.latest_tweets', {
+        'twitter_username': settings.TWITTER_USERNAME,
+        'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
+        }),
     
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('cms.urls')),
