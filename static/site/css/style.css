@@ -10,6 +10,7 @@
 	http://127.0.0.1:8000/static/8829/site/css/style.css
 	http://www.museumsportal-berlin.de/static/8835/site/css/style.css
 	http://127.0.0.1:8000/static/8842/site/css/style.css
+	http://127.0.0.1:8000/static/8846/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -1969,3 +1970,28 @@ a.banner.en {
 	color: rgba(0,0,0,0.53) !important;
 	background-image: url(../img/banner/berlinartweek.gif);
 }
+
+#twitterfeed {
+	float: left;
+	
+}
+
+#tweets li {
+	width: 100%;
+	float: left;
+	font-size: 12px;
+	line-height: 18px;
+	border-top: 1px solid #e5e3df;
+	margin-bottom: 12px;
+	margin-left: -26px;
+	padding-left: 26px;
+	padding-right: 26px;
+	padding-top: 12px;
+}
+
+#tweets li div.created_at a {
+	font-size: 9px;
+	text-align: left;
+	color: gray;
+}
+
