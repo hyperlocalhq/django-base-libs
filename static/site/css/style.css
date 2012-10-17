@@ -8,7 +8,8 @@
 	http://127.0.0.1:8000/static/8779/site/css/style.css
 	http://127.0.0.1:8000/static/8811/site/css/style.css
 	http://127.0.0.1:8000/static/8829/site/css/style.css
-	http://www.museumsportal-berlin.de/static/8832/site/css/style.css
+	http://www.museumsportal-berlin.de/static/8835/site/css/style.css
+	http://127.0.0.1:8000/static/8842/site/css/style.css
 */
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
@@ -359,7 +360,6 @@ ul#lang {
 	line-height: 20px;
   margin-top: 2px;
   opacity: 0;
-  overflow: hidden;
 }
 #object_list div.article:hover div.marker-link {
   opacity: 1;
@@ -373,13 +373,13 @@ ul#lang {
 }
 
 #museum_list div.article {
-	border-right: none !important;
+	border-right: 1px solid #e5e3df;
 	border-bottom: 1px solid #e5e3df;
-	background-color: #f8f6f2;
 	height: 30px;
 	position: relative;
+	margin-right: -1px;
 	overflow: hidden;
-  width: 1000px;
+  width: 100%;
   padding-top: 10px;
   padding-bottom: 5px;
   text-indent: 25px;	
@@ -890,21 +890,6 @@ div.cms-plugin-richtext>p:last-child a:hover {
 
 /* @group Cols */
 
-#kurze_zeit {
-  /*height: 100%;
-  width: 284px;
-  overflow-Y: scroll;
-  overflow-x: hidden;
-  padding-left: 25px;
-  margin-left: -25px;*/
-}
-
-/* @group My Group */
-
-
-
-/* @end */
-
 #redaktion,
 #neu {
 	padding-bottom: 0;
@@ -1068,8 +1053,6 @@ div.cms-plugin-richtext>p:last-child a:hover {
 	padding-right: 25px;
 	min-height: 665px;
 }
-
-
 
 /* @end */
 
@@ -1828,20 +1811,23 @@ font-weight: 200;
 
 #object_list div.article.short h4 {
 	font-size: 11px;
-	line-height: 10px;
-	white-space: nowrap;
+	line-height: 16px;
+	margin-top: -6px;
+  /*white-space: nowrap;
 	overflow: hidden;
-  margin-top: -4px;
-  height: 16px;
+  height: 16px;	
+  text-overflow: ellipsis;*/	
+
+
 }
 
 #object_list div.article.short h5 {
 	font-size: 11px;
-	line-height: 10px;
+	line-height: 16px;
 	white-space: nowrap;
 	overflow: hidden;
-	margin-bottom: 2px;
   height: 14px;
+	margin-bottom: 4px;
 }
 .closing_soon #object_list div.article.short h5 .from_date{
 display: none;
@@ -1851,7 +1837,7 @@ display: none;
 
 
 #object_list div.article.short img {
-	height: 130px;
+	height: 122px;
 	width: 200px;
 }
 
