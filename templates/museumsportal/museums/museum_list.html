@@ -61,7 +61,7 @@
     <div id="museum_list" class="">
         <div id="object_list">
         {% for museum in object_list %}
-            <div class="article" style="cursor: pointer">
+            <div class="article">
                 
                 <a class="proceed" href="{{ museum.get_url_path }}">{% trans "more" %}</a>
                 <h2>{{ museum.title }}</h2>
