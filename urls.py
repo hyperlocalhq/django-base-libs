@@ -7,12 +7,24 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from filebrowser.sites import site
 
+from tastypie.api import Api
+from museumsportal.apps.museums.api.resources import MuseumCategoryResource
+from museumsportal.apps.museums.api.resources import MuseumResource
+from museumsportal.apps.exhibitions.api.resources import ExhibitionCategoryResource
+from museumsportal.apps.exhibitions.api.resources import ExhibitionResource
+
 from base_libs.utils.misc import path_in_installed_app
 
 admin.autodiscover()
 
 handler404 = "jetson.apps.error_handler.views.page_not_found"
 handler500 = "jetson.apps.error_handler.views.server_error"
+
+v1_api = Api(api_name='v1')
+v1_api.register(MuseumCategoryResource())
+v1_api.register(MuseumResource())
+v1_api.register(ExhibitionCategoryResource())
+v1_api.register(ExhibitionResource())
 
 urlpatterns = patterns(path_in_installed_app('image_mods.views'),
     url(r'^admin/filebrowser/versions/$', 'versions', name="fb_versions"),
@@ -34,6 +46,8 @@ urlpatterns = patterns('',
 ) + urlpatterns
 
 urlpatterns += patterns('',
+    (r'^api/', include(v1_api.urls)),
+    
     # i18n
     (r'^i18n/', 'jetson.apps.utils.views.set_language'),
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': 'jetson.apps.utils'}),

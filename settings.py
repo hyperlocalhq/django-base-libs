@@ -144,7 +144,7 @@ INSTALLED_APPS = (
     ### more third-party apps ###    
     "pipeline",
     "uni_form",
-    #"base_libs", # for templatetags
+    "tastypie",
     
     ### Required CMS Django 2.2 apps ###
     "cms",
@@ -270,6 +270,9 @@ ADMIN_APP_INDEX = (
                 }),
              ('external_services', {
                 'models':("Service", "ObjectMapper",),
+                }),
+             ('tastypie', {
+                'models':("ApiKey",),
                 }),
             ('configuration', {
                 'models':("SiteSettings",),

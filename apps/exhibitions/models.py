@@ -127,4 +127,4 @@ class NewlyOpenedExhibition(CMSPlugin):
         ordering = ['exhibition__title']
         verbose_name = _("Newly opened exhibition")
         verbose_name_plural = _("Newly opened exhibitions")
-    
+
