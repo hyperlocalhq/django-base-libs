@@ -11,6 +11,7 @@ from tastypie.serializers import Serializer
 from tastypie.cache import SimpleCache
 
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.misc import strip_html
 
 MuseumCategory = models.get_model("museums", "MuseumCategory")
 Museum = models.get_model("museums", "Museum")
@@ -27,10 +28,6 @@ class MuseumCategoryResource(ModelResource):
         cache = SimpleCache(timeout=10)
 
 class MuseumResource(ModelResource):
-    description_en = fields.CharField(attribute="get_rendered_description_en")
-    description_de = fields.CharField(attribute="get_rendered_description_de")
-    image_caption_en = fields.CharField(attribute="get_rendered_image_caption_en")
-    image_caption_de = fields.CharField(attribute="get_rendered_image_caption_de")
     categories = fields.ToManyField(MuseumCategoryResource, "categories", full=True)
     
     class Meta:
@@ -42,11 +39,10 @@ class MuseumResource(ModelResource):
             'creation_date', 'modified_date',
             'title_en', 'title_de',
             'subtitle_en', 'subtitle_de',
-            'description_en', 'description_de',
             'street_address', 'street_address2', 'postal_code', 'city', 'country',
             'latitude', 'longitude',
             'phone', 'fax', 'email', 'website',
-            'image', 'image_caption_en', 'image_caption_de',
+            'image',
             'categories', 'status', 'open_on_mondays', 'free_entrance',
             ]
         filtering = {
@@ -78,6 +74,10 @@ class MuseumResource(ModelResource):
             bundle.obj.slug,
             "/",
             ))
+        bundle.data['description_en'] = strip_html(bundle.obj.get_rendered_description_en())
+        bundle.data['description_de'] = strip_html(bundle.obj.get_rendered_description_de())
+        bundle.data['image_caption_en'] = strip_html(bundle.obj.get_rendered_image_caption_en())
+        bundle.data['image_caption_de'] = strip_html(bundle.obj.get_rendered_image_caption_de())
         return bundle
         
         

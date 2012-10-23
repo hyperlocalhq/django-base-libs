@@ -11,6 +11,7 @@ from tastypie.serializers import Serializer
 from tastypie.cache import SimpleCache
 
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.misc import strip_html
 
 ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
@@ -28,10 +29,6 @@ class ExhibitionCategoryResource(ModelResource):
 
 class ExhibitionResource(ModelResource):
     museum = fields.ToOneField("museumsportal.apps.museums.api.resources.MuseumResource", "museum")
-    description_en = fields.CharField(attribute="get_rendered_description_en")
-    description_de = fields.CharField(attribute="get_rendered_description_de")
-    image_caption_en = fields.CharField(attribute="get_rendered_image_caption_en")
-    image_caption_de = fields.CharField(attribute="get_rendered_image_caption_de")
     categories = fields.ToManyField(ExhibitionCategoryResource, "categories", full=True)
     
     class Meta:
@@ -43,10 +40,9 @@ class ExhibitionResource(ModelResource):
             'creation_date', 'modified_date',
             'title_en', 'title_de',
             'subtitle_en', 'subtitle_de',
-            'description_en', 'description_de',
             'website_en', 'website_de',
             'start', 'end',
-            'image', 'image_caption_en', 'image_caption_de',
+            'image',
             'categories', 'status',
             ]
         filtering = {
@@ -72,6 +68,10 @@ class ExhibitionResource(ModelResource):
             bundle.obj.slug,
             "/",
             ))
+        bundle.data['description_en'] = strip_html(bundle.obj.get_rendered_description_en())
+        bundle.data['description_de'] = strip_html(bundle.obj.get_rendered_description_de())
+        bundle.data['image_caption_en'] = strip_html(bundle.obj.get_rendered_image_caption_en())
+        bundle.data['image_caption_de'] = strip_html(bundle.obj.get_rendered_image_caption_de())
         return bundle
         
     def apply_filters(self, request, applicable_filters):
