@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django import forms
 from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import redirect
 
 from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
@@ -34,6 +35,9 @@ class ExhibitionSearchForm(dynamicforms.Form):
 
 def exhibition_list(request):
     qs = Exhibition.objects.filter(status="published")
+    
+    if not request.REQUEST.keys():
+        return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
     
     form = ExhibitionSearchForm(data=request.REQUEST)
     

@@ -30,7 +30,7 @@
 		</div>
 		
 	    <ul class="filter">
-	        <li class="special {% if not facets.selected.category and not facets.selected.status %}active{% endif %} filter-all" id="all"><a href="{% append_to_get category="",status="" %}">Alle Sonderausstellungen</a></li>
+	        <li class="special {% if not facets.selected.category and not facets.selected.status %}active{% endif %} filter-all" id="all"><a href="{% append_to_get category="",status="",show="all" %}">Alle Sonderausstellungen</a></li>
 	        
 	        {% for status_code, status_verbose in facets.categories.statuses %}
 	            {% if status_code == facets.selected.status %}
