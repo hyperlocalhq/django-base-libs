@@ -48,7 +48,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'closing_soon')
     search_fields = ('title_de','title_en', 'subtitle_de','subtitle_en', 'slug', 'museum__title_de', 'museum__title_en',)
     
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description', 'website'])
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'teaser', 'description', 'website'])
     fieldsets += [(None, {'fields': ('slug', 'museum', 'image')}),]
     fieldsets += get_admin_lang_section(_("Image Caption"), ['image_caption', ])
     fieldsets += [(_("Time"), {'fields': ('start','end',)}),]
