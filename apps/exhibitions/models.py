@@ -73,6 +73,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     teaser = MultilingualTextField(_("Teaser"), blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
+    press_text = MultilingualTextField(_("Press text"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
 
     start = models.DateField(_("Start"))
