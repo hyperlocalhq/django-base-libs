@@ -68,8 +68,8 @@ class ExhibitionResource(ModelResource):
             bundle.obj.slug,
             "/",
             ))
-        bundle.data['description_en'] = strip_html(bundle.obj.get_rendered_description_en())
-        bundle.data['description_de'] = strip_html(bundle.obj.get_rendered_description_de())
+        bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_press_text_en())
+        bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_press_text_de())
         bundle.data['image_caption_en'] = strip_html(bundle.obj.get_rendered_image_caption_en())
         bundle.data['image_caption_de'] = strip_html(bundle.obj.get_rendered_image_caption_de())
         return bundle
