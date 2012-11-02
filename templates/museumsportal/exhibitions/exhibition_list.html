@@ -6,12 +6,10 @@
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
 	<script type="text/javascript">
 	$(function() {
-
         var scroller = new StickyScroller("#head_filter", {
             start: $('#head_filter').offset().top,
             margin: 0
         });
-
 	});
     var settings = {
         STATIC_URL: "{{ STATIC_URL }}"

@@ -1,18 +1,3 @@
-/* @override 
-	http://www.berliner-museumsportal.de/static/8123/site/css/style.css
-	http://127.0.0.1:8000/static/8180/site/css/style.css
-	http://127.0.0.1:8000/static/8311/site/css/style.css
-	http://127.0.0.1:8000/static/8694/site/css/style.css
-	http://127.0.0.1:8000/static/8762/site/css/style.css
-	http://www.museumsportal-berlin.de/static/8770/site/css/style.css
-	http://127.0.0.1:8000/static/8779/site/css/style.css
-	http://127.0.0.1:8000/static/8811/site/css/style.css
-	http://127.0.0.1:8000/static/8829/site/css/style.css
-	http://www.museumsportal-berlin.de/static/8835/site/css/style.css
-	http://127.0.0.1:8000/static/8842/site/css/style.css
-	http://127.0.0.1:8000/static/8846/site/css/style.css
-*/
-
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
 
 /* @group General */
@@ -1481,12 +1466,12 @@ ound-color: rgba(255,255,255,0.96);
 }
 
 #head_filter {
-  float: left;
+  /*float: left;*/
   width: 1000px;
   border-bottom: 1px solid #e5e3df;
   z-index: 5000;
-  position: absolute;
-	background-color: #f8f6f2;
+  /*position: absolute;*/
+  background-color: #f8f6f2;
 }
 
 #gmap_wrapper {
