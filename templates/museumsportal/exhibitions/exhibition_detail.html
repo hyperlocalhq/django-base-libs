@@ -100,7 +100,7 @@
 	                {% endif %}
 	                <h4>{{ exhibition.museum.title }}</h4>
 	                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
-	                <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+	                <h5>{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
 	            </div>
 	        {% endfor %}
         </div>

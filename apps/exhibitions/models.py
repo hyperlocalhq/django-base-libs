@@ -42,13 +42,15 @@ class ExhibitionCategory(CreationModificationDateMixin, SlugMixin()):
 
 class ExhibitionManager(models.Manager):
     def newly_opened(self):
-        return self.filter(newly_opened=True, status="published").order_by("-featured", "-start")
+        lang_code = get_current_language()
+        return self.filter(newly_opened=True, status="published").order_by("-featured", "-start", "title_%s" % lang_code)
         
     def featured(self):
         return self.filter(featured=True, status="published")
         
     def closing_soon(self):
-        return self.filter(closing_soon=True, status="published").order_by("-featured", "end")
+        lang_code = get_current_language()
+        return self.filter(closing_soon=True, status="published").order_by("-featured", "end", "title_%s" % lang_code)
     
     def past(self, timestamp=date.today):
         """ Past events """
