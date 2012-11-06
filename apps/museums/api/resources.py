@@ -41,7 +41,7 @@ class MuseumResource(ModelResource):
             'subtitle_en', 'subtitle_de',
             'street_address', 'street_address2', 'postal_code', 'city', 'country',
             'latitude', 'longitude',
-            'phone', 'fax', 'email', 'website',
+            'phone', 'fax', 'email',
             'image',
             'categories', 'status', 'open_on_mondays', 'free_entrance',
             ]

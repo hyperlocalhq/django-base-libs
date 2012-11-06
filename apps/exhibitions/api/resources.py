@@ -40,7 +40,6 @@ class ExhibitionResource(ModelResource):
             'creation_date', 'modified_date',
             'title_en', 'title_de',
             'subtitle_en', 'subtitle_de',
-            'website_en', 'website_de',
             'start', 'end',
             'image',
             'categories', 'status',
