@@ -90,7 +90,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return path
     
     def get_published_exhibitions(self):
-        return self.exhibition_set.filter(status="published").order_by("-end")
+        return self.exhibition_set.filter(status="published").order_by("-start")
         
     def get_museums_with_the_same_categories(self):
         categories = list(self.categories.all().values_list("pk", flat=True))
