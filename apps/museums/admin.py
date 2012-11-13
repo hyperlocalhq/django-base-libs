@@ -42,7 +42,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets += [(None, {'fields': ('slug', 'image')}),]
     fieldsets += get_admin_lang_section(_("Image Caption"), ['image_caption', ])
     fieldsets += [(_("Categories"), {'fields': ('categories', 'open_on_mondays', 'free_entrance')}),]
-    fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city','country','latitude','longitude')}),]
+    fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city','country','latitude','longitude', 'public_transport')}),]
     fieldsets += [(_("Contact"), {'fields': ('phone','fax','email','website',)}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
