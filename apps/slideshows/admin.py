@@ -14,8 +14,6 @@ from base_libs.admin import ExtendedModelAdmin
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
-from jetson.apps.utils.models import XFieldList
-
 Slideshow = models.get_model("slideshows", "Slideshow")
 Slide = models.get_model("slideshows", "Slide")
 
