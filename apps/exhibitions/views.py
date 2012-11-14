@@ -36,8 +36,8 @@ class ExhibitionSearchForm(dynamicforms.Form):
 def exhibition_list(request):
     qs = Exhibition.objects.filter(status="published")
     
-    if not request.REQUEST.keys():
-        return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
+    #if not request.REQUEST.keys():
+    #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
     
     form = ExhibitionSearchForm(data=request.REQUEST)
     
