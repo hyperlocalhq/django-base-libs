@@ -73,6 +73,13 @@ function openGoogleMaps() {
                     // add some simple controls
                     map.addControl(new GSmallMapControl());
                     map.addControl(new GMapTypeControl());*/
+                    
+                    
+                    /*$("#bvg_widget").appendTo($("#"+Shadowbox.playerId))
+                    
+                    $(".toggle_widget").click(function () {
+                    	$('#bvg_widget').toggleClass("mini");
+                    });*/
                 }
             }
         });
@@ -84,6 +91,14 @@ Shadowbox.init({
     continuous:     true,
     animate:     true
 });
+
+$(document).ready(function(){
+	$(".toggle_bvg").click(function () {
+	    	$("#bvg_widget").toggleClass("on");
+	    	return false
+	    });
+});
+
 </script>
 {% endwith %}
 {% endblock %}
@@ -139,7 +154,52 @@ Shadowbox.init({
                         <dd>{{ museum.street_address }}</dd>
                         {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                         <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
-                        <dd><a onclick="openGoogleMaps();" id="map_link" title="Karte" href="#">Googlemaps</a></dd>
+                        <dd><a onclick="openGoogleMaps();" class="button" id="map_link" title="Karte" href="#">Googlemaps</a> <a class="toggle_bvg button" href="#">BVG Suche</a></dd>
+                    </dl>
+                    
+                  <dl id="bvg_widget" class="bvg">
+                      <dt>So erreichen Sie uns</dt>
+                        <dd>
+                        <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
+                       
+                        		<form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
+                        			<fieldset class="clearfix">
+                        			
+                        				<ul>
+	                        				<li>
+		                        				<label for="wdgt_from">Von</label>
+		                        				<input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
+	                        				</li>
+	                        				
+	                        				<li>
+		                        				<label for="wdgt_to">Nach</label>
+		                        				<input type="text" name="to" id="wdgt_to" value="{{ museum.street_address }}, {{ museum.postal_code }}, {{ museum.city }}">
+	                        				</li>
+	                        				
+	                        				<li>
+		                        				<label for="wdgt_date">Am</label>
+		                        				<input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+	                        				</li>
+	                        				
+	                        				<li>
+		                        				<label for="wdgt_time">Um</label>
+		                        				<input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
+	                        				</li>
+	                        				
+	                        				<li class="radios">
+		                        				<label for="wdgt_arr">Ankunft</label>
+		                        				<input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
+		                        				
+		                        				<label for="wdgt_dep">Abfahrt</label>
+			                    					<input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
+		                    					</li>
+		                    					<li>
+			                    						<input id="submit" type="submit" name="start" value="Anfrage abschicken">
+		                    					</li>
+	                    					</ul>
+                        			</fieldset>
+                        		</form>
+                        </dd>
 	                </dl>
 	                
 	                {% if museum.phone %}
