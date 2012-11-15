@@ -158,48 +158,95 @@ $(document).ready(function(){
                     </dl>
                     
                   <dl id="bvg_widget" class="bvg">
-                      <dt>So erreichen Sie uns</dt>
-                        <dd>
-                        <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
-                       
-                        		<form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
-                        			<fieldset class="clearfix">
-                        			
-                        				<ul>
-	                        				<li>
-		                        				<label for="wdgt_from">Von</label>
-		                        				<input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
-	                        				</li>
-	                        				
-	                        				<li>
-		                        				<label for="wdgt_to">Nach</label>
-		                        				<input type="text" name="to" id="wdgt_to" value="{{ museum.street_address }}, {{ museum.postal_code }}, {{ museum.city }}">
-	                        				</li>
-	                        				
-	                        				<li>
-		                        				<label for="wdgt_date">Am</label>
-		                        				<input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-	                        				</li>
-	                        				
-	                        				<li>
-		                        				<label for="wdgt_time">Um</label>
-		                        				<input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
-	                        				</li>
-	                        				
-	                        				<li class="radios">
-		                        				<label for="wdgt_arr">Ankunft</label>
-		                        				<input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
-		                        				
-		                        				<label for="wdgt_dep">Abfahrt</label>
-			                    					<input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
-		                    					</li>
-		                    					<li>
-			                    						<input id="submit" type="submit" name="start" value="Anfrage abschicken">
-		                    					</li>
-	                    					</ul>
-                        			</fieldset>
-                        		</form>
-                        </dd>
+                      	{% if LANGUAGE_CODE == "de" %}
+                      	    <dt>So erreichen Sie uns</dt>
+                      	     <dd>
+                      	     <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
+                      	    
+                      	     		<form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
+                      	     			<fieldset class="clearfix">
+                      	     			
+                      	     				<ul>
+                      	       				<li>
+                      	         				<label for="wdgt_from">Von</label>
+                      	         				<input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
+                      	       				</li>
+                      	       				
+                      	       				<li>
+                      	         				<label for="wdgt_to">Nach</label>
+                      	         				<input type="text" name="to" id="wdgt_to" value="{{ museum.street_address }}, {{ museum.postal_code }}, {{ museum.city }}">
+                      	       				</li>
+                      	       				
+                      	       				<li>
+                      	         				<label for="wdgt_date">Am</label>
+                      	         				<input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                      	       				</li>
+                      	       				
+                      	       				<li>
+                      	         				<label for="wdgt_time">Um</label>
+                      	         				<input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
+                      	       				</li>
+                      	       				
+                      	       				<li class="radios">
+                      	         				<label for="wdgt_arr">Ankunft</label>
+                      	         				<input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
+                      	         				
+                      	         				<label for="wdgt_dep">Abfahrt</label>
+                      	       					<input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
+                      	     					</li>
+                      	     					<li>
+                      	       						<input id="submit" type="submit" name="start" value="Anfrage abschicken">
+                      	     					</li>
+                      	    					</ul>
+                      	     			</fieldset>
+                      	     		</form>
+                      	     </dd>
+                      	{% else %}
+                      	    <dt>How to get there</dt>
+                      	     <dd>
+                      	     <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
+                      	    
+                      	     		<form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
+                      	     			<fieldset class="clearfix">
+                      	     			
+                      	     				<ul>
+                      	       				<li>
+                      	         				<label for="wdgt_from">From</label>
+                      	         				<input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
+                      	       				</li>
+                      	       				
+                      	       				<li>
+                      	         				<label for="wdgt_to">To</label>
+                      	         				<input type="text" name="to" id="wdgt_to" value="{{ museum.street_address }}, {{ museum.postal_code }}, {{ museum.city }}">
+                      	       				</li>
+                      	       				
+                      	       				<li>
+                      	         				<label for="wdgt_date">Date</label>
+                      	         				<input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                      	       				</li>
+                      	       				
+                      	       				<li>
+                      	         				<label for="wdgt_time">Time</label>
+                      	         				<input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
+                      	       				</li>
+                      	       				
+                      	       				<li class="radios">
+                      	         				<label for="wdgt_arr">Arrival</label>
+                      	         				<input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
+                      	         				
+                      	         				<label for="wdgt_dep">Departure</label>
+                      	       					<input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
+                      	     					</li>
+                      	     					<li>
+                      	       						<input id="submit" type="submit" name="start" value="Submit request">
+                      	     					</li>
+                      	    					</ul>
+                      	     			</fieldset>
+                      	     		</form>
+                      	     </dd>
+                      	{% endif %}
+                      	
+                      	
 	                </dl>
 	                
 	                {% if museum.phone %}
