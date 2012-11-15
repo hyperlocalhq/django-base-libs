@@ -1,3 +1,6 @@
+/* @override 
+	http://127.0.0.1:8000/static/0/site/css/style.css */
+
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
 
 /* @group General */
@@ -981,8 +984,10 @@ div.cms-plugin-richtext>p:last-child a:hover {
 	background-image: url(../img/home.gif);
 }
 
+#detail div.article div.leftCol #bvg_widget dt {padding: 0;text-indent: 0;
+}
 
-#detail div.article div.leftCol dl.address dd a#map_link {
+/*#detail div.article div.leftCol dl.address dd a#map_link {
 	background-image: url(../img/location_g.gif);
 	background-position: -2px 3px;
 	background-repeat: no-repeat;
@@ -991,7 +996,7 @@ div.cms-plugin-richtext>p:last-child a:hover {
 
 #detail div.article div.leftCol dl.address dd a#map_link:hover {
 	background-image: url(../img/location.gif);
-}
+}*/
 
 #detail div.article div.leftCol dl.phone dt {
 	background-image: url(../img/phone.gif);
@@ -1979,4 +1984,185 @@ a.banner.en {
 	text-align: left;
 	color: gray;
 }
+
+#bvg_widget  {
+	background-color: white;
+	border: none;
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
+	width: 175px;
+	position: relative;
+	overflow: hidden;
+	height: 0;
+	opacity: 0;
+ -webkit-transition-property: all;
+    -moz-transition-property: all;
+         transition-property: all;
+ -webkit-transition-duration: 0.5s, 0.5s;
+    -moz-transition-duration: 0.5s, 0.5s;
+         transition-duration: 0.5s, 0.5s;
+    -webkit-transition-delay: 0s, 0s;
+       -moz-transition-delay: 0s, 0s;
+            transition-delay: 0s, 0s;
+   -webkit-transition-timing: ease-in-out;
+      -moz-transition-timing: ease-in-out;
+           transition-timing: ease-in-out;
+					 padding: 0 10px !important;
+					 margin-top: 0 !important;
+				 }
+
+#bvg_widget.on  {
+		display: block;
+		height: 230px;
+		opacity: 1;
+		margin-top: 15px !important;
+		margin-bottom: 15px !important;
+	}
+
+#bvg_widget ul  {
+	padding-bottom: 10px;
+}
+
+#bvg_widget ul li  {
+	height: 30px;
+	margin-left: -10px;
+	padding-left: 10px;
+	margin-right: -10px;
+	position: relative;
+}
+
+#bvg_widget ul li:nth-child(1n)  {
+	background-color: rgba(247, 245, 242, 0.7);
+	
+}
+
+#bvg_widget ul li:nth-child(2n)  {
+	background-color: rgba(0,0,0,0);
+}
+
+#bvg_widget #bvg_logo {
+	background-image: url(../img/bvg_mid.gif);
+	background-size: cover;
+	width: 34px;
+	height: 34px;
+	position: absolute;
+	display: block;
+	right: 2px;
+	top: 2px;
+}
+
+#bvg_widget dt {
+	margin-bottom: 10px;
+	font-size: 12px;
+	line-height: 18px;
+	font-weight: 600;
+	margin-top: 10px;
+}
+
+#bvg_widget label {
+display: inline-block;
+width: 30px;
+color: black;
+margin-top: 1px;
+font-size: 10px;
+padding: 0;
+height: 30px;
+line-height: 30px;
+}
+
+#bvg_widget  input { 
+width: 148px; 
+height: 30px; 
+border: none;
+background-color: rgba(255,255,255,0);
+font-size: 12px;
+font-weight: 600;
+line-height: 30px;
+display: inline-block;
+}
+
+#bvg_widget .radios  {
+	padding-left: 45px;
+}
+
+#bvg_widget .radios input { float: left; width: inherit;
+	margin-left: 5px;
+	margin-right: 15px;
+	margin-top: 2px;
+}
+
+#bvg_widget .radios label {
+	margin-right: 7px;
+	padding-right: 0px;
+	float: left;
+}
+
+#bvg_widget #submit {
+	background-color: #00aa5a;
+	color: #fff !important;
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.125);
+	font-weight: 600;
+	border-radius: 2px;
+	display: block;
+	width: 176px;
+	position: absolute;
+	font-size: 12px;
+	line-height: 15px;
+	background-repeat: no-repeat;
+	background-position: 7px 7px;
+	-webkit-transition-property: padding;
+	-moz-transition-property: padding;
+	transition-property: padding;
+	-webkit-transition-duration: 0.125s;
+	-moz-transition-duration: 0.125s;
+	transition-duration: 0.125s;
+	-webkit-transition-timing: ease-in-out;
+	-moz-transition-timing: ease-in-out;
+	border: none;
+	text-indent: 0;
+	bottom: -2px;
+	margin: 0;
+	padding-top: 0;
+	padding-right: 6px;
+	padding-left: 6px;
+	height: 24px;
+	left: 10px;
+	text-align: center;
+}
+
+
+#bvg_widget #submit:hover{
+  background-color: #000;
+  color: white;
+}
+
+a.button {
+	background-color:  rgba(0,0,0,0.025);
+	display: inline-block;
+	margin-right: 3px;
+	overflow: hidden;
+	border-radius: 3px;
+	color: black;
+	font-weight: 600;
+	background-position: 5px center;
+	background-repeat: no-repeat;
+	padding-right: 5px;
+	padding-left: 5px;
+	line-height: 19px;
+	font-size: 11px;
+	height: 20px;
+	margin-bottom: 3px;
+}
+a.button:hover {
+	background-color: #000;
+	color: white;
+}
+
+#map_link {
+	margin-top: 8px;
+}
+/*
+a.toggle_bvg {
+	background-image: url(../img/bvg.gif);
+	padding-left: 22px;
+}*/
 
