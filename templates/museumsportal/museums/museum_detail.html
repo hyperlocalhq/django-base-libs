@@ -154,7 +154,7 @@ $(document).ready(function(){
                         <dd>{{ museum.street_address }}</dd>
                         {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                         <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
-                        <dd><a onclick="openGoogleMaps();" class="button" id="map_link" title="Karte" href="#">Googlemaps</a> <a class="toggle_bvg button" href="#">BVG Suche</a></dd>
+                        <dd><a onclick="openGoogleMaps();" class="button" id="map_link" title="Karte" href="#">Googlemaps</a> <a class="toggle_bvg button" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a></dd>
                     </dl>
                     
                   <dl id="bvg_widget" class="bvg">
