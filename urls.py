@@ -46,7 +46,8 @@ urlpatterns = patterns('',
 ) + urlpatterns
 
 urlpatterns += patterns('',
-    (r'^api/', include(v1_api.urls)),
+    url(r'^api/', include(v1_api.urls)),
+    url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     
     # i18n
     (r'^i18n/', 'jetson.apps.utils.views.set_language'),

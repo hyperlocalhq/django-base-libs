@@ -145,6 +145,8 @@ INSTALLED_APPS = (
     "pipeline",
     "uni_form",
     "tastypie",
+    "tagging",
+    "tagging_autocomplete",
     
     ### Required CMS Django 2.2 apps ###
     "cms",

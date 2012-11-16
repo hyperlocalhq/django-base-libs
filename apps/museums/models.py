@@ -16,6 +16,13 @@ from base_libs.middleware import get_current_language
 
 from filebrowser.fields import FileBrowseField
 
+from tagging.fields import TagField
+from tagging.models import Tag
+from tagging_autocomplete.models import TagAutocompleteField
+
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
+
 COUNTRY_CHOICES = (
     ('de', _("Germany")),
     ('-', "Other"),
@@ -52,6 +59,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True)
 
     categories = models.ManyToManyField(MuseumCategory, verbose_name=_("Categories"),)
+    tags = TagAutocompleteField(verbose_name=_("tags"))
 
     street_address = models.CharField(_("Street address"), max_length=255)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
@@ -99,4 +107,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             status="published",
             ).exclude(pk=self.pk).distinct()
         return museums
+        
+    def get_tags(self):
+        return Tag.objects.get_for_object(self)
         
