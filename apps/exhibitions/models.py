@@ -19,6 +19,12 @@ from filebrowser.fields import FileBrowseField
 
 from cms.models import CMSPlugin
 
+from tagging.fields import TagField
+from tagging.models import Tag
+from tagging_autocomplete.models import TagAutocompleteField
+
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
 STATUS_CHOICES = (
     ('draft', _("Draft")),
@@ -89,6 +95,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     closing_soon = models.BooleanField(_("Closing soon"))
     
     categories = models.ManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
+    tags = TagAutocompleteField(verbose_name=_("tags"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
     objects = ExhibitionManager()
@@ -120,7 +127,9 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         two_weeks = timedelta(days=14)
         return today < self.end < today + two_weeks
         
-
+    def get_tags(self):
+        return Tag.objects.get_for_object(self)
+        
 class NewlyOpenedExhibition(CMSPlugin):
     exhibition = models.ForeignKey(Exhibition, limit_choices_to={'newly_opened': True})
     
