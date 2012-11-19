@@ -150,7 +150,7 @@ $(document).ready(function(){
 	                {% endif %}
 	                
 	                <dl class="address">
-	                    <dt>{% trans "Address" %}</dt>
+	                    <dt>{% trans "Location" %}</dt>
                         <dd>{{ museum.street_address }}</dd>
                         {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                         <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
@@ -174,7 +174,8 @@ $(document).ready(function(){
                       	       				
                       	       				<li>
                       	         				<label for="wdgt_to">Nach</label>
-                      	         				<input type="text" name="to" id="wdgt_to" value="{{ museum.street_address }}, {{ museum.postal_code }}, {{ museum.city }}">
+                      	         				
+                      	         				<textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }} {{ museum.city }}</textarea>
                       	       				</li>
                       	       				
                       	       				<li>
@@ -217,7 +218,8 @@ $(document).ready(function(){
                       	       				
                       	       				<li>
                       	         				<label for="wdgt_to">To</label>
-                      	         				<input type="text" name="to" id="wdgt_to" value="{{ museum.street_address }}, {{ museum.postal_code }}, {{ museum.city }}">
+                      	         				
+                      	         				<textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }} {{ museum.city }}</textarea>
                       	       				</li>
                       	       				
                       	       				<li>
