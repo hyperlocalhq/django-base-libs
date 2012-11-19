@@ -166,6 +166,10 @@ $(document).ready(function(){
                       	     		<form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
                       	     			<fieldset class="clearfix">
                       	     			
+                      	     				<input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
+                      	     				<input type="hidden" name="_charset_" value="utf-8"/>
+                      	     				<input type="hidden" value="yes" name="start"/>
+                      	     			
                       	     				<ul>
                       	       				<li>
                       	         				<label for="wdgt_from">Von</label>
@@ -210,6 +214,10 @@ $(document).ready(function(){
                       	     		<form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
                       	     			<fieldset class="clearfix">
                       	     			
+                      	     				<input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
+                      	     		  	<input type="hidden" name="_charset_" value="utf-8"/>
+                      	     				<input type="hidden" value="yes" name="start"/>
+                      	     				
                       	     				<ul>
                       	       				<li>
                       	         				<label for="wdgt_from">From</label>
@@ -219,7 +227,7 @@ $(document).ready(function(){
                       	       				<li>
                       	         				<label for="wdgt_to">To</label>
                       	         				
-                      	         				<textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }} {{ museum.city }}</textarea>
+                      	         				<textarea name="to" id="wdgt_to" >{{ museum.postal_code }} {{ museum.city }} &#10;{{ museum.street_address }}</textarea>
                       	       				</li>
                       	       				
                       	       				<li>
