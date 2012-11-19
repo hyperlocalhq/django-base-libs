@@ -2012,7 +2012,7 @@ a.banner.en {
 
 #bvg_widget.on  {
 		display: block;
-		height: 230px;
+		height: 254px;
 		opacity: 1;
 		margin-top: 15px !important;
 		margin-bottom: 15px !important;
@@ -2023,11 +2023,12 @@ a.banner.en {
 }
 
 #bvg_widget ul li  {
-	height: 30px;
+	min-height: 30px;
 	margin-left: -10px;
 	padding-left: 10px;
 	margin-right: -10px;
 	position: relative;
+	clear: both;
 }
 
 #bvg_widget ul li:nth-child(1n)  {
@@ -2059,25 +2060,44 @@ a.banner.en {
 }
 
 #bvg_widget label {
-display: inline-block;
-width: 30px;
+display: block;
+width: 35px;
 color: black;
 margin-top: 1px;
 font-size: 10px;
-padding: 0;
 height: 30px;
-line-height: 30px;
+line-height: 28px;
+float: left;
+padding-top: 0;
+padding-bottom: 0;
 }
 
 #bvg_widget  input { 
-width: 148px; 
+width: 139px; 
 height: 30px; 
 border: none;
 background-color: rgba(255,255,255,0);
 font-size: 12px;
 font-weight: 600;
-line-height: 30px;
-display: inline-block;
+line-height: 28px;
+display: block;
+float: left;
+}
+
+#bvg_widget  textarea { 
+width: 139px; 
+height: 30px; 
+border: none;
+background-color: rgba(255,255,255,0);
+font-size: 12px;
+font-weight: 600;
+line-height: 20px;
+display: block;
+overflow: hidden;
+padding-top: 6px;
+padding-bottom: 15px;
+float: left;
+resize: none; 
 }
 
 #bvg_widget .radios  {
