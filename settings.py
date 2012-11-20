@@ -200,7 +200,7 @@ ADMIN_APP_INDEX = (
                     'models': ('InfoBlock',),
             }),
             ('museums', {
-                'models': ('MuseumCategory','Museum',),
+                'models': ('MuseumCategory','MuseumService','Museum',),
                 }),            
             ('exhibitions', {
                 'models': ('ExhibitionCategory','Exhibition',),
@@ -272,6 +272,9 @@ ADMIN_APP_INDEX = (
                 }),
              ('external_services', {
                 'models':("Service", "ObjectMapper",),
+                }),
+             ('tagging', {
+                'models':("Tag", "TaggedItem",),
                 }),
              ('tastypie', {
                 'models':("ApiKey",),

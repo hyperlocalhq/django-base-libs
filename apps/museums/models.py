@@ -47,6 +47,18 @@ class MuseumCategory(CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
     
+class MuseumService(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+    
+    def __unicode__(self):
+        return self.title
+        
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = _("Service")
+        verbose_name_plural = _("Services")
+    
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -59,6 +71,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True)
 
     categories = models.ManyToManyField(MuseumCategory, verbose_name=_("Categories"),)
+    services = models.ManyToManyField(MuseumService, verbose_name=_("Services"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
 
     street_address = models.CharField(_("Street address"), max_length=255)

@@ -11,6 +11,7 @@ from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import get_admin_lang_section
 
 MuseumCategory = models.get_model("museums", "MuseumCategory")
+MuseumService = models.get_model("museums", "MuseumService")
 Museum = models.get_model("museums", "Museum")
 
 class MuseumCategoryAdmin(ExtendedModelAdmin):
@@ -19,12 +20,25 @@ class MuseumCategoryAdmin(ExtendedModelAdmin):
     list_display = ['title', ]
     
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug', )}),]
+    fieldsets += [(None, {'fields': ('slug', 'sort_order')}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
 
 admin.site.register(MuseumCategory, MuseumCategoryAdmin)
+
+class MuseumServiceAdmin(ExtendedModelAdmin):
+        
+    save_on_top = True
+    list_display = ['title', ]
+    
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
+    
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+
+admin.site.register(MuseumService, MuseumServiceAdmin)
 
 
 class MuseumAdmin(ExtendedModelAdmin):
@@ -41,13 +55,13 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'teaser', 'description', 'press_text'])
     fieldsets += [(None, {'fields': ('slug', 'image')}),]
     fieldsets += get_admin_lang_section(_("Image Caption"), ['image_caption', ])
-    fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'open_on_mondays', 'free_entrance')}),]
+    fieldsets += [(_("Categories"), {'fields': ('categories', 'services', 'tags', 'open_on_mondays', 'free_entrance')}),]
     fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city','country','latitude','longitude')}),]
     fieldsets += [(_("Contact"), {'fields': ('phone','fax','email','website',)}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
-    filter_horizontal = ("categories",)
+    filter_horizontal = ("categories", "services",)
     
     def is_geoposition_set(self, obj):
         if obj.latitude:
