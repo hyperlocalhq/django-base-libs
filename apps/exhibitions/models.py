@@ -109,6 +109,22 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     featured = models.BooleanField(_("Featured"))
     closing_soon = models.BooleanField(_("Closing soon"))
     
+    # prices
+    museum_prices = models.BooleanField(_("See prices from museum"))
+    free_entrance = models.BooleanField(_("Free entrance for this exhibition"))
+    admission_price = models.DecimalField(_(u"Admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
+    admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
+    reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
+    reduced_price_info = MultilingualTextField(_("Reduced admission price info"), blank=True)
+    arrangements_for_children = MultilingualTextField(_("Admission arrangements for children and youth"), blank=True)
+    free_entrance_for = MultilingualTextField(_("Free entrance for"), blank=True)
+    family_ticket = MultilingualTextField(_("Family ticket"), blank=True)
+    group_ticket = MultilingualTextField(_("Group ticket"), blank=True)
+    free_entrance_times = MultilingualTextField(_("Free entrance times"), blank=True)
+    yearly_ticket = MultilingualTextField(_("Yearly ticket"), blank=True)
+    other_tickets = MultilingualTextField(_("Other tickets"), blank=True)
+    member_of_museumspass = models.BooleanField(_("Member of Museumspass Berlin"))
+    
     categories = models.ManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
