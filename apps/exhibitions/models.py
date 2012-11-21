@@ -127,8 +127,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     member_of_museumspass = models.BooleanField(_("Member of Museumspass Berlin"))
     
     # organizer
-    organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizer"), blank=True, null=True, related_name="organized_exhibitions")
-    organizer_title = models.CharField(_("Organizer"), max_length=255, blank=True)
+    organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizing museum"), blank=True, null=True, related_name="organized_exhibitions")
+    organizer_title = models.CharField(_("Other Organizer"), max_length=255, blank=True)
     organizer_url_link = URLField(_("Organizer URL"), blank=True)
     
     categories = models.ManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)

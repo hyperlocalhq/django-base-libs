@@ -49,8 +49,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     search_fields = ('title_de','title_en', 'subtitle_de','subtitle_en', 'slug', 'museum__title_de', 'museum__title_en',)
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'teaser', 'description', 'press_text', 'website'])
-    fieldsets += [(None, {'fields': ('slug', 'image')}),]
-    fieldsets += get_admin_lang_section(_("Image Caption"), ['image_caption', ])
+    fieldsets += [(None, {'fields': ('slug', 'image', get_admin_lang_section(_("Image Caption"), ['image_caption', ]))}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name', 'street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += [(_("Time"), {'fields': ('start','end',)}),]
     fieldsets += [(_("Prices"), {'fields': ('museum_prices', 'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass', get_admin_lang_section(_("Price info"), ['admission_price_info', 'reduced_price_info', 'arrangements_for_children', 'free_entrance_for', 'family_ticket', 'group_ticket', 'free_entrance_times', 'yearly_ticket', 'other_tickets' ]))}),]
