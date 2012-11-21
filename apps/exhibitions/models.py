@@ -13,6 +13,7 @@ from base_libs.models import SlugMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # for south
+from base_libs.models.fields import URLField
 from base_libs.middleware import get_current_language
 
 from filebrowser.fields import FileBrowseField
@@ -124,6 +125,11 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     yearly_ticket = MultilingualTextField(_("Yearly ticket"), blank=True)
     other_tickets = MultilingualTextField(_("Other tickets"), blank=True)
     member_of_museumspass = models.BooleanField(_("Member of Museumspass Berlin"))
+    
+    # organizer
+    organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizer"), blank=True, null=True, related_name="organized_exhibitions")
+    organizer_title = models.CharField(_("Organizer"), max_length=255, blank=True)
+    organizer_url_link = URLField(_("Organizer URL"), blank=True)
     
     categories = models.ManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
