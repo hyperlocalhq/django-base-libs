@@ -20,6 +20,10 @@ from tagging.fields import TagField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
+from mptt.models import MPTTModel
+from mptt.managers import TreeManager
+from mptt.fields import TreeForeignKey, TreeManyToManyField
+
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
@@ -35,15 +39,17 @@ STATUS_CHOICES = (
     ('import', _("Imported")),
     ) 
 
-class MuseumCategory(CreationModificationDateMixin, SlugMixin()):
+class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
+    parent = TreeForeignKey('self', blank=True, null=True)
     title = MultilingualCharField(_('Title'), max_length=200)
-    sort_order = models.IntegerField(_("Sort Order"), default=0)
+    
+    objects = TreeManager()
     
     def __unicode__(self):
         return self.title
         
     class Meta:
-        ordering = ['sort_order']
+        ordering = ["tree_id", "lft"]
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
     
@@ -70,7 +76,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True)
 
-    categories = models.ManyToManyField(MuseumCategory, verbose_name=_("Categories"),)
+    categories = TreeManyToManyField(MuseumCategory, verbose_name=_("Categories"),)
     services = models.ManyToManyField(MuseumService, verbose_name=_("Services"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
 
@@ -88,7 +94,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     email = models.EmailField(_("Email"), max_length=255, blank=True)
     website = URLField("Website", blank=True)
     group_bookings_phone = models.CharField(_("Phone for group bookings"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
-    service_phone = models.CharField(_("Service/Visitors phone"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
+    service_phone = models.CharField(_("Service/visitors phone"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
     
     open_on_mondays = models.BooleanField(_("Open on Mondays"))
     

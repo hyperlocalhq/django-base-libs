@@ -9,18 +9,19 @@ from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import get_admin_lang_section
+from base_libs.admin.tree_editor import TreeEditor
 
 MuseumCategory = models.get_model("museums", "MuseumCategory")
 MuseumService = models.get_model("museums", "MuseumService")
 Museum = models.get_model("museums", "Museum")
 
-class MuseumCategoryAdmin(ExtendedModelAdmin):
+class MuseumCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
     save_on_top = True
-    list_display = ['title', ]
+    list_display = ['actions_column', 'indented_short_title', ]
     
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug', 'sort_order')}),]
+    fieldsets += [(None, {'fields': ('slug',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
