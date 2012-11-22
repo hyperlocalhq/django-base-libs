@@ -87,6 +87,8 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     fax = models.CharField(_("Fax"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
     email = models.EmailField(_("Email"), max_length=255, blank=True)
     website = URLField("Website", blank=True)
+    group_bookings_phone = models.CharField(_("Phone for group bookings"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
+    service_phone = models.CharField(_("Service/Visitors phone"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
     
     open_on_mondays = models.BooleanField(_("Open on Mondays"))
     
