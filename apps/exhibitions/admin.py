@@ -9,16 +9,17 @@ from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import get_admin_lang_section
+from base_libs.admin.tree_editor import TreeEditor
 
 from jetson.apps.media_gallery.admin import GenericMediaFileInline
 
 ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 
-class ExhibitionCategoryAdmin(ExtendedModelAdmin):
+class ExhibitionCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
     save_on_top = True
-    list_display = ['title', ]
+    list_display = ['actions_column', 'indented_short_title', ]
     
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
     fieldsets += [(None, {'fields': ('slug', )}),]

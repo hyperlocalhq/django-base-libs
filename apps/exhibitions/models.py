@@ -24,6 +24,10 @@ from tagging.fields import TagField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
+from mptt.models import MPTTModel
+from mptt.managers import TreeManager
+from mptt.fields import TreeForeignKey, TreeManyToManyField
+
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
@@ -40,15 +44,17 @@ STATUS_CHOICES = (
     ('import', _("Imported")),
     ) 
 
-class ExhibitionCategory(CreationModificationDateMixin, SlugMixin()):
+class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
+    parent = TreeForeignKey('self', blank=True, null=True)
     title = MultilingualCharField(_('Title'), max_length=200)
-    sort_order = models.IntegerField(_("Sort Order"), default=0)
+    
+    objects = TreeManager()
     
     def __unicode__(self):
         return self.title
         
     class Meta:
-        ordering = ['sort_order']
+        ordering = ["tree_id", "lft"]
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
 
@@ -133,7 +139,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     organizer_title = models.CharField(_("Other Organizer"), max_length=255, blank=True)
     organizer_url_link = URLField(_("Organizer URL"), blank=True)
     
-    categories = models.ManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
+    categories = TreeManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
