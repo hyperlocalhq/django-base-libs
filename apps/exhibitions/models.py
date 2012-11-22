@@ -139,6 +139,9 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     organizer_title = models.CharField(_("Other Organizer"), max_length=255, blank=True)
     organizer_url_link = URLField(_("Organizer URL"), blank=True)
     
+    suitable_for_disabled = models.BooleanField(_("Exhibition suitable for people with disabilities"))
+    suitable_for_disabled_info = MultilingualTextField(_("Suitability for people with disabilities info"), blank=True)
+    
     categories = TreeManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
