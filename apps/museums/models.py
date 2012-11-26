@@ -6,8 +6,8 @@ from django.core.urlresolvers import reverse
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationDateMixin
-from base_libs.models import SlugMixin
-
+from base_libs.models.models import OpeningHoursMixin
+from base_libs.models.models import SlugMixin
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
@@ -146,3 +146,17 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     def get_tags(self):
         return Tag.objects.get_for_object(self)
         
+class Season(OpeningHoursMixin):
+    museum = models.ForeignKey(Museum)
+    start = models.DateField(_("Start"))
+    end = models.DateField(_("End"))
+    
+    def __unicode__(self):
+        if self.start and self.end:
+            return u"%s - %s" % (self.start.strftime('%Y-%m-%d'), self.end.strftime('%Y-%m-%d'))
+        return u""
+        
+    class Meta:
+        ordering = ('start',)
+        verbose_name = _("Season")
+        verbose_name_plural = _("Seasons")

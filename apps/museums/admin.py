@@ -14,6 +14,7 @@ from base_libs.admin.tree_editor import TreeEditor
 MuseumCategory = models.get_model("museums", "MuseumCategory")
 MuseumService = models.get_model("museums", "MuseumService")
 Museum = models.get_model("museums", "Museum")
+Season = models.get_model("museums", "Season")
 
 class MuseumCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
@@ -41,6 +42,10 @@ class MuseumServiceAdmin(ExtendedModelAdmin):
 
 admin.site.register(MuseumService, MuseumServiceAdmin)
 
+class SeasonInline(admin.StackedInline):
+    model = Season
+    extra = 0
+    template = "admin/museums/museum/season_inline.html"
 
 class MuseumAdmin(ExtendedModelAdmin):
     class Media:
@@ -64,6 +69,8 @@ class MuseumAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "services",)
     
+    inlines = [SeasonInline]
+    
     def is_geoposition_set(self, obj):
         if obj.latitude:
             return '<img alt="True" src="%sgrappelli/img/admin/icon-yes.gif" />' % settings.STATIC_URL
@@ -71,5 +78,4 @@ class MuseumAdmin(ExtendedModelAdmin):
     is_geoposition_set.allow_tags = True
     is_geoposition_set.short_description = _("Geoposition?")
         
-
 admin.site.register(Museum, MuseumAdmin)
