@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from datetime import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -24,6 +25,8 @@ from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
+from jetson.apps.utils.models import MONTH_CHOICES
+
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
@@ -38,6 +41,10 @@ STATUS_CHOICES = (
     ('not_listed', _("Not Listed")),
     ('import', _("Imported")),
     ) 
+
+YEAR_CHOICES = [(i,i) for i in range(1997, datetime.now().year+10)]
+
+DAY_CHOICES = [(i,i) for i in range(1, 32)]
 
 class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
@@ -160,3 +167,29 @@ class Season(OpeningHoursMixin):
         ordering = ('start',)
         verbose_name = _("Season")
         verbose_name_plural = _("Seasons")
+        
+class SpecialOpeningTime(models.Model):
+    museum = models.ForeignKey(Museum)
+    yyyy = models.PositiveIntegerField(_("Year"), blank=True, null=True, choices=YEAR_CHOICES, help_text=_("Leave this field empty, if the occasion happens every year at the same time."))
+    mm = models.PositiveIntegerField(_("Month"), choices=MONTH_CHOICES)
+    dd = models.PositiveIntegerField(_("Day"), choices=DAY_CHOICES)
+
+    day_label = MultilingualCharField(_('Day label'), max_length=255, blank=True, help_text=_("e.g. Christmas, Easter, etc."))
+
+    is_closed = models.BooleanField(_("Closed?"))
+    is_regular = models.BooleanField(_("Regular opening times?"))
+    
+    opening = models.TimeField(_('Opens'), blank=True, null=True)
+    break_close = models.TimeField(_('Break Starts'), blank=True, null=True)
+    break_open = models.TimeField(_('Break Ends'), blank=True, null=True)
+    closing = models.TimeField(_('Closes'), blank=True, null=True)
+    
+    def __unicode__(self):
+        if self.yyyy:
+            return u"%s-%s-%s %s" % (self.yyyy, self.mm, self.dd, self.day_label)
+        return u"%s-%s %s" % (self.yyyy, self.mm, self.dd, self.day_label)
+    
+    class Meta:
+        ordering = ("yyyy", "mm", "dd")
+        verbose_name = _("Special opening time")
+        verbose_name_plural = _("Special opening times")

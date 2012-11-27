@@ -1,6 +1,6 @@
 {% load i18n %}
 <fieldset class="module aligned collapse closed">
-    <h2 class="collapse-handler">{% trans "Opening hours" %}</h2>
+    <h4 class="collapse-handler">{% trans "Opening hours" %}</h4>
     <div class="row is_appointment_based{% if form.is_appointment_based.errors %} errors{% endif %}">
         <div>
             <div class="column span-4">&nbsp;</div>
@@ -128,7 +128,7 @@
     </div>
     {% if form.exceptions_en %}
         <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en">
-            <h2 class="collapse-handler">{% trans "Exceptions for working hours" %} (English)</h2>
+            <h4 class="collapse-handler">{% trans "Exceptions for working hours" %} (English)</h4>
             <div class="row{% if form.exception_en.errors %} errors{% endif %}">
                 <div>
                     <div class="column span-4"><label for="id_exceptions_en"{% if form.exceptions_en.field.required %} class="required"{% endif %}>{% trans "Exceptions" %}:</label></div>
@@ -144,7 +144,7 @@
     {% endif %}
     {% if form.exceptions_de %}
         <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de">
-            <h2 class="collapse-handler">{% trans "Exceptions for working hours" %} (Deutsch)</h2>
+            <h4 class="collapse-handler">{% trans "Exceptions for working hours" %} (Deutsch)</h4>
             <div class="row{% if form.exceptions_de.errors %} errors{% endif %}">
                 <div>
                     <div class="column span-4"><label for="id_exceptions_de"{% if form.exceptions_de.field.required %} class="required"{% endif %}>{% trans "Exceptions" %}:</label></div>

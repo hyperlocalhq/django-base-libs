@@ -15,6 +15,7 @@ MuseumCategory = models.get_model("museums", "MuseumCategory")
 MuseumService = models.get_model("museums", "MuseumService")
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
+SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
 
 class MuseumCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
@@ -47,6 +48,14 @@ class SeasonInline(admin.StackedInline):
     extra = 0
     template = "admin/museums/museum/season_inline.html"
 
+class SpecialOpeningTimeInline(admin.StackedInline):
+    model = SpecialOpeningTime
+    extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['day_label'])
+    fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
+    fieldsets += [(_("Opening times"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing')})]
+
+
 class MuseumAdmin(ExtendedModelAdmin):
     class Media:
         js = (
@@ -69,7 +78,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "services",)
     
-    inlines = [SeasonInline]
+    inlines = [SeasonInline, SpecialOpeningTimeInline]
     
     def is_geoposition_set(self, obj):
         if obj.latitude:
