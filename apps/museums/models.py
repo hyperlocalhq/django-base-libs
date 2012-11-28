@@ -119,7 +119,10 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     yearly_ticket = MultilingualTextField(_("Yearly ticket"), blank=True)
     other_tickets = MultilingualTextField(_("Other tickets"), blank=True)
     member_of_museumspass = models.BooleanField(_("Member of Museumspass Berlin"))
-    
+
+    # accessibility
+    accessibility = MultilingualTextField(_("Accessibility"), blank=True)
+
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
     def __unicode__(self):

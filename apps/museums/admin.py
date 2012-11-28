@@ -73,6 +73,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Prices"), {'fields': ('free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass', get_admin_lang_section(_("Price info"), ['admission_price_info', 'reduced_price_info', 'arrangements_for_children', 'free_entrance_for', 'family_ticket', 'group_ticket', 'free_entrance_times', 'yearly_ticket', 'other_tickets' ]))}),]
     fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += [(_("Contact"), {'fields': ('phone','fax','email','website', 'group_bookings_phone', 'service_phone')}),]
+    fieldsets += get_admin_lang_section(_("Accessibility"), ['accessibility',])
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
