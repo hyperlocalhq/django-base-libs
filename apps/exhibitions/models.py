@@ -102,10 +102,11 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     press_text = MultilingualTextField(_("Press text"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
 
-    start = models.DateField(_("Start"))
-    end = models.DateField(_("End"))
+    start = models.DateField(_("Start"), blank=True, null=True)
+    end = models.DateField(_("End"), blank=True, null=True)
     vernissage = models.DateTimeField(u"Vernissage", blank=True, null=True)
     exhibition_extended = models.BooleanField(_("Exhibition extended"))
+    permanent = models.BooleanField(_("Permanent exhibition"))
     
     image = FileBrowseField(_('Image'), max_length=255, directory="exhibitions/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True)
