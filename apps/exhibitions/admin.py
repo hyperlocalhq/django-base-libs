@@ -15,6 +15,8 @@ from jetson.apps.media_gallery.admin import GenericMediaFileInline
 
 ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
+Season = models.get_model("exhibitions", "Season")
+SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
 
 class ExhibitionCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
@@ -36,6 +38,18 @@ class ExhibitionMediaFileInline(GenericMediaFileInline):
         ]
     fieldsets += get_admin_lang_section(_("Description"), ['title', 'description'], True)
     fieldsets += [(None, {'fields': ("sort_order", )}),]
+
+class SeasonInline(admin.StackedInline):
+    model = Season
+    extra = 0
+    template = "admin/exhibitions/exhibition/season_inline.html"
+
+class SpecialOpeningTimeInline(admin.StackedInline):
+    model = SpecialOpeningTime
+    extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['day_label'])
+    fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
+    fieldsets += [(_("Opening times"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing')})]
 
 class ExhibitionAdmin(ExtendedModelAdmin):
     class Media:
@@ -62,7 +76,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories",)
     
-    inlines = [ExhibitionMediaFileInline]
+    inlines = [SeasonInline, SpecialOpeningTimeInline, ExhibitionMediaFileInline]
 
     def get_museum_display(self, obj):
         return '<a href="/admin/museums/museum/%d/">%s</a>' % (obj.museum.id, obj.museum.title)

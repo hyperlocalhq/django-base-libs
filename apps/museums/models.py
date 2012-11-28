@@ -187,7 +187,7 @@ class SpecialOpeningTime(models.Model):
     def __unicode__(self):
         if self.yyyy:
             return u"%s-%s-%s %s" % (self.yyyy, self.mm, self.dd, self.day_label)
-        return u"%s-%s %s" % (self.yyyy, self.mm, self.dd, self.day_label)
+        return u"%s-%s %s" % (self.mm, self.dd, self.day_label)
     
     class Meta:
         ordering = ("yyyy", "mm", "dd")

@@ -1,0 +1,162 @@
+{% load i18n %}
+<fieldset class="module aligned collapse closed">
+    <h4 class="collapse-handler">{% trans "Opening hours" %}</h4>
+    <div class="row is_appointment_based{% if form.is_appointment_based.errors %} errors{% endif %}">
+        <div>
+            <div class="column span-4">&nbsp;</div>
+            <div class="column span-flexible">
+                {{ form.is_appointment_based }}<label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-is_appointment_based"{% if form.is_appointment_based.field.required %} class="required"{% endif %}>{% trans "Visiting by Appointment" %}</label>
+                {{ form.is_appointment_based.errors }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+            <div class="column span-4">&nbsp;</div>
+            <div class="column span-6">
+                <input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-show_break_times" class="vCheckboxField show_break_times" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-show_break_times" class="vCheckboxLabel show_break_times">{% trans "Expanded" %}</label>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="column span-12">&nbsp;</div>
+            <div class="column span-flexible">
+                <a class="apply-to-all" href="#">{% trans "Apply to all weekdays" %}</a></td>
+            </div>
+        </div>
+    </div>
+    <div class="group nested">
+        <table summary="{% trans "Opening hours" %}" class="working-hours module table">
+            <thead class="module thead">
+                <tr class="tr">
+                    <th class="th span-4">&nbsp;</th>
+                    <th class="th span-3">{% trans "Monday" %}</th>
+                    <th class="th span-3">{% trans "Tuesday" %}</th>
+                    <th class="th span-3">{% trans "Wednesday" %}</th>
+                    <th class="th span-3">{% trans "Thursday" %}</th>
+                    <th class="th span-3">{% trans "Friday" %}</th>
+                    <th class="th span-3">{% trans "Saturday" %}</th>
+                    <th class="th span-3">{% trans "Sunday" %}</th>
+                    <th class="th span-flexible">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody class="module tbody">
+                <tr class="tr">
+                    <td class="label td span-4"><label>{% trans "Opens" %}:</label></td>
+                    <td class="td span-3{% if form.mon_open.errors %} errors{% endif %}">{{ form.mon_open.errors }}
+                    {{ form.mon_open }}</td>
+                    <td class="td span-3{% if form.tue_open.errors %} errors{% endif %}">{{ form.tue_open.errors }}
+                    {{ form.tue_open }}</td>
+                    <td class="td span-3{% if form.wed_open.errors %} errors{% endif %}">{{ form.wed_open.errors }}
+                    {{ form.wed_open }}</td>
+                    <td class="td span-3{% if form.thu_open.errors %} errors{% endif %}">{{ form.thu_open.errors }}
+                    {{ form.thu_open }}</td>
+                    <td class="td span-3{% if form.fri_open.errors %} errors{% endif %}">{{ form.fri_open.errors }}
+                    {{ form.fri_open }}</td>
+                    <td class="td span-3{% if form.sat_open.errors %} errors{% endif %}">{{ form.sat_open.errors }}
+                    {{ form.sat_open }}</td>
+                    <td class="td span-3{% if form.sun_open.errors %} errors{% endif %}">{{ form.sun_open.errors }}
+                    {{ form.sun_open }}</td>
+                    <td class="td span-flexible">&nbsp;</td>
+                </tr>
+                <tr class="break_start_row tr">
+                    <td class="label td span-4"><label>{% trans "Break starts" %}:</label></td>
+                    <td class="td span-3{% if form.mon_break_close.errors %} errors{% endif %}">{{ form.mon_break_close.errors }}
+                    {{ form.mon_break_close }}</td>
+                    <td class="td span-3{% if form.tue_break_close.errors %} errors{% endif %}">{{ form.tue_break_close.errors }}
+                    {{ form.tue_break_close }}</td>
+                    <td class="td span-3{% if form.wed_break_close.errors %} errors{% endif %}">{{ form.wed_break_close.errors }}
+                    {{ form.wed_break_close }}</td>
+                    <td class="td span-3{% if form.thu_break_close.errors %} errors{% endif %}">{{ form.thu_break_close.errors }}
+                    {{ form.thu_break_close }}</td>
+                    <td class="td span-3{% if form.fri_break_close.errors %} errors{% endif %}">{{ form.fri_break_close.errors }}
+                    {{ form.fri_break_close }}</td>
+                    <td class="td span-3{% if form.sat_break_close.errors %} errors{% endif %}">{{ form.sat_break_close.errors }}
+                    {{ form.sat_break_close }}</td>
+                    <td class="td span-3{% if form.sun_break_close.errors %} errors{% endif %}">{{ form.sun_break_close.errors }}
+                    {{ form.sun_break_close }}</td>
+                    <td class="td span-flexible">&nbsp;</td>
+                </tr>
+                <tr class="tr break_end_row">
+                    <td class="label td span-4"><label>{% trans "Break ends" %}:</label></td>
+                    <td class="td span-3{% if form.mon_break_open.errors %} errors{% endif %}">{{ form.mon_break_open.errors }}
+                    {{ form.mon_break_open }}</td>
+                    <td class="td span-3{% if form.tue_break_open.errors %} errors{% endif %}">{{ form.tue_break_open.errors }}
+                    {{ form.tue_break_open }}</td>
+                    <td class="td span-3{% if form.wed_break_open.errors %} errors{% endif %}">{{ form.wed_break_open.errors }}
+                    {{ form.wed_break_open }}</td>
+                    <td class="td span-3{% if form.thu_break_open.errors %} errors{% endif %}">{{ form.thu_break_open.errors }}
+                    {{ form.thu_break_open }}</td>
+                    <td class="td span-3{% if form.fri_break_open.errors %} errors{% endif %}">{{ form.fri_break_open.errors }}
+                    {{ form.fri_break_open }}</td>
+                    <td class="td span-3{% if form.sat_break_open.errors %} errors{% endif %}">{{ form.sat_break_open.errors }}
+                    {{ form.sat_break_open }}</td>
+                    <td class="td span-3{% if form.sun_break_open.errors %} errors{% endif %}">{{ form.sun_break_open.errors }}
+                    {{ form.sun_break_open }}</td>
+                    <td class="td span-flexible">&nbsp;</td>
+                </tr>
+                <tr class="tr">
+                    <td class="label td span-4"><label>{% trans "Closes" %}:</label></td>
+                    <td class="td span-3{% if form.mon_close.errors %} errors{% endif %}">{{ form.mon_close.errors }}
+                    {{ form.mon_close }}</td>
+                    <td class="td span-3{% if form.tue_close.errors %} errors{% endif %}">{{ form.tue_close.errors }}
+                    {{ form.tue_close }}</td>
+                    <td class="td span-3{% if form.wed_close.errors %} errors{% endif %}">{{ form.wed_close.errors }}
+                    {{ form.wed_close }}</td>
+                    <td class="td span-3{% if form.thu_close.errors %} errors{% endif %}">{{ form.thu_close.errors }}
+                    {{ form.thu_close }}</td>
+                    <td class="td span-3{% if form.fri_close.errors %} errors{% endif %}">{{ form.fri_close.errors }}
+                    {{ form.fri_close }}</td>
+                    <td class="td span-3{% if form.sat_close.errors %} errors{% endif %}">{{ form.sat_close.errors }}
+                    {{ form.sat_close }}</td>
+                    <td class="td span-3{% if form.sun_close.errors %} errors{% endif %}">{{ form.sun_close.errors }}
+                    {{ form.sun_close }}</td>
+                    <td class="td span-flexible">&nbsp;</td>
+                </tr>
+                <tr class="last tr">
+                    <td class="td span-4">&nbsp;</td>
+                    <td class="td span-3 row"><input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_mon" onclick="OpeningHoursManager.modifyDay('mon')" class="vCheckboxField closed_on_mon" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_mon" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
+                    <td class="td span-3 row"><input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_tue" onclick="OpeningHoursManager.modifyDay('tue')" class="vCheckboxField closed_on_tue" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_tue" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
+                    <td class="td span-3 row"><input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_wed" onclick="OpeningHoursManager.modifyDay('wed')" class="vCheckboxField closed_on_wed" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_wed" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
+                    <td class="td span-3 row"><input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_thu" onclick="OpeningHoursManager.modifyDay('thu')" class="vCheckboxField closed_on_thu" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_thu" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
+                    <td class="td span-3 row"><input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_fri" onclick="OpeningHoursManager.modifyDay('fri')" class="vCheckboxField closed_on_fri" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_fri" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
+                    <td class="td span-3 row"><input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_sat" onclick="OpeningHoursManager.modifyDay('sat')" class="vCheckboxField closed_on_sat" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_sat" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
+                    <td class="td span-3 row"><input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_sun" onclick="OpeningHoursManager.modifyDay('sun')" class="vCheckboxField closed_on_sun" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_sun" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
+                    <td class="td span-flexible">&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% if form.exceptions_en %}
+        <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en">
+            <h4 class="collapse-handler">{% trans "Exceptions for working hours" %} (English)</h4>
+            <div class="row{% if form.exception_en.errors %} errors{% endif %}">
+                <div>
+                    <div class="column span-4"><label for="id_exceptions_en"{% if form.exceptions_en.field.required %} class="required"{% endif %}>{% trans "Exceptions" %}:</label></div>
+                    <div class="column span-flexible">
+                        {{ form.exceptions_en_markup_type }}
+                        {% if form.exceptions_en_markup_type.help_text %}<span class="help">{{ form.exceptions_en_markup_type.help_text|safe }}</span>{% endif %}
+                        <p>{{ form.exceptions_en }}</p>
+                        {{ form.exceptions_en.errors }}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    {% endif %}
+    {% if form.exceptions_de %}
+        <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de">
+            <h4 class="collapse-handler">{% trans "Exceptions for working hours" %} (Deutsch)</h4>
+            <div class="row{% if form.exceptions_de.errors %} errors{% endif %}">
+                <div>
+                    <div class="column span-4"><label for="id_exceptions_de"{% if form.exceptions_de.field.required %} class="required"{% endif %}>{% trans "Exceptions" %}:</label></div>
+                    <div class="column span-flexible">
+                        {{ form.exceptions_de_markup_type }}
+                        {% if form.exceptions_de_markup_type.help_text %}<span class="help">{{ form.exceptions_de_markup_type.help_text|safe }}</span>{% endif %}
+                        <p>{{ form.exceptions_de }}</p>
+                        {{ form.exceptions_de.errors }}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    {% endif %}
+</fieldset>
+

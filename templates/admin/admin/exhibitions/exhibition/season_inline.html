@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 {% with forloop.counter0 as counter %}
-                    {% include "admin/museums/museum/fieldset_opening_hours.html" %}
+                    {% include "admin/exhibitions/exhibition/fieldset_opening_hours.html" %}
                 {% endwith %}
                 <input id="id_season_set-{{ forloop.counter0 }}-id" type="hidden" class="form_hidden" value="{{ form.instance.id }}" name="season_set-{{ forloop.counter0 }}-id" />
                 <input id="id_season_set-{{ forloop.counter0 }}-museum" type="hidden" class="form_hidden" value="{{ form.instance.museum.id }}" name="season_set-{{ forloop.counter0 }}-museum" />
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 {% with "__prefix__" as counter %}
-                    {% include "admin/museums/museum/fieldset_opening_hours.html" %}
+                    {% include "admin/exhibitions/exhibition/fieldset_opening_hours.html" %}
                 {% endwith %}
             </div>
         {% endwith %}

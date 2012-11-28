@@ -8,8 +8,8 @@ from django.core.urlresolvers import reverse
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationDateMixin
-from base_libs.models import SlugMixin
-
+from base_libs.models.models import OpeningHoursMixin
+from base_libs.models.models import SlugMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # for south
@@ -28,6 +28,8 @@ from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
+from jetson.apps.utils.models import MONTH_CHOICES
+
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
@@ -43,6 +45,10 @@ STATUS_CHOICES = (
     ('expired', _("Expired")),
     ('import', _("Imported")),
     ) 
+
+YEAR_CHOICES = [(i,i) for i in range(1997, datetime.now().year+10)]
+
+DAY_CHOICES = [(i,i) for i in range(1, 32)]
 
 class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
@@ -177,7 +183,48 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         
     def get_tags(self):
         return Tag.objects.get_for_object(self)
+
+class Season(OpeningHoursMixin):
+    exhibition = models.ForeignKey(Exhibition)
+    start = models.DateField(_("Start"))
+    end = models.DateField(_("End"))
+    
+    def __unicode__(self):
+        if self.start and self.end:
+            return u"%s - %s" % (self.start.strftime('%Y-%m-%d'), self.end.strftime('%Y-%m-%d'))
+        return u""
         
+    class Meta:
+        ordering = ('start',)
+        verbose_name = _("Season")
+        verbose_name_plural = _("Seasons")
+
+class SpecialOpeningTime(models.Model):
+    exhibition = models.ForeignKey(Exhibition)
+    yyyy = models.PositiveIntegerField(_("Year"), blank=True, null=True, choices=YEAR_CHOICES, help_text=_("Leave this field empty, if the occasion happens every year at the same time."))
+    mm = models.PositiveIntegerField(_("Month"), choices=MONTH_CHOICES)
+    dd = models.PositiveIntegerField(_("Day"), choices=DAY_CHOICES)
+
+    day_label = MultilingualCharField(_('Day label'), max_length=255, blank=True, help_text=_("e.g. Christmas, Easter, etc."))
+
+    is_closed = models.BooleanField(_("Closed?"))
+    is_regular = models.BooleanField(_("Regular opening times?"))
+    
+    opening = models.TimeField(_('Opens'), blank=True, null=True)
+    break_close = models.TimeField(_('Break Starts'), blank=True, null=True)
+    break_open = models.TimeField(_('Break Ends'), blank=True, null=True)
+    closing = models.TimeField(_('Closes'), blank=True, null=True)
+    
+    def __unicode__(self):
+        if self.yyyy:
+            return u"%s-%s-%s %s" % (self.yyyy, self.mm, self.dd, self.day_label)
+        return u"%s-%s %s" % (self.mm, self.dd, self.day_label)
+    
+    class Meta:
+        ordering = ("yyyy", "mm", "dd")
+        verbose_name = _("Special opening time")
+        verbose_name_plural = _("Special opening times")
+
 class NewlyOpenedExhibition(CMSPlugin):
     exhibition = models.ForeignKey(Exhibition, limit_choices_to={'newly_opened': True})
     
