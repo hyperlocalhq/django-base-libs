@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     "tastypie",
     "tagging",
     "tagging_autocomplete",
+    "crispy_forms",
     
     ### Required CMS Django 2.2 apps ###
     "cms",

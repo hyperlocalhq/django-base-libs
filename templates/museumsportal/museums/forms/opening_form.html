@@ -1,0 +1,13 @@
+{% extends "museums/forms/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block multistep_form %}
+<form action="" method="post">
+{{ formsets.seasons.management_form }}
+{{ formsets.special_openings.management_form }}
+{% crispy formsets.seasons formsets.seasons.form.helper %}
+{% crispy formsets.special_openings formsets.special_openings.form.helper %}
+{% crispy form %}
+</form>
+{% endblock %}
+
