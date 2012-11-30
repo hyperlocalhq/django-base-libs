@@ -118,6 +118,7 @@ class SeasonForm(ModelForm):
             "mon_break_close",
             "mon_break_open",
             "mon_close",
+            "mon_last_entry",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Tuesday"),
@@ -125,6 +126,7 @@ class SeasonForm(ModelForm):
             "tue_break_close",
             "tue_break_open",
             "tue_close",
+            "tue_last_entry",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Wednesday"),
@@ -132,6 +134,7 @@ class SeasonForm(ModelForm):
             "wed_break_close",
             "wed_break_open",
             "wed_close",
+            "wed_last_entry",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Thursday"),
@@ -139,6 +142,7 @@ class SeasonForm(ModelForm):
             "thu_break_close",
             "thu_break_open",
             "thu_close",
+            "thu_last_entry",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Friday"),
@@ -146,6 +150,7 @@ class SeasonForm(ModelForm):
             "fri_break_close",
             "fri_break_open",
             "fri_close",
+            "fri_last_entry",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Saturday"),
@@ -153,6 +158,7 @@ class SeasonForm(ModelForm):
             "sat_break_close",
             "sat_break_open",
             "sat_close",
+            "sat_last_entry",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Sunday"),
@@ -160,6 +166,7 @@ class SeasonForm(ModelForm):
             "sun_break_close",
             "sun_break_open",
             "sun_close",
+            "sun_last_entry",
             ))
         for lang_code, lang_name in settings.LANGUAGES:
             layout_blocks.append(layout.Fieldset(
@@ -342,30 +349,37 @@ def load_data(instance):
         season_dict['mon_break_close'] = season.mon_break_close
         season_dict['mon_break_open'] = season.mon_break_open
         season_dict['mon_close'] = season.mon_close
+        season_dict['mon_last_entry'] = season.mon_last_entry
         season_dict['tue_open'] = season.tue_open
         season_dict['tue_break_close'] = season.tue_break_close
         season_dict['tue_break_open'] = season.tue_break_open
         season_dict['tue_close'] = season.tue_close
+        season_dict['tue_last_entry'] = season.tue_last_entry
         season_dict['wed_open'] = season.wed_open
         season_dict['wed_break_close'] = season.wed_break_close
         season_dict['wed_break_open'] = season.wed_break_open
         season_dict['wed_close'] = season.wed_close
+        season_dict['wed_last_entry'] = season.wed_last_entry
         season_dict['thu_open'] = season.thu_open
         season_dict['thu_break_close'] = season.thu_break_close
         season_dict['thu_break_open'] = season.thu_break_open
         season_dict['thu_close'] = season.thu_close
+        season_dict['thu_last_entry'] = season.thu_last_entry
         season_dict['fri_open'] = season.fri_open
         season_dict['fri_break_close'] = season.fri_break_close
         season_dict['fri_break_open'] = season.fri_break_open
         season_dict['fri_close'] = season.fri_close
+        season_dict['fri_last_entry'] = season.fri_last_entry
         season_dict['sat_open'] = season.sat_open
         season_dict['sat_break_close'] = season.sat_break_close
         season_dict['sat_break_open'] = season.sat_break_open
         season_dict['sat_close'] = season.sat_close
+        season_dict['sat_last_entry'] = season.sat_last_entry
         season_dict['sun_open'] = season.sun_open
         season_dict['sun_break_close'] = season.sun_break_close
         season_dict['sun_break_open'] = season.sun_break_open
         season_dict['sun_close'] = season.sun_close
+        season_dict['sun_last_entry'] = season.sun_last_entry
         for lang_code, lang_name in settings.LANGUAGES:
             season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
         form_step_data['opening']['sets']['seasons'].append(season_dict)
@@ -473,30 +487,37 @@ def save_data(form_steps, form_step_data, instance=None):
         season.mon_break_close = season_dict['mon_break_close'] 
         season.mon_break_open = season_dict['mon_break_open']
         season.mon_close = season_dict['mon_close']
+        season.mon_last_entry = season_dict['mon_last_entry']
         season.tue_open = season_dict['tue_open'] 
         season.tue_break_close = season_dict['tue_break_close'] 
         season.tue_break_open = season_dict['tue_break_open'] 
         season.tue_close = season_dict['tue_close'] 
+        season.tue_last_entry = season_dict['tue_last_entry'] 
         season.wed_open = season_dict['wed_open']
         season.wed_break_close = season_dict['wed_break_close'] 
         season.wed_break_open = season_dict['wed_break_open'] 
         season.wed_close = season_dict['wed_close'] 
+        season.wed_last_entry = season_dict['wed_last_entry'] 
         season.thu_open = season_dict['thu_open'] 
         season.thu_break_close = season_dict['thu_break_close'] 
         season.thu_break_open = season_dict['thu_break_open'] 
         season.thu_close = season_dict['thu_close'] 
+        season.thu_last_entry = season_dict['thu_last_entry'] 
         season.fri_open = season_dict['fri_open'] 
         season.fri_break_close = season_dict['fri_break_close'] 
         season.fri_break_open = season_dict['fri_break_open'] 
         season.fri_close = season_dict['fri_close'] 
+        season.fri_last_entry = season_dict['fri_last_entry'] 
         season.sat_open = season_dict['sat_open']
         season.sat_break_close = season_dict['sat_break_close'] 
         season.sat_break_open = season_dict['sat_break_open']
         season.sat_close = season_dict['sat_close']
+        season.sat_last_entry = season_dict['sat_last_entry']
         season.sun_open = season_dict['sun_open'] 
         season.sun_break_close = season_dict['sun_break_close'] 
         season.sun_break_open = season_dict['sun_break_open'] 
         season.sun_close = season_dict['sun_close']
+        season.sun_last_entry = season_dict['sun_last_entry']
         for lang_code, lang_name in settings.LANGUAGES:
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
         season.save()

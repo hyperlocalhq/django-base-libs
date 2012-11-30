@@ -112,6 +112,24 @@
                     {{ form.sun_close }}</td>
                     <td class="td span-flexible">&nbsp;</td>
                 </tr>
+                <tr class="tr">
+                    <td class="label td span-4"><label>{% trans "Last entry" %}:</label></td>
+                    <td class="td span-3{% if form.mon_last_entry.errors %} errors{% endif %}">{{ form.mon_last_entry.errors }}
+                    {{ form.mon_last_entry }}</td>
+                    <td class="td span-3{% if form.tue_last_entry.errors %} errors{% endif %}">{{ form.tue_last_entry.errors }}
+                    {{ form.tue_last_entry }}</td>
+                    <td class="td span-3{% if form.wed_last_entry.errors %} errors{% endif %}">{{ form.wed_last_entry.errors }}
+                    {{ form.wed_last_entry }}</td>
+                    <td class="td span-3{% if form.thu_last_entry.errors %} errors{% endif %}">{{ form.thu_last_entry.errors }}
+                    {{ form.thu_last_entry }}</td>
+                    <td class="td span-3{% if form.fri_last_entry.errors %} errors{% endif %}">{{ form.fri_last_entry.errors }}
+                    {{ form.fri_last_entry }}</td>
+                    <td class="td span-3{% if form.sat_last_entry.errors %} errors{% endif %}">{{ form.sat_last_entry.errors }}
+                    {{ form.sat_last_entry }}</td>
+                    <td class="td span-3{% if form.sun_last_entry.errors %} errors{% endif %}">{{ form.sun_last_entry.errors }}
+                    {{ form.sun_last_entry }}</td>
+                    <td class="td span-flexible">&nbsp;</td>
+                </tr>
                 <tr class="last tr">
                     <td class="td span-4">&nbsp;</td>
                     <td class="td span-3 row"><input type="checkbox" id="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_mon" onclick="OpeningHoursManager.modifyDay('mon')" class="vCheckboxField closed_on_mon" /><label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-closed_on_mon" class="vCheckboxLabel"> {% trans "Closed" %}</label></td>
