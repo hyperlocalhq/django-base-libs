@@ -102,6 +102,8 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     website = URLField("Website", blank=True)
     group_bookings_phone = models.CharField(_("Phone for group bookings"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
     service_phone = models.CharField(_("Service/visitors phone"), help_text="Ortsvorwahl-Telefonnummer", max_length=255, blank=True)
+    twitter = models.CharField(_("Twitter"), max_length=255, blank=True)
+    facebook = URLField(_("Facebook"), max_length=255, blank=True)
     
     open_on_mondays = models.BooleanField(_("Open on Mondays"))
     
@@ -123,6 +125,8 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     # accessibility
     accessibility = MultilingualTextField(_("Accessibility"), blank=True)
 
+    mediation_offer = MultilingualTextField(_("Mediation offer"), blank=True)
+    
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
     def __unicode__(self):

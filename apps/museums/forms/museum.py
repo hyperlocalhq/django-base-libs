@@ -267,7 +267,7 @@ class AddressForm(ModelForm):
         model = Museum
         fields = ['street_address', 'street_address2', 'postal_code', 'district',
             'city', 'country', 'latitude', 'longitude',
-            'phone', 'fax', 'email', 'website']
+            'phone', 'fax', 'email', 'website', 'twitter', 'facebook']
     def __init__(self, *args, **kwargs):
         super(AddressForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -288,6 +288,10 @@ class AddressForm(ModelForm):
             _("Contact info"),
             'phone', 'fax', 'email', 'website',
             ))
+        layout_blocks.append(layout.Fieldset(
+            _("Social media"),
+            'twitter', 'facebook',
+            ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Next')),
             ))
@@ -303,6 +307,7 @@ class AccessibilityForm(ModelForm):
         for lang_code, lang_name in settings.LANGUAGES:
             fields += [
                 'accessibility_%s' % lang_code,
+                'mediation_offer_%s' % lang_code,
                 ]
     def __init__(self, *args, **kwargs):
         super(AccessibilityForm, self).__init__(*args, **kwargs)
@@ -315,6 +320,7 @@ class AccessibilityForm(ModelForm):
             layout_blocks.append(layout.Fieldset(
                 _("Accessibility (%s)") % lang_name,
                 'accessibility_%s' % lang_code,
+                'mediation_offer_%s' % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Save')),
@@ -420,13 +426,14 @@ def load_data(instance):
     
     fields = ['street_address', 'street_address2', 'postal_code', 'district',
         'city', 'country', 'latitude', 'longitude',
-        'phone', 'fax', 'email', 'website']
+        'phone', 'fax', 'email', 'website', 'twitter', 'facebook']
     for f in fields:
         form_step_data['address'][f] = getattr(instance, f)
     form_step_data['address']['get_country_display'] = instance.get_country_display()
     
     for lang_code, lang_name in settings.LANGUAGES:
         form_step_data['accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
+        form_step_data['accessibility']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
     
     return form_step_data
     
@@ -461,12 +468,13 @@ def save_data(form_steps, form_step_data, instance=None):
     
     fields = ['street_address', 'street_address2', 'postal_code', 'district',
         'city', 'country', 'latitude', 'longitude',
-        'phone', 'fax', 'email', 'website']
+        'phone', 'fax', 'email', 'website', 'twitter', 'facebook']
     for f in fields:
         setattr(instance, f, form_step_data['address'][f])
     
     for lang_code, lang_name in settings.LANGUAGES:
         setattr(instance, 'accessibility_%s' % lang_code, form_step_data['accessibility']['accessibility_%s' % lang_code])
+        setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['accessibility']['mediation_offer_%s' % lang_code])
 
     instance.status = "published"
     instance.save()
@@ -474,9 +482,6 @@ def save_data(form_steps, form_step_data, instance=None):
         instance.categories.add(cat)
     for cat in form_step_data['basic']['services']:
         instance.services.add(cat)
-
-    
-    SpecialOpeningTime
 
     for season_dict in form_step_data['opening']['sets']['seasons']:
         season = Season(museum=instance)
