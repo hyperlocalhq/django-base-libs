@@ -13,6 +13,7 @@ from base_libs.admin.tree_editor import TreeEditor
 
 MuseumCategory = models.get_model("museums", "MuseumCategory")
 MuseumService = models.get_model("museums", "MuseumService")
+AccessibilityOption = models.get_model("museums", "AccessibilityOption")
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
@@ -42,6 +43,21 @@ class MuseumServiceAdmin(ExtendedModelAdmin):
 
 
 admin.site.register(MuseumService, MuseumServiceAdmin)
+
+
+class AccessibilityOptionAdmin(ExtendedModelAdmin):
+        
+    save_on_top = True
+    list_display = ['title', ]
+    
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug', 'image', 'sort_order', )}),]
+    
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+
+admin.site.register(AccessibilityOption, AccessibilityOptionAdmin)
+
 
 class SeasonInline(admin.StackedInline):
     model = Season
@@ -74,11 +90,11 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += [(_("Contact"), {'fields': ('phone','fax','email','website', 'group_bookings_phone', 'service_phone', 'twitter', 'facebook')}),]
     fieldsets += get_admin_lang_section(_("Mediation offer"), ['mediation_offer',])
-    fieldsets += get_admin_lang_section(_("Accessibility"), ['accessibility',])
+    fieldsets += [(_("Accessibility"), {'fields': ['accessibility_options', get_admin_lang_section(_("Explanation"), ['accessibility',])]})]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
-    filter_horizontal = ("categories", "services",)
+    filter_horizontal = ("categories", "services", "accessibility_options")
     
     inlines = [SeasonInline, SpecialOpeningTimeInline]
     

@@ -72,6 +72,59 @@ class MuseumService(CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Service")
         verbose_name_plural = _("Services")
     
+class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+    
+    def __unicode__(self):
+        return self.title
+        
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = _("Accessibility option")
+        verbose_name_plural = _("Accessibility options")
+
+    '''
+    Signet "Berlin barrierefrei"
+    gute Ausstattung bei Sehbebehinderung
+    bedingt geeignete Ausstattung bei Sehbehinderung
+    gute Ausstattung für blinde Menschen
+    bedingt geeignete Ausstattung für blinde Menschen
+    gute Ausstattung für gehörlose Menschen
+    bedingt geeignete Ausstattung für gehörlose Menschen
+    gute Ausstattung für hörgeschädigte Menschen
+    bedingt geeignete Ausstattung für hörgeschädigte Menschen
+    gute Ausstattung für Menschen mit einer Lernbehinderung
+    bedingt geeignete Ausstattung für Menschen mit einer Lernbehinderung
+    gute rollstuhlgerechte Zugänglichkeit
+    rollstuhlgeeignete Zugänglichkeit
+    bedingt rollstuhlgeeignete Zugänglichkeit
+    gutes rollstuhlgerechtes WC
+    rollstuhlgeeignetes WC
+    bedingt rollstuhlgeeignetes WC
+    guter rollstuhlgerechter Aufzug
+    rollstuhlgeeigneter Aufzug
+    Aufzug bedingt rollstuhlgeeignet
+    Parkmöglichkeit
+    Parkplatz für Menschen mit Behinderung
+    gutes rollstuhlgerechtes Zimmer in Beherbergungsstätte
+    rollstuhlgeeignetes Zimmer in Beherbergungsstätte
+    bedingt rollstuhlgeeignetes Zimmer in Beherbergungstätte
+    gute rollstuhlgerechte Nasszelle (Bad, Dusche)
+    rollstuhlgeeignete Nasszelle (Bad, Dusche)
+    Nasszelle bedingt rollstuhlgeeignet (Bad, Dusche)
+    gut rollstuhlgerechtes Schwimmbad
+    Schwimmbad rollstuhlgeeignet
+    Schwimmbad bedingt rollstuhlgeeignet
+    Sportstätte / Umkleidebereich gut rollstuhlgerecht
+    Sportstätte / Umkleidebereich rollstuhlgeeignet
+    Sportstätten / Umkleidebereich bedingt rollstuhlgeeignet
+    gute rollstuhlgerechte Küche
+    Küche rollstuhlgeeignet
+    Küche bedingt rollstuhlgeeignet
+    '''
+
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -124,7 +177,8 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     # accessibility
     accessibility = MultilingualTextField(_("Accessibility"), blank=True)
-
+    
+    accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
     mediation_offer = MultilingualTextField(_("Mediation offer"), blank=True)
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")

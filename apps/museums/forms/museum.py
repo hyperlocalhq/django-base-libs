@@ -303,7 +303,7 @@ class AddressForm(ModelForm):
 class AccessibilityForm(ModelForm):
     class Meta:
         model = Museum
-        fields = []
+        fields = ['accessibility_options']
         for lang_code, lang_name in settings.LANGUAGES:
             fields += [
                 'accessibility_%s' % lang_code,
@@ -316,6 +316,10 @@ class AccessibilityForm(ModelForm):
         self.helper.form_method = "POST"
         
         layout_blocks = []
+        layout_blocks.append(layout.Fieldset(
+            _("Accessibility Options"),
+            'accessibility_options',
+            ))
         for lang_code, lang_name in settings.LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Accessibility (%s)") % lang_name,
@@ -431,6 +435,7 @@ def load_data(instance):
         form_step_data['address'][f] = getattr(instance, f)
     form_step_data['address']['get_country_display'] = instance.get_country_display()
     
+    form_step_data['accessibility']['accessibility_options'] = instance.accessibility_options.all()
     for lang_code, lang_name in settings.LANGUAGES:
         form_step_data['accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
         form_step_data['accessibility']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
@@ -482,6 +487,8 @@ def save_data(form_steps, form_step_data, instance=None):
         instance.categories.add(cat)
     for cat in form_step_data['basic']['services']:
         instance.services.add(cat)
+    for cat in form_step_data['accessibility']['accessibility_options']:
+        instance.accessibility_options.add(cat)
 
     for season_dict in form_step_data['opening']['sets']['seasons']:
         season = Season(museum=instance)
