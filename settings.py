@@ -201,7 +201,7 @@ ADMIN_APP_INDEX = (
                     'models': ('InfoBlock',),
             }),
             ('museums', {
-                'models': ('MuseumCategory','MuseumService','Museum',),
+                'models': ('MuseumCategory','MuseumService','AccessibilityOption', 'Museum',),
                 }),            
             ('exhibitions', {
                 'models': ('ExhibitionCategory','Exhibition',),
