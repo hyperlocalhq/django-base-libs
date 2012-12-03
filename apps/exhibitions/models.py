@@ -101,10 +101,12 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     description = MultilingualTextField(_("Description"), blank=True)
     press_text = MultilingualTextField(_("Press text"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
+    catalog = MultilingualTextField(_("Catalog"), blank=True)
 
     start = models.DateField(_("Start"), blank=True, null=True)
     end = models.DateField(_("End"), blank=True, null=True)
     vernissage = models.DateTimeField(u"Vernissage", blank=True, null=True)
+    finissage = models.DateTimeField(u"Finissage", blank=True, null=True)
     exhibition_extended = models.BooleanField(_("Exhibition extended"))
     permanent = models.BooleanField(_("Permanent exhibition"))
     
