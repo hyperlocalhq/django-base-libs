@@ -7,6 +7,9 @@ from django import forms
 from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
+from django.views.decorators.cache import never_cache
+from django.shortcuts import get_object_or_404
+from jetson.apps.utils.decorators import login_required
 
 from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
@@ -14,9 +17,12 @@ from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_related_queryset
 
 from jetson.apps.utils.views import object_list, object_detail
+from jetson.apps.utils.views import show_form_step
 
 ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
+
+from forms.exhibition import EXHIBITION_FORM_STEPS
 
 STATUS_CHOICES = (
     ("newly_opened", _("Newly opened")),
@@ -128,3 +134,16 @@ def export_json_exhibitions(request):
         cls=ExtendedJSONEncoder
         )
     return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    
+
+@never_cache
+@login_required
+def add_exhibition(request):
+    return show_form_step(request, EXHIBITION_FORM_STEPS, extra_context={});
+    
+@never_cache
+@login_required
+def change_exhibition(request, slug):
+    instance = get_object_or_404(Exhibition, slug=slug)
+    return show_form_step(request, EXHIBITION_FORM_STEPS, extra_context={}, instance=instance);
+    
