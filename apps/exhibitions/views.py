@@ -145,5 +145,6 @@ def add_exhibition(request):
 @login_required
 def change_exhibition(request, slug):
     instance = get_object_or_404(Exhibition, slug=slug)
+    EXHIBITION_FORM_STEPS['name'] = "%s_%s" % (EXHIBITION_FORM_STEPS['name'], instance.pk)
     return show_form_step(request, EXHIBITION_FORM_STEPS, extra_context={}, instance=instance);
     

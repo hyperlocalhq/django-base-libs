@@ -315,114 +315,116 @@ class AccessibilityForm(ModelForm):
             *layout_blocks
             )
 
-def load_data(instance):
-    form_step_data = {
-        'basic': {'_filled': True},
-        'opening': {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}},
-        'prices': {'_filled': True},
-        'accessibility': {'_filled': True},
-        }
-    for lang_code, lang_name in settings.LANGUAGES:
-        form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
-        form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
-        form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
-        form_step_data['basic']['catalog_%s' % lang_code] = getattr(instance, 'catalog_%s' % lang_code)
-    form_step_data['basic']['start'] = instance.start
-    form_step_data['basic']['end'] = instance.end
-    form_step_data['basic']['permanent'] = instance.permanent
-    form_step_data['basic']['exhibition_extended'] = instance.exhibition_extended
-    form_step_data['basic']['museum'] = instance.museum
-    form_step_data['basic']['location_name'] = instance.location_name
-    form_step_data['basic']['street_address'] = instance.street_address
-    form_step_data['basic']['street_address2'] = instance.street_address2
-    form_step_data['basic']['postal_code'] = instance.postal_code
-    form_step_data['basic']['district'] = instance.district
-    form_step_data['basic']['city'] = instance.city
-    form_step_data['basic']['country'] = instance.country
-    form_step_data['basic']['latitude'] = instance.latitude
-    form_step_data['basic']['longitude'] = instance.longitude
-    form_step_data['basic']['organizing_museum'] = instance.organizing_museum
-    form_step_data['basic']['organizer_title'] = instance.organizer_title
-    form_step_data['basic']['organizer_url_link'] = instance.organizer_url_link
-    form_step_data['basic']['vernissage'] = instance.vernissage
-    form_step_data['basic']['finissage'] = instance.finissage
-    form_step_data['basic']['categories'] = instance.categories.all()
-    form_step_data['basic']['tags'] = instance.tags
-
-    for season in instance.season_set.all():
-        season_dict = {}
-        season_dict['start'] = season.start
-        season_dict['end'] = season.end
-        season_dict['is_appointment_based'] = season.is_appointment_based
-        season_dict['mon_open'] = season.mon_open
-        season_dict['mon_break_close'] = season.mon_break_close
-        season_dict['mon_break_open'] = season.mon_break_open
-        season_dict['mon_close'] = season.mon_close
-        season_dict['tue_open'] = season.tue_open
-        season_dict['tue_break_close'] = season.tue_break_close
-        season_dict['tue_break_open'] = season.tue_break_open
-        season_dict['tue_close'] = season.tue_close
-        season_dict['wed_open'] = season.wed_open
-        season_dict['wed_break_close'] = season.wed_break_close
-        season_dict['wed_break_open'] = season.wed_break_open
-        season_dict['wed_close'] = season.wed_close
-        season_dict['thu_open'] = season.thu_open
-        season_dict['thu_break_close'] = season.thu_break_close
-        season_dict['thu_break_open'] = season.thu_break_open
-        season_dict['thu_close'] = season.thu_close
-        season_dict['fri_open'] = season.fri_open
-        season_dict['fri_break_close'] = season.fri_break_close
-        season_dict['fri_break_open'] = season.fri_break_open
-        season_dict['fri_close'] = season.fri_close
-        season_dict['sat_open'] = season.sat_open
-        season_dict['sat_break_close'] = season.sat_break_close
-        season_dict['sat_break_open'] = season.sat_break_open
-        season_dict['sat_close'] = season.sat_close
-        season_dict['sun_open'] = season.sun_open
-        season_dict['sun_break_close'] = season.sun_break_close
-        season_dict['sun_break_open'] = season.sun_break_open
-        season_dict['sun_close'] = season.sun_close
+def load_data(instance=None):
+    form_step_data = {}
+    if instance:
+        form_step_data = {
+            'basic': {'_filled': True},
+            'opening': {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}},
+            'prices': {'_filled': True},
+            'accessibility': {'_filled': True},
+            }
         for lang_code, lang_name in settings.LANGUAGES:
-            season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
-        form_step_data['opening']['sets']['seasons'].append(season_dict)
-        
-    for special_opening in instance.specialopeningtime_set.all():
-        special_opening_dict = {}
-        special_opening_dict['yyyy'] = special_opening.yyyy
-        special_opening_dict['get_yyyy_display'] = special_opening.get_yyyy_display()
-        special_opening_dict['mm'] = special_opening.mm
-        special_opening_dict['get_mm_display'] = special_opening.get_mm_display()
-        special_opening_dict['dd'] = special_opening.dd
-        special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
+            form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
+            form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
+            form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
+            form_step_data['basic']['catalog_%s' % lang_code] = getattr(instance, 'catalog_%s' % lang_code)
+        form_step_data['basic']['start'] = instance.start
+        form_step_data['basic']['end'] = instance.end
+        form_step_data['basic']['permanent'] = instance.permanent
+        form_step_data['basic']['exhibition_extended'] = instance.exhibition_extended
+        form_step_data['basic']['museum'] = instance.museum
+        form_step_data['basic']['location_name'] = instance.location_name
+        form_step_data['basic']['street_address'] = instance.street_address
+        form_step_data['basic']['street_address2'] = instance.street_address2
+        form_step_data['basic']['postal_code'] = instance.postal_code
+        form_step_data['basic']['district'] = instance.district
+        form_step_data['basic']['city'] = instance.city
+        form_step_data['basic']['country'] = instance.country
+        form_step_data['basic']['latitude'] = instance.latitude
+        form_step_data['basic']['longitude'] = instance.longitude
+        form_step_data['basic']['organizing_museum'] = instance.organizing_museum
+        form_step_data['basic']['organizer_title'] = instance.organizer_title
+        form_step_data['basic']['organizer_url_link'] = instance.organizer_url_link
+        form_step_data['basic']['vernissage'] = instance.vernissage
+        form_step_data['basic']['finissage'] = instance.finissage
+        form_step_data['basic']['categories'] = instance.categories.all()
+        form_step_data['basic']['tags'] = instance.tags
+    
+        for season in instance.season_set.all():
+            season_dict = {}
+            season_dict['start'] = season.start
+            season_dict['end'] = season.end
+            season_dict['is_appointment_based'] = season.is_appointment_based
+            season_dict['mon_open'] = season.mon_open
+            season_dict['mon_break_close'] = season.mon_break_close
+            season_dict['mon_break_open'] = season.mon_break_open
+            season_dict['mon_close'] = season.mon_close
+            season_dict['tue_open'] = season.tue_open
+            season_dict['tue_break_close'] = season.tue_break_close
+            season_dict['tue_break_open'] = season.tue_break_open
+            season_dict['tue_close'] = season.tue_close
+            season_dict['wed_open'] = season.wed_open
+            season_dict['wed_break_close'] = season.wed_break_close
+            season_dict['wed_break_open'] = season.wed_break_open
+            season_dict['wed_close'] = season.wed_close
+            season_dict['thu_open'] = season.thu_open
+            season_dict['thu_break_close'] = season.thu_break_close
+            season_dict['thu_break_open'] = season.thu_break_open
+            season_dict['thu_close'] = season.thu_close
+            season_dict['fri_open'] = season.fri_open
+            season_dict['fri_break_close'] = season.fri_break_close
+            season_dict['fri_break_open'] = season.fri_break_open
+            season_dict['fri_close'] = season.fri_close
+            season_dict['sat_open'] = season.sat_open
+            season_dict['sat_break_close'] = season.sat_break_close
+            season_dict['sat_break_open'] = season.sat_break_open
+            season_dict['sat_close'] = season.sat_close
+            season_dict['sun_open'] = season.sun_open
+            season_dict['sun_break_close'] = season.sun_break_close
+            season_dict['sun_break_open'] = season.sun_break_open
+            season_dict['sun_close'] = season.sun_close
+            for lang_code, lang_name in settings.LANGUAGES:
+                season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
+            form_step_data['opening']['sets']['seasons'].append(season_dict)
+            
+        for special_opening in instance.specialopeningtime_set.all():
+            special_opening_dict = {}
+            special_opening_dict['yyyy'] = special_opening.yyyy
+            special_opening_dict['get_yyyy_display'] = special_opening.get_yyyy_display()
+            special_opening_dict['mm'] = special_opening.mm
+            special_opening_dict['get_mm_display'] = special_opening.get_mm_display()
+            special_opening_dict['dd'] = special_opening.dd
+            special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
+            for lang_code, lang_name in settings.LANGUAGES:
+                special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
+            special_opening_dict['is_closed'] = special_opening.is_closed
+            special_opening_dict['is_regular'] = special_opening.is_regular
+            special_opening_dict['opening'] = special_opening.opening
+            special_opening_dict['break_close'] = special_opening.break_close
+            special_opening_dict['break_open'] = special_opening.break_open
+            special_opening_dict['closing'] = special_opening.closing
+            form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
+    
+        fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
         for lang_code, lang_name in settings.LANGUAGES:
-            special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
-        special_opening_dict['is_closed'] = special_opening.is_closed
-        special_opening_dict['is_regular'] = special_opening.is_regular
-        special_opening_dict['opening'] = special_opening.opening
-        special_opening_dict['break_close'] = special_opening.break_close
-        special_opening_dict['break_open'] = special_opening.break_open
-        special_opening_dict['closing'] = special_opening.closing
-        form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
-
-    fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
-    for lang_code, lang_name in settings.LANGUAGES:
-        fields += [
-            'admission_price_info_%s' % lang_code,
-            'reduced_price_info_%s' % lang_code,
-            'arrangements_for_children_%s' % lang_code,
-            'free_entrance_for_%s' % lang_code,
-            'family_ticket_%s' % lang_code,
-            'group_ticket_%s' % lang_code,
-            'free_entrance_times_%s' % lang_code,
-            'yearly_ticket_%s' % lang_code,
-            'other_tickets_%s' % lang_code,
-            ]
-    for f in fields:
-        form_step_data['prices'][f] = getattr(instance, f)
-
-    form_step_data['accessibility']['suitable_for_disabled'] = instance.suitable_for_disabled
-    for lang_code, lang_name in settings.LANGUAGES:
-        form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code] = getattr(instance, 'suitable_for_disabled_info_%s' % lang_code)
+            fields += [
+                'admission_price_info_%s' % lang_code,
+                'reduced_price_info_%s' % lang_code,
+                'arrangements_for_children_%s' % lang_code,
+                'free_entrance_for_%s' % lang_code,
+                'family_ticket_%s' % lang_code,
+                'group_ticket_%s' % lang_code,
+                'free_entrance_times_%s' % lang_code,
+                'yearly_ticket_%s' % lang_code,
+                'other_tickets_%s' % lang_code,
+                ]
+        for f in fields:
+            form_step_data['prices'][f] = getattr(instance, f)
+    
+        form_step_data['accessibility']['suitable_for_disabled'] = instance.suitable_for_disabled
+        for lang_code, lang_name in settings.LANGUAGES:
+            form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code] = getattr(instance, 'suitable_for_disabled_info_%s' % lang_code)
 
     return form_step_data
 
