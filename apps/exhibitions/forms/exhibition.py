@@ -313,7 +313,7 @@ class AccessibilityForm(ModelForm):
         
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )        
+            )
 
 def load_data(instance):
     form_step_data = {
@@ -426,7 +426,7 @@ def load_data(instance):
 
     return form_step_data
 
-def submit_step(current_step, form_steps, form_step_data):
+def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 def save_data(form_steps, form_step_data, instance=None):
@@ -569,7 +569,7 @@ EXHIBITION_FORM_STEPS = {
     'oninit': load_data,
     'onsubmit': submit_step,
     'onsave': save_data,
-    'name': 'museum_registration',
+    'name': 'exhibition_registration',
     'default_path': ["basic", "opening", "prices", "accessibility"],
 }
 
