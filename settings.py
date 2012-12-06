@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     "cms.plugins.*",
 
     ### jetson apps ###
+    "jetson.apps.i18n",
     "jetson.apps.cms_extensions",
     "jetson.apps.cms_extensions.plugins.richtext",
     "jetson.apps.cms_extensions.plugins.filebrowser_image",
@@ -185,6 +186,8 @@ INSTALLED_APPS = (
     "museumsportal.apps.editorial",
     "museumsportal.apps.articles",
     "museumsportal.apps.twitterwall",
+    "museumsportal.apps.events",
+    "museumsportal.apps.workshops",
 )
 
 
@@ -205,6 +208,12 @@ ADMIN_APP_INDEX = (
                 }),            
             ('exhibitions', {
                 'models': ('ExhibitionCategory','Exhibition',),
+                }),
+            ('events', {
+                'models': ('EventCategory','Event',),
+                }),
+            ('workshops', {
+                'models': ('WorkshopCategory','AgeGroup','Workshop',),
                 }),
             ('slideshows', {
                 'models': ('Slideshow',),
