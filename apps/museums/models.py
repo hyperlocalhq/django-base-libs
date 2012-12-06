@@ -127,7 +127,7 @@ class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
 
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
-    title = MultilingualCharField(_("Title"), max_length=255)
+    title = MultilingualCharField(_("Name"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     teaser = MultilingualTextField(_("Teaser"), blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
