@@ -60,18 +60,6 @@ class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
     
-class MuseumService(CreationModificationDateMixin, SlugMixin()):
-    title = MultilingualCharField(_('Title'), max_length=200)
-    sort_order = models.IntegerField(_("Sort Order"), default=0)
-    
-    def __unicode__(self):
-        return self.title
-        
-    class Meta:
-        ordering = ['sort_order']
-        verbose_name = _("Service")
-        verbose_name_plural = _("Services")
-    
 class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
     image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
@@ -137,7 +125,6 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True)
 
     categories = TreeManyToManyField(MuseumCategory, verbose_name=_("Categories"),)
-    services = models.ManyToManyField(MuseumService, verbose_name=_("Services"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
 
     street_address = models.CharField(_("Street address"), max_length=255)
@@ -177,8 +164,32 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     # accessibility
     accessibility = MultilingualTextField(_("Accessibility"), blank=True)
-    
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
+    
+    service_shop = models.BooleanField(_("Shop"), blank=True)
+    service_shop_info = MultilingualTextField(_("Shop info"), blank=True)
+    service_books = models.BooleanField(_("Bookstore"), blank=True)
+    service_books_info = MultilingualTextField(_("Books info"), blank=True)
+    service_restaurant = models.BooleanField(_("Restaurant"), blank=True)
+    service_restaurant_info = MultilingualTextField(_("Restaurant info"), blank=True)
+    service_cafe = models.BooleanField(_("Cafe"), blank=True)
+    service_cafe_info = MultilingualTextField(_("Cafe info"), blank=True)
+    service_library = models.BooleanField(_("Library"), blank=True)
+    service_library_info = MultilingualTextField(_("Library info"), blank=True)
+    service_archive = models.BooleanField(_("Archive"), blank=True)
+    service_archive_info = MultilingualTextField(_("Archive info"), blank=True)
+    service_studio = models.BooleanField(_("Studio"), blank=True)
+    service_studio_info = MultilingualTextField(_("Studio info"), blank=True)
+    service_online = models.BooleanField(_("Online offers"), blank=True)
+    service_online_info = MultilingualTextField(_("Online offers info"), blank=True)
+    service_diaper_changing_table = models.BooleanField(_("Diaper changing table"))
+    service_birthdays = models.BooleanField(_("Children birthdays"), blank=True)
+    service_birthdays_info = MultilingualTextField(_("Children birthdays info"), blank=True)
+    service_rent = models.BooleanField(_("Rent"), blank=True)
+    service_rent_info = MultilingualTextField(_("Rent info"), blank=True)
+    service_other = models.BooleanField(_("Other services"), blank=True)
+    service_other_info = MultilingualTextField(_("Other services info"), blank=True)
+    
     mediation_offer = MultilingualTextField(_("Mediation offer"), blank=True)
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")

@@ -18,7 +18,7 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Museum
         
-        fields = ['tags', 'categories', 'services']
+        fields = ['tags', 'categories']
         for lang_code, lang_name in settings.LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
@@ -38,14 +38,15 @@ class BasicInfoForm(ModelForm):
                 "title_%s" % lang_code,
                 "subtitle_%s" % lang_code,
                 "description_%s" % lang_code,
+                css_class="multilingual",
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             "categories",
             "tags",
-            "services",
             ))
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
             ))
         
@@ -88,6 +89,7 @@ class OpeningForm(forms.Form):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
             ))
         self.helper.layout = layout.Layout(
@@ -254,6 +256,7 @@ class PricesForm(ModelForm):
                 'other_tickets_%s' % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
             ))
         
@@ -293,6 +296,7 @@ class AddressForm(ModelForm):
             'twitter', 'facebook',
             ))
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
             ))
         
@@ -300,17 +304,29 @@ class AddressForm(ModelForm):
             *layout_blocks
             )        
             
-class AccessibilityForm(ModelForm):
+class ServicesAccessibilityForm(ModelForm):
     class Meta:
         model = Museum
-        fields = ['accessibility_options']
+        fields = ['accessibility_options', 'service_shop', 'service_books', 'service_restaurant',
+        'service_cafe', 'service_library', 'service_archive', 'service_studio', 'service_online', 
+        'service_diaper_changing_table', 'service_birthdays', 'service_rent', 'service_other']
         for lang_code, lang_name in settings.LANGUAGES:
             fields += [
                 'accessibility_%s' % lang_code,
-                'mediation_offer_%s' % lang_code,
+                'service_shop_info_%s' % lang_code,
+                'service_books_info_%s' % lang_code,
+                'service_restaurant_info_%s' % lang_code,
+                'service_cafe_info_%s' % lang_code,
+                'service_library_info_%s' % lang_code,
+                'service_archive_info_%s' % lang_code,
+                'service_studio_info_%s' % lang_code,
+                'service_online_info_%s' % lang_code,
+                'service_birthdays_info_%s' % lang_code,
+                'service_rent_info_%s' % lang_code,
+                'service_other_info_%s' % lang_code,
                 ]
     def __init__(self, *args, **kwargs):
-        super(AccessibilityForm, self).__init__(*args, **kwargs)
+        super(ServicesAccessibilityForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
@@ -324,9 +340,142 @@ class AccessibilityForm(ModelForm):
             layout_blocks.append(layout.Fieldset(
                 _("Accessibility (%s)") % lang_name,
                 'accessibility_%s' % lang_code,
+                #'mediation_offer_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Shop"),
+            'service_shop',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Shop Details (%s)") % lang_name,
+                'service_shop_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Bookstore"),
+            'service_books',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Bookstore Details (%s)") % lang_name,
+                'service_books_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Restaurant"),
+            'service_restaurant',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Restaurant Details (%s)") % lang_name,
+                'service_restaurant_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Cafe"),
+            'service_cafe',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Cafe Details (%s)") % lang_name,
+                'service_cafe_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Library"),
+            'service_library',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Library Details (%s)") % lang_name,
+                'service_library_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Archive"),
+            'service_archive',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Archive Details (%s)") % lang_name,
+                'service_archive_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Studio"),
+            'service_studio',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Studio Details (%s)") % lang_name,
+                'service_studio_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Online Offers"),
+            'service_online',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Online Offers' Details (%s)") % lang_name,
+                'service_online_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Diaper changing table"),
+            'service_diaper_changing_table',
+            ))
+        layout_blocks.append(layout.Fieldset(
+            _("Children birthdays"),
+            'service_birthdays',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Children Birthdays' Details (%s)") % lang_name,
+                'service_birthdays_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Rent"),
+            'service_rent',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Rent Details (%s)") % lang_name,
+                'service_rent_info_%s' % lang_code,
+                ))
+        layout_blocks.append(layout.Fieldset(
+            _("Other services"),
+            'service_other',
+            ))
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Other Services' Details (%s)") % lang_name,
+                'service_other_info_%s' % lang_code,
+                ))
+        layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
+            layout.Submit('submit', _('Next')),
+            ))
+        
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )        
+
+class MediationForm(ModelForm):
+    class Meta:
+        model = Museum
+        fields = []
+        for lang_code, lang_name in settings.LANGUAGES:
+            fields += [
+                'mediation_offer_%s' % lang_code,
+                ]
+    def __init__(self, *args, **kwargs):
+        super(MediationForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        
+        layout_blocks = []
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Mediation offer (%s)") % lang_name,
                 'mediation_offer_%s' % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Save')),
             ))
         
@@ -334,6 +483,8 @@ class AccessibilityForm(ModelForm):
             *layout_blocks
             )        
                 
+
+
 def load_data(instance=None):
     form_step_data = {}
     if instance:
@@ -342,14 +493,14 @@ def load_data(instance=None):
             'opening': {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}},
             'prices': {'_filled': True},
             'address': {'_filled': True},
-            'accessibility': {'_filled': True},
+            'services_accessibility': {'_filled': True},
+            'mediation': {'_filled': True},
             }
         for lang_code, lang_name in settings.LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
         form_step_data['basic']['categories'] = instance.categories.all()
-        form_step_data['basic']['services'] = instance.services.all()
         form_step_data['basic']['tags'] = instance.tags
     
         for season in instance.season_set.all():
@@ -437,14 +588,39 @@ def load_data(instance=None):
             form_step_data['address'][f] = getattr(instance, f)
         form_step_data['address']['get_country_display'] = instance.get_country_display()
         
-        form_step_data['accessibility']['accessibility_options'] = instance.accessibility_options.all()
+        form_step_data['services_accessibility']['accessibility_options'] = instance.accessibility_options.all()
+        form_step_data['services_accessibility']['service_shop'] = instance.service_shop
+        form_step_data['services_accessibility']['service_books'] = instance.service_books
+        form_step_data['services_accessibility']['service_restaurant'] = instance.service_restaurant
+        form_step_data['services_accessibility']['service_cafe'] = instance.service_cafe
+        form_step_data['services_accessibility']['service_library'] = instance.service_library
+        form_step_data['services_accessibility']['service_archive'] = instance.service_archive
+        form_step_data['services_accessibility']['service_studio'] = instance.service_studio
+        form_step_data['services_accessibility']['service_online'] = instance.service_online
+        form_step_data['services_accessibility']['service_diaper_changing_table'] = instance.service_diaper_changing_table
+        form_step_data['services_accessibility']['service_birthdays'] = instance.service_birthdays
+        form_step_data['services_accessibility']['service_rent'] = instance.service_rent
+        form_step_data['services_accessibility']['service_other'] = instance.service_other
         for lang_code, lang_name in settings.LANGUAGES:
-            form_step_data['accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
-            form_step_data['accessibility']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
-        
+            form_step_data['services_accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
+            form_step_data['services_accessibility']['service_shop_info_%s' % lang_code] = getattr(instance, 'service_shop_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_books_info_%s' % lang_code] = getattr(instance, 'service_books_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_restaurant_info_%s' % lang_code] = getattr(instance, 'service_restaurant_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_cafe_info_%s' % lang_code] = getattr(instance, 'service_cafe_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_library_info_%s' % lang_code] = getattr(instance, 'service_library_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_archive_info_%s' % lang_code] = getattr(instance, 'service_archive_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_studio_info_%s' % lang_code] = getattr(instance, 'service_studio_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_online_info_%s' % lang_code] = getattr(instance, 'service_online_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_birthdays_info_%s' % lang_code] = getattr(instance, 'service_birthdays_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_rent_info_%s' % lang_code] = getattr(instance, 'service_rent_info_%s' % lang_code)
+            form_step_data['services_accessibility']['service_other_info_%s' % lang_code] = getattr(instance, 'service_other_info_%s' % lang_code)
+
+        for lang_code, lang_name in settings.LANGUAGES:
+            form_step_data['mediation']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
+
     return form_step_data
     
-def submit_step(current_step, form_steps, form_step_data):
+def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 def save_data(form_steps, form_step_data, instance=None):
@@ -479,17 +655,43 @@ def save_data(form_steps, form_step_data, instance=None):
     for f in fields:
         setattr(instance, f, form_step_data['address'][f])
     
+    
+    instance.service_shop = form_step_data['services_accessibility']['service_shop']
+    instance.service_books = form_step_data['services_accessibility']['service_books']
+    instance.service_restaurant = form_step_data['services_accessibility']['service_restaurant']
+    instance.service_cafe = form_step_data['services_accessibility']['service_cafe']
+    instance.service_library = form_step_data['services_accessibility']['service_library']
+    instance.service_archive = form_step_data['services_accessibility']['service_archive']
+    instance.service_studio = form_step_data['services_accessibility']['service_studio']
+    instance.service_online = form_step_data['services_accessibility']['service_online']
+    instance.service_diaper_changing_table = form_step_data['services_accessibility']['service_diaper_changing_table']
+    instance.service_birthdays = form_step_data['services_accessibility']['service_birthdays']
+    instance.service_rent = form_step_data['services_accessibility']['service_rent'] 
+    instance.service_other = form_step_data['services_accessibility']['service_other']
+    
     for lang_code, lang_name in settings.LANGUAGES:
-        setattr(instance, 'accessibility_%s' % lang_code, form_step_data['accessibility']['accessibility_%s' % lang_code])
-        setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['accessibility']['mediation_offer_%s' % lang_code])
+        setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
+        setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
+        setattr(instance, 'service_shop_info_%s' % lang_code, form_step_data['services_accessibility']['service_shop_info_%s' % lang_code])
+        setattr(instance, 'service_books_info_%s' % lang_code, form_step_data['services_accessibility']['service_books_info_%s' % lang_code]) 
+        setattr(instance, 'service_restaurant_info_%s' % lang_code, form_step_data['services_accessibility']['service_restaurant_info_%s' % lang_code])
+        setattr(instance, 'service_cafe_info_%s' % lang_code, form_step_data['services_accessibility']['service_cafe_info_%s' % lang_code])
+        setattr(instance, 'service_library_info_%s' % lang_code, form_step_data['services_accessibility']['service_library_info_%s' % lang_code])
+        setattr(instance, 'service_archive_info_%s' % lang_code, form_step_data['services_accessibility']['service_archive_info_%s' % lang_code])
+        setattr(instance, 'service_studio_info_%s' % lang_code, form_step_data['services_accessibility']['service_studio_info_%s' % lang_code])
+        setattr(instance, 'service_online_info_%s' % lang_code, form_step_data['services_accessibility']['service_online_info_%s' % lang_code])
+        setattr(instance, 'service_birthdays_info_%s' % lang_code, form_step_data['services_accessibility']['service_birthdays_info_%s' % lang_code])
+        setattr(instance, 'service_rent_info_%s' % lang_code, form_step_data['services_accessibility']['service_rent_info_%s' % lang_code])
+        setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
+
+    for lang_code, lang_name in settings.LANGUAGES:
+        setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['mediation']['mediation_offer_%s' % lang_code])
 
     instance.status = "published"
     instance.save()
     for cat in form_step_data['basic']['categories']:
         instance.categories.add(cat)
-    for cat in form_step_data['basic']['services']:
-        instance.services.add(cat)
-    for cat in form_step_data['accessibility']['accessibility_options']:
+    for cat in form_step_data['services_accessibility']['accessibility_options']:
         instance.accessibility_options.add(cat)
 
     for season_dict in form_step_data['opening']['sets']['seasons']:
@@ -580,15 +782,20 @@ MUSEUM_FORM_STEPS = {
         'template': "museums/forms/address_form.html",
         'form': AddressForm,
     },
-    'accessibility': {
-        'title': _("Accessibility"),
-        'template': "museums/forms/accessibility_form.html",
-        'form': AccessibilityForm,
+    'services_accessibility': {
+        'title': _("Services and Accessibility"),
+        'template': "museums/forms/services_accessibility_form.html",
+        'form': ServicesAccessibilityForm,
+    },
+    'mediation': {
+        'title': _("Mediation"),
+        'template': "museums/forms/mediation_form.html",
+        'form': MediationForm,
     },
     'oninit': load_data,
     'onsubmit': submit_step,
     'onsave': save_data,
     'name': 'museum_registration',
-    'default_path': ["basic", "opening", "prices", "address", "accessibility"],
+    'default_path': ["basic", "opening", "prices", "address", "services_accessibility", "mediation"],
 }
 

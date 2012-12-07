@@ -68,13 +68,14 @@ class BasicInfoForm(ModelForm):
             "organizing_museum",
             "organizer_title",
             "organizer_url_link",
-            ))
+            ))              
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             "categories",
             "tags",
             ))
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
             ))
         
@@ -117,6 +118,7 @@ class OpeningForm(forms.Form):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
             ))
         self.helper.layout = layout.Layout(
@@ -276,6 +278,7 @@ class PricesForm(ModelForm):
                 'other_tickets_%s' % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
             ))
         
@@ -308,6 +311,7 @@ class AccessibilityForm(ModelForm):
                 'suitable_for_disabled_info_%s' % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Save')),
             ))
         
