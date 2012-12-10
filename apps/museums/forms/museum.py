@@ -99,6 +99,14 @@ class OpeningForm(forms.Form):
             )        
 
 class SeasonForm(ModelForm):
+    mon_is_closed = forms.BooleanField(label=_("Closed?"))
+    tue_is_closed = forms.BooleanField(label=_("Closed?"))
+    wed_is_closed = forms.BooleanField(label=_("Closed?"))
+    thu_is_closed = forms.BooleanField(label=_("Closed?"))
+    fri_is_closed = forms.BooleanField(label=_("Closed?"))
+    sat_is_closed = forms.BooleanField(label=_("Closed?"))
+    sun_is_closed = forms.BooleanField(label=_("Closed?"))
+    
     class Meta:
         model = Season
         exclude = []
@@ -173,6 +181,16 @@ class SeasonForm(ModelForm):
                 <td>"""), "fri_close", layout.HTML("""</td>
                 <td>"""), "sat_close", layout.HTML("""</td>
                 <td>"""), "sun_close", layout.HTML("""</td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td>"""), "mon_is_closed", layout.HTML("""</td>
+                <td>"""), "tue_is_closed", layout.HTML("""</td>
+                <td>"""), "wed_is_closed", layout.HTML("""</td>
+                <td>"""), "thu_is_closed", layout.HTML("""</td>
+                <td>"""), "fri_is_closed", layout.HTML("""</td>
+                <td>"""), "sat_is_closed", layout.HTML("""</td>
+                <td>"""), "sun_is_closed", layout.HTML("""</td>
             </tr>
             </tbody></table>
             """
@@ -533,30 +551,37 @@ def load_data(instance=None):
             season_dict['mon_break_close'] = season.mon_break_close
             season_dict['mon_break_open'] = season.mon_break_open
             season_dict['mon_close'] = season.mon_close
+            season_dict['mon_is_closed'] = not season.mon_open
             season_dict['tue_open'] = season.tue_open
             season_dict['tue_break_close'] = season.tue_break_close
             season_dict['tue_break_open'] = season.tue_break_open
             season_dict['tue_close'] = season.tue_close
+            season_dict['tue_is_closed'] = not season.tue_open
             season_dict['wed_open'] = season.wed_open
             season_dict['wed_break_close'] = season.wed_break_close
             season_dict['wed_break_open'] = season.wed_break_open
             season_dict['wed_close'] = season.wed_close
+            season_dict['wed_is_closed'] = not season.wed_open
             season_dict['thu_open'] = season.thu_open
             season_dict['thu_break_close'] = season.thu_break_close
             season_dict['thu_break_open'] = season.thu_break_open
             season_dict['thu_close'] = season.thu_close
+            season_dict['thu_is_closed'] = not season.thu_open
             season_dict['fri_open'] = season.fri_open
             season_dict['fri_break_close'] = season.fri_break_close
             season_dict['fri_break_open'] = season.fri_break_open
             season_dict['fri_close'] = season.fri_close
+            season_dict['fri_is_closed'] = not season.fri_open
             season_dict['sat_open'] = season.sat_open
             season_dict['sat_break_close'] = season.sat_break_close
             season_dict['sat_break_open'] = season.sat_break_open
             season_dict['sat_close'] = season.sat_close
+            season_dict['sat_is_closed'] = not season.sat_open
             season_dict['sun_open'] = season.sun_open
             season_dict['sun_break_close'] = season.sun_break_close
             season_dict['sun_break_open'] = season.sun_break_open
             season_dict['sun_close'] = season.sun_close
+            season_dict['sun_is_closed'] = not season.sun_open
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
