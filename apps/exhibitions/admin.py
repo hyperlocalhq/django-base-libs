@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
 from base_libs.admin import ExtendedModelAdmin
+from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
@@ -39,17 +40,17 @@ class ExhibitionMediaFileInline(GenericMediaFileInline):
     fieldsets += get_admin_lang_section(_("Description"), ['title', 'description'], True)
     fieldsets += [(None, {'fields': ("sort_order", )}),]
 
-class SeasonInline(admin.StackedInline):
+class SeasonInline(ExtendedStackedInline):
     model = Season
     extra = 0
     template = "admin/exhibitions/exhibition/season_inline.html"
 
-class SpecialOpeningTimeInline(admin.StackedInline):
+class SpecialOpeningTimeInline(ExtendedStackedInline):
     model = SpecialOpeningTime
     extra = 0
     fieldsets = get_admin_lang_section(_("Title"), ['day_label'])
     fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
-    fieldsets += [(_("Opening times"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing')})]
+    fieldsets += [(_("Opening times"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing', get_admin_lang_section(_("Exceptions"), ['exceptions']))})]
 
 class ExhibitionAdmin(ExtendedModelAdmin):
     class Media:

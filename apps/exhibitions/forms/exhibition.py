@@ -81,7 +81,7 @@ class BasicInfoForm(ModelForm):
         
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )        
+            )
 
 class InlineFormSet(BaseInlineFormSet):
     """ Inline formset which accepts initial values for unsaved models """
