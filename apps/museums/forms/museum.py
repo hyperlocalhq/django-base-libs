@@ -14,12 +14,14 @@ Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
 
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+
 class BasicInfoForm(ModelForm):
     class Meta:
         model = Museum
         
         fields = ['tags', 'categories']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
@@ -32,7 +34,7 @@ class BasicInfoForm(ModelForm):
         self.helper.form_method = "POST"
         
         layout_blocks = []
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Basic Info (%s)") % lang_name,
                 "title_%s" % lang_code,
@@ -100,7 +102,7 @@ class SeasonForm(ModelForm):
     class Meta:
         model = Season
         exclude = []
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             exclude.append("exceptions_%s_markup_type" % lang_code)
         
     def __init__(self, *args, **kwargs):
@@ -170,7 +172,7 @@ class SeasonForm(ModelForm):
             "sun_close",
             "sun_last_entry",
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Exceptions (%s)") % lang_name,
                 "exceptions_%s" % lang_code,
@@ -195,7 +197,7 @@ class SpecialOpeningTimeForm(ModelForm):
             "mm",
             "dd",
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Occasion (%s)") % lang_name,
                 "day_label_%s" % lang_code,
@@ -219,7 +221,7 @@ class PricesForm(ModelForm):
     class Meta:
         model = Museum
         fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
                 'reduced_price_info_%s' % lang_code,
@@ -242,7 +244,7 @@ class PricesForm(ModelForm):
             _("Prices"),
             'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Details (%s)") % lang_name,
                 'admission_price_info_%s' % lang_code,
@@ -323,7 +325,7 @@ class ServicesAccessibilityForm(ModelForm):
         fields = ['accessibility_options', 'service_shop', 'service_books', 'service_restaurant',
         'service_cafe', 'service_library', 'service_archive', 'service_studio', 'service_online', 
         'service_diaper_changing_table', 'service_birthdays', 'service_rent', 'service_other']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'accessibility_%s' % lang_code,
                 'service_shop_info_%s' % lang_code,
@@ -349,7 +351,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Accessibility Options"),
             'accessibility_options',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Accessibility (%s)") % lang_name,
                 'accessibility_%s' % lang_code,
@@ -359,7 +361,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Shop"),
             'service_shop',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Shop Details (%s)") % lang_name,
                 'service_shop_info_%s' % lang_code,
@@ -368,7 +370,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Bookstore"),
             'service_books',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Bookstore Details (%s)") % lang_name,
                 'service_books_info_%s' % lang_code,
@@ -377,7 +379,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Restaurant"),
             'service_restaurant',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Restaurant Details (%s)") % lang_name,
                 'service_restaurant_info_%s' % lang_code,
@@ -386,7 +388,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Cafe"),
             'service_cafe',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Cafe Details (%s)") % lang_name,
                 'service_cafe_info_%s' % lang_code,
@@ -395,7 +397,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Library"),
             'service_library',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Library Details (%s)") % lang_name,
                 'service_library_info_%s' % lang_code,
@@ -404,7 +406,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Archive"),
             'service_archive',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Archive Details (%s)") % lang_name,
                 'service_archive_info_%s' % lang_code,
@@ -413,7 +415,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Studio"),
             'service_studio',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Studio Details (%s)") % lang_name,
                 'service_studio_info_%s' % lang_code,
@@ -422,7 +424,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Online Offers"),
             'service_online',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Online Offers' Details (%s)") % lang_name,
                 'service_online_info_%s' % lang_code,
@@ -435,7 +437,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Children birthdays"),
             'service_birthdays',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Children Birthdays' Details (%s)") % lang_name,
                 'service_birthdays_info_%s' % lang_code,
@@ -444,7 +446,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Rent"),
             'service_rent',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Rent Details (%s)") % lang_name,
                 'service_rent_info_%s' % lang_code,
@@ -453,7 +455,7 @@ class ServicesAccessibilityForm(ModelForm):
             _("Other services"),
             'service_other',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Other Services' Details (%s)") % lang_name,
                 'service_other_info_%s' % lang_code,
@@ -471,7 +473,7 @@ class MediationForm(ModelForm):
     class Meta:
         model = Museum
         fields = []
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'mediation_offer_%s' % lang_code,
                 ]
@@ -482,7 +484,7 @@ class MediationForm(ModelForm):
         self.helper.form_method = "POST"
         
         layout_blocks = []
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Mediation offer (%s)") % lang_name,
                 'mediation_offer_%s' % lang_code,
@@ -509,7 +511,7 @@ def load_data(instance=None):
             'services_accessibility': {'_filled': True},
             'mediation': {'_filled': True},
             }
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
@@ -556,7 +558,7 @@ def load_data(instance=None):
             season_dict['sun_break_open'] = season.sun_break_open
             season_dict['sun_close'] = season.sun_close
             season_dict['sun_last_entry'] = season.sun_last_entry
-            for lang_code, lang_name in settings.LANGUAGES:
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
             form_step_data['opening']['sets']['seasons'].append(season_dict)
             
@@ -568,7 +570,7 @@ def load_data(instance=None):
             special_opening_dict['get_mm_display'] = special_opening.get_mm_display()
             special_opening_dict['dd'] = special_opening.dd
             special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
-            for lang_code, lang_name in settings.LANGUAGES:
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
                 special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
             special_opening_dict['is_closed'] = special_opening.is_closed
             special_opening_dict['is_regular'] = special_opening.is_regular
@@ -579,7 +581,7 @@ def load_data(instance=None):
             form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
             
         fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
                 'reduced_price_info_%s' % lang_code,
@@ -616,7 +618,7 @@ def load_data(instance=None):
         form_step_data['services_accessibility']['service_birthdays'] = instance.service_birthdays
         form_step_data['services_accessibility']['service_rent'] = instance.service_rent
         form_step_data['services_accessibility']['service_other'] = instance.service_other
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['services_accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
             form_step_data['services_accessibility']['service_shop_info_%s' % lang_code] = getattr(instance, 'service_shop_info_%s' % lang_code)
             form_step_data['services_accessibility']['service_books_info_%s' % lang_code] = getattr(instance, 'service_books_info_%s' % lang_code)
@@ -630,7 +632,7 @@ def load_data(instance=None):
             form_step_data['services_accessibility']['service_rent_info_%s' % lang_code] = getattr(instance, 'service_rent_info_%s' % lang_code)
             form_step_data['services_accessibility']['service_other_info_%s' % lang_code] = getattr(instance, 'service_other_info_%s' % lang_code)
 
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['mediation']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
 
     return form_step_data
@@ -642,14 +644,14 @@ def save_data(form_steps, form_step_data, instance=None):
     if not instance:
         instance = Museum()
 
-    for lang_code, lang_name in settings.LANGUAGES:
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
     instance.tags = form_step_data['basic']['tags'] 
 
     fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
-    for lang_code, lang_name in settings.LANGUAGES:
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         fields += [
             'admission_price_info_%s' % lang_code,
             'reduced_price_info_%s' % lang_code,
@@ -687,7 +689,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.service_rent = form_step_data['services_accessibility']['service_rent'] 
     instance.service_other = form_step_data['services_accessibility']['service_other']
     
-    for lang_code, lang_name in settings.LANGUAGES:
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
         setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
         setattr(instance, 'service_shop_info_%s' % lang_code, form_step_data['services_accessibility']['service_shop_info_%s' % lang_code])
@@ -702,7 +704,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'service_rent_info_%s' % lang_code, form_step_data['services_accessibility']['service_rent_info_%s' % lang_code])
         setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
 
-    for lang_code, lang_name in settings.LANGUAGES:
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['mediation']['mediation_offer_%s' % lang_code])
 
     instance.status = "published"
@@ -752,7 +754,7 @@ def save_data(form_steps, form_step_data, instance=None):
         season.sun_break_open = season_dict['sun_break_open'] 
         season.sun_close = season_dict['sun_close']
         season.sun_last_entry = season_dict['sun_last_entry']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
         season.save()
         
@@ -761,7 +763,7 @@ def save_data(form_steps, form_step_data, instance=None):
         special_opening.yyyy = special_opening_dict['yyyy'] 
         special_opening.mm = special_opening_dict['mm']
         special_opening.dd = special_opening_dict['dd']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
         special_opening.is_closed = special_opening_dict['is_closed'] 
         special_opening.is_regular = special_opening_dict['is_regular'] 

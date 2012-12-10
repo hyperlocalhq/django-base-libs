@@ -29,6 +29,11 @@ LANGUAGES = (
     ('en', gettext("English")),
 )
 
+FRONTEND_LANGUAGES = (
+    ('de', gettext("German")),
+    ('en', gettext("English")),
+)
+
 LANGUAGE_CODE = "de"
 
 SITE_ID = 1

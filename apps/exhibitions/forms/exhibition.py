@@ -14,6 +14,8 @@ Exhibition = models.get_model("exhibitions", "Exhibition")
 Season = models.get_model("exhibitions", "Season")
 SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
 
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+
 class BasicInfoForm(ModelForm):
     class Meta:
         model = Exhibition
@@ -22,7 +24,7 @@ class BasicInfoForm(ModelForm):
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'country', 'latitude', 'longitude', 
             'organizing_museum', 'organizer_title', 'organizer_url_link', 'vernissage', 'finissage', 'tags', 'categories']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
@@ -36,7 +38,7 @@ class BasicInfoForm(ModelForm):
         self.helper.form_method = "POST"
         
         layout_blocks = []
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Basic Info (%s)") % lang_name,
                 "title_%s" % lang_code,
@@ -129,7 +131,7 @@ class SeasonForm(ModelForm):
     class Meta:
         model = Season
         exclude = []
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             exclude.append("exceptions_%s_markup_type" % lang_code)
         
     def __init__(self, *args, **kwargs):
@@ -192,7 +194,7 @@ class SeasonForm(ModelForm):
             "sun_break_open",
             "sun_close",
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Exceptions (%s)") % lang_name,
                 "exceptions_%s" % lang_code,
@@ -217,7 +219,7 @@ class SpecialOpeningTimeForm(ModelForm):
             "mm",
             "dd",
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Occasion (%s)") % lang_name,
                 "day_label_%s" % lang_code,
@@ -241,7 +243,7 @@ class PricesForm(ModelForm):
     class Meta:
         model = Exhibition
         fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
                 'reduced_price_info_%s' % lang_code,
@@ -264,7 +266,7 @@ class PricesForm(ModelForm):
             _("Prices"),
             'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Details (%s)") % lang_name,
                 'admission_price_info_%s' % lang_code,
@@ -290,7 +292,7 @@ class AccessibilityForm(ModelForm):
     class Meta:
         model = Exhibition
         fields = ['suitable_for_disabled',]
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'suitable_for_disabled_info_%s' % lang_code,
                 ]
@@ -305,7 +307,7 @@ class AccessibilityForm(ModelForm):
             _("Accessibility"),
             'suitable_for_disabled',
             ))
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Details (%s)") % lang_name,
                 'suitable_for_disabled_info_%s' % lang_code,
@@ -328,7 +330,7 @@ def load_data(instance=None):
             'prices': {'_filled': True},
             'accessibility': {'_filled': True},
             }
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
@@ -388,7 +390,7 @@ def load_data(instance=None):
             season_dict['sun_break_close'] = season.sun_break_close
             season_dict['sun_break_open'] = season.sun_break_open
             season_dict['sun_close'] = season.sun_close
-            for lang_code, lang_name in settings.LANGUAGES:
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
             form_step_data['opening']['sets']['seasons'].append(season_dict)
             
@@ -400,7 +402,7 @@ def load_data(instance=None):
             special_opening_dict['get_mm_display'] = special_opening.get_mm_display()
             special_opening_dict['dd'] = special_opening.dd
             special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
-            for lang_code, lang_name in settings.LANGUAGES:
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
                 special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
             special_opening_dict['is_closed'] = special_opening.is_closed
             special_opening_dict['is_regular'] = special_opening.is_regular
@@ -411,7 +413,7 @@ def load_data(instance=None):
             form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
     
         fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
                 'reduced_price_info_%s' % lang_code,
@@ -427,7 +429,7 @@ def load_data(instance=None):
             form_step_data['prices'][f] = getattr(instance, f)
     
         form_step_data['accessibility']['suitable_for_disabled'] = instance.suitable_for_disabled
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code] = getattr(instance, 'suitable_for_disabled_info_%s' % lang_code)
 
     return form_step_data
@@ -438,7 +440,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 def save_data(form_steps, form_step_data, instance=None):
     if not instance:
         instance = Exhibition()
-    for lang_code, lang_name in settings.LANGUAGES:
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
@@ -465,7 +467,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.tags = form_step_data['basic']['tags']
 
     fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
-    for lang_code, lang_name in settings.LANGUAGES:
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         fields += [
             'admission_price_info_%s' % lang_code,
             'reduced_price_info_%s' % lang_code,
@@ -481,7 +483,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, f, form_step_data['prices'][f])
 
     instance.suitable_for_disabled = form_step_data['accessibility']['suitable_for_disabled']
-    for lang_code, lang_name in settings.LANGUAGES:
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'suitable_for_disabled_info_%s' % lang_code, form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code])
     
     instance.status = "published"
@@ -523,7 +525,7 @@ def save_data(form_steps, form_step_data, instance=None):
         season.sun_break_close = season_dict['sun_break_close'] 
         season.sun_break_open = season_dict['sun_break_open'] 
         season.sun_close = season_dict['sun_close']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
         season.save()
         
@@ -532,7 +534,7 @@ def save_data(form_steps, form_step_data, instance=None):
         special_opening.yyyy = special_opening_dict['yyyy'] 
         special_opening.mm = special_opening_dict['mm']
         special_opening.dd = special_opening_dict['dd']
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
         special_opening.is_closed = special_opening_dict['is_closed'] 
         special_opening.is_regular = special_opening_dict['is_regular'] 
