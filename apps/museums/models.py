@@ -263,6 +263,8 @@ class SpecialOpeningTime(models.Model):
     break_open = models.TimeField(_('Break Ends'), blank=True, null=True)
     closing = models.TimeField(_('Closes'), blank=True, null=True)
     
+    exceptions = MultilingualTextField(_('Exceptions for working hours'), blank=True)
+
     def __unicode__(self):
         if self.yyyy:
             return u"%s-%s-%s %s" % (self.yyyy, self.mm, self.dd, self.day_label)
