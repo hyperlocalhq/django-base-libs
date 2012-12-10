@@ -5,8 +5,12 @@
 <form action="" method="post">
 {{ formsets.seasons.management_form }}
 {{ formsets.special_openings.management_form }}
-{% crispy formsets.seasons formsets.seasons.form.helper %}
-{% crispy formsets.special_openings formsets.special_openings.form.helper %}
+{% for form in formsets.seasons %}
+    {% crispy form %}
+{% endfor %}
+{% for form in formsets.special_openings %}
+    {% crispy form %}
+{% endfor %}
 {% crispy form %}
 </form>
 {% endblock %}

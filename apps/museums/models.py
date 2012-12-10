@@ -241,13 +241,7 @@ class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)
     start = models.DateField(_("Start"))
     end = models.DateField(_("End"))
-    mon_last_entry = models.TimeField(_("Last entry on Monday"), blank=True, null=True)
-    tue_last_entry = models.TimeField(_("Last entry on Tuesday"), blank=True, null=True)
-    wed_last_entry = models.TimeField(_("Last entry on Wednesday"), blank=True, null=True)
-    thu_last_entry = models.TimeField(_("Last entry on Thursday"), blank=True, null=True)
-    fri_last_entry = models.TimeField(_("Last entry on Friday"), blank=True, null=True)
-    sat_last_entry = models.TimeField(_("Last entry on Saturday"), blank=True, null=True)
-    sun_last_entry = models.TimeField(_("Last entry on Sunday"), blank=True, null=True)
+    last_entry = MultilingualCharField(_("Last entry"), max_length=255, blank=True)
     
     def __unicode__(self):
         if self.start and self.end:
