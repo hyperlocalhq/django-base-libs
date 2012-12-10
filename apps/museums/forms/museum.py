@@ -269,26 +269,39 @@ class AddressForm(ModelForm):
     class Meta:
         model = Museum
         fields = ['street_address', 'street_address2', 'postal_code', 'district',
-            'city', 'country', 'latitude', 'longitude',
-            'phone', 'fax', 'email', 'website', 'twitter', 'facebook']
+            'city', 'latitude', 'longitude',
+            'phone', 'fax', 'email', 'website', 'twitter', 'facebook',
+            'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
+            'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
+            ]
     def __init__(self, *args, **kwargs):
         super(AddressForm, self).__init__(*args, **kwargs)
+        self.fields['latitude'].widget = forms.HiddenInput()
+        self.fields['longitude'].widget = forms.HiddenInput()
+        
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
-            _("Address"),
+            _("Location"),
             'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'country',
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Geoposition"),
             'latitude', 'longitude',
             ))
         layout_blocks.append(layout.Fieldset(
-            _("Contact info"),
+            _("Postal address (if differs from museum's address)"),
+            'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
+            ))
+        layout_blocks.append(layout.Fieldset(
+            _("Contact person"),
+            'contact_name', 
+            layout.Row('contact_phone_country', 'contact_phone_area', 'contact_phone_number', css_class="phone"),
+            'contact_email',
+            ))
+        layout_blocks.append(layout.Fieldset(
+            _("Other contact info"),
             'phone', 'fax', 'email', 'website',
             ))
         layout_blocks.append(layout.Fieldset(
@@ -582,11 +595,13 @@ def load_data(instance=None):
             form_step_data['prices'][f] = getattr(instance, f)
         
         fields = ['street_address', 'street_address2', 'postal_code', 'district',
-            'city', 'country', 'latitude', 'longitude',
-            'phone', 'fax', 'email', 'website', 'twitter', 'facebook']
+            'city', 'latitude', 'longitude',
+            'phone', 'fax', 'email', 'website', 'twitter', 'facebook',
+            'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
+            'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
+            ]
         for f in fields:
             form_step_data['address'][f] = getattr(instance, f)
-        form_step_data['address']['get_country_display'] = instance.get_country_display()
         
         form_step_data['services_accessibility']['accessibility_options'] = instance.accessibility_options.all()
         form_step_data['services_accessibility']['service_shop'] = instance.service_shop
@@ -650,8 +665,11 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, f, form_step_data['prices'][f])
     
     fields = ['street_address', 'street_address2', 'postal_code', 'district',
-        'city', 'country', 'latitude', 'longitude',
-        'phone', 'fax', 'email', 'website', 'twitter', 'facebook']
+        'city', 'latitude', 'longitude',
+        'phone', 'fax', 'email', 'website', 'twitter', 'facebook',
+        'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
+        'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
+        ]
     for f in fields:
         setattr(instance, f, form_step_data['address'][f])
     
