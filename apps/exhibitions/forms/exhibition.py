@@ -128,6 +128,14 @@ class OpeningForm(forms.Form):
             )        
 
 class SeasonForm(ModelForm):
+    mon_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    tue_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    wed_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    thu_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    fri_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    sat_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    sun_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    
     class Meta:
         model = Season
         exclude = []
@@ -136,6 +144,13 @@ class SeasonForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(SeasonForm, self).__init__(*args, **kwargs)
+        # remove labels from opening and closing times 
+        for weekday in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]:
+            self.fields['%s_open' % weekday].label = ""
+            self.fields['%s_break_close' % weekday].label = ""
+            self.fields['%s_break_open' % weekday].label = ""
+            self.fields['%s_close' % weekday].label = ""
+            
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
@@ -145,58 +160,74 @@ class SeasonForm(ModelForm):
             "end",
             "is_appointment_based",
             ))
-        layout_blocks.append(layout.Fieldset(
-            _("Monday"),
-            "mon_open",
-            "mon_break_close",
-            "mon_break_open",
-            "mon_close",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Tuesday"),
-            "tue_open",
-            "tue_break_close",
-            "tue_break_open",
-            "tue_close",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Wednesday"),
-            "wed_open",
-            "wed_break_close",
-            "wed_break_open",
-            "wed_close",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Thursday"),
-            "thu_open",
-            "thu_break_close",
-            "thu_break_open",
-            "thu_close",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Friday"),
-            "fri_open",
-            "fri_break_close",
-            "fri_break_open",
-            "fri_close",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Saturday"),
-            "sat_open",
-            "sat_break_close",
-            "sat_break_open",
-            "sat_close",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Sunday"),
-            "sun_open",
-            "sun_break_close",
-            "sun_break_open",
-            "sun_close",
-            ))
+        layout_blocks.extend([layout.HTML(
+            """{% load i18n %}<table><thead><tr>
+                <th>&nbsp;</th>
+                <th>{% trans "Monday" %}</th>
+                <th>{% trans "Tuesday" %}</th>
+                <th>{% trans "Wednesday" %}</th>
+                <th>{% trans "Thursday" %}</th>
+                <th>{% trans "Friday" %}</th>
+                <th>{% trans "Saturday" %}</th>
+                <th>{% trans "Sunday" %}</th>
+            </tr></thead><tbody>
+            <tr>
+                <th>{% trans "Opens" %}</th>
+                <td>"""), "mon_open", layout.HTML("""</td>
+                <td>"""), "tue_open", layout.HTML("""</td>
+                <td>"""), "wed_open", layout.HTML("""</td>
+                <td>"""), "thu_open", layout.HTML("""</td>
+                <td>"""), "fri_open", layout.HTML("""</td>
+                <td>"""), "sat_open", layout.HTML("""</td>
+                <td>"""), "sun_open", layout.HTML("""</td>
+            </tr>
+            <tr>
+                <th>{% load i18n %}{% trans "Break starts" %}</th>
+                <td>"""), "mon_break_close", layout.HTML("""</td>
+                <td>"""), "tue_break_close", layout.HTML("""</td>
+                <td>"""), "wed_break_close", layout.HTML("""</td>
+                <td>"""), "thu_break_close", layout.HTML("""</td>
+                <td>"""), "fri_break_close", layout.HTML("""</td>
+                <td>"""), "sat_break_close", layout.HTML("""</td>
+                <td>"""), "sun_break_close", layout.HTML("""</td>
+            </tr>
+            <tr>
+                <th>{% load i18n %}{% trans "Break ends" %}</th>
+                <td>"""), "mon_break_open", layout.HTML("""</td>
+                <td>"""), "tue_break_open", layout.HTML("""</td>
+                <td>"""), "wed_break_open", layout.HTML("""</td>
+                <td>"""), "thu_break_open", layout.HTML("""</td>
+                <td>"""), "fri_break_open", layout.HTML("""</td>
+                <td>"""), "sat_break_open", layout.HTML("""</td>
+                <td>"""), "sun_break_open", layout.HTML("""</td>
+            </tr>
+            <tr>
+                <th>{% load i18n %}{% trans "Closes" %}</th>
+                <td>"""), "mon_close", layout.HTML("""</td>
+                <td>"""), "tue_close", layout.HTML("""</td>
+                <td>"""), "wed_close", layout.HTML("""</td>
+                <td>"""), "thu_close", layout.HTML("""</td>
+                <td>"""), "fri_close", layout.HTML("""</td>
+                <td>"""), "sat_close", layout.HTML("""</td>
+                <td>"""), "sun_close", layout.HTML("""</td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td>"""), "mon_is_closed", layout.HTML("""</td>
+                <td>"""), "tue_is_closed", layout.HTML("""</td>
+                <td>"""), "wed_is_closed", layout.HTML("""</td>
+                <td>"""), "thu_is_closed", layout.HTML("""</td>
+                <td>"""), "fri_is_closed", layout.HTML("""</td>
+                <td>"""), "sat_is_closed", layout.HTML("""</td>
+                <td>"""), "sun_is_closed", layout.HTML("""</td>
+            </tr>
+            </tbody></table>
+            """
+            )])
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
-                _("Exceptions (%s)") % lang_name,
+                _("Additional info (%s)") % lang_name,
+                "last_entry_%s" % lang_code,
                 "exceptions_%s" % lang_code,
                 ))
         self.helper.layout = layout.Layout(
@@ -208,22 +239,25 @@ SeasonFormset = inlineformset_factory(Exhibition, Season, form=SeasonForm, forms
 class SpecialOpeningTimeForm(ModelForm):
     class Meta:
         model = SpecialOpeningTime
+        exclude = []
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            exclude.append("exceptions_%s_markup_type" % lang_code)
     def __init__(self, *args, **kwargs):
         super(SpecialOpeningTimeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Occasion (%s)") % lang_name,
+                "day_label_%s" % lang_code,
+                ))
         layout_blocks.append(layout.Fieldset(
             _("Special date"),
             "yyyy",
             "mm",
             "dd",
             ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Occasion (%s)") % lang_name,
-                "day_label_%s" % lang_code,
-                ))
         layout_blocks.append(layout.Fieldset(
             _("Opening times"),
             "is_closed",
@@ -233,6 +267,11 @@ class SpecialOpeningTimeForm(ModelForm):
             "break_open",
             "closing",
             ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Additional info (%s)") % lang_name,
+                "exceptions_%s" % lang_code,
+                ))
         self.helper.layout = layout.Layout(
             *layout_blocks
             )     
@@ -366,31 +405,39 @@ def load_data(instance=None):
             season_dict['mon_break_close'] = season.mon_break_close
             season_dict['mon_break_open'] = season.mon_break_open
             season_dict['mon_close'] = season.mon_close
+            season_dict['mon_is_closed'] = not season.mon_open
             season_dict['tue_open'] = season.tue_open
             season_dict['tue_break_close'] = season.tue_break_close
             season_dict['tue_break_open'] = season.tue_break_open
             season_dict['tue_close'] = season.tue_close
+            season_dict['tue_is_closed'] = not season.tue_open
             season_dict['wed_open'] = season.wed_open
             season_dict['wed_break_close'] = season.wed_break_close
             season_dict['wed_break_open'] = season.wed_break_open
             season_dict['wed_close'] = season.wed_close
+            season_dict['wed_is_closed'] = not season.wed_open
             season_dict['thu_open'] = season.thu_open
             season_dict['thu_break_close'] = season.thu_break_close
             season_dict['thu_break_open'] = season.thu_break_open
             season_dict['thu_close'] = season.thu_close
+            season_dict['thu_is_closed'] = not season.thu_open
             season_dict['fri_open'] = season.fri_open
             season_dict['fri_break_close'] = season.fri_break_close
             season_dict['fri_break_open'] = season.fri_break_open
             season_dict['fri_close'] = season.fri_close
+            season_dict['fri_is_closed'] = not season.fri_open
             season_dict['sat_open'] = season.sat_open
             season_dict['sat_break_close'] = season.sat_break_close
             season_dict['sat_break_open'] = season.sat_break_open
             season_dict['sat_close'] = season.sat_close
+            season_dict['sat_is_closed'] = not season.sat_open
             season_dict['sun_open'] = season.sun_open
             season_dict['sun_break_close'] = season.sun_break_close
             season_dict['sun_break_open'] = season.sun_break_open
             season_dict['sun_close'] = season.sun_close
+            season_dict['sun_is_closed'] = not season.sun_open
             for lang_code, lang_name in FRONTEND_LANGUAGES:
+                season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
             form_step_data['opening']['sets']['seasons'].append(season_dict)
             
@@ -404,6 +451,7 @@ def load_data(instance=None):
             special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
+                special_opening_dict['exceptions_%s' % lang_code] = getattr(special_opening, 'exceptions_%s' % lang_code)
             special_opening_dict['is_closed'] = special_opening.is_closed
             special_opening_dict['is_regular'] = special_opening.is_regular
             special_opening_dict['opening'] = special_opening.opening
@@ -492,6 +540,7 @@ def save_data(form_steps, form_step_data, instance=None):
     for cat in form_step_data['basic']['categories']:
         instance.categories.add(cat)
     
+    instance.season_set.all().delete()
     for season_dict in form_step_data['opening']['sets']['seasons']:
         season = Season(exhibition=instance)
         season.start = season_dict['start'] 
@@ -526,9 +575,11 @@ def save_data(form_steps, form_step_data, instance=None):
         season.sun_break_open = season_dict['sun_break_open'] 
         season.sun_close = season_dict['sun_close']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
+            setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
         season.save()
         
+    instance.specialopeningtime_set.all().delete()
     for special_opening_dict in form_step_data['opening']['sets']['special_openings']:
         special_opening = SpecialOpeningTime(exhibition=instance)
         special_opening.yyyy = special_opening_dict['yyyy'] 
@@ -536,6 +587,7 @@ def save_data(form_steps, form_step_data, instance=None):
         special_opening.dd = special_opening_dict['dd']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
+            setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
         special_opening.is_closed = special_opening_dict['is_closed'] 
         special_opening.is_regular = special_opening_dict['is_regular'] 
         special_opening.opening = special_opening_dict['opening'] 
@@ -547,7 +599,6 @@ def save_data(form_steps, form_step_data, instance=None):
     form_steps['success_url'] = instance.get_url_path()
     
     return form_step_data
-
 
 EXHIBITION_FORM_STEPS = {
     'basic': {

@@ -99,13 +99,13 @@ class OpeningForm(forms.Form):
             )        
 
 class SeasonForm(ModelForm):
-    mon_is_closed = forms.BooleanField(label=_("Closed?"))
-    tue_is_closed = forms.BooleanField(label=_("Closed?"))
-    wed_is_closed = forms.BooleanField(label=_("Closed?"))
-    thu_is_closed = forms.BooleanField(label=_("Closed?"))
-    fri_is_closed = forms.BooleanField(label=_("Closed?"))
-    sat_is_closed = forms.BooleanField(label=_("Closed?"))
-    sun_is_closed = forms.BooleanField(label=_("Closed?"))
+    mon_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    tue_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    wed_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    thu_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    fri_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    sat_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    sun_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
     
     class Meta:
         model = Season
@@ -218,17 +218,17 @@ class SpecialOpeningTimeForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Occasion (%s)") % lang_name,
+                "day_label_%s" % lang_code,
+                ))
         layout_blocks.append(layout.Fieldset(
             _("Special date"),
             "yyyy",
             "mm",
             "dd",
             ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Occasion (%s)") % lang_name,
-                "day_label_%s" % lang_code,
-                ))
         layout_blocks.append(layout.Fieldset(
             _("Opening times"),
             "is_closed",
@@ -748,6 +748,7 @@ def save_data(form_steps, form_step_data, instance=None):
     for cat in form_step_data['services_accessibility']['accessibility_options']:
         instance.accessibility_options.add(cat)
 
+    instance.season_set.all().delete()
     for season_dict in form_step_data['opening']['sets']['seasons']:
         season = Season(museum=instance)
         season.start = season_dict['start'] 
@@ -786,6 +787,7 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
         season.save()
         
+    instance.specialopeningtime_set.all().delete()
     for special_opening_dict in form_step_data['opening']['sets']['special_openings']:
         special_opening = SpecialOpeningTime(museum=instance)
         special_opening.yyyy = special_opening_dict['yyyy'] 

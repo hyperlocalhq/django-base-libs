@@ -192,6 +192,7 @@ class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)
     start = models.DateField(_("Start"))
     end = models.DateField(_("End"))
+    last_entry = MultilingualCharField(_("Last entry"), max_length=255, blank=True)
     
     def __unicode__(self):
         if self.start and self.end:
