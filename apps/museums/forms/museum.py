@@ -210,6 +210,9 @@ SeasonFormset = inlineformset_factory(Museum, Season, form=SeasonForm, formset=I
 class SpecialOpeningTimeForm(ModelForm):
     class Meta:
         model = SpecialOpeningTime
+        exclude = []
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            exclude.append("exceptions_%s_markup_type" % lang_code)
     def __init__(self, *args, **kwargs):
         super(SpecialOpeningTimeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -235,6 +238,11 @@ class SpecialOpeningTimeForm(ModelForm):
             "break_open",
             "closing",
             ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            layout_blocks.append(layout.Fieldset(
+                _("Additional info (%s)") % lang_name,
+                "exceptions_%s" % lang_code,
+                ))
         self.helper.layout = layout.Layout(
             *layout_blocks
             )     
@@ -597,6 +605,7 @@ def load_data(instance=None):
             special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
+                special_opening_dict['exceptions_%s' % lang_code] = getattr(special_opening, 'exceptions_%s' % lang_code)
             special_opening_dict['is_closed'] = special_opening.is_closed
             special_opening_dict['is_regular'] = special_opening.is_regular
             special_opening_dict['opening'] = special_opening.opening
@@ -784,6 +793,7 @@ def save_data(form_steps, form_step_data, instance=None):
         special_opening.dd = special_opening_dict['dd']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
+            setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
         special_opening.is_closed = special_opening_dict['is_closed'] 
         special_opening.is_regular = special_opening_dict['is_regular'] 
         special_opening.opening = special_opening_dict['opening'] 
