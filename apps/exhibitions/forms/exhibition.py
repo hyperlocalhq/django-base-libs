@@ -483,6 +483,94 @@ def load_data(instance=None):
     return form_step_data
 
 def submit_step(current_step, form_steps, form_step_data, instance=None):
+    museum = form_step_data.get('basic', {}).get('museum', None)
+    if current_step == "basic" and museum:
+        # fill in opening times from museum
+        if not form_step_data.get('opening', {}).get('_filled', False):
+            form_step_data['opening'] = {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}}
+            for season in museum.season_set.all():
+                season_dict = {}
+                season_dict['start'] = season.start
+                season_dict['end'] = season.end
+                season_dict['is_appointment_based'] = season.is_appointment_based
+                season_dict['mon_open'] = season.mon_open
+                season_dict['mon_break_close'] = season.mon_break_close
+                season_dict['mon_break_open'] = season.mon_break_open
+                season_dict['mon_close'] = season.mon_close
+                season_dict['mon_is_closed'] = not season.mon_open
+                season_dict['tue_open'] = season.tue_open
+                season_dict['tue_break_close'] = season.tue_break_close
+                season_dict['tue_break_open'] = season.tue_break_open
+                season_dict['tue_close'] = season.tue_close
+                season_dict['tue_is_closed'] = not season.tue_open
+                season_dict['wed_open'] = season.wed_open
+                season_dict['wed_break_close'] = season.wed_break_close
+                season_dict['wed_break_open'] = season.wed_break_open
+                season_dict['wed_close'] = season.wed_close
+                season_dict['wed_is_closed'] = not season.wed_open
+                season_dict['thu_open'] = season.thu_open
+                season_dict['thu_break_close'] = season.thu_break_close
+                season_dict['thu_break_open'] = season.thu_break_open
+                season_dict['thu_close'] = season.thu_close
+                season_dict['thu_is_closed'] = not season.thu_open
+                season_dict['fri_open'] = season.fri_open
+                season_dict['fri_break_close'] = season.fri_break_close
+                season_dict['fri_break_open'] = season.fri_break_open
+                season_dict['fri_close'] = season.fri_close
+                season_dict['fri_is_closed'] = not season.fri_open
+                season_dict['sat_open'] = season.sat_open
+                season_dict['sat_break_close'] = season.sat_break_close
+                season_dict['sat_break_open'] = season.sat_break_open
+                season_dict['sat_close'] = season.sat_close
+                season_dict['sat_is_closed'] = not season.sat_open
+                season_dict['sun_open'] = season.sun_open
+                season_dict['sun_break_close'] = season.sun_break_close
+                season_dict['sun_break_open'] = season.sun_break_open
+                season_dict['sun_close'] = season.sun_close
+                season_dict['sun_is_closed'] = not season.sun_open
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
+                    season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
+                form_step_data['opening']['sets']['seasons'].append(season_dict)
+                
+            for special_opening in museum.specialopeningtime_set.all():
+                special_opening_dict = {}
+                special_opening_dict['yyyy'] = special_opening.yyyy
+                special_opening_dict['get_yyyy_display'] = special_opening.get_yyyy_display()
+                special_opening_dict['mm'] = special_opening.mm
+                special_opening_dict['get_mm_display'] = special_opening.get_mm_display()
+                special_opening_dict['dd'] = special_opening.dd
+                special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
+                    special_opening_dict['exceptions_%s' % lang_code] = getattr(special_opening, 'exceptions_%s' % lang_code)
+                special_opening_dict['is_closed'] = special_opening.is_closed
+                special_opening_dict['is_regular'] = special_opening.is_regular
+                special_opening_dict['opening'] = special_opening.opening
+                special_opening_dict['break_close'] = special_opening.break_close
+                special_opening_dict['break_open'] = special_opening.break_open
+                special_opening_dict['closing'] = special_opening.closing
+                form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
+        
+        # fill in prices from museum
+        if not form_step_data.get('prices', {}).get('_filled', False):
+            form_step_data['prices'] = {'_filled': True}
+            fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                fields += [
+                    'admission_price_info_%s' % lang_code,
+                    'reduced_price_info_%s' % lang_code,
+                    'arrangements_for_children_%s' % lang_code,
+                    'free_entrance_for_%s' % lang_code,
+                    'family_ticket_%s' % lang_code,
+                    'group_ticket_%s' % lang_code,
+                    'free_entrance_times_%s' % lang_code,
+                    'yearly_ticket_%s' % lang_code,
+                    'other_tickets_%s' % lang_code,
+                    ]
+            for f in fields:
+                form_step_data['prices'][f] = getattr(museum, f)
+
     return form_step_data
 
 def save_data(form_steps, form_step_data, instance=None):
