@@ -58,7 +58,9 @@ urlpatterns += patterns('',
     
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
-    
+
+    url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
+
     url(r'^twitterwall/', include('museumsportal.apps.twitterwall.urls')),
     url(r'^tweets/$', 'museumsportal.apps.twitter.views.latest_tweets', {
         'twitter_username': settings.TWITTER_USERNAME,
