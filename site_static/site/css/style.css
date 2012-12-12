@@ -1424,6 +1424,7 @@ ound-color: rgba(255,255,255,0.96);
 	white-space: nowrap;
 	bottom: 20px;
 	color: black;
+	display: none;
 }
 
 #footer a.kpb:hover {
@@ -1436,10 +1437,46 @@ ound-color: rgba(255,255,255,0.96);
 	margin-top: -1px;
 	position: relative;
 }
+#footer #sponsors {
+	white-space: nowrap;
+	padding: 25px;
+}
+#footer #sponsors ul {
+	float: left;
+	border-right: 1px solid rgba(0,0,0,0.1);
+	margin-right: 20px;
+}
+
+#footer #sponsors li.title {
+	display: block;
+	width: 100%;
+	font-size: 10px;
+	margin-right: 20px;
+}
+
+#footer #sponsors li {
+	display: inline-block;
+}
+
+
+#footer #sponsors li a img{
+	height: 25px;
+	margin-right: 20px;
+}
+
+#footer #sponsors li a:hover img{
+	opacity: 0.5;
+}
+
+#footer #sponsors li strong {
+	display: none
+}
 
 #footer .navigation {
 	font-size: 13px;
 	padding-top: 35px;
+	width: 100%;
+	display: none;
 }
 
 /* @end */
