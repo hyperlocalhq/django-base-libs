@@ -60,11 +60,11 @@
                     <li> · <a href="/en/imprint/">Imprint</a></li>
                 {% endif %}
             </ul>
-            <a class="kpb" href="http://www.kulturprojekte-berlin.de/">Ein Service von:</a>
+            <a class="kpb" href="http://www.kulturprojekte-berlin.de/">{% if LANGUAGE_CODE == "de" %}Ein Service von:{% else %}A service from:{% endif %}</a>
 
             <div id="sponsors" class="clearfix">
                 <ul>
-                    <li class="title">Gefördert durch</li>
+                    <li class="title">{% if LANGUAGE_CODE == "de" %}Gefördert durch{% else %}Supported by{% endif %}</li>
                     <li id="sponsor_eu">
                         <a title="EU" target="_blank" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm">
                             <img src="{{ STATIC_URL }}site/img/footer/1.png">
@@ -88,7 +88,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="title">Ein Service von</li>
+                    <li class="title">{% if LANGUAGE_CODE == "de" %}Ein Service von{% else %}A service from{% endif %}</li>
                     <li>
                         <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
                             <img src="{{ STATIC_URL }}site/img/footer/5.png">
@@ -97,9 +97,9 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="title">Gemeinsam mit den Berliner Museen und</li>
+                    <li class="title">{% if LANGUAGE_CODE == "de" %}Gemeinsam mit den Berliner Museen und{% else %}Together with Berliner Museen and{% endif %}</li>
                     <li>
-                        <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum//">
+                        <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum/">
                             <img src="{{ STATIC_URL }}site/img/footer/6.png">
                             <strong>Landesverband der Museen zu Berlin e.V.</strong>
                         </a>
