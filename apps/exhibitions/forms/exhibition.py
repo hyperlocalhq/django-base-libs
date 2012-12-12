@@ -22,7 +22,7 @@ class BasicInfoForm(ModelForm):
         
         fields = ['start', 'end', 'permanent', 'exhibition_extended',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
-            'city', 'country', 'latitude', 'longitude', 
+            'city', 'latitude', 'longitude', 
             'organizing_museum', 'organizer_title', 'organizer_url_link', 'vernissage', 'finissage', 'tags', 'categories']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -33,6 +33,9 @@ class BasicInfoForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+        self.fields['latitude'].widget = forms.HiddenInput()
+        self.fields['longitude'].widget = forms.HiddenInput()
+        
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
@@ -64,7 +67,6 @@ class BasicInfoForm(ModelForm):
             "postal_code",
             "district",
             "city",
-            "country",
             "latitude",
             "longitude",
             "organizing_museum",
@@ -385,7 +387,6 @@ def load_data(instance=None):
         form_step_data['basic']['postal_code'] = instance.postal_code
         form_step_data['basic']['district'] = instance.district
         form_step_data['basic']['city'] = instance.city
-        form_step_data['basic']['country'] = instance.country
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
         form_step_data['basic']['organizing_museum'] = instance.organizing_museum
@@ -592,7 +593,6 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.postal_code = form_step_data['basic']['postal_code']
     instance.district = form_step_data['basic']['district']
     instance.city = form_step_data['basic']['city']
-    instance.country = form_step_data['basic']['country'] 
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
     instance.organizing_museum = form_step_data['basic']['organizing_museum']
