@@ -83,6 +83,12 @@ class InlineFormSet(BaseInlineFormSet):
         self.add_fields(form, i)
         return form
 
+    def initial_form_count(self):
+        """Returns the number of forms that are required in this FormSet."""
+        if not (self.data or self.files):
+            return len(self._initial)
+        return super(InlineFormSet, self).initial_form_count()
+
 
 class OpeningForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -205,7 +211,7 @@ class SeasonForm(ModelForm):
             *layout_blocks
             )     
 
-SeasonFormset = inlineformset_factory(Museum, Season, form=SeasonForm, formset=InlineFormSet, extra=1)
+SeasonFormset = inlineformset_factory(Museum, Season, form=SeasonForm, formset=InlineFormSet, extra=0)
 
 class SpecialOpeningTimeForm(ModelForm):
     class Meta:
@@ -247,7 +253,7 @@ class SpecialOpeningTimeForm(ModelForm):
             *layout_blocks
             )     
 
-SpecialOpeningTimeFormset = inlineformset_factory(Museum, SpecialOpeningTime, form=SpecialOpeningTimeForm, formset=InlineFormSet, extra=1)
+SpecialOpeningTimeFormset = inlineformset_factory(Museum, SpecialOpeningTime, form=SpecialOpeningTimeForm, formset=InlineFormSet, extra=0)
 
 class PricesForm(ModelForm):
     class Meta:

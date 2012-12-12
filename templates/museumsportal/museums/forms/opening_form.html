@@ -1,17 +1,120 @@
 {% extends "museums/forms/base.html" %}
-{% load crispy_forms_tags %}
+{% load i18n crispy_forms_tags %}
 
 {% block multistep_form %}
 <form action="" method="post">
 {{ formsets.seasons.management_form }}
 {{ formsets.special_openings.management_form }}
-{% for form in formsets.seasons %}
-    {% crispy form %}
-{% endfor %}
-{% for form in formsets.special_openings %}
-    {% crispy form %}
-{% endfor %}
+
+<div id="seasons">
+    {% for form in formsets.seasons.forms %}
+        <div class="season formset-form">
+            {% crispy form %}
+        </div>
+    {% endfor %}
+</div>
+<!-- used by javascript -->
+<div id="seasons_empty_form" class="season formset-form" style="display: none">
+    {% with formsets.seasons.empty_form as form %}
+        {% crispy form %}
+    {% endwith %}
+</div>
+
+<div id="special_openings">
+    {% for form in formsets.special_openings.forms %}
+        <div class="special_opening formset-form">
+            {% crispy form %}
+        </div>
+    {% endfor %}
+</div>
+<!-- used by javascript -->
+<div id="special_openings_empty_form" class="special_opening formset-form" style="display: none">
+    {% with formsets.special_openings.empty_form as form %}
+        {% crispy form %}
+    {% endwith %}
+</div>
+
 {% crispy form %}
 </form>
+<script type="text/javascript">
+(function($, undefined) {
+    function set_index_for_fields($formset_form, index) {
+        $formset_form.find(':input').each(function() {
+            var $field = $(this);
+            if ($field.attr("id")) {
+                $field.attr(
+                    "id",
+                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+            if ($field.attr("name")) {
+                $field.attr(
+                    "name",
+                    $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+        $formset_form.find('label').each(function() {
+            var $field = $(this);
+            if ($field.attr("for")) {
+                $field.attr(
+                    "for",
+                    $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+        $formset_form.find('div').each(function() {
+            var $field = $(this);
+            if ($field.attr("id")) {
+                $field.attr(
+                    "id",
+                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+    }
+        
+    $(function() {
+        $(
+            '<a id="add_season" href="#">{% trans "Add another season" %}</a>'
+        ).insertAfter('#seasons').click(function() {
+            var $total_forms = $('#id_seasons-TOTAL_FORMS');
+            var $new_form = $('#seasons_empty_form').clone(true).attr("id", null).show();
+            set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+            $('#seasons').append($new_form);
+            $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            return false;
+        });
+        $(
+            '<a id="add_special_opening" href="#">{% trans "Add another special opening time" %}</a>'
+        ).insertAfter('#special_openings').click(function() {
+            var $total_forms = $('#id_special_openings-TOTAL_FORMS');
+            var $new_form = $('#special_openings_empty_form').clone(true).attr("id", null).show();
+            set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+            $('#special_openings').append($new_form);
+            $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            return false;
+        });
+        
+        $('.formset-form').each(function() {
+            var $season = $(this);
+            $season.find('input:checkbox[id$=DELETE]').each(function() {
+                var $checkbox = $(this);
+                var $deleteLink = $(
+                    '<a href="#" class="delete-link"><span>{% trans "Delete" %}</span></a>'
+                );
+                $checkbox.parent().before($deleteLink).hide();
+            });
+        });
+        $('.delete-link').live("click", function() {
+            var $season = $(this).parents('.formset-form:first');
+            var $checkbox = $(this).parent().find('input:checkbox[id$=DELETE]');
+            $checkbox.attr("checked", "checked");
+            $season.hide();
+            return false;
+        });
+    });
+})(jQuery);
+</script>
 {% endblock %}
 
