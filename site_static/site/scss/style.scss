@@ -213,63 +213,8 @@ a:active  { outline: none;}
 }
 
 .list.tiles {
+  
   border-bottom: 2px solid rgba(0,0,0,0.05);
-
-  &.collapsed > li {
-
-    -webkit-transition-property: all;
-    -webkit-transition-duration: 0.5s;
-    -webkit-transition-delay: 0.5s;
-    -webkit-transition-timing: ease-in-out;
-    
-    &:hover { 
-      -webkit-transition-delay: 0s;
-
-      .description { -webkit-transition-delay: 0.5s; }
-    }
-
-    .description { 
-      position: absolute;
-      top: 250px;
-      width: 1000px;
-      height: 0px;
-      overflow: hidden;
-      opacity: 0;
-
-      -webkit-transition-property: all;
-      -webkit-transition-duration: 0.5s;
-      -webkit-transition-delay: 0.5s;
-      -webkit-transition-timing: ease-in-out;
-      p { 
-        font-size: 20px;
-        line-height: 32px;
-      }
-
-    }
-
-    &:hover { 
-      padding-bottom: 200px;
-      margin-bottom: 100px;
-
-      .description { 
-        height: 200px;
-        opacity: 1;
-      }
-    }
-
-    &.class1 { 
-     .description { margin-left: 0px; }
-      clear: left;
-    }
-
-    &.class2 { 
-     .description { margin-left: -340px; }
-    }
-
-    &.class3 { 
-      .description {  margin-left: -680px;}
-    }
-  }
 
   > li.item { 
     width: 320px;
@@ -312,9 +257,85 @@ a:active  { outline: none;}
     }
   }
 
+  &.collapsed {
+
+    > li {
+      -webkit-transition-property: all;
+      -webkit-transition-duration: 0.25s;
+      -webkit-transition-delay: 0.5s;
+      -webkit-transition-timing: ease-in-out;
+      
+      &.class1 { 
+       .description { margin-left: 0px; }
+        clear: left;
+      }
+
+      &.class2 { 
+       .description { margin-left: -340px; }
+      }
+
+      &.class3 { 
+        .description {  margin-left: -680px;}
+      }
+
+      &:hover { 
+        -webkit-transition-delay: 0s;
+        .description { -webkit-transition-delay: 0.5s; }
+      }
+
+      .description { 
+        position: absolute;
+        top: 250px;
+        width: 1000px;
+        height: 0px;
+        overflow: hidden;
+        opacity: 0;
+        cursor: default;
+
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.5s;
+        -webkit-transition-delay: 0.5s;
+        -webkit-transition-timing: ease-in-out;
+
+        p { 
+          font-size: 20px;
+          line-height: 32px;
+          height: 165px;
+          overflow: hidden;
+        }
+
+        a.more { 
+          font-size: 16px;
+          line-height: 10px;
+          background-color: $blue;
+          display: inline-block;
+          padding: 10px;
+          position: absolute;
+          top: 170px;
+          left: 0;
+          color: white;
+          font-family: 'calluna_sansbold'; 
+          &:hover { 
+            background-color: black
+          }
+        }
+      }
+
+      &:hover { 
+        padding-bottom: 250px;
+        margin-bottom: 50px;
+
+        .description { 
+          height: 200px;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
   &.small > li.item { 
     width: 184px;
-    height: 160px;
+    height: 180px;
     font-size: 12px;
     line-height: 16px;
     margin-right: 20px;
@@ -324,7 +345,7 @@ a:active  { outline: none;}
     }
 
     .img { 
-      height: 80px;
+      height: 100px;
     }
 
     a {
@@ -397,6 +418,7 @@ article {
 #slide { 
   height: 300px;
   width: 100%;
+  overflow: hidden;
 
   &:hover { 
     p.small { 
@@ -420,7 +442,7 @@ article {
       left: 0;
       z-index: 500;
       background-color: rgba(0,0,0,0.05);
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
     }
 
     p.small { 
@@ -446,7 +468,31 @@ article {
     }
   }
 }
+#pager { 
+  width: 100%;
+  text-align: center;
 
+   a { 
+    background-color: rgba(0,0,0,0.1) !important;
+    color: black; 
+    display: inline-block;
+    white-space: nowrap;
+    text-indent: 30px;
+    overflow: hidden;
+    height: 10px;
+    width: 10px;
+    color: transparent;
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+
+    &:hover { 
+      background-color: $blue;
+      color: white;
+    }
+    
+  }
+}
 
 .filter {
   padding-bottom: 30px;

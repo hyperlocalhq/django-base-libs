@@ -79,6 +79,7 @@
 
                     <div class="description">
                         <p>{{ exhibition.get_rendered_description|striptags }}</p>
+                        <a class="more" href="{{ exhibition.get_url_path }}">more</a>
                     </div>
                    	
                     {% with exhibition.museum as museum %}

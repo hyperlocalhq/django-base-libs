@@ -321,6 +321,15 @@ $(document).ready(function(){
             </li>
         {% endfor %}
     </ul>
+        
+    <div id="controls">
+        {% if prev_item %}
+            <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>
+        {% endif %}
+        {% if next_item %}
+            <a href="{{ next_item.get_url_path }}" id="next">&gt;</a>
+        {% endif %}
+    </div>
 
     <!-- <ul id="kurze_zeit" class="list tiles small">
         {% for exhibition in object.get_published_exhibitions %}
