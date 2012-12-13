@@ -4,7 +4,8 @@
 {% block js %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-	<script type="text/javascript">
+	
+    <script type="text/javascript">
 	$(function() {
 
         var scroller = new StickyScroller("#head_filter", {
@@ -25,46 +26,67 @@
 {% block content %}
 
 	
-	<div id="head_filter">
+	<div style="display: none">
 		<div id="gmap_toggle" class="">&nbsp;</div>
 		<div id="gmap_wrapper" class="">
 			<div id="gmap" style="width:1000px; height:200px"></div>
 		</div>
-	    <ul class="filter">
-	        <li class="special {% if not facets.selected.category and not facets.selected.open_on_mondays and not facets.selected.free_entrance %}active{% endif %} filter-all" id="all"><a href="{% append_to_get category="",open_on_mondays="",free_entrance="" %}">Alle Museen</a></li>
-	        
-	        {% if facets.selected.open_on_mondays %}
-	            <li class="open_on_mondays active"><a class="cancel" href="{% append_to_get open_on_mondays="" %}">{{ facets.categories.open_on_mondays }}
-	            </a></li>
-	        {% else %}
-	            <li class="open_on_mondays special"><a href="{% append_to_get open_on_mondays=1 %}">{{ facets.categories.open_on_mondays }}</a></li>
-	        {% endif %}
-	        {% if facets.selected.free_entrance %}
-	            <li class="free_entrance active">
-	            <a class="cancel" href="{% append_to_get free_entrance="" %}">
-	            {{ facets.categories.free_entrance }}</a></li>
-	        {% else %}
-	            <li class="free_entrance special"><a href="{% append_to_get free_entrance=1 %}">{{ facets.categories.free_entrance }}</a></li>
-	        {% endif %}
-	        
-	        
-	        {% for cat in facets.categories.categories %}
-	            {% if cat == facets.selected.category %}
-	                <li class="active"><a class="cancel" href="{% append_to_get category="" %}">{{ cat.title }}</a></li>
-	            {% else %}
-	                <li><a href="{% append_to_get category=cat.pk %}">{{ cat.title }}</a></li>
-	            {% endif %}
-	        {% endfor %}
-	    </ul>
+
+	    
 	    {% include "utils/abc_filters.html" %}
     </div>
-    <div id="museum_list" class="">
-        <div id="object_list">
+
+    <h1>Museen, Schlösser und Gedenkstätten</h1>
+
+    <ul class="filter clearfix">
+        <li class="title">Filter</li>
+
+        <li class="special {% if not facets.selected.category and not facets.selected.open_on_mondays and not facets.selected.free_entrance %}active{% endif %} filter-all" id="all"><a href="{% append_to_get category="",open_on_mondays="",free_entrance="" %}">Alle Museen</a></li>
+        
+        {% if facets.selected.open_on_mondays %}
+            <li class="open_on_mondays active"><a class="cancel" href="{% append_to_get open_on_mondays="" %}">{{ facets.categories.open_on_mondays }}
+            </a></li>
+        {% else %}
+            <li class="open_on_mondays special"><a href="{% append_to_get open_on_mondays=1 %}">{{ facets.categories.open_on_mondays }}</a></li>
+        {% endif %}
+        {% if facets.selected.free_entrance %}
+            <li class="free_entrance active">
+            <a class="cancel" href="{% append_to_get free_entrance="" %}">
+            {{ facets.categories.free_entrance }}</a></li>
+        {% else %}
+            <li class="free_entrance special"><a href="{% append_to_get free_entrance=1 %}">{{ facets.categories.free_entrance }}</a></li>
+        {% endif %}
+        
+        
+        {% for cat in facets.categories.categories %}
+            {% if cat == facets.selected.category %}
+                <li class="active"><a class="cancel" href="{% append_to_get category="" %}">{{ cat.title }}</a></li>
+            {% else %}
+                <li><a href="{% append_to_get category=cat.pk %}">{{ cat.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <ul id="museum_list" class="list tiles clearfix">
         {% for museum in object_list %}
-            <div class="article">
+            <li class="item">
+                {% if museum.image %}
+                    <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }})"></a>
+                {% endif %}
+
+                <ul class="actions">
+                    <li><span class="add-favorite"></span></li>
+                    <li><span class="show-location"></span></li>
+                </ul>
+
+                <a href="{{ museum.get_url_path }}">
+                     <h3>{{ museum.title }}</h3>
+                    {% if museum.subtitle %}
+                        <h4>{{ museum.subtitle }}</h4>
+                    {% endif %}
+                </a>
                 
-                <a class="proceed" href="{{ museum.get_url_path }}">{% trans "more" %}</a>
-                <h2>{{ museum.title }}</h2>
+
                 {% if museum.latitude %}
                     <script type="text/javascript">
                     //<![CDATA[
@@ -84,12 +106,13 @@
                     }());
                     //]]>
                     </script>
-                    <div class="marker-link">location</div>
+
+                    
+                    
                 {% endif %}
-            </div>
+            </li>
         {% endfor %}
-        </div>
-    </div>
+    </ul>
     
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>    

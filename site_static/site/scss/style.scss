@@ -1,0 +1,338 @@
+@charset "UTF-8";
+@import 'variables';
+@import 'fonts';
+
+html{color:#000;background:#FFF;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+li{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}
+abbr,acronym{border:0;font-variant:normal;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+input,textarea,select{*font-size:100%;}
+legend{color:#000;}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: white;
+  color: black;
+  font-family: 'calluna_sans_blackregular';
+  font-family: 'calluna_sansbold';
+  font-family: 'calluna_sans_lightregular';
+  font-size: 16px;
+  line-height: 26px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  padding: 0;
+  margin: 0;
+}
+a {
+  h1,h2,h3,h4,h5,h6 {
+    color: black;
+  }
+}
+h1 {
+  font-family: 'calluna_sans_lightregular';
+  padding-top: 30px;
+  margin: 0;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+*::-webkit-scrollbar-corner,
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  opacity: 0.5;
+  background-color: rgba(0,0,0,1);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: white;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html,body,input {
+}
+
+.clearfix:before, .clearfix:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+a{
+  text-decoration: none;
+  color: $blue;
+}
+
+a:link   { text-decoration: none;}
+a:hover   { text-decoration: none; color: black;}
+a:visited { text-decoration: none;}
+a:active  { outline: none;}
+
+#wrapper {
+  & > * > .inner {
+    width: 1000px;
+    margin: auto;
+    position: relative;
+  }
+}
+
+#header, #content, #footer {
+  background-color: white;  
+}
+
+#header {
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+
+  .inner { height: 160px; 
+
+    ul.meta {
+      // display: table;
+      // table-layout: fixed;
+      // width: 100%;
+      // text-align: center;
+      position: absolute;
+      top: 20px;
+      right: 0;
+
+      li {
+
+          &.current a,
+          &:hover a{ 
+            background-color: black;
+            color: white;
+          }
+        display: inline-block;
+
+        a{
+          color: black;
+          height: 25px;
+          min-width: 25px;
+          text-align: center;
+          display: inline-block;
+          font-size: 10px;
+          font-family: 'calluna_sans_blackregular';
+          background-color: rgba(0,0,0,0.05);
+          
+        }
+      }
+    }
+
+    ul.navigation {
+      // display: table;
+      // table-layout: fixed;
+      // width: 100%;
+      // text-align: center;
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+
+      li {
+        display: inline-block;
+        font-size: 22px;
+        line-height: 26px;
+        height: 30px;
+        padding: 0px;
+        padding-right: 12px;
+        margin-right: 10px;
+        border-right: 2px solid rgba(0,0,0,0.1);
+        
+        &.selected a   { color: $blue;}
+        a{
+          color: black;
+
+          &:hover   { color: $blue;}
+        }
+      }
+    }
+  }
+}
+
+
+
+
+.list.tiles {
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+
+  &.collapsed > li {
+
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-delay: 0.5s;
+    -webkit-transition-timing: ease-in-out;
+    
+    &:hover { 
+      -webkit-transition-delay: 0s;
+
+      .description { 
+        -webkit-transition-delay: 0.5s;
+      }
+    }
+
+    .description { 
+      position: absolute;
+      top: 250px;
+      width: 1000px;
+      height: 0px;
+      overflow: hidden;
+      opacity: 0;
+
+      -webkit-transition-property: all;
+      -webkit-transition-duration: 0.5s;
+      -webkit-transition-delay: 0.5s;
+      -webkit-transition-timing: ease-in-out;
+      p { 
+        font-size: 20px;
+        line-height: 32px;
+      }
+
+    }
+
+    &:hover { 
+      padding-bottom: 200px;
+      margin-bottom: 100px;
+
+      .description { 
+        height: 200px;
+        opacity: 1;
+      }
+    }
+
+    &.class1 { 
+     .description { margin-left: 0px; }
+      clear: left;
+    }
+
+    &.class2 { 
+     .description { margin-left: -340px; }
+    }
+
+    &.class3 { 
+      .description {  margin-left: -680px;}
+    }
+  }
+
+  > li.item { 
+    width: 320px;
+    height: 250px;
+    margin-right: 20px;
+    float: left;
+    position: relative;
+    font-size: 15px;
+    line-height: 20px;
+    padding-bottom: 0px ;
+
+    &:nth-child(3n) { 
+      margin-right: 0px;
+    }
+
+    .img { 
+      background-color: rgba(0,0,0,0.05);
+      width: 100%;
+      height: 150px;
+      display: block;
+      overflow: hidden;
+      background-size: cover;
+      margin-bottom: 10px;
+    }
+
+    a {
+       h3   { font-family: 'calluna_sansbold';}
+       h4   { font-family: 'calluna_sans_lightregular';}
+       h5   { font-family: 'calluna_sans_lightregular'; opacity: 0.5}
+    }
+  }
+
+}
+
+
+
+
+
+.actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  li { 
+    display: block;
+    float: right;
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+
+    &:hover { 
+      span { 
+        background-color: black;
+      }
+    }
+
+    span { 
+      background-color: rgba(255,255,255,0.5);
+      width: 25px;
+      height: 25px;
+      display: block;
+    }
+  }
+}
+
+
+
+
+
+.filter {
+  padding-top: 20px;
+  padding-bottom: 20px;
+ 
+  .title { 
+    display: block;
+  }
+  li { 
+    display: inline-block;
+
+    a { 
+      background-color: rgba(0,0,0,0.05);
+      color: black;
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 6px;
+      padding-right: 6px;
+      margin-bottom: 5px;
+      border-radius: 2px;
+
+      &:hover { 
+        background-color: $blue;
+        color: white;
+      }
+    }
+  }
+}
