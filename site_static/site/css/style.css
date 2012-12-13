@@ -187,13 +187,14 @@ legend {
   height: 30px;
   font-size: 22px;
   line-height: 40px;
+  padding-top: 20px;
 }
-/* line 157, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 158, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 legend + .control-group {
-  margin-top: 0px;
+  margin-top: 30px;
 }
 
-/* line 164, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 165, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 form-actions {
   display: block;
   width: 100%;
@@ -776,31 +777,28 @@ article p {
 
 /* line 479, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #controls a {
-  background-color: rgba(0, 0, 0, 0.05);
   display: block;
   height: 100px;
-  width: 50px;
-  line-height: 100px;
+  width: 30px;
+  line-height: 95px;
   text-align: center;
   color: black;
-  font-size: 30px;
+  font-size: 22px;
   position: fixed;
   top: 50%;
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;
   -webkit-transition-timing: ease-in-out;
 }
-/* line 494, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
+/* line 493, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #controls a:hover {
-  -webkit-transition-duration: 0s;
-  background-color: black;
-  color: white;
+  background-color: rgba(0, 0, 0, 0.05);
 }
-/* line 500, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
+/* line 496, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #controls a#next {
   right: 0;
 }
-/* line 501, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
+/* line 497, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #controls a#prev {
   left: 0;
 }
