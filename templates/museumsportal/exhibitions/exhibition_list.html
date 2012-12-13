@@ -63,7 +63,7 @@
             {% for exhibition in object_list %}
                 <li class="item {% cycle "class1" "class2" "class3" %} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} {{ cat.title_en|slugify }}{% endfor %}" style="cursor: pointer">
                     {% if exhibition.image %}
-                        <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
                     {% endif %}
 
                     <ul class="actions">

@@ -45,6 +45,7 @@ a {
 h1 {
   font-family: 'calluna_sans_lightregular';
   padding-top: 30px;
+  padding-bottom: 30px;
   margin: 0;
   font-size: 42px;
   line-height: 48px;
@@ -224,9 +225,7 @@ a:active  { outline: none;}
     &:hover { 
       -webkit-transition-delay: 0s;
 
-      .description { 
-        -webkit-transition-delay: 0.5s;
-      }
+      .description { -webkit-transition-delay: 0.5s; }
     }
 
     .description { 
@@ -303,8 +302,29 @@ a:active  { outline: none;}
     }
   }
 
-}
+  &.small > li.item { 
+    width: 184px;
+    height: 160px;
+    font-size: 12px;
+    line-height: 16px;
+    margin-right: 20px;
 
+    &:nth-child(5n) { 
+      margin-right: 0px;
+    }
+
+    .img { 
+      height: 80px;
+    }
+
+    a {
+       h3   { font-family: 'calluna_sansbold';}
+       h4   { font-family: 'calluna_sans_lightregular';}
+       h5   { font-family: 'calluna_sans_lightregular'; opacity: 0.5}
+    }
+  }
+
+}
 
 
 
@@ -336,13 +356,85 @@ a:active  { outline: none;}
   }
 }
 
+section {
+  * {display: none;}
+}
+
+article { 
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+
+  h1 { 
+    font-family: 'calluna_sansbold';
+    span { 
+      display: block;
+      font-family: 'calluna_sans_lightregular';
+    }
+  }
+
+  p { 
+    font-size: 20px;
+    line-height: 32px;
+    padding-bottom: 20px;
+  }
+}
 
 
+#slide { 
+  height: 300px;
+  width: 100%;
+
+  &:hover { 
+    p.small { 
+      margin-bottom: 0;
+    }
+  }
+
+  li { 
+    height: 300px;
+    width: 100%;
+    display: block;
+    background-color: white;  
+    
+    .img { 
+      display: block;
+      height: 300px;
+      width: 100%;
+      background-size: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 500;
+    }
+
+    p.small { 
+      font-size: 14px;
+      line-height: 14px;
+      padding: 10px;
+      white-space: nowrap;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      background-color: rgba(255,255,255,0.5);
+      width: 100%;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      text-shadow: 0 0 4px white;
+      margin-bottom: -40px;
+      color: black;
+
+      -webkit-transition-property: all;
+      -webkit-transition-duration: 0.25s;
+      -webkit-transition-timing: ease-in-out;
+    }
+  }
+}
 
 
 .filter {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
  
   .title { 
     display: block;
