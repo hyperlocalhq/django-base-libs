@@ -97,7 +97,7 @@ textarea {
 form { 
   width: 100%;
 
-  fieldset > div { 
+  xfieldset > div { 
     width: 184px;
     margin-right: 20px;
     float: left;
@@ -135,14 +135,16 @@ fieldset {
   display: block;
 }
 
+
 fieldset.multilingual { 
   width: 49%;
   float: left;
+
+  &.lang-de { 
+    margin-right: 2%;
+  }
 }
 
-fieldset.multilingual.lang-de { 
-  margin-right: 2%;
-}
 
 legend { 
   border: none;
