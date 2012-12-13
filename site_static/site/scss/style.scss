@@ -281,6 +281,15 @@ a:active  { outline: none;}
     line-height: 20px;
     padding-bottom: 0px ;
 
+    &:hover{
+      .actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        opacity: 1;
+      }
+    }
+
     &:nth-child(3n) { 
       margin-right: 0px;
     }
@@ -293,6 +302,7 @@ a:active  { outline: none;}
       overflow: hidden;
       background-size: cover;
       margin-bottom: 10px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
     }
 
     a {
@@ -328,11 +338,14 @@ a:active  { outline: none;}
 
 
 
-
 .actions {
   position: absolute;
   top: 10px;
   right: 10px;
+  opacity: 0;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.25s;
+  -webkit-transition-timing: ease-in-out;
 
   li { 
     display: block;

@@ -142,6 +142,7 @@ fieldset.multilingual {
 
   &.lang-de { 
     margin-right: 2%;
+    clear: both;
   }
 }
 
@@ -160,3 +161,4 @@ legend {
 
 label {}
 
+form-actions { display: block; width: 100%;}
