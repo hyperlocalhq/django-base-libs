@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import 'variables';
 @import 'fonts';
+@import 'form';
 
 html{color:#000;background:#FFF;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
@@ -51,15 +52,15 @@ h1 {
 
 *::-webkit-scrollbar-corner,
 *::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 10px;
+  height: 10px;
   opacity: 0.5;
-  background-color: rgba(0,0,0,1);
+  background-color: rgba(0,0,0,0.1);
 }
 
 *::-webkit-scrollbar-thumb {
   border-radius: 0;
-  background-color: white;
+  background-color: black;
 }
 
 * {
@@ -185,7 +186,7 @@ a:active  { outline: none;}
   .inner { 
 
     ul.navigation {
-      
+
       padding-top: 20px;
       padding-bottom: 20px;
 
