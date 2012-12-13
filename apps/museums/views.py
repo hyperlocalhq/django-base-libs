@@ -147,5 +147,5 @@ def add_museum(request):
 @login_required
 def change_museum(request, slug):
     instance = get_object_or_404(Museum, slug=slug)
-    return show_form_step(request, MUSEUM_FORM_STEPS, extra_context={}, instance=instance);
+    return show_form_step(request, MUSEUM_FORM_STEPS, extra_context={'museum': instance}, instance=instance);
 
