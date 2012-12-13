@@ -48,7 +48,7 @@ class BasicInfoForm(ModelForm):
                 "subtitle_%s" % lang_code,
                 "description_%s" % lang_code,
                 "catalog_%s" % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-basic-info multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("When?"),
@@ -58,6 +58,7 @@ class BasicInfoForm(ModelForm):
             "exhibition_extended",
             "vernissage",
             "finissage",
+            css_class="fieldset-when",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Where?"),
@@ -73,11 +74,13 @@ class BasicInfoForm(ModelForm):
             "organizing_museum",
             "organizer_title",
             "organizer_url_link",
-            ))              
+            css_class="fieldset-where",
+            ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             "categories",
             "tags",
+            css_class="fieldset-categories-tags",
             ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
@@ -168,6 +171,7 @@ class SeasonForm(ModelForm):
             "start",
             "end",
             "is_appointment_based",
+            css_class="fieldset-season",
             ))
         layout_blocks.extend([layout.HTML(
             """{% load i18n %}<table><thead><tr>
@@ -238,7 +242,7 @@ class SeasonForm(ModelForm):
                 _("Additional info (%s)") % lang_name,
                 "last_entry_%s" % lang_code,
                 "exceptions_%s" % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-additional-info multilingual lang-%s" % lang_code,
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -261,13 +265,14 @@ class SpecialOpeningTimeForm(ModelForm):
             layout_blocks.append(layout.Fieldset(
                 _("Occasion (%s)") % lang_name,
                 "day_label_%s" % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-occassion multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Special date"),
             "yyyy",
             "mm",
             "dd",
+            css_class="fieldset-special-date",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Opening times"),
@@ -277,12 +282,13 @@ class SpecialOpeningTimeForm(ModelForm):
             "break_close",
             "break_open",
             "closing",
+            css_class="fieldset-opening-times",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Additional info (%s)") % lang_name,
                 "exceptions_%s" % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-additional-info multilingual lang-%s" % lang_code,
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -316,6 +322,7 @@ class PricesForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
             'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
+            css_class="fieldset-prices",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
@@ -329,7 +336,7 @@ class PricesForm(ModelForm):
                 'free_entrance_times_%s' % lang_code,
                 'yearly_ticket_%s' % lang_code,
                 'other_tickets_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
@@ -358,12 +365,13 @@ class AccessibilityForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Accessibility"),
             'suitable_for_disabled',
+            css_class="fieldset-accessibility",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Details (%s)") % lang_name,
                 'suitable_for_disabled_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
