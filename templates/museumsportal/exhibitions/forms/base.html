@@ -6,13 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    {% block marginal %}
-        <div class="marginal">
-            {% include "utils/step_list.html" %}
-        </div>
+    {% include "utils/step_list.html" %}
+    {% block multistep_form %}
     {% endblock %}
-    <div class="cms-plugin-richtext">
-        {% block multistep_form %}
-        {% endblock %}
-    </div>
 {% endblock %}

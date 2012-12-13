@@ -5,11 +5,12 @@
     {{ block.super }}
 {% endblock %}
 
-{% block content %}
-    {% include "utils/step_list.html" %}
 
-    <div class="cms-plugin-richtext">
-        {% block multistep_form %}
-        {% endblock %}
-    </div>
+{% block content %}
+
+    <h1>Neues Museum eintragen</h1>
+
+    {% include "utils/step_list.html" %}
+    {% block multistep_form %}
+    {% endblock %}
 {% endblock %}
