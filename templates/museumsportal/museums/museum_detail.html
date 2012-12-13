@@ -109,9 +109,7 @@ $(document).ready(function(){
                 <section>
 	                {% if museum.image %}
 	                    <div class="article_img">
-                            
-                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }})"></a>
-
+	                        <img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }}" />
 	                        <div class="image_caption">
 	                            {{ museum.get_rendered_image_caption }}
 	                        </div>
@@ -292,7 +290,7 @@ $(document).ready(function(){
 		                    {% endif %}
 		                </dl>
 	                {% endif %}
-                </section>
+                </div>
                    
                 <article>
                     <h1>{{ museum.title }} 
@@ -342,15 +340,6 @@ $(document).ready(function(){
             </li>
         {% endfor %}
     </ul> -->
-
-    <div id="controls">
-        {% if prev_item %}
-            <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>
-        {% endif %}
-        {% if next_item %}
-            <a href="{{ next_item.get_url_path }}" id="next">&gt;</a>
-        {% endif %}
-    </div>
     
 
 {% endblock %}
