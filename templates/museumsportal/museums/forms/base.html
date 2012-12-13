@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block stylesheet %}
     <link href="{{ JETSON_MEDIA_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -8,9 +9,14 @@
 
 {% block content %}
 
-    <h1>Neues Museum eintragen</h1>
+{% if museum %}
+    <h1>{% blocktrans with museum_title=museum.title %}Edit {{ museum_title }}{% endblocktrans %}</h1>
+{% else %}
+    <h1>{% trans "Add new museum" %}</h1>
+{% endif %}
 
     {% include "utils/step_list.html" %}
     {% block multistep_form %}
     {% endblock %}
 {% endblock %}
+
