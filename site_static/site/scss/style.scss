@@ -179,6 +179,36 @@ a:active  { outline: none;}
 
 
 
+#footer {
+  border-top: 2px solid rgba(0,0,0,0.05);
+
+  .inner { 
+
+    ul.navigation {
+      
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      li {
+        display: inline-block;
+        font-size: 14px;
+        line-height: 14px;
+        height: 14px;
+        padding: 0px;
+        padding-right: 12px;
+        margin-right: 10px;
+        border-right: 2px solid rgba(0,0,0,0.1);
+        
+        &.selected a   { color: $blue;}
+        a{
+          color: black;
+
+          &:hover   { color: $blue;}
+        }
+      }
+    }
+  }
+}
 
 .list.tiles {
   border-bottom: 2px solid rgba(0,0,0,0.05);
