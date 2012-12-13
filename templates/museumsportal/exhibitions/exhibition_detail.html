@@ -96,36 +96,10 @@
 
 {% endblock %}
 {% block content %}
-    <div class="marginal">
-        <div id="kurze_zeit">
-	        <h2 class="catHead">→ Nur noch kurze Zeit</h2>
-	        {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
-	        {% for exhibition in exhibitions_closing_soon %}
-	            <div class="article">
-	                {% if exhibition.image %}
-	                    <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
-	                {% endif %}
-	                <h4>{{ exhibition.museum.title }}</h4>
-	                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
-	                <h5>{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
-	            </div>
-	        {% endfor %}
-        </div>
-    </div>
     
-    <div id="detail" class="clearfix">
     {% with object as exhibition %}
-        <div class="article">
         
-            <div class="leftCol">
-          	            {% if exhibition.image %}
-	                <div class="article_img">
-	                    <img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" />
-	                    <div class="image_caption">
-	                        {{ exhibition.get_rendered_image_caption }}
-	                    </div>
-	                </div>
-	            {% endif %}
+            <section>
                 <dl class="address">
                     <dt>{% trans "Location" %}</dt>
                     <dd><a href="{{ exhibition.museum.get_url_path }}">{{ exhibition.museum.title }}</a></dd>
@@ -269,18 +243,52 @@
 	                    <dd><a href="{{ exhibition.website }}">{{ exhibition.website }}</a></dd>
 	                </dl>
 	            {% endif %}
-            </div>
+            </section>
             
-            <div class="rightCol">
-                <h2>{{ exhibition.title }}</h2>
-                {% if exhibition.subtitle %}
-                    <h2 class="subtitle">{{ exhibition.subtitle }}</h2>
+            <article>
+
+                {% if exhibition.image %}
+                    <ul id="slide">
+                        <li>
+                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
+                            <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                        </li>
+                        <li>
+                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
+                            <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                        </li>
+                    </ul>
                 {% endif %}
-                <h3><a href="{{ exhibition.museum.get_url_path }}">{{ exhibition.museum.title }}</a></h3>
+
+                <h1>
+                    {{ exhibition.title }}
+                     {% if exhibition.subtitle %}
+                        <span>{{ exhibition.subtitle }}</span>
+                    {% endif %}
+                </h1>
+
+                <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
                 
-                <div class="text">{{ exhibition.get_rendered_description }}</div>
-            </div>
-        </div>
+                {{ exhibition.get_rendered_description }}
+            </article>
     {% endwith %}
-    </div>
+
+
+        
+        <h2 class="catHead">→ Nur noch kurze Zeit</h2>
+        <ul id="kurze_zeit" class="list tiles small clearfix">
+            {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
+            {% for exhibition in exhibitions_closing_soon %}
+                <li class="item">
+                    {% if exhibition.image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h4>{{ exhibition.museum.title }}</h4>
+                        <h3>{{ exhibition.title }}</h3>
+                        <h5>{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
 {% endblock %}

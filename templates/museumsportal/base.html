@@ -19,10 +19,33 @@
 
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.cycle.all.js"></script>
+
+    <script type="text/javascript">
+
+      $(function() {
+        $('#slide').cycle({
+            fx:      'scrollHorz',
+            timeout:  5500,
+            speed:  500,
+            pause: 1,
+            pager:   '#nav',
+        });
+      });
+      window.onresize = function(event) {
+      }
+    </script>
+
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
-    
 </head>
+
+
+
+
+
 <body class="{% block bodyclass %}{% endblock %}">
 
     {% block toolbar %}

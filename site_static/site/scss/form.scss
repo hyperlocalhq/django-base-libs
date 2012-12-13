@@ -39,8 +39,8 @@ input[type=text],
 input[type=email], 
 input[type=password], 
 input[type=search] {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
   width: 100%;
   border: none;
   background-color: rgba(0,0,0,0.05);
@@ -92,15 +92,10 @@ textarea {
 }
 
 
-form { 
-  float:left; 
-  width: 660px
+form { width: 100%;
 } 
 
 .form-steps { 
-  width: 320px; 
-  float: left; 
-  margin-right: 20px;
 } 
 
 .form-steps li{ 
@@ -117,9 +112,14 @@ fieldset {
   padding: 30px;
   display: block;
 }
+
 fieldset.multilingual { 
-  width: 48%;
+  width: 49%;
   float: left;
+}
+
+fieldset.multilingual.lang-de { 
+  margin-right: 2%;
 }
 
 legend { 

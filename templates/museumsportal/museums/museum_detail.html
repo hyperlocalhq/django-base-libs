@@ -104,45 +104,14 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block content %}
-    <div class="marginal">
-        <div id="kurze_zeit">
-            {% for exhibition in object.get_published_exhibitions %}
-            
-                {% if forloop.first %}
-                     <h2 class="catHead">→ {% trans "Exhibitions" %}</h2>
-                {% endif %}
-                
-                <div class="article">
-                    {% if exhibition.image %}
-                        <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
-                    {% endif %}
-                    <h4>{{ exhibition.museum.title }}</h4>
-                    <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
-                    <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
-                    
-                </div>
-            {% endfor %}
-	        <h2 class="catHead">→ {% trans "Museums with the same categories" %}</h2>
-	        {% for museum in object.get_museums_with_the_same_categories %}
-	            <div class="article">
-	                {% if museum.image %}
-	                    <a class="img" href="{{ museum.get_url_path }}"><img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
-	                {% endif %}
-	                <h3> <a href="{{ museum.get_url_path }}">{{ museum.title }}</a></h3>
-	                <h4>{{ museum.subtitle }}</h4>
-	               
-	            </div>
-	        {% endfor %}
-        </div>
-    </div>
     
-    <div id="detail" class="clearfix">
         {% with object as museum %}
-            <div class="article">
-                <div class="leftCol">
+                <section>
 	                {% if museum.image %}
 	                    <div class="article_img">
-	                        <img src="{{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }}" />
+                            
+                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_list" }})"></a>
+
 	                        <div class="image_caption">
 	                            {{ museum.get_rendered_image_caption }}
 	                        </div>
@@ -323,17 +292,56 @@ $(document).ready(function(){
 		                    {% endif %}
 		                </dl>
 	                {% endif %}
-                </div>
+                </section>
                    
-                <div class="rightCol">
-                    <h2>{{ museum.title }}</h2>
-                    {% if museum.subtitle %}
-                    <h3>{{ museum.subtitle }}</h3>
-                    {% endif %}
-                    
-                    <div class="text">{{ museum.get_rendered_description }}</div>
-                </div>
-            </div>
+                <article>
+                    <h1>{{ museum.title }} 
+                        {% if museum.subtitle %}
+                        <span>{{ museum.subtitle }}</span>
+                        {% endif %}
+                    </h1>
+
+                    {{ museum.get_rendered_description }}
+
+                </article>
         {% endwith %}
-    </div>
+
+
+
+    <h2>{% trans "Museums with the same categories" %}</h2>
+
+    <ul id="kurze_zeit" class="list tiles small clearfix"> 
+        {% for museum in object.get_museums_with_the_same_categories %}
+            <li class="item">
+                {% if museum.image %}
+                    <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image|modified_path:"exhibition_thumbnail" }})"></a>
+                {% endif %}
+                 <a href="{{ museum.get_url_path }}">
+                    <h3>{{ museum.title }}</h3>
+                    <h4>{{ museum.subtitle }}</h4>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- <ul id="kurze_zeit" class="list tiles small">
+        {% for exhibition in object.get_published_exhibitions %}
+        
+            {% if forloop.first %}
+                 <h2 class="catHead">→ {% trans "Exhibitions" %}</h2>
+            {% endif %}
+            
+            <li class="article">
+                {% if exhibition.image %}
+                    <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
+                {% endif %}
+                <h4>{{ exhibition.museum.title }}</h4>
+                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
+                <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                
+            </li>
+        {% endfor %}
+    </ul> -->
+    
+
 {% endblock %}
