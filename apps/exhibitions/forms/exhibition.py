@@ -48,6 +48,7 @@ class BasicInfoForm(ModelForm):
                 "subtitle_%s" % lang_code,
                 "description_%s" % lang_code,
                 "catalog_%s" % lang_code,
+                css_class="multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("When?"),
@@ -237,6 +238,7 @@ class SeasonForm(ModelForm):
                 _("Additional info (%s)") % lang_name,
                 "last_entry_%s" % lang_code,
                 "exceptions_%s" % lang_code,
+                css_class="multilingual lang-%s" % lang_code,
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -259,6 +261,7 @@ class SpecialOpeningTimeForm(ModelForm):
             layout_blocks.append(layout.Fieldset(
                 _("Occasion (%s)") % lang_name,
                 "day_label_%s" % lang_code,
+                css_class="multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Special date"),
@@ -279,6 +282,7 @@ class SpecialOpeningTimeForm(ModelForm):
             layout_blocks.append(layout.Fieldset(
                 _("Additional info (%s)") % lang_name,
                 "exceptions_%s" % lang_code,
+                css_class="multilingual lang-%s" % lang_code,
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -325,6 +329,7 @@ class PricesForm(ModelForm):
                 'free_entrance_times_%s' % lang_code,
                 'yearly_ticket_%s' % lang_code,
                 'other_tickets_%s' % lang_code,
+                css_class="multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
@@ -358,6 +363,7 @@ class AccessibilityForm(ModelForm):
             layout_blocks.append(layout.Fieldset(
                 _("Details (%s)") % lang_name,
                 'suitable_for_disabled_info_%s' % lang_code,
+                css_class="multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
