@@ -40,12 +40,13 @@ class BasicInfoForm(ModelForm):
                 "title_%s" % lang_code,
                 "subtitle_%s" % lang_code,
                 "description_%s" % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-basic-info multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             "categories",
             "tags",
+            css_class="fieldset-categories-tags",
             ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
@@ -136,6 +137,7 @@ class SeasonForm(ModelForm):
             "start",
             "end",
             "is_appointment_based",
+            css_class="fieldset-season",
             ))
         layout_blocks.extend([layout.HTML(
             """{% load i18n %}<table><thead><tr>
@@ -206,7 +208,7 @@ class SeasonForm(ModelForm):
                 _("Additional info (%s)") % lang_name,
                 "last_entry_%s" % lang_code,
                 "exceptions_%s" % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-additional-info multilingual lang-%s" % lang_code,
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -229,13 +231,14 @@ class SpecialOpeningTimeForm(ModelForm):
             layout_blocks.append(layout.Fieldset(
                 _("Occasion (%s)") % lang_name,
                 "day_label_%s" % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-occasion multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Special date"),
             "yyyy",
             "mm",
             "dd",
+            css_class="fieldset-special-date",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Opening times"),
@@ -245,11 +248,13 @@ class SpecialOpeningTimeForm(ModelForm):
             "break_close",
             "break_open",
             "closing",
+            css_class="fieldset-opening-times",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Additional info (%s)") % lang_name,
                 "exceptions_%s" % lang_code,
+                css_class="fieldset-additional-info",
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -283,6 +288,7 @@ class PricesForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
             'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
+            css_class="fieldset-prices",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
@@ -296,7 +302,7 @@ class PricesForm(ModelForm):
                 'free_entrance_times_%s' % lang_code,
                 'yearly_ticket_%s' % lang_code,
                 'other_tickets_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
@@ -332,24 +338,29 @@ class AddressForm(ModelForm):
             'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'country',
             'latitude', 'longitude',
+            css_class="fieldset-location",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Postal address (if differs from museum's address)"),
             'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
+            css_class="fieldset-postal-address",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Contact person"),
             'contact_name', 
             layout.Row('contact_phone_country', 'contact_phone_area', 'contact_phone_number', css_class="phone"),
             'contact_email',
+            css_class="fieldset-contact-person",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Other contact info"),
             'phone', 'fax', 'email', 'website',
+            css_class="fieldset-other-contact-info",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Social media"),
             'twitter', 'facebook',
+            css_class="fieldset-social-media",
             ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
@@ -391,126 +402,139 @@ class ServicesAccessibilityForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Accessibility Options"),
             'accessibility_options',
+            css_class="fieldset-accessibility-options",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Accessibility (%s)") % lang_name,
                 'accessibility_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-accessibility multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Shop"),
             'service_shop',
+            css_class="fieldset-shop",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Shop Details (%s)") % lang_name,
                 'service_shop_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-shop-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Bookstore"),
             'service_books',
+            css_class="fieldset-bookstore",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Bookstore Details (%s)") % lang_name,
                 'service_books_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-bookstore-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Restaurant"),
             'service_restaurant',
+            css_class="fieldset-restaurant",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Restaurant Details (%s)") % lang_name,
                 'service_restaurant_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-restaurant-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Cafe"),
             'service_cafe',
+            css_class="fieldset-cafe",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Cafe Details (%s)") % lang_name,
                 'service_cafe_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-cafe-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Library"),
             'service_library',
+            css_class="fieldset-library",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Library Details (%s)") % lang_name,
                 'service_library_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-library-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Archive"),
             'service_archive',
+            css_class="fieldset-archive",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Archive Details (%s)") % lang_name,
                 'service_archive_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-archive-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Studio"),
             'service_studio',
+            css_class="fieldset-studio",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Studio Details (%s)") % lang_name,
                 'service_studio_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-studio-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Online Offers"),
             'service_online',
+            css_class="fieldset-online-offers",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Online Offers' Details (%s)") % lang_name,
                 'service_online_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-online-offers-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Diaper changing table"),
             'service_diaper_changing_table',
+            css_class="fieldset-diaper-changing-table",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Children birthdays"),
             'service_birthdays',
+            css_class="fieldset-children-birthdays",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Children Birthdays' Details (%s)") % lang_name,
                 'service_birthdays_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-children-birthdays-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Rent"),
             'service_rent',
+            css_class="fieldset-rent",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Rent Details (%s)") % lang_name,
                 'service_rent_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-rent-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
             _("Other services"),
             'service_other',
+            css_class="fieldset-other-services",
             ))
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 _("Other Services' Details (%s)") % lang_name,
                 'service_other_info_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-other-services-details multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
@@ -540,7 +564,7 @@ class MediationForm(ModelForm):
             layout_blocks.append(layout.Fieldset(
                 _("Mediation offer (%s)") % lang_name,
                 'mediation_offer_%s' % lang_code,
-                css_class="multilingual lang-%s" % lang_code,
+                css_class="fieldset-mediation-offer multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
