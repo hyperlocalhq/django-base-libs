@@ -9,15 +9,16 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404
-from jetson.apps.utils.decorators import login_required
 
 from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_related_queryset
 
+from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list, object_detail
 from jetson.apps.utils.views import show_form_step
+from jetson.apps.utils.context_processors import prev_next_processor
 
 ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
@@ -96,6 +97,7 @@ def exhibition_list(request):
         paginate_by=200,
         extra_context=extra_context,
         httpstate_prefix="exhibition_list",
+        context_processors=(prev_next_processor,),
         )
 
 def exhibition_detail(request, slug):
@@ -106,6 +108,7 @@ def exhibition_detail(request, slug):
         slug=slug,
         slug_field="slug",
         template_name="exhibitions/exhibition_detail.html",
+        context_processors=(prev_next_processor,),
         )
 
 def export_json_exhibitions(request):
