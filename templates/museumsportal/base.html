@@ -11,13 +11,16 @@
     {% endblock %}	
 	
     {% block stylesheet %}
-        <link href="{{ STATIC_URL }}site/css/reset.css" rel="stylesheet" media="screen" type="text/css" />
+        <link href="{{ STATIC_URL }}site/css/bootstrap.css" rel="stylesheet" media="screen" type="text/css" />
         <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen" type="text/css" />
     {% endblock %}
 	
     {% render_block "css" %}
 
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
+
+
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
 
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
@@ -53,6 +56,11 @@
     {% endblock %}
 
 	<div id="wrapper">
+
+
+        <!-- Header
+        ================================================== -->
+
 		<div id="header" class="clearfix">
             <div class="inner">
     			<ul class="navigation">
@@ -68,12 +76,18 @@
     			</ul>
 
                 <ul class="meta">
+                    <li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
+                    <li><a class="twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li>
                     {% block language_chooser %}
                         {% language_chooser %}
                     {% endblock %}
                 </ul>
             </div>
 		</div>
+
+        <!-- Content
+        ================================================== -->
+
 		<div id="content" class="clearfix">
             <div class="inner">
     		    {% block content %}
@@ -81,6 +95,9 @@
             </div>
 		</div>	
 		
+        <!-- Footer
+        ================================================== -->
+
         <div id="footer" class="clearfix">
             <div class="inner">
                 <ul class="navigation">
@@ -93,9 +110,13 @@
                 </ul>
             </div>
         </div>
+
 	</div>
+
     {% render_block "js" %}
+
     {{ site_settings.extra_body|safe }}
+
     <script type="text/javascript">
 	$(function() {
         $("a[href^='http://']").attr("target","_blank");	        
@@ -105,8 +126,8 @@
 	            $('body').css('margin-top', 0);
 	        }
 	    }
-	    
 	});
 	</script>    
+
 </body>
 </html>

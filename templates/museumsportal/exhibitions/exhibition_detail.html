@@ -99,7 +99,7 @@
     
     {% with object as exhibition %}
         
-            <section>
+            <section class="sidebar">
                 <dl class="address">
                     <dt>{% trans "Location" %}</dt>
                     <dd><a href="{{ exhibition.museum.get_url_path }}">{{ exhibition.museum.title }}</a></dd>
@@ -267,6 +267,8 @@
                         <span>{{ exhibition.subtitle }}</span>
                     {% endif %}
                 </h1>
+
+                <h2><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h2>
 
                 <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
                 
