@@ -71,7 +71,7 @@
         {% for museum in object_list %}
             <li class="item">
                 {% if museum.image %}
-                    <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }})"></a>
+                    <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
                 {% endif %}
 
                 <ul class="actions">
