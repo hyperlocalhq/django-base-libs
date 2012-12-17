@@ -141,8 +141,15 @@
             aPoints.push(oPoint);
             
             // DRAW MARKER LINK
-            $('.marker-link:eq(' + i + ')')
-            .data('marker_obj', oMarker).click(function() {
+            $('.marker-link:eq(' + i + ')').append(
+                $('<a href=""></a>').css({
+                    //display: "block",
+                    //overflow: "hidden",
+                    //height: "35px",
+                    //width: "20px",
+                    //background: "url(" + sMarkerImg +") no-repeat 0px " + iMarkerImgY + "px"
+                })
+            ).data('marker_obj', oMarker).click(function() {
                 google.maps.event.trigger($(this).data('marker_obj'), "click");
                 //oMap.setCenter($(this).data('marker_obj').getPosition());
                 //oMap.setZoom(16);
