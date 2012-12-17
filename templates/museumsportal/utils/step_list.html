@@ -3,7 +3,7 @@
     <ul class="form-steps">
     {% for step in steps %}
         <li{% if step.current %} class="active"{% endif %}>
-            {% if step.filled or step.active %}
+            {% if step.filled or step.active or step.current %}
                 <a class="txt" href="?step={{ forloop.counter }}"> {{ step.title|escape }} </a>
             {% else %}
                 <span class="txt"> {{ step.title|escape }} </span>

@@ -33,6 +33,16 @@ class BasicInfoForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'title_%s' % lang_code,
+                'subtitle_%s' % lang_code,
+                'description_%s' % lang_code,
+                'catalog_%s' % lang_code,
+                ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
         
@@ -41,15 +51,29 @@ class BasicInfoForm(ModelForm):
         self.helper.form_method = "POST"
         
         layout_blocks = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Basic Info (%s)") % lang_name,
-                "title_%s" % lang_code,
-                "subtitle_%s" % lang_code,
-                "description_%s" % lang_code,
-                "catalog_%s" % lang_code,
-                css_class="fieldset-basic-info multilingual lang-%s" % lang_code,
+
+        layout_blocks.append(layout.Fieldset(
+            _("Basic Info"),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('description_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+                css_class="fieldset-basic-info",
                 ))
+
         layout_blocks.append(layout.Fieldset(
             _("When?"),
             "start",
@@ -83,7 +107,7 @@ class BasicInfoForm(ModelForm):
             css_class="fieldset-categories-tags",
             ))
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
+            layout.Submit('reset', _('Reset')),
             layout.Submit('submit', _('Next')),
             ))
         
@@ -132,7 +156,7 @@ class OpeningForm(forms.Form):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
+            layout.Submit('reset', _('Reset')),
             layout.Submit('submit', _('Next')),
             ))
         self.helper.layout = layout.Layout(
@@ -140,13 +164,13 @@ class OpeningForm(forms.Form):
             )        
 
 class SeasonForm(ModelForm):
-    mon_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
-    tue_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
-    wed_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
-    thu_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
-    fri_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
-    sat_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
-    sun_is_closed = forms.BooleanField(label=_("Closed?"), required=False)
+    mon_is_closed = forms.BooleanField(label=_("Mon"), required=False)
+    tue_is_closed = forms.BooleanField(label=_("Tue"), required=False)
+    wed_is_closed = forms.BooleanField(label=_("Wed"), required=False)
+    thu_is_closed = forms.BooleanField(label=_("Thu"), required=False)
+    fri_is_closed = forms.BooleanField(label=_("Fri"), required=False)
+    sat_is_closed = forms.BooleanField(label=_("Sat"), required=False)
+    sun_is_closed = forms.BooleanField(label=_("Sun"), required=False)
     
     class Meta:
         model = Season
@@ -156,13 +180,21 @@ class SeasonForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(SeasonForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'last_entry_%s' % lang_code,
+                'exceptions_%s' % lang_code,
+                ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
         # remove labels from opening and closing times 
         for weekday in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]:
             self.fields['%s_open' % weekday].label = ""
             self.fields['%s_break_close' % weekday].label = ""
             self.fields['%s_break_open' % weekday].label = ""
             self.fields['%s_close' % weekday].label = ""
-            
+        
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
@@ -171,82 +203,96 @@ class SeasonForm(ModelForm):
             "start",
             "end",
             "is_appointment_based",
+
+            layout.HTML(
+            """{% load i18n %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "Break from" %}</th>
+                        <th>{% trans "Break bis" %}</th>
+                        <th>{% trans "Till" %}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <th>"""), "mon_is_closed", layout.HTML("""</th>
+                        <td>"""), "mon_open", layout.HTML("""</td>
+                        <td>"""), "mon_break_close", layout.HTML("""</td>
+                        <td>"""), "mon_break_open", layout.HTML("""</td>
+                        <td>"""), "mon_close", layout.HTML("""</td>
+                    </tr>
+                    <tr>
+                        <th>"""), "tue_is_closed", layout.HTML("""</th>
+                        <td>"""), "tue_open", layout.HTML("""</td>
+                        <td>"""), "tue_break_close", layout.HTML("""</td>
+                        <td>"""), "tue_break_open", layout.HTML("""</td>
+                        <td>"""), "tue_close", layout.HTML("""</td>
+                    </tr>
+                    <tr>
+                        <th>"""), "wed_is_closed", layout.HTML("""</th>
+                        <td>"""), "wed_open", layout.HTML("""</td>
+                        <td>"""), "wed_break_close", layout.HTML("""</td>
+                        <td>"""), "wed_break_open", layout.HTML("""</td>
+                        <td>"""), "wed_close", layout.HTML("""</td>
+                    </tr>
+                    <tr>
+                        <th>"""), "thu_is_closed", layout.HTML("""</th>
+                        <td>"""), "thu_open", layout.HTML("""</td>
+                        <td>"""), "thu_break_close", layout.HTML("""</td>
+                        <td>"""), "thu_break_open", layout.HTML("""</td>
+                        <td>"""), "thu_close", layout.HTML("""</td>
+                    </tr>
+                    <tr>
+                        <th>"""), "fri_is_closed", layout.HTML("""</th>
+                        <td>"""), "fri_open", layout.HTML("""</td>
+                        <td>"""), "fri_break_close", layout.HTML("""</td>
+                        <td>"""), "fri_break_open", layout.HTML("""</td>
+                        <td>"""), "fri_close", layout.HTML("""</td>
+                    </tr>
+                    <tr>
+                        <th>"""), "sat_is_closed", layout.HTML("""</th>
+                        <td>"""), "sat_open", layout.HTML("""</td>
+                        <td>"""), "sat_break_close", layout.HTML("""</td>
+                        <td>"""), "sat_break_open", layout.HTML("""</td>
+                        <td>"""), "sat_close", layout.HTML("""</td>
+                    </tr>
+                    <tr>
+                        <th>"""), "sun_is_closed", layout.HTML("""</th>
+                        <td>"""), "sun_open", layout.HTML("""</td>
+                        <td>"""), "sun_break_close", layout.HTML("""</td>
+                        <td>"""), "sun_break_open", layout.HTML("""</td>
+                        <td>"""), "sun_close", layout.HTML("""</td>
+                    </tr>
+                </tbody>
+            </table>
+            """
+            ),
+
             css_class="fieldset-season",
             ))
-        layout_blocks.extend([layout.HTML(
-            """{% load i18n %}<table><thead><tr>
-                <th>&nbsp;</th>
-                <th>{% trans "Monday" %}</th>
-                <th>{% trans "Tuesday" %}</th>
-                <th>{% trans "Wednesday" %}</th>
-                <th>{% trans "Thursday" %}</th>
-                <th>{% trans "Friday" %}</th>
-                <th>{% trans "Saturday" %}</th>
-                <th>{% trans "Sunday" %}</th>
-            </tr></thead><tbody>
-            <tr>
-                <th>{% trans "Opens" %}</th>
-                <td>"""), "mon_open", layout.HTML("""</td>
-                <td>"""), "tue_open", layout.HTML("""</td>
-                <td>"""), "wed_open", layout.HTML("""</td>
-                <td>"""), "thu_open", layout.HTML("""</td>
-                <td>"""), "fri_open", layout.HTML("""</td>
-                <td>"""), "sat_open", layout.HTML("""</td>
-                <td>"""), "sun_open", layout.HTML("""</td>
-            </tr>
-            <tr>
-                <th>{% load i18n %}{% trans "Break starts" %}</th>
-                <td>"""), "mon_break_close", layout.HTML("""</td>
-                <td>"""), "tue_break_close", layout.HTML("""</td>
-                <td>"""), "wed_break_close", layout.HTML("""</td>
-                <td>"""), "thu_break_close", layout.HTML("""</td>
-                <td>"""), "fri_break_close", layout.HTML("""</td>
-                <td>"""), "sat_break_close", layout.HTML("""</td>
-                <td>"""), "sun_break_close", layout.HTML("""</td>
-            </tr>
-            <tr>
-                <th>{% load i18n %}{% trans "Break ends" %}</th>
-                <td>"""), "mon_break_open", layout.HTML("""</td>
-                <td>"""), "tue_break_open", layout.HTML("""</td>
-                <td>"""), "wed_break_open", layout.HTML("""</td>
-                <td>"""), "thu_break_open", layout.HTML("""</td>
-                <td>"""), "fri_break_open", layout.HTML("""</td>
-                <td>"""), "sat_break_open", layout.HTML("""</td>
-                <td>"""), "sun_break_open", layout.HTML("""</td>
-            </tr>
-            <tr>
-                <th>{% load i18n %}{% trans "Closes" %}</th>
-                <td>"""), "mon_close", layout.HTML("""</td>
-                <td>"""), "tue_close", layout.HTML("""</td>
-                <td>"""), "wed_close", layout.HTML("""</td>
-                <td>"""), "thu_close", layout.HTML("""</td>
-                <td>"""), "fri_close", layout.HTML("""</td>
-                <td>"""), "sat_close", layout.HTML("""</td>
-                <td>"""), "sun_close", layout.HTML("""</td>
-            </tr>
-            <tr>
-                <th>&nbsp;</th>
-                <td>"""), "mon_is_closed", layout.HTML("""</td>
-                <td>"""), "tue_is_closed", layout.HTML("""</td>
-                <td>"""), "wed_is_closed", layout.HTML("""</td>
-                <td>"""), "thu_is_closed", layout.HTML("""</td>
-                <td>"""), "fri_is_closed", layout.HTML("""</td>
-                <td>"""), "sat_is_closed", layout.HTML("""</td>
-                <td>"""), "sun_is_closed", layout.HTML("""</td>
-            </tr>
-            </tbody></table>
-            """
-            )])
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Additional info (%s)") % lang_name,
-                "last_entry_%s" % lang_code,
-                "exceptions_%s" % lang_code,
-                css_class="fieldset-additional-info multilingual lang-%s" % lang_code,
+
+        layout_blocks.append(layout.Fieldset(
+            _("Additional info"),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('last_entry_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('exceptions_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+                css_class="fieldset-additional-info",
                 ))
+
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )     
+            )
 
 SeasonFormset = inlineformset_factory(Exhibition, Season, form=SeasonForm, formset=InlineFormSet, extra=0)
 
@@ -258,22 +304,36 @@ class SpecialOpeningTimeForm(ModelForm):
             exclude.append("exceptions_%s_markup_type" % lang_code)
     def __init__(self, *args, **kwargs):
         super(SpecialOpeningTimeForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'day_label_%s' % lang_code,
+                'exceptions_%s' % lang_code,
+                ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Occasion (%s)") % lang_name,
-                "day_label_%s" % lang_code,
-                css_class="fieldset-occassion multilingual lang-%s" % lang_code,
+
+        layout_blocks.append(layout.Fieldset(
+            _("Occasion"),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('day_label_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+                css_class="fieldset-additional-info",
                 ))
+
         layout_blocks.append(layout.Fieldset(
             _("Special date"),
-            "yyyy",
-            "mm",
-            "dd",
+
+            layout.Row("yyyy", "mm", "dd"),
+            
             css_class="fieldset-special-date",
             ))
+
         layout_blocks.append(layout.Fieldset(
             _("Opening times"),
             "is_closed",
@@ -284,15 +344,20 @@ class SpecialOpeningTimeForm(ModelForm):
             "closing",
             css_class="fieldset-opening-times",
             ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Additional info (%s)") % lang_name,
-                "exceptions_%s" % lang_code,
-                css_class="fieldset-additional-info multilingual lang-%s" % lang_code,
+
+        layout_blocks.append(layout.Fieldset(
+            _("Additional info"),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('exceptions_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+                css_class="fieldset-additional-info",
                 ))
+
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )     
+            )
 
 SpecialOpeningTimeFormset = inlineformset_factory(Exhibition, SpecialOpeningTime, form=SpecialOpeningTimeForm, formset=InlineFormSet, extra=0)
 
@@ -314,6 +379,21 @@ class PricesForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(PricesForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'admission_price_info_%s' % lang_code,
+                'reduced_price_info_%s' % lang_code,
+                'arrangements_for_children_%s' % lang_code,
+                'free_entrance_for_%s' % lang_code,
+                'family_ticket_%s' % lang_code,
+                'group_ticket_%s' % lang_code,
+                'free_entrance_times_%s' % lang_code,
+                'yearly_ticket_%s' % lang_code,
+                'other_tickets_%s' % lang_code,
+                ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
@@ -324,22 +404,59 @@ class PricesForm(ModelForm):
             'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
             css_class="fieldset-prices",
             ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Details (%s)") % lang_name,
-                'admission_price_info_%s' % lang_code,
-                'reduced_price_info_%s' % lang_code,
-                'arrangements_for_children_%s' % lang_code,
-                'free_entrance_for_%s' % lang_code,
-                'family_ticket_%s' % lang_code,
-                'group_ticket_%s' % lang_code,
-                'free_entrance_times_%s' % lang_code,
-                'yearly_ticket_%s' % lang_code,
-                'other_tickets_%s' % lang_code,
-                css_class="fieldset-details multilingual lang-%s" % lang_code,
+
+        layout_blocks.append(layout.Fieldset(
+            _("Details"),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('arrangements_for_children_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('free_entrance_for_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('family_ticket_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('group_ticket_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('free_entrance_times_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('yearly_ticket_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('other_tickets_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+                css_class="fieldset-basic-info",
                 ))
+
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
+            layout.Submit('reset', _('Reset')),
             layout.Submit('submit', _('Next')),
             ))
         
@@ -357,24 +474,33 @@ class AccessibilityForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(AccessibilityForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'suitable_for_disabled_info_%s' % lang_code,
+                ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         
         layout_blocks = []
+
         layout_blocks.append(layout.Fieldset(
             _("Accessibility"),
             'suitable_for_disabled',
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('suitable_for_disabled_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            
             css_class="fieldset-accessibility",
             ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Details (%s)") % lang_name,
-                'suitable_for_disabled_info_%s' % lang_code,
-                css_class="fieldset-details multilingual lang-%s" % lang_code,
-                ))
+
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('reset', _('Reset'), css_class="btn-warning"),
+            layout.Submit('reset', _('Reset')),
             layout.Submit('submit', _('Save')),
             ))
         
