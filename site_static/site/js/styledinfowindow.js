@@ -73,7 +73,7 @@ StyledInfoWindow.prototype.draw = function() {
     var widthLess = 0;
     
     this.width_ = 500;
-    this.height_ = 117;
+    this.height_ = 150;
     image = '';
     this.offsetX_ = -(this.width_ / 2 );
     this.offsetY_ = -(this.height_ + 40);
@@ -92,7 +92,7 @@ StyledInfoWindow.prototype.draw = function() {
     this.wrapperDiv_.style.height = this.height_ + 'px';
     this.wrapperDiv_.style.marginTop = paddingTop + 'px';
     this.wrapperDiv_.style.marginLeft = paddingLeft + 'px';
-    this.wrapperDiv_.style.overflow = 'hidden';
+    this.wrapperDiv_.style.overflow = 'visible';
     if (!this.panned_) {
         this.panned_ = true;
         this.maybePanMap();
@@ -123,7 +123,7 @@ StyledInfoWindow.prototype.createElement = function() {
         div = this.div_ = document.createElement('div');
         div.style.border = '0px none';
         div.style.position = 'absolute';
-        div.style.overflow = 'hidden';
+        div.style.overflow = 'visible';
         var wrapperDiv = this.wrapperDiv_ = document.createElement('div');
         wrapperDiv.className="info_window";
         var contentDiv = document.createElement('div');
@@ -135,12 +135,9 @@ StyledInfoWindow.prototype.createElement = function() {
 
         var topDiv = document.createElement('div');
         topDiv.style.textAlign = 'right';
+        topDiv.className="close";
         var closeImg = document.createElement('img');
-        closeImg.className="close";
         closeImg.src = window.settings.STATIC_URL + 'site/img/gmap/closebigger.gif';
-        closeImg.style.width = '32px';
-        closeImg.style.height = '32px';
-        closeImg.style.cursor = 'pointer';
         topDiv.appendChild(closeImg);
 
         function removeStyledInfoWindow(ib) {
