@@ -58,6 +58,7 @@
             {% if exhibition.image %}
                 <a class="img" href="{{ exhibition.get_url_path }}" data-background="({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})">
                     <span class="spinner loading"></span>
+                    <span class="overlay"></span>
                 </a>
             {% endif %}
 

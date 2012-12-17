@@ -373,11 +373,14 @@ $(document).ready(function(){
     <div class="inner">
 
     <h2>{% trans "Museums with the same categories" %}</h2>
-    <ul id="kurze_zeit" class="list tiles small clearfix"> 
+    <ul id="container" class="list tiles small clearfix"> 
         {% for museum in object.get_museums_with_the_same_categories %}
             <li class="item">
                 {% if museum.image %}
-                    <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                    <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.image }}">
+                        <span class="spinner loading"></span>
+                        <span class="overlay"></span>
+                    </a>
                 {% endif %}
                  <a href="{{ museum.get_url_path }}">
                     <h3>{{ museum.title }}</h3>

@@ -2,7 +2,7 @@
 {% load i18n image_modifications base_tags %}
 
 {% block js %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
+<!-- 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
 	
     <script type="text/javascript">
@@ -18,7 +18,7 @@
     var settings = {
         STATIC_URL: "{{ STATIC_URL }}"
     }
-    </script>
+    </script> -->
 {% endblock %}
 
 {% block bodyclass %}map_visible{% endblock %}
@@ -91,6 +91,7 @@
                 {% if museum.image %}
                     <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.image }}">
                         <span class="spinner loading"></span>
+                        <span class="overlay"></span>
                     </a>
                 {% endif %}
 
@@ -108,7 +109,7 @@
                 
 
                 {% if museum.latitude %}
-                    <script type="text/javascript">
+                    <!-- <script type="text/javascript">
                     //<![CDATA[
                     (function(undefined) {
                         var iIndex = aGeopositions.length;
@@ -125,9 +126,7 @@
                         }
                     }());
                     //]]>
-                    </script>
-
-                    
+                    </script> -->
                     
                 {% endif %}
             </li>

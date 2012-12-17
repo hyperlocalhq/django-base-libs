@@ -18,7 +18,7 @@
 	
     {% render_block "css" %}
 
-    <script src="{{ STATIC_URL }}site/js/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.cycle.all.js"></script>
@@ -93,6 +93,13 @@
       });
     </script>
 
+     <script type='text/javascript'>
+     $(document).ready(function () {
+       if ($("[rel=tooltip]").length) {
+       $("[rel=tooltip]").tooltip();
+       }
+     });
+    </script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
 </head>
