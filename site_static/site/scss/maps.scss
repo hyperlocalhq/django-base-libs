@@ -1,42 +1,63 @@
 
-.info_window {
-    background-color: rgba(255,255,255,0.95);
-    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2) !important;
-    padding: 20px;
-    padding-left: 220px;
-    font-size: 14px;
-    line-height: 19px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-
-    > * { 
-      width: 100%
-    }
-
-    h3   { font-family: 'calluna_sansbold';}
-    h4   { font-family: 'calluna_sans_lightregular';}
-    h5   { font-family: 'calluna_sans_lightregular'; opacity: 0.5}
- 
-    .img { 
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 200px;
-      display: block;
-      position: absolute;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-  
-    .button { 
-        top: 10px;
+.location {
+    text-align: center;
+    .inner { 
+        text-align: left;
+        display: inline-block;
+        background-color: rgba(255,255,255,0.95);
+        box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2) !important;
+        padding: 20px;
+        font-size: 14px;
+        line-height: 19px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
         position: relative;
-    }
 
-    .close { 
-        top: 0px;
-        right: 0px;
-        position: absolute;
+        > * { 
+          width: 100%
+        }
+
+        h3   { font-family: 'calluna_sansbold';}
+        h4   { font-family: 'calluna_sans_lightregular';}
+        h5   { font-family: 'calluna_sans_lightregular'; opacity: 0.5}
+     
+        .img { 
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 200px;
+          display: block;
+          position: absolute;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          display: none;
+        }
+      
+        .button { 
+            top: 10px;
+            position: relative;
+        }
+
+        .close { 
+            top: 0px;
+            right: 0px;
+            position: absolute;
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-color: transparent;
+          border-style: solid;
+          bottom: 0;
+          left: 50%;
+          display: block;
+          margin-left: -5px;
+          margin-bottom: -10px;
+          border-top-color: white;
+          border-width: 10px 10px 0;
+        }
     }
 }

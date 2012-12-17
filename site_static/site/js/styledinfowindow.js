@@ -72,10 +72,10 @@ StyledInfoWindow.prototype.draw = function() {
     var paddingLeft = 0;
     var widthLess = 0;
     
-    this.width_ = 500;
-    this.height_ = 150;
+    this.width_ = 600;
+    this.height_ = 0;
     image = '';
-    this.offsetX_ = -(this.width_ / 2 );
+    this.offsetX_ = -(this.width_ / 2 + 5);
     this.offsetY_ = -(this.height_ + 40);
             
     // Now position our DIV based on the DIV coordinates of our bounds
@@ -150,6 +150,7 @@ StyledInfoWindow.prototype.createElement = function() {
         
         wrapperDiv.appendChild(topDiv);
         wrapperDiv.appendChild(contentDiv);
+        wrapperDiv.className="location";
         div.appendChild(wrapperDiv);
         div.style.display = 'none';
         // Append to body, to avoid bug with Webkit browsers
