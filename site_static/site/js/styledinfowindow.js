@@ -75,8 +75,8 @@ StyledInfoWindow.prototype.draw = function() {
     this.width_ = 500;
     this.height_ = 117;
     image = '';
-    this.offsetX_ = -(this.width_ / 2 + 115);
-    this.offsetY_ = -(this.height_ + 22);
+    this.offsetX_ = -(this.width_ / 2 );
+    this.offsetY_ = -(this.height_ + 40);
             
     // Now position our DIV based on the DIV coordinates of our bounds
     this.div_.style.width = this.width_ + 'px';
