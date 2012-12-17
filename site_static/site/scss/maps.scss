@@ -1,6 +1,8 @@
 
 .location {
+
     text-align: center;
+    
     .inner { 
         text-align: left;
         display: inline-block;
@@ -13,10 +15,7 @@
         -moz-box-sizing: border-box;
         position: relative;
 
-        > * { 
-          width: 100%
-        }
-
+        h3,h4,h5   { white-space: nowrap;}
         h3   { font-family: 'calluna_sansbold';}
         h4   { font-family: 'calluna_sans_lightregular';}
         h5   { font-family: 'calluna_sans_lightregular'; opacity: 0.5}
@@ -38,12 +37,6 @@
             top: 10px;
             position: relative;
         }
-
-        .close { 
-            top: 0px;
-            right: 0px;
-            position: absolute;
-        }
         &:after {
           content: "";
           position: absolute;
@@ -59,5 +52,13 @@
           border-top-color: white;
           border-width: 10px 10px 0;
         }
+    }
+
+    .close { 
+        top: 0px;
+        right: 0px;
+        position: absolute;
+        width: 32px;
+        height: auto;
     }
 }

@@ -132,10 +132,11 @@ StyledInfoWindow.prototype.createElement = function() {
         } else {
             contentDiv.appendChild(this.content_);
         }
-
+        contentDiv.className="inner";
         var closeImg = document.createElement('img');
         closeImg.src = window.settings.STATIC_URL + 'site/img/gmap/closebigger.gif';
-        wrapperDiv.appendChild(closeImg);
+        closeImg.className="close";
+        contentDiv.appendChild(closeImg);
 
         function removeStyledInfoWindow(ib) {
             return function() {
@@ -148,7 +149,6 @@ StyledInfoWindow.prototype.createElement = function() {
         wrapperDiv.appendChild(contentDiv);
         wrapperDiv.className="location";
         div.appendChild(wrapperDiv);
-        div.style.display = 'none';
         // Append to body, to avoid bug with Webkit browsers
         // attempting CSS transforms on IFRAME or SWF objects
         // and rendering badly.
