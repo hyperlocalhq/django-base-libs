@@ -2,7 +2,10 @@
 .location {
 
     text-align: center;
-    
+    display: table;
+
+    .wrapper { display: table-cell; vertical-align: bottom; }
+
     .inner { 
         text-align: left;
         display: inline-block;

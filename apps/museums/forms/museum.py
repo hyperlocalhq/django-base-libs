@@ -297,7 +297,7 @@ class PricesForm(ModelForm):
                 'reduced_price_info_%s' % lang_code,
                 'arrangements_for_children_%s' % lang_code,
                 'free_entrance_for_%s' % lang_code,
-                'family_ticket_%s' % lang_code,
+                'family_tmmicket_%s' % lang_code,
                 'group_ticket_%s' % lang_code,
                 'free_entrance_times_%s' % lang_code,
                 'yearly_ticket_%s' % lang_code,
@@ -335,14 +335,16 @@ class AddressForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            'street_address', 'street_address2', 'postal_code', 'district',
-            'city', 'country',
+            layout.Row('street_address', 'street_address2'),
+            layout.Row('postal_code', 'city'),
+            layout.Row('district', 'country'),
             'latitude', 'longitude',
             css_class="fieldset-location",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Postal address (if differs from museum's address)"),
-            'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
+            layout.Row('post_street_address', 'post_street_address2'),
+            layout.Row('post_postal_code', 'post_city'),
             css_class="fieldset-postal-address",
             ))
         layout_blocks.append(layout.Fieldset(
@@ -359,7 +361,7 @@ class AddressForm(ModelForm):
             ))
         layout_blocks.append(layout.Fieldset(
             _("Social media"),
-            'twitter', 'facebook',
+            layout.Row('twitter', 'facebook'),
             css_class="fieldset-social-media",
             ))
         layout_blocks.append(bootstrap.FormActions(
