@@ -299,55 +299,63 @@ fieldset .row {
   border-collapse: collapse;
 }
 /* line 235, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+fieldset .row.flex {
+  table-layout: auto !important;
+}
+/* line 238, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+fieldset .row.flex > div {
+  width: auto !important;
+}
+/* line 243, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 fieldset .row > div {
   display: table-cell;
-  border-right: 10px solid white;
+  border-right: 20px solid white !important;
   width: 100% !important;
 }
-/* line 240, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 248, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 fieldset .row > div:last-child {
   border-right: 0px solid white;
 }
 
-/* line 248, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 256, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 form table {
   table-layout: fixed !important;
   border-collapse: collapse !important;
   width: 100% !important;
 }
-/* line 253, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 261, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 form table th {
   font-size: 14px;
   font-weight: normal;
   line-height: 20px;
   color: rgba(0, 0, 0, 0.5);
 }
-/* line 263, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 271, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 form table th, form table td {
   border-right: 5px solid white !important;
   border-bottom: 20px solid white;
   width: auto !important;
 }
-/* line 268, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 276, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 form table th:last-child, form table td:last-child {
   border-right: 0px solid white;
 }
-/* line 272, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 280, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 form table th div, form table th input, form table td div, form table td input {
   margin-bottom: 0 !important;
 }
 
-/* line 280, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 288, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 fieldset.multilingual {
   width: 49%;
   float: left;
 }
-/* line 284, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 292, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 fieldset.multilingual.lang-de {
   margin-right: 2%;
 }
 
-/* line 293, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 301, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 legend {
   border: none;
   display: block;
@@ -357,17 +365,51 @@ legend {
   padding-top: 20px;
   padding-bottom: 20px !important;
 }
-/* line 302, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 310, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 legend + .control-group {
   margin-top: 30px;
 }
 
-/* line 307, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 315, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 label {
   color: rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+/* line 319, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+label .lang {
+  font-size: 11px;
+  opacity: 0.5;
 }
 
-/* line 309, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 324, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+.inline {
+  padding-bottom: 20px;
+  display: block;
+}
+/* line 328, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+.inline .control-group {
+  display: inline-block;
+  white-space: nowrap;
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  margin: 0px;
+  padding: 0px;
+}
+/* line 335, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+.inline .control-group label {
+  padding-left: 20px !important;
+  position: relative;
+  padding-right: 20px;
+}
+/* line 339, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+.inline .control-group label .radio input[type="radio"], .inline .control-group label .checkbox input[type="checkbox"] {
+  margin: 0px !important;
+  display: block;
+  position: absolute;
+  left: 0;
+}
+
+/* line 350, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .form-actions {
   display: block;
   width: 100%;
@@ -381,7 +423,7 @@ label {
   margin: 0;
 }
 
-/* line 323, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 364, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 legend + .control-group,
 .form-horizontal .control-group {
   margin-top: 0px;

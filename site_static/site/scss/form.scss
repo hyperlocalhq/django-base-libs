@@ -232,9 +232,17 @@ fieldset {
     margin-bottom: 10px !important;
     border-collapse: collapse;
 
+    &.flex { 
+      table-layout: auto !important;
+
+      > div{ 
+        width: auto !important;
+      }
+    }
+
     > div{ 
       display: table-cell;
-      border-right: 10px solid white;
+      border-right: 20px solid white !important;
       width: 100% !important;
 
       &:last-child { 
@@ -304,8 +312,41 @@ legend {
   }
 }
 
-label { color: rgba(0,0,0,0.5);}
+label { 
+  color: rgba(0,0,0,0.5);
+  position: relative;
+  
+  .lang {
+    font-size: 11px;
+    opacity: 0.5
+  }
+}
+.inline {
+  padding-bottom: 20px;
+  display: block;
+  
+  .control-group {
+    display: inline-block;
+    white-space: nowrap;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    margin: 0px;
+    padding: 0px;
+    label { 
+      padding-left: 20px !important; 
+      position: relative; 
+      padding-right: 20px;
+      .radio input[type="radio"], .checkbox input[type="checkbox"] {
+        margin: 0px !important;
+        display: block;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
 
+  
+}
 .form-actions { 
   display: block; width: 100%;
   box-sizing: border-box !important;

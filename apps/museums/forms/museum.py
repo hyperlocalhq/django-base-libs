@@ -29,19 +29,41 @@ class BasicInfoForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'title_%s' % lang_code,
+                'subtitle_%s' % lang_code,
+                'description_%s' % lang_code,
+                ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         
         layout_blocks = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Basic Info (%s)") % lang_name,
-                "title_%s" % lang_code,
-                "subtitle_%s" % lang_code,
-                "description_%s" % lang_code,
-                css_class="fieldset-basic-info multilingual lang-%s" % lang_code,
+
+        layout_blocks.append(layout.Fieldset(
+            _("Basic Info"),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('description_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+                css_class="fieldset-basic-info",
                 ))
+
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             "categories",
@@ -280,6 +302,21 @@ class PricesForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(PricesForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'admission_price_info_%s' % lang_code,
+                'reduced_price_info_%s' % lang_code,
+                'arrangements_for_children_%s' % lang_code,
+                'free_entrance_for_%s' % lang_code,
+                'family_ticket_%s' % lang_code,
+                'group_ticket_%s' % lang_code,
+                'free_entrance_times_%s' % lang_code,
+                'yearly_ticket_%s' % lang_code,
+                'other_tickets_%s' % lang_code,
+                ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
@@ -290,20 +327,57 @@ class PricesForm(ModelForm):
             'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
             css_class="fieldset-prices",
             ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Details (%s)") % lang_name,
-                'admission_price_info_%s' % lang_code,
-                'reduced_price_info_%s' % lang_code,
-                'arrangements_for_children_%s' % lang_code,
-                'free_entrance_for_%s' % lang_code,
-                'family_tmmicket_%s' % lang_code,
-                'group_ticket_%s' % lang_code,
-                'free_entrance_times_%s' % lang_code,
-                'yearly_ticket_%s' % lang_code,
-                'other_tickets_%s' % lang_code,
-                css_class="fieldset-details multilingual lang-%s" % lang_code,
+
+        layout_blocks.append(layout.Fieldset(
+            _("Basic Info"),
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('arrangements_for_children_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('free_entrance_for_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('family_tmmicket_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('group_ticket_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('free_entrance_times_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('yearly_ticket_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('other_tickets_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
+                css_class="fieldset-basic-info",
                 ))
+                
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
@@ -419,32 +493,32 @@ class ServicesAccessibilityForm(ModelForm):
         
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
-            _("Accessibility Options"),
+            _("Accessibility"),
+
+            layout.Row(
+                css_class="div-accessibility-details",
+                *('accessibility_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+
             'accessibility_options',
+
             css_class="fieldset-accessibility-options",
             ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Accessibility (%s)") % lang_name,
-                'accessibility_%s' % lang_code,
-                css_class="fieldset-accessibility multilingual lang-%s" % lang_code,
-                ))
         layout_blocks.append(layout.Fieldset(
             _("Services"),
-            layout.Row('service_shop',
+            layout.Div('service_shop',
                 'service_books',
                 'service_restaurant',
                 'service_cafe',
                 'service_library',
                 'service_archive',
-                ),
-            layout.Row(
                 'service_studio',
                 'service_online',
                 'service_diaper_changing_table',
                 'service_birthdays',
                 'service_rent',
                 'service_other',
+                css_class="inline",
                 ),
             layout.Row(
                 css_class="div-shop-details",
