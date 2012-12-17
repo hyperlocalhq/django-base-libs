@@ -72,9 +72,9 @@ StyledInfoWindow.prototype.draw = function() {
     var paddingLeft = 0;
     var widthLess = 0;
     
-    this.width_ = 300;
+    this.width_ = 500;
     this.height_ = 117;
-    image = 'infobox.png';
+    image = '';
     this.offsetX_ = -(this.width_ / 2 + 115);
     this.offsetY_ = -(this.height_ + 22);
             

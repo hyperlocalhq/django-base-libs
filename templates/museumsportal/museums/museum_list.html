@@ -21,7 +21,7 @@
 	<div >
 		<div id="gmap_toggle" class="">&nbsp;</div>
 		<div id="gmap_wrapper" class="">
-			<div id="gmap" style="width:1000px; height:200px"></div>
+			<div id="gmap" style="width:1000px; height:400px"></div>
 		</div>
     </div>
 
@@ -106,7 +106,7 @@
                         aGeopositions[iIndex] = {
                             latitude: {{ museum.latitude }},
                             longitude: {{ museum.longitude }},
-                            content: '<div class="contact-mapped" onclick="location.href=\'{{ museum.get_url_path }}\';">'
+                            content: '<div class="location" onclick="location.href=\'{{ museum.get_url_path }}\';">'
                             + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
                             + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
                             + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'

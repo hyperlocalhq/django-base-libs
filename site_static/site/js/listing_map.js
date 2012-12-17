@@ -18,7 +18,7 @@
     var oCurrentMarker = null;
     
     $(document).ready(function() {
-        var $oList = $('#object_list');
+        var $oList = $('#container');
         if ($oList.length) {
             var oOptions = {
                 zoom: 13,
