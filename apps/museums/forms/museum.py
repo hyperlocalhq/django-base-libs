@@ -396,6 +396,23 @@ class ServicesAccessibilityForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(ServicesAccessibilityForm, self).__init__(*args, **kwargs)
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'accessibility_%s' % lang_code,
+                'service_shop_info_%s' % lang_code,
+                'service_books_info_%s' % lang_code,
+                'service_restaurant_info_%s' % lang_code,
+                'service_cafe_info_%s' % lang_code,
+                'service_library_info_%s' % lang_code,
+                'service_archive_info_%s' % lang_code,
+                'service_studio_info_%s' % lang_code,
+                'service_online_info_%s' % lang_code,
+                'service_birthdays_info_%s' % lang_code,
+                'service_rent_info_%s' % lang_code,
+                'service_other_info_%s' % lang_code,
+                ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+        
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
@@ -413,131 +430,68 @@ class ServicesAccessibilityForm(ModelForm):
                 css_class="fieldset-accessibility multilingual lang-%s" % lang_code,
                 ))
         layout_blocks.append(layout.Fieldset(
-            _("Shop"),
-            'service_shop',
-            css_class="fieldset-shop",
+            _("Services"),
+            layout.Row('service_shop',
+                'service_books',
+                'service_restaurant',
+                'service_cafe',
+                'service_library',
+                'service_archive',
+                ),
+            layout.Row(
+                'service_studio',
+                'service_online',
+                'service_diaper_changing_table',
+                'service_birthdays',
+                'service_rent',
+                'service_other',
+                ),
+            layout.Row(
+                css_class="div-shop-details",
+                *('service_shop_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-bookstore-details",
+                *('service_books_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-restaurant-details",
+                *('service_restaurant_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-cafe-details",
+                *('service_cafe_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-library-details",
+                *('service_library_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-archive-details",
+                *('service_archive_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-studio-details",
+                *('service_studio_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-online-offers-details",
+                *('service_online_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-children-birthdays-details",
+                *('service_birthdays_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-rent-details",
+                *('service_rent_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-other-services-details",
+                *('service_other_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            css_class="fieldset-services",
             ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Shop Details (%s)") % lang_name,
-                'service_shop_info_%s' % lang_code,
-                css_class="fieldset-shop-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Bookstore"),
-            'service_books',
-            css_class="fieldset-bookstore",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Bookstore Details (%s)") % lang_name,
-                'service_books_info_%s' % lang_code,
-                css_class="fieldset-bookstore-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Restaurant"),
-            'service_restaurant',
-            css_class="fieldset-restaurant",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Restaurant Details (%s)") % lang_name,
-                'service_restaurant_info_%s' % lang_code,
-                css_class="fieldset-restaurant-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Cafe"),
-            'service_cafe',
-            css_class="fieldset-cafe",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Cafe Details (%s)") % lang_name,
-                'service_cafe_info_%s' % lang_code,
-                css_class="fieldset-cafe-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Library"),
-            'service_library',
-            css_class="fieldset-library",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Library Details (%s)") % lang_name,
-                'service_library_info_%s' % lang_code,
-                css_class="fieldset-library-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Archive"),
-            'service_archive',
-            css_class="fieldset-archive",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Archive Details (%s)") % lang_name,
-                'service_archive_info_%s' % lang_code,
-                css_class="fieldset-archive-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Studio"),
-            'service_studio',
-            css_class="fieldset-studio",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Studio Details (%s)") % lang_name,
-                'service_studio_info_%s' % lang_code,
-                css_class="fieldset-studio-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Online Offers"),
-            'service_online',
-            css_class="fieldset-online-offers",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Online Offers' Details (%s)") % lang_name,
-                'service_online_info_%s' % lang_code,
-                css_class="fieldset-online-offers-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Diaper changing table"),
-            'service_diaper_changing_table',
-            css_class="fieldset-diaper-changing-table",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Children birthdays"),
-            'service_birthdays',
-            css_class="fieldset-children-birthdays",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Children Birthdays' Details (%s)") % lang_name,
-                'service_birthdays_info_%s' % lang_code,
-                css_class="fieldset-children-birthdays-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Rent"),
-            'service_rent',
-            css_class="fieldset-rent",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Rent Details (%s)") % lang_name,
-                'service_rent_info_%s' % lang_code,
-                css_class="fieldset-rent-details multilingual lang-%s" % lang_code,
-                ))
-        layout_blocks.append(layout.Fieldset(
-            _("Other services"),
-            'service_other',
-            css_class="fieldset-other-services",
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            layout_blocks.append(layout.Fieldset(
-                _("Other Services' Details (%s)") % lang_name,
-                'service_other_info_%s' % lang_code,
-                css_class="fieldset-other-services-details multilingual lang-%s" % lang_code,
-                ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('reset', _('Reset'), css_class="btn-warning"),
             layout.Submit('submit', _('Next')),
