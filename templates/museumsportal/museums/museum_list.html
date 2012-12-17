@@ -66,17 +66,17 @@
     {% endfor %}
     </ul>
 
-    <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
+    <ul class="filter option-set clearfix" id="category" data-filter-group="category">
         <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
         {% for cat in facets.categories.categories %}
-        <li><a data-filter-value=".{{ cat.title|slugify }}" href="#{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+        <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
         {% endfor %}
     </ul>
 
 
     <ul id="container" class="list tiles clearfix">
         {% for museum in object_list %}
-            <li class="item initial_{{ museum.title|slugify|slice:"0:1" }} {% for cat in museum.categories.all %}{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %} {{ item.1 }}">
+            <li class="item initial_{{ museum.title|slugify|slice:"0:1" }} {% for cat in museum.categories.all %}cat_{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %}">
                 
                 {% if museum.image %}
                     <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.image }}">
@@ -106,6 +106,7 @@
                         aGeopositions[iIndex] = {
                             latitude: {{ museum.latitude }},
                             longitude: {{ museum.longitude }},
+                            categories: ['initial_{{ museum.title|slugify|slice:"0:1" }}'{% for cat in museum.categories.all %}, 'cat_{{ cat.title|slugify }}'{% endfor %}],
                             content: '<div class="location" onclick="location.href=\'{{ museum.get_url_path }}\';">'
                             + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
                             + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
