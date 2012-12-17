@@ -133,12 +133,9 @@ StyledInfoWindow.prototype.createElement = function() {
             contentDiv.appendChild(this.content_);
         }
 
-        var topDiv = document.createElement('div');
-        topDiv.style.textAlign = 'right';
-        topDiv.className="close";
         var closeImg = document.createElement('img');
         closeImg.src = window.settings.STATIC_URL + 'site/img/gmap/closebigger.gif';
-        topDiv.appendChild(closeImg);
+        wrapperDiv.appendChild(closeImg);
 
         function removeStyledInfoWindow(ib) {
             return function() {
@@ -148,7 +145,6 @@ StyledInfoWindow.prototype.createElement = function() {
 
         google.maps.event.addDomListener(closeImg, 'click', removeStyledInfoWindow(this));
         
-        wrapperDiv.appendChild(topDiv);
         wrapperDiv.appendChild(contentDiv);
         wrapperDiv.className="location";
         div.appendChild(wrapperDiv);
