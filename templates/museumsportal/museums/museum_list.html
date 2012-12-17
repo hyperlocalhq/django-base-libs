@@ -87,7 +87,7 @@
 
                 <ul class="actions">
                     <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
-                    <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="show-location"></a></li>
+                    <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></a></li>
                 </ul>
 
                 <a href="{{ museum.get_url_path }}">
@@ -107,12 +107,12 @@
                             latitude: {{ museum.latitude }},
                             longitude: {{ museum.longitude }},
                             categories: ['initial_{{ museum.title|slugify|slice:"0:1" }}'{% for cat in museum.categories.all %}, 'cat_{{ cat.title|slugify }}'{% endfor %}],
-                            content: '<div class="location" onclick="location.href=\'{{ museum.get_url_path }}\';">'
-                            + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
-                            + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
-                            + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'
-                            + '<hr />'
-                            + '<a href="{{ museum.get_url_path }}">{% trans "more" %}</a>'
+                            content: '<div class="inner" onclick="location.href=\'{{ museum.get_url_path }}\';">'
+                            + '{% if museum.image %}<span class="img" style="background-image: url({{ UPLOADS_URL }}{{ museum.image.path }})"></span>{% endif %}'
+                            + '<h3>{{ museum.title }}</h3>'
+                            + '{% if museum.subtitle %}<h4>{{ museum.subtitle }}</h4>{% endif %}'
+                            + '<h4>{{ museum.street_address }} {{ museum.street_address2 }}</h4>'
+                            + '<a class="" href="{{ museum.get_url_path }}">{% trans "more" %}</a>'
                             + '</div>'
                         }
                     }());
