@@ -196,7 +196,7 @@ form {
 
     a { 
       &:hover { 
-        background-color: rgba(0,0,0,0.05);
+        color: black;
       }
     }
   } 
@@ -233,6 +233,37 @@ fieldset {
 
 }
 
+form table { 
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+  width: 100% !important;
+  
+  th { 
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.5);
+
+    &:first-child { 
+    }
+  }
+
+  th, td { 
+    border-right: 1px solid white;
+    border-bottom: 10px solid white;
+    width: 1% !important;
+
+    &:last-child { 
+      border-right: 0px solid white;
+    }
+
+    div, input { 
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
+
 
 fieldset.multilingual { 
   width: 49%;
@@ -267,7 +298,9 @@ label { color: rgba(0,0,0,0.5);}
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
   float: left;
+  clear: left;
   background: none;
   border: none;
   padding: 0;
+  margin: 0;
 }

@@ -2,23 +2,15 @@
 {% load i18n image_modifications base_tags %}
 
 {% block js %}
-<!-- 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
 	
     <script type="text/javascript">
-	$(function() {
-
-        var scroller = new StickyScroller("#head_filter", {
-            start: $('#head_filter').offset().top,
-            margin: 0
-        });
-
-	});
-    var aGeopositions = [];
-    var settings = {
-        STATIC_URL: "{{ STATIC_URL }}"
-    }
-    </script> -->
+        var aGeopositions = [];
+        var settings = {
+            STATIC_URL: "{{ STATIC_URL }}"
+        }
+    </script> 
 {% endblock %}
 
 {% block bodyclass %}map_visible{% endblock %}
@@ -26,14 +18,12 @@
 {% block content %}
 
 	
-	<!-- <div >
+	<div >
 		<div id="gmap_toggle" class="">&nbsp;</div>
 		<div id="gmap_wrapper" class="">
 			<div id="gmap" style="width:1000px; height:200px"></div>
 		</div>
-
-	    
-    </div> -->
+    </div>
 
     <h1>Museen, Schlösser und Gedenkstätten</h1>
 
