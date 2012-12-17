@@ -62,7 +62,7 @@
 
     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
     {% for item in abc_list %}
-      <li><a data-filter-value="{{ item.0 }}"  class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+      <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
     {% endfor %}
     </ul>
 
@@ -76,7 +76,7 @@
 
     <ul id="container" class="list tiles clearfix">
         {% for museum in object_list %}
-            <li class="item {% for cat in museum.categories.all %}{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %} {{ item.1 }}">
+            <li class="item initial_{{ museum.title|slugify|slice:"0:1" }} {% for cat in museum.categories.all %}{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %} {{ item.1 }}">
                 
                 {% if museum.image %}
                     <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.image }}">
@@ -99,7 +99,7 @@
                 
 
                 {% if museum.latitude %}
-                    <!-- <script type="text/javascript">
+                    <script type="text/javascript">
                     //<![CDATA[
                     (function(undefined) {
                         var iIndex = aGeopositions.length;
@@ -116,7 +116,7 @@
                         }
                     }());
                     //]]>
-                    </script> -->
+                    </script> 
                     
                 {% endif %}
             </li>
