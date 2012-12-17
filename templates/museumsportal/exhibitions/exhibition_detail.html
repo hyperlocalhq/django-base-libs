@@ -338,8 +338,12 @@
                 {{ exhibition.get_rendered_description }}
             </article>
     {% endwith %}
-        
-    <h2 class="catHead">→ Nur noch kurze Zeit</h2>
+    </div>
+</div>  
+<div id="content" class="clearfix" style="background-color: rgba(0,0,0,0.025)">
+    <div class="inner">
+
+    <h2>Nur noch kurze Zeit</h2>
     <ul id="kurze_zeit" class="list tiles small clearfix">
         {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
         {% for exhibition in exhibitions_closing_soon %}
@@ -348,8 +352,8 @@
                     <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
                 {% endif %}
                 <a href="{{ exhibition.get_url_path }}">
-                    <h4>{{ exhibition.museum.title }}</h4>
-                    <h3>{{ exhibition.title }}</h3>
+                    <h3>{{ exhibition.museum.title }}</h3>
+                    <h4>{{ exhibition.title }}</h4>
                     <h5>{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                 </a>
             </li>

@@ -30,81 +30,77 @@
 
     <h1>Sonderausstellungen der Berliner Museen</h1>
 
-    <ul class="filter">
-      <li class="title">Filter</li>
+    <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
+        <li class="title">Filter</li>
+        <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
 
-      <li class="special {% if not facets.selected.category and not facets.selected.status %}active{% endif %} filter-all" id="all"><a href="{% append_to_get category="",status="",show="all" %}">Alle Sonderausstellungen</a></li>
-      
-      {% for status_code, status_verbose in facets.categories.statuses %}
+        {% for status_code, status_verbose in facets.categories.statuses %}
           {% if status_code == facets.selected.status %}
-              <li class="active" id="cat_{{ status_code }}"><a class="cancel" href="{% append_to_get status="" %}">{{ status_verbose }}</a></li>
+              <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
           {% else %}
-              <li class="special" id="cat_{{ status_code }}"><a href="{% append_to_get status=status_code %}">{{ status_verbose }}</a></li>
+              <li ><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
           {% endif %}
       {% endfor %}
-      
-      {% for cat in facets.categories.categories %}
-          {% if cat == facets.selected.category %}
-              <li class="active" id="cat_{{ cat.title_en|slugify }}"><a class="cancel" href="{% append_to_get category="" %}">{{ cat.title }}</a></li>
-          {% else %}
-              <li id="cat_{{ cat.title_en|slugify }}"><a href="{% append_to_get category=cat.pk %}">{{ cat.title }}</a></li>
-          {% endif %}
-      {% endfor %}
+
+        {% for cat in facets.categories.categories %}
+        <li><a data-filter-value=".{{ cat.title|slugify }}" href="#{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+        {% endfor %}
     </ul>
 
-     <ul id="exhibition_list" class="list tiles collapsed clearfix">
-        	{% if object_list %}
-        	{% else %}   
-        	    <h1>Ihre Auswahl ergab keine Ergebnisse… <br/><a href="{% append_to_get category="",status="" %}">(Filtereinstellungen zurücksetzen…)</a></h1>
-        	{% endif %}
-        	
-            {% for exhibition in object_list %}
-                <li class="item {% cycle "class1" "class2" "class3" %} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} {{ cat.title_en|slugify }}{% endfor %}" style="cursor: pointer">
-                    {% if exhibition.image %}
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
-                    {% endif %}
+     <ul id="container" class="list tiles collapsed clearfix">
+	{% if object_list %}
+	{% else %}   
+	    <h1>Ihre Auswahl ergab keine Ergebnisse… <br/><a href="{% append_to_get category="",status="" %}">(Filtereinstellungen zurücksetzen…)</a></h1>
+	{% endif %}
+	
+    {% for exhibition in object_list %}
+        <li class="item {% cycle "class1" "class2" "class3" %} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %} {% for cat in exhibition.categories.all %}{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %}" style="cursor: pointer">
+            {% if exhibition.image %}
+                <a class="img" href="{{ exhibition.get_url_path }}" data-background="({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})">
+                    <span class="spinner loading"></span>
+                </a>
+            {% endif %}
 
-                    <ul class="actions">
-                        <li><span class="add-favorite"></span></li>
-                        <li><span class="show-location"></span></li>
-                    </ul>
+            <ul class="actions">
+              <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
+              <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="show-location"></a></li>
+            </ul>
 
-                    <a href="{{ exhibition.get_url_path }}">
-                      <h3>{{ exhibition.museum.title }}</h3>
-                      <h4>{{ exhibition.title }}</h4>
-                      <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
-                    </a>
+            <a href="{{ exhibition.get_url_path }}">
+              <h3>{{ exhibition.museum.title }}</h3>
+              <h4>{{ exhibition.title }}</h4>
+              <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+            </a>
 
-                    <div class="description">
-                        <p>{{ exhibition.get_rendered_description|striptags }}</p>
-                        <a class="more" href="{{ exhibition.get_url_path }}">more</a>
-                    </div>
-                   	
-                    {% with exhibition.museum as museum %}
-	                    {% if museum.latitude %}
-	                        <script type="text/javascript">
-	                        //<![CDATA[
-	                        (function(undefined) {
-	                            var iIndex = aGeopositions.length;
-	                            aGeopositions[iIndex] = {
-	                                latitude: {{ museum.latitude }},
-	                                longitude: {{ museum.longitude }},
-	                                content: '<div class="contact-mapped" onclick="location.href=\'{{ museum.get_url_path }}\';">'
-	                                + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
-	                                + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
-	                                + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'
-	                                + '<hr />'
-	                                + '<a href="{{ museum.get_url_path }}">{% trans "more" %}</a>'
-	                                + '</div>'
-	                            }
-	                        }());
-	                        //]]>
-	                        </script>
-	                    {% endif %}
-                    {% endwith %}
-                </li>
-                
-            {% endfor %}
+            <div class="description">
+                <p>{{ exhibition.get_rendered_description|striptags }}</p>
+                <a class="more" href="{{ exhibition.get_url_path }}">more</a>
+            </div>
+           	
+            {% with exhibition.museum as museum %}
+              {% if museum.latitude %}
+                  <script type="text/javascript">
+                  //<![CDATA[
+                  (function(undefined) {
+                      var iIndex = aGeopositions.length;
+                      aGeopositions[iIndex] = {
+                          latitude: {{ museum.latitude }},
+                          longitude: {{ museum.longitude }},
+                          content: '<div class="contact-mapped" onclick="location.href=\'{{ museum.get_url_path }}\';">'
+                          + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
+                          + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
+                          + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'
+                          + '<hr />'
+                          + '<a href="{{ museum.get_url_path }}">{% trans "more" %}</a>'
+                          + '</div>'
+                      }
+                  }());
+                  //]]>
+                  </script>
+              {% endif %}
+            {% endwith %}
+        </li>
+    {% endfor %}
     </ul>
     
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE"></script>

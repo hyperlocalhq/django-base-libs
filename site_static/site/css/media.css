@@ -1,0 +1,15 @@
+@media screen and (min-width: 960px) {
+  #wrapper > * > .inner {
+    width: 1000px;
+    margin: auto;
+    position: relative; } }
+@media screen and (max-width: 479px), screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 640px) {
+  #wrapper > * > .inner {
+    width: 100%;
+    margin: auto;
+    position: relative; } }
+@media screen and (min-width: 480px) and (max-width: 959px), screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 960px) and (max-width: 1919px) {
+  #wrapper > * > .inner {
+    width: 100%;
+    margin: auto;
+    position: relative; } }

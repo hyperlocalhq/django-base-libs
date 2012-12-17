@@ -367,23 +367,26 @@ $(document).ready(function(){
 
                 </article>
         {% endwith %}
+    </div>
+</div>  
+<div id="content" class="clearfix" style="background-color: rgba(0,0,0,0.025)">
+    <div class="inner">
 
-    <section>
-        <h2>{% trans "Museums with the same categories" %}</h2>
-        <ul id="kurze_zeit" class="list tiles small clearfix"> 
-            {% for museum in object.get_museums_with_the_same_categories %}
-                <li class="item">
-                    {% if museum.image %}
-                        <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                    {% endif %}
-                     <a href="{{ museum.get_url_path }}">
-                        <h3>{{ museum.title }}</h3>
-                        <h4>{{ museum.subtitle }}</h4>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </section>
+    <h2>{% trans "Museums with the same categories" %}</h2>
+    <ul id="kurze_zeit" class="list tiles small clearfix"> 
+        {% for museum in object.get_museums_with_the_same_categories %}
+            <li class="item">
+                {% if museum.image %}
+                    <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                {% endif %}
+                 <a href="{{ museum.get_url_path }}">
+                    <h3>{{ museum.title }}</h3>
+                    <h4>{{ museum.subtitle }}</h4>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
     <div id="controls">
         {% if prev_item %}
             <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>

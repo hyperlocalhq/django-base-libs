@@ -33,12 +33,14 @@
 		</div>
 
 	    
-	    {% include "utils/abc_filters.html" %}
     </div> -->
 
     <h1>Museen, Schlösser und Gedenkstätten</h1>
 
-    <ul class="filter clearfix">
+    
+
+
+    <!-- <ul class="filter clearfix" id="cathegories">
         <li class="title">Filter</li>
 
         <li class="special {% if not facets.selected.category and not facets.selected.open_on_mondays and not facets.selected.free_entrance %}active{% endif %} filter-all" id="all"><a href="{% append_to_get category="",open_on_mondays="",free_entrance="" %}">Alle Museen</a></li>
@@ -66,17 +68,35 @@
             {% endif %}
         {% endfor %}
     </ul>
+ -->
 
-    <ul id="museum_list" class="list tiles clearfix">
+    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
+    {% for item in abc_list %}
+      <li><a data-filter-value="{{ item.0 }}"  class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+    {% endfor %}
+    </ul>
+
+    <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
+        <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
+        {% for cat in facets.categories.categories %}
+        <li><a data-filter-value=".{{ cat.title|slugify }}" href="#{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+
+    <ul id="container" class="list tiles clearfix">
         {% for museum in object_list %}
-            <li class="item">
+            <li class="item {% for cat in museum.categories.all %}{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %} {{ item.1 }}">
+                
                 {% if museum.image %}
-                    <a class="img" href="{{ museum.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                    <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.image }}">
+                        <span class="spinner loading"></span>
+                    </a>
                 {% endif %}
 
                 <ul class="actions">
-                    <li><span class="add-favorite"></span></li>
-                    <li><span class="show-location"></span></li>
+                    <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
+                    <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="show-location"></a></li>
                 </ul>
 
                 <a href="{{ museum.get_url_path }}">
@@ -141,4 +161,5 @@
     }(jQuery));
     //]]>
     </script>
+
 {% endblock %}
