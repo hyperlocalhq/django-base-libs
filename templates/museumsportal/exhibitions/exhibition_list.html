@@ -21,14 +21,20 @@
 {% block bodyclass %}{% if "closing_soon" == facets.selected.status %}closing_soon{% endif %}{% endblock %}
 
 {% block content %}
-  	<!-- <div id="head_filter">
+  	<div id="head_filter">
   		<div id="gmap_toggle" class="">&nbsp;</div>
   		<div id="gmap_wrapper" class="">
   			<div id="gmap" style="width:1000px; height:200px"></div>
   		</div>	    
-    </div> -->
+    </div> 
 
     <h1>Sonderausstellungen der Berliner Museen</h1>
+
+    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
+        {% for item in abc_list %}
+          <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+        {% endfor %}
+    </ul>
 
     <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
         <li class="title">Filter</li>
@@ -54,7 +60,7 @@
 	{% endif %}
 	
     {% for exhibition in object_list %}
-        <li class="item {% cycle "class1" "class2" "class3" %} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %} {% for cat in exhibition.categories.all %}{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %}" style="cursor: pointer">
+        <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %} {% for cat in exhibition.categories.all %}{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %}" style="cursor: pointer">
             {% if exhibition.image %}
                 <a class="img" href="{{ exhibition.get_url_path }}" data-background="({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})">
                     <span class="spinner loading"></span>
