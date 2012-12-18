@@ -17,7 +17,6 @@
 
 {% block content %}
 
-	
 	<div >
 		<div id="gmap_toggle" class="">&nbsp;</div>
 		<div id="gmap_wrapper" class="">
@@ -26,9 +25,6 @@
     </div>
 
     <h1>Museen, Schlösser und Gedenkstätten</h1>
-
-    
-
 
     <!-- <ul class="filter clearfix" id="cathegories">
         <li class="title">Filter</li>
@@ -62,7 +58,7 @@
 
     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
     {% for item in abc_list %}
-      <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+      <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
     {% endfor %}
     </ul>
 

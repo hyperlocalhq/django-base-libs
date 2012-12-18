@@ -163,7 +163,6 @@
     
     function map_filter(event, param) {
         var categories = param.filter;
-        console.log(categories);
         $(aMarkers).each(function() {
             var oMarker = this;
             var bVisible = true;
@@ -171,8 +170,6 @@
             var oRe, sCat;
             for(i=0; i<iLen; i++) {
                 sCat = categories[i].replace(/\./, "");
-                //console.log(categories[i]);
-                //console.log(sCat);
                 oRe = new RegExp("\\b" + sCat + "\\b");
                 if (!oMarker.categories.match(oRe)) {
                     bVisible = false;
