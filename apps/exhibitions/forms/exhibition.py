@@ -16,6 +16,9 @@ SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
+class SecondarySubmit(layout.Submit):
+    field_classes = "btn"
+
 class BasicInfoForm(ModelForm):
     class Meta:
         model = Exhibition
@@ -107,8 +110,8 @@ class BasicInfoForm(ModelForm):
             css_class="fieldset-categories-tags",
             ))
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('reset', _('Reset')),
             layout.Submit('submit', _('Next')),
+            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
             ))
         
         self.helper.layout = layout.Layout(
@@ -156,8 +159,8 @@ class OpeningForm(forms.Form):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('reset', _('Reset')),
             layout.Submit('submit', _('Next')),
+            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
             ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -456,8 +459,8 @@ class PricesForm(ModelForm):
                 ))
 
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('reset', _('Reset')),
             layout.Submit('submit', _('Next')),
+            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
             ))
         
         self.helper.layout = layout.Layout(
@@ -500,8 +503,8 @@ class AccessibilityForm(ModelForm):
             ))
 
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('reset', _('Reset')),
             layout.Submit('submit', _('Save')),
+            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
             ))
         
         self.helper.layout = layout.Layout(
