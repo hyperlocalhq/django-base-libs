@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block stylesheet %}
     <link href="{{ JETSON_MEDIA_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -6,6 +7,13 @@
 {% endblock %}
 
 {% block content %}
+
+  {% if exhibition %}
+      <h1>{% blocktrans with exhibition_title=exhibition.title %}Edit {{ exhibition_title }}{% endblocktrans %}</h1>
+  {% else %}
+      <h1>{% trans "Add new exhibition" %}</h1>
+  {% endif %}
+
     {% include "utils/step_list.html" %}
     {% block multistep_form %}
     {% endblock %}

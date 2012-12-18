@@ -19,10 +19,12 @@ select {
   -webkit-border-radius: 2px;
   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
   -webkit-user-select: none;
+  border-radius: 0px;
+  box-shadow: none;
 
   cursor: pointer;
 
-  background-image: url("../img/meta.svg");
+  background-image: url("../img/icons/icons-05.svg");
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;
@@ -43,7 +45,7 @@ select {
   }
 }
 
-.button, 
+.btn, 
 input[type=submit], 
 input[type=reset], 
 button {
@@ -51,11 +53,11 @@ button {
   border: none;
   background: none;
   text-shadow: none;
-  background-color: $blue;
   font-size: 22px;
   line-height: 18px;
-  color: white;
+  color: black;
   padding: 18px;
+  background-color: rgba(0,0,0,0.05);
 
   &:hover { 
     background-color: black;
@@ -64,8 +66,16 @@ button {
   &:active {
   }
 
-
+  &.btn-primary { background-color: $blue; color: white;}
+  &.btn-warning { background-color: $red; color: white;}
+  &.btn-danger  { background-color: $red; color: white;}
+  &.btn-success { background-color: $green; color: white;}
+  &.btn-info    { background-color: $yellow; color: white;}
+  &.btn-inverse { background-color: black; color: white;}
 }
+
+
+
 
 input[type=radio] {}
 
@@ -164,9 +174,21 @@ textarea {
 form { 
   width: 100%;
 
+
+  & *::-webkit-scrollbar-corner,
   & *::-webkit-scrollbar {
-    width: 2px;
+    width: 10px;
+    height: 10px;
+    opacity: 0.5;
+    background-color: rgba(0,0,0,0.05);
   }
+
+  & *::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: black;
+    background-color: rgba(0,0,0,0.5);
+  }
+
 } 
 
 .form-steps { 
@@ -220,9 +242,17 @@ fieldset {
     margin-bottom: 10px !important;
     border-collapse: collapse;
 
+    &.flex { 
+      table-layout: auto !important;
+
+      > div{ 
+        width: auto !important;
+      }
+    }
+
     > div{ 
       display: table-cell;
-      border-right: 10px solid white;
+      border-right: 20px solid white !important;
       width: 100% !important;
 
       &:last-child { 
@@ -234,7 +264,6 @@ fieldset {
 }
 
 form table { 
-  table-layout: fixed !important;
   border-collapse: collapse !important;
   width: 100% !important;
   
@@ -245,16 +274,24 @@ form table {
     color: rgba(0, 0, 0, 0.5);
 
     &:first-child { 
+      width: 1px;
     }
   }
 
   th, td { 
-    border-right: 1px solid white;
-    border-bottom: 10px solid white;
-    width: 1% !important;
+    border-right: 20px solid white !important;
+    border-left: none !important;
+    border-top: none !important;
+    border-bottom: 20px solid white !important;
+    width: auto !important;
 
     &:last-child { 
       border-right: 0px solid white;
+    }
+
+    &:first-child{
+      label { 
+      }
     }
 
     div, input { 
@@ -285,14 +322,49 @@ legend {
   font-size: 22px;
   line-height: 40px;
   padding-top: 20px;
+  padding-bottom: 20px !important;
 
   &+.control-group {
     margin-top: 30px;
   }
 }
 
-label { color: rgba(0,0,0,0.5);}
+label { 
+  color: rgba(0,0,0,0.5);
+  position: relative;
+  
+  .lang {
+    font-size: 11px;
+    opacity: 0.5
+  }
+}
+.inline {
+  padding-bottom: 20px;
+  display: block;
 
+  .control-group {
+    display: inline-block;
+    white-space: nowrap;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    margin: 0px;
+    padding: 0px;
+    label { 
+      padding-left: 20px !important; 
+      position: relative; 
+      padding-right: 20px;
+
+      &.radio input[type="radio"], &.checkbox input[type="checkbox"] {
+        margin: 0px !important;
+        display: block;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+
+  
+}
 .form-actions { 
   display: block; width: 100%;
   box-sizing: border-box !important;
@@ -303,4 +375,12 @@ label { color: rgba(0,0,0,0.5);}
   border: none;
   padding: 0;
   margin: 0;
+  padding-bottom: 30px;
 }
+
+
+legend + .control-group,
+.form-horizontal .control-group {
+  margin-top: 0px;
+}
+

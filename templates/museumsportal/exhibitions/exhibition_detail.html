@@ -169,8 +169,8 @@
                     <dd>{{ exhibition.museum.street_address }}</dd>
                     {% if exhibition.museum.street_address2 %}<dd>{{ exhibition.museum.street_address2 }}</dd>{% endif %} 
                     <dd>{{ exhibition.museum.postal_code }} {{ exhibition.museum.city }}</dd>
-                    <dd><a onclick="openGoogleMaps();" class="button" id="map_link" title="Karte" href="#">Googlemaps</a>
-                    <a class="toggle_bvg button" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a></dd>
+                    <dd><a onclick="openGoogleMaps();" class="btn" id="map_link" title="Karte" href="#">Googlemaps</a>
+                    <a class="toggle_bvg btn" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a></dd>
                 </dl>
                 <dl id="bvg_widget" class="bvg">
                     {% if LANGUAGE_CODE == "de" %}

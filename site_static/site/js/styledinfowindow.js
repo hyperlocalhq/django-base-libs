@@ -132,7 +132,7 @@ StyledInfoWindow.prototype.createElement = function() {
         } else {
             contentDiv.appendChild(this.content_);
         }
-        contentDiv.className="inner";
+        contentDiv.className="wrapper";
         var closeImg = document.createElement('img');
         closeImg.src = window.settings.STATIC_URL + 'site/img/gmap/closebigger.gif';
         closeImg.className="close";

@@ -1,15 +1,31 @@
 
+#gmap * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
 .location {
 
-    text-align: center;
-    
+
+    .wrapper { 
+      text-align: center;
+      height: 0;
+    }
+
     .inner { 
         text-align: left;
         display: inline-block;
         background-color: rgba(255,255,255,0.95);
         box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2) !important;
         padding: 20px;
-        font-size: 14px;
+        font-size: 15px;
+        height: 130px;
+        top: -125px !important;
         line-height: 19px;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -33,9 +49,14 @@
           display: none;
         }
       
-        .button { 
-            top: 10px;
+        .btn { 
+            top: 14px;
             position: relative;
+            font-size: inherit;
+            line-height: inherit;
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
         }
         &:after {
           content: "";
