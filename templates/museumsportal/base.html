@@ -79,7 +79,7 @@
             }
             var selector = isoFilters.join('');
             $container.isotope({ filter: selector });
-            
+            $container.trigger("map_filter", { filter: isoFilters});
             return false;
         });
     });

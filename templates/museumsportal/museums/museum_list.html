@@ -106,7 +106,7 @@
                         aGeopositions[iIndex] = {
                             latitude: {{ museum.latitude }},
                             longitude: {{ museum.longitude }},
-                            categories: ['initial_{{ museum.title|slugify|slice:"0:1" }}'{% for cat in museum.categories.all %}, 'cat_{{ cat.title|slugify }}'{% endfor %}],
+                            categories: "initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                             content: '<div class="inner" onclick="location.href=\'{{ museum.get_url_path }}\';">'
                             + '{% if museum.image %}<span class="img" style="background-image: url({{ UPLOADS_URL }}{{ museum.image.path }})"></span>{% endif %}'
                             + '<h3>{{ museum.title }}</h3>'
