@@ -17,7 +17,7 @@
 
 {% block content %}
 
-	<div >
+	<div>
 		<div id="gmap_toggle" class="">&nbsp;</div>
 		<div id="gmap_wrapper" class="">
 			<div id="gmap" style="width:1000px; height:400px"></div>
@@ -68,7 +68,6 @@
         <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
         {% endfor %}
     </ul>
-
 
     <ul id="container" class="list tiles clearfix">
         {% for museum in object_list %}
