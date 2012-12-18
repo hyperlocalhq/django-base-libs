@@ -27,7 +27,7 @@
     <script src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
     <script src="{{ STATIC_URL }}site/js/hammer.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
-	  <script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+	<script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
 
     <script type="text/javascript">
 
@@ -80,6 +80,7 @@
             var selector = isoFilters.join('');
             $container.isotope({ filter: selector });
             $container.trigger("map_filter", { filter: isoFilters});
+            $("#container .isotope-item:not(.isotope-hidden) .img").trigger("appear");
             return false;
         });
     });
