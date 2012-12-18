@@ -80,7 +80,7 @@
             var selector = isoFilters.join('');
             $container.isotope({ filter: selector });
             $container.trigger("map_filter", { filter: isoFilters});
-            $("#container .isotope-item:not(.isotope-hidden) .img").trigger("appear");
+            $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
             return false;
         });
     });
