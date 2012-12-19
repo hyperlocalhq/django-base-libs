@@ -80,18 +80,25 @@
             var selector = isoFilters.join('');
             $container.isotope({ filter: selector });
             
+            $("#container .img:in-viewport").lazyload();
+
             return false;
         });
     });
     $(function(){
         $("#container .img").lazyload();
     });
-    
+
+    jQuery(window).bind('scrollstop', function(e){
+        $("#container .img:in-viewport").lazyload();
+    });
+
     $(document).ready(function () {
        if ($("[rel=tooltip]").length) {
            $("[rel=tooltip]").tooltip();
        }
     });
+
     </script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
@@ -179,7 +186,17 @@
 	        }
 	    }
 	});
-	</script>    
-
+	</script>
+    <script >
+        $('#container.collapsed li').click(function() {
+            if ($(this).hasClass('open')) {
+                $(this).toggleClass('open');
+            } 
+            else {
+                $(this).parent().find('li.open').removeClass('open');
+                $(this).toggleClass('open');
+            }
+        });
+    </script>
 </body>
 </html>

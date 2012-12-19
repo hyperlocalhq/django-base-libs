@@ -349,16 +349,24 @@ label {
     -moz-box-sizing: border-box !important;
     margin: 0px;
     padding: 0px;
+    margin-right: 5px;
+
     label { 
-      padding-left: 20px !important; 
-      position: relative; 
-      padding-right: 20px;
+      position: relative;
+      padding: 10px !important;
+      background-color: rgba(0,0,0,0.05);
+      line-height: 10px;
+      height: 10px !important;
+      display: inline-block !important;
+      min-height: auto;
 
       &.radio input[type="radio"], &.checkbox input[type="checkbox"] {
         margin: 0px !important;
-        display: block;
-        position: absolute;
-        left: 0;
+        display: inline-block;
+        margin-right: 5px !important;
+        bottom: -2px;
+        position: relative;
+        display: none;
       }
     }
   }

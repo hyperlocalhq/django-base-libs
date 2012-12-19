@@ -103,269 +103,282 @@ $(document).ready(function(){
 {% endwith %}
 {% endblock %}
 
-{% block content %}
-    
-        {% with object as museum %}
+{% block content %}    
+    {% with object as museum %}
+        <section class="sidebar">
+            <ul class="accordion" id="accordion2">  
+                <li class="accordion-group">  
+                  <h4 class="accordion-heading">  
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">  
+                      {% trans "Location" %}  
+                    </a>  
+                  </h4>  
+                  <ul id="collapseOne" class="accordion-body collapse" style="height: 0px; ">  
+                    <li class="accordion-inner">  
+                        <dl class="address">
+                            <dt>{% trans "Address" %}</dt>
+                            <dd>{{ museum.street_address }}</dd>
+                            {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
+                            <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+                        </dl>
 
-                <section class="sidebar">
-                    <ul class="accordion" id="accordion2">  
-                        <li class="accordion-group">  
-                          <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">  
-                              {% trans "Location" %}  
-                            </a>  
-                          </h4>  
-                          <ul id="collapseOne" class="accordion-body collapse" style="height: 0px; ">  
-                            <li class="accordion-inner">  
-                                <dl class="address">
-                                    <dt>{% trans "Address" %}</dt>
-                                    <dd>{{ museum.street_address }}</dd>
-                                    {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
-                                    <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
-                                </dl>
+                        {% if museum.phone %}
+                            <dl class="phone inset">
+                                <dt>{% trans "Tel" %}</dt>
+                                <dd>{{ museum.phone }}</dd>
+                            </dl>
+                        {% endif %} 
+                        
+                        {% if museum.fax %}
+                            <dl class="fax inset">
+                                <dt>{% trans "Fax" %}</dt>
+                                <dd>{{ museum.fax }}</dd>
+                            </dl>
+                        {% endif %} 
+                        
+                        {% if museum.website %}
+                            <dl class="website inset">
+                                <dt>{% trans "Web" %}</dt>
+                                <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
+                            </dl>
+                        {% endif %} 
+                    </li>
+                    <li class="accordion-inner">  
+                        <a class="" onclick="openGoogleMaps();" id="map_link" title="Karte" href="#">Googlemaps</a>
+                        <a class="toggle_bvg" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a>
+                    </li>
+                  </ul>  
+                </li>
+                <li class="accordion-group">  
+                  <h4 class="accordion-heading">  
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">  
+                      Öffnungszeiten 
+                    </a>  
+                  </h4>  
+                  <ul id="collapseTwo" class="accordion-body collapse" style="height: 0px; ">  
+                    <li class="accordion-inner">  
+                        <dl class="address">
+                            <dt>{% trans "Address" %}</dt>
+                            <dd>{{ museum.street_address }}</dd>
+                            {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
+                            <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+                        </dl>
+                    </li>
+                  </ul>  
+                </li>  
+              </ul> 
+        </section>
+        <section class="sidebar" style="display: none">
+          <dl id="bvg_widget" class="bvg">
+              	{% if LANGUAGE_CODE == "de" %}
+              	    <dt>So erreichen Sie uns</dt>
+              	    <dd>
+                        <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
+                        <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
+                            <fieldset class="clearfix">
+                            
+                                <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
 
-                                {% if museum.phone %}
-                                    <dl class="phone inset">
-                                        <dt>{% trans "Tel" %}</dt>
-                                        <dd>{{ museum.phone }}</dd>
-                                    </dl>
-                                {% endif %} 
+                                <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
+                                <input type="hidden" name="_charset_" value="utf-8"/>
+                                <input type="hidden" value="yes" name="start"/>
+                            
+                                <ul>
+                                <li>
+                                    <label for="wdgt_from">Von</label>
+                                    <input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
+                                </li>
                                 
-                                {% if museum.fax %}
-                                    <dl class="fax inset">
-                                        <dt>{% trans "Fax" %}</dt>
-                                        <dd>{{ museum.fax }}</dd>
-                                    </dl>
-                                {% endif %} 
+                                <li>
+                                    <label for="wdgt_to">Nach</label>
+                                    
+                                    <textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }} {{ museum.city }}</textarea>
+                                </li>
                                 
-                                {% if museum.website %}
-                                    <dl class="website inset">
-                                        <dt>{% trans "Web" %}</dt>
-                                        <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
-                                    </dl>
-                                {% endif %} 
-                            </li>
-                            <li class="accordion-inner">  
-                                <a class="" onclick="openGoogleMaps();" id="map_link" title="Karte" href="#">Googlemaps</a>
-                                <a class="toggle_bvg" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a>
-                            </li>
-                          </ul>  
-                        </li>
-                        <li class="accordion-group">  
-                          <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">  
-                              Öffnungszeiten 
-                            </a>  
-                          </h4>  
-                          <ul id="collapseTwo" class="accordion-body collapse" style="height: 0px; ">  
-                            <li class="accordion-inner">  
-                                <dl class="address">
-                                    <dt>{% trans "Address" %}</dt>
-                                    <dd>{{ museum.street_address }}</dd>
-                                    {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
-                                    <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
-                                </dl>
-                            </li>
-                          </ul>  
-                        </li>  
-                      </ul> 
-                </section>
-                
-                <section class="sidebar" style="display: none">
-                  <dl id="bvg_widget" class="bvg">
-                      	{% if LANGUAGE_CODE == "de" %}
-                      	    <dt>So erreichen Sie uns</dt>
-                      	    <dd>
-                                <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
-                                <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
-                                    <fieldset class="clearfix">
-                                    
-                                        <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
-    
-                                        <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
-                                        <input type="hidden" name="_charset_" value="utf-8"/>
-                                        <input type="hidden" value="yes" name="start"/>
-                                    
-                                        <ul>
-                                        <li>
-                                            <label for="wdgt_from">Von</label>
-                                            <input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
-                                        </li>
-                                        
-                                        <li>
-                                            <label for="wdgt_to">Nach</label>
-                                            
-                                            <textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }} {{ museum.city }}</textarea>
-                                        </li>
-                                        
-                                        <li>
-                                            <label for="wdgt_date">Am</label>
-                                            <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-                                        </li>
-                                        
-                                        <li>
-                                            <label for="wdgt_time">Um</label>
-                                            <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
-                                        </li>
-                                        
-                                        <li class="radios">
-                                            <label for="wdgt_arr">Ankunft</label>
-                                            <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
-                                            
-                                            <label for="wdgt_dep">Abfahrt</label>
-                                            <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
-                                            </li>
-                                            <li>
-                                                <input id="submit" type="submit" name="start" value="Anfrage abschicken">
-                                            </li>
-                                            </ul>
-                                    </fieldset>
-                                </form>
-                      	    </dd>
-                      	{% else %}
-                      	    <dt>How to get there</dt>
-                      	    <dd>
-                                <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
+                                <li>
+                                    <label for="wdgt_date">Am</label>
+                                    <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                                </li>
                                 
-                                <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/query.bin/en?ld=0.1" name="fahrinfo_formular" id="fahrinfo_formular">
-                                    <fieldset class="clearfix">
+                                <li>
+                                    <label for="wdgt_time">Um</label>
+                                    <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
+                                </li>
+                                
+                                <li class="radios">
+                                    <label for="wdgt_arr">Ankunft</label>
+                                    <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
                                     
-                                        <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
-                                        <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
-                                        
-                                        <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
-                                        <input type="hidden" name="_charset_" value="utf-8"/>
-                                        <input type="hidden" value="yes" name="start"/>
-                                        
-                                        <ul>
-                                        <li>
-                                            <label for="wdgt_from">From</label>
-                                            <input placeholder="Location" type="text" name="from" id="wdgt_from" value="">
-                                        </li>
-                                        
-                                        <li>
-                                            <label for="wdgt_to">To</label>
-                                            
-                                            <textarea name="to" id="wdgt_to" >{{ museum.postal_code }} {{ museum.city }} &#10;{{ museum.street_address }}</textarea>
-                                        </li>
-                                        
-                                        <li>
-                                            <label for="wdgt_date">Date</label>
-                                            <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-                                        </li>
-                                        
-                                        <li>
-                                            <label for="wdgt_time">Time</label>
-                                            <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
-                                        </li>
-                                        
-                                        <li class="radios">
-                                            <label for="wdgt_arr">Arrival</label>
-                                            <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
-                                            
-                                            <label for="wdgt_dep">Departure</label>
-                                            <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
-                                            </li>
-                                            <li>
-                                                <input id="submit" type="submit" name="start" value="Submit request">
-                                            </li>
-                                            </ul>
-                                    </fieldset>
-                                </form>
-                      	    </dd>
-                      	{% endif %}
-                      	<script type="text/javascript">
-                      	$('#fahrinfo_formular').submit(function() {
-                            $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
-                            $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
-                      	})
-                      	</script>
-                      	
-                      	
-	                </dl>
-	                
-	                {% if museum.phone %}
-		                <dl class="phone">
-		                    <dt>{% trans "Phone" %}</dt>
-		                    <dd>{{ museum.phone }}</dd>
-		                </dl>
-	                {% endif %} 
-	                
-	                {% if museum.fax %}
-		                <dl class="fax">
-		                    <dt>{% trans "Fax" %}</dt>
-		                    <dd>{{ museum.fax }}</dd>
-		                </dl>
-	                {% endif %} 
-	                
-	                {% if museum.website %}
-		                <dl class="website">
-		                    <dt>{% trans "Website" %}</dt>
-		                    <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
-		                </dl>
-	                {% endif %} 
-	                
-	                <dl class="categories">
-	                    <dt>{% trans "Categories" %}</dt>
-	                    <dd>
-	                        {% for cat in museum.categories.all %}
-	                            <a href="{% if request.LANGUAGE_CODE == "de" %}{% url de:museum_list %}{% else %}{% url en:museum_list %}{% endif %}?category={{ cat.id }}">{{ cat.title }}</a>{% if not forloop.last %}, {% endif %}
-	                        {% endfor %}
-	                    </dd>
-	                </dl>
-	                
-	                {% if museum.open_on_mondays or museum.free_entrance %}
-		                <dl class="additional">
-		                    <dt>{% trans "Plus" %}</dt>
-		                    {% if museum.open_on_mondays %}
-		                        <dd>
-		                            {% trans "Open on Mondays" %}
-		                        </dd>
-		                    {% endif %}
-		                    {% if museum.free_entrance %}
-		                        <dd>
-		                       	 {% trans "Free entrance" %}
-		                        </dd>
-		                    {% endif %}
-		                </dl>
-	                {% endif %}
-                </section>
-                   
-                <article>
-
-                    {% if museum.image %}
-                        <ul id="slide">
-                        <li>
-                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                            <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                        </li>
-                        <li>
-                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                            <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                        </li>
-                    </ul>
+                                    <label for="wdgt_dep">Abfahrt</label>
+                                    <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
+                                    </li>
+                                    <li>
+                                        <input id="submit" type="submit" name="start" value="Anfrage abschicken">
+                                    </li>
+                                    </ul>
+                            </fieldset>
+                        </form>
+              	    </dd>
+              	{% else %}
+              	    <dt>How to get there</dt>
+              	    <dd>
+                        <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
+                        
+                        <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/query.bin/en?ld=0.1" name="fahrinfo_formular" id="fahrinfo_formular">
+                            <fieldset class="clearfix">
+                            
+                                <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
+                                <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
+                                
+                                <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
+                                <input type="hidden" name="_charset_" value="utf-8"/>
+                                <input type="hidden" value="yes" name="start"/>
+                                
+                                <ul>
+                                <li>
+                                    <label for="wdgt_from">From</label>
+                                    <input placeholder="Location" type="text" name="from" id="wdgt_from" value="">
+                                </li>
+                                
+                                <li>
+                                    <label for="wdgt_to">To</label>
+                                    
+                                    <textarea name="to" id="wdgt_to" >{{ museum.postal_code }} {{ museum.city }} &#10;{{ museum.street_address }}</textarea>
+                                </li>
+                                
+                                <li>
+                                    <label for="wdgt_date">Date</label>
+                                    <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                                </li>
+                                
+                                <li>
+                                    <label for="wdgt_time">Time</label>
+                                    <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
+                                </li>
+                                
+                                <li class="radios">
+                                    <label for="wdgt_arr">Arrival</label>
+                                    <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
+                                    
+                                    <label for="wdgt_dep">Departure</label>
+                                    <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
+                                    </li>
+                                    <li>
+                                        <input id="submit" type="submit" name="start" value="Submit request">
+                                    </li>
+                                    </ul>
+                            </fieldset>
+                        </form>
+              	    </dd>
+              	{% endif %}
+              	<script type="text/javascript">
+              	$('#fahrinfo_formular').submit(function() {
+                    $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
+                    $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
+              	})
+              	</script>
+              	
+              	
+            </dl>
+            
+            {% if museum.phone %}
+                <dl class="phone">
+                    <dt>{% trans "Phone" %}</dt>
+                    <dd>{{ museum.phone }}</dd>
+                </dl>
+            {% endif %} 
+            
+            {% if museum.fax %}
+                <dl class="fax">
+                    <dt>{% trans "Fax" %}</dt>
+                    <dd>{{ museum.fax }}</dd>
+                </dl>
+            {% endif %} 
+            
+            {% if museum.website %}
+                <dl class="website">
+                    <dt>{% trans "Website" %}</dt>
+                    <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
+                </dl>
+            {% endif %} 
+            
+            <dl class="categories">
+                <dt>{% trans "Categories" %}</dt>
+                <dd>
+                    {% for cat in museum.categories.all %}
+                        <a href="{% if request.LANGUAGE_CODE == "de" %}{% url de:museum_list %}{% else %}{% url en:museum_list %}{% endif %}?category={{ cat.id }}">{{ cat.title }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </dd>
+            </dl>
+            
+            {% if museum.open_on_mondays or museum.free_entrance %}
+                <dl class="additional">
+                    <dt>{% trans "Plus" %}</dt>
+                    {% if museum.open_on_mondays %}
+                        <dd>
+                            {% trans "Open on Mondays" %}
+                        </dd>
                     {% endif %}
-                    
-                    <div id="pager"></div>
+                    {% if museum.free_entrance %}
+                        <dd>
+                       	 {% trans "Free entrance" %}
+                        </dd>
+                    {% endif %}
+                </dl>
+            {% endif %}
+        </section>
+           
+        <article>
 
-                    <h1>{{ museum.title }} 
-                        {% if museum.subtitle %}
-                        <span>{{ museum.subtitle }}</span>
-                        {% endif %}
-                    </h1>
+            {% if museum.image %}
+                <ul id="slide">
+                <li>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                    <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                </li>
+                <li>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                    <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                </li>
+            </ul>
+            {% endif %}
+            
+            <div id="pager"></div>
 
-                    {{ museum.get_rendered_description }}
+            <h1>{{ museum.title }} 
+                {% if museum.subtitle %}
+                <span>{{ museum.subtitle }}</span>
+                {% endif %}
+            </h1>
 
-                </article>
+            {{ museum.get_rendered_description }}
+
+            <ul class="tags clearfix">
+                <li class="title">Tags</li>
+                <li><a href="#">Modern and Contemporary</a></li>
+                <li><a href="#">Thornton Dial</a></li>
+                <li><a href="#">Hard Truths: The Art of Thornton Dial</a></li>
+                <li><a href="#">Sesa Freden</a></li>
+                <li><a href="#">New School</a></li>
+                <li><a href="#">Never ending Story of Clarety</a></li>
+                <li><a href="#">Modern and Contemporary</a></li>
+                <li><a href="#">Thornton Dial</a></li>
+                <li><a href="#">Hard Truths: The Art of Thornton Dial</a></li>
+                <li><a href="#">Sesa Freden</a></li>
+                <li><a href="#">New School</a></li>
+                <li><a href="#">Never ending Story of Clarety</a></li>
+            </ul>
+
+        </article>
         {% endwith %}
     </div>
 </div>  
