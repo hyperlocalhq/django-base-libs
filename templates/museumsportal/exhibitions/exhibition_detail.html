@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications %}
+{% load base_tags i18n image_modifications tagging_tags %}
 
 
 {% block js %}
@@ -570,6 +570,23 @@
             <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
             
             {{ exhibition.get_rendered_description }}
+            
+            {% if exhibition.categories.count %}
+                <ul class="categories">
+                    {% for cat in exhibition.categories.all %}
+                        <li>{{ cat.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            {% tags_for_object exhibition as tags %}
+            {% if tags %}
+                <ul class="tags">
+                    {% for tag in tags %}
+                        <li>{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </article>
     {% endwith %}
     
