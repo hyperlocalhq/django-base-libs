@@ -110,11 +110,11 @@
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-1">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
                             {% trans "Location" %}  
                         </a>  
                     </h4>  
-                    <ul id="collapse-1" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-location" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">  
                             <dl class="address">
                                 <dt>{% trans "Address" %}</dt>
@@ -200,11 +200,11 @@
                 </li>
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-2">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                             {% trans "Opening times" %}
                         </a>  
                     </h4>  
-                    <ul id="collapse-2" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-opening-times" class="accordion-body collapse" style="height: 0px; ">
                         <li class="accordion-inner">
                             {% for season in museum.season_set.all %}
                                 <h5>{% trans "Season" %} {{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</h5>
@@ -314,11 +314,11 @@
                 </li>  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-3">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                             {% trans "Prices" %} 
                         </a>  
                     </h4>  
-                    <ul id="collapse-3" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-prices" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">
                             {% if museum.free_entrance %}
                                 {% trans "Free entrance" %}
@@ -390,11 +390,11 @@
                 </li>  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-4">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-services-accessibility">  
                             {% filter fix_ampersands %}{% trans "Services & Accessibility" %}{% endfilter %} 
                         </a>  
                     </h4>  
-                    <ul id="collapse-4" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-services-accessibility" class="accordion-body collapse" style="height: 0px; ">
                         <li class="accordion-inner">
                             {% if museum.accessibility or museum.accessibility_options.count %}
                                 <h5>{% trans "Accessibility" %}</h5>
@@ -507,11 +507,11 @@
                 {% if museum.mediation_offer %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-5">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">  
                                 {% trans "Mediation offer" %} 
                             </a>  
                         </h4>  
-                        <ul id="collapse-5" class="accordion-body collapse" style="height: 0px; ">  
+                        <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
                             <li class="accordion-inner">
                                 <h5>{% trans "Mediation offer" %}</h5>
                                 <div class="accessibility">
