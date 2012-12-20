@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications %}
+{% load base_tags i18n image_modifications tagging_tags %}
 
 {% block js %}
     <link href="{{ STATIC_URL }}site/shadowbox/shadowbox.css" rel="stylesheet" media="screen" type="text/css" />
@@ -17,7 +17,6 @@
                     width:      $(window).width(),
                     options:    {
                         onFinish: function(item) {
-                            /*var body = document.getElementById();*/
                             var latlng = new google.maps.LatLng({{ museum.latitude }}, {{ museum.longitude }});
                             var myOptions = {
                             mapTypeControl: true,
@@ -54,27 +53,7 @@
                                 shadow: oShadow,
                                 icon: oImage
                             });
-                            /*var map = new GMap2(body);
-                            map.setCenter(new GLatLng(37.4419, -122.1419), 13);
-        
-                            // add 10 markers to the map at random locations
-                            var bounds = map.getBounds();
-                            var southWest = bounds.getSouthWest();
-                            var northEast = bounds.getNorthEast();
-                            var lngSpan = northEast.lng() - southWest.lng();
-                            var latSpan = northEast.lat() - southWest.lat();
-                            for (var i = 0; i < 10; i++) {
-                                var point = new GLatLng(southWest.lat() + latSpan * Math.random(),
-                                    southWest.lng() + lngSpan * Math.random());
-                                map.addOverlay(new GMarker(point));
-                            }
-        
-                            // add some simple controls
-                            map.addControl(new GSmallMapControl());
-                            map.addControl(new GMapTypeControl());*/
-                            
-                            
-                            /*$("#bvg_widget").appendTo($("#"+Shadowbox.playerId))
+                            /*$("#bvg_widget").appendTo($("#" + Shadowbox.playerId))
                             
                             $(".toggle_widget").click(function () {
                                 $('#bvg_widget').toggleClass("mini");
@@ -110,11 +89,11 @@
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-1">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
                             {% trans "Location" %}  
                         </a>  
                     </h4>  
-                    <ul id="collapse-1" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-location" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">  
                             <dl class="address">
                                 <dt>{% trans "Address" %}</dt>
@@ -200,11 +179,11 @@
                 </li>
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-2">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                             {% trans "Opening times" %}
                         </a>  
                     </h4>  
-                    <ul id="collapse-2" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-opening-times" class="accordion-body collapse" style="height: 0px; ">
                         <li class="accordion-inner">
                             {% for season in museum.season_set.all %}
                                 <h5>{% trans "Season" %} {{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</h5>
@@ -314,11 +293,11 @@
                 </li>  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-3">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                             {% trans "Prices" %} 
                         </a>  
                     </h4>  
-                    <ul id="collapse-3" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-prices" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">
                             {% if museum.free_entrance %}
                                 {% trans "Free entrance" %}
@@ -390,11 +369,11 @@
                 </li>  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-4">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-services-accessibility">  
                             {% filter fix_ampersands %}{% trans "Services & Accessibility" %}{% endfilter %} 
                         </a>  
                     </h4>  
-                    <ul id="collapse-4" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-services-accessibility" class="accordion-body collapse" style="height: 0px; ">
                         <li class="accordion-inner">
                             {% if museum.accessibility or museum.accessibility_options.count %}
                                 <h5>{% trans "Accessibility" %}</h5>
@@ -507,11 +486,11 @@
                 {% if museum.mediation_offer %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-5">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">  
                                 {% trans "Mediation offer" %} 
                             </a>  
                         </h4>  
-                        <ul id="collapse-5" class="accordion-body collapse" style="height: 0px; ">  
+                        <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
                             <li class="accordion-inner">
                                 <h5>{% trans "Mediation offer" %}</h5>
                                 <div class="accessibility">
@@ -716,6 +695,23 @@
             </h1>
 
             {{ museum.get_rendered_description }}
+            
+            {% if museum.categories.count %}
+                <ul class="categories">
+                    {% for cat in museum.categories.all %}
+                        <li>{{ cat.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            {% tags_for_object museum as tags %}
+            {% if tags %}
+                <ul class="tags">
+                    {% for tag in tags %}
+                        <li>{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
         </article>
     {% endwith %}

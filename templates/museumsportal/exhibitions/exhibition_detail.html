@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications %}
+{% load base_tags i18n image_modifications tagging_tags %}
 
 
 {% block js %}
@@ -102,15 +102,16 @@
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-1">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
                             {% trans "Location" %}
                         </a>
                     </h4>
-                    <ul id="collapse-1" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-location" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">
                             {% if exhibition.street_address %}
                                 <dl class="address">
                                     <dt>{% trans "Address" %}</dt>
+                                    <dd>{{ exhibition.location_name }}</dd>
                                     <dd>{{ exhibition.street_address }}</dd>
                                     {% if exhibition.street_address2 %}<dd>{{ exhibition.street_address2 }}</dd>{% endif %} 
                                     <dd>{{ exhibition.postal_code }} {{ exhibition.city }}</dd>
@@ -119,33 +120,30 @@
                                 {% with exhibition.museum as museum %}
                                     <dl class="address">
                                         <dt>{% trans "Address" %}</dt>
+                                        <dd>{{ museum.title }}</dd>
                                         <dd>{{ museum.street_address }}</dd>
                                         {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                                         <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
                                     </dl>
                                 {% endwith %}
                             {% endif %}
-                        
-                        {% if museum.phone %}
-                            <dl class="phone inset">
-                                <dt>{% trans "Tel" %}</dt>
-                                <dd>{{ museum.phone }}</dd>
-                            </dl>
-                        {% endif %} 
-                        
-                        {% if museum.fax %}
-                            <dl class="fax inset">
-                                <dt>{% trans "Fax" %}</dt>
-                                <dd>{{ museum.fax }}</dd>
-                            </dl>
-                        {% endif %} 
-                        
-                        {% if museum.website %}
-                            <dl class="website inset">
-                                <dt>{% trans "Web" %}</dt>
-                                <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
-                            </dl>
-                        {% endif %} 
+                            {% if exhibition.organizing_museum %}
+                                <dl>
+                                    <dt>{% trans "Organizer" %}</dt>
+                                    <dd><a href="{{ exhibition.organizing_museum.get_url_path }}">{{ exhibition.organizing_museum.title }}</a></dd>
+                                </dl>
+                            {% else %}
+                                {% if exhibition.organizer_title %}
+                                    <dl>
+                                        <dt>{% trans "Organizer" %}</dt>
+                                        {% if exhibition.organizer_url_link %}
+                                            <dd><a href="{{ exhibition.organizer_url_link }}">{{ exhibition.organizer_title }}</a></dd>
+                                        {% else %}
+                                            <dd>{{ exhibition.organizer_title }}</dd>
+                                        {% endif %}
+                                    </dl>
+                                {% endif %}
+                            {% endif %}
                         </li>
                         <li class="accordion-inner">  
                             <a class="" onclick="openGoogleMaps();" id="map_link" title="Karte" href="#">Googlemaps</a>
@@ -155,11 +153,39 @@
                 </li>
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-2">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                            {% trans "When?" %}
+                        </a>
+                    </h4>
+                    <ul id="collapse-times" class="accordion-body collapse" style="height: 0px; ">  
+                        <li class="accordion-inner">
+                            {% if exhibition.permanent %}
+                                <p>{% trans "Permanent exhibition" %}</p>
+                            {% else %}
+                                <p>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</p>
+                            {% endif %}
+                            {% if exhibition.vernissage %}
+                                <dl>
+                                    <dt>{% trans "Vernissage" %}</dt>
+                                    <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}</dd>
+                                </dl>
+                            {% endif %} 
+                            {% if exhibition.finissage %}
+                                <dl>
+                                    <dt>{% trans "Finissage" %}</dt>
+                                    <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}</dd>
+                                </dl>
+                            {% endif %} 
+                        </li>
+                    </ul>  
+                </li>
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                             {% trans "Opening times" %}
                         </a>  
                     </h4>  
-                    <ul id="collapse-2" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-opening-times" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">
                             {% for season in exhibition.season_set.all %}
                                 <h5>{% trans "Season" %} {{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</h5>
@@ -269,11 +295,11 @@
                 </li>  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-3">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                             {% trans "Prices" %} 
                         </a>  
                     </h4>  
-                    <ul id="collapse-3" class="accordion-body collapse" style="height: 0px; ">  
+                    <ul id="collapse-prices" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">
                             {% if exhibition.free_entrance %}
                                 {% trans "Free entrance" %}
@@ -342,7 +368,28 @@
                             {% endif %}
                         </li>
                     </ul>  
-                </li>  
+                </li>
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
+                            {% trans "Accessibility" %}
+                        </a>
+                    </h4>
+                    <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
+                        <li class="accordion-inner">
+                            {% if exhibition.suitable_for_disabled %}
+                                <p>{% trans "Suitable for disabled" %}</p>
+                            {% else %}
+                                <p>{% trans "Not suitable for disabled" %}</p>
+                            {% endif %}
+                            {% if exhibition.suitable_for_disabled_info %}
+                                <div class="accessibility-desc">
+                                    {{ exhibition.get_rendered_suitable_for_disabled_info }}
+                                </div>
+                            {% endif %}
+                        </li>
+                    </ul>  
+                </li>
             </ul> 
         </section>
             
@@ -523,6 +570,23 @@
             <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
             
             {{ exhibition.get_rendered_description }}
+            
+            {% if exhibition.categories.count %}
+                <ul class="categories">
+                    {% for cat in exhibition.categories.all %}
+                        <li>{{ cat.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            {% tags_for_object exhibition as tags %}
+            {% if tags %}
+                <ul class="tags">
+                    {% for tag in tags %}
+                        <li>{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </article>
     {% endwith %}
     
