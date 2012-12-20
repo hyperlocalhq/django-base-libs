@@ -5,26 +5,28 @@
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
 	<script type="text/javascript">
-	$(function() {
-        var scroller = new StickyScroller("#head_filter", {
-            start: $('#head_filter').offset().top,
-            margin: 0
-        });
-	});
+	//$(function() {
+    //    var scroller = new StickyScroller("#head_filter", {
+    //       start: $('#head_filter').offset().top,
+    //        margin: 0
+    //    });
+	//});
+    var aGeopositions = [];
     var settings = {
         STATIC_URL: "{{ STATIC_URL }}"
     }
-    var aGeopositions = [];
     </script>
 {% endblock %}
 
-{% block bodyclass %}{% if "closing_soon" == facets.selected.status %}closing_soon{% endif %}{% endblock %}
+{% block bodyclass %}map_visible {% if "closing_soon" == facets.selected.status %}closing_soon{% endif %}{% endblock %}
 
 {% block content %}
+    <div>
   		<div id="gmap_toggle" class="">&nbsp;</div>
   		<div id="gmap_wrapper" class="">
-  			<div id="gmap" style="width:1000px; height:200px"></div>
-  		</div>	   
+  			<div id="gmap" style="width:1000px; height:400px"></div>
+  		</div>
+    </div>
 
     <h1>Sonderausstellungen der Berliner Museen</h1>
 
@@ -35,7 +37,6 @@
     </ul>
 
     <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
-        <li class="title">Filter</li>
         <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
 
         {% for status_code, status_verbose in facets.categories.statuses %}
@@ -47,7 +48,7 @@
       {% endfor %}
 
         {% for cat in facets.categories.categories %}
-        <li><a data-filter-value=".{{ cat.title|slugify }}" href="#{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+        <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
         {% endfor %}
     </ul>
 
@@ -58,13 +59,18 @@
 	{% endif %}
 	
     {% for exhibition in object_list %}
-        <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %} {% for cat in exhibition.categories.all %}{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %}" style="cursor: pointer">
+        <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}" style="cursor: pointer">
             {% if exhibition.image %}
-                <a class="img" data-background="({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})">
+                <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}">
                     <span class="spinner loading"></span>
                     <span class="overlay"></span>
                 </a>
-            {% endif %}
+            {% else %}{% if exhibition.museum.image %}
+                <a class="img" href="{{ exhibition.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ exhibition.museum.image }}">
+                    <span class="spinner loading"></span>
+                    <span class="overlay"></span>
+                </a>
+            {% endif %}{% endif %}
 
             <ul class="actions">
               <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
@@ -81,7 +87,7 @@
                 <p>{{ exhibition.get_rendered_description|striptags }}</p>
                 <a class="more" href="{{ exhibition.get_url_path }}">more</a>
             </div>
-           	
+            
             {% with exhibition.museum as museum %}
               {% if museum.latitude %}
                   <script type="text/javascript">
@@ -91,7 +97,8 @@
                       aGeopositions[iIndex] = {
                           latitude: {{ museum.latitude }},
                           longitude: {{ museum.longitude }},
-                          content: '<div class="contact-mapped" onclick="location.href=\'{{ museum.get_url_path }}\';">'
+                          categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
+                          content: '<div class="inner" onclick="location.href=\'{{ museum.get_url_path }}\';">'
                           + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
                           + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
                           + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'
@@ -105,7 +112,7 @@
               {% endif %}
             {% endwith %}
         </li>
-    {% endfor %}
+        {% endfor %}
     </ul>
     
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE"></script>

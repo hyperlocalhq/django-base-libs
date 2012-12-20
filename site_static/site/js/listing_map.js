@@ -44,6 +44,9 @@
             ).bind(
                 'after_list_load',
                 after_list_load
+            ).bind(
+                'map_filter',
+                map_filter
             );
             if (!location.hash) {
                 $oList.trigger('after_list_load');
@@ -137,6 +140,7 @@
                 });
             }(oMarker, aPos[i]['content']));
 
+            oMarker.categories = aPos[i]['categories'];
             aMarkers.push(oMarker);
             aPoints.push(oPoint);
             
@@ -155,6 +159,25 @@
             fit_map(oMap, aPoints);
         }
 
+    }
+    
+    function map_filter(event, param) {
+        var categories = param.filter;
+        $(aMarkers).each(function() {
+            var oMarker = this;
+            var bVisible = true;
+            var iLen = categories.length;
+            var oRe, sCat;
+            for(i=0; i<iLen; i++) {
+                sCat = categories[i].replace(/\./, "");
+                oRe = new RegExp("\\b" + sCat + "\\b");
+                if (!oMarker.categories.match(oRe)) {
+                    bVisible = false;
+                    break;
+                }
+            }
+            oMarker.setVisible(bVisible);
+        });
     }
     
     function fit_map(oMap, aPoints) {
