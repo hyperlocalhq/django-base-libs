@@ -10,6 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from base_libs.models.settings import MARKUP_HTML_WYSIWYG
+
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
@@ -813,6 +815,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+        setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.tags = form_step_data['basic']['tags'] 
 
     fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
@@ -830,7 +833,21 @@ def save_data(form_steps, form_step_data, instance=None):
             ]
     for f in fields:
         setattr(instance, f, form_step_data['prices'][f])
-    
+
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
+        for f in [
+            'admission_price_info_%s' % lang_code,
+            'reduced_price_info_%s' % lang_code,
+            'arrangements_for_children_%s' % lang_code,
+            'free_entrance_for_%s' % lang_code,
+            'family_ticket_%s' % lang_code,
+            'group_ticket_%s' % lang_code,
+            'free_entrance_times_%s' % lang_code,
+            'yearly_ticket_%s' % lang_code,
+            'other_tickets_%s' % lang_code,
+            ]:
+            setattr(instance, f + "_markup_type", MARKUP_HTML_WYSIWYG)
+
     fields = ['street_address', 'street_address2', 'postal_code', 'district',
         'city', 'latitude', 'longitude',
         'phone', 'fax', 'email', 'website', 'twitter', 'facebook',
@@ -856,7 +873,6 @@ def save_data(form_steps, form_step_data, instance=None):
     
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
-        setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
         setattr(instance, 'service_shop_info_%s' % lang_code, form_step_data['services_accessibility']['service_shop_info_%s' % lang_code])
         setattr(instance, 'service_books_info_%s' % lang_code, form_step_data['services_accessibility']['service_books_info_%s' % lang_code]) 
         setattr(instance, 'service_restaurant_info_%s' % lang_code, form_step_data['services_accessibility']['service_restaurant_info_%s' % lang_code])
@@ -870,7 +886,26 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
 
     for lang_code, lang_name in FRONTEND_LANGUAGES:
+        for f in [
+            'accessibility_%s' % lang_code,
+            'service_shop_info_%s' % lang_code,
+            'service_books_info_%s' % lang_code,
+            'service_restaurant_info_%s' % lang_code,
+            'service_cafe_info_%s' % lang_code,
+            'service_library_info_%s' % lang_code,
+            'service_archive_info_%s' % lang_code,
+            'service_studio_info_%s' % lang_code,
+            'service_online_info_%s' % lang_code,
+            'service_birthdays_info_%s' % lang_code,
+            'service_rent_info_%s' % lang_code,
+            'service_other_info_%s' % lang_code,
+            ]:
+            setattr(instance, f + "_markup_type", MARKUP_HTML_WYSIWYG)
+
+
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['mediation']['mediation_offer_%s' % lang_code])
+        setattr(instance, 'mediation_offer_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
 
     instance.status = "published"
     instance.save()
@@ -916,6 +951,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
+            setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         season.save()
         
     instance.specialopeningtime_set.all().delete()
@@ -927,6 +963,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
             setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
+            setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         special_opening.is_closed = special_opening_dict['is_closed'] 
         special_opening.is_regular = special_opening_dict['is_regular'] 
         special_opening.opening = special_opening_dict['opening'] 

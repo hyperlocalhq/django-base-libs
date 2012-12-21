@@ -6,14 +6,17 @@
     {{ block.super }}
 {% endblock %}
 
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
+{% endblock %}
 
 {% block content %}
-
-{% if museum %}
-    <h1>{% blocktrans with museum_title=museum.title %}Edit {{ museum_title }}{% endblocktrans %}</h1>
-{% else %}
-    <h1>{% trans "Add new museum" %}</h1>
-{% endif %}
+    {% if museum %}
+        <h1>{% blocktrans with museum_title=museum.title %}Edit {{ museum_title }}{% endblocktrans %}</h1>
+    {% else %}
+        <h1>{% trans "Add new museum" %}</h1>
+    {% endif %}
 
     {% include "utils/step_list.html" %}
     {% block multistep_form %}

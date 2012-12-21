@@ -10,6 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from base_libs.models.settings import MARKUP_HTML_WYSIWYG
+
 Exhibition = models.get_model("exhibitions", "Exhibition")
 Season = models.get_model("exhibitions", "Season")
 SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
@@ -731,6 +733,8 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
         getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
+        setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+        getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.start = form_step_data['basic']['start'] 
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
@@ -766,6 +770,20 @@ def save_data(form_steps, form_step_data, instance=None):
             ]
     for f in fields:
         setattr(instance, f, form_step_data['prices'][f])
+
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
+        for f in [
+            'admission_price_info_%s' % lang_code,
+            'reduced_price_info_%s' % lang_code,
+            'arrangements_for_children_%s' % lang_code,
+            'free_entrance_for_%s' % lang_code,
+            'family_ticket_%s' % lang_code,
+            'group_ticket_%s' % lang_code,
+            'free_entrance_times_%s' % lang_code,
+            'yearly_ticket_%s' % lang_code,
+            'other_tickets_%s' % lang_code,
+            ]:
+            setattr(instance, f + "_markup_type", MARKUP_HTML_WYSIWYG)
 
     instance.suitable_for_disabled = form_step_data['accessibility']['suitable_for_disabled']
     for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -814,6 +832,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
+            setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         season.save()
         
     instance.specialopeningtime_set.all().delete()
@@ -825,6 +844,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
             setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
+            setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         special_opening.is_closed = special_opening_dict['is_closed'] 
         special_opening.is_regular = special_opening_dict['is_regular'] 
         special_opening.opening = special_opening_dict['opening'] 

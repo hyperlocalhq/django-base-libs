@@ -223,9 +223,12 @@ class SpecialOpeningTime(models.Model):
     exceptions = MultilingualTextField(_('Exceptions for working hours'), blank=True)
     
     def __unicode__(self):
+        result = u"%s %s" % (self.get_mm_display(), self.dd)
         if self.yyyy:
-            return u"%s-%s-%s %s" % (self.yyyy, self.mm, self.dd, self.day_label)
-        return u"%s-%s %s" % (self.mm, self.dd, self.day_label)
+            result = self.yyyy + u" " + result
+        if self.day_label:
+            result += u" - " + self.day_label
+        return result
     
     class Meta:
         ordering = ("yyyy", "mm", "dd")
