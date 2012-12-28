@@ -10,6 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from base_libs.models.settings import MARKUP_HTML_WYSIWYG
+
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
@@ -131,13 +133,13 @@ class OpeningForm(forms.Form):
             )        
 
 class SeasonForm(ModelForm):
-    mon_is_closed = forms.BooleanField(label=_("Mon"), required=False)
-    tue_is_closed = forms.BooleanField(label=_("Tue"), required=False)
-    wed_is_closed = forms.BooleanField(label=_("Wed"), required=False)
-    thu_is_closed = forms.BooleanField(label=_("Thu"), required=False)
-    fri_is_closed = forms.BooleanField(label=_("Fri"), required=False)
-    sat_is_closed = forms.BooleanField(label=_("Sat"), required=False)
-    sun_is_closed = forms.BooleanField(label=_("Sun"), required=False)
+    mon_is_open = forms.BooleanField(label=_("Mon"), required=False)
+    tue_is_open = forms.BooleanField(label=_("Tue"), required=False)
+    wed_is_open = forms.BooleanField(label=_("Wed"), required=False)
+    thu_is_open = forms.BooleanField(label=_("Thu"), required=False)
+    fri_is_open = forms.BooleanField(label=_("Fri"), required=False)
+    sat_is_open = forms.BooleanField(label=_("Sat"), required=False)
+    sun_is_open = forms.BooleanField(label=_("Sun"), required=False)
     
     class Meta:
         model = Season
@@ -186,49 +188,49 @@ class SeasonForm(ModelForm):
 
                 <tbody>
                     <tr>
-                        <th>"""), "mon_is_closed", layout.HTML("""</th>
+                        <th>"""), "mon_is_open", layout.HTML("""</th>
                         <td>"""), "mon_open", layout.HTML("""</td>
                         <td>"""), "mon_break_close", layout.HTML("""</td>
                         <td>"""), "mon_break_open", layout.HTML("""</td>
                         <td>"""), "mon_close", layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "tue_is_closed", layout.HTML("""</th>
+                        <th>"""), "tue_is_open", layout.HTML("""</th>
                         <td>"""), "tue_open", layout.HTML("""</td>
                         <td>"""), "tue_break_close", layout.HTML("""</td>
                         <td>"""), "tue_break_open", layout.HTML("""</td>
                         <td>"""), "tue_close", layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "wed_is_closed", layout.HTML("""</th>
+                        <th>"""), "wed_is_open", layout.HTML("""</th>
                         <td>"""), "wed_open", layout.HTML("""</td>
                         <td>"""), "wed_break_close", layout.HTML("""</td>
                         <td>"""), "wed_break_open", layout.HTML("""</td>
                         <td>"""), "wed_close", layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "thu_is_closed", layout.HTML("""</th>
+                        <th>"""), "thu_is_open", layout.HTML("""</th>
                         <td>"""), "thu_open", layout.HTML("""</td>
                         <td>"""), "thu_break_close", layout.HTML("""</td>
                         <td>"""), "thu_break_open", layout.HTML("""</td>
                         <td>"""), "thu_close", layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "fri_is_closed", layout.HTML("""</th>
+                        <th>"""), "fri_is_open", layout.HTML("""</th>
                         <td>"""), "fri_open", layout.HTML("""</td>
                         <td>"""), "fri_break_close", layout.HTML("""</td>
                         <td>"""), "fri_break_open", layout.HTML("""</td>
                         <td>"""), "fri_close", layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "sat_is_closed", layout.HTML("""</th>
+                        <th>"""), "sat_is_open", layout.HTML("""</th>
                         <td>"""), "sat_open", layout.HTML("""</td>
                         <td>"""), "sat_break_close", layout.HTML("""</td>
                         <td>"""), "sat_break_open", layout.HTML("""</td>
                         <td>"""), "sat_close", layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "sun_is_closed", layout.HTML("""</th>
+                        <th>"""), "sun_is_open", layout.HTML("""</th>
                         <td>"""), "sun_open", layout.HTML("""</td>
                         <td>"""), "sun_break_close", layout.HTML("""</td>
                         <td>"""), "sun_break_open", layout.HTML("""</td>
@@ -690,37 +692,37 @@ def load_data(instance=None):
             season_dict['mon_break_close'] = season.mon_break_close
             season_dict['mon_break_open'] = season.mon_break_open
             season_dict['mon_close'] = season.mon_close
-            season_dict['mon_is_closed'] = not season.mon_open
+            season_dict['mon_is_open'] = bool(season.mon_open)
             season_dict['tue_open'] = season.tue_open
             season_dict['tue_break_close'] = season.tue_break_close
             season_dict['tue_break_open'] = season.tue_break_open
             season_dict['tue_close'] = season.tue_close
-            season_dict['tue_is_closed'] = not season.tue_open
+            season_dict['tue_is_open'] = bool(season.tue_open)
             season_dict['wed_open'] = season.wed_open
             season_dict['wed_break_close'] = season.wed_break_close
             season_dict['wed_break_open'] = season.wed_break_open
             season_dict['wed_close'] = season.wed_close
-            season_dict['wed_is_closed'] = not season.wed_open
+            season_dict['wed_is_open'] = bool(season.wed_open)
             season_dict['thu_open'] = season.thu_open
             season_dict['thu_break_close'] = season.thu_break_close
             season_dict['thu_break_open'] = season.thu_break_open
             season_dict['thu_close'] = season.thu_close
-            season_dict['thu_is_closed'] = not season.thu_open
+            season_dict['thu_is_open'] = bool(season.thu_open)
             season_dict['fri_open'] = season.fri_open
             season_dict['fri_break_close'] = season.fri_break_close
             season_dict['fri_break_open'] = season.fri_break_open
             season_dict['fri_close'] = season.fri_close
-            season_dict['fri_is_closed'] = not season.fri_open
+            season_dict['fri_is_open'] = bool(season.fri_open)
             season_dict['sat_open'] = season.sat_open
             season_dict['sat_break_close'] = season.sat_break_close
             season_dict['sat_break_open'] = season.sat_break_open
             season_dict['sat_close'] = season.sat_close
-            season_dict['sat_is_closed'] = not season.sat_open
+            season_dict['sat_is_open'] = bool(season.sat_open)
             season_dict['sun_open'] = season.sun_open
             season_dict['sun_break_close'] = season.sun_break_close
             season_dict['sun_break_open'] = season.sun_break_open
             season_dict['sun_close'] = season.sun_close
-            season_dict['sun_is_closed'] = not season.sun_open
+            season_dict['sun_is_open'] = bool(season.sun_open)
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
@@ -813,6 +815,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+        setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.tags = form_step_data['basic']['tags'] 
 
     fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass']
@@ -830,7 +833,21 @@ def save_data(form_steps, form_step_data, instance=None):
             ]
     for f in fields:
         setattr(instance, f, form_step_data['prices'][f])
-    
+
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
+        for f in [
+            'admission_price_info_%s' % lang_code,
+            'reduced_price_info_%s' % lang_code,
+            'arrangements_for_children_%s' % lang_code,
+            'free_entrance_for_%s' % lang_code,
+            'family_ticket_%s' % lang_code,
+            'group_ticket_%s' % lang_code,
+            'free_entrance_times_%s' % lang_code,
+            'yearly_ticket_%s' % lang_code,
+            'other_tickets_%s' % lang_code,
+            ]:
+            setattr(instance, f + "_markup_type", MARKUP_HTML_WYSIWYG)
+
     fields = ['street_address', 'street_address2', 'postal_code', 'district',
         'city', 'latitude', 'longitude',
         'phone', 'fax', 'email', 'website', 'twitter', 'facebook',
@@ -856,7 +873,6 @@ def save_data(form_steps, form_step_data, instance=None):
     
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
-        setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
         setattr(instance, 'service_shop_info_%s' % lang_code, form_step_data['services_accessibility']['service_shop_info_%s' % lang_code])
         setattr(instance, 'service_books_info_%s' % lang_code, form_step_data['services_accessibility']['service_books_info_%s' % lang_code]) 
         setattr(instance, 'service_restaurant_info_%s' % lang_code, form_step_data['services_accessibility']['service_restaurant_info_%s' % lang_code])
@@ -870,7 +886,26 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
 
     for lang_code, lang_name in FRONTEND_LANGUAGES:
+        for f in [
+            'accessibility_%s' % lang_code,
+            'service_shop_info_%s' % lang_code,
+            'service_books_info_%s' % lang_code,
+            'service_restaurant_info_%s' % lang_code,
+            'service_cafe_info_%s' % lang_code,
+            'service_library_info_%s' % lang_code,
+            'service_archive_info_%s' % lang_code,
+            'service_studio_info_%s' % lang_code,
+            'service_online_info_%s' % lang_code,
+            'service_birthdays_info_%s' % lang_code,
+            'service_rent_info_%s' % lang_code,
+            'service_other_info_%s' % lang_code,
+            ]:
+            setattr(instance, f + "_markup_type", MARKUP_HTML_WYSIWYG)
+
+
+    for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['mediation']['mediation_offer_%s' % lang_code])
+        setattr(instance, 'mediation_offer_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
 
     instance.status = "published"
     instance.save()
@@ -916,6 +951,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
+            setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         season.save()
         
     instance.specialopeningtime_set.all().delete()
@@ -927,6 +963,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
             setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
+            setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         special_opening.is_closed = special_opening_dict['is_closed'] 
         special_opening.is_regular = special_opening_dict['is_regular'] 
         special_opening.opening = special_opening_dict['opening'] 

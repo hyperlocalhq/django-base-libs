@@ -6,13 +6,17 @@
     {{ block.super }}
 {% endblock %}
 
-{% block content %}
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
+{% endblock %}
 
-  {% if exhibition %}
-      <h1>{% blocktrans with exhibition_title=exhibition.title %}Edit {{ exhibition_title }}{% endblocktrans %}</h1>
-  {% else %}
-      <h1>{% trans "Add new exhibition" %}</h1>
-  {% endif %}
+{% block content %}
+    {% if exhibition %}
+        <h1>{% blocktrans with exhibition_title=exhibition.title %}Edit {{ exhibition_title }}{% endblocktrans %}</h1>
+    {% else %}
+        <h1>{% trans "Add new exhibition" %}</h1>
+    {% endif %}
 
     {% include "utils/step_list.html" %}
     {% block multistep_form %}
