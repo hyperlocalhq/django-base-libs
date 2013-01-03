@@ -1,30 +1,28 @@
 {% load image_modifications %}
 
-<div id="stage" class="clearfix">
+<ul id="slide">
     {% for slide in slides %}
-        <div class="slide">
-            {% if slide.link %}<a href="{{ slide.link }}">{% endif %}
-              
-                <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="{{ slide.alt }}" width="640" height="260" />
-             	
-                <table class="wrap{% if slide.highlight %} highlight{% endif %}">
-                    <tr>
-                        <td>
-                            <div class="h3">{{ slide.get_rendered_title }}</div>
-                            <div class="h4">{{ slide.get_rendered_subtitle }}</div>
-                        </td>
-                    </tr>
-                </table>	
-            {% if slide.link %}</a>{% endif %}
-        </div>
-    {% endfor %}
-    <div class="controls">
-        <a id="prev" href="#">&nbsp;</a>
-        <a id="next" href="#">&nbsp;</a>
-    </div>
-	<ul id="nav"></ul>
-</div>
+        <li>
+            <a class="img" href="{{ slide.link }}" style="background-image: url({{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }})"></a>
+            <a class="overlay" href="{{ slide.link }}">
+                <h2>{{ slide.title }}</h2>
+                <h3>{{ slide.subtitle }}</h3>
+            </a>
 
+            <ul class="actions">
+              <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
+              <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="show-location"></a></li>
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+<div id="pager"></div>
+
+
+<!-- <div class="controls">
+    <a id="prev" href="#">&nbsp;</a>
+    <a id="next" href="#">&nbsp;</a>
+</div> -->
 <script type="text/javascript">
     (function($, undefined) {
         function pagerFactory(idx, slide) {

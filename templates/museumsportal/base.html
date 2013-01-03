@@ -125,6 +125,14 @@
 
 		<div id="header" class="clearfix">
             <div class="inner">
+
+                <a class="logo" href="/">
+                    <span class="img">&nbsp;</span>
+                    <span class="word">Berliner<br/>Museumsportal</span>
+                    <span class="claim">Alle Informationen zu Berlins<br/>
+                    Museen, Schlössern und Gedenkstätten.</span>
+                </a>
+
     			<ul class="navigation">
 
     			    {% if LANGUAGE_CODE == "de" %}
@@ -190,6 +198,7 @@
 	    }
 	});
 	</script>
+
     <script >
         $('#container.collapsed li').click(function() {
             if ($(this).hasClass('open')) {

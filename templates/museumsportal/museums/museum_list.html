@@ -16,13 +16,14 @@
 {% block bodyclass %}map_visible{% endblock %}
 
 {% block content %}
-
-	<div>
-		<div id="gmap_toggle" class="">&nbsp;</div>
+     <!-- {% comment %}
+	<div style="display: none">
 		<div id="gmap_wrapper" class="">
 			<div id="gmap" style="width:1000px; height:400px"></div>
 		</div>
+        <div id="gmap_toggle" class="">&nbsp;</div>
     </div>
+    {% endcomment %} -->
 
     <h1>Museen, Schlösser und Gedenkstätten</h1>
 
@@ -55,13 +56,14 @@
         {% endfor %}
     </ul>
  -->
-
+ 
+    <!-- {% comment %}
     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
     {% for item in abc_list %}
       <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
     {% endfor %}
     </ul>
-
+    {% endcomment %} -->
     <ul class="filter option-set clearfix" id="category" data-filter-group="category">
         <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
         {% for cat in facets.categories.categories %}
@@ -124,15 +126,15 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/listing_map.js"></script>
     <script type="text/javascript">
     //<![CDATA[
-    (function($, undefined) {
-        $(function() {
-            $('.article').click(function() {
-                var link = $(this).find('a').attr('href');
-                location.href = link;
-            });
-        });
-    }(jQuery));
-    //]]>
+    // (function($, undefined) {
+    //     $(function() {
+    //         $('.article').click(function() {
+    //             var link = $(this).find('a').attr('href');
+    //             location.href = link;
+    //         });
+    //     });
+    // }(jQuery));
+    // ]]>
     </script>
     <script type="text/javascript">
     //<![CDATA[

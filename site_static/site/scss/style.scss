@@ -28,6 +28,8 @@ html, body {
 
 body {
   background-color: white;
+
+  background-color: rgba(0,0,0,0.025);
   color: black;
   font-family: 'calluna_sans_blackregular';
   font-family: 'calluna_sansbold';
@@ -132,11 +134,52 @@ a:active  { outline: none;}
 
 #header, #content, #footer {
   background-color: white;  
+  border-top: 2px solid rgba(0,0,0,0.05);
 }
 
 #header {
-  border-bottom: 2px solid rgba(0,0,0,0.05);
+  border-top: none;
+  .logo {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    display: block;
 
+    .img {
+      display: block;
+      height: 52px;
+      width: 52px;
+      background-image: url("../img/logo_img.svg");
+      background-color: $blue;
+      background-color: black;
+      background-size: cover;
+      float: left;
+      margin-right: 15px;
+      margin-top: -5px;
+
+    }
+    .word {
+      font-size: 24px;
+      line-height: 20px;
+      display: block;
+      float: left;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      font-family: 'calluna_sans_blackregular';
+      color: black;
+    }
+    .claim {
+      font-size: 16px;
+      line-height: 20px;
+      display: block;
+      float: left;
+      font-family: 'calluna_sans_lightregular';
+      color: rgba(0,0,0,0.5);
+      padding-left: 15px;
+      margin-left: 15px;
+      border-left: 2px solid rgba(0,0,0,0.05);
+    }
+  }
   .inner { height: 160px; 
 
     ul.meta {
@@ -189,6 +232,8 @@ a:active  { outline: none;}
       // text-align: center;
       position: absolute;
       bottom: 20px;
+      text-align: justify !important;
+      width: 100%;
 
       li {
         display: inline-block;
@@ -200,6 +245,12 @@ a:active  { outline: none;}
         margin-right: 10px;
         border-right: 2px solid rgba(0,0,0,0.1);
         
+        &:last-child {
+          padding-right: 0px;
+          margin-right: 0px;
+          border-right: none;
+        }
+
         &.selected a   { color: $blue;}
         a{
           color: black;
@@ -214,9 +265,7 @@ a:active  { outline: none;}
 
 
 #footer {
-  border-top: 2px solid rgba(0,0,0,0.05);
-  background-color: rgba(0,0,0,0.025);
-
+  background-color: transparent;
   .inner { 
 
     ul.navigation {
@@ -251,11 +300,12 @@ a:active  { outline: none;}
   100% {-webkit-transform:rotate(0deg);}
 }
 
-.list.tiles {
+.list {
   margin-right: -60px;
   margin-left: -20px;
   padding-left: 20px;
   padding-top: 40px;
+  padding-bottom: 40px;
   padding-right: 40px;
   margin-top: -40px;
 
@@ -269,11 +319,16 @@ a:active  { outline: none;}
     line-height: 20px;
     padding-bottom: 0px ;
 
+    .actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      opacity: 0;
+      z-index: 1000;
+    }
+
     &:hover{
       .actions {
-        position: absolute;
-        top: 10px;
-        right: 10px;
         opacity: 1;
       }
       .img{ 
@@ -334,10 +389,6 @@ a:active  { outline: none;}
   &.collapsed {
 
     > li {
-      -webkit-transition-property: all;
-      -webkit-transition-duration: 0.25s;
-      -webkit-transition-delay: 0.25s;
-      -webkit-transition-timing: ease-in-out;
 
       &.class1 { 
        .description { margin-left: 0px; }
@@ -432,15 +483,69 @@ a:active  { outline: none;}
     }
   }
 
+
+  &.compact {
+    > li {
+
+      &:not(:first-child) {
+        background-color: rgba(0,0,0,0.025);
+        font-size: 15px;
+        line-height: 21px;
+        margin-bottom: 3px;
+        width: 100%;
+        height: auto;
+        float: left;
+        position: relative;
+        overflow: hidden;
+
+        .img { 
+          background-color: rgba(0,0,0,0.05);
+          width: 80px;
+          height: 100%;
+          float: left;
+          display: block;
+          overflow: hidden;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          margin-bottom: 9px;
+          box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+          position: absolute;
+          left: 0;
+          top: 0;
+          padding: 0px;
+        }
+
+        a {
+          padding: 10px;
+          padding-left: 95px;
+          display: block;
+          font-size: 12px;
+          line-height: 16px;
+          h3 { font-family: 'calluna_sansbold';}
+          h4 { font-family: 'calluna_sans_lightregular'; }
+          h5 { font-family: 'calluna_sans_lightregular'; opacity: 0.5;}
+        }
+      }
+    }
+  }
 }
 
+#teaser {
+  margin-right: -20px;
+  h2 {
+    font-size: 18px;
+    text-transform: uppercase;
+  }
 
+  ul { 
+  width: 320px;
+  margin-right: -20px;
+  float: left;
+  position: relative;}
+}
 
 .actions {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  opacity: 0;
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.25s;
   -webkit-transition-timing: ease-in-out;
@@ -526,7 +631,7 @@ article {
 
 
 #slide { 
-  height: 300px;
+  height: 350px;
   width: 100%;
   overflow: hidden;
 
@@ -536,15 +641,21 @@ article {
     }
   }
 
-  li { 
-    height: 300px;
+  > li { 
+    height: 100%;
     width: 100%;
     display: block;
     background-color: white;  
-    
+
+    .actions {
+      position: absolute;
+      z-index: 1000;
+      bottom: 10px;
+      right: 10px;
+    }
     .img { 
       display: block;
-      height: 300px;
+      height: 100%;
       width: 100%;
       background-size: cover;
       background-position: center;
@@ -554,6 +665,31 @@ article {
       z-index: 500;
       background-color: rgba(0,0,0,0.05);
       box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    .overlay {
+      position: absolute;
+      z-index: 500;
+      bottom: 0;
+      left: 0;
+      padding: 30px;
+      text-shadow: 0 0 20px rgba(0,0,0,0.125), 0 0 10px rgba(0,0,0,0.125);
+
+      h2 { 
+        font-family: 'calluna_sans_blackregular';
+        text-transform: uppercase; 
+        font-size: 58px;
+        line-height: 50px;
+        color: white;
+        padding: 0px;
+        letter-spacing: -3px;
+      }
+
+      h3 {
+        font-size: 36px;
+        line-height: 44px;
+        color: white;
+      }
     }
 
     p.small { 

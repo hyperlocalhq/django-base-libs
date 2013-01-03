@@ -1,50 +1,23 @@
 {% load base_tags cms_tags i18n image_modifications slideshows infoblocks %}
 
-<div class="marginal">
-    <ul class="social">
-		<li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">Facebook</a></li>
-		<li><a class="twitter" href="https://twitter.com/museumsportal">Twitter</a></li>
-		<li><a class="information" href="http://www.berliner-museumsportal.de/de/informationenfuermuseen">Information für Museen</a></li>
-		<li class="banner">
-		    {% infoblock "banner" %}
-        </li>
-    </ul>
-    <div id="kurze_zeit">
-        <h2 class="catHead">Nur noch kurze Zeit</h2>
-        {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-        {% for exhibition in exhibitions_closing_soon %}
-            <div class="article" onclick="location.href='{{ exhibition.get_url_path }}';">
-                {% if exhibition.image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
-                {% endif %}
-                <h4>{{ exhibition.museum.title }}</h4>
-                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
-                <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
-                
-            </div>
-        {% endfor %}
+
+<!-- <div id="twitterfeed">
+    <h2 class="catHead">Twitterfeed</h2>
+    <div class="sector-select hidable">
+        <ul id="tweets">
         
-        <div id="twitterfeed">
-            <h2 class="catHead">Twitterfeed</h2>
-	        <div class="sector-select hidable">
-				<ul id="tweets">
-				
-				<li><a href="https://twitter.com/museumsportal" onclick="open_new_window(event)">Folgen Sie uns auf Twitter</a></li>
-				</ul>
-	        </div>
-        </div>
+        <li><a href="https://twitter.com/museumsportal" onclick="open_new_window(event)">Folgen Sie uns auf Twitter</a></li>
+        </ul>
     </div>
-</div>
+</div> -->
 
-<div class="stage_wrapper">
-    {% slideshow "start_slideshow_de" %}
-</div>
-
-<div class="colWrapper">
-    <div id="neu" class="leftCol">
-        <h2 class="catHead">Neu eröffnet</h2>
+{% slideshow "start_slideshow_de" %}<!-- 
+    <ul>
+        <li class="title">
+           <h2>Neu eröffnet</h2>
+        </li>
         {% placeholder "left_column" %}
-        {% comment %}<!--
+        {% comment %}
         {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
         {% for exhibition in exhibitions_newly_opened %}
             <div class="article short" onclick="location.href='{{ exhibition.get_url_path }}';">
@@ -63,11 +36,77 @@
                 <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
             </div>
         {% endfor %}
-        -->{% endcomment %}
-    </div>
-    <div id="redaktion" class="rightCol">
-        <h2 class="catHead">Aus der Redaktion</h2>
-        {% placeholder "start_page_content" %}
-    </div>
-</div>
+        {% endcomment %}
+    </ul>
 
+    <ul>
+        <li class="title">
+           <h2>Aus der Redaktion</h2>
+        </li>
+        {% placeholder "start_page_content" %}
+    </ul>  -->
+
+<div id="teaser">
+    <ul class="list compact clearfix">
+        <li class="title">
+            <h2>Neu eröffnet</h2>
+        </li>
+    </ul>
+    <ul class="list compact clearfix">
+        <li class="title">
+            <h2>Aus der Redaktion</h2>
+        </li>
+    </ul>
+    <ul class="list compact clearfix">
+        <li class="title">
+            <h2>Nur noch kurze Zeit</h2>
+        </li>
+    </ul>
+</div>
+<div id="teaser">
+    <ul class="list compact clearfix">
+        {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
+        {% for exhibition in exhibitions_closing_soon %}
+            <li class="item">
+                {% if exhibition.image %}
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
+                {% endif %}
+                <a href="{{ exhibition.get_url_path }}">
+                    <h3>{{ exhibition.title }}</h3>
+                    <h4>{{ exhibition.museum.title }}</h4>
+                    <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul class="list compact clearfix">
+        {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
+        {% for exhibition in exhibitions_closing_soon %}
+            <li class="item">
+                {% if exhibition.image %}
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
+                {% endif %}
+                <a href="{{ exhibition.get_url_path }}">
+                    <h3>{{ exhibition.title }}</h3>
+                    <h4>{{ exhibition.museum.title }}</h4>
+                    <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul class="list compact clearfix">
+        {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
+        {% for exhibition in exhibitions_closing_soon %}
+            <li class="item">
+                {% if exhibition.image %}
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
+                {% endif %}
+                <a href="{{ exhibition.get_url_path }}">
+                    <h3>{{ exhibition.title }}</h3>
+                    <h4>{{ exhibition.museum.title }}</h4>
+                    <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

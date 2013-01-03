@@ -21,20 +21,24 @@
 {% block bodyclass %}map_visible {% if "closing_soon" == facets.selected.status %}closing_soon{% endif %}{% endblock %}
 
 {% block content %}
-    <div>
-  		<div id="gmap_toggle" class="">&nbsp;</div>
-  		<div id="gmap_wrapper" class="">
-  			<div id="gmap" style="width:1000px; height:400px"></div>
-  		</div>
-    </div>
+     <!-- {% comment %}
+      <div>
+        <div id="gmap_toggle" class="">&nbsp;</div>
+        <div id="gmap_wrapper" class="">
+          <div id="gmap" style="width:1000px; height:400px"></div>
+        </div>
+      </div>
+    {% endcomment %} -->
 
     <h1>Sonderausstellungen der Berliner Museen</h1>
 
+    <!-- {% comment %}
     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
         {% for item in abc_list %}
           <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
         {% endfor %}
     </ul>
+    {% endcomment %} -->
 
     <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
         <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>

@@ -174,7 +174,6 @@ textarea {
 form { 
   width: 100%;
 
-
   & *::-webkit-scrollbar-corner,
   & *::-webkit-scrollbar {
     width: 10px;
@@ -235,7 +234,7 @@ fieldset {
   .row { 
     width: 100%;
     clear: both;
-    table-layout: fixed !important;
+    table-layout: fixed;
     display: table;
     padding: 0 !important;
     margin-left: 0 !important;
@@ -252,7 +251,7 @@ fieldset {
 
     > div{ 
       display: table-cell;
-      border-right: 20px solid white !important;
+      border-right: 20px solid white;
       width: 100% !important;
 
       &:last-child { 
@@ -279,10 +278,10 @@ form table {
   }
 
   th, td { 
-    border-right: 20px solid white !important;
-    border-left: none !important;
-    border-top: none !important;
-    border-bottom: 20px solid white !important;
+    border-right: 20px solid white;
+    border-left: none;
+    border-top: none;
+    border-bottom: 20px solid white;
     width: auto !important;
 
     &:last-child { 
@@ -319,8 +318,6 @@ legend {
   border: none;
   display: block;
   height: 30px;
-  font-size: 22px;
-  line-height: 40px;
   padding-top: 20px;
   padding-bottom: 20px !important;
 
@@ -330,14 +327,20 @@ legend {
 }
 
 label { 
-  color: rgba(0,0,0,0.5);
+  color: rgba(0,0,0,0.75);
   position: relative;
-  
   .lang {
+    border-left: 1px solid rgba(0,0,0,0.25);
+    color: rgba(0,0,0,0.5);
+    display: inline-block;
+    padding-left: 8px;
+    margin-left: 5px;
+    height: 10px;
     font-size: 11px;
-    opacity: 0.5
+    line-height: 12px;
   }
 }
+
 .inline {
   padding-bottom: 20px;
   display: block;
@@ -366,7 +369,6 @@ label {
         margin-right: 5px !important;
         bottom: -2px;
         position: relative;
-        display: none;
       }
     }
   }

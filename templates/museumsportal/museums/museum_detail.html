@@ -82,9 +82,7 @@
 {% endblock %}
 
 {% block content %}
-    
     {% with object as museum %}
-
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
@@ -486,8 +484,7 @@
                 {% if museum.mediation_offer %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">  
-                                {% trans "Mediation offer" %} 
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">   {% trans "Mediation offer" %} 
                             </a>  
                         </h4>  
                         <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
@@ -501,8 +498,30 @@
                     </li>  
                 {% endif %}
             </ul> 
+
+
+            <ul id="kurze_zeit" class="list">
+            {% for exhibition in object.get_published_exhibitions %}
+                
+                {% if forloop.first %}
+                    <li><h4>{% trans "Exhibitions" %}</h4></li>
+                {% endif %}
+                
+                <li class="article">
+                    {% if exhibition.image %}
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }})"></a>
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h4>{{ exhibition.museum.title }}</h4>
+                        <h3>{{ exhibition.title }}</h3>
+                        <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
         </section>
-        
+
+
         <section class="sidebar" style="display: none">
             <dl id="bvg_widget" class="bvg">
                 {% if LANGUAGE_CODE == "de" %}
@@ -531,7 +550,6 @@
                                 
                                 <li>
                                     <label for="wdgt_to">Nach</label>
-                                    
                                     <textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }} {{ museum.city }}</textarea>
                                 </li>
                                 
@@ -566,51 +584,42 @@
                         
                         <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/query.bin/en?ld=0.1" name="fahrinfo_formular" id="fahrinfo_formular">
                             <fieldset class="clearfix">
-                            
                                 <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
                                 <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
                                 <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
                                 <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
                                 <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
                                 <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
-                                
                                 <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
                                 <input type="hidden" name="_charset_" value="utf-8"/>
                                 <input type="hidden" value="yes" name="start"/>
-                                
                                 <ul>
-                                <li>
-                                    <label for="wdgt_from">From</label>
-                                    <input placeholder="Location" type="text" name="from" id="wdgt_from" value="">
-                                </li>
-                                
-                                <li>
-                                    <label for="wdgt_to">To</label>
-                                    
-                                    <textarea name="to" id="wdgt_to" >{{ museum.postal_code }} {{ museum.city }} &#10;{{ museum.street_address }}</textarea>
-                                </li>
-                                
-                                <li>
-                                    <label for="wdgt_date">Date</label>
-                                    <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-                                </li>
-                                
-                                <li>
-                                    <label for="wdgt_time">Time</label>
-                                    <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
-                                </li>
-                                
-                                <li class="radios">
-                                    <label for="wdgt_arr">Arrival</label>
-                                    <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
-                                    
-                                    <label for="wdgt_dep">Departure</label>
-                                    <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
+                                    <li>
+                                        <label for="wdgt_from">From</label>
+                                        <input placeholder="Location" type="text" name="from" id="wdgt_from" value="">
+                                    </li>
+                                    <li>
+                                        <label for="wdgt_to">To</label>
+                                        <textarea name="to" id="wdgt_to" >{{ museum.postal_code }} {{ museum.city }} &#10;{{ museum.street_address }}</textarea>
+                                    </li>
+                                    <li>
+                                        <label for="wdgt_date">Date</label>
+                                        <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                                    </li>
+                                    <li>
+                                        <label for="wdgt_time">Time</label>
+                                        <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
+                                    </li>
+                                    <li class="radios">
+                                        <label for="wdgt_arr">Arrival</label>
+                                        <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
+                                        <label for="wdgt_dep">Departure</label>
+                                        <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
                                     </li>
                                     <li>
                                         <input id="submit" type="submit" name="start" value="Submit request">
                                     </li>
-                                    </ul>
+                                </ul>
                             </fieldset>
                         </form>
                     </dd>
@@ -621,10 +630,7 @@
                     $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
                 })
                 </script>
-                
-                
             </dl>
-            
             {% if museum.phone %}
                 <dl class="phone">
                     <dt>{% trans "Phone" %}</dt>
@@ -645,7 +651,6 @@
                     <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
                 </dl>
             {% endif %} 
-            
             <dl class="categories">
                 <dt>{% trans "Categories" %}</dt>
                 <dd>
@@ -712,59 +717,37 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-
         </article>
     {% endwith %}
+    </div>
+</div>
 
-    <div id="content" class="clearfix" style="background-color: rgba(0,0,0,0.025)">
-        <div class="inner">
-    
-            <h2>{% trans "Museums with the same categories" %}</h2>
-            <ul id="container" class="list tiles small clearfix"> 
-                {% for museum in object.get_museums_with_the_same_categories %}
-                    <li class="item">
-                        {% if museum.image %}
-                            <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.image }}">
-                                <span class="spinner loading"></span>
-                                <span class="overlay"></span>
-                            </a>
-                        {% endif %}
-                         <a href="{{ museum.get_url_path }}">
-                            <h3>{{ museum.title }}</h3>
-                            <h4>{{ museum.subtitle }}</h4>
+<div id="content" class="clearfix" style="background-color: transparent">
+    <div class="inner">
+        <h2>{% trans "Museums with the same categories" %}</h2>
+        <ul id="container" class="list tiles small clearfix"> 
+            {% for museum in object.get_museums_with_the_same_categories %}
+                <li class="item">
+                    {% if museum.image %}
+                        <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.image }}">
+                            <span class="spinner loading"></span>
+                            <span class="overlay"></span>
                         </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        
-            <div id="controls">
-                {% if prev_item %}
-                    <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>
-                {% endif %}
-                {% if next_item %}
-                    <a href="{{ next_item.get_url_path }}" id="next">&gt;</a>
-                {% endif %}
-            </div>
-        
-            {% comment %}<!-- <ul id="kurze_zeit" class="list tiles small">
-                {% for exhibition in object.get_published_exhibitions %}
-                
-                    {% if forloop.first %}
-                         <h2 class="catHead">→ {% trans "Exhibitions" %}</h2>
                     {% endif %}
-                    
-                    <li class="article">
-                        {% if exhibition.image %}
-                            <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }}" alt="" /></a>
-                        {% endif %}
-                        <h4>{{ exhibition.museum.title }}</h4>
-                        <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
-                        <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
-                        
-                    </li>
-                {% endfor %}
-            </ul> -->{% endcomment %}
+                     <a href="{{ museum.get_url_path }}">
+                        <h3>{{ museum.title }}</h3>
+                        <h4>{{ museum.subtitle }}</h4>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    
+        <div id="controls">
+            {% if prev_item %}
+                <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>
+            {% endif %}
+            {% if next_item %}
+                <a href="{{ next_item.get_url_path }}" id="next">&gt;</a>
+            {% endif %}
         </div>
-    </div>    
-
 {% endblock %}
