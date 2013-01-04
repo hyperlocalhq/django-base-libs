@@ -31,9 +31,7 @@ body {
 
   background-color: rgba(0,0,0,0.025);
   color: black;
-  font-family: 'calluna_sans_blackregular';
-  font-family: 'calluna_sansbold';
-  font-family: 'calluna_sans_lightregular';
+  font-family: 'calluna_sans';
   font-size: 16px;
   line-height: 26px;
 
@@ -57,7 +55,7 @@ a {
 }
 
 h1 {
-  font-family: 'calluna_sans_lightregular';
+  font-weight: '400';
   padding-top: 30px;
   padding-bottom: 30px;
   margin: 0;
@@ -132,7 +130,7 @@ a:active  { outline: none;}
   }
 }
 
-#header, #content, #footer {
+#header, .content, #footer {
   background-color: white;  
   border-top: 2px solid rgba(0,0,0,0.05);
 }
@@ -165,7 +163,7 @@ a:active  { outline: none;}
       float: left;
       letter-spacing: -2px;
       text-transform: uppercase;
-      font-family: 'calluna_sans_blackregular';
+      font-weight: 600;
       color: black;
     }
     .claim {
@@ -173,7 +171,7 @@ a:active  { outline: none;}
       line-height: 20px;
       display: block;
       float: left;
-      font-family: 'calluna_sans_lightregular';
+      font-weight: 400;
       color: rgba(0,0,0,0.5);
       padding-left: 15px;
       margin-left: 15px;
@@ -207,19 +205,19 @@ a:active  { outline: none;}
           display: inline-block;
           font-size: 10px;
           line-height: 20px;
-          font-family: 'calluna_sans_blackregular';
+          font-weight: 600;
           background-color: rgba(0,0,0,0.05);
           background-size: cover;
           background-position: center;
 
           span { display: none;}
 
-          &.facebook  { background-image: url("../img/icons/icons-03.svg");}
-          &.twitter   { background-image: url("../img/icons/icons-04.svg");}
+          &.facebook  { background-image: url("../img/icons/social-01.svg");}
+          &.twitter   { background-image: url("../img/icons/social-02.svg");}
 
           &:hover {
-            &.facebook  { background-image: url("../img/icons/inv/icons-03.svg");}
-            &.twitter   { background-image: url("../img/icons/inv/icons-04.svg");}
+            &.facebook  { background-image: url("../img/icons/inv/social-01.svg");}
+            &.twitter   { background-image: url("../img/icons/inv/social-02.svg");}
           }
         }
       }
@@ -241,8 +239,8 @@ a:active  { outline: none;}
         line-height: 26px;
         height: 30px;
         padding: 0px;
-        padding-right: 12px;
-        margin-right: 10px;
+        padding-right: 28px;
+        margin-right: 21px;
         border-right: 2px solid rgba(0,0,0,0.1);
         
         &:last-child {
@@ -319,14 +317,6 @@ a:active  { outline: none;}
     line-height: 20px;
     padding-bottom: 0px ;
 
-    .actions {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      opacity: 0;
-      z-index: 1000;
-    }
-
     &:hover{
       .actions {
         opacity: 1;
@@ -364,6 +354,7 @@ a:active  { outline: none;}
       .spinner { 
         height: 0%;
         background-color: #f2f2f2;
+
         -webkit-transition-property: all;
         -webkit-transition-duration: 1s;
         -webkit-transition-delay: 0.1s;
@@ -380,9 +371,9 @@ a:active  { outline: none;}
     }
 
     a {
-       h3   { font-family: 'calluna_sansbold';}
-       h4   { font-family: 'calluna_sans_lightregular';}
-       h5   { font-family: 'calluna_sans_lightregular'; opacity: 0.5}
+       h3   { font-weight: 500;}
+       h4   { font-weight: 400;}
+       h5   { font-weight: 400;; opacity: 0.5}
     }
   }
 
@@ -476,9 +467,9 @@ a:active  { outline: none;}
       }
 
       a {
-         h3   { font-family: 'calluna_sansbold';}
-         h4   { font-family: 'calluna_sans_lightregular';}
-         h5   { font-family: 'calluna_sans_lightregular'; opacity: 0.5}
+         h3   { font-weight: 500;}
+         h4   { font-weight: 400;}
+         h5   { font-weight: 400; opacity: 0.5}
       }
     }
   }
@@ -522,9 +513,9 @@ a:active  { outline: none;}
           display: block;
           font-size: 12px;
           line-height: 16px;
-          h3 { font-family: 'calluna_sansbold';}
-          h4 { font-family: 'calluna_sans_lightregular'; }
-          h5 { font-family: 'calluna_sans_lightregular'; opacity: 0.5;}
+          h3 { font-weight: 500; }
+          h4 { font-weight: 400; }
+          h5 { font-weight: 400; opacity: 0.5;}
         }
       }
     }
@@ -549,6 +540,13 @@ a:active  { outline: none;}
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.25s;
   -webkit-transition-timing: ease-in-out;
+  position: absolute;
+  z-index: 1000;
+  right: 10px;
+  top: 10px;
+
+  &.bottom { top: auto; bottom: 10px; }
+
 
   li { 
     display: block;
@@ -595,10 +593,14 @@ a:active  { outline: none;}
 
       &.add-favorite  { background-image: url("../img/icons/icons-01.svg");}
       &.show-location { background-image: url("../img/icons/icons-02.svg");}
+      &.cancel        { background-image: url("../img/icons/icons-04.svg");}
+      &.fullscreen    { background-image: url("../img/icons/icons-05.svg");}
 
       &:hover {
         &.add-favorite  { background-image: url("../img/icons/inv/icons-01.svg");}
         &.show-location { background-image: url("../img/icons/inv/icons-02.svg");}
+        &.cancel        { background-image: url("../img/icons/inv/icons-04.svg");}
+        &.fullscreen    { background-image: url("../img/icons/inv/icons-05.svg");}
       }
     }
   }
@@ -615,10 +617,10 @@ article {
   padding-bottom: 20px;
 
   h1 { 
-    font-family: 'calluna_sansbold';
+    font-weight: 500;
     span { 
       display: block;
-      font-family: 'calluna_sans_lightregular';
+      font-weight: 400;
     }
   }
 
@@ -647,12 +649,7 @@ article {
     display: block;
     background-color: white;  
 
-    .actions {
-      position: absolute;
-      z-index: 1000;
-      bottom: 10px;
-      right: 10px;
-    }
+    
     .img { 
       display: block;
       height: 100%;
@@ -676,7 +673,7 @@ article {
       text-shadow: 0 0 20px rgba(0,0,0,0.125), 0 0 10px rgba(0,0,0,0.125);
 
       h2 { 
-        font-family: 'calluna_sans_blackregular';
+        font-weight: 600;
         text-transform: uppercase; 
         font-size: 58px;
         line-height: 50px;
@@ -750,7 +747,7 @@ article {
   .title { 
     display: block;
     padding-bottom: 10px;
-    font-family: 'calluna_sansbold';
+    font-weight: 500;
   }
   li { 
     display: inline-block;
@@ -817,7 +814,7 @@ article {
   line-height: 20px;
 
   .accordion-heading a{ 
-    font-family: 'calluna_sansbold';
+    font-weight: 500;
     text-transform: uppercase;
     font-size: 16px;
     line-height: 20px;
@@ -844,7 +841,7 @@ article {
 dl {
   dt {
     font-weight: normal;
-    font-family: 'calluna_sansbold';
+    font-weight: 500;
   }
   &.inset {
     dt {

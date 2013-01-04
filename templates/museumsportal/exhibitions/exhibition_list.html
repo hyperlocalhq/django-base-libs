@@ -30,6 +30,8 @@
       </div>
     {% endcomment %} -->
 
+<div class="content" class="clearfix">
+  <div class="inner">
     <h1>Sonderausstellungen der Berliner Museen</h1>
 
     <!-- {% comment %}
@@ -57,11 +59,11 @@
     </ul>
 
      <ul id="container" class="list tiles collapsed clearfix">
-	{% if object_list %}
-	{% else %}   
-	    <h1>Ihre Auswahl ergab keine Ergebnisse… <br/><a href="{% append_to_get category="",status="" %}">(Filtereinstellungen zurücksetzen…)</a></h1>
-	{% endif %}
-	
+    {% if object_list %}
+    {% else %}   
+      <h1>Ihre Auswahl ergab keine Ergebnisse… <br/><a href="{% append_to_get category="",status="" %}">(Filtereinstellungen zurücksetzen…)</a></h1>
+    {% endif %}
+
     {% for exhibition in object_list %}
         <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}" style="cursor: pointer">
             {% if exhibition.image %}
@@ -118,7 +120,8 @@
         </li>
         {% endfor %}
     </ul>
-    
+  </div>
+</div>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>    
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/listing_map.js"></script>

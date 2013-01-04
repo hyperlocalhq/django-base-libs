@@ -4,30 +4,28 @@
 {% block js %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.cycle.all.js"></script>
-	
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
-	
 	<script type="text/javascript">
 	$(function() {
-	        
         var scroller = new StickyScroller("#filter", {
             start: 428,
             margin: 0
         });
-
 	});
 	</script>
 {% endblock %}
 
-
 {% block content %}
+<div class="content clearfix">
+  <div class="inner">
     {% if LANGUAGE_CODE == "de" %}
         {% include "cms/includes/start_de.html" %}
     {% else %}
         {% include "cms/includes/start_en.html" %}
     {% endif %}
+  </div>
+</div>
 {% endblock %}
 
