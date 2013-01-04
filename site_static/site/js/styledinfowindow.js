@@ -85,7 +85,7 @@ StyledInfoWindow.prototype.draw = function() {
     this.div_.style.top = (pixPosition.y + this.offsetY_) + centerOffsetY + 'px';
     //this.div_.style.paddingTop = paddingTop + 'px';
     //this.div_.style.paddingLeft = paddingLeft + 'px';
-    this.div_.style.background = 'url("' + window.settings.STATIC_URL + 'site/img/gmap/' + image + '")';
+    //this.div_.style.background = 'url("' + window.settings.STATIC_URL + 'site/img/gmap/' + image + '")';
     this.div_.style.display = 'block';
     
     this.wrapperDiv_.style.width = (this.width_- widthLess) + 'px';
