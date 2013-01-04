@@ -622,6 +622,7 @@ legend + .control-group,
 #gmap {
   width: auto;
   height: 250%;
+  min-height: 350px;
   top: 0;
   bottom: 0;
   left: 0;
@@ -629,7 +630,7 @@ legend + .control-group,
   position: absolute;
 }
 
-/* line 36, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 37, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 #gmap * {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -639,12 +640,12 @@ legend + .control-group,
   user-select: none;
 }
 
-/* line 46, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 47, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .wrapper {
   text-align: center;
   height: 0;
 }
-/* line 51, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 52, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .inner {
   text-align: left;
   display: inline-block;
@@ -659,24 +660,24 @@ legend + .control-group,
   -moz-box-sizing: border-box;
   position: relative;
 }
-/* line 65, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 66, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .inner h3, .location .inner h4, .location .inner h5 {
   white-space: nowrap;
 }
-/* line 66, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 67, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .inner h3 {
   font-weight: 500;
 }
-/* line 67, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 68, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .inner h4 {
   font-weight: 400;
 }
-/* line 68, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 69, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .inner h5 {
   font-weight: 400;
   opacity: 0.5;
 }
-/* line 70, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 71, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .inner .img {
   top: 0;
   left: 0;
@@ -689,7 +690,7 @@ legend + .control-group,
   background-size: cover;
   display: none;
 }
-/* line 83, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 84, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .inner .btn {
   top: 8px;
   position: relative;
@@ -699,7 +700,7 @@ legend + .control-group,
   padding-left: 10px;
   padding-right: 10px;
 }
-/* line 92, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 93, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .inner:after {
   content: "";
   position: absolute;
@@ -715,7 +716,7 @@ legend + .control-group,
   border-top-color: white;
   border-width: 10px 10px 0;
 }
-/* line 109, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+/* line 110, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .close {
   top: 0px;
   right: 0px;
