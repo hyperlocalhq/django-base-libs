@@ -680,45 +680,45 @@
         </section>
            
         <article>
-            {% if museum.image %}
+            <header>
+                {% if museum.image %}
                 <ul id="slide">
-                <li>
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                    <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                </li>
-                <li>
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                    <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                </li>
-            </ul>
-            {% endif %}
-            
-            <div id="pager"></div>
-
-            <h1>{{ museum.title }} 
-                {% if museum.subtitle %}
-                <span>{{ museum.subtitle }}</span>
+                    <li>
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                        <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                    </li>
+                    <li>
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                        <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                    </li>
+                </ul>
                 {% endif %}
-            </h1>
+                
+                <div id="pager"></div>
+
+                <h1>{{ museum.title }} 
+                    {% if museum.subtitle %}
+                    <span>{{ museum.subtitle }}</span>
+                    {% endif %}
+                </h1>
+            </header>
 
             {{ museum.get_rendered_description }}
-            
-            {% if museum.categories.count %}
-                <ul class="categories">
+
+            <ul class="tags">
+                {% if museum.categories.count %}
                     {% for cat in museum.categories.all %}
-                        <li>{{ cat.title }}</li>
+                        <li class="cat"><a href="#">{{ cat.title }}</a></li>
                     {% endfor %}
-                </ul>
-            {% endif %}
-            
-            {% tags_for_object museum as tags %}
-            {% if tags %}
-                <ul class="tags">
+                {% endif %}
+                {% tags_for_object museum as tags %}
+                {% if tags %}
                     {% for tag in tags %}
-                        <li>{{ tag.name }}</li>
+                        <li><a href="#">{{ tag.name }}</a></li>
                     {% endfor %}
-                </ul>
-            {% endif %}
+                {% endif %}
+            </ul>   
+
         </article>
     {% endwith %}
     </div>

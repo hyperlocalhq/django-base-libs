@@ -543,53 +543,45 @@
         </section>
         
         <article>
-
-            {% if exhibition.image %}
-                <ul id="slide">
-                    <li>
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
-                        <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                    </li>
-                    <li>
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }})"></a>
-                        <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                    </li>
-                </ul>
-                <div id="pager"></div>
-            {% endif %}
-
-            <h1>
-                {{ exhibition.title }}
-                 {% if exhibition.subtitle %}
-                    <span>{{ exhibition.subtitle }}</span>
+            <header>
+                {% if exhibition.image %}
+                    <ul id="slide">
+                        <li>
+                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
+                            <span class="overlay">
+                                <time>{% if exhibition.permanent %}{% trans "Permanent exhibition" %}{% else %}
+                                    <span class="from_date">{{ exhibition.start|date:"j. F Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"j. F Y" }}{% endif %}</time>
+                            </span>
+                            <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                        </li>
+                    </ul>
+                    <div id="pager"></div>
                 {% endif %}
-            </h1>
-            {% if exhibition.permanent %}
-                <h2>{% trans "Permanent exhibition" %}</h2>
-            {% else %}
-                <h2><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h2>
-            {% endif %}
 
-            <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
-            
+                <h1>
+                    {{ exhibition.title }}
+                     {% if exhibition.subtitle %}
+                        <span>{{ exhibition.subtitle }}</span>
+                    {% endif %}
+                </h1>
+                <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
+            </header>
             {{ exhibition.get_rendered_description }}
             
-            {% if exhibition.categories.count %}
-                <ul class="categories">
+            <ul class="tags">
+                {% if exhibition.categories.count %}
                     {% for cat in exhibition.categories.all %}
-                        <li>{{ cat.title }}</li>
+                        <li class="cat"><a href="#">{{ cat.title }}</a></li>
                     {% endfor %}
-                </ul>
-            {% endif %}
-            
-            {% tags_for_object exhibition as tags %}
-            {% if tags %}
-                <ul class="tags">
+                {% endif %}
+                {% tags_for_object exhibition as tags %}
+                {% if tags %}
                     {% for tag in tags %}
-                        <li>{{ tag.name }}</li>
+                        <li><a href="#">{{ tag.name }}</a></li>
                     {% endfor %}
-                </ul>
-            {% endif %}
+                {% endif %}
+            </ul>   
+
         </article>
     {% endwith %}
   </div>
