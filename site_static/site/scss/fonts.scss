@@ -3,43 +3,33 @@
 
 
 @font-face {
-    font-family: 'calluna_sans_blackregular';
-    src: url('../fonts/callunasansblack.eot');
-    src: url('../fonts/callunasansblack.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/callunasansblack.woff') format('woff'),
-         url('../fonts/callunasansblack.ttf') format('truetype'),
-         url('../fonts/callunasansblack.svg#calluna_sans_blackregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-
-
-
-@font-face {
-    font-family: 'calluna_sansbold';
-    src: url('../fonts/callunasansbold.eot');
-    src: url('../fonts/callunasansbold.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/callunasansbold.woff') format('woff'),
-         url('../fonts/callunasansbold.ttf') format('truetype'),
-         url('../fonts/callunasansbold.svg#calluna_sansbold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-
-
-
-@font-face {
-    font-family: 'calluna_sans_lightregular';
+    font-family: 'calluna_sans';
     src: url('../fonts/callunasanslight.eot');
     src: url('../fonts/callunasanslight.eot?#iefix') format('embedded-opentype'),
          url('../fonts/callunasanslight.woff') format('woff'),
          url('../fonts/callunasanslight.ttf') format('truetype'),
          url('../fonts/callunasanslight.svg#calluna_sans_lightregular') format('svg');
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
+}
+@font-face {
+    font-family: 'calluna_sans';
+    src: url('../fonts/callunasansbold.eot');
+    src: url('../fonts/callunasansbold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/callunasansbold.woff') format('woff'),
+         url('../fonts/callunasansbold.ttf') format('truetype'),
+         url('../fonts/callunasansbold.svg#calluna_sansbold') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
 
+@font-face {
+    font-family: 'calluna_sans';
+    src: url('../fonts/callunasansblack.eot');
+    src: url('../fonts/callunasansblack.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/callunasansblack.woff') format('woff'),
+         url('../fonts/callunasansblack.ttf') format('truetype'),
+         url('../fonts/callunasansblack.svg#calluna_sans_blackregular') format('svg');
+    font-weight: 600;
+    font-style: normal;
 }

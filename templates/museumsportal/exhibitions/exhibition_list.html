@@ -21,20 +21,26 @@
 {% block bodyclass %}map_visible {% if "closing_soon" == facets.selected.status %}closing_soon{% endif %}{% endblock %}
 
 {% block content %}
-    <div>
-  		<div id="gmap_toggle" class="">&nbsp;</div>
-  		<div id="gmap_wrapper" class="">
-  			<div id="gmap" style="width:1000px; height:400px"></div>
-  		</div>
-    </div>
+     <!-- {% comment %}
+      <div>
+        <div id="gmap_toggle" class="">&nbsp;</div>
+        <div id="gmap_wrapper" class="">
+          <div id="gmap" style="width:1000px; height:400px"></div>
+        </div>
+      </div>
+    {% endcomment %} -->
 
+<div class="content" class="clearfix">
+  <div class="inner">
     <h1>Sonderausstellungen der Berliner Museen</h1>
 
+    <!-- {% comment %}
     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
         {% for item in abc_list %}
           <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
         {% endfor %}
     </ul>
+    {% endcomment %} -->
 
     <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
         <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
@@ -52,64 +58,70 @@
         {% endfor %}
     </ul>
 
-    <ul id="container" class="list tiles collapsed clearfix">
-        {% for exhibition in object_list %}
-            <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}" style="cursor: pointer">
-                {% if exhibition.image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}">
-                        <span class="spinner loading"></span>
-                        <span class="overlay"></span>
-                    </a>
-                {% else %}{% if exhibition.museum.image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ exhibition.museum.image }}">
-                        <span class="spinner loading"></span>
-                        <span class="overlay"></span>
-                    </a>
-                {% endif %}{% endif %}
-    
-                <ul class="actions">
-                  <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
-                  <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="show-location"></a></li>
-                </ul>
-    
-                <a href="{{ exhibition.get_url_path }}">
-                  <h3>{{ exhibition.museum.title }}</h3>
-                  <h4>{{ exhibition.title }}</h4>
-                  <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+     <ul id="container" class="list tiles collapsed clearfix">
+    {% if object_list %}
+    {% else %}   
+      <h1>Ihre Auswahl ergab keine Ergebnisse… <br/><a href="{% append_to_get category="",status="" %}">(Filtereinstellungen zurücksetzen…)</a></h1>
+    {% endif %}
+
+    {% for exhibition in object_list %}
+        <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}" style="cursor: pointer">
+            {% if exhibition.image %}
+                <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}">
+                    <span class="spinner loading"></span>
+                    <span class="overlay"></span>
                 </a>
-    
-                <div class="description">
-                    <p>{{ exhibition.get_rendered_description|striptags }}</p>
-                    <a class="more" href="{{ exhibition.get_url_path }}">more</a>
-                </div>
-                
-                {% with exhibition.museum as museum %}
-                  {% if museum.latitude %}
-                      <script type="text/javascript">
-                      //<![CDATA[
-                      (function(undefined) {
-                          var iIndex = aGeopositions.length;
-                          aGeopositions[iIndex] = {
-                              latitude: {{ museum.latitude }},
-                              longitude: {{ museum.longitude }},
-                              categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                              content: '<div class="inner" onclick="location.href=\'{{ museum.get_url_path }}\';">'
-                              + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
-                              + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
-                              + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'
-                              + '<hr />'
-                              + '<a href="{{ museum.get_url_path }}">{% trans "more" %}</a>'
-                              + '</div>'
-                          }
-                      }());
-                      //]]>
-                      </script>
-                  {% endif %}
-                {% endwith %}
-            </li>
+            {% else %}{% if exhibition.museum.image %}
+                <a class="img" href="{{ exhibition.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ exhibition.museum.image }}">
+                    <span class="spinner loading"></span>
+                    <span class="overlay"></span>
+                </a>
+            {% endif %}{% endif %}
+
+            <ul class="actions">
+              <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
+              <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="show-location"></a></li>
+            </ul>
+
+            <a href="{{ exhibition.get_url_path }}">
+              <h3>{{ exhibition.museum.title }}</h3>
+              <h4>{{ exhibition.title }}</h4>
+              <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+            </a>
+
+            <div class="description">
+                <p>{{ exhibition.get_rendered_description|striptags }}</p>
+                <a class="more" href="{{ exhibition.get_url_path }}">more</a>
+            </div>
+            
+            {% with exhibition.museum as museum %}
+              {% if museum.latitude %}
+                  <script type="text/javascript">
+                  //<![CDATA[
+                  (function(undefined) {
+                      var iIndex = aGeopositions.length;
+                      aGeopositions[iIndex] = {
+                          latitude: {{ museum.latitude }},
+                          longitude: {{ museum.longitude }},
+                          categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
+                          content: '<div class="inner" onclick="location.href=\'{{ museum.get_url_path }}\';">'
+                          + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
+                          + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
+                          + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'
+                          + '<hr />'
+                          + '<a href="{{ museum.get_url_path }}">{% trans "more" %}</a>'
+                          + '</div>'
+                      }
+                  }());
+                  //]]>
+                  </script>
+              {% endif %}
+            {% endwith %}
+        </li>
         {% endfor %}
     </ul>
-    
+  </div>
+</div>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>    
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/listing_map.js"></script>

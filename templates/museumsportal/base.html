@@ -79,21 +79,29 @@
                 isoFilters.push( filters[ prop ] )
             }
             var selector = isoFilters.join('');
-            $container.isotope({ filter: selector });
+
+            $container.isotope({ filter: selector });            
+            $("#container .img:in-viewport").lazyload();
             $container.trigger("map_filter", { filter: isoFilters});
             $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
+            
             return false;
         });
     });
     $(function(){
         $("#container .img").lazyload();
     });
-    
+
+    jQuery(window).bind('scrollstop', function(e){
+        $("#container .img:in-viewport").lazyload();
+    });
+
     $(document).ready(function () {
        if ($("[rel=tooltip]").length) {
            $("[rel=tooltip]").tooltip();
        }
     });
+
     </script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
@@ -117,6 +125,14 @@
 
 		<div id="header" class="clearfix">
             <div class="inner">
+
+                <a class="logo" href="/">
+                    <span class="img">&nbsp;</span>
+                    <span class="word">Berliner<br/>Museumsportal</span>
+                    <span class="claim">Alle Informationen zu Berlins<br/>
+                    Museen, Schlössern und Gedenkstätten.</span>
+                </a>
+
     			<ul class="navigation">
 
     			    {% if LANGUAGE_CODE == "de" %}
@@ -142,12 +158,8 @@
         <!-- Content
         ================================================== -->
 
-		<div id="content" class="clearfix">
-            <div class="inner">
     		    {% block content %}
     			{% endblock %}
-            </div>
-		</div>	
 		
         <!-- Footer
         ================================================== -->
@@ -181,7 +193,18 @@
 	        }
 	    }
 	});
-	</script>    
+	</script>
 
+    <script >
+        $('#container.collapsed li').click(function() {
+            if ($(this).hasClass('open')) {
+                $(this).toggleClass('open');
+            } 
+            else {
+                $(this).parent().find('li.open').removeClass('open');
+                $(this).toggleClass('open');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -97,6 +97,8 @@
 
 
 {% block content %}
+<div class="content clearfix">
+  <div class="inner">
     {% with object as exhibition %}
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
@@ -455,6 +457,7 @@
                                     <li>
                                         <input id="submit" type="submit" name="start" value="Anfrage abschicken">
                                     </li>
+                                    
                                 </ul>
                             </fieldset>
                         </form>
@@ -589,40 +592,38 @@
             {% endif %}
         </article>
     {% endwith %}
-    
-    <div id="content" class="clearfix" style="background-color: rgba(0,0,0,0.025)">
-        <div class="inner">
-    
-            <h2>Nur noch kurze Zeit</h2>
-            <ul id="container" class="list tiles small clearfix">
-                {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
-                {% for exhibition in exhibitions_closing_soon %}
-                    <li class="item">
-                        {% if exhibition.image %}
-                            <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}">
-                                <span class="spinner loading"></span>
-                                <span class="overlay"></span>
-                            </a>
-                        {% endif %}
-                        <a href="{{ exhibition.get_url_path }}">
-                            <h3>{{ exhibition.museum.title }}</h3>
-                            <h4>{{ exhibition.title }}</h4>
-                            <h5>{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+  </div>
+</div>
+<div class="content" class="clearfix" style="background-color: rgba(0,0,0,0.025)">
+    <div class="inner">
+        <h2>Nur noch kurze Zeit</h2>
+        <ul id="container" class="list tiles small clearfix">
+            {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
+            {% for exhibition in exhibitions_closing_soon %}
+                <li class="item">
+                    {% if exhibition.image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}">
+                            <span class="spinner loading"></span>
+                            <span class="overlay"></span>
                         </a>
-                    </li>
-                {% endfor %}
-            </ul>
-                
-            <div id="controls">
-                {% if prev_item %}
-                    <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>
-                {% endif %}
-                {% if next_item %}
-                    <a href="{{ next_item.get_url_path }}" id="next">&gt;</a>
-                {% endif %}
-            </div>
-        
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h3>{{ exhibition.museum.title }}</h3>
+                        <h4>{{ exhibition.title }}</h4>
+                        <h5>{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="controls">
+            {% if prev_item %}
+                <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>
+            {% endif %}
+            {% if next_item %}
+                <a href="{{ next_item.get_url_path }}" id="next">&gt;</a>
+            {% endif %}
         </div>
-    </div>  
+    </div>
+</div>  
     
 {% endblock %}

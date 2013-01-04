@@ -77,7 +77,7 @@ class BasicInfoForm(ModelForm):
             ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Next')),
-            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
+            SecondarySubmit('reset', _('Reset')),
             ))
         
         self.helper.layout = layout.Layout(
@@ -126,7 +126,7 @@ class OpeningForm(forms.Form):
         layout_blocks = []
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Next')),
-            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
+            SecondarySubmit('reset', _('Reset')),
             ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -426,7 +426,7 @@ class PricesForm(ModelForm):
 
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Next')),
-            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
+            SecondarySubmit('reset', _('Reset')),
             ))
         
         self.helper.layout = layout.Layout(
@@ -486,7 +486,7 @@ class AddressForm(ModelForm):
             ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Next')),
-            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
+            SecondarySubmit('reset', _('Reset')),
             ))
         
         self.helper.layout = layout.Layout(
@@ -614,7 +614,7 @@ class ServicesAccessibilityForm(ModelForm):
             ))
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Next')),
-            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
+            SecondarySubmit('reset', _('Reset')),
             ))
         
         self.helper.layout = layout.Layout(
@@ -656,7 +656,7 @@ class MediationForm(ModelForm):
 
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Save')),
-            SecondarySubmit('reset', _('Reset'), css_class="btn-warning"),
+            SecondarySubmit('reset', _('Reset')),
             ))
         
         self.helper.layout = layout.Layout(
