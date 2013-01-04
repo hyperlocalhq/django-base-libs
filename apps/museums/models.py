@@ -236,7 +236,15 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         
     def get_tags(self):
         return Tag.objects.get_for_object(self)
-        
+
+    def get_address(self):
+        return ", ".join([
+            getattr(self, fn)
+            for fn in ["street_address", "street_address2", "postal_code", "city"]
+            if getattr(self, fn)
+            ])
+    get_address.short_description = _("Address")
+
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)
     start = models.DateField(_("Start"))

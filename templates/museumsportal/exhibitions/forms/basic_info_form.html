@@ -1,6 +1,19 @@
 {% extends "exhibitions/forms/base.html" %}
 {% load crispy_forms_tags %}
 
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
+{% endblock %}
+
+
 {% block multistep_form %}
 {% crispy form %}
 {% endblock %}

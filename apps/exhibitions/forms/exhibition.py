@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from base_libs.forms.fields import AutocompleteModelChoiceField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG
 
 Exhibition = models.get_model("exhibitions", "Exhibition")
@@ -22,6 +23,38 @@ class SecondarySubmit(layout.Submit):
     field_classes = "btn"
 
 class BasicInfoForm(ModelForm):
+    museum = AutocompleteModelChoiceField(
+        required=False,
+        label=u"Name",
+        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        app="museums",
+        qs_function="get_published_museums",
+        display_attr="title",
+        add_display_attr="get_address",
+        options={
+            "minChars": 1,
+            "max": 20,
+            "mustMatch": 1,
+            "highlight" : False,
+            "multipleSeparator": ",,, ",
+            },
+        )
+    organizing_museum = AutocompleteModelChoiceField(
+        required=False,
+        label=u"Name",
+        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        app="museums",
+        qs_function="get_published_museums",
+        display_attr="title",
+        add_display_attr="get_address",
+        options={
+            "minChars": 1,
+            "max": 20,
+            "mustMatch": 1,
+            "highlight" : False,
+            "multipleSeparator": ",,, ",
+            },
+        )
     class Meta:
         model = Exhibition
         
