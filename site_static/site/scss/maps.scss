@@ -8,14 +8,16 @@
   #gmap_wrapper {
    height: 100%;
    margin-top: -160px;
-   z-index: 10000;
   }
+
   #category {
-    margin-top: -250px;
-    z-index: 10000;
-    position: absolute;
+    -webkit-transform: translate(0px,-250px); /* Safari and Chrome */
+
     li {
-      a { background-color: white}
+      a { 
+        background-color: white;
+        box-shadow: 0 0 0 2px rgba(0,0,0,0.05)
+      }
       .selected,
       &.active a,
       &:hover a { 

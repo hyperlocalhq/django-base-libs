@@ -778,12 +778,12 @@ article {
   padding-bottom: 30px;
   font-size: 16px;
   line-height: 10px;
-
+  -webkit-transform: translate(0px,0px); /* Safari and Chrome */
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out;
-  
+
   .title { 
     display: block;
     padding-bottom: 10px;
