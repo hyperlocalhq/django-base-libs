@@ -131,6 +131,7 @@
         $(function() {
             $('#gmap_toggle').click(function() {
                 $('body').toggleClass('map_visible');
+                google.maps.event.trigger(oMap, 'resize');
             });
             $('#gmap_fullscreen').click(function() {
                 $('body').toggleClass('map_fullscreen');

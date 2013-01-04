@@ -11,9 +11,10 @@
     };  
 })(jQuery);
 
+var oMap;
 
 (function($, undefined) {
-    var oMap, oInfobox;
+    var oInfobox;
     var aMarkers = [];
     var oCurrentMarker = null;
     
