@@ -1,22 +1,13 @@
 .map_visible{
   #gmap_wrapper {
-   height: 350px; 
+   height: 35%; 
   }
 }
 .map_fullscreen{
   #gmap_wrapper {
-   height: auto;
-   width: auto;
-   top: 0px;
-   bottom: 0px;
-   left: 0px;
-   right: 0px;
-   position: absolute;
-  -webkit-transition-duration: 0s;
+   height: 100%;
+   margin-top: -160px;
    z-index: 10000;
-   #gmap  {
-      height: 100%;
-    }
   }
 }
 
@@ -25,12 +16,20 @@
   height: 0px;
   overflow: hidden;
   position: relative;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out;
 }
 
 #gmap  {
+  width: auto; 
+  height: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   position: absolute;
-  width: 100%; 
-  height: 350px;
 }
 
 

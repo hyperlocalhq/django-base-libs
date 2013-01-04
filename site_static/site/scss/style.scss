@@ -121,6 +121,8 @@ a:visited { text-decoration: none;}
 a:active  { outline: none;}
 
 #wrapper {
+  height: 100%;
+  width: 100%;
   & > * > .inner {
     width: 1000px;
     margin: auto;
