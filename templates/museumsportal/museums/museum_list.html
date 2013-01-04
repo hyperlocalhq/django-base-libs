@@ -4,7 +4,6 @@
 {% block js %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-	
     <script type="text/javascript">
         var aGeopositions = [];
         var settings = {
@@ -117,7 +116,6 @@
                         }());
                         //]]>
                         </script> 
-                        
                     {% endif %}
                 </li>
             {% endfor %}
@@ -143,7 +141,6 @@
     //<![CDATA[
     (function($, undefined) {
         $(function() {
-           
             $('#gmap_toggle').click(function() {
                 $('body').toggleClass('map_visible');
             });

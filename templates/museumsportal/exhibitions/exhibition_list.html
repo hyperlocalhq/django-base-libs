@@ -17,18 +17,18 @@
     }
     </script>
 {% endblock %}
-
+<!-- {% comment %}
 {% block bodyclass %}map_visible {% if "closing_soon" == facets.selected.status %}closing_soon{% endif %}{% endblock %}
+{% endcomment %} -->
 
 {% block content %}
-     <!-- {% comment %}
-      <div>
-        <div id="gmap_toggle" class="">&nbsp;</div>
-        <div id="gmap_wrapper" class="">
-          <div id="gmap" style="width:1000px; height:400px"></div>
-        </div>
-      </div>
-    {% endcomment %} -->
+<div id="gmap_wrapper" class="">
+  <div id="gmap">&nbsp;</div>
+    <ul class="actions top">
+        <li><a id="gmap_toggle" href="#" rel="tooltip" data-placement="bottom" data-original-title="Close" class="cancel"></a></li>
+        <li><a id="gmap_fullscreen" href="#" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></a></li>
+    </ul>
+</div>
 
 <div class="content" class="clearfix">
   <div class="inner">
@@ -129,9 +129,11 @@
     //<![CDATA[
     (function($, undefined) {
         $(function() {
-           
             $('#gmap_toggle').click(function() {
                 $('body').toggleClass('map_visible');
+            });
+            $('#gmap_fullscreen').click(function() {
+                $('body').toggleClass('map_fullscreen');
             });
         });
     }(jQuery));
