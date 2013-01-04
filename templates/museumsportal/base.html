@@ -20,6 +20,7 @@
 
     <script src="/jssettings/"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.cycle.all.js"></script>
@@ -29,7 +30,6 @@
     <script src="{{ STATIC_URL }}site/js/hammer.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
 	<script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
-
     <script type="text/javascript">
 
     $(function() {
@@ -87,6 +87,24 @@
             
             return false;
         });
+        
+        var hashChanged = false;
+        $(window).bind( 'hashchange', function( event ){
+            // get options object from hash
+            var hashOptions = window.location.hash ? $.deparam.fragment( window.location.hash, true ) : {},
+                // do not animate first call
+                aniEngine = hashChanged ? 'best-available' : 'none',
+                // apply defaults where no option was specified
+                options = $.extend( {}, hashOptions, { animationEngine: aniEngine } );
+            // apply options from hash
+            $container.isotope( options );
+            // save options
+            hashChanged = true;
+          })
+            // trigger hashchange to capture any hash data on init
+            .trigger('hashchange');
+        
+        
     });
     $(function(){
         $("#container .img").lazyload();
