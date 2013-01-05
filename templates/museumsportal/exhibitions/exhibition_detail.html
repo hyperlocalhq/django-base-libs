@@ -641,13 +641,35 @@
         </ul>
         <div id="controls">
             {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>
+                <a href="{{ prev_item.get_url_path }}" id="prev">&nbsp;</a>
             {% endif %}
             {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" id="next">&gt;</a>
+                <a href="{{ next_item.get_url_path }}" id="next">&nbsp;</a>
             {% endif %}
         </div>
     </div>
 </div>  
-    
+<script>
+    $(document).keydown(function(e){
+        switch(e.which) {
+            case 37: // left
+                document.location.href="{{ prev_item.get_url_path }}";
+            break;
+
+            case 38: // up
+                document.location.href="/de/museen/";
+            break;
+
+            case 39: // right
+                document.location.href="{{ next_item.get_url_path }}";
+            break;
+
+            case 40: // down
+            break;
+
+            default: return; // exit this handler for other keys
+        }
+        e.preventDefault();
+    });
+</script>
 {% endblock %}
