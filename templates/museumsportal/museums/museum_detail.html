@@ -189,16 +189,24 @@
                                 {% if season.is_appointment_based %}
                                     <p>{% trans "Based on appointment" %}</p>
                                 {% else %}
-                                    <p><strong>{% trans "Mon" %}</strong>
-                                        {% if season.mon_open %}
-                                            {{ season.mon_open|time:"H:i" }} - {{ season.mon_close|time:"H:i" }}
-                                            {% if season.mon_break_close %}
-                                                | {% trans "Break:" %} {{ season.mon_break_close|time:"H:i" }} - {{ season.mon_break_open|time:"H:i" }}
-                                            {% endif %}
-                                        {% else %}
-                                            {% trans "closed" %}
-                                        {% endif %}
-                                    </p>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p><strong>{% trans "Mon" %}</strong>
+                                                        {% if season.mon_open %}
+                                                            {{ season.mon_open|time:"H:i" }} - {{ season.mon_close|time:"H:i" }}
+                                                            {% if season.mon_break_close %}
+                                                                | {% trans "Break:" %} {{ season.mon_break_close|time:"H:i" }} - {{ season.mon_break_open|time:"H:i" }}
+                                                            {% endif %}
+                                                        {% else %}
+                                                            {% trans "closed" %}
+                                                        {% endif %}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <p><strong>{% trans "Tue" %}</strong>
                                         {% if season.tue_open %}
                                             {{ season.tue_open|time:"H:i" }} - {{ season.tue_close|time:"H:i" }}
@@ -498,27 +506,32 @@
                         </ul>  
                     </li>  
                 {% endif %}
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-additional-exhibitions">{% trans "Additional Exhibitions" %}</a>  
+                    </h4>  
+                    <ul id="collapse-additional-exhibitions" class="accordion-body collapse in">
+                        <li class="accordion-inner">
+                            <ul id="kurze_zeit" class="list compact">
+                            {% for exhibition in object.get_published_exhibitions %}
+                                <li class="item">
+                                    {% if exhibition.image %}
+                                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
+                                    {% endif %}
+                                    <a href="{{ exhibition.get_url_path }}">
+                                        <h4>{{ exhibition.museum.title }}</h4>
+                                        <h3>{{ exhibition.title }}</h3>
+                                        <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>  
+                </li> 
             </ul> 
 
-            <ul id="kurze_zeit" class="list">
-            {% for exhibition in object.get_published_exhibitions %}
-                
-                {% if forloop.first %}
-                    <li><h4>{% trans "Exhibitions" %}</h4></li>
-                {% endif %}
-                
-                <li class="article">
-                    {% if exhibition.image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_thumbnail" }})"></a>
-                    {% endif %}
-                    <a href="{{ exhibition.get_url_path }}">
-                        <h4>{{ exhibition.museum.title }}</h4>
-                        <h3>{{ exhibition.title }}</h3>
-                        <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
-                    </a>
-                </li>
-            {% endfor %}
-            </ul>
+            
         </section>
 
         <section class="sidebar" style="display: none">
@@ -744,10 +757,34 @@
 </div>
         <div id="controls">
             {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>
+                <a href="{{ prev_item.get_url_path }}" id="prev"></a>
             {% endif %}
             {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" id="next">&gt;</a>
+                <a href="{{ next_item.get_url_path }}" id="next"></a>
             {% endif %}
         </div>
+
+        <script>
+        $(document).keydown(function(e){
+            switch(e.which) {
+                case 37: // left
+                    document.location.href="{{ prev_item.get_url_path }}";
+                break;
+
+                case 38: // up
+                    document.location.href="/de/museen/";
+                break;
+
+                case 39: // right
+                    document.location.href="{{ next_item.get_url_path }}";
+                break;
+
+                case 40: // down
+                break;
+
+                default: return; // exit this handler for other keys
+            }
+            e.preventDefault();
+        });
+        </script>
 {% endblock %}
