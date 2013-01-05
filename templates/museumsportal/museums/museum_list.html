@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n image_modifications base_tags %}
+{% load i18n image_modifications base_tags tagging_tags %}
 
 {% block js %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
@@ -74,7 +74,8 @@
 
         <ul id="container" class="list tiles clearfix">
             {% for museum in object_list %}
-                <li class="item initial_{{ museum.title|slugify|slice:"0:1" }} {% for cat in museum.categories.all %}cat_{{ cat.title|slugify }}{% if not forloop.last %} {% endif %}{% endfor %}">
+                {% tags_for_object museum as tags %}
+                <li class="item initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">
                     
                     {% if museum.image %}
                         <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.image }}">
