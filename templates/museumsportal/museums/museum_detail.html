@@ -4,7 +4,6 @@
 {% block js %}
     <link href="{{ STATIC_URL }}site/shadowbox/shadowbox.css" rel="stylesheet" media="screen" type="text/css" />
     <script type="text/javascript" src="{{ STATIC_URL }}site/shadowbox/shadowbox.js"></script>
-    
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}"></script>
     
     {% with object as museum %}
@@ -501,7 +500,6 @@
                 {% endif %}
             </ul> 
 
-
             <ul id="kurze_zeit" class="list">
             {% for exhibition in object.get_published_exhibitions %}
                 
@@ -522,7 +520,6 @@
             {% endfor %}
             </ul>
         </section>
-
 
         <section class="sidebar" style="display: none">
             <dl id="bvg_widget" class="bvg">
@@ -743,7 +740,8 @@
                 </li>
             {% endfor %}
         </ul>
-    
+    </div>
+</div>
         <div id="controls">
             {% if prev_item %}
                 <a href="{{ prev_item.get_url_path }}" id="prev">&lt;</a>

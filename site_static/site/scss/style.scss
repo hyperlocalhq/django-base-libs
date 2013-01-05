@@ -615,10 +615,11 @@ a:active  { outline: none;}
   float: right;
   width: 320px;
   background-color: rgba(0,0,0,0.025);
-  display: none;
 }
 
 article { 
+  width: 660px;
+  float: left;
   padding-bottom: 20px;
 
   header {
@@ -652,7 +653,7 @@ article {
 
 #slide { 
   height: 350px;
-  width: 1000px;
+  width: 100%;
   overflow: hidden;
 
   &:hover { 
@@ -663,7 +664,7 @@ article {
 
   > li { 
     height: 350px;
-    width: 1000px;
+    width: 100%;
     display: block;
     background-color: white;  
 
@@ -671,7 +672,7 @@ article {
     .img { 
       display: block;
       height: 350px;
-      width: 1000px;
+      width: 100%;
       background-size: cover;
       background-position: center;
       position: absolute;
