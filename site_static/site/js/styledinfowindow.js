@@ -34,9 +34,9 @@ StyledInfoWindow.prototype = new google.maps.OverlayView();
  * Creates the DIV representing this StyledInfoWindow
  */
 StyledInfoWindow.prototype.onRemove = function() {
-    if (this.div_) {
-        this.div_.parentNode.removeChild(this.div_);
-        this.div_ = null;
+    if (this.$div_) {
+        this.$div_.remove();
+        this.$div_ = null;
     }
 };
 
@@ -74,25 +74,26 @@ StyledInfoWindow.prototype.draw = function() {
     
     this.width_ = 600;
     this.height_ = 0;
-    image = '';
     this.offsetX_ = -(this.width_ / 2 + 5);
     this.offsetY_ = -(this.height_ + 40);
             
     // Now position our DIV based on the DIV coordinates of our bounds
-    this.div_.style.width = this.width_ + 'px';
-    this.div_.style.left = (pixPosition.x + this.offsetX_) + centerOffsetX + 'px';
-    this.div_.style.height = this.height_ + 'px';
-    this.div_.style.top = (pixPosition.y + this.offsetY_) + centerOffsetY + 'px';
-    //this.div_.style.paddingTop = paddingTop + 'px';
-    //this.div_.style.paddingLeft = paddingLeft + 'px';
-    //this.div_.style.background = 'url("' + window.settings.STATIC_URL + 'site/img/gmap/' + image + '")';
-    this.div_.style.display = 'block';
+    this.$div_.css({
+        width: this.width_ + 'px',
+        left: (pixPosition.x + this.offsetX_) + centerOffsetX + 'px',
+        height: this.height_ + 'px',
+        top: (pixPosition.y + this.offsetY_) + centerOffsetY + 'px'
+    });
     
-    this.wrapperDiv_.style.width = (this.width_- widthLess) + 'px';
-    this.wrapperDiv_.style.height = this.height_ + 'px';
-    this.wrapperDiv_.style.marginTop = paddingTop + 'px';
-    this.wrapperDiv_.style.marginLeft = paddingLeft + 'px';
-    this.wrapperDiv_.style.overflow = 'visible';
+    var $wrapperDiv_ = this.$div_.find('.wrapper');
+    $wrapperDiv_.css({
+        width: (this.width_- widthLess) + 'px',
+        height: this.height_ + 'px',
+        marginTop: paddingTop + 'px',
+        marginLeft: paddingLeft + 'px',
+        overflow: 'visible'
+    });
+    
     if (!this.panned_) {
         this.panned_ = true;
         this.maybePanMap();
@@ -116,48 +117,33 @@ StyledInfoWindow.prototype.createElement = function() {
         StyledInfoWindow.instance = null;
     }    
     var panes = this.getPanes();
-    var div = this.div_;
-    if (!div) {
+    var $div = this.$div_;
+    var instance = this;
+    if (!$div) {
         // This does not handle changing panes.  You can set the map to be null and
         // then reset the map to move the div.
-        div = this.div_ = document.createElement('div');
-        div.style.border = '0px none';
-        div.style.position = 'absolute';
-        div.style.overflow = 'visible';
-        var wrapperDiv = this.wrapperDiv_ = document.createElement('div');
-        wrapperDiv.className="info_window";
-        var contentDiv = document.createElement('div');
-        if (typeof this.content_ == 'string') {
-            contentDiv.innerHTML = this.content_;
-        } else {
-            contentDiv.appendChild(this.content_);
-        }
-        contentDiv.className="wrapper";
-        var closeImg = document.createElement('img');
-        closeImg.src = window.settings.STATIC_URL + 'site/img/gmap/closebigger.gif';
-        closeImg.className="close";
-        contentDiv.appendChild(closeImg);
-
-        function removeStyledInfoWindow(ib) {
-            return function() {
-                ib.setMap(null);
-            };
-        }
-
-        google.maps.event.addDomListener(closeImg, 'click', removeStyledInfoWindow(this));
-        
-        wrapperDiv.appendChild(contentDiv);
-        wrapperDiv.className="location";
-        div.appendChild(wrapperDiv);
-        // Append to body, to avoid bug with Webkit browsers
-        // attempting CSS transforms on IFRAME or SWF objects
-        // and rendering badly.
-        this.map_.getDiv().appendChild(div);
+        $div = this.$div_ = $(
+            '<div class="info_window location">' +
+                '<div class="wrapper">' +
+                    '<div class="inner">' +
+                        '<img class="close" alt="" src="' + window.settings.STATIC_URL + 'site/img/gmap/closebigger.gif" />' +
+                        this.content_ +
+                    '</div>' + 
+                '</div>' +
+            '</div>'
+        ).css({
+            'position': 'absolute',
+            'overflow': 'visible'
+        });
+        $div.find('.close').click(function() {
+            instance.setMap(null);
+        });        
+        $(this.map_.getDiv()).append($div);
         //document.body.appendChild(div);
-    } else if (div.parentNode != panes.floatPane) {
+    } else if ($div.get(0).parentNode != panes.floatPane) {
         // The panes have changed.  Move the div.
-        div.parentNode.removeChild(div);
-        panes.floatPane.appendChild(div);
+        $div.remove();
+        $(panes.floatPane).append($div);
     } else {
         // The panes have not changed, so no need to create or move the div.
     }
@@ -189,7 +175,7 @@ StyledInfoWindow.prototype.maybePanMap = function() {
     
     // The dimension of the infowindow
     var iwWidth = this.width_;
-    var iwHeight = this.height_;
+    var iwHeight = this.$div_.find('.inner').height();
     
     // The offset position of the infowindow
     var iwOffsetX = this.offsetX_;
@@ -198,11 +184,11 @@ StyledInfoWindow.prototype.maybePanMap = function() {
     var anchorPixel = projection.fromLatLngToDivPixel(this.latlng_);
     var bl = new google.maps.Point(
         anchorPixel.x + iwOffsetX + 20,
-        anchorPixel.y + iwOffsetY + iwHeight
+        anchorPixel.y + iwOffsetY - iwHeight - 50
     );
     var tr = new google.maps.Point(
         anchorPixel.x + iwOffsetX + iwWidth,
-        anchorPixel.y + iwOffsetY
+        anchorPixel.y
     );
     var sw = projection.fromDivPixelToLatLng(bl);
     var ne = projection.fromDivPixelToLatLng(tr);

@@ -100,13 +100,12 @@
                               latitude: {{ museum.latitude }},
                               longitude: {{ museum.longitude }},
                               categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                              content: '<div class="inner" onclick="location.href=\'{{ museum.get_url_path }}\';">'
-                              + '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
+                              content: 
+                              '{% if museum.image %}<img src="{{ UPLOADS_URL }}{{ museum.image.path|modified_path:"map_item" }}" alt="{{ museum.title }}" width="52" height="52" />{% endif %}'
                               + '<h4>{{ museum.title|truncatewords:5 }}</h4>'
                               + '<p>{{ museum.street_address }} {{ museum.street_address2 }}</p>'
                               + '<hr />'
                               + '<a href="{{ museum.get_url_path }}">{% trans "more" %}</a>'
-                              + '</div>'
                           }
                       }());
                       //]]>
