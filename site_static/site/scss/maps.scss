@@ -1,37 +1,46 @@
 .map_visible{
+
   #gmap_wrapper {
    height: 350px; 
   }
-}
+  &.map_fullscreen{
+    overflow: hidden;
 
-.map_fullscreen{
-  #gmap_wrapper {
-   height: 100%;
-   margin-top: -160px;
-  }
+    #gmap_wrapper {
+     height: 100%;
+     margin-top: -160px;
+    }
 
-  #category {
-    -webkit-transform: translate(0px,-250px); /* Safari and Chrome */
+    #category {
+      -webkit-transform: translate(0px,-250px); /* Safari and Chrome */
 
-    li {
-      a { 
-        background-color: white;
-        box-shadow: 0 0 0 2px rgba(0,0,0,0.05)
-      }
-      .selected,
-      &.active a,
-      &:hover a { 
-        background-color: $blue;
-        color: white;
+      li {
+        a { 
+          background-color: white;
+          box-shadow: 0 0 0 2px rgba(0,0,0,0.05)
+        }
+        .selected,
+        &.active a,
+        &:hover a { 
+          background-color: $blue;
+          color: white;
+        }
       }
     }
   }
 }
 
+
+
 #gmap_wrapper  {
   height: 0px;
   overflow: hidden;
   position: relative;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out;
+
 }
 
 #gmap  {
