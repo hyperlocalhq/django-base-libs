@@ -207,52 +207,52 @@ class SeasonForm(ModelForm):
                 <tbody>
                     <tr>
                         <th>"""), "mon_is_open", layout.HTML("""</th>
-                        <td>"""), "mon_open", layout.HTML("""</td>
-                        <td>"""), "mon_break_close", layout.HTML("""</td>
-                        <td>"""), "mon_break_open", layout.HTML("""</td>
-                        <td>"""), "mon_close", layout.HTML("""</td>
+                        <td>"""), layout.Field("mon_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("mon_break_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("mon_break_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("mon_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
                         <th>"""), "tue_is_open", layout.HTML("""</th>
-                        <td>"""), "tue_open", layout.HTML("""</td>
-                        <td>"""), "tue_break_close", layout.HTML("""</td>
-                        <td>"""), "tue_break_open", layout.HTML("""</td>
-                        <td>"""), "tue_close", layout.HTML("""</td>
+                        <td>"""), layout.Field("tue_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("tue_break_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("tue_break_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("tue_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
                         <th>"""), "wed_is_open", layout.HTML("""</th>
-                        <td>"""), "wed_open", layout.HTML("""</td>
-                        <td>"""), "wed_break_close", layout.HTML("""</td>
-                        <td>"""), "wed_break_open", layout.HTML("""</td>
-                        <td>"""), "wed_close", layout.HTML("""</td>
+                        <td>"""), layout.Field("wed_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("wed_break_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("wed_break_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("wed_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
                         <th>"""), "thu_is_open", layout.HTML("""</th>
-                        <td>"""), "thu_open", layout.HTML("""</td>
-                        <td>"""), "thu_break_close", layout.HTML("""</td>
-                        <td>"""), "thu_break_open", layout.HTML("""</td>
-                        <td>"""), "thu_close", layout.HTML("""</td>
+                        <td>"""), layout.Field("thu_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("thu_break_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("thu_break_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("thu_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
                         <th>"""), "fri_is_open", layout.HTML("""</th>
-                        <td>"""), "fri_open", layout.HTML("""</td>
-                        <td>"""), "fri_break_close", layout.HTML("""</td>
-                        <td>"""), "fri_break_open", layout.HTML("""</td>
-                        <td>"""), "fri_close", layout.HTML("""</td>
+                        <td>"""), layout.Field("fri_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("fri_break_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("fri_break_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("fri_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
                         <th>"""), "sat_is_open", layout.HTML("""</th>
-                        <td>"""), "sat_open", layout.HTML("""</td>
-                        <td>"""), "sat_break_close", layout.HTML("""</td>
-                        <td>"""), "sat_break_open", layout.HTML("""</td>
-                        <td>"""), "sat_close", layout.HTML("""</td>
+                        <td>"""), layout.Field("sat_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sat_break_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sat_break_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sat_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
                         <th>"""), "sun_is_open", layout.HTML("""</th>
-                        <td>"""), "sun_open", layout.HTML("""</td>
-                        <td>"""), "sun_break_close", layout.HTML("""</td>
-                        <td>"""), "sun_break_open", layout.HTML("""</td>
-                        <td>"""), "sun_close", layout.HTML("""</td>
+                        <td>"""), layout.Field("sun_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sun_break_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sun_break_open", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sun_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                 </tbody>
             </table>
