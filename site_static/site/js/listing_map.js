@@ -152,6 +152,9 @@ var oMap;
                 //oMap.setZoom(16);
                 //$("#museum_list_map").autoscroll();
                 $('body').addClass('map_visible');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 600);
                 return false;
             });
         }
