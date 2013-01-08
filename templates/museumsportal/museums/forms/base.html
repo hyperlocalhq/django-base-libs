@@ -2,19 +2,37 @@
 {% load i18n %}
 
 {% block stylesheet %}
-    <link href="{{ JETSON_MEDIA_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/timepicker.css" rel="stylesheet" media="screen" type="text/css" />
 {% endblock %}
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js">
-</script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
+
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-datepicker.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-timepicker.js"></script>
+    <script>
+      $(function() {
+        $('.dateinput').datepicker({
+          format: 'mm-dd-yyyy'
+        })
+        $('.timeinput').timepicker({
+          showMeridian: false
+        });
+
+      });
+    </script>
 {% endblock %}
 
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
+    <input id="id_seasons-0-mon_break_close" type="text" placeholder="0:00" class="timeinput form_text" name="seasons-0-mon_break_close">
+    <div id="div_id_seasons-1-start" class="clearfix control-group"><label for="id_seasons-1-start" class="control-label requiredField">
+        Von Datum<span class="asteriskField">*</span></label><div class="controls"><input id="id_seasons-1-start" type="text" class="dateinput form_text" name="seasons-1-start"></div></div>
+
     {% if museum %}
         <h1>{% blocktrans with museum_title=museum.title %}Edit {{ museum_title }}{% endblocktrans %}</h1>
     {% else %}
@@ -26,6 +44,5 @@
     {% endblock %}
     </div>
 </div>
-
 {% endblock %}
 
