@@ -631,6 +631,12 @@
                             <span class="overlay"></span>
                         </a>
                     {% endif %}
+
+                    <ul class="actions">
+                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
+                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></a></li>
+                    </ul>
+                    
                     <a href="{{ exhibition.get_url_path }}">
                         <h3>{{ exhibition.museum.title }}</h3>
                         <h4>{{ exhibition.title }}</h4>
