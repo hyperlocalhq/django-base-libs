@@ -126,10 +126,15 @@
         $(function() {
             $('#gmap_toggle').click(function() {
                 $('body').toggleClass('map_visible');
-                google.maps.event.trigger(oMap, 'resize');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 600);
             });
             $('#gmap_fullscreen').click(function() {
                 $('body').toggleClass('map_fullscreen');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 600);
             });
         });
     }(jQuery));
