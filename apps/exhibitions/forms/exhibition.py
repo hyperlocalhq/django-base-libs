@@ -144,10 +144,17 @@ class BasicInfoForm(ModelForm):
             "tags",
             css_class="fieldset-categories-tags",
             ))
-        layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('submit', _('Next')),
-            SecondarySubmit('reset', _('Reset')),
-            ))
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
         
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -187,16 +194,27 @@ class InlineFormSet(BaseInlineFormSet):
         return super(InlineFormSet, self).initial_form_count()
 
 
-class OpeningForm(forms.Form):
+class OpeningForm(ModelForm):
+    class Meta:
+        model = Exhibition
+        fields = []
+    
     def __init__(self, *args, **kwargs):
         super(OpeningForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
-        layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('submit', _('Next')),
-            SecondarySubmit('reset', _('Reset')),
-            ))
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
         self.helper.layout = layout.Layout(
             *layout_blocks
             )        
@@ -493,10 +511,17 @@ class PricesForm(ModelForm):
                 css_class="fieldset-basic-info",
                 ))
 
-        layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('submit', _('Next')),
-            SecondarySubmit('reset', _('Reset')),
-            ))
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
         
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -537,10 +562,17 @@ class AccessibilityForm(ModelForm):
             css_class="fieldset-accessibility",
             ))
 
-        layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('submit', _('Save')),
-            SecondarySubmit('reset', _('Reset')),
-            ))
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Save')),
+                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Save')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
         
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -825,6 +857,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.status = "published"
     instance.save()
     
+    instance.categories.clear()
     for cat in form_step_data['basic']['categories']:
         instance.categories.add(cat)
     
