@@ -113,6 +113,107 @@
             $season.hide();
             return false;
         });
+        
+        var weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+        $('[id^="id_seasons"][id$="mon_open"]').live('keyup', function(event) {
+            var $mon = $(this);
+            var $table = $(this).parents('table:first');
+            var $checkbox = $('[id^="id_seasons"][id$=mon_is_open]', $table);
+            $checkbox.attr("checked", !!$mon.val());
+            $(weekdays).each(function() {
+                if (this == 'mon') {
+                    return;
+                }
+                var $day = $('[id^="id_seasons"][id$=' + this + '_open]', $table);
+                if (!$day.data('changed')) {
+                    $day.val($mon.val());
+                    var $checkbox = $('[id^="id_seasons"][id$=' + this + '_is_open]', $table);
+                    $checkbox.attr("checked", !!$day.val());
+                }
+            });
+        });
+        $('[id^="id_seasons"][id$="mon_break_close"]').live('keyup', function(event) {
+            var $mon = $(this);
+            var $table = $(this).parents('table:first');
+            $(weekdays).each(function() {
+                if (this == 'mon') {
+                    return;
+                }
+                var $day = $('[id^="id_seasons"][id$=' + this + '_break_close]', $table);
+                if (!$day.data('changed')) {
+                    $day.val($mon.val());
+                }
+            });
+        });
+        $('[id^="id_seasons"][id$="mon_break_open"]').live('keyup', function(event) {
+            var $mon = $(this);
+            var $table = $(this).parents('table:first');
+            $(weekdays).each(function() {
+                if (this == 'mon') {
+                    return;
+                }
+                var $day = $('[id^="id_seasons"][id$=' + this + '_break_open]', $table);
+                if (!$day.data('changed')) {
+                    $day.val($mon.val());
+                }
+            });
+        });
+        $('[id^="id_seasons"][id$="mon_close"]').live('keyup', function(event) {
+            var $mon = $(this);
+            var $table = $(this).parents('table:first');
+            $(weekdays).each(function() {
+                if (this == 'mon') {
+                    return;
+                }
+                var $day = $('[id^="id_seasons"][id$=' + this + '_close]', $table);
+                if (!$day.data('changed')) {
+                    $day.val($mon.val());
+                }
+            });
+        });
+        $(weekdays).each(function() {
+            $('[id^="id_seasons"][id$="' + this + '_open"]').live('keyup', function() {
+                $(this).data('changed', true);
+            }).each(function() {
+                if ($(this).val()) {
+                    $(this).data('changed', true);
+                }
+            });
+            $('[id^="id_seasons"][id$="' + this + '_break_close"]').live('keyup', function() {
+                $(this).data('changed', true);
+            }).each(function() {
+                if ($(this).val()) {
+                    $(this).data('changed', true);
+                }
+            });
+            $('[id^="id_seasons"][id$="' + this + '_break_open"]').live('keyup', function() {
+                $(this).data('changed', true);
+            }).each(function() {
+                if ($(this).val()) {
+                    $(this).data('changed', true);
+                }
+            });
+            $('[id^="id_seasons"][id$="' + this + '_close"]').live('keyup', function() {
+                $(this).data('changed', true);
+            }).each(function() {
+                if ($(this).val()) {
+                    $(this).data('changed', true);
+                }
+            });
+            $('[id^="id_seasons"][id$="' + this + '_is_open"]').live('change', function() {
+                if (!$(this).attr('checked')) {
+                    var $tr = $(this).parents("tr:first");
+                    $('[id^="id_seasons"][id$="_open"]', $tr)
+                    .data('changed', true).val('');
+                    $('[id^="id_seasons"][id$="_break_close"]', $tr)
+                    .data('changed', true).val('');
+                    $('[id^="id_seasons"][id$="_break_open"]', $tr)
+                    .data('changed', true).val('');
+                    $('[id^="id_seasons"][id$="_close"]', $tr)
+                    .data('changed', true).val('');
+                }
+            });
+        });
     });
 })(jQuery);
 </script>
