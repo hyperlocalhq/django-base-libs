@@ -467,7 +467,10 @@ class AddressForm(ModelForm):
         model = Museum
         fields = ['street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude',
-            'phone', 'fax', 'email', 'website', 'twitter', 'facebook',
+            'phone_country', 'phone_area', 'phone_number', 
+            'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number', 
+            'service_phone_country', 'service_phone_area', 'service_phone_number', 
+            'fax_country', 'fax_area', 'fax_number', 'email', 'website', 'twitter', 'facebook',
             'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
             'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
             ]
@@ -485,7 +488,7 @@ class AddressForm(ModelForm):
             _("Location"),
             layout.Row('street_address', 'street_address2'),
             layout.Row('postal_code', 'city'),
-            layout.Row('district', 'country'),
+            'district',
             'latitude', 'longitude',
             css_class="fieldset-location",
             ))
@@ -498,13 +501,32 @@ class AddressForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Contact person"),
             'contact_name', 
-            layout.Row('contact_phone_country', 'contact_phone_area', 'contact_phone_number', css_class="phone"),
+            layout.Row(
+                layout.HTML('{% load i18n %}<div><label>{% trans "Contact person phone" %}</label></div>'),
+                'contact_phone_country', 'contact_phone_area', 'contact_phone_number',
+                css_class="phone"),
             'contact_email',
             css_class="fieldset-contact-person",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Other contact info"),
-            'phone', 'fax', 'email', 'website',
+            layout.Row(
+                layout.HTML('{% load i18n %}<div><label>{% trans "Phone" %}</label></div>'),
+                'phone_country', 'phone_area', 'phone_number',
+                css_class="phone"),
+            layout.Row(
+                layout.HTML('{% load i18n %}<div><label>{% trans "Fax" %}</label></div>'),
+                'fax_country', 'fax_area', 'fax_number',
+                css_class="phone"),
+            layout.Row(
+                layout.HTML('{% load i18n %}<div><label>{% trans "Group bookings phone" %}</label></div>'),
+                'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
+                css_class="phone"),
+            layout.Row(
+                layout.HTML('{% load i18n %}<div><label>{% trans "Service phone" %}</label></div>'),
+                'service_phone_country', 'service_phone_area', 'service_phone_number',
+                css_class="phone"),
+                'email', 'website',
             css_class="fieldset-other-contact-info",
             ))
         layout_blocks.append(layout.Fieldset(
@@ -814,7 +836,11 @@ def load_data(instance=None):
         
         fields = ['street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude',
-            'phone', 'fax', 'email', 'website', 'twitter', 'facebook',
+            'phone_country', 'phone_area', 'phone_number',
+            'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
+            'service_phone_country', 'service_phone_area', 'service_phone_number',
+            'fax_country', 'fax_area', 'fax_number',
+            'email', 'website', 'twitter', 'facebook',
             'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
             'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
             ]
@@ -899,7 +925,11 @@ def save_data(form_steps, form_step_data, instance=None):
 
     fields = ['street_address', 'street_address2', 'postal_code', 'district',
         'city', 'latitude', 'longitude',
-        'phone', 'fax', 'email', 'website', 'twitter', 'facebook',
+        'phone_country', 'phone_area', 'phone_number',
+        'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
+        'service_phone_country', 'service_phone_area', 'service_phone_number',
+        'fax_country', 'fax_area', 'fax_number',
+        'email', 'website', 'twitter', 'facebook',
         'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
         'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
         ]
