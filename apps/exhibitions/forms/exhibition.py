@@ -72,6 +72,10 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
+        self.fields['categories'].widget = forms.CheckboxSelectMultiple()
+        self.fields['categories'].help_text = ""
+        self.fields['categories'].empty_label = None
+
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
                 'title_%s' % lang_code,
