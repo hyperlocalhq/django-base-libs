@@ -29,10 +29,6 @@
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
-    <input id="id_seasons-0-mon_break_close" type="text" placeholder="0:00" class="timeinput form_text" name="seasons-0-mon_break_close">
-    <div id="div_id_seasons-1-start" class="clearfix control-group"><label for="id_seasons-1-start" class="control-label requiredField">
-        Von Datum<span class="asteriskField">*</span></label><div class="controls"><input id="id_seasons-1-start" type="text" class="dateinput form_text" name="seasons-1-start"></div></div>
-
     {% if museum %}
         <h1>{% blocktrans with museum_title=museum.title %}Edit {{ museum_title }}{% endblocktrans %}</h1>
     {% else %}
