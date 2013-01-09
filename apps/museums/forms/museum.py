@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-from base_libs.models.settings import MARKUP_HTML_WYSIWYG
+from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
@@ -63,7 +63,7 @@ class BasicInfoForm(ModelForm):
 
             layout.Row(
                 css_class="div-accessibility-details",
-                *('description_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
                 css_class="fieldset-basic-info",
@@ -187,8 +187,7 @@ class SeasonForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Season"),
-            "start",
-            "end",
+            layout.Row("start", "end"),
             "is_appointment_based",
 
             layout.HTML(
@@ -892,7 +891,7 @@ def save_data(form_steps, form_step_data, instance=None):
             'yearly_ticket_%s' % lang_code,
             'other_tickets_%s' % lang_code,
             ]:
-            setattr(instance, f + "_markup_type", MARKUP_HTML_WYSIWYG)
+            setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
     fields = ['street_address', 'street_address2', 'postal_code', 'district',
         'city', 'latitude', 'longitude',
@@ -946,12 +945,12 @@ def save_data(form_steps, form_step_data, instance=None):
             'service_rent_info_%s' % lang_code,
             'service_other_info_%s' % lang_code,
             ]:
-            setattr(instance, f + "_markup_type", MARKUP_HTML_WYSIWYG)
+            setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
 
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['mediation']['mediation_offer_%s' % lang_code])
-        setattr(instance, 'mediation_offer_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+        setattr(instance, 'mediation_offer_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
 
     instance.status = "published"
     instance.save()
@@ -1001,7 +1000,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
-            setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+            setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         season.save()
         
     instance.specialopeningtime_set.all().delete()
@@ -1013,7 +1012,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
             setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
-            setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+            setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         special_opening.is_closed = special_opening_dict['is_closed'] 
         special_opening.is_regular = special_opening_dict['is_regular'] 
         special_opening.opening = special_opening_dict['opening'] 

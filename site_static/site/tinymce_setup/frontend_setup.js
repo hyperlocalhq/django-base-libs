@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    $('textarea.hasMarkupType').tinymce({
+    $('textarea.tinymce').tinymce({
         // Location of TinyMCE script
-        script_url: settings.STATIC_URL + 'site/tinymce/jscripts/tiny_mce/tiny_mce.js',
+        script_url: window.settings.STATIC_URL + 'site/tinymce/jscripts/tiny_mce/tiny_mce.js',
 
         // General options
         theme: "advanced",
@@ -16,8 +16,10 @@ $(document).ready(function() {
         theme_advanced_resizing: true,
         
         // CSS
-        content_css: settings.STATIC_URL + 'site/css/frontend_tinymce.css',
-        popup_css: settings.STATIC_URL + 'site/css/frontend_tinymce_popup.css'
+
+        content_css: window.settings.STATIC_URL + 'site/css/frontend_tinymce.css',
+
+        popup_css: window.settings.STATIC_URL + 'site/css/frontend_tinymce_popup.css'
     });
 });
 

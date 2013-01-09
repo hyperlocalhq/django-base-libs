@@ -114,6 +114,12 @@
             return false;
         });
         
+        var $total_forms = $('#id_seasons-TOTAL_FORMS');
+        if ($total_forms.val() == "0") {
+            $('#add_season').click();
+        }
+        
+        // Working hours management
         var weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
         $('[id^="id_seasons"][id$="mon_open"]').live('keyup', function(event) {
             var $mon = $(this);
