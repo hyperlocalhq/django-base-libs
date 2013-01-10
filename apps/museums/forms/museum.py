@@ -209,7 +209,7 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("mon_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("mon_break_close", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("mon_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("mon_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("mon_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>Tuesday</h2>{% trans "From" %}</th>
@@ -221,7 +221,7 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("tue_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("tue_break_close", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("tue_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("tue_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("tue_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>Wednesday</h2>{% trans "From" %}</th>
@@ -233,7 +233,7 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("wed_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("wed_break_close", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("wed_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("wed_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("wed_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>Thursday</h2>{% trans "From" %}</th>
@@ -245,7 +245,7 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("thu_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("thu_break_close", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("thu_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("thu_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("thu_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>Friday</h2>{% trans "From" %}</th>
@@ -257,7 +257,7 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("fri_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("fri_break_close", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("fri_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("fri_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("fri_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>Saturday</h2>{% trans "From" %}</th>
@@ -269,7 +269,7 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("sat_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("sat_break_close", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("sat_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sat_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sat_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>Sunday</h2>{% trans "From" %}</th>

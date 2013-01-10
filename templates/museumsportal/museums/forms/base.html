@@ -14,15 +14,15 @@
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-datepicker.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-timepicker.js"></script>
     <script>
-      $(function() {
+    function reinit_widgets() {
         $('.dateinput').datepicker({
-          format: 'mm-dd-yyyy'
+            format: 'yyyy-mm-dd'
         })
         $('.timeinput').timepicker({
-          showMeridian: false
+            showMeridian: false,
+            defaultTime: false
         });
-
-      });
+    }
     </script>
 {% endblock %}
 
