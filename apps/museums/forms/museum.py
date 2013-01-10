@@ -654,7 +654,7 @@ class ServicesAccessibilityForm(ModelForm):
                 *('service_shop_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-bookstore-details",
+                css_class="div-books-details",
                 *('service_books_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
@@ -678,11 +678,11 @@ class ServicesAccessibilityForm(ModelForm):
                 *('service_studio_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-online-offers-details",
+                css_class="div-online-details",
                 *('service_online_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-children-birthdays-details",
+                css_class="div-birthdays-details",
                 *('service_birthdays_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
@@ -690,7 +690,7 @@ class ServicesAccessibilityForm(ModelForm):
                 *('service_rent_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-other-services-details",
+                css_class="div-other-details",
                 *('service_other_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             css_class="fieldset-services",
