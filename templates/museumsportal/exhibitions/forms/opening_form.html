@@ -115,7 +115,7 @@
         });
         
         var weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-        $('[id^="id_seasons"][id$="mon_open"]').live('keyup', function(event) {
+        $('[id^="id_seasons"][id$="mon_open"]').live('keyup change', function(event) {
             var $mon = $(this);
             var $table = $(this).parents('table:first');
             var $checkbox = $('[id^="id_seasons"][id$=mon_is_open]', $table);
@@ -132,7 +132,7 @@
                 }
             });
         });
-        $('[id^="id_seasons"][id$="mon_break_close"]').live('keyup', function(event) {
+        $('[id^="id_seasons"][id$="mon_break_close"]').live('keyup change', function(event) {
             var $mon = $(this);
             var $table = $(this).parents('table:first');
             $(weekdays).each(function() {
@@ -145,7 +145,7 @@
                 }
             });
         });
-        $('[id^="id_seasons"][id$="mon_break_open"]').live('keyup', function(event) {
+        $('[id^="id_seasons"][id$="mon_break_open"]').live('keyup change', function(event) {
             var $mon = $(this);
             var $table = $(this).parents('table:first');
             $(weekdays).each(function() {
@@ -158,7 +158,7 @@
                 }
             });
         });
-        $('[id^="id_seasons"][id$="mon_close"]').live('keyup', function(event) {
+        $('[id^="id_seasons"][id$="mon_close"]').live('keyup change', function(event) {
             var $mon = $(this);
             var $table = $(this).parents('table:first');
             $(weekdays).each(function() {
@@ -172,28 +172,28 @@
             });
         });
         $(weekdays).each(function() {
-            $('[id^="id_seasons"][id$="' + this + '_open"]').live('keyup', function() {
+            $('[id^="id_seasons"][id$="' + this + '_open"]').live('keyup change', function() {
                 $(this).data('changed', true);
             }).each(function() {
                 if ($(this).val()) {
                     $(this).data('changed', true);
                 }
             });
-            $('[id^="id_seasons"][id$="' + this + '_break_close"]').live('keyup', function() {
+            $('[id^="id_seasons"][id$="' + this + '_break_close"]').live('keyup change', function() {
                 $(this).data('changed', true);
             }).each(function() {
                 if ($(this).val()) {
                     $(this).data('changed', true);
                 }
             });
-            $('[id^="id_seasons"][id$="' + this + '_break_open"]').live('keyup', function() {
+            $('[id^="id_seasons"][id$="' + this + '_break_open"]').live('keyup change', function() {
                 $(this).data('changed', true);
             }).each(function() {
                 if ($(this).val()) {
                     $(this).data('changed', true);
                 }
             });
-            $('[id^="id_seasons"][id$="' + this + '_close"]').live('keyup', function() {
+            $('[id^="id_seasons"][id$="' + this + '_close"]').live('keyup change', function() {
                 $(this).data('changed', true);
             }).each(function() {
                 if ($(this).val()) {
