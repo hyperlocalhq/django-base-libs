@@ -397,10 +397,7 @@ class SpecialOpeningTimeForm(ModelForm):
             _("Opening times"),
             "is_closed",
             "is_regular",
-            "opening",
-            "break_close",
-            "break_open",
-            "closing",
+            layout.Row("opening", "break_close", "break_open", "closing"),
             css_class="fieldset-opening-times",
             ))
 

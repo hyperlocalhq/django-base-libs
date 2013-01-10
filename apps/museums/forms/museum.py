@@ -354,10 +354,7 @@ class SpecialOpeningTimeForm(ModelForm):
             _("Opening times"),
             "is_closed",
             "is_regular",
-            "opening",
-            "break_close",
-            "break_open",
-            "closing",
+            layout.Row("opening", "break_close", "break_open", "closing"),
             css_class="fieldset-opening-times",
             ))
 
@@ -599,6 +596,10 @@ class ServicesAccessibilityForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(ServicesAccessibilityForm, self).__init__(*args, **kwargs)
+        self.fields['accessibility_options'].widget = forms.CheckboxSelectMultiple()
+        self.fields['accessibility_options'].help_text = ""
+        self.fields['accessibility_options'].empty_label = None
+        
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
                 'accessibility_%s' % lang_code,
