@@ -197,16 +197,14 @@ class SeasonForm(ModelForm):
             layout.HTML(
             """{% load i18n %}
             <table>
-                <thead>
-                    <tr>
-                        <th>{% trans "From" %}</th>
-                        <th>{% trans "begin" %}</th>
-                        <th>{% trans "end" %}</th>
-                        <th>{% trans "Till" %}</th>
-                    </tr>
-                </thead>
 
                 <tbody>
+                    <tr>
+                        <th><h2>Monday</h2>{% trans "From" %}</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "Till" %}</th>
+                        <th>{% trans "Till" %}"""), "mon_is_open", layout.HTML("""</th>
+                    </tr>
                     <tr>
                         <td>"""), layout.Field("mon_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("mon_break_close", placeholder="0:00"), layout.HTML("""</td>
@@ -214,7 +212,10 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("mon_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "mon_is_open", layout.HTML("""</th>
+                        <th><h2>Tuesday</h2>{% trans "From" %}</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "Till" %}</th>
+                        <th>{% trans "Till" %}"""), "tue_is_open", layout.HTML("""</th>
                     </tr>
                     <tr>
                         <td>"""), layout.Field("tue_open", placeholder="0:00"), layout.HTML("""</td>
@@ -223,7 +224,10 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("tue_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "tue_is_open", layout.HTML("""</th>
+                        <th><h2>Wednesday</h2>{% trans "From" %}</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "Till" %}</th>
+                        <th>{% trans "Till" %}"""), "wed_is_open", layout.HTML("""</th>
                     </tr>
                     <tr>
                         <td>"""), layout.Field("wed_open", placeholder="0:00"), layout.HTML("""</td>
@@ -232,7 +236,10 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("wed_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "wed_is_open", layout.HTML("""</th>
+                        <th><h2>Thursday</h2>{% trans "From" %}</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "Till" %}</th>
+                        <th>{% trans "Till" %}"""), "thu_is_open", layout.HTML("""</th>
                     </tr>
                     <tr>
                         <td>"""), layout.Field("thu_open", placeholder="0:00"), layout.HTML("""</td>
@@ -241,7 +248,10 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("thu_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "thu_is_open", layout.HTML("""</th>
+                        <th><h2>Friday</h2>{% trans "From" %}</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "Till" %}</th>
+                        <th>{% trans "Till" %}"""), "fri_is_open", layout.HTML("""</th>
                     </tr>
                     <tr>
                         <td>"""), layout.Field("fri_open", placeholder="0:00"), layout.HTML("""</td>
@@ -250,7 +260,10 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("fri_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "fri_is_open", layout.HTML("""</th>
+                        <th><h2>Saturday</h2>{% trans "From" %}</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "Till" %}</th>
+                        <th>{% trans "Till" %}"""), "sat_is_open", layout.HTML("""</th>
                     </tr>
                     <tr>
                         <td>"""), layout.Field("sat_open", placeholder="0:00"), layout.HTML("""</td>
@@ -259,16 +272,16 @@ class SeasonForm(ModelForm):
                         <td>"""), layout.Field("sat_close", placeholder="0:00"), layout.HTML("""</td>
                     </tr>
                     <tr>
-                        <th>"""), "sat_is_open", layout.HTML("""</th>
+                        <th><h2>Sunday</h2>{% trans "From" %}</th>
+                        <th>{% trans "From" %}</th>
+                        <th>{% trans "Till" %}</th>
+                        <th>{% trans "Till" %}"""), "sun_is_open", layout.HTML("""</th>
                     </tr>
                     <tr>
                         <td>"""), layout.Field("sun_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("sun_break_close", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("sun_break_open", placeholder="0:00"), layout.HTML("""</td>
                         <td>"""), layout.Field("sun_close", placeholder="0:00"), layout.HTML("""</td>
-                    </tr>
-                    <tr>
-                        <th>"""), "sun_is_open", layout.HTML("""</th>
                     </tr>
                 </tbody>
             </table>
@@ -524,7 +537,7 @@ class AddressForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Other contact info"),
             layout.Row(
-                layout.HTML('{% load i18n %}<div><label>{% trans "Phone" %}</label></div>'),
+                layout.HTML('{% load i18n %}<label>{% trans "Phone" %}</label>'),
                 'phone_country', 'phone_area', 'phone_number',
                 css_class="phone"),
             layout.Row(
