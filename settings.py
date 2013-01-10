@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     "tagging",
     "tagging_autocomplete",
     "crispy_forms",
+    "rosetta",
     
     ### Required CMS Django 2.2 apps ###
     "cms",

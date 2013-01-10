@@ -41,8 +41,8 @@ urlpatterns += patterns('',
 urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns = patterns('',
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    url(r'^jetson-media/\d+/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.JETSON_MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}, name="media_url"),
+    url(r'^jetson-media/\d+/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.JETSON_MEDIA_ROOT}, name="jetson_media_url"),
 ) + urlpatterns
 
 urlpatterns += patterns('',
@@ -68,6 +68,7 @@ urlpatterns += patterns('',
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
     
+    url(r'^rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('cms.urls')),
     
