@@ -73,7 +73,17 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'teaser', 'description', 'press_text'])
     fieldsets += [(None, {'fields': ('slug', 'image', get_admin_lang_section(_("Image Caption"), ['image_caption', ]))}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'open_on_mondays')}),]
-    fieldsets += [(_("Prices"), {'fields': ('free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass', get_admin_lang_section(_("Price info"), ['admission_price_info', 'reduced_price_info', 'arrangements_for_children', 'free_entrance_for', 'family_ticket', 'group_ticket', 'free_entrance_times', 'yearly_ticket', 'other_tickets' ]))}),]
+    fieldsets += [(_("Prices"), {'fields': ('free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
+        'show_admission_price_info', get_admin_lang_section(_("Price info"), ['admission_price_info']),
+        'show_reduced_price_info', get_admin_lang_section(_("Price info"), ['reduced_price_info']),
+        'show_arrangements_for_children', get_admin_lang_section(_("Price info"), ['arrangements_for_children']),
+        'show_free_entrance_for', get_admin_lang_section(_("Price info"), ['free_entrance_for']),
+        'show_family_ticket', get_admin_lang_section(_("Price info"), ['family_ticket']),
+        'show_group_ticket', get_admin_lang_section(_("Price info"), ['group_ticket']),
+        'show_free_entrance_times', get_admin_lang_section(_("Price info"), ['free_entrance_times']),
+        'show_yearly_ticket', get_admin_lang_section(_("Price info"), ['yearly_ticket']),
+        'show_other_tickets', get_admin_lang_section(_("Price info"), ['other_tickets']),
+        )}),]
     fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += [(_("Postal address"), {'fields': ('post_street_address','post_street_address2','post_postal_code','post_city', 'post_country')}),]
     fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', (_("Group bookings phone"), {'fields': ('group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number')}), (_("Service phone"), {'fields': ('service_phone_country', 'service_phone_area', 'service_phone_number')}), 'twitter', 'facebook')}),]
