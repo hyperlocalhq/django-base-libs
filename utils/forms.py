@@ -35,3 +35,9 @@ class InlineFormSet(BaseInlineFormSet):
         self.add_fields(form, i)
         return form
 
+    def initial_form_count(self):
+        """Returns the number of forms that are required in this FormSet."""
+        if not (self.data or self.files):
+            return len(self._initial)
+        return super(InlineFormSet, self).initial_form_count()
+

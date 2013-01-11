@@ -95,15 +95,6 @@ class BasicInfoForm(ModelForm):
             *layout_blocks
             )        
 
-
-
-    def initial_form_count(self):
-        """Returns the number of forms that are required in this FormSet."""
-        if not (self.data or self.files):
-            return len(self._initial)
-        return super(InlineFormSet, self).initial_form_count()
-
-
 class OpeningForm(ModelForm):
     class Meta:
         model = Museum
