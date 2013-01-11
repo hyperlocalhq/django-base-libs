@@ -13,7 +13,18 @@
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
 {% endblock %}
 
-
 {% block multistep_form %}
 {% crispy form %}
+<script>
+    $(function() {
+        $('.dateinput').datepicker({
+            format: 'yyyy-mm-dd',
+            weekStart: 1
+        })
+        $('.timeinput').timepicker({
+            showMeridian: false,
+            defaultTime: 'value'
+        });
+    });
+</script>
 {% endblock %}

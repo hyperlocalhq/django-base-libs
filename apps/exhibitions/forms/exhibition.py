@@ -72,6 +72,9 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
+        self.fields['vernissage'].widget = forms.SplitDateTimeWidget()
+        self.fields['finissage'].widget = forms.SplitDateTimeWidget()
+
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
         self.fields['categories'].empty_label = None
@@ -118,12 +121,12 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("When?"),
-            "start",
-            "end",
+            layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
+            layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
             "permanent",
             "exhibition_extended",
-            "vernissage",
-            "finissage",
+            layout.Field("vernissage", autocomplete="off"),
+            layout.Field("finissage", autocomplete="off"),
             css_class="fieldset-when",
             ))
         layout_blocks.append(layout.Fieldset(
@@ -260,7 +263,10 @@ class SeasonForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Season"),
-            layout.Row("start", "end"),
+            layout.Row(
+                layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
+                layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off")
+                ),
             "is_appointment_based",
 
             layout.HTML(
@@ -274,10 +280,10 @@ class SeasonForm(ModelForm):
                         <th>{% trans "Till" %}"""), "mon_is_closed", layout.HTML("""</th>
                     </tr>
                     <tr>
-                        <td>"""), layout.Field("mon_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("mon_break_close", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("mon_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("mon_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
+                        <td>"""), layout.Field("mon_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("mon_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("mon_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("mon_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>{% trans "Tuesday" %}</h2>{% trans "From" %}</th>
@@ -286,10 +292,10 @@ class SeasonForm(ModelForm):
                         <th>{% trans "Till" %}"""), "tue_is_closed", layout.HTML("""</th>
                     </tr>
                     <tr>
-                        <td>"""), layout.Field("tue_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("tue_break_close", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("tue_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("tue_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
+                        <td>"""), layout.Field("tue_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("tue_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("tue_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("tue_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>{% trans "Wednesday" %}</h2>{% trans "From" %}</th>
@@ -298,10 +304,10 @@ class SeasonForm(ModelForm):
                         <th>{% trans "Till" %}"""), "wed_is_closed", layout.HTML("""</th>
                     </tr>
                     <tr>
-                        <td>"""), layout.Field("wed_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("wed_break_close", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("wed_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("wed_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
+                        <td>"""), layout.Field("wed_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("wed_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("wed_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("wed_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>{% trans "Thursday" %}</h2>{% trans "From" %}</th>
@@ -310,10 +316,10 @@ class SeasonForm(ModelForm):
                         <th>{% trans "Till" %}"""), "thu_is_closed", layout.HTML("""</th>
                     </tr>
                     <tr>
-                        <td>"""), layout.Field("thu_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("thu_break_close", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("thu_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("thu_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
+                        <td>"""), layout.Field("thu_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("thu_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("thu_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("thu_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>{% trans "Friday" %}</h2>{% trans "From" %}</th>
@@ -322,10 +328,10 @@ class SeasonForm(ModelForm):
                         <th>{% trans "Till" %}"""), "fri_is_closed", layout.HTML("""</th>
                     </tr>
                     <tr>
-                        <td>"""), layout.Field("fri_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("fri_break_close", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("fri_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("fri_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
+                        <td>"""), layout.Field("fri_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("fri_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("fri_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("fri_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>{% trans "Saturday" %}</h2>{% trans "From" %}</th>
@@ -334,10 +340,10 @@ class SeasonForm(ModelForm):
                         <th>{% trans "Till" %}"""), "sat_is_closed", layout.HTML("""</th>
                     </tr>
                     <tr>
-                        <td>"""), layout.Field("sat_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sat_break_close", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sat_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sat_close", placeholder="0:00"), layout.HTML("""</td>{% load i18n %}
+                        <td>"""), layout.Field("sat_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sat_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sat_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sat_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
                     </tr>
                     <tr>
                         <th><h2>{% trans "Sunday" %}</h2>{% trans "From" %}</th>
@@ -346,10 +352,10 @@ class SeasonForm(ModelForm):
                         <th>{% trans "Till" %}"""), "sun_is_closed", layout.HTML("""</th>
                     </tr>
                     <tr>
-                        <td>"""), layout.Field("sun_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sun_break_close", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sun_break_open", placeholder="0:00"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sun_close", placeholder="0:00"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sun_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sun_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sun_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
+                        <td>"""), layout.Field("sun_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
                     </tr>
                 </tbody>
             </table>
@@ -422,7 +428,12 @@ class SpecialOpeningTimeForm(ModelForm):
             _("Opening times"),
             "is_closed",
             "is_regular",
-            layout.Row("opening", "break_close", "break_open", "closing"),
+            layout.Row(
+                layout.Field("opening", placeholder="0:00", autocomplete="off"),
+                layout.Field("break_close", placeholder="0:00", autocomplete="off"),
+                layout.Field("break_open", placeholder="0:00", autocomplete="off"),
+                layout.Field("closing", placeholder="0:00", autocomplete="off"),
+                ),
             css_class="fieldset-opening-times",
             ))
 
