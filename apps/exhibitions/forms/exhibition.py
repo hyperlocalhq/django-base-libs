@@ -3,7 +3,7 @@
 from django.db import models
 from django import forms
 from django.forms.models import ModelForm
-from django.forms.models import BaseInlineFormSet, inlineformset_factory
+from django.forms.models import inlineformset_factory
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
@@ -19,8 +19,8 @@ SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
-class SecondarySubmit(layout.Submit):
-    field_classes = "btn"
+from museumsportal.utils.forms import SecondarySubmit
+from museumsportal.utils.forms import InlineFormSet
 
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
@@ -166,40 +166,6 @@ class BasicInfoForm(ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
             )
-
-class InlineFormSet(BaseInlineFormSet):
-    """ Inline formset which accepts initial values for unsaved models """
-    def __init__(self, data=None, files=None, instance=None, save_as_new=False, prefix=None, queryset=None, initial=[]):
-        self._initial = initial
-        super(InlineFormSet, self).__init__(data, files, instance, save_as_new, prefix, queryset)
-        
-    def _construct_form(self, i, **kwargs):
-        """
-        Instantiates and returns the i-th form instance in a formset.
-        """
-        defaults = {'auto_id': self.auto_id, 'prefix': self.add_prefix(i)}
-        if self.is_bound:
-            defaults['data'] = self.data
-            defaults['files'] = self.files
-        if self._initial:
-            try:
-                defaults['initial'] = self._initial[i]
-            except IndexError:
-                pass
-        # Allow extra forms to be empty.
-        if i >= self.initial_form_count():
-            defaults['empty_permitted'] = True
-        defaults.update(kwargs)
-        form = self.form(**defaults)
-        self.add_fields(form, i)
-        return form
-
-    def initial_form_count(self):
-        """Returns the number of forms that are required in this FormSet."""
-        if not (self.data or self.files):
-            return len(self._initial)
-        return super(InlineFormSet, self).initial_form_count()
-
 
 class OpeningForm(ModelForm):
     class Meta:
