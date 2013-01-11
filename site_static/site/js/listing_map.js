@@ -147,6 +147,7 @@ var oMap;
             
             // DRAW MARKER LINK
             $('.marker-link:eq(' + i + ')').data('marker_obj', oMarker).click(function() {
+                oMap.setCenter($(this).data('marker_obj').getPosition());
                 google.maps.event.trigger($(this).data('marker_obj'), "click");
                 //oMap.setCenter($(this).data('marker_obj').getPosition());
                 //oMap.setZoom(16);
