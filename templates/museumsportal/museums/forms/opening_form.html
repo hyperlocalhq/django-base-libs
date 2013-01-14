@@ -38,6 +38,17 @@
 </form>
 <script type="text/javascript">
 (function($, undefined) {
+    function reinit_widgets() {
+        $('#seasons .dateinput,#special_openings .dateinput').datepicker({
+            format: 'yyyy-mm-dd',
+            weekStart: 1
+        })
+        $('#seasons .timeinput,#special_openings .timeinput').timepicker({
+            showMeridian: false,
+            defaultTime: 'value'
+        });
+    }
+    
     function set_index_for_fields($formset_form, index) {
         $formset_form.find(':input').each(function() {
             var $field = $(this);
@@ -83,6 +94,7 @@
             set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
             $('#seasons').append($new_form);
             $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            reinit_widgets();
             return false;
         });
         $(
@@ -93,6 +105,7 @@
             set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
             $('#special_openings').append($new_form);
             $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            reinit_widgets();
             return false;
         });
         
@@ -114,18 +127,18 @@
             return false;
         });
         
+        // Initial state
         var $total_forms = $('#id_seasons-TOTAL_FORMS');
         if ($total_forms.val() == "0") {
             $('#add_season').click();
         }
+        reinit_widgets();
         
         // Working hours management
         var weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
         $('[id^="id_seasons"][id$="mon_open"]').live('keyup change', function(event) {
             var $mon = $(this);
             var $table = $(this).parents('table:first');
-            var $checkbox = $('[id^="id_seasons"][id$=mon_is_open]', $table);
-            $checkbox.attr("checked", !!$mon.val());
             $(weekdays).each(function() {
                 if (this == 'mon') {
                     return;
@@ -133,8 +146,6 @@
                 var $day = $('[id^="id_seasons"][id$=' + this + '_open]', $table);
                 if (!$day.data('changed')) {
                     $day.val($mon.val());
-                    var $checkbox = $('[id^="id_seasons"][id$=' + this + '_is_open]', $table);
-                    $checkbox.attr("checked", !!$day.val());
                 }
             });
         });
@@ -204,19 +215,6 @@
             }).each(function() {
                 if ($(this).val()) {
                     $(this).data('changed', true);
-                }
-            });
-            $('[id^="id_seasons"][id$="' + this + '_is_open"]').live('change', function() {
-                if (!$(this).attr('checked')) {
-                    var $tr = $(this).parents("tr:first");
-                    $('[id^="id_seasons"][id$="_open"]', $tr)
-                    .data('changed', true).val('');
-                    $('[id^="id_seasons"][id$="_break_close"]', $tr)
-                    .data('changed', true).val('');
-                    $('[id^="id_seasons"][id$="_break_open"]', $tr)
-                    .data('changed', true).val('');
-                    $('[id^="id_seasons"][id$="_close"]', $tr)
-                    .data('changed', true).val('');
                 }
             });
         });

@@ -100,6 +100,12 @@
             $container.isotope( options );
             // save options
             hashChanged = true;
+            if (hashOptions) {
+                var $categories = $('#categories');
+                $('a[href="#any-category"]', $categories).removeClass("selected");
+                $('a[href="' + window.location.hash + '"]', $categories).addClass("selected");
+            }
+            
           })
             // trigger hashchange to capture any hash data on init
             .trigger('hashchange');

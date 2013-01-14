@@ -65,10 +65,17 @@
         {% endfor %}
         </ul>
         {% endcomment %} -->
-        <ul class="filter option-set clearfix" id="category" data-filter-group="category">
+        <ul class="filter option-set clearfix" id="categories" data-filter-group="category">
             <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
             {% for cat in facets.categories.categories %}
-            <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+                <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
+            <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
+            {% tags_for_model museums.Museum as museum_tags %}
+            {% for tag in museum_tags %}
+                <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
             {% endfor %}
         </ul>
 

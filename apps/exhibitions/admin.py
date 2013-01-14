@@ -69,7 +69,17 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name', 'street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += get_admin_lang_section(_("Other locations"), ['other_locations', ])
     fieldsets += [(_("Time"), {'fields': ('start','end', 'vernissage', 'finissage', 'exhibition_extended', 'permanent')}),]
-    fieldsets += [(_("Prices"), {'fields': ('museum_prices', 'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass', get_admin_lang_section(_("Price info"), ['admission_price_info', 'reduced_price_info', 'arrangements_for_children', 'free_entrance_for', 'family_ticket', 'group_ticket', 'free_entrance_times', 'yearly_ticket', 'other_tickets' ]))}),]
+    fieldsets += [(_("Prices"), {'fields': ('museum_prices', 'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass', 
+        'show_admission_price_info', get_admin_lang_section(_("Price info"), ['admission_price_info']),
+        'show_reduced_price_info', get_admin_lang_section(_("Price info"), ['reduced_price_info']),
+        'show_arrangements_for_children', get_admin_lang_section(_("Price info"), ['arrangements_for_children']),
+        'show_free_entrance_for', get_admin_lang_section(_("Price info"), ['free_entrance_for']),
+        'show_family_ticket', get_admin_lang_section(_("Price info"), ['family_ticket']),
+        'show_group_ticket', get_admin_lang_section(_("Price info"), ['group_ticket']),
+        'show_free_entrance_times', get_admin_lang_section(_("Price info"), ['free_entrance_times']),
+        'show_yearly_ticket', get_admin_lang_section(_("Price info"), ['yearly_ticket']),
+        'show_other_tickets', get_admin_lang_section(_("Price info"), ['other_tickets']),
+    )}),]
     fieldsets += [(_("Organizer"), {'fields': ('organizing_museum', 'organizer_title', 'organizer_url_link')}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'newly_opened', 'featured', 'closing_soon')}),]
     fieldsets += [(_("Suitability"), {'fields': ('suitable_for_disabled', get_admin_lang_section(_("Description"), ['suitable_for_disabled_info', ]))}),]

@@ -8,36 +8,24 @@
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
-
+    <script src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
+    <script src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-datepicker.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-timepicker.js"></script>
-    <script>
-    function reinit_widgets() {
-        $('.dateinput').datepicker({
-            format: 'yyyy-mm-dd'
-        })
-        $('.timeinput').timepicker({
-            showMeridian: false,
-            defaultTime: 'value'
-        });
-    }
-    </script>
 {% endblock %}
 
 {% block content %}
 <div class="content clearfix">
-  <div class="inner">
-    {% if museum %}
-        <h1>{% blocktrans with museum_title=museum.title %}Edit {{ museum_title }}{% endblocktrans %}</h1>
-    {% else %}
-        <h1>{% trans "Add new museum" %}</h1>
-    {% endif %}
-
-    {% include "utils/step_list.html" %}
-    {% block multistep_form %}
-    {% endblock %}
+    <div class="inner">
+        {% if museum %}
+            <h1>{% blocktrans with museum_title=museum.title %}Edit {{ museum_title }}{% endblocktrans %}</h1>
+        {% else %}
+            <h1>{% trans "Add new museum" %}</h1>
+        {% endif %}
+    
+        {% include "utils/step_list.html" %}
+        {% block multistep_form %}
+        {% endblock %}
     </div>
 </div>
 {% endblock %}
