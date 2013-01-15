@@ -50,7 +50,7 @@ class SpecialOpeningTimeInline(ExtendedStackedInline):
     extra = 0
     fieldsets = get_admin_lang_section(_("Title"), ['day_label'])
     fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
-    fieldsets += [(_("Opening times"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing', get_admin_lang_section(_("Exceptions"), ['exceptions']))})]
+    fieldsets += [(_("Opening hours"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing', get_admin_lang_section(_("Exceptions"), ['exceptions']))})]
 
 class ExhibitionAdmin(ExtendedModelAdmin):
     class Media:

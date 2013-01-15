@@ -287,7 +287,7 @@ class SpecialOpeningTime(models.Model):
     day_label = MultilingualCharField(_('Day label'), max_length=255, blank=True, help_text=_("e.g. Christmas, Easter, etc."))
 
     is_closed = models.BooleanField(_("Closed?"))
-    is_regular = models.BooleanField(_("Regular opening times?"))
+    is_regular = models.BooleanField(_("Regular Opening hours?"))
     
     opening = models.TimeField(_('Opens'), blank=True, null=True)
     break_close = models.TimeField(_('Break Starts'), blank=True, null=True)
@@ -307,4 +307,4 @@ class SpecialOpeningTime(models.Model):
     class Meta:
         ordering = ("yyyy", "mm", "dd")
         verbose_name = _("Special opening time")
-        verbose_name_plural = _("Special opening times")
+        verbose_name_plural = _("Special Opening hours")
