@@ -194,6 +194,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.twitterwall",
     "museumsportal.apps.events",
     "museumsportal.apps.workshops",
+    "museumsportal.apps.site_specific",
 )
 
 
