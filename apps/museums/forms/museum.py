@@ -643,7 +643,6 @@ class ServicesAccessibilityForm(ModelForm):
                 'service_birthdays',
                 'service_rent',
                 'service_other',
-                css_class="inline",
                 ),
             layout.Row(
                 css_class="div-shop-details",

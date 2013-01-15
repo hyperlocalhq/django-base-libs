@@ -189,7 +189,7 @@ form {
   fieldset { 
     border-bottom: 2px solid rgba(0,0,0,0.05) !important; 
     padding-bottom: 30px !important;
-    margin-bottom: 30px !important;
+    margin-bottom: 0px !important;
     display: block;
     
     &.multilingual { 
@@ -222,7 +222,6 @@ form {
       border: none;
       display: block;
       height: 30px;
-      padding-top: 20px;
       padding-bottom: 20px !important;
       font-size: 28px;
       color: black;
@@ -357,18 +356,6 @@ form {
   } 
 } 
 
-
-
-
-
-
-
-
-
-
-
-
-
 .inline {
   padding-bottom: 20px;
   display: block;
@@ -401,9 +388,8 @@ form {
       }
     }
   }
-
-  
 }
+
 .form-actions { 
   display: block; width: 100%;
   box-sizing: border-box !important;
