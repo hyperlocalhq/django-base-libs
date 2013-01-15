@@ -68,6 +68,13 @@ urlpatterns += patterns('',
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
     
+    url(r'^login/$', 'museumsportal.apps.site_specific.views.login', {'template_name': 'accounts/login.html', 'redirect_to': '/dashboard/'}, name="login"),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}),
+    url(r'^dashboard/$', 'museumsportal.apps.site_specific.views.dashboard', name="dashboard"),
+    url(r'^claiming-invitation/$', 'museumsportal.apps.site_specific.views.invite_to_claim_museum', name="invite_to_claim_museum"),
+    url(r'^claiming-invitation/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'site_specific/claiming_invitation_done.html'}, name="invite_to_claim_museum_done"),
+    url(r'^claiming-confirmation/(?P<invitation_code>[a-zA-Z0-9_\-=]+)/$', 'museumsportal.apps.site_specific.views.register_and_claim_museum', name="register_and_claim_museum"),
+    
     url(r'^rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('cms.urls')),
