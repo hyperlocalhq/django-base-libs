@@ -113,6 +113,9 @@ class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
     Küche bedingt rollstuhlgeeignet
     '''
 
+class MuseumManager(models.Manager):
+    def owned_by(self, user):
+        return self.get_query_set().filter()
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     title = MultilingualCharField(_("Name"), max_length=255)
