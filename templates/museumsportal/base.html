@@ -33,12 +33,14 @@
     <script type="text/javascript">
 
     $(function() {
-        $('#slide').cycle({
-            fx:      'fade',
-            timeout:  5500,
-            speed:  500,
-            pause: 1,
-            pager: '#pager',
+        $('#slide').each(function() {
+            $(this).cycle({
+                fx:      'fade',
+                timeout:  5500,
+                speed:  500,
+                pause: 1,
+                pager: '#pager',
+            });
         });
     });
     window.onresize = function(event) {}
