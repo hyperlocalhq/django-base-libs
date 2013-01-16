@@ -179,7 +179,7 @@
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
-                            {% trans "Opening times" %}
+                            {% trans "Opening hours" %}
                         </a>  
                     </h4>  
                     <ul id="collapse-opening-times" class="accordion-body collapse" style="height: 0px; ">
@@ -276,7 +276,7 @@
                                 {% endif %}
                             {% endfor %}
                             {% if museum.specialopeningtime_set.count %}
-                                <h5>{% trans "Special opening times" %}</h5>
+                                <h5>{% trans "Special Opening hours" %}</h5>
                                 {% for special_opening in museum.specialopeningtime_set.all %}
                                     <h6>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
                                     {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
@@ -285,7 +285,7 @@
                                         {% trans "Closed" %}
                                     {% else %}
                                         {% if special_opening.is_closed %}
-                                            {% trans "Regular opening times" %}
+                                            {% trans "Regular Opening hours" %}
                                         {% else %}
                                             {{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}
                                             {% if season.sun_break_close %}

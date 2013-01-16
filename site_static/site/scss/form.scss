@@ -7,11 +7,11 @@ select {
   border-radius: 0;
   border: none;
   background-color: rgba(0,0,0,0.05);
-  padding: 10px;
+  padding-left: 10px;
   line-height: 10px;
 
   font-size: 22px !important;
-  line-height: 21px !important;
+  line-height: 32px !important;
 
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
@@ -24,7 +24,7 @@ select {
 
   cursor: pointer;
 
-  background-image: url("../img/icons/icons-05.svg");
+  background-image: url("../img/icons/meta.svg");
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;
@@ -101,7 +101,7 @@ input[type=password],
 input[type=search] {
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
-  width: 100%;
+  width: 100% !important;
   border: none;
   background-color: rgba(0,0,0,0.05);
   border-radius: 0px;
@@ -189,7 +189,7 @@ form {
   fieldset { 
     border-bottom: 2px solid rgba(0,0,0,0.05) !important; 
     padding-bottom: 30px !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 30px !important;
     display: block;
     
     &.multilingual { 
@@ -222,13 +222,14 @@ form {
       border: none;
       display: block;
       height: 30px;
-      padding-bottom: 20px !important;
+      padding-top: 0px !important;
+      padding-bottom: 30px !important;
       font-size: 28px;
       color: black;
       margin: 0px;
 
       &+.control-group {
-        margin-top: 30px;
+        margin-top: 0px;
       }
     }
 

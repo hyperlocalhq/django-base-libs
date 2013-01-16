@@ -319,7 +319,7 @@ class SpecialOpeningTimeForm(ModelForm):
             ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Opening times"),
+            _("Opening hours"),
             "is_closed",
             "is_regular",
             layout.Row(
@@ -1114,7 +1114,7 @@ MUSEUM_FORM_STEPS = {
         'form': BasicInfoForm,
     },
     'opening': {
-        'title': _("Opening times"),
+        'title': _("Opening hours"),
         'template': "museums/forms/opening_form.html",
         'form': OpeningForm, # dummy form
         'formsets': {

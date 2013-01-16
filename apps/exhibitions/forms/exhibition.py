@@ -391,7 +391,7 @@ class SpecialOpeningTimeForm(ModelForm):
             ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Opening times"),
+            _("Opening hours"),
             "is_closed",
             "is_regular",
             layout.Row(
@@ -736,7 +736,7 @@ def load_data(instance=None):
 def submit_step(current_step, form_steps, form_step_data, instance=None):
     museum = form_step_data.get('basic', {}).get('museum', None)
     if current_step == "basic" and museum:
-        # fill in opening times from museum
+        # fill in Opening hours from museum
         if not form_step_data.get('opening', {}).get('_filled', False):
             form_step_data['opening'] = {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}}
             for season in museum.season_set.all():
@@ -991,7 +991,7 @@ EXHIBITION_FORM_STEPS = {
         'form': BasicInfoForm,
     },
     'opening': {
-        'title': _("Opening times"),
+        'title': _("Opening hours"),
         'template': "exhibitions/forms/opening_form.html",
         'form': OpeningForm, # dummy form
         'formsets': {
