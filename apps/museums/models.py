@@ -4,6 +4,7 @@ from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationDateMixin
@@ -14,6 +15,7 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField
 from base_libs.middleware import get_current_language
+from base_libs.utils.misc import get_translation
 
 from filebrowser.fields import FileBrowseField
 
@@ -115,7 +117,14 @@ class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
 
 class MuseumManager(models.Manager):
     def owned_by(self, user):
-        return self.get_query_set().filter()
+        from jetson.apps.permissions.models import PerObjectGroup
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="museums",
+            content_type__model="museum",
+            sysname__startswith="owners",
+            users=user,
+            ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids)
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     title = MultilingualCharField(_("Name"), max_length=255)
@@ -226,6 +235,10 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
+    objects = MuseumManager()
+    
+    row_level_permissions = True
+    
     def __unicode__(self):
         return self.title
         
@@ -264,6 +277,62 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             if getattr(self, fn)
             ])
     get_address.short_description = _("Address")
+    
+    def set_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Museum),
+                )
+        except:
+            role = PerObjectGroup(
+                sysname="owners",
+                )
+            for lang_code, lang_name in settings.LANGUAGES:
+                setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
+            role.content_object = self
+            role.save()
+        
+            RowLevelPermission.objects.create_default_row_permissions(
+                model_instance=self,
+                owner=role,
+                )
+        
+        if not role.users.filter(pk=user.pk).count():
+            role.users.add(user)
+            
+    def remove_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Museum),
+                )
+        except:
+            return
+        role.users.remove(user)
+        if not role.users.count():
+            role.delete()
+
+    def get_owners(self):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Museum),
+                )
+        except:
+            return []
+        return role.users.all()
 
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)

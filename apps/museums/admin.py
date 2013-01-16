@@ -3,7 +3,7 @@
 from django.contrib import admin
 from django.db import models
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
@@ -65,7 +65,7 @@ class MuseumAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
             )
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
+    list_display = ('id', 'title', 'get_owners_list', 'creation_date', 'status', 'is_geoposition_set')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'categories', 'open_on_mondays', 'free_entrance')
     search_fields = ('title', 'subtitle', 'slug')
@@ -117,5 +117,17 @@ class MuseumAdmin(ExtendedModelAdmin):
         return '<img alt="False" src="%sgrappelli/img/admin/icon-no.gif">' % settings.STATIC_URL
     is_geoposition_set.allow_tags = True
     is_geoposition_set.short_description = _("Geoposition?")
+        
+        
+    def get_owners_list(self, obj):
+        owners_list = []
+        for o in obj.get_owners():
+            owners_list.append('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
+        if owners_list:
+            return '<br />'.join(owners_list)
+        return '<a href="/claiming-invitation/?museum_id=%s">%s</a>' % (obj.pk, ugettext("Invite owners"))
+    get_owners_list.allow_tags = True
+    get_owners_list.short_description = _("Owners")
+        
         
 admin.site.register(Museum, MuseumAdmin)

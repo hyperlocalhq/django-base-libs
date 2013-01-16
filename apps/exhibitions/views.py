@@ -14,6 +14,7 @@ from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_related_queryset
+from base_libs.views.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list, object_detail
@@ -148,5 +149,7 @@ def add_exhibition(request):
 @login_required
 def change_exhibition(request, slug):
     instance = get_object_or_404(Exhibition, slug=slug)
+    if not request.user.has_perm("exhibitions.change_exhibition", instance):
+        return access_denied(request)
     return show_form_step(request, EXHIBITION_FORM_STEPS, extra_context={'exhibition': instance}, instance=instance);
     

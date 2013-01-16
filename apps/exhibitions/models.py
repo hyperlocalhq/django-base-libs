@@ -15,6 +15,7 @@ from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # for south
 from base_libs.models.fields import URLField
 from base_libs.middleware import get_current_language
+from base_libs.utils.misc import get_translation
 
 from filebrowser.fields import FileBrowseField
 
@@ -92,6 +93,16 @@ class ExhibitionManager(models.Manager):
             obj.status = "expired"
             obj.save()
 
+    def owned_by(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="exhibitions",
+            content_type__model="exhibition",
+            sysname__startswith="owners",
+            users=user,
+            ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids)
+
 class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     museum = models.ForeignKey("museums.Museum", verbose_name=_("Museum"), blank=True, null=True)
     
@@ -167,6 +178,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     
     objects = ExhibitionManager()
     
+    row_level_permissions = True
+    
     def __unicode__(self):
         return self.title
         
@@ -196,6 +209,62 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         
     def get_tags(self):
         return Tag.objects.get_for_object(self)
+
+    def set_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Exhibition),
+                )
+        except:
+            role = PerObjectGroup(
+                sysname="owners",
+                )
+            for lang_code, lang_name in settings.LANGUAGES:
+                setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
+            role.content_object = self
+            role.save()
+        
+            RowLevelPermission.objects.create_default_row_permissions(
+                model_instance=self,
+                owner=role,
+                )
+        
+        if not role.users.filter(pk=user.pk).count():
+            role.users.add(user)
+            
+    def remove_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Exhibition),
+                )
+        except:
+            return
+        role.users.remove(user)
+        if not role.users.count():
+            role.delete()
+
+    def get_owners(self):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Exhibition),
+                )
+        except:
+            return []
+        return role.users.all()
 
 class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)

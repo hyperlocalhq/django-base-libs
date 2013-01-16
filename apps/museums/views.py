@@ -11,6 +11,7 @@ from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_related_queryset
+from base_libs.views.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list, object_detail
@@ -149,5 +150,7 @@ def add_museum(request):
 @login_required
 def change_museum(request, slug):
     instance = get_object_or_404(Museum, slug=slug)
+    if not request.user.has_perm("museums.change_museum", instance):
+        return access_denied(request)
     return show_form_step(request, MUSEUM_FORM_STEPS, extra_context={'museum': instance}, instance=instance);
 

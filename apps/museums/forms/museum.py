@@ -11,6 +11,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
+from base_libs.middleware import get_current_user
 
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
@@ -914,6 +915,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 def save_data(form_steps, form_step_data, instance=None):
+    is_new = not instance
     if not instance:
         instance = Museum()
 
@@ -1029,6 +1031,10 @@ def save_data(form_steps, form_step_data, instance=None):
 
     instance.status = "published"
     instance.save()
+    
+    if is_new:
+        user = get_current_user()
+        instance.set_owner(user)
     
     instance.categories.clear()
     for cat in form_step_data['basic']['categories']:

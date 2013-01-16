@@ -12,6 +12,7 @@ from crispy_forms import layout, bootstrap
 
 from base_libs.forms.fields import AutocompleteModelChoiceField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
+from base_libs.middleware import get_current_user
 
 Exhibition = models.get_model("exhibitions", "Exhibition")
 Season = models.get_model("exhibitions", "Season")
@@ -835,6 +836,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 def save_data(form_steps, form_step_data, instance=None):
+    is_new = not instance
+    
     if not instance:
         instance = Exhibition()
     for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -910,6 +913,10 @@ def save_data(form_steps, form_step_data, instance=None):
     
     instance.status = "published"
     instance.save()
+    
+    if is_new:
+        user = get_current_user()
+        instance.set_owner(user)    
     
     instance.categories.clear()
     for cat in form_step_data['basic']['categories']:

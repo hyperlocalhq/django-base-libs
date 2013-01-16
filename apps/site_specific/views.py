@@ -22,13 +22,11 @@ from forms import ClaimingConfirmationForm
 
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.crypt import cryptString, decryptString
-from base_libs.utils.misc import get_translation
 
 ContentType = models.get_model("contenttypes", "ContentType")
 User = models.get_model("auth", "User")
 Museum = models.get_model("museums", "Museum")
-PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
-RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+Exhibition = models.get_model("exhibitions", "Exhibition")
 
 @never_cache
 def login(request, template_name='registration/login.html', redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME), redirect_to=""):
@@ -89,7 +87,12 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 @never_cache
 @login_required
 def dashboard(request):
-    context = {}
+    owned_museums = Museum.objects.owned_by(request.user)
+    owned_exhibitions = Exhibition.objects.owned_by(request.user)
+    context = {
+        'owned_museums': owned_museums,
+        'owned_exhibitions': owned_exhibitions,
+        }
     return render(request, "accounts/dashboard.html", context)
 
 @never_cache
@@ -150,6 +153,7 @@ def register_and_claim_museum(request, invitation_code):
         form = ClaimingConfirmationForm(u, request.POST)
         if form.is_valid():
             cleaned = form.cleaned_data
+            
             # get or create a user
             if not u:
                 u = User(email=email)
@@ -159,28 +163,14 @@ def register_and_claim_museum(request, invitation_code):
             u.is_active = True
             u.set_password(cleaned['password'])
             u.save()
-            # get or create a PerObjectGroup and assign the new user to that group
-            try:
-                role = PerObjectGroup.objects.get(
-                    sysname__startswith="owners",
-                    object_id=museum.pk,
-                    content_type=ContentType.objects.get_for_model(Museum),
-                    )
-            except:
-                role = PerObjectGroup(
-                    sysname="owners",
-                    )
-                for lang_code, lang_name in settings.LANGUAGES:
-                    setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
-                role.content_object = museum
-                role.save()
             
-                RowLevelPermission.objects.create_default_row_permissions(
-                    model_instance=museum,
-                    owner=role,
-                    )
+            # set museum's and its exhibitions' owner
+            museum.set_owner(u)
+            for e in museum.exhibition_set.all():
+                e.set_owner(u)
+            for e in museum.organized_exhibitions.all():
+                e.set_owner(u)
                 
-            u.perobjectgroup_set.add(role)
             # login the current user
             user = authenticate(username=cleaned['username'], password=cleaned['password'])
             auth_login(request, user)
