@@ -2,6 +2,7 @@
 
 from django import forms
 from django.forms.models import BaseInlineFormSet
+from django.utils.translation import ugettext
 
 from crispy_forms import layout
 
@@ -40,4 +41,23 @@ class InlineFormSet(BaseInlineFormSet):
         if not (self.data or self.files):
             return len(self._initial)
         return super(InlineFormSet, self).initial_form_count()
+
+class SplitDateTimeWidget(forms.SplitDateTimeWidget):
+    def format_output(self, rendered_widgets):
+        return """
+            <div class="row">
+                <div class="clearfix control-group">
+                    <label>%s</label>
+                    %s
+                </div>
+                <div class="clearfix control-group">
+                    <label>%s</label>
+                    %s
+                </div>
+            </div>""" % (
+                ugettext("Date"),
+                rendered_widgets[0],
+                ugettext("Time"),
+                rendered_widgets[1],
+                )
 

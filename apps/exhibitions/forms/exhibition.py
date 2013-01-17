@@ -22,6 +22,7 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import InlineFormSet
+from museumsportal.utils.forms import SplitDateTimeWidget
 
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
@@ -73,8 +74,8 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
-        self.fields['vernissage'].widget = forms.SplitDateTimeWidget()
-        self.fields['finissage'].widget = forms.SplitDateTimeWidget()
+        self.fields['vernissage'].widget = SplitDateTimeWidget()
+        self.fields['finissage'].widget = SplitDateTimeWidget()
 
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
@@ -122,12 +123,17 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("When?"),
-            layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
-            layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
-            "permanent",
-            "exhibition_extended",
+            layout.Row(
+                layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
+                layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
+            ),
             layout.Field("vernissage", autocomplete="off"),
             layout.Field("finissage", autocomplete="off"),
+            layout.Div(
+                "permanent",
+                "exhibition_extended",
+                css_class="inline",
+                ),
             css_class="fieldset-when",
             ))
         layout_blocks.append(layout.Fieldset(
