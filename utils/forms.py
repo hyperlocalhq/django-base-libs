@@ -48,11 +48,11 @@ class SplitDateTimeWidget(forms.SplitDateTimeWidget):
             <div class="row">
                 <div class="clearfix control-group">
                     <label>%s</label>
-                    %s
+                    <div class="controls">%s</div>
                 </div>
                 <div class="clearfix control-group">
                     <label>%s</label>
-                    %s
+                    <div class="controls">%s</div>
                 </div>
             </div>""" % (
                 ugettext("Date"),
