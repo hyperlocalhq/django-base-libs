@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     "pipeline",
     "uni_form",
     "tastypie",
+    "crispy_forms",
     
     ### Required CMS Django 2.2 apps ###
     "cms",
