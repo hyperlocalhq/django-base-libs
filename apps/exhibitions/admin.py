@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+from django import forms
 from django.contrib import admin
 from django.db import models
 from django.conf import settings
@@ -11,6 +12,7 @@ from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
+from base_libs.forms.fields import AutocompleteModelChoiceField
 
 from jetson.apps.media_gallery.admin import GenericMediaFileInline
 
@@ -52,7 +54,44 @@ class SpecialOpeningTimeInline(ExtendedStackedInline):
     fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
     fieldsets += [(_("Opening hours"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing', get_admin_lang_section(_("Exceptions"), ['exceptions']))})]
 
+class ExhibitionAdminForm(forms.ModelForm):
+    museum = AutocompleteModelChoiceField(
+        required=False,
+        label=u"Name",
+        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        app="museums",
+        qs_function="get_published_museums",
+        display_attr="title",
+        add_display_attr="get_address",
+        options={
+            "minChars": 1,
+            "max": 20,
+            "mustMatch": 1,
+            "highlight" : False,
+            "multipleSeparator": ",,, ",
+            },
+        )
+    organizing_museum = AutocompleteModelChoiceField(
+        required=False,
+        label=u"Name",
+        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        app="museums",
+        qs_function="get_published_museums",
+        display_attr="title",
+        add_display_attr="get_address",
+        options={
+            "minChars": 1,
+            "max": 20,
+            "mustMatch": 1,
+            "highlight" : False,
+            "multipleSeparator": ",,, ",
+            },
+        )
+    class Meta:
+        model = Exhibition
+
 class ExhibitionAdmin(ExtendedModelAdmin):
+    form = ExhibitionAdminForm
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
