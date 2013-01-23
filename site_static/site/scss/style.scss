@@ -950,3 +950,27 @@ dl {
   }
   margin-bottom: 10px;
 }
+
+#cms_toolbar {
+  form {
+    width: auto;
+    fieldset {
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+  input[type="text"], input[type="email"], input[type="password"], input[type="search"] {
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    width: auto !important;
+    border: 1px solid rgba(102, 102, 102, .5);
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: none;
+    padding: 3px;
+    height: auto;
+    font-size: 13px;
+    line-height: 18px;
+  }  
+}
