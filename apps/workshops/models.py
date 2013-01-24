@@ -144,6 +144,62 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     def __unicode__(self):
         return self.title
 
+    def set_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Workshop),
+                )
+        except:
+            role = PerObjectGroup(
+                sysname="owners",
+                )
+            for lang_code, lang_name in settings.LANGUAGES:
+                setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
+            role.content_object = self
+            role.save()
+        
+            RowLevelPermission.objects.create_default_row_permissions(
+                model_instance=self,
+                owner=role,
+                )
+        
+        if not role.users.filter(pk=user.pk).count():
+            role.users.add(user)
+            
+    def remove_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Workshop),
+                )
+        except:
+            return
+        role.users.remove(user)
+        if not role.users.count():
+            role.delete()
+
+    def get_owners(self):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Workshop),
+                )
+        except:
+            return []
+        return role.users.all()
+
 
 class WorkshopTime(models.Model):
 

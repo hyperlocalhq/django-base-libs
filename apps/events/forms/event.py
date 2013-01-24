@@ -26,7 +26,7 @@ from museumsportal.utils.forms import SplitDateTimeWidget
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
         required=False,
-        label=u"Name",
+        label=_("Museum"),
         help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
@@ -42,12 +42,28 @@ class BasicInfoForm(ModelForm):
         )
     organizing_museum = AutocompleteModelChoiceField(
         required=False,
-        label=u"Name",
+        label=_("Organizing museum"),
         help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
         display_attr="title",
         add_display_attr="get_address",
+        options={
+            "minChars": 1,
+            "max": 20,
+            "mustMatch": 1,
+            "highlight" : False,
+            "multipleSeparator": ",,, ",
+            },
+        )
+    exhibition = AutocompleteModelChoiceField(
+        required=False,
+        label=_("Related exhibition"),
+        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        app="exhibitions",
+        qs_function="get_published_exhibitions",
+        display_attr="title",
+        add_display_attr="get_museum",
         options={
             "minChars": 1,
             "max": 20,
@@ -76,13 +92,15 @@ class BasicInfoForm(ModelForm):
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
         self.fields['categories'].empty_label = None
+        self.fields['languages'].widget = forms.CheckboxSelectMultiple()
+        self.fields['languages'].help_text = ""
+        self.fields['languages'].empty_label = None
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
-                'catalog_%s' % lang_code,
                 ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
@@ -98,40 +116,21 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-title",
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-subtitle",
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-description",
                 *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-accessibility-details",
-                *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
                 css_class="fieldset-basic-info",
                 ))
 
-        layout_blocks.append(layout.Fieldset(
-            _("When?"),
-            layout.Row(
-                layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
-                layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
-            ),
-            layout.Field("vernissage", autocomplete="off"),
-            layout.Field("finissage", autocomplete="off"),
-            layout.Div(
-                "permanent",
-                "event_extended",
-                css_class="inline",
-                ),
-            css_class="fieldset-when",
-            ))
         layout_blocks.append(layout.Fieldset(
             _("Where?"),
             "museum",
@@ -146,10 +145,13 @@ class BasicInfoForm(ModelForm):
             "organizing_museum",
             "organizer_title",
             "organizer_url_link",
+            "exhibition",
             css_class="fieldset-where",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
+            "languages",
+            "other_languages",
             "categories",
             "tags",
             css_class="fieldset-categories-tags",
@@ -292,7 +294,7 @@ class TimesForm(ModelForm):
         fields = ['event_date', 'start', 'end']
     
     def __init__(self, *args, **kwargs):
-        super(OpeningForm, self).__init__(*args, **kwargs)
+        super(TimesForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
@@ -321,11 +323,11 @@ def load_data(instance=None):
             'prices': {'_filled': True},
             'accessibility': {'_filled': True},
             }
+        return form_step_data
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
-            form_step_data['basic']['catalog_%s' % lang_code] = getattr(instance, 'catalog_%s' % lang_code)
         form_step_data['basic']['start'] = instance.start
         form_step_data['basic']['end'] = instance.end
         form_step_data['basic']['permanent'] = instance.permanent
@@ -553,9 +555,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
-        getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-        getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
     instance.start = form_step_data['basic']['start'] 
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
@@ -706,20 +706,20 @@ EVENT_FORM_STEPS = {
         'template': "events/forms/basic_info_form.html",
         'form': BasicInfoForm,
     },
+    'times': {
+        'title': _("Times"),
+        'template': "events/forms/times_form.html",
+        'form': TimesForm,
+    },
     'prices': {
         'title': _("Prices"),
         'template': "events/forms/prices_form.html",
         'form': PricesForm,
     },
-    'event_times': {
-        'title': _("Times"),
-        'template': "events/forms/times_form.html",
-        'form': TimesForm,
-    },
     'oninit': load_data,
     'onsubmit': submit_step,
     'onsave': save_data,
     'name': 'event_registration',
-    'default_path': ["basic", "prices", "event_times"],
+    'default_path': ["basic", "times", "prices"],
 }
 

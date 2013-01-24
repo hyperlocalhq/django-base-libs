@@ -211,6 +211,11 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     def get_tags(self):
         return Tag.objects.get_for_object(self)
 
+    def get_museum(self):
+        if not self.museum:
+            return ""
+        return self.museum.title
+
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
         PerObjectGroup = models.get_model("permissions", "PerObjectGroup")

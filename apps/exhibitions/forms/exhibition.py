@@ -102,19 +102,19 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-title",
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-subtitle",
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-description",
                 *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-catalog",
                 *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/timepicker.css" rel="stylesheet" media="screen" type="text/css" />
+{% endblock %}
+
+{% block js %}
+    <script src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
+    <script src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-datepicker-mod.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-timepicker.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="content clearfix">
+    <div class="inner">
+        {% if exhibition %}
+            <h1>{% blocktrans with exhibition_title=exhibition.title %}Edit {{ exhibition_title }}{% endblocktrans %}</h1>
+        {% else %}
+            <h1>{% trans "Add new exhibition" %}</h1>
+        {% endif %}
+    
+        {% include "utils/step_list.html" %}
+        {% block multistep_form %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
