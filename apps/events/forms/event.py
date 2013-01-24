@@ -62,7 +62,7 @@ class BasicInfoForm(ModelForm):
         fields = ['categories', 'tags', 'languages', 'other_languages',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
-            #'organizing_museum', 'organizer_title', 'organizer_url_link',
+            'organizing_museum', 'organizer_title', 'organizer_url_link',
             ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
