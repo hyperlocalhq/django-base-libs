@@ -73,19 +73,19 @@ def event_list(request):
             if status == "newly_opened":
                 # today - 2 weeks < EVENT START <= today
                 qs = qs.filter(
-                    start__gt=today-two_weeks,
-                    start__lte=today,
+                    eventtime__event_date__gt=today-two_weeks,
+                    eventtime__event_date__lte=today,
                     )
             elif status == "closing_soon":
                 # today <= EVENT END < today + two weeks
                 qs = qs.filter(
-                    end__gte=today,
-                    end__lt=today+two_weeks,
+                    eventtime__event_date__gte=today,
+                    eventtime__event_date__lt=today+two_weeks,
                     )
     if status == "closing_soon":
-        qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
+        qs = qs.order_by("eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
     else:
-        qs = qs.order_by("-start", "title_%s" % request.LANGUAGE_CODE)
+        qs = qs.order_by("-eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
         
     extra_context = {}
     extra_context['form'] = form

@@ -50,7 +50,6 @@ class WorkshopAdmin(ExtendedModelAdmin):
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description'])
     fieldsets += [(None, {'fields': ('slug', 'image')}),]
-    fieldsets += [(_("Time"), {'fields': ('workshop_date', 'start', 'end')}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'languages', 'other_languages', 'age_groups')}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude', 'exhibition')}),]
     fieldsets += [(_("Organizer"), {'fields': ('organizing_museum', 'organizer_title', 'organizer_url_link')}),]

@@ -4,6 +4,8 @@ from datetime import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from mptt.models import MPTTModel
 from mptt.managers import TreeManager
@@ -21,6 +23,8 @@ from base_libs.models.models import SlugMixin
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
+from base_libs.middleware import get_current_language
+from base_libs.utils.misc import get_translation
 
 from jetson.apps.i18n.models import Language
 from jetson.apps.utils.models import MONTH_CHOICES
@@ -53,7 +57,6 @@ MINUTE_CHOICES = [(i,"%02d" % i) for i in range(0, 60)]
 class EventCategory(MPTTModel, SlugMixin()):
     parent = TreeForeignKey(
        'self',
-       #related_name="%(class)s_children",
        related_name="child_set",
        blank=True,
        null=True,
@@ -67,13 +70,7 @@ class EventCategory(MPTTModel, SlugMixin()):
         verbose_name_plural = _("categories")
         ordering = ["tree_id", "lft"]
         
-    class MPTTMeta:
-        order_insertion_by = ['sort_order']
-        
     def __unicode__(self):
-        return self.title
-
-    def get_title(self, prefix="", postfix=""):
         return self.title
 
     def save(self, *args, **kwargs):
@@ -83,14 +80,10 @@ class EventCategory(MPTTModel, SlugMixin()):
 
 class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
-    subtitle = MultilingualCharField(_("Subtitle"), max_length=255)
+    subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
     image = FileBrowseField(_('Image'), max_length=200, directory="events/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
     
-    event_date = models.DateField(_("Event date"))
-    start = models.TimeField(_("Start time"), null=True, blank=True)
-    end = models.TimeField(_("End time"), null=True, blank=True)
-
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     categories = TreeManyToManyField(EventCategory, verbose_name=_("Categories"))
@@ -185,71 +178,37 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
             return []
         return role.users.all()
 
+    def get_url_path(self):
+        try:
+            path = reverse("%s:event_detail" % get_current_language(), kwargs={'slug': self.slug})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
+
 
 class EventTime(models.Model):
     
     event = models.ForeignKey(Event, verbose_name=_("Event"))
-    
-    start_yyyy = models.IntegerField(_("Start Year"), choices=YEAR_CHOICES, default=datetime.now().year)
-    start_mm = models.SmallIntegerField(_("Start Month"), blank=True, null=True, choices=MONTH_CHOICES)
-    start_dd = models.SmallIntegerField(_("Start Day"), blank=True, null=True, choices=DAY_CHOICES)
-    start_hh = models.SmallIntegerField(_("Start Hour"), blank=True, null=True, choices=HOUR_CHOICES)
-    start_ii = models.SmallIntegerField(_("Start Minute"), blank=True, null=True, choices=MINUTE_CHOICES)
-    start = models.DateTimeField(_("Start"), editable=False)
-    
-    end_yyyy = models.IntegerField(_("End Year"), choices=YEAR_CHOICES, blank=True, null=True,)
-    end_mm = models.SmallIntegerField(_("End Month"), blank=True, null=True, choices=MONTH_CHOICES)
-    end_dd = models.SmallIntegerField(_("End Day"), blank=True, null=True, choices=DAY_CHOICES)
-    end_hh = models.SmallIntegerField(_("End Hour"), blank=True, null=True, choices=HOUR_CHOICES)
-    end_ii = models.SmallIntegerField(_("End Minute"), blank=True, null=True, choices=MINUTE_CHOICES)
-    end = models.DateTimeField(_("End"), editable=False)
-    
-    is_all_day = models.BooleanField(_("All Day Event"), default=False)
+
+    event_date = models.DateField(_("Event date"))
+    start = models.TimeField(_("Start time"), null=True, blank=True)
+    end = models.TimeField(_("End time"), null=True, blank=True)
 
     class Meta:
         verbose_name = _("event time")
         verbose_name_plural = _("event times")
-        ordering = ('start', )
+        ordering = ('event_date', 'start', )
         
     def __unicode__(self):
-        return "%s - %s" % (
-            self.start.strftime("%Y-%m-%d %H:%M"),
-            self.end.strftime("%Y-%m-%d %H:%M"),
-            )
+        val = self.event_date.strftime("%Y-%m-%d")
+        if self.start:
+            val += " " + self.start.strftime("%H:%M")
+        if self.end:
+            val += " - " + self.end.strftime("%H:%M")
+        return val
         
-    def save(self, *args, **kwargs):
-        self.start = datetime(
-            int(self.start_yyyy),
-            int(self.start_mm or 1),
-            int(self.start_dd or 1),
-            int(self.start_hh or 0),
-            int(self.start_ii or 0),
-            )
-        
-        end_hh = self.end_hh
-        if end_hh in ("", None):
-            end_hh = (self.start_hh, 23)[self.start_hh in ("", None)]
-            
-        end_ii = self.end_ii
-        if end_ii in ("", None):
-            end_ii = (self.start_ii, 59)[self.start_ii in ("", None)]
-        
-        self.end = datetime(
-            int(self.end_yyyy or self.start_yyyy),
-            int(self.end_mm or self.start_mm or 12),
-            int(self.end_dd or self.start_dd or calendar.monthrange(
-                int(self.end_yyyy or self.start_yyyy),
-                int(self.end_mm or self.start_mm or 12),
-                )[1]),
-            int(end_hh),
-            int(end_ii),
-            )
-        
-        super(EventTime, self).save(*args, **kwargs)
-        # update the event
-        self.event.save()
-    save.alters_data = True
-
     def will_happen(self, timestamp=datetime.now):
         if callable(timestamp):
             timestamp = timestamp()

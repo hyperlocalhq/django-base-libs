@@ -61,7 +61,12 @@ class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
         ordering = ["tree_id", "lft"]
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
-    
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            MuseumCategory.objects.insert_node(self, self.parent)
+        super(MuseumCategory, self).save(*args, **kwargs)
+
 class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
     image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)

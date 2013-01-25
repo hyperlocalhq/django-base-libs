@@ -17,10 +17,10 @@
 {% block content %}
 <div class="content clearfix">
     <div class="inner">
-        {% if exhibition %}
-            <h1>{% blocktrans with exhibition_title=exhibition.title %}Edit {{ exhibition_title }}{% endblocktrans %}</h1>
+        {% if event %}
+            <h1>{% blocktrans with event_title=event.title %}Edit {{ event_title }}{% endblocktrans %}</h1>
         {% else %}
-            <h1>{% trans "Add new exhibition" %}</h1>
+            <h1>{% trans "Add new event" %}</h1>
         {% endif %}
     
         {% include "utils/step_list.html" %}

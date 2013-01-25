@@ -1,21 +1,114 @@
 {% extends "workshops/forms/base.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags i18n %}
 
 {% block multistep_form %}
+<form action="" method="post">
+{{ formsets.workshop_times.management_form }}
+
+<div id="workshop_times">
+    {% for form in formsets.workshop_times.forms %}
+        <div class="workshop_time formset-form">
+            {% crispy form %}
+        </div>
+    {% endfor %}
+</div>
+<!-- used by javascript -->
+<div id="workshop_times_empty_form" class="workshop_time formset-form" style="display: none">
+    {% with formsets.workshop_times.empty_form as form %}
+        {% crispy form %}
+    {% endwith %}
+</div>
+
 {% crispy form %}
-    <script>
-    $(function() {
-        var $details = $('.fieldset-details:first');
-        $('input:checkbox', $details).change(function() {
-            var $checkbox = $(this);
-            var detail = $checkbox.attr('id').replace(/^id_show_/, '');
-            var $detail = $('.div-' + detail + '-details', $details);
-            if ($checkbox.attr('checked')) {
-                $detail.show();
-            } else {
-                $detail.hide();
+</form>
+<script type="text/javascript">
+(function($, undefined) {
+    function reinit_widgets() {
+        $('#workshop_times .dateinput').datepicker({
+            format: 'yyyy-mm-dd',
+            weekStart: 1
+        })
+        $('#workshop_times .timeinput').timepicker({
+            showMeridian: false,
+            defaultTime: 'value'
+        });
+    }
+    
+    function set_index_for_fields($formset_form, index) {
+        $formset_form.find(':input').each(function() {
+            var $field = $(this);
+            if ($field.attr("id")) {
+                $field.attr(
+                    "id",
+                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                );
             }
-        }).change();
-    });    
-    </script>
+            if ($field.attr("name")) {
+                $field.attr(
+                    "name",
+                    $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+        $formset_form.find('label').each(function() {
+            var $field = $(this);
+            if ($field.attr("for")) {
+                $field.attr(
+                    "for",
+                    $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+        $formset_form.find('div').each(function() {
+            var $field = $(this);
+            if ($field.attr("id")) {
+                $field.attr(
+                    "id",
+                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+    }
+        
+    $(function() {
+        $(
+            '<a id="add_workshop_time" href="#">{% trans "Add another workshop time" %}</a>'
+        ).insertAfter('#workshop_times').click(function() {
+            var $total_forms = $('#id_workshop_times-TOTAL_FORMS');
+            var $new_form = $('#workshop_times_empty_form').clone(true).attr("id", null).show();
+            set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+            $('#workshop_times').append($new_form);
+            $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            reinit_widgets();
+            return false;
+        });
+        
+        $('.formset-form').each(function() {
+            var $season = $(this);
+            $season.find('input:checkbox[id$=DELETE]').each(function() {
+                var $checkbox = $(this);
+                var $deleteLink = $(
+                    '<a href="#" class="delete-link btn btn-warning btn-small"><span>{% trans "Delete" %}</span></a>'
+                );
+                $checkbox.parent().before($deleteLink).hide();
+            });
+        });
+        $('.delete-link').live("click", function() {
+            var $season = $(this).parents('.formset-form:first');
+            var $checkbox = $(this).parent().find('input:checkbox[id$=DELETE]');
+            $checkbox.attr("checked", "checked");
+            $season.hide();
+            return false;
+        });
+        
+        // Initial state
+        var $total_forms = $('#id_workshop_times-TOTAL_FORMS');
+        if ($total_forms.val() == "0") {
+            $('#add_workshop_time').click();
+        }
+        reinit_widgets();
+    });
+})(jQuery);
+</script>
+
 {% endblock %}
