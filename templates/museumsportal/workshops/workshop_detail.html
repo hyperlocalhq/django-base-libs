@@ -19,7 +19,7 @@
                 options:    {
                     onFinish: function(item) {
                         /*var body = document.getElementById();*/
-                        var latlng = new google.maps.LatLng({{ workshop.museum.latitude }}, {{ workshop.museum.longitude }});
+                        var latlng = new google.maps.LatLng({{ workshop.museum.latitude|default:52.519171 }}, {{ workshop.museum.longitude|default:13.4060912 }});
                         var myOptions = {
                         mapTypeControl: true,
                         zoomControl: true,

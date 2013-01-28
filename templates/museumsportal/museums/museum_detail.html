@@ -16,7 +16,7 @@
                     width:      $(window).width(),
                     options:    {
                         onFinish: function(item) {
-                            var latlng = new google.maps.LatLng({{ museum.latitude }}, {{ museum.longitude }});
+                            var latlng = new google.maps.LatLng({{ museum.latitude|default:52.519171 }}, {{ museum.longitude|default:13.4060912 }});
                             var myOptions = {
                             mapTypeControl: true,
                             zoomControl: true,
