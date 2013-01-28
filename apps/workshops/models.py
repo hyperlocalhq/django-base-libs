@@ -202,6 +202,13 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
         else:
             return path
 
+    def get_languages(self):
+        langs = []
+        for lang in self.languages.all():
+            langs.append(lang.get_name())
+        for lang in self.other_languages.split(","):
+            langs.append(lang)
+        return langs
 
 class WorkshopTime(models.Model):
 
