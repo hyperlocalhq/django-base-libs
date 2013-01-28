@@ -508,6 +508,17 @@ class AddressForm(ModelForm):
             layout.Row('street_address', 'street_address2'),
             layout.Row('postal_code', 'city'),
             'district',
+            layout.HTML("""{% load i18n %}
+                <div id="dyn_set_map">
+                    <div id="gmap_wrapper">
+                        <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                    </div>
+                    <div class="form-actions">
+                        <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />
+                        <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>
+                    </div>
+                </div>
+            """),
             'latitude', 'longitude',
             css_class="fieldset-location",
             ))

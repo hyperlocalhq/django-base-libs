@@ -1,4 +1,5 @@
 (function($, undefined) {
+    var gettext = window.gettext || (function(val) {return val});
     var sGMapImagePath = window.settings.STATIC_URL + "site/img/gmap/";
     var oMap, oMarker;
     var $oGmapLocations;
@@ -29,7 +30,7 @@
     self.GMapManager = {
         init: function() {
             var oSelf = self.GMapManager;
-            var $oDynMapContainer = $("#dyn_set_map").removeClass("hidden");
+            var $oDynMapContainer = $("#gmap_wrapper").removeClass("hidden");
             if ($oDynMapContainer.length) {
                 $("#dyn_locate_geo").click(oSelf.recognizeLocation);
                 $("#dyn_remove_geo").click(oSelf.removeGeoPos);
@@ -79,7 +80,7 @@
                 + " " + $("#id_street_address2").val()
             );
             aFullAddress.push($("#id_city").val());
-            aFullAddress.push($("#id_country").val());
+            aFullAddress.push("Germany");
             aFullAddress.push($("#id_postal_code").val());
             return aFullAddress.join(", ");
         },
@@ -216,7 +217,7 @@
                         document.getElementById("id_postal_code").value = oObj.long_name;
                         break;
                     case "country":
-                        document.getElementById("id_country").value = oObj.short_name;
+                        //document.getElementById("id_country").value = oObj.short_name;
                         break;
                 }
             }
