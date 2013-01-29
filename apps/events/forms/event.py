@@ -141,13 +141,28 @@ class BasicInfoForm(ModelForm):
             "postal_code",
             "district",
             "city",
+            layout.HTML("""{% load i18n %}
+                <div id="dyn_set_map">
+                    <div id="gmap_wrapper">
+                        <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                    </div>
+                    <div class="form-actions">
+                        <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
+                        <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
+                    </div>
+                </div>
+            """),
             "latitude",
             "longitude",
+            css_class="fieldset-where",
+            ))
+        layout_blocks.append(layout.Fieldset(
+            _("Organizer"),
             "organizing_museum",
             "organizer_title",
             "organizer_url_link",
             "exhibition",
-            css_class="fieldset-where",
+            css_class="fieldset-organizer",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
