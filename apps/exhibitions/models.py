@@ -15,6 +15,7 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # for south
 from base_libs.models.fields import URLField
+from base_libs.models.fields import PositionField
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_translation
 
@@ -329,4 +330,17 @@ class NewlyOpenedExhibition(CMSPlugin):
         ordering = ['exhibition__title']
         verbose_name = _("Newly opened exhibition")
         verbose_name_plural = _("Newly opened exhibitions")
+
+class MediaFile(CreationModificationDateMixin):
+    exhibition = models.ForeignKey(Exhibition, verbose_name=_("Exhibition"))
+    path = FileBrowseField(_('File path'), max_length=255, help_text=_("A path to a locally stored image, video, or audio file."))
+    sort_order = PositionField(_("Sort order"), collection="exhibition")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Media File")
+        verbose_name_plural = _("Media Files")
+        
+    def __unicode__(self):
+        return self.path.path
 
