@@ -17,12 +17,14 @@ from tagging_autocomplete.models import TagAutocompleteField
 
 from base_libs.models.models import OpeningHoursMixin
 from base_libs.models.models import SlugMixin
+from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import SlugMixin
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
+from base_libs.models.fields import PositionField
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_translation
 
@@ -243,4 +245,16 @@ class EventTime(models.Model):
     def get_secure_id(self):
         return int(self.pk) + SECURITY_SUMMAND
         
+class MediaFile(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    path = FileBrowseField(_('File path'), max_length=255, help_text=_("A path to a locally stored image, video, or audio file."))
+    sort_order = PositionField(_("Sort order"), collection="event")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Media File")
+        verbose_name_plural = _("Media Files")
+        
+    def __unicode__(self):
+        return self.path.path
 
