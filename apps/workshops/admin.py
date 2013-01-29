@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
 from base_libs.admin import ExtendedModelAdmin
+from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
@@ -15,6 +16,7 @@ AgeGroup = models.get_model("workshops", "AgeGroup")
 WorkshopCategory = models.get_model("workshops", "WorkshopCategory")
 Workshop = models.get_model("workshops", "Workshop")
 WorkshopTime = models.get_model("workshops", "WorkshopTime")
+MediaFile = models.get_model("workshops", "MediaFile")
 
 class AgeGroupAdmin(ExtendedModelAdmin):
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
@@ -36,6 +38,12 @@ admin.site.register(WorkshopCategory, WorkshopCategoryAdmin)
 class WorkshopTimeInline(admin.StackedInline):
     model = WorkshopTime
     extra = 0
+
+class MediaFileInline(ExtendedStackedInline):
+    model = MediaFile
+    extra = 0
+    sortable = True
+    sortable_field_name = "sort_order"
 
 class WorkshopAdmin(ExtendedModelAdmin):
     class Media:
@@ -59,7 +67,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "languages")
     
-    inlines = [WorkshopTimeInline]
+    inlines = [WorkshopTimeInline, MediaFileInline]
     
     def is_geoposition_set(self, obj):
         if obj.latitude:

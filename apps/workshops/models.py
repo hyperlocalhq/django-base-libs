@@ -24,6 +24,7 @@ from base_libs.models.models import SlugMixin
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
+from base_libs.models.fields import PositionField
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_translation
 
@@ -258,4 +259,16 @@ class WorkshopTime(models.Model):
     def get_secure_id(self):
         return int(self.pk) + SECURITY_SUMMAND
         
+class MediaFile(CreationModificationDateMixin):
+    workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))
+    path = FileBrowseField(_('File path'), max_length=255, help_text=_("A path to a locally stored image, video, or audio file."))
+    sort_order = PositionField(_("Sort order"), collection="workshop")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Media File")
+        verbose_name_plural = _("Media Files")
+        
+    def __unicode__(self):
+        return self.path.path
 
