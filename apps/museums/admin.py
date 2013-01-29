@@ -17,6 +17,7 @@ AccessibilityOption = models.get_model("museums", "AccessibilityOption")
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
+MediaFile = models.get_model("museums", "MediaFile")
 
 class MuseumCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
@@ -57,6 +58,12 @@ class SpecialOpeningTimeInline(ExtendedStackedInline):
     fieldsets = get_admin_lang_section(_("Title"), ['day_label'])
     fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
     fieldsets += [(_("Opening hours"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing', get_admin_lang_section(_("Exceptions"), ['exceptions']))})]
+
+class MediaFileInline(ExtendedStackedInline):
+    model = MediaFile
+    extra = 0
+    sortable = True
+    sortable_field_name = "sort_order"
 
 class MuseumAdmin(ExtendedModelAdmin):
     class Media:
@@ -108,7 +115,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "accessibility_options")
     
-    inlines = [SeasonInline, SpecialOpeningTimeInline]
+    inlines = [SeasonInline, SpecialOpeningTimeInline, MediaFileInline]
     
     def is_geoposition_set(self, obj):
         if obj.latitude:
