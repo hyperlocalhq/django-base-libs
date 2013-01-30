@@ -5,7 +5,7 @@ from django import forms
 from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 
 from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
@@ -24,6 +24,7 @@ MuseumCategory = models.get_model("museums", "MuseumCategory")
 Museum = models.get_model("museums", "Museum")
 
 from forms.museum import MUSEUM_FORM_STEPS
+from forms.gallery import ImageFileForm
 
 class MuseumSearchForm(dynamicforms.Form):
     category = forms.ModelChoiceField(
@@ -153,4 +154,244 @@ def change_museum(request, slug):
     if not request.user.has_perm("museums.change_museum", instance):
         return access_denied(request)
     return show_form_step(request, MUSEUM_FORM_STEPS, extra_context={'museum': instance}, instance=instance);
+
+
+### MEDIA FILE MANAGEMENT ###
+
+def update_mediafile_ordering(tokens, museum):
+    # tokens is in this format:
+    # "<mediafile1_token>,<mediafile2_token>,<mediafile3_token>"
+    mediafiles = []
+    for mediafile_token in tokens.split(u","):
+        mediafile = get_object_or_404(
+            MediaFile,
+            museum=museum,
+            pk=MediaFile.token_to_pk(mediafile_token)
+            )
+        mediafiles.append(mediafile)
+    sort_order = 0
+    for mediafile in mediafiles:
+        mediafile.sort_order = sort_order
+        mediafile.save()
+        sort_order += 1
+
+@never_cache
+@login_required
+def gallery_overview(request, slug):
+    instance = get_object_or_404(Museum, slug=slug)
+    if not request.user.has_perm("museums.change_museum", instance):
+        return access_denied(request)
+
+    if "ordering" in request.POST and request.is_ajax():
+        tokens = request.POST['ordering']
+        update_mediafile_ordering(tokens, instance)
+        return HttpResponse("OK")
+
+    return render(request, "museums/gallery/overview.html", {'museum': instance})
+    
+@never_cache
+@login_required
+def create_update_mediafile(request, slug, mediafile_token="", media_file_type="", **kwargs):
+    instance = get_object_or_404(Museum, slug=slug)
+    if not request.user.has_perm("museums.change_museum", instance):
+        return access_denied(request)
+    
+    media_file_type = media_file_type or "image"
+    if media_file_type not in ("image",):
+        raise Http404
+    
+    if not "extra_context" in kwargs:
+        kwargs["extra_context"] = {}
+
+    rel_dir = "museums/%s/gallery/" % instance.slug
+    
+    filters = {}
+    if mediafile_token:
+        media_file_obj = get_object_or_404(
+            MediaFile,
+            museum=instance,
+            pk=MediaFile.token_to_pk(mediafile_token),
+            )
+    else:
+        media_file_obj = None
+    
+    form_class = ImageFileForm
+
+    if request.method=="POST":
+        # just after submitting data
+        form = form_class(request.POST, request.FILES)
+        # Passing request.FILES to the form always breaks the form validation
+        # WHY!?? As a workaround, let's validate just the POST and then 
+        # manage FILES separately. 
+        if not media_file_obj and ("media_file" not in request.FILES) and not request.POST.get("external_url", ""):
+            # new media file - media file required
+            form.fields['media_file'].required = True
+            form.fields['external_url'].required = True
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            file_obj = None
+            splash_image_obj = None
+            path = ""
+            if media_file_obj and media_file_obj.path:
+                path = media_file_obj.path.path
+            if cleaned.get("media_file", None) or cleaned.get("external_url"):
+                if path:
+                    # delete the old file
+                    try:
+                        image_mods.FileManager.delete_file(path)
+                    except OSError:
+                        pass
+                    path = ""
+            media_file_path = ""
+            if cleaned.get("media_file", None):
+                fname, fext = os.path.splitext(cleaned['media_file'].name)
+                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+                path = "".join((rel_dir, filename)) 
+                image_mods.FileManager.save_file(
+                    path=path,
+                    content=cleaned['media_file'],
+                    )
+                media_file_path = path
+            
+            splash_image_file_path = ""
+            if cleaned.get("splash_image_file", None):
+                if media_file_obj and media_file_obj.splash_image_path:
+                    # delete the old file
+                    try:
+                        image_mods.FileManager.delete_file(media_file_obj.splash_image_path.path)
+                    except OSError:
+                        pass
+                time.sleep(1) # ensure that the filenames differ
+                filename = datetime.now().strftime("%Y%m%d%H%M%S.jpg")
+                path = "".join((rel_dir, filename)) 
+                image_mods.FileManager.save_file(
+                    path=path,
+                    content=cleaned['splash_image_file'],
+                    )
+                splash_image_file_path = path
+            
+            if not media_file_obj:
+                media_file_obj = MediaFile(
+                    gallery=gallery
+                    )
+            media_file_obj.title_en = cleaned['title_en']
+            media_file_obj.title_de = cleaned['title_de']
+            media_file_obj.description_en = cleaned['description_en']
+            media_file_obj.description_de = cleaned['description_de']
+            
+            image_url = cleaned['external_url']
+            if image_url and media_file_type == "image":
+                rel_dir = getattr(self.obj, "get_filebrowser_dir", lambda: "")()
+                rel_dir += URL_ID_PORTFOLIO + "/"
+                fname, fext = os.path.splitext(image_url)
+                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext 
+                path = "".join((rel_dir, filename)) 
+                image_data = urllib2.urlopen(image_url)
+                image_mods.FileManager.save_file(
+                    path=path,
+                    content=image_data.read(),
+                    )
+                media_file_obj.path = path
+            else:
+                media_file_obj.external_url = image_url
+            
+            if media_file_path: # update media_file path
+                media_file_obj.path = media_file_path
+            if splash_image_file_path: # update media_file splash image path
+                media_file_obj.splash_image_path = splash_image_file_path
+            if not media_file_obj.pk:
+                media_file_obj.sort_order = MediaFile.objects.filter(
+                    gallery=gallery,
+                    ).count()
+            else:
+                # trick not to reorder media files on save
+                media_file_obj.sort_order = media_file_obj.sort_order
+            media_file_obj.save()
+            
+            if "save_continue" in request.POST:
+                redirect_to = "%s%s/album/%s/%s/" % (
+                    self.obj.get_url_path(),
+                    URL_ID_PORTFOLIO,
+                    gallery.get_token(),
+                    media_file_obj.get_token(),
+                    )
+            elif "save_add" in request.POST:
+                redirect_to = "%s%s/album/%s/add/%s/" % (
+                    self.obj.get_url_path(),
+                    URL_ID_PORTFOLIO,
+                    gallery.get_token(),
+                    media_file_type,
+                    )
+            else:
+                redirect_to = "%s%s/album/%s/manage/" % (
+                    self.obj.get_url_path(),
+                    URL_ID_PORTFOLIO,
+                    gallery.get_token(),
+                    )
+            return HttpResponseRedirect(redirect_to)
+    else:
+        if media_file_obj:
+            # existing media file
+            form = form_class(initial=media_file_obj.__dict__)
+        else:
+            # new media file
+            form = form_class()
+            form.fields['media_file'].required = True
+
+    context_dict = {
+        'media_file': media_file_obj,
+        'media_file_type': media_file_type,
+        'form': form,
+        'gallery': gallery,
+        }
+    context_dict.update(self.extra_context)
+    
+    return render(
+        request,
+        "media_gallery/create_update_mediafile.html",
+        context_dict,
+        )
+
+@never_cache
+@login_required
+def delete_mediafile(request, slug, mediafile_token="", **kwargs):
+    instance = get_object_or_404(Museum, slug=slug)
+    if not request.user.has_perm("museums.change_museum", instance):
+        return access_denied(request)
+    
+    filters = {
+        'id': MediaFile.token_to_pk(mediafile_token),
+        }
+    if instance:
+        filters['museum'] = instance
+    try:
+        media_file_obj = MediaFile.objects.get(**filters)
+    except:
+        raise Http404
+        
+    if "POST" == request.method:
+        if media_file_obj:
+            if media_file_obj.path:
+                try:
+                    image_mods.FileManager.delete_file(media_file_obj.path.path)
+                except OSError:
+                    pass
+            media_file_obj.delete()
+            
+        redirect_to = "%s%s/album/%s/manage/" % (
+            self.obj.get_url_path(),
+            URL_ID_PORTFOLIO,
+            gallery.get_token(),
+            )
+        return redirect(redirect_to)
+
+    context_dict = {
+        'media_file': media_file_obj,
+        }
+    
+    return render(
+        request,
+        "museums/gallery/delete_mediafile.html",
+        context_dict,
+        )
 

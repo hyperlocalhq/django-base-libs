@@ -16,6 +16,7 @@ from base_libs.middleware import get_current_user
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
+MediaFile = models.get_model("museums", "MediaFile")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
@@ -767,7 +768,50 @@ class MediationForm(ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
             )        
-                
+
+class GalleryForm(ModelForm):
+    class Meta:
+        model = Museum
+        fields = []
+        
+    def __init__(self, *args, **kwargs):
+        super(GalleryForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_blocks = []
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )        
+
+class MediaFileForm(ModelForm):
+    class Meta:
+        model = MediaFile
+        fields = ['path', 'sort_order']
+    def __init__(self, *args, **kwargs):
+        super(MediaFileForm, self).__init__(*args, **kwargs)
+
+        self.fields['path'].widget = forms.HiddenInput()
+        self.fields['sort_order'].widget = forms.HiddenInput()
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_blocks = ['path', 'sort_order']
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )
+
+MediaFileFormset = inlineformset_factory(Museum, MediaFile, form=MediaFileForm, formset=InlineFormSet, extra=0)
 
 
 def load_data(instance=None):
@@ -780,6 +824,7 @@ def load_data(instance=None):
             'address': {'_filled': True},
             'services_accessibility': {'_filled': True},
             'mediation': {'_filled': True},
+            '_pk': instance.pk,
             }
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
@@ -924,12 +969,40 @@ def load_data(instance=None):
     return form_step_data
     
 def submit_step(current_step, form_steps, form_step_data, instance=None):
+    if current_step == "basic":
+        # save the entry
+        if "_pk" in form_step_data:
+            instance = Museum.objects.get(pk=form_step_data['_pk'])
+        else:
+            instance = Museum()
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
+            setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
+            setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+            setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+        instance.tags = form_step_data['basic']['tags']
+        instance.status = "draft"
+        instance.save()
+        
+        if '_pk' not in form_step_data:
+            user = get_current_user()
+            instance.set_owner(user)
+        
+        instance.categories.clear()
+        for cat in form_step_data['basic']['categories']:
+            instance.categories.add(cat)
+        
+        form_step_data['_pk'] = instance.pk
+        
     return form_step_data
 
 def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance
     if not instance:
-        instance = Museum()
+        if '_pk' in form_step_data:
+            instance = Museum.objects.get(pk=form_step_data['_pk'])
+        else:
+            instance = Museum()
 
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
@@ -1160,10 +1233,18 @@ MUSEUM_FORM_STEPS = {
         'template': "museums/forms/mediation_form.html",
         'form': MediationForm,
     },
+    'gallery': {
+        'title': _("Gallery"),
+        'template': "museums/forms/gallery_form.html",
+        'form': GalleryForm, # dummy form
+        'formsets': {
+            'media_files': MediaFileFormset,
+        }
+    },
     'oninit': load_data,
     'onsubmit': submit_step,
     'onsave': save_data,
     'name': 'museum_registration',
-    'default_path': ["basic", "opening", "prices", "address", "services_accessibility", "mediation"],
+    'default_path': ["basic", "opening", "prices", "address", "services_accessibility", "mediation", "gallery"],
 }
 
