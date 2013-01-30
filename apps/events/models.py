@@ -80,6 +80,17 @@ class EventCategory(MPTTModel, SlugMixin()):
             EventCategory.objects.insert_node(self, self.parent)
         super(EventCategory, self).save(*args, **kwargs)
 
+class EventManager(models.Manager):
+    def owned_by(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="events",
+            content_type__model="event",
+            sysname__startswith="owners",
+            users=user,
+            ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids)
+
 class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
@@ -115,6 +126,8 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     booking_info = MultilingualTextField(_("Booking info"), blank=True)
+
+    objects = EventManager()
 
     class Meta:
         verbose_name = _("event")

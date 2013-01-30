@@ -92,6 +92,16 @@ class AgeGroup(CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Age group")
         verbose_name_plural = _("Age groups")
 
+class WorkshopManager(models.Manager):
+    def owned_by(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="workshops",
+            content_type__model="workshop",
+            sysname__startswith="owners",
+            users=user,
+            ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids)
 
 class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -129,6 +139,8 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     booking_info = MultilingualTextField(_("Booking info"), blank=True)
+
+    objects = WorkshopManager()
 
     class Meta:
         verbose_name = _("workshop")

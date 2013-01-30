@@ -27,6 +27,8 @@ ContentType = models.get_model("contenttypes", "ContentType")
 User = models.get_model("auth", "User")
 Museum = models.get_model("museums", "Museum")
 Exhibition = models.get_model("exhibitions", "Exhibition")
+Event = models.get_model("events", "Event")
+Workshop = models.get_model("workshops", "Workshop")
 
 @never_cache
 def login(request, template_name='registration/login.html', redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME), redirect_to=""):
@@ -89,9 +91,13 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 def dashboard(request):
     owned_museums = Museum.objects.owned_by(request.user)
     owned_exhibitions = Exhibition.objects.owned_by(request.user)
+    owned_events = Event.objects.owned_by(request.user)
+    owned_workshops = Workshop.objects.owned_by(request.user)
     context = {
         'owned_museums': owned_museums,
         'owned_exhibitions': owned_exhibitions,
+        'owned_events': owned_events,
+        'owned_workshops': owned_workshops,
         }
     return render(request, "accounts/dashboard.html", context)
 
