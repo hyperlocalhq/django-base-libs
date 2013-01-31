@@ -1,13 +1,22 @@
 {% extends "museums/forms/base.html" %}
 {% load i18n crispy_forms_tags %}
 
+{% block js %}
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+{% endblock %}
+
 {% block multistep_form %}
 <form action="" method="post">
+
+<strong>{{ museum.get_url_path }}</strong>
+
+<div id="photos"></div>
+
 {{ formsets.media_files.management_form }}
 
 <div id="media_files">
     {% for form in formsets.media_files.forms %}
-        <div class="season formset-form">
+        <div class="media_file formset-form">
             {% crispy form %}
         </div>
     {% endfor %}
@@ -23,9 +32,6 @@
 </form>
 <script type="text/javascript">
 (function($, undefined) {
-    function reinit_widgets() {
-    }
-    
     function set_index_for_fields($formset_form, index) {
         $formset_form.find(':input').each(function() {
             var $field = $(this);
@@ -63,53 +69,37 @@
     }
         
     $(function() {
-        $(
-            '<a id="add_season" href="#">{% trans "Add another season" %}</a>'
-        ).insertAfter('#seasons').click(function() {
-            var $total_forms = $('#id_seasons-TOTAL_FORMS');
-            var $new_form = $('#seasons_empty_form').clone(true).attr("id", null).show();
-            set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
-            $('#seasons').append($new_form);
-            $total_forms.val(parseInt($total_forms.val(), 10) + 1);
-            reinit_widgets();
-            return false;
+        $('.media_file', '#media_files').each(function() {
+            var path = $('[id$="-modified_path"]', this).val();
+            var token = $('[id$="-token"]', this).val();
+            var title = $('[id$="-title_de"]', this).val();
+            var description = $('[id$="-description_de"]', this).val();
+            var $img = $('<div class="img_and_desc">'
+                + '<img src="/media/' + path + '" alt="" id="token_' + token + '"/>'
+                + '<div class="title">' + title + '</div>'
+                + '<div class="desc">' + description + '</div>'
+                + '</div>'
+            ).appendTo('#photos');
         });
+        $('#photos').sortable({
+            placeholder: "ui-state-highlight",
+            update: function(event, ui) {
+                // update sorting order
+            }
+        })
+        $('#photos').disableSelection();
+        
         $(
-            '<a id="add_special_opening" href="#">{% trans "Add another special opening time" %}</a>'
-        ).insertAfter('#special_openings').click(function() {
-            var $total_forms = $('#id_special_openings-TOTAL_FORMS');
-            var $new_form = $('#special_openings_empty_form').clone(true).attr("id", null).show();
+            '<a id="add_mediafile" href="#">{% trans "Add another photo" %}</a>'
+        ).insertAfter('#media_files').click(function() {
+            var $total_forms = $('#id_media_files-TOTAL_FORMS');
+            var $new_form = $('#media_files_empty_form').clone(true).attr("id", null).show();
             set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
-            $('#special_openings').append($new_form);
+            $('#media_files').append($new_form);
             $total_forms.val(parseInt($total_forms.val(), 10) + 1);
-            reinit_widgets();
             return false;
         });
         
-        $('.formset-form').each(function() {
-            var $season = $(this);
-            $season.find('input:checkbox[id$=DELETE]').each(function() {
-                var $checkbox = $(this);
-                var $deleteLink = $(
-                    '<a href="#" class="delete-link btn btn-warning btn-small"><span>{% trans "Delete" %}</span></a>'
-                );
-                $checkbox.parent().before($deleteLink).hide();
-            });
-        });
-        $('.delete-link').live("click", function() {
-            var $season = $(this).parents('.formset-form:first');
-            var $checkbox = $(this).parent().find('input:checkbox[id$=DELETE]');
-            $checkbox.attr("checked", "checked");
-            $season.hide();
-            return false;
-        });
-        
-        // Initial state
-        var $total_forms = $('#id_media_files-TOTAL_FORMS');
-        if ($total_forms.val() == "0") {
-            $('#add_season').click();
-        }
-        reinit_widgets();
     });
 })(jQuery);
 </script>

@@ -18,6 +18,9 @@ Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
 MediaFile = models.get_model("museums", "MediaFile")
 
+from filebrowser.models import FileDescription
+from jetson.apps.image_mods.models import FileManager
+
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
 from museumsportal.utils.forms import SecondarySubmit
@@ -803,10 +806,32 @@ class MediaFileForm(ModelForm):
 
         self.fields['path'].widget = forms.HiddenInput()
         self.fields['sort_order'].widget = forms.HiddenInput()
+        self.fields['modified_path'] = forms.CharField(
+            widget=forms.HiddenInput(),
+            required=False,
+            )
+        self.fields['token'] = forms.CharField(
+            widget=forms.HiddenInput(),
+            required=False,
+            )
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
+            self.fields['title_%s' % lang_code] = forms.CharField(
+                required=False,
+                widget = forms.HiddenInput(),
+                )
+            self.fields['description_%s' % lang_code] = forms.CharField(
+                required=False,
+                widget = forms.HiddenInput(),
+                )
 
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = ['path', 'sort_order']
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
+            layout_blocks += [
+                'title_%s' % lang_code,
+                'description_%s' % lang_code,
+                ]
         self.helper.layout = layout.Layout(
             *layout_blocks
             )
@@ -824,6 +849,7 @@ def load_data(instance=None):
             'address': {'_filled': True},
             'services_accessibility': {'_filled': True},
             'mediation': {'_filled': True},
+            'gallery': {'_filled': True, 'sets': {'media_files': []}},
             '_pk': instance.pk,
             }
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -966,6 +992,21 @@ def load_data(instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['mediation']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
 
+        for media_file in instance.mediafile_set.order_by("sort_order"):
+            media_file_dict = {}
+            media_file_dict['path'] = media_file.path.path
+            media_file_dict['sort_order'] = media_file.sort_order
+            media_file_dict['token'] = media_file.get_token()
+            media_file_dict['modified_path'] = FileManager.modified_path(media_file.path.path, "gl")
+            try:
+                file_description = FileDescription.objects.get(file_path=media_file.path)
+            except:
+                file_description = FileDescription(file_path=media_file.path.path)
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                media_file_dict['title_%s' % lang_code] = getattr(file_description, 'title_%s' % lang_code)
+                media_file_dict['description_%s' % lang_code] = getattr(file_description, 'description_%s' % lang_code)
+            form_step_data['gallery']['sets']['media_files'].append(media_file_dict)
+            
     return form_step_data
     
 def submit_step(current_step, form_steps, form_step_data, instance=None):
@@ -995,6 +1036,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         form_step_data['_pk'] = instance.pk
         
     return form_step_data
+
+def set_extra_context(current_step, form_steps, form_step_data, instance=None):
+    if "_pk" in form_step_data:
+        return {'museum': Museum.objects.get(pk=form_step_data['_pk'])}
+    return {}
 
 def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance
@@ -1242,6 +1288,7 @@ MUSEUM_FORM_STEPS = {
         }
     },
     'oninit': load_data,
+    'on_set_extra_context': set_extra_context,
     'onsubmit': submit_step,
     'onsave': save_data,
     'name': 'museum_registration',
