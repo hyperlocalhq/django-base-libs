@@ -6,15 +6,15 @@
 {% endblock %}
 
 {% block multistep_form %}
-<form action="" method="post">
-
 <div id="photos" data-load-url="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/"></div>
 
+<div id="edit_photo"></div>
+<a id="add_photo" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add photo" %}</a>
+
 {% crispy form %}
-</form>
 <script type="text/javascript">
 (function($, undefined) {
-    $(function() {
+    function reinit() {
         $('#photos').each(function() {
             var load_url = $(this).data("load-url");
             $(this).load(load_url + ' #photos>*', function() {
@@ -28,8 +28,26 @@
                         $.post(load_url, {ordering: tokens.join(',')});
                     }
                 })
-                $('#photos').disableSelection();
+                $('#photos').disableSelection().find('.edit_photo').click(function() {
+                    $('#edit_photo').load($(this).attr('href') + ' .content form', function() {
+                        $('#button-id-cancel').click(function() {
+                            $('#edit_photo').html("");
+                        });
+                    });
+                    return false;
+                });
             });
+        });
+    }
+    $(function() {
+        reinit();
+        $('#add_photo').click(function() {
+            $('#edit_photo').load($(this).attr('href') + ' .content form', function() {
+                $('#button-id-cancel').click(function() {
+                    $('#edit_photo').html("");
+                });
+            });
+            return false;
         });
     });
 })(jQuery);

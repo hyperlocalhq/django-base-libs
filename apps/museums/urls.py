@@ -11,6 +11,6 @@ urlpatterns = patterns('museumsportal.apps.museums.views',
     # gallery    
     url(r'^(?P<slug>[^/]+)/gallery/$', 'gallery_overview', name='museum_gallery_overview'),    
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_mediafile', name='museum_add_mediafile'),    
-    url(r'^(?P<slug>[^/]+)/gallery/file_(?P<token>[^/]+)/$', 'create_update_mediafile', name='museum_change_mediafile'),    
-    url(r'^(?P<slug>[^/]+)/gallery/file_(?P<token>[^/]+)/delete/$', 'delete_mediafile', name='museum_delete_mediafile'),    
+    url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/$', 'create_update_mediafile', name='museum_change_mediafile'),    
+    url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/delete/$', 'delete_mediafile', name='museum_delete_mediafile'),    
 )

@@ -339,17 +339,18 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             form = form_class()
             form.fields['media_file'].required = True
 
+    form.helper.form_action = request.path
+
     context_dict = {
         'media_file': media_file_obj,
         'media_file_type': media_file_type,
         'form': form,
-        'gallery': gallery,
+        'museum': instance,
         }
-    context_dict.update(self.extra_context)
     
     return render(
         request,
-        "media_gallery/create_update_mediafile.html",
+        "museums/gallery/create_update_mediafile.html",
         context_dict,
         )
 
