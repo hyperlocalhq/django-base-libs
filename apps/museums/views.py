@@ -22,6 +22,7 @@ from jetson.apps.utils.context_processors import prev_next_processor
 
 MuseumCategory = models.get_model("museums", "MuseumCategory")
 Museum = models.get_model("museums", "Museum")
+MediaFile = models.get_model("museums", "MediaFile")
 
 from forms.museum import MUSEUM_FORM_STEPS
 from forms.gallery import ImageFileForm

@@ -8,98 +8,29 @@
 {% block multistep_form %}
 <form action="" method="post">
 
-<strong>{{ museum.get_url_path }}</strong>
-
-<div id="photos"></div>
-
-{{ formsets.media_files.management_form }}
-
-<div id="media_files">
-    {% for form in formsets.media_files.forms %}
-        <div class="media_file formset-form">
-            {% crispy form %}
-        </div>
-    {% endfor %}
-</div>
-<!-- used by javascript -->
-<div id="media_files_empty_form" class="season formset-form" style="display: none">
-    {% with formsets.media_files.empty_form as form %}
-        {% crispy form %}
-    {% endwith %}
-</div>
+<div id="photos" data-load-url="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/"></div>
 
 {% crispy form %}
 </form>
 <script type="text/javascript">
 (function($, undefined) {
-    function set_index_for_fields($formset_form, index) {
-        $formset_form.find(':input').each(function() {
-            var $field = $(this);
-            if ($field.attr("id")) {
-                $field.attr(
-                    "id",
-                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
-                );
-            }
-            if ($field.attr("name")) {
-                $field.attr(
-                    "name",
-                    $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
-                );
-            }
-        });
-        $formset_form.find('label').each(function() {
-            var $field = $(this);
-            if ($field.attr("for")) {
-                $field.attr(
-                    "for",
-                    $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
-                );
-            }
-        });
-        $formset_form.find('div').each(function() {
-            var $field = $(this);
-            if ($field.attr("id")) {
-                $field.attr(
-                    "id",
-                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
-                );
-            }
-        });
-    }
-        
     $(function() {
-        $('.media_file', '#media_files').each(function() {
-            var path = $('[id$="-modified_path"]', this).val();
-            var token = $('[id$="-token"]', this).val();
-            var title = $('[id$="-title_de"]', this).val();
-            var description = $('[id$="-description_de"]', this).val();
-            var $img = $('<div class="img_and_desc">'
-                + '<img src="/media/' + path + '" alt="" id="token_' + token + '"/>'
-                + '<div class="title">' + title + '</div>'
-                + '<div class="desc">' + description + '</div>'
-                + '</div>'
-            ).appendTo('#photos');
+        $('#photos').each(function() {
+            var load_url = $(this).data("load-url");
+            $(this).load(load_url + ' #photos>*', function() {
+                $('#photos').sortable({
+                    placeholder: "ui-state-highlight",
+                    update: function(event, ui) {
+                        var tokens = []
+                        $('.img_and_desc', '#photos').each(function() {
+                            tokens[tokens.length] = $(this).data('token');
+                        });
+                        $.post(load_url, {ordering: tokens.join(',')});
+                    }
+                })
+                $('#photos').disableSelection();
+            });
         });
-        $('#photos').sortable({
-            placeholder: "ui-state-highlight",
-            update: function(event, ui) {
-                // update sorting order
-            }
-        })
-        $('#photos').disableSelection();
-        
-        $(
-            '<a id="add_mediafile" href="#">{% trans "Add another photo" %}</a>'
-        ).insertAfter('#media_files').click(function() {
-            var $total_forms = $('#id_media_files-TOTAL_FORMS');
-            var $new_form = $('#media_files_empty_form').clone(true).attr("id", null).show();
-            set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
-            $('#media_files').append($new_form);
-            $total_forms.val(parseInt($total_forms.val(), 10) + 1);
-            return false;
-        });
-        
     });
 })(jQuery);
 </script>

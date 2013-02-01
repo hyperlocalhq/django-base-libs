@@ -758,13 +758,13 @@ class MediationForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save')),
+                layout.Submit('submit', _('Next')),
                 layout.Submit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Reset')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save')),
+                layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Reset')),
                 ))
         
@@ -780,63 +780,23 @@ class GalleryForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(GalleryForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_tag = False
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save')),
                 layout.Submit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Reset')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save')),
                 SecondarySubmit('reset', _('Reset')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
             )        
-
-class MediaFileForm(ModelForm):
-    class Meta:
-        model = MediaFile
-        fields = ['path', 'sort_order']
-    def __init__(self, *args, **kwargs):
-        super(MediaFileForm, self).__init__(*args, **kwargs)
-
-        self.fields['path'].widget = forms.HiddenInput()
-        self.fields['sort_order'].widget = forms.HiddenInput()
-        self.fields['modified_path'] = forms.CharField(
-            widget=forms.HiddenInput(),
-            required=False,
-            )
-        self.fields['token'] = forms.CharField(
-            widget=forms.HiddenInput(),
-            required=False,
-            )
-        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
-            self.fields['title_%s' % lang_code] = forms.CharField(
-                required=False,
-                widget = forms.HiddenInput(),
-                )
-            self.fields['description_%s' % lang_code] = forms.CharField(
-                required=False,
-                widget = forms.HiddenInput(),
-                )
-
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-        layout_blocks = ['path', 'sort_order']
-        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
-            layout_blocks += [
-                'title_%s' % lang_code,
-                'description_%s' % lang_code,
-                ]
-        self.helper.layout = layout.Layout(
-            *layout_blocks
-            )
-
-MediaFileFormset = inlineformset_factory(Museum, MediaFile, form=MediaFileForm, formset=InlineFormSet, extra=0)
 
 
 def load_data(instance=None):
@@ -849,7 +809,7 @@ def load_data(instance=None):
             'address': {'_filled': True},
             'services_accessibility': {'_filled': True},
             'mediation': {'_filled': True},
-            'gallery': {'_filled': True, 'sets': {'media_files': []}},
+            'gallery': {'_filled': True},
             '_pk': instance.pk,
             }
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -992,21 +952,6 @@ def load_data(instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['mediation']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
 
-        for media_file in instance.mediafile_set.order_by("sort_order"):
-            media_file_dict = {}
-            media_file_dict['path'] = media_file.path.path
-            media_file_dict['sort_order'] = media_file.sort_order
-            media_file_dict['token'] = media_file.get_token()
-            media_file_dict['modified_path'] = FileManager.modified_path(media_file.path.path, "gl")
-            try:
-                file_description = FileDescription.objects.get(file_path=media_file.path)
-            except:
-                file_description = FileDescription(file_path=media_file.path.path)
-            for lang_code, lang_name in FRONTEND_LANGUAGES:
-                media_file_dict['title_%s' % lang_code] = getattr(file_description, 'title_%s' % lang_code)
-                media_file_dict['description_%s' % lang_code] = getattr(file_description, 'description_%s' % lang_code)
-            form_step_data['gallery']['sets']['media_files'].append(media_file_dict)
-            
     return form_step_data
     
 def submit_step(current_step, form_steps, form_step_data, instance=None):
@@ -1283,9 +1228,6 @@ MUSEUM_FORM_STEPS = {
         'title': _("Gallery"),
         'template': "museums/forms/gallery_form.html",
         'form': GalleryForm, # dummy form
-        'formsets': {
-            'media_files': MediaFileFormset,
-        }
     },
     'oninit': load_data,
     'on_set_extra_context': set_extra_context,

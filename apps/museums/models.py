@@ -409,6 +409,6 @@ class MediaFile(CreationModificationDateMixin):
         else:
             return None
 
-    @classmethod
+    @staticmethod
     def token_to_pk(token):
         return int(token) - TOKENIZATION_SUMMAND
