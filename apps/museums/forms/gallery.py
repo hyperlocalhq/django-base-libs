@@ -75,3 +75,37 @@ class ImageFileForm(forms.Form):
             *layout_blocks
             )
 
+class ImageDeletionForm(forms.Form):
+    goto_next = forms.CharField(
+        widget=forms.HiddenInput(),
+        required=False,
+        )
+    def __init__(self, *args, **kwargs):
+        super(ImageDeletionForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        layout_blocks = []
+
+        layout_blocks.append(layout.Fieldset(
+            _("Delete Photo?"),
+            layout.HTML("""{% load image_modifications %}
+                {% if media_file.path %}
+                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gl" }}" alt="" />
+                    <p>Are you sure you want to delete this photo?</p>
+                {% endif %}
+            """),
+            "goto_next",
+
+            css_class="fieldset-media-file",
+            ))
+
+        layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('submit', _('Delete')),
+            layout.Button('cancel', _('Cancel')),
+            ))
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )
+

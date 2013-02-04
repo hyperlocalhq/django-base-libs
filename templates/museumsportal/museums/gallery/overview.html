@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load image_modifications fb_tags %}
+{% load i18n image_modifications fb_tags base_tags %}
 
 {% block content %}
 <div class="content clearfix">
@@ -16,7 +16,12 @@
                             <div class="desc">{{ file_desc.description }}</div>
                         {% endif %}
                     {% endwith %}
-                    <a class="edit_photo" href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/">Edit</a>
+                    <ul class="controls">
+                        <li><a class="edit_photo" href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/">{% trans "Edit" %}</a></li>
+                        {% parse "{{ museum.get_url_path }}change/?step=7" as goto_next %}
+                        <li><a class="crop_photo" href="{% cropping_url media_file.path "gl" request goto_next %}">{% trans "Crop" %}</a></li>
+                        <li><a class="delete_photo" href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/">{% trans "Delete" %}</a></li>
+                    </ul>
                 </div>        
             {% endfor %}
         </div>

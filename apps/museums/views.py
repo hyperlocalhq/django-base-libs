@@ -31,7 +31,7 @@ MediaFile = models.get_model("museums", "MediaFile")
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
 from forms.museum import MUSEUM_FORM_STEPS
-from forms.gallery import ImageFileForm
+from forms.gallery import ImageFileForm, ImageDeletionForm
 
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
@@ -233,18 +233,15 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         # Passing request.FILES to the form always breaks the form validation
         # WHY!?? As a workaround, let's validate just the POST and then 
         # manage FILES separately. 
-        if not media_file_obj and ("media_file" not in request.FILES) and not request.POST.get("external_url", ""):
+        if not media_file_obj and ("media_file" not in request.FILES):
             # new media file - media file required
             form.fields['media_file'].required = True
-            form.fields['external_url'].required = True
         if form.is_valid():
             cleaned = form.cleaned_data
-            file_obj = None
-            splash_image_obj = None
             path = ""
             if media_file_obj and media_file_obj.path:
                 path = media_file_obj.path.path
-            if cleaned.get("media_file", None) or cleaned.get("external_url"):
+            if cleaned.get("media_file", None):
                 if path:
                     # delete the old file
                     try:
@@ -268,12 +265,14 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                     museum=instance
                     )
             
+            from filebrowser.base import FileObject
+            
             try:
-                file_description = FileDescription.objects.get(
-                    file_path=media_file_path,
-                    )
+                file_description = FileDescription.objects.filter(
+                    file_path=FileObject(media_file_path or path),
+                    ).order_by("pk")[0]
             except:
-                file_description = FileDescription(file_path=media_file_path)
+                file_description = FileDescription(file_path=media_file_path or path)
             
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
@@ -300,9 +299,9 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         if media_file_obj:
             # existing media file
             try:
-                file_description = FileDescription.objects.get(
+                file_description = FileDescription.objects.filter(
                     file_path=media_file_obj.path,
-                    )
+                    ).order_by("pk")[0]
             except:
                 file_description = FileDescription(file_path=media_file_obj.path)
             initial = {}
@@ -347,23 +346,33 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
         raise Http404
         
     if "POST" == request.method:
-        if media_file_obj:
-            if media_file_obj.path:
-                try:
-                    FileManager.delete_file(media_file_obj.path.path)
-                except OSError:
-                    pass
-            media_file_obj.delete()
-            
-        redirect_to = "%s%s/album/%s/manage/" % (
-            self.obj.get_url_path(),
-            URL_ID_PORTFOLIO,
-            gallery.get_token(),
-            )
-        return redirect(redirect_to)
+        form = ImageDeletionForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            if media_file_obj:
+                if media_file_obj.path:
+                    try:
+                        FileManager.delete_file(media_file_obj.path.path)
+                    except OSError:
+                        pass
+                    FileDescription.objects.filter(
+                        file_path=media_file_obj.path,
+                        ).delete()
+                media_file_obj.delete()
+                
+            if cleaned['goto_next']:
+                return redirect(cleaned['goto_next'])
+            else:
+                return redirect("museum_gallery_overview", slug=instance.slug)
+    else:
+        form = ImageDeletionForm()
 
+    form.helper.form_action = request.path
+    
     context_dict = {
         'media_file': media_file_obj,
+        'form': form,
+        'museum': instance,
         }
     
     return render(
