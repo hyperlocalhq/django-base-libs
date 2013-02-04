@@ -16,10 +16,6 @@ from base_libs.middleware import get_current_user
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
-MediaFile = models.get_model("museums", "MediaFile")
-
-from filebrowser.models import FileDescription
-from jetson.apps.image_mods.models import FileManager
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
@@ -796,7 +792,7 @@ class GalleryForm(ModelForm):
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )        
+            )
 
 
 def load_data(instance=None):

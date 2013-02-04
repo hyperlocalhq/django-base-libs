@@ -8,7 +8,7 @@ urlpatterns = patterns('museumsportal.apps.museums.views',
     url(r'^add/$', 'add_museum', name='add_museum'),    
     url(r'^(?P<slug>[^/]+)/$', 'museum_detail', name='museum_detail'),    
     url(r'^(?P<slug>[^/]+)/change/$', 'change_museum', name='change_museum'),
-    # gallery    
+    # gallery
     url(r'^(?P<slug>[^/]+)/gallery/$', 'gallery_overview', name='museum_gallery_overview'),    
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_mediafile', name='museum_add_mediafile'),    
     url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/$', 'create_update_mediafile', name='museum_change_mediafile'),    
