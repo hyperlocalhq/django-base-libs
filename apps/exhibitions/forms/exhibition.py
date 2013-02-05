@@ -610,6 +610,33 @@ class AccessibilityForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )
+
+class GalleryForm(ModelForm):
+    class Meta:
+        model = Exhibition
+        fields = []
+        
+    def __init__(self, *args, **kwargs):
+        super(GalleryForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        layout_blocks = []
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
                 layout.Submit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Reset')),
@@ -619,10 +646,10 @@ class AccessibilityForm(ModelForm):
                 layout.Submit('submit', _('Save')),
                 SecondarySubmit('reset', _('Reset')),
                 ))
-        
         self.helper.layout = layout.Layout(
             *layout_blocks
             )
+
 
 def load_data(instance=None):
     form_step_data = {}
@@ -632,6 +659,7 @@ def load_data(instance=None):
             'opening': {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}},
             'prices': {'_filled': True},
             'accessibility': {'_filled': True},
+            '_pk': instance.pk,
             }
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
@@ -757,6 +785,51 @@ def load_data(instance=None):
 
 def submit_step(current_step, form_steps, form_step_data, instance=None):
     museum = form_step_data.get('basic', {}).get('museum', None)
+    if current_step == "basic":
+        # save the entry
+        if "_pk" in form_step_data:
+            instance = Exhibition.objects.get(pk=form_step_data['_pk'])
+        else:
+            instance = Exhibition()
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
+            setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
+            setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+            getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
+            setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+            getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+        instance.start = form_step_data['basic']['start'] 
+        instance.end = form_step_data['basic']['end']
+        instance.permanent = form_step_data['basic']['permanent'] 
+        instance.exhibition_extended = form_step_data['basic']['exhibition_extended'] 
+        instance.museum = form_step_data['basic']['museum']
+        instance.location_name = form_step_data['basic']['location_name']
+        instance.street_address = form_step_data['basic']['street_address']
+        instance.street_address2 = form_step_data['basic']['street_address2'] 
+        instance.postal_code = form_step_data['basic']['postal_code']
+        instance.district = form_step_data['basic']['district']
+        instance.city = form_step_data['basic']['city']
+        instance.latitude = form_step_data['basic']['latitude']
+        instance.longitude = form_step_data['basic']['longitude']
+        instance.organizing_museum = form_step_data['basic']['organizing_museum']
+        instance.organizer_title = form_step_data['basic']['organizer_title']
+        instance.organizer_url_link = form_step_data['basic']['organizer_url_link']
+        instance.vernissage = form_step_data['basic']['vernissage']
+        instance.finissage = form_step_data['basic']['finissage']
+        instance.tags = form_step_data['basic']['tags']
+        instance.status = "draft"
+        instance.save()
+        
+        if '_pk' not in form_step_data:
+            user = get_current_user()
+            instance.set_owner(user)
+        
+        instance.categories.clear()
+        for cat in form_step_data['basic']['categories']:
+            instance.categories.add(cat)
+        
+        form_step_data['_pk'] = instance.pk
+        
     if current_step == "basic" and museum:
         # fill in Opening hours from museum
         if not form_step_data.get('opening', {}).get('_filled', False):
@@ -828,7 +901,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         # fill in prices from museum
         if not form_step_data.get('prices', {}).get('_filled', False):
             form_step_data['prices'] = {'_filled': True}
-            fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass'
+            fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
                 'show_admission_price_info',
                 'show_reduced_price_info',
                 'show_arrangements_for_children',
@@ -856,11 +929,19 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
     return form_step_data
 
+def set_extra_context(current_step, form_steps, form_step_data, instance=None):
+    if "_pk" in form_step_data:
+        return {'exhibition': Exhibition.objects.get(pk=form_step_data['_pk'])}
+    return {}
+
 def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance
     
     if not instance:
-        instance = Exhibition()
+        if '_pk' in form_step_data:
+            instance = Exhibition.objects.get(pk=form_step_data['_pk'])
+        else:
+            instance = Exhibition()
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
@@ -1037,10 +1118,16 @@ EXHIBITION_FORM_STEPS = {
         'template': "exhibitions/forms/accessibility_form.html",
         'form': AccessibilityForm,
     },
+    'gallery': {
+        'title': _("Gallery"),
+        'template': "exhibitions/forms/gallery_form.html",
+        'form': GalleryForm, # dummy form
+    },
     'oninit': load_data,
+    'on_set_extra_context': set_extra_context,
     'onsubmit': submit_step,
     'onsave': save_data,
     'name': 'exhibition_registration',
-    'default_path': ["basic", "opening", "prices", "accessibility"],
+    'default_path': ["basic", "opening", "prices", "accessibility", 'gallery'],
 }
 

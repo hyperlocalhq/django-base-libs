@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n image_modifications fb_tags base_tags %}
+
+{% block content %}
+<div class="content clearfix">
+    <div class="inner">
+        <div id="photos">
+            {% for media_file in event.mediafile_set.all %}
+                <div class="img_and_desc" data-token="{{ media_file.get_token }}">
+                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gl" }}" alt="" />
+                    {% with media_file.path|file_description as file_desc %}
+                        {% if file_desc.title %}
+                            <div class="title">{{ file_desc.title }}</div>
+                        {% endif %}
+                        {% if file_desc.description %}
+                            <div class="desc">{{ file_desc.description }}</div>
+                        {% endif %}
+                    {% endwith %}
+                    <ul class="controls">
+                        <li><a class="edit_photo" href="{{ event.get_url_path }}gallery/file_{{ media_file.get_token }}/">{% trans "Edit" %}</a></li>
+                        {% parse "{{ event.get_url_path }}change/" as goto_next %}
+                        <li><a class="crop_photo" href="{% cropping_url media_file.path "gl" request goto_next %}">{% trans "Crop" %}</a></li>
+                        <li><a class="delete_photo" href="{{ event.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/">{% trans "Delete" %}</a></li>
+                    </ul>
+                </div>        
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

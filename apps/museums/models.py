@@ -49,6 +49,8 @@ YEAR_CHOICES = [(i,i) for i in range(1997, datetime.now().year+10)]
 
 DAY_CHOICES = [(i,i) for i in range(1, 32)]
 
+TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+
 class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -401,3 +403,12 @@ class MediaFile(CreationModificationDateMixin):
     def __unicode__(self):
         return self.path.path
 
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND

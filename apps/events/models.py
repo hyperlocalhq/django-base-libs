@@ -56,6 +56,8 @@ HOUR_CHOICES = [(i,i) for i in range(0, 24)]
 
 MINUTE_CHOICES = [(i,"%02d" % i) for i in range(0, 60)]
 
+TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+
 class EventCategory(MPTTModel, SlugMixin()):
     parent = TreeForeignKey(
        'self',
@@ -271,3 +273,12 @@ class MediaFile(CreationModificationDateMixin):
     def __unicode__(self):
         return self.path.path
 
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
