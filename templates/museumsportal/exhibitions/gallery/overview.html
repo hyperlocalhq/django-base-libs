@@ -18,7 +18,7 @@
                     {% endwith %}
                     <ul class="controls">
                         <li><a class="edit_photo" href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/">{% trans "Edit" %}</a></li>
-                        {% parse "{{ exhibition.get_url_path }}change/?step=7" as goto_next %}
+                        {% parse "{{ exhibition.get_url_path }}change/" as goto_next %}
                         <li><a class="crop_photo" href="{% cropping_url media_file.path "gl" request goto_next %}">{% trans "Crop" %}</a></li>
                         <li><a class="delete_photo" href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/">{% trans "Delete" %}</a></li>
                     </ul>

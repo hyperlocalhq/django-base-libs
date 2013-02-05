@@ -6,7 +6,6 @@ from django.forms.models import ModelForm
 from django.forms.models import inlineformset_factory
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -313,6 +312,31 @@ class WorkshopTimeForm(ModelForm):
 
 WorkshopTimeFormset = inlineformset_factory(Workshop, WorkshopTime, form=WorkshopTimeForm, formset=InlineFormSet, extra=0)
 
+class GalleryForm(ModelForm):
+    class Meta:
+        model = Workshop
+        fields = []
+        
+    def __init__(self, *args, **kwargs):
+        super(GalleryForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        layout_blocks = []
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Save')),
+                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Save')),
+                SecondarySubmit('reset', _('Reset')),
+                ))
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )
 
 def load_data(instance=None):
     form_step_data = {}
@@ -321,6 +345,8 @@ def load_data(instance=None):
             'basic': {'_filled': True},
             'times': {'_filled': True, 'sets': {'workshop_times': [],}},
             'prices': {'_filled': True},
+            'gallery': {'_filled': True},
+            '_pk': instance.pk,
             }
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
@@ -365,13 +391,70 @@ def load_data(instance=None):
     return form_step_data
 
 def submit_step(current_step, form_steps, form_step_data, instance=None):
+    if current_step == "basic":
+        # save the entry
+        if "_pk" in form_step_data:
+            instance = Workshop.objects.get(pk=form_step_data['_pk'])
+        else:
+            instance = Workshop()
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
+            setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
+            setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+            setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+        instance.other_languages = form_step_data['basic']['other_languages'] 
+        instance.museum = form_step_data['basic']['museum']
+        instance.location_name = form_step_data['basic']['location_name']
+        instance.street_address = form_step_data['basic']['street_address']
+        instance.street_address2 = form_step_data['basic']['street_address2'] 
+        instance.postal_code = form_step_data['basic']['postal_code']
+        instance.district = form_step_data['basic']['district']
+        instance.city = form_step_data['basic']['city']
+        instance.latitude = form_step_data['basic']['latitude']
+        instance.longitude = form_step_data['basic']['longitude']
+        instance.exhibition = form_step_data['basic']['exhibition']
+        instance.organizing_museum = form_step_data['basic']['organizing_museum']
+        instance.organizer_title = form_step_data['basic']['organizer_title']
+        instance.organizer_url_link = form_step_data['basic']['organizer_url_link']
+        instance.tags = form_step_data['basic']['tags']
+        instance.status = "draft"
+        instance.save()
+        
+        if '_pk' not in form_step_data:
+            user = get_current_user()
+            instance.set_owner(user)
+        
+        instance.categories.clear()
+        for cat in form_step_data['basic']['categories']:
+            instance.categories.add(cat)
+        
+        instance.languages.clear()
+        for cat in form_step_data['basic']['languages']:
+            instance.languages.add(cat)
+        
+        instance.age_groups.clear()
+        for cat in form_step_data['basic']['age_groups']:
+            instance.age_groups.add(cat)
+        
+        
+        form_step_data['_pk'] = instance.pk
+        
     return form_step_data
+
+def set_extra_context(current_step, form_steps, form_step_data, instance=None):
+    if "_pk" in form_step_data:
+        return {'workshop': Workshop.objects.get(pk=form_step_data['_pk'])}
+    return {}
+
 
 def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance
-    
     if not instance:
-        instance = Workshop()
+        if '_pk' in form_step_data:
+            instance = Workshop.objects.get(pk=form_step_data['_pk'])
+        else:
+            instance = Workshop()
+            
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
@@ -457,10 +540,16 @@ WORKSHOP_FORM_STEPS = {
         'template': "workshops/forms/prices_form.html",
         'form': PricesForm,
     },
+    'gallery': {
+        'title': _("Gallery"),
+        'template': "workshops/forms/gallery_form.html",
+        'form': GalleryForm, # dummy form
+    },
     'oninit': load_data,
+    'on_set_extra_context': set_extra_context,
     'onsubmit': submit_step,
     'onsave': save_data,
     'name': 'workshop_registration',
-    'default_path': ["basic", "times", "prices"],
+    'default_path': ["basic", "times", "prices", "gallery"],
 }
 
