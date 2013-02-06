@@ -1,20 +1,15 @@
-/* @override 
-	http://127.0.0.1:8000/static/8208/site/css/twitterwall.css
-	http://www.berliner-museumsportal.de/static/8192/site/css/twitterwall.css
-	http://www.berliner-museumsportal.de/static/8205/site/css/twitterwall.css
-	http://www.berliner-museumsportal.de/static/8208/site/css/twitterwall.css
-	http://127.0.0.1:8000/static/8208/site/css/twitterwall.css
-	http://www.berliner-museumsportal.de/static/8216/site/css/twitterwall.css
-	http://127.0.0.1:8000/static/8215/site/css/twitterwall.css
-	http://www.berliner-museumsportal.de/static/8317/site/css/twitterwall.css
-*/
+@import url(http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,400italic);
 
 body, html {
-    font-family: "georgia",Arial,sans-serif;
-    color: #333;
-  background-color: #7dc9cc;
+  font-family: 'Neuton', serif;
+  color: #333;
   height: 100%;
   width: 100%;
+  background-color: black;
+  background-image: url(../img/twitter_wall_langenacht_2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 body {
@@ -22,8 +17,16 @@ body {
   overflow-y: scroll;
 }
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 a {
-    color: #005961;
+    color: #e17660;
     text-decoration: none;
 }
 
@@ -32,84 +35,68 @@ a:hover {
 }
 
 .wrapper {
-  width: 1024px;
   margin: auto;
   position: relative;
+  padding: 5px;
+  max-width: 960px;
 }
 
+
+#selected { float: left;}
+#searched { float: right;}
+
+
 .cullumn {
-  width: 380px;    
-  float: left;
+  width: 50%;    
   height: 100%;
   padding-bottom: 50px;
   margin-top: 111px;
   margin-left: auto;
   margin-bottom: auto;
-  padding-right: 0;
+  padding: 5px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
-
-h2 {
-    vertical-align: top;
-    display: block;
-  position: relative;
-  font: italic 13px/20px "Arial narrow", Arial, Helvetica, Geneva, sans-serif;
-  white-space: nowrap;
-  float: left;
-  position: fixed;
-    background-color: #7dc9cc;
-    text-transform: uppercase;
-    z-index: 1500;
-  top: 70px;
-  height: 20px;
-  color: #2b716a;
-  width: 390px; 
-  margin-left: -30px;
-  padding: 10px 50px 14px 40px;
-}
 
 /* @group footer */
 
 .footer {
-  background-color: rgba(52,112,106,0.86);
-  background-color: rgb(52,112,106);
+  background-color: #000;
+  color: black;
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 35px;
   z-index: 1000000000;
   color: white;
-    -webkit-box-shadow:  inset 0px 0px 7px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0px 0px 7px rgba(0,0,0,0.5);
   margin-bottom: -10px;
   margin-left: -10px;
   margin-right: 10px;
   padding: 4px 10px 13px;
+  font-size: 18px;
+  opacity: 0.9;
 }
 
 .studio38 {
-  color: white;
-  font-size: 12px;
   float: right;
-  padding-top: 10px;
+  padding-top: 5px;
   padding-bottom: 10px;
 }
 
+.studio38:hover {
+color: white;}
+
 .back {
-	display: block;
-	position: fixed;
-	z-index: 1000000000000;
-  background-color: #252525;
-  font-size: 17px;
-  color: white;
-  bottom: 0;
-  margin: auto auto 5px 390px;
-  padding: 6px 13px 5px;
-  border-radius: 3px;
+  float: left;
   white-space: nowrap;
+  padding-top: 5px;
+  padding-bottom: 10px;
 }
+
 .back:hover {
-background-color: white;
-color: black;}
+color: white;}
 
 .berlin {
   width: 57px;
@@ -124,120 +111,104 @@ color: black;}
 
 /* @end */
 
-
-
-.cullumn:nth-child(2) h2 {
-  width: 388px;
-}
-
-div#selected_user_tweets.tweet-list {
-}
-
-div#tweets_from_search.tweet-list {
-  width: 466px;
-  margin-left: -2px;
-}
-
-.visual {
-  width: 450px;
-  height: 100%;
-  background: url(../img/twitter_wall.png) no-repeat 0 top;
-  background-size: 400px ;
-  position: fixed;
-  z-index: 1000000;
-  margin-left: -180px;
-}
-
-div.langenacht {
-  width: 250px;
-  height: 150px;
-  background: url(../img/twitter_wall_langenacht.png) no-repeat;
-  position: absolute;
-  top: 375px;
-  left: 190px;
-  white-space: nowrap;
-  text-indent: 1000px;
-  overflow: hidden;
-}
-
-div.tweet_wrapper {
-  float: right;
-}
-
 h1 {
-position: fixed; 
-top: 0px;
-z-index: 1000;
+  position: fixed; 
+  top: 0px;
+  left: 0px;
+  z-index: 2000;
   color: white;
-  font-size: 58px;    background-color: #7dc9cc;
-  padding-left: 65px;
-  margin-left: -60px;
-  width: 910px;
-  padding-top: 6px;
-  text-shadow: rgba(0,0,0,0.38) 3px 1px 0;
-  font-style: italic;
-  line-height: 70px;
+  text-align: center;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 10px;
+  padding-top: 20px;
+  font-size: 54px;
+  line-height: 38px;
+  width: 100%;
+  background-color: black;
+}
+
+h1 span { 
+  display: block;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 5px;
+  padding-top: 10px;
+  text-transform: uppercase;
+}
+
+h2 {
+  position: fixed;
+  vertical-align: top;
+  display: block;
+  white-space: nowrap;
+  float: left;
+  background-color: black !important;
+  height: 100px;
+  z-index: 1500;
+  height: 20px;
+  color: white;
+  top: 0px;
+  padding-left: 30px;
+  padding-bottom: 10px;
+  padding-top: 110px;
 }
 
 .tweet {
-    font-size: 14px;
-    vertical-align: top;
-    display: block;
-    min-height: 125px;
+  width: 100%;
+  font-size: 14px;
+  vertical-align: top;
+  display: block;
+  min-height: 125px;
   position: relative;
-  padding: 5px 40px 14px;
   float: left;
   margin-bottom: 0;
   opacity: 1;
-  margin-top: 3px;  
-  border-radius: 3px;
-  width: 280px;
-}
-.tweet:nth-child(1n) {
-  -webkit-transform: skew(-2deg); 
-  -moz-transform: skew(-2deg); 
-  -o-transform: skew(-2deg); 
-  transform: skew(-2deg); 
-}
-.tweet:nth-child(2n) {
-  -webkit-transform: skew(2deg); 
-  -moz-transform: skew(2deg); 
-  -o-transform: skew(2deg); 
-  transform: skew(2deg); 
+  color: white;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 28px;
+  margin-bottom: 100px;
 }
 
 div.tweet-media {
   display: none;
 }
 
-.tweet {
-background-color: white;
-  color: #568b8d;
-}
-
-
 #selected_user_tweets div.tweet div.tweet-media {
   display: none;
 }
 
 .tweet p {
-    word-wrap: break-word;
-  color: #568b8d;
-  font: italic 24px/28px "geargia";
-  padding-top: 10px;
-  padding-bottom: 10px;
-
+  font-style: italic;
+  word-wrap: break-word;
+  padding-left: 33px;
+  padding-right: 25px;
+  padding-top: 17px;
+  padding-bottom: 24px;
+  background-color: black;
+  background-color: rgba(0,0,0,0.91);
 }
 
 .tweet-header {
-  font: 11px/29px "arial";
-  border-bottom: 1px dotted rgba(0,0,0,0.12);
+  font-size: 13px;
+  line-height: 14px;
+  font-weight: 400;
   width: 100%;
   float: left;
-  padding-bottom: 0;
-  margin-bottom: 5px;
-  margin-left: -34px;
-  padding-right: 67px;
+  position: relative;
+  padding-bottom: 10px;
+  font-style: normal;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: black;
+  background-color: rgba(0,0,0,0.7);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 #selected_user_tweets div.tweet div.tweet-text p a {
@@ -249,20 +220,15 @@ background-color: white;
     text-decoration: none;
 }
 
-#selected_user_tweets div.tweet div.tweet-header a img.avatar {
-  width: 32px;
-  height: 32px;
-}
 .tweet-header .time {
     display: block;
-  position: absolute;
-  right: 14px;
+    padding-left: 10px;
 }
 
 .tweet-header .fullname {
-    clear: right;
-    display: block;
-  float: left;
+  clear: right;
+  display: block;
+  margin-left: 10px;
 }
 
 .tweet-header a:hover .fullname {
@@ -270,23 +236,19 @@ background-color: white;
 }
 
 .tweet-header .username {
-    display: block;
-    margin-left: 5px;
-    text-decoration: none;
-  float: left;
-  
+  display: block;
+  margin-left: 5px;
+  text-decoration: none;
 }
 
 .tweet-header .avatar {
-    -webkit-box-shadow:  0px 0px 3px white;
-    -moz-box-shadow:  0px 0px 0px 2px white;
-    -o-box-shadow:  0px 0px 0px 2px white;
-    box-shadow:  0px 0px 0px 2px white;
-  float: left;
-  margin-right: 11px;
-  width: 32px;
-  height: 32px;
-  border-radius: 3px;
+  position: absolute;
+  left: 0px;
+  top: -1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 100px;
+  margin: 10px;
 }
 
 .tweet-text {
@@ -295,6 +257,6 @@ background-color: white;
 }
 
 .hashtag {
-    color: #c10078;
+    color: #e17660;
 }
 

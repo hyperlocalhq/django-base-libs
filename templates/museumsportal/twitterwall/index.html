@@ -27,7 +27,6 @@
 
 	<div class="footer">
 		<div class="wrapper">
-			<div class="berlin">&nbsp;</div>
 			<a class="studio38" target="_blank" href="http://www.studio38.de/">Powered by Studio 38</a>
 			<a class="back" target="_blank" href="http://www.berliner-museumsportal.de">Zurück zum Berliner Museumsportal</a>
 		</div>
@@ -35,34 +34,37 @@
 	
 	<div class="wrapper">
 	
-	<div class="visual">
-		<div class="langenacht">25/8/2021 Lange Nacht der Museen</div>
-	</div>
-	
+  	<div class="visual">
+  		<div class="langenacht">12. März 2013 – Lange Nacht der Museen</div>
+  	</div>
+  	
 
-	
-	<div class="tweet_wrapper">
-		<h1>Berliner Twitternacht</h1>
-	    <div class="cullumn">
-		    <h2>Tweets von @MuseumsnachtB</h2>
-		    <div id="selected_user_tweets" class="tweet-list">
-		        {% for tweet in selected_user_tweets %}
-		            {% include "twitterwall/tweet.html" %}
-		        {% endfor %}
-		        <br style="clear:both" />
-		    </div>
-	    </div>
-	    <div class="cullumn">
-		    <h2>Tweets mit dem Hashtag #LNBerlin</h2>
-		    <div id="tweets_from_search" class="tweet-list">
-		    
-		        {% for tweet in tweets_from_search %}
-		            {% include "twitterwall/tweet.html" %}
-		        {% endfor %}
-		        <br style="clear:both" />
-		    </div>
-	    </div>
-    </div>
+    <h1>Berliner Twitternacht <span>12. März 2013 – Lange Nacht der Museen</span></h1>
+    <h2>Tweets von @MuseumsnachtB</h2>
+    <h2>Tweets mit dem Hashtag #LNBerlin</h2>
+  	
+  	<div class="tweet_wrapper">
+
+  	    <div id="selected" class="cullumn">
+  		    <div id="selected_user_tweets" class="tweet-list">
+  		        {% for tweet in selected_user_tweets %}
+  		            {% include "twitterwall/tweet.html" %}
+  		        {% endfor %}
+  		        <br style="clear:both" />
+  		    </div>
+  	    </div>
+
+  	    <div id="searched" class="cullumn">
+  		    <div id="tweets_from_search" class="tweet-list">
+  		    
+  		        {% for tweet in tweets_from_search %}
+  		            {% include "twitterwall/tweet.html" %}
+  		        {% endfor %}
+  		        <br style="clear:both" />
+  		    </div>
+  	    </div>
+
+      </div>
     </div>
     
     <script type="text/javascript">

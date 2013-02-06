@@ -1,0 +1,300 @@
+/* @override 
+	http://127.0.0.1:8000/static/8208/site/css/twitterwall.css
+	http://www.berliner-museumsportal.de/static/8192/site/css/twitterwall.css
+	http://www.berliner-museumsportal.de/static/8205/site/css/twitterwall.css
+	http://www.berliner-museumsportal.de/static/8208/site/css/twitterwall.css
+	http://127.0.0.1:8000/static/8208/site/css/twitterwall.css
+	http://www.berliner-museumsportal.de/static/8216/site/css/twitterwall.css
+	http://127.0.0.1:8000/static/8215/site/css/twitterwall.css
+	http://www.berliner-museumsportal.de/static/8317/site/css/twitterwall.css
+*/
+
+body, html {
+    font-family: "georgia",Arial,sans-serif;
+    color: #333;
+  background-color: #7dc9cc;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+a {
+    color: #005961;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.wrapper {
+  width: 1024px;
+  margin: auto;
+  position: relative;
+}
+
+.cullumn {
+  width: 380px;    
+  float: left;
+  height: 100%;
+  padding-bottom: 50px;
+  margin-top: 111px;
+  margin-left: auto;
+  margin-bottom: auto;
+  padding-right: 0;
+}
+
+
+h2 {
+    vertical-align: top;
+    display: block;
+  position: relative;
+  font: italic 13px/20px "Arial narrow", Arial, Helvetica, Geneva, sans-serif;
+  white-space: nowrap;
+  float: left;
+  position: fixed;
+    background-color: #7dc9cc;
+    text-transform: uppercase;
+    z-index: 1500;
+  top: 70px;
+  height: 20px;
+  color: #2b716a;
+  width: 390px; 
+  margin-left: -30px;
+  padding: 10px 50px 14px 40px;
+}
+
+/* @group footer */
+
+.footer {
+  background-color: rgba(52,112,106,0.86);
+  background-color: rgb(52,112,106);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 35px;
+  z-index: 1000000000;
+  color: white;
+    -webkit-box-shadow:  inset 0px 0px 7px rgba(0,0,0,0.5);
+  margin-bottom: -10px;
+  margin-left: -10px;
+  margin-right: 10px;
+  padding: 4px 10px 13px;
+}
+
+.studio38 {
+  color: white;
+  font-size: 12px;
+  float: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.back {
+	display: block;
+	position: fixed;
+	z-index: 1000000000000;
+  background-color: #252525;
+  font-size: 17px;
+  color: white;
+  bottom: 0;
+  margin: auto auto 5px 390px;
+  padding: 6px 13px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.back:hover {
+background-color: white;
+color: black;}
+
+.berlin {
+  width: 57px;
+  height: 66px;
+  background: url(../img/twitter_wall_b.png) no-repeat;
+  position: absolute;
+  color: transparent;
+  z-index: 10000000;
+  left: 13px;
+  bottom: -25px;
+}
+
+/* @end */
+
+
+
+.cullumn:nth-child(2) h2 {
+  width: 388px;
+}
+
+div#selected_user_tweets.tweet-list {
+}
+
+div#tweets_from_search.tweet-list {
+  width: 466px;
+  margin-left: -2px;
+}
+
+.visual {
+  width: 450px;
+  height: 100%;
+  background: url(../img/twitter_wall.png) no-repeat 0 top;
+  background-size: 400px ;
+  position: fixed;
+  z-index: 1000000;
+  margin-left: -180px;
+}
+
+div.langenacht {
+  width: 250px;
+  height: 150px;
+  background: url(../img/twitter_wall_langenacht.png) no-repeat;
+  position: absolute;
+  top: 375px;
+  left: 190px;
+  white-space: nowrap;
+  text-indent: 1000px;
+  overflow: hidden;
+}
+
+div.tweet_wrapper {
+  float: right;
+}
+
+h1 {
+position: fixed; 
+top: 0px;
+z-index: 1000;
+  color: white;
+  font-size: 58px;    background-color: #7dc9cc;
+  padding-left: 65px;
+  margin-left: -60px;
+  width: 910px;
+  padding-top: 6px;
+  text-shadow: rgba(0,0,0,0.38) 3px 1px 0;
+  font-style: italic;
+  line-height: 70px;
+}
+
+.tweet {
+    font-size: 14px;
+    vertical-align: top;
+    display: block;
+    min-height: 125px;
+  position: relative;
+  padding: 5px 40px 14px;
+  float: left;
+  margin-bottom: 0;
+  opacity: 1;
+  margin-top: 3px;  
+  border-radius: 3px;
+  width: 280px;
+}
+.tweet:nth-child(1n) {
+  -webkit-transform: skew(-2deg); 
+  -moz-transform: skew(-2deg); 
+  -o-transform: skew(-2deg); 
+  transform: skew(-2deg); 
+}
+.tweet:nth-child(2n) {
+  -webkit-transform: skew(2deg); 
+  -moz-transform: skew(2deg); 
+  -o-transform: skew(2deg); 
+  transform: skew(2deg); 
+}
+
+div.tweet-media {
+  display: none;
+}
+
+.tweet {
+background-color: white;
+  color: #568b8d;
+}
+
+
+#selected_user_tweets div.tweet div.tweet-media {
+  display: none;
+}
+
+.tweet p {
+    word-wrap: break-word;
+  color: #568b8d;
+  font: italic 24px/28px "geargia";
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+.tweet-header {
+  font: 11px/29px "arial";
+  border-bottom: 1px dotted rgba(0,0,0,0.12);
+  width: 100%;
+  float: left;
+  padding-bottom: 0;
+  margin-bottom: 5px;
+  margin-left: -34px;
+  padding-right: 67px;
+}
+
+#selected_user_tweets div.tweet div.tweet-text p a {
+  text-shadow: none;
+}
+
+.tweet-header a,
+.tweet-header a:hover {
+    text-decoration: none;
+}
+
+#selected_user_tweets div.tweet div.tweet-header a img.avatar {
+  width: 32px;
+  height: 32px;
+}
+.tweet-header .time {
+    display: block;
+  position: absolute;
+  right: 14px;
+}
+
+.tweet-header .fullname {
+    clear: right;
+    display: block;
+  float: left;
+}
+
+.tweet-header a:hover .fullname {
+    text-decoration: underline;
+}
+
+.tweet-header .username {
+    display: block;
+    margin-left: 5px;
+    text-decoration: none;
+  float: left;
+  
+}
+
+.tweet-header .avatar {
+    -webkit-box-shadow:  0px 0px 3px white;
+    -moz-box-shadow:  0px 0px 0px 2px white;
+    -o-box-shadow:  0px 0px 0px 2px white;
+    box-shadow:  0px 0px 0px 2px white;
+  float: left;
+  margin-right: 11px;
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+}
+
+.tweet-text {
+    clear: both;
+    margin-top: 10px;
+}
+
+.hashtag {
+    color: #c10078;
+}
+

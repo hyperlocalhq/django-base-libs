@@ -1,9 +1,9 @@
 <div class="tweet" data-tweet-id="t{{ tweet.id }}">
     <div class="tweet-header">
-        <small class="time">{{ tweet.creation_date|date:"j.M Y H:i" }}</small>
         <a href="http://twitter.com/{{ tweet.user.screen_name }}/" title="{{ tweet.user.name }}">
             <img class="avatar" src="{{ tweet.user.profile_image_url }}" alt="{{ tweet.user.screen_name }}" />
-            <strong class="fullname">{{ tweet.user.name }}</strong>
+            <span class="time">{{ tweet.creation_date|date:"j.M Y H:i" }}</span>
+            <span class="fullname">{{ tweet.user.name }}</span>
             <span class="username">@{{ tweet.user.screen_name }}</span>
         </a>
     </div>
