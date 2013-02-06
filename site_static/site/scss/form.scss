@@ -248,12 +248,21 @@ form {
     .formset-form {
       position: relative;
       .row {
+        border-collapse: separate;
+        border-right: 60px solid transparent !important;
         input { margin: 0px !important;}
+        > div { padding-bottom: 15px !important;}
       }
       > .control-group { 
         position: absolute;
         bottom: 0px;
         right: 0px;
+        margin-bottom: 15px !important;
+        button { 
+          height: 40px;
+          width: 40px;
+          margin-left: 5px;
+          text-indent: 1000px;}
       }
     }
     .row { 
@@ -420,3 +429,12 @@ legend + .control-group,
   margin-top: 0px;
 }
 
+.icon {
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &.icon-delete {
+    background-image: url("../img/icons/icons-04.svg");
+  }
+}
