@@ -5,26 +5,22 @@
   src: url("../fonts/callunasanslight.eot");
   src: url("../fonts/callunasanslight.eot?#iefix") format("embedded-opentype"), url("../fonts/callunasanslight.woff") format("woff"), url("../fonts/callunasanslight.ttf") format("truetype"), url("../fonts/callunasanslight.svg#calluna_sans_lightregular") format("svg");
   font-weight: 400;
-  font-style: normal;
-}
+  font-style: normal; }
 
 @font-face {
   font-family: 'calluna_sans';
   src: url("../fonts/callunasansbold.eot");
   src: url("../fonts/callunasansbold.eot?#iefix") format("embedded-opentype"), url("../fonts/callunasansbold.woff") format("woff"), url("../fonts/callunasansbold.ttf") format("truetype"), url("../fonts/callunasansbold.svg#calluna_sansbold") format("svg");
   font-weight: 500;
-  font-style: normal;
-}
+  font-style: normal; }
 
 @font-face {
   font-family: 'calluna_sans';
   src: url("../fonts/callunasansblack.eot");
   src: url("../fonts/callunasansblack.eot?#iefix") format("embedded-opentype"), url("../fonts/callunasansblack.woff") format("woff"), url("../fonts/callunasansblack.ttf") format("truetype"), url("../fonts/callunasansblack.svg#calluna_sans_blackregular") format("svg");
   font-weight: 600;
-  font-style: normal;
-}
+  font-style: normal; }
 
-/* line 5, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 select {
   width: 100%;
   border-radius: 0;
@@ -47,23 +43,17 @@ select {
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;
-  height: 40px;
-}
-/* line 32, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-select:focus {
-  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.05);
-  outline: 0;
-}
-/* line 39, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-select[multiple] {
-  height: 185px;
-  line-height: 80px;
-  -webkit-padding-end: 10px;
-  -webkit-padding-start: 10px;
-  background-image: none;
-}
+  height: 40px; }
+  select:focus {
+    box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.05);
+    outline: 0; }
+  select[multiple] {
+    height: 185px;
+    line-height: 80px;
+    -webkit-padding-end: 10px;
+    -webkit-padding-start: 10px;
+    background-image: none; }
 
-/* line 51, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .btn,
 input[type=submit],
 input[type=reset],
@@ -76,87 +66,65 @@ button {
   line-height: 18px;
   color: black;
   padding: 18px;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-/* line 62, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.btn:hover,
-input[type=submit]:hover,
-input[type=reset]:hover,
-button:hover {
-  background-color: black;
-  color: white !important;
-}
-/* line 69, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.btn.btn-primary,
-input[type=submit].btn-primary,
-input[type=reset].btn-primary,
-button.btn-primary {
-  background-color: #00aefd;
-  color: white;
-}
-/* line 70, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.btn.btn-warning,
-input[type=submit].btn-warning,
-input[type=reset].btn-warning,
-button.btn-warning {
-  background-color: #ff4582;
-  color: white;
-}
-/* line 71, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.btn.btn-danger,
-input[type=submit].btn-danger,
-input[type=reset].btn-danger,
-button.btn-danger {
-  background-color: #ff4582;
-  color: white;
-}
-/* line 72, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.btn.btn-success,
-input[type=submit].btn-success,
-input[type=reset].btn-success,
-button.btn-success {
-  background-color: #1edc80;
-  color: white;
-}
-/* line 73, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.btn.btn-info,
-input[type=submit].btn-info,
-input[type=reset].btn-info,
-button.btn-info {
-  background-color: #ff4582;
-  color: white;
-}
-/* line 74, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.btn.btn-inverse,
-input[type=submit].btn-inverse,
-input[type=reset].btn-inverse,
-button.btn-inverse {
-  background-color: black;
-  color: white;
-}
+  background-color: rgba(0, 0, 0, 0.05); }
+  .btn:hover,
+  input[type=submit]:hover,
+  input[type=reset]:hover,
+  button:hover {
+    background-color: black;
+    color: white !important; }
+  .btn.btn-primary,
+  input[type=submit].btn-primary,
+  input[type=reset].btn-primary,
+  button.btn-primary {
+    background-color: #00aefd;
+    color: white; }
+  .btn.btn-warning,
+  input[type=submit].btn-warning,
+  input[type=reset].btn-warning,
+  button.btn-warning {
+    background-color: #ff4582;
+    color: white; }
+  .btn.btn-danger,
+  input[type=submit].btn-danger,
+  input[type=reset].btn-danger,
+  button.btn-danger {
+    background-color: #ff4582;
+    color: white; }
+  .btn.btn-success,
+  input[type=submit].btn-success,
+  input[type=reset].btn-success,
+  button.btn-success {
+    background-color: #1edc80;
+    color: white; }
+  .btn.btn-info,
+  input[type=submit].btn-info,
+  input[type=reset].btn-info,
+  button.btn-info {
+    background-color: #ff4582;
+    color: white; }
+  .btn.btn-inverse,
+  input[type=submit].btn-inverse,
+  input[type=reset].btn-inverse,
+  button.btn-inverse {
+    background-color: black;
+    color: white; }
 
-/* line 79, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 input[type=range] {
   -webkit-appearance: none;
-  -moz-apperance: none;
-}
+  -moz-apperance: none; }
 
-/* line 84, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 ​
 input::-webkit-slider-thumb {
   -webkit-appearance: none;
-  -moz-apperance: none;
-}
+  -moz-apperance: none; }
 
-/* line 93, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .error input[type=text],
 .error input[type=email],
 .error input[type=password],
 .error input[type=search] {
-  box-shadow: inset 0 0 0 4px rgba(255, 0, 0, 0.1);
-}
+  box-shadow: inset 0 0 0 4px rgba(255, 0, 0, 0.1); }
 
-/* line 101, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 input[type=text],
 input[type=email],
 input[type=password],
@@ -171,100 +139,68 @@ input[type=search] {
   padding: 10px;
   height: 40px;
   font-size: 18px;
-  line-height: 22px;
-}
-/* line 114, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-input[type=text]::-webkit-input-placeholder,
-input[type=email]::-webkit-input-placeholder,
-input[type=password]::-webkit-input-placeholder,
-input[type=search]::-webkit-input-placeholder {
-  color: rgba(0, 0, 0, 0.125);
-}
-/* line 115, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-input[type=text]:-moz-placeholder,
-input[type=email]:-moz-placeholder,
-input[type=password]:-moz-placeholder,
-input[type=search]:-moz-placeholder {
-  color: rgba(0, 0, 0, 0.125);
-}
-/* line 116, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-input[type=text]:-ms-input-placeholder,
-input[type=email]:-ms-input-placeholder,
-input[type=password]:-ms-input-placeholder,
-input[type=search]:-ms-input-placeholder {
-  color: rgba(0, 0, 0, 0.125);
-}
-/* line 118, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-input[type=text]:focus,
-input[type=email]:focus,
-input[type=password]:focus,
-input[type=search]:focus {
-  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.05);
-}
-/* line 119, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-input[type=text]:focus::-webkit-input-placeholder,
-input[type=email]:focus::-webkit-input-placeholder,
-input[type=password]:focus::-webkit-input-placeholder,
-input[type=search]:focus::-webkit-input-placeholder {
-  color: inherit;
-}
-/* line 120, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-input[type=text]:focus:-moz-placeholder,
-input[type=email]:focus:-moz-placeholder,
-input[type=password]:focus:-moz-placeholder,
-input[type=search]:focus:-moz-placeholder {
-  color: inherit;
-}
-/* line 121, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-input[type=text]:focus:-ms-input-placeholder,
-input[type=email]:focus:-ms-input-placeholder,
-input[type=password]:focus:-ms-input-placeholder,
-input[type=search]:focus:-ms-input-placeholder {
-  color: inherit;
-}
+  line-height: 22px; }
+  input[type=text]::-webkit-input-placeholder,
+  input[type=email]::-webkit-input-placeholder,
+  input[type=password]::-webkit-input-placeholder,
+  input[type=search]::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0.125); }
+  input[type=text]:-moz-placeholder,
+  input[type=email]:-moz-placeholder,
+  input[type=password]:-moz-placeholder,
+  input[type=search]:-moz-placeholder {
+    color: rgba(0, 0, 0, 0.125); }
+  input[type=text]:-ms-input-placeholder,
+  input[type=email]:-ms-input-placeholder,
+  input[type=password]:-ms-input-placeholder,
+  input[type=search]:-ms-input-placeholder {
+    color: rgba(0, 0, 0, 0.125); }
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=password]:focus,
+  input[type=search]:focus {
+    box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.05); }
+    input[type=text]:focus::-webkit-input-placeholder,
+    input[type=email]:focus::-webkit-input-placeholder,
+    input[type=password]:focus::-webkit-input-placeholder,
+    input[type=search]:focus::-webkit-input-placeholder {
+      color: inherit; }
+    input[type=text]:focus:-moz-placeholder,
+    input[type=email]:focus:-moz-placeholder,
+    input[type=password]:focus:-moz-placeholder,
+    input[type=search]:focus:-moz-placeholder {
+      color: inherit; }
+    input[type=text]:focus:-ms-input-placeholder,
+    input[type=email]:focus:-ms-input-placeholder,
+    input[type=password]:focus:-ms-input-placeholder,
+    input[type=search]:focus:-ms-input-placeholder {
+      color: inherit; }
 
-/* line 128, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 textarea,
 input {
-  margin-bottom: 20px !important;
-}
-/* line 130, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-textarea::-webkit-input-placeholder,
-input::-webkit-input-placeholder {
-  color: rgba(0, 0, 0, 0.125);
-}
-/* line 131, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-textarea:-moz-placeholder,
-input:-moz-placeholder {
-  color: rgba(0, 0, 0, 0.125);
-}
-/* line 132, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-textarea:-ms-input-placeholder,
-input:-ms-input-placeholder {
-  color: rgba(0, 0, 0, 0.125);
-}
-/* line 134, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-textarea:focus,
-input:focus {
-  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.05);
-}
-/* line 135, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-textarea:focus::-webkit-input-placeholder,
-input:focus::-webkit-input-placeholder {
-  color: inherit;
-}
-/* line 136, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-textarea:focus:-moz-placeholder,
-input:focus:-moz-placeholder {
-  color: inherit;
-}
-/* line 137, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-textarea:focus:-ms-input-placeholder,
-input:focus:-ms-input-placeholder {
-  color: inherit;
-}
+  margin-bottom: 20px !important; }
+  textarea::-webkit-input-placeholder,
+  input::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0.125); }
+  textarea:-moz-placeholder,
+  input:-moz-placeholder {
+    color: rgba(0, 0, 0, 0.125); }
+  textarea:-ms-input-placeholder,
+  input:-ms-input-placeholder {
+    color: rgba(0, 0, 0, 0.125); }
+  textarea:focus,
+  input:focus {
+    box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.05); }
+    textarea:focus::-webkit-input-placeholder,
+    input:focus::-webkit-input-placeholder {
+      color: inherit; }
+    textarea:focus:-moz-placeholder,
+    input:focus:-moz-placeholder {
+      color: inherit; }
+    textarea:focus:-ms-input-placeholder,
+    input:focus:-ms-input-placeholder {
+      color: inherit; }
 
-/* line 146, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 textarea {
   font-family: inherit;
   font-size: inherit;
@@ -283,227 +219,165 @@ textarea {
   line-height: 22px;
   resize: none;
   overflow-x: hidden;
-  overflow-y: auto;
-}
+  overflow-y: auto; }
 
-/* line 168, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 form {
-  width: 100%;
-}
-/* line 172, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form *::-webkit-scrollbar-corner, form *::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  opacity: 0.5;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-/* line 179, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form *::-webkit-scrollbar-thumb {
-  border-radius: 0;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-/* line 184, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form .control-group {
-  margin: 0px;
-  padding: 0px;
-}
-/* line 189, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset {
-  border-bottom: 2px solid rgba(0, 0, 0, 0.05) !important;
-  padding-bottom: 30px !important;
-  margin-bottom: 30px !important;
-  display: block;
-}
-/* line 195, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset.multilingual {
-  width: 49%;
-  float: left;
-}
-/* line 199, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset.multilingual.lang-de {
-  margin-right: 2%;
-}
-/* line 207, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset h2 {
-  border: none;
-  display: block;
-  padding: 0px;
-  font-size: 18px;
-  line-height: inherit;
-  color: black;
-  margin: 0px;
-  display: inline-block;
-  margin-right: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-/* line 221, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset legend {
-  border: none;
-  display: block;
-  height: 30px;
-  padding-top: 0px !important;
-  padding-bottom: 30px !important;
-  font-size: 28px;
-  color: black;
-  margin: 0px;
-}
-/* line 231, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset legend + .control-group {
-  margin-top: 0px;
-}
-/* line 236, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset label {
-  color: rgba(0, 0, 0, 0.8);
-  position: relative;
-  margin-bottom: 5px;
-  margin-top: 0px;
-}
-/* line 242, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset label .lang {
-  font-size: 10px;
-  font-weight: 500;
-  margin-right: 5px;
-}
-/* line 249, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset .row {
-  width: 100%;
-  clear: both;
-  table-layout: fixed;
-  display: table;
-  padding: 0 !important;
-  margin-left: 0;
-  margin-bottom: 0px;
-  border-collapse: collapse;
-}
-/* line 259, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset .row.flex {
-  table-layout: auto !important;
-}
-/* line 262, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset .row.flex > div {
-  width: auto !important;
-}
-/* line 267, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset .row > div {
-  display: table-cell;
-  border-right: 20px solid white;
-  width: 100% !important;
-}
-/* line 272, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form fieldset .row > div:last-child {
-  border-right: 0px solid white;
-}
-/* line 279, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form table {
-  border-collapse: collapse !important;
-  width: 100% !important;
-}
-/* line 283, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form table th {
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 20px;
-  color: rgba(0, 0, 0, 0.5);
-  position: relative;
-}
-/* line 290, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form table th div {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-/* line 296, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form table th:first-child {
-  width: 1px;
-}
-/* line 301, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form table td {
-  border-bottom: 5px solid white;
-}
-/* line 305, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form table th, form table td {
-  border-right: 20px solid white;
-  border-left: none;
-  border-top: none;
-  width: auto !important;
-}
-/* line 311, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form table th:last-child, form table td:last-child {
-  border-right: 0px solid white;
-}
-/* line 320, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-form table th div, form table th input, form table td div, form table td input {
-  margin-bottom: 0 !important;
-}
+  width: 100%; }
+  form *::-webkit-scrollbar-corner, form *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.05); }
+  form *::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: black;
+    background-color: rgba(0, 0, 0, 0.5); }
+  form .control-group {
+    margin: 0px;
+    padding: 0px; }
+  form fieldset {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05) !important;
+    padding-bottom: 30px !important;
+    margin-bottom: 30px !important;
+    display: block; }
+    form fieldset.multilingual {
+      width: 49%;
+      float: left; }
+      form fieldset.multilingual.lang-de {
+        margin-right: 2%; }
+    form fieldset h2 {
+      border: none;
+      display: block;
+      padding: 0px;
+      font-size: 18px;
+      line-height: inherit;
+      color: black;
+      margin: 0px;
+      display: inline-block;
+      margin-right: 5px;
+      margin-top: 5px;
+      margin-bottom: 5px; }
+    form fieldset legend {
+      border: none;
+      display: block;
+      height: 30px;
+      padding-top: 0px !important;
+      padding-bottom: 30px !important;
+      font-size: 28px;
+      color: black;
+      margin: 0px; }
+      form fieldset legend + .control-group {
+        margin-top: 0px; }
+    form fieldset label {
+      color: rgba(0, 0, 0, 0.8);
+      position: relative;
+      margin-bottom: 5px;
+      margin-top: 0px; }
+      form fieldset label .lang {
+        font-size: 10px;
+        font-weight: 500;
+        margin-right: 5px; }
+    form fieldset .formset-form {
+      position: relative; }
+      form fieldset .formset-form .row input {
+        margin: 0px !important; }
+      form fieldset .formset-form > .control-group {
+        position: absolute;
+        bottom: 0px;
+        right: 0px; }
+    form fieldset .row {
+      width: 100%;
+      clear: both;
+      table-layout: fixed;
+      display: table;
+      padding: 0 !important;
+      margin-left: 0;
+      margin-bottom: 0px;
+      border-collapse: collapse; }
+      form fieldset .row.flex {
+        table-layout: auto !important; }
+        form fieldset .row.flex > div {
+          width: auto !important; }
+      form fieldset .row > div {
+        display: table-cell;
+        border-right: 20px solid white;
+        width: 100% !important; }
+        form fieldset .row > div:last-child {
+          border-right: 0px solid white; }
+  form table {
+    border-collapse: collapse !important;
+    width: 100% !important; }
+    form table th {
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 20px;
+      color: rgba(0, 0, 0, 0.5);
+      position: relative; }
+      form table th div {
+        position: absolute;
+        right: 0;
+        top: 0; }
+      form table th:first-child {
+        width: 1px; }
+    form table td {
+      border-bottom: 5px solid white; }
+    form table th, form table td {
+      border-right: 20px solid white;
+      border-left: none;
+      border-top: none;
+      width: auto !important; }
+      form table th:last-child, form table td:last-child {
+        border-right: 0px solid white; }
+      form table th div, form table th input, form table td div, form table td input {
+        margin-bottom: 0 !important; }
 
-/* line 327, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .form-steps {
   margin-bottom: 30px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
-}
-/* line 331, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.form-steps li {
-  display: inline-block;
-  background-color: rgba(0, 0, 0, 0);
-}
-/* line 336, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.form-steps li.active a {
-  color: black;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-/* line 343, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.form-steps li span,
-.form-steps li a {
-  padding-right: 10px;
-  padding-left: 10px;
-  font-size: 16px;
-  line-height: 40px;
-  display: inline-block;
-  color: rgba(0, 0, 0, 0.5);
-}
-/* line 353, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.form-steps li a:hover {
-  color: black;
-}
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05); }
+  .form-steps li {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0); }
+    .form-steps li.active a {
+      color: black;
+      background-color: rgba(0, 0, 0, 0.05); }
+    .form-steps li span,
+    .form-steps li a {
+      padding-right: 10px;
+      padding-left: 10px;
+      font-size: 16px;
+      line-height: 40px;
+      display: inline-block;
+      color: rgba(0, 0, 0, 0.5); }
+    .form-steps li a:hover {
+      color: black; }
 
-/* line 360, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .inline {
   padding-bottom: 20px;
-  display: block;
-}
-/* line 364, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.inline .control-group {
-  display: inline-block;
-  white-space: nowrap;
-  box-sizing: border-box !important;
-  -moz-box-sizing: border-box !important;
-  margin: 0px;
-  padding: 0px;
-  margin-right: 5px;
-  position: relative;
-}
-/* line 374, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.inline .control-group label {
-  position: relative;
-  padding: 10px !important;
-  background-color: rgba(0, 0, 0, 0.05);
-  line-height: 10px;
-  height: 10px !important;
-  display: inline-block !important;
-  min-height: auto;
-}
-/* line 383, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-.inline .control-group label.radio input[type="radio"], .inline .control-group label.checkbox input[type="checkbox"] {
-  margin: 0px !important;
-  display: inline-block;
-  margin-right: 5px !important;
-  bottom: 1px;
-  position: relative;
-}
+  display: block; }
+  .inline .control-group {
+    display: inline-block;
+    white-space: nowrap;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 5px;
+    position: relative; }
+    .inline .control-group label {
+      position: relative;
+      padding: 10px !important;
+      background-color: rgba(0, 0, 0, 0.05);
+      line-height: 10px;
+      height: 10px !important;
+      display: inline-block !important;
+      min-height: auto; }
+      .inline .control-group label.radio input[type="radio"], .inline .control-group label.checkbox input[type="checkbox"] {
+        margin: 0px !important;
+        display: inline-block;
+        margin-right: 5px !important;
+        bottom: 1px;
+        position: relative; }
 
-/* line 394, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .form-actions {
   display: block;
   width: 100%;
@@ -515,28 +389,20 @@ form table th div, form table th input, form table td div, form table td input {
   border: none;
   padding: 0;
   margin: 0;
-  padding-bottom: 30px;
-}
+  padding-bottom: 30px; }
 
-/* line 409, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 legend + .control-group,
 .form-horizontal .control-group {
-  margin-top: 0px;
-}
+  margin-top: 0px; }
 
-/* line 1, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/isotope.scss */
 .isotope-item {
-  z-index: 2;
-}
+  z-index: 2; }
 
-/* line 5, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/isotope.scss */
 .isotope-hidden.isotope-item {
   pointer-events: none;
-  z-index: 1;
-}
+  z-index: 1; }
 
 /**** Isotope CSS3 transitions ****/
-/* line 13, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/isotope.scss */
 .isotope,
 .isotope .isotope-item {
   -webkit-transition-duration: 0.2s;
@@ -548,29 +414,23 @@ legend + .control-group,
   -moz-transition-duration: 0s;
   -ms-transition-duration: 0s;
   -o-transition-duration: 0s;
-  transition-duration: 0s;
-}
+  transition-duration: 0s; }
 
-/* line 26, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/isotope.scss */
 .isotope {
   -webkit-transition-property: height, width;
   -moz-transition-property: height, width;
   -ms-transition-property: height, width;
   -o-transition-property: height, width;
-  transition-property: height, width;
-}
+  transition-property: height, width; }
 
-/* line 34, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/isotope.scss */
 .isotope .isotope-item {
   -webkit-transition-property: -webkit-transform, opacity;
   -moz-transition-property: -moz-transform, opacity;
   -ms-transition-property: -ms-transform, opacity;
   -o-transition-property: -o-transform, opacity;
-  transition-property: transform, opacity;
-}
+  transition-property: transform, opacity; }
 
 /**** disabling Isotope CSS3 transitions ****/
-/* line 46, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/isotope.scss */
 .isotope.no-transition,
 .isotope.no-transition .isotope-item,
 .isotope .isotope-item.no-transition {
@@ -578,23 +438,17 @@ legend + .control-group,
   -moz-transition-duration: 0s;
   -ms-transition-duration: 0s;
   -o-transition-duration: 0s;
-  transition-duration: 0s;
-}
+  transition-duration: 0s; }
 
-/* line 1, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/tooltip.scss */
 .tooltip {
   z-index: 5000 !important;
   font-size: 13px;
-  font-weight: 500;
-}
+  font-weight: 500; }
 
-/* line 6, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/tooltip.scss */
 .tooltip.in {
   opacity: 1;
-  filter: alpha(opacity=100);
-}
+  filter: alpha(opacity=100); }
 
-/* line 11, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/tooltip.scss */
 .tooltip-inner {
   max-width: auto;
   padding: 3px 8px;
@@ -605,59 +459,37 @@ legend + .control-group,
   white-space: nowrap;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
-  border-radius: 0px;
-}
+  border-radius: 0px; }
 
-/* line 24, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/tooltip.scss */
 .tooltip.top {
-  margin-top: -5px;
-}
+  margin-top: -5px; }
 
-/* line 28, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/tooltip.scss */
 .tooltip.right {
-  margin-left: 5px;
-}
+  margin-left: 5px; }
 
-/* line 32, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/tooltip.scss */
 .tooltip.bottom {
-  margin-top: 5px;
-}
+  margin-top: 5px; }
 
-/* line 36, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/tooltip.scss */
 .tooltip.left {
-  margin-left: -5px;
-}
+  margin-left: -5px; }
 
-/* line 3, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .map_visible #gmap_wrapper {
-  height: 350px;
-}
-/* line 6, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+  height: 350px; }
 .map_visible.map_fullscreen {
-  overflow: hidden;
-}
-/* line 9, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.map_visible.map_fullscreen #gmap_wrapper {
-  height: 100%;
-  margin-top: -160px;
-}
-/* line 14, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.map_visible.map_fullscreen #categories {
-  -webkit-transform: translate(0px, -250px);
-  /* Safari and Chrome */
-}
-/* line 18, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.map_visible.map_fullscreen #categories li a {
-  background-color: white;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
-}
-/* line 24, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.map_visible.map_fullscreen #categories li .selected, .map_visible.map_fullscreen #categories li.active a, .map_visible.map_fullscreen #categories li:hover a {
-  background-color: #00aefd;
-  color: white;
-}
+  overflow: hidden; }
+  .map_visible.map_fullscreen #gmap_wrapper {
+    height: 100%;
+    margin-top: -160px; }
+  .map_visible.map_fullscreen #categories {
+    -webkit-transform: translate(0px, -250px);
+    /* Safari and Chrome */ }
+    .map_visible.map_fullscreen #categories li a {
+      background-color: white;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05); }
+    .map_visible.map_fullscreen #categories li .selected, .map_visible.map_fullscreen #categories li.active a, .map_visible.map_fullscreen #categories li:hover a {
+      background-color: #00aefd;
+      color: white; }
 
-/* line 35, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 #gmap_wrapper {
   height: 0px;
   overflow: hidden;
@@ -665,10 +497,8 @@ legend + .control-group,
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
-  -webkit-transition-timing: ease-in-out;
-}
+  -webkit-transition-timing: ease-in-out; }
 
-/* line 45, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 #gmap {
   width: auto;
   height: 100%;
@@ -677,25 +507,19 @@ legend + .control-group,
   bottom: 0;
   left: 0;
   right: 0;
-  position: absolute;
-}
+  position: absolute; }
 
-/* line 56, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 #gmap * {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
-}
+  user-select: none; }
 
-/* line 66, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 .location .wrapper {
   text-align: center;
-  height: 0;
-}
-/* line 71, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+  height: 0; }
 .location .inner {
   text-align: left;
   display: inline-block;
@@ -708,74 +532,56 @@ legend + .control-group,
   line-height: 19px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  position: relative;
-}
-/* line 85, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.location .inner h3, .location .inner h4, .location .inner h5 {
-  white-space: nowrap;
-}
-/* line 86, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.location .inner h3 {
-  font-weight: 500;
-}
-/* line 87, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.location .inner h4 {
-  font-weight: 400;
-}
-/* line 88, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.location .inner h5 {
-  font-weight: 400;
-  opacity: 0.5;
-}
-/* line 90, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.location .inner .img {
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 200px;
-  display: block;
-  position: absolute;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: none;
-}
-/* line 103, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.location .inner .btn {
-  top: 8px;
-  position: relative;
-  font-size: inherit;
-  line-height: inherit;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-/* line 112, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-.location .inner:after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  bottom: 0;
-  left: 50%;
-  display: block;
-  margin-left: -5px;
-  margin-bottom: -10px;
-  border-top-color: white;
-  border-width: 10px 10px 0;
-}
-/* line 129, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
+  position: relative; }
+  .location .inner h3, .location .inner h4, .location .inner h5 {
+    white-space: nowrap; }
+  .location .inner h3 {
+    font-weight: 500; }
+  .location .inner h4 {
+    font-weight: 400; }
+  .location .inner h5 {
+    font-weight: 400;
+    opacity: 0.5; }
+  .location .inner .img {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    display: block;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: none; }
+  .location .inner .btn {
+    top: 8px;
+    position: relative;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px; }
+  .location .inner:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    bottom: 0;
+    left: 50%;
+    display: block;
+    margin-left: -5px;
+    margin-bottom: -10px;
+    border-top-color: white;
+    border-width: 10px 10px 0; }
 .location .close {
   top: 0px;
   right: 0px;
   position: absolute;
   width: 32px;
-  height: auto;
-}
+  height: auto; }
 
-/* line 138, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
 #gmap_locations {
   position: absolute;
   top: 6px;
@@ -787,111 +593,73 @@ legend + .control-group,
   overflow-x: hidden;
   overflow-y: scroll;
   left: 6px;
-  z-index: 100;
-}
-/* line 150, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-#gmap_locations li a {
-  border-bottom: 1px solid #ececec;
-  padding-bottom: 5px;
-  padding-top: 5px;
-  padding-left: 10px;
-  margin-left: -5px;
-}
-/* line 156, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
-#gmap_locations li a:hover {
-  background-color: white;
-}
+  z-index: 100; }
+  #gmap_locations li a {
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 10px;
+    margin-left: -5px; }
+    #gmap_locations li a:hover {
+      background-color: white; }
 
-/* line 9, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 html {
   color: #000;
-  background: #FFF;
-}
+  background: #FFF; }
 
-/* line 10, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
-/* line 11, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 table {
   border-collapse: collapse;
-  border-spacing: 0;
-}
+  border-spacing: 0; }
 
-/* line 12, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 fieldset, img {
-  border: 0;
-}
+  border: 0; }
 
-/* line 13, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 address, caption, cite, code, dfn, em, strong, th, var {
   font-style: normal;
-  font-weight: normal;
-}
+  font-weight: normal; }
 
-/* line 14, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 li {
-  list-style: none;
-}
+  list-style: none; }
 
-/* line 15, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 caption, th {
-  text-align: left;
-}
+  text-align: left; }
 
-/* line 16, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
-  font-weight: normal;
-}
+  font-weight: normal; }
 
-/* line 16, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 q:before, q:after {
-  content: '';
-}
+  content: ''; }
 
-/* line 17, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 abbr, acronym {
   border: 0;
-  font-variant: normal;
-}
+  font-variant: normal; }
 
-/* line 18, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 sup {
-  vertical-align: text-top;
-}
+  vertical-align: text-top; }
 
-/* line 19, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 sub {
-  vertical-align: text-bottom;
-}
+  vertical-align: text-bottom; }
 
-/* line 20, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
-  font-weight: inherit;
-}
+  font-weight: inherit; }
 
-/* line 21, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 input, textarea, select {
-  *font-size: 100%;
-}
+  *font-size: 100%; }
 
-/* line 22, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 legend {
-  color: #000;
-}
+  color: #000; }
 
-/* line 24, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 html, body {
   width: 100%;
-  height: 100%;
-}
+  height: 100%; }
 
-/* line 29, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 body {
   background-color: white;
   background-color: rgba(0, 0, 0, 0.025);
@@ -900,320 +668,219 @@ body {
   font-size: 16px;
   line-height: 26px;
   overflow-y: auto;
-  overflow-x: hidden;
-}
+  overflow-x: hidden; }
 
-/* line 42, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 h1, h2, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
-  line-height: inherit;
-}
-/* line 46, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-  color: black;
-}
+  line-height: inherit; }
+  h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    color: black; }
 
-/* line 52, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 a h1, a h2, a h3, a h4, a h5, a h6 {
-  color: black;
-}
+  color: black; }
 
-/* line 57, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 h1 {
   font-weight: '400';
   font-size: 42px;
   margin-top: 30px;
   margin-bottom: 30px;
-  line-height: 48px;
-}
+  line-height: 48px; }
 
-/* line 64, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 h2 {
   font-size: 42px;
   line-height: 48px;
   margin-top: 30px;
   margin-bottom: 30px;
-  display: block;
-}
+  display: block; }
 
-/* line 73, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 *::-webkit-scrollbar-corner,
 *::-webkit-scrollbar {
   width: 5px;
   height: 5px;
   opacity: 0.5;
-  background-color: rgba(0, 0, 0, 0.1);
-}
+  background-color: rgba(0, 0, 0, 0.1); }
 
-/* line 80, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 *::-webkit-scrollbar-thumb {
   border-radius: 0;
   background-color: black;
-  background-color: rgba(0, 0, 0, 0.5);
-}
+  background-color: rgba(0, 0, 0, 0.5); }
 
-/* line 86, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  text-rendering: optimizeLegibility; }
 
-/* line 97, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 .clearfix:before, .clearfix:after {
   content: "\0020";
   display: block;
   height: 0;
-  visibility: hidden;
-}
+  visibility: hidden; }
 
-/* line 104, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 .clearfix:after {
-  clear: both;
-}
+  clear: both; }
 
-/* line 108, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 .clearfix {
-  zoom: 1;
-}
+  zoom: 1; }
 
-/* line 112, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 a {
   text-decoration: none;
-  color: #00aefd;
-}
+  color: #00aefd; }
 
-/* line 117, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 a:link {
-  text-decoration: none;
-}
+  text-decoration: none; }
 
-/* line 118, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 a:hover {
   text-decoration: none;
-  color: black;
-}
+  color: black; }
 
-/* line 119, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 a:visited {
-  text-decoration: none;
-}
+  text-decoration: none; }
 
-/* line 120, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 a:active {
-  outline: none;
-}
+  outline: none; }
 
-/* line 124, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #wrapper {
   height: 100%;
-  width: 100%;
-}
-/* line 127, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#wrapper > * > .inner {
-  width: 1000px;
-  margin: auto;
-  position: relative;
-  padding-left: 10px;
-  padding-right: 10px;
-}
+  width: 100%; }
+  #wrapper > * > .inner {
+    width: 1000px;
+    margin: auto;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px; }
 
-/* line 136, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #header, .content, #footer {
   background-color: white;
-  border-top: 2px solid rgba(0, 0, 0, 0.05);
-}
+  border-top: 2px solid rgba(0, 0, 0, 0.05); }
 
-/* line 141, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #header {
-  border-top: none;
-}
-/* line 143, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .logo {
-  position: absolute;
-  top: 30px;
-  left: 10px;
-  display: block;
-}
-/* line 149, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .logo .img {
-  display: block;
-  height: 52px;
-  width: 52px;
-  background-image: url("../img/logo_img.svg");
-  background-color: #00aefd;
-  background-color: black;
-  background-size: cover;
-  float: left;
-  margin-right: 15px;
-  margin-top: -5px;
-}
-/* line 162, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .logo .word {
-  font-size: 24px;
-  line-height: 20px;
-  display: block;
-  float: left;
-  letter-spacing: -2px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: black;
-}
-/* line 172, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .logo .claim {
-  font-size: 16px;
-  line-height: 20px;
-  display: block;
-  float: left;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.5);
-  padding-left: 15px;
-  margin-left: 15px;
-  border-left: 2px solid rgba(0, 0, 0, 0.05);
-}
-/* line 184, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner {
-  height: 160px;
-}
-/* line 186, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta {
-  position: absolute;
-  top: 20px;
-  right: 0;
-}
-/* line 195, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta li {
-  display: inline-block;
-}
-/* line 198, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta li.current a, #header .inner ul.meta li:hover a {
-  background-color: black;
-  color: white;
-}
-/* line 204, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta li a {
-  color: black;
-  min-width: 20px;
-  text-align: center;
-  display: inline-block;
-  font-size: 10px;
-  line-height: 20px;
-  font-weight: 600;
-  background-color: rgba(0, 0, 0, 0.05);
-  background-size: cover;
-  background-position: center;
-}
-/* line 216, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta li a span {
-  display: none;
-}
-/* line 218, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta li a.facebook {
-  background-image: url("../img/icons/social-01.svg");
-}
-/* line 219, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta li a.twitter {
-  background-image: url("../img/icons/social-02.svg");
-}
-/* line 222, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta li a:hover.facebook {
-  background-image: url("../img/icons/inv/social-01.svg");
-}
-/* line 223, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.meta li a:hover.twitter {
-  background-image: url("../img/icons/inv/social-02.svg");
-}
-/* line 229, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.navigation {
-  position: absolute;
-  bottom: 20px;
-  text-align: justify !important;
-  width: 100%;
-}
-/* line 239, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.navigation li {
-  display: inline-block;
-  font-size: 22px;
-  line-height: 26px;
-  height: 30px;
-  padding: 0px;
-  padding-right: 28px;
-  margin-right: 21px;
-  border-right: 2px solid rgba(0, 0, 0, 0.1);
-}
-/* line 249, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.navigation li:last-child {
-  padding-right: 0px;
-  margin-right: 0px;
-  border-right: none;
-}
-/* line 255, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.navigation li.selected a {
-  color: #00aefd;
-}
-/* line 256, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.navigation li a {
-  color: black;
-}
-/* line 259, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#header .inner ul.navigation li a:hover {
-  color: #00aefd;
-}
+  border-top: none; }
+  #header .logo {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    display: block; }
+    #header .logo .img {
+      display: block;
+      height: 52px;
+      width: 52px;
+      background-image: url("../img/logo_img.svg");
+      background-color: #00aefd;
+      background-color: black;
+      background-size: cover;
+      float: left;
+      margin-right: 15px;
+      margin-top: -5px; }
+    #header .logo .word {
+      font-size: 24px;
+      line-height: 20px;
+      display: block;
+      float: left;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: black; }
+    #header .logo .claim {
+      font-size: 16px;
+      line-height: 20px;
+      display: block;
+      float: left;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.5);
+      padding-left: 15px;
+      margin-left: 15px;
+      border-left: 2px solid rgba(0, 0, 0, 0.05); }
+  #header .inner {
+    height: 160px; }
+    #header .inner ul.meta {
+      position: absolute;
+      top: 20px;
+      right: 0; }
+      #header .inner ul.meta li {
+        display: inline-block; }
+        #header .inner ul.meta li.current a, #header .inner ul.meta li:hover a {
+          background-color: black;
+          color: white; }
+        #header .inner ul.meta li a {
+          color: black;
+          min-width: 20px;
+          text-align: center;
+          display: inline-block;
+          font-size: 10px;
+          line-height: 20px;
+          font-weight: 600;
+          background-color: rgba(0, 0, 0, 0.05);
+          background-size: cover;
+          background-position: center; }
+          #header .inner ul.meta li a span {
+            display: none; }
+          #header .inner ul.meta li a.facebook {
+            background-image: url("../img/icons/social-01.svg"); }
+          #header .inner ul.meta li a.twitter {
+            background-image: url("../img/icons/social-02.svg"); }
+          #header .inner ul.meta li a:hover.facebook {
+            background-image: url("../img/icons/inv/social-01.svg"); }
+          #header .inner ul.meta li a:hover.twitter {
+            background-image: url("../img/icons/inv/social-02.svg"); }
+    #header .inner ul.navigation {
+      position: absolute;
+      bottom: 20px;
+      text-align: justify !important;
+      width: 100%; }
+      #header .inner ul.navigation li {
+        display: inline-block;
+        font-size: 22px;
+        line-height: 26px;
+        height: 30px;
+        padding: 0px;
+        padding-right: 28px;
+        margin-right: 21px;
+        border-right: 2px solid rgba(0, 0, 0, 0.1); }
+        #header .inner ul.navigation li:last-child {
+          padding-right: 0px;
+          margin-right: 0px;
+          border-right: none; }
+        #header .inner ul.navigation li.selected a {
+          color: #00aefd; }
+        #header .inner ul.navigation li a {
+          color: black; }
+          #header .inner ul.navigation li a:hover {
+            color: #00aefd; }
 
-/* line 268, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #footer {
-  background-color: transparent;
-}
-/* line 272, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#footer .inner ul.navigation {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-/* line 277, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#footer .inner ul.navigation li {
-  display: inline-block;
-  font-size: 14px;
-  line-height: 14px;
-  height: 14px;
-  padding: 0px;
-  padding-right: 12px;
-  margin-right: 10px;
-  border-right: 2px solid rgba(0, 0, 0, 0.1);
-}
-/* line 287, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#footer .inner ul.navigation li.selected a {
-  color: #00aefd;
-}
-/* line 288, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#footer .inner ul.navigation li a {
-  color: black;
-}
-/* line 291, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#footer .inner ul.navigation li a:hover {
-  color: #00aefd;
-}
+  background-color: transparent; }
+  #footer .inner ul.navigation {
+    padding-top: 20px;
+    padding-bottom: 20px; }
+    #footer .inner ul.navigation li {
+      display: inline-block;
+      font-size: 14px;
+      line-height: 14px;
+      height: 14px;
+      padding: 0px;
+      padding-right: 12px;
+      margin-right: 10px;
+      border-right: 2px solid rgba(0, 0, 0, 0.1); }
+      #footer .inner ul.navigation li.selected a {
+        color: #00aefd; }
+      #footer .inner ul.navigation li a {
+        color: black; }
+        #footer .inner ul.navigation li a:hover {
+          color: #00aefd; }
 
 @-webkit-keyframes SPINNER {
-  /* line 299, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
   0% {
-    -webkit-transform: rotate(-360deg);
-  }
+    -webkit-transform: rotate(-360deg); }
 
-  /* line 300, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
   50% {
-    -webkit-transform: rotate(-180deg);
-  }
+    -webkit-transform: rotate(-180deg); }
 
-  /* line 301, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
   100% {
-    -webkit-transform: rotate(0deg);
-  }
-}
+    -webkit-transform: rotate(0deg); } }
 
-/* line 304, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 .list {
   margin-right: -60px;
   margin-left: -20px;
@@ -1221,251 +888,177 @@ a:active {
   padding-top: 40px;
   padding-bottom: 40px;
   padding-right: 40px;
-  margin-top: -40px;
-}
-/* line 313, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item {
-  width: 320px;
-  height: 250px;
-  margin-right: 20px;
-  float: left;
-  position: relative;
-  font-size: 15px;
-  line-height: 20px;
-  padding-bottom: 0px;
-}
-/* line 323, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item .actions {
-  opacity: 0;
-}
-/* line 328, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item:hover .actions {
-  opacity: 1;
-}
-/* line 332, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item:hover .img .overlay {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-/* line 338, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item .img {
-  background-color: rgba(0, 0, 0, 0.05);
-  width: 100%;
-  height: 150px;
-  display: block;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-bottom: 9px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-  position: relative;
-}
-/* line 351, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item .img span {
-  position: absolute;
-  left: 0px;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-/* line 361, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item .img .spinner {
-  height: 0%;
-  background-color: #f2f2f2;
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.5s;
-  -webkit-transition-delay: 0.05s;
-  -webkit-transition-timing: ease-in-out;
-  background-image: url("../img/spinner.gif");
-  background-position: center;
-  background-repeat: no-repeat;
-}
-/* line 374, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item .img .spinner.loading {
-  height: 100%;
-}
-/* line 381, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item a h3 {
-  font-weight: 500;
-}
-/* line 382, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item a h4 {
-  font-weight: 400;
-}
-/* line 383, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list > li.item a h5 {
-  font-weight: 400;
-  opacity: 0.5;
-}
-/* line 391, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li.class1 {
-  clear: left;
-}
-/* line 392, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li.class1 .description {
-  margin-left: 0px;
-}
-/* line 397, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li.class2 .description {
-  margin-left: -340px;
-}
-/* line 401, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li.class3 .description {
-  margin-left: -680px;
-}
-/* line 405, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li .description {
-  position: absolute;
-  top: 250px;
-  width: 1000px;
-  height: 0px;
-  overflow: hidden;
-  opacity: 0;
-  cursor: default;
-  background-color: white;
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.25s;
-  -webkit-transition-delay: 0s;
-  -webkit-transition-timing: ease-in-out;
-}
-/* line 420, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li .description p {
-  font-size: 20px;
-  line-height: 32px;
-  height: 165px;
-  overflow: hidden;
-}
-/* line 427, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li .description a.more {
-  font-size: 16px;
-  line-height: 10px;
-  background-color: #00aefd;
-  display: inline-block;
-  padding: 10px;
-  position: absolute;
-  top: 170px;
-  left: 0;
-  color: white;
-  text-transform: capitalize;
-}
-/* line 439, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li .description a.more:hover {
-  background-color: black;
-}
-/* line 445, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li.open {
-  padding-bottom: 250px;
-  margin-bottom: 50px;
-  -webkit-transition-delay: 0s;
-  z-index: 10000;
-}
-/* line 452, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.collapsed > li.open .description {
-  height: 250px;
-  opacity: 1;
-  -webkit-transition-delay: 0.25s;
-}
-/* line 461, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.small {
-  padding-bottom: 30px;
-}
-/* line 464, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.small li.item {
-  width: 184px;
-  width: 235px;
-  height: 190px;
-  font-size: 12px;
-  line-height: 16px;
-  margin-right: 20px;
-}
-/* line 472, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.small li.item .img {
-  height: 120px;
-}
-/* line 477, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.small li.item a h3 {
-  font-weight: 500;
-}
-/* line 478, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.small li.item a h4 {
-  font-weight: 400;
-}
-/* line 479, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.small li.item a h5 {
-  font-weight: 400;
-  opacity: 0.5;
-}
-/* line 485, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.compact > li {
-  border-top: 1px solid white;
-  font-size: 15px;
-  line-height: 21px;
-  width: 100%;
-  height: auto;
-  float: left;
-  position: relative;
-  overflow: hidden;
-}
-/* line 495, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.compact > li .img {
-  background-color: rgba(0, 0, 0, 0.05);
-  width: 80px;
-  height: 100%;
-  float: left;
-  display: block;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-bottom: 9px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding: 0px;
-}
-/* line 513, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.compact > li a {
-  padding: 10px;
-  padding-left: 95px;
-  display: block;
-  font-size: 12px;
-  line-height: 16px;
-}
-/* line 519, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.compact > li a h3 {
-  font-weight: 500;
-}
-/* line 520, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.compact > li a h4 {
-  font-weight: 400;
-}
-/* line 521, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.list.compact > li a h5 {
-  font-weight: 400;
-  opacity: 0.5;
-}
+  margin-top: -40px; }
+  .list > li.item {
+    width: 320px;
+    height: 250px;
+    margin-right: 20px;
+    float: left;
+    position: relative;
+    font-size: 15px;
+    line-height: 20px;
+    padding-bottom: 0px; }
+    .list > li.item .actions {
+      opacity: 0; }
+    .list > li.item:hover .actions {
+      opacity: 1; }
+    .list > li.item:hover .img .overlay {
+      border: 1px solid rgba(0, 0, 0, 0.1); }
+    .list > li.item .img {
+      background-color: rgba(0, 0, 0, 0.05);
+      width: 100%;
+      height: 150px;
+      display: block;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-bottom: 9px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+      position: relative; }
+      .list > li.item .img span {
+        position: absolute;
+        left: 0px;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box; }
+      .list > li.item .img .spinner {
+        height: 0%;
+        background-color: #f2f2f2;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.5s;
+        -webkit-transition-delay: 0.05s;
+        -webkit-transition-timing: ease-in-out;
+        background-image: url("../img/spinner.gif");
+        background-position: center;
+        background-repeat: no-repeat; }
+        .list > li.item .img .spinner.loading {
+          height: 100%; }
+    .list > li.item a h3 {
+      font-weight: 500; }
+    .list > li.item a h4 {
+      font-weight: 400; }
+    .list > li.item a h5 {
+      font-weight: 400;
+      opacity: 0.5; }
+  .list.collapsed > li.class1 {
+    clear: left; }
+    .list.collapsed > li.class1 .description {
+      margin-left: 0px; }
+  .list.collapsed > li.class2 .description {
+    margin-left: -340px; }
+  .list.collapsed > li.class3 .description {
+    margin-left: -680px; }
+  .list.collapsed > li .description {
+    position: absolute;
+    top: 250px;
+    width: 1000px;
+    height: 0px;
+    overflow: hidden;
+    opacity: 0;
+    cursor: default;
+    background-color: white;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.25s;
+    -webkit-transition-delay: 0s;
+    -webkit-transition-timing: ease-in-out; }
+    .list.collapsed > li .description p {
+      font-size: 20px;
+      line-height: 32px;
+      height: 165px;
+      overflow: hidden; }
+    .list.collapsed > li .description a.more {
+      font-size: 16px;
+      line-height: 10px;
+      background-color: #00aefd;
+      display: inline-block;
+      padding: 10px;
+      position: absolute;
+      top: 170px;
+      left: 0;
+      color: white;
+      text-transform: capitalize; }
+      .list.collapsed > li .description a.more:hover {
+        background-color: black; }
+  .list.collapsed > li.open {
+    padding-bottom: 250px;
+    margin-bottom: 50px;
+    -webkit-transition-delay: 0s;
+    z-index: 10000; }
+    .list.collapsed > li.open .description {
+      height: 250px;
+      opacity: 1;
+      -webkit-transition-delay: 0.25s; }
+  .list.small {
+    padding-bottom: 30px; }
+    .list.small li.item {
+      width: 184px;
+      width: 235px;
+      height: 190px;
+      font-size: 12px;
+      line-height: 16px;
+      margin-right: 20px; }
+      .list.small li.item .img {
+        height: 120px; }
+      .list.small li.item a h3 {
+        font-weight: 500; }
+      .list.small li.item a h4 {
+        font-weight: 400; }
+      .list.small li.item a h5 {
+        font-weight: 400;
+        opacity: 0.5; }
+  .list.compact > li {
+    border-top: 1px solid white;
+    font-size: 15px;
+    line-height: 21px;
+    width: 100%;
+    height: auto;
+    float: left;
+    position: relative;
+    overflow: hidden; }
+    .list.compact > li .img {
+      background-color: rgba(0, 0, 0, 0.05);
+      width: 80px;
+      height: 100%;
+      float: left;
+      display: block;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-bottom: 9px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+      position: absolute;
+      left: 0;
+      top: 0;
+      padding: 0px; }
+    .list.compact > li a {
+      padding: 10px;
+      padding-left: 95px;
+      display: block;
+      font-size: 12px;
+      line-height: 16px; }
+      .list.compact > li a h3 {
+        font-weight: 500; }
+      .list.compact > li a h4 {
+        font-weight: 400; }
+      .list.compact > li a h5 {
+        font-weight: 400;
+        opacity: 0.5; }
 
-/* line 527, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #teaser {
-  margin-right: -20px;
-}
-/* line 529, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#teaser h2 {
-  font-size: 18px;
-  text-transform: uppercase;
-}
-/* line 534, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#teaser ul {
-  width: 320px;
-  margin-right: -20px;
-  float: left;
-  position: relative;
-}
+  margin-right: -20px; }
+  #teaser h2 {
+    font-size: 18px;
+    text-transform: uppercase; }
+  #teaser ul {
+    width: 320px;
+    margin-right: -20px;
+    float: left;
+    position: relative; }
 
-/* line 541, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 .actions {
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.25s;
@@ -1473,279 +1066,195 @@ a:active {
   position: absolute;
   z-index: 1000;
   right: 10px;
-  top: 10px;
-}
-/* line 550, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions.bottom {
-  top: auto;
-  bottom: 10px;
-}
-/* line 553, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li {
-  display: block;
-  float: right;
-  width: 25px;
-  height: 25px;
-  margin-left: 5px;
-}
-/* line 561, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li:hover a {
-  background-color: black;
-}
-/* line 566, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a {
-  background-color: white;
-  width: 25px;
-  height: 25px;
-  display: block;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.025);
-}
-/* line 592, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a:hover:after {
-  display: block;
-}
-/* line 596, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a.add-favorite {
-  background-image: url("../img/icons/icons-01.svg");
-}
-/* line 597, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a.show-location {
-  background-image: url("../img/icons/icons-02.svg");
-}
-/* line 598, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a.cancel {
-  background-image: url("../img/icons/icons-04.svg");
-}
-/* line 599, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a.fullscreen {
-  background-image: url("../img/icons/icons-05.svg");
-}
-/* line 602, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a:hover.add-favorite {
-  background-image: url("../img/icons/inv/icons-01.svg");
-}
-/* line 603, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a:hover.show-location {
-  background-image: url("../img/icons/inv/icons-02.svg");
-}
-/* line 604, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a:hover.cancel {
-  background-image: url("../img/icons/inv/icons-04.svg");
-}
-/* line 605, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.actions li a:hover.fullscreen {
-  background-image: url("../img/icons/inv/icons-05.svg");
-}
+  top: 10px; }
+  .actions.bottom {
+    top: auto;
+    bottom: 10px; }
+  .actions li {
+    display: block;
+    float: right;
+    width: 25px;
+    height: 25px;
+    margin-left: 5px; }
+    .actions li:hover a {
+      background-color: black; }
+    .actions li a {
+      background-color: white;
+      width: 25px;
+      height: 25px;
+      display: block;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.025); }
+      .actions li a:hover:after {
+        display: block; }
+      .actions li a.add-favorite {
+        background-image: url("../img/icons/icons-01.svg"); }
+      .actions li a.show-location {
+        background-image: url("../img/icons/icons-02.svg"); }
+      .actions li a.cancel {
+        background-image: url("../img/icons/icons-04.svg"); }
+      .actions li a.fullscreen {
+        background-image: url("../img/icons/icons-05.svg"); }
+      .actions li a:hover.add-favorite {
+        background-image: url("../img/icons/inv/icons-01.svg"); }
+      .actions li a:hover.show-location {
+        background-image: url("../img/icons/inv/icons-02.svg"); }
+      .actions li a:hover.cancel {
+        background-image: url("../img/icons/inv/icons-04.svg"); }
+      .actions li a:hover.fullscreen {
+        background-image: url("../img/icons/inv/icons-05.svg"); }
 
-/* line 611, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 .sidebar {
   float: right;
-  width: 320px;
-}
-/* line 615, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.sidebar .list.compact {
-  padding: 0px;
-  margin: 0px;
-}
-/* line 619, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.sidebar .compact {
-  margin: -9px -15px !important;
-}
-/* line 621, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.sidebar table {
-  margin-bottom: 15px;
-  margin-top: 15px;
-}
-/* line 625, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.sidebar table thead {
-  font-size: 10px;
-}
-/* line 628, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.sidebar table tr th {
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 10px;
-}
-/* line 634, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.sidebar table tr th, .sidebar table tr td {
-  padding: 2px;
-  padding-left: 10px;
-  padding-right: 10px;
-  text-align: center;
-  height: auto;
-}
-/* line 644, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.sidebar table tbody tr:nth-child(2n+1) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-/* line 647, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.sidebar table tbody th:first-child {
-  background-color: rgba(0, 0, 0, 0.05);
-}
+  width: 320px; }
+  .sidebar .list.compact {
+    padding: 0px;
+    margin: 0px; }
+  .sidebar .compact {
+    margin: -9px -15px !important; }
+  .sidebar table {
+    margin-bottom: 15px;
+    margin-top: 15px; }
+    .sidebar table thead {
+      font-size: 10px; }
+    .sidebar table tr th {
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 10px; }
+    .sidebar table tr th, .sidebar table tr td {
+      padding: 2px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+      height: auto; }
+    .sidebar table tbody tr:nth-child(2n+1) {
+      background-color: rgba(0, 0, 0, 0.05); }
+    .sidebar table tbody th:first-child {
+      background-color: rgba(0, 0, 0, 0.05); }
 
-/* line 654, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 article {
   width: 660px;
-  float: left;
-}
-/* line 658, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-article header {
-  margin-bottom: 30px;
-  position: relative;
-}
-/* line 663, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-article h1 {
-  font-weight: 500;
-  margin: 0px;
-}
-/* line 667, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-article h1 span {
-  display: block;
-  font-weight: 400;
-}
-/* line 673, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-article h3 {
-  text-transform: uppercase;
-  font-size: 20px;
-  margin-top: 30px;
-}
-/* line 679, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-article p {
-  font-size: 20px;
-  line-height: 32px;
-  padding-bottom: 20px;
-}
-/* line 683, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-article p:last-child {
-  padding: 0px;
-}
+  float: left; }
+  article header {
+    margin-bottom: 30px;
+    position: relative; }
+  article h1 {
+    font-weight: 500;
+    margin: 0px; }
+    article h1 span {
+      display: block;
+      font-weight: 400; }
+  article h3 {
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-top: 30px; }
+  article p {
+    font-size: 20px;
+    line-height: 32px;
+    padding-bottom: 20px; }
+    article p:last-child {
+      padding: 0px; }
 
-/* line 690, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #slide {
   height: 350px;
   width: 100%;
-  overflow: hidden;
-}
-/* line 696, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#slide:hover p.small {
-  margin-bottom: 0;
-}
-/* line 701, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#slide > li {
-  height: 350px;
-  width: 100%;
-  display: block;
-  background-color: white;
-}
-/* line 708, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#slide > li .img {
-  display: block;
-  height: 350px;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 500;
-  background-color: rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
-}
-/* line 722, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#slide > li .overlay {
-  position: absolute;
-  z-index: 500;
-  bottom: 0;
-  left: 0;
-  padding: 30px;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.125), 0 0 10px rgba(0, 0, 0, 0.125);
-}
-/* line 730, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#slide > li .overlay h2 {
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 58px;
-  line-height: 50px;
-  color: white;
-  padding: 0px;
-  letter-spacing: -3px;
-}
-/* line 740, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#slide > li .overlay time {
-  background-color: #00aefd;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 28px;
-  font-weight: 400;
-  color: white;
-  padding: 0px;
-  letter-spacing: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 5px;
-  padding-bottom: 7px;
-  text-transform: none;
-}
-/* line 756, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#slide > li .overlay h3 {
-  font-size: 36px;
-  line-height: 44px;
-  color: white;
-}
-/* line 763, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#slide > li p.small {
-  font-size: 14px;
-  line-height: 14px;
-  padding: 10px;
-  white-space: nowrap;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 100%;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  text-shadow: 0 0 4px white;
-  margin-bottom: -40px;
-  color: black;
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.25s;
-  -webkit-transition-timing: ease-in-out;
-}
+  overflow: hidden; }
+  #slide:hover p.small {
+    margin-bottom: 0; }
+  #slide > li {
+    height: 350px;
+    width: 100%;
+    display: block;
+    background-color: white; }
+    #slide > li .img {
+      display: block;
+      height: 350px;
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 500;
+      background-color: rgba(0, 0, 0, 0.05);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05); }
+    #slide > li .overlay {
+      position: absolute;
+      z-index: 500;
+      bottom: 0;
+      left: 0;
+      padding: 30px;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.125), 0 0 10px rgba(0, 0, 0, 0.125); }
+      #slide > li .overlay h2 {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 58px;
+        line-height: 50px;
+        color: white;
+        padding: 0px;
+        letter-spacing: -3px; }
+      #slide > li .overlay time {
+        background-color: #00aefd;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 28px;
+        font-weight: 400;
+        color: white;
+        padding: 0px;
+        letter-spacing: 0px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 7px;
+        text-transform: none; }
+      #slide > li .overlay h3 {
+        font-size: 36px;
+        line-height: 44px;
+        color: white; }
+    #slide > li p.small {
+      font-size: 14px;
+      line-height: 14px;
+      padding: 10px;
+      white-space: nowrap;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.5);
+      width: 100%;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      text-shadow: 0 0 4px white;
+      margin-bottom: -40px;
+      color: black;
+      -webkit-transition-property: all;
+      -webkit-transition-duration: 0.25s;
+      -webkit-transition-timing: ease-in-out; }
 
-/* line 786, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #pager {
   width: 100%;
   text-align: center;
   margin-bottom: 30px;
-  height: 8px;
-}
-/* line 792, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#pager a {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: black;
-  display: inline-block;
-  white-space: nowrap;
-  text-indent: 30px;
-  overflow: hidden;
-  height: 8px;
-  width: 8px;
-  color: transparent;
-  border-radius: 10px;
-  margin-left: 2px;
-  margin-right: 2px;
-}
-/* line 807, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#pager a.activeSlide, #pager a:hover {
-  background-color: black;
-  color: white;
-}
+  height: 8px; }
+  #pager a {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+    display: inline-block;
+    white-space: nowrap;
+    text-indent: 30px;
+    overflow: hidden;
+    height: 8px;
+    width: 8px;
+    color: transparent;
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px; }
+    #pager a.activeSlide, #pager a:hover {
+      background-color: black;
+      color: white; }
 
-/* line 815, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 .tags,
 .filter {
   padding-bottom: 30px;
@@ -1756,53 +1265,41 @@ article p:last-child {
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
-  -webkit-transition-timing: ease-in-out;
-}
-/* line 825, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.tags .title,
-.filter .title {
-  display: block;
-  padding-bottom: 10px;
-  font-weight: 500;
-}
-/* line 830, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.tags li,
-.filter li {
-  display: inline-block;
-  background-color: rgba(0, 0, 0, 0.05);
-  color: black;
-  margin-bottom: 5px;
-}
-/* line 838, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.tags li .selected, .tags li.active, .tags li:hover,
-.filter li .selected,
-.filter li.active,
-.filter li:hover {
-  background-color: #00aefd;
-  color: white;
-}
-/* line 843, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.tags li a,
-.filter li a {
-  color: inherit;
-  display: inline-block;
-  line-height: 10px;
-  white-space: nowrap;
-  padding: 10px;
-}
-/* line 851, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.tags li span,
-.filter li span {
-  background-color: rgba(0, 0, 0, 0.025);
-  color: rgba(0, 0, 0, 0.5);
-  display: inline-block;
-  white-space: nowrap;
-  margin-bottom: 5px;
-  line-height: 10px;
-  padding: 10px;
-}
+  -webkit-transition-timing: ease-in-out; }
+  .tags .title,
+  .filter .title {
+    display: block;
+    padding-bottom: 10px;
+    font-weight: 500; }
+  .tags li,
+  .filter li {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: black;
+    margin-bottom: 5px; }
+    .tags li .selected, .tags li.active, .tags li:hover,
+    .filter li .selected,
+    .filter li.active,
+    .filter li:hover {
+      background-color: #00aefd;
+      color: white; }
+    .tags li a,
+    .filter li a {
+      color: inherit;
+      display: inline-block;
+      line-height: 10px;
+      white-space: nowrap;
+      padding: 10px; }
+    .tags li span,
+    .filter li span {
+      background-color: rgba(0, 0, 0, 0.025);
+      color: rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      white-space: nowrap;
+      margin-bottom: 5px;
+      line-height: 10px;
+      padding: 10px; }
 
-/* line 864, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #controls a {
   display: block;
   height: 100%;
@@ -1819,100 +1316,68 @@ article p:last-child {
   background-size: 6px;
   background-position: center center;
   background-repeat: no-repeat;
-  opacity: 0.5;
-}
-/* line 882, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#controls a:hover {
-  opacity: 1;
-  background-size: 50px;
-  width: 80px;
-}
-/* line 889, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#controls a#next {
-  right: 0;
-  background-image: url("../img/icons/right.svg");
-}
-/* line 890, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#controls a#prev {
-  left: 0;
-  background-image: url("../img/icons/left.svg");
-}
+  opacity: 0.5; }
+  #controls a:hover {
+    opacity: 1;
+    background-size: 50px;
+    width: 80px; }
+  #controls a#next {
+    right: 0;
+    background-image: url("../img/icons/right.svg"); }
+  #controls a#prev {
+    left: 0;
+    background-image: url("../img/icons/left.svg"); }
 
-/* line 896, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 .accordion {
   margin-bottom: 0px;
   font-size: 14px;
-  line-height: 20px;
-}
-/* line 901, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.accordion .accordion-heading a {
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 16px;
-  line-height: 20px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  background-image: url("../img/meta.svg");
-  background-size: contain;
-  background-position: right;
-  background-repeat: no-repeat;
-}
-/* line 915, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.accordion > li {
-  border: none;
-  border-bottom: 6px solid white;
-  margin-bottom: 0px;
-  background-color: rgba(0, 0, 0, 0.025);
-}
-/* line 921, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-.accordion > li .accordion-inner {
-  border-top: 1px solid rgba(0, 0, 0, 0.025);
-}
+  line-height: 20px; }
+  .accordion .accordion-heading a {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-image: url("../img/meta.svg");
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat; }
+  .accordion > li {
+    border: none;
+    border-bottom: 6px solid white;
+    margin-bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.025); }
+    .accordion > li .accordion-inner {
+      border-top: 1px solid rgba(0, 0, 0, 0.025); }
 
-/* line 927, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 dl {
-  margin-bottom: 10px;
-}
-/* line 928, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-dl dt {
-  font-weight: normal;
-  font-weight: 500;
-}
-/* line 932, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-dl.inset {
-  margin-bottom: 0px;
-}
-/* line 933, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-dl.inset dt {
-  display: inline-block;
-  width: 15%;
-}
-/* line 937, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-dl.inset dd {
-  display: inline-block;
-  width: 80%;
-}
-/* line 940, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-dl.inset dd a {
-  display: inline-block;
-  margin-left: 0;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: 100%;
-  overflow: hidden;
-}
+  margin-bottom: 10px; }
+  dl dt {
+    font-weight: normal;
+    font-weight: 500; }
+  dl.inset {
+    margin-bottom: 0px; }
+    dl.inset dt {
+      display: inline-block;
+      width: 15%; }
+    dl.inset dd {
+      display: inline-block;
+      width: 80%; }
+      dl.inset dd a {
+        display: inline-block;
+        margin-left: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        overflow: hidden; }
 
-/* line 955, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 #cms_toolbar form {
-  width: auto;
-}
-/* line 957, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-#cms_toolbar form fieldset {
-  border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-/* line 963, /Library/virtualenvs/git_museumsportal/project/museumsportal/site_static/site/scss/style.scss */
+  width: auto; }
+  #cms_toolbar form fieldset {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important; }
 #cms_toolbar input[type="text"], #cms_toolbar input[type="email"], #cms_toolbar input[type="password"], #cms_toolbar input[type="search"] {
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
@@ -1924,5 +1389,4 @@ dl.inset dd a {
   padding: 3px;
   height: auto;
   font-size: 13px;
-  line-height: 18px;
-}
+  line-height: 18px; }

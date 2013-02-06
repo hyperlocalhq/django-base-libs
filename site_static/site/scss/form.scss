@@ -245,7 +245,17 @@ form {
         margin-right: 5px;
       }
     }
-    
+    .formset-form {
+      position: relative;
+      .row {
+        input { margin: 0px !important;}
+      }
+      > .control-group { 
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+      }
+    }
     .row { 
       width: 100%;
       clear: both;
