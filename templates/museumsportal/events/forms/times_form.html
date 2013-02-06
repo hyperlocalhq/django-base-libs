@@ -9,7 +9,7 @@
     <legend>{% trans "Date and Time" %}</legend>
     <div id="event_times">
         {% for form in formsets.event_times.forms %}
-            <div class="event_time formset-form">
+            <div class="event_time formset-form tabular-inline">
                 {% crispy form %}
             </div>
         {% endfor %}
