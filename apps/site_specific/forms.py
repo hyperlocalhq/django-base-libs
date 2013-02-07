@@ -33,7 +33,7 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-            _("Login"),
+            "", # no legend
             "email_or_username",
             "password",
             ),
