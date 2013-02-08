@@ -7,9 +7,9 @@
     <h4>{{ exhibition.museum.title }}</h4>
     <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
     <p>
-        {% with exhibition.get_rendered_description|striptags as description %}
-            {% with description|truncatewords:35 as sliced_description %}
-                {{ sliced_description }}
+        {% with exhibition.get_rendered_teaser|striptags as teaser %}
+            {% with exhibition.get_rendered_description|striptags|truncatewords:35 as description %}
+                {{ teaser|default:description }}
             {% endwith %}
         {% endwith %}
     </p>
