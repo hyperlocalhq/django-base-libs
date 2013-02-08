@@ -245,26 +245,39 @@ form {
         margin-right: 5px;
       }
     }
+
     .formset-form {
       position: relative;
+
+      &:first-child{ 
+        .row { label { display: block !important; }}
+      }
+
+      label { display: none;}
+
       .row {
         border-collapse: separate;
         border-right: 60px solid transparent !important;
+
         input { margin: 0px !important;}
-        > div { padding-bottom: 15px !important;}
+        > div { padding-bottom: 20px !important;}
       }
+
       > .control-group { 
         position: absolute;
         bottom: 0px;
         right: 0px;
-        margin-bottom: 15px !important;
+        margin-bottom: 20px !important;
+
         button { 
           height: 40px;
           width: 40px;
           margin-left: 5px;
-          text-indent: 1000px;}
+          text-indent: 1000px;
+        }
       }
     }
+
     .row { 
       width: 100%;
       clear: both;
