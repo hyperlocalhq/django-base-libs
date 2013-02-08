@@ -279,18 +279,22 @@ form {
         margin-right: 5px; }
     form fieldset .formset-form {
       position: relative; }
+      form fieldset .formset-form:first-child .row label {
+        display: block !important; }
+      form fieldset .formset-form label {
+        display: none; }
       form fieldset .formset-form .row {
         border-collapse: separate;
         border-right: 60px solid transparent !important; }
         form fieldset .formset-form .row input {
           margin: 0px !important; }
         form fieldset .formset-form .row > div {
-          padding-bottom: 15px !important; }
+          padding-bottom: 20px !important; }
       form fieldset .formset-form > .control-group {
         position: absolute;
         bottom: 0px;
         right: 0px;
-        margin-bottom: 15px !important; }
+        margin-bottom: 20px !important; }
         form fieldset .formset-form > .control-group button {
           height: 40px;
           width: 40px;
