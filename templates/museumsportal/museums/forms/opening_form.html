@@ -156,7 +156,8 @@
             var html = '<ul class="actions">'
                 + '<li><a href="#" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit"></a></li>'
                 + '</ul>'
-                + '<h3>' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</h3>';
+                + '<h3>' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</h3>'
+                + '<p>' + $season.find('[name$="-title_' + settings.lang + '"]').val() + '</p>';
             if (!$season.data('mirror')) {
                 var $mirror = $('<li class="item">' + html + '</li>');
                 $('#season_list li:last').before($mirror);
