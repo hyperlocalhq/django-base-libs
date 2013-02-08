@@ -66,6 +66,10 @@
 {% crispy form %}
 </form>
 <script type="text/javascript">
+var error_messages = {
+    required: "{% trans "This field is required." %}"
+};
+
 (function($, undefined) {
     function reinit_widgets() {
         $('#seasons .dateinput,#special_openings .dateinput').datepicker({
@@ -149,9 +153,37 @@
             $season.append($inlineControls);
             $season.find('input:checkbox[id$=DELETE]').parent().hide();
         });
+        function remove_error_messages($form) {
+            $('.error', $form).removeClass("error").each(function() {
+                $(this).find('.help-inline').remove();
+            });
+        }
+        function validate($form) {
+            var success = true;
+            remove_error_messages($form);
+            // validate required fields
+            $('.requiredField', $form).each(function() {
+                var $control_group = $(this).parents('.control-group:first');
+                if (!$(':input', $control_group).val()) {
+                    $control_group.addClass("error");
+                    success = false;
+                    $control_group.find('.controls').append(
+                        '<span class="help-inline"><strong>' + error_messages['required'] + '</strong></span>'
+                    );
+                }
+            });
+            // TODO: validate other errors
+            if (!success) {
+                $('body').scrollTop(0);
+            }
+            return success;
+        }
         // SEASONS
         $('#seasons .save-link').live("click", function() {
             var $season = $(this).parents('.formset-form:first');
+            if (!validate($season)) {
+                return;
+            }
             $season.hide();
             var html = '<ul class="actions">'
                 + '<li><a href="#" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit"></a></li>'
@@ -187,6 +219,9 @@
         // SPECIAL OPENINGS
         $('#special_openings .save-link').live("click", function() {
             var $season = $(this).parents('.formset-form:first');
+            if (!validate($season)) {
+                return;
+            }
             $season.hide();
             var html = '<ul class="actions">'
                 + '<li><a href="#" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit"></a></li>'
