@@ -524,7 +524,7 @@ EVENT_FORM_STEPS = {
         'form': PricesForm,
     },
     'gallery': {
-        'title': _("Gallery"),
+        'title': _("Images"),
         'template': "events/forms/gallery_form.html",
         'form': GalleryForm, # dummy form
     },

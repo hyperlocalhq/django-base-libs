@@ -1,14 +1,43 @@
 {% extends "museums/forms/base.html" %}
 {% load i18n crispy_forms_tags %}
 
+{% block stylesheet %}
+    {{ block.super }}
+    <style type="text/css">
+    .list {
+        width: 100%;
+        min-height: 150px;
+    }
+    .list li.item {
+        background: #eee;
+        height: 150px;
+    }
+    </style>
+{% endblock %}
+
 {% block multistep_form %}
+<div id="item_container">
+    <h2>{% trans "Seasons" %}</h2>
+    <ul id="season_list" class="list">
+        <li class="item">
+            <a id="add_season" href="#">{% trans "Add season" %}</a>
+        </li>
+    </ul>
+    <h2>{% trans "Special Opening Times" %}</h2>
+    <ul id="special_opening_list" class="list">
+        <li class="item">
+            <a id="add_special_opening" href="#">{% trans "Add special opening time" %}</a>
+        </li>
+    </ul>
+</div>
+
 <form action="" method="post">
 {{ formsets.seasons.management_form }}
 {{ formsets.special_openings.management_form }}
 
 <div id="seasons">
     {% for form in formsets.seasons.forms %}
-        <div class="season formset-form">
+        <div class="season formset-form" style="display: none">
             {% crispy form %}
         </div>
     {% endfor %}
@@ -22,7 +51,7 @@
 
 <div id="special_openings">
     {% for form in formsets.special_openings.forms %}
-        <div class="special_opening formset-form">
+        <div class="special_opening formset-form" style="display: none">
             {% crispy form %}
         </div>
     {% endfor %}
@@ -86,52 +115,126 @@
     }
         
     $(function() {
-        $(
-            '<a id="add_season" href="#">{% trans "Add another season" %}</a>'
-        ).insertAfter('#seasons').click(function() {
+        $('#add_season').click(function() {
             var $total_forms = $('#id_seasons-TOTAL_FORMS');
             var $new_form = $('#seasons_empty_form').clone(true).attr("id", null).show();
             set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
             $('#seasons').append($new_form);
             $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            $('#item_container').hide();
+            $('.form-actions:last').hide();
             reinit_widgets();
             return false;
         });
-        $(
-            '<a id="add_special_opening" href="#">{% trans "Add another special opening time" %}</a>'
-        ).insertAfter('#special_openings').click(function() {
+        $('#add_special_opening').click(function() {
             var $total_forms = $('#id_special_openings-TOTAL_FORMS');
             var $new_form = $('#special_openings_empty_form').clone(true).attr("id", null).show();
             set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
             $('#special_openings').append($new_form);
             $total_forms.val(parseInt($total_forms.val(), 10) + 1);
             reinit_widgets();
+            $('#item_container').hide();
+            $('.form-actions:last').hide();
             return false;
         });
         
         $('.formset-form').each(function() {
             var $season = $(this);
-            $season.find('input:checkbox[id$=DELETE]').each(function() {
-                var $checkbox = $(this);
-                var $deleteLink = $(
-                    '<a href="#" class="delete-link btn btn-warning btn-small"><span>{% trans "Delete" %}</span></a>'
-                );
-                $checkbox.parent().before($deleteLink).hide();
-            });
+            var $inlineControls = $(
+                '<div class="form-actions">'
+                + '<input type="button" class="save-link btn btn-primary btn-small" value="{% trans "OK" %}" />&nbsp;'
+                + '<input type="button" class="delete-link btn btn-small" value="{% trans "Delete" %}" />&nbsp;'
+                + '</div>'
+            );
+            $season.append($inlineControls);
+            $season.find('input:checkbox[id$=DELETE]').parent().hide();
         });
-        $('.delete-link').live("click", function() {
+        // SEASONS
+        $('#seasons .save-link').live("click", function() {
             var $season = $(this).parents('.formset-form:first');
-            var $checkbox = $(this).parent().find('input:checkbox[id$=DELETE]');
+            $season.hide();
+            var html = '<ul class="actions">'
+                + '<li><a href="#" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit"></a></li>'
+                + '</ul>'
+                + '<h3>' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</h3>';
+            if (!$season.data('mirror')) {
+                var $mirror = $('<li class="item">' + html + '</li>');
+                $('#season_list li:last').before($mirror);
+                $mirror.data('origin', $season);
+                $season.data('mirror', $mirror);
+            } else {
+                var $mirror = $season.data('mirror');
+                $mirror.html(html);
+            }
+            $('#item_container').show();
+            $('.form-actions:last').show();
+            return false;
+        });
+        $('#seasons .delete-link').live("click", function() {
+            var $season = $(this).parents('.formset-form:first');
+            var $checkbox = $season.find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");
             $season.hide();
+            var $mirror = $season.data('mirror');
+            if ($mirror) {
+                $mirror.remove();
+            }
+            $('#item_container').show();
+            $('.form-actions:last').show();
             return false;
+        });
+        // SPECIAL OPENINGS
+        $('#special_openings .save-link').live("click", function() {
+            var $season = $(this).parents('.formset-form:first');
+            $season.hide();
+            var html = '<ul class="actions">'
+                + '<li><a href="#" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit"></a></li>'
+                + '</ul>'
+                + '<h3>' + $season.find('[name$="-yyyy"]').val() + ' ' + $season.find('[name$="-mm"] option:selected').text() + ' ' + $season.find('[name$="-dd"]').val() + '</h3>'
+                + '<p>' + $season.find('[name$="-day_label_' + settings.lang + '"]').val() + '</p>';
+            if (!$season.data('mirror')) {
+                var $mirror = $('<li class="item">' + html + '</li>');
+                $('#special_opening_list li:last').before($mirror);
+                $mirror.data('origin', $season);
+                $season.data('mirror', $mirror);
+            } else {
+                var $mirror = $season.data('mirror');
+                $mirror.html(html);
+            }
+            $('#item_container').show();
+            $('.form-actions:last').show();
+            return false;
+        });
+        $('#special_openings .delete-link').live("click", function() {
+            var $season = $(this).parents('.formset-form:first');
+            var $checkbox = $season.find('input:checkbox[id$=DELETE]');
+            $checkbox.attr("checked", "checked");
+            $season.hide();
+            var $mirror = $season.data('mirror');
+            if ($mirror) {
+                $mirror.remove();
+            }
+            $('#item_container').show();
+            $('.form-actions:last').show();
+            return false;
+        });
+        $('#item_container .edit').live("click", function() {
+            var $mirror = $(this).parents('.item:first');
+            var $origin = $mirror.data('origin');
+            $origin.show();
+            $('#item_container').hide();
+            $('.form-actions:last').hide();
         });
         
         // Initial state
+        /*
         var $total_forms = $('#id_seasons-TOTAL_FORMS');
         if ($total_forms.val() == "0") {
             $('#add_season').click();
         }
+        */
+        $('#seasons .save-link').click();
+        $('#special_openings .save-link').click();
         reinit_widgets();
         
         // Working hours management

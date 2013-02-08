@@ -541,7 +541,7 @@ WORKSHOP_FORM_STEPS = {
         'form': PricesForm,
     },
     'gallery': {
-        'title': _("Gallery"),
+        'title': _("Images"),
         'template': "workshops/forms/gallery_form.html",
         'form': GalleryForm, # dummy form
     },

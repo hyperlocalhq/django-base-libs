@@ -1221,7 +1221,7 @@ MUSEUM_FORM_STEPS = {
         'form': MediationForm,
     },
     'gallery': {
-        'title': _("Gallery"),
+        'title': _("Images"),
         'template': "museums/forms/gallery_form.html",
         'form': GalleryForm, # dummy form
     },

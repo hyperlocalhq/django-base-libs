@@ -1119,7 +1119,7 @@ EXHIBITION_FORM_STEPS = {
         'form': AccessibilityForm,
     },
     'gallery': {
-        'title': _("Gallery"),
+        'title': _("Images"),
         'template': "exhibitions/forms/gallery_form.html",
         'form': GalleryForm, # dummy form
     },
