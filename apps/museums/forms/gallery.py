@@ -70,6 +70,11 @@ class ImageFileForm(forms.Form):
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Save file')),
             layout.Button('cancel', _('Cancel')),
+            layout.HTML("""{% load i18n base_tags image_modifications %}
+                {% parse "{{ museum.get_url_path }}change/" as goto_next %}
+                <input type="button" class="crop_photo btn" data-href="{% cropping_url media_file.path "gl" request goto_next %}" value="{% trans "Crop" %}" />&zwnj;
+                <input type="button" class="delete_photo btn" data-href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+            """),
             ))
         self.helper.layout = layout.Layout(
             *layout_blocks
