@@ -7,12 +7,13 @@
 
 {% block multistep_form %}
     <ul id="photos" class="list" data-load-url="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/">
-        <li class="item"><a id="add_photo" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add photo" %}</a></li>
     </ul>
     
     <div id="edit_photo"></div>
     
     {% crispy form %}
+    <!-- Hidden Iframe -->
+    <iframe name="hidden_iframe" id="hidden_iframe" src="about:blank" style="display:none"></iframe>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery_form.js"></script>
 {% endblock %}
 

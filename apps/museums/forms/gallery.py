@@ -47,7 +47,13 @@ class ImageFileForm(forms.Form):
         layout_blocks = []
 
         layout_blocks.append(layout.Fieldset(
-            _("Photo"),
+            """{% load i18n %}
+            {% if media_file %}
+                {% trans "Edit Image" %}
+            {% else %}
+                {% trans "Add Image" %}
+            {% endif %}
+            """,
             layout.HTML("""{% load image_modifications %}
                 {% if media_file.path %}
                     <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gl" }}" alt="" />
@@ -70,10 +76,26 @@ class ImageFileForm(forms.Form):
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Save file')),
             layout.Button('cancel', _('Cancel')),
-            layout.HTML("""{% load i18n base_tags image_modifications %}
-                {% parse "{{ museum.get_url_path }}change/" as goto_next %}
-                <input type="button" class="crop_photo btn" data-href="{% cropping_url media_file.path "gl" request goto_next %}" value="{% trans "Crop" %}" />&zwnj;
-                <input type="button" class="delete_photo btn" data-href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+            layout.HTML(u"""{% load i18n base_tags image_modifications %}
+                {% if media_file %}
+                    {% parse "{{ museum.get_url_path }}change/" as goto_next %}
+                    <input type="button" id="button-id-crop-photo" class="crop_photo btn" data-href="{% cropping_url media_file.path "gl" request goto_next %}" value="{% trans "Crop" %}" />&zwnj;
+                    <input type="button" id="button-id-delete-photo" class="delete_photo btn" data-href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+                    <!-- Modal -->
+                    <div id="deleteConfirmation" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="deleteConfirmationLabel">{% trans "Are you sure?" %}</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>{% trans "Do you really want to delete this image?" %}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+                            <button id="button-id-confirm-deletion" class="btn btn-primary">{% trans "Delete" %}</button>
+                        </div>
+                    </div>    
+                {% endif %}
             """),
             ))
         self.helper.layout = layout.Layout(
