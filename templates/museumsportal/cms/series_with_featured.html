@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load cms_tags menu_tags infoblocks %}
+
+{% block content %}
+	<div class="marginal">
+	    <div class="featured_infoblock">
+	        {% infoblock "series_featured" %}
+	    </div>
+		<ul id="sub_menu">
+            {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
+		</ul>
+	</div>
+    {% placeholder "main_content" %}
+{% endblock %}

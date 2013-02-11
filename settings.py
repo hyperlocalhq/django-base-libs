@@ -361,6 +361,7 @@ CMS_TEMPLATES = (
     ('cms/start.html', gettext('Start Page Template')),   
     ('cms/visitor_info.html', 'Besucherinfo Template'),   
     ('cms/series.html', 'Serien Template'),   
+    ('cms/series_with_featured.html', 'Serien Template mit Featured Infoblock'),   
 )
 
 CMS_APPHOOKS = (
