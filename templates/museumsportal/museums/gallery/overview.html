@@ -4,9 +4,9 @@
 {% block content %}
 <div class="content clearfix">
     <div class="inner">
-        <div id="photos">
+        <ul id="photos" class="list">
             {% for media_file in museum.mediafile_set.all %}
-                <div class="img_and_desc" data-token="{{ media_file.get_token }}">
+                <li class="item" data-token="{{ media_file.get_token }}">
                     <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gl" }}" alt="" />
                     {% with media_file.path|file_description as file_desc %}
                         {% if file_desc.title %}
@@ -22,9 +22,10 @@
                         <li><a class="crop_photo" href="{% cropping_url media_file.path "gl" request goto_next %}">{% trans "Crop" %}</a></li>
                         <li><a class="delete_photo" href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/">{% trans "Delete" %}</a></li>
                     </ul>
-                </div>        
+                </li>        
             {% endfor %}
-        </div>
+            <li class="item"><a id="add_photo" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add photo" %}</a></li>
+        </ul>
     </div>
 </div>
 {% endblock %}

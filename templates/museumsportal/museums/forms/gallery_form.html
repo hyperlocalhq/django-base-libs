@@ -6,10 +6,11 @@
 {% endblock %}
 
 {% block multistep_form %}
-    <div id="photos" data-load-url="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/"></div>
+    <ul id="photos" class="list" data-load-url="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/">
+        <li class="item"><a id="add_photo" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add photo" %}</a></li>
+    </ul>
     
     <div id="edit_photo"></div>
-    <a id="add_photo" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add photo" %}</a>
     
     {% crispy form %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery_form.js"></script>

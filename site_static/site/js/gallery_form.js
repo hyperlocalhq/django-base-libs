@@ -20,6 +20,8 @@
                             $('#edit_photo').html("");
                         });
                     });
+                    $('#photos').hide();
+                    $('.form-actions:last').hide();
                     return false;
                 });
                 $('#photos').find('.delete_photo').click(function() {
@@ -27,8 +29,11 @@
                         $('#id_goto_next').val(location.href);
                         $('#button-id-cancel').click(function() {
                             $('#edit_photo').html("");
+                            reinit();
                         });
                     });
+                    $('#photos').hide();
+                    $('.form-actions:last').hide();
                     return false;
                 });
                 $('#photos').find('.crop_photo').each(function() {
@@ -36,6 +41,8 @@
                 });
             });
         });
+        $('#photos').show();
+        $('.form-actions:last').show();
     }
     $(function() {
         reinit();
@@ -44,8 +51,11 @@
                 $('#id_goto_next').val(location.href);
                 $('#button-id-cancel').click(function() {
                     $('#edit_photo').html("");
+                    reinit();
                 });
             });
+            $('#photos').hide();
+            $('.form-actions:last').hide();
             return false;
         });
     });

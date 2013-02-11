@@ -16,7 +16,7 @@
     </div>
 </fieldset>
 <!-- used by javascript -->
-<div id="event_times_empty_form" class="event_time formset-form" style="display: none">
+<div id="event_times_empty_form" class="event_time formset-form tabular-inline" style="display: none">
     {% with formsets.event_times.empty_form as form %}
         {% crispy form %}
     {% endwith %}
