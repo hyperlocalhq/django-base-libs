@@ -6,6 +6,7 @@ from django.forms.models import ModelForm
 from django.forms.models import inlineformset_factory
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import redirect
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -183,14 +184,14 @@ class BasicInfoForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -251,14 +252,14 @@ class PricesForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -277,14 +278,14 @@ class TimesForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -326,14 +327,13 @@ class GalleryForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -436,7 +436,38 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance.languages.add(cat)
         
         form_step_data['_pk'] = instance.pk
-            
+    
+    if current_step == "times":
+        if "_pk" in form_step_data:
+            instance = Event.objects.get(pk=form_step_data['_pk'])
+
+            instance.eventtime_set.all().delete()
+            for event_time_dict in form_step_data['times']['sets']['event_times']:
+                event_time = EventTime(event=instance)
+                event_time.event_date = event_time_dict['event_date'] 
+                event_time.start = event_time_dict['start']
+                event_time.end = event_time_dict['end']
+                event_time.save()
+
+    if current_step == "prices":
+        if "_pk" in form_step_data:
+            instance = Event.objects.get(pk=form_step_data['_pk'])
+        
+            fields = ['admission_price', 'reduced_price']
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                fields += [
+                    'admission_price_info_%s' % lang_code,
+                    'meeting_place_%s' % lang_code,
+                    'booking_info_%s' % lang_code,
+                    ]
+                setattr(instance, "admission_price_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
+                setattr(instance, "meeting_place_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
+                setattr(instance, "booking_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
+                    
+            for f in fields:
+                setattr(instance, f, form_step_data['prices'][f])
+            instance.save()
+
     return form_step_data
 
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
@@ -514,6 +545,9 @@ def save_data(form_steps, form_step_data, instance=None):
     
     return form_step_data
 
+def cancel_editing(request):
+    return redirect("dashboard")
+
 EVENT_FORM_STEPS = {
     'basic': {
         'title': _("Basic Information"),
@@ -542,6 +576,7 @@ EVENT_FORM_STEPS = {
     'on_set_extra_context': set_extra_context,
     'onsubmit': submit_step,
     'onsave': save_data,
+    'onreset': cancel_editing,
     'name': 'event_registration',
     'default_path': ["basic", "times", "prices", "gallery"],
 }
