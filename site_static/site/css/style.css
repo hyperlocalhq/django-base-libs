@@ -7,7 +7,7 @@
 
 body, html {
 	width: 100% !important;
-	height: 100% !important;
+	height: auto !important;
 	background-color: #f8f6f2;
 }
 
@@ -2268,4 +2268,11 @@ a.toggle_bvg {
 
 .featured_infoblock .jmb-body strong {
 	font-weight: 600 !important;
+}
+
+.feature-background-themenjahr2013 {
+  background-image: url(../img/themenjahr2013.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
