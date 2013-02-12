@@ -5,13 +5,16 @@
 <form action="" method="post">
 {{ formsets.workshop_times.management_form }}
 
-<div id="workshop_times">
-    {% for form in formsets.workshop_times.forms %}
-        <div class="workshop_time formset-form tabular-inline">
-            {% crispy form %}
-        </div>
-    {% endfor %}
-</div>
+<fieldset>
+    <legend>{% trans "Date and Time" %}</legend>
+    <div id="workshop_times">
+        {% for form in formsets.workshop_times.forms %}
+            <div class="workshop_time formset-form tabular-inline">
+                {% crispy form %}
+            </div>
+        {% endfor %}
+    </div>
+</fieldset>
 <!-- used by javascript -->
 <div id="workshop_times_empty_form" class="workshop_time formset-form tabular-inline" style="display: none">
     {% with formsets.workshop_times.empty_form as form %}
@@ -32,6 +35,7 @@
             showMeridian: false,
             defaultTime: 'value'
         });
+        $("[rel=tooltip]").tooltip();
     }
     
     function set_index_for_fields($formset_form, index) {
@@ -88,7 +92,7 @@
             $season.find('input:checkbox[id$=DELETE]').each(function() {
                 var $checkbox = $(this);
                 var $deleteLink = $(
-                    '<a href="#" class="delete-link btn btn-warning btn-small"><span>{% trans "Delete" %}</span></a>'
+                    '<button class="delete-link btn btn-small icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button>'
                 );
                 $checkbox.parent().before($deleteLink).hide();
             });

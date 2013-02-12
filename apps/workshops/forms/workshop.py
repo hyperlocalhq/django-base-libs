@@ -306,16 +306,13 @@ class WorkshopTimeForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
-
-        layout_blocks.append(layout.Fieldset(
-            _("Date and Time"),
-            layout.Field("workshop_date", placeholder="yyyy-mm-dd"),
+        layout_blocks.append(
             layout.Row(
+                layout.Field("workshop_date", placeholder="yyyy-mm-dd"),
                 layout.Field("start", placeholder="0:00"),
                 layout.Field("end", placeholder="0:00"),
                 ),
-            css_class="fieldset-date-and-time",
-            ))
+            )
 
         self.helper.layout = layout.Layout(
             *layout_blocks
