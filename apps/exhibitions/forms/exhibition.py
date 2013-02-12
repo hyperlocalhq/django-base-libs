@@ -179,7 +179,7 @@ class BasicInfoForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save and go next')),
-                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -205,7 +205,7 @@ class OpeningForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save and go next')),
-                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -564,7 +564,7 @@ class PricesForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save and go next')),
-                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -615,7 +615,7 @@ class AccessibilityForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save and go next')),
-                layout.Submit('save_and_close', _('Save and close')),
+                SecondarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
