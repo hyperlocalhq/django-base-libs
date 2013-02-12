@@ -6,6 +6,7 @@ from django.forms.models import ModelForm
 from django.forms.models import inlineformset_factory
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import redirect
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -89,6 +90,8 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
+        self.fields['tags'].label = _("Tags separated by comma")
+        self.fields['tags'].help_text = ""
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
         self.fields['categories'].empty_label = None
@@ -138,34 +141,42 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Where?"),
-            "museum",
-            "location_name",
-            "street_address",
-            "street_address2",
-            "postal_code",
-            "district",
-            "city",
-            layout.HTML("""{% load i18n %}
-                <div id="dyn_set_map">
-                    <div id="gmap_wrapper">
-                        <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+            layout.Row(
+                layout.Div(
+                    "museum",
+                    "location_name",
+                    "street_address",
+                    "street_address2",
+                    "postal_code",
+                    "district",
+                    "city",
+                    ),
+                layout.HTML("""{% load i18n %}
+                    <div id="dyn_set_map">
+                        <div id="gmap_wrapper">
+                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                        </div>
+                        <div class="form-actions">
+                            <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
+                            <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
+                        </div>
                     </div>
-                    <div class="form-actions">
-                        <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
-                        <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
-                    </div>
-                </div>
-            """),
-            "latitude",
-            "longitude",
+                """),
+                "latitude",
+                "longitude",
+                ),
             css_class="fieldset-where",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Organizer"),
-            "organizing_museum",
-            "organizer_title",
-            "organizer_url_link",
-            "exhibition",
+            layout.Row(
+                "organizing_museum",
+                "exhibition",
+                ),
+            layout.Row(
+                "organizer_title",
+                "organizer_url_link",
+                ),
             css_class="fieldset-organizer",
             ))
         layout_blocks.append(layout.Fieldset(
@@ -179,14 +190,13 @@ class BasicInfoForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('save_and_close', _('Save and close')),                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -247,14 +257,14 @@ class PricesForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -273,14 +283,14 @@ class TimesForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -295,16 +305,13 @@ class WorkshopTimeForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
-
-        layout_blocks.append(layout.Fieldset(
-            _("Date and Time"),
-            layout.Field("workshop_date", placeholder="yyyy-mm-dd"),
+        layout_blocks.append(
             layout.Row(
+                layout.Field("workshop_date", placeholder="yyyy-mm-dd"),
                 layout.Field("start", placeholder="0:00"),
                 layout.Field("end", placeholder="0:00"),
                 ),
-            css_class="fieldset-date-and-time",
-            ))
+            )
 
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -325,14 +332,13 @@ class GalleryForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -438,7 +444,38 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         
         
         form_step_data['_pk'] = instance.pk
+
+    if current_step == "times":
+        if "_pk" in form_step_data:
+            instance = Workshop.objects.get(pk=form_step_data['_pk'])
+
+            instance.workshoptime_set.all().delete()
+            for workshop_time_dict in form_step_data['times']['sets']['workshop_times']:
+                workshop_time = WorkshopTime(workshop=instance)
+                workshop_time.workshop_date = workshop_time_dict['workshop_date'] 
+                workshop_time.start = workshop_time_dict['start']
+                workshop_time.end = workshop_time_dict['end']
+                workshop_time.save()
+
+    if current_step == "prices":
+        if "_pk" in form_step_data:
+            instance = Workshop.objects.get(pk=form_step_data['_pk'])
         
+            fields = ['admission_price', 'reduced_price']
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                fields += [
+                    'admission_price_info_%s' % lang_code,
+                    'meeting_place_%s' % lang_code,
+                    'booking_info_%s' % lang_code,
+                    ]
+                setattr(instance, "admission_price_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
+                setattr(instance, "meeting_place_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
+                setattr(instance, "booking_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
+                    
+            for f in fields:
+                setattr(instance, f, form_step_data['prices'][f])
+            instance.save()
+
     return form_step_data
 
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
@@ -521,6 +558,9 @@ def save_data(form_steps, form_step_data, instance=None):
     
     return form_step_data
 
+def cancel_editing(request):
+    return redirect("dashboard")
+
 WORKSHOP_FORM_STEPS = {
     'basic': {
         'title': _("Basic Information"),
@@ -549,6 +589,7 @@ WORKSHOP_FORM_STEPS = {
     'on_set_extra_context': set_extra_context,
     'onsubmit': submit_step,
     'onsave': save_data,
+    'onreset': cancel_editing,
     'name': 'workshop_registration',
     'default_path': ["basic", "times", "prices", "gallery"],
 }

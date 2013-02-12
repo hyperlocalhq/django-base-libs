@@ -6,6 +6,7 @@ from django.forms.models import ModelForm
 from django.forms.models import inlineformset_factory
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import redirect
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -77,6 +78,8 @@ class BasicInfoForm(ModelForm):
         self.fields['vernissage'].widget = SplitDateTimeWidget()
         self.fields['finissage'].widget = SplitDateTimeWidget()
 
+        self.fields['tags'].label = _("Tags separated by comma")
+        self.fields['tags'].help_text = ""
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
         self.fields['categories'].empty_label = None
@@ -175,14 +178,14 @@ class BasicInfoForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -201,14 +204,14 @@ class OpeningForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -491,7 +494,8 @@ class PricesForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
-            'free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
+            layout.Div('free_entrance', 'member_of_museumspass', css_class="inline"),
+            layout.Row('admission_price', 'reduced_price'),
             css_class="fieldset-prices",
             ))
 
@@ -559,14 +563,14 @@ class PricesForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -610,14 +614,14 @@ class AccessibilityForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -637,14 +641,13 @@ class GalleryForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -926,7 +929,133 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     ]
             for f in fields:
                 form_step_data['prices'][f] = getattr(museum, f)
+    
+    if current_step == "opening":
+        if "_pk" in form_step_data:
+            instance = Exhibition.objects.get(pk=form_step_data['_pk'])
 
+            instance.season_set.all().delete()
+            for season_dict in form_step_data['opening']['sets']['seasons']:
+                season = Season(exhibition=instance)
+                season.start = season_dict['start'] 
+                season.end = season_dict['end'] 
+                season.is_appointment_based = season_dict['is_appointment_based'] 
+                if not season_dict['mon_is_closed']:
+                    season.mon_open = season_dict['mon_open'] 
+                    season.mon_break_close = season_dict['mon_break_close'] 
+                    season.mon_break_open = season_dict['mon_break_open']
+                    season.mon_close = season_dict['mon_close']
+                if not season_dict['tue_is_closed']:
+                    season.tue_open = season_dict['tue_open'] 
+                    season.tue_break_close = season_dict['tue_break_close'] 
+                    season.tue_break_open = season_dict['tue_break_open'] 
+                    season.tue_close = season_dict['tue_close'] 
+                if not season_dict['wed_is_closed']:
+                    season.wed_open = season_dict['wed_open']
+                    season.wed_break_close = season_dict['wed_break_close'] 
+                    season.wed_break_open = season_dict['wed_break_open'] 
+                    season.wed_close = season_dict['wed_close'] 
+                if not season_dict['thu_is_closed']:
+                    season.thu_open = season_dict['thu_open'] 
+                    season.thu_break_close = season_dict['thu_break_close'] 
+                    season.thu_break_open = season_dict['thu_break_open'] 
+                    season.thu_close = season_dict['thu_close'] 
+                if not season_dict['fri_is_closed']:
+                    season.fri_open = season_dict['fri_open'] 
+                    season.fri_break_close = season_dict['fri_break_close'] 
+                    season.fri_break_open = season_dict['fri_break_open'] 
+                    season.fri_close = season_dict['fri_close'] 
+                if not season_dict['sat_is_closed']:
+                    season.sat_open = season_dict['sat_open']
+                    season.sat_break_close = season_dict['sat_break_close'] 
+                    season.sat_break_open = season_dict['sat_break_open']
+                    season.sat_close = season_dict['sat_close']
+                if not season_dict['sun_is_closed']:
+                    season.sun_open = season_dict['sun_open'] 
+                    season.sun_break_close = season_dict['sun_break_close'] 
+                    season.sun_break_open = season_dict['sun_break_open'] 
+                    season.sun_close = season_dict['sun_close']
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
+                    setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
+                    setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+                season.save()
+                
+            instance.specialopeningtime_set.all().delete()
+            for special_opening_dict in form_step_data['opening']['sets']['special_openings']:
+                special_opening = SpecialOpeningTime(exhibition=instance)
+                special_opening.yyyy = special_opening_dict['yyyy'] 
+                special_opening.mm = special_opening_dict['mm']
+                special_opening.dd = special_opening_dict['dd']
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
+                    setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
+                    setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+                special_opening.is_closed = special_opening_dict['is_closed'] 
+                special_opening.is_regular = special_opening_dict['is_regular'] 
+                special_opening.opening = special_opening_dict['opening'] 
+                special_opening.break_close = special_opening_dict['break_close'] 
+                special_opening.break_open = special_opening_dict['break_open'] 
+                special_opening.closing = special_opening_dict['closing']
+                special_opening.save()
+        
+    if current_step == "prices":
+        if "_pk" in form_step_data:
+            instance = Exhibition.objects.get(pk=form_step_data['_pk'])
+
+            fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
+                'show_admission_price_info',
+                'show_reduced_price_info',
+                'show_arrangements_for_children',
+                'show_free_entrance_for',
+                'show_family_ticket',
+                'show_group_ticket',
+                'show_free_entrance_times',
+                'show_yearly_ticket',
+                'show_other_tickets',
+                ]
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                fields += [
+                    'admission_price_info_%s' % lang_code,
+                    'reduced_price_info_%s' % lang_code,
+                    'arrangements_for_children_%s' % lang_code,
+                    'free_entrance_for_%s' % lang_code,
+                    'family_ticket_%s' % lang_code,
+                    'group_ticket_%s' % lang_code,
+                    'free_entrance_times_%s' % lang_code,
+                    'yearly_ticket_%s' % lang_code,
+                    'other_tickets_%s' % lang_code,
+                    ]
+            for f in fields:
+                setattr(instance, f, form_step_data['prices'][f])
+        
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                for f in [
+                    'admission_price_info_%s' % lang_code,
+                    'reduced_price_info_%s' % lang_code,
+                    'arrangements_for_children_%s' % lang_code,
+                    'free_entrance_for_%s' % lang_code,
+                    'family_ticket_%s' % lang_code,
+                    'group_ticket_%s' % lang_code,
+                    'free_entrance_times_%s' % lang_code,
+                    'yearly_ticket_%s' % lang_code,
+                    'other_tickets_%s' % lang_code,
+                    ]:
+                    setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
+
+            instance.save()
+
+    if current_step == "accessibility":
+        if "_pk" in form_step_data:
+            instance = Exhibition.objects.get(pk=form_step_data['_pk'])
+
+            instance.suitable_for_disabled = form_step_data['accessibility']['suitable_for_disabled']
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(instance, 'suitable_for_disabled_info_%s' % lang_code, form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code])
+            
+            instance.save()
+
+    # finally all exhibition will be saved and published by save_data()
     return form_step_data
 
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
@@ -1092,6 +1221,9 @@ def save_data(form_steps, form_step_data, instance=None):
     form_steps['success_url'] = instance.get_url_path()
     
     return form_step_data
+    
+def cancel_editing(request):
+    return redirect("dashboard")
 
 EXHIBITION_FORM_STEPS = {
     'basic': {
@@ -1127,6 +1259,7 @@ EXHIBITION_FORM_STEPS = {
     'on_set_extra_context': set_extra_context,
     'onsubmit': submit_step,
     'onsave': save_data,
+    'onreset': cancel_editing,
     'name': 'exhibition_registration',
     'default_path': ["basic", "opening", "prices", "accessibility", 'gallery'],
 }
