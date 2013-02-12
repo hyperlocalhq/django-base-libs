@@ -4,7 +4,9 @@
 {% block content %}
 	<div class="marginal">
 	    <div class="featured_infoblock">
-	        {% infoblock "series_featured" %}
+          <span class="jmb-head">Fenster zur Online-<br/>Ausstellung des JMB</span>
+	        <span class="jmb-body">{% infoblock "series_featured" %}</span>
+          <span class="jmb-logo"></span>
 	    </div>
 		<ul id="sub_menu">
             {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}

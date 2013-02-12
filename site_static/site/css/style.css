@@ -2223,3 +2223,49 @@ a.toggle_bvg {
 	padding-left: 22px;
 }*/
 
+.featured_infoblock {
+	background-color: #eff8f5;
+	margin-left: -25px;
+	margin-right: -25px;
+	margin-bottom: 40px;
+}
+
+.featured_infoblock .jmb-body {
+	padding-left: 25px;
+	padding-right: 25px;
+	display: block;
+	font-size: 13px;
+	line-height: 18px;
+	padding-bottom: 25px;
+}
+
+.featured_infoblock .jmb-body p{
+	color: #3e3759 !important;
+}
+
+.featured_infoblock .jmb-body img {
+	width: 100%;
+	height: auto;
+	margin-bottom: 15px;
+}
+
+.featured_infoblock .jmb-head {
+	height: 106px;
+	display: block;
+  background-image: url(../img/jmb-head.jpg);
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 500px !important;
+  color: transparent;
+  font-size: 0px;
+}
+
+.featured_infoblock .jmb-logo {
+	height: 66px;
+	display: block;
+  background-image: url(../img/jmb-logo.jpg);
+}
+
+.featured_infoblock .jmb-body strong {
+	font-weight: 600 !important;
+}
