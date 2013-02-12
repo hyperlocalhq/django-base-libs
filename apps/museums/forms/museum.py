@@ -404,7 +404,7 @@ class PricesForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
             layout.Div('free_entrance', 'member_of_museumspass', css_class="inline"), 
-            'admission_price', 'reduced_price' ,
+            layout.Row('admission_price', 'reduced_price'),
             css_class="fieldset-prices",
             ))
 

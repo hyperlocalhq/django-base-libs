@@ -143,17 +143,17 @@ class BasicInfoForm(ModelForm):
                     "district",
                     "city",
                     ),
-                    layout.HTML("""{% load i18n %}
-                        <div id="dyn_set_map">
-                            <div id="gmap_wrapper">
-                                <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
-                            </div>
-                            <div class="form-actions">
-                                <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
-                                <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
-                            </div>
+                layout.HTML("""{% load i18n %}
+                    <div id="dyn_set_map">
+                        <div id="gmap_wrapper">
+                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                         </div>
-                    """),
+                        <div class="form-actions">
+                            <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
+                            <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
+                        </div>
+                    </div>
+                """),
                 "latitude",
                 "longitude",
                 ),
