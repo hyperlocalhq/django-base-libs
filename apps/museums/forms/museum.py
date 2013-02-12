@@ -6,6 +6,7 @@ from django.forms.models import ModelForm
 from django.forms.models import inlineformset_factory
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import redirect
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -84,14 +85,14 @@ class BasicInfoForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -110,14 +111,14 @@ class OpeningForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -474,14 +475,14 @@ class PricesForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -574,14 +575,14 @@ class AddressForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -713,14 +714,14 @@ class ServicesAccessibilityForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -762,14 +763,14 @@ class MediationForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                layout.Submit('submit', _('Save and go next')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-                SecondarySubmit('reset', _('Reset')),
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         
         self.helper.layout = layout.Layout(
@@ -789,14 +790,13 @@ class GalleryForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save')),
                 layout.Submit('save_and_close', _('Save and close')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
-                SecondarySubmit('reset', _('Reset')),
+                SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -972,7 +972,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         instance.tags = form_step_data['basic']['tags']
-        instance.status = "draft"
+        if not instance.pk:
+            instance.status = "draft"
         instance.save()
         
         if '_pk' not in form_step_data:
@@ -985,6 +986,182 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         
         form_step_data['_pk'] = instance.pk
         
+    if current_step == "address":
+        if "_pk" in form_step_data:
+            instance = Museum.objects.get(pk=form_step_data['_pk'])
+            fields = ['street_address', 'street_address2', 'postal_code', 'district',
+                'city', 'latitude', 'longitude',
+                'phone_country', 'phone_area', 'phone_number',
+                'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
+                'service_phone_country', 'service_phone_area', 'service_phone_number',
+                'fax_country', 'fax_area', 'fax_number',
+                'email', 'website', 'twitter', 'facebook',
+                'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
+                'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
+                ]
+            for f in fields:
+                setattr(instance, f, form_step_data['address'][f])
+            instance.save()
+            
+    if current_step == "opening":
+        if "_pk" in form_step_data:
+            instance = Museum.objects.get(pk=form_step_data['_pk'])
+        
+            instance.season_set.all().delete()
+            for season_dict in form_step_data['opening']['sets']['seasons']:
+                season = Season(museum=instance)
+                season.start = season_dict['start'] 
+                season.end = season_dict['end'] 
+                season.is_appointment_based = season_dict['is_appointment_based']
+                if not season_dict['mon_is_closed']:
+                    season.mon_open = season_dict['mon_open'] 
+                    season.mon_break_close = season_dict['mon_break_close'] 
+                    season.mon_break_open = season_dict['mon_break_open']
+                    season.mon_close = season_dict['mon_close']
+                if not season_dict['tue_is_closed']:
+                    season.tue_open = season_dict['tue_open'] 
+                    season.tue_break_close = season_dict['tue_break_close'] 
+                    season.tue_break_open = season_dict['tue_break_open'] 
+                    season.tue_close = season_dict['tue_close'] 
+                if not season_dict['wed_is_closed']:
+                    season.wed_open = season_dict['wed_open']
+                    season.wed_break_close = season_dict['wed_break_close'] 
+                    season.wed_break_open = season_dict['wed_break_open'] 
+                    season.wed_close = season_dict['wed_close'] 
+                if not season_dict['thu_is_closed']:
+                    season.thu_open = season_dict['thu_open'] 
+                    season.thu_break_close = season_dict['thu_break_close'] 
+                    season.thu_break_open = season_dict['thu_break_open'] 
+                    season.thu_close = season_dict['thu_close'] 
+                if not season_dict['fri_is_closed']:
+                    season.fri_open = season_dict['fri_open'] 
+                    season.fri_break_close = season_dict['fri_break_close'] 
+                    season.fri_break_open = season_dict['fri_break_open'] 
+                    season.fri_close = season_dict['fri_close'] 
+                if not season_dict['sat_is_closed']:
+                    season.sat_open = season_dict['sat_open']
+                    season.sat_break_close = season_dict['sat_break_close'] 
+                    season.sat_break_open = season_dict['sat_break_open']
+                    season.sat_close = season_dict['sat_close']
+                if not season_dict['sun_is_closed']:
+                    season.sun_open = season_dict['sun_open'] 
+                    season.sun_break_close = season_dict['sun_break_close'] 
+                    season.sun_break_open = season_dict['sun_break_open'] 
+                    season.sun_close = season_dict['sun_close']
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    setattr(season, 'title_%s' % lang_code, season_dict['title_%s' % lang_code])
+                    setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
+                    setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
+                    setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+                season.save()
+                
+            instance.specialopeningtime_set.all().delete()
+            for special_opening_dict in form_step_data['opening']['sets']['special_openings']:
+                special_opening = SpecialOpeningTime(museum=instance)
+                special_opening.yyyy = special_opening_dict['yyyy'] 
+                special_opening.mm = special_opening_dict['mm']
+                special_opening.dd = special_opening_dict['dd']
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
+                    setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
+                    setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+                special_opening.is_closed = special_opening_dict['is_closed'] 
+                special_opening.is_regular = special_opening_dict['is_regular'] 
+                special_opening.opening = special_opening_dict['opening'] 
+                special_opening.break_close = special_opening_dict['break_close'] 
+                special_opening.break_open = special_opening_dict['break_open'] 
+                special_opening.closing = special_opening_dict['closing']
+                special_opening.save()
+            
+    if current_step == "prices":
+        if "_pk" in form_step_data:
+            instance = Museum.objects.get(pk=form_step_data['_pk'])
+
+            fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
+                'show_admission_price_info',
+                'show_reduced_price_info',
+                'show_arrangements_for_children',
+                'show_free_entrance_for',
+                'show_family_ticket',
+                'show_group_ticket',
+                'show_free_entrance_times',
+                'show_yearly_ticket',
+                'show_other_tickets',
+                ]
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                fields += [
+                    'admission_price_info_%s' % lang_code,
+                    'reduced_price_info_%s' % lang_code,
+                    'arrangements_for_children_%s' % lang_code,
+                    'free_entrance_for_%s' % lang_code,
+                    'family_ticket_%s' % lang_code,
+                    'group_ticket_%s' % lang_code,
+                    'free_entrance_times_%s' % lang_code,
+                    'yearly_ticket_%s' % lang_code,
+                    'other_tickets_%s' % lang_code,
+                    ]
+            for f in fields:
+                setattr(instance, f, form_step_data['prices'][f])
+        
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                for f in [
+                    'admission_price_info_%s' % lang_code,
+                    'reduced_price_info_%s' % lang_code,
+                    'arrangements_for_children_%s' % lang_code,
+                    'free_entrance_for_%s' % lang_code,
+                    'family_ticket_%s' % lang_code,
+                    'group_ticket_%s' % lang_code,
+                    'free_entrance_times_%s' % lang_code,
+                    'yearly_ticket_%s' % lang_code,
+                    'other_tickets_%s' % lang_code,
+                    ]:
+                    setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
+            instance.save()
+            
+    if current_step == "services_accessibility":
+        if "_pk" in form_step_data:
+            instance = Museum.objects.get(pk=form_step_data['_pk'])
+
+            instance.service_shop = form_step_data['services_accessibility']['service_shop']
+            instance.service_books = form_step_data['services_accessibility']['service_books']
+            instance.service_restaurant = form_step_data['services_accessibility']['service_restaurant']
+            instance.service_cafe = form_step_data['services_accessibility']['service_cafe']
+            instance.service_library = form_step_data['services_accessibility']['service_library']
+            instance.service_archive = form_step_data['services_accessibility']['service_archive']
+            instance.service_studio = form_step_data['services_accessibility']['service_studio']
+            instance.service_online = form_step_data['services_accessibility']['service_online']
+            instance.service_diaper_changing_table = form_step_data['services_accessibility']['service_diaper_changing_table']
+            instance.service_birthdays = form_step_data['services_accessibility']['service_birthdays']
+            instance.service_rent = form_step_data['services_accessibility']['service_rent'] 
+            instance.service_other = form_step_data['services_accessibility']['service_other']
+            
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
+                setattr(instance, 'service_shop_info_%s' % lang_code, form_step_data['services_accessibility']['service_shop_info_%s' % lang_code])
+                setattr(instance, 'service_books_info_%s' % lang_code, form_step_data['services_accessibility']['service_books_info_%s' % lang_code]) 
+                setattr(instance, 'service_restaurant_info_%s' % lang_code, form_step_data['services_accessibility']['service_restaurant_info_%s' % lang_code])
+                setattr(instance, 'service_cafe_info_%s' % lang_code, form_step_data['services_accessibility']['service_cafe_info_%s' % lang_code])
+                setattr(instance, 'service_library_info_%s' % lang_code, form_step_data['services_accessibility']['service_library_info_%s' % lang_code])
+                setattr(instance, 'service_archive_info_%s' % lang_code, form_step_data['services_accessibility']['service_archive_info_%s' % lang_code])
+                setattr(instance, 'service_studio_info_%s' % lang_code, form_step_data['services_accessibility']['service_studio_info_%s' % lang_code])
+                setattr(instance, 'service_online_info_%s' % lang_code, form_step_data['services_accessibility']['service_online_info_%s' % lang_code])
+                setattr(instance, 'service_birthdays_info_%s' % lang_code, form_step_data['services_accessibility']['service_birthdays_info_%s' % lang_code])
+                setattr(instance, 'service_rent_info_%s' % lang_code, form_step_data['services_accessibility']['service_rent_info_%s' % lang_code])
+                setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
+
+            instance.save()
+            
+    if current_step == "mediation":
+        if "_pk" in form_step_data:
+            instance = Museum.objects.get(pk=form_step_data['_pk'])
+
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['mediation']['mediation_offer_%s' % lang_code])
+                setattr(instance, 'mediation_offer_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+                
+            instance.save()
+            
+    # finally all museum will be saved and published by save_data()
     return form_step_data
 
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
@@ -1195,6 +1372,9 @@ def save_data(form_steps, form_step_data, instance=None):
 
     return form_step_data
 
+def cancel_editing(request):
+    return redirect("dashboard")
+
 MUSEUM_FORM_STEPS = {
     'basic': {
         'title': _("Basic Information"),
@@ -1239,7 +1419,8 @@ MUSEUM_FORM_STEPS = {
     'on_set_extra_context': set_extra_context,
     'onsubmit': submit_step,
     'onsave': save_data,
+    'onreset': cancel_editing,
     'name': 'museum_registration',
-    'default_path': ["basic", "opening", "prices", "address", "services_accessibility", "mediation", "gallery"],
+    'default_path': ["basic", "address", "opening", "prices", "services_accessibility", "mediation", "gallery"],
 }
 
