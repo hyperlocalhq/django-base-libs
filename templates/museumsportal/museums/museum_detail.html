@@ -731,6 +731,12 @@
                 {% endif %}
             </ul>   
 
+            {% for mf in museum.mediafile_set.all %}
+                <div>
+                    <img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" />
+                </div>
+            {% endfor %}
+            
         </article>
     {% endwith %}
     </div>
