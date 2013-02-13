@@ -1,15 +1,20 @@
-#gallery {
+.museum-detail {
+    #slides {
+        height: 100%;
+    }
+}
+
+#slides {
     position: fixed;
     top: 0px;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    height: 100%;
+    height: 0%;
     width: 100%;
     background-color: white;
-    z-index: 20000;
+    z-index: 40000;
     overflow: hidden;
-    display: none;
 
 
     -webkit-transition-property: all;
@@ -26,12 +31,12 @@
 
     &:hover { height: 100%;}
     
-    #slides {
+    #slides_container {
         position: absolute;
         height: 100%;
         width: 100%;
         display: block;
-        li {
+        > div {
             -webkit-transition-property: all;
             -webkit-transition-duration: 0.75s;
             -webkit-transition-timing: ease-in-out;
@@ -47,30 +52,7 @@
             transition-property: all;
             transition-duration: 0.75s;
             transition-timing: ease-in-out;
-            &.done {
-                -webkit-transform: translateX(-100%);
-                -moz-transform: translateX(-100%);
-                -o-transform: translateX(-100%);
-                -ms-transform: translateX(-100%);
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            &.current {
-                -webkit-transform: translateX(0%);
-                -moz-transform: translateX(0%);
-                -o-transform: translateX(0%);
-                -ms-transform: translateX(0%);
-                transform: translateX(0%);
-                opacity: 1;
-            }
-            &.todo {
-                -webkit-transform: translateX(100%);
-                -moz-transform: translateX(100%);
-                -o-transform: translateX(100%);
-                -ms-transform: translateX(100%);
-                transform: translateX(100%);
-                opacity: 0;
-            }
+           
             position: absolute;
             height: 100%;
             width: 100%;

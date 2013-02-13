@@ -500,8 +500,8 @@
     generateNextPrev: false, // boolean, Auto generate next/prev buttons
     next: 'next', // string, Class name for next button
     prev: 'prev', // string, Class name for previous button
-    pagination: true, // boolean, If you're not using pagination you can set to false, but don't have to
-    generatePagination: true, // boolean, Auto generate pagination
+    pagination: false, // boolean, If you're not using pagination you can set to false, but don't have to
+    generatePagination: false, // boolean, Auto generate pagination
     prependPagination: false, // boolean, prepend pagination
     paginationClass: 'pagination', // string, Class name for pagination
     currentClass: 'current', // string, Class name for current class

@@ -628,18 +628,20 @@ legend + .control-group,
     #gmap_locations li a:hover {
       background-color: white; }
 
-#gallery {
+.museum-detail #slides {
+  height: 100%; }
+
+#slides {
   position: fixed;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  height: 100%;
+  height: 0%;
   width: 100%;
   background-color: white;
-  z-index: 20000;
+  z-index: 40000;
   overflow: hidden;
-  display: none;
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.75s;
   -webkit-transition-timing: ease-in-out;
@@ -649,14 +651,14 @@ legend + .control-group,
   -o-transition-property: all;
   -o-transition-duration: 0.75s;
   -o-transition-timing: ease-in-out; }
-  #gallery:hover {
+  #slides:hover {
     height: 100%; }
-  #gallery #slides {
+  #slides #slides_container {
     position: absolute;
     height: 100%;
     width: 100%;
     display: block; }
-    #gallery #slides li {
+    #slides #slides_container > div {
       -webkit-transition-property: all;
       -webkit-transition-duration: 0.75s;
       -webkit-transition-timing: ease-in-out;
@@ -676,28 +678,7 @@ legend + .control-group,
       height: 100%;
       width: 100%;
       display: block; }
-      #gallery #slides li.done {
-        -webkit-transform: translateX(-100%);
-        -moz-transform: translateX(-100%);
-        -o-transform: translateX(-100%);
-        -ms-transform: translateX(-100%);
-        transform: translateX(-100%);
-        opacity: 0; }
-      #gallery #slides li.current {
-        -webkit-transform: translateX(0%);
-        -moz-transform: translateX(0%);
-        -o-transform: translateX(0%);
-        -ms-transform: translateX(0%);
-        transform: translateX(0%);
-        opacity: 1; }
-      #gallery #slides li.todo {
-        -webkit-transform: translateX(100%);
-        -moz-transform: translateX(100%);
-        -o-transform: translateX(100%);
-        -ms-transform: translateX(100%);
-        transform: translateX(100%);
-        opacity: 0; }
-      #gallery #slides li span {
+      #slides #slides_container > div span {
         position: absolute;
         top: 0px;
         bottom: 0px;
@@ -712,7 +693,7 @@ legend + .control-group,
         display: block;
         background-position: center;
         background-repeat: no-repeat; }
-  #gallery nav {
+  #slides nav {
     position: absolute;
     bottom: 0px;
     z-index: 10000;
@@ -720,7 +701,7 @@ legend + .control-group,
     width: 100%;
     white-space: nowrap;
     font-size: 0px; }
-    #gallery nav button {
+    #slides nav button {
       width: 70px;
       height: 70px;
       display: inline-block;
@@ -728,13 +709,13 @@ legend + .control-group,
       background-position: center;
       background-repeat: no-repeat;
       background-size: 33px; }
-      #gallery nav button:hover {
+      #slides nav button:hover {
         opacity: 0.8; }
-      #gallery nav button.prev {
+      #slides nav button.prev {
         background-image: url("../img/icons/left.svg"); }
-      #gallery nav button.next {
+      #slides nav button.next {
         background-image: url("../img/icons/right.svg"); }
-  #gallery .pagination {
+  #slides .pagination {
     width: 100%;
     text-align: center;
     margin-bottom: 32px;
@@ -742,9 +723,9 @@ legend + .control-group,
     position: absolute;
     top: 0px;
     z-index: 10000; }
-    #gallery .pagination li {
+    #slides .pagination li {
       display: inline-block; }
-      #gallery .pagination li a {
+      #slides .pagination li a {
         display: inline-block;
         background-color: rgba(0, 0, 0, 0.1);
         color: black;
@@ -758,7 +739,7 @@ legend + .control-group,
         border-radius: 10px;
         margin-left: 2px;
         margin-right: 2px; }
-      #gallery .pagination li.activeSlide a, #gallery .pagination li:hover a {
+      #slides .pagination li.activeSlide a, #slides .pagination li:hover a {
         background-color: black;
         color: white; }
 
@@ -1012,9 +993,9 @@ a:active {
   #navigation > ul {
     width: 1000px;
     margin: auto;
-    background-color: red;
     border-left: 12px solid transparent;
-    border-right: 12px solid transparent; }
+    border-right: 12px solid transparent;
+    height: 50px; }
     #navigation > ul > li {
       display: block;
       float: left;
@@ -1028,8 +1009,9 @@ a:active {
         border-right: 1px solid rgba(0, 0, 0, 0.1); }
       #navigation > ul > li:hover > div {
         height: 250px;
-        border-top: 1px solid rgba(0, 0, 0, 0.025); }
+        opacity: 1; }
       #navigation > ul > li > div {
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
         position: absolute;
         width: 100%;
         top: 50px;
@@ -1040,7 +1022,7 @@ a:active {
         -webkit-transition-duration: 0.25s;
         -webkit-transition-delay: 0s;
         -webkit-transition-timing: ease-in-out;
-        background-color: #fafafa; }
+        opacity: 0; }
         #navigation > ul > li > div > ul {
           padding-top: 10px;
           padding-bottom: 10px;
@@ -1603,7 +1585,7 @@ article p {
 #page-controls {
   position: absolute;
   top: 0px;
-  z-index: 10000; }
+  z-index: 50000; }
   #page-controls a {
     width: 200px;
     height: 120px;
