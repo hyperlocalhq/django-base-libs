@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% load cms_tags %}
+{% block bodyclass %}default{% endblock %}
 
 {% block content %}
-    {% placeholder "main_content" %}
+<div class="content clearfix">
+  <div class="inner">
+    <article>
+      {% placeholder "main_content" %}
+    </article>
+  </div>
+</div>
 {% endblock %}

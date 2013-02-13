@@ -38,15 +38,44 @@
     <script type="text/javascript">
 
     $(function() {
-        $('#slide').each(function() {
+        $('#gallery #slides').each(function() {
             $(this).cycle({
                 fx:      'fade',
-                timeout:  5500,
-                speed:  500,
-                pause: 1,
-                pager: '#pager',
+                timeout:  0,
+                speed:    500,
+                pause:    1,
+                easing:   'easeInOutSine',
+                pager:    '#pager',
+                pagerAnchorBuilder: pagerFactory
             });
         });
+
+        $('#cancel').click(function(e){
+            $('#gallery').toggleClass('on');
+        });
+
+        $('#info').click(function(e){
+            $('#gallery').toggleClass('info');
+        });
+
+        function pagerFactory(idx, slide) {
+            var s = idx > 2 ? ' ' : '';
+            return '<li'+s+'><a href="#">'+(idx+1)+'</a></li>';
+        };
+    
+        $('#to-top').click(function(e){
+            $('html, body').animate({scrollTop:0}, 'slow');
+            e.preventDefault();
+        });
+        
+        $(window).scroll(function() {
+            if ($('body').offset().top < $(window).scrollTop()) {
+                $('#to-top').addClass('on');
+            } else {
+                $('#to-top').removeClass('on');
+            }
+        });
+
     });
     window.onresize = function(event) {}
     </script>
@@ -88,7 +117,7 @@
             var selector = isoFilters.join('');
 
             $container.isotope({ filter: selector });            
-            $("#container .img:in-viewport").lazyload();
+            $(".list .img:in-viewport").lazyload();
             $container.trigger("map_filter", { filter: isoFilters});
             $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
             
@@ -108,7 +137,7 @@
                 options = $.extend( {}, hashOptions, { animationEngine: aniEngine } );
             // apply options from hash
             $container.isotope( options );
-            $("#container .img:in-viewport").lazyload();
+            $(".list .img:in-viewport").lazyload();
             // save options
             hashChanged = true;
             if (hashOptions) {
@@ -124,11 +153,11 @@
         
     });
     $(function(){
-        $("#container .img").lazyload();
+        $(".list .img").lazyload();
     });
 
     $(window).bind('scrollstop', function(e){
-        $("#container .img:in-viewport").lazyload();
+        $(".list .img:in-viewport").lazyload();
     });
 
     $(document).ready(function () {
@@ -190,6 +219,64 @@
             </div>
 		</div>
 
+
+        <!-- image fullscreen
+        ================================================== -->
+
+
+        <div id="gallery">
+            <ul id="slides">
+                <li class="todo">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+                <li class="todo">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+                <li class="todo">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+                <li class="todo">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+                <li class="current">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+                <li class="todo">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+                <li class="todo">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+                <li class="todo">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+                <li class="todo">
+                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
+                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
+                </li>
+            </ul>
+            
+            <ul id="pager"></ul>
+            
+            <nav>
+                <button id="prev"></button>
+                <button id="info"></button>
+                <button id="cancel"></button>
+                <button id="next"></button>
+            </nav>
+
+        </div>
+
+
+
         <!-- Content
         ================================================== -->
 
@@ -198,6 +285,16 @@
 		
         <!-- Footer
         ================================================== -->
+        
+        <a href="#top" id="to-top">
+            <span>
+                {% if LANGUAGE_CODE == "de" %}
+                    Zum Seitenanfang
+                {% else %}
+                    Back to Top
+                {% endif %}
+            </span>
+        </a>
 
         <div id="footer" class="clearfix">
             <div class="inner">
@@ -216,6 +313,30 @@
     {% render_block "js" %}
 
     {{ site_settings.extra_body|safe }}
+
+
+    <script>
+    $(window).load(function(){
+        $("#next").click(function() {
+             var $next, $selected = $(".current");
+        
+             $selected.removeClass("current").removeClass("todo").addClass("done");
+             $next = $selected.next().removeClass("todo").addClass("current");
+             if ($next.length) {
+                    $("#current-tag").text($next.get(0).tagName);
+             }
+        });
+        
+        $("#prev").click(function() {
+             var $prev, $selected = $(".current");
+             $selected.removeClass("current").removeClass("done").addClass("todo");
+             $prev = $selected.prev().removeClass("done").addClass("current");
+             if ($prev.length) {
+                    $("#current-tag").text($prev.get(0).tagName);
+             }
+        });
+    });
+    </script>
 
     <script type="text/javascript">
 	$(function() {

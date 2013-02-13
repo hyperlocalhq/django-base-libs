@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n image_modifications base_tags tagging_tags %}
+{% block bodyclass %}workshop-list{% endblock %}
 
 {% block js %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
@@ -24,10 +25,10 @@
 {% block content %}
 <div id="gmap_wrapper" class="">
   <div id="gmap">&nbsp;</div>
-    <ul class="actions top">
-        <li><a id="gmap_toggle" href="#" rel="tooltip" data-placement="bottom" data-original-title="Close" class="cancel"></a></li>
-        <li><a id="gmap_fullscreen" href="#" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></a></li>
-    </ul>
+  <nav class="actions top">
+    <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="Close" class="cancel"></button>
+    <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+  </nav>
 </div>
 
 <div class="content" class="clearfix">
@@ -69,22 +70,18 @@
         {% for workshop in object_list %}
             {% tags_for_object workshop as tags %}
             <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ workshop.title|slugify|slice:"0:1" }} {% if workshop.closing_soon %} closing_soon{% endif %}{% if workshop.newly_opened %} newly_opened{% endif %}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
-                {% if workshop.image %}
-                    <a class="img" href="{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.image|modified_path:"workshop_list" }}">
-                        <span class="spinner loading"></span>
-                        <span class="overlay"></span>
-                    </a>
-                {% else %}{% if workshop.museum.image %}
-                    <a class="img" href="{{ workshop.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ workshop.museum.image }}">
-                        <span class="spinner loading"></span>
-                        <span class="overlay"></span>
-                    </a>
-                {% endif %}{% endif %}
-    
-                <ul class="actions">
-                    <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
-                    <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></a></li>
-                </ul>
+                
+                <a class="img" href="{{ workshop.get_url_path }}" 
+                {% if workshop.image %}data-background="{{ MEDIA_URL }}{{ workshop.image|modified_path:"workshop_list" }}"{% else %}
+                {% if workshop.museum.image %}data-background="{{ MEDIA_URL }}{{ workshop.museum.image }}"{% endif %}{% endif %}>
+                    <span class="spinner loading"></span>
+                    <span class="overlay"></span>
+                </a>
+
+                <nav class="actions">
+                    <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
+                    <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                </nav>
     
                 <a href="{{ workshop.get_url_path }}">
                     <h3>{{ workshop.museum.title }}</h3>

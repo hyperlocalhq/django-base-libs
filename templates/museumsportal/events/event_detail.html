@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags %}
-
+{% block bodyclass %}event-detail{% endblock %}
 
 {% block js %}
     <link href="{{ STATIC_URL }}site/shadowbox/shadowbox.css" rel="stylesheet" media="screen" type="text/css" />
@@ -100,6 +100,25 @@
 <div class="content clearfix">
   <div class="inner">
     {% with object as event %}
+
+        <header>
+            {% if event.image %}
+            <ul id="slide">
+                <li>
+                    <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.image }})"></a>
+                    <span class="overlay">
+                        <time>{% if event.permanent %}{% trans "Permanent event" %}{% else %}
+                            <span class="from_date">{{ event.start|date:"j. F Y" }}</span> {% trans "till" %} {{ event.end|date:"j. F Y" }}{% endif %}</time>
+                    </span>
+                </li>
+            </ul>
+
+            <nav class="actions bottom">
+                <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+            </nav>
+            {% endif %}
+        </header>
+        
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
@@ -382,22 +401,8 @@
             {% endif %}
         </section>
         
-        <article>
+        <article class="with_sidebar">
             <header>
-                {% if event.image %}
-                    <ul id="slide">
-                        <li>
-                            <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.image }})"></a>
-                            <span class="overlay">
-                                <time>{% if event.permanent %}{% trans "Permanent event" %}{% else %}
-                                    <span class="from_date">{{ event.start|date:"j. F Y" }}</span> {% trans "till" %} {{ event.end|date:"j. F Y" }}{% endif %}</time>
-                            </span>
-                            <p class="small">{{ event.get_rendered_image_caption|striptags }}</p>
-                        </li>
-                    </ul>
-                    <div id="pager"></div>
-                {% endif %}
-
                 <h1>
                     {{ event.title }}
                      {% if event.subtitle %}
@@ -433,17 +438,15 @@
             {% get_objects closing_soon events.Event 5 as events_closing_soon %}
             {% for event in events_closing_soon %}
                 <li class="item">
-                    {% if event.image %}
-                        <a class="img" href="{{ event.get_url_path }}" data-background="{{ MEDIA_URL }}{{ event.image|modified_path:"event_list" }}">
-                            <span class="spinner loading"></span>
-                            <span class="overlay"></span>
-                        </a>
-                    {% endif %}
+                    <a class="img" href="{{ event.get_url_path }}" {% if event.image %}data-background="{{ MEDIA_URL }}{{ event.image|modified_path:"event_list"{% endif %} }}">
+                        <span class="spinner loading"></span>
+                        <span class="overlay"></span>
+                    </a>
 
-                    <ul class="actions">
-                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
-                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></a></li>
-                    </ul>
+                    <nav class="actions">
+                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                    </nav>
                     
                     <a href="{{ event.get_url_path }}">
                         <h3>{{ event.museum.title }}</h3>
@@ -453,12 +456,21 @@
                 </li>
             {% endfor %}
         </ul>
-        <div id="controls">
+
+        <div id="page-controls">
             {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" id="prev">&nbsp;</a>
+                <a href="{{ prev_item.get_url_path }}" class="prev">
+                    <span>
+                        <span class="title">{{ next_item.title }}</span>
+                    </span>
+                </a>
             {% endif %}
             {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" id="next">&nbsp;</a>
+                <a href="{{ next_item.get_url_path }}" class="next">
+                    <span>
+                        <span class="title">{{ next_item.title }}</span>
+                    </span>
+                </a>
             {% endif %}
         </div>
     </div>

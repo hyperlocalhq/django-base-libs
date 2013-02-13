@@ -1,11 +1,23 @@
 {% extends "base.html" %}
 {% load cms_tags menu_tags %}
+{% block bodyclass %}series{% endblock %}
 
 {% block content %}
-	<div class="marginal">
-		<ul id="sub_menu">
-            {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
-		</ul>
-	</div>
-    {% placeholder "main_content" %}
+
+<div class="content clearfix">
+  <div class="inner">
+
+    <article>
+      {% placeholder "main_content" %}
+    </article>
+
+    <article>
+      <ul id="sub_menu">
+              {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
+      </ul>
+    </article>
+
+  </div>
+</div>
+
 {% endblock %}
