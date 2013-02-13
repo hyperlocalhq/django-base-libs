@@ -74,8 +74,8 @@
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>
-                {% else %}{% if exhibition.museum.image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ exhibition.museum.image }}">
+                {% else %}
+                    <a class="img" href="{{ exhibition.get_url_path }}"  {% if exhibition.museum.image %}data-background="{{ MEDIA_URL }}{{ exhibition.museum.image }}">
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>

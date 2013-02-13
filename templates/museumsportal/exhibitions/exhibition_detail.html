@@ -625,12 +625,12 @@
             {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
             {% for exhibition in exhibitions_closing_soon %}
                 <li class="item">
-                    {% if exhibition.image %}
-                        <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}">
+                    
+                        <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.image %}data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}"{% endif %}>
                             <span class="spinner loading"></span>
                             <span class="overlay"></span>
                         </a>
-                    {% endif %}
+                    
 
                     <ul class="actions">
                         <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
