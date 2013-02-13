@@ -5,17 +5,20 @@
 <div class="content clearfix">
   <div class="inner">
 
-  	<div class="marginal">
-  		<ul id="sub_menu">
-  		    {% if LANGUAGE_CODE == "de" %}
+    <article>
+        {% placeholder "main_content" %}
+    </article>
+
+    <article>
+      <ul class="list text_only clearfix">
+          {% if LANGUAGE_CODE == "de" %}
                   {% show_menu_below_id "visitor_info_de" 0 100 100 100 "menu/side_menu.html" %}
               {% else %}
                   {% show_menu_below_id "visitor_info_en" 0 100 100 100 "menu/side_menu.html" %}
               {% endif %}
-  		</ul>
-  	</div>
-      {% placeholder "main_content" %}
-      
+      </ul>
+    </article>
+
   </div>
 </div>
 {% endblock %}

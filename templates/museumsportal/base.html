@@ -47,6 +47,20 @@
                 pager: '#pager',
             });
         });
+
+        $('#to-top').click(function(e){
+                $('html, body').animate({scrollTop:0}, 'slow');
+                e.preventDefault();
+            });
+        
+        $(window).scroll(function() {
+            if ($('body').offset().top < $(window).scrollTop()) {
+                $('#to-top').addClass('on');
+            } else {
+                $('#to-top').removeClass('on');
+            }
+        });
+
     });
     window.onresize = function(event) {}
     </script>
@@ -198,6 +212,16 @@
 		
         <!-- Footer
         ================================================== -->
+        
+        <a href="#top" id="to-top">
+            <span>
+                {% if LANGUAGE_CODE == "de" %}
+                    Zum Seitenanfang
+                {% else %}
+                    Back to Top
+                {% endif %}
+            </span>
+        </a>
 
         <div id="footer" class="clearfix">
             <div class="inner">

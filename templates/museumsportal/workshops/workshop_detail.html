@@ -100,6 +100,23 @@
 <div class="content clearfix">
   <div class="inner">
     {% with object as workshop %}
+
+        <header>
+            {% if workshop.image %}
+                <ul id="slide">
+                    <li>
+                        <a class="img" href="{{ workshop.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ workshop.image }})"></a>
+                        <span class="overlay">
+                            <time>{% if workshop.permanent %}{% trans "Permanent workshop" %}{% else %}
+                                <span class="from_date">{{ workshop.start|date:"j. F Y" }}</span> {% trans "till" %} {{ workshop.end|date:"j. F Y" }}{% endif %}</time>
+                        </span>
+                        <p class="small">{{ workshop.get_rendered_image_caption|striptags }}</p>
+                    </li>
+                </ul>
+                <div id="pager"></div>
+            {% endif %}
+        </header>
+        
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
@@ -388,22 +405,8 @@
             {% endif %}
         </section>
         
-        <article>
+        <article class="with_sidebar">
             <header>
-                {% if workshop.image %}
-                    <ul id="slide">
-                        <li>
-                            <a class="img" href="{{ workshop.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ workshop.image }})"></a>
-                            <span class="overlay">
-                                <time>{% if workshop.permanent %}{% trans "Permanent workshop" %}{% else %}
-                                    <span class="from_date">{{ workshop.start|date:"j. F Y" }}</span> {% trans "till" %} {{ workshop.end|date:"j. F Y" }}{% endif %}</time>
-                            </span>
-                            <p class="small">{{ workshop.get_rendered_image_caption|striptags }}</p>
-                        </li>
-                    </ul>
-                    <div id="pager"></div>
-                {% endif %}
-
                 <h1>
                     {{ workshop.title }}
                     {% if workshop.subtitle %}
@@ -463,10 +466,18 @@
         </ul>
         <div id="controls">
             {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" id="prev">&nbsp;</a>
+                <a href="{{ prev_item.get_url_path }}" id="prev">
+                    <span>
+                        <span class="title">{{ prev_item.title }}</span>
+                    </span>
+                </a>
             {% endif %}
             {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" id="next">&nbsp;</a>
+                <a href="{{ next_item.get_url_path }}" id="next">
+                    <span>
+                        <span class="title">{{ next_item.title }}</span>
+                    </span>
+                </a>
             {% endif %}
         </div>
     </div>

@@ -84,6 +84,24 @@
     {% with object as museum %}
 <div class="content clearfix">
     <div class="inner">
+
+        <header>
+            {% if museum.image %}
+            <ul id="slide">
+                <li>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                    <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                </li>
+                <li>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                    <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
+                </li>
+            </ul>
+            {% endif %}
+            
+            <div id="pager"></div>
+        </header>
+
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
@@ -689,30 +707,16 @@
             {% endif %}
         </section>
            
-        <article>
+        <article class="with_sidebar">
+            
             <header>
-                {% if museum.image %}
-                <ul id="slide">
-                    <li>
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                        <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                    </li>
-                    <li>
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                        <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                    </li>
-                </ul>
-                {% endif %}
-                
-                <div id="pager"></div>
-
                 <h1>{{ museum.title }} 
                     {% if museum.subtitle %}
                     <span>{{ museum.subtitle }}</span>
                     {% endif %}
                 </h1>
             </header>
-
+            
             {{ museum.get_rendered_description }}
 
             <ul class="tags">
@@ -763,10 +767,18 @@
 </div>
         <div id="controls">
             {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" id="prev"></a>
+                <a href="{{ prev_item.get_url_path }}" id="prev">
+                    <span>
+                        <span class="title">{{ prev_item.title }}</span>
+                    </span>
+                </a>
             {% endif %}
             {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" id="next"></a>
+                <a href="{{ next_item.get_url_path }}" id="next">
+                    <span>
+                        <span class="title">{{ next_item.title }}</span>
+                    </span>
+                </a>
             {% endif %}
         </div>
 
