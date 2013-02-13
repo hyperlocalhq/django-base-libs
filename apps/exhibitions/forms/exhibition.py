@@ -237,6 +237,7 @@ class SeasonForm(ModelForm):
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
+                'title_%s' % lang_code,
                 'last_entry_%s' % lang_code,
                 'exceptions_%s' % lang_code,
                 ]:
@@ -254,6 +255,10 @@ class SeasonForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Season"),
+            layout.Row(
+                css_class="div-title",
+                *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
             layout.Row(
                 layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
                 layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off")
@@ -731,6 +736,7 @@ def load_data(instance=None):
             season_dict['sun_close'] = season.sun_close
             season_dict['sun_is_closed'] = not season.sun_open
             for lang_code, lang_name in FRONTEND_LANGUAGES:
+                season_dict['title_%s' % lang_code] = getattr(season, 'title_%s' % lang_code)
                 season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
             form_step_data['opening']['sets']['seasons'].append(season_dict)
@@ -878,6 +884,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 season_dict['sun_close'] = season.sun_close
                 season_dict['sun_is_closed'] = not season.sun_open
                 for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    season_dict['title_%s' % lang_code] = getattr(season, 'title_%s' % lang_code)
                     season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
                     season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
                 form_step_data['opening']['sets']['seasons'].append(season_dict)
@@ -976,6 +983,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     season.sun_break_open = season_dict['sun_break_open'] 
                     season.sun_close = season_dict['sun_close']
                 for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    setattr(season, 'title_%s' % lang_code, season_dict['title_%s' % lang_code])
                     setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
                     setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
                     setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
@@ -1195,6 +1203,7 @@ def save_data(form_steps, form_step_data, instance=None):
             season.sun_break_open = season_dict['sun_break_open'] 
             season.sun_close = season_dict['sun_close']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
+            setattr(season, 'title_%s' % lang_code, season_dict['title_%s' % lang_code])
             setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
             setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)

@@ -277,6 +277,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
 class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)
+    title = MultilingualCharField(_('Season title'), max_length=255, blank=True, help_text=_("e.g. Spring-Summer, Autumn-Winter, etc."))
     start = models.DateField(_("Start"))
     end = models.DateField(_("End"))
     last_entry = MultilingualCharField(_("Last entry"), max_length=255, blank=True)
