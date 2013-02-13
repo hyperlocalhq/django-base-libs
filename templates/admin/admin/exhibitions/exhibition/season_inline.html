@@ -30,6 +30,37 @@
                         <li>{{ form.non_field_errors }}</li>
                     </ul>
                 {% endif %}
+                {% if form.title_en %}
+                    <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en">
+                        <h4 class="collapse-handler">{% trans "Title" %} (English)</h4>
+                        <div class="row{% if form.title_en.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="column span-flexible">
+                                    <p>{{ form.title_en }}</p>
+                                    {% if form.title_en.help_text %}<p class="help">{{ form.title_en.help_text|safe }}</p>{% endif %}
+                                    {{ form.title_en.errors }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_de %}
+                    <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Deutsch)</h4>
+                        <div class="row{% if form.title_de.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.title_de_markup_type }}
+                                    <p>{{ form.title_de }}</p>
+                                    {% if form.title_de.help_text %}<p class="help">{{ form.title_de.help_text|safe }}</p>{% endif %}
+                                    {{ form.title_de.errors }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
                 <div class="row cells-1 field-status{% if form.start.errors %} errors{% endif %}">
                     <div>
                         <div class="column span-4"><label class="required">Start :</label></div>
@@ -68,6 +99,37 @@
                     <ul class="errorlist">
                         <li>{{ inline_admin_form.form.non_field_errors }}</li>
                     </ul>
+                {% endif %}
+                {% if form.title_en %}
+                    <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en">
+                        <h4 class="collapse-handler">{% trans "Title" %} (English)</h4>
+                        <div class="row{% if form.title_en.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="column span-flexible">
+                                    <p>{{ form.title_en }}</p>
+                                    {% if form.title_en.help_text %}<p class="help">{{ form.title_en.help_text|safe }}</p>{% endif %}
+                                    {{ form.title_en.errors }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_de %}
+                    <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Deutsch)</h4>
+                        <div class="row{% if form.title_de.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.title_de_markup_type }}
+                                    <p>{{ form.title_de }}</p>
+                                    {% if form.title_de.help_text %}<p class="help">{{ form.title_de.help_text|safe }}</p>{% endif %}
+                                    {{ form.title_de.errors }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
                 {% endif %}
                 <div class="row cells-1 field-status{% if form.start.errors %} errors{% endif %}">
                     <div>
