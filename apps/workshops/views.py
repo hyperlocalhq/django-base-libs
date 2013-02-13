@@ -260,10 +260,17 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 media_file_obj.sort_order = media_file_obj.sort_order
             media_file_obj.save()
             
-            if cleaned['goto_next']:
-                return redirect(cleaned['goto_next'])
+            if "hidden_iframe" in request.REQUEST:
+                return render(
+                    request,
+                    "workshops/gallery/success.html",
+                    {},
+                    )
             else:
-                return redirect("workshop_gallery_overview", slug=instance.slug)
+                if cleaned['goto_next']:
+                    return redirect(cleaned['goto_next'])
+                else:
+                    return redirect("workshop_gallery_overview", slug=instance.slug)
     else:
         if media_file_obj:
             # existing media file
@@ -282,9 +289,14 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             form = form_class()
             form.fields['media_file'].required = True
 
-    form.helper.form_action = request.path
+    form.helper.form_action = request.path + "?hidden_iframe=1"
+
+    base_template = "base.html"
+    if "hidden_iframe" in request.REQUEST:
+        base_template = "base_iframe.html"
 
     context_dict = {
+        'base_template': base_template,
         'media_file': media_file_obj,
         'media_file_type': media_file_type,
         'form': form,
@@ -316,23 +328,17 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
         
     if "POST" == request.method:
         form = ImageDeletionForm(request.POST)
-        if form.is_valid():
-            cleaned = form.cleaned_data
-            if media_file_obj:
-                if media_file_obj.path:
-                    try:
-                        FileManager.delete_file(media_file_obj.path.path)
-                    except OSError:
-                        pass
-                    FileDescription.objects.filter(
-                        file_path=media_file_obj.path,
-                        ).delete()
-                media_file_obj.delete()
-                
-            if cleaned['goto_next']:
-                return redirect(cleaned['goto_next'])
-            else:
-                return redirect("workshop_gallery_overview", slug=instance.slug)
+        if media_file_obj:
+            if media_file_obj.path:
+                try:
+                    FileManager.delete_file(media_file_obj.path.path)
+                except OSError:
+                    pass
+                FileDescription.objects.filter(
+                    file_path=media_file_obj.path,
+                    ).delete()
+            media_file_obj.delete()
+            return HttpResponse("OK")
     else:
         form = ImageDeletionForm()
 

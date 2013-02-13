@@ -82,7 +82,7 @@ class ImageFileForm(forms.Form):
                     <input type="button" id="button-id-crop-photo" class="crop_photo btn" data-href="{% cropping_url media_file.path "gl" request goto_next %}" value="{% trans "Crop" %}" />&zwnj;
                     <input type="button" id="button-id-delete-photo" class="delete_photo btn" data-href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
                     <!-- Modal -->
-                    <div id="deleteConfirmation" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+                    <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             <h3 id="deleteConfirmationLabel">{% trans "Are you sure?" %}</h3>

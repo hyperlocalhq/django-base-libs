@@ -6,12 +6,14 @@
 {% endblock %}
 
 {% block multistep_form %}
-    <div id="photos" data-load-url="/{{ LANGUAGE_CODE }}{{ event.get_url_path }}gallery/"></div>
+    <ul id="photos" class="list" data-load-url="/{{ LANGUAGE_CODE }}{{ event.get_url_path }}gallery/">
+    </ul>
     
     <div id="edit_photo"></div>
-    <a id="add_photo" href="/{{ LANGUAGE_CODE }}{{ event.get_url_path }}gallery/add/">{% trans "Add photo" %}</a>
     
     {% crispy form %}
+    <!-- Hidden Iframe -->
+    <iframe name="hidden_iframe" id="hidden_iframe" src="about:blank" style="display:none"></iframe>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery_form.js"></script>
 {% endblock %}
 

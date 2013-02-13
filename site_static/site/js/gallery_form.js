@@ -30,10 +30,12 @@
                     $('.form-actions:last').hide();
                     return false;
                 });
+                $(window).trigger('scrollstop');
             });
         });
         $('#photos').show();
         $('.form-actions:last').show();
+        
     }
     function edit_photo_loaded() {
         $('#button-id-cancel').click(function() {
