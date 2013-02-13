@@ -103,17 +103,19 @@
 
         <header>
             {% if exhibition.image %}
-                <ul id="slide">
-                    <li>
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
-                        <span class="overlay">
-                            <time>{% if exhibition.permanent %}{% trans "Permanent exhibition" %}{% else %}
-                                <span class="from_date">{{ exhibition.start|date:"j. F Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"j. F Y" }}{% endif %}</time>
-                        </span>
-                        <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                    </li>
-                </ul>
-                <div id="pager"></div>
+            <ul id="slide">
+                <li>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
+                    <span class="overlay">
+                        <time>{% if exhibition.permanent %}{% trans "Permanent exhibition" %}{% else %}
+                            <span class="from_date">{{ exhibition.start|date:"j. F Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"j. F Y" }}{% endif %}</time>
+                    </span>
+                </li>
+            </ul>
+
+            <nav class="actions bottom">
+                <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+            </nav>
             {% endif %}
         </header>
 
@@ -629,17 +631,16 @@
             {% for exhibition in exhibitions_closing_soon %}
                 <li class="item">
                     
-                        <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.image %}data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}"{% endif %}>
-                            <span class="spinner loading"></span>
-                            <span class="overlay"></span>
-                        </a>
-                    
+                    <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.image %}data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}"{% endif %}>
+                        <span class="spinner loading"></span>
+                        <span class="overlay"></span>
+                    </a>
 
-                    <ul class="actions">
-                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
-                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></a></li>
-                    </ul>
-                    
+                    <nav class="actions">
+                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                    </nav>
+                        
                     <a href="{{ exhibition.get_url_path }}">
                         <h3>{{ exhibition.museum.title }}</h3>
                         <h4>{{ exhibition.title }}</h4>
@@ -648,22 +649,24 @@
                 </li>
             {% endfor %}
         </ul>
-        <div id="controls">
+
+        <div id="page-controls">
             {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" id="prev">
+                <a href="{{ prev_item.get_url_path }}" class="prev">
                     <span>
                         <span class="title">{{ next_item.title }}</span>
                     </span>
                 </a>
             {% endif %}
             {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" id="next">
+                <a href="{{ next_item.get_url_path }}" class="next">
                     <span>
                         <span class="title">{{ next_item.title }}</span>
                     </span>
                 </a>
             {% endif %}
         </div>
+
     </div>
 </div>  
 <script>

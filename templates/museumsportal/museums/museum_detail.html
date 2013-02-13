@@ -91,16 +91,14 @@
             <ul id="slide">
                 <li>
                     <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                    <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
-                </li>
-                <li>
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
-                    <p class="small">{{ exhibition.get_rendered_image_caption|striptags }}</p>
                 </li>
             </ul>
+
+            <nav class="actions bottom">
+                <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+            </nav>
             {% endif %}
-            
-            <div id="pager"></div>
+
         </header>
 
         <section class="sidebar">
@@ -745,16 +743,15 @@
             {% for museum in object.get_museums_with_the_same_categories %}
                 <li class="item">
                    
-                        <a class="img" href="{{ museum.get_url_path }}" {% if museum.image %} data-background="{{ MEDIA_URL }}{{ museum.image }}"{% endif %}>
-                            <span class="spinner loading"></span>
-                            <span class="overlay"></span>
-                        </a>
-                    
+                    <a class="img" href="{{ museum.get_url_path }}" {% if museum.image %} data-background="{{ MEDIA_URL }}{{ museum.image }}"{% endif %}>
+                        <span class="spinner loading"></span>
+                        <span class="overlay"></span>
+                    </a>
 
-                    <ul class="actions">
-                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
-                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></a></li>
-                    </ul>
+                    <nav class="actions">
+                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                    </nav>
                     
                      <a href="{{ museum.get_url_path }}">
                         <h3>{{ museum.title }}</h3>
@@ -765,16 +762,17 @@
         </ul>
     </div>
 </div>
-        <div id="controls">
+
+        <div id="page-controls">
             {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" id="prev">
+                <a href="{{ prev_item.get_url_path }}" class="prev">
                     <span>
-                        <span class="title">{{ prev_item.title }}</span>
+                        <span class="title">{{ next_item.title }}</span>
                     </span>
                 </a>
             {% endif %}
             {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" id="next">
+                <a href="{{ next_item.get_url_path }}" class="next">
                     <span>
                         <span class="title">{{ next_item.title }}</span>
                     </span>

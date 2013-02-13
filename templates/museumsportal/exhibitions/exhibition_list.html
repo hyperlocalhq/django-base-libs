@@ -25,10 +25,10 @@
 {% block content %}
 <div id="gmap_wrapper" class="">
   <div id="gmap">&nbsp;</div>
-    <ul class="actions top">
-        <li><a id="gmap_toggle" href="#" rel="tooltip" data-placement="bottom" data-original-title="Close" class="cancel"></a></li>
-        <li><a id="gmap_fullscreen" href="#" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></a></li>
-    </ul>
+  <nav class="actions top">
+    <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="Close" class="cancel"></button>
+    <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+  </nav>
 </div>
 
 <div class="content" class="clearfix">
@@ -81,12 +81,12 @@
                         <span class="overlay"></span>
                     </a>
                 {% endif %}{% endif %}
-    
-                <ul class="actions">
-                  <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
-                  <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></a></li>
-                </ul>
-    
+
+                <nav class="actions">
+                    <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
+                    <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                </nav>
+
                 <a href="{{ exhibition.get_url_path }}">
                   <h3>{{ exhibition.museum.title }}</h3>
                   <h4>{{ exhibition.title }}</h4>

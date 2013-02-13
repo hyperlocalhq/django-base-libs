@@ -1,0 +1,158 @@
+#gallery {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    z-index: 20000;
+    overflow: hidden;
+
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.75s;
+    -webkit-transition-timing: ease-in-out;
+
+    -moz-transition-property: all;
+    -moz-transition-duration: 0.75s;
+    -moz-transition-timing: ease-in-out;
+
+    -o-transition-property: all;
+    -o-transition-duration: 0.75s;
+    -o-transition-timing: ease-in-out;
+
+    &:hover { height: 100%;}
+    
+    #slides {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display: block;
+        li {
+            -webkit-transition-property: all;
+            -webkit-transition-duration: 0.75s;
+            -webkit-transition-timing: ease-in-out;
+            -moz-transition-property: all;
+            -moz-transition-duration: 0.75s;
+            -moz-transition-timing: ease-in-out;
+            -o-transition-property: all;
+            -o-transition-duration: 0.75s;
+            -o-transition-timing: ease-in-out;
+            -ms-transition-property: all;
+            -ms-transition-duration: 0.75s;
+            -ms-transition-timing: ease-in-out;
+            transition-property: all;
+            transition-duration: 0.75s;
+            transition-timing: ease-in-out;
+            &.done {
+                -webkit-transform: translateX(-100%);
+                -moz-transform: translateX(-100%);
+                -o-transform: translateX(-100%);
+                -ms-transform: translateX(-100%);
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            &.current {
+                -webkit-transform: translateX(0%);
+                -moz-transform: translateX(0%);
+                -o-transform: translateX(0%);
+                -ms-transform: translateX(0%);
+                transform: translateX(0%);
+                opacity: 1;
+            }
+            &.todo {
+                -webkit-transform: translateX(100%);
+                -moz-transform: translateX(100%);
+                -o-transform: translateX(100%);
+                -ms-transform: translateX(100%);
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            display: block;
+            span {
+                position: absolute;
+                top: 0px;
+                bottom: 0px;
+                left: 0px;
+                right: 0px;
+                height: 84%;
+                width: 96%;
+
+                margin-top: 6%;
+                margin-bottom: 10%;
+                margin-left: 2%;
+                margin-right: 2%;
+
+                display: block;
+                // background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+
+
+    nav {
+      position: absolute;
+      bottom: 0px;
+      z-index: 10000;
+      text-align: center;
+      width: 100%;
+      white-space: nowrap;
+      font-size: 0px;
+
+      button {
+        width: 70px;
+        height: 70px;
+        display: inline-block;
+        background-color: black;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 33px;
+
+        &#prev { background-image: url("../img/icons/left.svg"); }
+        &#next { background-image: url("../img/icons/right.svg");}
+      }
+    }
+
+    #pager { 
+        width: 100%;
+        text-align: center;
+        margin-bottom: 32px;
+        height: 8px;
+        position: absolute;
+        top: 0px;
+        z-index: 10000;
+        
+        li {
+            display: inline-block;
+            a { 
+                display: inline-block;
+                background-color: rgba(0,0,0,0.1);
+                color: black; 
+                white-space: nowrap;
+                text-indent: 30px;
+                font-size: 0px;
+                overflow: hidden;
+                height: 8px;
+                width: 8px;
+                color: transparent;
+                border-radius: 10px;
+                margin-left: 2px;
+                margin-right: 2px;
+            }
+            &.activeSlide,
+            &:hover { 
+                a { 
+                    background-color: black;
+                    color: white;
+                }
+            }
+        }
+       
+    }
+}

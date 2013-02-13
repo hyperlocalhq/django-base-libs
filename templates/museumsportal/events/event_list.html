@@ -16,10 +16,10 @@
 {% block content %}
 <div id="gmap_wrapper">
     <div id="gmap">&nbsp;</div>
-    <ul class="actions top">
-        <li><a id="gmap_toggle" href="#" rel="tooltip" data-placement="bottom" data-original-title="Close" class="cancel"></a></li>
-        <li><a id="gmap_fullscreen" href="#" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></a></li>
-    </ul>
+    <nav class="actions top">
+        <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="Close" class="cancel"></button>
+        <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+    </nav>
 </div>
 
 <div class="content clearfix">
@@ -49,6 +49,7 @@
             <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
             {% endfor %}
         </ul>
+
         <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
             <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
             {% tags_for_model events.Event as event_tags %}
@@ -61,22 +62,17 @@
             {% for event in object_list %}
                 {% tags_for_object event as tags %}
                 <li class="item initial_{{ event.title|slugify|slice:"0:1" }} {% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">
-                    {% if event.image %}
-                        <a class="img" href="{{ event.get_url_path }}" data-background="{{ MEDIA_URL }}{{ event.image|modified_path:"event_list" }}">
-                            <span class="spinner loading"></span>
-                            <span class="overlay"></span>
-                        </a>
-                    {% else %}{% if event.museum.image %}
-                        <a class="img" href="{{ event.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ event.museum.image }}">
-                            <span class="spinner loading"></span>
-                            <span class="overlay"></span>
-                        </a>
-                    {% endif %}{% endif %}
-        
-                    <ul class="actions">
-                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></a></li>
-                        <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></a></li>
-                    </ul>
+                    <a class="img" href="{{ event.get_url_path }}"  
+                    {% if event.image %}data-background="{{ MEDIA_URL }}{{ event.image|modified_path:"event_list" }}"{% else %}
+                    {% if event.museum.image %}data-background="{{ MEDIA_URL }}{{ event.museum.image }}"{% endif %}{% endif %}>
+                        <span class="spinner loading"></span>
+                        <span class="overlay"></span>
+                    </a>
+
+                    <nav class="actions">
+                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                    </nav>
         
                     <a href="{{ event.get_url_path }}">
                         <h3>{{ event.museum.title }}</h3>

@@ -236,7 +236,7 @@ form {
     margin: 0px;
     padding: 0px; }
   form fieldset {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.05) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
     padding-bottom: 30px !important;
     margin-bottom: 30px !important;
     display: block; }
@@ -348,7 +348,7 @@ form {
 
 .form-steps {
   margin-bottom: 30px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.05); }
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
   .form-steps li {
     display: inline-block;
     background-color: rgba(0, 0, 0, 0); }
@@ -625,6 +625,137 @@ legend + .control-group,
     #gmap_locations li a:hover {
       background-color: white; }
 
+#gallery {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  z-index: 20000;
+  overflow: hidden;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.75s;
+  -webkit-transition-timing: ease-in-out;
+  -moz-transition-property: all;
+  -moz-transition-duration: 0.75s;
+  -moz-transition-timing: ease-in-out;
+  -o-transition-property: all;
+  -o-transition-duration: 0.75s;
+  -o-transition-timing: ease-in-out; }
+  #gallery:hover {
+    height: 100%; }
+  #gallery #slides {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: block; }
+    #gallery #slides li {
+      -webkit-transition-property: all;
+      -webkit-transition-duration: 0.75s;
+      -webkit-transition-timing: ease-in-out;
+      -moz-transition-property: all;
+      -moz-transition-duration: 0.75s;
+      -moz-transition-timing: ease-in-out;
+      -o-transition-property: all;
+      -o-transition-duration: 0.75s;
+      -o-transition-timing: ease-in-out;
+      -ms-transition-property: all;
+      -ms-transition-duration: 0.75s;
+      -ms-transition-timing: ease-in-out;
+      transition-property: all;
+      transition-duration: 0.75s;
+      transition-timing: ease-in-out;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      display: block; }
+      #gallery #slides li.done {
+        -webkit-transform: translateX(-100%);
+        -moz-transform: translateX(-100%);
+        -o-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+        transform: translateX(-100%);
+        opacity: 0; }
+      #gallery #slides li.current {
+        -webkit-transform: translateX(0%);
+        -moz-transform: translateX(0%);
+        -o-transform: translateX(0%);
+        -ms-transform: translateX(0%);
+        transform: translateX(0%);
+        opacity: 1; }
+      #gallery #slides li.todo {
+        -webkit-transform: translateX(100%);
+        -moz-transform: translateX(100%);
+        -o-transform: translateX(100%);
+        -ms-transform: translateX(100%);
+        transform: translateX(100%);
+        opacity: 0; }
+      #gallery #slides li span {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        height: 84%;
+        width: 96%;
+        margin-top: 6%;
+        margin-bottom: 10%;
+        margin-left: 2%;
+        margin-right: 2%;
+        display: block;
+        background-position: center;
+        background-repeat: no-repeat; }
+  #gallery nav {
+    position: absolute;
+    bottom: 0px;
+    z-index: 10000;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    font-size: 0px; }
+    #gallery nav button {
+      width: 70px;
+      height: 70px;
+      display: inline-block;
+      background-color: black;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 33px; }
+      #gallery nav button#prev {
+        background-image: url("../img/icons/left.svg"); }
+      #gallery nav button#next {
+        background-image: url("../img/icons/right.svg"); }
+  #gallery #pager {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 32px;
+    height: 8px;
+    position: absolute;
+    top: 0px;
+    z-index: 10000; }
+    #gallery #pager li {
+      display: inline-block; }
+      #gallery #pager li a {
+        display: inline-block;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: black;
+        white-space: nowrap;
+        text-indent: 30px;
+        font-size: 0px;
+        overflow: hidden;
+        height: 8px;
+        width: 8px;
+        color: transparent;
+        border-radius: 10px;
+        margin-left: 2px;
+        margin-right: 2px; }
+      #gallery #pager li.activeSlide a, #gallery #pager li:hover a {
+        background-color: black;
+        color: white; }
+
 html {
   color: #000;
   background: #FFF; }
@@ -779,19 +910,21 @@ a:active {
     width: 1000px;
     margin: auto;
     position: relative;
-    padding-left: 10px;
-    padding-right: 10px; }
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent; }
+    #wrapper > * > .inner > header {
+      margin-bottom: 30px; }
 
 #header, .content, #footer {
   background-color: white;
-  border-top: 2px solid rgba(0, 0, 0, 0.05); }
+  border-top: 1px solid rgba(0, 0, 0, 0.05); }
 
 #header {
   border-top: none; }
   #header .logo {
     position: absolute;
     top: 30px;
-    left: 10px;
+    left: 0px;
     display: block; }
     #header .logo .img {
       display: block;
@@ -868,7 +1001,7 @@ a:active {
         padding: 0px;
         padding-right: 28px;
         margin-right: 21px;
-        border-right: 2px solid rgba(0, 0, 0, 0.1); }
+        border-right: 1px solid rgba(0, 0, 0, 0.1); }
         #header .inner ul.navigation li:last-child {
           padding-right: 0px;
           margin-right: 0px;
@@ -893,7 +1026,7 @@ a:active {
       padding: 0px;
       padding-right: 12px;
       margin-right: 10px;
-      border-right: 2px solid rgba(0, 0, 0, 0.1); }
+      border-right: 1px solid rgba(0, 0, 0, 0.1); }
       #footer .inner ul.navigation li.selected a {
         color: #00aefd; }
       #footer .inner ul.navigation li a {
@@ -921,13 +1054,13 @@ a:active {
   margin-top: -40px; }
   .list > li.item {
     width: 320px;
-    height: 280px;
-    margin-right: 20px;
+    height: 250px;
     float: left;
     position: relative;
     font-size: 15px;
     line-height: 20px;
-    padding-bottom: 0px; }
+    padding-bottom: 0px;
+    margin-right: 20px; }
     .list > li.item .actions {
       opacity: 0; }
     .list > li.item:hover .actions {
@@ -1101,41 +1234,39 @@ a:active {
   .actions.bottom {
     top: auto;
     bottom: 10px; }
-  .actions li {
-    display: block;
+  .actions button {
     float: right;
-    width: 25px;
-    height: 25px;
-    margin-left: 5px; }
-    .actions li:hover a {
+    margin-left: 5px;
+    background-color: white;
+    width: 20px !important;
+    height: 20px !important;
+    display: block;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.025);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; }
+    .actions button:hover {
       background-color: black; }
-    .actions li a {
-      background-color: white;
-      width: 25px;
-      height: 25px;
-      display: block;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.025); }
-      .actions li a:hover:after {
-        display: block; }
-      .actions li a.add-favorite {
-        background-image: url("../img/icons/icons-01.svg"); }
-      .actions li a.show-location {
-        background-image: url("../img/icons/icons-02.svg"); }
-      .actions li a.cancel {
-        background-image: url("../img/icons/icons-04.svg"); }
-      .actions li a.fullscreen {
-        background-image: url("../img/icons/icons-05.svg"); }
-      .actions li a:hover.add-favorite {
-        background-image: url("../img/icons/inv/icons-01.svg"); }
-      .actions li a:hover.show-location {
-        background-image: url("../img/icons/inv/icons-02.svg"); }
-      .actions li a:hover.cancel {
-        background-image: url("../img/icons/inv/icons-04.svg"); }
-      .actions li a:hover.fullscreen {
-        background-image: url("../img/icons/inv/icons-05.svg"); }
+    .actions button:hover:after {
+      display: block; }
+    .actions button.add-favorite {
+      background-image: url("../img/icons/icons-01.svg"); }
+    .actions button.show-location {
+      background-image: url("../img/icons/icons-02.svg"); }
+    .actions button.cancel {
+      background-image: url("../img/icons/icons-04.svg"); }
+    .actions button.fullscreen {
+      background-image: url("../img/icons/icons-05.svg"); }
+    .actions button:hover.add-favorite {
+      background-image: url("../img/icons/inv/icons-01.svg"); }
+    .actions button:hover.show-location {
+      background-image: url("../img/icons/inv/icons-02.svg"); }
+    .actions button:hover.cancel {
+      background-image: url("../img/icons/inv/icons-04.svg"); }
+    .actions button:hover.fullscreen {
+      background-image: url("../img/icons/inv/icons-05.svg"); }
 
 .sidebar {
   float: right;
@@ -1189,13 +1320,22 @@ article header h4 {
   margin-bottom: 10px;
   font-weight: 400; }
 article div {
-  border-bottom: 2px solid rgba(0, 0, 0, 0.025);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding-bottom: 40px;
   margin-bottom: 40px;
   zoom: 1; }
   article div:first-child {
     margin-top: 30px; }
-  article div h2, article div h3 {
+    article div:first-child p {
+      font-size: 30px;
+      line-height: 44px;
+      padding-bottom: 0px !important; }
+      article div:first-child p.img_block, article div:first-child p.img_left {
+        display: none; }
+  article div h2 {
+    top: 5px;
+    position: relative; }
+  article div h3 {
     font-size: 30px;
     line-height: 30px;
     margin-bottom: 15px;
@@ -1308,27 +1448,8 @@ article p {
       -webkit-transition-duration: 0.25s;
       -webkit-transition-timing: ease-in-out; }
 
-#pager {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 30px;
-  height: 8px; }
-  #pager a {
-    background-color: rgba(0, 0, 0, 0.1);
-    color: black;
-    display: inline-block;
-    white-space: nowrap;
-    text-indent: 30px;
-    overflow: hidden;
-    height: 8px;
-    width: 8px;
-    color: transparent;
-    border-radius: 10px;
-    margin-left: 2px;
-    margin-right: 2px; }
-    #pager a.activeSlide, #pager a:hover {
-      background-color: black;
-      color: white; }
+#tags {
+  display: none; }
 
 .tags,
 .filter {
@@ -1422,11 +1543,11 @@ article p {
     opacity: 1;
     color: white; }
 
-#controls {
+#page-controls {
   position: absolute;
   top: 0px;
   z-index: 10000; }
-  #controls a {
+  #page-controls a {
     width: 200px;
     height: 120px;
     line-height: 95px;
@@ -1454,18 +1575,18 @@ article p {
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
     overflow: hidden; }
-    #controls a:hover {
+    #page-controls a:hover {
       -webkit-transition-duration: 0.1s;
       -moz-transition-duration: 0.1s;
       -o-transition-duration: 0.1s;
       background-color: rgba(0, 0, 0, 0.95);
       color: white; }
-    #controls a > span {
+    #page-controls a > span {
       display: table;
       width: 90%;
       height: 100%;
       position: absolute; }
-      #controls a > span span.title {
+      #page-controls a > span span.title {
         display: table-cell;
         vertical-align: middle;
         font-size: 14px;
@@ -1474,27 +1595,27 @@ article p {
         width: 150px;
         padding-left: 20px;
         padding-right: 20px; }
-    #controls a#prev {
+    #page-controls a.prev {
       left: 0;
       border-right: 20px solid transparent;
       text-align: right;
       margin-left: -190px;
       background-image: url("../img/icons/left.svg");
       background-position: center left; }
-      #controls a#prev > span {
+      #page-controls a.prev > span {
         right: 0; }
-      #controls a#prev:hover {
+      #page-controls a.prev:hover {
         margin-left: 0px; }
-    #controls a#next {
+    #page-controls a.next {
       right: 0;
       border-left: 20px solid transparent;
       text-align: left;
       margin-right: -190px;
       background-image: url("../img/icons/right.svg");
       background-position: center right; }
-      #controls a#next > span {
+      #page-controls a.next > span {
         left: 0; }
-      #controls a#next:hover {
+      #page-controls a.next:hover {
         margin-right: 0px; }
 
 .accordion {
