@@ -27,31 +27,31 @@
 
     -o-transition-property: all;
     -o-transition-duration: 0.75s;
-    -o-transition-timing: ease-in-out;
+    -o-transition-timing:ease-in-out;
 
     &:hover { height: 100%;}
     
-    #slides_container {
+    .slides_container {
         position: absolute;
         height: 100%;
         width: 100%;
         display: block;
-        > div {
-            -webkit-transition-property: all;
-            -webkit-transition-duration: 0.75s;
-            -webkit-transition-timing: ease-in-out;
-            -moz-transition-property: all;
-            -moz-transition-duration: 0.75s;
-            -moz-transition-timing: ease-in-out;
-            -o-transition-property: all;
-            -o-transition-duration: 0.75s;
-            -o-transition-timing: ease-in-out;
-            -ms-transition-property: all;
-            -ms-transition-duration: 0.75s;
-            -ms-transition-timing: ease-in-out;
-            transition-property: all;
-            transition-duration: 0.75s;
-            transition-timing: ease-in-out;
+        div {
+            // -webkit-transition-property: all;
+            // -webkit-transition-duration: 0.75s;
+            // -webkit-transition-timing: ease-in-out;
+            // -moz-transition-property: all;
+            // -moz-transition-duration: 0.75s;
+            // -moz-transition-timing: ease-in-out;
+            // -o-transition-property: all;
+            // -o-transition-duration: 0.75s;
+            // -o-transition-timing: ease-in-out;
+            // -ms-transition-property: all;
+            // -ms-transition-duration: 0.75s;
+            // -ms-transition-timing: ease-in-out;
+            // transition-property: all;
+            // transition-duration: 0.75s;
+            // transition-timing: ease-in-out;
            
             position: absolute;
             height: 100%;
@@ -63,16 +63,11 @@
                 bottom: 0px;
                 left: 0px;
                 right: 0px;
-                height: 84%;
-                width: 96%;
-
-                margin-top: 6%;
-                margin-bottom: 10%;
-                margin-left: 2%;
-                margin-right: 2%;
+                height: 100%;
+                width: 100%;
 
                 display: block;
-                // background-size: contain;
+                background-size: contain;
                 background-position: center;
                 background-repeat: no-repeat;
             }
