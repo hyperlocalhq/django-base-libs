@@ -325,7 +325,7 @@ a:active  { outline: none;}
 
   > li.item { 
     width: 320px;
-    height: 250px;
+    height: 280px;
     margin-right: 20px;
     float: left;
     position: relative;
@@ -372,20 +372,20 @@ a:active  { outline: none;}
       }
 
       .spinner { 
-        height: 0%;
-        background-color: #f2f2f2;
-
+        opacity: 0;
+        height: 100%;
         -webkit-transition-property: all;
         -webkit-transition-duration: 0.5s;
         -webkit-transition-delay: 0.05s;
         -webkit-transition-timing: ease-in-out;
+        background-color: #f2f2f2;
 
         background-image: url("../img/spinner.gif");
         background-position: center;
         background-repeat: no-repeat;
 
         &.loading { 
-          height: 100%;
+          opacity: 1;
         }
       }
     }
@@ -736,8 +736,8 @@ article {
     h2,h3 {
       font-size: 30px;
       line-height: 30px;
-      margin-bottom: 5px;
-      top: -5px;
+      margin-bottom: 15px;
+      top: 5px;
       position: relative;
     }
 
@@ -745,12 +745,13 @@ article {
       &.img_block,
       &.img_left {
       margin-right: 40px;
-      color: rgba(0,0,0,0.5);
+      color: rgba(0,0,0,0.75);
       font-size: 12px;
       line-height: 18px;
       width: 320px;
       padding-bottom:0px !important;
       margin-bottom: 0px !important;
+      margin-top: 10px !important;
 
       img { 
         display: block; 
@@ -1038,7 +1039,7 @@ article {
     font-size: 22px;
     position: fixed;
     top: 50%;
-    margin-top: -0px;
+    margin-top: -70px;
 
     -webkit-transition-property: all;
     -webkit-transition-duration: 0.75s;
