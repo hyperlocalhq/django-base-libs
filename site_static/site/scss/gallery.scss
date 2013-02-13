@@ -9,6 +9,8 @@
     background-color: white;
     z-index: 20000;
     overflow: hidden;
+    display: none;
+
 
     -webkit-transition-property: all;
     -webkit-transition-duration: 0.75s;
@@ -95,7 +97,6 @@
         }
     }
 
-
     nav {
       position: absolute;
       bottom: 0px;
@@ -113,13 +114,13 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: 33px;
-
-        &#prev { background-image: url("../img/icons/left.svg"); }
-        &#next { background-image: url("../img/icons/right.svg");}
+        &:hover { opacity: 0.8;}
+        &.prev { background-image: url("../img/icons/left.svg"); }
+        &.next { background-image: url("../img/icons/right.svg");}
       }
     }
 
-    #pager { 
+    .pagination { 
         width: 100%;
         text-align: center;
         margin-bottom: 32px;

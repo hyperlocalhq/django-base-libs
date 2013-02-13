@@ -636,6 +636,7 @@ legend + .control-group,
   background-color: white;
   z-index: 20000;
   overflow: hidden;
+  display: none;
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.75s;
   -webkit-transition-timing: ease-in-out;
@@ -724,11 +725,13 @@ legend + .control-group,
       background-position: center;
       background-repeat: no-repeat;
       background-size: 33px; }
-      #gallery nav button#prev {
+      #gallery nav button:hover {
+        opacity: 0.8; }
+      #gallery nav button.prev {
         background-image: url("../img/icons/left.svg"); }
-      #gallery nav button#next {
+      #gallery nav button.next {
         background-image: url("../img/icons/right.svg"); }
-  #gallery #pager {
+  #gallery .pagination {
     width: 100%;
     text-align: center;
     margin-bottom: 32px;
@@ -736,9 +739,9 @@ legend + .control-group,
     position: absolute;
     top: 0px;
     z-index: 10000; }
-    #gallery #pager li {
+    #gallery .pagination li {
       display: inline-block; }
-      #gallery #pager li a {
+      #gallery .pagination li a {
         display: inline-block;
         background-color: rgba(0, 0, 0, 0.1);
         color: black;
@@ -752,7 +755,7 @@ legend + .control-group,
         border-radius: 10px;
         margin-left: 2px;
         margin-right: 2px; }
-      #gallery #pager li.activeSlide a, #gallery #pager li:hover a {
+      #gallery .pagination li.activeSlide a, #gallery .pagination li:hover a {
         background-color: black;
         color: white; }
 

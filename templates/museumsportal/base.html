@@ -16,10 +16,6 @@
         <link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen" type="text/css" />
     {% endblock %}
 	
-
-
-
-    
     {% render_block "css" %}
 
     <script src="/jssettings/"></script>
@@ -31,24 +27,13 @@
     <script src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
-    <script src="{{ STATIC_URL }}site/js/hammer.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
 	<script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script src="{{ STATIC_URL }}site/js/slides.jquery.js"></script>
     <script type="text/javascript">
-
+    
     $(function() {
-        $('#gallery #slides').each(function() {
-            $(this).cycle({
-                fx:      'fade',
-                timeout:  0,
-                speed:    500,
-                pause:    1,
-                easing:   'easeInOutSine',
-                pager:    '#pager',
-                pagerAnchorBuilder: pagerFactory
-            });
-        });
 
         $('#cancel').click(function(e){
             $('#gallery').toggleClass('on');
@@ -226,51 +211,31 @@
 
         <div id="gallery">
             <ul id="slides">
-                <li class="todo">
+                <li>
                     <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
                     <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
                 </li>
-                <li class="todo">
+                <li>
                     <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
                     <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
                 </li>
-                <li class="todo">
+                <li>
                     <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
                     <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
                 </li>
-                <li class="todo">
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
-                </li>
-                <li class="current">
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
-                </li>
-                <li class="todo">
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
-                </li>
-                <li class="todo">
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
-                </li>
-                <li class="todo">
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                    <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
-                </li>
-                <li class="todo">
+                <li>
                     <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
                     <span >{{ exhibition.get_rendered_image_caption|striptags }}</span>
                 </li>
             </ul>
             
-            <ul id="pager"></ul>
+            <ul class="pagination"></ul>
             
             <nav>
-                <button id="prev"></button>
-                <button id="info"></button>
-                <button id="cancel"></button>
-                <button id="next"></button>
+                <button class="prev"></button>
+                <button class="info"></button>
+                <button class="cancel"></button>
+                <button class="next"></button>
             </nav>
 
         </div>
@@ -318,22 +283,21 @@
     <script>
     $(window).load(function(){
         $("#next").click(function() {
-             var $next, $selected = $(".current");
-        
-             $selected.removeClass("current").removeClass("todo").addClass("done");
-             $next = $selected.next().removeClass("todo").addClass("current");
-             if ($next.length) {
-                    $("#current-tag").text($next.get(0).tagName);
-             }
+            var $next, $selected = $(".current");
+            $selected.removeClass("current").removeClass("todo").addClass("done");
+            $next = $selected.next().removeClass("todo").addClass("current");
+            if (!$next.length) {
+                $(".done").removeClass("done").addClass("todo");
+            }
         });
         
         $("#prev").click(function() {
-             var $prev, $selected = $(".current");
-             $selected.removeClass("current").removeClass("done").addClass("todo");
-             $prev = $selected.prev().removeClass("done").addClass("current");
-             if ($prev.length) {
-                    $("#current-tag").text($prev.get(0).tagName);
-             }
+            var $prev, $selected = $(".current");
+            $selected.removeClass("current").removeClass("done").addClass("todo");
+            $prev = $selected.prev().removeClass("done").addClass("current");
+            if (!$prev.length) {
+                $(".done").removeClass("done").addClass("todo");
+            }
         });
     });
     </script>
@@ -360,6 +324,13 @@
         //         $(this).toggleClass('open');
         //     }
         // });
+    </script>
+    <script>
+        $(function(){
+            $('#slides').slides({
+                preload: true,
+            });
+        });
     </script>
 </body>
 </html>
