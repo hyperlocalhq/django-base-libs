@@ -254,14 +254,17 @@ a:active  { outline: none;}
 
       li {
         display: inline-block;
-        font-size: 22px;
+        font-size: 20px;
         line-height: 26px;
         height: 30px;
         padding: 0px;
-        padding-right: 28px;
-        margin-right: 21px;
+        padding-right: 13px;
+        margin-right: 13px;
         border-right: 1px solid rgba(0,0,0,0.1);
-        
+
+        &:first-child {
+          display: none;
+        }
         &:last-child {
           padding-right: 0px;
           margin-right: 0px;
