@@ -438,7 +438,7 @@
             {% get_objects closing_soon events.Event 5 as events_closing_soon %}
             {% for event in events_closing_soon %}
                 <li class="item">
-                    <a class="img" href="{{ event.get_url_path }}" {% if event.image %}data-background="{{ MEDIA_URL }}{{ event.image|modified_path:"event_list"{% endif %} }}">
+                    <a class="img" href="{{ event.get_url_path }}" {% if event.image %}data-background="{{ MEDIA_URL }}{{ event.image|modified_path:"event_list" }}{% endif %}">
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>
