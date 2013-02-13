@@ -1,12 +1,14 @@
 {% extends "base.html" %}
-{% load cms_tags menu_tags %}
+{% load i18n cms_tags menu_tags %}
+{% block bodyclass %}visitor-info{% endblock %}
 
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
+    <h1>{% trans "Visitor Information" %}</h1>
 
     <article>
-        {% placeholder "main_content" %}
+      {% placeholder "main_content" %}
     </article>
 
     <article>

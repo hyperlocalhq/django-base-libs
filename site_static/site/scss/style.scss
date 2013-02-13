@@ -37,6 +37,19 @@ body {
 
   overflow-y: auto;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar-corner,
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: rgb(100,100,100);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: black;
+    background-color: black !important;
+  }
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -695,35 +708,40 @@ article {
       font-weight: 400;
     }
   }
+  header {
+    h3 { 
+      text-transform: uppercase;
+      font-size: 20px;
+      margin-top: 30px;
+    }
 
-  h3 { 
-    text-transform: uppercase;
-    font-size: 20px;
-    margin-top: 30px;
-  }
-
-  h4 {
-    font-size: 30px;
-    line-height: 42px;
-    margin: 0px;
-    padding: 0px;
-    margin-bottom: 10px;
-    font-weight: 400;
+    h4 {
+      font-size: 30px;
+      line-height: 42px;
+      margin: 0px;
+      padding: 0px;
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
   }
 
   div {
     border-bottom: 2px solid rgba(0,0,0,0.025);
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
     zoom: 1;
 
-    h3 {
+    &:first-child { margin-top: 30px;}
+    
+    h2,h3 {
       font-size: 30px;
-      margin-top: 40px;
-      padding-bottom: 20px;
+      line-height: 30px;
+      margin-bottom: 5px;
+      top: -5px;
+      position: relative;
     }
 
-    p {
+    p { 
       &.img_block,
       &.img_left {
       margin-right: 40px;
@@ -731,10 +749,11 @@ article {
       font-size: 12px;
       line-height: 18px;
       width: 320px;
+      padding-bottom:0px !important;
+      margin-bottom: 0px !important;
 
       img { 
         display: block; 
-        margin-top: 10px; 
         margin-bottom: 10px; 
         width: 320px !important;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -948,26 +967,41 @@ article {
 
 #to-top { 
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 0px;
+    right: 0px;
     display: block;
     color: black;
     text-align: center;
     z-index: 10000;
+    overflow: hidden;
+    height: 60px;
+    width: 70px;
+
     span {
-      top: 50px;
+      -webkit-transform: translateY(250px);
+      -moz-transform: translateY(250px);
+      -o-transform: translateY(250px);
       font-size: 0px;
       text-indent: 100px;
       overflow: hidden;
       white-space: nowrap;
 
-      height: 70px;
+      height: 60px;
       width: 70px;
       background-color: black;
       display: inline-block;
+
       -webkit-transition-property: all;
       -webkit-transition-duration: 0.75s;
-      -webkit-transition-delay: 0s;
+      -webkit-transition-timing: ease-in-out;
+
+      -moz-transition-property: all;
+      -moz-transition-duration: 0.75s;
+      -moz-transition-timing: ease-in-out;
+
+      -o-transition-property: all;
+      -o-transition-duration: 0.75s;
+      -o-transition-timing: ease-in-out;
 
       -webkit-transition-timing: ease-in-out;
       position: relative;
@@ -981,9 +1015,10 @@ article {
 
     &.on { 
       span {
-        -webkit-transition-delay: 2s;
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -o-transform: translateY(0px);
         background-color: rgba(0,0,0,0.95);
-        top: 0px;
         opacity: 1;
         color: white;
       }
@@ -1003,10 +1038,19 @@ article {
     font-size: 22px;
     position: fixed;
     top: 50%;
-    margin-top: -60px;
+    margin-top: -0px;
+
     -webkit-transition-property: all;
     -webkit-transition-duration: 0.75s;
     -webkit-transition-timing: ease-in-out;
+
+    -moz-transition-property: all;
+    -moz-transition-duration: 0.75s;
+    -moz-transition-timing: ease-in-out;
+
+    -o-transition-property: all;
+    -o-transition-duration: 0.75s;
+    -o-transition-timing: ease-in-out;
 
     color: black;
     background-color: black;
@@ -1022,7 +1066,9 @@ article {
     overflow: hidden;
 
     &:hover { 
-      -webkit-transition-duration: 0s;
+      -webkit-transition-duration: 0.1s;
+      -moz-transition-duration: 0.1s;
+      -o-transition-duration: 0.1s;
       background-color: rgba(0,0,0,0.95);
       color: white;
      }
@@ -1050,7 +1096,7 @@ article {
       left: 0;  
       border-right: 20px solid transparent;
       text-align: right;
-      margin-left: -180px;
+      margin-left: -190px;
       background-image: url("../img/icons/left.svg");
       background-position: center left;
 
@@ -1062,7 +1108,7 @@ article {
       right: 0; 
       border-left: 20px solid transparent;
       text-align: left;
-      margin-right: -180px;
+      margin-right: -190px;
       background-image: url("../img/icons/right.svg");
       background-position: center right;
       &:hover { margin-right: 0px; }

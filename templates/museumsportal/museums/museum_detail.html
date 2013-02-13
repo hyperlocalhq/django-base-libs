@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags %}
+{% block bodyclass %}museum-detail{% endblock %}
 
 {% block js %}
     <link href="{{ STATIC_URL }}site/shadowbox/shadowbox.css" rel="stylesheet" media="screen" type="text/css" />
@@ -708,7 +709,6 @@
         </section>
            
         <article class="with_sidebar">
-            
             <header>
                 <h1>{{ museum.title }} 
                     {% if museum.subtitle %}
