@@ -172,7 +172,7 @@
         <!-- Header
         ================================================== -->
 
-		<div id="header" class="clearfix">
+		<header id="header" class="clearfix">
             <div class="inner">
 
                 <a class="logo" href="/">
@@ -182,18 +182,6 @@
                     Museen, Schlössern und Gedenkstätten.</span>
                 </a>
 
-    			<ul class="navigation">
-
-    			    {% if LANGUAGE_CODE == "de" %}
-    				    <!-- <li><span>Hier entsteht Berlins neues Museumsportal</span><br/></li> -->
-                    {% else %}
-    				    <!-- <li><span>Berlin's new online platform for museums is being created here</span><br/></li> -->
-                    {% endif %}
-
-    				<li{% if request.path == "/" %} class="selected"{% endif %}><a href="/">Home</a></li>
-                    {% show_menu_below_id "start_page" 0 1 1 1 %}
-    			</ul>
-
                 <ul class="meta">
                     <li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
                     <li><a class="twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li>
@@ -202,8 +190,13 @@
                     {% endblock %}
                 </ul>
             </div>
-		</div>
-
+		</header>
+        <nav id="navigation">
+            <ul>
+                <li{% if request.path == "/" %} class="selected"{% endif %}><a href="/">Home</a></li>
+                {% show_menu_below_id "start_page" 0 100 100 100 %}
+            </ul>
+        </nav>
 
         <!-- image fullscreen
         ================================================== -->
@@ -261,7 +254,7 @@
             </span>
         </a>
 
-        <div id="footer" class="clearfix">
+        <footer id="footer" class="clearfix">
             <div class="inner">
                 <ul class="navigation">
                     {% show_menu_below_id "start_page" 0 1 1 1 %}
@@ -272,7 +265,7 @@
                     {% endif %}
                 </ul>
             </div>
-        </div>
+        </footer>
 	</div>
 
     {% render_block "js" %}

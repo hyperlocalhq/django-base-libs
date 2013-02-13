@@ -28,7 +28,7 @@ class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
         required=False,
         label=_("Museum"),
-        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
         display_attr="title",
@@ -44,7 +44,7 @@ class BasicInfoForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
         required=False,
         label=_("Organizing museum"),
-        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
         display_attr="title",
@@ -60,7 +60,7 @@ class BasicInfoForm(ModelForm):
     exhibition = AutocompleteModelChoiceField(
         required=False,
         label=_("Related exhibition"),
-        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="exhibitions",
         qs_function="get_published_exhibitions",
         display_attr="title",
@@ -153,6 +153,7 @@ class BasicInfoForm(ModelForm):
                     ),
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
+                        <label>{% trans "Location" %}</label>
                         <div id="gmap_wrapper">
                             <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                         </div>
@@ -181,11 +182,14 @@ class BasicInfoForm(ModelForm):
             ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
-            "languages",
-            "other_languages",
-            "age_groups",
-            "categories",
-            "tags",
+            layout.Row(
+                "categories",
+                "languages",
+                ),
+            layout.Row(
+                "tags",
+                "other_languages",
+                ),
             css_class="fieldset-categories-tags",
             ))
         if self.instance and self.instance.pk:

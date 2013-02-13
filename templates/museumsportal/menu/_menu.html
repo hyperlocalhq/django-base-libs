@@ -1,0 +1,13 @@
+{% load menu_tags %}
+{% for child in children %}
+    {% if not child.soft_root %}
+        <li class="{% if child.level == 1 %}dropdown{% endif %} {% if child.selected %}selected{% endif %}{% if child.ancestor %}ancestor{% endif %}{% if child.sibling %}sibling{% endif %}{% if child.descendant %}descendant{% endif %}">
+            <a class="{% if child.level == 1 %}master{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+                {% if child.level > 1 %}<span class="arrow">→</span>{% endif %}
+                {{ child.get_menu_title }}
+            </a>
+            {% if not forloop.last %}
+            {% endif %}
+        </li>
+    {% endif %}
+{% endfor %}

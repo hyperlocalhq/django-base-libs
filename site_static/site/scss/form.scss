@@ -58,7 +58,10 @@ button {
   color: black;
   padding: 18px;
   background-color: rgba(0,0,0,0.05);
-
+  
+  background-color: black;
+  color: white;
+  
   &:hover { 
     background-color: black;
     color: white !important;
@@ -300,6 +303,7 @@ form {
         display: table-cell;
         border-right: 20px solid white;
         width: 100% !important;
+        vertical-align: top;
 
         &:last-child { 
           border-right: 0px solid white;

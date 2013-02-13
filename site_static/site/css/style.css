@@ -66,7 +66,9 @@ button {
   line-height: 18px;
   color: black;
   padding: 18px;
-  background-color: rgba(0, 0, 0, 0.05); }
+  background-color: rgba(0, 0, 0, 0.05);
+  background-color: black;
+  color: white; }
   .btn:hover,
   input[type=submit]:hover,
   input[type=reset]:hover,
@@ -316,7 +318,8 @@ form {
       form fieldset .row > div {
         display: table-cell;
         border-right: 20px solid white;
-        width: 100% !important; }
+        width: 100% !important;
+        vertical-align: top; }
         form fieldset .row > div:last-child {
           border-right: 0px solid white; }
   form table {
@@ -948,7 +951,8 @@ a:active {
       letter-spacing: -2px;
       text-transform: uppercase;
       font-weight: 600;
-      color: black; }
+      color: black;
+      display: none; }
     #header .logo .claim {
       font-size: 16px;
       line-height: 20px;
@@ -958,9 +962,10 @@ a:active {
       color: rgba(0, 0, 0, 0.5);
       padding-left: 15px;
       margin-left: 15px;
-      border-left: 2px solid rgba(0, 0, 0, 0.05); }
+      border-left: 2px solid rgba(0, 0, 0, 0.05);
+      display: none; }
   #header .inner {
-    height: 160px; }
+    height: 110px; }
     #header .inner ul.meta {
       position: absolute;
       top: 20px;
@@ -991,32 +996,68 @@ a:active {
             background-image: url("../img/icons/inv/social-01.svg"); }
           #header .inner ul.meta li a:hover.twitter {
             background-image: url("../img/icons/inv/social-02.svg"); }
-    #header .inner ul.navigation {
-      position: absolute;
-      bottom: 20px;
-      text-align: justify !important;
-      width: 100%; }
-      #header .inner ul.navigation li {
-        display: inline-block;
-        font-size: 20px;
-        line-height: 26px;
-        height: 30px;
-        padding: 0px;
+
+#navigation {
+  position: relative;
+  width: 100%;
+  z-index: 30000;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.25s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out;
+  height: 50px;
+  background-color: white; }
+  #navigation:hover {
+    height: 300px; }
+  #navigation > ul {
+    width: 1000px;
+    margin: auto;
+    background-color: red;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent; }
+    #navigation > ul > li {
+      display: block;
+      float: left;
+      font-size: 20px;
+      line-height: 46px;
+      height: 50px;
+      padding: 0px; }
+      #navigation > ul > li > a {
         padding-right: 13px;
         margin-right: 13px;
         border-right: 1px solid rgba(0, 0, 0, 0.1); }
-        #header .inner ul.navigation li:first-child {
-          display: none; }
-        #header .inner ul.navigation li:last-child {
-          padding-right: 0px;
-          margin-right: 0px;
-          border-right: none; }
-        #header .inner ul.navigation li.selected a {
+      #navigation > ul > li:hover > div {
+        height: 250px;
+        border-top: 1px solid rgba(0, 0, 0, 0.025); }
+      #navigation > ul > li > div {
+        position: absolute;
+        width: 100%;
+        top: 50px;
+        overflow: hidden;
+        height: 0px;
+        left: 0px;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.25s;
+        -webkit-transition-delay: 0s;
+        -webkit-transition-timing: ease-in-out;
+        background-color: #fafafa; }
+        #navigation > ul > li > div > ul {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          width: 1000px;
+          margin: auto; }
+      #navigation > ul > li:first-child {
+        display: none; }
+      #navigation > ul > li:last-child {
+        padding-right: 0px;
+        margin-right: 0px;
+        border-right: none; }
+      #navigation > ul > li.ancestor > a, #navigation > ul > li.selected > a {
+        color: #00aefd; }
+      #navigation > ul > li > a {
+        color: black; }
+        #navigation > ul > li > a:hover {
           color: #00aefd; }
-        #header .inner ul.navigation li a {
-          color: black; }
-          #header .inner ul.navigation li a:hover {
-            color: #00aefd; }
 
 #footer {
   background-color: transparent; }
@@ -1239,6 +1280,7 @@ a:active {
   .actions.bottom {
     top: auto;
     bottom: 10px; }
+  .actions a,
   .actions button {
     float: right;
     margin-left: 5px;
@@ -1252,24 +1294,34 @@ a:active {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.025);
     box-sizing: border-box;
     -moz-box-sizing: border-box; }
+    .actions a:hover,
     .actions button:hover {
       background-color: black; }
+    .actions a:hover:after,
     .actions button:hover:after {
       display: block; }
+    .actions a.add-favorite,
     .actions button.add-favorite {
       background-image: url("../img/icons/icons-01.svg"); }
+    .actions a.show-location,
     .actions button.show-location {
       background-image: url("../img/icons/icons-02.svg"); }
+    .actions a.cancel,
     .actions button.cancel {
       background-image: url("../img/icons/icons-04.svg"); }
+    .actions a.fullscreen,
     .actions button.fullscreen {
       background-image: url("../img/icons/icons-05.svg"); }
+    .actions a:hover.add-favorite,
     .actions button:hover.add-favorite {
       background-image: url("../img/icons/inv/icons-01.svg"); }
+    .actions a:hover.show-location,
     .actions button:hover.show-location {
       background-image: url("../img/icons/inv/icons-02.svg"); }
+    .actions a:hover.cancel,
     .actions button:hover.cancel {
       background-image: url("../img/icons/inv/icons-04.svg"); }
+    .actions a:hover.fullscreen,
     .actions button:hover.fullscreen {
       background-image: url("../img/icons/inv/icons-05.svg"); }
 
