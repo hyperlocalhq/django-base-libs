@@ -63,6 +63,9 @@ urlpatterns += patterns('',
         'twitter_username': settings.TWITTER_USERNAME,
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
+    url(r'^tweets/(?P<twitter_username>.+)/$', 'museumsportal.apps.twitter.views.latest_tweets', {
+        'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
+        }),
     
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('cms.urls')),
