@@ -4,27 +4,32 @@
 {% block content %}
 <div class="content clearfix">
     <div class="inner">
-        <div id="photos">
+        <ul id="photos" class="list">
             {% for media_file in exhibition.mediafile_set.all %}
-                <div class="img_and_desc" data-token="{{ media_file.get_token }}">
-                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gl" }}" alt="" />
+                <li class="item" data-token="{{ media_file.get_token }}">
+                    <a class="img" href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gl" }}">
+                        <span class="spinner loading"></span>
+                        <span class="overlay"></span>
+                    </a>
+                    
+                    <nav class="actions">
+                        <a href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit edit_photo"></a>
+                    </nav>
+
+                    <a href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/">
                     {% with media_file.path|file_description as file_desc %}
                         {% if file_desc.title %}
-                            <div class="title">{{ file_desc.title }}</div>
+                            <h3>{{ file_desc.title }}</h3>
                         {% endif %}
-                        {% if file_desc.description %}
-                            <div class="desc">{{ file_desc.description }}</div>
-                        {% endif %}
+                        <!-- {% if file_desc.description %}
+                            <span class="desc">{{ file_desc.description }}</span>
+                        {% endif %} -->
                     {% endwith %}
-                    <ul class="controls">
-                        <li><a class="edit_photo" href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/">{% trans "Edit" %}</a></li>
-                        {% parse "{{ exhibition.get_url_path }}change/" as goto_next %}
-                        <li><a class="crop_photo" href="{% cropping_url media_file.path "gl" request goto_next %}">{% trans "Crop" %}</a></li>
-                        <li><a class="delete_photo" href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/">{% trans "Delete" %}</a></li>
-                    </ul>
-                </div>        
+                    </a>
+                </li>        
             {% endfor %}
-        </div>
+            <li class="item"><a id="add_photo" href="/{{ LANGUAGE_CODE }}{{ exhibition.get_url_path }}gallery/add/">{% trans "Add image" %}</a></li>
+        </ul>
     </div>
 </div>
 {% endblock %}
