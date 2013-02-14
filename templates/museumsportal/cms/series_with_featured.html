@@ -15,12 +15,10 @@
             <a href="http://www.jmberlin.de/1933/" target="_blank"><span class="jmb-logo"></span></a>
 	    </div>
         <div id="twitterfeed">
-            <h2 class="catHead">Twitterfeed</h2>
-	        <div class="sector-select hidable">
-				<ul id="tweets" data-twitter-username="Vielfalt2013">
-    				<li><a href="https://twitter.com/Vielfalt2013" target="_blank">{% if LANGUAGE_CODE == "de" %}Folgen Sie uns auf Twitter{% else %}Follow us on Twitter{% endif %}</a></li>
-				</ul>
-	        </div>
+            <h2>Twitterfeed</h2>
+            <ul id="tweets" data-twitter-username="Vielfalt2013">
+                <li><a href="https://twitter.com/Vielfalt2013" target="_blank">{% if LANGUAGE_CODE == "de" %}Folgen Sie Zerstörte Vielfalt auf Twitter{% else %}Follow Zerstörte Vielfalt on Twitter{% endif %}</a></li>
+            </ul>
         </div>
 		<ul id="sub_menu">
             {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
