@@ -268,7 +268,15 @@ class MultilingualTextField(ExtendedTextField):
                     _blank = self._blank
                 else:
                     _blank = True
-                
+
+                try: # if that's south data migration
+                    from south.hacks import hacks
+                except ImportError:
+                    pass
+                else: # related multilingual fields will be added by south itself
+                    if getattr(hacks, "old_app_models", False):
+                        continue
+                        
                 try: # the field shouldn't be already added (for south)
                     cls._meta.get_field(_language_field_name(name, language[0]))
                 except models.FieldDoesNotExist:
