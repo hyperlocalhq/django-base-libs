@@ -14,9 +14,6 @@
             <span class="jmb-body">{% infoblock "series_featured" %}</span>
             <a href="http://www.jmberlin.de/1933/" target="_blank"><span class="jmb-logo"></span></a>
 	    </div>
-		<ul id="sub_menu">
-            {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
-		</ul>
         <div id="twitterfeed">
             <h2 class="catHead">Twitterfeed</h2>
 	        <div class="sector-select hidable">
@@ -25,6 +22,9 @@
 				</ul>
 	        </div>
         </div>
+		<ul id="sub_menu">
+            {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
+		</ul>
 	</div>
     {% placeholder "main_content" %}
 {% endblock %}
