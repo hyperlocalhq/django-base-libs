@@ -2000,7 +2000,18 @@ a.banner.en {
 
 #twitterfeed {
 	float: left;
-	
+	background-color: #eff8f5;
+    margin-left: -25px;
+    margin-right: -25px;
+    margin-bottom: 40px;
+    padding-left: 25px;
+    padding-right: 25px;
+    color: #3e3759 !important;
+}
+
+.feature-background-themenjahr2013 #twitterfeed {
+    border-top: 1px solid #e5e3df;
+    border-bottom: 1px solid #e5e3df;
 }
 
 #tweets li {
