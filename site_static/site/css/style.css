@@ -814,12 +814,11 @@ body {
   overflow-y: auto;
   overflow-x: hidden; }
   body::-webkit-scrollbar-corner, body::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 2px;
+    height: 2px;
     background-color: #646464; }
   body::-webkit-scrollbar-thumb {
     border-radius: 0;
-    background-color: black;
     background-color: black !important; }
 
 h1, h2, h3, h4, h5, h6 {
@@ -928,12 +927,12 @@ a:active {
       margin-top: -6px; }
     #header .logo .word {
       font-size: 20px;
-      line-height: 18px;
+      line-height: 17px;
       display: block;
       float: left;
-      letter-spacing: -2px;
+      letter-spacing: -1px;
       text-transform: uppercase;
-      font-weight: 500;
+      font-weight: 600;
       color: black; }
     #header .logo .claim {
       font-size: 13px;
@@ -1334,6 +1333,12 @@ a:active {
 article.with_sidebar {
   width: 640px;
   float: left; }
+article.images {
+  padding-top: 40px;
+  padding-bottom: 40px; }
+  article.images ul li:hover {
+    opacity: 0.9;
+    cursor: pointer; }
 article header {
   margin-bottom: 30px;
   position: relative; }

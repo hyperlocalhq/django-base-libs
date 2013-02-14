@@ -757,7 +757,7 @@
 
 <div class="content clearfix">
     <div class="inner">
-        <article>
+        <article class="images">
             <ul class="fillwidth">
             {% for mf in museum.mediafile_set.all %}
                 <li><img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" /></li>
@@ -766,6 +766,9 @@
         </article>
     </div>
 </div>
+
+
+
 
 <!-- image gallery
 ================================================== -->
@@ -793,8 +796,7 @@
     </nav>
 </div>
 
-    {% endwith %}
-
+{% endwith %}
 
 <div class="content clearfix" style="background-color: rgba(0,0,0,0.025)">
     <div class="inner">

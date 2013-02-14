@@ -39,14 +39,13 @@ body {
 
   &::-webkit-scrollbar-corner,
   &::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 2px;
+    height: 2px;
     background-color: rgb(100,100,100);
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 0;
-    background-color: black;
     background-color: black !important;
   }
 }
@@ -173,12 +172,12 @@ a:active  { outline: none;}
     }
     .word {
       font-size: 20px;
-      line-height: 18px;
+      line-height: 17px;
       display: block;
       float: left;
-      letter-spacing: -2px;
+      letter-spacing: -1px;
       text-transform: uppercase;
-      font-weight: 500;
+      font-weight: 600;
       color: black;
     }
     .claim {
@@ -334,7 +333,6 @@ a:active  { outline: none;}
   .inner { 
 
     ul.navigation {
-
       padding-top: 20px;
       padding-bottom: 20px;
 
@@ -734,11 +732,15 @@ a:active  { outline: none;}
 }
 
 article { 
-  &.with_sidebar {
-    width: 640px;
-    float: left;
+  &.with_sidebar { width: 640px; float: left;}
+  &.images { padding-top: 40px; padding-bottom: 40px;
+    ul {
+      li {
+        &:hover{ opacity: 0.9; cursor: pointer;}
+      }
+    }
   }
-  
+
   header {
     margin-bottom: 30px;
     position: relative;
