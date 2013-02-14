@@ -514,25 +514,33 @@ class AddressForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            layout.Row('street_address', 'street_address2'),
-            layout.Row('postal_code', 'city'),
-            'district',
-            layout.HTML("""{% load i18n %}
-                <div id="dyn_set_map">
-                    <div id="gmap_wrapper">
-                        <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+            layout.Row(
+                layout.Div(
+                    'street_address', 
+                    'street_address2',
+                    'postal_code', 
+                    'city',
+                    'district',
+                    ),
+                layout.HTML("""{% load i18n %}
+                    <div id="dyn_set_map">
+                        <label>{% trans "Location" %}</label>
+                        <div id="gmap_wrapper">
+                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                        </div>
+                        <div class="form-actions">
+                            <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
+                            <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
+                        </div>
                     </div>
-                    <div class="form-actions">
-                        <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
-                        <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
-                    </div>
-                </div>
-            """),
-            'latitude', 'longitude',
+                """),
+                'latitude', 
+                'longitude',
+                ),
             css_class="fieldset-location",
             ))
         layout_blocks.append(layout.Fieldset(
-            _("Postal address (if differs from museum's address)"),
+            _("Mailing address"),
             layout.Row('post_street_address', 'post_street_address2'),
             layout.Row('post_postal_code', 'post_city'),
             css_class="fieldset-postal-address",

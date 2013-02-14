@@ -29,7 +29,7 @@ class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
         required=False,
         label=u"Name",
-        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
         display_attr="title",
@@ -45,7 +45,7 @@ class BasicInfoForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
         required=False,
         label=u"Name",
-        help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
         display_attr="title",
@@ -140,27 +140,32 @@ class BasicInfoForm(ModelForm):
             css_class="fieldset-when",
             ))
         layout_blocks.append(layout.Fieldset(
-            _("Where?"),
-            "museum",
-            "location_name",
-            "street_address",
-            "street_address2",
-            "postal_code",
-            "district",
-            "city",
-            layout.HTML("""{% load i18n %}
-                <div id="dyn_set_map">
-                    <div id="gmap_wrapper">
-                        <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+            _("Location"),
+            layout.Row(
+                layout.Div(
+                "museum",
+                "location_name",
+                "street_address",
+                "street_address2",
+                "postal_code",
+                "district",
+                "city",
+                ),
+                layout.HTML("""{% load i18n %}
+                    <div id="dyn_set_map">
+                        <label>{% trans "Location" %}</label>
+                        <div id="gmap_wrapper">
+                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                        </div>
+                        <div class="form-actions">
+                            <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
+                            <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
+                        </div>
                     </div>
-                    <div class="form-actions">
-                        <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
-                        <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
-                    </div>
-                </div>
-            """),
-            "latitude",
-            "longitude",
+                """),
+                "latitude",
+                "longitude",
+                ),
             css_class="fieldset-where",
             ))
         layout_blocks.append(layout.Fieldset(

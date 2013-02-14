@@ -6,6 +6,7 @@
 @import 'tooltip';
 @import 'maps';
 @import 'gallery';
+@import 'picker';
 
 html{color:#000;background:#FFF;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
@@ -194,7 +195,7 @@ a:active  { outline: none;}
   }
 
   .inner { 
-    height: 110px; 
+    height: 90px; 
 
     ul.meta {
       // display: table;
@@ -779,16 +780,16 @@ article {
     zoom: 1;
 
     &:first-child { margin-top: 30px;
-      p {
-        font-size: 30px;
-        line-height: 44px;
-        padding-bottom: 0px !important;
+      // p {
+      //   font-size: 30px;
+      //   line-height: 44px;
+      //   padding-bottom: 0px !important;
 
-        &.img_block,
-        &.img_left {
-          display: none;
-        }
-      }
+      //   &.img_block,
+      //   &.img_left {
+      //     display: none;
+      //   }
+      // }
     }
     
     h2{

@@ -112,10 +112,7 @@
                                 categories: "initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                                 content:
                                 '{% if museum.image %}<span class="img" style="background-image: url({{ UPLOADS_URL }}{{ museum.image.path }})"></span>{% endif %}'
-                                + '<h3>{{ museum.title }}</h3>'
-                                + '{% if museum.subtitle %}<h4>{{ museum.subtitle }}</h4>{% endif %}'
-                                + '<h5>{{ museum.street_address }} {{ museum.street_address2 }}</h5>'
-                                + '<a class="btn btn-primary small" href="{{ museum.get_url_path }}">{% trans "more" %}</a>'
+                                + '<a href="{{ museum.get_url_path }}">{{ museum.title }} <span>{% trans "more" %}…</span></a>'
                             }
                         }());
                         //]]>

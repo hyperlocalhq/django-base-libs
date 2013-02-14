@@ -67,50 +67,65 @@ button {
   color: black;
   padding: 18px;
   background-color: rgba(0, 0, 0, 0.05);
+  background-image: none;
+  text-shadow: none !important;
   background-color: black;
-  color: white; }
+  color: white;
+  font-family: inherit !important; }
   .btn:hover,
   input[type=submit]:hover,
   input[type=reset]:hover,
   button:hover {
     background-color: black;
     color: white !important; }
+  .btn.right,
+  input[type=submit].right,
+  input[type=reset].right,
+  button.right {
+    float: right;
+    margin: 0px !important; }
   .btn.btn-primary,
   input[type=submit].btn-primary,
   input[type=reset].btn-primary,
   button.btn-primary {
-    background-color: #00aefd;
-    color: white; }
+    background-color: #00aefd !important;
+    color: white !important; }
   .btn.btn-warning,
   input[type=submit].btn-warning,
   input[type=reset].btn-warning,
   button.btn-warning {
-    background-color: #ff4582;
-    color: white; }
+    background-color: #ff4582 !important;
+    color: white !important; }
   .btn.btn-danger,
   input[type=submit].btn-danger,
   input[type=reset].btn-danger,
   button.btn-danger {
-    background-color: #ff4582;
-    color: white; }
+    background-color: #ff4582 !important;
+    color: white !important; }
   .btn.btn-success,
   input[type=submit].btn-success,
   input[type=reset].btn-success,
   button.btn-success {
-    background-color: #1edc80;
-    color: white; }
+    background-color: #1edc80 !important;
+    color: white !important; }
   .btn.btn-info,
   input[type=submit].btn-info,
   input[type=reset].btn-info,
   button.btn-info {
-    background-color: #ff4582;
-    color: white; }
+    background-color: #ff4582 !important;
+    color: white !important; }
   .btn.btn-inverse,
   input[type=submit].btn-inverse,
   input[type=reset].btn-inverse,
   button.btn-inverse {
-    background-color: black;
-    color: white; }
+    background-color: white !important;
+    color: black !important; }
+  .btn:active,
+  input[type=submit]:active,
+  input[type=reset]:active,
+  button:active {
+    background-color: white !important;
+    color: black !important; }
 
 input[type=range] {
   -webkit-appearance: none;
@@ -498,24 +513,41 @@ legend + .control-group,
 .tooltip.left {
   margin-left: -5px; }
 
-.map_visible #gmap_wrapper {
+.map_visible #wrapper > #gmap_wrapper {
   height: 350px; }
 .map_visible.map_fullscreen {
   overflow: hidden; }
-  .map_visible.map_fullscreen #gmap_wrapper {
+  .map_visible.map_fullscreen #wrapper #gmap_wrapper {
     height: 100%;
     margin-top: -160px; }
-  .map_visible.map_fullscreen #categories {
+  .map_visible.map_fullscreen #wrapper #categories {
     -webkit-transform: translate(0px, -250px);
     /* Safari and Chrome */ }
-    .map_visible.map_fullscreen #categories li a {
+    .map_visible.map_fullscreen #wrapper #categories li a {
       background-color: white;
       box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05); }
-    .map_visible.map_fullscreen #categories li .selected, .map_visible.map_fullscreen #categories li.active a, .map_visible.map_fullscreen #categories li:hover a {
+    .map_visible.map_fullscreen #wrapper #categories li .selected, .map_visible.map_fullscreen #wrapper #categories li.active a, .map_visible.map_fullscreen #wrapper #categories li:hover a {
       background-color: #00aefd;
       color: white; }
 
-#gmap_wrapper {
+#dyn_set_map {
+  border-right: 0px solid white;
+  position: relative; }
+  #dyn_set_map .form-actions {
+    position: absolute;
+    z-index: 10000;
+    bottom: 0px;
+    width: 100%;
+    padding: 14px; }
+  #dyn_set_map #gmap_wrapper {
+    height: 380px;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.05); }
+    #dyn_set_map #gmap_wrapper #gmap {
+      height: 380px; }
+
+#wrapper > #gmap_wrapper {
   height: 0px;
   overflow: hidden;
   position: relative;
@@ -523,91 +555,24 @@ legend + .control-group,
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out; }
-
-#gmap {
-  width: auto;
-  height: 100%;
-  min-height: 350px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: absolute; }
-
-#gmap * {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; }
-
-.location .wrapper {
-  text-align: center;
-  height: 0; }
-.location .inner {
-  text-align: left;
-  display: inline-block;
-  background-color: white;
-  box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1) !important;
-  padding: 20px;
-  font-size: 15px;
-  height: 130px;
-  top: -125px !important;
-  line-height: 19px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  position: relative; }
-  .location .inner h3, .location .inner h4, .location .inner h5 {
-    white-space: nowrap; }
-  .location .inner h3 {
-    font-weight: 500; }
-  .location .inner h4 {
-    font-weight: 400; }
-  .location .inner h5 {
-    font-weight: 400;
-    opacity: 0.5; }
-  .location .inner .img {
-    top: 0;
-    left: 0;
+  #wrapper > #gmap_wrapper #gmap {
+    width: auto;
     height: 100%;
-    width: 200px;
-    display: block;
-    position: absolute;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: none; }
-  .location .inner .btn {
-    top: 8px;
-    position: relative;
-    font-size: inherit;
-    line-height: inherit;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px; }
-  .location .inner:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
+    width: 100%;
+    min-height: 350px;
+    top: 0;
     bottom: 0;
-    left: 50%;
-    display: block;
-    margin-left: -5px;
-    margin-bottom: -10px;
-    border-top-color: white;
-    border-width: 10px 10px 0; }
-.location .close {
-  top: 0px;
-  right: 0px;
-  position: absolute;
-  width: 32px;
-  height: auto; }
-
-#gmap_locations {
+    left: 0;
+    right: 0;
+    position: absolute; }
+    #wrapper > #gmap_wrapper #gmap * {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none; }
+#wrapper #gmap_locations {
   position: absolute;
   top: 6px;
   background-color: rgba(255, 254, 255, 0.88);
@@ -619,14 +584,76 @@ legend + .control-group,
   overflow-y: scroll;
   left: 6px;
   z-index: 100; }
-  #gmap_locations li a {
+  #wrapper #gmap_locations li a {
     border-bottom: 1px solid #ececec;
     padding-bottom: 5px;
     padding-top: 5px;
     padding-left: 10px;
     margin-left: -5px; }
-    #gmap_locations li a:hover {
+    #wrapper #gmap_locations li a:hover {
       background-color: white; }
+#wrapper .location .wrapper {
+  text-align: center;
+  height: 0; }
+  #wrapper .location .wrapper .close {
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    width: 32px;
+    height: auto;
+    display: none; }
+  #wrapper .location .wrapper .inner {
+    text-align: left;
+    display: table;
+    background-color: black;
+    color: white;
+    box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.5) !important;
+    padding: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    height: 90px;
+    width: 180px;
+    bottom: 63px !important;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    position: relative;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500; }
+    #wrapper .location .wrapper .inner > span {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center; }
+      #wrapper .location .wrapper .inner > span a {
+        color: inherit;
+        text-align: center;
+        display: inline-block;
+        word-break: keep-all; }
+        #wrapper .location .wrapper .inner > span a span {
+          opacity: 0.5;
+          font-size: 10px;
+          display: none; }
+    #wrapper .location .wrapper .inner:hover {
+      background-color: white;
+      box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1) !important; }
+      #wrapper .location .wrapper .inner:hover a {
+        color: black; }
+      #wrapper .location .wrapper .inner:hover:after {
+        border-top-color: white; }
+    #wrapper .location .wrapper .inner:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+      bottom: 0;
+      left: 50%;
+      display: block;
+      margin-left: -3px;
+      margin-bottom: -8px;
+      border-top-color: black;
+      border-width: 8px 8px 0; }
 
 .gallery {
   overflow: hidden !important; }
@@ -746,6 +773,110 @@ legend + .control-group,
       #gallery .pagination li.activeSlide a, #gallery .pagination li:hover a {
         background-color: black;
         color: white; }
+
+#popup {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.75);
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 40000;
+  display: table;
+  display: none;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0.25s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out; }
+  #popup .inner {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center; }
+
+#picker {
+  color: white;
+  font-size: 23px;
+  line-height: 40px;
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  cursor: default;
+  display: inline-block; }
+  #picker * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  #picker header {
+    padding: 30px;
+    padding-top: 40px;
+    text-align: center;
+    background-color: black; }
+    #picker header time {
+      font-size: 80px;
+      line-height: 40px;
+      font-weight: 400;
+      height: 40px; }
+  #picker .body {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    background-color: black;
+    display: table; }
+    #picker .body li {
+      display: table-cell; }
+    #picker .body .options {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 30px;
+      padding-right: 30px;
+      margin-left: -30px;
+      margin-right: -30px; }
+    #picker .body table {
+      font-size: 23px;
+      line-height: 40px;
+      text-align: center;
+      table-layout: fixed;
+      float: left; }
+      #picker .body table.hours {
+        width: 250px;
+        margin-right: 30px; }
+      #picker .body table.minutes {
+        width: 125px; }
+      #picker .body table tr th {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-indent: 5px; }
+      #picker .body table tr td span {
+        display: block;
+        cursor: pointer;
+        padding-bottom: 5px; }
+        #picker .body table tr td span:active {
+          background-color: rgba(255, 255, 255, 0.05);
+          font-weight: 500;
+          background-color: white !important;
+          color: black !important; }
+        #picker .body table tr td span.active {
+          background-color: rgba(255, 255, 255, 0.1);
+          font-weight: 500; }
+  #picker footer {
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.9);
+    background-color: transparent;
+    padding-left: 0px !important;
+    padding-right: 0px; }
+    #picker footer button {
+      height: 80px; }
+      #picker footer button.done {
+        float: left;
+        width: 310px;
+        font-size: 28px; }
+      #picker footer button.cancel {
+        width: 125px; }
 
 html {
   color: #000;
@@ -945,7 +1076,7 @@ a:active {
       margin-left: 15px;
       border-left: 2px solid rgba(0, 0, 0, 0.05); }
   #header .inner {
-    height: 110px; }
+    height: 90px; }
     #header .inner ul.meta {
       position: absolute;
       top: 20px;
@@ -1366,12 +1497,6 @@ article div {
   zoom: 1; }
   article div:first-child {
     margin-top: 30px; }
-    article div:first-child p {
-      font-size: 30px;
-      line-height: 44px;
-      padding-bottom: 0px !important; }
-      article div:first-child p.img_block, article div:first-child p.img_left {
-        display: none; }
   article div h2 {
     top: 5px;
     position: relative; }

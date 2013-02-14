@@ -1,114 +1,175 @@
 .map_visible{
 
-  #gmap_wrapper {
-   height: 350px; 
+  #wrapper {
+    > #gmap_wrapper {
+     height: 350px; 
+    }
   }
+
+  
+
   &.map_fullscreen{
     overflow: hidden;
+    #wrapper {
+      #gmap_wrapper {
+        height: 100%;
+        margin-top: -160px;
+      }
 
-    #gmap_wrapper {
-     height: 100%;
-     margin-top: -160px;
-    }
+      #categories {
+        -webkit-transform: translate(0px,-250px); /* Safari and Chrome */
 
-    #categories {
-      -webkit-transform: translate(0px,-250px); /* Safari and Chrome */
-
-      li {
-        a { 
-          background-color: white;
-          box-shadow: 0 0 0 2px rgba(0,0,0,0.05)
-        }
-        .selected,
-        &.active a,
-        &:hover a { 
-          background-color: $blue;
-          color: white;
+        li {
+          a { 
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.05)
+          }
+          .selected,
+          &.active a,
+          &:hover a { 
+            background-color: $blue;
+            color: white;
+          }
         }
       }
     }
   }
 }
-
-
-
-#gmap_wrapper  {
-  height: 0px;
-  overflow: hidden;
+#dyn_set_map {
+  border-right: 0px solid white;
   position: relative;
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.5s;
-  -webkit-transition-delay: 0s;
-  -webkit-transition-timing: ease-in-out;
+  .form-actions {
+    position: absolute;
+    z-index: 10000;
+    bottom: 0px;
+    width: 100%;
+    padding: 14px;
+  }
+  #gmap_wrapper  {
+    height: 380px;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0,0,0,0.05);
+    #gmap  {
+      height: 380px;
+    }
+  }
 }
 
-#gmap  {
-  width: auto; 
-  height: 100%;
-  min-height: 350px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: absolute;
-}
+#wrapper {
 
-#gmap * {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+  > #gmap_wrapper  {
+    height: 0px;
+    overflow: hidden;
+    position: relative;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-delay: 0s;
+    -webkit-transition-timing: ease-in-out;
 
-.location {
+    #gmap  {
+      width: auto; 
+      height: 100%;
+      width: 100%;
+      min-height: 350px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+      * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    }
+  }
+
+  #gmap_locations {
+    position: absolute;
+    top: 6px;
+    background-color: rgba(255,254,255,0.88);
+    padding: 10px;
+    height: 278px;
+    font-size: 11px;
+    width: 418px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    left: 6px;
+    z-index: 100;
+
+    li a {
+      border-bottom: 1px solid #ececec;
+      padding-bottom: 5px;
+      padding-top: 5px;
+      padding-left: 10px;
+      margin-left: -5px;
+      &:hover {
+          background-color: white; 
+      }
+    }
+  }
+
+  .location {
     .wrapper { 
       text-align: center;
       height: 0;
-    }
 
-    .inner { 
+      .close { 
+        top: 0px;
+        right: 0px;
+        position: absolute;
+        width: 32px;
+        height: auto;
+        display: none;
+      }
+
+      .inner { 
         text-align: left;
-        display: inline-block;
-        background-color: rgba(255,255,255,1);
-        box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.1) !important;
+        display: table;
+        background-color: black;
+        color: white;
+        box-shadow: 0px 0px 2px 2px rgba(255,255,255,0.5) !important;
         padding: 20px;
-        font-size: 15px;
-        height: 130px;
-        top: -125px !important;
-        line-height: 19px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        height: 90px;
+        width: 180px;
+        bottom: 63px !important;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         position: relative;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
 
-        h3,h4,h5   { white-space: nowrap;}
-        h3   { font-weight: 500;}
-        h4   { font-weight: 400;}
-        h5   { font-weight: 400; opacity: 0.5}
-     
-        .img { 
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: 200px;
-          display: block;
-          position: absolute;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
-          display: none;
+        > span { 
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center;
+          a { 
+            color: inherit;
+            text-align: center;
+            display: inline-block;
+            word-break: keep-all;
+
+
+            span { opacity: 0.5; font-size: 10px; display: none;}
+          }
+        }
+
+        &:hover {
+          background-color: white;
+          box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.1) !important;
+          a { color: black;}
+
+          &:after { border-top-color: white; }
         }
       
-        .btn { 
-            top: 8px;
-            position: relative;
-            font-size: inherit;
-            line-height: inherit;
-            padding: 5px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
+        
         &:after {
           content: "";
           position: absolute;
@@ -119,42 +180,13 @@
           bottom: 0;
           left: 50%;
           display: block;
-          margin-left: -5px;
-          margin-bottom: -10px;
-          border-top-color: white;
-          border-width: 10px 10px 0;
+          margin-left: -3px;
+          margin-bottom: -8px;
+          border-top-color: black;
+          border-width: 8px 8px 0;
         }
+      }
     }
 
-    .close { 
-        top: 0px;
-        right: 0px;
-        position: absolute;
-        width: 32px;
-        height: auto;
-    }
-}
-
-#gmap_locations {
-	position: absolute;
-	top: 6px;
-	background-color: rgba(255,254,255,0.88);
-	padding: 10px;
-	height: 278px;
-	font-size: 11px;
-	width: 418px;
-	overflow-x: hidden;
-	overflow-y: scroll;
-	left: 6px;
-	z-index: 100;
-    li a {
-        border-bottom: 1px solid #ececec;
-        padding-bottom: 5px;
-        padding-top: 5px;
-        padding-left: 10px;
-        margin-left: -5px;
-        &:hover {
-            background-color: white; 
-        }
-    }
+  }
 }

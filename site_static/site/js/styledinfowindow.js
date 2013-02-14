@@ -72,7 +72,7 @@ StyledInfoWindow.prototype.draw = function() {
     var paddingLeft = 0;
     var widthLess = 0;
     
-    this.width_ = 600;
+    this.width_ = 200;
     this.height_ = 0;
     this.offsetX_ = -(this.width_ / 2 + 5);
     this.offsetY_ = -(this.height_ + 40);
@@ -126,8 +126,10 @@ StyledInfoWindow.prototype.createElement = function() {
             '<div class="info_window location">' +
                 '<div class="wrapper">' +
                     '<div class="inner">' +
-                        '<img class="close" alt="" src="' + window.settings.STATIC_URL + 'site/img/gmap/closebigger.gif" />' +
-                        this.content_ +
+                        '<span>' +
+                            '<img class="close" alt="" src="' + window.settings.STATIC_URL + 'site/img/gmap/closebigger.gif" />' +
+                            this.content_ +
+                        '</span>' + 
                     '</div>' + 
                 '</div>' +
             '</div>'
