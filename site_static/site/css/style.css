@@ -628,42 +628,43 @@ legend + .control-group,
     #gmap_locations li a:hover {
       background-color: white; }
 
-.museum-detail #slides {
-  height: 100%; }
+.gallery {
+  overflow: hidden !important; }
 
-#slides {
+.gallery #gallery {
+  -webkit-transition-duration: 0s, 0.25s;
+  -webkit-transition-delay: 0s, 0s;
+  top: 0%;
+  opacity: 1; }
+
+#gallery {
   position: fixed;
-  top: 0px;
+  top: -100%;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  height: 0%;
+  height: 100%;
   width: 100%;
   background-color: white;
   z-index: 40000;
   overflow: hidden;
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.75s;
-  -webkit-transition-timing: ease-in-out;
-  -moz-transition-property: all;
-  -moz-transition-duration: 0.75s;
-  -moz-transition-timing: ease-in-out;
-  -o-transition-property: all;
-  -o-transition-duration: 0.75s;
-  -o-transition-timing: ease-in-out; }
-  #slides:hover {
-    height: 100%; }
-  #slides .slides_container {
+  opacity: 0;
+  -webkit-transition-property: top, opacity;
+  -webkit-transition-duration: 0s, 0.25s;
+  -webkit-transition-delay: 0.25s, 0s;
+  -webkit-transition-timing: ease-in-out; }
+  #gallery #slider {
     position: absolute;
     height: 100%;
     width: 100%;
     display: block; }
-    #slides .slides_container div {
-      position: absolute;
+    #gallery #slider > div {
       height: 100%;
       width: 100%;
-      display: block; }
-      #slides .slides_container div span {
+      display: table;
+      position: absolute;
+      table-layout: top; }
+      #gallery #slider > div > div {
         position: absolute;
         top: 0px;
         bottom: 0px;
@@ -671,33 +672,54 @@ legend + .control-group,
         right: 0px;
         height: 100%;
         width: 100%;
-        display: block;
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat; }
-  #slides nav {
+        vertical-align: middle;
+        position: relative;
+        display: block; }
+        #gallery #slider > div > div > div {
+          position: absolute;
+          top: 4%;
+          bottom: 6%;
+          left: 5%;
+          right: 5%;
+          height: 90%;
+          width: 90%;
+          display: block;
+          background-size: contain;
+          background-size: auto;
+          background-position: center;
+          background-repeat: no-repeat; }
+  #gallery nav {
     position: absolute;
     bottom: 0px;
     z-index: 10000;
     text-align: center;
     width: 100%;
     white-space: nowrap;
-    font-size: 0px; }
-    #slides nav button {
-      width: 70px;
-      height: 70px;
+    font-size: 0px;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.25s;
+    -webkit-transition-timing: ease-in-out;
+    border-bottom: 0px solid black; }
+    #gallery nav button {
+      width: 60px;
+      height: 60px;
       display: inline-block;
       background-color: black;
       background-position: center;
       background-repeat: no-repeat;
       background-size: 33px; }
-      #slides nav button:hover {
+      #gallery nav button:hover {
         opacity: 0.8; }
-      #slides nav button.prev {
+      #gallery nav button.prev {
         background-image: url("../img/icons/left.svg"); }
-      #slides nav button.next {
+      #gallery nav button.next {
         background-image: url("../img/icons/right.svg"); }
-  #slides .pagination {
+      #gallery nav button.info {
+        background-image: url("../img/icons/info.svg");
+        display: none; }
+      #gallery nav button.cancel {
+        background-image: url("../img/icons/cancel.svg"); }
+  #gallery .pagination {
     width: 100%;
     text-align: center;
     margin-bottom: 32px;
@@ -705,9 +727,9 @@ legend + .control-group,
     position: absolute;
     top: 0px;
     z-index: 10000; }
-    #slides .pagination li {
+    #gallery .pagination li {
       display: inline-block; }
-      #slides .pagination li a {
+      #gallery .pagination li a {
         display: inline-block;
         background-color: rgba(0, 0, 0, 0.1);
         color: black;
@@ -721,7 +743,7 @@ legend + .control-group,
         border-radius: 10px;
         margin-left: 2px;
         margin-right: 2px; }
-      #slides .pagination li.activeSlide a, #slides .pagination li:hover a {
+      #gallery .pagination li.activeSlide a, #gallery .pagination li:hover a {
         background-color: black;
         color: white; }
 
@@ -900,33 +922,29 @@ a:active {
       height: 52px;
       width: 52px;
       background-image: url("../img/logo_img.svg");
-      background-color: #00aefd;
-      background-color: black;
       background-size: cover;
       float: left;
       margin-right: 15px;
-      margin-top: -5px; }
+      margin-top: -6px; }
     #header .logo .word {
-      font-size: 24px;
-      line-height: 20px;
+      font-size: 20px;
+      line-height: 18px;
       display: block;
       float: left;
       letter-spacing: -2px;
       text-transform: uppercase;
-      font-weight: 600;
-      color: black;
-      display: none; }
+      font-weight: 500;
+      color: black; }
     #header .logo .claim {
-      font-size: 16px;
-      line-height: 20px;
+      font-size: 13px;
+      line-height: 16px;
       display: block;
       float: left;
       font-weight: 400;
       color: rgba(0, 0, 0, 0.5);
       padding-left: 15px;
       margin-left: 15px;
-      border-left: 2px solid rgba(0, 0, 0, 0.05);
-      display: none; }
+      border-left: 2px solid rgba(0, 0, 0, 0.05); }
   #header .inner {
     height: 110px; }
     #header .inner ul.meta {
@@ -970,8 +988,6 @@ a:active {
   -webkit-transition-timing: ease-in-out;
   height: 50px;
   background-color: white; }
-  #navigation:hover {
-    height: 300px; }
   #navigation > ul {
     width: 1000px;
     margin: auto;
@@ -981,17 +997,14 @@ a:active {
     #navigation > ul > li {
       display: block;
       float: left;
-      font-size: 20px;
+      font-size: 21px;
       line-height: 46px;
       height: 50px;
       padding: 0px; }
       #navigation > ul > li > a {
         padding-right: 13px;
-        margin-right: 13px;
+        margin-right: 12px;
         border-right: 1px solid rgba(0, 0, 0, 0.1); }
-      #navigation > ul > li:hover > div {
-        height: 250px;
-        opacity: 1; }
       #navigation > ul > li > div {
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         position: absolute;
@@ -1012,7 +1025,7 @@ a:active {
           margin: auto; }
       #navigation > ul > li:first-child {
         display: none; }
-      #navigation > ul > li:last-child {
+      #navigation > ul > li:last-child > a {
         padding-right: 0px;
         margin-right: 0px;
         border-right: none; }
@@ -1249,8 +1262,9 @@ a:active {
     float: right;
     margin-left: 5px;
     background-color: white;
-    width: 20px !important;
-    height: 20px !important;
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0px !important;
     display: block;
     background-size: cover;
     background-position: center;

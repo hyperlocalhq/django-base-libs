@@ -1,42 +1,38 @@
-.museum-detail {
-    #slides {
-        height: 100%;
-    }
+
+.gallery { overflow: hidden !important;}
+
+.gallery #gallery { 
+    -webkit-transition-duration: 0s, 0.25s;
+    -webkit-transition-delay: 0s, 0s;
+    top: 0%;
+    opacity: 1;
 }
 
-#slides {
+#gallery {
     position: fixed;
-    top: 0px;
+    top: -100%;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    height: 0%;
+    height: 100%;
     width: 100%;
     background-color: white;
     z-index: 40000;
     overflow: hidden;
+    opacity: 0;
 
-
-    -webkit-transition-property: all;
-    -webkit-transition-duration: 0.75s;
+    -webkit-transition-property: top, opacity;
+    -webkit-transition-duration: 0s, 0.25s;
+    -webkit-transition-delay: 0.25s, 0s;
     -webkit-transition-timing: ease-in-out;
 
-    -moz-transition-property: all;
-    -moz-transition-duration: 0.75s;
-    -moz-transition-timing: ease-in-out;
-
-    -o-transition-property: all;
-    -o-transition-duration: 0.75s;
-    -o-transition-timing:ease-in-out;
-
-    &:hover { height: 100%;}
-    
-    .slides_container {
+    #slider {
         position: absolute;
         height: 100%;
         width: 100%;
         display: block;
-        div {
+
+        > div {
             // -webkit-transition-property: all;
             // -webkit-transition-duration: 0.75s;
             // -webkit-transition-timing: ease-in-out;
@@ -53,11 +49,13 @@
             // transition-duration: 0.75s;
             // transition-timing: ease-in-out;
            
-            position: absolute;
             height: 100%;
             width: 100%;
-            display: block;
-            span {
+            display: table;
+            position: absolute;
+            table-layout: top;
+
+            > div {
                 position: absolute;
                 top: 0px;
                 bottom: 0px;
@@ -65,36 +63,55 @@
                 right: 0px;
                 height: 100%;
                 width: 100%;
-
+                vertical-align: middle;
+                position: relative;
                 display: block;
-                background-size: contain;
-                background-position: center;
-                background-repeat: no-repeat;
+
+                > div {
+                    position: absolute;
+                    top: 4%;
+                    bottom: 6%;
+                    left: 5%;
+                    right: 5%;
+                    height: 90%;
+                    width: 90%;
+                    display: block;
+                    background-size: contain;
+                    background-size: auto;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
             }
         }
     }
 
     nav {
-      position: absolute;
-      bottom: 0px;
-      z-index: 10000;
-      text-align: center;
-      width: 100%;
-      white-space: nowrap;
-      font-size: 0px;
+        position: absolute;
+        bottom: 0px;
+        z-index: 10000;
+        text-align: center;
+        width: 100%;
+        white-space: nowrap;
+        font-size: 0px;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.25s;
+        -webkit-transition-timing: ease-in-out;
+        border-bottom: 0px solid black;
 
-      button {
-        width: 70px;
-        height: 70px;
-        display: inline-block;
-        background-color: black;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 33px;
-        &:hover { opacity: 0.8;}
-        &.prev { background-image: url("../img/icons/left.svg"); }
-        &.next { background-image: url("../img/icons/right.svg");}
-      }
+        button {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            background-color: black;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 33px;
+            &:hover  { opacity: 0.8;}
+            &.prev   { background-image: url("../img/icons/left.svg"); }
+            &.next   { background-image: url("../img/icons/right.svg");}
+            &.info   { background-image: url("../img/icons/info.svg"); display: none;}
+            &.cancel { background-image: url("../img/icons/cancel.svg");}
+        }
     }
 
     .pagination { 

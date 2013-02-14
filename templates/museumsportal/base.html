@@ -11,26 +11,25 @@
     {% endblock %}	
 	
     {% block stylesheet %}
-        <link href="{{ STATIC_URL }}site/css/bootstrap.css" rel="stylesheet" media="screen" type="text/css" />
-        <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen" type="text/css" />
-        <link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/bootstrap.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen" type="text/css" />
     {% endblock %}
 	
     {% render_block "css" %}
 
-    <script src="/jssettings/"></script>
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery.cycle.all.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
-    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
-    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
-	<script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
-    <script src="{{ STATIC_URL }}site/js/slides.jquery.js"></script>
+    <script type="text/javascript" src="/jssettings/"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.easing.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.cycle.all.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
     <script type="text/javascript">
     
     $(function() {
@@ -177,9 +176,8 @@
 
                 <a class="logo" href="/">
                     <span class="img">&nbsp;</span>
-                    <span class="word">Berliner<br/>Museumsportal</span>
-                    <span class="claim">Alle Informationen zu Berlins<br/>
-                    Museen, Schlössern und Gedenkstätten.</span>
+                    <span class="word">Museumsportal<br/>Berlin</span>
+                    <span class="claim">Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
                 </a>
 
                 <ul class="meta">
@@ -197,37 +195,6 @@
                 {% show_menu_below_id "start_page" 0 100 100 100 %}
             </ul>
         </nav>
-
-        <!-- image fullscreen
-        ================================================== -->
-
-
-        <div id="slides">
-            <div class="slides_container">
-                <div>
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                </div>
-                <div>
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                </div>
-                <div>
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                </div>
-                <div>
-                    <span class="img" style="background-image: url(http://127.0.0.1:8000/media/blickfang/_cache/blickfang.jpg_exhibition_list.jpg)"></span>
-                </div>
-            </div>
-            
-            <ul class="pagination"></ul>
-            
-            <nav>
-                <button class="prev"></button>
-                <button class="info"></button>
-                <button class="cancel"></button>
-                <button class="next"></button>
-            </nav>
-
-        </div>
 
 
 

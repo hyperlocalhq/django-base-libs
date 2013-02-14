@@ -165,28 +165,25 @@ a:active  { outline: none;}
       height: 52px;
       width: 52px;
       background-image: url("../img/logo_img.svg");
-      background-color: $blue;
-      background-color: black;
       background-size: cover;
       float: left;
       margin-right: 15px;
-      margin-top: -5px;
+      margin-top: -6px;
 
     }
     .word {
-      font-size: 24px;
-      line-height: 20px;
+      font-size: 20px;
+      line-height: 18px;
       display: block;
       float: left;
       letter-spacing: -2px;
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: 500;
       color: black;
-      display: none;
     }
     .claim {
-      font-size: 16px;
-      line-height: 20px;
+      font-size: 13px;
+      line-height: 16px;
       display: block;
       float: left;
       font-weight: 400;
@@ -194,7 +191,6 @@ a:active  { outline: none;}
       padding-left: 15px;
       margin-left: 15px;
       border-left: 2px solid rgba(0,0,0,0.05);
-      display: none;
     }
   }
 
@@ -257,7 +253,7 @@ a:active  { outline: none;}
   height: 50px;
   background-color: white;
 
-  &:hover {  height: 300px; }
+  // &:hover {  height: 300px; }
 
   > ul {
     width: 1000px;
@@ -265,25 +261,26 @@ a:active  { outline: none;}
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
     height: 50px;
+
     > li {
       display: block;
       float: left;
-      font-size: 20px;
+      font-size: 21px;
       line-height: 46px;
       height: 50px;
       padding: 0px;
 
       > a {
         padding-right: 13px;
-        margin-right: 13px;
+        margin-right: 12px;
         border-right: 1px solid rgba(0,0,0,0.1);
       }
       
       &:hover { 
-        > div {
-          height: 250px; 
-          opacity: 1;
-        }
+        // > div {
+        //   height: 250px; 
+        //   opacity: 1;
+        // }
       }
 
       > div { 
@@ -314,9 +311,11 @@ a:active  { outline: none;}
       }
 
       &:last-child {
-        padding-right: 0px;
-        margin-right: 0px;
-        border-right: none;
+         > a {
+          padding-right: 0px;
+          margin-right: 0px;
+          border-right: none;
+        }
       }
 
       &.ancestor > a,
@@ -636,13 +635,15 @@ a:active  { outline: none;}
   top: 10px;
 
   &.bottom { top: auto; bottom: 10px; }
+
   a,
   button { 
     float: right;
     margin-left: 5px;
     background-color: white;
-    width: 20px !important;
-    height: 20px !important;
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0px !important;
     display: block;
     background-size: cover;
     background-position: center;

@@ -6,6 +6,8 @@
     <link href="{{ STATIC_URL }}site/shadowbox/shadowbox.css" rel="stylesheet" media="screen" type="text/css" />
     <script type="text/javascript" src="{{ STATIC_URL }}site/shadowbox/shadowbox.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.fillwidth.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/swipe.js"></script>
     
     {% with object as museum %}
         <script type="text/javascript">
@@ -80,6 +82,13 @@
         </script>
     {% endwith %}
 {% endblock %}
+
+
+
+<!-- Artickle
+================================================== -->
+
+
 
 {% block content %}
     {% with object as museum %}
@@ -705,6 +714,16 @@
                 </dl>
             {% endif %}
         </section>
+
+
+
+
+<!-- Article
+================================================== -->
+
+
+
+
            
         <article class="with_sidebar">
             <header>
@@ -731,16 +750,51 @@
                 {% endif %}
             </ul>   
 
-            {% for mf in museum.mediafile_set.all %}
-                <div>
-                    <img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" />
-                </div>
-            {% endfor %}
-            
         </article>
-    {% endwith %}
     </div>
 </div>
+
+
+<div class="content clearfix">
+    <div class="inner">
+        <article>
+            <ul class="fillwidth">
+            {% for mf in museum.mediafile_set.all %}
+                <li><img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" /></li>
+            {% endfor %}
+            </ul>
+        </article>
+    </div>
+</div>
+
+<!-- image gallery
+================================================== -->
+
+
+
+
+<div id="gallery" class="info">
+    <div id="slider" class="swipe">
+      <div>
+        {% for mf in museum.mediafile_set.all %}
+        <div style="display:{% if forloop.first %}block{% else %}none{% endif %}">
+            &nbsp;
+            <div class="img" style="background-image: url({{ MEDIA_URL }}{{ mf.path.path }})"></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <nav>
+        <button class="prev" onclick="slider.prev();return false;"></button>
+        <button class="info"></button>
+        <button class="cancel"></button>
+        <button class="next" onclick="slider.next();return false;"></button>
+    </nav>
+</div>
+
+    {% endwith %}
+
 
 <div class="content clearfix" style="background-color: rgba(0,0,0,0.025)">
     <div class="inner">
@@ -769,44 +823,82 @@
     </div>
 </div>
 
-        <div id="page-controls">
-            {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" class="prev">
-                    <span>
-                        <span class="title">{{ next_item.title }}</span>
-                    </span>
-                </a>
-            {% endif %}
-            {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" class="next">
-                    <span>
-                        <span class="title">{{ next_item.title }}</span>
-                    </span>
-                </a>
-            {% endif %}
-        </div>
 
-        <script>
-        $(document).keydown(function(e){
-            switch(e.which) {
-                case 37: // left
-                    document.location.href="{{ prev_item.get_url_path }}";
-                break;
 
-                case 38: // up
-                    document.location.href="/de/museen/";
-                break;
+<!-- page controls
+================================================== -->
 
-                case 39: // right
-                    document.location.href="{{ next_item.get_url_path }}";
-                break;
 
-                case 40: // down
-                break;
 
-                default: return; // exit this handler for other keys
-            }
-            e.preventDefault();
+
+<div id="page-controls">
+    {% if prev_item %}
+        <a href="{{ prev_item.get_url_path }}" class="prev">
+            <span>
+                <span class="title">{{ next_item.title }}</span>
+            </span>
+        </a>
+    {% endif %}
+    {% if next_item %}
+        <a href="{{ next_item.get_url_path }}" class="next">
+            <span>
+                <span class="title">{{ next_item.title }}</span>
+            </span>
+        </a>
+    {% endif %}
+</div>
+
+
+
+
+
+<script src="{{ STATIC_URL }}site/js/swipe.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+        $('#gallery .cancel').click(function(e){
+            $('body').toggleClass('gallery');
         });
-        </script>
+
+        $('ul.fillwidth li').click(function(e){
+            $('body').toggleClass('gallery');
+        });
+
+        $('#gallery .info').click(function(e){
+            $('#gallery').toggleClass('info');
+        });
+    });
+    
+    
+    var slider = new Swipe(document.getElementById('slider'));
+
+    $(function(){
+      var liWidths = [];
+      $('ul.fillwidth').fillwidth({ liWidths: liWidths });
+    });
+</script>
+
+<script>
+$(document).keydown(function(e){
+    switch(e.which) {
+        case 37: // left
+            document.location.href="{{ prev_item.get_url_path }}";
+        break;
+
+        case 38: // up
+            document.location.href="/de/museen/";
+        break;
+
+        case 39: // right
+            document.location.href="{{ next_item.get_url_path }}";
+        break;
+
+        case 40: // down
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault();
+});
+</script>
 {% endblock %}
