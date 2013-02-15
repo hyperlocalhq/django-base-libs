@@ -19,6 +19,7 @@ from jetson.apps.mailing.views import send_email_using_template
 from forms import EmailOrUsernameAuthentication
 from forms import ClaimingInvitationForm
 from forms import ClaimingConfirmationForm
+from forms import RegistrationForm
 
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.crypt import cryptString, decryptString
@@ -111,8 +112,7 @@ def invite_to_claim_museum(request):
             print cleaned
             invitation_code = cryptString(cleaned['email'] + "|" + str(cleaned['museum'].pk))
             # setting default values
-            sender_name = settings.ADMINS[0][0]
-            sender_email = settings.ADMINS[0][1]
+            sender_name, sender_email = settings.MANAGERS[0]
             send_email_using_template(
                 recipients_list=[Recipient(email=cleaned['email'])],
                 email_template_slug="claiming_invitation",
@@ -196,4 +196,77 @@ def register_and_claim_museum(request, invitation_code):
         }
     return render(request, "site_specific/claiming_confirmation.html", context)
     
+@never_cache
+def register(request):
+    
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            
+            # get or create a user
+            u = User()
+            u.email = cleaned['email']
+            u.username = cleaned['username']
+            u.first_name = cleaned['first_name']
+            u.last_name = cleaned['last_name']
+            u.set_password(cleaned['password'])
+            u.is_active = False
+            u.save()
+            
+            current_site = Site.objects.get_current()
+            encrypted_email = cryptString(u.email)
+    
+            sender_name, sender_email = settings.MANAGERS[0]
+            send_email_using_template(
+                [Recipient(user=u)],
+                "account_verification",
+                obj_placeholders={
+                    'encrypted_email': encrypted_email,
+                    'site_name': current_site.name,
+                    },
+                delete_after_sending=False,
+                sender_name=sender_name,
+                sender_email=sender_email,
+                send_immediately=True,
+                )
+            
+            return redirect('/register/almost-done/')
+    else:
+        form = RegistrationForm()
+    context = {
+        'form': form,
+        }
+    return render(request, "site_specific/claiming_confirmation.html", context)
+    
+def confirm_registration(request, encrypted_email):
+    "Displays the registration form and handles the registration action"
+    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
+    try:
+        email = decryptString(encrypted_email)
+    except:
+        raise Http404
+    user = authenticate(email=email)
+    if not user:
+        return redirect('/register/')
+    user.is_active = True
+    user.save()
+    from django.contrib.auth import login
+    login(request, user)
+
+    current_site = Site.objects.get_current()
+
+    sender_name, sender_email = settings.MANAGERS[0]
+    send_email_using_template(
+        [Recipient(user=user)],
+        "account_created",
+        obj_placeholders={
+            'site_name': current_site.name,
+            },
+        delete_after_sending=True,
+        sender_name=sender_name,
+        sender_email=sender_email,
+        send_immediately=True,
+        )
+    return redirect('/register/welcome/')
 

@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic.simple import direct_to_template
 
 from filebrowser.sites import site
 
@@ -13,7 +14,12 @@ from museumsportal.apps.museums.api.resources import MuseumResource
 from museumsportal.apps.exhibitions.api.resources import ExhibitionCategoryResource
 from museumsportal.apps.exhibitions.api.resources import ExhibitionResource
 
+from jetson.apps.utils.decorators import login_required
 from base_libs.utils.misc import path_in_installed_app
+
+from museumsportal.apps.site_specific.forms import password_change_form_helper
+from museumsportal.apps.site_specific.forms import password_reset_form_helper
+from museumsportal.apps.site_specific.forms import password_reset_change_form_helper
 
 admin.autodiscover()
 
@@ -70,6 +76,16 @@ urlpatterns += patterns('',
     
     url(r'^login/$', 'museumsportal.apps.site_specific.views.login', {'template_name': 'accounts/login.html', 'redirect_to': '/dashboard/'}, name="login"),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}),
+    url(r'^register/$', 'museumsportal.apps.site_specific.views.register' ),
+    url(r'^register/almost-done/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/register_verify_required.html'}),
+    url(r'^register/welcome/$', login_required(direct_to_template), {'template': 'accounts/register_done.html'}),
+    url(r'^register/(?P<encrypted_email>[a-zA-Z0-9\+\/_\-=]+)/$', 'museumsportal.apps.site_specific.views.confirm_registration'),
+    url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', {'template_name': 'accounts/password_reset_form.html', 'email_template_name': 'accounts/password_reset_email.html', 'extra_context': {'form_helper': password_reset_form_helper}}),
+    url(r'^password_reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', {'template_name': 'accounts/password_reset_confirm.html', 'extra_context': {'form_helper': password_reset_change_form_helper}}),
+    url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', {'template_name': 'accounts/password_reset_done.html'}),
+    url(r'^password_reset/complete/$', 'django.contrib.auth.views.password_reset_complete', {'template_name': 'accounts/password_reset_complete.html'}),
+    url(r'^password_change/$', 'django.contrib.auth.views.password_change', {'template_name': 'accounts/password_change_form.html', 'extra_context': {'form_helper': password_change_form_helper}}),
+    url(r'^password_change/done/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'accounts/password_change_done.html'}),
     url(r'^dashboard/$', 'museumsportal.apps.site_specific.views.dashboard', name="dashboard"),
     url(r'^claiming-invitation/$', 'museumsportal.apps.site_specific.views.invite_to_claim_museum', name="invite_to_claim_museum"),
     url(r'^claiming-invitation/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'site_specific/claiming_invitation_done.html'}, name="invite_to_claim_museum_done"),

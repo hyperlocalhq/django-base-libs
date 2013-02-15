@@ -26,6 +26,7 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
             max_length=75,
             )
         del self.fields['username']
+        self.fields['password'].help_text = """<a href="/password_reset/">%s</a>""" % _("Forgot password?")
         
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -125,7 +126,7 @@ class ClaimingConfirmationForm(forms.Form):
             layout.Fieldset(
             _("Claiming Confirmation"),
             layout.HTML("""{% load i18n %}
-                <p>{% blocktrans with museum_link=museum.get_url_path museum_title=museum.title %}Please fill in this form to create and account at Museumsportal and to confirm that you are the owner of <a href="{{ museum_link }}">{{ museum_title }}</a>.{% endblocktrans %}</p>
+                <p>{% blocktrans with museum_link=museum.get_url_path museum_title=museum.title %}Please fill in this form to create and account at Museumsportal Berlin and to confirm that you are the owner of <a href="{{ museum_link }}">{{ museum_title }}</a>.{% endblocktrans %}</p>
             """),
             "username",
             layout.Row("first_name", "last_name"),
@@ -153,4 +154,116 @@ class ClaimingConfirmationForm(forms.Form):
         if password != confirm_password:
             raise forms.ValidationError(_("The two password fields didn't match."))
         return confirm_password
+
+class RegistrationForm(forms.Form):
+    username = forms.RegexField(
+        label=_("Username for login"),
+        max_length=30,
+        regex=r'^[\w.@+-]+$',
+        help_text = _("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
+        error_messages = {'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")}
+        )
+    email = forms.EmailField(label=_("Email"))
+    first_name = forms.CharField(
+        label=_("First name"),
+        )
+    last_name = forms.CharField(
+        label=_("Last name"),
+        )
+    password = forms.CharField(
+        label=_("Password"),
+        widget=forms.PasswordInput,
+        )
+    confirm_password = forms.CharField(
+        label=_("Confirm password"),
+        widget=forms.PasswordInput,
+        help_text = _("Enter the same password for verification.")
+        )
     
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+            _("Registration"),
+            layout.HTML("""{% load i18n %}
+                <p>{% blocktrans %}Please fill in this form to create and account at Museumsportal Berlin.{% endblocktrans %}</p>
+            """),
+            layout.Row("username", "email"),
+            layout.Row("first_name", "last_name"),
+            layout.Row("password", "confirm_password"),
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Confirm')),
+                )
+            )
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username", "")
+        try:
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(_("A user with that username already exists."))
+
+    def clean_confirm_password(self):
+        password = self.cleaned_data.get("password", "")
+        confirm_password = self.cleaned_data["confirm_password"]
+        if password != confirm_password:
+            raise forms.ValidationError(_("The two password fields didn't match."))
+        return confirm_password
+    
+password_change_form_helper = FormHelper()
+password_change_form_helper.form_action = ""
+password_change_form_helper.form_method = "POST"
+password_change_form_helper.layout = layout.Layout(
+    layout.Fieldset(
+    "",
+    layout.HTML("""{% load i18n %}
+        <p>{% trans "Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly." %}</p>
+    """),
+    "old_password",
+    layout.Row("new_password1", "new_password2"),
+    ),
+    bootstrap.FormActions(
+        layout.Submit('submit', _('Confirm')),
+        )
+    )
+
+password_reset_form_helper = FormHelper()
+password_reset_form_helper.form_action = ""
+password_reset_form_helper.form_method = "POST"
+password_reset_form_helper.layout = layout.Layout(
+    layout.Fieldset(
+    "",
+    layout.HTML(u"""{% load i18n %}
+        <p>{% trans "Forgot your password? Enter your email address below, and we’ll send you an email with a link which allows you to set up a new password.." %}</p>
+    """),
+    "email",
+    ),
+    bootstrap.FormActions(
+        layout.Submit('submit', _('Reset my password')),
+        )
+    )
+
+password_reset_change_form_helper = FormHelper()
+password_reset_change_form_helper.form_action = ""
+password_reset_change_form_helper.form_method = "POST"
+password_reset_change_form_helper.layout = layout.Layout(
+    layout.Fieldset(
+    "",
+    layout.HTML("""{% load i18n %}
+        <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
+    """),
+    layout.Row("new_password1", "new_password2"),
+    ),
+    bootstrap.FormActions(
+        layout.Submit('submit', _('Change my password')),
+        )
+    )
+
+
