@@ -72,7 +72,7 @@ StyledInfoWindow.prototype.draw = function() {
     var paddingLeft = 0;
     var widthLess = 0;
     
-    this.width_ = 200;
+    this.width_ = 180;
     this.height_ = 0;
     this.offsetX_ = -(this.width_ / 2 + 5);
     this.offsetY_ = -(this.height_ + 40);
