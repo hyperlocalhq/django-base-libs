@@ -105,12 +105,17 @@
                 default_time: "09:00"
             }
             var settings =  $.extend({}, defaults, options);
- 
+            
+
             return this.each(function() {
                 var $input = $(this);
                 $(this).parent().addClass('input-append');
                 $('<button class="btn" type="button">Select</button>').insertAfter(this).click(function() {
                     $('body').append(template);
+                    $("#popup").delay(100).queue(function () {
+                        $(this).addClass("on");
+                        $(this).dequeue();
+                    });
                     var $picker = $('#picker');
                     var time = ($input.val() || settings.default_time).split(":");
                     var hours = parseInt(time[0], 10);
@@ -132,16 +137,21 @@
                         $('time', $picker).text($sel_hours.text() + ':' + $sel_minutes.text());
                     });
                     $('button.cancel', $picker).click(function() {
-                        $('#popup').remove();
+                        $("#popup").removeClass("on").delay(250).queue(function () {
+                            $(this).remove();
+                            $(this).dequeue();
+                        });
                     });
                     $('button.done', $picker).click(function() {
                         $input.val($sel_hours.text() + ':' + $sel_minutes.text());
-                        $('#popup').remove();
+                        $("#popup").removeClass("on").delay(250).queue(function () {
+                            $(this).remove();
+                            $(this).dequeue();
+                        });
                     });
                     return false;
                 });
             });
         }
     });
-     
 })(jQuery);

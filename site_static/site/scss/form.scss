@@ -50,8 +50,7 @@ input[type=submit],
 input[type=reset], 
 button {
   border-radius: 0;
-  border: none;
-  background: none;
+  border: none !important;
   text-shadow: none;
   font-size: 22px;
   line-height: 18px;
@@ -59,10 +58,13 @@ button {
   padding: 18px;
   background-color: rgba(0,0,0,0.05);
   background-image: none;
+  background-repeat: no-repeat;
+  background-position: center !important;
   text-shadow: none !important;
   background-color: black;
   color: white;
   font-family: inherit !important;
+  box-shadow: none;
   &:hover { 
     background-color: black;
     color: white !important;
@@ -79,6 +81,7 @@ button {
   
   &:active {
     background-color: white !important; color: black !important;
+    box-shadow: none;
   }
 }
 
@@ -275,7 +278,7 @@ form {
         position: absolute;
         bottom: 0px;
         right: 0px;
-        margin-bottom: 20px !important;
+        margin-bottom: 25px !important;
 
         button { 
           height: 40px;
@@ -309,6 +312,7 @@ form {
         border-right: 20px solid white;
         width: 100% !important;
         vertical-align: top;
+        position: relative;
 
         &:last-child { 
           border-right: 0px solid white;
@@ -452,11 +456,29 @@ legend + .control-group,
 }
 
 .icon {
-  background-size: 50%;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   &.icon-delete {
-    background-image: url("../img/icons/icons-04.svg");
+    background-image: url("../img/icons/cancel.svg");
   }
+}
+
+
+.input-append .add-on:last-child,
+.input-append .btn:last-child {
+  position: absolute;
+  right: 0px;
+  padding: 0px;
+  height: 40px;
+  width: 40px;
+  color: transparent;
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 0px;
+  text-indent: 100px;
+  background-image: url("../img/icons/clock.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 10000;
 }

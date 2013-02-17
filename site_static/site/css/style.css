@@ -59,8 +59,7 @@ input[type=submit],
 input[type=reset],
 button {
   border-radius: 0;
-  border: none;
-  background: none;
+  border: none !important;
   text-shadow: none;
   font-size: 22px;
   line-height: 18px;
@@ -68,10 +67,13 @@ button {
   padding: 18px;
   background-color: rgba(0, 0, 0, 0.05);
   background-image: none;
+  background-repeat: no-repeat;
+  background-position: center !important;
   text-shadow: none !important;
   background-color: black;
   color: white;
-  font-family: inherit !important; }
+  font-family: inherit !important;
+  box-shadow: none; }
   .btn:hover,
   input[type=submit]:hover,
   input[type=reset]:hover,
@@ -125,7 +127,8 @@ button {
   input[type=reset]:active,
   button:active {
     background-color: white !important;
-    color: black !important; }
+    color: black !important;
+    box-shadow: none; }
 
 input[type=range] {
   -webkit-appearance: none;
@@ -311,7 +314,7 @@ form {
         position: absolute;
         bottom: 0px;
         right: 0px;
-        margin-bottom: 20px !important; }
+        margin-bottom: 25px !important; }
         form fieldset .formset-form > .control-group button {
           height: 40px;
           width: 40px;
@@ -334,7 +337,8 @@ form {
         display: table-cell;
         border-right: 20px solid white;
         width: 100% !important;
-        vertical-align: top; }
+        vertical-align: top;
+        position: relative; }
         form fieldset .row > div:last-child {
           border-right: 0px solid white; }
   form table {
@@ -429,11 +433,27 @@ legend + .control-group,
   margin-top: 0px; }
 
 .icon {
-  background-size: 50%;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat; }
   .icon.icon-delete {
-    background-image: url("../img/icons/icons-04.svg"); }
+    background-image: url("../img/icons/cancel.svg"); }
+
+.input-append .add-on:last-child,
+.input-append .btn:last-child {
+  position: absolute;
+  right: 0px;
+  padding: 0px;
+  height: 40px;
+  width: 40px;
+  color: transparent;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0px;
+  text-indent: 100px;
+  background-image: url("../img/icons/clock.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 10000; }
 
 .isotope-item {
   z-index: 2; }
@@ -788,11 +808,26 @@ legend + .control-group,
   -webkit-transition-property: opacity;
   -webkit-transition-duration: 0.25s;
   -webkit-transition-delay: 0s;
-  -webkit-transition-timing: ease-in-out; }
+  -webkit-transition-timing: ease-in-out;
+  opacity: 0; }
   #popup .inner {
     display: table-cell;
     vertical-align: middle;
     text-align: center; }
+
+#picker {
+  -webkit-transform: scale(1.3);
+  opacity: 0;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.25s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out; }
+
+#popup.on {
+  opacity: 1; }
+  #popup.on #picker {
+    -webkit-transform: scale(1);
+    opacity: 1; }
 
 #picker {
   color: white;
@@ -1113,10 +1148,12 @@ a:active {
   z-index: 30000;
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.25s;
-  -webkit-transition-delay: 0s;
+  -webkit-transition-delay: 0.125s;
   -webkit-transition-timing: ease-in-out;
   height: 50px;
   background-color: white; }
+  #navigation:hover {
+    height: 300px; }
   #navigation > ul {
     width: 1000px;
     margin: auto;
@@ -1134,6 +1171,9 @@ a:active {
         padding-right: 13px;
         margin-right: 12px;
         border-right: 1px solid rgba(0, 0, 0, 0.1); }
+      #navigation > ul > li:hover > div {
+        height: 250px;
+        opacity: 1; }
       #navigation > ul > li > div {
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         position: absolute;
@@ -1144,7 +1184,7 @@ a:active {
         left: 0px;
         -webkit-transition-property: all;
         -webkit-transition-duration: 0.25s;
-        -webkit-transition-delay: 0s;
+        -webkit-transition-delay: 0.125s;
         -webkit-transition-timing: ease-in-out;
         opacity: 0; }
         #navigation > ul > li > div > ul {
@@ -1519,6 +1559,19 @@ article div {
       margin-bottom: 10px;
       width: 320px !important;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+  article div small {
+    font-size: 80%;
+    line-height: 100% !important;
+    display: inline;
+    color: rgba(0, 0, 0, 0.5); }
+    article div small strong {
+      color: black; }
+    article div small a {
+      word-break: break-all; }
+    article div small:not(:last-child):after {
+      content: " · ";
+      margin-right: 6px;
+      margin-left: 6px; }
   article div:nth-child(1n) .img_block,
   article div:nth-child(1n) .img_left {
     float: left; }

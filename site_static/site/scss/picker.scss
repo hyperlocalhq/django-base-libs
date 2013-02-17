@@ -13,6 +13,7 @@
   -webkit-transition-duration: 0.25s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out;
+  opacity: 0;
 
   .inner {
     display: table-cell;
@@ -21,6 +22,22 @@
   }
 }
 
+#picker {
+  -webkit-transform: scale(1.3); 
+  opacity: 0;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.25s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out;
+}
+
+#popup.on { 
+  opacity: 1;
+  #picker {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+}
 
 #picker {
   color: white;

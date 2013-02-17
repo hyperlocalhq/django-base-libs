@@ -248,12 +248,12 @@ a:active  { outline: none;}
   z-index: 30000;
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.25s;
-  -webkit-transition-delay: 0s;
+  -webkit-transition-delay: 0.125s;
   -webkit-transition-timing: ease-in-out;
   height: 50px;
   background-color: white;
 
-  // &:hover {  height: 300px; }
+  &:hover {  height: 300px; }
 
   > ul {
     width: 1000px;
@@ -277,10 +277,10 @@ a:active  { outline: none;}
       }
       
       &:hover { 
-        // > div {
-        //   height: 250px; 
-        //   opacity: 1;
-        // }
+        > div {
+          height: 250px; 
+          opacity: 1;
+        }
       }
 
       > div { 
@@ -293,7 +293,7 @@ a:active  { outline: none;}
         left: 0px;
         -webkit-transition-property: all;
         -webkit-transition-duration: 0.25s;
-        -webkit-transition-delay: 0s;
+        -webkit-transition-delay: 0.125s;
         -webkit-transition-timing: ease-in-out;
         opacity: 0;
 
@@ -808,24 +808,38 @@ article {
     p { 
       &.img_block,
       &.img_left {
-      margin-right: 40px;
-      color: rgba(0,0,0,0.75);
-      font-size: 12px;
-      line-height: 18px;
-      width: 320px;
-      padding-bottom:0px !important;
-      margin-bottom: 0px !important;
-      margin-top: 10px !important;
+        margin-right: 40px;
+        color: rgba(0,0,0,0.75);
+        font-size: 12px;
+        line-height: 18px;
+        width: 320px;
+        padding-bottom:0px !important;
+        margin-bottom: 0px !important;
+        margin-top: 10px !important;
 
-      img { 
-        display: block; 
-        margin-bottom: 10px; 
-        width: 320px !important;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        img { 
+          display: block; 
+          margin-bottom: 10px; 
+          width: 320px !important;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
       }
     }
+    small {
+      strong { color: black;}
+      font-size: 80%;
+      line-height: 100% !important;
+      display: inline;
+      color: rgba(0,0,0,0.5);
+      a { word-break: break-all; }
+      &:not(:last-child):after {
+        content: " · ";
+        margin-right: 6px;
+        margin-left: 6px;
+      }
 
     }
+
     &:nth-child(1n) {
       .img_block,
       .img_left { float: left;}
@@ -1154,8 +1168,6 @@ article {
     }
   }
 }
-
-
 
 .accordion {
   margin-bottom: 0px;
