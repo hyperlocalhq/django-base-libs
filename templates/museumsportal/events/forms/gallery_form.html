@@ -6,7 +6,8 @@
 {% endblock %}
 
 {% block multistep_form %}
-    <ul id="photos" class="list" data-load-url="/{{ LANGUAGE_CODE }}{{ event.get_url_path }}gallery/">
+    
+    <ul id="photos" class="list clearfix" data-load-url="/{{ LANGUAGE_CODE }}{{ event.get_url_path }}gallery/">
     </ul>
     
     <div id="edit_photo"></div>

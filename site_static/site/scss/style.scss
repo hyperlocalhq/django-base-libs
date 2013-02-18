@@ -371,7 +371,12 @@ a:active  { outline: none;}
   padding-bottom: 40px;
   padding-right: 40px;
   margin-top: -40px;
+
   &#photos {
+    padding: 0px;
+    margin: 0px;
+    margin-right: -60px;
+
     > li { 
       height: 150px;
       margin-bottom: 20px;
@@ -401,12 +406,7 @@ a:active  { outline: none;}
         }
       }
     }
-    #add_photo {
-      text-align: center;
-      line-height: 140px;
-    }
 
-    #add_photo,
     .img { 
       background-color: rgba(0,0,0,0.05);
       width: 100%;
@@ -684,6 +684,7 @@ a:active  { outline: none;}
       display: block;
     }
 
+    &.edit          { background-image: url("../img/icons/inv/edit.svg");}
     &.add-favorite  { background-image: url("../img/icons/inv/favorite.svg");}
     &.show-location { background-image: url("../img/icons/inv/location.svg");}
     &.cancel        { background-image: url("../img/icons/inv/cancel.svg");}
