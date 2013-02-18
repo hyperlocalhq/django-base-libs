@@ -1132,8 +1132,8 @@ article {
       opacity: 0;
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 33px;
-      background-image: url("../img/icons/top.svg");
+      background-size: 40px;
+      background-image: url("../img/icons/inv/top.svg");
     }
 
     &.on { 
@@ -1220,7 +1220,7 @@ article {
       border-right: 20px solid transparent;
       text-align: right;
       margin-left: -190px;
-      background-image: url("../img/icons/left.svg");
+      background-image: url("../img/icons/inv/left.svg");
       background-position: center left;
 
       &:hover { margin-left: 0px; }
@@ -1232,7 +1232,7 @@ article {
       border-left: 20px solid transparent;
       text-align: left;
       margin-right: -190px;
-      background-image: url("../img/icons/right.svg");
+      background-image: url("../img/icons/inv/right.svg");
       background-position: center right;
       &:hover { margin-right: 0px; }
     }

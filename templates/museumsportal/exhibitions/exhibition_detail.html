@@ -631,14 +631,16 @@
             <ul class="images clearfix">
             {% for mf in exhibition.mediafile_set.all %}
                 <li class="item">
-                    <img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" />
-                    <div class="info">
-                        <span class="title">Fluktuation 8</span>
-                        <span class="describtion">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. </span>
+                    <div class="inner">
+                        <img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" />
+                        <div class="info">
+                            <span class="title">Fluktuation 8</span>
+                            <span class="describtion">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. </span>
+                        </div>
                     </div>
                      <nav class="actions">
                         <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
-                        <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="Fullscreen" class="fullscreen"></button>
                     </nav>
                 </li>
             {% endfor %}

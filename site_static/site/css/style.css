@@ -774,6 +774,8 @@ legend + .control-group,
   -webkit-transition-delay: 0s, 0s;
   top: 0%;
   opacity: 1; }
+  .gallery #gallery .img {
+    -webkit-transform: scale(1) !important; }
 
 #gallery {
   position: fixed;
@@ -820,7 +822,7 @@ legend + .control-group,
         vertical-align: middle;
         position: relative;
         display: block; }
-        #gallery #slider > div > div > div {
+        #gallery #slider > div > div .img {
           position: absolute;
           top: 10%;
           bottom: 10%;
@@ -831,7 +833,12 @@ legend + .control-group,
           display: block;
           background-size: contain;
           background-position: center;
-          background-repeat: no-repeat; }
+          background-repeat: no-repeat;
+          -webkit-transform: scale(1.1);
+          -webkit-transition-property: all;
+          -webkit-transition-duration: 0.25s;
+          -webkit-transition-delay: 0s;
+          -webkit-transition-timing: ease-in-out; }
   #gallery nav {
     position: absolute;
     bottom: 0px;
@@ -851,18 +858,18 @@ legend + .control-group,
       background-color: black;
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 33px; }
+      background-size: 40px; }
       #gallery nav button:hover {
         opacity: 0.8; }
       #gallery nav button.prev {
-        background-image: url("../img/icons/left.svg"); }
+        background-image: url("../img/icons/inv/left.svg"); }
       #gallery nav button.next {
-        background-image: url("../img/icons/right.svg"); }
+        background-image: url("../img/icons/inv/right.svg"); }
       #gallery nav button.info {
-        background-image: url("../img/icons/info.svg");
+        background-image: url("../img/icons/inv/info.svg");
         display: none; }
       #gallery nav button.cancel {
-        background-image: url("../img/icons/cancellight.svg"); }
+        background-image: url("../img/icons/inv/cancellight.svg"); }
   #gallery .pagination {
     width: 100%;
     text-align: center;
@@ -1900,8 +1907,8 @@ article p {
     opacity: 0;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 33px;
-    background-image: url("../img/icons/top.svg"); }
+    background-size: 40px;
+    background-image: url("../img/icons/inv/top.svg"); }
   #to-top.on span {
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
@@ -1967,7 +1974,7 @@ article p {
       border-right: 20px solid transparent;
       text-align: right;
       margin-left: -190px;
-      background-image: url("../img/icons/left.svg");
+      background-image: url("../img/icons/inv/left.svg");
       background-position: center left; }
       #page-controls a.prev > span {
         right: 0; }
@@ -1978,7 +1985,7 @@ article p {
       border-left: 20px solid transparent;
       text-align: left;
       margin-right: -190px;
-      background-image: url("../img/icons/right.svg");
+      background-image: url("../img/icons/inv/right.svg");
       background-position: center right; }
       #page-controls a.next > span {
         left: 0; }

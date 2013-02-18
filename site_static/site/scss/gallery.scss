@@ -6,6 +6,9 @@
     -webkit-transition-delay: 0s, 0s;
     top: 0%;
     opacity: 1;
+    .img {
+        -webkit-transform: scale(1) !important;
+    }
 }
 
 #gallery {
@@ -76,7 +79,7 @@
                 position: relative;
                 display: block;
 
-                > div {
+                .img {
                     position: absolute;
                     top: 10%;
                     bottom: 10%;
@@ -89,6 +92,12 @@
                     // background-size: auto;
                     background-position: center;
                     background-repeat: no-repeat;
+
+                    -webkit-transform: scale(1.1); 
+                    -webkit-transition-property: all;
+                    -webkit-transition-duration: 0.25s;
+                    -webkit-transition-delay: 0s;
+                    -webkit-transition-timing: ease-in-out;
                 }
             }
         }
@@ -114,12 +123,12 @@
             background-color: black;
             background-position: center;
             background-repeat: no-repeat;
-            background-size: 33px;
+            background-size: 40px;
             &:hover  { opacity: 0.8;}
-            &.prev   { background-image: url("../img/icons/left.svg"); }
-            &.next   { background-image: url("../img/icons/right.svg");}
-            &.info   { background-image: url("../img/icons/info.svg"); display: none;}
-            &.cancel { background-image: url("../img/icons/cancellight.svg");}
+            &.prev   { background-image: url("../img/icons/inv/left.svg"); }
+            &.next   { background-image: url("../img/icons/inv/right.svg");}
+            &.info   { background-image: url("../img/icons/inv/info.svg"); display: none;}
+            &.cancel { background-image: url("../img/icons/inv/cancellight.svg");}
         }
     }
 
