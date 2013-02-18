@@ -376,8 +376,12 @@ a:active  { outline: none;}
     padding: 0px;
     margin: 0px;
     margin-right: -60px;
+    position: relative;
 
     > li { 
+      &.ui-state-highlight {
+        background-color: rgba(0,0,0,0.05) !important;
+      }
       .img { height: 100%;}
       &:first-child {
         width: 1000px !important;

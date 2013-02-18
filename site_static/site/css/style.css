@@ -1349,10 +1349,13 @@ a:active {
   .list#photos {
     padding: 0px;
     margin: 0px;
-    margin-right: -60px; }
+    margin-right: -60px;
+    position: relative; }
     .list#photos > li {
       height: 150px;
       margin-bottom: 20px; }
+      .list#photos > li.ui-state-highlight {
+        background-color: rgba(0, 0, 0, 0.05) !important; }
       .list#photos > li .img {
         height: 100%; }
       .list#photos > li:first-child {
