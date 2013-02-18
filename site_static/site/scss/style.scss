@@ -378,6 +378,11 @@ a:active  { outline: none;}
     margin-right: -60px;
 
     > li { 
+      .img { height: 100%;}
+      &:first-child {
+        width: 1000px !important;
+        height: 350px !important;
+      }
       height: 150px;
       margin-bottom: 20px;
     }
