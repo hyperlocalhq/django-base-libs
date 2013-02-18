@@ -862,7 +862,7 @@ legend + .control-group,
         background-image: url("../img/icons/info.svg");
         display: none; }
       #gallery nav button.cancel {
-        background-image: url("../img/icons/cancel.svg"); }
+        background-image: url("../img/icons/cancellight.svg"); }
   #gallery .pagination {
     width: 100%;
     text-align: center;
@@ -1243,7 +1243,6 @@ a:active {
 #navigation {
   position: relative;
   width: 100%;
-  z-index: 30000;
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.25s;
   -webkit-transition-delay: 0.125s;
@@ -1524,18 +1523,17 @@ a:active {
   -webkit-transition-timing: ease-in-out;
   position: absolute;
   z-index: 1000;
-  right: 10px;
-  top: 10px; }
+  right: 0px;
+  top: 0px; }
   .actions.bottom {
     top: auto;
-    bottom: 10px; }
+    bottom: 0px; }
   .actions a,
   .actions button {
     float: right;
-    margin-left: 5px;
-    background-color: white;
-    width: 30px !important;
-    height: 30px !important;
+    background-color: rgba(0, 0, 0, 0.95) !important;
+    width: 40px !important;
+    height: 40px !important;
     padding: 0px !important;
     display: block;
     background-size: cover;
@@ -1546,22 +1544,22 @@ a:active {
     -moz-box-sizing: border-box; }
     .actions a:hover,
     .actions button:hover {
-      background-color: black; }
+      background-color: rgba(0, 0, 0, 0.75) !important; }
     .actions a:hover:after,
     .actions button:hover:after {
       display: block; }
     .actions a.add-favorite,
     .actions button.add-favorite {
-      background-image: url("../img/icons/favorite.svg"); }
+      background-image: url("../img/icons/inv/favorite.svg"); }
     .actions a.show-location,
     .actions button.show-location {
-      background-image: url("../img/icons/location.svg"); }
+      background-image: url("../img/icons/inv/location.svg"); }
     .actions a.cancel,
     .actions button.cancel {
-      background-image: url("../img/icons/cancel.svg"); }
+      background-image: url("../img/icons/inv/cancel.svg"); }
     .actions a.fullscreen,
     .actions button.fullscreen {
-      background-image: url("../img/icons/fullscreen.svg"); }
+      background-image: url("../img/icons/inv/fullscreen.svg"); }
     .actions a:hover.add-favorite,
     .actions button:hover.add-favorite {
       background-image: url("../img/icons/inv/favorite.svg"); }
@@ -1607,9 +1605,9 @@ article.with_sidebar {
   width: 640px;
   float: left; }
 article#images {
-  padding-top: 40px;
   padding-bottom: 20px; }
   article#images ul {
+    padding-top: 40px !important;
     margin-right: -60px; }
     article#images ul li {
       cursor: pointer;
@@ -1619,18 +1617,24 @@ article#images {
       display: block;
       min-height: 50px;
       margin-right: 20px;
-      margin-bottom: 20px;
-      overflow: hidden; }
-      article#images ul li:first-child {
-        width: 660px; }
+      margin-bottom: 20px; }
+      article#images ul li .actions {
+        opacity: 0; }
+      article#images ul li .inner {
+        overflow: hidden;
+        position: relative; }
       article#images ul li img {
         display: block;
         width: 100%; }
+      article#images ul li:first-child {
+        width: 660px; }
       article#images ul li:hover .info {
         bottom: 0%;
         opacity: 1; }
       article#images ul li:hover img {
         opacity: 0.9; }
+      article#images ul li:hover .actions {
+        opacity: 1; }
       article#images ul li .info {
         -webkit-transition-property: all;
         -webkit-transition-duration: 0.5s;

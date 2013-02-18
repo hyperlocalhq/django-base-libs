@@ -245,7 +245,6 @@ a:active  { outline: none;}
 #navigation {
   position: relative;
   width: 100%;
-  z-index: 30000;
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.25s;
   -webkit-transition-delay: 0.125s;
@@ -641,18 +640,17 @@ a:active  { outline: none;}
   -webkit-transition-timing: ease-in-out;
   position: absolute;
   z-index: 1000;
-  right: 10px;
-  top: 10px;
+  right: 0px;
+  top: 0px;
 
-  &.bottom { top: auto; bottom: 10px; }
+  &.bottom { top: auto; bottom: 0px; }
 
   a,
   button { 
     float: right;
-    margin-left: 5px;
-    background-color: white;
-    width: 30px !important;
-    height: 30px !important;
+    background-color: rgba(0,0,0,0.95) !important;
+    width: 40px !important;
+    height: 40px !important;
     padding: 0px !important;
     display: block;
     background-size: cover;
@@ -663,7 +661,7 @@ a:active  { outline: none;}
     -moz-box-sizing: border-box;
 
     &:hover { 
-      background-color: black;
+      background-color: rgba(0,0,0,0.75) !important;
     }
 
     // &:after {
@@ -686,10 +684,10 @@ a:active  { outline: none;}
       display: block;
     }
 
-    &.add-favorite  { background-image: url("../img/icons/favorite.svg");}
-    &.show-location { background-image: url("../img/icons/location.svg");}
-    &.cancel        { background-image: url("../img/icons/cancel.svg");}
-    &.fullscreen    { background-image: url("../img/icons/fullscreen.svg");}
+    &.add-favorite  { background-image: url("../img/icons/inv/favorite.svg");}
+    &.show-location { background-image: url("../img/icons/inv/location.svg");}
+    &.cancel        { background-image: url("../img/icons/inv/cancel.svg");}
+    &.fullscreen    { background-image: url("../img/icons/inv/fullscreen.svg");}
 
     &:hover {
       &.add-favorite  { background-image: url("../img/icons/inv/favorite.svg");}
@@ -746,13 +744,13 @@ a:active  { outline: none;}
 article { 
   &.with_sidebar { width: 640px; float: left;}
 
-  &#images { padding-top: 40px; padding-bottom: 20px;
+  &#images { padding-bottom: 20px;
     ul {
+      padding-top: 40px !important; 
       margin-right: -60px;
       li {
-        cursor: pointer;
 
-        &:first-child { width: 660px;}
+        cursor: pointer;
 
         float: left;
         position: relative;
@@ -761,12 +759,17 @@ article {
         min-height: 50px;
         margin-right: 20px;
         margin-bottom: 20px;
-        overflow: hidden;
+
+        .actions { opacity: 0; }
+        .inner { overflow: hidden; position: relative;}
         img { display: block; width: 100%;}
+       
+        &:first-child { width: 660px;}
 
         &:hover { 
           .info {bottom: 0%; opacity: 1;}
           img { opacity: 0.9;}
+          .actions { opacity: 1;}
         }
 
         .info {
