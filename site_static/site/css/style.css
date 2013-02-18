@@ -172,7 +172,8 @@ input[type=search] {
   padding: 10px;
   height: 40px;
   font-size: 18px;
-  line-height: 22px; }
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.75); }
   input[type=text]::-webkit-input-placeholder,
   input[type=email]::-webkit-input-placeholder,
   input[type=password]::-webkit-input-placeholder,
@@ -252,7 +253,8 @@ textarea {
   line-height: 22px;
   resize: none;
   overflow-x: hidden;
-  overflow-y: auto; }
+  overflow-y: auto;
+  color: rgba(0, 0, 0, 0.75); }
 
 form {
   width: 100%; }
@@ -1349,15 +1351,57 @@ a:active {
   .list#photos {
     padding: 0px;
     margin: 0px;
-    margin-right: -60px; }
+    margin-right: -60px;
+    position: relative; }
     .list#photos > li {
-      height: 150px;
-      margin-bottom: 20px; }
+      height: auto;
+      margin-bottom: 20px;
+      overflow: hidden; }
+      .list#photos > li.ui-state-highlight {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+        height: 150px; }
       .list#photos > li .img {
-        height: 100%; }
+        height: auto;
+        margin: 0px;
+        padding: 0px; }
+        .list#photos > li .img img {
+          width: 100%;
+          opacity: 0 !important;
+          height: 150px; }
       .list#photos > li:first-child {
         width: 1000px !important;
         height: 350px !important; }
+        .list#photos > li:first-child img {
+          height: 350px !important;
+          opacity: 0; }
+      .list#photos > li .inner {
+        overflow: hidden;
+        position: relative; }
+      .list#photos > li:hover .info {
+        bottom: 0%;
+        opacity: 1; }
+      .list#photos > li:hover .img {
+        opacity: 0.9; }
+      .list#photos > li:hover .actions {
+        opacity: 1; }
+      .list#photos > li .info {
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.5s;
+        -webkit-transition-timing: ease-in-out;
+        background-color: white;
+        color: white;
+        bottom: -100%;
+        position: absolute;
+        margin: 0px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        opacity: 0;
+        padding-top: 10px;
+        color: rgba(0, 0, 0, 0.75);
+        font-size: 12px;
+        line-height: 18px; }
+        .list#photos > li .info .title {
+          font-weight: 500; }
   .list > li {
     width: 320px;
     height: 250px;
