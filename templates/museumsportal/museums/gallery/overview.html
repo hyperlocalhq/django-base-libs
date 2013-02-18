@@ -4,36 +4,37 @@
 {% block content %}
 <div class="content clearfix">
     <div class="inner">
-        <fieldset class="fieldset-imagegallery ">
-            <legend>Images</legend>
-            <ul id="photos" class="list clearfix">
-                {% for media_file in museum.mediafile_set.all %}
-                    <li class="item" data-token="{{ media_file.get_token }}">
-                        <a class="img" href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gl" }}">
-                            <span class="spinner loading"></span>
-                            <span class="overlay"></span>
-                        </a>
-                        
-                        <nav class="actions">
-                            <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit edit_photo"></a>
-                        </nav>
+        <form>
+            <fieldset class="fieldset-imagegallery ">
+                <legend>Images</legend>
+                <ul id="photos" class="list clearfix">
+                    {% for media_file in museum.mediafile_set.all %}
+                        <li class="item" data-token="{{ media_file.get_token }}">
+                            <a class="img" href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gl" }}">
+                                <span class="spinner loading"></span>
+                                <span class="overlay"></span>
+                            </a>
+                            
+                            <nav class="actions">
+                                <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit edit_photo"></a>
+                            </nav>
 
-                        <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/">
-                        {% with media_file.path|file_description as file_desc %}
-                            {% if file_desc.title %}
-                                <h3>{{ file_desc.title }}</h3>
-                            {% endif %}
-                            <!-- {% if file_desc.description %}
-                                <span class="desc">{{ file_desc.description }}</span>
-                            {% endif %} -->
-                        {% endwith %}
-                        </a>
-                    </li>        
-                {% endfor %}
-            </ul>
-            <a id="add_photo" class="btn" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
-        </fieldset>
-        
+                            <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/">
+                            {% with media_file.path|file_description as file_desc %}
+                                {% if file_desc.title %}
+                                    <h3>{{ file_desc.title }}</h3>
+                                {% endif %}
+                                <!-- {% if file_desc.description %}
+                                    <span class="desc">{{ file_desc.description }}</span>
+                                {% endif %} -->
+                            {% endwith %}
+                            </a>
+                        </li>        
+                    {% endfor %}
+                </ul>
+                <a id="add_photo" class="btn" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
+            </fieldset>
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -68,11 +68,12 @@ button {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 
-  &[name="cancel"] { 
+  &[name="cancel"],
+  &[name="reset"] { 
     float: right; 
     margin: 0px !important;
-    background-color: rgba(0,0,0,0.025);
-    color: black;
+    background-color: rgba(0,0,0,0.025) !important;
+    color: black !important;
   }
 
   &.right { float: right; margin: 0px !important;}

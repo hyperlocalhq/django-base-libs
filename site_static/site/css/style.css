@@ -76,14 +76,17 @@ button {
   box-shadow: none;
   box-sizing: border-box;
   -moz-box-sizing: border-box; }
-  .btn[name="cancel"],
+  .btn[name="cancel"], .btn[name="reset"],
   input[type=submit][name="cancel"],
+  input[type=submit][name="reset"],
   input[type=reset][name="cancel"],
-  button[name="cancel"] {
+  input[type=reset][name="reset"],
+  button[name="cancel"],
+  button[name="reset"] {
     float: right;
     margin: 0px !important;
-    background-color: rgba(0, 0, 0, 0.025);
-    color: black; }
+    background-color: rgba(0, 0, 0, 0.025) !important;
+    color: black !important; }
   .btn.right,
   input[type=submit].right,
   input[type=reset].right,
