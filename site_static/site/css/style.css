@@ -1538,7 +1538,7 @@ article#images {
   padding-top: 40px;
   padding-bottom: 40px; }
   article#images ul {
-    margin-right: -20px; }
+    margin-right: -60px; }
     article#images ul li {
       float: left;
       position: relative;
@@ -1547,7 +1547,7 @@ article#images {
       min-height: 50px;
       margin-right: 20px;
       margin-bottom: 20px; }
-      article#images ul li:nth-child(3) {
+      article#images ul li:first-child {
         width: 660px; }
       article#images ul li img {
         display: block;

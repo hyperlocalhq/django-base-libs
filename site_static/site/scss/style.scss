@@ -747,9 +747,9 @@ article {
   &.with_sidebar { width: 640px; float: left;}
   &#images { padding-top: 40px; padding-bottom: 40px;
     ul {
-      margin-right: -20px;
+      margin-right: -60px;
       li {
-        &:nth-child(3) { width: 660px;}
+        &:first-child { width: 660px;}
 
         float: left;
         position: relative;
