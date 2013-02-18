@@ -1353,6 +1353,11 @@ a:active {
     .list#photos > li {
       height: 150px;
       margin-bottom: 20px; }
+      .list#photos > li .img {
+        height: 100%; }
+      .list#photos > li:first-child {
+        width: 1000px !important;
+        height: 350px !important; }
   .list > li {
     width: 320px;
     height: 250px;
