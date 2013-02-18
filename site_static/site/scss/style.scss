@@ -766,11 +766,12 @@ article {
 
         &:hover { 
           .info {bottom: 0%; opacity: 1;}
+          img { opacity: 0.9;}
         }
 
         .info {
           -webkit-transition-property: all;
-          -webkit-transition-duration: 0.25s;
+          -webkit-transition-duration: 0.5s;
           -webkit-transition-timing: ease-in-out;
           background-color: white;
           color: white;

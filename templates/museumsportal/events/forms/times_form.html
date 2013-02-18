@@ -76,7 +76,7 @@
         
     $(function() {
         $(
-            '<a id="add_event_time" href="#">{% trans "Add another event time" %}</a>'
+            '<a class="btn full" id="add_event_time" href="#">{% trans "Add another event time" %}</a>'
         ).insertAfter('#event_times').click(function() {
             var $total_forms = $('#id_event_times-TOTAL_FORMS');
             var $new_form = $('#event_times_empty_form').clone(true).attr("id", null).show();

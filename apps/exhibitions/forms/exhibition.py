@@ -272,94 +272,102 @@ class SeasonForm(ModelForm):
 
             layout.HTML(
             """{% load i18n %}
-            <table>
-                <tbody>
-                    <tr>
-                        <th><h2>{% trans "Monday" %}</h2>{% trans "From" %}</th>
-                        <th>{% trans "Break starts" %}</th>
-                        <th>{% trans "Break ends" %}</th>
-                        <th>{% trans "Till" %}"""), "mon_is_closed", layout.HTML("""</th>
-                    </tr>
-                    <tr>
-                        <td>"""), layout.Field("mon_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("mon_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("mon_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("mon_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
-                    </tr>
-                    <tr>
-                        <th><h2>{% trans "Tuesday" %}</h2>{% trans "From" %}</th>
-                        <th>{% trans "Break starts" %}</th>
-                        <th>{% trans "Break ends" %}</th>
-                        <th>{% trans "Till" %}"""), "tue_is_closed", layout.HTML("""</th>
-                    </tr>
-                    <tr>
-                        <td>"""), layout.Field("tue_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("tue_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("tue_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("tue_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
-                    </tr>
-                    <tr>
-                        <th><h2>{% trans "Wednesday" %}</h2>{% trans "From" %}</th>
-                        <th>{% trans "Break starts" %}</th>
-                        <th>{% trans "Break ends" %}</th>
-                        <th>{% trans "Till" %}"""), "wed_is_closed", layout.HTML("""</th>
-                    </tr>
-                    <tr>
-                        <td>"""), layout.Field("wed_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("wed_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("wed_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("wed_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
-                    </tr>
-                    <tr>
-                        <th><h2>{% trans "Thursday" %}</h2>{% trans "From" %}</th>
-                        <th>{% trans "Break starts" %}</th>
-                        <th>{% trans "Break ends" %}</th>
-                        <th>{% trans "Till" %}"""), "thu_is_closed", layout.HTML("""</th>
-                    </tr>
-                    <tr>
-                        <td>"""), layout.Field("thu_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("thu_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("thu_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("thu_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
-                    </tr>
-                    <tr>
-                        <th><h2>{% trans "Friday" %}</h2>{% trans "From" %}</th>
-                        <th>{% trans "Break starts" %}</th>
-                        <th>{% trans "Break ends" %}</th>
-                        <th>{% trans "Till" %}"""), "fri_is_closed", layout.HTML("""</th>
-                    </tr>
-                    <tr>
-                        <td>"""), layout.Field("fri_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("fri_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("fri_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("fri_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
-                    </tr>
-                    <tr>
-                        <th><h2>{% trans "Saturday" %}</h2>{% trans "From" %}</th>
-                        <th>{% trans "Break starts" %}</th>
-                        <th>{% trans "Break ends" %}</th>
-                        <th>{% trans "Till" %}"""), "sat_is_closed", layout.HTML("""</th>
-                    </tr>
-                    <tr>
-                        <td>"""), layout.Field("sat_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sat_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sat_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sat_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>{% load i18n %}
-                    </tr>
-                    <tr>
-                        <th><h2>{% trans "Sunday" %}</h2>{% trans "From" %}</th>
-                        <th>{% trans "Break starts" %}</th>
-                        <th>{% trans "Break ends" %}</th>
-                        <th>{% trans "Till" %}"""), "sun_is_closed", layout.HTML("""</th>
-                    </tr>
-                    <tr>
-                        <td>"""), layout.Field("sun_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sun_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sun_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                        <td>"""), layout.Field("sun_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="row">
+                <div>
+                    <fieldset>
+                        <legend>{% trans "Opening Hours" %}</legend>
+                        <div class="row">
+                            <div><label>{% trans "From" %}</label></div>
+                            <div><label>{% trans "To" %}</label></div>
+                        </div>
+                         <div class="row">
+                            <div><label class="weekday">{% trans "Mon" %}</label>"""), layout.Field("mon_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("mon_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="closed">"""), "mon_is_closed", layout.HTML("""</div>
+                        </div>
+                        {% load i18n %}
+                        <div class="row">
+                            <div><label class="weekday">{% trans "Tue" %}</label>"""), layout.Field("tue_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("tue_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="closed">"""), "tue_is_closed", layout.HTML("""</div>
+                        </div>
+                        {% load i18n %}
+                        <div class="row">
+                            <div><label class="weekday">{% trans "Wed" %}</label>"""), layout.Field("wed_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("wed_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="closed">"""), "wed_is_closed", layout.HTML("""</div>
+                        </div>
+                        {% load i18n %}
+                        <div class="row">
+                            <div><label class="weekday">{% trans "Thu" %}</label>"""), layout.Field("thu_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("thu_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="closed">"""), "thu_is_closed", layout.HTML("""</div>
+                        </div>
+                        {% load i18n %}
+                        <div class="row">
+                            <div><label class="weekday">{% trans "Fri" %}</label>"""), layout.Field("fri_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("fri_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="closed">"""), "fri_is_closed", layout.HTML("""</div>
+                        </div>
+                        {% load i18n %}
+                        <div class="row">
+                            <div><label class="weekday">{% trans "Sat" %}</label>"""), layout.Field("sat_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("sat_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="closed">"""), "sat_is_closed", layout.HTML("""</div>
+                        </div>
+                        {% load i18n %}
+                        <div class="row">
+                            <div><label class="weekday">{% trans "Sun" %}</label>"""), layout.Field("sun_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("sun_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="closed">"""), "sun_is_closed", layout.HTML("""</div>
+                        </div>
+                    </fieldset>
+                </div>
+                {% load i18n %}
+                <div>
+                    <fieldset>
+                        <legend>{% trans "Breaks" %}</legend>
+                    <div class="row">
+                        <div><label>{% trans "From" %}</label></div>
+                        <div><label>{% trans "To" %}</label></div>
+                    </div>
+                    <div class="row">
+                        <div><label class="weekday">{% trans "Mon" %}</label>"""), layout.Field("mon_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                        <div>"""), layout.Field("mon_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                    </div>
+                        {% load i18n %}
+                    <div class="row">
+                        <div><label class="weekday">{% trans "Tue" %}</label>"""), layout.Field("tue_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                        <div>"""), layout.Field("tue_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                    </div>
+                        {% load i18n %}
+                    <div class="row">
+                        <div><label class="weekday">{% trans "Wed" %}</label>"""), layout.Field("wed_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                        <div>"""), layout.Field("wed_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                    </div>
+                        {% load i18n %}
+                    <div class="row">
+                        <div><label class="weekday">{% trans "Thu" %}</label>"""), layout.Field("thu_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                        <div>"""), layout.Field("thu_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                    </div>
+                        {% load i18n %}
+                    <div class="row">
+                        <div><label class="weekday">{% trans "Fri" %}</label>"""), layout.Field("fri_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                        <div>"""), layout.Field("fri_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                    </div>
+                        {% load i18n %}
+                    <div class="row">
+                        <div><label class="weekday">{% trans "Sat" %}</label>"""), layout.Field("sat_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                        <div>"""), layout.Field("sat_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                    </div>
+                        {% load i18n %}
+                    <div class="row">
+                        <div><label class="weekday">{% trans "Sun" %}</label>"""), layout.Field("sun_break_close", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                        <div>"""), layout.Field("sun_break_open", placeholder="0:00", autocomplete="off"), layout.HTML("""</div>
+                    </div>
+                    </fieldset>
+                </div>
+            </div>
             """
             ),
 

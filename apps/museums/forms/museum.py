@@ -271,7 +271,6 @@ class SeasonForm(ModelForm):
                 </div>
             </div>
 
-
             """
             ),
 
@@ -568,22 +567,35 @@ class AddressForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Other contact info"),
             layout.Row(
-                layout.HTML('{% load i18n %}<label>{% trans "Phone" %}</label>'),
-                'phone_country', 'phone_area', 'phone_number',
-                css_class="phone"),
+                layout.Div(
+                    layout.Row(
+                    layout.HTML('{% load i18n %}<div><label>{% trans "Phone" %}</label></div>'),
+                    'phone_country', 'phone_area', 'phone_number'),
+                ),
+                layout.Div(
+                    layout.Row(
+                    layout.HTML('{% load i18n %}<div><label>{% trans "Fax" %}</label></div>'),
+                    'fax_country', 'fax_area', 'fax_number'),
+                ),
+            ),
+
             layout.Row(
-                layout.HTML('{% load i18n %}<div><label>{% trans "Fax" %}</label></div>'),
-                'fax_country', 'fax_area', 'fax_number',
-                css_class="phone"),
+                layout.Div(
+                    layout.Row(
+                    layout.HTML('{% load i18n %}<div><label>{% trans "Booking Phone" %}</label></div>'),
+                    'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number'),
+
+                ),
+                layout.Div(
+                    layout.Row(
+                    layout.HTML('{% load i18n %}<div><label>{% trans "Service Phone" %}</label></div>'),
+                     'service_phone_country', 'service_phone_area', 'service_phone_number'),
+                ),
+            ),
+
             layout.Row(
-                layout.HTML('{% load i18n %}<div><label>{% trans "Group bookings phone" %}</label></div>'),
-                'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
-                css_class="phone"),
-            layout.Row(
-                layout.HTML('{% load i18n %}<div><label>{% trans "Service phone" %}</label></div>'),
-                'service_phone_country', 'service_phone_area', 'service_phone_number',
-                css_class="phone"),
-                'email', 'website',
+                'email', 'website'),
+
             css_class="fieldset-other-contact-info",
             ))
         layout_blocks.append(layout.Fieldset(

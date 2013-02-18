@@ -65,26 +65,36 @@ button {
   line-height: 18px;
   color: black;
   padding: 18px;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.025);
   background-image: none;
   background-repeat: no-repeat;
   background-position: center !important;
   text-shadow: none !important;
-  background-color: black;
-  color: white;
+  background-color: black !important;
+  color: white !important;
   font-family: inherit !important;
-  box-shadow: none; }
-  .btn:hover,
-  input[type=submit]:hover,
-  input[type=reset]:hover,
-  button:hover {
-    background-color: black;
-    color: white !important; }
+  box-shadow: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box; }
+  .btn[name="cancel"],
+  input[type=submit][name="cancel"],
+  input[type=reset][name="cancel"],
+  button[name="cancel"] {
+    float: right;
+    margin: 0px !important;
+    background-color: rgba(0, 0, 0, 0.025);
+    color: black; }
   .btn.right,
   input[type=submit].right,
   input[type=reset].right,
   button.right {
     float: right;
+    margin: 0px !important; }
+  .btn.full,
+  input[type=submit].full,
+  input[type=reset].full,
+  button.full {
+    width: 100%;
     margin: 0px !important; }
   .btn.btn-primary,
   input[type=submit].btn-primary,
@@ -126,8 +136,8 @@ button {
   input[type=submit]:active,
   input[type=reset]:active,
   button:active {
-    background-color: white !important;
-    color: black !important;
+    background-color: black !important;
+    color: white !important;
     box-shadow: none; }
 
 input[type=range] {
@@ -256,9 +266,9 @@ form {
     margin: 0px;
     padding: 0px; }
   form fieldset {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-    padding-bottom: 30px !important;
-    margin-bottom: 30px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 30px;
+    margin-bottom: 30px;
     display: block; }
     form fieldset.multilingual {
       width: 49%;
@@ -327,6 +337,16 @@ form {
       margin-left: 0;
       margin-bottom: 0px;
       border-collapse: collapse; }
+      form fieldset .row fieldset {
+        border: none;
+        padding: 0px;
+        margin: 0px;
+        margin-top: 30px !important; }
+        form fieldset .row fieldset legend {
+          border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+          padding-top: 30px !important; }
+      form fieldset .row label {
+        white-space: nowrap; }
       form fieldset .row.flex {
         table-layout: auto !important; }
         form fieldset .row.flex > div {
@@ -336,7 +356,8 @@ form {
         border-right: 20px solid white;
         width: 100% !important;
         vertical-align: top;
-        position: relative; }
+        position: relative;
+        overflow: hidden; }
         form fieldset .row > div .row > div {
           border-right: 2px solid white; }
           form fieldset .row > div .row > div:first-child input:first-child {
@@ -354,7 +375,7 @@ form {
           height: 40px;
           text-align: center;
           color: rgba(0, 0, 0, 0.5);
-          background-color: rgba(0, 0, 0, 0.025); }
+          background-color: rgba(0, 0, 0, 0.05); }
         form fieldset .row > div.closed {
           width: 40px !important;
           position: absolute;
@@ -452,7 +473,18 @@ form {
   border: none;
   padding: 0;
   margin: 0;
-  padding-bottom: 30px; }
+  padding-bottom: 30px;
+  font-size: 0px; }
+  .form-actions .btn,
+  .form-actions input[type=submit],
+  .form-actions input[type=reset],
+  .form-actions button {
+    margin-right: 4px; }
+    .form-actions .btn:last-child,
+    .form-actions input[type=submit]:last-child,
+    .form-actions input[type=reset]:last-child,
+    .form-actions button:last-child {
+      margin: 0px; }
 
 legend + .control-group,
 .form-horizontal .control-group {
@@ -470,6 +502,7 @@ legend + .control-group,
   position: absolute;
   right: 0px;
   padding: 0px;
+  margin: 0px;
   height: 40px;
   width: 40px;
   color: transparent;
@@ -481,6 +514,31 @@ legend + .control-group,
   background-position: center;
   background-repeat: no-repeat;
   z-index: 10000; }
+
+.fieldset-other-contact-info > .row:nth-child(3) label {
+  display: none; }
+.fieldset-other-contact-info > .row > div .row > div:nth-child(1) label {
+  display: block !important; }
+.fieldset-other-contact-info > .row > div .row > div:nth-child(1) {
+  width: 25% !important; }
+.fieldset-other-contact-info > .row > div .row > div:nth-child(2) {
+  width: 25% !important; }
+.fieldset-other-contact-info > .row > div .row > div:nth-child(3) {
+  width: 25% !important; }
+.fieldset-other-contact-info > .row > div .row > div:nth-child(4) {
+  width: 25% !important; }
+.fieldset-other-contact-info > .row > div .row > div:nth-child(1) label {
+  position: absolute;
+  bottom: 15px;
+  left: 0px;
+  font-size: 14px;
+  line-height: 40px;
+  width: 100%;
+  height: 40px;
+  text-align: left;
+  text-indent: 10px;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.025); }
 
 .isotope-item {
   z-index: 2; }
@@ -1564,9 +1622,11 @@ article#images {
       article#images ul li:hover .info {
         bottom: 0%;
         opacity: 1; }
+      article#images ul li:hover img {
+        opacity: 0.9; }
       article#images ul li .info {
         -webkit-transition-property: all;
-        -webkit-transition-duration: 0.25s;
+        -webkit-transition-duration: 0.5s;
         -webkit-transition-timing: ease-in-out;
         background-color: white;
         color: white;
