@@ -30,132 +30,6 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
-    <script type="text/javascript">
-    
-    $(function() {
-
-        $('#cancel').click(function(e){
-            $('#gallery').toggleClass('on');
-        });
-
-        $('#info').click(function(e){
-            $('#gallery').toggleClass('info');
-        });
-
-        function pagerFactory(idx, slide) {
-            var s = idx > 2 ? ' ' : '';
-            return '<li'+s+'><a href="#">'+(idx+1)+'</a></li>';
-        };
-    
-        $('.show-location').click(function(e){
-            $('html, body').animate({scrollTop:0}, 'slow');
-            e.preventDefault();
-        });
-
-        $('#to-top').click(function(e){
-            $('html, body').animate({scrollTop:0}, 'slow');
-            e.preventDefault();
-        });
-        
-        $(window).scroll(function() {
-            if ($('body').offset().top < $(window).scrollTop()) {
-                $('#to-top').addClass('on');
-            } else {
-                $('#to-top').removeClass('on');
-            }
-        });
-
-    });
-    window.onresize = function(event) {}
-    </script>
-
-    <script type="text/javascript">
-
-    $(function(){
-        
-        var $container = $('#container'),
-            filters = {};
-
-        $container.isotope({
-            itemSelector : '.item',
-            layoutMode : 'fitRows' 
-        });
-
-        // filter buttons
-        $('.filter a').click(function(){
-            var $this = $(this);
-            // don't proceed if already selected
-            if ( $this.hasClass('selected') ) {
-                return;
-            }
-            
-            var $optionSet = $this.parents('.option-set');
-            // change selected class
-            $optionSet.find('.selected').removeClass('selected');
-            $this.addClass('selected');
-            
-            // store filter value in object
-            // i.e. filters.color = 'red'
-            var group = $optionSet.attr('data-filter-group');
-            filters[ group ] = $this.attr('data-filter-value');
-            // convert object into array
-            var isoFilters = [];
-            for ( var prop in filters ) {
-                isoFilters.push( filters[ prop ] )
-            }
-            var selector = isoFilters.join('');
-
-            $container.isotope({ filter: selector });            
-            $(".list .img:in-viewport").lazyload();
-            $container.trigger("map_filter", { filter: isoFilters});
-            $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
-            
-            return false;
-        });
-        
-        var hashChanged = false;
-        $(window).bind( 'hashchange', function( event ){
-            if (!window.location.hash) {
-                return;
-            }
-            // get options object from hash
-            var hashOptions = window.location.hash ? $.deparam.fragment( window.location.hash, true ) : {},
-                // do not animate first call
-                aniEngine = hashChanged ? 'best-available' : 'none',
-                // apply defaults where no option was specified
-                options = $.extend( {}, hashOptions, { animationEngine: aniEngine } );
-            // apply options from hash
-            $container.isotope( options );
-            $(".list .img:in-viewport").lazyload();
-            // save options
-            hashChanged = true;
-            if (hashOptions) {
-                var $categories = $('#categories');
-                $('a[href="#any-category"]', $categories).removeClass("selected");
-                $('a[href="' + window.location.hash + '"]', $categories).addClass("selected");
-            }
-            
-          })
-            // trigger hashchange to capture any hash data on init
-            .trigger('hashchange');
-        
-        
-    });
-    $(function(){
-        $(".list .img").lazyload();
-    });
-
-    $(window).bind('scrollstop', function(e){
-        $(".list .img:in-viewport").lazyload();
-    });
-
-    $(document).ready(function () {
-       if ($("[rel=tooltip]").length) {
-           $("[rel=tooltip]").tooltip();
-       }
-    });
-
-    </script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
 </head>
@@ -292,6 +166,133 @@
                 preload: true,
             });
         });
+    </script>
+    <script type="text/javascript">
+    
+    $(function() {
+
+        $('#cancel').click(function(e){
+            $('#gallery').toggleClass('on');
+        });
+
+        $('#info').click(function(e){
+            $('#gallery').toggleClass('info');
+        });
+
+        function pagerFactory(idx, slide) {
+            var s = idx > 2 ? ' ' : '';
+            return '<li'+s+'><a href="#">'+(idx+1)+'</a></li>';
+        };
+    
+        $('.show-location').click(function(e){
+            $('html, body').animate({scrollTop:0}, 'slow');
+            e.preventDefault();
+        });
+
+        $('#to-top').click(function(e){
+            $('html, body').animate({scrollTop:0}, 'slow');
+            e.preventDefault();
+        });
+        
+        $(window).scroll(function() {
+            if ($('body').offset().top < $(window).scrollTop()) {
+                $('#to-top').addClass('on');
+            } else {
+                $('#to-top').removeClass('on');
+            }
+        });
+
+    });
+    window.onresize = function(event) {}
+    </script>
+
+    <script type="text/javascript">
+
+    $(function(){
+        
+
+        var $container = $('#container'),
+            filters = {};
+
+        $container.isotope({
+            itemSelector : '.item',
+            layoutMode : 'fitRows' 
+        });
+
+        // filter buttons
+        $('.filter a').click(function(){
+            var $this = $(this);
+            // don't proceed if already selected
+            if ( $this.hasClass('selected') ) {
+                return;
+            }
+            
+            var $optionSet = $this.parents('.option-set');
+            // change selected class
+            $optionSet.find('.selected').removeClass('selected');
+            $this.addClass('selected');
+            
+            // store filter value in object
+            // i.e. filters.color = 'red'
+            var group = $optionSet.attr('data-filter-group');
+            filters[ group ] = $this.attr('data-filter-value');
+            // convert object into array
+            var isoFilters = [];
+            for ( var prop in filters ) {
+                isoFilters.push( filters[ prop ] )
+            }
+            var selector = isoFilters.join('');
+
+            $container.isotope({ filter: selector });            
+            $(".list .img:in-viewport").lazyload();
+            $container.trigger("map_filter", { filter: isoFilters});
+            $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
+            
+            return false;
+        });
+        
+        var hashChanged = false;
+        $(window).bind( 'hashchange', function( event ){
+            if (!window.location.hash) {
+                return;
+            }
+            // get options object from hash
+            var hashOptions = window.location.hash ? $.deparam.fragment( window.location.hash, true ) : {},
+                // do not animate first call
+                aniEngine = hashChanged ? 'best-available' : 'none',
+                // apply defaults where no option was specified
+                options = $.extend( {}, hashOptions, { animationEngine: aniEngine } );
+            // apply options from hash
+            $container.isotope( options );
+            $(".list .img:in-viewport").lazyload();
+            // save options
+            hashChanged = true;
+            if (hashOptions) {
+                var $categories = $('#categories');
+                $('a[href="#any-category"]', $categories).removeClass("selected");
+                $('a[href="' + window.location.hash + '"]', $categories).addClass("selected");
+            }
+            
+          })
+            // trigger hashchange to capture any hash data on init
+            .trigger('hashchange');
+        
+        
+    });
+    $(function(){
+        $(".list .img").lazyload();
+    });
+
+    $(window).bind('scrollstop', function(e){
+        $(".list .img:in-viewport").lazyload();
+    });
+
+    $(document).ready(function () {
+       if ($("[rel=tooltip]").length) {
+           $("[rel=tooltip]").tooltip();
+       }
+    });
+
     </script>
 </body>
 </html>

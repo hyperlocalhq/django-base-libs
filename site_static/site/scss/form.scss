@@ -218,15 +218,13 @@ form {
     h2 { 
       border: none;
       display: block;
-      padding: 0px;
-      font-size: 18px;
-      line-height: inherit;
+      height: 30px;
+      padding-top: 0px !important;
+      padding-bottom: 30px !important;
+      font-size: 28px;
       color: black;
       margin: 0px;
-      display: inline-block;
-      margin-right: 5px;
-      margin-top: 5px;
-      margin-bottom: 5px;
+      margin-top: 40px;
     }
 
     legend { 
@@ -313,6 +311,42 @@ form {
         width: 100% !important;
         vertical-align: top;
         position: relative;
+
+        .row {
+           > div{ 
+              border-right: 2px solid white;
+
+              &:first-child{
+                input:first-child{ width: auto !important; left: 42px; right: 0; position: absolute;}
+              }
+           }
+           .weekday {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            font-size: 18px;
+            line-height: 40px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.025);
+           }
+        }
+
+        &.closed {
+          width: 40px !important;
+          position: absolute;
+          right: 0px;
+          border-left: 2px solid white;
+          display: none;
+
+          > div {
+            background-color: rgba(0,0,0,0.1);
+            height: 40px;
+            overflow: hidden;
+          }
+        }
 
         &:last-child { 
           border-right: 0px solid white;
@@ -474,7 +508,8 @@ legend + .control-group,
   height: 40px;
   width: 40px;
   color: transparent;
-  background-color: rgba(0,0,0,0.05);
+  background-color: transparent;
+  opacity: 0.5;
   border-radius: 0px;
   text-indent: 100px;
   background-image: url("../img/icons/clock.svg");

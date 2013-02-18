@@ -268,15 +268,13 @@ form {
     form fieldset h2 {
       border: none;
       display: block;
-      padding: 0px;
-      font-size: 18px;
-      line-height: inherit;
+      height: 30px;
+      padding-top: 0px !important;
+      padding-bottom: 30px !important;
+      font-size: 28px;
       color: black;
       margin: 0px;
-      display: inline-block;
-      margin-right: 5px;
-      margin-top: 5px;
-      margin-bottom: 5px; }
+      margin-top: 40px; }
     form fieldset legend {
       border: none;
       display: block;
@@ -339,6 +337,34 @@ form {
         width: 100% !important;
         vertical-align: top;
         position: relative; }
+        form fieldset .row > div .row > div {
+          border-right: 2px solid white; }
+          form fieldset .row > div .row > div:first-child input:first-child {
+            width: auto !important;
+            left: 42px;
+            right: 0;
+            position: absolute; }
+        form fieldset .row > div .row .weekday {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          font-size: 18px;
+          line-height: 40px;
+          width: 40px;
+          height: 40px;
+          text-align: center;
+          color: rgba(0, 0, 0, 0.5);
+          background-color: rgba(0, 0, 0, 0.025); }
+        form fieldset .row > div.closed {
+          width: 40px !important;
+          position: absolute;
+          right: 0px;
+          border-left: 2px solid white;
+          display: none; }
+          form fieldset .row > div.closed > div {
+            background-color: rgba(0, 0, 0, 0.1);
+            height: 40px;
+            overflow: hidden; }
         form fieldset .row > div:last-child {
           border-right: 0px solid white; }
   form table {
@@ -447,7 +473,8 @@ legend + .control-group,
   height: 40px;
   width: 40px;
   color: transparent;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: transparent;
+  opacity: 0.5;
   border-radius: 0px;
   text-indent: 100px;
   background-image: url("../img/icons/clock.svg");
@@ -560,12 +587,14 @@ legend + .control-group,
     width: 100%;
     padding: 14px; }
   #dyn_set_map #gmap_wrapper {
-    height: 380px;
+    height: auto;
+    top: 25px;
+    bottom: 20px;
     width: 100%;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.05); }
     #dyn_set_map #gmap_wrapper #gmap {
-      height: 380px; }
+      height: 100%; }
 
 #wrapper > #gmap_wrapper {
   height: 0px;
@@ -675,9 +704,6 @@ legend + .control-group,
       border-top-color: black;
       border-width: 8px 8px 0; }
 
-.gallery {
-  overflow: hidden !important; }
-
 .gallery #gallery {
   -webkit-transition-duration: 0s, 0.25s;
   -webkit-transition-delay: 0s, 0s;
@@ -724,15 +750,14 @@ legend + .control-group,
         display: block; }
         #gallery #slider > div > div > div {
           position: absolute;
-          top: 4%;
-          bottom: 6%;
+          top: 10%;
+          bottom: 10%;
           left: 5%;
           right: 5%;
-          height: 90%;
+          height: 80%;
           width: 90%;
           display: block;
           background-size: contain;
-          background-size: auto;
           background-position: center;
           background-repeat: no-repeat; }
   #gallery nav {
@@ -848,7 +873,8 @@ legend + .control-group,
     padding: 30px;
     padding-top: 40px;
     text-align: center;
-    background-color: black; }
+    background-color: black;
+    margin-bottom: -1px; }
     #picker header time {
       font-size: 80px;
       line-height: 40px;
@@ -979,7 +1005,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden; }
   body::-webkit-scrollbar-corner, body::-webkit-scrollbar {
-    width: 2px;
+    width: 10px;
     height: 2px;
     background-color: #646464; }
   body::-webkit-scrollbar-thumb {
@@ -1152,8 +1178,6 @@ a:active {
   -webkit-transition-timing: ease-in-out;
   height: 50px;
   background-color: white; }
-  #navigation:hover {
-    height: 300px; }
   #navigation > ul {
     width: 1000px;
     margin: auto;
@@ -1171,9 +1195,6 @@ a:active {
         padding-right: 13px;
         margin-right: 12px;
         border-right: 1px solid rgba(0, 0, 0, 0.1); }
-      #navigation > ul > li:hover > div {
-        height: 250px;
-        opacity: 1; }
       #navigation > ul > li > div {
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         position: absolute;
@@ -1244,7 +1265,10 @@ a:active {
   padding-bottom: 40px;
   padding-right: 40px;
   margin-top: -40px; }
-  .list > li.item {
+  .list#photos > li {
+    height: 150px;
+    margin-bottom: 20px; }
+  .list > li {
     width: 320px;
     height: 250px;
     float: left;
@@ -1253,13 +1277,17 @@ a:active {
     line-height: 20px;
     padding-bottom: 0px;
     margin-right: 20px; }
-    .list > li.item .actions {
+    .list > li .actions {
       opacity: 0; }
-    .list > li.item:hover .actions {
+    .list > li:hover .actions {
       opacity: 1; }
-    .list > li.item:hover .img .overlay {
+    .list > li:hover .img .overlay {
       border: 1px solid rgba(0, 0, 0, 0.1); }
-    .list > li.item .img {
+    .list > li #add_photo {
+      text-align: center;
+      line-height: 140px; }
+    .list > li #add_photo,
+    .list > li .img {
       background-color: rgba(0, 0, 0, 0.05);
       width: 100%;
       height: 150px;
@@ -1271,7 +1299,8 @@ a:active {
       margin-bottom: 9px;
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
       position: relative; }
-      .list > li.item .img span {
+      .list > li #add_photo span,
+      .list > li .img span {
         position: absolute;
         left: 0px;
         bottom: 0;
@@ -1279,7 +1308,8 @@ a:active {
         height: 100%;
         box-sizing: border-box;
         -moz-box-sizing: border-box; }
-      .list > li.item .img .spinner {
+      .list > li #add_photo .spinner,
+      .list > li .img .spinner {
         opacity: 0;
         height: 100%;
         -webkit-transition-property: all;
@@ -1290,13 +1320,14 @@ a:active {
         background-image: url("../img/spinner.gif");
         background-position: center;
         background-repeat: no-repeat; }
-        .list > li.item .img .spinner.loading {
+        .list > li #add_photo .spinner.loading,
+        .list > li .img .spinner.loading {
           opacity: 1; }
-    .list > li.item a h3 {
+    .list > li a h3 {
       font-weight: 500; }
-    .list > li.item a h4 {
+    .list > li a h4 {
       font-weight: 400; }
-    .list > li.item a h5 {
+    .list > li a h5 {
       font-weight: 400;
       opacity: 0.5; }
   .list.collapsed > li.class1 {
@@ -1449,28 +1480,28 @@ a:active {
       display: block; }
     .actions a.add-favorite,
     .actions button.add-favorite {
-      background-image: url("../img/icons/icons-01.svg"); }
+      background-image: url("../img/icons/favorite.svg"); }
     .actions a.show-location,
     .actions button.show-location {
-      background-image: url("../img/icons/icons-02.svg"); }
+      background-image: url("../img/icons/location.svg"); }
     .actions a.cancel,
     .actions button.cancel {
-      background-image: url("../img/icons/icons-04.svg"); }
+      background-image: url("../img/icons/cancel.svg"); }
     .actions a.fullscreen,
     .actions button.fullscreen {
-      background-image: url("../img/icons/icons-05.svg"); }
+      background-image: url("../img/icons/fullscreen.svg"); }
     .actions a:hover.add-favorite,
     .actions button:hover.add-favorite {
-      background-image: url("../img/icons/inv/icons-01.svg"); }
+      background-image: url("../img/icons/inv/favorite.svg"); }
     .actions a:hover.show-location,
     .actions button:hover.show-location {
-      background-image: url("../img/icons/inv/icons-02.svg"); }
+      background-image: url("../img/icons/inv/location.svg"); }
     .actions a:hover.cancel,
     .actions button:hover.cancel {
-      background-image: url("../img/icons/inv/icons-04.svg"); }
+      background-image: url("../img/icons/inv/cancel.svg"); }
     .actions a:hover.fullscreen,
     .actions button:hover.fullscreen {
-      background-image: url("../img/icons/inv/icons-05.svg"); }
+      background-image: url("../img/icons/inv/fullscreen.svg"); }
 
 .sidebar {
   float: right;
@@ -1503,12 +1534,27 @@ a:active {
 article.with_sidebar {
   width: 640px;
   float: left; }
-article.images {
+article#images {
   padding-top: 40px;
   padding-bottom: 40px; }
-  article.images ul li:hover {
-    opacity: 0.9;
-    cursor: pointer; }
+  article#images ul {
+    margin-right: -20px; }
+    article#images ul li {
+      float: left;
+      position: relative;
+      width: 320px;
+      display: block;
+      min-height: 50px;
+      margin-right: 20px;
+      margin-bottom: 20px; }
+      article#images ul li:nth-child(3) {
+        width: 660px; }
+      article#images ul li img {
+        display: block;
+        width: 100%; }
+      article#images ul li:hover {
+        opacity: 0.9;
+        cursor: pointer; }
 article header {
   margin-bottom: 30px;
   position: relative; }
@@ -1529,6 +1575,12 @@ article header h4 {
   padding: 0px;
   margin-bottom: 10px;
   font-weight: 400; }
+article p a {
+  color: black;
+  opacity: 0.8;
+  font-weight: 500; }
+  article p a:hover {
+    color: #00aefd; }
 article div {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding-bottom: 40px;
