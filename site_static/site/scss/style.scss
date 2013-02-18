@@ -371,7 +371,12 @@ a:active  { outline: none;}
   padding-bottom: 40px;
   padding-right: 40px;
   margin-top: -40px;
+
   &#photos {
+    padding: 0px;
+    margin: 0px;
+    margin-right: -60px;
+
     > li { 
       height: 150px;
       margin-bottom: 20px;

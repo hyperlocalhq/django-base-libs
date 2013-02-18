@@ -1346,9 +1346,13 @@ a:active {
   padding-bottom: 40px;
   padding-right: 40px;
   margin-top: -40px; }
-  .list#photos > li {
-    height: 150px;
-    margin-bottom: 20px; }
+  .list#photos {
+    padding: 0px;
+    margin: 0px;
+    margin-right: -60px; }
+    .list#photos > li {
+      height: 150px;
+      margin-bottom: 20px; }
   .list > li {
     width: 320px;
     height: 250px;
