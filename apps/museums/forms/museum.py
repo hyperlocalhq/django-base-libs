@@ -556,16 +556,24 @@ class AddressForm(ModelForm):
             ))
         layout_blocks.append(layout.Fieldset(
             _("Contact person"),
-            'contact_name', 
             layout.Row(
-                layout.HTML('{% load i18n %}<div><label>{% trans "Contact person phone" %}</label></div>'),
-                'contact_phone_country', 'contact_phone_area', 'contact_phone_number',
-                css_class="phone"),
+                'contact_name', 
+                layout.Div(
+                    layout.Row(
+                    layout.HTML('{% load i18n %}<div><label>{% trans "Phone" %}</label></div>'),
+                    'contact_phone_country', 'contact_phone_area', 'contact_phone_number'),
+                ),
+            ),
+            
             'contact_email',
             css_class="fieldset-contact-person",
             ))
         layout_blocks.append(layout.Fieldset(
-            _("Other contact info"),
+            _("Contact"),
+
+            layout.Row(
+                'email', 'website'),
+
             layout.Row(
                 layout.Div(
                     layout.Row(
@@ -592,9 +600,6 @@ class AddressForm(ModelForm):
                      'service_phone_country', 'service_phone_area', 'service_phone_number'),
                 ),
             ),
-
-            layout.Row(
-                'email', 'website'),
 
             css_class="fieldset-other-contact-info",
             ))

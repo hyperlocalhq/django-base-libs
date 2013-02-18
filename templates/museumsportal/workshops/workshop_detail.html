@@ -436,10 +436,64 @@
             </ul>   
 
         </article>
-    {% endwith %}
+
   </div>
 </div>
-<div class="content" class="clearfix" style="background-color: rgba(0,0,0,0.025)">
+
+
+
+
+
+<div class="content clearfix">
+    <div class="inner">
+        <article id="images" >
+            <ul class="images clearfix">
+            {% for mf in workshop.mediafile_set.all %}
+                <li class="item">
+                    <img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" />
+                    <div class="info">
+                        <span class="title">Fluktuation 8</span>
+                        <span class="describtion">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. </span>
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
+        </article>
+    </div>
+</div>
+
+
+
+
+<!-- image gallery
+================================================== -->
+
+
+
+
+<div id="gallery" class="info">
+    <div id="slider" class="swipe">
+      <div>
+        {% for mf in workshop.mediafile_set.all %}
+        <div style="display:{% if forloop.first %}block{% else %}none{% endif %}">
+            &nbsp;
+            <div class="img" style="background-image: url({{ MEDIA_URL }}{{ mf.path.path }})"></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <nav>
+        <button class="prev" onclick="slider.prev();return false;"></button>
+        <button class="info"></button>
+        <button class="cancel"></button>
+        <button class="next" onclick="slider.next();return false;"></button>
+    </nav>
+</div>
+{% endwith %}
+
+
+<div class="content" class="clearfix">
     <div class="inner">
         <h2>Nur noch kurze Zeit</h2>
         <ul id="container" class="list tiles small clearfix">
@@ -485,6 +539,42 @@
         </div>
     </div>
 </div>  
+
+<script src="{{ STATIC_URL }}site/js/swipe.js"></script>
+
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#gallery .cancel').click(function(e){
+            $('body').toggleClass('gallery');
+        });
+
+        $('.images li').click(function(e){
+            $('body').toggleClass('gallery');
+        });
+
+        $('#gallery .info').click(function(e){
+            $('#gallery').toggleClass('info');
+        });
+    });
+    
+    var slider = new Swipe(document.getElementById('slider'));
+
+    // $(function(){
+    //   var liWidths = [];
+    //   $('ul.fillwidth').fillwidth({ liWidths: liWidths });
+    // });
+    
+    $(window).load(function() {
+        $('.images').isotope({
+            itemSelector : '.item',
+            layoutMode : 'masonry',
+            masonry: {
+                columnWidth: 340
+            }
+        });
+    });
+</script>
+
 <script>
     $(document).keydown(function(e){
         switch(e.which) {

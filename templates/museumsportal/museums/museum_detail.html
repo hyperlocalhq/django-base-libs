@@ -861,9 +861,10 @@
 
 
 <script src="{{ STATIC_URL }}site/js/swipe.js"></script>
+<script src="{{ STATIC_URL }}site/js/museumsporta-berlin.js"></script>
 
 <script type="text/javascript">
-    $(function() {
+    $(window).load(function() {
         $('#gallery .cancel').click(function(e){
             $('body').toggleClass('gallery');
         });

@@ -553,10 +553,11 @@ legend + .control-group,
   z-index: 10000;
 }
 
+.fieldset-contact-person,
 .fieldset-other-contact-info {
   > .row {
 
-    &:nth-child(3) {
+    &:nth-child(4) {
       label { display: none;}
     }
 
@@ -567,9 +568,9 @@ legend + .control-group,
             label { display: block !important;}
           }
           &:nth-child(1) { width: 25% !important; }
-          &:nth-child(2) { width: 25% !important;}
-          &:nth-child(3) { width: 25% !important;}
-          &:nth-child(4) { width: 25% !important;}
+          &:nth-child(2) { width: 20% !important;}
+          &:nth-child(3) { width: 20% !important;}
+          &:nth-child(4) { width: 35% !important;}
 
           &:nth-child(1) { 
             label { 
