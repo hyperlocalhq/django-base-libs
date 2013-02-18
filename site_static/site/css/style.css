@@ -1361,7 +1361,9 @@ a:active {
         background-color: rgba(0, 0, 0, 0.05) !important;
         height: 150px; }
       .list#photos > li .img {
-        height: auto; }
+        height: auto;
+        margin: 0px;
+        padding: 0px; }
         .list#photos > li .img img {
           width: 100%;
           opacity: 0 !important;

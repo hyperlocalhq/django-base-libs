@@ -383,7 +383,10 @@ a:active  { outline: none;}
         background-color: rgba(0,0,0,0.05) !important;
         height: 150px;
       }
-      .img { height: auto;
+      .img { 
+        height: auto;
+        margin: 0px;
+        padding: 0px;
         img { width: 100%; opacity: 0 !important; height: 150px;}
       }
 
