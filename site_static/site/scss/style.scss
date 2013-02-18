@@ -379,6 +379,8 @@ a:active  { outline: none;}
     position: relative;
 
     > li { 
+      cursor: move !important;
+
       &.ui-state-highlight {
         background-color: rgba(0,0,0,0.05) !important;
         height: 150px;
@@ -387,6 +389,8 @@ a:active  { outline: none;}
         height: auto;
         margin: 0px;
         padding: 0px;
+        cursor: move !important;
+
         img { width: 100%; opacity: 0 !important; height: 150px;}
       }
 
@@ -428,7 +432,6 @@ a:active  { outline: none;}
           color: rgba(0,0,0,0.75);
           font-size: 12px;
           line-height: 18px;
-
         }
 
       height: auto;
@@ -738,13 +741,14 @@ a:active  { outline: none;}
       display: block;
     }
 
-    &.edit          { background-image: url("../img/icons/inv/edit.svg");}
-    &.add-favorite  { background-image: url("../img/icons/inv/favorite.svg");}
-    &.show-location { background-image: url("../img/icons/inv/location.svg");}
-    &.cancel        { background-image: url("../img/icons/inv/cancel.svg");}
-    &.fullscreen    { background-image: url("../img/icons/inv/fullscreen.svg");}
+    &.edit            { background-image: url("../img/icons/inv/edit.svg");}
+    &.add-favorite    { background-image: url("../img/icons/inv/favorite.svg");}
+    &.show-location   { background-image: url("../img/icons/inv/location.svg");}
+    &.cancel          { background-image: url("../img/icons/inv/cancel.svg");}
+    &.fullscreen      { background-image: url("../img/icons/inv/fullscreen.svg");}
 
     &:hover {
+      &.edit          { background-image: url("../img/icons/inv/edit.svg");}
       &.add-favorite  { background-image: url("../img/icons/inv/favorite.svg");}
       &.show-location { background-image: url("../img/icons/inv/location.svg");}
       &.cancel        { background-image: url("../img/icons/inv/cancel.svg");}

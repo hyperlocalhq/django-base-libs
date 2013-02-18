@@ -1354,6 +1354,7 @@ a:active {
     margin-right: -60px;
     position: relative; }
     .list#photos > li {
+      cursor: move !important;
       height: auto;
       margin-bottom: 20px;
       overflow: hidden; }
@@ -1363,7 +1364,8 @@ a:active {
       .list#photos > li .img {
         height: auto;
         margin: 0px;
-        padding: 0px; }
+        padding: 0px;
+        cursor: move !important; }
         .list#photos > li .img img {
           width: 100%;
           opacity: 0 !important;
@@ -1619,6 +1621,9 @@ a:active {
     .actions a.fullscreen,
     .actions button.fullscreen {
       background-image: url("../img/icons/inv/fullscreen.svg"); }
+    .actions a:hover.edit,
+    .actions button:hover.edit {
+      background-image: url("../img/icons/inv/edit.svg"); }
     .actions a:hover.add-favorite,
     .actions button:hover.add-favorite {
       background-image: url("../img/icons/inv/favorite.svg"); }
