@@ -6,8 +6,12 @@
 {% endblock %}
 
 {% block multistep_form %}
-    <ul id="photos" class="list" data-load-url="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/">
-    </ul>
+    <fieldset class="fieldset-imagegallery">
+        <legend>Images</legend>
+        <ul id="photos" class="list" data-load-url="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/">
+        </ul>
+        <a id="add_photo" class="btn" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
+    </fieldset>
     
     <div id="edit_photo"></div>
     
