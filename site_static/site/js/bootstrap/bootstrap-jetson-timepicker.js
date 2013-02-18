@@ -109,6 +109,9 @@
 
             return this.each(function() {
                 var $input = $(this);
+                if ($input.data('timepicker-applied')) {
+                    return;
+                }
                 $(this).parent().addClass('input-append');
                 $('<button class="btn" type="button">Select</button>').insertAfter(this).click(function() {
                     $('body').append(template);
@@ -151,6 +154,7 @@
                     });
                     return false;
                 });
+                $input.data('timepicker-applied', true);
             });
         }
     });
