@@ -13,7 +13,17 @@
                             }
                         });
                         $.post(load_url, {ordering: tokens.join(',')});
-                    }
+                    },
+                    forcePlaceholderSize: true,
+                    create: function(){
+                        var list = this;
+                        resize = function(){
+                            $(list).css("height","auto");
+                            $(list).height($(list).height());
+                        };
+                        $(list).height($(list).height());
+                        $(list).find('img').load(resize).error(resize);
+                    }                    
                 })
                 $('#photos').disableSelection().find('.edit_photo').click(function() {
                     $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
