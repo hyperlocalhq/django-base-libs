@@ -760,7 +760,13 @@
         <article id="images" >
             <ul class="images clearfix">
             {% for mf in museum.mediafile_set.all %}
-                <li class="item"><img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" /></li>
+                <li class="item">
+                    <img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" />
+                    <div class="info">
+                        <span class="title">Fluktuation 8</span>
+                        <span class="describtion">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. </span>
+                    </div>
+                </li>
             {% endfor %}
             </ul>
         </article>
@@ -862,17 +868,13 @@
             $('body').toggleClass('gallery');
         });
 
-        $('.images img').click(function(e){
+        $('.images li').click(function(e){
             $('body').toggleClass('gallery');
         });
 
         $('#gallery .info').click(function(e){
             $('#gallery').toggleClass('info');
         });
-
-
-        
-
     });
     
     var slider = new Swipe(document.getElementById('slider'));

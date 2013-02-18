@@ -726,6 +726,13 @@ legend + .control-group,
   -webkit-transition-duration: 0s, 0.25s;
   -webkit-transition-delay: 0.25s, 0s;
   -webkit-transition-timing: ease-in-out; }
+  #gallery * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
   #gallery #slider {
     position: absolute;
     height: 100%;
@@ -1536,25 +1543,45 @@ article.with_sidebar {
   float: left; }
 article#images {
   padding-top: 40px;
-  padding-bottom: 40px; }
+  padding-bottom: 20px; }
   article#images ul {
     margin-right: -60px; }
     article#images ul li {
+      cursor: pointer;
       float: left;
       position: relative;
       width: 320px;
       display: block;
       min-height: 50px;
       margin-right: 20px;
-      margin-bottom: 20px; }
+      margin-bottom: 20px;
+      overflow: hidden; }
       article#images ul li:first-child {
         width: 660px; }
       article#images ul li img {
         display: block;
         width: 100%; }
-      article#images ul li:hover {
-        opacity: 0.9;
-        cursor: pointer; }
+      article#images ul li:hover .info {
+        bottom: 0%;
+        opacity: 1; }
+      article#images ul li .info {
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.25s;
+        -webkit-transition-timing: ease-in-out;
+        background-color: white;
+        color: white;
+        bottom: -100%;
+        position: absolute;
+        margin: 0px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        opacity: 0;
+        padding-top: 10px;
+        color: rgba(0, 0, 0, 0.75);
+        font-size: 12px;
+        line-height: 18px; }
+        article#images ul li .info .title {
+          font-weight: 500; }
 article header {
   margin-bottom: 30px;
   position: relative; }
@@ -1581,23 +1608,23 @@ article p a {
   font-weight: 500; }
   article p a:hover {
     color: #00aefd; }
-article div {
+article > div {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding-bottom: 40px;
   margin-bottom: 40px;
   zoom: 1; }
-  article div:first-child {
+  article > div:first-child {
     margin-top: 30px; }
-  article div h2 {
+  article > div h2 {
     top: 5px;
     position: relative; }
-  article div h3 {
+  article > div h3 {
     font-size: 30px;
     line-height: 30px;
     margin-bottom: 15px;
     top: 5px;
     position: relative; }
-  article div p.img_block, article div p.img_left {
+  article > div p.img_block, article > div p.img_left {
     margin-right: 40px;
     color: rgba(0, 0, 0, 0.75);
     font-size: 12px;
@@ -1606,33 +1633,33 @@ article div {
     padding-bottom: 0px !important;
     margin-bottom: 0px !important;
     margin-top: 10px !important; }
-    article div p.img_block img, article div p.img_left img {
+    article > div p.img_block img, article > div p.img_left img {
       display: block;
       margin-bottom: 10px;
       width: 320px !important;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-  article div small {
+  article > div small {
     font-size: 80%;
     line-height: 100% !important;
     display: inline;
     color: rgba(0, 0, 0, 0.5); }
-    article div small strong {
+    article > div small strong {
       color: black; }
-    article div small a {
+    article > div small a {
       word-break: break-all; }
-    article div small:not(:last-child):after {
+    article > div small:not(:last-child):after {
       content: " · ";
       margin-right: 6px;
       margin-left: 6px; }
-  article div:nth-child(1n) .img_block,
-  article div:nth-child(1n) .img_left {
+  article > div:nth-child(1n) .img_block,
+  article > div:nth-child(1n) .img_left {
     float: left; }
-  article div:before, article div:after {
+  article > div:before, article > div:after {
     content: "\0020";
     display: block;
     height: 0;
     visibility: hidden; }
-  article div:after {
+  article > div:after {
     clear: both; }
 article p {
   font-size: 20px;

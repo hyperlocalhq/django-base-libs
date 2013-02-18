@@ -745,10 +745,13 @@ a:active  { outline: none;}
 
 article { 
   &.with_sidebar { width: 640px; float: left;}
-  &#images { padding-top: 40px; padding-bottom: 40px;
+
+  &#images { padding-top: 40px; padding-bottom: 20px;
     ul {
       margin-right: -60px;
       li {
+        cursor: pointer;
+
         &:first-child { width: 660px;}
 
         float: left;
@@ -758,8 +761,37 @@ article {
         min-height: 50px;
         margin-right: 20px;
         margin-bottom: 20px;
+        overflow: hidden;
         img { display: block; width: 100%;}
-        &:hover{ opacity: 0.9; cursor: pointer;}
+
+        &:hover { 
+          .info {bottom: 0%; opacity: 1;}
+        }
+
+        .info {
+          -webkit-transition-property: all;
+          -webkit-transition-duration: 0.25s;
+          -webkit-transition-timing: ease-in-out;
+          background-color: white;
+          color: white;
+          bottom: -100%;
+          position: absolute;
+          margin: 0px;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          opacity: 0;
+
+          .title { 
+            font-weight: 500; 
+            // display: block;
+          }
+
+          padding-top: 10px;
+          color: rgba(0,0,0,0.75);
+          font-size: 12px;
+          line-height: 18px;
+
+        }
       }
     }
   }
@@ -806,7 +838,7 @@ article {
    }
   }
 
-  div {
+  > div {
     border-bottom: 1px solid rgba(0,0,0,0.05);
     padding-bottom: 40px;
     margin-bottom: 40px;
