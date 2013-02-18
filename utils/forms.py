@@ -58,6 +58,6 @@ class SplitDateTimeWidget(forms.SplitDateTimeWidget):
                 ugettext("Date"),
                 rendered_widgets[0].replace('/>', ' placeholder="yyyy-mm-dd" />'),
                 ugettext("Time"),
-                rendered_widgets[1].replace('/>', ' placeholder="0:00" />'),
+                rendered_widgets[1].replace('/>', ' placeholder="00:00" />'),
                 )
 

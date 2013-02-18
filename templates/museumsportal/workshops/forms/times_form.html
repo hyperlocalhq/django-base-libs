@@ -31,10 +31,7 @@
             format: 'yyyy-mm-dd',
             weekStart: 1
         })
-        $('#workshop_times .timeinput').timepicker({
-            showMeridian: false,
-            defaultTime: 'value'
-        });
+        $('#workshop_times .timeinput').timepicker();
         $("[rel=tooltip]").tooltip();
     }
     
@@ -76,7 +73,7 @@
         
     $(function() {
         $(
-            '<a id="add_workshop_time" href="#">{% trans "Add another workshop time" %}</a>'
+            '<a id="add_workshop_time" class="btn full" href="#">{% trans "Add another workshop time" %}</a>'
         ).insertAfter('#workshop_times').click(function() {
             var $total_forms = $('#id_workshop_times-TOTAL_FORMS');
             var $new_form = $('#workshop_times_empty_form').clone(true).attr("id", null).show();

@@ -306,14 +306,17 @@ class WorkshopTimeForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(WorkshopTimeForm, self).__init__(*args, **kwargs)
+        self.fields['start'].widget = forms.TimeInput(format='%H:%M')
+        self.fields['end'].widget = forms.TimeInput(format='%H:%M')
+        
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(
             layout.Row(
                 layout.Field("workshop_date", placeholder="yyyy-mm-dd"),
-                layout.Field("start", placeholder="0:00"),
-                layout.Field("end", placeholder="0:00"),
+                layout.Field("start", placeholder="00:00"),
+                layout.Field("end", placeholder="00:00"),
                 ),
             )
 
