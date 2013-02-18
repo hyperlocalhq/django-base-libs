@@ -128,6 +128,7 @@ input[type=search] {
   height: 40px;
   font-size: 18px;
   line-height: 22px;
+  color: rgba(0,0,0,0.75);
 
   &::-webkit-input-placeholder { color: rgba(0,0,0,0.125); }
   &:-moz-placeholder { color: rgba(0,0,0,0.125);}
@@ -180,6 +181,7 @@ textarea {
   resize: none;
   overflow-x: hidden;
   overflow-y: auto;
+  color: rgba(0,0,0,0.75);
 }
 
 
