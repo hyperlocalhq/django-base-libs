@@ -236,9 +236,6 @@ input {
       color: inherit; }
 
 textarea {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   width: 100%;
@@ -249,8 +246,9 @@ textarea {
   box-shadow: none;
   padding: 10px !important;
   height: 40px;
-  font-size: 18px;
-  line-height: 22px;
+  font-family: inherit !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
   resize: none;
   overflow-x: hidden;
   overflow-y: auto;
@@ -511,7 +509,7 @@ legend + .control-group,
   height: 40px;
   width: 40px;
   color: transparent;
-  background-color: transparent;
+  background-color: transparent !important;
   opacity: 0.5;
   border-radius: 0px;
   text-indent: 100px;
@@ -1119,6 +1117,9 @@ h2 {
   margin-top: 30px;
   margin-bottom: 30px;
   display: block; }
+  h2:last-child {
+    margin-bottom: 0px;
+    padding-bottom: 0px; }
 
 *::-webkit-scrollbar-corner,
 *::-webkit-scrollbar {
@@ -1190,7 +1191,8 @@ a:active {
     position: absolute;
     top: 30px;
     left: 0px;
-    display: block; }
+    display: block;
+    display: none; }
     #header .logo .img {
       display: block;
       height: 52px;
@@ -1220,7 +1222,7 @@ a:active {
       margin-left: 15px;
       border-left: 2px solid rgba(0, 0, 0, 0.05); }
   #header .inner {
-    height: 90px; }
+    height: 100px; }
     #header .inner ul.meta {
       position: absolute;
       top: 20px;
@@ -1756,7 +1758,7 @@ article > div {
   article > div h3 {
     font-size: 30px;
     line-height: 30px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     top: 5px;
     position: relative; }
   article > div p.img_block, article > div p.img_left {

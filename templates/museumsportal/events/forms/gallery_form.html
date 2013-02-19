@@ -6,10 +6,14 @@
 {% endblock %}
 
 {% block multistep_form %}
-    
-    <ul id="photos" class="list clearfix" data-load-url="/{{ LANGUAGE_CODE }}{{ event.get_url_path }}gallery/">
-    </ul>
-    
+    <form>
+        <fieldset class="fieldset-imagegallery">
+            <legend>Image Gallery</legend>
+            <ul id="photos" class="list" data-load-url="/{{ LANGUAGE_CODE }}{{ event.get_url_path }}gallery/">
+            </ul>
+            <a id="add_photo" class="btn" href="/{{ LANGUAGE_CODE }}{{ event.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
+        </fieldset>
+    </form>
     <div id="edit_photo"></div>
     
     {% crispy form %}

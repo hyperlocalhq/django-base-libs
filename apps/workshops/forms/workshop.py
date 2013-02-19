@@ -236,15 +236,15 @@ class PricesForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
             layout.Row('admission_price', 'reduced_price'),
+            layout.Row(
+                css_class="div-admission_price_info-details",
+                *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
             css_class="fieldset-prices",
             ))
 
         layout_blocks.append(layout.Fieldset(
             _("Details"),
-            layout.Row(
-                css_class="div-admission_price_info-details",
-                *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
 
             layout.Row(
                 css_class="div-meeting_place-details",

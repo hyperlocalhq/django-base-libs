@@ -163,9 +163,6 @@ input[type=file] {
 }
 
 textarea {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   width: 100%;
@@ -176,8 +173,9 @@ textarea {
   box-shadow: none;
   padding: 10px !important;
   height: 40px;
-  font-size: 18px;
-  line-height: 22px;
+  font-family: inherit !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
   resize: none;
   overflow-x: hidden;
   overflow-y: auto;
@@ -546,7 +544,7 @@ legend + .control-group,
   height: 40px;
   width: 40px;
   color: transparent;
-  background-color: transparent;
+  background-color: transparent !important;
   opacity: 0.5;
   border-radius: 0px;
   text-indent: 100px;

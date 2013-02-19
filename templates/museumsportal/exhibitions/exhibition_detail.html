@@ -724,13 +724,18 @@
                 </a>
             {% endif %}
         </div>
-
     </div>
 </div>  
 
 <script src="{{ STATIC_URL }}site/js/swipe.js"></script>
 
 <script type="text/javascript">
+    $(function(){
+        $('#slides').slides({
+            preload: true,
+        });
+    });
+    
     $(window).load(function() {
         $('#gallery .cancel').click(function(e){
             $('body').toggleClass('gallery');

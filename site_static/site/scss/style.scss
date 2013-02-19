@@ -79,6 +79,7 @@ h2 {
   margin-top: 30px;
   margin-bottom: 30px;
   display: block;
+  &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
 }
 
 *::-webkit-scrollbar-corner,
@@ -159,6 +160,7 @@ a:active  { outline: none;}
     top: 30px;
     left: 0px;
     display: block;
+    display: none;
 
     .img {
       display: block;
@@ -195,7 +197,7 @@ a:active  { outline: none;}
   }
 
   .inner { 
-    height: 90px; 
+    height: 100px; 
 
     ul.meta {
       // display: table;
@@ -929,7 +931,7 @@ article {
     h3 {
       font-size: 30px;
       line-height: 30px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       top: 5px;
       position: relative;
     }
