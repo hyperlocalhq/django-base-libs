@@ -422,95 +422,40 @@
                             {% if museum.service_shop or museum.service_books or museum.service_restaurant or museum.service_cafe or museum.service_library or musuem.service_archive or musuem.service_studio or museum.service_online or museum.service_diaper_changing_table or musuem.service_birthdays or museum.service_rent or musuem.service_other %}
                                 <h5>{% trans "Services" %}</h5>
                                 {% if museum.service_shop %}
-                                    <p>{% trans "Shop" %}</p>
-                                    {% if museum.service_shop_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_shop_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-shop"rel="tooltip" data-placement="top" data-original-title="{% trans "Shop" %}" >{% trans "Shop" %}</span>
                                 {% endif %}
                                 {% if museum.service_books  %}
-                                    <p>{% trans "Bookstore" %}</p>
-                                    {% if museum.museum.service_books_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_books_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-books"rel="tooltip" data-placement="top" data-original-title="{% trans "Bookstore" %}" >{% trans "Bookstore" %}</span>
                                 {% endif %}
                                 {% if museum.service_restaurant %}
-                                    <p>{% trans "Restaurant" %}</p>
-                                    {% if museum.service_shop_info or museum.service_books or museum.service_restaurant or museum.service_cafe or museum.service_library or musuem.service_archive or musuem.service_studio or museum.service_online or museum.service_diaper_changing_table or musuem.service_birthdays or museum.service_rent or musuem.service_other %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_shop_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-restaurant"rel="tooltip" data-placement="top" data-original-title="{% trans "Restaurant" %}" >{% trans "Restaurant" %}</span>
                                 {% endif %}
                                 {% if museum.service_cafe %}
-                                    <p>{% trans "Cafe" %}</p>
-                                    {% if museum.service_cafe_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_cafe_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-cafe"rel="tooltip" data-placement="top" data-original-title="{% trans "Cafe" %}" >{% trans "Cafe" %}</span>
                                 {% endif %}
                                 {% if museum.service_library %}
-                                    <p>{% trans "Library" %}</p>
-                                    {% if museum.service_library %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_library_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-library"rel="tooltip" data-placement="top" data-original-title="{% trans "Library" %}" >{% trans "Library" %}</span>
                                 {% endif %}
                                 {% if musuem.service_archive %}
-                                    <p>{% trans "Archive" %}</p>
-                                    {% if museum.service_archive_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_archive_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-archive"rel="tooltip" data-placement="top" data-original-title="{% trans "Archive" %}" >{% trans "Archive" %}</span>
                                 {% endif %}
                                 {% if musuem.service_studio %}
-                                    <p>{% trans "Studio" %}</p>
-                                    {% if museum.service_studio_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_studio_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-studio"rel="tooltip" data-placement="top" data-original-title="{% trans "Studio" %}" >{% trans "Studio" %}</span>
                                 {% endif %}
                                 {% if museum.service_online %}
-                                    <p>{% trans "Online offers" %}</p>
-                                    {% if museum.service_online_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_online_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-online"rel="tooltip" data-placement="top" data-original-title="{% trans "Online offers" %}" >{% trans "Online offers" %}</span>
                                 {% endif %}
                                 {% if museum.service_diaper_changing_table %}
-                                    <p>{% trans "Diaper changing table" %}</p>
+                                    <span class="icon icon-diaper"rel="tooltip" data-placement="top" data-original-title="{% trans "Diaper changing table" %}" >{% trans "Diaper changing table" %}</span>
                                 {% endif %}
                                 {% if musuem.service_birthdays %}
-                                    <p>{% trans "Children birthdays" %}</p>
-                                    {% if museum.service_birthdays_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_birthdays_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-birthdays"rel="tooltip" data-placement="top" data-original-title="{% trans "Children birthdays" %}" >{% trans "Children birthdays" %}</span>
                                 {% endif %}
                                 {% if museum.service_rent %}
-                                    <p>{% trans "Rent" %}</p>
-                                    {% if museum.service_rent_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_rent_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-rent"rel="tooltip" data-placement="top" data-original-title="{% trans "Rent" %}" >{% trans "Rent" %}</span>
                                 {% endif %}
                                 {% if musuem.service_other %}
-                                    <p>{% trans "Other services" %}</p>
-                                    {% if museum.service_other_info %}
-                                        <div class="service_desc">
-                                            {{ museum.get_rendered_service_other_info }}
-                                        </div>
-                                    {% endif %}
+                                    <span class="icon icon-other"rel="tooltip" data-placement="top" data-original-title="{% trans "Other services" %}" >{% trans "Other services" %}</span>
                                 {% endif %}
                             {% endif %}
                         </li>
@@ -536,7 +481,7 @@
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-additional-exhibitions">{% trans "Additional Exhibitions" %}</a>  
                     </h4>  
-                    <ul id="collapse-additional-exhibitions" class="accordion-body collapse in">
+                    <ul id="collapse-additional-exhibitions" class="accordion-body collapse">
                         <li class="accordion-inner">
                             <ul id="kurze_zeit" class="list compact">
                             {% for exhibition in object.get_published_exhibitions %}
@@ -555,9 +500,32 @@
                         </li>
                     </ul>  
                 </li> 
+
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-twitterfeed">{% trans "Twitterfeed" %}</a>  
+                    </h4>  
+                    <ul id="collapse-twitterfeed" class="accordion-body collapse">
+                        <li class="accordion-inner">
+                            <ul>
+                                <li>
+                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
+                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
+                                </li>
+                                <li>
+                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
+                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
+                                </li>
+                                <li>
+                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
+                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>  
+                </li> 
             </ul> 
 
-            
         </section>
 
         <section class="sidebar" style="display: none">
@@ -877,6 +845,8 @@
         $('#gallery .info').click(function(e){
             $('#gallery').toggleClass('info');
         });
+
+        $('.accordion-body').collapse('show');
     });
     
     var slider = new Swipe(document.getElementById('slider'));

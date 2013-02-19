@@ -524,35 +524,30 @@ legend + .control-group,
   margin-top: 0px;
 }
 
-.icon {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.input-append,
+.input-prepend {
+  margin-bottom: 0px;
 
-  &.icon-delete {
-    background-image: url("../img/icons/cancel.svg");
+  .add-on:last-child,
+  .btn:last-child {
+    position: absolute;
+    right: 0px;
+    padding: 0px;
+    margin: 0px;
+    height: 40px;
+    width: 40px;
+    color: transparent;
+    background-color: transparent !important;
+    opacity: 0.5;
+    border-radius: 0px;
+    text-indent: 100px;
+    background-image: url("../img/icons/clock.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10000;
   }
 }
 
-
-.input-append .add-on:last-child,
-.input-append .btn:last-child {
-  position: absolute;
-  right: 0px;
-  padding: 0px;
-  margin: 0px;
-  height: 40px;
-  width: 40px;
-  color: transparent;
-  background-color: transparent !important;
-  opacity: 0.5;
-  border-radius: 0px;
-  text-indent: 100px;
-  background-image: url("../img/icons/clock.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 10000;
-}
 
 .fieldset-contact-person,
 .fieldset-other-contact-info {

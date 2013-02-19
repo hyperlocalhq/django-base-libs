@@ -160,7 +160,6 @@ a:active  { outline: none;}
     top: 30px;
     left: 0px;
     display: block;
-    display: none;
 
     .img {
       display: block;
@@ -861,22 +860,20 @@ article {
       }
     }
   }
-
   header {
     margin-bottom: 30px;
     position: relative;
-  }
 
-  h1 { 
-    font-weight: 500;
-    margin: 0px;
+    h1 { 
+      font-weight: 500;
+      margin: 0px;
 
-    span { 
-      display: block;
-      font-weight: 400;
+      span { 
+        display: block;
+        font-weight: 400;
+      }
     }
-  }
-  header {
+    
     h3 { 
       text-transform: uppercase;
       font-size: 20px;
@@ -1302,32 +1299,55 @@ article {
 }
 
 .accordion {
-  margin-bottom: 0px;
+  margin-bottom: 40px;
   font-size: 14px;
   line-height: 20px;
 
-  .accordion-heading a{ 
-    font-weight: 500;
-    text-transform: uppercase;
-    font-size: 16px;
-    line-height: 20px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+  .accordion-heading {
+    a{ 
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 16px;
+      line-height: 20px;
+      padding-bottom: 13px;
+      padding-top: 16px;
+      padding-left: 25px;
 
-    background-image: url("../img/meta.svg");
-    background-size: contain;
-    background-position: right;
-    background-repeat: no-repeat;
+      // background-image: url("../img/icons/down.svg");
+      // background-size: contain;
+      // background-position: right;
+      // background-repeat: no-repeat;
+    }
   }
 
-  > li { 
+  .accordion-group { 
     border: none;
-    border-bottom: 6px solid white;
+    border-bottom: 10px solid white;
     margin-bottom: 0px;
     background-color: rgba(0,0,0,0.025);
+    
+    &:last-child{ border: none;}
 
-    .accordion-inner {
-      border-top: 1px solid rgba(0,0,0,0.025);
+    .accordion-body {
+      &#collapse-twitterfeed {
+        .time { display: block; color: rgba(0,0,0,0.5);}
+      }
+      .accordion-inner {
+        padding: 9px 25px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        > ul {
+          margin-left: -25px;
+          margin-right: -25px;
+          margin-top: -9px;
+          margin-bottom: -9px;
+
+          > li {
+            padding: 14px 25px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            &:last-child{ border: none;}
+          }
+        }
+      }
     }
   }
 }
@@ -1357,6 +1377,35 @@ dl {
     margin-bottom: 0px;
   }
   margin-bottom: 10px;
+}
+
+.icon {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: none;
+  background-color: rgba(0,0,0,0.05);
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 100px;
+  height: 40px;
+  width: 40px;
+
+  &.icon-shop       { background-image: url("../img/icons/inv/shop.svg"); }
+  &.icon-books      { background-image: url("../img/icons/inv/books.svg"); }
+  &.icon-restaurant { background-image: url("../img/icons/inv/restaurant.svg"); }
+  &.icon-cafe       { background-image: url("../img/icons/inv/cafe.svg"); }
+  &.icon-library    { background-image: url("../img/icons/inv/library.svg"); }
+  &.icon-archive    { background-image: url("../img/icons/inv/archive.svg"); }
+  &.icon-studio     { background-image: url("../img/icons/inv/studio.svg"); }
+  &.icon-online     { background-image: url("../img/icons/inv/online.svg"); }
+  &.icon-diaper     { background-image: url("../img/icons/inv/diaper.svg"); }
+  &.icon-birthdays  { background-image: url("../img/icons/inv/birthdays.svg"); }
+  &.icon-rent       { background-image: url("../img/icons/inv/rent.svg"); }
+  &.icon-other      { background-image: url("../img/icons/inv/other.svg"); }
+
+
+  &.icon-delete { background-image: url("../img/icons/cancel.svg"); }
 }
 
 #cms_toolbar {
