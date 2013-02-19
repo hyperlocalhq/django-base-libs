@@ -833,6 +833,8 @@
 <script src="{{ STATIC_URL }}site/js/swipe.js"></script>
 
 <script type="text/javascript">
+    var slider = new Swipe(document.getElementById('slider'));
+
     $(window).load(function() {
         $('#gallery .cancel').click(function(e){
             $('body').toggleClass('gallery');
@@ -842,6 +844,10 @@
             $('body').toggleClass('gallery');
         });
 
+        $('.images li').click(function(e){
+            slider.slide($(this).index(),0);
+        });
+
         $('#gallery .info').click(function(e){
             $('#gallery').toggleClass('info');
         });
@@ -849,7 +855,6 @@
         $('.accordion-body').collapse('show');
     });
     
-    var slider = new Swipe(document.getElementById('slider'));
 
     // $(function(){
     //   var liWidths = [];
