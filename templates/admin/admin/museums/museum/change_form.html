@@ -48,7 +48,11 @@
                             <fieldset class="module">
                                 <h2 class="collapse-handler">{% trans "Map" %}</h2>
                                 <div class="row cells-1">
-                                    <div id="dyn_set_map"></div>
+                                    <div id="dyn_set_map">
+                                        <div id="gmap_wrapper">
+                                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                                        </div>
+                                    </div>
                                     <div class="buttonHolder">
                                         <input id="dyn_locate_geo" type="button" class="secondaryAction" value="{% trans "Relocate on map" %}" />
                                         <input id="dyn_remove_geo" type="button" class="secondaryAction" value="{% trans "Remove from map" %}" />
