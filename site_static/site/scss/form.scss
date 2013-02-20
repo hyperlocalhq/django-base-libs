@@ -64,9 +64,11 @@ button {
   background-color: black !important;
   color: white !important;
   font-family: inherit !important;
-  box-shadow: none;
+  box-shadow: none !important;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
+  
+  &:hover {box-shadow: none; } 
 
   &[name="cancel"],
   &[name="reset"] { 

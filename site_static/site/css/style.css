@@ -73,9 +73,14 @@ button {
   background-color: black !important;
   color: white !important;
   font-family: inherit !important;
-  box-shadow: none;
+  box-shadow: none !important;
   box-sizing: border-box;
   -moz-box-sizing: border-box; }
+  .btn:hover,
+  input[type=submit]:hover,
+  input[type=reset]:hover,
+  button:hover {
+    box-shadow: none; }
   .btn[name="cancel"], .btn[name="reset"],
   input[type=submit][name="cancel"],
   input[type=submit][name="reset"],
@@ -1077,7 +1082,6 @@ html, body {
 
 body {
   background-color: white;
-  background-color: rgba(0, 0, 0, 0.025);
   color: black;
   font-family: 'calluna_sans';
   font-size: 16px;
@@ -1605,36 +1609,57 @@ a:active {
     .actions a:hover:after,
     .actions button:hover:after {
       display: block; }
-    .actions a.edit,
-    .actions button.edit {
-      background-image: url("../img/icons/inv/edit.svg"); }
-    .actions a.add-favorite,
-    .actions button.add-favorite {
-      background-image: url("../img/icons/inv/favorite.svg"); }
-    .actions a.show-location,
-    .actions button.show-location {
-      background-image: url("../img/icons/inv/location.svg"); }
-    .actions a.cancel,
-    .actions button.cancel {
-      background-image: url("../img/icons/inv/cancel.svg"); }
-    .actions a.fullscreen,
-    .actions button.fullscreen {
-      background-image: url("../img/icons/inv/fullscreen.svg"); }
-    .actions a:hover.edit,
-    .actions button:hover.edit {
-      background-image: url("../img/icons/inv/edit.svg"); }
-    .actions a:hover.add-favorite,
-    .actions button:hover.add-favorite {
-      background-image: url("../img/icons/inv/favorite.svg"); }
-    .actions a:hover.show-location,
-    .actions button:hover.show-location {
-      background-image: url("../img/icons/inv/location.svg"); }
-    .actions a:hover.cancel,
-    .actions button:hover.cancel {
-      background-image: url("../img/icons/inv/cancel.svg"); }
-    .actions a:hover.fullscreen,
-    .actions button:hover.fullscreen {
-      background-image: url("../img/icons/inv/fullscreen.svg"); }
+
+.btn.add,
+button.add {
+  background-image: url("../img/icons/inv/add.svg"); }
+.btn.view,
+button.view {
+  background-image: url("../img/icons/inv/view.svg"); }
+.btn.edit,
+button.edit {
+  background-image: url("../img/icons/inv/edit.svg"); }
+.btn.add-favorite,
+button.add-favorite {
+  background-image: url("../img/icons/inv/favorite.svg"); }
+.btn.show-location,
+button.show-location {
+  background-image: url("../img/icons/inv/location.svg"); }
+.btn.cancel,
+button.cancel {
+  background-image: url("../img/icons/inv/cancel.svg"); }
+.btn.fullscreen,
+button.fullscreen {
+  background-image: url("../img/icons/inv/fullscreen.svg"); }
+.btn.transparent,
+button.transparent {
+  background-color: transparent !important;
+  opacity: 0.3 !important; }
+  .btn.transparent:hover,
+  button.transparent:hover {
+    background-color: transparent !important;
+    opacity: 1 !important; }
+  .btn.transparent.add,
+  button.transparent.add {
+    background-image: url("../img/icons/add.svg"); }
+  .btn.transparent.view,
+  button.transparent.view {
+    background-image: url("../img/icons/view.svg"); }
+  .btn.transparent.edit,
+  button.transparent.edit {
+    background-image: url("../img/icons/edit.svg"); }
+  .btn.transparent.add-favorite,
+  button.transparent.add-favorite {
+    background-image: url("../img/icons/favorite.svg"); }
+  .btn.transparent.show-location,
+  button.transparent.show-location {
+    background-image: url("../img/icons/location.svg"); }
+  .btn.transparent.cancel,
+  button.transparent.cancel {
+    background-image: url("../img/icons/cancel.svg"); }
+  .btn.transparent.fullscreen,
+  button.transparent.fullscreen {
+    background-image: url("../img/icons/fullscreen.svg"); }
 
 .sidebar {
   float: right;
@@ -2161,3 +2186,38 @@ dl {
   height: auto;
   font-size: 13px;
   line-height: 18px; }
+
+#dashboard article {
+  margin-bottom: 30px; }
+#dashboard ul li {
+  position: relative; }
+  #dashboard ul li nav {
+    display: none; }
+  #dashboard ul li:hover nav {
+    display: block; }
+  #dashboard ul li:nth-child(2n) {
+    background-color: white; }
+  #dashboard ul li > a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.05);
+    margin-bottom: 2px; }
+    #dashboard ul li > a:hover {
+      background-color: rgba(0, 0, 0, 0.075); }
+      #dashboard ul li > a:hover h3, #dashboard ul li > a:hover h4, #dashboard ul li > a:hover h5 {
+        color: rgba(0, 0, 0, 0.5) !important; }
+    #dashboard ul li > a h3, #dashboard ul li > a h4, #dashboard ul li > a h5 {
+      display: inline-block;
+      width: 320px;
+      font-size: 13px !important; }
+    #dashboard ul li > a h3 {
+      font-weight: 500; }
+    #dashboard ul li > a h4 {
+      font-weight: 400; }
+    #dashboard ul li > a h5 {
+      font-weight: 400;
+      opacity: 0.5; }
