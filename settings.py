@@ -189,6 +189,7 @@ INSTALLED_APPS = (
     ### museumsportal apps ###
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",
+    "museumsportal.apps.exhibitions_plugins",
     "museumsportal.apps.slideshows",
     "museumsportal.apps.editorial",
     "museumsportal.apps.articles",
@@ -364,7 +365,7 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Start Page Content")
     },
     'left_column': {
-        'plugins': ("EditorialContentPlugin","NewlyOpenedExhibitionPlugin",),
+        'plugins': ("EditorialContentPlugin","NewlyOpenedExhibitionPlugin","NewlyOpenedExhibitionExtPlugin",),
         'name': _("Left Column")
     },
     'center_column': {
@@ -382,6 +383,7 @@ CMS_TEMPLATES = (
     ('cms/start.html', gettext('Start Page Template')),   
     ('cms/visitor_info.html', 'Besucherinfo Template'),   
     ('cms/series.html', 'Serien Template'),   
+    ('cms/series_with_featured.html', 'Serien Template mit Featured Infoblock'),   
 )
 
 CMS_APPHOOKS = (

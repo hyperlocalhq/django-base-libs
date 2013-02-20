@@ -73,6 +73,9 @@ urlpatterns += patterns('',
         'twitter_username': settings.TWITTER_USERNAME,
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
+    url(r'^tweets/(?P<twitter_username>.+)/$', 'museumsportal.apps.twitter.views.latest_tweets', {
+        'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
+        }),
     
     url(r'^login/$', 'museumsportal.apps.site_specific.views.login', {'template_name': 'accounts/login.html', 'redirect_to': '/dashboard/'}, name="login"),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}),

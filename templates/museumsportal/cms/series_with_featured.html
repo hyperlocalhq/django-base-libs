@@ -1,28 +1,30 @@
 {% extends "base.html" %}
-{% load i18n cms_tags menu_tags infoblocks %}
-{% block bodyclass %}series-feature{% endblock %}
+{% load cms_tags menu_tags infoblocks %}
 
 {% block bodyclass %}feature-background-themenjahr2013{% endblock %}
 
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
+{% endblock %}
+
 {% block content %}
-<div class="content clearfix">
-  <div class="inner">
-
-  	<div class="marginal">
-  	    <div class="featured_infoblock">
+	<div class="marginal">
+	    <div class="featured_infoblock">
             <span class="jmb-head">Fenster zum Online-<br/>Projekt des JMB</span>
-  	        <span class="jmb-body">{% infoblock "series_featured" %}</span>
+            <span class="jmb-body">{% infoblock "series_featured" %}</span>
             <a href="http://www.jmberlin.de/1933/" target="_blank"><span class="jmb-logo"></span></a>
-  	    </div>
-
-  		<ul id="sub_menu">
-              {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
-  		</ul>
-
-  	</div>
-    <article>
-      {% placeholder "main_content" %}
-    </article>
-  </div>
-</div>
+	    </div>
+        <div id="twitterfeed">
+            <h2>Twitterfeed</h2>
+            <ul id="tweets" data-twitter-username="Vielfalt2013">
+                <li><a href="https://twitter.com/Vielfalt2013" target="_blank">{% if LANGUAGE_CODE == "de" %}Folgen Sie Zerstörte Vielfalt auf Twitter{% else %}Follow Zerstörte Vielfalt on Twitter{% endif %}</a></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+		<ul id="sub_menu">
+            {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
+		</ul>
+	</div>
+    {% placeholder "main_content" %}
 {% endblock %}
