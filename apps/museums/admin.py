@@ -95,17 +95,17 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets += get_admin_lang_section(_("Mediation offer"), ['mediation_offer',])
     fieldsets += [(_("Accessibility"), {'fields': ['accessibility_options', get_admin_lang_section(_("Explanation"), ['accessibility',])]})]
     fieldsets += [(_("Services"), {'fields': [
-        'service_shop', get_admin_lang_section(_("Details"), ['service_shop_info',]),
-        'service_books', get_admin_lang_section(_("Details"), ['service_books_info',]),
-        'service_restaurant', get_admin_lang_section(_("Details"), ['service_restaurant_info',]),
-        'service_cafe', get_admin_lang_section(_("Details"), ['service_cafe_info',]),
-        'service_library', get_admin_lang_section(_("Details"), ['service_library_info',]),
-        'service_archive', get_admin_lang_section(_("Details"), ['service_archive_info',]),
-        'service_studio', get_admin_lang_section(_("Details"), ['service_studio_info',]),
-        'service_online', get_admin_lang_section(_("Details"), ['service_online_info',]),
+        'service_shop', 
+        'service_books',
+        'service_restaurant',
+        'service_cafe',
+        'service_library',
+        'service_archive',
+        'service_studio',
+        'service_online',
         'service_diaper_changing_table',
-        'service_birthdays', get_admin_lang_section(_("Details"), ['service_birthdays_info',]),
-        'service_rent', get_admin_lang_section(_("Details"), ['service_rent_info',]),
+        'service_birthdays',
+        'service_rent',
         'service_other', get_admin_lang_section(_("Details"), ['service_other_info',]),
     ]})]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]

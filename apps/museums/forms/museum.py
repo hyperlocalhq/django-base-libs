@@ -618,16 +618,6 @@ class ServicesAccessibilityForm(ModelForm):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'accessibility_%s' % lang_code,
-                'service_shop_info_%s' % lang_code,
-                'service_books_info_%s' % lang_code,
-                'service_restaurant_info_%s' % lang_code,
-                'service_cafe_info_%s' % lang_code,
-                'service_library_info_%s' % lang_code,
-                'service_archive_info_%s' % lang_code,
-                'service_studio_info_%s' % lang_code,
-                'service_online_info_%s' % lang_code,
-                'service_birthdays_info_%s' % lang_code,
-                'service_rent_info_%s' % lang_code,
                 'service_other_info_%s' % lang_code,
                 ]
     def __init__(self, *args, **kwargs):
@@ -639,16 +629,6 @@ class ServicesAccessibilityForm(ModelForm):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
                 'accessibility_%s' % lang_code,
-                'service_shop_info_%s' % lang_code,
-                'service_books_info_%s' % lang_code,
-                'service_restaurant_info_%s' % lang_code,
-                'service_cafe_info_%s' % lang_code,
-                'service_library_info_%s' % lang_code,
-                'service_archive_info_%s' % lang_code,
-                'service_studio_info_%s' % lang_code,
-                'service_online_info_%s' % lang_code,
-                'service_birthdays_info_%s' % lang_code,
-                'service_rent_info_%s' % lang_code,
                 'service_other_info_%s' % lang_code,
                 ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
@@ -685,46 +665,6 @@ class ServicesAccessibilityForm(ModelForm):
                 'service_rent',
                 'service_other',
                 css_class="inline",
-                ),
-            layout.Row(
-                css_class="div-shop-details",
-                *('service_shop_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-books-details",
-                *('service_books_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-restaurant-details",
-                *('service_restaurant_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-cafe-details",
-                *('service_cafe_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-library-details",
-                *('service_library_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-archive-details",
-                *('service_archive_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-studio-details",
-                *('service_studio_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-online-details",
-                *('service_online_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-birthdays-details",
-                *('service_birthdays_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-rent-details",
-                *('service_rent_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
                 css_class="div-other-details",
@@ -960,16 +900,6 @@ def load_data(instance=None):
         form_step_data['services_accessibility']['service_other'] = instance.service_other
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['services_accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
-            form_step_data['services_accessibility']['service_shop_info_%s' % lang_code] = getattr(instance, 'service_shop_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_books_info_%s' % lang_code] = getattr(instance, 'service_books_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_restaurant_info_%s' % lang_code] = getattr(instance, 'service_restaurant_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_cafe_info_%s' % lang_code] = getattr(instance, 'service_cafe_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_library_info_%s' % lang_code] = getattr(instance, 'service_library_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_archive_info_%s' % lang_code] = getattr(instance, 'service_archive_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_studio_info_%s' % lang_code] = getattr(instance, 'service_studio_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_online_info_%s' % lang_code] = getattr(instance, 'service_online_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_birthdays_info_%s' % lang_code] = getattr(instance, 'service_birthdays_info_%s' % lang_code)
-            form_step_data['services_accessibility']['service_rent_info_%s' % lang_code] = getattr(instance, 'service_rent_info_%s' % lang_code)
             form_step_data['services_accessibility']['service_other_info_%s' % lang_code] = getattr(instance, 'service_other_info_%s' % lang_code)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -1153,16 +1083,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
-                setattr(instance, 'service_shop_info_%s' % lang_code, form_step_data['services_accessibility']['service_shop_info_%s' % lang_code])
-                setattr(instance, 'service_books_info_%s' % lang_code, form_step_data['services_accessibility']['service_books_info_%s' % lang_code]) 
-                setattr(instance, 'service_restaurant_info_%s' % lang_code, form_step_data['services_accessibility']['service_restaurant_info_%s' % lang_code])
-                setattr(instance, 'service_cafe_info_%s' % lang_code, form_step_data['services_accessibility']['service_cafe_info_%s' % lang_code])
-                setattr(instance, 'service_library_info_%s' % lang_code, form_step_data['services_accessibility']['service_library_info_%s' % lang_code])
-                setattr(instance, 'service_archive_info_%s' % lang_code, form_step_data['services_accessibility']['service_archive_info_%s' % lang_code])
-                setattr(instance, 'service_studio_info_%s' % lang_code, form_step_data['services_accessibility']['service_studio_info_%s' % lang_code])
-                setattr(instance, 'service_online_info_%s' % lang_code, form_step_data['services_accessibility']['service_online_info_%s' % lang_code])
-                setattr(instance, 'service_birthdays_info_%s' % lang_code, form_step_data['services_accessibility']['service_birthdays_info_%s' % lang_code])
-                setattr(instance, 'service_rent_info_%s' % lang_code, form_step_data['services_accessibility']['service_rent_info_%s' % lang_code])
                 setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
 
             instance.save()
@@ -1267,31 +1187,11 @@ def save_data(form_steps, form_step_data, instance=None):
     
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
-        setattr(instance, 'service_shop_info_%s' % lang_code, form_step_data['services_accessibility']['service_shop_info_%s' % lang_code])
-        setattr(instance, 'service_books_info_%s' % lang_code, form_step_data['services_accessibility']['service_books_info_%s' % lang_code]) 
-        setattr(instance, 'service_restaurant_info_%s' % lang_code, form_step_data['services_accessibility']['service_restaurant_info_%s' % lang_code])
-        setattr(instance, 'service_cafe_info_%s' % lang_code, form_step_data['services_accessibility']['service_cafe_info_%s' % lang_code])
-        setattr(instance, 'service_library_info_%s' % lang_code, form_step_data['services_accessibility']['service_library_info_%s' % lang_code])
-        setattr(instance, 'service_archive_info_%s' % lang_code, form_step_data['services_accessibility']['service_archive_info_%s' % lang_code])
-        setattr(instance, 'service_studio_info_%s' % lang_code, form_step_data['services_accessibility']['service_studio_info_%s' % lang_code])
-        setattr(instance, 'service_online_info_%s' % lang_code, form_step_data['services_accessibility']['service_online_info_%s' % lang_code])
-        setattr(instance, 'service_birthdays_info_%s' % lang_code, form_step_data['services_accessibility']['service_birthdays_info_%s' % lang_code])
-        setattr(instance, 'service_rent_info_%s' % lang_code, form_step_data['services_accessibility']['service_rent_info_%s' % lang_code])
         setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
 
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         for f in [
             'accessibility_%s' % lang_code,
-            'service_shop_info_%s' % lang_code,
-            'service_books_info_%s' % lang_code,
-            'service_restaurant_info_%s' % lang_code,
-            'service_cafe_info_%s' % lang_code,
-            'service_library_info_%s' % lang_code,
-            'service_archive_info_%s' % lang_code,
-            'service_studio_info_%s' % lang_code,
-            'service_online_info_%s' % lang_code,
-            'service_birthdays_info_%s' % lang_code,
-            'service_rent_info_%s' % lang_code,
             'service_other_info_%s' % lang_code,
             ]:
             setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
