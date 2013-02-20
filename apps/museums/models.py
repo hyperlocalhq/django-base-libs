@@ -173,18 +173,6 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     twitter = models.CharField(_("Twitter"), max_length=255, blank=True)
     facebook = URLField(_("Facebook"), max_length=255, blank=True)
 
-    contact_name = models.CharField(_("Contact person"), max_length=255, blank=True)
-    contact_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
-    contact_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
-    contact_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
-    contact_email = models.EmailField(_("Email"), max_length=255, blank=True)
-
-    post_street_address = models.CharField(_("Street address"), max_length=255, blank=True)
-    post_street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
-    post_postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
-    post_city =  models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
-    post_country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255, blank=True)    
-
     open_on_mondays = models.BooleanField(_("Open on Mondays"))
     
     # prices

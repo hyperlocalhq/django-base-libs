@@ -514,8 +514,6 @@ class AddressForm(ModelForm):
             'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number', 
             'service_phone_country', 'service_phone_area', 'service_phone_number', 
             'fax_country', 'fax_area', 'fax_number', 'email', 'website', 'twitter', 'facebook',
-            'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
-            'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
             ]
     def __init__(self, *args, **kwargs):
         super(AddressForm, self).__init__(*args, **kwargs)
@@ -554,26 +552,7 @@ class AddressForm(ModelForm):
                 ),
             css_class="fieldset-location",
             ))
-        layout_blocks.append(layout.Fieldset(
-            _("Mailing address"),
-            layout.Row('post_street_address', 'post_street_address2'),
-            layout.Row('post_postal_code', 'post_city'),
-            css_class="fieldset-postal-address",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Contact person"),
-            layout.Row(
-                'contact_name', 
-                layout.Div(
-                    layout.Row(
-                    layout.HTML('{% load i18n %}<div><label>{% trans "Phone" %}</label></div>'),
-                    'contact_phone_country', 'contact_phone_area', 'contact_phone_number'),
-                ),
-            ),
             
-            'contact_email',
-            css_class="fieldset-contact-person",
-            ))
         layout_blocks.append(layout.Fieldset(
             _("Contact"),
 
@@ -962,8 +941,6 @@ def load_data(instance=None):
             'service_phone_country', 'service_phone_area', 'service_phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website', 'twitter', 'facebook',
-            'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
-            'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
             ]
         for f in fields:
             form_step_data['address'][f] = getattr(instance, f)
@@ -1037,8 +1014,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'service_phone_country', 'service_phone_area', 'service_phone_number',
                 'fax_country', 'fax_area', 'fax_number',
                 'email', 'website', 'twitter', 'facebook',
-                'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
-                'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
                 ]
             for f in fields:
                 setattr(instance, f, form_step_data['address'][f])
@@ -1272,8 +1247,6 @@ def save_data(form_steps, form_step_data, instance=None):
         'service_phone_country', 'service_phone_area', 'service_phone_number',
         'fax_country', 'fax_area', 'fax_number',
         'email', 'website', 'twitter', 'facebook',
-        'contact_name', 'contact_phone_country', 'contact_phone_area', 'contact_phone_number', 'contact_email',
-        'post_street_address', 'post_street_address2', 'post_postal_code', 'post_city',
         ]
     for f in fields:
         setattr(instance, f, form_step_data['address'][f])
