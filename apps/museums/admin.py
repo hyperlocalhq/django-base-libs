@@ -91,9 +91,7 @@ class MuseumAdmin(ExtendedModelAdmin):
         'show_other_tickets', get_admin_lang_section(_("Price info"), ['other_tickets']),
         )}),]
     fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
-    fieldsets += [(_("Postal address"), {'fields': ('post_street_address','post_street_address2','post_postal_code','post_city', 'post_country')}),]
     fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', (_("Group bookings phone"), {'fields': ('group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number')}), (_("Service phone"), {'fields': ('service_phone_country', 'service_phone_area', 'service_phone_number')}), 'twitter', 'facebook')}),]
-    fieldsets += [(_("Contact person"), {'fields': ('contact_name', ('contact_phone_country','contact_phone_area','contact_phone_number'),'contact_email',)}),]
     fieldsets += get_admin_lang_section(_("Mediation offer"), ['mediation_offer',])
     fieldsets += [(_("Accessibility"), {'fields': ['accessibility_options', get_admin_lang_section(_("Explanation"), ['accessibility',])]})]
     fieldsets += [(_("Services"), {'fields': [
