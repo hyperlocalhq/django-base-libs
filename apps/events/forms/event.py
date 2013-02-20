@@ -154,7 +154,7 @@ class BasicInfoForm(ModelForm):
                         </div>
                         <div class="form-actions">
                             <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
-                            <input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;
+                            <!--<input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;-->
                         </div>
                     </div>
                 """),
