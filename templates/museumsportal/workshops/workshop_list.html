@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-{% load i18n image_modifications base_tags tagging_tags %}
+{% load i18n image_modifications base_tags tagging_tags favorites %}
 {% block bodyclass %}workshop-list{% endblock %}
 
 {% block js %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 	<script type="text/javascript">
 	//$(function() {
     //    var scroller = new StickyScroller("#head_filter", {
@@ -79,7 +80,7 @@
                 </a>
 
                 <nav class="actions">
-                    <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
+                    {% adding2favorites for workshop %}
                     <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
                 </nav>
     
