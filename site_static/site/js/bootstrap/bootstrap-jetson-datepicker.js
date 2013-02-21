@@ -427,7 +427,7 @@
                 }
                 
                 $(this).parent().addClass('input-append');
-                $('<button class="btn" type="button">Select</button>').insertAfter(this).click(function() {
+                $('<button class="btn pick-date" type="button">Select</button>').insertAfter(this).click(function() {
                     $('body').append(template);
                     $("#popup").delay(100).queue(function () {
                         $(this).addClass("on");
