@@ -358,7 +358,7 @@ class SpecialOpeningTime(models.Model):
     def __unicode__(self):
         result = u"%s %s" % (self.get_mm_display(), self.dd)
         if self.yyyy:
-            result = self.yyyy + u" " + result
+            result = u"%s %s" % (self.yyyy, result)
         if self.day_label:
             result += u" - " + self.day_label
         return result
