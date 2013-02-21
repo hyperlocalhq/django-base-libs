@@ -185,6 +185,7 @@ INSTALLED_APPS = (
     "jetson.apps.blocks",
     "jetson.apps.media_gallery",
     "jetson.apps.configuration",
+    "jetson.apps.favorites",
     
     ### museumsportal apps ###
     "museumsportal.apps.museums",
