@@ -231,7 +231,7 @@ def register(request):
                 send_immediately=True,
                 )
             
-            return redirect('/register/almost-done/')
+            return redirect('/signup/almost-done/')
     else:
         form = RegistrationForm()
     context = {
@@ -248,7 +248,7 @@ def confirm_registration(request, encrypted_email):
         raise Http404
     user = authenticate(email=email)
     if not user:
-        return redirect('/register/')
+        return redirect('/signup/')
     user.is_active = True
     user.save()
     from django.contrib.auth import login
@@ -268,5 +268,5 @@ def confirm_registration(request, encrypted_email):
         sender_email=sender_email,
         send_immediately=True,
         )
-    return redirect('/register/welcome/')
+    return redirect('/signup/welcome/')
 
