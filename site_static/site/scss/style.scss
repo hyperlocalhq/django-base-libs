@@ -385,6 +385,7 @@ a:active  { outline: none;}
         background-color: rgba(0,0,0,0.05) !important;
         height: 150px;
       }
+
       .img { 
         height: auto;
         margin: 0px;
@@ -449,18 +450,13 @@ a:active  { outline: none;}
     line-height: 20px;
     padding-bottom: 0px ;
     margin-right: 20px;
-    .actions {
-      opacity: 0;
-    }
+    .actions {opacity: 0; }
 
     &:hover{
-      .actions {
-        opacity: 1;
-      }
+      .actions {opacity: 1; }
       .img{ 
-        .overlay { 
-          border: 1px solid rgba(0,0,0,0.1);
-        }
+        opacity: 0.9;
+        .overlay { border: 1px solid rgba(0,0,0,0.1); }
       }
     }
 
@@ -476,6 +472,11 @@ a:active  { outline: none;}
       margin-bottom: 9px;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
       position: relative;
+
+
+      -webkit-transition-property: opacity;
+      -webkit-transition-duration: 0.125s;
+      -webkit-transition-timing: ease-in-out;
 
       span { 
         position: absolute;
@@ -500,9 +501,7 @@ a:active  { outline: none;}
         background-position: center;
         background-repeat: no-repeat;
 
-        &.loading { 
-          opacity: 1;
-        }
+        &.loading {opacity: 1; }
       }
     }
 
@@ -565,9 +564,7 @@ a:active  { outline: none;}
           color: white;
           text-transform: capitalize;
 
-          &:hover { 
-            background-color: black
-          }
+          &:hover { background-color: black; } 
         }
       }
 
@@ -693,10 +690,10 @@ a:active  { outline: none;}
 
 .actions {
   -webkit-transition-property: all;
-  -webkit-transition-duration: 0.25s;
+  -webkit-transition-duration: 0.125s;
   -webkit-transition-timing: ease-in-out;
   position: absolute;
-  z-index: 1000;
+  z-index: 200;
   right: 0px;
   top: 0px;
 
@@ -716,6 +713,8 @@ a:active  { outline: none;}
     box-shadow: 0 0 0 1px rgba(0,0,0,0.025);
     box-sizing: border-box;
     -moz-box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
 
     &:hover { 
       background-color: rgba(0,0,0,0.75) !important;
@@ -833,7 +832,14 @@ article {
 
         .actions { opacity: 0; }
         .inner { overflow: hidden; position: relative;}
-        img { display: block; width: 100%;}
+        img { 
+          display: block; 
+          width: 100%;
+
+          -webkit-transition-property: opacity;
+          -webkit-transition-duration: 0.125s;
+          -webkit-transition-timing: ease-in-out;
+        }
        
         &:first-child { width: 660px;}
 
@@ -846,6 +852,7 @@ article {
         .info {
           -webkit-transition-property: all;
           -webkit-transition-duration: 0.5s;
+          -webkit-transition-delay: 0.5s;
           -webkit-transition-timing: ease-in-out;
           background-color: white;
           color: white;
@@ -1037,7 +1044,7 @@ article {
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 500;
+      z-index: 100;
       background-color: rgba(0,0,0,0.05);
       box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
     }
@@ -1443,25 +1450,25 @@ dl {
 }
 
 #dashboard {
-  article { 
-    margin-bottom: 30px;
-  }
 
+  label {font-size: 22px; padding-bottom: 10px; }
+  
+  .add {float: right; margin-bottom: 4px; display: block;}
+  
+  article {margin-bottom: 30px; }
+  
   ul {
-
     li {
       position: relative;
-      nav { display: none; 
-      }
+      background-color: rgba(0,0,0,0.05);
+      
+      nav { display: none; }
 
       &:hover {
+        background-color: rgba(0,0,0,0.075);
         nav { display: block;}
       }
 
-      &:nth-child(2n) {
-        background-color: white;
-      }
-      
       > a {
         display: block;
         height: 40px;
@@ -1470,10 +1477,8 @@ dl {
 
         box-sizing: border-box;
         -moz-box-sizing: border-box;
-        background-color: rgba(0,0,0,0.05);
         margin-bottom: 2px;
         &:hover {
-          background-color: rgba(0,0,0,0.075);
            h3, h4 ,h5 { color: rgba(0,0,0,0.5) !important;}
         }
         h3, h4 ,h5 { display: inline-block; width: 320px; font-size: 13px !important;}

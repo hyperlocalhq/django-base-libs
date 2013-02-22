@@ -1420,8 +1420,10 @@ a:active {
       opacity: 0; }
     .list > li:hover .actions {
       opacity: 1; }
-    .list > li:hover .img .overlay {
-      border: 1px solid rgba(0, 0, 0, 0.1); }
+    .list > li:hover .img {
+      opacity: 0.9; }
+      .list > li:hover .img .overlay {
+        border: 1px solid rgba(0, 0, 0, 0.1); }
     .list > li .img {
       background-color: rgba(0, 0, 0, 0.05);
       width: 100%;
@@ -1433,7 +1435,10 @@ a:active {
       background-repeat: no-repeat;
       margin-bottom: 9px;
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-      position: relative; }
+      position: relative;
+      -webkit-transition-property: opacity;
+      -webkit-transition-duration: 0.125s;
+      -webkit-transition-timing: ease-in-out; }
       .list > li .img span {
         position: absolute;
         left: 0px;
@@ -1580,10 +1585,10 @@ a:active {
 
 .actions {
   -webkit-transition-property: all;
-  -webkit-transition-duration: 0.25s;
+  -webkit-transition-duration: 0.125s;
   -webkit-transition-timing: ease-in-out;
   position: absolute;
-  z-index: 1000;
+  z-index: 200;
   right: 0px;
   top: 0px; }
   .actions.bottom {
@@ -1602,7 +1607,9 @@ a:active {
     position: relative;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.025);
     box-sizing: border-box;
-    -moz-box-sizing: border-box; }
+    -moz-box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden; }
     .actions a:hover,
     .actions button:hover {
       background-color: rgba(0, 0, 0, 0.75) !important; }
@@ -1713,7 +1720,10 @@ article#images {
         position: relative; }
       article#images ul li img {
         display: block;
-        width: 100%; }
+        width: 100%;
+        -webkit-transition-property: opacity;
+        -webkit-transition-duration: 0.125s;
+        -webkit-transition-timing: ease-in-out; }
       article#images ul li:first-child {
         width: 660px; }
       article#images ul li:hover .info {
@@ -1726,6 +1736,7 @@ article#images {
       article#images ul li .info {
         -webkit-transition-property: all;
         -webkit-transition-duration: 0.5s;
+        -webkit-transition-delay: 0.5s;
         -webkit-transition-timing: ease-in-out;
         background-color: white;
         color: white;
@@ -1847,7 +1858,7 @@ article p {
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 500;
+      z-index: 100;
       background-color: rgba(0, 0, 0, 0.05);
       box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05); }
     #slide > li .overlay {
@@ -2187,16 +2198,24 @@ dl {
   font-size: 13px;
   line-height: 18px; }
 
+#dashboard label {
+  font-size: 22px;
+  padding-bottom: 10px; }
+#dashboard .add {
+  float: right;
+  margin-bottom: 4px;
+  display: block; }
 #dashboard article {
   margin-bottom: 30px; }
 #dashboard ul li {
-  position: relative; }
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.05); }
   #dashboard ul li nav {
     display: none; }
-  #dashboard ul li:hover nav {
-    display: block; }
-  #dashboard ul li:nth-child(2n) {
-    background-color: white; }
+  #dashboard ul li:hover {
+    background-color: rgba(0, 0, 0, 0.075); }
+    #dashboard ul li:hover nav {
+      display: block; }
   #dashboard ul li > a {
     display: block;
     height: 40px;
@@ -2204,12 +2223,9 @@ dl {
     padding-left: 10px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.05);
     margin-bottom: 2px; }
-    #dashboard ul li > a:hover {
-      background-color: rgba(0, 0, 0, 0.075); }
-      #dashboard ul li > a:hover h3, #dashboard ul li > a:hover h4, #dashboard ul li > a:hover h5 {
-        color: rgba(0, 0, 0, 0.5) !important; }
+    #dashboard ul li > a:hover h3, #dashboard ul li > a:hover h4, #dashboard ul li > a:hover h5 {
+      color: rgba(0, 0, 0, 0.5) !important; }
     #dashboard ul li > a h3, #dashboard ul li > a h4, #dashboard ul li > a h5 {
       display: inline-block;
       width: 320px;
