@@ -4,18 +4,18 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.conf import settings
 from django.db import models
 
-from models import Exhibition
+from models import Event
 
-class ExhibitionRssFeed(Feed):
+class EventRssFeed(Feed):
     
     link = ""
-    title = _("Exhibitions in the Museums of Berlin")
+    title = _("Events in the Museums of Berlin")
 
     # title and description templates for displaying the feeds
-    description_template = "exhibitions/feeds/feed_description.html"
+    description_template = "events/feeds/feed_description.html"
     
     def items(self, obj):
-        return Exhibition.objects.filter(status="published").order_by("-creation_date")[:50]
+        return Event.objects.filter(status="published").order_by("-creation_date")[:50]
         
     def item_title(self, item):
         return item.title
