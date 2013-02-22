@@ -94,10 +94,10 @@
                   <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                 </a>
     
-                <div class="description">
+                <!-- <div class="description">
                     <p>{{ exhibition.get_rendered_description|striptags }}</p>
                     <a class="more" href="{{ exhibition.get_url_path }}">more</a>
-                </div>
+                </div> -->
                 
                 {% with exhibition.museum as museum %}
                   {% if museum.latitude %}
