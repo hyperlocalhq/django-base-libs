@@ -137,7 +137,6 @@ class MuseumManager(models.Manager):
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     title = MultilingualCharField(_("Name"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
-    teaser = MultilingualTextField(_("Teaser"), blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
     press_text = MultilingualTextField(_("Press text"), blank=True)
 
