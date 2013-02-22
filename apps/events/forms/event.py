@@ -76,7 +76,7 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Event
         
-        fields = ['categories', 'tags', 'languages', 'other_languages',
+        fields = ['categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
             'organizing_museum', 'organizer_title', 'organizer_url_link',
@@ -184,6 +184,10 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 "tags",
                 "other_languages",
+                ),
+            layout.Div(
+                "suitable_for_children",
+                css_class="inline",
                 ),
             css_class="fieldset-categories-tags",
             ))
@@ -365,6 +369,7 @@ def load_data(instance=None):
         form_step_data['basic']['tags'] = instance.tags
         form_step_data['basic']['languages'] = instance.languages.all()
         form_step_data['basic']['other_languages'] = instance.other_languages
+        form_step_data['basic']['suitable_for_children'] = instance.suitable_for_children
         form_step_data['basic']['museum'] = instance.museum
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
@@ -426,6 +431,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.organizer_title = form_step_data['basic']['organizer_title']
         instance.organizer_url_link = form_step_data['basic']['organizer_url_link']
         instance.tags = form_step_data['basic']['tags']
+        instance.suitable_for_children = form_step_data['basic']['suitable_for_children']
 
         instance.status = "draft"
         instance.save()
@@ -510,6 +516,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.organizer_title = form_step_data['basic']['organizer_title']
     instance.organizer_url_link = form_step_data['basic']['organizer_url_link']
     instance.tags = form_step_data['basic']['tags']
+    instance.suitable_for_children = form_step_data['basic']['suitable_for_children']
 
     fields = ['admission_price', 'reduced_price']
     for lang_code, lang_name in FRONTEND_LANGUAGES:

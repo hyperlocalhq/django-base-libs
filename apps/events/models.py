@@ -105,6 +105,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     tags = TagAutocompleteField(verbose_name=_("tags"))
     languages = models.ManyToManyField(Language, verbose_name=_("Languages"), blank=True, limit_choices_to={'display': True})
     other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)
+    suitable_for_children = models.BooleanField(_("Also suitable for children"), blank=True)
     
     museum = models.ForeignKey(Museum, verbose_name=_("Museum"), blank=True, null=True)
     location_name = models.CharField(_("Location name"), max_length=255, blank=True)
