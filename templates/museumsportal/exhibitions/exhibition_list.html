@@ -77,11 +77,11 @@
                         <span class="overlay"></span>
                     </a>
                 {% else %}
-                    <a class="img" href="{{ exhibition.get_url_path }}"  {% if exhibition.museum.image %}data-background="{{ MEDIA_URL }}{{ exhibition.museum.image }}">
+                    <a class="img" href="{{ exhibition.get_url_path }}"{% if exhibition.museum.image %} data-background="{{ MEDIA_URL }}{{ exhibition.museum.image }}"{% endif %}>
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>
-                {% endif %}{% endif %}
+                {% endif %}
 
                 <nav class="actions">
                     {% if request.user.is_authenticated %}
