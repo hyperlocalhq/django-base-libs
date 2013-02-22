@@ -84,7 +84,9 @@
                 {% endif %}{% endif %}
 
                 <nav class="actions">
-                    {% adding2favorites for exhibition %}
+                    {% if request.user.is_authenticated %}
+                        {% adding2favorites for exhibition %}
+                    {% endif %}
                     <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
                 </nav>
 
