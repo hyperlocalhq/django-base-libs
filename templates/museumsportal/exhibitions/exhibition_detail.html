@@ -348,7 +348,7 @@
                                     {% if special_opening.is_closed %}
                                         {% trans "Closed" %}
                                     {% else %}
-                                        {% if special_opening.is_closed %}
+                                        {% if special_opening.is_regular %}
                                             {% trans "Regular Opening hours" %}
                                         {% else %}
                                             {{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}
