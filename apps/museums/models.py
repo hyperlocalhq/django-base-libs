@@ -72,7 +72,7 @@ class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
 
 class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
-    image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
+    image = FileBrowseField(_('Image'), max_length=255, directory="accessibility/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
     sort_order = models.IntegerField(_("Sort Order"), default=0)
     
     def __unicode__(self):
