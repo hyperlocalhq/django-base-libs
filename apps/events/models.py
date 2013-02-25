@@ -213,6 +213,12 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
             langs.append(lang)
         return langs
 
+    def _get_cover_image(self):
+        qs = self.mediafile_set.all()
+        if qs.count():
+            return qs[0].path
+    cover_image = property(_get_cover_image)
+
 class EventTime(models.Model):
     
     event = models.ForeignKey(Event, verbose_name=_("Event"))

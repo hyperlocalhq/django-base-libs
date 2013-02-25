@@ -102,10 +102,10 @@
     {% with object as exhibition %}
 
         <header>
-            {% if exhibition.image %}
+            {% if exhibition.cover_image %}
             <ul id="slide">
                 <li>
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
                     <span class="overlay">
                         <time>{% if exhibition.permanent %}{% trans "Permanent exhibition" %}{% else %}
                             <span class="from_date">{{ exhibition.start|date:"j. F Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"j. F Y" }}{% endif %}</time>
@@ -689,7 +689,7 @@
             {% for exhibition in exhibitions_closing_soon %}
                 <li class="item">
                     
-                    <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.image %}data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}"{% endif %}>
+                    <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %}data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}"{% endif %}>
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>

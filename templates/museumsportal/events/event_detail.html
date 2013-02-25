@@ -102,10 +102,10 @@
     {% with object as event %}
 
         <header>
-            {% if event.image %}
+            {% if event.cover_image %}
             <ul id="slide">
                 <li>
-                    <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.image }})"></a>
+                    <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.cover_image }})"></a>
                     <span class="overlay">
                         <time>{% if event.permanent %}{% trans "Permanent event" %}{% else %}
                             <span class="from_date">{{ event.start|date:"j. F Y" }}</span> {% trans "till" %} {{ event.end|date:"j. F Y" }}{% endif %}</time>
@@ -496,7 +496,7 @@
             {% get_objects closing_soon events.Event 5 as events_closing_soon %}
             {% for event in events_closing_soon %}
                 <li class="item">
-                    <a class="img" href="{{ event.get_url_path }}" {% if event.image %}data-background="{{ MEDIA_URL }}{{ event.image|modified_path:"event_list" }}{% endif %}">
+                    <a class="img" href="{{ event.get_url_path }}" {% if event.cover_image %}data-background="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}{% endif %}">
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>

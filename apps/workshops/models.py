@@ -225,6 +225,12 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
             langs.append(lang)
         return langs
 
+    def _get_cover_image(self):
+        qs = self.mediafile_set.all()
+        if qs.count():
+            return qs[0].path
+    cover_image = property(_get_cover_image)
+
 class WorkshopTime(models.Model):
 
     workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))

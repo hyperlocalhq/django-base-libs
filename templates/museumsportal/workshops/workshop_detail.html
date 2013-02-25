@@ -102,10 +102,10 @@
     {% with object as workshop %}
 
         <header>
-            {% if workshop.image %}
+            {% if workshop.cover_image %}
             <ul id="slide">
                 <li>
-                    <a class="img" href="{{ workshop.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ workshop.image }})"></a>
+                    <a class="img" href="{{ workshop.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ workshop.cover_image }})"></a>
                     <span class="overlay">
                         <time>{% if workshop.permanent %}{% trans "Permanent workshop" %}{% else %}
                             <span class="from_date">{{ workshop.start|date:"j. F Y" }}</span> {% trans "till" %} {{ workshop.end|date:"j. F Y" }}{% endif %}</time>
@@ -506,8 +506,8 @@
             {% get_objects closing_soon workshops.Workshop 5 as workshops_closing_soon %}
             {% for workshop in workshops_closing_soon %}
                 <li class="item">
-                    {% if workshop.image %}
-                        <a class="img" href="{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.image|modified_path:"workshop_list" }}">
+                    {% if workshop.cover_image %}
+                        <a class="img" href="{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}">
                             <span class="spinner loading"></span>
                             <span class="overlay"></span>
                         </a>

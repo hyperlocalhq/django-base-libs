@@ -71,13 +71,13 @@
         {% for exhibition in object_list %}
             {% tags_for_object exhibition as tags %}
             <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
-                {% if exhibition.image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}">
+                {% if exhibition.cover_image %}
+                    <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}">
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>
                 {% else %}
-                    <a class="img" href="{{ exhibition.get_url_path }}"{% if exhibition.museum.image %} data-background="{{ MEDIA_URL }}{{ exhibition.museum.image }}"{% endif %}>
+                    <a class="img" href="{{ exhibition.get_url_path }}"{% if exhibition.museum.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.museum.cover_image }}"{% endif %}>
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>
@@ -112,7 +112,7 @@
                               longitude: {{ museum.longitude }},
                               categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                               content: 
-                              '{% if museum.image %}<span class="img" style="background-image: url({{ UPLOADS_URL }}{{ museum.image.path }})"></span>{% endif %}'
+                              '{% if museum.cover_image %}<span class="img" style="background-image: url({{ UPLOADS_URL }}{{ museum.cover_image.path }})"></span>{% endif %}'
                               + '<h3>{{ exhibition.title }}</h3>'
                               + '<h4>{{ museum.title }}</h4>'
                               + '<h5>{{ museum.street_address }} {{ museum.street_address2 }}</h5>'

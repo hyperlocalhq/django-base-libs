@@ -83,46 +83,6 @@ class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Accessibility option")
         verbose_name_plural = _("Accessibility options")
 
-    '''
-    Signet "Berlin barrierefrei"
-    gute Ausstattung bei Sehbebehinderung
-    bedingt geeignete Ausstattung bei Sehbehinderung
-    gute Ausstattung für blinde Menschen
-    bedingt geeignete Ausstattung für blinde Menschen
-    gute Ausstattung für gehörlose Menschen
-    bedingt geeignete Ausstattung für gehörlose Menschen
-    gute Ausstattung für hörgeschädigte Menschen
-    bedingt geeignete Ausstattung für hörgeschädigte Menschen
-    gute Ausstattung für Menschen mit einer Lernbehinderung
-    bedingt geeignete Ausstattung für Menschen mit einer Lernbehinderung
-    gute rollstuhlgerechte Zugänglichkeit
-    rollstuhlgeeignete Zugänglichkeit
-    bedingt rollstuhlgeeignete Zugänglichkeit
-    gutes rollstuhlgerechtes WC
-    rollstuhlgeeignetes WC
-    bedingt rollstuhlgeeignetes WC
-    guter rollstuhlgerechter Aufzug
-    rollstuhlgeeigneter Aufzug
-    Aufzug bedingt rollstuhlgeeignet
-    Parkmöglichkeit
-    Parkplatz für Menschen mit Behinderung
-    gutes rollstuhlgerechtes Zimmer in Beherbergungsstätte
-    rollstuhlgeeignetes Zimmer in Beherbergungsstätte
-    bedingt rollstuhlgeeignetes Zimmer in Beherbergungstätte
-    gute rollstuhlgerechte Nasszelle (Bad, Dusche)
-    rollstuhlgeeignete Nasszelle (Bad, Dusche)
-    Nasszelle bedingt rollstuhlgeeignet (Bad, Dusche)
-    gut rollstuhlgerechtes Schwimmbad
-    Schwimmbad rollstuhlgeeignet
-    Schwimmbad bedingt rollstuhlgeeignet
-    Sportstätte / Umkleidebereich gut rollstuhlgerecht
-    Sportstätte / Umkleidebereich rollstuhlgeeignet
-    Sportstätten / Umkleidebereich bedingt rollstuhlgeeignet
-    gute rollstuhlgerechte Küche
-    Küche rollstuhlgeeignet
-    Küche bedingt rollstuhlgeeignet
-    '''
-
 class MuseumManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
@@ -311,6 +271,12 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         except:
             return []
         return role.users.all()
+
+    def _get_cover_image(self):
+        qs = self.mediafile_set.all()
+        if qs.count():
+            return qs[0].path
+    cover_image = property(_get_cover_image)
 
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)

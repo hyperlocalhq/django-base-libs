@@ -98,10 +98,10 @@
     <div class="inner">
 
         <header>
-            {% if museum.image %}
+            {% if museum.cover_image %}
             <ul id="slide">
                 <li>
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.image }})"></a>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ museum.cover_image }})"></a>
                 </li>
             </ul>
 
@@ -481,14 +481,14 @@
                             <ul id="kurze_zeit" class="list compact">
                             {% for exhibition in object.get_published_exhibitions %}
                                 <li class="item">
-                                    {% if exhibition.image %}
-                                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.image }})"></a>
+                                    {% if exhibition.cover_image %}
+                                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
                                     {% endif %}
-                                    <a href="{{ exhibition.get_url_path }}">
-                                        <h4>{{ exhibition.museum.title }}</h4>
-                                        <h3>{{ exhibition.title }}</h3>
-                                        <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
-                                    </a>
+                                        <a href="{{ exhibition.get_url_path }}">
+                                            <h4>{{ exhibition.museum.title }}</h4>
+                                            <h3>{{ exhibition.title }}</h3>
+                                            <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                                        </a>
                                 </li>
                             {% endfor %}
                             </ul>
@@ -780,7 +780,7 @@
             {% for museum in object.get_museums_with_the_same_categories %}
                 <li class="item">
                    
-                    <a class="img" href="{{ museum.get_url_path }}" {% if museum.image %} data-background="{{ MEDIA_URL }}{{ museum.image }}"{% endif %}>
+                    <a class="img" href="{{ museum.get_url_path }}" {% if museum.cover_image %} data-background="{{ MEDIA_URL }}{{ museum.cover_image }}"{% endif %}>
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>

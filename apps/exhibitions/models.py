@@ -275,6 +275,12 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return []
         return role.users.all()
 
+    def _get_cover_image(self):
+        qs = self.mediafile_set.all()
+        if qs.count():
+            return qs[0].path
+    cover_image = property(_get_cover_image)
+
 class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)
     title = MultilingualCharField(_('Season title'), max_length=255, blank=True)

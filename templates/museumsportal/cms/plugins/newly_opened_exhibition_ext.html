@@ -1,8 +1,8 @@
 {% load i18n image_modifications %}
 {% with object.exhibition as exhibition %}
 <div class="article short" onclick="location.href='{{ exhibition.get_url_path }}';">
-    {% if exhibition.image %}
-        <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.image|modified_path:"exhibition_list" }}" alt="" /></a>
+    {% if exhibition.cover_image %}
+        <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}" alt="" /></a>
     {% endif %}
     <h4>{{ exhibition.museum.title }}</h4>
     <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
