@@ -780,7 +780,7 @@
             {% for museum in object.get_museums_with_the_same_categories %}
                 <li class="item">
                    
-                    <a class="img" href="{{ museum.get_url_path }}" {% if museum.cover_image %} data-background="{{ MEDIA_URL }}{{ museum.cover_image }}"{% endif %}>
+                    <a class="img" href="{{ museum.get_url_path }}" {% if museum.cover_image %} data-background="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}"{% endif %}>
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>
