@@ -404,11 +404,43 @@
                 </li>  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-services-accessibility">  
-                            {% filter fix_ampersands %}{% trans "Services & Accessibility" %}{% endfilter %} 
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-services">  
+                            {% filter fix_ampersands %}{% trans "Services" %}{% endfilter %} 
                         </a>  
                     </h4>  
-                    <ul id="collapse-services-accessibility" class="accordion-body collapse" style="height: 0px; ">
+                    <ul id="collapse-services" class="accordion-body collapse" style="height: 0px; ">
+                        <li class="accordion-inner">
+                            {% if museum.service_shop or museum.service_books or museum.service_restaurant or museum.service_cafe or museum.service_library or musuem.service_archive or musuem.service_studio or museum.service_online or museum.service_diaper_changing_table or musuem.service_birthdays or museum.service_rent or musuem.service_other %}
+                                <h5>{% trans "Services" %}</h5>
+                                {% if museum.service_shop %}
+                                    <span class="icon icon-shop" rel="tooltip" data-placement="top" data-original-title="{% trans "Shop" %}" >{% trans "Shop" %}</span>
+                                {% endif %}
+                                {% if museum.service_restaurant %}
+                                    <span class="icon icon-restaurant" rel="tooltip" data-placement="top" data-original-title="{% trans "Restaurant" %}" >{% trans "Restaurant" %}</span>
+                                {% endif %}
+                                {% if museum.service_cafe %}
+                                    <span class="icon icon-cafe" rel="tooltip" data-placement="top" data-original-title="{% trans "Cafe" %}" >{% trans "Cafe" %}</span>
+                                {% endif %}
+                                {% if museum.service_library %}
+                                    <span class="icon icon-library" rel="tooltip" data-placement="top" data-original-title="{% trans "Library" %}" >{% trans "Library" %}</span>
+                                {% endif %}
+                                {% if musuem.service_archive %}
+                                    <span class="icon icon-archive" rel="tooltip" data-placement="top" data-original-title="{% trans "Archive" %}" >{% trans "Archive" %}</span>
+                                {% endif %}
+                                {% if museum.service_diaper_changing_table %}
+                                    <span class="icon icon-diaper" rel="tooltip" data-placement="top" data-original-title="{% trans "Diaper changing table" %}" >{% trans "Diaper changing table" %}</span>
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                    </ul>  
+                </li>  
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
+                            {% filter fix_ampersands %}{% trans "Accessibility" %}{% endfilter %} 
+                        </a>  
+                    </h4>  
+                    <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
                         <li class="accordion-inner">
                             {% if museum.accessibility or museum.accessibility_options.count %}
                                 <h5>{% trans "Accessibility" %}</h5>
@@ -419,45 +451,6 @@
                                     <div class="accessibility">
                                         {{ museum.get_rendered_accessibility }}
                                     </div>
-                                {% endif %}
-                            {% endif %}
-                            {% if museum.service_shop or museum.service_books or museum.service_restaurant or museum.service_cafe or museum.service_library or musuem.service_archive or musuem.service_studio or museum.service_online or museum.service_diaper_changing_table or musuem.service_birthdays or museum.service_rent or musuem.service_other %}
-                                <h5>{% trans "Services" %}</h5>
-                                {% if museum.service_shop %}
-                                    <span class="icon icon-shop"rel="tooltip" data-placement="top" data-original-title="{% trans "Shop" %}" >{% trans "Shop" %}</span>
-                                {% endif %}
-                                {% if museum.service_books  %}
-                                    <span class="icon icon-books"rel="tooltip" data-placement="top" data-original-title="{% trans "Bookstore" %}" >{% trans "Bookstore" %}</span>
-                                {% endif %}
-                                {% if museum.service_restaurant %}
-                                    <span class="icon icon-restaurant"rel="tooltip" data-placement="top" data-original-title="{% trans "Restaurant" %}" >{% trans "Restaurant" %}</span>
-                                {% endif %}
-                                {% if museum.service_cafe %}
-                                    <span class="icon icon-cafe"rel="tooltip" data-placement="top" data-original-title="{% trans "Cafe" %}" >{% trans "Cafe" %}</span>
-                                {% endif %}
-                                {% if museum.service_library %}
-                                    <span class="icon icon-library"rel="tooltip" data-placement="top" data-original-title="{% trans "Library" %}" >{% trans "Library" %}</span>
-                                {% endif %}
-                                {% if musuem.service_archive %}
-                                    <span class="icon icon-archive"rel="tooltip" data-placement="top" data-original-title="{% trans "Archive" %}" >{% trans "Archive" %}</span>
-                                {% endif %}
-                                {% if musuem.service_studio %}
-                                    <span class="icon icon-studio"rel="tooltip" data-placement="top" data-original-title="{% trans "Studio" %}" >{% trans "Studio" %}</span>
-                                {% endif %}
-                                {% if museum.service_online %}
-                                    <span class="icon icon-online"rel="tooltip" data-placement="top" data-original-title="{% trans "Online offers" %}" >{% trans "Online offers" %}</span>
-                                {% endif %}
-                                {% if museum.service_diaper_changing_table %}
-                                    <span class="icon icon-diaper"rel="tooltip" data-placement="top" data-original-title="{% trans "Diaper changing table" %}" >{% trans "Diaper changing table" %}</span>
-                                {% endif %}
-                                {% if musuem.service_birthdays %}
-                                    <span class="icon icon-birthdays"rel="tooltip" data-placement="top" data-original-title="{% trans "Children birthdays" %}" >{% trans "Children birthdays" %}</span>
-                                {% endif %}
-                                {% if museum.service_rent %}
-                                    <span class="icon icon-rent"rel="tooltip" data-placement="top" data-original-title="{% trans "Rent" %}" >{% trans "Rent" %}</span>
-                                {% endif %}
-                                {% if musuem.service_other %}
-                                    <span class="icon icon-other"rel="tooltip" data-placement="top" data-original-title="{% trans "Other services" %}" >{% trans "Other services" %}</span>
                                 {% endif %}
                             {% endif %}
                         </li>

@@ -36,13 +36,16 @@ admin.site.register(MuseumCategory, MuseumCategoryAdmin)
 class AccessibilityOptionAdmin(ExtendedModelAdmin):
         
     save_on_top = True
-    list_display = ['title', ]
+    list_display = ['title', 'icon']
     
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
     fieldsets += [(None, {'fields': ('slug', 'image', 'sort_order', )}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
+    def icon(self, obj):
+        return """<img alt="" src="%s%s" />""" % (settings.MEDIA_URL, obj.image.path)
+    icon.allow_tags = True
 
 admin.site.register(AccessibilityOption, AccessibilityOptionAdmin)
 
