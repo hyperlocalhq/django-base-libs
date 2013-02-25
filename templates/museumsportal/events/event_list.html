@@ -65,7 +65,7 @@
                 <li class="item initial_{{ event.title|slugify|slice:"0:1" }} {% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">
                     <a class="img" href="{{ event.get_url_path }}"  
                     {% if event.cover_image %}data-background="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}"{% else %}
-                    {% if event.museum.cover_image %}data-background="{{ MEDIA_URL }}{{ event.museum.cover_image }}"{% endif %}{% endif %}>
+                    {% if event.museum.cover_image %}data-background="{{ MEDIA_URL }}{{ event.museum.cover_image|modified_path:"event_list" }}"{% endif %}{% endif %}>
                         <span class="spinner loading"></span>
                         <span class="overlay"></span>
                     </a>
