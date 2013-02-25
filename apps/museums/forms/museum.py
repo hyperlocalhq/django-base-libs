@@ -609,19 +609,58 @@ class AddressForm(ModelForm):
             *layout_blocks
             )        
             
-class ServicesAccessibilityForm(ModelForm):
+class ServicesForm(ModelForm):
     class Meta:
         model = Museum
-        fields = ['accessibility_options', 'service_shop', 'service_books', 'service_restaurant',
-        'service_cafe', 'service_library', 'service_archive', 'service_studio', 'service_online', 
-        'service_diaper_changing_table', 'service_birthdays', 'service_rent', 'service_other']
+        fields = ['service_shop', 'service_restaurant',
+        'service_cafe', 'service_library', 'service_archive', 
+        'service_diaper_changing_table']
+    def __init__(self, *args, **kwargs):
+        super(ServicesForm, self).__init__(*args, **kwargs)
+        
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        
+        layout_blocks = []
+        layout_blocks.append(layout.Fieldset(
+            _("Services"),
+            layout.Div('service_shop',
+                'service_restaurant',
+                'service_cafe',
+                'service_library',
+                'service_archive',
+                'service_diaper_changing_table',
+                css_class="inline",
+                ),
+            css_class="fieldset-services",
+            ))
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('save_and_close', _('Save and close')),
+                SecondarySubmit('reset', _('Cancel')),
+                ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                layout.Submit('submit', _('Save and go next')),
+                SecondarySubmit('reset', _('Cancel')),
+                ))
+        
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )        
+
+class AccessibilityForm(ModelForm):
+    class Meta:
+        model = Museum
+        fields = ['accessibility_options',]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'accessibility_%s' % lang_code,
-                'service_other_info_%s' % lang_code,
                 ]
     def __init__(self, *args, **kwargs):
-        super(ServicesAccessibilityForm, self).__init__(*args, **kwargs)
+        super(AccessibilityForm, self).__init__(*args, **kwargs)
         self.fields['accessibility_options'].widget = forms.CheckboxSelectMultiple()
         self.fields['accessibility_options'].help_text = ""
         self.fields['accessibility_options'].empty_label = None
@@ -629,7 +668,6 @@ class ServicesAccessibilityForm(ModelForm):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
                 'accessibility_%s' % lang_code,
-                'service_other_info_%s' % lang_code,
                 ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
         
@@ -649,28 +687,6 @@ class ServicesAccessibilityForm(ModelForm):
             'accessibility_options',
 
             css_class="fieldset-accessibility-options",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Services"),
-            layout.Div('service_shop',
-                'service_books',
-                'service_restaurant',
-                'service_cafe',
-                'service_library',
-                'service_archive',
-                'service_studio',
-                'service_online',
-                'service_diaper_changing_table',
-                'service_birthdays',
-                'service_rent',
-                'service_other',
-                css_class="inline",
-                ),
-            layout.Row(
-                css_class="div-other-details",
-                *('service_other_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            css_class="fieldset-services",
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
@@ -771,7 +787,8 @@ def load_data(instance=None):
             'opening': {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}},
             'prices': {'_filled': True},
             'address': {'_filled': True},
-            'services_accessibility': {'_filled': True},
+            'services': {'_filled': True},
+            'accessibility': {'_filled': True},
             'mediation': {'_filled': True},
             'gallery': {'_filled': True},
             '_pk': instance.pk,
@@ -885,22 +902,16 @@ def load_data(instance=None):
         for f in fields:
             form_step_data['address'][f] = getattr(instance, f)
         
-        form_step_data['services_accessibility']['accessibility_options'] = instance.accessibility_options.all()
-        form_step_data['services_accessibility']['service_shop'] = instance.service_shop
-        form_step_data['services_accessibility']['service_books'] = instance.service_books
-        form_step_data['services_accessibility']['service_restaurant'] = instance.service_restaurant
-        form_step_data['services_accessibility']['service_cafe'] = instance.service_cafe
-        form_step_data['services_accessibility']['service_library'] = instance.service_library
-        form_step_data['services_accessibility']['service_archive'] = instance.service_archive
-        form_step_data['services_accessibility']['service_studio'] = instance.service_studio
-        form_step_data['services_accessibility']['service_online'] = instance.service_online
-        form_step_data['services_accessibility']['service_diaper_changing_table'] = instance.service_diaper_changing_table
-        form_step_data['services_accessibility']['service_birthdays'] = instance.service_birthdays
-        form_step_data['services_accessibility']['service_rent'] = instance.service_rent
-        form_step_data['services_accessibility']['service_other'] = instance.service_other
+        form_step_data['services']['service_shop'] = instance.service_shop
+        form_step_data['services']['service_restaurant'] = instance.service_restaurant
+        form_step_data['services']['service_cafe'] = instance.service_cafe
+        form_step_data['services']['service_library'] = instance.service_library
+        form_step_data['services']['service_archive'] = instance.service_archive
+        form_step_data['services']['service_diaper_changing_table'] = instance.service_diaper_changing_table
+        
+        form_step_data['accessibility']['accessibility_options'] = instance.accessibility_options.all()
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            form_step_data['services_accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
-            form_step_data['services_accessibility']['service_other_info_%s' % lang_code] = getattr(instance, 'service_other_info_%s' % lang_code)
+            form_step_data['accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['mediation']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
@@ -1064,28 +1075,31 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
             instance.save()
             
-    if current_step == "services_accessibility":
+    if current_step == "services":
         if "_pk" in form_step_data:
             instance = Museum.objects.get(pk=form_step_data['_pk'])
 
-            instance.service_shop = form_step_data['services_accessibility']['service_shop']
-            instance.service_books = form_step_data['services_accessibility']['service_books']
-            instance.service_restaurant = form_step_data['services_accessibility']['service_restaurant']
-            instance.service_cafe = form_step_data['services_accessibility']['service_cafe']
-            instance.service_library = form_step_data['services_accessibility']['service_library']
-            instance.service_archive = form_step_data['services_accessibility']['service_archive']
-            instance.service_studio = form_step_data['services_accessibility']['service_studio']
-            instance.service_online = form_step_data['services_accessibility']['service_online']
-            instance.service_diaper_changing_table = form_step_data['services_accessibility']['service_diaper_changing_table']
-            instance.service_birthdays = form_step_data['services_accessibility']['service_birthdays']
-            instance.service_rent = form_step_data['services_accessibility']['service_rent'] 
-            instance.service_other = form_step_data['services_accessibility']['service_other']
+            instance.service_shop = form_step_data['services']['service_shop']
+            instance.service_restaurant = form_step_data['services']['service_restaurant']
+            instance.service_cafe = form_step_data['services']['service_cafe']
+            instance.service_library = form_step_data['services']['service_library']
+            instance.service_archive = form_step_data['services']['service_archive']
+            instance.service_diaper_changing_table = form_step_data['services']['service_diaper_changing_table']
             
+            instance.save()
+            
+    if current_step == "accessibility":
+        if "_pk" in form_step_data:
+            instance = Museum.objects.get(pk=form_step_data['_pk'])
+
             for lang_code, lang_name in FRONTEND_LANGUAGES:
-                setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
-                setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
+                setattr(instance, 'accessibility_%s' % lang_code, form_step_data['accessibility']['accessibility_%s' % lang_code])
 
             instance.save()
+            
+            instance.accessibility_options.clear()
+            for cat in form_step_data['accessibility']['accessibility_options']:
+                instance.accessibility_options.add(cat)
             
     if current_step == "mediation":
         if "_pk" in form_step_data:
@@ -1096,7 +1110,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 setattr(instance, 'mediation_offer_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
                 
             instance.save()
-            
+
     # finally all museum will be saved and published by save_data()
     return form_step_data
 
@@ -1172,27 +1186,19 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, f, form_step_data['address'][f])
     
     
-    instance.service_shop = form_step_data['services_accessibility']['service_shop']
-    instance.service_books = form_step_data['services_accessibility']['service_books']
-    instance.service_restaurant = form_step_data['services_accessibility']['service_restaurant']
-    instance.service_cafe = form_step_data['services_accessibility']['service_cafe']
-    instance.service_library = form_step_data['services_accessibility']['service_library']
-    instance.service_archive = form_step_data['services_accessibility']['service_archive']
-    instance.service_studio = form_step_data['services_accessibility']['service_studio']
-    instance.service_online = form_step_data['services_accessibility']['service_online']
-    instance.service_diaper_changing_table = form_step_data['services_accessibility']['service_diaper_changing_table']
-    instance.service_birthdays = form_step_data['services_accessibility']['service_birthdays']
-    instance.service_rent = form_step_data['services_accessibility']['service_rent'] 
-    instance.service_other = form_step_data['services_accessibility']['service_other']
+    instance.service_shop = form_step_data['services']['service_shop']
+    instance.service_restaurant = form_step_data['services']['service_restaurant']
+    instance.service_cafe = form_step_data['services']['service_cafe']
+    instance.service_library = form_step_data['services']['service_library']
+    instance.service_archive = form_step_data['services']['service_archive']
+    instance.service_diaper_changing_table = form_step_data['services']['service_diaper_changing_table']
     
     for lang_code, lang_name in FRONTEND_LANGUAGES:
-        setattr(instance, 'accessibility_%s' % lang_code, form_step_data['services_accessibility']['accessibility_%s' % lang_code])
-        setattr(instance, 'service_other_info_%s' % lang_code, form_step_data['services_accessibility']['service_other_info_%s' % lang_code])
+        setattr(instance, 'accessibility_%s' % lang_code, form_step_data['accessibility']['accessibility_%s' % lang_code])
 
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         for f in [
             'accessibility_%s' % lang_code,
-            'service_other_info_%s' % lang_code,
             ]:
             setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
@@ -1213,7 +1219,7 @@ def save_data(form_steps, form_step_data, instance=None):
         instance.categories.add(cat)
         
     instance.accessibility_options.clear()
-    for cat in form_step_data['services_accessibility']['accessibility_options']:
+    for cat in form_step_data['accessibility']['accessibility_options']:
         instance.accessibility_options.add(cat)
 
     instance.season_set.all().delete()
@@ -1314,10 +1320,15 @@ MUSEUM_FORM_STEPS = {
         'template': "museums/forms/address_form.html",
         'form': AddressForm,
     },
-    'services_accessibility': {
-        'title': _("Services and Accessibility"),
-        'template': "museums/forms/services_accessibility_form.html",
-        'form': ServicesAccessibilityForm,
+    'services': {
+        'title': _("Services"),
+        'template': "museums/forms/services_form.html",
+        'form': ServicesForm,
+    },
+    'accessibility': {
+        'title': _("Accessibility"),
+        'template': "museums/forms/accessibility_form.html",
+        'form': AccessibilityForm,
     },
     'mediation': {
         'title': _("Mediation"),
@@ -1335,6 +1346,6 @@ MUSEUM_FORM_STEPS = {
     'onsave': save_data,
     'onreset': cancel_editing,
     'name': 'museum_registration',
-    'default_path': ["basic", "address", "opening", "prices", "services_accessibility", "mediation", "gallery"],
+    'default_path': ["basic", "address", "opening", "prices", "services", "accessibility", "mediation", "gallery"],
 }
 

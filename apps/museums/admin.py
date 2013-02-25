@@ -96,17 +96,11 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Accessibility"), {'fields': ['accessibility_options', get_admin_lang_section(_("Explanation"), ['accessibility',])]})]
     fieldsets += [(_("Services"), {'fields': [
         'service_shop', 
-        'service_books',
         'service_restaurant',
         'service_cafe',
         'service_library',
         'service_archive',
-        'service_studio',
-        'service_online',
         'service_diaper_changing_table',
-        'service_birthdays',
-        'service_rent',
-        'service_other', get_admin_lang_section(_("Details"), ['service_other_info',]),
     ]})]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     

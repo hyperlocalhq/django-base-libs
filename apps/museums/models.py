@@ -202,19 +202,12 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     accessibility = MultilingualTextField(_("Accessibility"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
     
-    service_shop = models.BooleanField(_("Shop"), blank=True)
-    service_books = models.BooleanField(_("Bookstore"), blank=True)
+    service_shop = models.BooleanField(_("Museum Shop"), blank=True)
     service_restaurant = models.BooleanField(_("Restaurant"), blank=True)
     service_cafe = models.BooleanField(_("Cafe"), blank=True)
     service_library = models.BooleanField(_("Library"), blank=True)
     service_archive = models.BooleanField(_("Archive"), blank=True)
-    service_studio = models.BooleanField(_("Studio"), blank=True)
-    service_online = models.BooleanField(_("Online offers"), blank=True)
     service_diaper_changing_table = models.BooleanField(_("Diaper changing table"))
-    service_birthdays = models.BooleanField(_("Children birthdays"), blank=True)
-    service_rent = models.BooleanField(_("Rent"), blank=True)
-    service_other = models.BooleanField(_("Other services"), blank=True)
-    service_other_info = MultilingualTextField(_("Other services info"), blank=True)
     
     mediation_offer = MultilingualTextField(_("Mediation offer"), blank=True)
     
