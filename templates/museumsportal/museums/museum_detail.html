@@ -338,7 +338,7 @@
                                 {% trans "Free entrance" %}
                             {% else %}
                                 {% if museum.admission_price %}
-                                    <p>{% trans "Admission price" %}: {{ museum.admission_price }}</p>
+                                    <p>{% trans "Admission price" %}: {{ museum.admission_price }} €</p>
                                     {% if museum.admission_price_info %}
                                         <div class="admission_price_info">
                                             {{ museum.get_rendered_admission_price_info }}
@@ -346,7 +346,7 @@
                                     {% endif %}
                                 {% endif %}
                                 {% if museum.reduced_price %}
-                                    <p>{% trans "Reduced price" %}: {{ museum.reduced_price }}</p>
+                                    <p>{% trans "Reduced price" %}: {{ museum.reduced_price }} €</p>
                                     {% if museum.reduced_price_info %}
                                         <div class="reduced_price_info">
                                             {{ museum.get_rendered_reduced_price_info }}

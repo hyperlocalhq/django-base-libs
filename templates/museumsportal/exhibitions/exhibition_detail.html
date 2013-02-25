@@ -375,13 +375,13 @@
                                 <dt>{% trans "Free entrance" %}</dt>
                             {% else %}
                                 {% if exhibition.admission_price %}
-                                    <dt>{% trans "Admission price" %}: {{ exhibition.admission_price }}</dt>
+                                    <dt>{% trans "Admission price" %}: {{ exhibition.admission_price }} €</dt>
                                     {% if exhibition.admission_price_info %}
                                     <dd class="admission_price_info">{{ exhibition.get_rendered_admission_price_info }}</dd>
                                     {% endif %}
                                 {% endif %}
                                 {% if exhibition.reduced_price %}
-                                    <dt>{% trans "Reduced price" %}: {{ exhibition.reduced_price }}</dt>
+                                    <dt>{% trans "Reduced price" %}: {{ exhibition.reduced_price }} €</dt>
                                     {% if exhibition.reduced_price_info %}
                                     <dd class="reduced_price_info">{{ exhibition.get_rendered_reduced_price_info }}</dd>
                                     {% endif %}

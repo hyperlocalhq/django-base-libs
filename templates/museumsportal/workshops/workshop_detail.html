@@ -208,13 +208,13 @@
                                 <dt>{% trans "Free entrance" %}</dt>
                             {% else %}
                                 {% if workshop.admission_price %}
-                                    <dt>{% trans "Admission price" %}: {{ workshop.admission_price }}</dt>
+                                    <dt>{% trans "Admission price" %}: {{ workshop.admission_price }} €</dt>
                                     {% if workshop.admission_price_info %}
                                     <dd class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</dd>
                                     {% endif %}
                                 {% endif %}
                                 {% if workshop.reduced_price %}
-                                    <dt>{% trans "Reduced price" %}: {{ workshop.reduced_price }}</dt>
+                                    <dt>{% trans "Reduced price" %}: {{ workshop.reduced_price }} €</dt>
                                     {% if workshop.reduced_price_info %}
                                     <dd class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</dd>
                                     {% endif %}
