@@ -113,11 +113,18 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
-    categories = TreeManyToManyField(WorkshopCategory, verbose_name=_("Categories"))
+    categories = TreeManyToManyField(WorkshopCategory, verbose_name=_("Categories"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     languages = models.ManyToManyField(Language, verbose_name=_("Languages"), blank=True, limit_choices_to={'display': True})
     other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)
     age_groups = models.ManyToManyField(AgeGroup, verbose_name=_("Age groups"), blank=True)
+    has_group_offer = models.BooleanField(_("Has bookable group offer"), blank=True)
+    is_for_families = models.BooleanField(_("Special for families"), blank=True)
+    is_for_disabled = models.BooleanField(_("Special for disabled people"), blank=True)
+    is_for_wheelchaired = models.BooleanField(_("Special for people in wheelchairs"), blank=True)
+    is_for_deaf = models.BooleanField(_("Special for deaf people"), blank=True)
+    is_for_blind = models.BooleanField(_("Special for blind people"), blank=True)
+    is_for_learning_difficulties = models.BooleanField(_("Special for people with learning difficulties"), blank=True)
     
     museum = models.ForeignKey(Museum, verbose_name=_("Museum"), blank=True, null=True)
     location_name = models.CharField(_("Location name"), max_length=255, blank=True)

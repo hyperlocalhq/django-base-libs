@@ -81,7 +81,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description', 'press_text'])
     fieldsets += [(None, {'fields': ('slug', 'image', get_admin_lang_section(_("Image Caption"), ['image_caption', ]))}),]
-    fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'open_on_mondays')}),]
+    fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'open_on_mondays', 'is_for_children')}),]
     fieldsets += [(_("Prices"), {'fields': ('free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
         'show_admission_price_info', get_admin_lang_section(_("Price info"), ['admission_price_info']),
         'show_reduced_price_info', get_admin_lang_section(_("Price info"), ['reduced_price_info']),

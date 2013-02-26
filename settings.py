@@ -383,11 +383,11 @@ CMS_PLACEHOLDER_CONF = {
 CMS_TEMPLATES = (
     ('cms/default.html', gettext('Default Template')),
     ('cms/start.html', gettext('Start Page Template')),   
-    ('cms/visitor_info.html', 'Besucherinfo Template'),   
+    ('cms/visitor_info.html', gettext('Visitor Info Template')),   
     ('cms/plan_organize_overview.html', gettext('Plan & Organize Overview Template')),
     ('cms/from_editors_overview.html', gettext('From the Editors Overview Template')),
-    ('cms/series.html', 'Serien Template'),   
-    ('cms/series_with_featured.html', 'Serien Template mit Featured Infoblock'),   
+    ('cms/series.html', gettext('Series Template')),
+    ('cms/series_with_featured.html', gettext('Series Template with Featured Infoblock')),   
 )
 
 CMS_APPHOOKS = (

@@ -105,6 +105,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     categories = TreeManyToManyField(MuseumCategory, verbose_name=_("Categories"),)
     tags = TagAutocompleteField(verbose_name=_("tags"))
+    is_for_children = models.BooleanField(_("Special for children"), blank=True)
 
     street_address = models.CharField(_("Street address"), max_length=255)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
