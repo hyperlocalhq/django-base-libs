@@ -9,9 +9,9 @@
     <form>
         <fieldset class="fieldset-imagegallery">
             <legend>Image Gallery</legend>
-            <ul id="photos" class="list" data-load-url="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/">
+            <ul id="photos" class="list" data-load-url="{{ museum.get_url_path }}gallery/">
             </ul>
-            <a id="add_photo" class="btn" href="/{{ LANGUAGE_CODE }}{{ museum.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
+            <a id="add_photo" class="btn" href="{{ museum.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
         </fieldset>
     </form>
     <div id="edit_photo"></div>
