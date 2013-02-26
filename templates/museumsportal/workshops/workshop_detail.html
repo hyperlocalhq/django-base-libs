@@ -549,6 +549,8 @@
 <script src="{{ STATIC_URL }}site/js/swipe.js"></script>
 
 <script type="text/javascript">
+    var slider = new Swipe(document.getElementById('slider'));
+    
     $(window).load(function() {
         $('#gallery .cancel').click(function(e){
             $('body').toggleClass('gallery');
@@ -556,14 +558,13 @@
 
         $('.images li').click(function(e){
             $('body').toggleClass('gallery');
+            slider.slide($(this).index(), 0);
         });
 
         $('#gallery .info').click(function(e){
             $('#gallery').toggleClass('info');
         });
     });
-    
-    var slider = new Swipe(document.getElementById('slider'));
 
     // $(function(){
     //   var liWidths = [];

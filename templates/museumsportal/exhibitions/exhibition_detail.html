@@ -422,27 +422,27 @@
                         </li>
                     </ul>  
                 </li>
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
-                            {% trans "Accessibility" %}
-                        </a>
-                    </h4>
-                    <ul id="collapse-accessibility" class="accordion-body collapse">
-                        <li class="accordion-inner">
-                            {% if exhibition.suitable_for_disabled %}
-                                <p>{% trans "Suitable for disabled" %}</p>
-                            {% else %}
-                                <p>{% trans "Not suitable for disabled" %}</p>
-                            {% endif %}
-                            {% if exhibition.suitable_for_disabled_info %}
-                                <div class="accessibility-desc">
-                                    {{ exhibition.get_rendered_suitable_for_disabled_info }}
-                                </div>
-                            {% endif %}
-                        </li>
-                    </ul>  
-                </li>
+                {% if exhibition.suitable_for_disabled or exhibition.suitable_for_disabled_info %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
+                                {% trans "Accessibility" %}
+                            </a>
+                        </h4>
+                        <ul id="collapse-accessibility" class="accordion-body collapse">
+                            <li class="accordion-inner">
+                                {% if exhibition.suitable_for_disabled %}
+                                    <p>{% trans "Suitable for disabled" %}</p>
+                                {% endif %}
+                                {% if exhibition.suitable_for_disabled_info %}
+                                    <div class="accessibility-desc">
+                                        {{ exhibition.get_rendered_suitable_for_disabled_info }}
+                                    </div>
+                                {% endif %}
+                            </li>
+                        </ul>  
+                    </li>
+                {% endif %}
             </ul> 
         </section>
             
@@ -730,6 +730,8 @@
 <script src="{{ STATIC_URL }}site/js/swipe.js"></script>
 
 <script type="text/javascript">
+    var slider = new Swipe(document.getElementById('slider'));
+    
     $(window).load(function() {
         $('#gallery .cancel').click(function(e){
             $('body').toggleClass('gallery');
@@ -737,6 +739,7 @@
 
         $('.images li').click(function(e){
             $('body').toggleClass('gallery');
+            slider.slide($(this).index(), 0);
         });
 
         $('#gallery .info').click(function(e){
@@ -746,7 +749,6 @@
         $('.accordion-body').collapse('show');
     });
     
-    var slider = new Swipe(document.getElementById('slider'));
 
     // $(function(){
     //   var liWidths = [];

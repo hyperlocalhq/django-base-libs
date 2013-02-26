@@ -837,10 +837,7 @@
 
         $('.images li').click(function(e){
             $('body').toggleClass('gallery');
-        });
-
-        $('.images li').click(function(e){
-            slider.slide($(this).index(),0);
+            slider.slide($(this).index(), 0);
         });
 
         $('#gallery .info').click(function(e){
