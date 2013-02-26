@@ -90,7 +90,7 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
-        self.fields['tags'].label = _("Tags separated by comma")
+        self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""

@@ -78,7 +78,7 @@ class BasicInfoForm(ModelForm):
         self.fields['vernissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
         self.fields['finissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
 
-        self.fields['tags'].label = _("Tags separated by comma")
+        self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
