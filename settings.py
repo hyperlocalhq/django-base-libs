@@ -384,6 +384,8 @@ CMS_TEMPLATES = (
     ('cms/default.html', gettext('Default Template')),
     ('cms/start.html', gettext('Start Page Template')),   
     ('cms/visitor_info.html', 'Besucherinfo Template'),   
+    ('cms/plan_organize_overview.html', gettext('Plan & Organize Overview Template')),
+    ('cms/from_editors_overview.html', gettext('From the Editors Overview Template')),
     ('cms/series.html', 'Serien Template'),   
     ('cms/series_with_featured.html', 'Serien Template mit Featured Infoblock'),   
 )
