@@ -376,15 +376,15 @@
                             {% else %}
                                 {% if exhibition.admission_price %}
                                     <dt>{% trans "Admission price" %}: {{ exhibition.admission_price|currencyfmt:"EUR" }}</dt>
-                                    {% if exhibition.admission_price_info %}
+                                {% endif %}
+                                {% if exhibition.admission_price_info %}
                                     <dd class="admission_price_info">{{ exhibition.get_rendered_admission_price_info }}</dd>
-                                    {% endif %}
                                 {% endif %}
                                 {% if exhibition.reduced_price %}
                                     <dt>{% trans "Reduced price" %}: {{ exhibition.reduced_price|currencyfmt:"EUR" }}</dt>
-                                    {% if exhibition.reduced_price_info %}
+                                {% endif %}
+                                {% if exhibition.reduced_price_info %}
                                     <dd class="reduced_price_info">{{ exhibition.get_rendered_reduced_price_info }}</dd>
-                                    {% endif %}
                                 {% endif %}
                                 {% if exhibition.arrangements_for_children %}
                                     <dt>{% trans "Arrangements for children" %}</dt>

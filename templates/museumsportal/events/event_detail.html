@@ -209,15 +209,15 @@
                             {% else %}
                                 {% if event.admission_price %}
                                     <dt>{% trans "Admission price" %}: {{ event.admission_price|currencyfmt:"EUR" }}</dt>
-                                    {% if event.admission_price_info %}
+                                {% endif %}
+                                {% if event.admission_price_info %}
                                     <dd class="admission_price_info">{{ event.get_rendered_admission_price_info }}</dd>
-                                    {% endif %}
                                 {% endif %}
                                 {% if event.reduced_price %}
                                     <dt>{% trans "Reduced price" %}: {{ event.reduced_price|currencyfmt:"EUR" }}</dt>
-                                    {% if event.reduced_price_info %}
+                                {% endif %}
+                                {% if event.reduced_price_info %}
                                     <dd class="reduced_price_info">{{ event.get_rendered_reduced_price_info }}</dd>
-                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                             {% if event.booking_info %}

@@ -339,19 +339,19 @@
                             {% else %}
                                 {% if museum.admission_price %}
                                     <p>{% trans "Admission price" %}: {{ museum.admission_price|currencyfmt:"EUR" }}</p>
-                                    {% if museum.admission_price_info %}
-                                        <div class="admission_price_info">
-                                            {{ museum.get_rendered_admission_price_info }}
-                                        </div>
-                                    {% endif %}
+                                {% endif %}
+                                {% if museum.admission_price_info %}
+                                    <div class="admission_price_info">
+                                        {{ museum.get_rendered_admission_price_info }}
+                                    </div>
                                 {% endif %}
                                 {% if museum.reduced_price %}
                                     <p>{% trans "Reduced price" %}: {{ museum.reduced_price|currencyfmt:"EUR" }}</p>
-                                    {% if museum.reduced_price_info %}
-                                        <div class="reduced_price_info">
-                                            {{ museum.get_rendered_reduced_price_info }}
-                                        </div>
-                                    {% endif %}
+                                {% endif %}
+                                {% if museum.reduced_price_info %}
+                                    <div class="reduced_price_info">
+                                        {{ museum.get_rendered_reduced_price_info }}
+                                    </div>
                                 {% endif %}
                                 {% if museum.arrangements_for_children %}
                                     <p>{% trans "Arrangements for children" %}:</p>
