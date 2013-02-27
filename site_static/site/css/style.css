@@ -1224,35 +1224,62 @@ a:active {
       border-left: 2px solid rgba(0, 0, 0, 0.05); }
   #header .inner {
     height: 100px; }
-    #header .inner ul.meta {
+    #header .inner ul {
       position: absolute;
       top: 20px;
-      right: 0; }
-      #header .inner ul.meta li {
-        display: inline-block; }
-        #header .inner ul.meta li.current a, #header .inner ul.meta li:hover a {
+      font-size: 0px;
+      line-height: 0px; }
+      #header .inner ul#meta {
+        right: 30px; }
+      #header .inner ul#lang {
+        width: 30px;
+        right: 0px;
+        padding-top: 30px; }
+        #header .inner ul#lang li {
+          display: none; }
+        #header .inner ul#lang:hover li {
+          display: block; }
+        #header .inner ul#lang .current {
+          display: block;
+          position: absolute;
+          top: 0px; }
+      #header .inner ul > li {
+        height: 30px;
+        width: 30px;
+        display: inline-block;
+        margin: 0px;
+        padding: 0px;
+        margin-left: 2px;
+        background-color: rgba(0, 0, 0, 0.05);
+        position: relative; }
+        #header .inner ul > li:hover a {
           background-color: black;
           color: white; }
-        #header .inner ul.meta li a {
+        #header .inner ul > li a {
+          height: 30px;
+          width: 30px;
           color: black;
-          min-width: 20px;
+          line-height: 30px;
           text-align: center;
-          display: inline-block;
-          font-size: 10px;
-          line-height: 20px;
+          display: block;
+          overflow: hidden;
+          font-size: 13px;
           font-weight: 600;
-          background-color: rgba(0, 0, 0, 0.05);
           background-size: cover;
           background-position: center; }
-          #header .inner ul.meta li a span {
+          #header .inner ul > li a span {
             display: none; }
-          #header .inner ul.meta li a.facebook {
+          #header .inner ul > li a.favorites-link {
+            background-image: url("../img/icons/favorite.svg"); }
+          #header .inner ul > li a.facebook {
             background-image: url("../img/icons/social-01.svg"); }
-          #header .inner ul.meta li a.twitter {
+          #header .inner ul > li a.twitter {
             background-image: url("../img/icons/social-02.svg"); }
-          #header .inner ul.meta li a:hover.facebook {
+          #header .inner ul > li a:hover.favorites-link {
+            background-image: url("../img/icons/inv/favorite.svg"); }
+          #header .inner ul > li a:hover.facebook {
             background-image: url("../img/icons/inv/social-01.svg"); }
-          #header .inner ul.meta li a:hover.twitter {
+          #header .inner ul > li a:hover.twitter {
             background-image: url("../img/icons/inv/social-02.svg"); }
 
 #navigation {
@@ -1270,7 +1297,8 @@ a:active {
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
     height: 50px;
-    white-space: nowrap; }
+    white-space: nowrap;
+    overflow: hidden; }
     #navigation > ul > li {
       display: inline-block;
       font-size: 20px;
@@ -1280,6 +1308,11 @@ a:active {
       #navigation > ul > li > a {
         padding-right: 14px;
         margin-right: 14px; }
+      #navigation > ul > li.last-child, #navigation > ul > li:last-child {
+        width: 100%;
+        height: 0px;
+        overflow: hidden;
+        position: relative; }
       #navigation > ul > li > div {
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         position: absolute;

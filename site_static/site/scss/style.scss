@@ -197,42 +197,57 @@ a:active  { outline: none;}
   .inner { 
     height: 100px; 
 
-    ul.meta {
-      // display: table;
-      // table-layout: fixed;
-      // width: 100%;
-      // text-align: center;
+    ul {
       position: absolute;
       top: 20px;
-      right: 0;
+      font-size: 0px;
+      line-height: 0px;
 
-      li {
+      &#meta { right: 30px; }
+      
+      &#lang { 
+        width: 30px;
+        right: 0px; 
+        padding-top: 30px;
 
-          &.current a,
-          &:hover a{ 
-            background-color: black;
-            color: white;
-          }
+        li { display: none;}
+        &:hover li { display: block;}
+        .current { display: block; position: absolute; top: 0px;}
+      }
+
+      > li {
+        height: 30px;
+        width: 30px;
         display: inline-block;
+        margin: 0px;
+        padding: 0px;
+        margin-left: 2px;
+        background-color: rgba(0,0,0,0.05);
+        position: relative;
+
+        &:hover a { background-color: black; color: white; }
 
         a{
+          height: 30px;
+          width: 30px;
           color: black;
-          min-width: 20px;
+          line-height: 30px;
           text-align: center;
-          display: inline-block;
-          font-size: 10px;
-          line-height: 20px;
+          display: block;
+          overflow: hidden;
+          font-size: 13px;
           font-weight: 600;
-          background-color: rgba(0,0,0,0.05);
           background-size: cover;
           background-position: center;
 
           span { display: none;}
 
+          &.favorites-link  { background-image: url("../img/icons/favorite.svg");}
           &.facebook  { background-image: url("../img/icons/social-01.svg");}
           &.twitter   { background-image: url("../img/icons/social-02.svg");}
 
           &:hover {
+            &.favorites-link  { background-image: url("../img/icons/inv/favorite.svg");}
             &.facebook  { background-image: url("../img/icons/inv/social-01.svg");}
             &.twitter   { background-image: url("../img/icons/inv/social-02.svg");}
           }
@@ -261,6 +276,7 @@ a:active  { outline: none;}
     border-right: 12px solid transparent;
     height: 50px;
     white-space: nowrap;
+    overflow: hidden;
 
     > li {
       display: inline-block;
@@ -280,6 +296,14 @@ a:active  { outline: none;}
       //     opacity: 1;
       //   }
       // }
+
+      &.last-child,
+      &:last-child {
+        width: 100%;
+        height: 0px;
+        overflow: hidden;
+        position: relative;
+      }
 
       > div { 
         border-top: 1px solid rgba(0,0,0,0.05);

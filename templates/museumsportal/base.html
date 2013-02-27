@@ -57,13 +57,15 @@
                     <span class="claim">Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
                 </a>
 
-                <ul class="meta">
+                <ul id="meta" class="clearfix">
                     <li><a class="favorites-link" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>Favorites</span></a></li>
                     <li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
                     <li><a class="twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li>
-                    {% block language_chooser %}
-                        {% language_chooser %}
-                    {% endblock %}
+                </ul>
+                <ul id="lang">
+                {% block language_chooser %}
+                    {% language_chooser %}
+                {% endblock %}
                 </ul>
             </div>
 		</header>
