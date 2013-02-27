@@ -57,7 +57,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     search_fields = ('title', 'subtitle', 'slug')
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description'])
-    fieldsets += [(None, {'fields': ('slug', 'image')}),]
+    fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'languages', 'other_languages', 'age_groups',
         'has_group_offer', 'is_for_families', 'is_for_disabled', 'is_for_wheelchaired',
         'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties',

@@ -125,8 +125,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     exhibition_extended = models.BooleanField(_("Exhibition extended"))
     permanent = models.BooleanField(_("Permanent exhibition"))
     
-    image = FileBrowseField(_('Image'), max_length=255, directory="exhibitions/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
-    image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True)
+    image = FileBrowseField(_('Image'), max_length=255, directory="exhibitions/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
+    image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True, editable=False)
 
     location_name = models.CharField(_("Location name"), max_length=255, blank=True)
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)

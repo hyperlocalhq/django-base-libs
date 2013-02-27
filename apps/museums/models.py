@@ -100,8 +100,8 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     description = MultilingualTextField(_("Description"), blank=True)
     press_text = MultilingualTextField(_("Press text"), blank=True)
 
-    image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
-    image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True)
+    image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
+    image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True, editable=False)
 
     categories = TreeManyToManyField(MuseumCategory, verbose_name=_("Categories"),)
     tags = TagAutocompleteField(verbose_name=_("tags"))

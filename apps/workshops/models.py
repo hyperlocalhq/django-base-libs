@@ -109,7 +109,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
-    image = FileBrowseField(_('Image'), max_length=200, directory="workshops/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
+    image = FileBrowseField(_('Image'), max_length=200, directory="workshops/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
