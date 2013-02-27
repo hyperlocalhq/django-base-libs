@@ -76,7 +76,7 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Workshop
         
-        fields = ['categories', 'tags', 'age_groups', 'languages', 'other_languages',
+        fields = ['tags', 'age_groups', 'languages', 'other_languages',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
             'organizing_museum', 'organizer_title', 'organizer_url_link',
@@ -92,9 +92,6 @@ class BasicInfoForm(ModelForm):
 
         self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
-        self.fields['categories'].widget = forms.CheckboxSelectMultiple()
-        self.fields['categories'].help_text = ""
-        self.fields['categories'].empty_label = None
         
         self.fields['age_groups'].widget = forms.CheckboxSelectMultiple()
         self.fields['age_groups'].help_text = ""
@@ -183,12 +180,10 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             layout.Row(
-                "categories",
-                "languages",
+                "languages", "other_languages",
                 ),
             layout.Row(
                 "tags",
-                "other_languages",
                 ),
             css_class="fieldset-categories-tags",
             ))
@@ -365,7 +360,6 @@ def load_data(instance=None):
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
-        form_step_data['basic']['categories'] = instance.categories.all()
         form_step_data['basic']['tags'] = instance.tags
         form_step_data['basic']['languages'] = instance.languages.all()
         form_step_data['basic']['other_languages'] = instance.other_languages
@@ -436,10 +430,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if '_pk' not in form_step_data:
             user = get_current_user()
             instance.set_owner(user)
-        
-        instance.categories.clear()
-        for cat in form_step_data['basic']['categories']:
-            instance.categories.add(cat)
         
         instance.languages.clear()
         for cat in form_step_data['basic']['languages']:
@@ -540,10 +530,6 @@ def save_data(form_steps, form_step_data, instance=None):
     if is_new:
         user = get_current_user()
         instance.set_owner(user)    
-    
-    instance.categories.clear()
-    for cat in form_step_data['basic']['categories']:
-        instance.categories.add(cat)
     
     instance.languages.clear()
     for cat in form_step_data['basic']['languages']:

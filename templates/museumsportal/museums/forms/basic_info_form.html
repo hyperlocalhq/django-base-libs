@@ -3,19 +3,11 @@
 
 {% block stylesheet %}
     {{ block.super }}
-    {% comment %}<!--
-    <link href="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
-    -->{% endcomment %}
     <link href="{{ STATIC_URL }}site/css/jquery.tagsinput.css" rel="stylesheet" />
 {% endblock %}
 
 {% block js %}
     {{ block.super }}
-    {% comment %}<!--
-    <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
-    <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
-    <script src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
-    -->{% endcomment %}
     <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.min.js"></script>
 {% endblock %}
 

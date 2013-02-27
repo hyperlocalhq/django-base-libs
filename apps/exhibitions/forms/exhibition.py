@@ -416,6 +416,8 @@ class SpecialOpeningTimeForm(ModelForm):
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
         for fname in ["opening", "break_close", "break_open", "closing"]:
             self.fields[fname].widget = forms.TimeInput(format='%H:%M')
+        self.fields['yyyy'].choices[0] = ("", _("Every year"))
+        self.fields['yyyy'].help_text = ""
 
         self.helper = FormHelper()
         self.helper.form_tag = False

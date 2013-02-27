@@ -41,10 +41,6 @@ STATUS_CHOICES = (
     )
 
 class WorkshopSearchForm(dynamicforms.Form):
-    category = forms.ModelChoiceField(
-        required=False,
-        queryset=get_related_queryset(Workshop, "categories"),
-        )
     status = forms.ChoiceField(
         choices=STATUS_CHOICES,
         required=False,
@@ -61,19 +57,12 @@ def workshop_list(request):
     facets = {
         'selected': {},
         'categories': {
-            'categories': get_related_queryset(Workshop, "categories").order_by("title_%s" % request.LANGUAGE_CODE),
             'statuses': STATUS_CHOICES,
             },
         }
 
     status = None
     if form.is_valid():
-        cat = form.cleaned_data['category']
-        if cat:
-            facets['selected']['category'] = cat
-            qs = qs.filter(
-                categories=cat,
-                ).distinct()
         status = form.cleaned_data['status']
         if status:
             facets['selected']['status'] = status
