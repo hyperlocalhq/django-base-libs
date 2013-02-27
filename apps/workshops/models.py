@@ -58,30 +58,6 @@ MINUTE_CHOICES = [(i,"%02d" % i) for i in range(0, 60)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 
-class WorkshopCategory(MPTTModel, SlugMixin()):
-    parent = TreeForeignKey(
-       'self',
-       related_name="child_set",
-       blank=True,
-       null=True,
-    )
-    title = MultilingualCharField(_('title'), max_length=255)
-    
-    objects = TreeManager()
-    
-    class Meta:
-        verbose_name = _("category")
-        verbose_name_plural = _("categories")
-        ordering = ["tree_id", "lft"]
-        
-    def __unicode__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            WorkshopCategory.objects.insert_node(self, self.parent)
-        super(WorkshopCategory, self).save(*args, **kwargs)
-
 class AgeGroup(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
     sort_order = models.IntegerField(_("Sort Order"), default=0)
@@ -113,7 +89,6 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
-    categories = TreeManyToManyField(WorkshopCategory, verbose_name=_("Categories"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     languages = models.ManyToManyField(Language, verbose_name=_("Languages"), blank=True, limit_choices_to={'display': True})
     other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)

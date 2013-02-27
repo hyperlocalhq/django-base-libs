@@ -22,7 +22,7 @@ class EventCategoryAdmin(TreeEditor, ExtendedModelAdmin):
     list_display = ['actions_column', 'indented_short_title', ]
     
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug',)}),]
+    fieldsets += [(None, {'fields': ('slug', 'category')}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
