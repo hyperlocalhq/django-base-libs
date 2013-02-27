@@ -41,7 +41,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
     list_display_links = ('title', )
-    list_filter = ('creation_date', 'status', 'categories',)
+    list_filter = ('creation_date', 'status', )
     search_fields = ('title', 'subtitle', 'slug')
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description'])
@@ -56,7 +56,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
-    filter_horizontal = ("categories", "languages")
+    filter_horizontal = ("languages",)
     
     inlines = [WorkshopTimeInline, MediaFileInline]
     
