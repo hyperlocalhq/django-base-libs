@@ -330,7 +330,7 @@ class SpecialOpeningTime(models.Model):
         
 class MediaFile(CreationModificationDateMixin):
     museum = models.ForeignKey(Museum, verbose_name=_("Museum"))
-    path = FileBrowseField(_('File path'), max_length=255, help_text=_("A path to a locally stored image, video, or audio file."))
+    path = FileBrowseField(_('File path'), max_length=255, directory="museums/", help_text=_("A path to a locally stored image, video, or audio file."))
     sort_order = PositionField(_("Sort order"), collection="museum")
 
     class Meta:
