@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n image_modifications base_tags tagging_tags favorites %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
 {% block bodyclass %}workshop-list{% endblock %}
 
 {% block js %}
@@ -83,6 +83,13 @@
                     {% if request.user.is_authenticated %}
                         {% adding2favorites for workshop %}
                     {% endif %}
+                    {% if_has_perm "workshops.change_workshop" workshop %}
+                        {% if workshop.cover_image %}
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';"></button>
+                        {% else %}{% if workshop.museum.cover_image %}
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';"></button>
+                        {% endif %}{% endif %}
+                    {% end_if_has_perm %}
                     <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
                 </nav>
     
