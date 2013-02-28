@@ -27,29 +27,31 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Museum
         
-        fields = ['tags', 'categories']
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fields += [
-                'title_%s' % lang_code,
-                'subtitle_%s' % lang_code,
-                'description_%s' % lang_code,
-                ]
+        fields = []
+        
+        #fields = ['tags', 'categories']
+        #for lang_code, lang_name in FRONTEND_LANGUAGES:
+        #    fields += [
+        #        'title_%s' % lang_code,
+        #        'subtitle_%s' % lang_code,
+        #        'description_%s' % lang_code,
+        #        ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
-        self.fields['tags'].widget = forms.TextInput()
-        self.fields['tags'].help_text = ""
-        self.fields['categories'].widget = forms.CheckboxSelectMultiple()
-        self.fields['categories'].help_text = ""
-        self.fields['categories'].empty_label = None
+        #self.fields['tags'].widget = forms.TextInput()
+        #self.fields['tags'].help_text = ""
+        #self.fields['categories'].widget = forms.CheckboxSelectMultiple()
+        #self.fields['categories'].help_text = ""
+        #self.fields['categories'].empty_label = None
 
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            for f in [
-                'title_%s' % lang_code,
-                'subtitle_%s' % lang_code,
-                'description_%s' % lang_code,
-                ]:
-                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+        #for lang_code, lang_name in FRONTEND_LANGUAGES:
+        #    for f in [
+        #        'title_%s' % lang_code,
+        #        'subtitle_%s' % lang_code,
+        #        'description_%s' % lang_code,
+        #        ]:
+        #        self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -57,41 +59,41 @@ class BasicInfoForm(ModelForm):
         
         layout_blocks = []
 
-        layout_blocks.append(layout.Fieldset(
-            _("Basic Info"),
-            layout.Row(
-                css_class="div-accessibility-details",
-                *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+        #layout_blocks.append(layout.Fieldset(
+        #    _("Basic Info"),
+        #    layout.Row(
+        #        css_class="div-accessibility-details",
+        #        *(layout.Field('title_%s' % lang_code, disabled="disabled") for lang_code, lang_name in FRONTEND_LANGUAGES)
+        #        ),
 
-            layout.Row(
-                css_class="div-accessibility-details",
-                *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+        #    layout.Row(
+        #        css_class="div-accessibility-details",
+        #        *(layout.Field('subtitle_%s' % lang_code, disabled="disabled") for lang_code, lang_name in FRONTEND_LANGUAGES)
+        #        ),
 
-            layout.Row(
-                css_class="div-accessibility-details",
-                *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+        #    layout.Row(
+        #        css_class="div-accessibility-details",
+        #        *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
+        #        ),
 
-                css_class="fieldset-basic-info",
-                ))
+        #        css_class="fieldset-basic-info",
+        #        ))
 
-        layout_blocks.append(layout.Fieldset(
-            _("Categories and Tags"),
-            "categories",
-            "tags",
-            css_class="fieldset-categories-tags",
-            ))
+        #layout_blocks.append(layout.Fieldset(
+        #    _("Categories and Tags"),
+        #    layout.Field("categories", disabled="disabled"),
+        #    layout.Field("tags", disabled="disabled"),
+        #    css_class="fieldset-categories-tags",
+        #    ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
-                SecondarySubmit('save_and_close', _('Save and close')),
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
+                layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         
@@ -927,23 +929,23 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance = Museum.objects.get(pk=form_step_data['_pk'])
         else:
             instance = Museum()
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
-            setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
-            setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
-            setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-        instance.tags = form_step_data['basic']['tags']
-        if not instance.pk:
-            instance.status = "draft"
-        instance.save()
+        #for lang_code, lang_name in FRONTEND_LANGUAGES:
+        #    setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
+        #    setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
+        #    setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+        #    setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+        #instance.tags = form_step_data['basic']['tags']
+        #if not instance.pk:
+        #    instance.status = "draft"
+        #instance.save()
         
-        if '_pk' not in form_step_data:
-            user = get_current_user()
-            instance.set_owner(user)
+        #if '_pk' not in form_step_data:
+        #    user = get_current_user()
+        #    instance.set_owner(user)
         
-        instance.categories.clear()
-        for cat in form_step_data['basic']['categories']:
-            instance.categories.add(cat)
+        #instance.categories.clear()
+        #for cat in form_step_data['basic']['categories']:
+        #    instance.categories.add(cat)
         
         form_step_data['_pk'] = instance.pk
         
@@ -1129,12 +1131,12 @@ def save_data(form_steps, form_step_data, instance=None):
         else:
             instance = Museum()
 
-    for lang_code, lang_name in FRONTEND_LANGUAGES:
-        setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
-        setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
-        setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
-        setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-    instance.tags = form_step_data['basic']['tags'] 
+    #for lang_code, lang_name in FRONTEND_LANGUAGES:
+    #    setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
+    #    setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
+    #    setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+    #    setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+    #instance.tags = form_step_data['basic']['tags'] 
 
     fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
         'show_admission_price_info',
@@ -1216,9 +1218,9 @@ def save_data(form_steps, form_step_data, instance=None):
         user = get_current_user()
         instance.set_owner(user)
     
-    instance.categories.clear()
-    for cat in form_step_data['basic']['categories']:
-        instance.categories.add(cat)
+    #instance.categories.clear()
+    #for cat in form_step_data['basic']['categories']:
+    #    instance.categories.add(cat)
         
     instance.accessibility_options.clear()
     for cat in form_step_data['accessibility']['accessibility_options']:
