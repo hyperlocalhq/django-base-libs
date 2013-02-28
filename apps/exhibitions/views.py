@@ -274,6 +274,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
                 setattr(file_description, 'description_%s' % lang_code, cleaned['description_%s' % lang_code])
+            setattr(file_description, 'author', cleaned['author'])
             
             file_description.save()
             
