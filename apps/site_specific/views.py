@@ -180,7 +180,8 @@ def register_and_claim_museum(request, invitation_code):
             # login the current user
             user = authenticate(username=cleaned['username'], password=cleaned['password'])
             auth_login(request, user)
-            return redirect("museum_detail", slug=museum.slug)
+            return redirect("dashboard")
+            #return redirect("museum_detail", slug=museum.slug)
     else:
         initial = None
         if u:
