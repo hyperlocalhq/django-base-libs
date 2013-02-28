@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n image_modifications base_tags tagging_tags favorites %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
 {% block bodyclass %}exhibition-list{% endblock %}
 
 {% block js %}
@@ -56,7 +56,7 @@
       {% endfor %}
 
         {% for cat in facets.categories.categories %}
-        <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+            <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
         {% endfor %}
     </ul>
     <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
@@ -87,6 +87,13 @@
                     {% if request.user.is_authenticated %}
                         {% adding2favorites for exhibition %}
                     {% endif %}
+                    {% if_has_perm "exhibitions.change_exhibition" exhibition %}
+                        {% if exhibition.cover_image %}
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';"></button>
+                        {% else %}{% if exhibition.museum.cover_image %}
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';"></button>
+                        {% endif %}{% endif %}
+                    {% end_if_has_perm %}
                     <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
                 </nav>
 

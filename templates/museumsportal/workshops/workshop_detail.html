@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
 {% block bodyclass %}workshop-detail{% endblock %}
 
 {% block js %}
@@ -103,19 +103,22 @@
 
         <header>
             {% if workshop.cover_image %}
-            <ul id="slide">
-                <li>
-                    <a class="img" href="{{ workshop.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ workshop.cover_image }})"></a>
-                    <span class="overlay">
-                        <time>{% if workshop.permanent %}{% trans "Permanent workshop" %}{% else %}
-                            <span class="from_date">{{ workshop.start|date:"j. F Y" }}</span> {% trans "till" %} {{ workshop.end|date:"j. F Y" }}{% endif %}</time>
-                    </span>
-                </li>
-            </ul>
-
-            <nav class="actions bottom">
-                <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
-            </nav>
+                <ul id="slide">
+                    <li>
+                        <a class="img" href="{{ workshop.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"cover" }})"></a>
+                        <span class="overlay">
+                            <time>{% if workshop.permanent %}{% trans "Permanent workshop" %}{% else %}
+                                <span class="from_date">{{ workshop.start|date:"j. F Y" }}</span> {% trans "till" %} {{ workshop.end|date:"j. F Y" }}{% endif %}</time>
+                        </span>
+                    </li>
+                </ul>
+    
+                <nav class="actions bottom">
+                    {% if_has_perm "workshops.change_workshop" workshop %}
+                        <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';"></button>
+                    {% end_if_has_perm %}
+                    <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+                </nav>
             {% endif %}
         </header>
         

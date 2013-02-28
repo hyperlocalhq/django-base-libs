@@ -182,7 +182,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
     if not "extra_context" in kwargs:
         kwargs["extra_context"] = {}
 
-    rel_dir = "events/%s/gallery/" % instance.slug
+    rel_dir = "events/%s/" % instance.slug
     
     filters = {}
     if mediafile_token:

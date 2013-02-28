@@ -69,12 +69,14 @@
                 </ul>
             </div>
 		</header>
-        <nav id="navigation">
-            <ul>
-                <li{% if request.path == "/" %} class="selected"{% endif %}><a href="/">Home</a></li>
-                {% show_menu_below_id "start_page" 0 100 100 100 %}
-            </ul>
-        </nav>
+		{% block top_nav %}
+            <nav id="navigation">
+                <ul>
+                    <li{% if request.path == "/" %} class="selected"{% endif %}><a href="/">Home</a></li>
+                    {% show_menu_below_id "start_page" 0 100 100 100 %}
+                </ul>
+            </nav>
+        {% endblock %}
 
 
 
@@ -97,18 +99,20 @@
             </span>
         </a>
 
-        <footer id="footer" class="clearfix">
-            <div class="inner">
-                <ul class="navigation">
-                    {% show_menu_below_id "start_page" 0 1 1 1 %}
-                    {% if LANGUAGE_CODE == "de" %}
-                        <li><a href="/de/impressum/">Impressum</a></li>
-                    {% else %}
-                        <li><a href="/en/imprint/">Imprint</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </footer>
+        {% block footer %}
+            <footer id="footer" class="clearfix">
+                <div class="inner">
+                    <ul class="navigation">
+                        {% show_menu_below_id "start_page" 0 1 1 1 %}
+                        {% if LANGUAGE_CODE == "de" %}
+                            <li><a href="/de/impressum/">Impressum</a></li>
+                        {% else %}
+                            <li><a href="/en/imprint/">Imprint</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </footer>
+        {% endblock %}
 	</div>
 
     {% render_block "js" %}
@@ -150,7 +154,7 @@
 	});
 	</script>
 
-    <script >
+    <script>
         // $('#container.collapsed li').click(function() {
         //     if ($(this).hasClass('open')) {
         //         $(this).toggleClass('open');

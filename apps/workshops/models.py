@@ -263,7 +263,7 @@ class WorkshopTime(models.Model):
         
 class MediaFile(CreationModificationDateMixin):
     workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))
-    path = FileBrowseField(_('File path'), max_length=255, help_text=_("A path to a locally stored image, video, or audio file."))
+    path = FileBrowseField(_('File path'), max_length=255, directory="workshops/", help_text=_("A path to a locally stored image, video, or audio file."))
     sort_order = PositionField(_("Sort order"), collection="workshop")
 
     class Meta:
