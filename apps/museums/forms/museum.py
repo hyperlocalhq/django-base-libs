@@ -7,6 +7,7 @@ from django.forms.models import inlineformset_factory
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
+from django.utils.safestring import mark_safe
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -624,6 +625,12 @@ class AccessibilityForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(AccessibilityForm, self).__init__(*args, **kwargs)
         self.fields['accessibility_options'].widget = forms.CheckboxSelectMultiple()
+        choices = []
+        for access_opt in self.fields['accessibility_options'].queryset:
+            choices.append((access_opt.pk, mark_safe("""
+                <img src="%s%s" alt="" /> %s
+                """ % (settings.MEDIA_URL, access_opt.image.path, access_opt.title) ))) 
+        self.fields['accessibility_options'].choices = choices
         self.fields['accessibility_options'].help_text = ""
         self.fields['accessibility_options'].empty_label = None
         

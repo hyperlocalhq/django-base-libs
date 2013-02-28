@@ -26,6 +26,11 @@ class ImageFileForm(forms.Form):
         required=False,
         min_dimensions=IMAGE_MIN_DIMENSIONS,
         )
+    author = forms.CharField(
+        label=_('Author'),
+        required=False,
+        max_length=255,
+        )
 
     def __init__(self, *args, **kwargs):
         super(ImageFileForm, self).__init__(*args, **kwargs)
@@ -69,6 +74,7 @@ class ImageFileForm(forms.Form):
                 css_class="div-description",
                 *('description_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            "author",
 
                 css_class="fieldset-media-file",
                 ))
