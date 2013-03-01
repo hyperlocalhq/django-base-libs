@@ -955,10 +955,10 @@ div.tagsinput {
         display: block; }
         #gallery #slider > div > div .img {
           position: absolute;
-          top: 10%;
-          bottom: 12%;
-          left: 10%;
-          right: 10%;
+          top: 6%;
+          bottom: 10%;
+          left: 6%;
+          right: 6%;
           height: auto;
           width: auto;
           display: block;
@@ -1088,7 +1088,8 @@ div.tagsinput {
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
   cursor: default;
-  display: inline-block; }
+  display: inline-block;
+  max-width: 465px; }
   #picker * {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -1138,6 +1139,17 @@ div.tagsinput {
         letter-spacing: 1px;
         text-transform: uppercase;
         text-indent: 5px; }
+      #picker .body table tr td:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        font-weight: 500; }
+      #picker .body table tr td.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        font-weight: 500; }
+      #picker .body table tr td:active {
+        background-color: rgba(255, 255, 255, 0.05);
+        font-weight: 500;
+        background-color: white !important;
+        color: black !important; }
       #picker .body table tr td span {
         display: block;
         cursor: pointer;
@@ -1807,9 +1819,6 @@ button.favorite {
 .btn.location,
 button.location {
   background-image: url("../img/icons/inv/location.svg"); }
-.btn.cancel,
-button.cancel {
-  background-image: url("../img/icons/inv/cancel.svg"); }
 .btn.fullscreen,
 button.fullscreen {
   background-image: url("../img/icons/inv/fullscreen.svg"); }
@@ -1839,9 +1848,6 @@ button.transparent {
   .btn.transparent.location,
   button.transparent.location {
     background-image: url("../img/icons/location.svg"); }
-  .btn.transparent.cancel,
-  button.transparent.cancel {
-    background-image: url("../img/icons/cancel.svg"); }
   .btn.transparent.fullscreen,
   button.transparent.fullscreen {
     background-image: url("../img/icons/fullscreen.svg"); }
