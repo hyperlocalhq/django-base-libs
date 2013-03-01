@@ -360,12 +360,23 @@ CMS_PLACEHOLDER_CONF = {
     },
     'intro': {
         'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
-        'name': _("Main Content")
+        'name': _("Intro")
     },
     'main_content': {
         'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
         'name': _("Main Content")
     },
+
+    'series_items_featured': {
+        'plugins': ("EditorialContentPlugin"),
+        'name': _("Series Items Featured")
+    },
+    
+    'series_items': {
+        'plugins': ("EditorialContentPlugin"),
+        'name': _("Series Items")
+    },
+
     'start_page_content': {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Start Page Content")
