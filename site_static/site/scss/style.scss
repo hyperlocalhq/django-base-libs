@@ -36,6 +36,7 @@ body {
   line-height: 26px;
   overflow-y: auto;
   overflow-x: hidden;
+  font-weight: 400;
 
   &::-webkit-scrollbar-corner,
   &::-webkit-scrollbar {
@@ -123,11 +124,15 @@ html,body,input {
 
 a{
   text-decoration: none;
-  color: $blue;
+  color: black;
+}
+
+p a{
+  font-weight: 500;
 }
 
 a:link   { text-decoration: none;}
-a:hover   { text-decoration: none; color: black;}
+a:hover   { text-decoration: none; color: $blue;}
 a:visited { text-decoration: none;}
 a:active  { outline: none;}
 
@@ -162,25 +167,19 @@ a:active  { outline: none;}
 
     .img {
       display: block;
-      height: 52px;
-      width: 52px;
+      height: 70px;
+      width: 400px;
       background-image: url("../img/logo_img.svg");
+      background-repeat: no-repeat;
+      background-position: left;
       background-size: cover;
       float: left;
       margin-right: 15px;
       margin-top: -6px;
+      font-size: 0px;
 
     }
-    .word {
-      font-size: 20px;
-      line-height: 17px;
-      display: block;
-      float: left;
-      letter-spacing: -1px;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: black;
-    }
+
     .claim {
       font-size: 13px;
       line-height: 16px;
@@ -197,42 +196,56 @@ a:active  { outline: none;}
   .inner { 
     height: 100px; 
 
-    ul.meta {
-      // display: table;
-      // table-layout: fixed;
-      // width: 100%;
-      // text-align: center;
+    ul {
       position: absolute;
       top: 20px;
-      right: 0;
+      font-size: 0px;
+      line-height: 0px;
 
-      li {
+      &#meta { right: 30px; }
+      
+      &#lang { 
+        width: 30px;
+        right: 0px; 
+        padding-top: 30px;
 
-          &.current a,
-          &:hover a{ 
-            background-color: black;
-            color: white;
-          }
+        li { display: none;}
+        &:hover li { display: block;}
+        .current { display: block; position: absolute; top: 0px;}
+      }
+
+      > li {
+        height: 30px;
+        width: 30px;
         display: inline-block;
+        margin: 0px;
+        padding: 0px;
+        background-color: rgba(0,0,0,0.05);
+        position: relative;
+
+        &:hover a { background-color: black; color: white; }
 
         a{
+          height: 30px;
+          width: 30px;
           color: black;
-          min-width: 20px;
+          line-height: 30px;
           text-align: center;
-          display: inline-block;
-          font-size: 10px;
-          line-height: 20px;
+          display: block;
+          overflow: hidden;
+          font-size: 13px;
           font-weight: 600;
-          background-color: rgba(0,0,0,0.05);
           background-size: cover;
           background-position: center;
 
           span { display: none;}
 
+          &.favorites-link  { background-image: url("../img/icons/favorite.svg");}
           &.facebook  { background-image: url("../img/icons/social-01.svg");}
           &.twitter   { background-image: url("../img/icons/social-02.svg");}
 
           &:hover {
+            &.favorites-link  { background-image: url("../img/icons/inv/favorite.svg");}
             &.facebook  { background-image: url("../img/icons/inv/social-01.svg");}
             &.twitter   { background-image: url("../img/icons/inv/social-02.svg");}
           }
@@ -243,6 +256,7 @@ a:active  { outline: none;}
 }
 
 #navigation {
+  font-weight: 400;
   position: relative;
   width: 100%;
   -webkit-transition-property: all;
@@ -261,6 +275,7 @@ a:active  { outline: none;}
     border-right: 12px solid transparent;
     height: 50px;
     white-space: nowrap;
+    overflow: hidden;
 
     > li {
       display: inline-block;
@@ -280,6 +295,14 @@ a:active  { outline: none;}
       //     opacity: 1;
       //   }
       // }
+
+      &.last-child,
+      &:last-child {
+        width: 100%;
+        height: 0px;
+        overflow: hidden;
+        position: relative;
+      }
 
       > div { 
         border-top: 1px solid rgba(0,0,0,0.05);
@@ -442,7 +465,7 @@ a:active  { outline: none;}
 
   > li { 
     width: 320px;
-    height: 250px;
+    height: 253px;
     float: left;
     position: relative;
     font-size: 15px;
@@ -743,12 +766,13 @@ a:active  { outline: none;}
 
 .btn,
 button { 
+  &.crop            { background-image: url("../img/icons/inv/crop.svg");}
   &.add             { background-image: url("../img/icons/inv/add.svg");}
   &.view            { background-image: url("../img/icons/inv/view.svg");}
   &.edit            { background-image: url("../img/icons/inv/edit.svg");}
-  &.add-favorite    { background-image: url("../img/icons/inv/favorite.svg");}
-  &.show-location   { background-image: url("../img/icons/inv/location.svg");}
-  &.cancel          { background-image: url("../img/icons/inv/cancel.svg");}
+  &.favorite        { background-image: url("../img/icons/inv/favorite.svg");}
+  &.location        { background-image: url("../img/icons/inv/location.svg");}
+  // &.cancel          { background-image: url("../img/icons/inv/cancel.svg");}
   &.fullscreen      { background-image: url("../img/icons/inv/fullscreen.svg");}
 
   &.transparent {
@@ -756,12 +780,13 @@ button {
     opacity: 0.3 !important;
     &:hover { background-color: transparent !important; opacity: 1 !important;}
 
+    &.crop            { background-image: url("../img/icons/crop.svg");}
     &.add             { background-image: url("../img/icons/add.svg");}
     &.view            { background-image: url("../img/icons/view.svg");}
     &.edit            { background-image: url("../img/icons/edit.svg");}
-    &.add-favorite    { background-image: url("../img/icons/favorite.svg");}
-    &.show-location   { background-image: url("../img/icons/location.svg");}
-    &.cancel          { background-image: url("../img/icons/cancel.svg");}
+    &.favorite        { background-image: url("../img/icons/favorite.svg");}
+    &.location        { background-image: url("../img/icons/location.svg");}
+    // &.cancel          { background-image: url("../img/icons/cancel.svg");}
     &.fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
   }
 }
@@ -966,7 +991,6 @@ article {
           display: block; 
           margin-bottom: 10px; 
           width: 320px !important;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
       }
     }
@@ -1226,7 +1250,7 @@ article {
 #page-controls {
   position: absolute;
   top: 0px;
-  z-index: 50000;
+  z-index: 30000;
 
   a {
     width: 200px;
@@ -1452,23 +1476,40 @@ dl {
 
   label {font-size: 22px; padding-bottom: 10px; }
   
-  .add {float: right; margin-bottom: 4px; display: block;}
-  
-  article {margin-bottom: 30px; }
+  .add {
+    position: absolute;
+    right: 0px;
+    height: 32px;
+    line-height: 32px;
+    background-color: rgba(0,0,0,0.075);
+    background-color: $blue;
+    margin-bottom: 4px; 
+    display: block;
+    padding-right: 30px;
+    padding-left: 12px;
+    background-image: url("../img/icons/inv/add-bold.svg");
+    background-size: 32px;
+    background-position: right;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: 400;
+    &:hover { background-color: black; }
+  }
+
+  article {margin-bottom: 60px; position: relative;}
   
   ul {
     li {
       position: relative;
-      background-color: rgba(0,0,0,0.05);
       
-      nav { display: none; }
 
       &:hover {
-        background-color: rgba(0,0,0,0.075);
-        nav { display: block;}
+        > a { background-color: rgba(0,0,0,0.075);}
       }
 
+      > span,
       > a {
+        background-color: rgba(0,0,0,0.05);
         display: block;
         height: 40px;
         line-height: 40px;
@@ -1477,13 +1518,12 @@ dl {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         margin-bottom: 2px;
+
         &:hover {
            h3, h4 ,h5 { color: rgba(0,0,0,0.5) !important;}
         }
-        h3, h4 ,h5 { display: inline-block; width: 320px; font-size: 13px !important;}
-        h3   { font-weight: 500;}
-        h4   { font-weight: 400;}
-        h5   { font-weight: 400;; opacity: 0.5}
+        h3 ,h5 { display: inline-block; font-size: 16px !important;}
+        h5   { font-weight: 400; float: right; opacity: 0.5; margin-right: 85px; font-size: 13px !important;}
       }
     }
   }

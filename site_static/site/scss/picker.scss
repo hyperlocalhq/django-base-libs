@@ -47,6 +47,7 @@
   -moz-box-sizing: border-box !important;
   cursor: default;
   display: inline-block;
+  max-width: 465px;
 
   * {
     -webkit-touch-callout: none;
@@ -107,6 +108,24 @@
           text-indent: 5px;
         }
         td {
+
+          &:hover{
+            background-color: rgba(255,255,255,0.05);
+            font-weight: 500;
+          }
+
+          &.active {
+            background-color: rgba(255,255,255,0.1);
+            font-weight: 500;
+          }
+          
+          &:active{
+            background-color: rgba(255,255,255,0.05);
+            font-weight: 500;
+            background-color: white !important;
+            color: black !important;
+          }
+
           span {
             display: block;
             cursor: pointer;
@@ -126,6 +145,7 @@
       }
     }
   }
+
   footer {
     padding: 30px;
     background-color: rgba(0,0,0,0.9);

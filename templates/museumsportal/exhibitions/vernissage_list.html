@@ -74,12 +74,12 @@
                 {% if exhibition.cover_image %}
                     <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}">
                         <span class="spinner loading"></span>
-                        <span class="overlay"></span>
+                        
                     </a>
                 {% else %}
                     <a class="img" href="{{ exhibition.get_url_path }}"  {% if exhibition.museum.image %}data-background="{{ MEDIA_URL }}{{ exhibition.museum.cover_image|modified_path:"exhibition_list" }}">
                         <span class="spinner loading"></span>
-                        <span class="overlay"></span>
+                        
                     </a>
                 {% endif %}{% endif %}
 
@@ -87,7 +87,7 @@
                     {% if request.user.is_authenticated %}
                         {% adding2favorites for exhibition %}
                     {% endif %}
-                    <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                    <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link location"></button>
                 </nav>
 
                 <a href="{{ exhibition.get_url_path }}">

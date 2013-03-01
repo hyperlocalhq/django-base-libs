@@ -76,7 +76,7 @@
                 {% if workshop.cover_image %}data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}"{% else %}
                 {% if workshop.museum.cover_image %}data-background="{{ MEDIA_URL }}{{ workshop.museum.cover_image|modified_path:"workshop_list" }}"{% endif %}{% endif %}>
                     <span class="spinner loading"></span>
-                    <span class="overlay"></span>
+                    
                 </a>
 
                 <nav class="actions">
@@ -85,12 +85,12 @@
                     {% endif %}
                     {% if_has_perm "workshops.change_workshop" workshop %}
                         {% if workshop.cover_image %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';"></button>
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';"></button>
                         {% else %}{% if workshop.museum.cover_image %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';"></button>
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';"></button>
                         {% endif %}{% endif %}
                     {% end_if_has_perm %}
-                    <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                    <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link location"></button>
                 </nav>
     
                 <a href="{{ workshop.get_url_path }}">

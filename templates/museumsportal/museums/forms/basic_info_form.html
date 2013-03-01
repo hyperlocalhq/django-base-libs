@@ -9,7 +9,7 @@
 {% block js %}
     {{ block.super }}
     <!--
-    <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.js"></script>
     -->
 {% endblock %}
 
@@ -91,7 +91,7 @@
                 {% trans "Tags" %} </label>
                 
                 <div class="controls">
-                    <div id="id_tags_tagsinput" class="tagsinput" style="width: 300px; height: 100px;">
+                    <div id="id_tags_tagsinput" class="tagsinput">
                         {% for tag in museum.get_tags %}
                             <span class="tag"><span>{{ tag.name }}</span></span>
                         {% endfor %}
