@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags %}
 {% block bodyclass %}museum-detail{% endblock %}
 
 {% block js %}
@@ -825,10 +825,19 @@
                 <li class="item">
                     <div class="inner">
                         <img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" />
-                        <div class="info">
-                            <span class="title">Fluktuation 8</span>
-                            <span class="describtion">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. </span>
-                        </div>
+                        {% with mf.path|file_description as file_desc %}
+                            <div class="info">
+                                {% if file_desc.title %}
+                                    <span class="title">{{ file_desc.title }}</span>
+                                {% endif %}
+                                {% if file_desc.description %}
+                                    <span class="description">{{ file_desc.description }}</span>
+                                {% endif %}
+                                {% if file_desc.author %}
+                                    <span class="author">{{ file_desc.author }}</span>
+                                {% endif %}
+                            </div>
+                        {% endwith %}
                     </div>
                      <nav class="actions">
                         <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite"></button>
@@ -857,10 +866,19 @@
         <div style="display:{% if forloop.first %}block{% else %}none{% endif %}">
             &nbsp;
             <div class="img" style="background-image: url({{ MEDIA_URL }}{{ mf.path.path }})"> </div>
-            <div class="info">
-                <span class="title">Fluktuation 8</span>
-                <span class="describtion">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. </span>
-            </div>
+            {% with mf.path|file_description as file_desc %}
+                <div class="info">
+                    {% if file_desc.title %}
+                        <span class="title">{{ file_desc.title }}</span>
+                    {% endif %}
+                    {% if file_desc.description %}
+                        <span class="description">{{ file_desc.description }}</span>
+                    {% endif %}
+                    {% if file_desc.author %}
+                        <span class="author">{{ file_desc.author }}</span>
+                    {% endif %}
+                </div>
+            {% endwith %}
         </div>
         {% endfor %}
       </div>
