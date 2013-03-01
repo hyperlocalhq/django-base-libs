@@ -133,17 +133,17 @@
                                 <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
                             </dl>
                         
-                            {% if museum.phone %}
+                            {% if museum.phone_number %}
                                 <dl class="phone inset">
                                     <dt>{% trans "Tel" %}</dt>
-                                    <dd>{{ museum.phone }}</dd>
+                                    <dd>+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</dd>
                                 </dl>
                             {% endif %} 
                             
-                            {% if museum.fax %}
+                            {% if museum.fax_number %}
                                 <dl class="fax inset">
                                     <dt>{% trans "Fax" %}</dt>
-                                    <dd>{{ museum.fax }}</dd>
+                                    <dd>+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</dd>
                                 </dl>
                             {% endif %} 
                             
@@ -555,7 +555,7 @@
                         </li>
                     </ul>  
                 </li>  
-                {% if museum.mediation_offer %}
+                {% if museum.has_audioguide or museum.has_audioguide_for_children or museum.has_audioguide_for_learning_difficulties or museum.group_bookings_phone_number or museum.service_phone_number %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">   {% trans "Mediation offer" %} 
@@ -564,8 +564,35 @@
                         <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
                             <li class="accordion-inner">
                                 <h5>{% trans "Mediation offer" %}</h5>
-                                <div class="accessibility">
-                                    {{ museum.get_rendered_mediation_offer }}
+                                <div class="audioguides">
+                                    {% if museum.has_audioguide %}
+                                        <p>{% trans "There are audioguides in the following languages:" %}</p>
+                                        <ul>
+                                            {% for lang in museum.get_audioguide_languages %}
+                                                <li>{{ lang }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                    {% if museum.has_audioguide_for_children %}
+                                        <p>{% trans "There is an audioguide for children." %}</p>
+                                    {% endif %}
+                                    {% if museum.has_audioguide_for_learning_difficulties %}
+                                        <p>{% trans "There is an audioguide for people with learning difficulties." %}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="phones">
+                                    {% if museum.group_booking_phone_number %}
+                                        <dl class="phone inset">
+                                            <dt>{% trans "Phone for group booking" %}</dt>
+                                            <dd>+{{ museum.group_booking_phone_country }} ({{ museum.group_booking_phone_area }}) {{ museum.group_booking_phone_number }}</dd>
+                                        </dl>
+                                    {% endif %} 
+                                    {% if museum.service_phone_number %}
+                                        <dl class="phone inset">
+                                            <dt>{% trans "Service Phone" %}</dt>
+                                            <dd>+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</dd>
+                                        </dl>
+                                    {% endif %} 
                                 </div>
                             </li>
                         </ul>  
@@ -731,19 +758,6 @@
                 })
                 </script>
             </dl>
-            {% if museum.phone %}
-                <dl class="phone">
-                    <dt>{% trans "Phone" %}</dt>
-                    <dd>{{ museum.phone }}</dd>
-                </dl>
-            {% endif %} 
-            
-            {% if museum.fax %}
-                <dl class="fax">
-                    <dt>{% trans "Fax" %}</dt>
-                    <dd>{{ museum.fax }}</dd>
-                </dl>
-            {% endif %} 
             
             {% if museum.website %}
                 <dl class="website">
