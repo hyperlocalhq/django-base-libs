@@ -295,93 +295,6 @@ form {
         }
       }
     }
-
-    .row { 
-      width: 100%;
-      clear: both;
-      table-layout: fixed;
-      display: table;
-      padding: 0 !important;
-      margin-left: 0;
-      margin-bottom: 0px;
-      border-collapse: collapse;
-
-
-      fieldset { 
-        border: none;
-        padding: 0px;
-        margin: 0px;
-        margin-top: 30px !important;
-
-        legend {
-          border-top: 1px solid rgba(0,0,0,0.05) !important; 
-          padding-top: 30px !important;
-        }
-      }
-
-      label { white-space: nowrap;}
-
-      // &:last-child{
-      //   textarea, input { margin: 0px !important;}
-      // }
-      &.flex { 
-        table-layout: auto !important;
-
-        > div{ 
-          width: auto !important;
-        }
-      }
-
-      > div{ 
-        display: table-cell;
-        border-right: 20px solid white;
-        width: 100% !important;
-        vertical-align: top;
-        position: relative;
-        overflow: hidden;
-
-        .row {
-           > div{ 
-              border-right: 2px solid white;
-
-              &:first-child{
-                input:first-child{ width: auto !important; left: 42px; right: 0; position: absolute;}
-              }
-           }
-           .weekday {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            font-size: 18px;
-            line-height: 40px;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            color: rgba(0,0,0,0.5);
-            background-color: rgba(0,0,0,0.05);
-           }
-        }
-
-        &.closed {
-          width: 40px !important;
-          position: absolute;
-          right: 0px;
-          border-left: 2px solid white;
-          display: none;
-
-          > div {
-            background-color: rgba(0,0,0,0.1);
-            height: 40px;
-            overflow: hidden;
-          }
-        }
-
-        &:last-child { 
-          border-right: 0px solid white;
-
-        }
-      }
-    }
   }
 
   table { 
@@ -431,6 +344,92 @@ form {
     }
   }
 } 
+
+.row { 
+  width: 100%;
+  clear: both;
+  table-layout: fixed;
+  display: table;
+  padding: 0 !important;
+  margin-left: 0;
+  margin-bottom: 0px;
+  border-collapse: collapse;
+
+  fieldset { 
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 30px !important;
+
+    legend {
+      border-top: 1px solid rgba(0,0,0,0.05) !important; 
+      padding-top: 30px !important;
+    }
+  }
+
+  label { white-space: nowrap;}
+
+  // &:last-child{
+  //   textarea, input { margin: 0px !important;}
+  // }
+  &.flex { 
+    table-layout: auto !important;
+
+    > div{ 
+      width: auto !important;
+    }
+  }
+  
+  > div{ 
+    display: table-cell;
+    border-right: 20px solid white;
+    width: 100% !important;
+    vertical-align: top;
+    position: relative;
+    overflow: hidden;
+
+    .row {
+       > div{ 
+          border-right: 2px solid white;
+
+          &:first-child{
+            input:first-child{ width: auto !important; left: 42px; right: 0; position: absolute;}
+          }
+       }
+       .weekday {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        font-size: 18px;
+        line-height: 40px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        color: rgba(0,0,0,0.5);
+        background-color: rgba(0,0,0,0.05);
+       }
+    }
+
+    &.closed {
+      width: 40px !important;
+      position: absolute;
+      right: 0px;
+      border-left: 2px solid white;
+      display: none;
+
+      > div {
+        background-color: rgba(0,0,0,0.1);
+        height: 40px;
+        overflow: hidden;
+      }
+    }
+
+    &:last-child { 
+      border-right: 0px solid white;
+
+    }
+  }
+}
 
 .form-steps { 
   margin-bottom: 30px;

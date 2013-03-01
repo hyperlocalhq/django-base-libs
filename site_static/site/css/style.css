@@ -336,66 +336,6 @@ form {
           width: 40px;
           margin-left: 5px;
           text-indent: 1000px; }
-    form fieldset .row {
-      width: 100%;
-      clear: both;
-      table-layout: fixed;
-      display: table;
-      padding: 0 !important;
-      margin-left: 0;
-      margin-bottom: 0px;
-      border-collapse: collapse; }
-      form fieldset .row fieldset {
-        border: none;
-        padding: 0px;
-        margin: 0px;
-        margin-top: 30px !important; }
-        form fieldset .row fieldset legend {
-          border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
-          padding-top: 30px !important; }
-      form fieldset .row label {
-        white-space: nowrap; }
-      form fieldset .row.flex {
-        table-layout: auto !important; }
-        form fieldset .row.flex > div {
-          width: auto !important; }
-      form fieldset .row > div {
-        display: table-cell;
-        border-right: 20px solid white;
-        width: 100% !important;
-        vertical-align: top;
-        position: relative;
-        overflow: hidden; }
-        form fieldset .row > div .row > div {
-          border-right: 2px solid white; }
-          form fieldset .row > div .row > div:first-child input:first-child {
-            width: auto !important;
-            left: 42px;
-            right: 0;
-            position: absolute; }
-        form fieldset .row > div .row .weekday {
-          position: absolute;
-          top: 0px;
-          left: 0px;
-          font-size: 18px;
-          line-height: 40px;
-          width: 40px;
-          height: 40px;
-          text-align: center;
-          color: rgba(0, 0, 0, 0.5);
-          background-color: rgba(0, 0, 0, 0.05); }
-        form fieldset .row > div.closed {
-          width: 40px !important;
-          position: absolute;
-          right: 0px;
-          border-left: 2px solid white;
-          display: none; }
-          form fieldset .row > div.closed > div {
-            background-color: rgba(0, 0, 0, 0.1);
-            height: 40px;
-            overflow: hidden; }
-        form fieldset .row > div:last-child {
-          border-right: 0px solid white; }
   form table {
     border-collapse: collapse !important;
     width: 100% !important; }
@@ -422,6 +362,67 @@ form {
         border-right: 0px solid white; }
       form table th div, form table th input, form table td div, form table td input {
         margin-bottom: 0 !important; }
+
+.row {
+  width: 100%;
+  clear: both;
+  table-layout: fixed;
+  display: table;
+  padding: 0 !important;
+  margin-left: 0;
+  margin-bottom: 0px;
+  border-collapse: collapse; }
+  .row fieldset {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 30px !important; }
+    .row fieldset legend {
+      border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+      padding-top: 30px !important; }
+  .row label {
+    white-space: nowrap; }
+  .row.flex {
+    table-layout: auto !important; }
+    .row.flex > div {
+      width: auto !important; }
+  .row > div {
+    display: table-cell;
+    border-right: 20px solid white;
+    width: 100% !important;
+    vertical-align: top;
+    position: relative;
+    overflow: hidden; }
+    .row > div .row > div {
+      border-right: 2px solid white; }
+      .row > div .row > div:first-child input:first-child {
+        width: auto !important;
+        left: 42px;
+        right: 0;
+        position: absolute; }
+    .row > div .row .weekday {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      font-size: 18px;
+      line-height: 40px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.05); }
+    .row > div.closed {
+      width: 40px !important;
+      position: absolute;
+      right: 0px;
+      border-left: 2px solid white;
+      display: none; }
+      .row > div.closed > div {
+        background-color: rgba(0, 0, 0, 0.1);
+        height: 40px;
+        overflow: hidden; }
+    .row > div:last-child {
+      border-right: 0px solid white; }
 
 .form-steps {
   margin-bottom: 30px;
@@ -2334,17 +2335,27 @@ dl {
   font-size: 22px;
   padding-bottom: 10px; }
 #dashboard .add {
-  float: right;
+  position: absolute;
+  right: 0px;
+  height: 32px;
+  line-height: 32px;
+  background-color: rgba(0, 0, 0, 0.075);
+  background-color: #00aefd;
   margin-bottom: 4px;
   display: block;
-  padding-right: 24px;
-  margin-right: -9px;
-  background-image: url("../img/icons/add.svg");
+  padding-right: 30px;
+  padding-left: 12px;
+  background-image: url("../img/icons/inv/add-bold.svg");
   background-size: 32px;
   background-position: right;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  color: white;
+  font-weight: 400; }
+  #dashboard .add:hover {
+    background-color: black; }
 #dashboard article {
-  margin-bottom: 60px; }
+  margin-bottom: 60px;
+  position: relative; }
 #dashboard ul li {
   position: relative; }
   #dashboard ul li:hover > a {
