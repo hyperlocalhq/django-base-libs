@@ -844,20 +844,6 @@ div.tagsinput {
       border-top-color: black;
       border-width: 8px 8px 0; }
 
-#gallery.info .img {
-  bottom: 30% !important; }
-#gallery.info .info {
-  bottom: 0% !important; }
-#gallery.info nav {
-  bottom: 20px; }
-
-#gallery div.img,
-#gallery div.info {
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.4s;
-  -webkit-transition-timing-function: ease-in-out;
-  -webkit-backface-visibility: hidden; }
-
 .gallery #gallery {
   -webkit-transition-duration: 0s, 0.25s;
   -webkit-transition-delay: 0s, 0s;
@@ -889,6 +875,62 @@ div.tagsinput {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; }
+  #gallery > span {
+    width: 40px;
+    height: 120px;
+    line-height: 95px;
+    text-align: center;
+    font-size: 22px;
+    position: absolute;
+    top: 50%;
+    margin-top: -70px;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.75s;
+    -webkit-transition-timing: ease-in-out;
+    -moz-transition-property: all;
+    -moz-transition-duration: 0.75s;
+    -moz-transition-timing: ease-in-out;
+    -o-transition-property: all;
+    -o-transition-duration: 0.75s;
+    -o-transition-timing: ease-in-out;
+    color: black;
+    background-color: black;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    background-repeat: no-repeat;
+    background-size: 33px;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    overflow: hidden; }
+    #gallery > span:hover {
+      -webkit-transition-duration: 0.1s;
+      -moz-transition-duration: 0.1s;
+      -o-transition-duration: 0.1s;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: white; }
+    #gallery > span.prev {
+      left: 0;
+      border-right: 20px solid transparent;
+      text-align: right;
+      margin-left: -30px;
+      background-image: url("../img/icons/inv/left.svg");
+      background-position: center left; }
+      #gallery > span.prev > span {
+        right: 0; }
+      #gallery > span.prev:hover {
+        margin-left: 0px; }
+    #gallery > span.next {
+      right: 0;
+      border-left: 20px solid transparent;
+      text-align: left;
+      margin-right: -30px;
+      background-image: url("../img/icons/inv/right.svg");
+      background-position: center right; }
+      #gallery > span.next > span {
+        left: 0; }
+      #gallery > span.next:hover {
+        margin-right: 0px; }
   #gallery #slider {
     position: absolute;
     height: 100%;
@@ -914,7 +956,7 @@ div.tagsinput {
         #gallery #slider > div > div .img {
           position: absolute;
           top: 10%;
-          bottom: 10%;
+          bottom: 12%;
           left: 10%;
           right: 10%;
           height: auto;
@@ -922,13 +964,18 @@ div.tagsinput {
           display: block;
           background-size: contain;
           background-position: center;
-          background-repeat: no-repeat; }
+          background-repeat: no-repeat;
+          pointer-events: none; }
         #gallery #slider > div > div .info {
-          background-color: black;
-          color: white;
+          text-align: center;
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+          pointer-events: none;
           position: absolute;
-          bottom: -50%;
           width: 100%;
+          bottom: 0%;
+          left: auto;
+          right: auto;
+          margin: auto;
           padding-left: 10%;
           padding-right: 10%;
           padding-top: 20px;
@@ -938,23 +985,20 @@ div.tagsinput {
           -moz-box-sizing: border-box;
           -webkit-transition-property: all;
           -webkit-transition-duration: 0.25s;
-          -webkit-transition-delay: 0s;
           -webkit-transition-timing: ease-in-out;
-          font-size: 20px;
-          line-height: 32px; }
+          color: rgba(0, 0, 0, 0.75);
+          font-size: 12px;
+          line-height: 18px; }
           #gallery #slider > div > div .info .title {
             font-weight: 500; }
   #gallery nav {
     position: absolute;
-    bottom: 0px;
-    z-index: 10000;
+    top: 0px;
+    right: 0px;
+    z-index: 20000;
     text-align: center;
-    width: 100%;
     white-space: nowrap;
     font-size: 0px;
-    -webkit-transition-property: all;
-    -webkit-transition-duration: 0.25s;
-    -webkit-transition-timing: ease-in-out;
     border-bottom: 0px solid black; }
     #gallery nav button {
       width: 60px;
@@ -2145,7 +2189,7 @@ article p {
 #page-controls {
   position: absolute;
   top: 0px;
-  z-index: 50000; }
+  z-index: 30000; }
   #page-controls a {
     width: 200px;
     height: 120px;
