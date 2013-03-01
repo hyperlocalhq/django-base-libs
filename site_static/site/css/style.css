@@ -219,31 +219,40 @@ input[type=search] {
 #id_description_en_tbl {
   margin-bottom: 20px !important; }
 
+.textarea,
 textarea,
 input {
   margin-bottom: 20px !important; }
+  .textarea::-webkit-input-placeholder,
   textarea::-webkit-input-placeholder,
   input::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.125); }
+  .textarea:-moz-placeholder,
   textarea:-moz-placeholder,
   input:-moz-placeholder {
     color: rgba(0, 0, 0, 0.125); }
+  .textarea:-ms-input-placeholder,
   textarea:-ms-input-placeholder,
   input:-ms-input-placeholder {
     color: rgba(0, 0, 0, 0.125); }
+  .textarea:focus,
   textarea:focus,
   input:focus {
     box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.05); }
+    .textarea:focus::-webkit-input-placeholder,
     textarea:focus::-webkit-input-placeholder,
     input:focus::-webkit-input-placeholder {
       color: inherit; }
+    .textarea:focus:-moz-placeholder,
     textarea:focus:-moz-placeholder,
     input:focus:-moz-placeholder {
       color: inherit; }
+    .textarea:focus:-ms-input-placeholder,
     textarea:focus:-ms-input-placeholder,
     input:focus:-ms-input-placeholder {
       color: inherit; }
 
+.textarea,
 textarea {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -590,9 +599,9 @@ div.tagsinput {
       -moz-box-sizing: border-box !important; }
     div.tagsinput span.tag span {
       padding-left: 10px;
-      padding-right: 0px; }
+      padding-right: 10px; }
     div.tagsinput span.tag a {
-      margin-left: -5px;
+      margin-left: -15px;
       overflow: hidden;
       text-indent: 1000px;
       width: 32px;
