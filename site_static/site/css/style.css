@@ -215,6 +215,10 @@ input[type=search] {
     input[type=search]:focus:-ms-input-placeholder {
       color: inherit; }
 
+#id_description_de_tbl,
+#id_description_en_tbl {
+  margin-bottom: 20px !important; }
+
 textarea,
 input {
   margin-bottom: 20px !important; }
@@ -410,7 +414,8 @@ form {
       height: 40px;
       text-align: center;
       color: rgba(0, 0, 0, 0.5);
-      background-color: rgba(0, 0, 0, 0.05); }
+      background-color: rgba(0, 0, 0, 0.05);
+      overflow: hidden; }
     .row > div.closed {
       width: 40px !important;
       position: absolute;
