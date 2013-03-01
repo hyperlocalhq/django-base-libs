@@ -594,6 +594,19 @@
                                         </dl>
                                     {% endif %} 
                                 </div>
+                                {% with museum.get_workshops as workshops %}
+                                    {% if workshops %}
+                                        <div class="workshops">
+                                            <h6>{% trans "Workshops" %}</h6>
+                                            {% for workshop in workshops %}
+                                                <div><a href="{{ workshop.get_url_path }}">{{ workshop.title }}</a></div>
+                                                {% with workshop.workshoptime_set.all.0 as wtime %}
+                                                    <div>{{ wtime.workshop_date|date:"j. F Y" }} {{ wtime.start|time:"H:i" }} - {{ wtime.end|time:"H:i" }}</div>
+                                                {% endwith %}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
                             </li>
                         </ul>  
                     </li>  

@@ -297,6 +297,12 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return qs[0].path
     cover_image = property(_get_cover_image)
 
+    def get_workshops(self):
+        Workshop = models.get_model("workshops", "Workshop")
+        return Workshop.objects.filter(
+            models.Q(museum=self) | models.Q(organizing_museum=self)
+            )
+
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)
     title = MultilingualCharField(_('Season title'), max_length=255, blank=True)
