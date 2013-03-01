@@ -8,10 +8,11 @@
   <div class="inner">
 
     <article class="clearfix">
-      {% placeholder "main_content" %}
+      <header>{% placeholder "intro" %}</header>
+      <section>{% placeholder "main_content" %}</section>
     </article>
 
-    <article>
+    <section class="">
       <ul id="sub_menu">
               {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
       </ul>

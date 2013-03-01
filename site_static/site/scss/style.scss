@@ -845,9 +845,7 @@ article {
       padding-top: 40px !important; 
       margin-right: -60px;
       li {
-
         cursor: pointer;
-
         float: left;
         position: relative;
         width: 320px;
@@ -857,48 +855,57 @@ article {
         margin-bottom: 20px;
 
         .actions { opacity: 0; }
-        .inner { overflow: hidden; position: relative;}
-        img { 
-          display: block; 
-          width: 100%;
+        .inner { 
+          overflow: hidden; 
+          position: relative;
 
-          -webkit-transition-property: opacity;
-          -webkit-transition-duration: 0.125s;
-          -webkit-transition-timing: ease-in-out;
         }
-       
+
+        img { display: block; width: 100%; }
         &:first-child { width: 660px;}
 
         &:hover { 
-          .info {bottom: 0%; opacity: 1;}
+          .info {
+            -webkit-transform: translate3d(0px, 0, 0) !important;
+            -moz-transform: translate3d(0px, 0, 0) !important;
+            -o-transform: translate3d(0px, 0, 0) !important;
+            transform: translate3d(0px, 0, 0) !important;
+            opacity: 1;
+          }
           img { opacity: 0.9;}
           .actions { opacity: 1;}
         }
 
         .info {
-          -webkit-transition-property: all;
-          -webkit-transition-duration: 0.5s;
-          -webkit-transition-delay: 0.5s;
-          -webkit-transition-timing: ease-in-out;
           background-color: white;
           color: white;
-          bottom: -100%;
-          position: absolute;
           margin: 0px;
           box-sizing: border-box;
           -moz-box-sizing: border-box;
-          opacity: 0;
+          bottom: 0;
+          position: absolute;
+          width: 100%;
+          text-shadow: 0 0 0 transparent;
+
+
+          -webkit-transform: translate3d(0px, 100%, 0) !important;
+          -moz-transform: translate3d(0px, 100%, 0) !important;
+          -o-transform: translate3d(0px, 100%, 0) !important;
+          transform: translate3d(0px, 100%, 0) !important;
+
+          -webkit-transition-property: all;
+          -webkit-transition-duration: 0.5s;
+          -webkit-transition-duration: 0.25s;
+          -webkit-transition-timing: ease-in-out;
 
           .title { 
             font-weight: 500; 
-            // display: block;
           }
 
           padding-top: 10px;
           color: rgba(0,0,0,0.75);
           font-size: 12px;
           line-height: 18px;
-
         }
       }
     }
@@ -1036,7 +1043,7 @@ article {
     line-height: 32px;
     padding-bottom: 20px;
     &:last-child{
-      padding: 0px;
+      padding: 0px !important;
     }
   }
 }
@@ -1533,36 +1540,55 @@ dl {
 
 .series {
   .cms-plugin-richtext {
-    width: 320px;
-    float: left;
-    position: relative;
-    padding-bottom: 20px;
-    margin-right: 20px;
-    border: none !important;
-    p {
-      font-size: 16px;
-      line-height: 26px;
-      &.img_left {
-        img {
-          height: 220px;
+    &:not(:first-child) {
+      width: 320px;
+      float: left;
+      position: relative;
+      padding-bottom: 40px;
+      margin-right: 20px;
+      border: none !important;
+     
+      p {
+        font-size: 16px;
+        line-height: 26px;
+         
+         &.img_block,
+         &.img_left {
+          img {
+            height: 220px;
+            width: 100%;
+            margin-bottom: 10px;
+          }
+
+          height: 280px;
+          float: none;
+          color: rgba(0,0,0,0.75);
+          font-size: 12px;
+          line-height: 18px;
+          padding-bottom: 10px !important;
         }
-        float: none;
-        color: rgba(0,0,0,0.75);
-        font-size: 12px;
-        line-height: 18px;
-        padding-bottom: 10px !important;
+      }
+      h3 {
+        font-size: 16px;
+        line-height: 26px;
+        margin-bottom: 3px !important;
+        font-weight: 500;
+      }
+
+      &:nth-child(3n+1) {margin-right: 0px; }
+      &:nth-child(3n+2) { clear: both;}
+    }
+
+    &:first-child { 
+      width: 100%; 
+      p {
+        font-size: 27px;
+        line-height: 42px;
+        &.img_block,
+        &.img_left {
+          display: none !important;
+        }
       }
     }
-    h3 {
-      font-size: 16px;
-      line-height: 26px;
-      margin-bottom: 3px !important;
-      font-weight: 500;
-    }
-
-
-    &:nth-child(3n+1) {margin-right: 0px; }
-    &:nth-child(3n+2) { clear: both;}
-    &:first-child { width: 1000px; }
   }
 }

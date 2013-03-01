@@ -358,8 +358,12 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("FilebrowserImagePlugin"),
         'name': _("Top Image")
     },
+    'intro': {
+        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
+        'name': _("Main Content")
+    },
     'main_content': {
-        'plugins': ("RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
+        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
         'name': _("Main Content")
     },
     'start_page_content': {
@@ -381,14 +385,21 @@ CMS_PLACEHOLDER_CONF = {
 }
 
 CMS_TEMPLATES = (
-    ('cms/default.html', gettext('Default Template')),
-    ('cms/start.html', gettext('Start Page Template')),   
-    ('cms/visitor_info.html', gettext('Visitor Info Template')),   
-    ('cms/plan_organize_overview.html', gettext('Plan & Organize Overview Template')),
-    ('cms/from_editors_overview.html', gettext('From the Editors Overview Template')),
-    ('cms/series.html', gettext('Series Template')),
-    ('cms/series_with_featured.html', gettext('Series Template with Featured Infoblock')),   
+    ('cms/default.html', gettext('Default')),
+    ('cms/start.html', gettext('Homepage')),   
+
+    ('cms/plan_organize_overview.html', gettext('Plan & Organize – Overview')),
+    ('cms/plan_organize.html', gettext('Plan & Organize - Default')),             # previous: visitor_info.html
+
+    ('cms/magazine_overview.html', gettext('Magazine – Overview')),
+    ('cms/magazine.html', gettext('Magazine - Default')),                         
+    ('cms/magazine_series.html', gettext('Magazine – Series')),                   # previous: series.html
+    ('cms/magazine_series_featured.html', gettext('Magazine – Featured Series')), # previous: series_with_featured.html
 )
+
+# UPDATE cms_page SET template = REPLACE(template,'cms/visitor_info.html','cms/plan_organize.html');
+# UPDATE cms_page SET template = REPLACE(template,'cms/series.html','cms/magazine_series.html');
+# UPDATE cms_page SET template = REPLACE(template,'cms/series_with_featured.html','cms/magazine_series_featured.html');
 
 CMS_APPHOOKS = (
     )
