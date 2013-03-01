@@ -646,7 +646,19 @@ div.tagsinput {
     }
 
   }
-  input { width:80px; margin:0px; font-family: helvetica; font-size: 13px; border:1px solid transparent; padding:5px; background: transparent; color: #000; outline:0px;  margin-right:5px; margin-bottom:5px; }
+  input { 
+    background-color: rgba(0,0,0,0.05);
+    outline:0px;  
+    border: 0;
+    height: 32px;
+    font-size: 14px;
+    line-height: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0px !important;
+    width: 100px;
+  }
+  
   div { display:block; float: left; } 
 }
 

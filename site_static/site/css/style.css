@@ -598,17 +598,16 @@ div.tagsinput {
       div.tagsinput span.tag a:hover {
         opacity: 1; }
   div.tagsinput input {
-    width: 80px;
-    margin: 0px;
-    font-family: helvetica;
-    font-size: 13px;
-    border: 1px solid transparent;
-    padding: 5px;
-    background: transparent;
-    color: #000;
+    background-color: rgba(0, 0, 0, 0.05);
     outline: 0px;
-    margin-right: 5px;
-    margin-bottom: 5px; }
+    border: 0;
+    height: 32px;
+    font-size: 14px;
+    line-height: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0px !important;
+    width: 100px; }
   div.tagsinput div {
     display: block;
     float: left; }
@@ -2435,5 +2434,5 @@ dl {
       font-weight: 400;
       float: right;
       opacity: 0.5;
-      margin-right: 40px;
+      margin-right: 85px;
       font-size: 13px !important; }
