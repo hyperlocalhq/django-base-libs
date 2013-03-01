@@ -5,9 +5,25 @@
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
-    <article>
+    <header class="intro clearfix">{% placeholder "intro" %}</header>
+    <article class="isotope">
       {% placeholder "main_content" %}
     </article>
   </div>
 </div>
+
+{% if not request.toolbar.edit_mode %}
+  <script>
+    $(window).load(function() {
+      $('.isotope').isotope({
+          itemSelector : '.cms-plugin-richtext',
+          layoutMode : 'masonry',
+          masonry: {
+              columnWidth: 340
+          }
+      });
+    });
+  </script>
+{% endif %}
+
 {% endblock %}
