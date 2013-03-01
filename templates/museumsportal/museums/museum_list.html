@@ -90,13 +90,13 @@
                     {% endif %}
 
                     <nav class="actions">
+                        {% if_has_perm "museums.change_museum" museum %}
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';"></button>
+                        {% end_if_has_perm %}
                         {% if request.user.is_authenticated %}
                             {% adding2favorites for museum %}
                         {% endif %}
-                        {% if_has_perm "museums.change_museum" museum %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';"></button>
-                        {% end_if_has_perm %}
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="location"></button>
                     </nav>
                     
                     <a href="{{ museum.get_url_path }}">

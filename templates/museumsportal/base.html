@@ -52,18 +52,18 @@
             <div class="inner">
 
                 <a class="logo" href="/">
-                    <span class="img">&nbsp;</span>
-                    <span class="word">Museumsportal<br/>Berlin</span>
-                    <span class="claim">Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
+                    <span class="img">Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
                 </a>
 
-                <ul class="meta">
+                <ul id="meta" class="clearfix">
                     <li><a class="favorites-link" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>Favorites</span></a></li>
                     <li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
                     <li><a class="twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li>
-                    {% block language_chooser %}
-                        {% language_chooser %}
-                    {% endblock %}
+                </ul>
+                <ul id="lang">
+                {% block language_chooser %}
+                    {% language_chooser %}
+                {% endblock %}
                 </ul>
             </div>
 		</header>
@@ -166,7 +166,7 @@
     
     <script type="text/javascript">
     $(function() {
-        $('.show-location').click(function(e){
+        $('.location').click(function(e){
             $('html, body').animate({scrollTop:0}, 'slow');
             e.preventDefault();
         });

@@ -3,4 +3,21 @@
 
 {% block multistep_form %}
 {% crispy form %}
+<script>
+$(function() {
+    $('#id_has_audioguide').click(function() {
+        if ($(this).attr('checked')) {
+            $('#div_audioguide_languages').show();
+        } else {
+            $('#div_audioguide_languages').hide();
+        }
+    });
+    if ($('#id_has_audioguide').attr('checked')) {
+        $('#div_audioguide_languages').show();
+    } else {
+        $('#div_audioguide_languages').hide();
+    }
+    
+});
+</script>
 {% endblock %}

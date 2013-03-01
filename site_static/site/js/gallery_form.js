@@ -31,7 +31,7 @@
                     $('.form-actions:last').hide();
                     return false;
                 });
-                $('#photos').find('.crop_photo').each(function() {
+                $('#photos').find('.crop').each(function() {
                     $(this).attr('href', $(this).attr('href').replace(/goto_next=.+$/gim, "goto_next=" + location.href));
                 });
                 $('#add_photo').click(function() {

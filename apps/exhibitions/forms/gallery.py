@@ -85,7 +85,7 @@ class ImageFileForm(forms.Form):
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
                     {% parse "{{ exhibition.get_url_path }}change/" as goto_next %}
-                    <input type="button" id="button-id-crop-photo" class="crop_photo btn" data-href="{% cropping_url media_file.path "cover" request goto_next %}" value="{% trans "Crop" %}" />&zwnj;
+                    <input type="button" id="button-id-crop-photo" class="crop btn" data-href="{% cropping_url media_file.path "cover" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
                     <input type="button" id="button-id-delete-photo" class="delete_photo btn" data-href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">

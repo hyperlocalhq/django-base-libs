@@ -4,7 +4,7 @@
 
 {% block js %}
     <link href="{{ STATIC_URL }}site/shadowbox/shadowbox.css" rel="stylesheet" media="screen" type="text/css" />
-    <script type="text/javascript" src="{{ STATIC_URL }}site/shadowbox/shadowbox.js"></script>
+    
     
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}"></script>
     
@@ -115,7 +115,7 @@
     
                 <nav class="actions bottom">
                     {% if_has_perm "events.change_event" event %}
-                        <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop" %}" class="crop_photo" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';"></button>
+                        <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';"></button>
                     {% end_if_has_perm %}
                     <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
                 </nav>
@@ -449,7 +449,7 @@
                         </div>
                     </div>
                      <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite"></button>
                         <button rel="tooltip" data-placement="top" data-original-title="Fullscreen" class="fullscreen"></button>
                     </nav>
                 </li>
@@ -480,11 +480,11 @@
       </div>
     </div>
     
+    <span class="prev" onclick="slider.prev();return false;"></span>
+    <span class="next" onclick="slider.next();return false;"></span>
+    
     <nav>
-        <button class="prev" onclick="slider.prev();return false;"></button>
-        <button class="info"></button>
         <button class="cancel"></button>
-        <button class="next" onclick="slider.next();return false;"></button>
     </nav>
 </div>
 
@@ -501,12 +501,12 @@
                 <li class="item">
                     <a class="img" href="{{ event.get_url_path }}" {% if event.cover_image %}data-background="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}{% endif %}">
                         <span class="spinner loading"></span>
-                        <span class="overlay"></span>
+                        
                     </a>
 
                     <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="add-favorite"></button>
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link show-location"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link location"></button>
                     </nav>
                     
                     <a href="{{ event.get_url_path }}">

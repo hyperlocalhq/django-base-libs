@@ -114,13 +114,13 @@ class OpeningForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
-                SecondarySubmit('save_and_close', _('Save and close')),
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('save')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
+                layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         self.helper.layout = layout.Layout(
@@ -453,13 +453,13 @@ class PricesForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
-                SecondarySubmit('save_and_close', _('Save and close')),
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('save')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
+                layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         
@@ -558,13 +558,13 @@ class AddressForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
-                SecondarySubmit('save_and_close', _('Save and close')),
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('save')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
+                layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         
@@ -600,13 +600,13 @@ class ServicesForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
-                SecondarySubmit('save_and_close', _('Save and close')),
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('save')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
+                layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         
@@ -659,13 +659,13 @@ class AccessibilityForm(ModelForm):
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
-                SecondarySubmit('save_and_close', _('Save and close')),
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('save')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
+                layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         
@@ -676,19 +676,21 @@ class AccessibilityForm(ModelForm):
 class MediationForm(ModelForm):
     class Meta:
         model = Museum
-        fields = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fields += [
-                'mediation_offer_%s' % lang_code,
-                ]
+        fields = [
+            'has_audioguide',
+            'has_audioguide_de',
+            'has_audioguide_en',
+            'has_audioguide_fr',
+            'has_audioguide_it', 
+            'has_audioguide_sp',
+            'has_audioguide_pl',
+            'has_audioguide_tr',
+            'audioguide_other_languages',
+            'has_audioguide_for_children',
+            'has_audioguide_for_learning_difficulties',
+            ]
     def __init__(self, *args, **kwargs):
         super(MediationForm, self).__init__(*args, **kwargs)
-
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            for f in [
-                'mediation_offer_%s' % lang_code,
-                ]:
-                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -698,23 +700,36 @@ class MediationForm(ModelForm):
         
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
-            layout.Row(
-                css_class="div-accessibility-details",
-                *('mediation_offer_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+            'has_audioguide',
+            layout.Div(
+                layout.Div(
+                    'has_audioguide_de',
+                    'has_audioguide_en',
+                    'has_audioguide_fr',
+                    'has_audioguide_it', 
+                    'has_audioguide_sp',
+                    'has_audioguide_pl',
+                    'has_audioguide_tr',
+                    css_class="inline",
+                    ),
+                'audioguide_other_languages',
+                css_id="div_audioguide_languages",
                 ),
+            'has_audioguide_for_children',
+            'has_audioguide_for_learning_difficulties',
 
                 css_class="fieldset-basic-info",
                 ))
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
-                SecondarySubmit('save_and_close', _('Save and close')),
+                layout.Submit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('save')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save and go next')),
+                layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         
@@ -735,7 +750,7 @@ class GalleryForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('save_and_close', _('Save and close')),
+                layout.Submit('save_and_close', _('save')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -870,8 +885,21 @@ def load_data(instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['accessibility']['accessibility_%s' % lang_code] = getattr(instance, 'accessibility_%s' % lang_code)
 
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            form_step_data['mediation']['mediation_offer_%s' % lang_code] = getattr(instance, 'mediation_offer_%s' % lang_code)
+        fields = [
+            'has_audioguide',
+            'has_audioguide_de',
+            'has_audioguide_en',
+            'has_audioguide_fr',
+            'has_audioguide_it', 
+            'has_audioguide_sp',
+            'has_audioguide_pl',
+            'has_audioguide_tr',
+            'audioguide_other_languages',
+            'has_audioguide_for_children',
+            'has_audioguide_for_learning_difficulties',
+            ]
+        for f in fields:
+            form_step_data['mediation'][f] = getattr(instance, f)
 
     return form_step_data
     
@@ -1044,9 +1072,21 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if "_pk" in form_step_data:
             instance = Museum.objects.get(pk=form_step_data['_pk'])
 
-            for lang_code, lang_name in FRONTEND_LANGUAGES:
-                setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['mediation']['mediation_offer_%s' % lang_code])
-                setattr(instance, 'mediation_offer_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+            fields = [
+                'has_audioguide',
+                'has_audioguide_de',
+                'has_audioguide_en',
+                'has_audioguide_fr',
+                'has_audioguide_it', 
+                'has_audioguide_sp',
+                'has_audioguide_pl',
+                'has_audioguide_tr',
+                'audioguide_other_languages',
+                'has_audioguide_for_children',
+                'has_audioguide_for_learning_difficulties',
+                ]
+            for f in fields:
+                setattr(instance, f, form_step_data['mediation'][f])
                 
             instance.save()
 
@@ -1124,9 +1164,21 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
 
-    for lang_code, lang_name in FRONTEND_LANGUAGES:
-        setattr(instance, 'mediation_offer_%s' % lang_code, form_step_data['mediation']['mediation_offer_%s' % lang_code])
-        setattr(instance, 'mediation_offer_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+    fields = [
+        'has_audioguide',
+        'has_audioguide_de',
+        'has_audioguide_en',
+        'has_audioguide_fr',
+        'has_audioguide_it', 
+        'has_audioguide_sp',
+        'has_audioguide_pl',
+        'has_audioguide_tr',
+        'audioguide_other_languages',
+        'has_audioguide_for_children',
+        'has_audioguide_for_learning_difficulties',
+        ]
+    for f in fields:
+        setattr(instance, f, form_step_data['mediation'][f])
 
     instance.status = "published"
     instance.save()
