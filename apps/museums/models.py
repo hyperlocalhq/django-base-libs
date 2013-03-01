@@ -193,6 +193,26 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         else:
             return path
     
+    def get_audioguide_languages(self):
+        langs = []
+        if self.has_audioguide_de:
+            langs.append(_("German"))
+        if self.has_audioguide_en:
+            langs.append(_("English"))
+        if self.has_audioguide_fr:
+            langs.append(_("French"))
+        if self.has_audioguide_it:
+            langs.append(_("Italian"))
+        if self.has_audioguide_sp:
+            langs.append(_("Spanish"))
+        if self.has_audioguide_pl:
+            langs.append(_("Polish"))
+        if self.has_audioguide_tr:
+            langs.append(_("Turkish"))
+        if self.audioguide_other_languages:
+            langs.extend(self.audioguide_other_languages.split(","))
+        return langs
+    
     def get_published_exhibitions(self):
         return self.exhibition_set.filter(status="published").order_by("-start")
         
