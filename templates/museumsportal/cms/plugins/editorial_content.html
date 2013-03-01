@@ -1,10 +1,15 @@
 {% load i18n image_modifications %}
 <div class="cms-plugin-headline article short">
     {% if object.image %}
-        <a class="img" href="{{ object.website }}"><img src="{{ MEDIA_URL }}{{ object.image|modified_path:"exhibition_list" }}" alt="" /></a>
+        <a class="img" href="{{ object.website }}">
+          <img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />
+          <p>{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p>
+        </a>
     {% endif %}
-    <h4>{{ object.title }}</h4>
-    <h3><a href="{{ object.website }}">{{ object.subtitle }}</a></h3>
-    {{ object.get_rendered_description }}
-    <a class="proceed" href="{{ object.website }}">{% trans "more" %}</a>
+    <a href="{{ object.website }}">
+      <h3>{{ object.title }}</h3>
+      <h4>{{ object.subtitle }}</h4>
+    </a>
+    <p>{{ object.get_rendered_description|removetags:"p"|truncatewords:"50" }}</p>
+    <p><a href="{{ object.website }}">{% trans "more" %}…</a></p>
 </div>
