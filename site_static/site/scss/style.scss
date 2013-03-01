@@ -157,6 +157,8 @@ a:active  { outline: none;}
   border-top: 1px solid rgba(0,0,0,0.05);
 }
 
+// ================= HEADER =================
+
 #header {
   border-top: none;
   .logo {
@@ -254,6 +256,8 @@ a:active  { outline: none;}
     }
   }
 }
+
+// ================= NAVIGATION =================
 
 #navigation {
   font-weight: 400;
@@ -384,6 +388,8 @@ a:active  { outline: none;}
   50% {-webkit-transform:rotate(-180deg);}
   100% {-webkit-transform:rotate(0deg);}
 }
+
+// ================= LIST =================
 
 .list {
   margin-right: -60px;
@@ -697,6 +703,8 @@ a:active  { outline: none;}
   }
 }
 
+// ================= TEASER =================
+
 #teaser {
   margin-right: -20px;
   h2 {
@@ -710,6 +718,8 @@ a:active  { outline: none;}
   float: left;
   position: relative;}
 }
+
+// ================= ACTIONS =================
 
 .actions {
   -webkit-transition-property: all;
@@ -765,6 +775,8 @@ a:active  { outline: none;}
   }
 }
 
+// ================= BUTTON ICONS =================
+
 a,
 .btn,
 button { 
@@ -792,6 +804,8 @@ button {
     &.fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
   }
 }
+
+// ================= SIDEBAR =================
 
 .sidebar {
   float: right;
@@ -835,6 +849,8 @@ button {
     }
   }
 }
+
+// ================= ARTICLE =================
 
 article { 
   &.with_sidebar { width: 640px; float: left;}
@@ -887,14 +903,12 @@ article {
           width: 100%;
           text-shadow: 0 0 0 transparent;
 
-
           -webkit-transform: translate3d(0px, 100%, 0) !important;
           -moz-transform: translate3d(0px, 100%, 0) !important;
           -o-transform: translate3d(0px, 100%, 0) !important;
           transform: translate3d(0px, 100%, 0) !important;
 
           -webkit-transition-property: all;
-          -webkit-transition-duration: 0.5s;
           -webkit-transition-duration: 0.25s;
           -webkit-transition-timing: ease-in-out;
 
@@ -938,17 +952,6 @@ article {
       margin-bottom: 10px;
       font-weight: 400;
     }
-  }
-
-  p {
-   a { 
-    color: black; 
-    opacity: 0.8; 
-    font-weight: 500;
-    &:hover {
-      color: $blue;
-    }
-   }
   }
 
   > div {
@@ -1048,6 +1051,7 @@ article {
   }
 }
 
+// ================= SLIDESHOW =================
 
 #slide { 
   height: 350px;
@@ -1145,6 +1149,9 @@ article {
     }
   }
 }
+
+// ================= TAGS AND FILTERS =================
+
 #tags { display: none;}
 
 .tags,
@@ -1195,6 +1202,8 @@ article {
     }
   }
 }
+
+// ================= BACK TO TOP =================
 
 #to-top { 
     position: fixed;
@@ -1255,6 +1264,8 @@ article {
       }
    }
 }
+
+// ================= PAGE CONTROLS =================
 
 #page-controls {
   position: absolute;
@@ -1346,6 +1357,8 @@ article {
     }
   }
 }
+
+// ================= ACCORDION =================
 
 .accordion {
   margin-bottom: 40px;
@@ -1481,6 +1494,8 @@ dl {
   }  
 }
 
+// ================= DASHBOARD =================
+
 #dashboard {
 
   label {font-size: 22px; padding-bottom: 10px; }
@@ -1537,12 +1552,14 @@ dl {
     }
   }
 }
+
+// ================= MAGAZINE =================
+
 .magazine {
   article {
-    
     header { 
-      width: 100%; 
-
+      float: left;
+      width: 640px;
       p {
         font-size: 26px;
         line-height: 42px;
@@ -1556,124 +1573,110 @@ dl {
     section {
       width: 640px;
       float: left;
+
       &.marginal {
         width: 320px;
         float: left;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+
+        h2 { 
+          font-size: 20px;
+          line-height: 36px;
+          margin-bottom: 10px;
+        }
+
         > div {
-          width: 184px;
-          width: 235px;
           font-size: 12px;
           line-height: 16px;
-          margin-right: 20px;
+          background-color: rgba(0,0,0,0.025);
+          border-bottom: 1px solid rgba(0,0,0,0.025);
+          width: 100%;
+          float: left;
+
           a.img {
             background-color: black;
-            height: 120px !important;
+            height: 60px !important;
+            width: 30% !important;
+            display: block;
+            background-size: cover;
+            background-position: center;
+            float: left;
+            margin-right: 15px;
+
             overflow: hidden;
-            margin-bottom: 10px !important;
             img { height: auto;}
             p { display: none; } 
           }
-          p {display: none; }
-          h3 {font-size: 12px; line-height: 18px; }
+          .description,
+          // .title,
+          .more {display: none; }
         }
-      }
-
-      > div {
-        width: 100%;
-        position: relative;
-        padding-bottom: 40px;
-        margin-right: 20px;
-        border: none !important;
-        &.cms_placeholder-bar { width: 100%;}
-        &.cms_placeholder { clear: none; }
-        
-        a.img {
-          padding-bottom: 13px !important;
-          height: 280px;
-          float: none;
-          display: block;
-
-          img {
-            height: 220px;
-            width: 100%;
-            display: block;
-          }
-
-          p {
-            margin-top: 10px;
-            color: rgba(0,0,0,0.75);
-            font-size: 12px;
-            line-height: 18px;
-          }
-        }
-
-        p {
-           &.img_block,
-           &.img_left {
-            float: none;
-            color: rgba(0,0,0,0.75);
-            font-size: 12px;
-            line-height: 18px;
-          }
-        }
-
-        &:nth-child(3n) {margin-right: 0px; }
-        &:nth-child(4n) { clear: both;}
       }
     }
   }
 }
+// ================= HEADER INTRO =================
+
+header.intro { 
+  width: 100%; 
+  margin-bottom: 40px;
+
+  p {
+    font-size: 26px;
+    line-height: 42px;
+    &.img_block,
+    &.img_left {
+      display: none !important;
+    }
+  }
+}
+
+// ================= MAGAZINE SERIES =================
 
 .magazine_series {
   article {
     
-    header { 
-      width: 100%; 
-      margin-bottom: 40px;
-
-      p {
-        font-size: 26px;
-        line-height: 42px;
-        &.img_block,
-        &.img_left {
-          display: none !important;
-        }
-      }
-    }
 
     section {
-      padding-top: 30px;
-
-      &.nonfeatured {
-        > div {
-          width: 184px;
-          width: 235px;
-          font-size: 12px;
-          line-height: 16px;
-          margin-right: 20px;
-
-
-          &:nth-child(4n) {margin-right: 0px; }
-          &:nth-child(4n+1) { clear: both;}
-
-          a.img {
-            background-color: black;
-            height: 120px !important;
-            overflow: hidden;
-            margin-bottom: 10px !important;
-            img { height: auto;}
-            p { display: none; } 
-          }
-          p {display: none; }
-          h3 {font-size: 12px; line-height: 18px; }
-        }
-      }
+      padding-top: 50px;
       
       &.featured {
         > div {
           &:nth-child(3n) {margin-right: 0px; }
           &:nth-child(4n) { clear: both;}
         } 
+      }
+
+      &.nonfeatured {
+        &:empty{ display: none;}
+
+        > div {
+          width: 184px;
+          width: 235px;
+          font-size: 12px;
+          line-height: 16px;
+          margin-right: 20px;
+
+          &:nth-child(4n) {margin-right: 0px; }
+          &:nth-child(4n+1) { clear: both;}
+
+          a.img {
+            display: block;
+            overflow: hidden;
+            height: 120px !important;
+            width: 100% !important;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 10px !important;
+
+            img { height: auto;}
+            p { display: none; } 
+          }
+          p {display: none; }
+          h3 {font-size: 12px; line-height: 18px; }
+        }
       }
 
       > div {
@@ -1686,51 +1689,111 @@ dl {
         &.cms_placeholder-bar { width: 100%;}
         &.cms_placeholder { clear: none; }
         
-        a.img {
-          padding-bottom: 13px !important;
-          height: 280px;
-          float: none;
+        .img {
           display: block;
+          overflow: hidden;
+          height: 220px !important;
+          width: 100% !important;
+          background-size: cover;
+          background-position: center;
+          margin-bottom: 10px !important;
+          position: relative;
+          background-color: rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
 
-          img {
-            height: 220px;
-            width: 100%;
-            display: block;
-          }
+          -webkit-transition-property: all;
+          -webkit-transition-duration: 0.25s;
+          -webkit-transition-timing: ease-in-out;
 
-          p {
-            margin-top: 10px;
-            color: rgba(0,0,0,0.75);
-            font-size: 12px;
-            line-height: 18px;
-          }
-        }
-
-        p {
-          font-size: 16px;
-          line-height: 26px;
-           &.img_block,
-           &.img_left {
-            img {
-              height: 220px;
-              width: 100%;
-              margin-bottom: 10px;
+          &:hover { 
+            opacity: 0.9;
+            .caption {
+              -webkit-transform: translate3d(0px, 0, 0) !important;
+              -moz-transform: translate3d(0px, 0, 0) !important;
+              -o-transform: translate3d(0px, 0, 0) !important;
+              transform: translate3d(0px, 0, 0) !important;
             }
+          }
 
-            height: 280px;
-            float: none;
+          .caption {
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            background-color: white;
             color: rgba(0,0,0,0.75);
             font-size: 12px;
             line-height: 18px;
+            padding-top: 5px !important;
+
+            -webkit-transform: translate3d(0px, 100%, 0) !important;
+            -moz-transform: translate3d(0px, 100%, 0) !important;
+            -o-transform: translate3d(0px, 100%, 0) !important;
+            transform: translate3d(0px, 100%, 0) !important;
+
+            -webkit-transition-property: all;
+            -webkit-transition-duration: 0.25s;
+            -webkit-transition-timing: ease-in-out;
           }
         }
-        h3 {
+
+        .description {
           font-size: 16px;
           line-height: 26px;
-          margin-bottom: 3px !important;
-          font-weight: 500;
+        }
+
+        .title {
+          font-size: 16px;
+          line-height: 26px;
+          h3 {font-weight: 500;} 
+        }
+
+        .more { 
+          margin-top: -10px;
+          a {
+            font-size: 14px;
+            line-height: 20px;
+            color: white;
+            padding: 5px;
+            padding-left: 8px;
+            padding-right: 8px;
+            background-color: black;
+            &:hover { opacity: 0.9 !important;}
+          }
         }
       }
+    }
+  }
+}
+
+// ================= PLAN ORGANIZE OVERVIEW =================
+
+.plan_organize_overview {
+  .isotope {
+    margin-top: 60px;
+    margin-right: -100px;
+    > div {
+      background-color: rgba(0,0,0,0.05);
+      margin: 0px !important;
+      margin-bottom: 20px !important; 
+      margin-right: 20px !important; 
+      padding: 0px !important;
+      border: none !important;
+      display: table;
+      float: left;
+      p {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+      &:nth-child(1) { width: 660px; height: 220px; }
+      &:nth-child(2) { width: 320px; height: 320px; }
+      &:nth-child(3) { width: 320px; height: 460px; }
+      &:nth-child(4) { width: 320px; height: 220px; }
+      &:nth-child(5) { width: 320px; height: 220px; }
+      &:nth-child(6) { width: 320px; height: 220px; }
+      &:nth-child(7) { width: 660px; height: 220px; }
+      &:nth-child(8) { width: 320px; height: 120px; }
+      &:nth-child(9) { width: 320px; height: 220px; }
     }
   }
 }
