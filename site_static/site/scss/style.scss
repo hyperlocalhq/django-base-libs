@@ -36,6 +36,7 @@ body {
   line-height: 26px;
   overflow-y: auto;
   overflow-x: hidden;
+  font-weight: 400;
 
   &::-webkit-scrollbar-corner,
   &::-webkit-scrollbar {
@@ -123,11 +124,15 @@ html,body,input {
 
 a{
   text-decoration: none;
-  color: $blue;
+  color: black;
+}
+
+p a{
+  font-weight: 500;
 }
 
 a:link   { text-decoration: none;}
-a:hover   { text-decoration: none; color: black;}
+a:hover   { text-decoration: none; color: $blue;}
 a:visited { text-decoration: none;}
 a:active  { outline: none;}
 
@@ -162,25 +167,19 @@ a:active  { outline: none;}
 
     .img {
       display: block;
-      height: 52px;
-      width: 52px;
+      height: 70px;
+      width: 400px;
       background-image: url("../img/logo_img.svg");
+      background-repeat: no-repeat;
+      background-position: left;
       background-size: cover;
       float: left;
       margin-right: 15px;
       margin-top: -6px;
+      font-size: 0px;
 
     }
-    .word {
-      font-size: 20px;
-      line-height: 17px;
-      display: block;
-      float: left;
-      letter-spacing: -1px;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: black;
-    }
+
     .claim {
       font-size: 13px;
       line-height: 16px;
@@ -221,7 +220,6 @@ a:active  { outline: none;}
         display: inline-block;
         margin: 0px;
         padding: 0px;
-        margin-left: 2px;
         background-color: rgba(0,0,0,0.05);
         position: relative;
 
@@ -258,6 +256,7 @@ a:active  { outline: none;}
 }
 
 #navigation {
+  font-weight: 400;
   position: relative;
   width: 100%;
   -webkit-transition-property: all;
@@ -466,7 +465,7 @@ a:active  { outline: none;}
 
   > li { 
     width: 320px;
-    height: 250px;
+    height: 253px;
     float: left;
     position: relative;
     font-size: 15px;
@@ -767,11 +766,12 @@ a:active  { outline: none;}
 
 .btn,
 button { 
+  &.crop            { background-image: url("../img/icons/inv/crop.svg");}
   &.add             { background-image: url("../img/icons/inv/add.svg");}
   &.view            { background-image: url("../img/icons/inv/view.svg");}
   &.edit            { background-image: url("../img/icons/inv/edit.svg");}
-  &.add-favorite    { background-image: url("../img/icons/inv/favorite.svg");}
-  &.show-location   { background-image: url("../img/icons/inv/location.svg");}
+  &.favorite    { background-image: url("../img/icons/inv/favorite.svg");}
+  &.location   { background-image: url("../img/icons/inv/location.svg");}
   &.cancel          { background-image: url("../img/icons/inv/cancel.svg");}
   &.fullscreen      { background-image: url("../img/icons/inv/fullscreen.svg");}
 
@@ -780,11 +780,12 @@ button {
     opacity: 0.3 !important;
     &:hover { background-color: transparent !important; opacity: 1 !important;}
 
+    &.crop            { background-image: url("../img/icons/crop.svg");}
     &.add             { background-image: url("../img/icons/add.svg");}
     &.view            { background-image: url("../img/icons/view.svg");}
     &.edit            { background-image: url("../img/icons/edit.svg");}
-    &.add-favorite    { background-image: url("../img/icons/favorite.svg");}
-    &.show-location   { background-image: url("../img/icons/location.svg");}
+    &.favorite    { background-image: url("../img/icons/favorite.svg");}
+    &.location   { background-image: url("../img/icons/location.svg");}
     &.cancel          { background-image: url("../img/icons/cancel.svg");}
     &.fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
   }
@@ -990,7 +991,6 @@ article {
           display: block; 
           margin-bottom: 10px; 
           width: 320px !important;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
       }
     }
@@ -1476,23 +1476,32 @@ dl {
 
   label {font-size: 22px; padding-bottom: 10px; }
   
-  .add {float: right; margin-bottom: 4px; display: block;}
-  
-  article {margin-bottom: 30px; }
+  .add {
+    float: right; 
+    margin-bottom: 4px; 
+    display: block;
+    padding-right: 24px;
+    margin-right: -9px;
+    background-image: url("../img/icons/add.svg");
+    background-size: 32px;
+    background-position: right;
+    background-repeat: no-repeat;
+  }
+
+  article {margin-bottom: 60px; }
   
   ul {
     li {
       position: relative;
-      background-color: rgba(0,0,0,0.05);
       
-      nav { display: none; }
 
       &:hover {
-        background-color: rgba(0,0,0,0.075);
-        nav { display: block;}
+        > a { background-color: rgba(0,0,0,0.075);}
       }
 
+      > span,
       > a {
+        background-color: rgba(0,0,0,0.05);
         display: block;
         height: 40px;
         line-height: 40px;
@@ -1501,13 +1510,12 @@ dl {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         margin-bottom: 2px;
+
         &:hover {
            h3, h4 ,h5 { color: rgba(0,0,0,0.5) !important;}
         }
-        h3, h4 ,h5 { display: inline-block; width: 320px; font-size: 13px !important;}
-        h3   { font-weight: 500;}
-        h4   { font-weight: 400;}
-        h5   { font-weight: 400;; opacity: 0.5}
+        h3 ,h5 { display: inline-block; font-size: 16px !important;}
+        h5   { font-weight: 400; float: right; opacity: 0.5; margin-right: 40px; font-size: 13px !important;}
       }
     }
   }

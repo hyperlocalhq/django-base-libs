@@ -1,6 +1,22 @@
 
 // .gallery { overflow: hidden !important;}
 
+
+#gallery.info { 
+    .img { bottom: 30% !important; }
+    .info { bottom: 0% !important; }
+    nav { bottom: 20px; }
+}
+
+#gallery div.img , 
+#gallery div.info {
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-in-out;
+  -webkit-backface-visibility: hidden;
+}
+
+
 .gallery #gallery { 
     -webkit-transition-duration: 0s, 0.25s;
     -webkit-transition-delay: 0s, 0s;
@@ -83,21 +99,47 @@
                     position: absolute;
                     top: 10%;
                     bottom: 10%;
-                    left: 5%;
-                    right: 5%;
-                    height: 80%;
-                    width: 90%;
+                    left: 10%;
+                    right: 10%;
+                    height: auto;
+                    width: auto;
                     display: block;
                     background-size: contain;
                     // background-size: auto;
                     background-position: center;
                     background-repeat: no-repeat;
+                }
 
-                    -webkit-transform: scale(1.1); 
+                .info {
+                    background-color: black;
+                    color: white;
+
+                    position: absolute;
+                    bottom: -50%;
+                    width: 100%;
+                    padding-left: 10%;
+                    padding-right: 10%;
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+                    display: block;
+                    box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+
                     -webkit-transition-property: all;
                     -webkit-transition-duration: 0.25s;
                     -webkit-transition-delay: 0s;
                     -webkit-transition-timing: ease-in-out;
+
+                    // color: rgba(0,0,0,0.75);
+                    // font-size: 12px;
+                    // line-height: 18px;
+                    font-size: 20px;
+                    line-height: 32px;
+
+                    .title { 
+                    font-weight: 500; 
+                    // display: block;
+                    }
                 }
             }
         }
@@ -126,8 +168,8 @@
             background-size: 40px;
             &:hover  { opacity: 0.8;}
             &.prev   { background-image: url("../img/icons/inv/left.svg"); }
-            &.next   { background-image: url("../img/icons/inv/right.svg");}
-            &.info   { background-image: url("../img/icons/inv/info.svg"); display: none;}
+            &.next   { background-image: url("../img/icons/inv/right.svg"); }
+            &.info   { background-image: url("../img/icons/inv/info.svg"); }
             &.cancel { background-image: url("../img/icons/inv/cancellight.svg");}
         }
     }

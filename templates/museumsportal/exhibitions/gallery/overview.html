@@ -10,7 +10,7 @@
                     <div class="inner"> 
                         <a class="img" href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}">
                             <span class="spinner loading"></span>
-                            <span class="overlay"></span>
+                            
                             <img src="{{ MEDIA_URL }}{{ media_file.path.path }}" alt="" />
                         </a>
                         {% with media_file.path|file_description as file_desc %}

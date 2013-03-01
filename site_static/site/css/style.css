@@ -445,7 +445,8 @@ form {
 
 .inline {
   padding-bottom: 20px;
-  display: block; }
+  display: block;
+  font-size: 0px; }
   .inline .control-group {
     display: inline-block;
     white-space: nowrap;
@@ -552,6 +553,73 @@ legend + .control-group,
   text-indent: 10px;
   color: rgba(0, 0, 0, 0.5);
   background-color: rgba(0, 0, 0, 0.025); }
+
+div.tagsinput {
+  background: #FFF;
+  width: 100%;
+  overflow-y: auto;
+  font-size: 0px;
+  line-height: 0px;
+  color: rgba(0, 0, 0, 0.8); }
+  div.tagsinput span.tag {
+    display: block;
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: inherit;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    white-space: nowrap;
+    font-size: 14px;
+    line-height: 0px; }
+    div.tagsinput span.tag span,
+    div.tagsinput span.tag a {
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
+      display: inline-block;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important; }
+    div.tagsinput span.tag span {
+      padding-left: 10px;
+      padding-right: 0px; }
+    div.tagsinput span.tag a {
+      margin-left: -5px;
+      overflow: hidden;
+      text-indent: 1000px;
+      width: 32px;
+      background-image: url("../img/icons/cancel.svg");
+      background-size: 32px;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.3; }
+      div.tagsinput span.tag a:hover {
+        opacity: 1; }
+  div.tagsinput input {
+    width: 80px;
+    margin: 0px;
+    font-family: helvetica;
+    font-size: 13px;
+    border: 1px solid transparent;
+    padding: 5px;
+    background: transparent;
+    color: #000;
+    outline: 0px;
+    margin-right: 5px;
+    margin-bottom: 5px; }
+  div.tagsinput div {
+    display: block;
+    float: left; }
+
+.tags_clear {
+  clear: both;
+  width: 100%;
+  height: 0px; }
+
+.not_valid {
+  background: #fbd8db !important;
+  color: #90111a !important; }
 
 .isotope-item {
   z-index: 2; }
@@ -775,6 +843,20 @@ legend + .control-group,
       border-top-color: black;
       border-width: 8px 8px 0; }
 
+#gallery.info .img {
+  bottom: 30% !important; }
+#gallery.info .info {
+  bottom: 0% !important; }
+#gallery.info nav {
+  bottom: 20px; }
+
+#gallery div.img,
+#gallery div.info {
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-in-out;
+  -webkit-backface-visibility: hidden; }
+
 .gallery #gallery {
   -webkit-transition-duration: 0s, 0.25s;
   -webkit-transition-delay: 0s, 0s;
@@ -832,19 +914,35 @@ legend + .control-group,
           position: absolute;
           top: 10%;
           bottom: 10%;
-          left: 5%;
-          right: 5%;
-          height: 80%;
-          width: 90%;
+          left: 10%;
+          right: 10%;
+          height: auto;
+          width: auto;
           display: block;
           background-size: contain;
           background-position: center;
-          background-repeat: no-repeat;
-          -webkit-transform: scale(1.1);
+          background-repeat: no-repeat; }
+        #gallery #slider > div > div .info {
+          background-color: black;
+          color: white;
+          position: absolute;
+          bottom: -50%;
+          width: 100%;
+          padding-left: 10%;
+          padding-right: 10%;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          display: block;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
           -webkit-transition-property: all;
           -webkit-transition-duration: 0.25s;
           -webkit-transition-delay: 0s;
-          -webkit-transition-timing: ease-in-out; }
+          -webkit-transition-timing: ease-in-out;
+          font-size: 20px;
+          line-height: 32px; }
+          #gallery #slider > div > div .info .title {
+            font-weight: 500; }
   #gallery nav {
     position: absolute;
     bottom: 0px;
@@ -872,8 +970,7 @@ legend + .control-group,
       #gallery nav button.next {
         background-image: url("../img/icons/inv/right.svg"); }
       #gallery nav button.info {
-        background-image: url("../img/icons/inv/info.svg");
-        display: none; }
+        background-image: url("../img/icons/inv/info.svg"); }
       #gallery nav button.cancel {
         background-image: url("../img/icons/inv/cancellight.svg"); }
   #gallery .pagination {
@@ -1087,7 +1184,8 @@ body {
   font-size: 16px;
   line-height: 26px;
   overflow-y: auto;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  font-weight: 400; }
   body::-webkit-scrollbar-corner, body::-webkit-scrollbar {
     width: 10px;
     height: 2px;
@@ -1156,14 +1254,17 @@ h2 {
 
 a {
   text-decoration: none;
-  color: #00aefd; }
+  color: black; }
+
+p a {
+  font-weight: 500; }
 
 a:link {
   text-decoration: none; }
 
 a:hover {
   text-decoration: none;
-  color: black; }
+  color: #00aefd; }
 
 a:visited {
   text-decoration: none; }
@@ -1196,22 +1297,16 @@ a:active {
     display: block; }
     #header .logo .img {
       display: block;
-      height: 52px;
-      width: 52px;
+      height: 70px;
+      width: 400px;
       background-image: url("../img/logo_img.svg");
+      background-repeat: no-repeat;
+      background-position: left;
       background-size: cover;
       float: left;
       margin-right: 15px;
-      margin-top: -6px; }
-    #header .logo .word {
-      font-size: 20px;
-      line-height: 17px;
-      display: block;
-      float: left;
-      letter-spacing: -1px;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: black; }
+      margin-top: -6px;
+      font-size: 0px; }
     #header .logo .claim {
       font-size: 13px;
       line-height: 16px;
@@ -1249,7 +1344,6 @@ a:active {
         display: inline-block;
         margin: 0px;
         padding: 0px;
-        margin-left: 2px;
         background-color: rgba(0, 0, 0, 0.05);
         position: relative; }
         #header .inner ul > li:hover a {
@@ -1283,6 +1377,7 @@ a:active {
             background-image: url("../img/icons/inv/social-02.svg"); }
 
 #navigation {
+  font-weight: 400;
   position: relative;
   width: 100%;
   -webkit-transition-property: all;
@@ -1441,7 +1536,7 @@ a:active {
           font-weight: 500; }
   .list > li {
     width: 320px;
-    height: 250px;
+    height: 253px;
     float: left;
     position: relative;
     font-size: 15px;
@@ -1649,6 +1744,9 @@ a:active {
     .actions button:hover:after {
       display: block; }
 
+.btn.crop,
+button.crop {
+  background-image: url("../img/icons/inv/crop.svg"); }
 .btn.add,
 button.add {
   background-image: url("../img/icons/inv/add.svg"); }
@@ -1658,11 +1756,11 @@ button.view {
 .btn.edit,
 button.edit {
   background-image: url("../img/icons/inv/edit.svg"); }
-.btn.add-favorite,
-button.add-favorite {
+.btn.favorite,
+button.favorite {
   background-image: url("../img/icons/inv/favorite.svg"); }
-.btn.show-location,
-button.show-location {
+.btn.location,
+button.location {
   background-image: url("../img/icons/inv/location.svg"); }
 .btn.cancel,
 button.cancel {
@@ -1678,6 +1776,9 @@ button.transparent {
   button.transparent:hover {
     background-color: transparent !important;
     opacity: 1 !important; }
+  .btn.transparent.crop,
+  button.transparent.crop {
+    background-image: url("../img/icons/crop.svg"); }
   .btn.transparent.add,
   button.transparent.add {
     background-image: url("../img/icons/add.svg"); }
@@ -1687,11 +1788,11 @@ button.transparent {
   .btn.transparent.edit,
   button.transparent.edit {
     background-image: url("../img/icons/edit.svg"); }
-  .btn.transparent.add-favorite,
-  button.transparent.add-favorite {
+  .btn.transparent.favorite,
+  button.transparent.favorite {
     background-image: url("../img/icons/favorite.svg"); }
-  .btn.transparent.show-location,
-  button.transparent.show-location {
+  .btn.transparent.location,
+  button.transparent.location {
     background-image: url("../img/icons/location.svg"); }
   .btn.transparent.cancel,
   button.transparent.cancel {
@@ -1838,8 +1939,7 @@ article > div {
     article > div p.img_block img, article > div p.img_left img {
       display: block;
       margin-bottom: 10px;
-      width: 320px !important;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+      width: 320px !important; }
   article > div small {
     font-size: 80%;
     line-height: 100% !important;
@@ -2236,19 +2336,22 @@ dl {
 #dashboard .add {
   float: right;
   margin-bottom: 4px;
-  display: block; }
+  display: block;
+  padding-right: 24px;
+  margin-right: -9px;
+  background-image: url("../img/icons/add.svg");
+  background-size: 32px;
+  background-position: right;
+  background-repeat: no-repeat; }
 #dashboard article {
-  margin-bottom: 30px; }
+  margin-bottom: 60px; }
 #dashboard ul li {
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.05); }
-  #dashboard ul li nav {
-    display: none; }
-  #dashboard ul li:hover {
+  position: relative; }
+  #dashboard ul li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-    #dashboard ul li:hover nav {
-      display: block; }
+  #dashboard ul li > span,
   #dashboard ul li > a {
+    background-color: rgba(0, 0, 0, 0.05);
     display: block;
     height: 40px;
     line-height: 40px;
@@ -2256,16 +2359,20 @@ dl {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     margin-bottom: 2px; }
-    #dashboard ul li > a:hover h3, #dashboard ul li > a:hover h4, #dashboard ul li > a:hover h5 {
+    #dashboard ul li > span:hover h3, #dashboard ul li > span:hover h4, #dashboard ul li > span:hover h5,
+    #dashboard ul li > a:hover h3,
+    #dashboard ul li > a:hover h4,
+    #dashboard ul li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
-    #dashboard ul li > a h3, #dashboard ul li > a h4, #dashboard ul li > a h5 {
+    #dashboard ul li > span h3, #dashboard ul li > span h5,
+    #dashboard ul li > a h3,
+    #dashboard ul li > a h5 {
       display: inline-block;
-      width: 320px;
-      font-size: 13px !important; }
-    #dashboard ul li > a h3 {
-      font-weight: 500; }
-    #dashboard ul li > a h4 {
-      font-weight: 400; }
+      font-size: 16px !important; }
+    #dashboard ul li > span h5,
     #dashboard ul li > a h5 {
       font-weight: 400;
-      opacity: 0.5; }
+      float: right;
+      opacity: 0.5;
+      margin-right: 40px;
+      font-size: 13px !important; }
