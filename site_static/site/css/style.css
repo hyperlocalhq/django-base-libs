@@ -1592,6 +1592,7 @@ a:active {
         -webkit-transition-duration: 0.5s;
         -webkit-transition-timing: ease-in-out;
         background-color: white;
+        width: 100%;
         color: white;
         bottom: -100%;
         position: absolute;
@@ -1815,53 +1816,69 @@ a:active {
     .actions button:hover:after {
       display: block; }
 
+a.crop,
 .btn.crop,
 button.crop {
   background-image: url("../img/icons/inv/crop.svg"); }
+a.add,
 .btn.add,
 button.add {
   background-image: url("../img/icons/inv/add.svg"); }
+a.view,
 .btn.view,
 button.view {
   background-image: url("../img/icons/inv/view.svg"); }
+a.edit,
 .btn.edit,
 button.edit {
   background-image: url("../img/icons/inv/edit.svg"); }
+a.favorite,
 .btn.favorite,
 button.favorite {
   background-image: url("../img/icons/inv/favorite.svg"); }
+a.location,
 .btn.location,
 button.location {
   background-image: url("../img/icons/inv/location.svg"); }
+a.fullscreen,
 .btn.fullscreen,
 button.fullscreen {
   background-image: url("../img/icons/inv/fullscreen.svg"); }
+a.transparent,
 .btn.transparent,
 button.transparent {
   background-color: transparent !important;
   opacity: 0.3 !important; }
+  a.transparent:hover,
   .btn.transparent:hover,
   button.transparent:hover {
     background-color: transparent !important;
     opacity: 1 !important; }
+  a.transparent.crop,
   .btn.transparent.crop,
   button.transparent.crop {
     background-image: url("../img/icons/crop.svg"); }
+  a.transparent.add,
   .btn.transparent.add,
   button.transparent.add {
     background-image: url("../img/icons/add.svg"); }
+  a.transparent.view,
   .btn.transparent.view,
   button.transparent.view {
     background-image: url("../img/icons/view.svg"); }
+  a.transparent.edit,
   .btn.transparent.edit,
   button.transparent.edit {
     background-image: url("../img/icons/edit.svg"); }
+  a.transparent.favorite,
   .btn.transparent.favorite,
   button.transparent.favorite {
     background-image: url("../img/icons/favorite.svg"); }
+  a.transparent.location,
   .btn.transparent.location,
   button.transparent.location {
     background-image: url("../img/icons/location.svg"); }
+  a.transparent.fullscreen,
   .btn.transparent.fullscreen,
   button.transparent.fullscreen {
     background-image: url("../img/icons/fullscreen.svg"); }
@@ -2451,3 +2468,33 @@ dl {
       opacity: 0.5;
       margin-right: 85px;
       font-size: 13px !important; }
+
+.series .cms-plugin-richtext {
+  width: 320px;
+  float: left;
+  position: relative;
+  padding-bottom: 20px;
+  margin-right: 20px;
+  border: none !important; }
+  .series .cms-plugin-richtext p {
+    font-size: 16px;
+    line-height: 26px; }
+    .series .cms-plugin-richtext p.img_left {
+      float: none;
+      color: rgba(0, 0, 0, 0.75);
+      font-size: 12px;
+      line-height: 18px;
+      padding-bottom: 10px !important; }
+      .series .cms-plugin-richtext p.img_left img {
+        height: 220px; }
+  .series .cms-plugin-richtext h3 {
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 3px !important;
+    font-weight: 500; }
+  .series .cms-plugin-richtext:nth-child(3n+1) {
+    margin-right: 0px; }
+  .series .cms-plugin-richtext:nth-child(3n+2) {
+    clear: both; }
+  .series .cms-plugin-richtext:first-child {
+    width: 1000px; }

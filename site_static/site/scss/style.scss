@@ -438,6 +438,7 @@ a:active  { outline: none;}
           -webkit-transition-duration: 0.5s;
           -webkit-transition-timing: ease-in-out;
           background-color: white;
+          width: 100%;
           color: white;
           bottom: -100%;
           position: absolute;
@@ -764,6 +765,7 @@ a:active  { outline: none;}
   }
 }
 
+a,
 .btn,
 button { 
   &.crop            { background-image: url("../img/icons/inv/crop.svg");}
@@ -1526,5 +1528,41 @@ dl {
         h5   { font-weight: 400; float: right; opacity: 0.5; margin-right: 85px; font-size: 13px !important;}
       }
     }
+  }
+}
+
+.series {
+  .cms-plugin-richtext {
+    width: 320px;
+    float: left;
+    position: relative;
+    padding-bottom: 20px;
+    margin-right: 20px;
+    border: none !important;
+    p {
+      font-size: 16px;
+      line-height: 26px;
+      &.img_left {
+        img {
+          height: 220px;
+        }
+        float: none;
+        color: rgba(0,0,0,0.75);
+        font-size: 12px;
+        line-height: 18px;
+        padding-bottom: 10px !important;
+      }
+    }
+    h3 {
+      font-size: 16px;
+      line-height: 26px;
+      margin-bottom: 3px !important;
+      font-weight: 500;
+    }
+
+
+    &:nth-child(3n+1) {margin-right: 0px; }
+    &:nth-child(3n+2) { clear: both;}
+    &:first-child { width: 1000px; }
   }
 }
