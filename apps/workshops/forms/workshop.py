@@ -76,7 +76,18 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Workshop
         
-        fields = ['tags', 'age_groups', 'languages', 'other_languages',
+        fields = ['tags', 'languages', 'other_languages',
+            'has_group_offer',
+            'is_for_preschool',
+            'is_for_primary_school',
+            'is_for_youth',
+            'is_for_families',
+            'is_for_disabled',
+            'is_for_wheelchaired',
+            'is_for_deaf',
+            'is_for_blind',
+            'is_for_learning_difficulties',
+            
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
             'organizing_museum', 'organizer_title', 'organizer_url_link',
@@ -92,10 +103,6 @@ class BasicInfoForm(ModelForm):
 
         self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
-        
-        self.fields['age_groups'].widget = forms.CheckboxSelectMultiple()
-        self.fields['age_groups'].help_text = ""
-        self.fields['age_groups'].empty_label = None
         
         self.fields['languages'].widget = forms.CheckboxSelectMultiple()
         self.fields['languages'].help_text = ""
@@ -185,6 +192,20 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 "tags",
                 ),
+            layout.Div(
+                'has_group_offer',
+                'is_for_preschool',
+                'is_for_primary_school',
+                'is_for_youth',
+                'is_for_families',
+                'is_for_disabled',
+                'is_for_wheelchaired',
+                'is_for_deaf',
+                'is_for_blind',
+                'is_for_learning_difficulties',
+                css_class="inline",
+                ),
+                
             css_class="fieldset-categories-tags",
             ))
         if self.instance and self.instance.pk:
@@ -363,7 +384,6 @@ def load_data(instance=None):
         form_step_data['basic']['tags'] = instance.tags
         form_step_data['basic']['languages'] = instance.languages.all()
         form_step_data['basic']['other_languages'] = instance.other_languages
-        form_step_data['basic']['age_groups'] = instance.age_groups.all()
         form_step_data['basic']['museum'] = instance.museum
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
@@ -377,6 +397,18 @@ def load_data(instance=None):
         form_step_data['basic']['organizing_museum'] = instance.organizing_museum
         form_step_data['basic']['organizer_title'] = instance.organizer_title
         form_step_data['basic']['organizer_url_link'] = instance.organizer_url_link
+        for f in [            'has_group_offer',
+            'is_for_preschool',
+            'is_for_primary_school',
+            'is_for_youth',
+            'is_for_families',
+            'is_for_disabled',
+            'is_for_wheelchaired',
+            'is_for_deaf',
+            'is_for_blind',
+            'is_for_learning_difficulties',
+            ]:
+            form_step_data['basic'][f] = getattr(instance, f)
     
         for workshop_time in instance.workshoptime_set.all():
             workshop_time_dict = {}
@@ -424,6 +456,18 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.organizer_title = form_step_data['basic']['organizer_title']
         instance.organizer_url_link = form_step_data['basic']['organizer_url_link']
         instance.tags = form_step_data['basic']['tags']
+        for f in [
+            'is_for_preschool',
+            'is_for_primary_school',
+            'is_for_youth',
+            'is_for_families',
+            'is_for_disabled',
+            'is_for_wheelchaired',
+            'is_for_deaf',
+            'is_for_blind',
+            'is_for_learning_difficulties',
+            ]:
+            setattr(instance, f, form_step_data['basic'][f])
         instance.status = "draft"
         instance.save()
         
@@ -434,11 +478,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.languages.clear()
         for cat in form_step_data['basic']['languages']:
             instance.languages.add(cat)
-        
-        instance.age_groups.clear()
-        for cat in form_step_data['basic']['age_groups']:
-            instance.age_groups.add(cat)
-        
         
         form_step_data['_pk'] = instance.pk
 
@@ -508,6 +547,18 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.organizing_museum = form_step_data['basic']['organizing_museum']
     instance.organizer_title = form_step_data['basic']['organizer_title']
     instance.organizer_url_link = form_step_data['basic']['organizer_url_link']
+    for f in [
+        'is_for_preschool',
+        'is_for_primary_school',
+        'is_for_youth',
+        'is_for_families',
+        'is_for_disabled',
+        'is_for_wheelchaired',
+        'is_for_deaf',
+        'is_for_blind',
+        'is_for_learning_difficulties',
+        ]:
+        setattr(instance, f, form_step_data['basic'][f])
     instance.tags = form_step_data['basic']['tags']
 
     fields = ['admission_price', 'reduced_price']
@@ -534,10 +585,6 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.languages.clear()
     for cat in form_step_data['basic']['languages']:
         instance.languages.add(cat)
-    
-    instance.age_groups.clear()
-    for cat in form_step_data['basic']['age_groups']:
-        instance.age_groups.add(cat)
     
     instance.workshoptime_set.all().delete()
     for workshop_time_dict in form_step_data['times']['sets']['workshop_times']:

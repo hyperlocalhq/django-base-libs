@@ -58,18 +58,6 @@ MINUTE_CHOICES = [(i,"%02d" % i) for i in range(0, 60)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 
-class AgeGroup(CreationModificationDateMixin, SlugMixin()):
-    title = MultilingualCharField(_('Title'), max_length=200)
-    sort_order = models.IntegerField(_("Sort Order"), default=0)
-    
-    def __unicode__(self):
-        return self.title
-        
-    class Meta:
-        ordering = ['sort_order']
-        verbose_name = _("Age group")
-        verbose_name_plural = _("Age groups")
-
 class WorkshopManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
@@ -92,8 +80,11 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     tags = TagAutocompleteField(verbose_name=_("tags"))
     languages = models.ManyToManyField(Language, verbose_name=_("Languages"), blank=True, limit_choices_to={'display': True})
     other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)
-    age_groups = models.ManyToManyField(AgeGroup, verbose_name=_("Age groups"), blank=True)
+    
     has_group_offer = models.BooleanField(_("Has bookable group offer"), blank=True)
+    is_for_preschool = models.BooleanField(_("Special for preschool children (up to 5 years)"), blank=True)
+    is_for_primary_school = models.BooleanField(_("Special for children of primary school age (6-12 years)"), blank=True)
+    is_for_youth = models.BooleanField(_("Special for youth (aged 13 years)"), blank=True)
     is_for_families = models.BooleanField(_("Special for families"), blank=True)
     is_for_disabled = models.BooleanField(_("Special for disabled people"), blank=True)
     is_for_wheelchaired = models.BooleanField(_("Special for people in wheelchairs"), blank=True)

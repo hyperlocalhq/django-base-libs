@@ -12,16 +12,9 @@ from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
-AgeGroup = models.get_model("workshops", "AgeGroup")
 Workshop = models.get_model("workshops", "Workshop")
 WorkshopTime = models.get_model("workshops", "WorkshopTime")
 MediaFile = models.get_model("workshops", "MediaFile")
-
-class AgeGroupAdmin(ExtendedModelAdmin):
-    fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug',)}),]
-
-admin.site.register(AgeGroup, AgeGroupAdmin)
 
 class WorkshopTimeInline(admin.StackedInline):
     model = WorkshopTime
@@ -46,8 +39,8 @@ class WorkshopAdmin(ExtendedModelAdmin):
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description'])
     fieldsets += [(None, {'fields': ('slug', )}),]
-    fieldsets += [(_("Categories"), {'fields': ('tags', 'languages', 'other_languages', 'age_groups',
-        'has_group_offer', 'is_for_families', 'is_for_disabled', 'is_for_wheelchaired',
+    fieldsets += [(_("Categories"), {'fields': ('tags', 'languages', 'other_languages', 
+        'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_disabled', 'is_for_wheelchaired',
         'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties',
     )}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude', 'exhibition')}),]
