@@ -156,9 +156,19 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     service_cafe = models.BooleanField(_("Cafe"), blank=True)
     service_library = models.BooleanField(_("Library"), blank=True)
     service_archive = models.BooleanField(_("Archive"), blank=True)
-    service_diaper_changing_table = models.BooleanField(_("Diaper changing table"))
+    service_diaper_changing_table = models.BooleanField(_("Diaper changing table"), blank=True)
     
-    mediation_offer = MultilingualTextField(_("Mediation offer"), blank=True)
+    has_audioguide = models.BooleanField(_("Audioguide"), blank=True)
+    has_audioguide_de = models.BooleanField(_("German"), blank=True)
+    has_audioguide_en = models.BooleanField(_("English"), blank=True)
+    has_audioguide_fr = models.BooleanField(_("French"), blank=True)
+    has_audioguide_it = models.BooleanField(_("Italian"), blank=True)
+    has_audioguide_sp = models.BooleanField(_("Spanish"), blank=True)
+    has_audioguide_pl = models.BooleanField(_("Polish"), blank=True)
+    has_audioguide_tr = models.BooleanField(_("Turkish"), blank=True)
+    audioguide_other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)
+    has_audioguide_for_children = models.BooleanField(_("Audioguide for children"), blank=True)
+    has_audioguide_for_learning_difficulties = models.BooleanField(_("Audioguide for people with learning difficulties"), blank=True)
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
