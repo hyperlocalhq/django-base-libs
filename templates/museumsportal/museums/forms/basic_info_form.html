@@ -86,20 +86,34 @@
                     {% endfor %}
                 </div>
             </div>
-            <div id="div_id_tags" class="clearfix control-group">
-                <label for="id_tags" class="control-label ">
-                {% trans "Tags" %} </label>
-                
-                <div class="controls">
-                    <div id="id_tags_tagsinput" class="tagsinput">
-                        {% for tag in museum.get_tags %}
-                            <span class="tag"><span>{{ tag.name }}</span></span>
-                        {% endfor %}
-                        <div class="tags_clear">
+            {% if museum.get_tags %}
+                <div id="div_id_tags" class="clearfix control-group">
+                    <label for="id_tags" class="control-label ">
+                    {% trans "Tags" %} </label>
+                    
+                    <div class="controls">
+                        <div id="id_tags_tagsinput" class="tagsinput">
+                            {% for tag in museum.get_tags %}
+                                <span class="tag"><span>{{ tag.name }}</span></span>
+                            {% endfor %}
+                            <div class="tags_clear">
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
-            </div>
+            {% endif %}
+            
+            <div class="inline">
+                <div id="div_id_is_for_children" class="clearfix control-group">
+                    <div class="controls">
+                        <label for="id_is_for_children" class="checkbox ">
+                            <input id="id_is_for_children"{% if museum.is_for_children %} checked="checked"{% endif %} type="checkbox" class="checkboxinput form_checkbox" name="is_for_children" disabled="disabled" />
+                            {% trans "Special for children" %}
+                        </label>
+                    </div>
+                </div>
+            </div>                
         </fieldset>
     </form>
 

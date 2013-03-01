@@ -179,9 +179,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     categories = TreeManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
-    is_for_children = models.BooleanField(_("Special for children"), blank=True)
-    is_for_families = models.BooleanField(_("Special for families"), blank=True)
-    is_for_youth = models.BooleanField(_("Special for youth"), blank=True)
+    is_for_children = models.BooleanField(_("Special for children / families / youth"), blank=True)
     
     objects = ExhibitionManager()
     
