@@ -64,7 +64,8 @@ class BasicInfoForm(ModelForm):
         fields = ['start', 'end', 'permanent', 'exhibition_extended',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude', 
-            'organizing_museum', 'organizer_title', 'organizer_url_link', 'vernissage', 'finissage', 'tags', 'categories']
+            'organizing_museum', 'organizer_title', 'organizer_url_link', 'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
+            ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
@@ -179,6 +180,7 @@ class BasicInfoForm(ModelForm):
             _("Categories and Tags"),
             "categories",
             "tags",
+            layout.Div("is_for_children", css_class="inline"),
             css_class="fieldset-categories-tags",
             ))
         if self.instance and self.instance.pk:
@@ -715,6 +717,7 @@ def load_data(instance=None):
         form_step_data['basic']['finissage'] = instance.finissage
         form_step_data['basic']['categories'] = instance.categories.all()
         form_step_data['basic']['tags'] = instance.tags
+        form_step_data['basic']['is_for_children'] = instance.is_for_children
     
         for season in instance.season_set.all():
             season_dict = {}
@@ -847,6 +850,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.vernissage = form_step_data['basic']['vernissage']
         instance.finissage = form_step_data['basic']['finissage']
         instance.tags = form_step_data['basic']['tags']
+        instance.is_for_children = form_step_data['basic']['is_for_children']
         instance.status = "draft"
         instance.save()
         
@@ -1126,6 +1130,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.vernissage = form_step_data['basic']['vernissage']
     instance.finissage = form_step_data['basic']['finissage']
     instance.tags = form_step_data['basic']['tags']
+    instance.is_for_children = form_step_data['basic']['is_for_children']
 
     fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
         'show_admission_price_info',
