@@ -5,12 +5,15 @@
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
-
-    <article>
-      {% placeholder "main_content" %}
+    <header class="intro clearfix">{% placeholder "intro" %}</header>
+    <article> 
+      <section>{% placeholder "main_content" %}</section>
+      <section class="clearfix" id="images"><ul class="images"><li>{% placeholder "image_block" %}<li><ul></section>
     </article>
+  </div>
+</div>
 
-    <article>
+<!-- <article>
       <ul class="list text_only clearfix">
           {% if LANGUAGE_CODE == "de" %}
                   {% show_menu_below_id "visitor_info_de" 0 100 100 100 "menu/side_menu.html" %}
@@ -18,8 +21,16 @@
                   {% show_menu_below_id "visitor_info_en" 0 100 100 100 "menu/side_menu.html" %}
               {% endif %}
       </ul>
-    </article>
-
-  </div>
-</div>
+    </article> -->
+<script>
+    $(window).load(function() {
+        $('.images').isotope({
+            itemSelector : 'li',
+            layoutMode : 'masonry',
+            masonry: {
+                columnWidth: 340
+            }
+        });
+    });
+</script>
 {% endblock %}

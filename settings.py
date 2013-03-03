@@ -358,10 +358,12 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("FilebrowserImagePlugin"),
         'name': _("Top Image")
     },
+
     'intro': {
         'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
         'name': _("Intro")
     },
+
     'main_content': {
         'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
         'name': _("Main Content")
@@ -376,19 +378,32 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("EditorialContentPlugin"),
         'name': _("Series Items")
     },
+    
+    'series_exhibitions': {
+        'plugins': ("EditorialContentPlugin"),
+        'name': _("Series Exhibitions")
+    },
+    
+    'series_images': {
+        'plugins': ("RichTextPlugin"),
+        'name': _("Series Images")
+    },
 
     'start_page_content': {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Start Page Content")
     },
+
     'left_column': {
         'plugins': ("EditorialContentPlugin","NewlyOpenedExhibitionPlugin","NewlyOpenedExhibitionExtPlugin",),
         'name': _("Left Column")
     },
+
     'center_column': {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Center Column")
     },
+
     'right_column': {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Right Column")
@@ -400,10 +415,10 @@ CMS_TEMPLATES = (
     ('cms/start.html', gettext('Homepage')),   
 
     ('cms/plan_organize_overview.html', gettext('Plan & Organize – Overview')),
-    ('cms/plan_organize.html', gettext('Plan & Organize - Default')),             # previous: visitor_info.html
+    ('cms/plan_organize.html', gettext('Plan & Organize - Detail')),              # previous: visitor_info.html
 
     ('cms/magazine_overview.html', gettext('Magazine – Overview')),
-    ('cms/magazine.html', gettext('Magazine - Default')),                         
+    ('cms/magazine.html', gettext('Magazine - Detail')),
     ('cms/magazine_series.html', gettext('Magazine – Series')),                   # previous: series.html
     ('cms/magazine_series_featured.html', gettext('Magazine – Featured Series')), # previous: series_with_featured.html
 )
