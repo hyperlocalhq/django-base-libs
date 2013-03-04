@@ -381,7 +381,16 @@ form {
     table-layout: auto !important;
 
     > div{ 
-      width: auto !important;
+      min-width: 40px !important;
+      width: 33% !important;
+      &.max { width: 100%;}
+      &.min { width: 0%;}
+      button {
+        position: absolute;
+        right: 0px;
+        top: -1px;
+        background-color: rgba(0,0,0,0.1) !important;
+      }
     }
   }
   
@@ -438,8 +447,6 @@ form {
 }
 
 .form-steps { 
-  margin-bottom: 30px;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
   
   li { 
     display: inline-block; 
