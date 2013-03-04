@@ -6,29 +6,30 @@
 
 <div class="content clearfix">
   <div class="inner">
-    <article class="clearfix">
       <header class="intro clearfix">{% placeholder "intro" %}</header>
-       </article>
   </div>
 </div>   
+
 <div class="content clearfix">
   <div class="inner">
     <article class="clearfix">
       <section class="clearfix featured">{% placeholder "series_items_featured" %}</section>
-       </article>
+    </article>
   </div>
 </div>   
+
 <div class="content clearfix">
   <div class="inner">
     <article class="clearfix">
-      <section class="clearfix nonfeatured">{% placeholder "series_items" %}</section>
+      <section class="clearfix nonfeatured">{% placeholder "series_items" %} </section>
     </article>
   </div>
 </div>
+<section class="clearfix">
+  <ul id="sub_menu">
+          {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
+  </ul>
+</section>
+
 
 {% endblock %}
-   <!-- <section class="clearfix">
-      <ul id="sub_menu">
-              {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
-      </ul>
-    </section> -->

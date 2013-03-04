@@ -3,21 +3,22 @@
 {% block bodyclass %}magazine{% endblock %}
 
 {% block content %}
-
 <div class="content clearfix">
-  <div class="inner">
-    <article class="clearfix">
-      <header>{% placeholder "intro" %}</header>
-      <section>{% placeholder "main_content" %}</section>
-      <section class="clearfix marginal">
-        <h2>Weitere Artikel aus dieser Serie</h2>
-        {% placeholder "series_items_featured" inherit %}
-        {% placeholder "series_items" inherit %}
-      </section>
-    </article>
+  <div class="inner clearfix">
+    <header class="intro clearfix">{% placeholder "intro" %}</header>
   </div>
 </div>
-
+<div class="content clearfix">
+  <div class="inner clearfix">
+    <article class="clearfix"> {% placeholder "main_content" %} </article>
+    <section class="clearfix marginal"> {% placeholder "series_items_featured" inherit %} </section>
+  </div>
+</div>
+<div class="content clearfix">
+  <div class="inner clearfix">
+    <section class="clearfix nonfeatured">{% placeholder "series_items" inherit %}</section>
+  </div>
+</div>
 {% endblock %}
 <!-- 
     <section class="">
@@ -25,3 +26,7 @@
               {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
       </ul>
     </article> -->
+
+
+<h2></h2>
+<p></p>

@@ -8,31 +8,60 @@
 {% endblock %}
 
 {% block content %}
+<div class="content clearfix">
+  <div class="inner">
+      <header class="intro clearfix">{% placeholder "intro" %}</header>
+  </div>
+</div> 
 
 <div class="content clearfix">
   <div class="inner">
+    <article class="clearfix">
+      <section class="clearfix featured">{% placeholder "series_items_featured" %}</section>
+    </article>
+  </div>
+</div>
+<div class="content clearfix">
+  <div class="inner">
+    <article class="clearfix">
+      <section class="clearfix">
+        <h3>Aktuelle Ausstellungen</h3>
+        {% placeholder "series_exhibitions" %}
+      </section>
+    </article>
+  </div>
+</div>
+
+<div class="content clearfix">
+  <div class="inner">
+    <article class="clearfix">
+      <section class="clearfix nonfeatured">{% placeholder "series_items" %}</section>
+    </article>
+  </div>
+</div>
+<!-- 
+<div class="content clearfix">
+  <div class="inner">
+    <article class="clearfix"> {% placeholder "main_content" %} </article>
+  </div>
+</div> -->
+{% endblock %}
+<!-- 
     <section class="sidebar">
 
         <ul id="sub_menu">
             {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %}
         </ul>
         
-	    <div class="featured_infoblock">
+        <div class="featured_infoblock">
             <span class="jmb-head">Fenster zum Online-<br/>Projekt des JMB</span>
             <span class="jmb-body">{% infoblock "series_featured" %}</span>
             <a href="http://www.jmberlin.de/1933/" target="_blank"><span class="jmb-logo"></span></a>
-	    </div>
+        </div>
         <div id="twitterfeed">
             <h2>Twitterfeed</h2>
             <ul id="tweets" data-twitter-username="Vielfalt2013">
                 <li><a href="https://twitter.com/Vielfalt2013" target="_blank">{% if LANGUAGE_CODE == "de" %}Folgen Sie Zerstörte Vielfalt auf Twitter{% else %}Follow Zerstörte Vielfalt on Twitter{% endif %}</a></li>
             </ul>
         </div>
-    </section>
-    <article class="with_sidebar">
-    {% placeholder "main_content" %}
-    </article>
-  </div>
-</div>
-
-{% endblock %}
+    </section> -->
