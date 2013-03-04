@@ -360,42 +360,42 @@ CMS_PLACEHOLDER_CONF = {
     },
 
     'intro': {
-        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
+        'plugins': ("IntroPlugin","FilebrowserImagePlugin"),
         'name': _("Intro")
     },
 
     'main_content': {
-        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin"),
+        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin", "FootnotePlugin"),
         'name': _("Main Content")
     },
 
     'footnotes': {
-        'plugins': ("RichTextPlugin"),
+        'plugins': ("RichTextPlugin",),
         'name': _("Footnotes")
     },
 
     'series_items_featured': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin", "TeaserPlugin"),
         'name': _("Series Items Featured")
     },
     
     'series_items': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin", "TeaserPlugin"),
         'name': _("Series Items")
     },
     
     'series_exhibitions': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin", "TeaserPlugin"),
         'name': _("Series Exhibitions")
     },
     
     'series_images': {
-        'plugins': ("RichTextPlugin"),
+        'plugins': ("RichTextPlugin",),
         'name': _("Series Images")
     },
 
     'start_page_content': {
-        'plugins': ("EditorialContentPlugin",),
+        'plugins': ("EditorialContentPlugin", "TeaserPlugin"),
         'name': _("Start Page Content")
     },
 

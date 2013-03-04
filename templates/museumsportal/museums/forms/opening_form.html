@@ -17,17 +17,22 @@
 
 {% block multistep_form %}
 <div id="item_container">
-    <h2>{% trans "Opening Hours" %}</h2>
-    <a class="add" id="add_season" href="#">{% trans "Add season" %}</a>
-    <ul id="season_list" class="list">
-        <li > </li>
-    </ul>
-    <h2>{% trans "Closing Times" %}</h2>
-    <a class="add" id="add_special_opening" href="#">{% trans "Add special opening time" %}</a>
-    <ul id="special_opening_list" class="list">
-        <li>
-        </li>
-    </ul>
+    <form>
+        <fieldset>
+            <legend>{% trans "Opening Hours" %}</legend>
+            <a class="add" id="add_season" href="#">{% trans "Add opening hours" %}</a>
+            <ul id="season_list">
+                <li> </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>{% trans "Closing Times" %}</legend>
+            <a class="add" id="add_special_opening" href="#">{% trans "Add closing time" %}</a>
+            <ul id="special_opening_list">
+                <li> </li>
+            </ul>
+        </fieldset>
+    </form>
 </div>
 
 <form action="" method="post">
@@ -182,10 +187,9 @@ var error_messages = {
             }
             $season.hide();
             var html = '<ul class="actions">'
-                + '<li><a href="#" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit"></a></li>'
+                + '<li><button rel="tooltip" data-placement="top" data-original-title="Edit" class="transparent edit icon icon-edit"></button></li>'
                 + '</ul>'
-                + '<h3>' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</h3>'
-                + '<p>' + $season.find('[name$="-title_' + settings.lang + '"]').val() + '</p>';
+                + '<a class="edit" href="#"><span class="title">' + $season.find('[name$="-title_' + settings.lang + '"]').val() + '</span> ' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</a>';
             if (!$season.data('mirror')) {
                 var $mirror = $('<li class="item">' + html + '</li>');
                 $('#season_list li:last').before($mirror);
@@ -220,10 +224,9 @@ var error_messages = {
             }
             $season.hide();
             var html = '<ul class="actions">'
-                + '<li><a href="#" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit"></a></li>'
+                + '<li><button rel="tooltip" data-placement="top" data-original-title="Edit" class="edit transparent icon icon-edit"></a></li>'
                 + '</ul>'
-                + '<h3>' + $season.find('[name$="-yyyy"]').val() + ' ' + $season.find('[name$="-mm"] option:selected').text() + ' ' + $season.find('[name$="-dd"]').val() + '</h3>'
-                + '<p>' + $season.find('[name$="-day_label_' + settings.lang + '"]').val() + '</p>';
+                + '<a class="edit" href="#"><span class="title">' + $season.find('[name$="-day_label_' + settings.lang + '"]').val() + '</span> ' + $season.find('[name$="-yyyy"]').val() + ' ' + $season.find('[name$="-mm"] option:selected').text() + ' ' + $season.find('[name$="-dd"]').val() + '</a>';
             if (!$season.data('mirror')) {
                 var $mirror = $('<li class="item">' + html + '</li>');
                 $('#special_opening_list li:last').before($mirror);
@@ -256,6 +259,7 @@ var error_messages = {
             $origin.show();
             $('#item_container').hide();
             $('.form-actions:last').hide();
+            return false;
         });
         
         // Initial state

@@ -18,9 +18,9 @@
 <div class="content clearfix">
     <div class="inner">
         {% if exhibition %}
-            <h1>{% blocktrans with exhibition_title=exhibition.title %}Edit {{ exhibition_title }}{% endblocktrans %}</h1>
+            <h1>{% blocktrans with exhibition_title=exhibition.title %}Edit {{ exhibition_title }}{% endblocktrans %}</h1>
         {% else %}
-            <h1>{% trans "Add new exhibition" %}</h1>
+            <h1>{% trans "Add new exhibition" %}</h1>
         {% endif %}
     
         {% include "utils/step_list.html" %}

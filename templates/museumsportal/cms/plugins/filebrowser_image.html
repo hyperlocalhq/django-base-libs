@@ -1,0 +1,21 @@
+{% load image_modifications fb_tags %}
+
+<p class="img">
+    {% if object.mod %}
+        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:object.mod.sysname }}" alt="{{ object.alt|escape }}"{% if object.css_class %} class="{{ object.css_class }}"{% endif %} />
+    {% else %}
+        <img src="{{ UPLOADS_URL }}{{ object.image.path|escape }}" alt="{{ object.alt|escape }}"{% if object.css_class %} class="{{ object.css_class }}"{% endif %} />
+    {% endif %}
+
+    {% with object.image|file_description as file_desc %}
+    {% if file_desc.title %}
+        <span class="title">{{ file_desc.title }}</span>
+    {% endif %}
+    {% if file_desc.description %}
+        <span class="description">{{ file_desc.description }}</span>
+    {% endif %}
+    {% if file_desc.author %}
+        <span class="author">© {{ file_desc.author }}</span>
+    {% endif %}
+    {% endwith %}
+</p>

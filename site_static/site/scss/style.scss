@@ -778,31 +778,31 @@ a:active  { outline: none;}
 
 // ================= BUTTON ICONS =================
 
-a,
+button,
 .btn,
-button { 
-  &.crop            { background-image: url("../img/icons/inv/crop.svg");}
-  &.add             { background-image: url("../img/icons/inv/add.svg");}
-  &.view            { background-image: url("../img/icons/inv/view.svg");}
-  &.edit            { background-image: url("../img/icons/inv/edit.svg");}
-  &.favorite        { background-image: url("../img/icons/inv/favorite.svg");}
-  &.location        { background-image: url("../img/icons/inv/location.svg");}
-  // &.cancel          { background-image: url("../img/icons/inv/cancel.svg");}
-  &.fullscreen      { background-image: url("../img/icons/inv/fullscreen.svg");}
+.icon { 
+  &.icon-crop            { background-image: url("../img/icons/inv/crop.svg");}
+  &.icon-add             { background-image: url("../img/icons/inv/add.svg");}
+  &.icon-view            { background-image: url("../img/icons/inv/view.svg");}
+  &.icon-edit            { background-image: url("../img/icons/inv/edit.svg");}
+  &.icon-favorite        { background-image: url("../img/icons/inv/favorite.svg");}
+  &.icon-location        { background-image: url("../img/icons/inv/location.svg");}
+  // &.icon-cancel          { background-image: url("../img/icons/inv/cancel.svg");}
+  &.icon-fullscreen      { background-image: url("../img/icons/inv/fullscreen.svg");}
 
   &.transparent {
     background-color: transparent !important;
     opacity: 0.3 !important;
     &:hover { background-color: transparent !important; opacity: 1 !important;}
 
-    &.crop            { background-image: url("../img/icons/crop.svg");}
-    &.add             { background-image: url("../img/icons/add.svg");}
-    &.view            { background-image: url("../img/icons/view.svg");}
-    &.edit            { background-image: url("../img/icons/edit.svg");}
-    &.favorite        { background-image: url("../img/icons/favorite.svg");}
-    &.location        { background-image: url("../img/icons/location.svg");}
+    &.icon-crop            { background-image: url("../img/icons/crop.svg");}
+    &.icon-add             { background-image: url("../img/icons/add.svg");}
+    &.icon-view            { background-image: url("../img/icons/view.svg");}
+    &.icon-edit            { background-image: url("../img/icons/edit.svg");}
+    &.icon-favorite        { background-image: url("../img/icons/favorite.svg");}
+    &.icon-location        { background-image: url("../img/icons/location.svg");}
     // &.cancel          { background-image: url("../img/icons/cancel.svg");}
-    &.fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
+    &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
   }
 }
 
@@ -981,7 +981,7 @@ article {
         color: rgba(0,0,0,0.75);
         font-size: 12px;
         line-height: 18px;
-        width: 320px;
+        width: 235px;
         padding-bottom:0px !important;
         margin-bottom: 0px !important;
         margin-top: 10px !important;
@@ -989,7 +989,7 @@ article {
         img { 
           display: block; 
           margin-bottom: 10px; 
-          width: 320px !important;
+          width: 100% !important;
         }
       }
     }
@@ -1516,11 +1516,14 @@ dl {
 #item_container,
 #dashboard {
 
+  fieldset { position: relative;}
+
   label {font-size: 22px; padding-bottom: 10px; }
   
   .add {
     position: absolute;
     right: 0px;
+    top: 0px;
     height: 32px;
     line-height: 32px;
     background-color: rgba(0,0,0,0.075);
@@ -1553,6 +1556,7 @@ dl {
       > span,
       > a {
         background-color: rgba(0,0,0,0.05);
+        color: rgba(0,0,0,0.75) !important;
         display: block;
         height: 40px;
         line-height: 40px;
@@ -1561,6 +1565,8 @@ dl {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         margin-bottom: 2px;
+
+        .title { font-weight: 500; }
 
         &:hover {
            h3, h4 ,h5 { color: rgba(0,0,0,0.5) !important;}
@@ -1749,19 +1755,29 @@ header.intro {
     display: block;
     &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
   }
-
+  
   h3 { 
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 25px;
+    margin-top: -25px;
+    display: block;
+    &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+  }
+
+  h4 { 
     text-transform: uppercase;
     font-size: 20px;
     margin-bottom: 25px;
     &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
   }
+  
+  .small p {font-size: 16px; line-height: 22px; width: 66%}
 
   p {
     font-size: 30px;
     line-height: 42px;
     margin-bottom: 25px;
-    &.small {font-size: 16px; line-height: 22px; width: 66%}
     &:last-child { margin-bottom: 0px; }
     &.img_block, &.img_left {display: none !important; }
     &.img {
