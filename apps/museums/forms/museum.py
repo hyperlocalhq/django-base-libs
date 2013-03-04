@@ -409,7 +409,7 @@ class PricesForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
-            layout.Div('free_entrance', 'member_of_museumspass', css_class="inline"), 
+            layout.Div('free_entrance', css_class="inline"), 
             'admission_price',
             layout.Row(
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
@@ -422,12 +422,12 @@ class PricesForm(ModelForm):
             layout.Row(
                 *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-            css_class="fieldset-prices",
             ))
 
         layout_blocks.append(layout.Fieldset(
             _("Details"),
             layout.Div(
+                'member_of_museumspass', 
                 'show_family_ticket',
                 'show_group_ticket',
                 'show_yearly_ticket',
@@ -435,22 +435,8 @@ class PricesForm(ModelForm):
                 ),
 
             layout.Row(
-                layout.HTML("""{% load infoblocks %}
-                    {% infoblock "family_ticket_info" %}
-                """),
-                css_class="div-family_ticket-details",
-                ),
-
-            layout.Row(
                 css_class="div-group_ticket-details",
                 *('group_ticket_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-
-            layout.Row(
-                layout.HTML("""{% load infoblocks %}
-                    {% infoblock "yearly_ticket_info" %}
-                """),
-                css_class="div-yearly_ticket-details",
                 ),
 
                 css_class="fieldset-details",
@@ -459,7 +445,7 @@ class PricesForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Save')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -1289,7 +1275,7 @@ MUSEUM_FORM_STEPS = {
         }
     },
     'prices': {
-        'title': _("Prices"),
+        'title': _("Admission"),
         'template': "museums/forms/prices_form.html",
         'form': PricesForm,
     },

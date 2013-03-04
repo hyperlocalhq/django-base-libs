@@ -500,14 +500,21 @@ form {
       height: 10px !important;
       display: inline-block !important;
       min-height: auto;
-      img {display: inline-block; margin-right: 10px;}
+
+      &:hover {background-color: rgba(0,0,0,0.1); cursor: pointer; }
+
+      &.checkbox,
+      &.radio { padding-left: 30px !important;}
 
       &.radio input[type="radio"], &.checkbox input[type="checkbox"] {
         margin: 0px !important;
         display: inline-block;
         margin-right: 5px !important;
-        bottom: 1px;
-        position: relative;
+        top: 50%;
+        left: 0px;
+        margin-left: 10px !important;
+        margin-top: -5px !important;
+        position: absolute;
       }
     }
   }
