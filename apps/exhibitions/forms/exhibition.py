@@ -7,6 +7,7 @@ from django.forms.models import inlineformset_factory
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -1152,7 +1153,7 @@ def save_data(form_steps, form_step_data, instance=None):
         special_opening.closing = special_opening_dict['closing']
         special_opening.save()
 
-    form_steps['success_url'] = instance.get_url_path()
+    form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
     
     return form_step_data
     
