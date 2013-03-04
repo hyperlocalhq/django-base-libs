@@ -100,7 +100,13 @@ def workshop_list(request):
         )
 
 def workshop_detail(request, slug):
-    qs = Workshop.objects.filter(status="published")
+    if "preview" in request.REQUEST:
+        qs = Workshop.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("workshops.change_workshop", obj):
+            return access_denied(request)
+    else:
+        qs = Workshop.objects.filter(status="published")
     return object_detail(
         request,
         queryset=qs,

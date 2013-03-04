@@ -111,7 +111,13 @@ def exhibition_list(request):
         )
 
 def exhibition_detail(request, slug):
-    qs = Exhibition.objects.filter(status="published")
+    if "preview" in request.REQUEST:
+        qs = Exhibition.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("exhibitions.change_exhibition", obj):
+            return access_denied(request)
+    else:
+        qs = Exhibition.objects.filter(status="published")
     return object_detail(
         request,
         queryset=qs,
