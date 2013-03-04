@@ -263,14 +263,19 @@ var error_messages = {
         });
         
         // Initial state
-        /*
         var $total_forms = $('#id_seasons-TOTAL_FORMS');
         if ($total_forms.val() == "0") {
             $('#add_season').click();
+            $('#id_seasons-0-title_de').val("Ganzjährige Öffnungszeiten");
+            $('#id_seasons-0-title_en').val("Year-round opening times");
+            $('#id_seasons-0-start').val((new Date()).getFullYear()+"-01-01");
+            $('#id_seasons-0-end').val((new Date()).getFullYear()+"-12-31");
+            $(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']).each(function() {
+                $('#id_seasons-0-' + this + '_open').val("10:00");
+                $('#id_seasons-0-' + this + '_close').val("18:00");
+            });
+            $(':input.save-link').click();
         }
-        */
-        $('#seasons .save-link').click();
-        $('#special_openings .save-link').click();
         reinit_widgets();
         
         // Working hours management
