@@ -47,7 +47,7 @@
 
         <!-- Header
         ================================================== -->
-
+        {% block header %}
 		<header id="header" class="clearfix">
             <div class="inner">
 
@@ -67,13 +67,13 @@
                 </ul>
             </div>
 		</header>
-		{% block top_nav %}
-            <nav id="navigation">
-                <ul>
-                    <li{% if request.path == "/" %} class="selected"{% endif %}><a href="/">Home</a></li>
-                    {% show_menu_below_id "start_page" 0 100 100 100 %}
-                </ul>
-            </nav>
+		
+        <nav id="navigation">
+            <ul>
+                <li{% if request.path == "/" %} class="selected"{% endif %}><a href="/">Home</a></li>
+                {% show_menu_below_id "start_page" 0 100 100 100 %}
+            </ul>
+        </nav>
         {% endblock %}
 
 
