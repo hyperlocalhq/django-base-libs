@@ -16,7 +16,7 @@
 
 {% block dashboard_title %}
     {% if exhibition %}
-        {% blocktrans with exhibition_title=exhibition.title %}Edit {{ exhibition_title }}{% endblocktrans %}
+        <span>{% trans "Exhibition" %}</span> {{ exhibition.title }}
     {% else %}
         {% trans "Add new exhibition" %}
     {% endif %}

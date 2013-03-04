@@ -1566,9 +1566,18 @@ dl {
 
 #dashboard_header{
    .inner { padding-top: 10px !important;  padding-bottom: 0px !important; }
-   h2 { margin-top: 40px;}
+   h2 { 
+    margin-top: 60px; 
+    margin-bottom: 30px !important;
+    span {
+      font-weight: 300;
+      color: rgba(0,0,0,0.5);
+      font-size: 16px;
+      display: block;
+    }
+  }
 
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
 
    .contact {
