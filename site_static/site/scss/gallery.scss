@@ -25,7 +25,9 @@
     z-index: 40000;
     overflow: hidden;
     opacity: 0;
-    
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 10px solid purple;
     -webkit-transform: translate3d(0px, 0, 0) !important;
     -moz-transform: translate3d(0px, 0, 0) !important;
     -o-transform: translate3d(0px, 0, 0) !important;
@@ -116,9 +118,15 @@
 
     #slider {
         position: absolute;
-        height: 100%;
-        width: 100%;
+        height: auto;
+        width: auto;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
         display: block;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
 
         > div {
             // -webkit-transition-property: all;
@@ -142,18 +150,18 @@
             display: table;
             position: absolute;
             table-layout: top;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
 
             > div {
-                position: absolute;
-                top: 0px;
-                bottom: 0px;
-                left: 0px;
-                right: 0px;
                 height: 100%;
                 width: 100%;
                 vertical-align: middle;
-                position: relative;
-                display: block;
+                position: relative !important;
+                display: table-cell;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                border: 10px solid red !important; 
 
                 .img {
                     position: absolute;
@@ -169,6 +177,8 @@
                     background-position: center;
                     background-repeat: no-repeat;
                     pointer-events: none;
+                    background-color: white;
+                    border: 10px solid green !important; 
                 }
 
                 .info {

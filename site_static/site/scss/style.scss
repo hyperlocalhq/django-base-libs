@@ -2139,18 +2139,20 @@ header.intro {
         -moz-box-sizing: border-box;
         padding-top: 0px !important;
         padding-bottom: 0px !important;
-
+        
+        &:first-letter { text-transform: capitalize; }
+        
         &.checkbox,
-        &.radio { padding-left: 32px !important;}
+        &.radio { padding-left: 65px !important;}
       
         img { 
           position: absolute;
-          right: 0px;
+          left: 0px;
           top: 0px;
         }
 
         &.radio input[type="radio"], &.checkbox input[type="checkbox"] {
-          margin-left: 10px !important;
+          margin-left: 45px !important;
         }
       }
     }
