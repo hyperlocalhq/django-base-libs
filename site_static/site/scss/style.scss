@@ -127,6 +127,8 @@ a{
   color: black;
 }
 
+em { color: black; font-style: italic; }
+
 p a{
   font-weight: 500;
 }
@@ -147,6 +149,7 @@ a:active  { outline: none;}
     border-right: 12px solid transparent;
     padding-top: 40px;
     padding-bottom: 40px;
+    &:empty{ display: none;}
   }
 }
 
@@ -1047,9 +1050,8 @@ aside {
   font-size: 12px;
   line-height: 21px;
   color: rgba(0,0,0,0.75);
-  margin-top: 20px;
-  padding-top: 40px;
-  border-top: 1px solid rgba(0,0,0,0.05) !important;
+  
+  &:empty{ border: 1px solid red;}
 
   p {
     display: inline;
@@ -1511,6 +1513,7 @@ dl {
 
 // ================= DASHBOARD =================
 
+#item_container,
 #dashboard {
 
   label {font-size: 22px; padding-bottom: 10px; }
@@ -1546,6 +1549,7 @@ dl {
         > a { background-color: rgba(0,0,0,0.075);}
       }
 
+      > h3,
       > span,
       > a {
         background-color: rgba(0,0,0,0.05);
@@ -1584,9 +1588,9 @@ dl {
         line-height: 18px;
         width: 100%;
         padding-bottom:0px !important;
-        margin-bottom: 20px !important;
-        margin-top: 0px !important;
-
+        margin-bottom: 35px !important;
+        margin-top: 20px;
+        &:first-child { margin-top: 0px; }
         br { display: none;}
         img { 
           display: block; 
@@ -1626,7 +1630,6 @@ dl {
         display: block;
         background-size: cover;
         background-position: center;
-        background-position: top;
         float: left;
         margin-bottom: 15px;
         overflow: hidden;
@@ -1736,7 +1739,7 @@ dl {
 header.intro { 
   &:empty{ display: none;}
   width: 100%; 
-  
+
 
   h2 { 
     font-weight: 500;
@@ -1757,9 +1760,19 @@ header.intro {
   p {
     font-size: 30px;
     line-height: 42px;
-    &.img_block,
-    &.img_left {
-      display: none !important;
+    margin-bottom: 25px;
+    &.small {font-size: 16px; line-height: 22px; width: 66%}
+    &:last-child { margin-bottom: 0px; }
+    &.img_block, &.img_left {display: none !important; }
+    &.img {
+      margin-top: -40px !important;
+      color: rgba(0,0,0,0.75);
+      font-size: 12px;
+      line-height: 18px;
+      padding-bottom:0px !important;
+      margin-bottom: 0px !important;
+      br  { display: none; }
+      img { display: block; margin-bottom: 10px; }
     }
   }
 }
@@ -1780,7 +1793,7 @@ header.intro {
       }
 
       &.nonfeatured {
-        &:empty{ display: none;}
+        &:empty{ display: none !important;}
 
         > div {
           font-size: 13px;

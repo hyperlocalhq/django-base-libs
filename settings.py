@@ -369,6 +369,11 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Main Content")
     },
 
+    'footnotes': {
+        'plugins': ("RichTextPlugin"),
+        'name': _("Footnotes")
+    },
+
     'series_items_featured': {
         'plugins': ("EditorialContentPlugin"),
         'name': _("Series Items Featured")

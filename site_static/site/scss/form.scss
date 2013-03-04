@@ -493,6 +493,7 @@ form {
       height: 10px !important;
       display: inline-block !important;
       min-height: auto;
+      img {display: inline-block; margin-right: 10px;}
 
       &.radio input[type="radio"], &.checkbox input[type="checkbox"] {
         margin: 0px !important;

@@ -179,8 +179,8 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             "categories",
+            "is_for_children",
             "tags",
-            layout.Div("is_for_children", css_class="inline"),
             css_class="fieldset-categories-tags",
             ))
         if self.instance and self.instance.pk:
