@@ -505,7 +505,7 @@ class PricesForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
-            layout.Div('free_entrance', css_class="inline"), 
+            layout.Div('museum_prices', 'free_entrance', css_class="inline"), 
             'admission_price',
             layout.Row(
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
