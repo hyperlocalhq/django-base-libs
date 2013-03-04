@@ -14,16 +14,21 @@
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-timepicker.js"></script>
 {% endblock %}
 
+{% block dashboard_title %}
+    {% if workshop %}
+        {% blocktrans with workshop_title=workshop.title %}Edit {{ workshop_title }}{% endblocktrans %}
+    {% else %}
+        {% trans "Add new workshop" %}
+    {% endif %}
+{% endblock %}
+
+{% block form_steps %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
 {% block content %}
 <div class="content clearfix">
     <div class="inner">
-        {% if workshop %}
-            <h1>{% blocktrans with workshop_title=workshop.title %}Edit {{ workshop_title }}{% endblocktrans %}</h1>
-        {% else %}
-            <h1>{% trans "Add new workshop" %}</h1>
-        {% endif %}
-    
-        {% include "utils/step_list.html" %}
         {% block multistep_form %}
         {% endblock %}
     </div>

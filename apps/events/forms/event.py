@@ -316,6 +316,7 @@ class EventTimeForm(ModelForm):
                 layout.Field("event_date", placeholder="yyyy-mm-dd"),
                 layout.Field("start", placeholder="00:00"),
                 layout.Field("end", placeholder="00:00"),
+                css_class="flex",
                 ),
             )
 

@@ -55,8 +55,18 @@
                     <span class="img">Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
                 </a>
 
+                <ul id="user">
+                    {% if request.user.is_authenticated %} 
+                    <li>{% blocktrans with first_name=request.user.first_name|default:request.user.username %}Hello, {{ first_name }}{% endblocktrans %}
+                        <a class="logout" href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
+                    {% else %}
+                    <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
+                    <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li>
+                    {% endif %}
+
+                </ul>
+                
                 <ul id="meta" class="clearfix">
-                    <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">&nbsp;<span>Login</span></a></li>
                     <li><a class="favorites-link" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>Favorites</span></a></li>
                     <li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
                     <li><a class="twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li>
