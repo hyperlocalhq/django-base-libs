@@ -111,7 +111,13 @@ def event_list(request):
         )
 
 def event_detail(request, slug):
-    qs = Event.objects.filter(status="published")
+    if "preview" in request.REQUEST:
+        qs = Event.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("events.change_event", obj):
+            return access_denied(request)
+    else:
+        qs = Event.objects.filter(status="published")
     return object_detail(
         request,
         queryset=qs,

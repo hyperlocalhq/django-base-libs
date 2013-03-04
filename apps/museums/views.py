@@ -104,7 +104,13 @@ def museum_list(request):
         )
 
 def museum_detail(request, slug):
-    qs = Museum.objects.filter(status="published")
+    if "preview" in request.REQUEST:
+        qs = Museum.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("museums.change_museum", obj):
+            return access_denied(request)
+    else:
+        qs = Museum.objects.filter(status="published")
     return object_detail(
         request,
         queryset=qs,
