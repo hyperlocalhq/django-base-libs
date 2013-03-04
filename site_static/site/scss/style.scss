@@ -122,15 +122,29 @@ html,body,input {
   zoom: 1;
 }
 
-a{
-  text-decoration: none;
-  color: black;
-}
-
+a {text-decoration: none; color: black; }
 em { color: black; font-style: italic; }
+p a{font-weight: 500; }
 
-p a{
-  font-weight: 500;
+.table {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  
+  > div,
+  .cell {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+    p {
+      font-size: 28px;
+      font-weight: 400;
+      display: inline-block;
+    }
+  }
 }
 
 a:link   { text-decoration: none;}
@@ -781,6 +795,8 @@ a:active  { outline: none;}
   z-index: 200;
   right: 0px;
   top: 0px;
+  height: 40px;
+  font-size: 0px;
 
   &.bottom { top: auto; bottom: 0px; }
 
@@ -791,6 +807,7 @@ a:active  { outline: none;}
     width: 40px !important;
     height: 40px !important;
     padding: 0px !important;
+    margin: 0px !important;
     display: block;
     background-size: cover;
     background-position: center;
@@ -832,14 +849,38 @@ a:active  { outline: none;}
 button,
 .btn,
 .icon { 
-  &.icon-crop            { background-image: url("../img/icons/inv/crop.svg");}
-  &.icon-add             { background-image: url("../img/icons/inv/add.svg");}
-  &.icon-view            { background-image: url("../img/icons/inv/view.svg");}
-  &.icon-edit            { background-image: url("../img/icons/inv/edit.svg");}
-  &.icon-favorite        { background-image: url("../img/icons/inv/favorite.svg");}
-  &.icon-location        { background-image: url("../img/icons/inv/location.svg");}
-  // &.icon-cancel          { background-image: url("../img/icons/inv/cancel.svg");}
-  &.icon-fullscreen      { background-image: url("../img/icons/inv/fullscreen.svg");}
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: none;
+  background-color: rgba(0,0,0,0.05);
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 100px;
+  height: 40px;
+  width: 40px;
+
+  &.icon-crop       { background-image: url("../img/icons/inv/crop.svg");}
+  &.icon-add        { background-image: url("../img/icons/inv/add.svg");}
+  &.icon-view       { background-image: url("../img/icons/inv/view.svg");}
+  &.icon-edit       { background-image: url("../img/icons/inv/edit.svg");}
+  &.icon-favorite   { background-image: url("../img/icons/inv/favorite.svg");}
+  &.icon-location   { background-image: url("../img/icons/inv/location.svg");}
+  // &.icon-cancel  { background-image: url("../img/icons/inv/cancel.svg");}
+  &.icon-fullscreen { background-image: url("../img/icons/inv/fullscreen.svg");}
+  &.icon-shop       { background-image: url("../img/icons/inv/shop.svg"); }
+  &.icon-books      { background-image: url("../img/icons/inv/books.svg"); }
+  &.icon-restaurant { background-image: url("../img/icons/inv/restaurant.svg"); }
+  &.icon-cafe       { background-image: url("../img/icons/inv/cafe.svg"); }
+  &.icon-library    { background-image: url("../img/icons/inv/library.svg"); }
+  &.icon-archive    { background-image: url("../img/icons/inv/archive.svg"); }
+  &.icon-studio     { background-image: url("../img/icons/inv/studio.svg"); }
+  &.icon-online     { background-image: url("../img/icons/inv/online.svg"); }
+  &.icon-diaper     { background-image: url("../img/icons/inv/diaper.svg"); }
+  &.icon-birthdays  { background-image: url("../img/icons/inv/birthdays.svg"); }
+  &.icon-rent       { background-image: url("../img/icons/inv/rent.svg"); }
+  &.icon-other      { background-image: url("../img/icons/inv/other.svg"); }
+  &.icon-delete     { background-image: url("../img/icons/cancel.svg"); }
 
   &.transparent {
     background-color: transparent !important;
@@ -975,6 +1016,7 @@ article {
       }
     }
   }
+
   header {
     margin-bottom: 30px;
     position: relative;
@@ -1125,6 +1167,7 @@ aside {
   height: 350px;
   width: 100%;
   overflow: hidden;
+  position: relative;
 
   &:hover { 
     p.small { 
@@ -1509,35 +1552,6 @@ dl {
   margin-bottom: 10px;
 }
 
-.icon {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: none;
-  background-color: rgba(0,0,0,0.05);
-  overflow: hidden;
-  white-space: nowrap;
-  text-indent: 100px;
-  height: 40px;
-  width: 40px;
-
-  &.icon-shop       { background-image: url("../img/icons/inv/shop.svg"); }
-  &.icon-books      { background-image: url("../img/icons/inv/books.svg"); }
-  &.icon-restaurant { background-image: url("../img/icons/inv/restaurant.svg"); }
-  &.icon-cafe       { background-image: url("../img/icons/inv/cafe.svg"); }
-  &.icon-library    { background-image: url("../img/icons/inv/library.svg"); }
-  &.icon-archive    { background-image: url("../img/icons/inv/archive.svg"); }
-  &.icon-studio     { background-image: url("../img/icons/inv/studio.svg"); }
-  &.icon-online     { background-image: url("../img/icons/inv/online.svg"); }
-  &.icon-diaper     { background-image: url("../img/icons/inv/diaper.svg"); }
-  &.icon-birthdays  { background-image: url("../img/icons/inv/birthdays.svg"); }
-  &.icon-rent       { background-image: url("../img/icons/inv/rent.svg"); }
-  &.icon-other      { background-image: url("../img/icons/inv/other.svg"); }
-
-
-  &.icon-delete { background-image: url("../img/icons/cancel.svg"); }
-}
-
 #cms_toolbar {
   form {
     width: auto;
@@ -1564,6 +1578,7 @@ dl {
 
 // ================= DASHBOARD =================
 
+#dashboard_footer,
 #dashboard_header{
    .inner { padding-top: 10px !important;  padding-bottom: 0px !important; }
    h2 { 
@@ -1585,10 +1600,10 @@ dl {
     text-align: right;
    }
 }
+#dashboard_footer .inner { padding-bottom: 30px !important; }
 
 #item_container,
 #dashboard {
-  .form-steps { margin-bottom: 0px !important;}
   fieldset { margin-bottom: 60px; position: relative;}
   legend {font-size: 28px; padding-bottom: 10px; }
   
