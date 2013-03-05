@@ -556,11 +556,6 @@ class AddressForm(ModelForm):
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.social.management_form }}
             <div id="social">
-                <div class="row flex">
-                    <div><label>{% trans "Name" %}</label></div>
-                    <div class="max"><label>{% trans "Link" %}</label></div>
-                    <div class="min"><label></label></div>
-                </div>
                 {% for form in formsets.social.forms %}
                     <div class="social formset-form tabular-inline">
                         {% crispy form %}
