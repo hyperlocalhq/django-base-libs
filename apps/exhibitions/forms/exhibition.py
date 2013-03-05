@@ -437,17 +437,10 @@ class SpecialOpeningTimeForm(ModelForm):
                 ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Special date"),
+            _("Opening Hours"),
 
             layout.Row("yyyy", "mm", "dd"),
-            
-            css_class="fieldset-special-date",
-            ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Opening hours"),
-            "is_closed",
-            "is_regular",
+            layout.Row("is_closed", "is_regular"),
             layout.Row(
                 layout.Field("opening", placeholder="00:00", autocomplete="off"),
                 layout.Field("break_close", placeholder="00:00", autocomplete="off"),

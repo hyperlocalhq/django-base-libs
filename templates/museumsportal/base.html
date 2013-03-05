@@ -57,19 +57,18 @@
 
                 <ul id="user">
                     {% if request.user.is_authenticated %} 
-                    <li>{% blocktrans with first_name=request.user.first_name|default:request.user.username %}Hello, {{ first_name }}{% endblocktrans %}
-                        <a class="logout" href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
+                        <li>{% blocktrans with first_name=request.user.first_name|default:request.user.username %}Hello, {{ first_name }}{% endblocktrans %} <a class="logout" href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
+                        <li><a class="dashboard" href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Dashboard" %}</a></li>
                     {% else %}
-                    <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
-                    <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li>
+                        <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
+                        <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li>
                     {% endif %}
-
                 </ul>
                 
                 <ul id="meta" class="clearfix">
-                    <li><a class="favorites-link" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>Favorites</span></a></li>
-                    <li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
-                    <li><a class="twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li>
+                    <li><a class="favorites icon icon-favorites" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>Favorites</span></a></li>
+                    <li><a class="facebook icon icon-facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
+                    <li><a class="twitter icon icon-twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li>
                 </ul>
                 <ul id="lang">
                 {% block language_chooser %}
@@ -112,7 +111,7 @@
         <footer id="footer" class="clearfix">
             <div class="inner">
                 <ul class="navigation">
-                    {% show_menu_below_id "start_page" 0 1 1 1 %}
+                    {% show_menu_below_id "start_page" 0 0 1 1 %}
                     {% if LANGUAGE_CODE == "de" %}
                         <li><a href="/de/impressum/">Impressum</a></li>
                     {% else %}

@@ -47,7 +47,7 @@
   -moz-box-sizing: border-box !important;
   cursor: default;
   display: inline-block;
-  max-width: 465px;
+  width: 465px;
 
   * {
     -webkit-touch-callout: none;
@@ -56,6 +56,12 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  > * {
+    width: 100%;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
   }
 
   header {
@@ -78,9 +84,7 @@
     padding-right: 30px;
     padding-bottom: 30px;
     background-color: black;
-    display: table;
-
-    li { display: table-cell;}
+    display: block;
 
     .options {
       border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -152,6 +156,7 @@
     background-color: transparent;
     padding-left: 0px !important;
     padding-right: 0px;
+
     button {
       // font-size: 18px;
       // line-height: 10px;

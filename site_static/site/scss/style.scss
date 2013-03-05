@@ -139,10 +139,14 @@ p a{font-weight: 500; }
     text-align: center;
     vertical-align: middle;
 
-    p {
-      font-size: 28px;
-      font-weight: 400;
+    .inner {
       display: inline-block;
+      text-align: left;
+      width: 320px;
+      .alert {
+        font-size: 28px;
+        font-weight: 400;
+      }
     }
   }
 }
@@ -247,16 +251,6 @@ a:active  { outline: none;}
           background-position: center;
 
           span { display: none;}
-
-          &.favorites-link  { background-image: url("../img/icons/favorite.svg");}
-          &.facebook  { background-image: url("../img/icons/social-01.svg");}
-          &.twitter   { background-image: url("../img/icons/social-02.svg");}
-
-          &:hover {
-            &.favorites-link  { background-image: url("../img/icons/inv/favorite.svg");}
-            &.facebook  { background-image: url("../img/icons/inv/social-01.svg");}
-            &.twitter   { background-image: url("../img/icons/inv/social-02.svg");}
-          }
         }
       }
     }
@@ -703,6 +697,13 @@ a:active  { outline: none;}
   }
 
   &.compact {
+    width: 320px;
+    float: left;
+    padding: 0px !important;
+    margin: 0px !important;
+    margin-right: 20px !important;
+    &:nth-child(3n) {margin-right: 0px !important; }
+
     > li {
       border-top: 1px solid white;
       font-size: 15px;
@@ -786,8 +787,8 @@ a:active  { outline: none;}
 }
 
 // ================= ACTIONS =================
-
-.actions {
+ul.actions,
+nav.actions {
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.125s;
   -webkit-transition-timing: ease-in-out;
@@ -812,7 +813,7 @@ a:active  { outline: none;}
     background-size: cover;
     background-position: center;
     position: relative;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.025);
+    box-shadow: none !important;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     white-space: nowrap;
@@ -851,7 +852,6 @@ a:active  { outline: none;}
   background-position: center;
   background-repeat: no-repeat;
   background-image: none;
-  background-color: rgba(0,0,0,0.05);
   overflow: hidden;
   white-space: nowrap;
   text-indent: 100px;
@@ -878,7 +878,17 @@ a:active  { outline: none;}
   &.icon-birthdays  { background-image: url("../img/icons/inv/birthdays.svg"); }
   &.icon-rent       { background-image: url("../img/icons/inv/rent.svg"); }
   &.icon-other      { background-image: url("../img/icons/inv/other.svg"); }
-  &.icon-delete     { background-image: url("../img/icons/cancel.svg"); }
+  &.icon-delete     { background-image: url("../img/icons/inv/cancel.svg"); }
+
+  &.icon-favorites  { background-image: url("../img/icons/favorite.svg"); }
+  &.icon-facebook   { background-image: url("../img/icons/facebook.svg"); }
+  &.icon-twitter    { background-image: url("../img/icons/twitter.svg"); }
+
+  &:hover {
+    &.icon-favorites { background-image: url("../img/icons/inv/favorite.svg");}
+    &.icon-facebook  { background-image: url("../img/icons/inv/facebook.svg");}
+    &.icon-twitter   { background-image: url("../img/icons/inv/twitter.svg");}
+  }
 
   &.transparent {
     background-color: transparent !important;
@@ -1161,7 +1171,7 @@ aside {
 
 // ================= SLIDESHOW =================
 
-.inner > header { 
+#slideshow { 
   margin-top: -40px;
   margin-bottom: 30px;
   height: 350px;
@@ -1188,7 +1198,6 @@ aside {
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 100;
         background-color: rgba(0,0,0,0.05);
         box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
       }
@@ -1197,14 +1206,14 @@ aside {
         position: absolute;
         bottom: 0;
         left: 0;
-        padding: 30px;
+        padding: 40px;
         text-shadow: 0 0 20px rgba(0,0,0,0.125), 0 0 10px rgba(0,0,0,0.125);
 
         h2 { 
           font-weight: 600;
           text-transform: uppercase; 
-          font-size: 58px;
-          line-height: 50px;
+          font-size: 40px;
+          line-height: 40px;
           color: white;
           padding: 0px;
           letter-spacing: -3px;
@@ -1227,8 +1236,8 @@ aside {
         }
 
         h3 {
-          font-size: 36px;
-          line-height: 44px;
+          font-size: 30px;
+          line-height: 30px;
           color: white;
         }
       }
@@ -1599,6 +1608,7 @@ dl {
 }
 #dashboard_footer .inner { padding-bottom: 30px !important; }
 
+#favorites,
 #item_container,
 #dashboard {
   fieldset { margin-bottom: 60px; position: relative;}

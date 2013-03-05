@@ -43,15 +43,13 @@
     position: absolute;
     z-index: 10000;
     bottom: 0px;
-    width: 100%;
+    width: 490px;
     padding: 14px;
   }
   #gmap_wrapper  {
-    height: auto;
-    top: 25px;
-    bottom: 20px;
-    width: 100%;
-    position: absolute;
+    height: 550px;
+    width: 490px;
+    position: relative;
     background-color: rgba(0,0,0,0.05);
     #gmap  {
       height: 100%;

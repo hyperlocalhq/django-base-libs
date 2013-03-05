@@ -113,6 +113,12 @@ input::-webkit-slider-thumb {
   input[type=search] {
     box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1);
   }
+  .help-inline {
+    padding: 0px;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 10px;
+  }
 }
 
 input[type=text], 
@@ -206,7 +212,13 @@ form {
     background-color: black;
     background-color: rgba(0,0,0,0.5);
   }
+
   .control-group {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .row {
     margin: 0px;
     padding: 0px;
   }
@@ -239,6 +251,14 @@ form {
       color: black;
       margin: 0px;
       margin-top: 40px;
+    }
+
+    p { 
+      padding: 0px;
+      margin: 0px;
+      color: rgba(0,0,0,0.8);
+      position: relative;
+      margin-bottom: 20px;
     }
 
     legend { 
@@ -561,13 +581,17 @@ legend + .control-group,
     width: 40px;
     color: transparent;
     background-color: transparent !important;
-    opacity: 0.5;
+    opacity: 0.35;
     border-radius: 0px;
     text-indent: 100px;
-    background-image: url("../img/icons/clock.svg");
     background-position: center;
     background-repeat: no-repeat;
     z-index: 10000;
+    &.pick-date {background-image: url("../img/icons/calendar.svg"); }
+    &.pick-time {background-image: url("../img/icons/clock.svg"); }
+    &:hover { opacity: 0.5;
+      background-color: rgba(0,0,0,0.1) !important;
+    }
   }
 }
 

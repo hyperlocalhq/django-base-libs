@@ -7,8 +7,8 @@
  
 (function($){
     var template = '<div id="popup">'
-        + '<div class="inner">'
-            + '<div id="picker">'
+        + '<div class="inner clearfix">'
+            + '<div id="picker" class="clearfix">'
                 + '<header class="clearfix">'
                     + '<time>HH:MM</time>'
                 + '</header>'
