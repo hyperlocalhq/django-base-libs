@@ -143,7 +143,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     show_group_ticket = models.BooleanField(_("Group ticket"), blank=True)
     group_ticket = MultilingualTextField(_("Group ticket"), blank=True)
     show_yearly_ticket = models.BooleanField(_("Yearly ticket"), blank=True)
-    member_of_museumspass = models.BooleanField(_("Member of Museumspass Berlin"))
+    member_of_museumspass = models.BooleanField(_("Museumspass Berlin"))
 
     # accessibility
     accessibility = MultilingualTextField(_("Accessibility"), blank=True)
