@@ -18,6 +18,7 @@ Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
 MediaFile = models.get_model("museums", "MediaFile")
+SocialMediaChannel = models.get_model("museums", "SocialMediaChannel")
 
 class MuseumCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
@@ -68,6 +69,10 @@ class MediaFileInline(ExtendedStackedInline):
     sortable = True
     sortable_field_name = "sort_order"
 
+class SocialMediaChannelInline(admin.TabularInline):
+    model = SocialMediaChannel
+    extra = 0
+
 class MuseumAdmin(ExtendedModelAdmin):
     class Media:
         js = (
@@ -90,7 +95,7 @@ class MuseumAdmin(ExtendedModelAdmin):
         'show_yearly_ticket',
         )}),]
     fieldsets += [(_("Location"), {'fields': ('street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
-    fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', (_("Group bookings phone"), {'fields': ('group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number')}), (_("Service phone"), {'fields': ('service_phone_country', 'service_phone_area', 'service_phone_number')}), 'twitter', 'facebook')}),]
+    fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', (_("Group bookings phone"), {'fields': ('group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number')}), (_("Service phone"), {'fields': ('service_phone_country', 'service_phone_area', 'service_phone_number')}),)}),]
     fieldsets += [(_("Mediation offer"), {'fields': ('has_audioguide', (_("Audioguide languages"), {'fields': ('has_audioguide_de', 'has_audioguide_en', 'has_audioguide_fr', 'has_audioguide_it', 'has_audioguide_sp', 'has_audioguide_pl', 'has_audioguide_tr', 'audioguide_other_languages')}), 'has_audioguide_for_children', 'has_audioguide_for_learning_difficulties')}),]
     fieldsets += [(_("Accessibility"), {'fields': ['accessibility_options', get_admin_lang_section(_("Explanation"), ['accessibility',])]})]
     fieldsets += [(_("Services"), {'fields': [
@@ -106,7 +111,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "accessibility_options")
     
-    inlines = [SeasonInline, SpecialOpeningTimeInline, MediaFileInline]
+    inlines = [SeasonInline, SpecialOpeningTimeInline, SocialMediaChannelInline, MediaFileInline]
     
     def is_geoposition_set(self, obj):
         if obj.latitude:

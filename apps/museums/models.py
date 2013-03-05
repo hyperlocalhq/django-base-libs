@@ -130,8 +130,6 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     service_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     service_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     service_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
-    twitter = models.CharField(_("Twitter"), max_length=255, blank=True)
-    facebook = URLField(_("Facebook"), max_length=255, blank=True)
 
     open_on_mondays = models.BooleanField(_("Open on Mondays"))
     
@@ -374,3 +372,17 @@ class MediaFile(CreationModificationDateMixin):
     @staticmethod
     def token_to_pk(token):
         return int(token) - TOKENIZATION_SUMMAND
+        
+class SocialMediaChannel(models.Model):
+    museum = models.ForeignKey(Museum)
+    channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))
+    url = URLField(_("URL"), max_length=255)
+    
+    class Meta:
+        ordering = ['channel_type']
+        verbose_name = _("Social media channel")
+        verbose_name_plural = _("Social media channels")
+        
+    def __unicode__(self):
+        return self.channel_type
+

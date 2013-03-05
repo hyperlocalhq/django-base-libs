@@ -19,6 +19,7 @@ from base_libs.middleware import get_current_user
 Museum = models.get_model("museums", "Museum")
 Season = models.get_model("museums", "Season")
 SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
+SocialMediaChannel = models.get_model("museums", "SocialMediaChannel")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
@@ -467,7 +468,7 @@ class AddressForm(ModelForm):
             'phone_country', 'phone_area', 'phone_number', 
             'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number', 
             'service_phone_country', 'service_phone_area', 'service_phone_number', 
-            'fax_country', 'fax_area', 'fax_number', 'email', 'website', 'twitter', 'facebook',
+            'fax_country', 'fax_area', 'fax_number', 'email', 'website', 
             ]
     def __init__(self, *args, **kwargs):
         super(AddressForm, self).__init__(*args, **kwargs)
@@ -542,11 +543,14 @@ class AddressForm(ModelForm):
 
             css_class="fieldset-other-contact-info",
             ))
-        layout_blocks.append(layout.Fieldset(
-            _("Social media"),
-            layout.Row('twitter', 'facebook'),
-            css_class="fieldset-social-media",
-            ))
+        #layout_blocks.append(layout.Fieldset(
+        #    _("Social media"),
+        #    # TODO: add formset here
+        #    layout.HTML("""
+        #    XXX
+        #    """),
+        #    css_class="fieldset-social-media",
+        #    ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
@@ -562,7 +566,32 @@ class AddressForm(ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
             )        
+
+class SocialMediaChannelForm(ModelForm):
+    class Meta:
+        model = SocialMediaChannel
+    def __init__(self, *args, **kwargs):
+        super(SocialMediaChannelForm, self).__init__(*args, **kwargs)
+
+        self.fields['channel_type'].help_text = ""
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_blocks = []
+
+        layout_blocks.append(layout.Fieldset(
+            _("Social Media Channels"),
+            layout.Row("channel_type", "url"),
             
+            css_class="fieldset-special-date",
+            ))
+
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )
+
+SocialMediaChannelFormset = inlineformset_factory(Museum, SocialMediaChannel, form=SocialMediaChannelForm, formset=InlineFormSet, extra=0)
+
 class ServicesForm(ModelForm):
     class Meta:
         model = Museum
@@ -1283,6 +1312,9 @@ MUSEUM_FORM_STEPS = {
         'title': _("Address"),
         'template': "museums/forms/address_form.html",
         'form': AddressForm,
+        'formsets': {
+            'social': SocialMediaChannelFormset,
+        }
     },
     'services': {
         'title': _("Services"),
