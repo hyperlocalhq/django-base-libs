@@ -150,12 +150,12 @@ class BasicInfoForm(ModelForm):
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
-                        <div id="gmap_wrapper">
+                        <div class="event_map" id="gmap_wrapper">
                             <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                         </div>
                         <div class="form-actions">
-                            <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
-                            <!--<input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
+                            <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
                         </div>
                     </div>
                 """),
@@ -195,7 +195,7 @@ class BasicInfoForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -262,7 +262,7 @@ class PricesForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -288,7 +288,7 @@ class TimesForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -340,7 +340,7 @@ class GalleryForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('save_and_close', _('save')),
+                layout.Submit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:

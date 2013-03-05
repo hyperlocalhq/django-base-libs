@@ -51,7 +51,7 @@
         
     $(function() {
         $(
-            '<a class="add" id="add_social" href="#">{% trans "Add another social media channel" %}</a>'
+            '<a class="add btn btn-small btn-primary" id="add_social" href="#">{% trans "Add another social media channel" %}</a>'
         ).insertAfter('#social').click(function() {
             var $total_forms = $('#id_social-TOTAL_FORMS');
             var $new_form = $('#social_empty_form').clone(true).attr("id", null).show();
@@ -67,13 +67,13 @@
             $season.find('input:checkbox[id$=DELETE]').each(function() {
                 var $checkbox = $(this);
                 var $deleteLink = $(
-                    '<div class"min"><button class="delete-link icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
+                    '<div class"min"><button class="delete icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
                 );
                 $checkbox.parents('.formset-form').find(".row").append($deleteLink);
                 $checkbox.parent().hide();
             });
         });
-        $('.delete-link').live("click", function() {
+        $('.delete').live("click", function() {
             var $season = $(this).parents('.formset-form:first');
             var $checkbox = $(this).parent().find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");

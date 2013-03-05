@@ -54,11 +54,11 @@
                 });
                 $oGmapLocations = $('<ul id="gmap_locations">').appendTo($oDynMapContainer).hide();
                 oSelf.adjustGeoposition();
-                $("#id_street_address").blur(oSelf.recognizeLocation);
-                $("#id_street_address2").blur(oSelf.recognizeLocation);
-                $("#id_postal_code").blur(oSelf.recognizeLocation);
-                $("#id_city").blur(oSelf.recognizeLocation);
-                //$("#id_country").change(oSelf.recognizeLocation);
+                // $("#id_street_address").blur(oSelf.recognizeLocation);
+                // $("#id_street_address2").blur(oSelf.recognizeLocation);
+                // $("#id_postal_code").blur(oSelf.recognizeLocation);
+                // $("#id_city").blur(oSelf.recognizeLocation);
+                // $("#id_country").change(oSelf.recognizeLocation);
             }
         },
         recognizeLocation: function() {

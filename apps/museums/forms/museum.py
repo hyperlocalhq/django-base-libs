@@ -121,7 +121,7 @@ class OpeningForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -158,7 +158,7 @@ class SeasonForm(ModelForm):
                 'exceptions_%s' % lang_code,
                 ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
-
+        self.fields["is_appointment_based"].label = _("Open by appointment only")
         # remove labels from opening and closing times 
         for weekday in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]:
             self.fields['%s_open' % weekday].widget = forms.TimeInput(format='%H:%M')
@@ -183,7 +183,11 @@ class SeasonForm(ModelForm):
                 layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
                 layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off")
                 ),
-            "is_appointment_based",
+
+            layout.Div(
+                layout.HTML("""{% load i18n %} <label>{% trans "Particularities" %}</label> """),
+                'is_appointment_based', 
+                ),
 
             layout.HTML(
             """{% load i18n %}
@@ -449,7 +453,7 @@ class PricesForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('Save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -496,12 +500,12 @@ class AddressForm(ModelForm):
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
-                        <div id="gmap_wrapper">
+                        <div class="museum_map" id="gmap_wrapper">
                             <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                         </div>
                         <div class="form-actions">
-                            <input id="dyn_locate_geo" type="button" class="btn" value="{% trans "Relocate on map" %}" />&zwnj;
-                            <!--<input id="dyn_remove_geo" type="button" class="btn" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
+                            <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
                         </div>
                     </div>
                 """),
@@ -553,8 +557,8 @@ class AddressForm(ModelForm):
             {{ formsets.social.management_form }}
             <div id="social">
                 <div class="row flex">
-                    <div><label>{% trans "Social Media Type" %}</label></div>
-                    <div><label>{% trans "URL" %}</label></div>
+                    <div><label>{% trans "Name" %}</label></div>
+                    <div class="max"><label>{% trans "Link" %}</label></div>
                     <div class="min"><label></label></div>
                 </div>
                 {% for form in formsets.social.forms %}
@@ -570,12 +574,12 @@ class AddressForm(ModelForm):
                 {% endwith %}
             </div>
             """),
-            css_class="fieldset-social-media",
+            css_id="social_channels_fieldset",
             ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -603,7 +607,7 @@ class SocialMediaChannelForm(ModelForm):
         layout_blocks.append(
             layout.Row(
                 "channel_type",
-                "url",
+                layout.Div("url",css_class="max",),
                 css_class="flex",
                 )
             )
@@ -644,7 +648,7 @@ class ServicesForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -703,7 +707,7 @@ class AccessibilityForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -769,7 +773,7 @@ class MediationForm(ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('save')),
+                SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:
@@ -795,7 +799,7 @@ class GalleryForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('save_and_close', _('save')),
+                layout.Submit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
                 ))
         else:

@@ -88,6 +88,13 @@ button {
   &.btn-info    { background-color: $yellow !important; color: white !important;}
   &.btn-inverse { background-color: white !important; color: black !important;}
   
+  &.btn-small {
+    font-size: 16px;
+    line-height: 16px;
+    padding: 10px;
+  }
+
+
   &:active {
     background-color: black !important; color: white !important;
     box-shadow: none;
@@ -107,18 +114,44 @@ input::-webkit-slider-thumb {
 }
 
 .error {
+  input,
+  select,
+  textarea,
   input[type=text], 
   input[type=email], 
   input[type=password], 
   input[type=search] {
     box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1);
+    background-color: rgba(255,0,0,0.1) !important; 
+    color: rgb(255,0,0) !important;
+    &:focus {
+      box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1);
+    }
+
+    &::-webkit-input-placeholder { color: rgb(255,0,0) !important; }
+    &:-moz-placeholder { color: rgb(255,0,0) !important;}
+    &:-ms-input-placeholder { color: rgb(255,0,0) !important;}
   }
+
+  .help-block,
   .help-inline {
     padding: 0px;
     font-size: 14px;
     line-height: 20px;
-    margin-top: 10px;
+    margin-top: 0px;
+    display: block !important;
+    position: absolute;
+    top: 0px;
+    right: 0px;
   }
+
+  label,
+  .help-block,
+  .help-inline {
+    color: #b94a48;
+  }
+
+
 }
 
 input[type=text], 
@@ -217,6 +250,7 @@ form {
   .control-group {
     margin: 0px;
     padding: 0px;
+    position: relative;
   }
 
   .row {
@@ -229,6 +263,7 @@ form {
     padding-bottom: 30px;
     margin-bottom: 30px;
     display: block;
+    position: relative;
     
     &.multilingual { 
       width: 49%;
@@ -238,6 +273,8 @@ form {
       &.lang-en {}
     }
 
+    .row,
+    .row > div > div,
     > div {
       margin-bottom: 20px !important;
       &:last-child { margin-bottom: 0px !important; }
@@ -298,14 +335,14 @@ form {
         .row { label { display: block !important; }}
       }
 
-      label { display: none;}
+      // label { display: none;}
 
       .row {
         border-collapse: separate;
         border-right: 60px solid transparent !important;
 
         input { margin: 0px !important;}
-        > div { padding-bottom: 20px !important;}
+        // > div { padding-bottom: 20px !important;}
       }
 
       > .control-group { 
@@ -405,12 +442,12 @@ form {
     > div{ 
       min-width: 40px !important;
       width: 33% !important;
-      &.max { width: 100%;}
-      &.min { width: 0%;}
+      &.max { width: 100% !important;}
+      &.min { width: 0% !important;}
       button {
         position: absolute;
         right: 0px;
-        top: -1px;
+        bottom: 0px;
         background-color: rgba(0,0,0,0.1) !important;
       }
     }
@@ -422,7 +459,6 @@ form {
     width: 100% !important;
     vertical-align: top;
     position: relative;
-    overflow: hidden;
 
     .row {
        > div{ 
@@ -601,8 +637,11 @@ legend + .control-group,
 .input-prepend {
   margin-bottom: 0px;
 
-  .add-on:last-child,
-  .btn:last-child {
+  .pick-date {background-image: url("../img/icons/calendar.svg"); }
+  .pick-time {background-image: url("../img/icons/clock.svg"); }
+
+  .pick-date,
+  .pick-time {
     position: absolute;
     right: 0px;
     padding: 0px;
@@ -617,8 +656,6 @@ legend + .control-group,
     background-position: center;
     background-repeat: no-repeat;
     z-index: 10000;
-    &.pick-date {background-image: url("../img/icons/calendar.svg"); }
-    &.pick-time {background-image: url("../img/icons/clock.svg"); }
     &:hover { opacity: 0.5;
       background-color: rgba(0,0,0,0.1) !important;
     }
@@ -648,7 +685,8 @@ legend + .control-group,
           &:nth-child(1) { 
             label { 
               position: absolute;
-              bottom: 15px;
+              bottom: 0px;
+              margin-bottom: 0 !important;
               left: 0px;
               font-size: 14px;
               line-height: 40px;

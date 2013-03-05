@@ -5,7 +5,7 @@
 <form action="" method="post">
 {{ formsets.event_times.management_form }}
 
-<fieldset>
+<fieldset id="event_times_fieldset">
     <legend>{% trans "Date and Time" %}</legend>
     <div id="event_times">
         <div class="row flex">
@@ -79,7 +79,7 @@
         
     $(function() {
         $(
-            '<a class="add" id="add_event_time" href="#">{% trans "Add another event time" %}</a>'
+            '<a class="add btn btn-small btn-primary" id="add_event_time" href="#">{% trans "Add another event time" %}</a>'
         ).insertAfter('#event_times').click(function() {
             var $total_forms = $('#id_event_times-TOTAL_FORMS');
             var $new_form = $('#event_times_empty_form').clone(true).attr("id", null).show();
@@ -95,13 +95,13 @@
             $season.find('input:checkbox[id$=DELETE]').each(function() {
                 var $checkbox = $(this);
                 var $deleteLink = $(
-                    '<div class"min"><button class="delete-link icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
+                    '<div class"min"><button class="delete icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
                 );
                 $checkbox.parents('.formset-form').find(".row").append($deleteLink);
                 $checkbox.parent().hide();
             });
         });
-        $('.delete-link').live("click", function() {
+        $('.delete').live("click", function() {
             var $season = $(this).parents('.formset-form:first');
             var $checkbox = $(this).parent().find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");

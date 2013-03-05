@@ -41,19 +41,23 @@
   position: relative;
   .form-actions {
     position: absolute;
-    z-index: 10000;
-    bottom: 0px;
+    z-index: 1000;
+    bottom: 20px;
     width: 490px;
     padding: 14px;
   }
   #gmap_wrapper  {
-    height: 550px;
+
     width: 490px;
     position: relative;
     background-color: rgba(0,0,0,0.05);
-    #gmap  {
-      height: 100%;
-    }
+
+    &.museum_map     { height: 380px; }
+    &.exhibition_map { height: 550px; }
+    &.event_map      { height: 550px; }
+    &.workshop_map   { height: 550px; }
+
+    #gmap  { height: 100%; }
   }
 }
 
@@ -91,25 +95,49 @@
 
   #gmap_locations {
     position: absolute;
-    top: 6px;
-    background-color: rgba(255,254,255,0.88);
-    padding: 10px;
-    height: 278px;
-    font-size: 11px;
-    width: 418px;
+    top: 0px;
+    left: 0px;
+    bottom: 0;
+    right: 0;
+    height: auto;
+    width: auto;
     overflow-x: hidden;
-    overflow-y: scroll;
-    left: 6px;
-    z-index: 100;
+    overflow-y: auto;
+    z-index: 1500;
 
-    li a {
-      border-bottom: 1px solid #ececec;
-      padding-bottom: 5px;
-      padding-top: 5px;
-      padding-left: 10px;
-      margin-left: -5px;
-      &:hover {
-          background-color: white; 
+
+    &::-webkit-scrollbar-corner,
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(100,100,100);
+    }
+
+    li {
+      display: block;
+
+      a {
+        background-color: $blue;
+        color: white;
+        padding-left: 13px;
+        font-size: 14px;
+        line-height: 35px;
+        height: 35px;
+        display: block;
+        font-weight: 500;
+        border-bottom: 1px solid rgba(0,0,0,0.1); 
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        overflow: hidden;
+
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        &:hover { 
+          color: white;
+          background-color: black;
+        }
       }
     }
   }

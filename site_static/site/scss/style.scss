@@ -1608,6 +1608,9 @@ dl {
 }
 #dashboard_footer .inner { padding-bottom: 30px !important; }
 
+#workshop_times_fieldset,
+#event_times_fieldset,
+#social_channels_fieldset,
 #favorites,
 #item_container,
 #dashboard {
@@ -1619,16 +1622,17 @@ dl {
     right: 0px;
     top: 0px;
     height: 32px;
-    line-height: 32px;
+    line-height: 32px !important;
     background-color: rgba(0,0,0,0.075);
     background-color: $blue;
     margin-bottom: 4px; 
     display: block;
+    padding: 0px;
     padding-right: 30px;
     padding-left: 12px;
     background-image: url("../img/icons/inv/add-bold.svg");
     background-size: 32px;
-    background-position: right;
+    background-position: right !important;
     background-repeat: no-repeat;
     color: white;
     font-weight: 400;
