@@ -1,21 +1,73 @@
 {% load base_tags cms_tags i18n image_modifications slideshows infoblocks %}
 
+<header>{% slideshow "start_slideshow_de" %} </header>
+
+<div class="content clearfix">
+    <div class="inner clearfix">
+        <ul class="list compact clearfix">
+            {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
+            {% for exhibition in exhibitions_closing_soon %}
+                <li class="item">
+                    {% if exhibition.cover_image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h3>{{ exhibition.title }}</h3>
+                        <h4>{{ exhibition.museum.title }}</h4>
+                        <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="list compact clearfix">
+            {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
+            {% for exhibition in exhibitions_closing_soon %}
+                <li class="item">
+                    {% if exhibition.cover_image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h3>{{ exhibition.title }}</h3>
+                        <h4>{{ exhibition.museum.title }}</h4>
+                        <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="list compact clearfix">
+            {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
+            {% for exhibition in exhibitions_closing_soon %}
+                <li class="item">
+                    {% if exhibition.cover_image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h3>{{ exhibition.title }}</h3>
+                        <h4>{{ exhibition.museum.title }}</h4>
+                        <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>   
+
+
 
 <!-- <div id="twitterfeed">
     <h2 class="catHead">Twitterfeed</h2>
     <div class="sector-select hidable">
         <div id="twitterfeed">
             <h2 class="catHead">Twitterfeed</h2>
-	        <div class="sector-select hidable">
-				<ul id="tweets" data-twitter-username="museumsportal">
-    				<li><a href="https://twitter.com/museumsportal" target="_blank">Folgen Sie uns auf Twitter</a></li>
-				</ul>
-	        </div>
+            <div class="sector-select hidable">
+                <ul id="tweets" data-twitter-username="museumsportal">
+                    <li><a href="https://twitter.com/museumsportal" target="_blank">Folgen Sie uns auf Twitter</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div> -->
-
-{% slideshow "start_slideshow_de" %}<!-- 
+<!-- 
     <ul>
         <li class="title">
            <h2>Neu eröffnet</h2>
@@ -49,76 +101,3 @@
         </li>
         {% placeholder "start_page_content" %}
     </ul>  -->
-
-<div class="content clearfix">
-  <div class="inner">
-    <article class="clearfix">
-      <section class="clearfix ">
-            <div id="teaser">
-                <ul class="list compact clearfix">
-                    <li class="title">
-                        <h2>Neu eröffnet</h2>
-                    </li>
-                </ul>
-                <ul class="list compact clearfix">
-                    <li class="title">
-                        <h2>Aus der Redaktion</h2>
-                    </li>
-                </ul>
-                <ul class="list compact clearfix">
-                    <li class="title">
-                        <h2>Nur noch kurze Zeit</h2>
-                    </li>
-                </ul>
-            </div>
-            <div id="teaser">
-                <ul class="list compact clearfix">
-                    {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-                    {% for exhibition in exhibitions_closing_soon %}
-                        <li class="item">
-                            {% if exhibition.cover_image %}
-                                <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
-                            {% endif %}
-                            <a href="{{ exhibition.get_url_path }}">
-                                <h3>{{ exhibition.title }}</h3>
-                                <h4>{{ exhibition.museum.title }}</h4>
-                                <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <ul class="list compact clearfix">
-                    {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-                    {% for exhibition in exhibitions_closing_soon %}
-                        <li class="item">
-                            {% if exhibition.cover_image %}
-                                <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
-                            {% endif %}
-                            <a href="{{ exhibition.get_url_path }}">
-                                <h3>{{ exhibition.title }}</h3>
-                                <h4>{{ exhibition.museum.title }}</h4>
-                                <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <ul class="list compact clearfix">
-                    {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-                    {% for exhibition in exhibitions_closing_soon %}
-                        <li class="item">
-                            {% if exhibition.cover_image %}
-                                <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
-                            {% endif %}
-                            <a href="{{ exhibition.get_url_path }}">
-                                <h3>{{ exhibition.title }}</h3>
-                                <h4>{{ exhibition.museum.title }}</h4>
-                                <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-      </section>
-    </article>
-  </div>
-</div>   

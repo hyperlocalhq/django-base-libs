@@ -107,9 +107,9 @@
     
                 <nav class="actions bottom">
                     {% if_has_perm "museums.change_museum" museum %}
-                        <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop" onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';"></button>
+                        <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop " onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';"></button>
                     {% end_if_has_perm %}
-                    <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+                    <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen icon icon-fullscreen"></button>
                 </nav>
             {% endif %}
         </header>
@@ -866,8 +866,8 @@
                         {% endwith %}
                     </div>
                      <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite"></button>
-                        <button rel="tooltip" data-placement="top" data-original-title="Fullscreen" class="fullscreen"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite icon icon-favorite"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="Fullscreen" class="fullscreen icon icon-fullscreen"></button>
                     </nav>
                 </li>
             {% endfor %}
@@ -887,9 +887,9 @@
 
 <div id="gallery" class="info">
     <div id="slider" class="swipe">
-      <div>
+      <ul>
         {% for mf in museum.mediafile_set.all %}
-        <div style="display:{% if forloop.first %}block{% else %}none{% endif %}">
+        <li style="display:{% if forloop.first %}block{% else %}none{% endif %}">
             &nbsp;
             <div class="img" style="background-image: url({{ MEDIA_URL }}{{ mf.path.path }})"> </div>
             {% with mf.path|file_description as file_desc %}
@@ -905,9 +905,9 @@
                     {% endif %}
                 </div>
             {% endwith %}
-        </div>
+        </li>
         {% endfor %}
-      </div>
+      </ul>
     </div>
     
     <span class="prev" onclick="slider.prev();return false;"></span>
@@ -933,8 +933,8 @@
                     </a>
 
                     <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite"></button>
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link location"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite icon icon-favorite"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link icon icon-location"></button>
                     </nav>
                     
                      <a href="{{ museum.get_url_path }}">

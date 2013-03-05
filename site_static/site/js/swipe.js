@@ -79,9 +79,12 @@ Swipe.prototype = {
     // dynamic css
     this.element.style.width = Math.ceil(this.slides.length * this.width) + 'px';
     var index = this.slides.length;
+    var windowWidth = $(window).width(); //retrieve current window width
+    var windowHeight = $(window).height(); //retrieve current window height
     while (index--) {
       var el = this.slides[index];
-      el.style.width = this.width + 'px';
+      el.style.width = windowWidth + 'px';
+      el.style.height = windowHeight + 'px';
       el.style.display = 'block';
       el.style.verticalAlign = 'top';
     }
