@@ -155,8 +155,7 @@
                             
                             {% for social in museum.socialmediachannel_set.all %}
                                 <dl class="social-{{ social.channel_type|slugify }} inset">
-                                    <dt>{{ social.channel_type }}</dt>
-                                    <dd><a href="{{ social.url }}">{{ social.url }}</a></dd>
+                                    <dt><a href="{{ social.url }}">{{ social.channel_type }}</a></dt>
                                 </dl>
                             {% endfor %}
                             

@@ -28,6 +28,22 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+	<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
+	<script>
+        var csrftoken = $.cookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+	</script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
 </head>
