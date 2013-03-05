@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-05 14:49+0100\n"
+"POT-Creation-Date: 2013-03-05 15:31+0100\n"
 "PO-Revision-Date: 2013-03-01 14:36\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2573,6 +2573,14 @@ msgstr "Einen weiteren Tag mit Sonderöffnungszeiten eintragen"
 #, fuzzy
 msgid "Claiming confirmation"
 msgstr "Basisinformation"
+
+#: templates/museumsportal/site_specific/claiming_confirmation.html:9
+#, python-format
+msgid ""
+"Please fill in this form to create and account at Museumsportal Berlin and "
+"to confirm that you are the owner of <a href=\"%(museum_link)s\">"
+"%(museum_title)s</a>."
+msgstr "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten eingeben: <a href=\"%(museum_link)s\">%(museum_title)s</a>"
 
 #: templates/museumsportal/site_specific/claiming_invitation.html:4
 #: templates/museumsportal/site_specific/claiming_invitation_done.html:4
