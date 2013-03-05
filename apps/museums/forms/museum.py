@@ -26,6 +26,10 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import InlineFormSet
 
+# Translate Helpers
+_("Available Audioguides")
+_("Available Offers")
+
 class BasicInfoForm(ModelForm):
     class Meta:
         model = Museum
@@ -734,7 +738,6 @@ class MediationForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
-
         layout_blocks = []
         
         layout_blocks.append(layout.Fieldset(
