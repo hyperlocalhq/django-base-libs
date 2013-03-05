@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
+from django.http import Http404
 
 from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
