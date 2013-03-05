@@ -889,7 +889,7 @@ def load_data(instance=None):
             'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
             'service_phone_country', 'service_phone_area', 'service_phone_number',
             'fax_country', 'fax_area', 'fax_number',
-            'email', 'website', 'twitter', 'facebook',
+            'email', 'website',
             ]
         for f in fields:
             form_step_data['address'][f] = getattr(instance, f)
@@ -959,7 +959,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
                 'service_phone_country', 'service_phone_area', 'service_phone_number',
                 'fax_country', 'fax_area', 'fax_number',
-                'email', 'website', 'twitter', 'facebook',
+                'email', 'website', 
                 ]
             for f in fields:
                 setattr(instance, f, form_step_data['address'][f])
@@ -1161,7 +1161,7 @@ def save_data(form_steps, form_step_data, instance=None):
         'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
         'service_phone_country', 'service_phone_area', 'service_phone_number',
         'fax_country', 'fax_area', 'fax_number',
-        'email', 'website', 'twitter', 'facebook',
+        'email', 'website', 
         ]
     for f in fields:
         setattr(instance, f, form_step_data['address'][f])
@@ -1312,9 +1312,9 @@ MUSEUM_FORM_STEPS = {
         'title': _("Address"),
         'template': "museums/forms/address_form.html",
         'form': AddressForm,
-        'formsets': {
-            'social': SocialMediaChannelFormset,
-        }
+        #'formsets': {
+        #    'social': SocialMediaChannelFormset,
+        #}
     },
     'services': {
         'title': _("Services"),
