@@ -314,7 +314,7 @@ ul#lang {
 
 
 
-#object_list div.article div.marker-link a:hover {
+#object_list div.article div.location a:hover {
   opacity: 0.4;
 }
 
@@ -331,7 +331,7 @@ ul#lang {
   padding-top: 347px;
 }
 
-#object_list div.article div.marker-link {
+#object_list div.article div.location {
   
   background-image: url(../img/maps_icon_2.png);
   padding: 0;
@@ -350,7 +350,7 @@ ul#lang {
   margin-top: 2px;
   opacity: 0;
 }
-#object_list div.article:hover div.marker-link {
+#object_list div.article:hover div.location {
   opacity: 1;
 }
 
@@ -638,7 +638,7 @@ em {
   padding-left: 15px;
 }
 
-#object_list div.article div.marker-link:hover, 
+#object_list div.article div.location:hover, 
 #object_list div.article a.proceed:hover{
   background-color: #000;
   color: #fff;
@@ -1561,7 +1561,7 @@ ound-color: rgba(255,255,255,0.96);
 }
 
 #object_list div.article.short .context .more,
-#object_list div.article.short .context div.marker-link{
+#object_list div.article.short .context div.location{
   background-color: #00aa5a;
   background-repeat: no-repeat;
   background-position: center;
@@ -1580,11 +1580,11 @@ ound-color: rgba(255,255,255,0.96);
 
 
 #object_list div.article.short .context .more:hover,
-#object_list div.article.short .context div.marker-link:hover{
+#object_list div.article.short .context div.location:hover{
   background-color: #000;
 }
 
-#object_list div.article.short .context div.marker-link  {
+#object_list div.article.short .context div.location  {
   background-image: url(../img/maps_icon_2.png);
   padding: 0;
   width: 20px;
@@ -1593,9 +1593,9 @@ ound-color: rgba(255,255,255,0.96);
   margin-top: 0;
 }
 
-#object_list div.article.short div.marker-link  {
+#object_list div.article.short div.location  {
 overflow: hidden;}
-#object_list div.article.short div.marker-link a {
+#object_list div.article.short div.location a {
 opacity: 0;}
 
 
