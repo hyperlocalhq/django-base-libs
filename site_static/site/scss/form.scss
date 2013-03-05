@@ -96,8 +96,9 @@ button {
 
 
   &:active {
-    background-color: black !important; color: white !important;
-    box-shadow: none;
+    background-color: rgba(0,0,0,0.025) !important;
+    color: black !important;
+    opacity: 0.75;
   }
 }
 
