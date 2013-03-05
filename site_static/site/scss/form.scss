@@ -24,7 +24,7 @@ select {
 
   cursor: pointer;
 
-  background-image: url("../img/icons/meta.svg");
+  background-image: url("../img/icons/triangle_down.svg");
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;
@@ -154,10 +154,11 @@ input[type=search] {
 #id_description_de_tbl,
 #id_description_en_tbl { margin-bottom: 20px !important;}
 
+.select,
 .textarea,
 textarea,
 input {
-  margin-bottom: 20px !important;
+  margin-bottom: 0px !important;
   &::-webkit-input-placeholder { color: rgba(0,0,0,0.125); }
   &:-moz-placeholder { color: rgba(0,0,0,0.125);}
   &:-ms-input-placeholder { color: rgba(0,0,0,0.125);}
@@ -233,14 +234,15 @@ form {
       width: 49%;
       float: left;
 
-      &.lang-de { 
-        margin-right: 2%;
-      }
-
-      &.lang-en { 
-      }
+      &.lang-de {margin-right: 2%; }
+      &.lang-en {}
     }
-    
+
+    > div {
+      margin-bottom: 20px !important;
+      &:last-child { margin-bottom: 0px !important; }
+    }
+
     h2 { 
       border: none;
       display: block;
@@ -497,6 +499,32 @@ form {
   } 
 } 
 
+label.checkbox,
+label.radio { 
+  background-color: rgba(0,0,0,0.05);
+  position: relative;
+  padding: 0px !important;
+  padding-left: 30px !important;
+  line-height: 40px;
+  height: 40px !important;
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  min-height: auto;
+  &:hover {background-color: rgba(0,0,0,0.1); cursor: pointer; }
+
+  input[type="radio"], 
+  input[type="checkbox"] {
+    margin: 0px !important;
+    display: inline-block;
+    margin-right: 5px !important;
+    top: 50%;
+    left: 0px;
+    margin-left: 10px !important;
+    margin-top: -6px !important;
+    position: absolute;
+  }
+}
+
 .inline {
   padding-bottom: 20px;
   display: block;
@@ -514,12 +542,14 @@ form {
 
     label { 
       position: relative;
-      padding: 10px !important;
+      padding-right: 10px !important;
       background-color: rgba(0,0,0,0.05);
-      line-height: 10px;
-      height: 10px !important;
+      line-height: 40px;
+      height: 40px !important;
       display: inline-block !important;
       min-height: auto;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
 
       &:hover {background-color: rgba(0,0,0,0.1); cursor: pointer; }
 
@@ -533,7 +563,7 @@ form {
         top: 50%;
         left: 0px;
         margin-left: 10px !important;
-        margin-top: -5px !important;
+        margin-top: -6px !important;
         position: absolute;
       }
     }

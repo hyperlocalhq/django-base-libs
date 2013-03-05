@@ -8,7 +8,7 @@
             {% for media_file in museum.mediafile_set.all %}
                 <li class="item" data-token="{{ media_file.get_token }}">
                     <div class="inner"> 
-                        <a class="img" href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}">
+                        <a class="edit img" href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}">
                             <span class="spinner loading"></span>
                             
                             <img src="{{ MEDIA_URL }}{{ media_file.path.path }}" alt="" />
@@ -26,7 +26,7 @@
                     </div>
 
                     <nav class="actions">
-                        <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit edit_photo"></a>
+                        <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" rel="tooltip" data-placement="top" data-original-title="Edit" class="edit icon icon-edit"></a>
                     </nav>
                 </li>        
             {% endfor %}

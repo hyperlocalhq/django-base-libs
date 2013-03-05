@@ -427,26 +427,20 @@ class SpecialOpeningTimeForm(ModelForm):
         layout_blocks = []
 
         layout_blocks.append(layout.Fieldset(
-            _("Occasion"),
+            _("Closing Time / Holiday"),
             layout.Row(
                 css_class="div-accessibility-details",
                 *('day_label_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            
+            "is_closed", "is_regular","yyyy", "mm", "dd",
 
-                css_class="fieldset-additional-info",
-                ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Opening Hours"),
-
-            layout.Row("yyyy", "mm", "dd"),
-            layout.Row("is_closed", "is_regular"),
             layout.Row(
                 layout.Field("opening", placeholder="00:00", autocomplete="off"),
+                layout.Field("closing", placeholder="00:00", autocomplete="off"),
                 layout.Field("break_close", placeholder="00:00", autocomplete="off"),
                 layout.Field("break_open", placeholder="00:00", autocomplete="off"),
-                layout.Field("closing", placeholder="00:00", autocomplete="off"),
-                ),
+                ), 
             css_class="fieldset-opening-times",
             ))
 

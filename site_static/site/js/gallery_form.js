@@ -25,7 +25,7 @@
                         $(list).find('img').load(resize).error(resize);
                     }                    
                 })
-                $('#photos').disableSelection().find('.edit_photo').click(function() {
+                $('#photos').disableSelection().find('.edit').click(function() {
                     $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
                     $('#photos').parents('fieldset:first').hide();
                     $('.form-actions:last').hide();

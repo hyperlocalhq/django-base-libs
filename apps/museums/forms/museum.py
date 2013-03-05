@@ -409,8 +409,8 @@ class PricesForm(ModelForm):
         
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
-            _("Prices"),
-            layout.Div('free_entrance', css_class="inline"), 
+            _("Admission"),
+            layout.Div('free_entrance'), 
             'admission_price',
             layout.Row(
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
@@ -426,15 +426,14 @@ class PricesForm(ModelForm):
             ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Details"),
+            _("Offers"),
             layout.Div(
+                layout.HTML("""{% load i18n %} <label>{% trans "Available Offers" %}</label> """),
                 'member_of_museumspass', 
                 'show_family_ticket',
-                'show_group_ticket',
                 'show_yearly_ticket',
-                css_class="inline",
+                'show_group_ticket',
                 ),
-
             layout.Row(
                 css_class="div-group_ticket-details",
                 *('group_ticket_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
@@ -627,13 +626,14 @@ class ServicesForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Services"),
-            layout.Div('service_shop',
+            layout.Div(
+                layout.HTML("""{% load i18n %} <label>{% trans "Available Services" %}</label> """),
+                'service_shop',
                 'service_restaurant',
                 'service_cafe',
                 'service_library',
                 'service_archive',
                 'service_diaper_changing_table',
-                css_class="inline",
                 ),
             css_class="fieldset-services",
             ))
@@ -738,8 +738,14 @@ class MediationForm(ModelForm):
         layout_blocks = []
         
         layout_blocks.append(layout.Fieldset(
-            _("Basic Info"),
-            'has_audioguide',
+            _("Mediation"),
+
+            layout.Div(
+                layout.HTML("""{% load i18n %} <label>{% trans "Available Audioguides" %}</label> """),
+                'has_audioguide_for_children',
+                'has_audioguide_for_learning_difficulties',
+                'has_audioguide',
+                ),
             layout.Div(
                 layout.Div(
                     'has_audioguide_de',
@@ -754,11 +760,8 @@ class MediationForm(ModelForm):
                 'audioguide_other_languages',
                 css_id="div_audioguide_languages",
                 ),
-            'has_audioguide_for_children',
-            'has_audioguide_for_learning_difficulties',
-
-                css_class="fieldset-basic-info",
-                ))
+            css_class="fieldset-basic-info",
+            ))
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
