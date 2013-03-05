@@ -153,19 +153,12 @@
                                 </dl>
                             {% endif %}
                             
-                            {% if museum.facebook %}
-                                <dl class="facebook inset">
-                                    <dt>{% trans "Web" %}</dt>
-                                    <dd><a href="{{ museum.facebook }}">{{ museum.facebook }}</a></dd>
+                            {% for social in museum.socialmediachannel_set.all %}
+                                <dl class="social-{{ social.channel_type|slugify }} inset">
+                                    <dt>{{ social.channel_type }}</dt>
+                                    <dd><a href="{{ social.url }}">{{ social.url }}</a></dd>
                                 </dl>
-                            {% endif %}
-                            
-                            {% if museum.twitter %}
-                                <dl class="twitter inset">
-                                    <dt>{% trans "Web" %}</dt>
-                                    <dd><a href="{{ museum.twitter }}">{{ museum.twitter }}</a></dd>
-                                </dl>
-                            {% endif %}
+                            {% endfor %}
                             
                             {% if museum.contact_name %}
                                 <dl>
