@@ -3,16 +3,17 @@
 <ul id="slide">
     {% for slide in slides %}
         <li>
-            <a class="img" href="{{ slide.link }}" style="background-image: url({{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }})"></a>
-            <a class="overlay" href="{{ slide.link }}">
-                <h2>{{ slide.title }}</h2>
-                <h3>{{ slide.subtitle }}</h3>
+            <a class="img" href="{{ slide.link }}" style="background-image: url({{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }})">
+                <span class="overlay" href="{{ slide.link }}">
+                    <h2>{{ slide.title|striptags }}</h2>
+                    <h3>{{ slide.subtitle|striptags }}</h3>
+                </span>
             </a>
 
-            <ul class="actions">
-              <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite"></a></li>
-              <li><a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="location"></a></li>
-            </ul>
+            <nav class="actions">
+              <a href="#" rel="tooltip" data-placement="top" data-original-title="Add to Favorites" class="favorite icon icon-favorite"></a>
+              <a href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="location icon icon-location"></a>
+            </nav>
         </li>
     {% endfor %}
 </ul>
