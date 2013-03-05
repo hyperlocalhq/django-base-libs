@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-05 14:49+0100\n"
-"PO-Revision-Date: 2013-03-01 14:36\n"
+"PO-Revision-Date: 2013-03-05 15:33\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.6.5\n"
 
@@ -71,7 +71,7 @@ msgstr "Bildbanner"
 #: settings.py:364 apps/editorial/cms_plugins.py:83
 #: apps/editorial/models.py:69
 msgid "Intro"
-msgstr ""
+msgstr "Einleitung"
 
 #: settings.py:369
 msgid "Main Content"
@@ -79,11 +79,11 @@ msgstr "Hauptinhalt"
 
 #: settings.py:374 apps/editorial/models.py:56
 msgid "Footnotes"
-msgstr ""
+msgstr "Fußnoten"
 
 #: settings.py:379
 msgid "Series Items Featured"
-msgstr ""
+msgstr "Serienartikel Featured"
 
 #: settings.py:384
 #, fuzzy
@@ -117,37 +117,36 @@ msgid "Right Column"
 msgstr "Rechte Spalte"
 
 #: settings.py:419
-#, fuzzy
 msgid "Default"
-msgstr "Standard Template"
+msgstr "Standard"
 
 #: settings.py:420
 msgid "Homepage"
-msgstr ""
+msgstr "Startseite"
 
 #: settings.py:422
 msgid "Plan & Organize – Overview"
-msgstr ""
+msgstr "Planen & Organisieren - Übersicht"
 
 #: settings.py:423
 msgid "Plan & Organize - Detail"
-msgstr ""
+msgstr "Planen & Organisieren - Detail"
 
 #: settings.py:425
 msgid "Magazine – Overview"
-msgstr ""
+msgstr "Magazin - Übersicht"
 
 #: settings.py:426
 msgid "Magazine - Detail"
-msgstr ""
+msgstr "Magazin - Detail"
 
 #: settings.py:427
 msgid "Magazine – Series"
-msgstr ""
+msgstr "Magazin - Serie"
 
 #: settings.py:428
 msgid "Magazine – Featured Series"
-msgstr ""
+msgstr "Magazin - Featured Serie"
 
 #: apps/articles/admin.py:15
 msgid "Contents"
@@ -216,7 +215,7 @@ msgstr "Teaser"
 
 #: apps/editorial/cms_plugins.py:61 apps/editorial/models.py:55
 msgid "Footnote"
-msgstr ""
+msgstr "Fußnote"
 
 #: apps/editorial/models.py:13 apps/editorial/models.py:30
 #: apps/editorial/models.py:47 apps/editorial/models.py:59
@@ -297,7 +296,7 @@ msgstr "Beschreibung"
 
 #: apps/editorial/models.py:70
 msgid "Intros"
-msgstr ""
+msgstr "Einleitungen"
 
 #: apps/events/admin.py:54 apps/events/models.py:104
 #: apps/exhibitions/admin.py:116 apps/exhibitions/models.py:70
@@ -447,9 +446,8 @@ msgstr "Museum"
 
 #: apps/events/models.py:111 apps/exhibitions/models.py:131
 #: apps/workshops/models.py:96
-#, fuzzy
 msgid "Location name"
-msgstr "Standort"
+msgstr "Name des Standorts"
 
 #: apps/events/models.py:112 apps/exhibitions/models.py:132
 #: apps/museums/models.py:110 apps/workshops/models.py:97
@@ -509,13 +507,13 @@ msgstr "Längengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 
 #: apps/events/models.py:120 apps/events/forms/event.py:63
 #: apps/workshops/models.py:105 apps/workshops/forms/workshop.py:63
@@ -764,19 +762,19 @@ msgstr ""
 #: apps/events/forms/gallery.py:30 apps/exhibitions/forms/gallery.py:30
 #: apps/museums/forms/gallery.py:30 apps/workshops/forms/gallery.py:30
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: apps/events/forms/gallery.py:39 apps/exhibitions/forms/gallery.py:39
 #: apps/museums/forms/gallery.py:39 apps/workshops/forms/gallery.py:39
 #, python-format
 msgid "Title <span class=\"lang\">%s</span>"
-msgstr ""
+msgstr "Titel <span class=\"lang\">%s</span>"
 
 #: apps/events/forms/gallery.py:44 apps/exhibitions/forms/gallery.py:44
 #: apps/museums/forms/gallery.py:44 apps/workshops/forms/gallery.py:44
 #, python-format
 msgid "Description <span class=\"lang\">%s</span>"
-msgstr ""
+msgstr "Beschreibung <span class=\"lang\">%s</span>"
 
 #: apps/events/forms/gallery.py:83 apps/exhibitions/forms/gallery.py:83
 #: apps/museums/forms/gallery.py:83 apps/workshops/forms/gallery.py:83
@@ -946,7 +944,7 @@ msgstr "Spezielle Eignung für Menschen mit Handicap"
 
 #: apps/exhibitions/models.py:170
 msgid "Special for children / families / youth"
-msgstr ""
+msgstr "Speziell für Kinder / Familien / Jugendliche"
 
 #: apps/exhibitions/models.py:181 apps/exhibitions/models.py:333
 msgid "Exhibition"
@@ -1107,7 +1105,7 @@ msgstr "Weitere Informationen"
 
 #: apps/exhibitions/forms/exhibition.py:422 apps/museums/forms/museum.py:327
 msgid "Every year"
-msgstr ""
+msgstr "Jährlich"
 
 #: apps/exhibitions/forms/exhibition.py:430 apps/museums/forms/museum.py:335
 msgid "Occasion"
@@ -1290,7 +1288,7 @@ msgstr "Wickeltisch"
 
 #: apps/museums/models.py:159
 msgid "Audioguide"
-msgstr ""
+msgstr "Audioguide"
 
 #: apps/museums/models.py:162 apps/museums/models.py:201
 #: apps/twitterwall/models.py:83
@@ -1397,8 +1395,8 @@ msgstr "Login"
 
 #: apps/site_specific/forms.py:56
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 
 #: apps/site_specific/forms.py:58
@@ -1432,11 +1430,10 @@ msgid "Username for login"
 msgstr "Username für Login"
 
 #: apps/site_specific/forms.py:97 apps/site_specific/forms.py:163
-#, fuzzy
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
-"Pflichtfeld. Maximal 30 Zeichen. Bitte nur Buchstaben, Zahlen und folgende "
-"Zeichen @/./+/-/_"
+"Nur alphanumerische Zeichen (Buchstaben, Ziffern und @/./+/-/_) sind "
+"erlaubt. Maximal 30 Zeichen bitte."
 
 #: apps/site_specific/forms.py:98 apps/site_specific/forms.py:164
 #, fuzzy
@@ -1782,19 +1779,19 @@ msgstr "Führungen"
 
 #: apps/workshops/models.py:84
 msgid "Has bookable group offer"
-msgstr ""
+msgstr "Buchbare Gruppenangebote"
 
 #: apps/workshops/models.py:85
 msgid "Special for preschool children (up to 5 years)"
-msgstr ""
+msgstr "Speziell geeignet für Vorschulkinder (bis 5 Jahre)"
 
 #: apps/workshops/models.py:86
 msgid "Special for children of primary school age (6-12 years)"
-msgstr ""
+msgstr "Speziell geeignet für Grundschulkinder (6-12 Jahre)"
 
 #: apps/workshops/models.py:87
 msgid "Special for youth (aged 13 years)"
-msgstr ""
+msgstr "Speziell geeignet für Jugendliche (ab 13 Jahre)"
 
 #: apps/workshops/models.py:88
 #, fuzzy
@@ -1808,7 +1805,7 @@ msgstr "Ausstellung mit spezieller Eignung für Menschen mit Handicap XX"
 
 #: apps/workshops/models.py:90
 msgid "Special for people in wheelchairs"
-msgstr ""
+msgstr "Speziell geeignet für Rollstuhlfahrer"
 
 #: apps/workshops/models.py:91
 #, fuzzy
@@ -1817,7 +1814,7 @@ msgstr "Besonderes Datum"
 
 #: apps/workshops/models.py:92
 msgid "Special for blind people"
-msgstr ""
+msgstr "Speziell geeignet für Blinde"
 
 #: apps/workshops/models.py:93
 #, fuzzy
@@ -1973,7 +1970,7 @@ msgstr "Add another %(verbose_name)s"
 #: templates/museumsportal/403.html:19 templates/museumsportal/404.html:19
 #: templates/museumsportal/500.html:19
 msgid "Back"
-msgstr ""
+msgstr "Zurück"
 
 #: templates/museumsportal/base.html:60
 #: templates/museumsportal/accounts/dashboard.html:33
@@ -1986,13 +1983,13 @@ msgstr "Hallo, %(first_name)s!"
 #: templates/museumsportal/accounts/dashboard.html:34
 #: templates/museumsportal/accounts/dashboard.html:164
 msgid "Logout"
-msgstr ""
+msgstr "Abmelden"
 
 #: templates/museumsportal/base.html:64
 #: templates/museumsportal/accounts/register.html:4
 #: templates/museumsportal/accounts/register.html:9
 msgid "Signup"
-msgstr ""
+msgstr "Registrieren"
 
 #: templates/museumsportal/accounts/dashboard.html:5
 #: templates/museumsportal/accounts/dashboard.html:38
@@ -2002,7 +1999,7 @@ msgstr "Eingabemaske"
 #: templates/museumsportal/accounts/dashboard.html:35
 #: templates/museumsportal/accounts/dashboard.html:165
 msgid "Back to Dashboard"
-msgstr ""
+msgstr "Zurück zur Übersicht"
 
 #: templates/museumsportal/accounts/dashboard.html:51
 msgid "Add exhibition"
@@ -2075,15 +2072,15 @@ msgstr ""
 #: templates/museumsportal/accounts/password_reset_complete.html:10
 #, python-format
 msgid ""
-"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
-"\">log in</a> now."
+"Your password has been set. You may go ahead and <a "
+"href=\"%(login_url)s\">log in</a> now."
 msgstr ""
 
 #: templates/museumsportal/accounts/password_reset_confirm.html:4
 #: templates/museumsportal/accounts/password_reset_form.html:5
 #: templates/museumsportal/accounts/password_reset_form.html:10
 msgid "Password reset"
-msgstr ""
+msgstr "Passwort zurücksetzen"
 
 #: templates/museumsportal/accounts/password_reset_confirm.html:13
 msgid ""
@@ -2106,8 +2103,8 @@ msgstr ""
 #: templates/museumsportal/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
 msgstr ""
 
 #: templates/museumsportal/accounts/password_reset_email.html:5
@@ -2146,9 +2143,9 @@ msgstr "Sie haben es fast geschafft."
 
 #: templates/museumsportal/accounts/register_verify_required.html:10
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 
 #: templates/museumsportal/accounts/register_verify_required.html:11
@@ -2156,8 +2153,8 @@ msgid ""
 "Please also check your Spam folder to make sure that our message has not "
 "been filtered out."
 msgstr ""
-"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort "
-"gelandet."
+"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort"
+" gelandet."
 
 #: templates/museumsportal/cms/plugins/editorial_content.html:14
 #: templates/museumsportal/cms/plugins/newly_opened_exhibition.html:16
@@ -2417,7 +2414,7 @@ msgstr "Veranstaltungen"
 #: templates/museumsportal/exhibitions/feeds/feed_description.html:3
 #, python-format
 msgid " From %(start)s till %(end)s at %(museum)s"
-msgstr ""
+msgstr "Von %(start)s bis %(end)s, %(museum)s"
 
 #: templates/museumsportal/exhibitions/forms/base.html:21
 msgid "Add new exhibition"
@@ -2459,7 +2456,7 @@ msgstr "OK"
 #: templates/museumsportal/favorites/favorites.html:9
 #: templates/museumsportal/favorites/favorites.html:14
 msgid "Favorites"
-msgstr ""
+msgstr "Favoriten"
 
 #: templates/museumsportal/favorites/favorites.html:242
 #, fuzzy
@@ -2478,7 +2475,7 @@ msgstr ""
 
 #: templates/museumsportal/image_mods/recrop.html:168
 msgid "Crop and save"
-msgstr ""
+msgstr "Ausschnitt festlegen und sichern"
 
 #: templates/museumsportal/museums/museum_detail.html:137
 msgid "Tel"
@@ -2517,19 +2514,19 @@ msgstr "Shop"
 
 #: templates/museumsportal/museums/museum_detail.html:568
 msgid "There are audioguides in the following languages:"
-msgstr ""
+msgstr "Audioguides verfügbar in folgenden Sprachen:"
 
 #: templates/museumsportal/museums/museum_detail.html:576
 msgid "There is an audioguide for children."
-msgstr ""
+msgstr "Audioguide verfügbar speziell für Kinder."
 
 #: templates/museumsportal/museums/museum_detail.html:579
 msgid "There is an audioguide for people with learning difficulties."
-msgstr ""
+msgstr "Audioguide verfügbar speziell für Personen mit Lernschwäche."
 
 #: templates/museumsportal/museums/museum_detail.html:585
 msgid "Phone for group booking"
-msgstr ""
+msgstr "Telefon für Gruppenbuchungen"
 
 #: templates/museumsportal/museums/museum_detail.html:591
 #, fuzzy
@@ -2562,7 +2559,7 @@ msgstr "Neues Museum hinzufügen"
 
 #: templates/museumsportal/museums/forms/basic_info_form.html:92
 msgid "Tags"
-msgstr ""
+msgstr "Stichworte"
 
 #: templates/museumsportal/museums/forms/opening_form.html:30
 #, fuzzy
@@ -2616,7 +2613,6 @@ msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 #~ msgid "My Museums"
 #~ msgstr "Meine Institution "
 
-#, fuzzy
 #~ msgid "My Exhibitions"
 #~ msgstr "Meine Ausstellungen"
 
@@ -2626,7 +2622,6 @@ msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 #~ msgid "My Workshops"
 #~ msgstr "Meine Führungen"
 
-#, fuzzy
 #~ msgid "Edit %(event_title)s"
 #~ msgstr "%(museum_title)s bearbeiten"
 
