@@ -543,14 +543,32 @@ class AddressForm(ModelForm):
 
             css_class="fieldset-other-contact-info",
             ))
-        #layout_blocks.append(layout.Fieldset(
-        #    _("Social media"),
-        #    # TODO: add formset here
-        #    layout.HTML("""
-        #    XXX
-        #    """),
-        #    css_class="fieldset-social-media",
-        #    ))
+        layout_blocks.append(layout.Fieldset(
+            _("Social media"),
+            # TODO: add formset here
+            layout.HTML("""{% load crispy_forms_tags i18n %}
+            {{ formsets.social.management_form }}
+            <div id="social">
+                <div class="row flex">
+                    <div><label>{% trans "Social Media Type" %}</label></div>
+                    <div><label>{% trans "URL" %}</label></div>
+                    <div class="min"><label></label></div>
+                </div>
+                {% for form in formsets.social.forms %}
+                    <div class="social formset-form tabular-inline">
+                        {% crispy form %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- used by javascript -->
+            <div id="social_empty_form" class="event_time formset-form tabular-inline" style="display: none">
+                {% with formsets.social.empty_form as form %}
+                    {% crispy form %}
+                {% endwith %}
+            </div>
+            """),
+            css_class="fieldset-social-media",
+            ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
@@ -579,12 +597,13 @@ class SocialMediaChannelForm(ModelForm):
         self.helper.form_tag = False
         layout_blocks = []
 
-        layout_blocks.append(layout.Fieldset(
-            _("Social Media Channels"),
-            layout.Row("channel_type", "url"),
-            
-            css_class="fieldset-special-date",
-            ))
+        layout_blocks.append(
+            layout.Row(
+                "channel_type",
+                "url",
+                css_class="flex",
+                )
+            )
 
         self.helper.layout = layout.Layout(
             *layout_blocks
@@ -790,7 +809,7 @@ def load_data(instance=None):
             'basic': {'_filled': True},
             'opening': {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}},
             'prices': {'_filled': True},
-            'address': {'_filled': True},
+            'address': {'_filled': True, 'sets': {'social': []}},
             'services': {'_filled': True},
             'accessibility': {'_filled': True},
             'mediation': {'_filled': True},
@@ -893,6 +912,11 @@ def load_data(instance=None):
             ]
         for f in fields:
             form_step_data['address'][f] = getattr(instance, f)
+        for social_media_channel in instance.socialmediachannel_set.all():
+            social_media_channel_dict = {}
+            social_media_channel_dict['channel_type'] = social_media_channel.channel_type
+            social_media_channel_dict['url'] = social_media_channel.url
+            form_step_data['address']['sets']['social'].append(social_media_channel_dict)
         
         form_step_data['services']['service_shop'] = instance.service_shop
         form_step_data['services']['service_restaurant'] = instance.service_restaurant
@@ -964,6 +988,12 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             for f in fields:
                 setattr(instance, f, form_step_data['address'][f])
             instance.save()
+            instance.socialmediachannel_set.all().delete()
+            for social_dict in form_step_data['address']['sets']['social']:
+                social = SocialMediaChannel(museum=instance)
+                social.channel_type = social_dict['channel_type']
+                social.url = social_dict['url']
+                social.save()
             
     if current_step == "opening":
         if "_pk" in form_step_data:
@@ -1281,6 +1311,13 @@ def save_data(form_steps, form_step_data, instance=None):
         special_opening.closing = special_opening_dict['closing']
         special_opening.save()
 
+    instance.socialmediachannel_set.all().delete()
+    for social_dict in form_step_data['address']['sets']['social']:
+        social = SocialMediaChannel(museum=instance)
+        social.channel_type = social_dict['channel_type']
+        social.url = social_dict['url']
+        social.save()
+
     form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
 
     return form_step_data
@@ -1312,9 +1349,9 @@ MUSEUM_FORM_STEPS = {
         'title': _("Address"),
         'template': "museums/forms/address_form.html",
         'form': AddressForm,
-        #'formsets': {
-        #    'social': SocialMediaChannelFormset,
-        #}
+        'formsets': {
+            'social': SocialMediaChannelFormset,
+        }
     },
     'services': {
         'title': _("Services"),

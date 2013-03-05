@@ -22,7 +22,7 @@ class EventCategoryAdmin(TreeEditor, ExtendedModelAdmin):
     list_display = ['actions_column', 'indented_short_title', ]
     
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug', 'category')}),]
+    fieldsets += [(None, {'fields': ('slug', 'parent')}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
@@ -54,7 +54,7 @@ class EventAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'languages', 'other_languages', 'suitable_for_children')}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude', 'exhibition')}),]
     fieldsets += [(_("Organizer"), {'fields': ('organizing_museum', 'organizer_title', 'organizer_url_link')}),]
-    fieldsets += [(_("Prices"), {'fields': ('admission_price', 'reduced_price', get_admin_lang_section(_("Price info"), ['admission_price_info', 'booking_info']))}),]
+    fieldsets += [(_("Prices"), {'fields': ('admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
