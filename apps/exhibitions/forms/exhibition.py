@@ -252,6 +252,12 @@ class SeasonForm(ModelForm):
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
+                'exceptions_%s' % lang_code,
+                ]:
+                self.fields[f].label = _("Additional Information")
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
                 'title_%s' % lang_code,
                 'last_entry_%s' % lang_code,
                 'exceptions_%s' % lang_code,
