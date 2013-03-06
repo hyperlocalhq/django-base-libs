@@ -114,7 +114,13 @@ input::-webkit-slider-thumb {
   -moz-apperance:none;
 }
 
+
+.control-group.error label {
+  color: $red !important;
+}
+
 .error {
+  color: $red;
   input,
   select,
   textarea,
@@ -122,10 +128,9 @@ input::-webkit-slider-thumb {
   input[type=email], 
   input[type=password], 
   input[type=search] {
-    box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1);
+    box-shadow: inset 0 0 0 0px rgba(255,0,0,0.1);
     background-color: rgba(255,0,0,0.1) !important; 
-    color: rgb(255,0,0) !important;
-
+    color: $red !important;
 
     &:focus {
       box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1);
@@ -136,8 +141,12 @@ input::-webkit-slider-thumb {
     &:-ms-input-placeholder { color: rgb(255,0,0) !important;}
   }
 
-  .help-block {margin-top: 10px; }
+  .control-group label {
+    background-color: rgba(255,0,0,0.1) !important; 
+    color: $red !important;
+  }
 
+  .help-block,
   .help-inline {
     padding: 0px;
     font-size: 14px;
@@ -148,6 +157,7 @@ input::-webkit-slider-thumb {
     position: absolute;
     top: 0px;
     right: 0px;
+    color: $red !important;
   }
 
   label,
@@ -255,7 +265,7 @@ form {
   .control-group {
     margin: 0px;
     padding: 0px;
-    position: relative;
+    position: relative !important;
   }
 
   .row {
@@ -327,10 +337,6 @@ form {
       color: black;
       margin: 0px;
       margin-left: -1px;
-
-      &+.control-group {
-        margin-top: 0px;
-      }
     }
 
     label { 
@@ -643,11 +649,6 @@ label.radio {
   }
 }
 
-
-legend + .control-group,
-.form-horizontal .control-group {
-  margin-top: 0px;
-}
 
 .input-append,
 .input-prepend {
