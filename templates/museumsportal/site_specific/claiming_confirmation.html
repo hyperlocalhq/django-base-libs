@@ -13,14 +13,18 @@
         </div>
     {% else %}
         <div id="claiming_signup" class="inner">
-            <p>{% blocktrans with museum_link=museum.get_url_path museum_title=museum.title %}Please fill in this form to create and account at Museumsportal Berlin and to confirm that you are the owner of <a href="{{ museum_link }}">{{ museum_title }}</a>.{% endblocktrans %}</p>
+            <header>
+                <p>{% blocktrans with museum_link=museum.get_url_path museum_title=museum.title %}Please fill in this form to create and account at Museumsportal Berlin and to confirm that you are the owner of <a href="{{ museum_link }}">{{ museum_title }}</a>.{% endblocktrans %}</p>
+            </header>
             {% crispy register_form %}
             <footer>
                 <p>{% trans "Already have an account?" %} <a href="#login" id="login_link">{% trans "Login" %}</a></p>
             </footer>
         </div>
         <div id="claiming_login" class="inner" style="display: none">
-            <p>{% blocktrans with museum_link=museum.get_url_path museum_title=museum.title %}Please login to confirm that you are the owner of <a href="{{ museum_link }}">{{ museum_title }}</a>.{% endblocktrans %}</p>
+            <header>
+                <p>{% blocktrans with museum_link=museum.get_url_path museum_title=museum.title %}Please login to confirm that you are the owner of <a href="{{ museum_link }}">{{ museum_title }}</a>.{% endblocktrans %}</p>
+            </header>
             {% crispy login_form %}
             <footer>
                 <p>{% trans "Don't have an account?" %} <a href="#signup" id="signup_link">{% trans "Signup" %}</a></p>
