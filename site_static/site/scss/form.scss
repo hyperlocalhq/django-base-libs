@@ -128,17 +128,16 @@ input::-webkit-slider-thumb {
   input[type=email], 
   input[type=password], 
   input[type=search] {
-    box-shadow: inset 0 0 0 0px rgba(255,0,0,0.1);
+    box-shadow: inset 0 0 0 0px rgba(255,0,0,0.1) !important;
     background-color: rgba(255,0,0,0.1) !important; 
     color: $red !important;
+    
+    &:hover { background-color: rgba(255,0,0,0.15) !important; }
+    &:focus { box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1) !important; }
 
-    &:focus {
-      box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1);
-    }
-
-    &::-webkit-input-placeholder { color: rgb(255,0,0) !important; }
-    &:-moz-placeholder { color: rgb(255,0,0) !important;}
-    &:-ms-input-placeholder { color: rgb(255,0,0) !important;}
+    &::-webkit-input-placeholder { color: $red !important; }
+    &:-moz-placeholder { color: $red !important;}
+    &:-ms-input-placeholder { color: $red !important;}
   }
 
   .control-group label {
@@ -465,8 +464,10 @@ form {
     table-layout: auto !important;
 
     &.merge {
-      .inline { white-space: nowrap; }
-      > div{border-right: 0px solid white; } 
+      .inline { white-space: nowrap;
+        > div:last-child{ margin-right: 0px; } 
+      }
+      > div{ border-right: 4px solid white; } 
     }
     > div{ 
       min-width: 40px !important;
@@ -735,11 +736,9 @@ label.radio {
 div.tagsinput { 
   background: #FFF; 
   width:100%; 
-  overflow-y: auto;
   font-size: 0px;
   line-height: 0px;
   color: rgba(0,0,0,0.8);
-  margin-bottom: 20px !important;
 
   span.tag { 
     display: block;
@@ -762,11 +761,19 @@ div.tagsinput {
       display: inline-block;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
+
     span {
       padding-left: 10px;
       padding-right: 10px;
     }
+    
     a {
       margin-left: -15px;
       overflow: hidden;
@@ -777,6 +784,7 @@ div.tagsinput {
       background-position: center;
       background-repeat: no-repeat;
       opacity: 0.3;
+
       &:hover { opacity: 1}
     }
 
@@ -792,10 +800,13 @@ div.tagsinput {
     padding-right: 10px;
     margin: 0px !important;
     width: 100px;
+    width: 100%;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
     &:hover { background-color: rgba(0,0,0,0.075); }
   }
   
-  div { display:block; float: left; } 
+  // div { display:block; float: left; } 
 }
 
 .tags_clear { clear: both; width: 100%; height: 0px; }

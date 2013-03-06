@@ -8,12 +8,12 @@
 <fieldset id="event_times_fieldset">
     <legend>{% trans "Date and Time" %}</legend>
     <div id="event_times">
-        <div class="row flex">
+        <!-- <div class="row flex">
             <div><label>{% trans "Date" %}</label></div>
             <div><label>{% trans "Start" %}</label></div>
             <div><label>{% trans "End" %}</label></div>
             <div class="min"><label></label></div>
-        </div>
+        </div> -->
         {% for form in formsets.event_times.forms %}
             <div class="event_time formset-form tabular-inline">
                 {% crispy form %}
@@ -79,7 +79,7 @@
         
     $(function() {
         $(
-            '<a class="add btn btn-small btn-primary" id="add_event_time" href="#">{% trans "Add another event time" %}</a>'
+            '<a class="add btn btn-small btn-primary" id="add_event_time" href="#">{% trans "Add event time" %}</a>'
         ).insertAfter('#event_times').click(function() {
             var $total_forms = $('#id_event_times-TOTAL_FORMS');
             var $new_form = $('#event_times_empty_form').clone(true).attr("id", null).show();
