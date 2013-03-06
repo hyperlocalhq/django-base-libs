@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-06 01:27+0100\n"
-"PO-Revision-Date: 2013-03-05 22:59\n"
+"PO-Revision-Date: 2013-03-06 16:09\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.6.5\n"
 
@@ -500,13 +500,13 @@ msgstr "Längengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 
 #: apps/events/models.py:120 apps/events/forms/event.py:63
 #: apps/workshops/models.py:105 apps/workshops/forms/workshop.py:63
@@ -1096,9 +1096,8 @@ msgid "Every year"
 msgstr "Jährlich"
 
 #: apps/exhibitions/forms/exhibition.py:447
-#, fuzzy
 msgid "Closing Time / Holiday"
-msgstr "Schließzeiten"
+msgstr "Schließ- bzw. Feiertag"
 
 #: apps/exhibitions/forms/exhibition.py:556 apps/museums/forms/museum.py:429
 msgid "Reduced Prices"
@@ -1235,7 +1234,6 @@ msgid "Open on Mondays"
 msgstr "Montags geöffnet"
 
 #: apps/museums/models.py:146
-#, fuzzy
 msgid "Museumspass Berlin"
 msgstr "Partner beim Museumspass Berlin "
 
@@ -1337,16 +1335,14 @@ msgid "Social media channels"
 msgstr "Social-Media Dienste"
 
 #: apps/museums/forms/museum.py:30
-#, fuzzy
 msgid "Available Audioguides"
-msgstr "Audioguide"
+msgstr "Verfügbare Audioguides"
 
 #: apps/museums/forms/museum.py:31
 msgid "Available Offers"
 msgstr ""
 
 #: apps/museums/forms/museum.py:161
-#, fuzzy
 msgid "Open by appointment only"
 msgstr "Besuchszeit nach Absprache"
 
@@ -1370,9 +1366,8 @@ msgid "Contact"
 msgstr "Kontaktdaten"
 
 #: apps/museums/forms/museum.py:554
-#, fuzzy
 msgid "Social media"
-msgstr "Social-Media Dienst"
+msgstr "Social-Media Kanal"
 
 #: apps/museums/forms/museum.py:743 apps/museums/forms/museum.py:1372
 msgid "Mediation"
@@ -1393,8 +1388,8 @@ msgstr "Login"
 
 #: apps/site_specific/forms.py:56
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 "Bitte geben Sie Ihre Email oder Benutzernamen und Passwort ein. Achten Sie "
 "auf eine korrekte Groß-/Kleinschreibung"
@@ -1979,7 +1974,6 @@ msgid "Logout"
 msgstr "Abmelden"
 
 #: templates/museumsportal/base.html:77
-#, fuzzy
 msgid "Dashboard"
 msgstr "Zurück zur Übersicht"
 
@@ -2001,7 +1995,7 @@ msgstr "Zurück zur Übersicht"
 
 #: templates/museumsportal/accounts/dashboard.html:36
 msgid "Back to the Site"
-msgstr ""
+msgstr "Startseite Museumsportal"
 
 #: templates/museumsportal/accounts/dashboard.html:52
 msgid "Add exhibition"
@@ -2073,11 +2067,11 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt"
 #: templates/museumsportal/accounts/password_reset_complete.html:8
 #, python-format
 msgid ""
-"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
-"\">log in</a> now."
+"Your password has been set. You may go ahead and <a "
+"href=\"%(login_url)s\">log in</a> now."
 msgstr ""
-"Ihr Passwort wurde gespeichert. Sie können sich nun unter <a href="
-"\"%(login_url)s\">einloggen</a>."
+"Ihr Passwort wurde gespeichert. Sie können sich nun unter <a "
+"href=\"%(login_url)s\">einloggen</a>."
 
 #: templates/museumsportal/accounts/password_reset_confirm.html:4
 #: templates/museumsportal/accounts/password_reset_form.html:5
@@ -2109,8 +2103,8 @@ msgstr ""
 #: templates/museumsportal/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
 msgstr ""
 "Sie erhalten diese Email, da Sie das Zurücksetzen Ihres Passwortes für Ihr "
 "Nutzerkonto bei %(site_name)s beantragt haben."
@@ -2150,9 +2144,9 @@ msgstr "Sie haben es fast geschafft."
 
 #: templates/museumsportal/accounts/register_verify_required.html:8
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 "Um die Registrierung abzuschließen, müssen wir überprüfen, dass Sie eine "
 "gültige E-Mail-Adresse eingegeben haben. Sie erhalten dazu in Kürze eine "
@@ -2163,8 +2157,8 @@ msgid ""
 "Please also check your Spam folder to make sure that our message has not "
 "been filtered out."
 msgstr ""
-"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort "
-"gelandet."
+"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort"
+" gelandet."
 
 #: templates/museumsportal/cms/plugins/editorial_content.html:14
 #: templates/museumsportal/cms/plugins/newly_opened_exhibition.html:16
@@ -2433,15 +2427,13 @@ msgstr "Öffnungszeiten"
 
 #: templates/museumsportal/exhibitions/forms/opening_form.html:29
 #: templates/museumsportal/museums/forms/opening_form.html:30
-#, fuzzy
 msgid "Add Closing time / Holiday"
-msgstr "Einen weiteren Tag mit Sonderöffnungszeiten eintragen"
+msgstr "Einen weiteren Schließ- bzw. Feiertag hinzufügen"
 
 #: templates/museumsportal/exhibitions/forms/opening_form.html:30
 #: templates/museumsportal/museums/forms/opening_form.html:29
-#, fuzzy
 msgid "Closing times / Holidays"
-msgstr "Schließzeiten"
+msgstr "Schließ- bzw. Feiertage"
 
 #: templates/museumsportal/exhibitions/forms/opening_form.html:74
 #: templates/museumsportal/museums/forms/opening_form.html:74
@@ -2570,8 +2562,8 @@ msgstr "Basisinformation"
 #, python-format
 msgid ""
 "Please fill in this form to create and account at Museumsportal Berlin and "
-"to confirm that you are the owner of <a href=\"%(museum_link)s\">"
-"%(museum_title)s</a>."
+"to confirm that you are the owner of <a "
+"href=\"%(museum_link)s\">%(museum_title)s</a>."
 msgstr ""
 "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
 "Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
@@ -2599,7 +2591,6 @@ msgid "Add new workshop"
 msgstr "Neue Führung hinzufügen"
 
 #: templates/museumsportal/workshops/forms/times_form.html:82
-#, fuzzy
 msgid "Add another workshop time"
 msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 
@@ -2609,7 +2600,6 @@ msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 #~ msgid "Social Media Channels"
 #~ msgstr "Social-Media Dienste"
 
-#, fuzzy
 #~ msgid "Add closing times"
 #~ msgstr "Einen weiteren Tag mit Sonderöffnungszeiten eintragen"
 
