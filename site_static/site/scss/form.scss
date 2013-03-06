@@ -247,6 +247,13 @@ textarea {
 form { 
   width: 100%;
 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
   & *::-webkit-scrollbar-corner,
   & *::-webkit-scrollbar {
     width: 10px;
@@ -752,6 +759,9 @@ div.tagsinput {
     white-space: nowrap;
     font-size: 14px;
     line-height: 0px;
+    position: relative !important;
+
+    &:hover { background-color: rgba(0,0,0,0.075); }
 
     span,
     a {
@@ -771,21 +781,24 @@ div.tagsinput {
 
     span {
       padding-left: 10px;
-      padding-right: 10px;
+      padding-right: 28px;
     }
-    
+
     a {
-      margin-left: -15px;
       overflow: hidden;
       text-indent: 1000px;
-      width: 32px;
       background-image: url("../img/icons/cancel.svg");
       background-size: 32px;
-      background-position: center;
+      background-position: right;
       background-repeat: no-repeat;
       opacity: 0.3;
-
-      &:hover { opacity: 1}
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      &:hover { opacity: 1; }
     }
 
   }
@@ -801,8 +814,8 @@ div.tagsinput {
     margin: 0px !important;
     width: 100px;
     width: 100%;
-      box-sizing: border-box !important;
-      -moz-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
     &:hover { background-color: rgba(0,0,0,0.075); }
   }
   
