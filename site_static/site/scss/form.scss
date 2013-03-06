@@ -136,7 +136,8 @@ input::-webkit-slider-thumb {
     &:-ms-input-placeholder { color: rgb(255,0,0) !important;}
   }
 
-  .help-block,
+  .help-block {margin-top: 10px; }
+
   .help-inline {
     padding: 0px;
     font-size: 14px;

@@ -70,27 +70,34 @@
                 <a class="logo" href="/">
                     <span class="img">Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
                 </a>
-
-                <ul id="user">
-                    {% if request.user.is_authenticated %} 
-                        <li>{% blocktrans with first_name=request.user.first_name|default:request.user.username %}Hello, {{ first_name }}{% endblocktrans %} <a class="logout" href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
-                        <li><a class="dashboard" href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Dashboard" %}</a></li>
-                    {% else %}
-                        <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
-                        <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li>
-                    {% endif %}
-                </ul>
-                
                 <ul id="meta" class="clearfix">
-                    <li><a class="favorites icon icon-favorites" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>Favorites</span></a></li>
-                    <li><a class="facebook icon icon-facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
-                    <li><a class="twitter icon icon-twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li>
-                </ul>
-                <ul id="lang">
-                {% block language_chooser %}
-                    {% language_chooser %}
-                {% endblock %}
-                </ul>
+                    <li id="user" class="clearfix">
+                        <ul>
+                            {% if request.user.is_authenticated %} 
+                                <li><p>{% blocktrans with first_name=request.user.first_name|default:request.user.username %}Hello, {{ first_name }}{% endblocktrans %}</p></li>
+                                <li><a class="logout" href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
+                            {% else %}
+                                <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
+                                <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    <li id="tools" class="clearfix">
+                        <ul>
+                            {% if request.user.is_authenticated %} 
+                            <li><a class="dashboard icon icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Dashboard" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Dashboard" %}</span></a></li>
+                            {% endif %}
+                            <li><a class="favorites icon icon-favorites" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>{% trans "Favorites" %}</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul id="lang">
+                        {% block language_chooser %}
+                            {% language_chooser %}
+                        {% endblock %}
+                        </ul>
+                    </li>
+                <ul/>
             </div>
 		</header>
 		
@@ -301,3 +308,7 @@
     </script>
 </body>
 </html>
+
+<!-- 
+<li><a class="facebook icon icon-facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
+<li><a class="twitter icon icon-twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li> -->
