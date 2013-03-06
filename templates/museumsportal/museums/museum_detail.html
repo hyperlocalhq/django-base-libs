@@ -212,84 +212,26 @@
                                         {% if season.is_appointment_based %}
                                             <p>{% trans "Based on appointment" %}</p>
                                         {% else %}
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <p><strong>{% trans "Mon" %}</strong>
-                                                                {% if season.mon_open %}
-                                                                    {{ season.mon_open|time:"H:i" }} - {{ season.mon_close|time:"H:i" }}
-                                                                    {% if season.mon_break_close %}
-                                                                        | {% trans "Break:" %} {{ season.mon_break_close|time:"H:i" }} - {{ season.mon_break_open|time:"H:i" }}
-                                                                    {% endif %}
-                                                                {% else %}
-                                                                    {% trans "closed" %}
-                                                                {% endif %}
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <p><strong>{% trans "Tue" %}</strong>
-                                                {% if season.tue_open %}
-                                                    {{ season.tue_open|time:"H:i" }} - {{ season.tue_close|time:"H:i" }}
-                                                    {% if season.tue_break_close %}
-                                                        | {% trans "Break:" %} {{ season.tue_break_close|time:"H:i" }} - {{ season.tue_break_open|time:"H:i" }}
+                                            {% regroup season.get_opening_hours by times as opening_hours %}
+                                            {% for same_hours in opening_hours %}
+                                                {% if forloop.first %}<dl>{% endif %}
+                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
+                                                <dd>
+                                                    {% if same_hours.list.0.open %}
+                                                         {{ same_hours.list.0.open|time:"H:i" }}
+                                                         {% if same_hours.list.0.break_close %}
+                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                            - {{ same_hours.list.0.close|time:"H:i" }}
+                                                         {% else %}
+                                                            - {{ same_hours.list.0.close|time:"H:i" }}
+                                                         {% endif %}
+                                                    {% else %}				 
+                                                        {% trans "closed" %}
                                                     {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Wed" %}</strong>
-                                                {% if season.wed_open %}
-                                                    {{ season.wed_open|time:"H:i" }} - {{ season.wed_close|time:"H:i" }}
-                                                    {% if season.wed_break_close %}
-                                                        | {% trans "Break:" %} {{ season.wed_break_close|time:"H:i" }} - {{ season.wed_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Thu" %}</strong>
-                                                {% if season.thu_open %}
-                                                    {{ season.thu_open|time:"H:i" }} - {{ season.thu_close|time:"H:i" }}
-                                                    {% if season.thu_break_close %}
-                                                        | {% trans "Break:" %} {{ season.thu_break_close|time:"H:i" }} - {{ season.thu_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Fri" %}</strong>
-                                                {% if season.fri_open %}
-                                                    {{ season.fri_open|time:"H:i" }} - {{ season.fri_close|time:"H:i" }}
-                                                    {% if season.fri_break_close %}
-                                                        | {% trans "Break:" %} {{ season.fri_break_close|time:"H:i" }} - {{ season.fri_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Sat" %}</strong>
-                                                {% if season.sat_open %}
-                                                    {{ season.sat_open|time:"H:i" }} - {{ season.sat_close|time:"H:i" }}
-                                                    {% if season.sat_break_close %}
-                                                        | {% trans "Break:" %} {{ season.sat_break_close|time:"H:i" }} - {{ season.sat_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Sun" %}</strong>
-                                                {% if season.sun_open %}
-                                                    {{ season.sun_open|time:"H:i" }} - {{ season.sun_close|time:"H:i" }}
-                                                    {% if season.sun_break_close %}
-                                                        | {% trans "Break:" %} {{ season.sun_break_close|time:"H:i" }} - {{ season.sun_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
+                                                </dd>
+                                                {% if forloop.last %}</dl>{% endif %}
+                                            {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
                                             <div class="last_entry">{% trans "Last entry" %}: {{ season.last_entry }}</div>
@@ -304,84 +246,26 @@
                                         {% if season.is_appointment_based %}
                                             <p>{% trans "Based on appointment" %}</p>
                                         {% else %}
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <p><strong>{% trans "Mon" %}</strong>
-                                                                {% if season.mon_open %}
-                                                                    {{ season.mon_open|time:"H:i" }} - {{ season.mon_close|time:"H:i" }}
-                                                                    {% if season.mon_break_close %}
-                                                                        | {% trans "Break:" %} {{ season.mon_break_close|time:"H:i" }} - {{ season.mon_break_open|time:"H:i" }}
-                                                                    {% endif %}
-                                                                {% else %}
-                                                                    {% trans "closed" %}
-                                                                {% endif %}
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <p><strong>{% trans "Tue" %}</strong>
-                                                {% if season.tue_open %}
-                                                    {{ season.tue_open|time:"H:i" }} - {{ season.tue_close|time:"H:i" }}
-                                                    {% if season.tue_break_close %}
-                                                        | {% trans "Break:" %} {{ season.tue_break_close|time:"H:i" }} - {{ season.tue_break_open|time:"H:i" }}
+                                            {% regroup season.get_opening_hours by times as opening_hours %}
+                                            {% for same_hours in opening_hours %}
+                                                {% if forloop.first %}<dl>{% endif %}
+                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
+                                                <dd>
+                                                    {% if same_hours.list.0.open %}
+                                                         {{ same_hours.list.0.open|time:"H:i" }}
+                                                         {% if same_hours.list.0.break_close %}
+                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                            - {{ same_hours.list.0.close|time:"H:i" }}
+                                                         {% else %}
+                                                            - {{ same_hours.list.0.close|time:"H:i" }}
+                                                         {% endif %}
+                                                    {% else %}				 
+                                                        {% trans "closed" %}
                                                     {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Wed" %}</strong>
-                                                {% if season.wed_open %}
-                                                    {{ season.wed_open|time:"H:i" }} - {{ season.wed_close|time:"H:i" }}
-                                                    {% if season.wed_break_close %}
-                                                        | {% trans "Break:" %} {{ season.wed_break_close|time:"H:i" }} - {{ season.wed_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Thu" %}</strong>
-                                                {% if season.thu_open %}
-                                                    {{ season.thu_open|time:"H:i" }} - {{ season.thu_close|time:"H:i" }}
-                                                    {% if season.thu_break_close %}
-                                                        | {% trans "Break:" %} {{ season.thu_break_close|time:"H:i" }} - {{ season.thu_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Fri" %}</strong>
-                                                {% if season.fri_open %}
-                                                    {{ season.fri_open|time:"H:i" }} - {{ season.fri_close|time:"H:i" }}
-                                                    {% if season.fri_break_close %}
-                                                        | {% trans "Break:" %} {{ season.fri_break_close|time:"H:i" }} - {{ season.fri_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Sat" %}</strong>
-                                                {% if season.sat_open %}
-                                                    {{ season.sat_open|time:"H:i" }} - {{ season.sat_close|time:"H:i" }}
-                                                    {% if season.sat_break_close %}
-                                                        | {% trans "Break:" %} {{ season.sat_break_close|time:"H:i" }} - {{ season.sat_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
-                                            <p><strong>{% trans "Sun" %}</strong>
-                                                {% if season.sun_open %}
-                                                    {{ season.sun_open|time:"H:i" }} - {{ season.sun_close|time:"H:i" }}
-                                                    {% if season.sun_break_close %}
-                                                        | {% trans "Break:" %} {{ season.sun_break_close|time:"H:i" }} - {{ season.sun_break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% trans "closed" %}
-                                                {% endif %}
-                                            </p>
+                                                </dd>
+                                                {% if forloop.last %}</dl>{% endif %}
+                                            {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
                                             <div class="last_entry">{% trans "Last entry" %}: {{ season.last_entry }}</div>
@@ -486,7 +370,7 @@
                                     </div>
                                 {% endif %}
                                 {% if museum.member_of_museumspass %}
-                                    <p>{% trans "Member if Museumspass Berlin" %}</p>
+                                    <p>{% trans "Member of Museumspass Berlin" %}</p>
                                 {% endif %}
                             {% endif %}
                         </li>
