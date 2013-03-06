@@ -70,7 +70,7 @@
     text-align: center;
     background-color: black;
     margin-bottom: -1px;
-    
+    date,
     time {
       font-size: 80px;
       line-height: 40px;
@@ -104,23 +104,31 @@
       &.minutes { width: 125px; }
 
       tr {
-        th {
-          font-size: 12px;
-          font-weight: 600;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          text-indent: 5px;
-        }
-        td {
 
+        td.new,
+        td.old {
+          font-weight: 400 !important;
+          color: rgba(255,255,255,0.35);
           &:hover{
             background-color: rgba(255,255,255,0.05);
-            font-weight: 500;
+            font-weight: 400 !important;
+          }
+          &:active{
+            font-weight: 400;
+          }
+        }
+
+        th,
+        td {
+          padding: 0px !important;
+          &:hover{
+            background-color: rgba(255,255,255,0.05);
+            font-weight: 500 !important;
           }
 
           &.active {
             background-color: rgba(255,255,255,0.1);
-            font-weight: 500;
+            font-weight: 500 !important;
           }
           
           &:active{
@@ -129,11 +137,53 @@
             background-color: white !important;
             color: black !important;
           }
+        }
 
+        th {
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          text-indent: 5px;
+        }
+
+        td {
           span {
             display: block;
             cursor: pointer;
-            padding-bottom: 5px;
+            padding-bottom: 3px;
+
+            &.month {
+              width: 25%;
+              height: 80px;
+              line-height: 75px;
+              display: block;
+              float: left;
+              border: none !important;
+              margin: 0px !important;
+              padding: 0px !important;
+              box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              font-weight: 400 !important;
+
+              &:hover{
+                background-color: rgba(255,255,255,0.05);
+                font-weight: 500 !important;
+              }
+
+              &.active {
+                background-color: rgba(255,255,255,0.1);
+                font-weight: 500 !important;
+              }
+              
+              &:active{
+                background-color: rgba(255,255,255,0.05);
+                font-weight: 500;
+                background-color: white !important;
+                color: black !important;
+              }
+            }
+
             &:active{
               background-color: rgba(255,255,255,0.05);
               font-weight: 500;
@@ -170,12 +220,12 @@
 
       &.done {
         float: left;
-        width: 310px;
+        width: 290px;
         font-size: 28px;
       }
 
       &.cancel {
-        width: 125px;
+        width: 145px;
       }
     }
   }

@@ -1565,6 +1565,7 @@ div.tagsinput {
     background-color: black;
     margin-bottom: -1px; }
     /* line 74, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+    #picker header date,
     #picker header time {
       font-size: 80px;
       line-height: 40px;
@@ -1598,60 +1599,108 @@ div.tagsinput {
       /* line 104, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
       #picker .body table.minutes {
         width: 125px; }
-      /* line 107, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+      /* line 109, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+      #picker .body table tr td.new,
+      #picker .body table tr td.old {
+        font-weight: 400 !important;
+        color: rgba(255, 255, 255, 0.35); }
+        /* line 112, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        #picker .body table tr td.new:hover,
+        #picker .body table tr td.old:hover {
+          background-color: rgba(255, 255, 255, 0.05);
+          font-weight: 400 !important; }
+        /* line 116, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        #picker .body table tr td.new:active,
+        #picker .body table tr td.old:active {
+          font-weight: 400; }
+      /* line 122, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+      #picker .body table tr th,
+      #picker .body table tr td {
+        padding: 0px !important; }
+        /* line 124, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        #picker .body table tr th:hover,
+        #picker .body table tr td:hover {
+          background-color: rgba(255, 255, 255, 0.05);
+          font-weight: 500 !important; }
+        /* line 129, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        #picker .body table tr th.active,
+        #picker .body table tr td.active {
+          background-color: rgba(255, 255, 255, 0.1);
+          font-weight: 500 !important; }
+        /* line 134, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        #picker .body table tr th:active,
+        #picker .body table tr td:active {
+          background-color: rgba(255, 255, 255, 0.05);
+          font-weight: 500;
+          background-color: white !important;
+          color: black !important; }
+      /* line 142, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
       #picker .body table tr th {
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
         text-transform: uppercase;
         text-indent: 5px; }
-      /* line 116, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
-      #picker .body table tr td:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-        font-weight: 500; }
-      /* line 121, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
-      #picker .body table tr td.active {
-        background-color: rgba(255, 255, 255, 0.1);
-        font-weight: 500; }
-      /* line 126, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
-      #picker .body table tr td:active {
-        background-color: rgba(255, 255, 255, 0.05);
-        font-weight: 500;
-        background-color: white !important;
-        color: black !important; }
-      /* line 133, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+      /* line 151, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
       #picker .body table tr td span {
         display: block;
         cursor: pointer;
-        padding-bottom: 5px; }
-        /* line 137, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        padding-bottom: 3px; }
+        /* line 156, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        #picker .body table tr td span.month {
+          width: 25%;
+          height: 80px;
+          line-height: 75px;
+          display: block;
+          float: left;
+          border: none !important;
+          margin: 0px !important;
+          padding: 0px !important;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          font-weight: 400 !important; }
+          /* line 169, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+          #picker .body table tr td span.month:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            font-weight: 500 !important; }
+          /* line 174, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+          #picker .body table tr td span.month.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            font-weight: 500 !important; }
+          /* line 179, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+          #picker .body table tr td span.month:active {
+            background-color: rgba(255, 255, 255, 0.05);
+            font-weight: 500;
+            background-color: white !important;
+            color: black !important; }
+        /* line 187, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
         #picker .body table tr td span:active {
           background-color: rgba(255, 255, 255, 0.05);
           font-weight: 500;
           background-color: white !important;
           color: black !important; }
-        /* line 143, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        /* line 193, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
         #picker .body table tr td span.active {
           background-color: rgba(255, 255, 255, 0.1);
           font-weight: 500; }
-  /* line 153, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+  /* line 203, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
   #picker footer {
     padding: 30px;
     background-color: rgba(0, 0, 0, 0.9);
     background-color: transparent;
     padding-left: 0px !important;
     padding-right: 0px; }
-    /* line 160, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+    /* line 210, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
     #picker footer button {
       height: 80px; }
-      /* line 171, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+      /* line 221, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
       #picker footer button.done {
         float: left;
-        width: 310px;
+        width: 290px;
         font-size: 28px; }
-      /* line 177, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+      /* line 227, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
       #picker footer button.cancel {
-        width: 125px; }
+        width: 145px; }
 
 /* line 11, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 html {
