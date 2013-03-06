@@ -57,11 +57,6 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
             elif not self.user_cache.is_active:
                 raise forms.ValidationError(_("This account is inactive."))
 
-        # TODO: determine whether this should move to its own method.
-        if self.request:
-            if not self.request.session.test_cookie_worked():
-                raise forms.ValidationError(_("Your Web browser doesn't appear to have cookies enabled. Cookies are required for logging in."))
-
         return self.cleaned_data
 
 class ClaimingInvitationForm(forms.Form):
@@ -89,20 +84,7 @@ class ClaimingInvitationForm(forms.Form):
                 )
             )
 
-class ClaimingConfirmationForm(forms.Form):
-    # username = forms.RegexField(
-    #     label=_("Username"),
-    #     max_length=30,
-    #     regex=r'^[\w.@+-]+$',
-    #     # help_text = _("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
-    #     error_messages = {'invalid': _("May only contain letters, numbers and @/./+/-/_ characters.")}
-    #     )
-    # first_name = forms.CharField(
-    #     label=_("First name"),
-    #     )
-    # last_name = forms.CharField(
-    #     label=_("Last name"),
-    #     )
+class ClaimingRegisterForm(forms.Form):
     email = forms.EmailField(label=_("Email"))
     password = forms.CharField(
         label=_("Password"),
@@ -111,11 +93,10 @@ class ClaimingConfirmationForm(forms.Form):
     confirm_password = forms.CharField(
         label=_("Confirm password"),
         widget=forms.PasswordInput,
-        # help_text = _("Enter the same password for verification.")
         )
     
     def __init__(self, user, *args, **kwargs):
-        super(ClaimingConfirmationForm, self).__init__(*args, **kwargs)
+        super(ClaimingRegisterForm, self).__init__(*args, **kwargs)
         
         self.user = user
         
@@ -126,27 +107,14 @@ class ClaimingConfirmationForm(forms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
             "", # no legend
-            # "first_name", 
-            # "last_name",
             layout.Field("email", autocomplete="off"),
             "password", 
             "confirm_password",
             ),
             bootstrap.FormActions(
-                layout.Submit('submit', _('Confirm')),
+                layout.Submit('register', _('Signup')),
                 )
             )
-
-    # def clean_username(self):
-    #     username = self.cleaned_data["username"]
-    #     if self.user and self.user.username == username:
-    #         return username
-    #     else:
-    #         try:
-    #             User.objects.get(username=username)
-    #         except User.DoesNotExist:
-    #             return username
-    #     raise forms.ValidationError(_("A user with that username already exists."))
 
     def clean_confirm_password(self):
         password = self.cleaned_data.get("password", "")
@@ -154,6 +122,66 @@ class ClaimingConfirmationForm(forms.Form):
         if password != confirm_password:
             raise forms.ValidationError(_("The two password fields didn't match."))
         return confirm_password
+
+class ClaimingLoginForm(AuthenticationForm):
+    email_or_username = forms.CharField(
+        label=_("Email or Username"),
+        max_length=75,
+        )
+    
+    def __init__(self, user, *args, **kwargs):
+        super(ClaimingLoginForm, self).__init__(*args, **kwargs)
+        del self.fields['username']
+        
+        self.user = user
+        
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+            "", # no legend
+            "email_or_username",
+            "password", 
+            ),
+            bootstrap.FormActions(
+                layout.Submit('login', _('Login')),
+                )
+            )
+        
+    def clean(self):
+        email_or_username = self.cleaned_data.get('email_or_username')
+        password = self.cleaned_data.get('password')
+        
+        if email_or_username and password:
+            if "@" in email_or_username:
+                self.user_cache = authenticate(email=email_or_username, password=password)
+            else:
+                self.user_cache = authenticate(username=email_or_username, password=password)
+            if self.user_cache is None:
+                raise forms.ValidationError(_("Please enter a correct email or username and password. Note that both fields are case-sensitive."))
+            elif not self.user_cache.is_active:
+                raise forms.ValidationError(_("This account is inactive."))
+
+        return self.cleaned_data
+
+
+class ClaimingConfirmForm(forms.Form):
+    def __init__(self, user, *args, **kwargs):
+        super(ClaimingConfirmForm, self).__init__(*args, **kwargs)
+        
+        self.user = user
+        
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            bootstrap.FormActions(
+                layout.Submit('confirm', _('Confirm')),
+                )
+            )
 
 class RegistrationForm(forms.Form):
     

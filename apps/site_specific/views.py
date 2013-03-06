@@ -18,7 +18,9 @@ from jetson.apps.mailing.views import send_email_using_template
 
 from forms import EmailOrUsernameAuthentication
 from forms import ClaimingInvitationForm
-from forms import ClaimingConfirmationForm
+from forms import ClaimingRegisterForm
+from forms import ClaimingLoginForm
+from forms import ClaimingConfirmForm
 from forms import RegistrationForm
 
 from base_libs.utils.misc import get_website_url
@@ -56,20 +58,17 @@ def login(request, template_name='registration/login.html', redirect_field_name=
                 login_as_user.backend = user.backend
                 user = login_as_user
             login(request, user)
-            if request.session.test_cookie_worked():
-                request.session.delete_test_cookie()
-                if not redirect_to.startswith("http"):
-                    redirect_to = smart_str(get_website_url(redirect_to))
-                if request.is_ajax():
-                    return HttpResponse("redirect=%s" % redirect_to)
-                return HttpResponseRedirect(redirect_to)
+            if not redirect_to.startswith("http"):
+                redirect_to = smart_str(get_website_url(redirect_to))
+            if request.is_ajax():
+                return HttpResponse("redirect=%s" % redirect_to)
+            return HttpResponseRedirect(redirect_to)
     else:
         data = {
             'email_or_username': request.GET.get('login_as', ''),
             'login_as': request.GET.get('login_as', ''),
             }
         form = EmailOrUsernameAuthentication(request, initial=data)
-    request.session.set_test_cookie()
     if Site._meta.installed:
         current_site = Site.objects.get_current()
     else:
@@ -155,46 +154,79 @@ def register_and_claim_museum(request, invitation_code):
     except User.DoesNotExist:
         u = None
     
+    register_form = ClaimingRegisterForm(u, initial={'email': email}, prefix="register")
+    login_form = ClaimingLoginForm(u, initial={'email_or_username': email}, prefix="login")
+    
     if request.method == "POST":
-        form = ClaimingConfirmationForm(u, request.POST)
-        if form.is_valid():
-            cleaned = form.cleaned_data
-            
-            # get or create a user
-            if not u:
-                u = User(email=email)
-            u.username = cleaned['username']
-            u.first_name = cleaned['first_name']
-            u.last_name = cleaned['last_name']
-            u.is_active = True
-            u.set_password(cleaned['password'])
-            u.save()
-            
+        if "register" in request.POST:
+            register_form = ClaimingRegisterForm(u, request.POST, prefix="register")
+            if register_form.is_valid():
+                cleaned = register_form.cleaned_data
+                
+                # get or create a user
+                if not u:
+                    u = User(email=email)
+                u.email = cleaned['email']
+                u.username = cleaned['email'][:30]
+                u.is_active = True
+                u.set_password(cleaned['password'])
+                u.save()
+                
+                # set museum's and its exhibitions' owner
+                museum.set_owner(u)
+                for e in museum.exhibition_set.all():
+                    e.set_owner(u)
+                for e in museum.organized_exhibitions.all():
+                    e.set_owner(u)
+                for e in museum.event_set.all():
+                    e.set_owner(u)
+                for w in museum.workshop_set.all():
+                    w.set_owner(u)
+                    
+                # login the current user
+                user = authenticate(email=cleaned['email'], password=cleaned['password'])
+                auth_login(request, user)
+                return redirect("dashboard")
+        if "login" in request.POST:
+            login_form = ClaimingLoginForm(u, request.POST, prefix="login")
+            if login_form.is_valid():
+                u = login_form.get_user()
+                # set museum's and its exhibitions' owner
+                museum.set_owner(u)
+                for e in museum.exhibition_set.all():
+                    e.set_owner(u)
+                for e in museum.organized_exhibitions.all():
+                    e.set_owner(u)
+                for e in museum.event_set.all():
+                    e.set_owner(u)
+                for w in museum.workshop_set.all():
+                    w.set_owner(u)
+                auth_login(request, u)
+                return redirect("dashboard")
+        if "confirm" in request.POST:
+            u = authenticate(email=email)
             # set museum's and its exhibitions' owner
             museum.set_owner(u)
             for e in museum.exhibition_set.all():
                 e.set_owner(u)
             for e in museum.organized_exhibitions.all():
                 e.set_owner(u)
-                
-            # login the current user
-            user = authenticate(username=cleaned['username'], password=cleaned['password'])
-            auth_login(request, user)
+            for e in museum.event_set.all():
+                e.set_owner(u)
+            for w in museum.workshop_set.all():
+                w.set_owner(u)
+            auth_login(request, u)
             return redirect("dashboard")
-            #return redirect("museum_detail", slug=museum.slug)
-    else:
-        initial = None
-        if u:
-            initial = {
-                'username': u.username,
-                'first_name': u.first_name,
-                'last_name': u.last_name,
-                }
-        form = ClaimingConfirmationForm(u, initial=initial)
+            
     context = {
-        'form': form,
+        'register_form': register_form,
+        'login_form': login_form,
         'museum': museum,
+        'user': u,
         }
+    if u:
+        confirm_form = ClaimingConfirmForm(u, prefix="confirm")
+        context['confirm_form'] = confirm_form
     return render(request, "site_specific/claiming_confirmation.html", context)
     
 @never_cache
@@ -208,7 +240,7 @@ def register(request):
             # get or create a user
             u = User()
             u.email = cleaned['email']
-            u.username = cleaned['email']
+            u.username = cleaned['email'][:30]
             # u.first_name = cleaned['first_name']
             # u.last_name = cleaned['last_name']
             u.set_password(cleaned['password'])
