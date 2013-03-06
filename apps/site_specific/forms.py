@@ -35,7 +35,7 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
             "", # no legend
-            "email_or_username",
+            layout.Field("email_or_username", autocomplete="off"),
             "password",
             ),
             bootstrap.FormActions(
@@ -229,9 +229,6 @@ password_change_form_helper.form_method = "POST"
 password_change_form_helper.layout = layout.Layout(
     layout.Fieldset(
     "", # no legend
-    layout.HTML("""{% load i18n %}
-        <p>{% trans "Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly." %}</p>
-    """),
     "old_password",
     layout.Row("new_password1", "new_password2"),
     ),
@@ -246,9 +243,6 @@ password_reset_form_helper.form_method = "POST"
 password_reset_form_helper.layout = layout.Layout(
     layout.Fieldset(
     "", # no legend
-    layout.HTML(u"""{% load i18n %}
-        <p>{% trans "Forgot your password? Enter your email address below, and we’ll send you an email with a link which allows you to set up a new password.." %}</p>
-    """),
     "email",
     ),
     bootstrap.FormActions(
