@@ -132,6 +132,8 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     objects = EventManager()
 
+    row_level_permissions = True
+
     class Meta:
         verbose_name = _("event")
         verbose_name_plural = _("events")

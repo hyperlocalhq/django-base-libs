@@ -117,6 +117,8 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     objects = WorkshopManager()
 
+    row_level_permissions = True
+
     class Meta:
         verbose_name = _("workshop")
         verbose_name_plural = _("workshops")
