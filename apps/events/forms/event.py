@@ -185,8 +185,6 @@ class BasicInfoForm(ModelForm):
                 css_class="flex merge",
                 ),
 
-
-
             layout.Row("tags"),
 
             layout.Row(
