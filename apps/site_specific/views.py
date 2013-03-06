@@ -208,9 +208,9 @@ def register(request):
             # get or create a user
             u = User()
             u.email = cleaned['email']
-            u.username = cleaned['username']
-            u.first_name = cleaned['first_name']
-            u.last_name = cleaned['last_name']
+            u.username = cleaned['email']
+            # u.first_name = cleaned['first_name']
+            # u.last_name = cleaned['last_name']
             u.set_password(cleaned['password'])
             u.is_active = False
             u.save()
