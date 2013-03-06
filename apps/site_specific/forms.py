@@ -123,16 +123,20 @@ class ClaimingRegisterForm(forms.Form):
             raise forms.ValidationError(_("The two password fields didn't match."))
         return confirm_password
 
-class ClaimingLoginForm(AuthenticationForm):
+class ClaimingLoginForm(forms.Form):
     email_or_username = forms.CharField(
         label=_("Email or Username"),
         max_length=75,
+        required=True,
         )
-    
+    password = forms.CharField(
+        label=_("Password"),
+        max_length=75,
+        required=True,
+        widget=forms.PasswordInput(),
+        )
     def __init__(self, user, *args, **kwargs):
         super(ClaimingLoginForm, self).__init__(*args, **kwargs)
-        del self.fields['username']
-        
         self.user = user
         
         self.helper = FormHelper()
@@ -149,11 +153,10 @@ class ClaimingLoginForm(AuthenticationForm):
                 layout.Submit('login', _('Login')),
                 )
             )
-        
+
     def clean(self):
         email_or_username = self.cleaned_data.get('email_or_username')
         password = self.cleaned_data.get('password')
-        
         if email_or_username and password:
             if "@" in email_or_username:
                 self.user_cache = authenticate(email=email_or_username, password=password)
@@ -165,6 +168,9 @@ class ClaimingLoginForm(AuthenticationForm):
                 raise forms.ValidationError(_("This account is inactive."))
 
         return self.cleaned_data
+        
+    def get_user(self):
+        return getattr(self, "user_cache", None)
 
 
 class ClaimingConfirmForm(forms.Form):
