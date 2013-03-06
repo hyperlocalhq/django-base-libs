@@ -51,7 +51,7 @@
         
     $(function() {
         $(
-            '<a class="add btn btn-small btn-primary" id="add_social" href="#">{% trans "Add another social media channel" %}</a>'
+            '<a class="add btn btn-small btn-primary" id="add_social" href="#">{% trans "Add social media channel" %}</a>'
         ).insertAfter('#social').click(function() {
             var $total_forms = $('#id_social-TOTAL_FORMS');
             var $new_form = $('#social_empty_form').clone(true).attr("id", null).show();
