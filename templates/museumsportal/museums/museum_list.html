@@ -18,8 +18,8 @@
 <div id="gmap_wrapper">
 	<div id="gmap">&nbsp;</div>
     <nav class="actions top">
-        <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="Close" class="icon icon-cancel"></button>
-        <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="icon icon-fullscreen"></button>
+        <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Close" %}" class="icon icon-cancel"></button>
+        <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="icon icon-fullscreen"></button>
     </nav>
 </div>
 
@@ -96,7 +96,7 @@
                         {% if request.user.is_authenticated %}
                             {% adding2favorites for museum %}
                         {% endif %}
-                        <button rel="tooltip" data-placement="top" data-original-title="Show location on map" class="location icon icon-location"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
                     </nav>
                     
                     <a href="{{ museum.get_url_path }}">

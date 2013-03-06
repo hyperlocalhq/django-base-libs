@@ -85,6 +85,7 @@ class BasicInfoForm(ModelForm):
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
         self.fields['categories'].empty_label = None
+        self.fields['categories'].level_indicator = "/ "
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
@@ -180,7 +181,13 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             layout.Div("categories"),
-            layout.Div(layout.HTML("""<label>&nbsp;</label> """),"is_for_children", css_class="inline"),
+
+            layout.Div(
+                layout.HTML("""{% load i18n %} <label>{% trans "Particularities" %}</label> """),
+                "is_for_children", 
+                css_class="inline"
+                ),
+
             layout.Row("tags"),
             css_class="fieldset-categories-tags",
             ))

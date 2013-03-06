@@ -27,8 +27,8 @@
 <div id="gmap_wrapper" class="">
   <div id="gmap">&nbsp;</div>
   <nav class="actions top">
-    <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="Close" class="cancel"></button>
-    <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="Fullscreen" class="fullscreen"></button>
+    <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Close" %}" class="cancel"></button>
+    <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen"></button>
   </nav>
 </div>
 
@@ -90,7 +90,7 @@
                             <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';"></button>
                         {% endif %}{% endif %}
                     {% end_if_has_perm %}
-                    <button href="#" rel="tooltip" data-placement="top" data-original-title="Show location on map" class="marker-link location"></button>
+                    <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="marker-link location"></button>
                 </nav>
     
                 <a href="{{ workshop.get_url_path }}">
