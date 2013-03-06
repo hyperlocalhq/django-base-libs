@@ -460,9 +460,14 @@ form {
   // &:last-child{
   //   textarea, input { margin: 0px !important;}
   // }
+
   &.flex { 
     table-layout: auto !important;
 
+    &.merge {
+      .inline { white-space: nowrap; }
+      > div{border-right: 0px solid white; } 
+    }
     > div{ 
       min-width: 40px !important;
       width: 33% !important;
@@ -568,7 +573,7 @@ label.radio {
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
   min-height: auto;
-  &:hover {background-color: rgba(0,0,0,0.1); cursor: pointer; }
+  &:hover {background-color: rgba(0,0,0,0.075); cursor: pointer; }
 
   input[type="radio"], 
   input[type="checkbox"] {
@@ -584,11 +589,10 @@ label.radio {
 }
 
 .inline {
-  padding-bottom: 20px;
   display: block;
   font-size: 0px;
 
-  .control-group {
+  > div {
     display: inline-block;
     white-space: nowrap;
     box-sizing: border-box !important;
@@ -609,7 +613,7 @@ label.radio {
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important;
 
-      &:hover {background-color: rgba(0,0,0,0.1); cursor: pointer; }
+      &:hover {background-color: rgba(0,0,0,0.075); cursor: pointer; }
 
       &.checkbox,
       &.radio { padding-left: 30px !important;}
@@ -740,8 +744,8 @@ div.tagsinput {
   span.tag { 
     display: block;
     float: left;
-    height: 32px;
-    line-height: 32px;
+    height: 40px;
+    line-height: 40px;
     background-color: rgba(0,0,0,0.05);
     color: inherit;
     margin-bottom: 5px;
@@ -752,8 +756,8 @@ div.tagsinput {
 
     span,
     a {
-      height: 32px;
-      line-height: 32px;
+      height: 40px;
+      line-height: 40px;
       font-size: 14px;
       display: inline-block;
       box-sizing: border-box !important;
@@ -781,14 +785,14 @@ div.tagsinput {
     background-color: rgba(0,0,0,0.05);
     outline:0px;  
     border: 0;
-    height: 32px;
+    height: 40px;
     font-size: 14px;
-    line-height: 32px;
+    line-height: 40px;
     padding-left: 10px;
     padding-right: 10px;
     margin: 0px !important;
     width: 100px;
-    
+    &:hover { background-color: rgba(0,0,0,0.075); }
   }
   
   div { display:block; float: left; } 

@@ -583,41 +583,47 @@ form {
   /* line 458, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .row label {
     white-space: nowrap; }
-  /* line 463, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 464, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .row.flex {
     table-layout: auto !important; }
-    /* line 466, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 468, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    .row.flex.merge .inline {
+      white-space: nowrap; }
+    /* line 469, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    .row.flex.merge > div {
+      border-right: 0px solid white; }
+    /* line 471, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     .row.flex > div {
       min-width: 40px !important;
       width: 33% !important; }
-      /* line 469, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      /* line 474, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
       .row.flex > div.max {
         width: 100% !important; }
-      /* line 470, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      /* line 475, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
       .row.flex > div.min {
         width: 0% !important; }
-      /* line 471, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      /* line 476, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
       .row.flex > div button {
         position: absolute;
         right: 0px;
         bottom: 0px;
         background-color: rgba(0, 0, 0, 0.1) !important; }
-  /* line 480, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 485, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .row > div {
     display: table-cell;
     border-right: 20px solid white;
     width: 100% !important;
     vertical-align: top;
     position: relative; }
-    /* line 488, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 493, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     .row > div .row > div {
       border-right: 2px solid white; }
-      /* line 492, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      /* line 497, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
       .row > div .row > div.has_weekday > div {
         float: left;
         margin-left: 2px;
         width: 202px; }
-    /* line 495, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 500, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     .row > div .row .weekday {
       font-size: 18px;
       line-height: 40px;
@@ -628,31 +634,31 @@ form {
       background-color: rgba(0, 0, 0, 0.05);
       overflow: hidden;
       float: left; }
-    /* line 508, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 513, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     .row > div.closed {
       width: 40px !important;
       position: absolute;
       right: 0px;
       border-left: 2px solid white;
       display: none; }
-      /* line 515, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      /* line 520, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
       .row > div.closed > div {
         background-color: rgba(0, 0, 0, 0.1);
         height: 40px;
         overflow: hidden; }
-    /* line 522, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 527, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     .row > div:last-child {
       border-right: 0px solid white; }
 
-/* line 531, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 536, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .form-steps li {
   display: inline-block;
   background-color: rgba(0, 0, 0, 0); }
-  /* line 536, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 541, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .form-steps li.active a {
     color: black;
     background-color: rgba(0, 0, 0, 0.05); }
-  /* line 543, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 548, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .form-steps li span,
   .form-steps li a {
     padding-right: 10px;
@@ -661,11 +667,11 @@ form {
     line-height: 40px;
     display: inline-block;
     color: rgba(0, 0, 0, 0.5); }
-  /* line 553, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 558, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .form-steps li a:hover {
     color: black; }
 
-/* line 561, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 566, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 label.checkbox,
 label.radio {
   background-color: rgba(0, 0, 0, 0.05);
@@ -677,12 +683,12 @@ label.radio {
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
   min-height: auto; }
-  /* line 571, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 576, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   label.checkbox:hover,
   label.radio:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.075);
     cursor: pointer; }
-  /* line 574, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 579, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   label.checkbox input[type="radio"],
   label.checkbox input[type="checkbox"],
   label.radio input[type="radio"],
@@ -696,13 +702,12 @@ label.radio {
     margin-top: -6px !important;
     position: absolute; }
 
-/* line 586, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 591, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .inline {
-  padding-bottom: 20px;
   display: block;
   font-size: 0px; }
-  /* line 591, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-  .inline .control-group {
+  /* line 595, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  .inline > div {
     display: inline-block;
     white-space: nowrap;
     box-sizing: border-box !important;
@@ -711,8 +716,8 @@ label.radio {
     padding: 0px;
     margin-right: 5px;
     position: relative; }
-    /* line 601, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-    .inline .control-group label {
+    /* line 605, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    .inline > div label {
       position: relative;
       padding-right: 10px !important;
       background-color: rgba(0, 0, 0, 0.05);
@@ -722,15 +727,15 @@ label.radio {
       min-height: auto;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important; }
-      /* line 612, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-      .inline .control-group label:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+      /* line 616, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      .inline > div label:hover {
+        background-color: rgba(0, 0, 0, 0.075);
         cursor: pointer; }
-      /* line 615, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-      .inline .control-group label.checkbox, .inline .control-group label.radio {
+      /* line 619, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      .inline > div label.checkbox, .inline > div label.radio {
         padding-left: 30px !important; }
-      /* line 617, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
-      .inline .control-group label.radio input[type="radio"], .inline .control-group label.checkbox input[type="checkbox"] {
+      /* line 621, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      .inline > div label.radio input[type="radio"], .inline > div label.checkbox input[type="checkbox"] {
         margin: 0px !important;
         display: inline-block;
         margin-right: 5px !important;
@@ -740,7 +745,7 @@ label.radio {
         margin-top: -6px !important;
         position: absolute; }
 
-/* line 631, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 635, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .form-actions {
   display: block;
   width: 100%;
@@ -754,32 +759,32 @@ label.radio {
   margin: 0;
   padding-bottom: 30px;
   font-size: 0px; }
-  /* line 646, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 650, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .form-actions .btn,
   .form-actions input[type=submit],
   .form-actions input[type=reset],
   .form-actions button {
     margin-right: 4px; }
-    /* line 648, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 652, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     .form-actions .btn:last-child,
     .form-actions input[type=submit]:last-child,
     .form-actions input[type=reset]:last-child,
     .form-actions button:last-child {
       margin: 0px; }
 
-/* line 654, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 658, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .input-append,
 .input-prepend {
   margin-bottom: 0px; }
-  /* line 657, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 661, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .input-append .pick-date,
   .input-prepend .pick-date {
     background-image: url("../img/icons/calendar.svg"); }
-  /* line 658, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 662, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .input-append .pick-time,
   .input-prepend .pick-time {
     background-image: url("../img/icons/clock.svg"); }
-  /* line 661, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 665, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   .input-append .pick-date,
   .input-append .pick-time,
   .input-prepend .pick-date,
@@ -798,7 +803,7 @@ label.radio {
     background-position: center;
     background-repeat: no-repeat;
     z-index: 10000; }
-    /* line 676, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 680, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     .input-append .pick-date:hover,
     .input-append .pick-time:hover,
     .input-prepend .pick-date:hover,
@@ -806,31 +811,31 @@ label.radio {
       opacity: 0.5;
       background-color: rgba(0, 0, 0, 0.1) !important; }
 
-/* line 688, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 692, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .fieldset-contact-person > .row:nth-child(4) label,
 .fieldset-other-contact-info > .row:nth-child(4) label {
   display: none; }
-/* line 695, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 699, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .fieldset-contact-person > .row > div .row > div:nth-child(1) label,
 .fieldset-other-contact-info > .row > div .row > div:nth-child(1) label {
   display: block !important; }
-/* line 697, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 701, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .fieldset-contact-person > .row > div .row > div:nth-child(1),
 .fieldset-other-contact-info > .row > div .row > div:nth-child(1) {
   width: 25% !important; }
-/* line 698, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 702, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .fieldset-contact-person > .row > div .row > div:nth-child(2),
 .fieldset-other-contact-info > .row > div .row > div:nth-child(2) {
   width: 20% !important; }
-/* line 699, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 703, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .fieldset-contact-person > .row > div .row > div:nth-child(3),
 .fieldset-other-contact-info > .row > div .row > div:nth-child(3) {
   width: 20% !important; }
-/* line 700, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 704, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .fieldset-contact-person > .row > div .row > div:nth-child(4),
 .fieldset-other-contact-info > .row > div .row > div:nth-child(4) {
   width: 35% !important; }
-/* line 703, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 707, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .fieldset-contact-person > .row > div .row > div:nth-child(1) label,
 .fieldset-other-contact-info > .row > div .row > div:nth-child(1) label {
   position: absolute;
@@ -846,7 +851,7 @@ label.radio {
   color: rgba(0, 0, 0, 0.5);
   background-color: rgba(0, 0, 0, 0.025); }
 
-/* line 731, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 735, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 div.tagsinput {
   background: #FFF;
   width: 100%;
@@ -855,12 +860,12 @@ div.tagsinput {
   line-height: 0px;
   color: rgba(0, 0, 0, 0.8);
   margin-bottom: 20px !important; }
-  /* line 740, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 744, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   div.tagsinput span.tag {
     display: block;
     float: left;
-    height: 32px;
-    line-height: 32px;
+    height: 40px;
+    line-height: 40px;
     background-color: rgba(0, 0, 0, 0.05);
     color: inherit;
     margin-bottom: 5px;
@@ -868,20 +873,20 @@ div.tagsinput {
     white-space: nowrap;
     font-size: 14px;
     line-height: 0px; }
-    /* line 754, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 758, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     div.tagsinput span.tag span,
     div.tagsinput span.tag a {
-      height: 32px;
-      line-height: 32px;
+      height: 40px;
+      line-height: 40px;
       font-size: 14px;
       display: inline-block;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important; }
-    /* line 762, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 766, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     div.tagsinput span.tag span {
       padding-left: 10px;
       padding-right: 10px; }
-    /* line 766, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 770, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     div.tagsinput span.tag a {
       margin-left: -15px;
       overflow: hidden;
@@ -892,33 +897,36 @@ div.tagsinput {
       background-position: center;
       background-repeat: no-repeat;
       opacity: 0.3; }
-      /* line 776, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+      /* line 780, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
       div.tagsinput span.tag a:hover {
         opacity: 1; }
-  /* line 780, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+  /* line 784, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   div.tagsinput input {
     background-color: rgba(0, 0, 0, 0.05);
     outline: 0px;
     border: 0;
-    height: 32px;
+    height: 40px;
     font-size: 14px;
-    line-height: 32px;
+    line-height: 40px;
     padding-left: 10px;
     padding-right: 10px;
     margin: 0px !important;
     width: 100px; }
-  /* line 794, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    /* line 795, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    div.tagsinput input:hover {
+      background-color: rgba(0, 0, 0, 0.075); }
+  /* line 798, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
   div.tagsinput div {
     display: block;
     float: left; }
 
-/* line 797, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 801, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .tags_clear {
   clear: both;
   width: 100%;
   height: 0px; }
 
-/* line 798, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+/* line 802, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
 .not_valid {
   background: #fbd8db !important;
   color: #90111a !important; }
