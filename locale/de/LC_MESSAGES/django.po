@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-06 01:27+0100\n"
+"POT-Creation-Date: 2013-03-06 19:03+0100\n"
 "PO-Revision-Date: 2013-03-06 16:09\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.6.5\n"
 
@@ -329,11 +329,11 @@ msgstr "Standort"
 msgid "Organizer"
 msgstr "Veranstalter"
 
-#: apps/events/admin.py:57 apps/events/forms/event.py:238
-#: apps/events/forms/event.py:582 apps/exhibitions/admin.py:108
+#: apps/events/admin.py:57 apps/events/forms/event.py:240
+#: apps/events/forms/event.py:584 apps/exhibitions/admin.py:108
 #: apps/exhibitions/forms/exhibition.py:547 apps/museums/admin.py:90
-#: apps/workshops/admin.py:48 apps/workshops/forms/workshop.py:254
-#: apps/workshops/forms/workshop.py:621
+#: apps/workshops/admin.py:48 apps/workshops/forms/workshop.py:260
+#: apps/workshops/forms/workshop.py:627
 #: templates/museumsportal/events/event_detail.html:204
 #: templates/museumsportal/exhibitions/exhibition_detail.html:507
 #: templates/museumsportal/museums/museum_detail.html:422
@@ -341,9 +341,9 @@ msgstr "Veranstalter"
 msgid "Prices"
 msgstr "Preise"
 
-#: apps/events/admin.py:57 apps/events/forms/event.py:248
+#: apps/events/admin.py:57 apps/events/forms/event.py:250
 #: apps/exhibitions/forms/exhibition.py:564 apps/workshops/admin.py:48
-#: apps/workshops/forms/workshop.py:264
+#: apps/workshops/forms/workshop.py:270
 msgid "Details"
 msgstr "Details"
 
@@ -360,7 +360,7 @@ msgstr "Status"
 msgid "Geoposition?"
 msgstr "Geoposition?"
 
-#: apps/events/cms_app.py:8 templates/museumsportal/accounts/dashboard.html:78
+#: apps/events/cms_app.py:8 templates/museumsportal/accounts/dashboard.html:77
 #: templates/museumsportal/events/forms/base.html:19
 msgid "Events"
 msgstr "Veranstaltungen"
@@ -432,7 +432,7 @@ msgstr "Geeignet für Kinder"
 #: apps/events/models.py:110 apps/events/forms/event.py:31
 #: apps/exhibitions/admin.py:128 apps/exhibitions/models.py:111
 #: apps/museums/models.py:182 apps/museums/models.py:354
-#: apps/site_specific/forms.py:69 apps/workshops/models.py:95
+#: apps/site_specific/forms.py:64 apps/workshops/models.py:95
 #: apps/workshops/forms/workshop.py:31
 msgid "Museum"
 msgstr "Museum"
@@ -500,13 +500,13 @@ msgstr "Längengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
-" to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
+"to east) and -180 (direction to west)."
 msgstr ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
-" to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
+"to east) and -180 (direction to west)."
 
 #: apps/events/models.py:120 apps/events/forms/event.py:63
 #: apps/workshops/models.py:105 apps/workshops/forms/workshop.py:63
@@ -555,62 +555,62 @@ msgstr "Eintrittspreis ermäßigt (€)"
 msgid "Booking info"
 msgstr "Buchungsinformation"
 
-#: apps/events/models.py:136
+#: apps/events/models.py:138
 msgid "event"
 msgstr "Veranstaltung"
 
-#: apps/events/models.py:137
+#: apps/events/models.py:139
 msgid "events"
 msgstr "Veranstaltungen"
 
-#: apps/events/models.py:224 apps/events/models.py:271
+#: apps/events/models.py:226 apps/events/models.py:273
 msgid "Event"
 msgstr "Veranstaltung"
 
-#: apps/events/models.py:226
+#: apps/events/models.py:228
 msgid "Event date"
 msgstr "Anfangszeit"
 
-#: apps/events/models.py:227 apps/workshops/models.py:212
+#: apps/events/models.py:229 apps/workshops/models.py:214
 msgid "Start time"
 msgstr "Von"
 
-#: apps/events/models.py:228 apps/workshops/models.py:213
+#: apps/events/models.py:230 apps/workshops/models.py:215
 msgid "End time"
 msgstr "Endzeitpunkt"
 
-#: apps/events/models.py:231
+#: apps/events/models.py:233
 msgid "event time"
 msgstr "Veranstaltungsbeginn"
 
-#: apps/events/models.py:232
+#: apps/events/models.py:234
 msgid "event times"
 msgstr "Veranstaltungszeiten"
 
-#: apps/events/models.py:272 apps/exhibitions/models.py:334
+#: apps/events/models.py:274 apps/exhibitions/models.py:334
 #: apps/museums/models.py:355 apps/slideshows/models.py:29
-#: apps/workshops/models.py:257
+#: apps/workshops/models.py:259
 msgid "File path"
 msgstr "Dateipfad"
 
-#: apps/events/models.py:272 apps/exhibitions/models.py:334
-#: apps/museums/models.py:355 apps/workshops/models.py:257
+#: apps/events/models.py:274 apps/exhibitions/models.py:334
+#: apps/museums/models.py:355 apps/workshops/models.py:259
 msgid "A path to a locally stored image, video, or audio file."
 msgstr "Dateipfad zu einem lokal gespeicherten Bild oder Video"
 
-#: apps/events/models.py:273 apps/exhibitions/models.py:335
+#: apps/events/models.py:275 apps/exhibitions/models.py:335
 #: apps/museums/models.py:356 apps/slideshows/models.py:36
-#: apps/workshops/models.py:258
+#: apps/workshops/models.py:260
 msgid "Sort order"
 msgstr "Reihenfolge"
 
-#: apps/events/models.py:277 apps/exhibitions/models.py:339
-#: apps/museums/models.py:360 apps/workshops/models.py:262
+#: apps/events/models.py:279 apps/exhibitions/models.py:339
+#: apps/museums/models.py:360 apps/workshops/models.py:264
 msgid "Media File"
 msgstr "Mediendatei"
 
-#: apps/events/models.py:278 apps/exhibitions/models.py:340
-#: apps/museums/models.py:361 apps/workshops/models.py:263
+#: apps/events/models.py:280 apps/exhibitions/models.py:340
+#: apps/museums/models.py:361 apps/workshops/models.py:265
 msgid "Media Files"
 msgstr "Mediendaten"
 
@@ -639,9 +639,9 @@ msgstr "Wo?"
 msgid "Categories and Tags"
 msgstr "Kategorien und Stichworte"
 
-#: apps/events/forms/event.py:197 apps/events/forms/event.py:203
-#: apps/events/forms/event.py:264 apps/events/forms/event.py:270
-#: apps/events/forms/event.py:290 apps/events/forms/event.py:296
+#: apps/events/forms/event.py:199 apps/events/forms/event.py:205
+#: apps/events/forms/event.py:266 apps/events/forms/event.py:272
+#: apps/events/forms/event.py:292 apps/events/forms/event.py:298
 #: apps/exhibitions/forms/exhibition.py:189
 #: apps/exhibitions/forms/exhibition.py:195
 #: apps/exhibitions/forms/exhibition.py:215
@@ -656,15 +656,15 @@ msgstr "Kategorien und Stichworte"
 #: apps/museums/forms/museum.py:582 apps/museums/forms/museum.py:645
 #: apps/museums/forms/museum.py:651 apps/museums/forms/museum.py:704
 #: apps/museums/forms/museum.py:710 apps/museums/forms/museum.py:770
-#: apps/museums/forms/museum.py:776 apps/workshops/forms/workshop.py:214
-#: apps/workshops/forms/workshop.py:219 apps/workshops/forms/workshop.py:281
-#: apps/workshops/forms/workshop.py:287 apps/workshops/forms/workshop.py:307
-#: apps/workshops/forms/workshop.py:313
+#: apps/museums/forms/museum.py:776 apps/workshops/forms/workshop.py:220
+#: apps/workshops/forms/workshop.py:225 apps/workshops/forms/workshop.py:287
+#: apps/workshops/forms/workshop.py:293 apps/workshops/forms/workshop.py:313
+#: apps/workshops/forms/workshop.py:319
 msgid "Next"
 msgstr "Weiter"
 
-#: apps/events/forms/event.py:198 apps/events/forms/event.py:265
-#: apps/events/forms/event.py:291 apps/events/forms/event.py:343
+#: apps/events/forms/event.py:200 apps/events/forms/event.py:267
+#: apps/events/forms/event.py:293 apps/events/forms/event.py:345
 #: apps/exhibitions/forms/exhibition.py:190
 #: apps/exhibitions/forms/exhibition.py:216
 #: apps/exhibitions/forms/exhibition.py:584
@@ -673,16 +673,16 @@ msgstr "Weiter"
 #: apps/museums/forms/museum.py:124 apps/museums/forms/museum.py:456
 #: apps/museums/forms/museum.py:577 apps/museums/forms/museum.py:646
 #: apps/museums/forms/museum.py:705 apps/museums/forms/museum.py:771
-#: apps/museums/forms/museum.py:797 apps/workshops/forms/workshop.py:215
-#: apps/workshops/forms/workshop.py:282 apps/workshops/forms/workshop.py:308
-#: apps/workshops/forms/workshop.py:360
+#: apps/museums/forms/museum.py:797 apps/workshops/forms/workshop.py:221
+#: apps/workshops/forms/workshop.py:288 apps/workshops/forms/workshop.py:314
+#: apps/workshops/forms/workshop.py:366
 msgid "Close"
 msgstr "Schließen"
 
-#: apps/events/forms/event.py:199 apps/events/forms/event.py:204
-#: apps/events/forms/event.py:266 apps/events/forms/event.py:271
-#: apps/events/forms/event.py:292 apps/events/forms/event.py:297
-#: apps/events/forms/event.py:344 apps/events/forms/event.py:349
+#: apps/events/forms/event.py:201 apps/events/forms/event.py:206
+#: apps/events/forms/event.py:268 apps/events/forms/event.py:273
+#: apps/events/forms/event.py:294 apps/events/forms/event.py:299
+#: apps/events/forms/event.py:346 apps/events/forms/event.py:351
 #: apps/events/forms/gallery.py:84 apps/events/forms/gallery.py:139
 #: apps/exhibitions/forms/exhibition.py:191
 #: apps/exhibitions/forms/exhibition.py:196
@@ -705,31 +705,31 @@ msgstr "Schließen"
 #: apps/museums/forms/museum.py:772 apps/museums/forms/museum.py:777
 #: apps/museums/forms/museum.py:798 apps/museums/forms/museum.py:803
 #: apps/workshops/forms/gallery.py:84 apps/workshops/forms/gallery.py:139
-#: apps/workshops/forms/workshop.py:215 apps/workshops/forms/workshop.py:220
-#: apps/workshops/forms/workshop.py:283 apps/workshops/forms/workshop.py:288
-#: apps/workshops/forms/workshop.py:309 apps/workshops/forms/workshop.py:314
-#: apps/workshops/forms/workshop.py:361 apps/workshops/forms/workshop.py:366
+#: apps/workshops/forms/workshop.py:221 apps/workshops/forms/workshop.py:226
+#: apps/workshops/forms/workshop.py:289 apps/workshops/forms/workshop.py:294
+#: apps/workshops/forms/workshop.py:315 apps/workshops/forms/workshop.py:320
+#: apps/workshops/forms/workshop.py:367 apps/workshops/forms/workshop.py:372
 #: templates/museumsportal/image_mods/recrop.html:169
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: apps/events/forms/event.py:348 apps/exhibitions/forms/exhibition.py:666
-#: apps/museums/forms/museum.py:802 apps/workshops/forms/workshop.py:365
+#: apps/events/forms/event.py:350 apps/exhibitions/forms/exhibition.py:666
+#: apps/museums/forms/museum.py:802 apps/workshops/forms/workshop.py:371
 #: templates/museumsportal/image_mods/recrop.html:168
 msgid "Save"
 msgstr "Speichern"
 
-#: apps/events/forms/event.py:569 apps/exhibitions/forms/exhibition.py:1195
-#: apps/museums/forms/museum.py:1335 apps/workshops/forms/workshop.py:608
+#: apps/events/forms/event.py:571 apps/exhibitions/forms/exhibition.py:1195
+#: apps/museums/forms/museum.py:1335 apps/workshops/forms/workshop.py:614
 msgid "Basic Information"
 msgstr "Basisinformation"
 
-#: apps/events/forms/event.py:574 apps/workshops/forms/workshop.py:613
+#: apps/events/forms/event.py:576 apps/workshops/forms/workshop.py:619
 msgid "Times"
 msgstr "Zeiten"
 
-#: apps/events/forms/event.py:587 apps/exhibitions/forms/exhibition.py:1219
-#: apps/museums/forms/museum.py:1377 apps/workshops/forms/workshop.py:626
+#: apps/events/forms/event.py:589 apps/exhibitions/forms/exhibition.py:1219
+#: apps/museums/forms/museum.py:1377 apps/workshops/forms/workshop.py:632
 msgid "Images"
 msgstr "Bilddaten"
 
@@ -1181,7 +1181,7 @@ msgid "Owners"
 msgstr "Besitzer"
 
 #: apps/museums/cms_app.py:8 apps/museums/models.py:183
-#: templates/museumsportal/accounts/dashboard.html:126
+#: templates/museumsportal/accounts/dashboard.html:123
 #: templates/museumsportal/museums/forms/base.html:19
 msgid "Museums"
 msgstr "Museen"
@@ -1224,7 +1224,8 @@ msgstr "PLZ"
 msgid "Subscriber Number and Extension"
 msgstr "Nummer und Durchwahl"
 
-#: apps/museums/models.py:125 apps/site_specific/forms.py:166
+#: apps/museums/models.py:125 apps/site_specific/forms.py:88
+#: apps/site_specific/forms.py:204
 msgid "Email"
 msgstr "Email"
 
@@ -1361,7 +1362,7 @@ msgstr "Onlineangebot"
 
 #: apps/museums/forms/museum.py:519
 #: templates/museumsportal/accounts/dashboard.html:29
-#: templates/museumsportal/accounts/dashboard.html:160
+#: templates/museumsportal/accounts/dashboard.html:157
 msgid "Contact"
 msgstr "Kontaktdaten"
 
@@ -1374,120 +1375,81 @@ msgid "Mediation"
 msgstr "Vermittlungsangebote"
 
 #: apps/site_specific/forms.py:17 apps/site_specific/forms.py:25
+#: apps/site_specific/forms.py:128
 msgid "Email or Username"
 msgstr "E-Mail oder Username"
 
-#: apps/site_specific/forms.py:29
-msgid "Forgot password?"
-msgstr "Passwort vergessen?"
-
-#: apps/site_specific/forms.py:42 templates/museumsportal/base.html:79
-#: templates/museumsportal/accounts/login.html:9
+#: apps/site_specific/forms.py:42 apps/site_specific/forms.py:149
+#: templates/museumsportal/base.html:80
+#: templates/museumsportal/accounts/login.html:10
+#: templates/museumsportal/accounts/register.html:12
+#: templates/museumsportal/site_specific/claiming_confirmation.html:21
 msgid "Login"
 msgstr "Login"
 
-#: apps/site_specific/forms.py:56
+#: apps/site_specific/forms.py:56 apps/site_specific/forms.py:163
 msgid ""
-"Please enter a correct email or username and password. Note that both fields"
-" are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields "
+"are case-sensitive."
 msgstr ""
 "Bitte geben Sie Ihre Email oder Benutzernamen und Passwort ein. Achten Sie "
 "auf eine korrekte Groß-/Kleinschreibung"
 
-#: apps/site_specific/forms.py:58
+#: apps/site_specific/forms.py:58 apps/site_specific/forms.py:165
 msgid "This account is inactive."
 msgstr "Dieser Account ist inaktiv."
 
-#: apps/site_specific/forms.py:63
-msgid ""
-"Your Web browser doesn't appear to have cookies enabled. Cookies are "
-"required for logging in."
-msgstr ""
-"Bei Ihrem Webbrowser scheint das Speichern von Cookies deaktiviert zu sein. "
-"Cookies müssen aktiviert sein für den Login."
-
-#: apps/site_specific/forms.py:72
+#: apps/site_specific/forms.py:67
 msgid "Owner's email"
 msgstr "E-Mail des Besitzers (Museumsmitarbeiters)"
 
 #: apps/site_specific/forms.py:83
-#: templates/museumsportal/site_specific/claiming_invitation.html:9
-msgid "Claiming Invitation"
-msgstr "Einladung an Museumsadministratoren"
-
-#: apps/site_specific/forms.py:88
 msgid "Send invitation"
 msgstr "Einladung versenden"
 
-#: apps/site_specific/forms.py:94 apps/site_specific/forms.py:160
-msgid "Username for login"
-msgstr "Username für Login"
-
-#: apps/site_specific/forms.py:97 apps/site_specific/forms.py:163
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Nur alphanumerische Zeichen (Buchstaben, Ziffern und @/./+/-/_) sind "
-"erlaubt. Maximal 30 Zeichen bitte."
-
-#: apps/site_specific/forms.py:98 apps/site_specific/forms.py:164
-msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Bitte nur Buchstaben, Zahlen und folgende Zeichen @/./+/-/_"
-
-#: apps/site_specific/forms.py:101 apps/site_specific/forms.py:168
-msgid "First name"
-msgstr "Vorname"
-
-#: apps/site_specific/forms.py:104 apps/site_specific/forms.py:171
-msgid "Last name"
-msgstr "Nachname"
-
-#: apps/site_specific/forms.py:107 apps/site_specific/forms.py:174
+#: apps/site_specific/forms.py:90 apps/site_specific/forms.py:206
 msgid "Password"
 msgstr "Passwort"
 
-#: apps/site_specific/forms.py:111 apps/site_specific/forms.py:178
+#: apps/site_specific/forms.py:94 apps/site_specific/forms.py:210
 msgid "Confirm password"
 msgstr "Passwort bestätigen"
 
-#: apps/site_specific/forms.py:113 apps/site_specific/forms.py:180
-msgid "Enter the same password for verification."
-msgstr "Bitte das gleiche Passwort erneut eingeben."
+#: apps/site_specific/forms.py:115 apps/site_specific/forms.py:235
+#: templates/museumsportal/base.html:81
+#: templates/museumsportal/accounts/register.html:4
+#: templates/museumsportal/site_specific/claiming_confirmation.html:30
+msgid "Signup"
+msgstr "Registrieren"
 
-#: apps/site_specific/forms.py:127
-#, fuzzy
-msgid "Claiming Confirmation"
-msgstr "Basisinformation"
-
-#: apps/site_specific/forms.py:136 apps/site_specific/forms.py:201
-#: apps/site_specific/forms.py:233
-msgid "Confirm"
-msgstr "Bestätigen"
-
-#: apps/site_specific/forms.py:149 apps/site_specific/forms.py:211
-msgid "A user with that username already exists."
-msgstr "Ein Benutzer mit diesem Username existiert bereits."
-
-#: apps/site_specific/forms.py:155 apps/site_specific/forms.py:217
+#: apps/site_specific/forms.py:123 apps/site_specific/forms.py:251
 msgid "The two password fields didn't match."
 msgstr "Die beiden Passwörter stimmen nicht überein."
 
-#: apps/site_specific/forms.py:192
-msgid "Registration"
-msgstr "Registrierung"
+#: apps/site_specific/forms.py:182 apps/site_specific/forms.py:264
+msgid "Confirm"
+msgstr "Bestätigen"
 
-#: apps/site_specific/forms.py:249
-msgid "Reset my password"
+#: apps/site_specific/forms.py:245
+msgid "A user with that username already exists."
+msgstr "Ein Benutzer mit diesem Username existiert bereits."
+
+#: apps/site_specific/forms.py:277
+#: templates/museumsportal/accounts/password_reset_confirm.html:8
+#: templates/museumsportal/accounts/password_reset_done.html:8
+#, fuzzy
+msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: apps/site_specific/forms.py:265
+#: apps/site_specific/forms.py:293
 msgid "Change my password"
 msgstr "Passwort ändern"
 
-#: apps/site_specific/views.py:147
+#: apps/site_specific/views.py:146
 msgid "Wrong invitation code."
 msgstr "Falscher Einladungscode"
 
-#: apps/site_specific/views.py:151
+#: apps/site_specific/views.py:150
 msgid "Museum doesn't exist."
 msgstr "Museum existiert nicht."
 
@@ -1758,7 +1720,7 @@ msgid "Tweet media"
 msgstr "Tweet Media"
 
 #: apps/workshops/cms_app.py:8
-#: templates/museumsportal/accounts/dashboard.html:102
+#: templates/museumsportal/accounts/dashboard.html:100
 #: templates/museumsportal/museums/museum_detail.html:591
 #: templates/museumsportal/workshops/forms/base.html:19
 msgid "Workshops"
@@ -1809,27 +1771,27 @@ msgstr "Speziell geeignet für Blinde"
 msgid "Special for people with learning difficulties"
 msgstr "Speziell geeignet für Menschen mit Lernschwäche"
 
-#: apps/workshops/models.py:121
+#: apps/workshops/models.py:123
 msgid "workshop"
 msgstr "Führung"
 
-#: apps/workshops/models.py:122
+#: apps/workshops/models.py:124
 msgid "workshops"
 msgstr "Führungen"
 
-#: apps/workshops/models.py:209 apps/workshops/models.py:256
+#: apps/workshops/models.py:211 apps/workshops/models.py:258
 msgid "Workshop"
 msgstr "Workshop XX"
 
-#: apps/workshops/models.py:211
+#: apps/workshops/models.py:213
 msgid "Workshop date"
 msgstr "Datum, an dem die Führung stattfindet"
 
-#: apps/workshops/models.py:216
+#: apps/workshops/models.py:218
 msgid "workshop time"
 msgstr "workshop time XX"
 
-#: apps/workshops/models.py:217
+#: apps/workshops/models.py:219
 msgid "workshop times"
 msgstr "workshop times XX"
 
@@ -1960,28 +1922,28 @@ msgstr "Add another %(verbose_name)s"
 msgid "Back"
 msgstr "Zurück"
 
-#: templates/museumsportal/base.html:76
+#: templates/museumsportal/base.html:77
 #: templates/museumsportal/accounts/dashboard.html:33
-#: templates/museumsportal/accounts/dashboard.html:164
+#: templates/museumsportal/accounts/dashboard.html:161
 #, python-format
 msgid "Hello, %(first_name)s"
 msgstr "Hallo, %(first_name)s!"
 
-#: templates/museumsportal/base.html:76
+#: templates/museumsportal/base.html:78
 #: templates/museumsportal/accounts/dashboard.html:34
-#: templates/museumsportal/accounts/dashboard.html:165
+#: templates/museumsportal/accounts/dashboard.html:162
 msgid "Logout"
 msgstr "Abmelden"
 
-#: templates/museumsportal/base.html:77
+#: templates/museumsportal/base.html:88
 msgid "Dashboard"
 msgstr "Zurück zur Übersicht"
 
-#: templates/museumsportal/base.html:80
-#: templates/museumsportal/accounts/register.html:4
-#: templates/museumsportal/accounts/register.html:7
-msgid "Signup"
-msgstr "Registrieren"
+#: templates/museumsportal/base.html:90
+#: templates/museumsportal/favorites/favorites.html:9
+#: templates/museumsportal/favorites/favorites.html:15
+msgid "Favorites"
+msgstr "Favoriten"
 
 #: templates/museumsportal/accounts/dashboard.html:5
 #: templates/museumsportal/accounts/dashboard.html:39
@@ -1989,7 +1951,7 @@ msgid "Input Mask"
 msgstr "Eingabemaske"
 
 #: templates/museumsportal/accounts/dashboard.html:35
-#: templates/museumsportal/accounts/dashboard.html:166
+#: templates/museumsportal/accounts/dashboard.html:163
 msgid "Back to Dashboard"
 msgstr "Zurück zur Übersicht"
 
@@ -2002,37 +1964,37 @@ msgid "Add exhibition"
 msgstr "Weitere Ausstellung eintragen"
 
 #: templates/museumsportal/accounts/dashboard.html:61
-#: templates/museumsportal/accounts/dashboard.html:86
-#: templates/museumsportal/accounts/dashboard.html:110
-#: templates/museumsportal/accounts/dashboard.html:137
+#: templates/museumsportal/accounts/dashboard.html:85
+#: templates/museumsportal/accounts/dashboard.html:108
+#: templates/museumsportal/accounts/dashboard.html:135
 msgid "Last modification"
 msgstr "Letzte Änderung"
 
-#: templates/museumsportal/accounts/dashboard.html:72
+#: templates/museumsportal/accounts/dashboard.html:71
 msgid "You don't have any exhibitions."
 msgstr "Sie haben noch keine Ausstellungen eingetragen."
 
-#: templates/museumsportal/accounts/dashboard.html:77
+#: templates/museumsportal/accounts/dashboard.html:76
 msgid "Add event"
 msgstr "Neue Veranstaltung eintragen"
 
-#: templates/museumsportal/accounts/dashboard.html:96
+#: templates/museumsportal/accounts/dashboard.html:94
 msgid "You don't have any events."
 msgstr "Sie haben noch keine Veranstaltungen eingetragen."
 
-#: templates/museumsportal/accounts/dashboard.html:101
+#: templates/museumsportal/accounts/dashboard.html:99
 msgid "Add workshop"
 msgstr "Neue Führung eintragen"
 
-#: templates/museumsportal/accounts/dashboard.html:120
+#: templates/museumsportal/accounts/dashboard.html:117
 msgid "You don't have any workshops."
 msgstr "Sie haben noch keine Führungen eingetragen."
 
-#: templates/museumsportal/accounts/dashboard.html:125
+#: templates/museumsportal/accounts/dashboard.html:122
 msgid "Add museum"
 msgstr "Neues Museum hinzufügen"
 
-#: templates/museumsportal/accounts/dashboard.html:149
+#: templates/museumsportal/accounts/dashboard.html:146
 msgid "You don't have any museums."
 msgstr "Ihnen wurde noch kein Museum zugeordnet."
 
@@ -2040,18 +2002,37 @@ msgstr "Ihnen wurde noch kein Museum zugeordnet."
 msgid "login"
 msgstr "Login"
 
+#: templates/museumsportal/accounts/login.html:14
+#, fuzzy
+msgid "Forgot your Password?"
+msgstr "Passwort vergessen?"
+
+#: templates/museumsportal/accounts/login.html:14
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: templates/museumsportal/accounts/login.html:15
+#: templates/museumsportal/site_specific/claiming_confirmation.html:30
+#, fuzzy
+msgid "Don't have an account?"
+msgstr "Sie haben noch keine Veranstaltungen eingetragen."
+
+#: templates/museumsportal/accounts/login.html:15
+#: templates/museumsportal/accounts/register.html:8
+#, fuzzy
+msgid "Sign Up"
+msgstr "Registrieren"
+
 #: templates/museumsportal/accounts/password_change_done.html:4
 msgid "Password change successful"
 msgstr "Ihr Passwort wurde erfolgreich geändert"
 
-#: templates/museumsportal/accounts/password_change_done.html:7
-#: templates/museumsportal/accounts/password_change_form.html:7
-#: templates/museumsportal/accounts/password_reset_confirm.html:7
-#: templates/museumsportal/accounts/password_reset_done.html:7
+#: templates/museumsportal/accounts/password_change_done.html:8
+#: templates/museumsportal/accounts/password_change_form.html:8
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: templates/museumsportal/accounts/password_change_done.html:8
+#: templates/museumsportal/accounts/password_change_done.html:9
 msgid "Your password was changed."
 msgstr "Ihr Passwort wurde geändert"
 
@@ -2059,27 +2040,33 @@ msgstr "Ihr Passwort wurde geändert"
 msgid "Password change"
 msgstr "Passwort ändern"
 
+#: templates/museumsportal/accounts/password_change_form.html:9
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
 #: templates/museumsportal/accounts/password_reset_complete.html:4
-#: templates/museumsportal/accounts/password_reset_complete.html:7
 msgid "Password reset complete"
 msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt"
 
 #: templates/museumsportal/accounts/password_reset_complete.html:8
-#, python-format
-msgid ""
-"Your password has been set. You may go ahead and <a "
-"href=\"%(login_url)s\">log in</a> now."
-msgstr ""
-"Ihr Passwort wurde gespeichert. Sie können sich nun unter <a "
-"href=\"%(login_url)s\">einloggen</a>."
-
 #: templates/museumsportal/accounts/password_reset_confirm.html:4
 #: templates/museumsportal/accounts/password_reset_form.html:5
-#: templates/museumsportal/accounts/password_reset_form.html:8
+#: templates/museumsportal/accounts/password_reset_form.html:9
 msgid "Password reset"
 msgstr "Passwort zurücksetzen"
 
-#: templates/museumsportal/accounts/password_reset_confirm.html:11
+#: templates/museumsportal/accounts/password_reset_complete.html:10
+#, python-format
+msgid ""
+"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
+"\">log in</a> now."
+msgstr ""
+"Ihr Passwort wurde gespeichert. Sie können sich nun unter <a href="
+"\"%(login_url)s\">einloggen</a>."
+
+#: templates/museumsportal/accounts/password_reset_confirm.html:13
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
@@ -2092,7 +2079,7 @@ msgstr ""
 msgid "Password reset successful"
 msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt"
 
-#: templates/museumsportal/accounts/password_reset_done.html:8
+#: templates/museumsportal/accounts/password_reset_done.html:10
 msgid ""
 "We've e-mailed you a link that allows you to set up a new password. You "
 "should be receiving it shortly. "
@@ -2103,8 +2090,8 @@ msgstr ""
 #: templates/museumsportal/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your"
-" user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your "
+"user account at %(site_name)s."
 msgstr ""
 "Sie erhalten diese Email, da Sie das Zurücksetzen Ihres Passwortes für Ihr "
 "Nutzerkonto bei %(site_name)s beantragt haben."
@@ -2129,36 +2116,56 @@ msgstr "Vielen Dank, dass Sie das Museumsportal Berlin besucht haben."
 msgid "The %(site_name)s team"
 msgstr "Ihr %(site_name)s -Team"
 
+#: templates/museumsportal/accounts/password_reset_form.html:10
+msgid ""
+"To reset your password enter your email address and we will send you an "
+"confirmation."
+msgstr ""
+
+#: templates/museumsportal/accounts/password_reset_form.html:14
+msgid "You want to try again?"
+msgstr ""
+
+#: templates/museumsportal/accounts/password_reset_form.html:14
+msgid "Go back"
+msgstr ""
+
+#: templates/museumsportal/accounts/register.html:12
+#: templates/museumsportal/site_specific/claiming_confirmation.html:21
+msgid "Already have an account?"
+msgstr ""
+
 #: templates/museumsportal/accounts/register_done.html:4
+#: templates/museumsportal/accounts/register_done.html:8
 msgid "Signup complete"
 msgstr "Registrierung abgeschlossen."
 
-#: templates/museumsportal/accounts/register_done.html:7
-msgid "Your signup is complete."
-msgstr "Ihre Registrierung ist abgeschlossen."
-
 #: templates/museumsportal/accounts/register_verify_required.html:4
-#: templates/museumsportal/accounts/register_verify_required.html:7
 msgid "You're almost there."
 msgstr "Sie haben es fast geschafft."
 
 #: templates/museumsportal/accounts/register_verify_required.html:8
+#, fuzzy
+msgid "You're almost there"
+msgstr "Sie haben es fast geschafft."
+
+#: templates/museumsportal/accounts/register_verify_required.html:10
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid "
-"e-mail address. You should be getting a confirmation e-mail very shortly. It"
-" will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid e-"
+"mail address. You should be getting a confirmation e-mail very shortly. It "
+"will contain instructions on how to finalize your registration."
 msgstr ""
 "Um die Registrierung abzuschließen, müssen wir überprüfen, dass Sie eine "
 "gültige E-Mail-Adresse eingegeben haben. Sie erhalten dazu in Kürze eine "
 "weitere E-Mail mit einem Bestätigungslink."
 
-#: templates/museumsportal/accounts/register_verify_required.html:9
+#: templates/museumsportal/accounts/register_verify_required.html:11
 msgid ""
 "Please also check your Spam folder to make sure that our message has not "
 "been filtered out."
 msgstr ""
-"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort"
-" gelandet."
+"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort "
+"gelandet."
 
 #: templates/museumsportal/cms/plugins/editorial_content.html:14
 #: templates/museumsportal/cms/plugins/newly_opened_exhibition.html:16
@@ -2255,8 +2262,9 @@ msgid "Date and Time"
 msgstr "Datum und Uhrzeit"
 
 #: templates/museumsportal/events/forms/times_form.html:82
-msgid "Add another event time"
-msgstr "Weitere Veranstaltungszeit hinzufügen"
+#, fuzzy
+msgid "Add event time"
+msgstr "Veranstaltungsbeginn"
 
 #: templates/museumsportal/exhibitions/exhibition_detail.html:194
 msgid "Vernissage"
@@ -2445,11 +2453,6 @@ msgstr "Pflichtfeld. Bitte ausfüllen."
 msgid "Okay"
 msgstr ""
 
-#: templates/museumsportal/favorites/favorites.html:9
-#: templates/museumsportal/favorites/favorites.html:15
-msgid "Favorites"
-msgstr "Favoriten"
-
 #: templates/museumsportal/favorites/favorites.html:243
 msgid "You have no favorites."
 msgstr "Sie haben noch keine Favoriten gespeichert."
@@ -2558,12 +2561,32 @@ msgstr "Stichworte"
 msgid "Claiming confirmation"
 msgstr "Basisinformation"
 
-#: templates/museumsportal/site_specific/claiming_confirmation.html:9
+#: templates/museumsportal/site_specific/claiming_confirmation.html:10
+#, fuzzy, python-format
+msgid ""
+"Please confirm that you are the owner of <a href=\"%(museum_link)s\">"
+"%(museum_title)s</a>."
+msgstr ""
+"Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
+"Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
+"eingeben: <a href=\"%(museum_link)s\">%(museum_title)s</a>"
+
+#: templates/museumsportal/site_specific/claiming_confirmation.html:17
 #, python-format
 msgid ""
 "Please fill in this form to create and account at Museumsportal Berlin and "
-"to confirm that you are the owner of <a "
-"href=\"%(museum_link)s\">%(museum_title)s</a>."
+"to confirm that you are the owner of <a href=\"%(museum_link)s\">"
+"%(museum_title)s</a>."
+msgstr ""
+"Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
+"Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
+"eingeben: <a href=\"%(museum_link)s\">%(museum_title)s</a>"
+
+#: templates/museumsportal/site_specific/claiming_confirmation.html:26
+#, fuzzy, python-format
+msgid ""
+"Please login to confirm that you are the owner of <a href=\"%(museum_link)s"
+"\">%(museum_title)s</a>."
 msgstr ""
 "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
 "Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
@@ -2574,7 +2597,7 @@ msgstr ""
 msgid "Claiming invitation"
 msgstr "Einladung an Museumsadministratoren"
 
-#: templates/museumsportal/site_specific/claiming_invitation_done.html:10
+#: templates/museumsportal/site_specific/claiming_invitation_done.html:7
 msgid "Thank you! Your invitation has been sent."
 msgstr "Vielen Dank! Ihr Einladung wurde versendet"
 
@@ -2593,6 +2616,51 @@ msgstr "Neue Führung hinzufügen"
 #: templates/museumsportal/workshops/forms/times_form.html:82
 msgid "Add another workshop time"
 msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
+
+#~ msgid ""
+#~ "Your Web browser doesn't appear to have cookies enabled. Cookies are "
+#~ "required for logging in."
+#~ msgstr ""
+#~ "Bei Ihrem Webbrowser scheint das Speichern von Cookies deaktiviert zu "
+#~ "sein. Cookies müssen aktiviert sein für den Login."
+
+#~ msgid "Claiming Invitation"
+#~ msgstr "Einladung an Museumsadministratoren"
+
+#~ msgid "Username for login"
+#~ msgstr "Username für Login"
+
+#~ msgid ""
+#~ "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+#~ msgstr ""
+#~ "Nur alphanumerische Zeichen (Buchstaben, Ziffern und @/./+/-/_) sind "
+#~ "erlaubt. Maximal 30 Zeichen bitte."
+
+#~ msgid ""
+#~ "This value may contain only letters, numbers and @/./+/-/_ characters."
+#~ msgstr "Bitte nur Buchstaben, Zahlen und folgende Zeichen @/./+/-/_"
+
+#~ msgid "First name"
+#~ msgstr "Vorname"
+
+#~ msgid "Last name"
+#~ msgstr "Nachname"
+
+#~ msgid "Enter the same password for verification."
+#~ msgstr "Bitte das gleiche Passwort erneut eingeben."
+
+#, fuzzy
+#~ msgid "Claiming Confirmation"
+#~ msgstr "Basisinformation"
+
+#~ msgid "Registration"
+#~ msgstr "Registrierung"
+
+#~ msgid "Your signup is complete."
+#~ msgstr "Ihre Registrierung ist abgeschlossen."
+
+#~ msgid "Add another event time"
+#~ msgstr "Weitere Veranstaltungszeit hinzufügen"
 
 #~ msgid "save"
 #~ msgstr "Schließen"
@@ -2725,9 +2793,6 @@ msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 
 #~ msgid "All Day Event"
 #~ msgstr "Ganztägige Veranstaltung"
-
-#~ msgid "Reset"
-#~ msgstr "Zurücksetzen"
 
 #~ msgid "Shop info"
 #~ msgstr "Shopinfo"
