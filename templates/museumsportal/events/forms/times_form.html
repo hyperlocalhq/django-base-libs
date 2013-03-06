@@ -103,7 +103,7 @@
         });
         $('.delete').live("click", function() {
             var $season = $(this).parents('.formset-form:first');
-            var $checkbox = $(this).parent().find('input:checkbox[id$=DELETE]');
+            var $checkbox = $season.find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");
             $season.hide();
             return false;
