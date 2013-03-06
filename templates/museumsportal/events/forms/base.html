@@ -1,6 +1,14 @@
 {% extends "accounts/dashboard.html" %}
 {% load i18n %}
 
+{% block title %}
+    {% if event %}
+        {{ event.title }}
+    {% else %}
+        {% trans "New event" %}
+    {% endif %}
+{% endblock %}
+
 {% block stylesheet %}
     {{ block.super }}
     <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css" />

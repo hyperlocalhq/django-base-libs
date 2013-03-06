@@ -1,6 +1,14 @@
 {% extends "accounts/dashboard.html" %}
 {% load i18n %}
 
+{% block title %}
+    {% if workshop %}
+        {{ workshop.title }}
+    {% else %}
+        {% trans "New workshop" %}
+    {% endif %}
+{% endblock %}
+
 {% block stylesheet %}
     {{ block.super }}
     <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css" />

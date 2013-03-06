@@ -34,7 +34,7 @@ body {
   font-family: 'calluna_sans';
   font-size: 16px;
   line-height: 26px;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   font-weight: 400;
 
@@ -461,7 +461,7 @@ a:active  { outline: none;}
     padding: 0px;
     margin: 0px;
     margin-right: -60px;
-    position: relative;
+    overflow: auto;
 
     > li { 
       cursor: move !important;
@@ -469,6 +469,10 @@ a:active  { outline: none;}
       &.ui-state-highlight {
         background-color: rgba(0,0,0,0.05) !important;
         height: 150px;
+        &:first-child {
+          width: 1000px !important;
+          height: 350px !important;
+        }
       }
 
       .img { 
@@ -1607,6 +1611,7 @@ dl {
 }
 #dashboard_footer .inner { padding-bottom: 30px !important; }
 
+.fieldset-imagegallery,
 #workshop_times_fieldset,
 #event_times_fieldset,
 #social_channels_fieldset,

@@ -472,7 +472,7 @@ form {
 
     &.merge {
       .inline { white-space: nowrap;
-        > div:last-child{ margin-right: 0px; } 
+        > div:last-child{ margin-right: 1px; } 
       }
       > div{ border-right: 4px solid white; } 
     }

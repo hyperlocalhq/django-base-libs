@@ -89,16 +89,18 @@ class ImageFileForm(forms.Form):
                     <input type="button" id="button-id-delete-photo" class="delete_photo btn" data-href="{{ workshop.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h3 id="deleteConfirmationLabel">{% trans "Are you sure?" %}</h3>
-                        </div>
-                        <div class="modal-body">
-                            <p>{% trans "Do you really want to delete this image?" %}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
-                            <button id="button-id-confirm-deletion" class="btn btn-primary">{% trans "Delete" %}</button>
+                        <div class="table">
+                            <div class="cell">
+                                <div class="inner">
+                                    <div class="modal-body">
+                                        <p>{% trans "Do you really want to delete this image?" %}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="button-id-confirm-deletion" class="btn btn-primary">{% trans "Yes, Please" %}</button>
+                                        <button name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">{% trans "No, Thanks" %}</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>    
                 {% endif %}
