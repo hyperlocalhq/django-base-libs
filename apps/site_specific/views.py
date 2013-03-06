@@ -238,7 +238,7 @@ def register(request):
     context = {
         'form': form,
         }
-    return render(request, "site_specific/claiming_confirmation.html", context)
+    return render(request, "accounts/register.html", context)
     
 def confirm_registration(request, encrypted_email):
     "Displays the registration form and handles the registration action"
