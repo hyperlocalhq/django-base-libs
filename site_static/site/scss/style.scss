@@ -220,6 +220,57 @@ a:active  { outline: none;}
 
 // ================= HEADER =================
 
+#meta {
+  position: absolute;
+  right: 0px;
+  top: 20px;
+  font-size: 0px;
+  white-space: nowrap;
+  li {
+    display: block;
+    position: relative;
+    height: 32px;
+    line-height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    float: left;
+    
+    li {margin-left: 2px; }
+
+    a {
+      margin: 0px !important;
+      display: block;
+      background-color: rgba(0,0,0,0.05);
+      height: 32px;
+      width: 32px;
+      color: black;
+      line-height: inherit !important;
+
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+
+      span { display: none;}
+      &:hover {
+        background-color: black !important;
+        color: white;
+      }
+    }
+  }
+  #lang {
+    width: 32px;
+    padding-top: 32px;
+
+     li { display: none; float: none; }
+
+     &:hover li { display: block; }
+     li.current { display: block; position: absolute; top: 0px;}
+  }
+  #user li {
+    p, a { padding-right: 10px; padding-left: 10px; width: auto; }
+  }
+}
+
 #header {
   border-top: none;
   .logo {
@@ -259,58 +310,6 @@ a:active  { outline: none;}
   .inner { 
     height: 100px; 
     padding: 0px !important;
-
-    #meta {
-      position: absolute;
-      right: 0px;
-      top: 20px;
-      font-size: 0px;
-      white-space: nowrap;
-      li {
-        display: block;
-        position: relative;
-        height: 32px;
-        line-height: 32px;
-        font-size: 13px;
-        font-weight: 500;
-        text-align: center;
-        float: left;
-        
-        li {margin-left: 2px; }
-
-        a {
-          margin: 0px !important;
-          display: block;
-          background-color: rgba(0,0,0,0.05);
-          height: 32px;
-          width: 32px;
-          color: black;
-          line-height: inherit !important;
-
-          box-sizing: border-box;
-          -moz-box-sizing: border-box;
-
-          span { display: none;}
-          &:hover {
-            background-color: black !important;
-            color: white;
-          }
-        }
-      }
-      #lang {
-        width: 32px;
-        padding-top: 32px;
-
-         li { display: none; float: none; }
-
-         &:hover li { display: block; }
-         li.current { display: block; position: absolute; top: 0px;}
-      }
-      #user li {
-        p, a { padding-right: 10px; padding-left: 10px; width: auto; }
-      }
-      
-    }
   }
 }
 
@@ -880,12 +879,16 @@ nav.actions {
   &.icon-other      { background-image: url("../img/icons/inv/other.svg"); }
   &.icon-delete     { background-image: url("../img/icons/inv/cancel.svg"); }
 
+  &.icon-mail       { background-image: url("../img/icons/mail.svg");}
+  &.icon-phone      { background-image: url("../img/icons/phone.svg");}
   &.icon-dashboard  { background-image: url("../img/icons/dashboard.svg"); }
   &.icon-favorites  { background-image: url("../img/icons/favorite.svg"); }
   &.icon-facebook   { background-image: url("../img/icons/facebook.svg"); }
   &.icon-twitter    { background-image: url("../img/icons/twitter.svg"); }
 
   &:hover {
+    &.icon-mail      { background-image: url("../img/icons/inv/mail.svg");}
+    &.icon-phone     { background-image: url("../img/icons/inv/phone.svg");}
     &.icon-dashboard { background-image: url("../img/icons/inv/dashboard.svg");}
     &.icon-favorites { background-image: url("../img/icons/inv/favorite.svg");}
     &.icon-facebook  { background-image: url("../img/icons/inv/facebook.svg");}
@@ -1589,7 +1592,7 @@ dl {
 
 #dashboard_footer,
 #dashboard_header{
-   .inner { padding-top: 10px !important;  padding-bottom: 0px !important; }
+   .inner { padding-top: 1px !important;  padding-bottom: 0px !important; }
    h2 { 
     margin-top: 60px; 
     margin-bottom: 30px !important;
