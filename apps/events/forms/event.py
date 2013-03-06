@@ -180,6 +180,12 @@ class BasicInfoForm(ModelForm):
             _("Categories and Tags"),
             
             layout.Row(
+                layout.Div("languages", css_class="min"),
+                layout.Div("other_languages", css_class="max"),
+                css_class="flex merge",
+                ),
+            
+            layout.Row(
                 layout.Div("categories", css_class="min"),
                 layout.Div(layout.HTML("""<label>&nbsp;</label> """),"suitable_for_children", css_class="inline max"),
                 css_class="flex merge",
@@ -187,11 +193,6 @@ class BasicInfoForm(ModelForm):
 
             layout.Row("tags"),
 
-            layout.Row(
-                layout.Div("languages", css_class="min"),
-                layout.Div("other_languages", css_class="max"),
-                css_class="flex merge",
-                ),
             css_class="fieldset-categories-tags",
             ))
         if self.instance and self.instance.pk:
