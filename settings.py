@@ -16,7 +16,7 @@ ADMINS = (
 )
 
 MANAGERS = ( 
-     ('Berliner Museumsportal Webmaster', 'bendoraitis@studio38.de'),
+     ('Berliner Museumsportal Webmaster', 'museumsportal@kulturprojekte-berlin.de'),
 )
 
 TIME_ZONE = 'Europe/Berlin'
