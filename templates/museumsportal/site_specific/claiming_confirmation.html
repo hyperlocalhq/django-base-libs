@@ -40,6 +40,10 @@
                 $('#claiming_login').hide();
                 $('#claiming_signup').show();
             })
+            if (location.hash.replace(/^#/, "") == "login") {
+                $('#claiming_signup').hide();
+                $('#claiming_login').show();
+            }
         });
         </script>
     {% endif %}
