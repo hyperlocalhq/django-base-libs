@@ -51,6 +51,9 @@ body {
   }
 }
 
+::selection {background: #ffb7b7; /* Safari */ }
+::-moz-selection {background: #ffb7b7; /* Firefox */ }
+
 h1,h2,h3,h4,h5,h6 {
   padding: 0;
   margin: 0;
@@ -143,6 +146,7 @@ p a{font-weight: 500; }
       display: inline-block;
       text-align: left;
       width: 320px;
+      margin-bottom: 25px;
       
       .alert {
         padding: 24px !important;
@@ -176,11 +180,15 @@ p a{font-weight: 500; }
           width: 100%;
         }
       }
+
+      header,
       footer {
         font-size: 14px;
         line-height: 22px;
-        padding-top: 20px !important;
       }
+      h2 { margin-bottom: 10px}
+      header { padding-bottom: 20px !important; }
+      footer { padding-top: 20px !important; }
     }
   }
 }

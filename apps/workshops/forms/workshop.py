@@ -187,13 +187,19 @@ class BasicInfoForm(ModelForm):
             ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
+
             layout.Row(
-                "languages", "other_languages",
+                layout.Div("languages", css_class="min"),
+                layout.Div("other_languages", css_class="max"),
+                css_class="flex merge",
                 ),
+
             layout.Row(
                 "tags",
                 ),
+
             layout.Div(
+                layout.HTML("""{% load i18n %} <label>{% trans "Particularities" %}</label> """),
                 'has_group_offer',
                 'is_for_preschool',
                 'is_for_primary_school',

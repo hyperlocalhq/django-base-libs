@@ -178,17 +178,19 @@ class BasicInfoForm(ModelForm):
             ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
+            
             layout.Row(
-                "categories",
-                "languages",
+                layout.Div("categories", css_class="min"),
+                layout.Div(layout.HTML("""<label>&nbsp;</label> """),"suitable_for_children", css_class="inline max"),
+                css_class="flex merge",
                 ),
+
+            layout.Row("tags"),
+
             layout.Row(
-                "tags",
-                "other_languages",
-                ),
-            layout.Div(
-                "suitable_for_children",
-                css_class="inline",
+                layout.Div("languages", css_class="min"),
+                layout.Div("other_languages", css_class="max"),
+                css_class="flex merge",
                 ),
             css_class="fieldset-categories-tags",
             ))

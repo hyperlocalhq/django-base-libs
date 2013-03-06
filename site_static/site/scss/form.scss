@@ -114,7 +114,13 @@ input::-webkit-slider-thumb {
   -moz-apperance:none;
 }
 
+
+.control-group.error label {
+  color: $red !important;
+}
+
 .error {
+  color: $red;
   input,
   select,
   textarea,
@@ -122,22 +128,24 @@ input::-webkit-slider-thumb {
   input[type=email], 
   input[type=password], 
   input[type=search] {
-    box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1);
+    box-shadow: inset 0 0 0 0px rgba(255,0,0,0.1) !important;
     background-color: rgba(255,0,0,0.1) !important; 
-    color: rgb(255,0,0) !important;
+    color: $red !important;
+    
+    &:hover { background-color: rgba(255,0,0,0.15) !important; }
+    &:focus { box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1) !important; }
 
-
-    &:focus {
-      box-shadow: inset 0 0 0 4px rgba(255,0,0,0.1);
-    }
-
-    &::-webkit-input-placeholder { color: rgb(255,0,0) !important; }
-    &:-moz-placeholder { color: rgb(255,0,0) !important;}
-    &:-ms-input-placeholder { color: rgb(255,0,0) !important;}
+    &::-webkit-input-placeholder { color: $red !important; }
+    &:-moz-placeholder { color: $red !important;}
+    &:-ms-input-placeholder { color: $red !important;}
   }
 
-  .help-block {margin-top: 10px; }
+  .control-group label {
+    background-color: rgba(255,0,0,0.1) !important; 
+    color: $red !important;
+  }
 
+  .help-block,
   .help-inline {
     padding: 0px;
     font-size: 14px;
@@ -148,6 +156,7 @@ input::-webkit-slider-thumb {
     position: absolute;
     top: 0px;
     right: 0px;
+    color: $red !important;
   }
 
   label,
@@ -238,6 +247,13 @@ textarea {
 form { 
   width: 100%;
 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
   & *::-webkit-scrollbar-corner,
   & *::-webkit-scrollbar {
     width: 10px;
@@ -255,7 +271,7 @@ form {
   .control-group {
     margin: 0px;
     padding: 0px;
-    position: relative;
+    position: relative !important;
   }
 
   .row {
@@ -327,10 +343,6 @@ form {
       color: black;
       margin: 0px;
       margin-left: -1px;
-
-      &+.control-group {
-        margin-top: 0px;
-      }
     }
 
     label { 
@@ -454,9 +466,16 @@ form {
   // &:last-child{
   //   textarea, input { margin: 0px !important;}
   // }
+
   &.flex { 
     table-layout: auto !important;
 
+    &.merge {
+      .inline { white-space: nowrap;
+        > div:last-child{ margin-right: 0px; } 
+      }
+      > div{ border-right: 4px solid white; } 
+    }
     > div{ 
       min-width: 40px !important;
       width: 33% !important;
@@ -562,7 +581,7 @@ label.radio {
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
   min-height: auto;
-  &:hover {background-color: rgba(0,0,0,0.1); cursor: pointer; }
+  &:hover {background-color: rgba(0,0,0,0.075); cursor: pointer; }
 
   input[type="radio"], 
   input[type="checkbox"] {
@@ -578,11 +597,10 @@ label.radio {
 }
 
 .inline {
-  padding-bottom: 20px;
   display: block;
   font-size: 0px;
 
-  .control-group {
+  > div {
     display: inline-block;
     white-space: nowrap;
     box-sizing: border-box !important;
@@ -603,7 +621,7 @@ label.radio {
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important;
 
-      &:hover {background-color: rgba(0,0,0,0.1); cursor: pointer; }
+      &:hover {background-color: rgba(0,0,0,0.075); cursor: pointer; }
 
       &.checkbox,
       &.radio { padding-left: 30px !important;}
@@ -643,11 +661,6 @@ label.radio {
   }
 }
 
-
-legend + .control-group,
-.form-horizontal .control-group {
-  margin-top: 0px;
-}
 
 .input-append,
 .input-prepend {
@@ -730,17 +743,15 @@ legend + .control-group,
 div.tagsinput { 
   background: #FFF; 
   width:100%; 
-  overflow-y: auto;
   font-size: 0px;
   line-height: 0px;
   color: rgba(0,0,0,0.8);
-  margin-bottom: 20px !important;
 
   span.tag { 
     display: block;
     float: left;
-    height: 32px;
-    line-height: 32px;
+    height: 40px;
+    line-height: 40px;
     background-color: rgba(0,0,0,0.05);
     color: inherit;
     margin-bottom: 5px;
@@ -748,31 +759,46 @@ div.tagsinput {
     white-space: nowrap;
     font-size: 14px;
     line-height: 0px;
+    position: relative !important;
+
+    &:hover { background-color: rgba(0,0,0,0.075); }
 
     span,
     a {
-      height: 32px;
-      line-height: 32px;
+      height: 40px;
+      line-height: 40px;
       font-size: 14px;
       display: inline-block;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
+
     span {
       padding-left: 10px;
-      padding-right: 10px;
+      padding-right: 28px;
     }
+
     a {
-      margin-left: -15px;
       overflow: hidden;
       text-indent: 1000px;
-      width: 32px;
       background-image: url("../img/icons/cancel.svg");
       background-size: 32px;
-      background-position: center;
+      background-position: right;
       background-repeat: no-repeat;
       opacity: 0.3;
-      &:hover { opacity: 1}
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      &:hover { opacity: 1; }
     }
 
   }
@@ -780,17 +806,20 @@ div.tagsinput {
     background-color: rgba(0,0,0,0.05);
     outline:0px;  
     border: 0;
-    height: 32px;
+    height: 40px;
     font-size: 14px;
-    line-height: 32px;
+    line-height: 40px;
     padding-left: 10px;
     padding-right: 10px;
     margin: 0px !important;
     width: 100px;
-    
+    width: 100%;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    &:hover { background-color: rgba(0,0,0,0.075); }
   }
   
-  div { display:block; float: left; } 
+  // div { display:block; float: left; } 
 }
 
 .tags_clear { clear: both; width: 100%; height: 0px; }
