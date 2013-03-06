@@ -755,8 +755,10 @@ class MediationForm(ModelForm):
                 'has_audioguide_for_learning_difficulties',
                 'has_audioguide',
                 ),
-            layout.Div(
+
+            layout.Row(
                 layout.Div(
+                    layout.HTML("""{% load i18n %} <label>{% trans "Languages" %}</label> """),
                     'has_audioguide_de',
                     'has_audioguide_en',
                     'has_audioguide_fr',
@@ -764,12 +766,12 @@ class MediationForm(ModelForm):
                     'has_audioguide_sp',
                     'has_audioguide_pl',
                     'has_audioguide_tr',
-                    css_class="inline",
+                    css_class="inline min",
                     ),
-                'audioguide_other_languages',
+                layout.Div("audioguide_other_languages", css_class="max"),
                 css_id="div_audioguide_languages",
+                css_class="flex merge",
                 ),
-            css_class="fieldset-basic-info",
             ))
 
         if self.instance and self.instance.pk:
