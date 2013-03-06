@@ -1644,8 +1644,9 @@ div.tagsinput {
       /* line 151, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
       #picker .body table tr td span {
         display: block;
-        cursor: pointer; }
-        /* line 155, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        cursor: pointer;
+        padding-bottom: 3px; }
+        /* line 156, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
         #picker .body table tr td span.month {
           width: 25%;
           height: 80px;
@@ -1658,48 +1659,48 @@ div.tagsinput {
           box-sizing: border-box;
           -moz-box-sizing: border-box;
           font-weight: 400 !important; }
-          /* line 168, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+          /* line 169, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
           #picker .body table tr td span.month:hover {
             background-color: rgba(255, 255, 255, 0.05);
             font-weight: 500 !important; }
-          /* line 173, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+          /* line 174, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
           #picker .body table tr td span.month.active {
             background-color: rgba(255, 255, 255, 0.1);
             font-weight: 500 !important; }
-          /* line 178, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+          /* line 179, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
           #picker .body table tr td span.month:active {
             background-color: rgba(255, 255, 255, 0.05);
             font-weight: 500;
             background-color: white !important;
             color: black !important; }
-        /* line 186, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        /* line 187, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
         #picker .body table tr td span:active {
           background-color: rgba(255, 255, 255, 0.05);
           font-weight: 500;
           background-color: white !important;
           color: black !important; }
-        /* line 192, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+        /* line 193, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
         #picker .body table tr td span.active {
           background-color: rgba(255, 255, 255, 0.1);
           font-weight: 500; }
-  /* line 202, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+  /* line 203, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
   #picker footer {
     padding: 30px;
     background-color: rgba(0, 0, 0, 0.9);
     background-color: transparent;
     padding-left: 0px !important;
     padding-right: 0px; }
-    /* line 209, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+    /* line 210, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
     #picker footer button {
       height: 80px; }
-      /* line 220, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+      /* line 221, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
       #picker footer button.done {
         float: left;
-        width: 310px;
+        width: 290px;
         font-size: 28px; }
-      /* line 226, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
+      /* line 227, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/picker.scss */
       #picker footer button.cancel {
-        width: 125px; }
+        width: 145px; }
 
 /* line 11, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
 html {

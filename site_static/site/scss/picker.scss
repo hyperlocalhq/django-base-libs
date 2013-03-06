@@ -151,6 +151,7 @@
           span {
             display: block;
             cursor: pointer;
+            padding-bottom: 3px;
 
             &.month {
               width: 25%;
@@ -164,7 +165,7 @@
               box-sizing: border-box;
               -moz-box-sizing: border-box;
               font-weight: 400 !important;
-                  
+
               &:hover{
                 background-color: rgba(255,255,255,0.05);
                 font-weight: 500 !important;
@@ -219,12 +220,12 @@
 
       &.done {
         float: left;
-        width: 310px;
+        width: 290px;
         font-size: 28px;
       }
 
       &.cancel {
-        width: 125px;
+        width: 145px;
       }
     }
   }
