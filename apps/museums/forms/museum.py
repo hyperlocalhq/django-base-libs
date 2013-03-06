@@ -152,10 +152,8 @@ class SeasonForm(ModelForm):
         super(SeasonForm, self).__init__(*args, **kwargs)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            for f in [
-                'exceptions_%s' % lang_code,
-                ]:
-                self.fields[f].label = _("Additional Information")
+            self.fields['title_%s' % lang_code].required = True
+            self.fields['exceptions_%s' % lang_code].label = _("Additional Information")
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
