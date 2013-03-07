@@ -3,124 +3,38 @@
 {% block bodyclass %}workshop-detail{% endblock %}
 
 {% block js %}
-    <link href="{{ STATIC_URL }}site/shadowbox/shadowbox.css" rel="stylesheet" media="screen" type="text/css" />
-    
-    
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}"></script>
-    
-    {% with object as workshop %}
-        <script type="text/javascript">
-        function openGoogleMaps() {
-            Shadowbox.open({
-                player:     "html",
-                content:    "",
-                height:     $(window).height(),
-                width:      $(window).width(),
-                options:    {
-                    onFinish: function(item) {
-                        /*var body = document.getElementById();*/
-                        var latlng = new google.maps.LatLng({{ workshop.museum.latitude|default:52.519171 }}, {{ workshop.museum.longitude|default:13.4060912 }});
-                        var myOptions = {
-                        mapTypeControl: true,
-                        zoomControl: true,
-                        streetViewControl: true,
-                        zoom: 16,
-                        center: latlng,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                        };
-                        var map = new google.maps.Map(
-                            document.getElementById(Shadowbox.playerId),
-                            myOptions
-                        );
-                        var oImage = new google.maps.MarkerImage(
-                            "{{ STATIC_URL }}site/img/gmap/markers_1-10.png",
-                            // This marker is 20 pixels wide by 32 pixels tall.
-                            new google.maps.Size(20, 34),
-                            // The origin for this image is 0,0.
-                            new google.maps.Point(0, 0),
-                            // The anchor for this image is the base of the flagpole at 0,32.
-                            new google.maps.Point(10, 34)
-                        );                                
-                        var oShadow = new google.maps.MarkerImage(
-                            "{{ STATIC_URL }}site/img/gmap/marker_shadow.png",
-                            // The shadow image is larger in the horizontal dimension
-                            // while the position and offset are the same as for the main image.
-                            new google.maps.Size(37, 34),
-                            new google.maps.Point(0, 0),
-                            new google.maps.Point(8, 25)
-                        );
-                        var marker = new google.maps.Marker({
-                            map: map, 
-                            position: latlng,
-                            shadow: oShadow,
-                            icon: oImage
-                        });
-                        /*var map = new GMap2(body);
-                        map.setCenter(new GLatLng(37.4419, -122.1419), 13);
-        
-                        // add 10 markers to the map at random locations
-                        var bounds = map.getBounds();
-                        var southWest = bounds.getSouthWest();
-                        var northEast = bounds.getNorthEast();
-                        var lngSpan = northEast.lng() - southWest.lng();
-                        var latSpan = northEast.lat() - southWest.lat();
-                        for (var i = 0; i < 10; i++) {
-                            var point = new GLatLng(southWest.lat() + latSpan * Math.random(),
-                                southWest.lng() + lngSpan * Math.random());
-                            map.addOverlay(new GMarker(point));
-                        }
-        
-                        // add some simple controls
-                        map.addControl(new GSmallMapControl());
-                        map.addControl(new GMapTypeControl());*/
-                    }
-                }
-            });
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/swipe.js"></script>
+    <script type="text/javascript">
+        var aGeopositions = [];
+        var settings = {
+            STATIC_URL: "{{ STATIC_URL }}"
         }
-        
-        Shadowbox.init({
-            overlayColor:   "#f8f6f2",
-            overlayOpacity: 0.9,
-            continuous:     true,
-            animate:        true
-        });
-        
+
         $(document).ready(function(){
             $(".toggle_bvg").click(function () {
                 $("#bvg_widget").toggleClass("on");
-                return false
+                return false;
             });
         });
-        </script>
-    {% endwith %}
+    </script>
+{% endblock %}
+
+{% block edit_item %}
+    {% if_has_perm "workshops.change_workshop" object %}
+    <li><a class="edit icon icon-edit" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
+    {% end_if_has_perm %}
 {% endblock %}
 
 
 {% block content %}
+{% include "utils/gmap.html" %}
+
 <div class="content clearfix">
   <div class="inner">
     {% with object as workshop %}
 
-        <header id="slideshow">
-            {% if workshop.cover_image %}
-                <ul id="slide">
-                    <li>
-                        <a class="img" href="{{ workshop.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"cover" }})"></a>
-                        <span class="overlay">
-                            <time>{% if workshop.permanent %}{% trans "Permanent workshop" %}{% else %}
-                                <span class="from_date">{{ workshop.start|date:"j. F Y" }}</span> {% trans "till" %} {{ workshop.end|date:"j. F Y" }}{% endif %}</time>
-                        </span>
-                    </li>
-                </ul>
-    
-                <nav class="actions bottom">
-                    {% if_has_perm "workshops.change_workshop" workshop %}
-                        <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';"></button>
-                    {% end_if_has_perm %}
-                    <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-fullscreen"></button>
-                </nav>
-            {% endif %}
-        </header>
+        {% include "utils/cover_image.html" %}
         
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
@@ -184,7 +98,7 @@
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
-                            {% trans "When?" %}
+                            {% trans "Duration" %}
                         </a>
                     </h4>
                     <ul id="collapse-times" class="accordion-body collapse">  
@@ -262,153 +176,6 @@
                 </li>
             </ul> 
         </section>
-            
-        <section class="sidebar" style="display: none">
-            <dl class="address">
-                <dt>{% trans "Location" %}</dt>
-                <dd><a href="{{ workshop.museum.get_url_path }}">{{ workshop.museum.title }}</a></dd>
-                <dd>{{ workshop.museum.street_address }}</dd>
-                {% if workshop.museum.street_address2 %}<dd>{{ workshop.museum.street_address2 }}</dd>{% endif %} 
-                <dd>{{ workshop.museum.postal_code }} {{ workshop.museum.city }}</dd>
-                <dd><a onclick="openGoogleMaps();" class="btn" id="map_link" title="Karte" href="#">Googlemaps</a>
-                <a class="toggle_bvg btn" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a></dd>
-            </dl>
-            <dl id="bvg_widget" class="bvg">
-                {% if LANGUAGE_CODE == "de" %}
-                    <dt>So erreichen Sie uns</dt>
-                    <dd>
-                        <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
-                    
-                        <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
-                            <fieldset class="clearfix">
-                            
-                                <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
-                            
-                                <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
-                                <input type="hidden" name="_charset_" value="utf-8"/>
-                                <input type="hidden" value="yes" name="start"/>
-                            
-                                <ul>
-                                    <li>
-                                        <label for="wdgt_from">Von</label>
-                                        <input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="wdgt_to">Nach</label>
-                                        
-                                        <textarea name="to" id="wdgt_to" >{{ workshop.museum.street_address }}, {% if workshop.museum.street_address2 %}{{ workshop.museum.street_address2 }}, {% endif %}&#10;{{ workshop.museum.postal_code }} {{ workshop.museum.city }}</textarea>
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="wdgt_date">Am</label>
-                                        <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="wdgt_time">Um</label>
-                                        <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
-                                    </li>
-                                    
-                                    <li class="radios">
-                                        <label for="wdgt_arr">Ankunft</label>
-                                        <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
-                                        
-                                        <label for="wdgt_dep">Abfahrt</label>
-                                        <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
-                                    </li>
-                                    <li>
-                                        <input id="submit" type="submit" name="start" value="Anfrage abschicken">
-                                    </li>
-                                    
-                                </ul>
-                            </fieldset>
-                        </form>
-                     </dd>
-                {% else %}
-                    <dt>How to get there</dt>
-                    <dd>
-                        <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
-                    
-                        <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/query.bin/en?ld=0.1" name="fahrinfo_formular" id="fahrinfo_formular">
-                            <fieldset class="clearfix">
-                            
-                                <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
-                                <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
-                                
-                                <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
-                                <input type="hidden" name="_charset_" value="utf-8"/>
-                                <input type="hidden" value="yes" name="start"/>
-                            
-                                <ul>
-                                    <li>
-                                        <label for="wdgt_from">From</label>
-                                        <input placeholder="Location" type="text" name="from" id="wdgt_from" value="">
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="wdgt_to">To</label>
-                                        
-                                        <textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }}, {{ museum.city }}</textarea>
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="wdgt_date">Date</label>
-                                        <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="wdgt_time">Time</label>
-                                        <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
-                                    </li>
-                                    
-                                    <li class="radios">
-                                        <label for="wdgt_arr">Arrival</label>
-                                        <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
-                                        
-                                        <label for="wdgt_dep">Departure</label>
-                                        <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
-                                    </li>
-                                    <li>
-                                        <input id="submit" type="submit" name="start" value="Submit request">
-                                    </li>
-                                </ul>
-                            </fieldset>
-                        </form>
-                     </dd>
-                {% endif %}
-                <script type="text/javascript">
-                $('#fahrinfo_formular').submit(function() {
-                    $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
-                    $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
-                })
-                </script>
-            </dl>
-            
-            <dl class="von">
-                <dt>{% if LANGUAGE_CODE == "de" %}Von{% else %}From{% endif %}</dt>
-                <dd>{{ workshop.start|date:"d.m.Y" }}</a></dd>
-            </dl>
-            <dl class="bis">
-                <dt>{% if LANGUAGE_CODE == "de" %}Bis{% else %}Till{% endif %}</dt>
-                <dd>{{ workshop.end|date:"d.m.Y" }}</a></dd>
-            </dl>
-            {% if workshop.website %}
-                <dl class="website">
-                    <dt>{% trans "Website" %}</dt>
-                    <dd><a href="{{ workshop.website }}">{{ workshop.website }}</a></dd>
-                </dl>
-            {% endif %}
-        </section>
         
         <article class="with_sidebar">
             <header>
@@ -443,64 +210,9 @@
   </div>
 </div>
 
+{% include "utils/images.html" %}
 
-
-
-
-<div class="content clearfix">
-    <div class="inner">
-        <article id="images" >
-            <ul class="images clearfix">
-            {% for mf in workshop.mediafile_set.all %}
-                <li class="item">
-                    <div class="inner">
-                        <img src="{{ MEDIA_URL }}{{ mf.path.path }}" alt="" />
-                        <div class="info">
-                            <span class="title">Fluktuation 8</span>
-                            <span class="describtion">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. </span>
-                        </div>
-                    </div>
-                     <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-favorite"></button>
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-fullscreen"></button>
-                    </nav>
-                </li>
-            {% endfor %}
-            </ul>
-        </article>
-    </div>
-</div>
-
-
-
-
-<!-- image gallery
-================================================== -->
-
-
-
-
-<div id="gallery" class="info">
-    <div id="slider" class="swipe">
-      <div>
-        {% for mf in workshop.mediafile_set.all %}
-        <div style="display:{% if forloop.first %}block{% else %}none{% endif %}">
-            &nbsp;
-            <div class="img" style="background-image: url({{ MEDIA_URL }}{{ mf.path.path }})"></div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    
-    <span class="prev" onclick="slider.prev();return false;"></span>
-    <span class="next" onclick="slider.next();return false;"></span>
-    
-    <nav>
-        <button class="cancel"></button>
-    </nav>
-</div>
 {% endwith %}
-
 
 <div class="content" class="clearfix">
     <div class="inner">
@@ -509,16 +221,11 @@
             {% get_objects closing_soon workshops.Workshop 5 as workshops_closing_soon %}
             {% for workshop in workshops_closing_soon %}
                 <li class="item">
-                    {% if workshop.cover_image %}
-                        <a class="img" href="{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}">
-                            <span class="spinner loading"></span>
-                            
-                        </a>
-                    {% endif %}
+                    <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
 
                     <nav class="actions">
                         <button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-favorite"></button>
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="marker-link icon icon-location"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
                     </nav>
                     
                     <a href="{{ workshop.get_url_path }}">
@@ -529,83 +236,11 @@
                 </li>
             {% endfor %}
         </ul>
-
-        <div id="page-controls">
-            {% if prev_item %}
-                <a href="{{ prev_item.get_url_path }}" class="prev">
-                    <span>
-                        <span class="title">{{ next_item.title }}</span>
-                    </span>
-                </a>
-            {% endif %}
-            {% if next_item %}
-                <a href="{{ next_item.get_url_path }}" class="next">
-                    <span>
-                        <span class="title">{{ next_item.title }}</span>
-                    </span>
-                </a>
-            {% endif %}
-        </div>
     </div>
 </div>  
 
-<script src="{{ STATIC_URL }}site/js/swipe.js"></script>
-
-<script type="text/javascript">
-    var slider = new Swipe(document.getElementById('slider'));
-    
-    $(window).load(function() {
-        $('#gallery .cancel').click(function(e){
-            $('body').toggleClass('gallery');
-        });
-
-        $('.images li').click(function(e){
-            $('body').toggleClass('gallery');
-            slider.slide($(this).index(), 0);
-        });
-
-        $('#gallery .info').click(function(e){
-            $('#gallery').toggleClass('info');
-        });
-    });
-
-    // $(function(){
-    //   var liWidths = [];
-    //   $('ul.fillwidth').fillwidth({ liWidths: liWidths });
-    // });
-    
-    $(window).load(function() {
-        $('.images').isotope({
-            itemSelector : '.item',
-            layoutMode : 'masonry',
-            masonry: {
-                columnWidth: 340
-            }
-        });
-    });
-</script>
-
-<script>
-    $(document).keydown(function(e){
-        switch(e.which) {
-            case 37: // left
-                document.location.href="{{ prev_item.get_url_path }}";
-            break;
-
-            case 38: // up
-                document.location.href="/de/museen/";
-            break;
-
-            case 39: // right
-                document.location.href="{{ next_item.get_url_path }}";
-            break;
-
-            case 40: // down
-            break;
-
-            default: return; // exit this handler for other keys
-        }
-        e.preventDefault();
-    });
-</script>
+{% include "utils/gallery.html" %}
+{% include "utils/page_controls.html" %}
+{% include "utils/gmap_scripts.html" %}
+{% include "utils/gallery_scripts.html" %}
 {% endblock %}

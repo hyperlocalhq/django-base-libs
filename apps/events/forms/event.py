@@ -136,7 +136,7 @@ class BasicInfoForm(ModelForm):
                 ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Where?"),
+            _("Location"),
             layout.Row(
                 layout.Div(
                     "museum",

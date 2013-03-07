@@ -1,0 +1,33 @@
+{% load fb_tags i18n image_modifications %}
+<div class="content clearfix">
+    <div class="inner">
+        <article id="images" >
+            <ul class="images clearfix">
+            {% for mf in object.mediafile_set.all %}
+                <li class="item">
+                    <div class="inner">
+                        <img src="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="" />
+                        {% with mf.path|file_description as file_desc %}
+                            <div class="info">
+                                {% if file_desc.title %}
+                                    <span class="title">{{ file_desc.title }}</span>
+                                {% endif %}
+                                {% if file_desc.description %}
+                                    <span class="description">{{ file_desc.description }}</span>
+                                {% endif %}
+                                {% if file_desc.author %}
+                                    <span class="author">{{ file_desc.author }}</span>
+                                {% endif %}
+                            </div>
+                        {% endwith %}
+                    </div>
+                     <nav class="actions">
+                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-favorite"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-fullscreen"></button>
+                    </nav>
+                </li>
+            {% endfor %}
+            </ul>
+        </article>
+    </div>
+</div>

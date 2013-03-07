@@ -29,7 +29,7 @@ from museumsportal.utils.forms import SplitDateTimeWidget
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
         required=False,
-        label=u"Name",
+        label=_("Museum"),
         # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
@@ -128,7 +128,7 @@ class BasicInfoForm(ModelForm):
                 ))
 
         layout_blocks.append(layout.Fieldset(
-            _("When?"),
+            _("Duration"),
             layout.Row(
                 layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
                 layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
