@@ -10,14 +10,15 @@
 
   &.map_fullscreen{
     overflow: hidden;
+    
     #wrapper {
       #gmap_wrapper {
         height: 100%;
-        margin-top: -160px;
+        margin-top: -150px;
       }
 
       #categories {
-        -webkit-transform: translate(0px,-250px); /* Safari and Chrome */
+        -webkit-transform: translate(0px,-320px); /* Safari and Chrome */
 
         li {
           a { 
@@ -186,7 +187,7 @@
             word-break: keep-all;
 
 
-            span { opacity: 0.5; font-size: 10px; display: none;}
+            span { opacity: 0.5; font-size: 10px; display: block;}
           }
         }
 

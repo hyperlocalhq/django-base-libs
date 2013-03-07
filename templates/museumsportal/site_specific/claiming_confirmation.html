@@ -7,7 +7,8 @@
     {% if confirm_form %}
         <div id="claiming_confirm" class="inner">
             <header>
-                <p>{% blocktrans with museum_link=museum.get_url_path museum_title=museum.title %}Please confirm that you are the owner of <a href="{{ museum_link }}">{{ museum_title }}</a>.{% endblocktrans %}</p>
+                <h2>{% blocktrans %}Confirm ownership{% endblocktrans %}:<br/>
+                <b><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></b></h2>
             </header>
             {% crispy confirm_form %}
         </div>
