@@ -178,6 +178,9 @@ p a{font-weight: 500; }
           white-space: nowrap;
           font-size: 28px;
           width: 100%;
+
+          padding: 0px !important;
+          line-height: 80px !important;
         }
       }
 
@@ -1286,7 +1289,7 @@ aside {
 
 // ================= TAGS AND FILTERS =================
 
-#tags { display: none;}
+// #tags { display: none;}
 
 .tags,
 .filter {
