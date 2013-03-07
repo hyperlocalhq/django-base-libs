@@ -97,7 +97,7 @@
                                     longitude: {{ museum.longitude }},
                                     categories: "initial_{{ event.title|slugify|slice:"0:1" }}{% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                                     content: 
-                                    '<a href="{{ event.get_url_path }}">{{ event.title }} {{ museum.title }} <span>{% trans "more" %}</span></a>'
+                                    '<a href="{{ event.get_url_path }}">{{ museum.title }} <span>{% trans "more" %}</span></a>'
                                 }
                             }());
                             //]]>
