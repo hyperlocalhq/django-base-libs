@@ -56,6 +56,7 @@ urlpatterns += patterns('',
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^helper/autocomplete/(?P<app>[^/]+)/(?P<qs_function>[^/]+)/(?P<display_attr>[^/]+)/(?P<add_display_attr>[^/]+)/$', 'base_libs.views.ajax_autocomplete'),
     url(r'^helper/favorite/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$', 'jetson.apps.favorites.views.json_set_favorite'),
+    url(r'^helper/museum_attrs/(?P<museum_id>[0-9]+)/$', 'museumsportal.apps.museums.views.json_museum_attrs'),
     
     # i18n
     (r'^i18n/', 'jetson.apps.utils.views.set_language'),

@@ -394,4 +394,29 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
         "museums/gallery/delete_mediafile.html",
         context_dict,
         )
-
+    
+@never_cache
+def json_museum_attrs(request, museum_id):
+    """
+    Gets address attributes from a given museum
+    """
+    json = "false"
+    try:
+        m = Museum.objects.get(pk=museum_id)
+    except:
+        pass
+    else:
+        data = {
+            'title': m.title,
+            'subtitle': m.subtitle,
+            'description': decode_entities(m.description),
+            'street_address': m.street_address,
+            'street_address2': m.street_address2,
+            'postal_code': m.postal_code,
+            'city': m.city,
+            'latitude': m.latitude,
+            'longitude': m.longitude,
+            'status': m.status,
+        }
+        json = simplejson.dumps(data, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
