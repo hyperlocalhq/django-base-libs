@@ -31,3 +31,22 @@
         </article>
     </div>
 </div>
+
+<script src="{{ STATIC_URL }}site/js/swipe.js"></script>
+
+<script type="text/javascript">
+    $(window).load(function() {
+        $('.images').isotope({
+            itemSelector : '.item',
+            layoutMode : 'masonry',
+            masonry: {
+                columnWidth: 340
+            }
+        });
+        
+        $('.images li').click(function(e){
+            $('body').toggleClass('gallery');
+            slider.slide($(this).index(), 0);
+        });
+    });
+</script>

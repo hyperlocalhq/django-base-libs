@@ -221,6 +221,7 @@
 
     nav {
         position: absolute;
+        height: 60px;
         top: 0px;
         right: 0px;
         z-index: 20000;
@@ -228,11 +229,13 @@
         white-space: nowrap;
         font-size: 0px;
         border-bottom: 0px solid black;
+        margin: 0px !important;
 
         button {
             width: 60px;
             height: 60px;
-            display: inline-block;
+            margin: 0px !important;
+            display: block;
             background-color: black;
             background-position: center;
             background-repeat: no-repeat;

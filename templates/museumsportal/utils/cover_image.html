@@ -4,7 +4,7 @@
 <header id="slideshow">
         <ul id="slide">
             <li>
-                <a class="img" href="{{ object.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }})"></a>
+                <span class="img" style="background-image: url({{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }})"></span>
             </li>
         </ul>
 
@@ -45,3 +45,14 @@
         {% endif %}
 </header>
 {% endif %}
+
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#slide li').click(function(e){
+            $('body').toggleClass('gallery');
+            slider.slide($(this).index(), 0);
+        });
+    });
+</script>

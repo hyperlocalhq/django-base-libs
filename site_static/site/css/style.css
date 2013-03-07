@@ -1436,38 +1436,41 @@ div.tagsinput {
   /* line 222, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
   #gallery nav {
     position: absolute;
+    height: 60px;
     top: 0px;
     right: 0px;
     z-index: 20000;
     text-align: center;
     white-space: nowrap;
     font-size: 0px;
-    border-bottom: 0px solid black; }
-    /* line 232, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+    border-bottom: 0px solid black;
+    margin: 0px !important; }
+    /* line 234, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
     #gallery nav button {
       width: 60px;
       height: 60px;
-      display: inline-block;
+      margin: 0px !important;
+      display: block;
       background-color: black;
       background-position: center;
       background-repeat: no-repeat;
       background-size: 40px; }
-      /* line 240, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+      /* line 243, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
       #gallery nav button:hover {
         opacity: 0.8; }
-      /* line 241, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+      /* line 244, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
       #gallery nav button.prev {
         background-image: url("../img/icons/inv/left.svg"); }
-      /* line 242, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+      /* line 245, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
       #gallery nav button.next {
         background-image: url("../img/icons/inv/right.svg"); }
-      /* line 243, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+      /* line 246, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
       #gallery nav button.info {
         background-image: url("../img/icons/inv/info.svg"); }
-      /* line 244, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+      /* line 247, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
       #gallery nav button.cancel {
         background-image: url("../img/icons/inv/cancellight.svg"); }
-  /* line 248, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+  /* line 251, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
   #gallery .pagination {
     width: 100%;
     text-align: center;
@@ -1476,10 +1479,10 @@ div.tagsinput {
     position: absolute;
     top: 0px;
     z-index: 10000; }
-    /* line 257, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+    /* line 260, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
     #gallery .pagination li {
       display: inline-block; }
-      /* line 259, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+      /* line 262, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
       #gallery .pagination li a {
         display: inline-block;
         background-color: rgba(0, 0, 0, 0.1);
@@ -1494,7 +1497,7 @@ div.tagsinput {
         border-radius: 10px;
         margin-left: 2px;
         margin-right: 2px; }
-      /* line 276, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
+      /* line 279, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/gallery.scss */
       #gallery .pagination li.activeSlide a, #gallery .pagination li:hover a {
         background-color: black;
         color: white; }

@@ -8,25 +8,10 @@
             $('body').toggleClass('gallery');
         });
 
-        $('.images li').click(function(e){
-            $('body').toggleClass('gallery');
-            slider.slide($(this).index(), 0);
-        });
-
         $('#gallery .info').click(function(e){
             $('#gallery').toggleClass('info');
         });
 
         $('.accordion-body').collapse('show');
-    });
-    
-    $(window).load(function() {
-        $('.images').isotope({
-            itemSelector : '.item',
-            layoutMode : 'masonry',
-            masonry: {
-                columnWidth: 340
-            }
-        });
     });
 </script>
