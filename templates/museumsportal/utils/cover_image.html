@@ -1,0 +1,58 @@
+{% load image_modifications fb_tags auth_extended i18n %}
+
+{% if object.cover_image %}
+<header id="slideshow">
+        <ul id="slide">
+            <li>
+                <span class="img" style="background-image: url({{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }})"></span>
+            </li>
+        </ul>
+
+        {% if museum == object %}
+        <nav class="actions bottom">
+            {% if_has_perm "museums.change_museum" museum %}
+                <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop " onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';"></button>
+            {% end_if_has_perm %}
+            <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-fullscreen"></button>
+        </nav>
+        {% endif %}
+
+        {% if exhibition == object %}
+        <nav class="actions bottom">
+            {% if_has_perm "exhibitions.change_exhibition" exhibition %}
+                <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url exhibition.cover_image "cover" request request.path %}';"></button>
+            {% end_if_has_perm %}
+            <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-fullscreen"></button>
+        </nav>
+        {% endif %}
+
+        {% if workshop == object %}
+        <nav class="actions bottom">
+            {% if_has_perm "workshops.change_workshop" workshop %}
+                <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';"></button>
+            {% end_if_has_perm %}
+            <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-fullscreen"></button>
+        </nav>
+        {% endif %}
+
+        {% if event == object %}
+        <nav class="actions bottom">
+            {% if_has_perm "events.change_event" event %}
+                <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';"></button>
+            {% end_if_has_perm %}
+            <button id="fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-fullscreen"></button>
+        </nav>
+        {% endif %}
+</header>
+{% endif %}
+
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#slide li').click(function(e){
+            $('body').toggleClass('gallery');
+            slider.slide($(this).index(), 0);
+        });
+    });
+</script>

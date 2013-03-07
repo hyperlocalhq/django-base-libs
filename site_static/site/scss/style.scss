@@ -178,6 +178,9 @@ p a{font-weight: 500; }
           white-space: nowrap;
           font-size: 28px;
           width: 100%;
+
+          padding: 0px !important;
+          line-height: 80px !important;
         }
       }
 
@@ -223,9 +226,10 @@ a:active  { outline: none;}
 #meta {
   position: absolute;
   right: 0px;
-  top: 20px;
+  top: 15px;
   font-size: 0px;
   white-space: nowrap;
+
   li {
     display: block;
     position: relative;
@@ -268,6 +272,12 @@ a:active  { outline: none;}
   }
   #user li {
     p, a { padding-right: 10px; padding-left: 10px; width: auto; }
+  }
+
+  #support {
+    position: absolute;
+    right: 1000px;
+    margin-right: -68px;
   }
 }
 
@@ -879,22 +889,6 @@ nav.actions {
   &.icon-other      { background-image: url("../img/icons/inv/other.svg"); }
   &.icon-delete     { background-image: url("../img/icons/inv/cancel.svg"); }
 
-  &.icon-mail       { background-image: url("../img/icons/mail.svg");}
-  &.icon-phone      { background-image: url("../img/icons/phone.svg");}
-  &.icon-dashboard  { background-image: url("../img/icons/dashboard.svg"); }
-  &.icon-favorites  { background-image: url("../img/icons/favorite.svg"); }
-  &.icon-facebook   { background-image: url("../img/icons/facebook.svg"); }
-  &.icon-twitter    { background-image: url("../img/icons/twitter.svg"); }
-
-  &:hover {
-    &.icon-mail      { background-image: url("../img/icons/inv/mail.svg");}
-    &.icon-phone     { background-image: url("../img/icons/inv/phone.svg");}
-    &.icon-dashboard { background-image: url("../img/icons/inv/dashboard.svg");}
-    &.icon-favorites { background-image: url("../img/icons/inv/favorite.svg");}
-    &.icon-facebook  { background-image: url("../img/icons/inv/facebook.svg");}
-    &.icon-twitter   { background-image: url("../img/icons/inv/twitter.svg");}
-  }
-
   &.transparent {
     background-color: transparent !important;
     opacity: 0.3 !important;
@@ -909,6 +903,26 @@ nav.actions {
     // &.cancel          { background-image: url("../img/icons/cancel.svg");}
     &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
   }
+}
+
+#meta {
+  .icon-view       { background-image: url("../img/icons/view.svg");}
+  .icon-edit       { background-image: url("../img/icons/edit.svg");}
+  .icon-mail       { background-image: url("../img/icons/mail.svg");}
+  .icon-phone      { background-image: url("../img/icons/phone.svg");}
+  .icon-dashboard  { background-image: url("../img/icons/dashboard.svg"); }
+  .icon-favorites  { background-image: url("../img/icons/favorite.svg"); }
+  .icon-facebook   { background-image: url("../img/icons/facebook.svg"); }
+  .icon-twitter    { background-image: url("../img/icons/twitter.svg"); }
+
+  .icon-view:hover      { background-image: url("../img/icons/inv/view.svg");}
+  .icon-edit:hover      { background-image: url("../img/icons/inv/edit.svg");}
+  .icon-mail:hover      { background-image: url("../img/icons/inv/mail.svg");}
+  .icon-phone:hover     { background-image: url("../img/icons/inv/phone.svg");}
+  .icon-dashboard:hover { background-image: url("../img/icons/inv/dashboard.svg");}
+  .icon-favorites:hover { background-image: url("../img/icons/inv/favorite.svg");}
+  .icon-facebook:hover  { background-image: url("../img/icons/inv/facebook.svg");}
+  .icon-twitter:hover   { background-image: url("../img/icons/inv/twitter.svg");}
 }
 
 // ================= SIDEBAR =================
@@ -1275,7 +1289,7 @@ aside {
 
 // ================= TAGS AND FILTERS =================
 
-#tags { display: none;}
+// #tags { display: none;}
 
 .tags,
 .filter {
@@ -1327,6 +1341,40 @@ aside {
 }
 
 // ================= BACK TO TOP =================
+#preview_page {
+
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    display: block;
+    color: black;
+    text-align: center;
+    z-index: 10000;
+    overflow: hidden;
+    height: 60px;
+    width: 70px;
+
+    span {
+      font-size: 0px;
+      text-indent: 100px;
+      overflow: hidden;
+      white-space: nowrap;
+
+      height: 60px;
+      width: 70px;
+      background-color: black;
+      display: inline-block;
+
+      position: relative;
+
+      opacity: 1;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 40px;
+      background-image: url("../img/icons/inv/view.svg");
+    }
+}
+
 
 #to-top { 
     position: fixed;
@@ -1612,7 +1660,7 @@ dl {
     text-align: right;
    }
 }
-#dashboard_footer .inner { padding-bottom: 30px !important; }
+#dashboard_footer .inner { padding-bottom: 80px !important; }
 
 .fieldset-imagegallery,
 #workshop_times_fieldset,
@@ -2282,3 +2330,20 @@ header.intro {
 // .mceLayout tr:first-child,
 // .mceStatusbar,
 // .mceToolbar { display: none !important;}
+
+
+#favorites {
+
+  li {
+    white-space: nowrap;
+    h2, h3 ,h4 , h5 {
+      display: inline-block;
+      &:after {
+        content: " – ";
+      }
+      &:last-child:after {
+        content: "" !important;
+      }
+    } 
+  }
+}

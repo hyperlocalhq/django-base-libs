@@ -24,13 +24,7 @@
 {% endcomment %} -->
 
 {% block content %}
-<div id="gmap_wrapper" class="">
-  <div id="gmap">&nbsp;</div>
-  <nav class="actions top">
-    <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Close" %}" class="icon icon-cancel"></button>
-    <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="icon icon-fullscreen"></button>
-  </nav>
-</div>
+{% include "utils/gmap.html" %}
 
 <div class="content" class="clearfix">
   <div class="inner">
@@ -44,7 +38,7 @@
     </ul>
     {% endcomment %} -->
 
-    <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
+    <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
         <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
 
         {% for status_code, status_verbose in facets.categories.statuses %}
@@ -119,11 +113,7 @@
                               longitude: {{ museum.longitude }},
                               categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                               content: 
-                              '{% if museum.cover_image %}<span class="img" style="background-image: url({{ UPLOADS_URL }}{{ museum.cover_image.path }})"></span>{% endif %}'
-                              + '<h3>{{ exhibition.title }}</h3>'
-                              + '<h4>{{ museum.title }}</h4>'
-                              + '<h5>{{ museum.street_address }} {{ museum.street_address2 }}</h5>'
-                              + '<a class="btn btn-primary small" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>'
+                              '<a href="{{ exhibition.get_url_path }}">{{ exhibition.title }} {{ museum.title }} <span>{% trans "more" %}</span></a>'
                           }
                       }());
                       //]]>

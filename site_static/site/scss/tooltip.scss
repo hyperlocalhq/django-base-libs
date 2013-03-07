@@ -3,6 +3,10 @@
   font-size: 13px;
   line-height: 20px;
   font-weight: 500;
+  overflow: visible;
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .tooltip.in {
   opacity: 1;
@@ -10,7 +14,7 @@
 }
 
 .tooltip-inner {
-  max-width: auto;
+  max-width: 100%;
   padding: 3px 8px;
   color: #ffffff;
   text-align: center;

@@ -15,13 +15,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="gmap_wrapper">
-    <div id="gmap">&nbsp;</div>
-    <nav class="actions top">
-        <button id="gmap_toggle" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Close" %}" class="icon icon-cancel"></button>
-        <button id="gmap_fullscreen" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="icon icon-fullscreen"></button>
-    </nav>
-</div>
+{% include "utils/gmap.html" %}
 
 <div class="content clearfix">
     <div class="inner">
@@ -35,7 +29,7 @@
         </ul>
         {% endcomment %} -->
         
-        <ul class="filter option-set clearfix" id="cathegory" data-filter-group="cathegory">
+        <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
             <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
         
             {% for status_code, status_verbose in facets.categories.statuses %}
@@ -81,7 +75,7 @@
                                 <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-crop" onclick="location.href='{% cropping_url event.museum.cover_image "event_list" request request.path %}';"></button>
                             {% endif %}{% endif %}
                         {% end_if_has_perm %}
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="marker-link icon icon-location"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
                     </nav>
         
                     <a href="{{ event.get_url_path }}">
@@ -103,11 +97,7 @@
                                     longitude: {{ museum.longitude }},
                                     categories: "initial_{{ event.title|slugify|slice:"0:1" }}{% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                                     content: 
-                                    '{% if museum.cover_image %}<span class="img" style="background-image: url({{ UPLOADS_URL }}{{ museum.cover_image.path }})"></span>{% endif %}'
-                                    + '<h3>{{ event.title }}</h3>'
-                                    + '<h4>{{ museum.title }}</h4>'
-                                    + '<h5>{{ museum.street_address }} {{ museum.street_address2 }}</h5>'
-                                    + '<a class="btn btn-primary small" href="{{ event.get_url_path }}">{% trans "more" %}</a>'
+                                    '<a href="{{ event.get_url_path }}">{{ museum.title }} <span>{% trans "more" %}</span></a>'
                                 }
                             }());
                             //]]>
