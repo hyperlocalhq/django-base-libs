@@ -16,6 +16,7 @@ from base_libs.forms.fields import AutocompleteModelChoiceField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
 
+Museum = models.get_model("museums", "Museum")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 Season = models.get_model("exhibitions", "Season")
 SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
@@ -27,6 +28,7 @@ from museumsportal.utils.forms import InlineFormSet
 from museumsportal.utils.forms import SplitDateTimeWidget
 
 class BasicInfoForm(ModelForm):
+    '''
     museum = AutocompleteModelChoiceField(
         required=False,
         label=_("Museum"),
@@ -59,6 +61,7 @@ class BasicInfoForm(ModelForm):
             "multipleSeparator": ",,, ",
             },
         )
+    '''
     class Meta:
         model = Exhibition
         
@@ -86,6 +89,9 @@ class BasicInfoForm(ModelForm):
         self.fields['categories'].help_text = ""
         self.fields['categories'].empty_label = None
         self.fields['categories'].level_indicator = "/ "
+
+        self.fields['museum'].queryset = Museum.objects.owned_by(get_current_user())
+        self.fields['organizing_museum'].queryset = Museum.objects.owned_by(get_current_user())
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
