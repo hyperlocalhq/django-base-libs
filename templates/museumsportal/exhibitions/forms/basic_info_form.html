@@ -29,7 +29,7 @@
             })
             $('.timeinput').timepicker();
             $('#id_tags').tagsInput();
-            $('#id_museum').blur(function() {
+            $('#id_museum').change(function() {
                 $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
                     $('#id_location_name').val(data['title']);
                     $('#id_street_address').val(data['street_address']);

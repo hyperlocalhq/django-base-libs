@@ -16,6 +16,8 @@ from base_libs.forms.fields import AutocompleteModelChoiceField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
 
+Museum = models.get_model("museums", "Museum")
+Exhibition = models.get_model("exhibitions", "Exhibition")
 Workshop = models.get_model("workshops", "Workshop")
 WorkshopTime = models.get_model("workshops", "WorkshopTime")
 
@@ -26,6 +28,7 @@ from museumsportal.utils.forms import InlineFormSet
 from museumsportal.utils.forms import SplitDateTimeWidget
 
 class BasicInfoForm(ModelForm):
+    '''
     museum = AutocompleteModelChoiceField(
         required=False,
         label=_("Museum"),
@@ -74,6 +77,7 @@ class BasicInfoForm(ModelForm):
             "multipleSeparator": ",,, ",
             },
         )
+    '''
     class Meta:
         model = Workshop
         
@@ -109,6 +113,10 @@ class BasicInfoForm(ModelForm):
         self.fields['languages'].help_text = ""
         self.fields['languages'].empty_label = None
 
+        self.fields['museum'].queryset = Museum.objects.owned_by(get_current_user())
+        self.fields['organizing_museum'].queryset = Museum.objects.owned_by(get_current_user())
+        self.fields['exhibition'].queryset = Exhibition.objects.owned_by(get_current_user())
+        
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
                 'title_%s' % lang_code,
@@ -119,7 +127,7 @@ class BasicInfoForm(ModelForm):
 
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
-        
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
