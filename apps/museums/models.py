@@ -304,6 +304,15 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             models.Q(museum=self) | models.Q(organizing_museum=self)
             )
 
+    def get_twitter_username(self):
+        if not hasattr(self, '_twitter_username_cache'):
+            self._twitter_username_cache = ""
+            import re
+            channels = self.socialmediachannel_set.filter(channel_type__iexact="twitter")
+            if channels:
+                self._twitter_username_cache = re.sub(r'/$', "", re.sub(r'^https?://twitter.com/', "", channels[0].url)) 
+        return self._twitter_username_cache
+
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)
     title = MultilingualCharField(_('Season title'), max_length=255, blank=True)

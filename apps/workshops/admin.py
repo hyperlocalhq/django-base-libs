@@ -35,9 +35,9 @@ class WorkshopAdmin(ExtendedModelAdmin):
     list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', )
-    search_fields = ('title', 'subtitle', 'slug')
+    search_fields = ('title', 'subtitle', 'workshop_type', 'slug')
     
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description'])
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'workshop_type', 'description'])
     fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Categories"), {'fields': ('tags', 'languages', 'other_languages', 
         'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_disabled', 'is_for_wheelchaired',

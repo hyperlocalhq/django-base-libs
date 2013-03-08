@@ -47,9 +47,9 @@ class EventAdmin(ExtendedModelAdmin):
     list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'categories',)
-    search_fields = ('title', 'subtitle', 'slug')
+    search_fields = ('title', 'subtitle', 'event_type', 'slug')
     
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description'])
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'event_type', 'description'])
     fieldsets += [(None, {'fields': ('slug',)}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'languages', 'other_languages', 'suitable_for_children')}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude', 'exhibition')}),]
