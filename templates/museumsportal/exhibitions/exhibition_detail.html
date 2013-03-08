@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
-{% block title %}{% trans "Exhibition" %} – {{ object.title }}{% endblock %}
+{% block title %}{% trans "Exhibition" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}exhibition-detail{% endblock %}
 
 {% block js %}
@@ -413,6 +413,10 @@
                         <h4>{{ exhibition.title }}</h4>
                         <h5>{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                     </a>
+                
+                    {% with exhibition as list_item %}
+                        {% include "utils/geo_position.html" %}
+                    {% endwith %}
                 </li>
             {% endfor %}
         </ul>

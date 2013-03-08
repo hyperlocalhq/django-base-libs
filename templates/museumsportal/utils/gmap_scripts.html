@@ -16,6 +16,8 @@
                 setTimeout(function() {
                     google.maps.event.trigger(oMap, 'resize');
                 }, 650);
+                $('html, body').animate({scrollTop:0}, 'slow');
+                e.preventDefault();
             });
         });
     }(jQuery));

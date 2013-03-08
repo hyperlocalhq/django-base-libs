@@ -1589,27 +1589,18 @@ dl {
   dt {
     font-weight: normal;
     font-weight: 500;
+    padding-top: 10px;
   }
-  &.inset {
-    dt {
+  dd {
+    a {
       display: inline-block;
-      width: 15%;
+      margin-left: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      overflow: hidden;
     }
-    dd {
-      display: inline-block;
-      width: 80%;
-      a {
-        display: inline-block;
-        margin-left: 0;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        width: 100%;
-        overflow: hidden;
-      }
-    }
-    margin-bottom: 0px;
   }
-  margin-bottom: 10px;
 }
 
 #cms_toolbar {

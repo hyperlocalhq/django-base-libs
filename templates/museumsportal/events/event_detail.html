@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
-{% block title %}{% trans "Event" %} – {{ object.title }}{% endblock %}
+{% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}event-detail{% endblock %}
 
 {% block js %}
@@ -397,7 +397,6 @@
                 <li class="item">
                     <a class="img" href="{{ event.get_url_path }}" {% if event.cover_image %}data-background="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}{% endif %}">
                         <span class="spinner loading"></span>
-                        
                     </a>
 
                     <nav class="actions">
@@ -410,6 +409,10 @@
                         <h4>{{ event.title }}</h4>
                         <h5>{% trans "till" %} {{ event.end|date:"d.m.Y" }}</h5>
                     </a>
+        
+                    {% with event as list_item %}
+                        {% include "utils/geo_position.html" %}
+                    {% endwith %}
                 </li>
             {% endfor %}
         </ul>

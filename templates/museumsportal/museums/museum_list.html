@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
-{% block title %}{% trans "Museums" %}{% endblock %}
+{% block title %}{% trans "Museums" %} – {% endblock %}
 {% block bodyclass %}museum-list{% endblock %}
 
 {% block js %}
@@ -59,12 +59,14 @@
         {% endfor %}
         </ul>
         {% endcomment %} -->
+
         <ul class="filter option-set clearfix" id="categories" data-filter-group="category">
             <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
             {% for cat in facets.categories.categories %}
                 <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
             {% endfor %}
         </ul>
+        
         <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
             <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
             {% tags_for_model museums.Museum as museum_tags %}
