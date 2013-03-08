@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% block title %}{% trans "Exhibitions" %}{% endblock %}
 {% block bodyclass %}exhibition-list{% endblock %}
 
 {% block js %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 	<script type="text/javascript">
 	//$(function() {
     //    var scroller = new StickyScroller("#head_filter", {
@@ -92,8 +93,8 @@
                 </nav>
 
                 <a href="{{ exhibition.get_url_path }}">
-                  <h3>{{ exhibition.museum.title }}</h3>
-                  <h4>{{ exhibition.title }}</h4>
+                  <h3>{{ exhibition.title }}</h3>
+                  <h4>{{ exhibition.museum.title }}</h4>
                   <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                 </a>
     
@@ -102,23 +103,8 @@
                     <a class="more" href="{{ exhibition.get_url_path }}">more</a>
                 </div> -->
                 
-                {% with exhibition.museum as museum %}
-                  {% if museum.latitude %}
-                      <script type="text/javascript">
-                      //<![CDATA[
-                      (function(undefined) {
-                          var iIndex = aGeopositions.length;
-                          aGeopositions[iIndex] = {
-                              latitude: {{ museum.latitude }},
-                              longitude: {{ museum.longitude }},
-                              categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                              content: 
-                              '<a href="{{ exhibition.get_url_path }}">{{ exhibition.title }} {{ museum.title }} <span>{% trans "more" %}</span></a>'
-                          }
-                      }());
-                      //]]>
-                      </script>
-                  {% endif %}
+                {% with exhibition as list_item %}
+                    {% include "utils/geo_position.html" %}
                 {% endwith %}
             </li>
         {% endfor %}

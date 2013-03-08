@@ -175,6 +175,9 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     
     def __unicode__(self):
         return self.title
+
+    def is_exhibition(self):
+        return True
         
     class Meta:
         ordering = ['title']
@@ -207,6 +210,11 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         if not self.museum:
             return ""
         return self.museum.title
+
+    def get_other_exhibitions(self):
+        if not self.museum:
+            return []
+        return self.museum.exhibition_set.filter(status="published").exclude(pk=self.pk)
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")

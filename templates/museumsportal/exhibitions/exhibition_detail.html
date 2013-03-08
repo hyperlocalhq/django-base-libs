@@ -1,6 +1,7 @@
 
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
+{% block title %}{% trans "Exhibition" %} – {{ object.title }}{% endblock %}
 {% block bodyclass %}exhibition-detail{% endblock %}
 
 {% block js %}
@@ -321,6 +322,30 @@
                         </ul>  
                     </li>
                 {% endif %}
+
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-exhibitions">{% trans "Exhibitions" %}</a>  
+                    </h4>  
+                    <ul id="collapse-exhibitions" class="accordion-body collapse">
+                        <li class="accordion-inner">
+                            <ul id="kurze_zeit" class="list compact">
+                            {% for exhibition in object.get_other_exhibitions %}
+                                <li class="item">
+                                    {% if exhibition.cover_image %}
+                                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }})"></a>
+                                    {% endif %}
+                                        <a href="{{ exhibition.get_url_path }}">
+                                            <h4>{{ exhibition.museum.title }}</h4>
+                                            <h3>{{ exhibition.title }}</h3>
+                                            <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                                        </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>  
+                </li> 
             </ul> 
         </section>
             
@@ -332,6 +357,13 @@
                         <span>{{ exhibition.subtitle }}</span>
                     {% endif %}
                 </h1>
+                <time>
+                    {% if exhibition.permanent %}
+                        {% trans "Permanent exhibition" %}
+                    {% else %}
+                        {{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}
+                    {% endif %}
+                </time>
                 <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
             </header>
             {{ exhibition.get_rendered_description }}

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags %}
+{% block title %}{% trans "Museum" %} – {{ object.title }}{% endblock %}
 {% block bodyclass %}museum-detail{% endblock %}
 
 {% block js %}
@@ -46,7 +47,7 @@
                     <ul id="collapse-location" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">  
                             <dl class="address">
-                                <dt>{% trans "Address" %}</dt>
+                                <dt>{{ museum.title }}</dt>
                                 <dd>{{ museum.street_address }}</dd>
                                 {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %}
                                 {% if museum.district %}<dd>{{ museum.district }}</dd>{% endif %}
@@ -54,24 +55,24 @@
                             </dl>
                         
                             {% if museum.phone_number %}
-                                <dl class="phone inset">
-                                    <dt>{% trans "Tel" %}</dt>
-                                    <dd>+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</dd>
-                                </dl>
+                            <dl>
+                                <dt>{% trans "Tel" %}</dt>
+                                <dd>+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</dd>
+                            </dl>
                             {% endif %} 
                             
                             {% if museum.fax_number %}
-                                <dl class="fax inset">
-                                    <dt>{% trans "Fax" %}</dt>
-                                    <dd>+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</dd>
-                                </dl>
+                            <dl>
+                                <dt>{% trans "Fax" %}</dt>
+                                <dd>+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</dd>
+                            </dl>
                             {% endif %} 
                             
                             {% if museum.website %}
-                                <dl class="website inset">
-                                    <dt>{% trans "Web" %}</dt>
-                                    <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
-                                </dl>
+                            <dl>
+                                <dt>{% trans "Web" %}</dt>
+                                <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
+                            </dl>
                             {% endif %}
                             
                             {% for social in museum.socialmediachannel_set.all %}
@@ -82,18 +83,15 @@
                             
                             {% if museum.contact_name %}
                                 <dl>
-                                    <dt>{% trans "Contact person" %}</dt>
-                                    <dd>{{ museum.contact_name }}</dd>
-                                </dl>
                                 {% if museum.contact_phone_number %}
-                                    <dl>
-                                        <dt>{% trans "Contact phone" %}</dt>
-                                        <dd>{{ museum.contact_phone_country }}
-                                        {{ museum.contact_phone_area }}
-                                        {{ museum.contact_phone_number }}
-                                        </dd>
-                                    </dl>
+                                    <dt>{% trans "Contact phone" %}</dt>
+                                    <dd>{{ museum.contact_phone_country }}
+                                    {{ museum.contact_phone_area }}
+                                    {{ museum.contact_phone_number }}
+                                    </dd>
                                 {% endif %}
+                                </dl>
+
                                 {% if museum.contact_email %}
                                     <dl>
                                         <dt>{% trans "Contact email" %}</dt>
@@ -426,29 +424,34 @@
                         </ul>  
                     </li>  
                 {% endif %}
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-exhibitions">{% trans "Exhibitions" %}</a>  
-                    </h4>  
-                    <ul id="collapse-exhibitions" class="accordion-body collapse">
-                        <li class="accordion-inner">
-                            <ul id="kurze_zeit" class="list compact">
-                            {% for exhibition in object.get_published_exhibitions %}
-                                <li class="item">
-                                    {% if exhibition.cover_image %}
-                                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
-                                    {% endif %}
+
+                <!-- ======= Exhibitions ======= -->
+
+                {% if object.get_published_exhibitions %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-exhibitions">{% trans "Exhibitions" %}</a>  
+                        </h4>  
+                        <ul id="collapse-exhibitions" class="accordion-body collapse">
+                            <li class="accordion-inner">
+                                <ul id="kurze_zeit" class="list compact">
+                                {% for exhibition in object.get_published_exhibitions %}
+                                    <li class="item">
+                                        {% if exhibition.cover_image %}
+                                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
+                                        {% endif %}
                                         <a href="{{ exhibition.get_url_path }}">
                                             <h4>{{ exhibition.museum.title }}</h4>
                                             <h3>{{ exhibition.title }}</h3>
                                             <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                                         </a>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                    </ul>  
-                </li> 
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>  
+                    </li>
+                {% endif %} 
 
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
