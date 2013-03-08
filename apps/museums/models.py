@@ -176,6 +176,9 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     
     def __unicode__(self):
         return self.title
+
+    def is_museum(self):
+        return True
         
     class Meta:
         ordering = ['title']

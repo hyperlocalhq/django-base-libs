@@ -127,6 +127,14 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     def __unicode__(self):
         return self.title
 
+    def is_workshop(self):
+        return True
+
+    def get_other_workshops(self):
+        if not self.museum:
+            return []
+        return self.museum.workshop_set.filter(status="published").exclude(pk=self.pk)
+
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
         PerObjectGroup = models.get_model("permissions", "PerObjectGroup")

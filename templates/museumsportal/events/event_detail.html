@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
+{% block title %}{% trans "Event" %} – {{ object.title }}{% endblock %}
 {% block bodyclass %}event-detail{% endblock %}
 
 {% block js %}
@@ -216,80 +217,127 @@
                         </ul>  
                     </li>
                 {% endif %}
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
-                            {% trans "Opening Hours" %}
-                        </a>
-                    </h4>
-                    <ul id="collapse-times" class="accordion-body collapse">  
-                        <li class="accordion-inner">
-                            {% for event_time in event.eventtime_set.all %}
-                                <p>
-                                    {{ event_time.event_date|date:"j. F Y" }}
-                                    {{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}
-                                </p>
-                            {% endfor %}
-                        </li>
-                    </ul>  
-                </li>
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
-                            {% trans "Prices" %} 
-                        </a>  
-                    </h4>  
-                    <ul id="collapse-prices" class="accordion-body collapse">  
-                        <li class="accordion-inner">
-                            <dl>
-                            {% if event.free_entrance %}
-                                <dt>{% trans "Free entrance" %}</dt>
-                            {% else %}
-                                {% if event.admission_price %}
-                                    <dt>{% trans "Admission price" %}: {{ event.admission_price|currencyfmt:"EUR" }}</dt>
-                                {% endif %}
-                                {% if event.admission_price_info %}
-                                    <dd class="admission_price_info">{{ event.get_rendered_admission_price_info }}</dd>
-                                {% endif %}
-                                {% if event.reduced_price %}
-                                    <dt>{% trans "Reduced price" %}: {{ event.reduced_price|currencyfmt:"EUR" }}</dt>
-                                {% endif %}
-                                {% if event.reduced_price_info %}
-                                    <dd class="reduced_price_info">{{ event.get_rendered_reduced_price_info }}</dd>
-                                {% endif %}
-                            {% endif %}
-                            {% if event.booking_info %}
-                                <dt>{% trans "Booking info" %}</dt>
-                                <dd class="booking_info">{{ event.get_rendered_booking_info }}</dd>
-                            {% endif %}
-                            </dl>
-                        </li>
-                    </ul>  
-                </li>
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
-                            {% trans "Other info" %} 
-                        </a>  
-                    </h4>  
-                    <ul id="collapse-other-info" class="accordion-body collapse">  
-                        <li class="accordion-inner">
-                            {% if event.meeting_place %}
+
+                <!-- ======= Other Events ======= -->
+
+                {% if object.get_other_events %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                                {% trans "Opening Hours" %}
+                            </a>
+                        </h4>
+                        <ul id="collapse-times" class="accordion-body collapse">  
+                            <li class="accordion-inner">
+                                {% for event_time in event.eventtime_set.all %}
+                                    <p>
+                                        {{ event_time.event_date|date:"j. F Y" }}
+                                        {{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}
+                                    </p>
+                                {% endfor %}
+                            </li>
+                        </ul>  
+                    </li>
+                {% endif %} 
+
+                <!-- ======= Other Events ======= -->
+
+                {% if object.get_other_events %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+                                {% trans "Prices" %} 
+                            </a>  
+                        </h4>  
+                        <ul id="collapse-prices" class="accordion-body collapse">  
+                            <li class="accordion-inner">
                                 <dl>
-                                    <dt>{% trans "Meeting point" %}</dt>
-                                    <dd class="meeting_place">{{ event.meeting_place }}</dd>
+                                {% if event.free_entrance %}
+                                    <dt>{% trans "Free entrance" %}</dt>
+                                {% else %}
+                                    {% if event.admission_price %}
+                                        <dt>{% trans "Admission price" %}: {{ event.admission_price|currencyfmt:"EUR" }}</dt>
+                                    {% endif %}
+                                    {% if event.admission_price_info %}
+                                        <dd class="admission_price_info">{{ event.get_rendered_admission_price_info }}</dd>
+                                    {% endif %}
+                                    {% if event.reduced_price %}
+                                        <dt>{% trans "Reduced price" %}: {{ event.reduced_price|currencyfmt:"EUR" }}</dt>
+                                    {% endif %}
+                                    {% if event.reduced_price_info %}
+                                        <dd class="reduced_price_info">{{ event.get_rendered_reduced_price_info }}</dd>
+                                    {% endif %}
+                                {% endif %}
+                                {% if event.booking_info %}
+                                    <dt>{% trans "Booking info" %}</dt>
+                                    <dd class="booking_info">{{ event.get_rendered_booking_info }}</dd>
+                                {% endif %}
                                 </dl>
-                            {% endif %}
-                            {% if event.get_languages %}
-                                <dl>
-                                    <dt>{% trans "Languages" %}</dt>
-                                    <dd class="languages">{{ event.get_languages|join:", " }}</dd>
-                                </dl>
-                            {% endif %}
-                        </li>
-                    </ul>  
-                </li>
+                            </li>
+                        </ul>  
+                    </li>
+                {% endif %} 
+
+                <!-- ======= Other Events ======= -->
+
+                {% if event.meeting_place or event.get_languages %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
+                                {% trans "Other info" %} 
+                            </a>  
+                        </h4>  
+                        <ul id="collapse-other-info" class="accordion-body collapse">  
+                            <li class="accordion-inner">
+                                {% if event.meeting_place %}
+                                    <dl>
+                                        <dt>{% trans "Meeting point" %}</dt>
+                                        <dd class="meeting_place">{{ event.meeting_place }}</dd>
+                                    </dl>
+                                {% endif %}
+                                {% if event.get_languages %}
+                                    <dl>
+                                        <dt>{% trans "Languages" %}</dt>
+                                        <dd class="languages">{{ event.get_languages|join:", " }}</dd>
+                                    </dl>
+                                {% endif %}
+                            </li>
+                        </ul>  
+                    </li>
+                {% endif %} 
+
+                <!-- ======= Other Events ======= -->
+
+                {% if object.get_other_events %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-events">{% trans "Other Events" %}</a>  
+                        </h4>  
+                        <ul id="collapse-events" class="accordion-body collapse">
+                            <li class="accordion-inner">
+                                <ul class="list compact">
+                                {% for event in object.get_other_events %}
+                                    <li class="item">
+                                        {% if event.cover_image %}
+                                            <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }})"></a>
+                                        {% endif %}
+            
+                                        <a href="{{ event.get_url_path }}">
+                                            <h3>{{ event.museum.title }}</h3>
+                                            <h4>{{ event.title }}</h4>
+                                            {% with event.eventtime_set.all.0 as event_time %}
+                                                <h5>{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|date:"H:i" }}</h5>
+                                            {% endwith %}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>  
+                    </li> 
+                {% endif %} 
             </ul> 
+
         </section>
             
         <article class="with_sidebar">
@@ -301,7 +349,7 @@
                     {% endif %}
                 </h1>
 
-                <h2>
+                <time>
                     {% if event.permanent %}{% trans "Permanent event" %}{% else %}
             
                     {% for event_time in event.eventtime_set.all %}
@@ -312,7 +360,8 @@
                     <!-- <span class="from_date">{{ event.start|date:"j. F Y" }}</span> {% trans "till" %} {{ event.end|date:"j. F Y" }} -->
 
                     {% endif %}
-                </h2>
+                </time>
+                
                 <a href="{{ event.museum.get_url_path }}"><h3>{{ event.museum.title }}</h3></a>
             </header>
             {{ event.get_rendered_description }}
