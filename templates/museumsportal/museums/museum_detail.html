@@ -6,6 +6,7 @@
 {% block js %}
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/swipe.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
     <script type="text/javascript">
         var aGeopositions = [];
         var settings = {
@@ -453,29 +454,19 @@
                     </li>
                 {% endif %} 
 
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-twitterfeed">{% trans "Twitter" %}</a>  
-                    </h4>  
-                    <ul id="collapse-twitterfeed" class="accordion-body collapse">
-                        <li class="accordion-inner">
-                            <ul>
-                                <li>
-                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
-                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
-                                </li>
-                                <li>
-                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
-                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
-                                </li>
-                                <li>
-                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
-                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>  
-                </li> 
+                {% if museum.get_twitter_username %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-twitterfeed">{% trans "Twitter" %}</a>  
+                        </h4>  
+                        <ul id="collapse-twitterfeed" class="accordion-body collapse">
+                            <li class="accordion-inner">
+                                <ul id="tweets" data-twitter-username="{{ museum.get_twitter_username }}">
+                                </ul>
+                            </li>
+                        </ul>  
+                    </li> 
+                {% endif %}
             </ul> 
         </section>
 
