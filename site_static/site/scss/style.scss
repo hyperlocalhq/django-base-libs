@@ -1032,10 +1032,10 @@ article {
           -webkit-transition-timing: ease-in-out;
 
           .title { 
+            padding-top: 10px;
             font-weight: 500; 
           }
 
-          padding-top: 10px;
           color: rgba(0,0,0,0.75);
           font-size: 12px;
           line-height: 18px;
@@ -1668,7 +1668,8 @@ dl {
 #social_channels_fieldset,
 #favorites,
 #item_container,
-#dashboard {
+#dashboard,
+#favorites {
   fieldset { margin-bottom: 60px; position: relative; }
   legend {font-size: 28px; padding-bottom: 10px; border: none !important;}
   

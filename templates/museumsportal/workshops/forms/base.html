@@ -5,7 +5,7 @@
     {% if workshop %}
         {{ workshop.title }}
     {% else %}
-        {% trans "New workshop" %}
+        {% trans "New Guided Tour" %}
     {% endif %}
 {% endblock %}
 
@@ -28,9 +28,9 @@
 
 {% block dashboard_title %}
     {% if workshop %}
-        <span>{% trans "Workshops" %}</span> {{ workshop.title }}
+        <span>{% trans "Guided Tours" %}</span> {{ workshop.title }}
     {% else %}
-        {% trans "Add new workshop" %}
+        {% trans "Add new Guided Tour" %}
     {% endif %}
 {% endblock %}
 

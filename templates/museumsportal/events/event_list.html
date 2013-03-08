@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% block title %}{% trans "Events" %}{% endblock %}
 {% block bodyclass %}event-list{% endblock %}
 
 {% block js %}
@@ -79,31 +80,17 @@
                     </nav>
         
                     <a href="{{ event.get_url_path }}">
-                        <h3>{{ event.museum.title }}</h3>
-                        <h4>{{ event.title }}</h4>
+                        <h3>{{ event.title }}</h3>
+                        <h4>{{ event.museum.title }}</h4>
                         {% with event.eventtime_set.all.0 as event_time %}
                             <h5>{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|date:"H:i" }}</h5>
                         {% endwith %}
                     </a>
         
-                    {% with event.museum as museum %}
-                        {% if museum.latitude %}
-                            <script type="text/javascript">
-                            //<![CDATA[
-                            (function(undefined) {
-                                var iIndex = aGeopositions.length;
-                                aGeopositions[iIndex] = {
-                                    latitude: {{ museum.latitude }},
-                                    longitude: {{ museum.longitude }},
-                                    categories: "initial_{{ event.title|slugify|slice:"0:1" }}{% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                                    content: 
-                                    '<a href="{{ event.get_url_path }}">{{ museum.title }} <span>{% trans "more" %}</span></a>'
-                                }
-                            }());
-                            //]]>
-                            </script>
-                        {% endif %}
+                    {% with event as list_item %}
+                        {% include "utils/geo_position.html" %}
                     {% endwith %}
+                    
                 </li>
             {% endfor %}
         </ul>

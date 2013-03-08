@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% block title %}{% trans "Guided Tours" %}{% endblock %}
 {% block bodyclass %}workshop-list{% endblock %}
 
 {% block js %}
@@ -28,7 +29,7 @@
 
 <div class="content" class="clearfix">
   <div class="inner">
-    <h1>{% trans "Workshops in the Museums of Berlin" %}</h1>
+    <h1>{% trans "Guided Tours in the Museums of Berlin" %}</h1>
 
     <!-- {% comment %}
     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
@@ -88,8 +89,8 @@
                 </nav>
     
                 <a href="{{ workshop.get_url_path }}">
-                    <h3>{{ workshop.museum.title }}</h3>
-                    <h4>{{ workshop.title }}</h4>
+                    <h3>{{ workshop.title }}</h3>
+                    <h4>{{ workshop.museum.title }}</h4>
                     {% with workshop.workshoptime_set.all.0 as workshop_time %}
                         <h5>{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|date:"H:i" }}</h5>
                     {% endwith %}
@@ -100,23 +101,8 @@
                     <a class="more" href="{{ workshop.get_url_path }}">more</a>
                 </div>
                 
-                {% with workshop.museum as museum %}
-                    {% if museum.latitude %}
-                        <script type="text/javascript">
-                        //<![CDATA[
-                        (function(undefined) {
-                            var iIndex = aGeopositions.length;
-                            aGeopositions[iIndex] = {
-                            latitude: {{ museum.latitude }},
-                            longitude: {{ museum.longitude }},
-                            categories: "initial_{{ workshop.title|slugify|slice:"0:1" }}{% if workshop.closing_soon %} closing_soon{% endif %}{% if workshop.newly_opened %} newly_opened{% endif %}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                            content: 
-                            '<a href="{{ workshop.get_url_path }}">{{ museum.title }} <span>{% trans "more" %}</span></a>'
-                            }
-                        }());
-                        //]]>
-                        </script>
-                    {% endif %}
+                {% with workshop as list_item %}
+                    {% include "utils/geo_position.html" %}
                 {% endwith %}
             </li>
         {% endfor %}
