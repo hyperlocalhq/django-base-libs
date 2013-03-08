@@ -30,16 +30,18 @@
             $('.timeinput').timepicker();
             $('#id_tags').tagsInput();
             $('#id_museum').change(function() {
-                $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
-                    $('#id_location_name').val(data['title']);
-                    $('#id_street_address').val(data['street_address']);
-                    $('#id_street_address2').val(data['street_address2']);
-                    $('#id_postal_code').val(data['postal_code']);
-                    $('#id_city').val(data['city']);
-                    $('#id_latitude').val(data['latitude']);
-                    $('#id_longitude').val(data['longitude']);
-                    $('#dyn_locate_geo').click();
-                }, 'json');
+                if ($(this).val()) {
+                    $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
+                        $('#id_location_name').val(data['title']);
+                        $('#id_street_address').val(data['street_address']);
+                        $('#id_street_address2').val(data['street_address2']);
+                        $('#id_postal_code').val(data['postal_code']);
+                        $('#id_city').val(data['city']);
+                        $('#id_latitude').val(data['latitude']);
+                        $('#id_longitude').val(data['longitude']);
+                        $('#dyn_locate_geo').click();
+                    }, 'json');
+                }
             });
         });
     </script>
