@@ -29,7 +29,7 @@
 
 <div class="content" class="clearfix">
   <div class="inner">
-    <h1>{% trans "Guided Tours in the Museums of Berlin" %}</h1>
+    <h1>{% trans "Guided Tours" %}</h1>
 
     <!-- {% comment %}
     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
@@ -54,6 +54,7 @@
         <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
         {% endfor %}
     </ul>
+
     <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
         <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
         {% tags_for_model workshops.Workshop as workshop_tags %}
@@ -90,6 +91,8 @@
     
                 <a href="{{ workshop.get_url_path }}">
                     <h3>{{ workshop.title }}</h3>
+                    <h4>{{ workshop.subtitle }}</h4>
+                    <h4>{{ workshop.workshop_type }}</h4>
                     <h4>{{ workshop.museum.title }}</h4>
                     {% with workshop.workshoptime_set.all.0 as workshop_time %}
                         <h5>{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|date:"H:i" }}</h5>

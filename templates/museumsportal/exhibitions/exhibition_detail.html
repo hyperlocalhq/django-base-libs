@@ -47,25 +47,24 @@
                     </h4>
                     <ul id="collapse-location" class="accordion-body collapse">  
                         <li class="accordion-inner">
-                            {% if exhibition.street_address %}
-                                <dl class="address">
-                                    <dt>{% trans "Address" %}</dt>
-                                    <dd>{{ exhibition.location_name }}</dd>
-                                    <dd>{{ exhibition.street_address }}</dd>
-                                    {% if exhibition.street_address2 %}<dd>{{ exhibition.street_address2 }}</dd>{% endif %} 
-                                    <dd>{{ exhibition.postal_code }} {{ exhibition.city }}</dd>
-                                </dl>
-                            {% else %}
+                            {% if exhibition.museum %}
                                 {% with exhibition.museum as museum %}
                                     <dl class="address">
-                                        <dt>{% trans "Address" %}</dt>
-                                        <dd>{{ museum.title }}</dd>
+                                        <dt><a href="{{ museum.get_url_path }}">{{ museum.title }}</a> </dt>
                                         <dd>{{ museum.street_address }}</dd>
                                         {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                                         <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
                                     </dl>
                                 {% endwith %}
+                            {% else %}
+                                <dl class="address">
+                                    <dt>{{ exhibition.location_name }}</dt>
+                                    <dd>{{ exhibition.street_address }}</dd>
+                                    {% if exhibition.street_address2 %}<dd>{{ exhibition.street_address2 }}</dd>{% endif %} 
+                                    <dd>{{ exhibition.postal_code }} {{ exhibition.city }}</dd>
+                                </dl>
                             {% endif %}
+
                             {% if exhibition.organizing_museum %}
                                 <dl>
                                     <dt>{% trans "Organizer" %}</dt>
@@ -106,9 +105,6 @@
                                   </script>
                               {% endif %}
                             {% endwith %}
-                             
-                            <a class="" onclick="openGoogleMaps();" id="map_link" title="Karte" href="#">Googlemaps</a>
-                            <a class="toggle_bvg" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a>
                         </li>
                     </ul>  
                 </li>
@@ -121,16 +117,23 @@
                     <ul id="collapse-times" class="accordion-body collapse">  
                         <li class="accordion-inner">
                             {% if exhibition.permanent %}
-                                <p>{% trans "Permanent exhibition" %}</p>
+                                <dl>
+                                    <dt>{% trans "Permanent exhibition" %}</dt>
+                                </dl>
                             {% else %}
-                                <p>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</p>
+                                <dl>
+                                    <dt>{% trans "Exhibition" %}</dt>
+                                    <dd>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</dd>
+                                </dl>
                             {% endif %}
+
                             {% if exhibition.vernissage %}
                                 <dl>
                                     <dt>{% trans "Vernissage" %}</dt>
                                     <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}</dd>
                                 </dl>
                             {% endif %} 
+
                             {% if exhibition.finissage %}
                                 <dl>
                                     <dt>{% trans "Finissage" %}</dt>
@@ -244,7 +247,7 @@
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
-                            {% trans "Prices" %} 
+                            {% trans "Tickets" %} 
                         </a>  
                     </h4>  
                     <ul id="collapse-prices" class="accordion-body collapse">  
@@ -252,47 +255,75 @@
                             <dl>
                             {% if exhibition.free_entrance %}
                                 <dt>{% trans "Free entrance" %}</dt>
+
                             {% else %}
                                 {% if exhibition.admission_price %}
-                                    <dt>{% trans "Admission price" %}: {{ exhibition.admission_price|currencyfmt:"EUR" }}</dt>
+                                    <dl>
+                                        <dt>{% trans "Admission price" %} {{ exhibition.admission_price|currencyfmt:"EUR" }}</dt>
+                                        {% if exhibition.admission_price_info %}
+                                            <dd>{{ exhibition.get_rendered_admission_price_info }}</dd>
+                                        {% endif %}
+                                    </dl>
                                 {% endif %}
-                                {% if exhibition.admission_price_info %}
-                                    <dd class="admission_price_info">{{ exhibition.get_rendered_admission_price_info }}</dd>
-                                {% endif %}
+
                                 {% if exhibition.reduced_price %}
-                                    <dt>{% trans "Reduced price" %}: {{ exhibition.reduced_price|currencyfmt:"EUR" }}</dt>
+                                    <dl>
+                                        <dt>{% trans "Reduced price" %} {{ exhibition.reduced_price|currencyfmt:"EUR" }}</dt>
+                                        {% if exhibition.reduced_price_info %}
+                                            <dd>{{ exhibition.get_rendered_reduced_price_info }}</dd>
+                                        {% endif %}
+                                    </dl>
                                 {% endif %}
-                                {% if exhibition.reduced_price_info %}
-                                    <dd class="reduced_price_info">{{ exhibition.get_rendered_reduced_price_info }}</dd>
-                                {% endif %}
+
                                 {% if exhibition.arrangements_for_children %}
-                                    <dt>{% trans "Arrangements for children" %}</dt>
-                                    <dd class="arrangements_for_children">{{ exhibition.get_rendered_arrangements_for_children }}</dd>
+                                    <dl>
+                                        <dt>{% trans "Arrangements for children" %}</dt>
+                                        <dd>{{ exhibition.get_rendered_arrangements_for_children }}</dd>
+                                    </dl>
                                 {% endif %}
+
                                 {% if exhibition.free_entrance_for %}
-                                    <dt>{% trans "Free entrance for" %}</dt>
-                                    <dd class="free_entrance_for">{{ exhibition.get_rendered_free_entrance_for }}</dd>
+                                    <dl>
+                                        <dt>{% trans "Free entrance for" %}</dt>
+                                        <dd>{{ exhibition.get_rendered_free_entrance_for }}</dd>
+                                    </dl>
                                 {% endif %}
+
                                 {% if exhibition.family_ticket %}
-                                    <dt>{% trans "Family ticket" %}</dt>
-                                    <dd class="family_ticket">{{ exhibition.get_rendered_family_ticket }}</dd>
+                                    <dl>
+                                        <dt>{% trans "Family ticket" %}</dt>
+                                        <dd>{{ exhibition.get_rendered_family_ticket }}</dd>
+                                    </dl>
                                 {% endif %}
+
                                 {% if exhibition.group_ticket %}
-                                    <dt>{% trans "Group ticket" %}</dt>
-                                    <dd class="group_ticket">{{ exhibition.get_rendered_group_ticket }}</dd>
+                                    <dl>
+                                        <dt>{% trans "Group ticket" %}</dt>
+                                        <dd>{{ exhibition.get_rendered_group_ticket }}</dd>
+                                    </dl>
                                 {% endif %}
+
                                 {% if exhibition.free_entrance_times %}
-                                    <dt>{% trans "Free entrance times" %}</dt>
-                                    <dd class="free_entrance_times">{{ exhibition.get_rendered_free_entrance_times }}</dd>
+                                    <dl>
+                                        <dt>{% trans "Free entrance times" %}</dt>
+                                        <dd>{{ exhibition.get_rendered_free_entrance_times }}</dd>
+                                    </dl>
                                 {% endif %}
+
                                 {% if exhibition.yearly_ticket %}
-                                    <dt>{% trans "Yearly ticket" %}</dt>
-                                    <dd class="yearly_ticket">{{ exhibition.get_rendered_yearly_ticket }}</dd>
+                                    <dl>
+                                        <dt>{% trans "Yearly ticket" %}</dt>
+                                        <dd>{{ exhibition.get_rendered_yearly_ticket }}</dd>
+                                    </dl>
                                 {% endif %}
+
                                 {% if exhibition.other_tickets %}
-                                    <dt>{% trans "Other tickets" %}</dt>
-                                    <dd class="other_tickets">{{ exhibition.get_rendered_other_tickets }}</dd>
+                                    <dl>
+                                        <dt>{% trans "Other tickets" %}</dt>
+                                        <dd>{{ exhibition.get_rendered_other_tickets }}</dd>
+                                    </dl>
                                 {% endif %}
+
                                 {% if exhibition.member_of_exhibitionspass %}
                                     <dt>{% trans "Member if Exhibitionspass Berlin" %}</dt>
                                 {% endif %}
@@ -351,12 +382,10 @@
             
         <article class="with_sidebar">
             <header>
-                <h1>
-                    {{ exhibition.title }}
-                     {% if exhibition.subtitle %}
-                        <span>{{ exhibition.subtitle }}</span>
-                    {% endif %}
-                </h1>
+                <h1>{{ exhibition.title }}</h1>
+                {% if exhibition.subtitle %}
+                    <h2>{{ exhibition.subtitle }}</h2>
+                {% endif %}
                 <time>
                     {% if exhibition.permanent %}
                         {% trans "Permanent exhibition" %}

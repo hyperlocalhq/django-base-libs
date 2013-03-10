@@ -52,13 +52,11 @@
         </ul>
      -->
      
-        <!-- {% comment %}
         <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
         {% for item in abc_list %}
           <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
         {% endfor %}
         </ul>
-        {% endcomment %} -->
 
         <ul class="filter option-set clearfix" id="categories" data-filter-group="category">
             <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
