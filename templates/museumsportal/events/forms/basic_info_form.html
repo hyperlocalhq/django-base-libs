@@ -29,6 +29,11 @@
             })
             $('.timeinput').timepicker();
             $('#id_tags').tagsInput();
+            $('[name="location"]:last').each(function() {
+                var $new_controls = $('<div class="controls"></div>');
+                $new_controls.append($(this).parents('label:first'));
+                $('#div_id_location').append($new_controls);
+            });
             $('[name="location"]').click(function() {
                 if ($(this).val() != "another") {
                     $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
