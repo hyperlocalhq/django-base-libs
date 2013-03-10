@@ -86,6 +86,8 @@ def workshop_list(request):
     else:
         qs = qs.order_by("-workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
         
+    qs = qs.distinct()
+        
     extra_context = {}
     extra_context['form'] = form
     extra_context['facets'] = facets
