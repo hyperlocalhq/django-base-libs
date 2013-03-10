@@ -72,7 +72,7 @@
                             {% if museum.website %}
                             <dl>
                                 <dt>{% trans "Web" %}</dt>
-                                <dd><a href="{{ museum.website }}">{{ museum.website }}</a></dd>
+                                <dd><a href="{{ museum.website }}">{{ museum.website|humanize_url:"30" }}</a></dd>
                             </dl>
                             {% endif %}
                             
