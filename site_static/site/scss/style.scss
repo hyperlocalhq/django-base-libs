@@ -458,9 +458,9 @@ a:active  { outline: none;}
 // ================= LIST =================
 
 
-.museum-list .list > li     { height: 253px !important; }
+.museum-list .list > li     { height: 233px !important; }
 .event-list .list > li      { height: 253px !important; }
-.exhibition-list .list > li { height: 253px !important; }
+.exhibition-list .list > li { height: 273px !important; }
 .workshop-list .list > li   { height: 273px !important; }
 
 .list {
@@ -1715,6 +1715,7 @@ dl {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         margin-bottom: 2px;
+        white-space: nowrap;
 
         .title { font-weight: 500; }
 
