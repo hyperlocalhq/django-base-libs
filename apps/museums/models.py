@@ -193,6 +193,22 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return ""
         else:
             return path
+
+    def get_services(self):
+        services = []
+        if self.service_shop:
+            services.append(_("Museum Shop"))
+        if self.service_restaurant:
+            services.append(_("Restaurant"))
+        if self.service_cafe:
+            services.append(_("Cafe"))
+        if self.service_library:
+            services.append(_("Library"))
+        if self.service_archive:
+            services.append(_("Archive"))
+        if self.service_diaper_changing_table:
+            services.append(_("Diaper changing table"))
+        return services
     
     def get_audioguide_languages(self):
         langs = []
