@@ -83,27 +83,10 @@
                                 {% endif %}
                             {% endif %}
                         </li>
-                        <li class="accordion-inner"> 
-
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
-
-                            {% with exhibition.museum as museum %}
-                              {% if museum.latitude %}
-                                  <script type="text/javascript">
-                                  //<![CDATA[
-                                  (function(undefined) {
-                                      var iIndex = aGeopositions.length;
-                                      aGeopositions[iIndex] = {
-                                          latitude: {{ museum.latitude }},
-                                          longitude: {{ museum.longitude }},
-                                          categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                                          content: 
-                                          '<a href="{{ exhibition.get_url_path }}">{{ museum.title }} <span>{% trans "more" %}</span></a>'
-                                      }
-                                  }());
-                                  //]]>
-                                  </script>
-                              {% endif %}
+                        <li class="accordion-inner">
+                            {% with exhibition as list_item %}
+                                <a href="#" class="location">{% trans "Show location on map" %}</a>
+                                {% include "utils/geo_position.html" %}
                             {% endwith %}
                         </li>
                     </ul>  
@@ -382,10 +365,6 @@
             
         <article class="with_sidebar">
             <header>
-                <h1>{{ exhibition.title }}</h1>
-                {% if exhibition.subtitle %}
-                    <h2>{{ exhibition.subtitle }}</h2>
-                {% endif %}
                 <time>
                     {% if exhibition.permanent %}
                         {% trans "Permanent exhibition" %}
@@ -393,6 +372,10 @@
                         {{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}
                     {% endif %}
                 </time>
+                <h1>{{ exhibition.title }}</h1>
+                {% if exhibition.subtitle %}
+                    <h2>{{ exhibition.subtitle }}</h2>
+                {% endif %}
                 <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
             </header>
             {{ exhibition.get_rendered_description }}
