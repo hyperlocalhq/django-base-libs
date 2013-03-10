@@ -29,18 +29,30 @@
             })
             $('.timeinput').timepicker();
             $('#id_tags').tagsInput();
-            $('#id_museum').change(function() {
-                $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
-                    $('#id_location_name').val(data['title']);
-                    $('#id_street_address').val(data['street_address']);
-                    $('#id_street_address2').val(data['street_address2']);
-                    $('#id_postal_code').val(data['postal_code']);
-                    $('#id_city').val(data['city']);
-                    $('#id_latitude').val(data['latitude']);
-                    $('#id_longitude').val(data['longitude']);
-                    $('#dyn_locate_geo').click();
-                }, 'json');
+            $('[name="location"]').click(function() {
+                if ($(this).val() != "another") {
+                    $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
+                        $('#id_location_name').val(data['title']).addClass("noneditable");
+                        $('#id_street_address').val(data['street_address']).addClass("noneditable");
+                        $('#id_street_address2').val(data['street_address2']).addClass("noneditable");
+                        $('#id_postal_code').val(data['postal_code']).addClass("noneditable");
+                        $('#id_city').val(data['city']).addClass("noneditable");
+                        $('#id_latitude').val(data['latitude']).addClass("noneditable");
+                        $('#id_longitude').val(data['longitude']).addClass("noneditable");
+                        $('#dyn_locate_geo').click();
+                    }, 'json');
+                } else {
+                    $('#id_location_name').val("").removeClass("noneditable");
+                    $('#id_street_address').val("").removeClass("noneditable");
+                    $('#id_street_address2').val("").removeClass("noneditable");
+                    $('#id_postal_code').val("").removeClass("noneditable");
+                    $('#id_city').val("").removeClass("noneditable");
+                    GMapManager.removeGeoPos();
+                }
             });
+            if (!$('[name="location"]:checked').val()) {
+                $('[name="location"]:first').click();
+            }
         });
     </script>
 {% endblock %}

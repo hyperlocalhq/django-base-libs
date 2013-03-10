@@ -97,6 +97,8 @@ def event_list(request):
     else:
         qs = qs.order_by("-eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
         
+    qs = qs.distinct()
+        
     extra_context = {}
     extra_context['form'] = form
     extra_context['facets'] = facets

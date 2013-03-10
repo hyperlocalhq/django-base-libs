@@ -62,11 +62,17 @@ class BasicInfoForm(ModelForm):
             },
         )
     '''
+    location = forms.ChoiceField(
+        label=_("Location"),
+        widget=forms.RadioSelect,
+        required=True,
+        )
     class Meta:
         model = Exhibition
         
         fields = ['start', 'end', 'permanent', 'exhibition_extended',
-            'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
+            #'museum',
+            'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude', 
             'organizing_museum', 'organizer_title', 'organizer_url_link', 'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
             ]
@@ -90,7 +96,12 @@ class BasicInfoForm(ModelForm):
         self.fields['categories'].empty_label = None
         self.fields['categories'].level_indicator = "/ "
 
-        self.fields['museum'].queryset = Museum.objects.owned_by(get_current_user())
+        #self.fields['museum'].queryset = Museum.objects.owned_by(get_current_user())
+        #self.fields['museum'].widget = forms.RadioSelect()
+        location_choices = [(m.pk, m.__unicode__()) for m in Museum.objects.owned_by(get_current_user())]
+        location_choices += [("another", _("Another location"))]
+        self.fields['location'].choices = location_choices
+        
         self.fields['organizing_museum'].queryset = Museum.objects.owned_by(get_current_user())
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -150,9 +161,9 @@ class BasicInfoForm(ModelForm):
             ))
         layout_blocks.append(layout.Fieldset(
             _("Location"),
+            "location", # "museum",
             layout.Row(
                 layout.Div(
-                "museum",
                 "location_name",
                 "street_address",
                 "street_address2",
@@ -707,7 +718,7 @@ def load_data(instance=None):
         form_step_data['basic']['end'] = instance.end
         form_step_data['basic']['permanent'] = instance.permanent
         form_step_data['basic']['exhibition_extended'] = instance.exhibition_extended
-        form_step_data['basic']['museum'] = instance.museum
+        form_step_data['basic']['location'] = instance.museum and instance.museum.pk or "another"
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
         form_step_data['basic']['street_address2'] = instance.street_address2
@@ -811,7 +822,10 @@ def load_data(instance=None):
     return form_step_data
 
 def submit_step(current_step, form_steps, form_step_data, instance=None):
-    museum = form_step_data.get('basic', {}).get('museum', None)
+    location = form_step_data.get('basic', {}).get('location', "another")
+    museum = None
+    if location and location != "another":
+        museum = Museum.objects.get(pk=location)
     if current_step == "basic":
         # save the entry
         if "_pk" in form_step_data:
@@ -829,7 +843,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
         instance.exhibition_extended = form_step_data['basic']['exhibition_extended'] 
-        instance.museum = form_step_data['basic']['museum']
+        instance.museum = museum
         instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
         instance.street_address2 = form_step_data['basic']['street_address2'] 
@@ -1079,8 +1093,12 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.start = form_step_data['basic']['start'] 
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
-    instance.exhibition_extended = form_step_data['basic']['exhibition_extended'] 
-    instance.museum = form_step_data['basic']['museum']
+    instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
+    location = form_step_data['basic']['location']
+    museum = None
+    if location and location != "another":
+        museum = Museum.objects.get(pk=location)
+    instance.museum = museum
     instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']
     instance.street_address2 = form_step_data['basic']['street_address2'] 
