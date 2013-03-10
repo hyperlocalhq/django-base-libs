@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks %}
 {% block title %}{% trans "Museum" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}museum-detail{% endblock %}
 
@@ -134,6 +134,8 @@
                     </ul>  
                 </li>
 
+                <!-- ======= Opening hours ======= -->
+
                 {% if museum.season_set.count or museum.specialopeningtime_set.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
@@ -146,27 +148,27 @@
                                 {% if museum.season_set.count == 1 %}
                                     {% with museum.season_set.all.0 as season %}
                                         {% if season.is_appointment_based %}
-                                            <p>{% trans "Based on appointment" %}</p>
+                                            <dt>{% trans "Based on appointment" %}</dt>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
-                                                {% if forloop.first %}<dl>{% endif %}
-                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
-                                                <dd>
-                                                    {% if same_hours.list.0.open %}
-                                                         {{ same_hours.list.0.open|time:"H:i" }}
-                                                         {% if same_hours.list.0.break_close %}
-                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% else %}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% endif %}
-                                                    {% else %}				 
-                                                        {% trans "closed" %}
-                                                    {% endif %}
-                                                </dd>
-                                                {% if forloop.last %}</dl>{% endif %}
+                                                <dl>
+                                                    <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
+                                                    <dd>
+                                                        {% if same_hours.list.0.open %}
+                                                             {{ same_hours.list.0.open|time:"H:i" }}
+                                                             {% if same_hours.list.0.break_close %}
+                                                                - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                                  / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                                - {{ same_hours.list.0.close|time:"H:i" }}
+                                                             {% else %}
+                                                                - {{ same_hours.list.0.close|time:"H:i" }}
+                                                             {% endif %}
+                                                        {% else %}				 
+                                                            {% trans "closed" %}
+                                                        {% endif %}
+                                                    </dd>
+                                                </dl>
                                             {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
@@ -244,7 +246,9 @@
                     </li>
                 {% endif %}
 
+                <!-- ======= Tickets ======= -->
 
+                {% if museum.free_entrance or museum.admission_price or museum.admission_price_info or museum.reduced_price or museum.reduced_price_info or museum.arrangements_for_children or museum.free_entrance_for or museum.family_ticket or museum.group_ticket or museum.free_entrance_times or museum.yearly_ticket or museum.other_tickets or museum.member_of_museumspass or museum.group_booking_phone_number or museum.service_phone_number %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
@@ -257,85 +261,84 @@
                                 {% trans "Free entrance" %}
                             {% else %}
                                 {% if museum.admission_price %}
-                                    <dt>{% trans "Admission price" %}</dt><dd>{{ museum.admission_price|currencyfmt:"EUR" }}</dd>
-                                    {% if museum.admission_price_info %}
-                                        <dd> {{ museum.get_rendered_admission_price_info }}</dd>
-                                    {% endif %}
+                                    <dl>
+                                        <dt>{% trans "Admission price" %} {{ museum.admission_price|currencyfmt:"EUR" }}</dt>
+                                        {% if museum.admission_price_info %}
+                                            <dd> {{ museum.get_rendered_admission_price_info }}</dd>
+                                        {% endif %}
+                                    </dl>
                                 {% endif %}
                                 {% if museum.reduced_price %}
-                                    <dt>{% trans "Reduced price" %}</dt><dd>{{ museum.reduced_price|currencyfmt:"EUR" }}</dd>
-                                {% endif %}
-                                {% if museum.reduced_price_info %}
-                                    <dd> {{ museum.get_rendered_reduced_price_info }} </dd>
+                                    <dl>
+                                        <dt>{% trans "Reduced price" %} {{ museum.reduced_price|currencyfmt:"EUR" }}</dt>
+                                        {% if museum.reduced_price_info %}
+                                            <dd>{{ museum.get_rendered_reduced_price_info }} </dd>
+                                        {% endif %}
+                                    </dl>
                                 {% endif %}
                                 {% if museum.arrangements_for_children %}
-                                    <dt>{% trans "Arrangements for children" %}</dt>
-                                    <dd class="arrangements_for_children">
-                                        {{ museum.get_rendered_arrangements_for_children }}
-                                    </dd>
+                                    <dl>
+                                        <dt>{% trans "Arrangements for children" %}</dt>
+                                        <dd>{{ museum.get_rendered_arrangements_for_children }} </dd>
+                                    </dl>
                                 {% endif %}
                                 {% if museum.free_entrance_for %}
-                                    <dt>{% trans "Free entrance for" %}</dt>
-                                    <dd class="free_entrance_for">
-                                        {{ museum.get_rendered_free_entrance_for }}
-                                    </dd>
+                                    <dl>
+                                        <dt>{% trans "Free entrance for" %}</dt>
+                                        <dd>{{ museum.get_rendered_free_entrance_for }} </dd>
+                                    </dl>
                                 {% endif %}
-                                {% if museum.family_ticket %}
-                                    <dt>{% trans "Family ticket" %}</dt>
-                                    <dd class="family_ticket">
-                                        {{ museum.get_rendered_family_ticket }}
-                                    </dd>
+                                {% if museum.show_family_ticket %}
+                                    <dl>
+                                        <dt>{% trans "Family ticket" %}</dt>
+                                        <dd>{% infoblock "family_ticket_info" %} </dd>
+                                    </dl>
                                 {% endif %}
-                                {% if museum.group_ticket %}
-                                    <dt>{% trans "Group ticket" %}:</dt>
-                                    <dd class="group_ticket">
-                                        {{ museum.get_rendered_group_ticket }}
-                                    </dd>
+                                {% if museum.show_group_ticket %}
+                                    <dl>
+                                        <dt>{% trans "Group ticket" %}</dt>
+                                        <dd>{{ museum.get_rendered_group_ticket }} </dd>
+                                    </dl>
                                 {% endif %}
                                 {% if museum.free_entrance_times %}
-                                    <dt>{% trans "Free entrance times" %}:</dt>
-                                    <dd class="free_entrance_times">
-                                        {{ museum.get_rendered_free_entrance_times }}
-                                    </dd>
+                                    <dl>
+                                        <dt>{% trans "Free entrance times" %}</dt>
+                                        <dd>{{ museum.get_rendered_free_entrance_times }} </dd>
+                                    </dl>
                                 {% endif %}
-                                {% if museum.yearly_ticket %}
-                                    <dt>{% trans "Yearly ticket" %}:</dt>
-                                    <dd class="yearly_ticket">
-                                        {{ museum.get_rendered_yearly_ticket }}
-                                    </dd>
+                                {% if museum.show_yearly_ticket %}
+                                    <dl>
+                                        <dt>{% trans "Yearly ticket" %}</dt>
+                                        <dd>{% infoblock "yearly_ticket_info" %} </dd>
+                                    </dl>
                                 {% endif %}
                                 {% if museum.other_tickets %}
-                                <dl>
-                                    <dt>{% trans "Other tickets" %}:</dt>
-                                    <dd class="other_tickets">
-                                        {{ museum.get_rendered_other_tickets }}
-                                    </dd>
-                                </dl>
+                                    <dl>
+                                        <dt>{% trans "Other tickets" %}</dt>
+                                        <dd>{{ museum.get_rendered_other_tickets }}</dd>
+                                    </dl>
                                 {% endif %}
                                 {% if museum.member_of_museumspass %}
-                                    <dd>{% trans "Member of Museumspass Berlin" %}</dd>
+                                    <dl>
+                                        <dt>{% trans "Member of Museumspass Berlin" %}</dt>
+                                    </dl>
                                 {% endif %}
                             {% endif %}
 
-
-                            {% if museum.group_booking_phone_number %}
-                                <dl class="phone inset">
-                                    <dt>{% trans "Phone for group booking" %}</dt>
-                                    <dd>+{{ museum.group_booking_phone_country }} ({{ museum.group_booking_phone_area }}) {{ museum.group_booking_phone_number }}</dd>
-                                </dl>
-                            {% endif %} 
-                            {% if museum.service_phone_number %}
-                                <dl class="phone inset">
-                                    <dt>{% trans "Service Phone" %}</dt>
-                                    <dd>+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</dd>
+                            {% if museum.group_bookings_phone_number %}
+                                <dl>
+                                    <dt>{% trans "Group booking" %}</dt>
+                                    <dd>+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</dd>
                                 </dl>
                             {% endif %} 
                         </li>
                     </ul>  
                 </li>  
+                {% endif %} 
 
+                <!-- ======= Services ======= -->
 
-
+                {% if museum.service_shop or museum.service_books or museum.service_restaurant or museum.service_cafe or museum.service_library or musuem.service_archive or musuem.service_studio or museum.service_online or museum.service_diaper_changing_table or musuem.service_birthdays or museum.service_rent or musuem.service_other %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-services">  
@@ -344,41 +347,49 @@
                     </h4>  
                     <ul id="collapse-services" class="accordion-body collapse" style="height: 0px; ">
                         <li class="accordion-inner">
-                            {% if museum.service_shop or museum.service_books or museum.service_restaurant or museum.service_cafe or museum.service_library or musuem.service_archive or musuem.service_studio or museum.service_online or museum.service_diaper_changing_table or musuem.service_birthdays or museum.service_rent or musuem.service_other %}
-                                 <dl>
-                                    {% if museum.service_shop %}
-                                    <span class="icon icon-shop" rel="tooltip" data-placement="top" data-original-title="{% trans "Shop" %}" >{% trans "Shop" %}</span>
+                            <dl>
+                                {% if museum.service_shop %}
+                                    <dd>{% trans "Shop" %}</dd>
                                 {% endif %}
                                 {% if museum.service_restaurant %}
-                                    <span class="icon icon-restaurant" rel="tooltip" data-placement="top" data-original-title="{% trans "Restaurant" %}" >{% trans "Restaurant" %}</span>
+                                    <dd>{% trans "Restaurant" %}</dd>
                                 {% endif %}
                                 {% if museum.service_cafe %}
-                                    <span class="icon icon-cafe" rel="tooltip" data-placement="top" data-original-title="{% trans "Cafe" %}" >{% trans "Cafe" %}</span>
+                                    <dd>{% trans "Cafe" %}</dd>
                                 {% endif %}
                                 {% if museum.service_library %}
-                                    <span class="icon icon-library" rel="tooltip" data-placement="top" data-original-title="{% trans "Library" %}" >{% trans "Library" %}</span>
+                                    <dd>{% trans "Library" %}</dd>
                                 {% endif %}
                                 {% if musuem.service_archive %}
-                                    <span class="icon icon-archive" rel="tooltip" data-placement="top" data-original-title="{% trans "Archive" %}" >{% trans "Archive" %}</span>
+                                    <dd>{% trans "Archive" %}</dd>
                                 {% endif %}
                                 {% if museum.service_diaper_changing_table %}
-                                    <span class="icon icon-diaper" rel="tooltip" data-placement="top" data-original-title="{% trans "Diaper changing table" %}" >{% trans "Diaper changing table" %}</span>
+                                    <dd>{% trans "Diaper changing table" %}</dd>
                                 {% endif %}
+                            </dl>
+
+                            {% if museum.service_phone_number %}
+                                <dl>
+                                    <dt>{% trans "Service Phone" %}</dt>
+                                    <dd>+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</dd>
                                 </dl>
-                            {% endif %}
+                            {% endif %} 
                         </li>
                     </ul>  
                 </li>  
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
-                            {% filter fix_ampersands %}{% trans "Accessibility" %}{% endfilter %} 
-                        </a>  
-                    </h4>  
-                    <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
-                        <li class="accordion-inner">
-                            {% if museum.accessibility or museum.accessibility_options.count %}
-                                <h5>{% trans "Accessibility" %}</h5>
+                {% endif %}
+
+                <!-- ======= Accessibility ======= -->
+
+                {% if museum.accessibility or museum.accessibility_options.count %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
+                                {% filter fix_ampersands %}{% trans "Accessibility" %}{% endfilter %} 
+                            </a>  
+                        </h4>  
+                        <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
+                            <li class="accordion-inner">
                                 {% for opt in museum.accessibility_options.all %}
                                     <img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" />
                                 {% endfor %}
@@ -387,10 +398,10 @@
                                         {{ museum.get_rendered_accessibility }}
                                     </div>
                                 {% endif %}
-                            {% endif %}
-                        </li>
-                    </ul>  
-                </li>  
+                            </li>
+                        </ul>  
+                    </li>  
+                {% endif %}  
 
                 <!-- ======= Audioguides ======= -->
 
@@ -402,59 +413,102 @@
                         </h4>  
                         <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
                             <li class="accordion-inner">
-                                {% if museum.has_audioguide %}
-                                    <dt>{% trans "Audioguide" %}</dt>
-                                    {% for lang in museum.get_audioguide_languages %}
-                                        <dd>{{ lang }}</dd>
-                                    {% endfor %}
-                                {% endif %}
-                                {% if museum.has_audioguide_for_children %}
-                                    <dt>{% trans "Audioguide for children." %}</dt>
-                                {% endif %}
-                                {% if museum.has_audioguide_for_learning_difficulties %}
-                                    <dt>{% trans "Audioguide for people with learning difficulties." %}</dt>
-                                {% endif %}
-
-                                {% with museum.get_workshops as workshops %}
-                                    {% if workshops %}
-                                        <h6>{% trans "Guided Tours" %}</h6>
-                                        {% for workshop in workshops %}
-                                            <dt><a href="{{ workshop.get_url_path }}">{{ workshop.title }}</a></dt>
-                                            {% with workshop.workshoptime_set.all.0 as wtime %}
-                                                <dd>{{ wtime.workshop_date|date:"j. F Y" }} {{ wtime.start|time:"H:i" }} - {{ wtime.end|time:"H:i" }}</dd>
-                                            {% endwith %}
-                                        {% endfor %}
+                                <dl>
+                                    {% if museum.has_audioguide %}
+                                        <dt>{% trans "In" %}
+                                        {% if museum.get_audioguide_languages %}
+                                            {% for lang in museum.get_audioguide_languages %}
+                                                {{ lang }}{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        </dt>
                                     {% endif %}
+                                </dl>
+                                <dl>
+                                    {% if museum.has_audioguide_for_children %}
+                                        <dt>{% trans "For children and teenager" %}</dt>
+                                    {% endif %}
+                                </dl>
+                                <dl>
+                                    {% if museum.has_audioguide_for_learning_difficulties %}
+                                        <dt>{% trans "For people with learning difficulties" %}</dt>
+                                    {% endif %}
+                                </dl>
+                            </li>
+                        </ul>  
+                    </li>  
+                {% endif %}  
+
+                <!-- ======= Guided Tours ======= -->
+                    
+                {% if object.get_workshops %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">   {% trans "Guided Tours" %} 
+                            </a>  
+                        </h4>  
+                        <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
+                            <li class="accordion-inner">
+                                {% with museum.get_workshops as workshops %}
+                                    {% for workshop in workshops %}
+                                    <dl>
+                                        <a href="{{ workshop.get_url_path }}">
+                                            <dt>{{ workshop.title }}</dt>
+                                            {% with workshop.workshoptime_set.all.0 as wtime %}
+                                                <dd>{{ wtime.workshop_date|date:"j. F Y" }}</dd>
+                                                <dd>{{ wtime.start|time:"H:i" }} - {{ wtime.end|time:"H:i" }}</dd>
+                                            {% endwith %}
+                                        </a>
+                                    </dl>
+                                    {% endfor %}
                                 {% endwith %}
+                                </dl>
                             </li>
                         </ul>  
                     </li>  
                 {% endif %}
 
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-twitterfeed">{% trans "Twitter" %}</a>  
-                    </h4>  
-                    <ul id="collapse-twitterfeed" class="accordion-body collapse">
-                        <li class="accordion-inner">
-                            <ul id="tweets" data-twitter-username="Vielfalt2013"></ul>
-                            <!-- <ul>
-                                <li>
-                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
-                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
-                                </li>
-                                <li>
-                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
-                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
-                                </li>
-                                <li>
-                                    <span class="text">Onlinetickets für die Lange Nacht der Museen gibt es ab heute bei uns auf dem Museumsportal: <a href="http://t.co/qEI1suuo">http://t.co/qEI1suuo</a> <a href="http://twitter.com/MuseumsnachtB">@MuseumsnachtB</a></span>
-                                    <a class="time" href="http://twitter.com/#!/museumsportal/status/303496870301421568">15 Stunden, 19 Minuten ago</a>
-                                </li>
-                            </ul> -->
-                        </li>
-                    </ul>  
-                </li> 
+                <!-- ======= Exhibitions ======= -->
+
+                {% if object.get_published_exhibitions %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-exhibitions">{% trans "Exhibitions" %}</a>  
+                        </h4>  
+                        <ul id="collapse-exhibitions" class="accordion-body collapse">
+                            <li class="accordion-inner">
+                                <ul id="kurze_zeit" class="list compact">
+                                {% for exhibition in object.get_published_exhibitions %}
+                                    <li class="item">
+                                        {% if exhibition.cover_image %}
+                                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
+                                        {% endif %}
+                                        <a href="{{ exhibition.get_url_path }}">
+                                            <h4>{{ exhibition.museum.title }}</h4>
+                                            <h3>{{ exhibition.title }}</h3>
+                                            <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>  
+                    </li>
+                {% endif %} 
+
+                {% if museum.get_twitter_username %}
+                    <li class="accordion-group">  
+                        <h4 class="accordion-heading">  
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-twitterfeed">{% trans "Twitter" %}</a>  
+                        </h4>  
+                        <ul id="collapse-twitterfeed" class="accordion-body collapse">
+                            <li class="accordion-inner">
+                                <ul id="tweets" data-twitter-username="{{ museum.get_twitter_username }}">
+                                </ul>
+                            </li>
+                        </ul>  
+                    </li> 
+                {% endif %}
             </ul> 
         </section>
 
@@ -462,11 +516,10 @@
            
         <article class="with_sidebar">
             <header>
-                <h1>{{ museum.title }} 
-                    {% if museum.subtitle %}
-                    <span>{{ museum.subtitle }}</span>
-                    {% endif %}
-                </h1>
+                <h1>{{ museum.title }} </h1>
+                {% if museum.subtitle %}
+                <h2>{{ museum.subtitle }}</h2>
+                {% endif %}
             </header>
             
             {{ museum.get_rendered_description }}

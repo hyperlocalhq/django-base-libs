@@ -342,12 +342,14 @@
             
         <article class="with_sidebar">
             <header>
-                <h1>
-                    {{ event.title }}
-                     {% if event.subtitle %}
-                        <span>{{ event.subtitle }}</span>
-                    {% endif %}
-                </h1>
+                <h1> {{ event.title }} </h1>
+                {% if event.subtitle %}
+                    <h2>{{ event.subtitle }}</h2>
+                {% endif %}
+
+                 {% if event.event_type %}
+                    <h3>{{ event.event_type }}</h3>
+                {% endif %}
 
                 <time>
                     {% if event.permanent %}{% trans "Permanent event" %}{% else %}

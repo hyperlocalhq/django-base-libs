@@ -1048,17 +1048,21 @@ article {
     margin-bottom: 30px;
     position: relative;
 
-    h1 { 
+    h1, h2{ 
       font-weight: 500;
       margin: 0px;
-
-      span { 
-        display: block;
-        font-weight: 400;
-      }
+      font-weight: '400';
+      font-size: 30px;
+      line-height: 38px;
+      margin-bottom: 0px;
     }
-    
-    h3 { 
+
+    h2 { 
+      display: block;
+      font-weight: 400;
+    }
+  
+    h3, time { 
       text-transform: uppercase;
       font-size: 20px;
       margin-top: 30px;
@@ -1589,7 +1593,6 @@ dl {
   dt {
     font-weight: normal;
     font-weight: 500;
-    padding-top: 10px;
   }
   dd {
     a {
@@ -1601,6 +1604,7 @@ dl {
       overflow: hidden;
     }
   }
+  padding-bottom: 10px;
 }
 
 #cms_toolbar {
@@ -1683,6 +1687,7 @@ dl {
     background-repeat: no-repeat;
     color: white;
     font-weight: 400;
+    white-space: nowrap;
     &:hover { background-color: black; }
   }
 
