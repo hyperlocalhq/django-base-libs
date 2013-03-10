@@ -1796,7 +1796,7 @@ dl {
         width: 100% !important;
         display: block;
         background-size: cover;
-        background-position: center;
+        background-position: top;
         float: left;
         margin-bottom: 15px;
         overflow: hidden;
@@ -1837,6 +1837,7 @@ dl {
       }
     }
   }
+
   section.nonfeatured {
     &:empty{ display: none;}
 
@@ -1857,7 +1858,7 @@ dl {
         height: 120px !important;
         width: 100% !important;
         background-size: cover;
-        background-position: center;
+        background-position: top;
         margin-bottom: 10px !important;
 
         position: relative;
@@ -1989,7 +1990,7 @@ header.intro {
             height: 120px !important;
             width: 100% !important;
             background-size: cover;
-            background-position: center;
+            background-position: top;
             margin-bottom: 10px !important;
           }
 
@@ -2045,7 +2046,7 @@ header.intro {
           height: 220px !important;
           width: 100% !important;
           background-size: cover;
-          background-position: center;
+          background-position: top;
           margin-bottom: 10px !important;
           position: relative;
           background-color: rgba(0, 0, 0, 0.05);
