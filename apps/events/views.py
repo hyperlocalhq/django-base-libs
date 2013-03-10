@@ -92,10 +92,10 @@ def event_list(request):
                     eventtime__event_date__gte=today,
                     eventtime__event_date__lt=today+two_weeks,
                     )
-    if status == "closing_soon":
-        qs = qs.order_by("eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
-    else:
-        qs = qs.order_by("-eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
+    #if status == "closing_soon":
+    #    qs = qs.order_by("eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
+    #else:
+    #    qs = qs.order_by("-eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
         
     qs = qs.distinct()
         
