@@ -81,10 +81,10 @@ def workshop_list(request):
                     workshoptime__workshop_date__gte=today,
                     workshoptime__workshop_date__lt=today+two_weeks,
                     )
-    if status == "closing_soon":
-        qs = qs.order_by("workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
-    else:
-        qs = qs.order_by("-workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
+    #if status == "closing_soon":
+    #    qs = qs.order_by("workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
+    #else:
+    #    qs = qs.order_by("-workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
         
     qs = qs.distinct()
         
