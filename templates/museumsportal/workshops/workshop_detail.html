@@ -89,14 +89,11 @@
                                     </dl>
                                 {% endif %}
                             </li>
-                            <li class="accordion-inner">  
-                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
-                    
+                            <li class="accordion-inner">
                                 {% with workshop as list_item %}
+                                    <a href="#" class="location">{% trans "Show location on map" %}</a>
                                     {% include "utils/geo_position.html" %}
                                 {% endwith %}
-
-                                <a class="toggle_bvg" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a>
                             </li>
                         </ul>  
                     </li>

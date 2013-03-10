@@ -109,25 +109,11 @@
                             {% endif %}
                             
                         </li>
-                        <li class="accordion-inner">  
-                            <a href="#" class="location">{% trans "Show location on map" %}</a>
-                            
-                            {% if museum.latitude %}
-                                <script type="text/javascript">
-                                //<![CDATA[
-                                (function(undefined) {
-                                    var iIndex = aGeopositions.length;
-                                    aGeopositions[iIndex] = {
-                                        latitude: {{ museum.latitude }},
-                                        longitude: {{ museum.longitude }},
-                                        categories: "initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                                        content:
-                                        '<a href="{{ museum.get_url_path }}">{{ museum.title }} <span>{% trans "more" %}…</span></a>'
-                                    }
-                                }());
-                                //]]>
-                                </script> 
-                            {% endif %}
+                        <li class="accordion-inner">
+                            {% with museum as list_item %}
+                                <a href="#" class="location">{% trans "Show location on map" %}</a>
+                                {% include "utils/geo_position.html" %}
+                            {% endwith %}
                         </li>
                     </ul>  
                 </li>

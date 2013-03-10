@@ -1056,21 +1056,31 @@ article {
     margin-bottom: 30px;
     position: relative;
 
-    h1, h2{ 
-      font-weight: 500;
-      margin: 0px;
-      font-weight: '400';
+    h1 { 
       font-size: 30px;
       line-height: 38px;
-      margin-bottom: 0px;
+      display: block;
+      font-weight: 500;
+      margin: 0px;
     }
 
-    h2 { 
+    h2  { 
+      font-size: 30px;
+      line-height: 38px;
       display: block;
       font-weight: 400;
+      margin: 0px;
+    }
+
+    time  { 
+      font-size: 30px;
+      line-height: 38px;
+      display: block;
+      font-weight: 400;
+      margin: 0px;
     }
   
-    h3, time { 
+    h3{ 
       text-transform: uppercase;
       font-size: 20px;
       margin-top: 30px;

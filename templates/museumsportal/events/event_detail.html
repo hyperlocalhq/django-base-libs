@@ -89,29 +89,11 @@
                                 </dl>
                             {% endif %}
                         </li>
-                        <li class="accordion-inner">  
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
-        
-                            {% with event.museum as museum %}
-                                {% if museum.latitude %}
-                                    <script type="text/javascript">
-                                    //<![CDATA[
-                                    (function(undefined) {
-                                        var iIndex = aGeopositions.length;
-                                        aGeopositions[iIndex] = {
-                                            latitude: {{ museum.latitude }},
-                                            longitude: {{ museum.longitude }},
-                                            categories: "initial_{{ event.title|slugify|slice:"0:1" }}{% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                                            content: 
-                                            '<a href="{{ event.get_url_path }}">{{ museum.title }} <span>{% trans "more" %}</span></a>'
-                                        }
-                                    }());
-                                    //]]>
-                                    </script>
-                                {% endif %}
+                        <li class="accordion-inner">
+                            {% with event as list_item %}
+                                <a href="#" class="location">{% trans "Show location on map" %}</a>
+                                {% include "utils/geo_position.html" %}
                             {% endwith %}
-                            
-                            <a class="toggle_bvg" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a>
                         </li>
                     </ul>  
                 </li>
