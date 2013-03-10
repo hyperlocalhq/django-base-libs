@@ -348,7 +348,7 @@
                     <ul id="collapse-services" class="accordion-body collapse" style="height: 0px; ">
                         <li class="accordion-inner">
                             <dl>
-                                {% if museum.service_shop %}
+                                <!-- {% if museum.service_shop %}
                                     <dd>{% trans "Shop" %}</dd>
                                 {% endif %}
                                 {% if museum.service_restaurant %}
@@ -365,7 +365,10 @@
                                 {% endif %}
                                 {% if museum.service_diaper_changing_table %}
                                     <dd>{% trans "Diaper changing table" %}</dd>
-                                {% endif %}
+                                {% endif %} -->
+                                {% for service in museum.get_services %}
+                                    {{ service }} {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
                             </dl>
 
                             {% if museum.service_phone_number %}
