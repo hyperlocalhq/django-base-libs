@@ -961,6 +961,12 @@ div.tagsinput {
   background: #fbd8db !important;
   color: #90111a !important; }
 
+/* line 833, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+#div_id_location .controls {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 250px; }
+
 /* line 1, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/isotope.scss */
 .isotope-item {
   z-index: 2; }
