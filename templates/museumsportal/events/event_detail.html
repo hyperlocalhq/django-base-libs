@@ -324,14 +324,6 @@
             
         <article class="with_sidebar">
             <header>
-                <h1> {{ event.title }} </h1>
-                {% if event.subtitle %}
-                    <h2>{{ event.subtitle }}</h2>
-                {% endif %}
-
-                 {% if event.event_type %}
-                    <h3>{{ event.event_type }}</h3>
-                {% endif %}
 
                 <time>
                     {% if event.permanent %}{% trans "Permanent event" %}{% else %}
@@ -345,6 +337,14 @@
 
                     {% endif %}
                 </time>
+                <h1> {{ event.title }} </h1>
+                {% if event.subtitle %}
+                    <h2>{{ event.subtitle }}</h2>
+                {% endif %}
+
+              <!--   {% if event.event_type %}
+                    <h3>{{ event.event_type }}</h3>
+                {% endif %} -->
                 
                 <a href="{{ event.museum.get_url_path }}"><h3>{{ event.museum.title }}</h3></a>
             </header>
@@ -367,8 +367,6 @@
         </article>
   </div>
 </div>
-
-{% include "utils/images.html" %}
 
 {% endwith %}
 

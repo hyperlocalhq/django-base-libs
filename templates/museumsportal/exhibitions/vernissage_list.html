@@ -53,7 +53,7 @@
         <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
         {% endfor %}
     </ul>
-<!--     
+    
     <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
         <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
         {% tags_for_model exhibitions.Exhibition as exhibition_tags %}
@@ -61,7 +61,7 @@
             <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
         {% endfor %}
     </ul>
- -->
+
     <ul id="container" class="list tiles collapsed clearfix">
         {% for exhibition in object_list %}
             {% tags_for_object exhibition as tags %}
