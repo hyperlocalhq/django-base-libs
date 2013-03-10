@@ -375,17 +375,17 @@ CMS_PLACEHOLDER_CONF = {
     },
 
     'series_items_featured': {
-        'plugins': ("EditorialContentPlugin", "TeaserPlugin"),
+        'plugins': ("EditorialContentPlugin"),
         'name': _("Series Items Featured")
     },
     
     'series_items': {
-        'plugins': ("EditorialContentPlugin", "TeaserPlugin"),
+        'plugins': ("EditorialContentPlugin"),
         'name': _("Series Items")
     },
     
     'series_exhibitions': {
-        'plugins': ("EditorialContentPlugin", "TeaserPlugin"),
+        'plugins': ("EditorialContentPlugin"),
         'name': _("Series Exhibitions")
     },
     
@@ -395,7 +395,7 @@ CMS_PLACEHOLDER_CONF = {
     },
 
     'start_page_content': {
-        'plugins': ("EditorialContentPlugin", "TeaserPlugin"),
+        'plugins': ("EditorialContentPlugin"),
         'name': _("Start Page Content")
     },
 
