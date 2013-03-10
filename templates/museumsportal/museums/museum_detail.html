@@ -109,7 +109,7 @@
                             
                         </li>
                         <li class="accordion-inner">  
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                            <button rel="tooltip" data-placement="right" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
 
                             {% if museum.latitude %}
                                 <script type="text/javascript">
@@ -128,7 +128,6 @@
                                 </script> 
                             {% endif %}
 
-                            <a class="" onclick="openGoogleMaps();" id="map_link" title="Karte" href="#">Googlemaps</a>
                             <a class="toggle_bvg" href="#">{% if LANGUAGE_CODE == "de" %}BVG Suche{% else %}BVG Search{% endif %}</a>
                         </li>
                     </ul>  
@@ -324,14 +323,15 @@
                                     </dl>
                                 {% endif %}
                             {% endif %}
-
-                            {% if museum.group_bookings_phone_number %}
-                                <dl>
-                                    <dt>{% trans "Group booking" %}</dt>
-                                    <dd>+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</dd>
-                                </dl>
-                            {% endif %} 
                         </li>
+                        {% if museum.group_bookings_phone_number %}
+                        <li class="accordion-inner"> 
+                            <dl>
+                                <dt>{% trans "Group booking" %}</dt>
+                                <dd>+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</dd>
+                            </dl>
+                        </li>
+                        {% endif %} 
                     </ul>  
                 </li>  
                 {% endif %} 
@@ -391,21 +391,26 @@
                         <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
                             <li class="accordion-inner">
                                 {% for opt in museum.accessibility_options.all %}
-                                    <img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" />
+                                    <dl>
+                                        <dt>{{ opt.title|escape }}</dt>
+                                    </dl>
+                                    <!-- <img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" /> -->
                                 {% endfor %}
-                                {% if museum.accessibility %}
+                            </li>
+                            {% if museum.accessibility %}
+                                <li class="accordion-inner"> 
                                     <div class="accessibility">
                                         {{ museum.get_rendered_accessibility }}
                                     </div>
-                                {% endif %}
-                            </li>
+                                </li>
+                            {% endif %} 
                         </ul>  
                     </li>  
                 {% endif %}  
 
                 <!-- ======= Audioguides ======= -->
 
-                {% if museum.has_audioguide or museum.has_audioguide_for_children or museum.has_audioguide_for_learning_difficulties or museum.group_bookings_phone_number or museum.service_phone_number %}
+                {% if museum.has_audioguide or museum.has_audioguide_for_children or museum.has_audioguide_for_learning_difficulties %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">   {% trans "Audioguides" %} 
@@ -467,34 +472,6 @@
                         </ul>  
                     </li>  
                 {% endif %}
-
-                <!-- ======= Exhibitions ======= -->
-
-                {% if object.get_published_exhibitions %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-exhibitions">{% trans "Exhibitions" %}</a>  
-                        </h4>  
-                        <ul id="collapse-exhibitions" class="accordion-body collapse">
-                            <li class="accordion-inner">
-                                <ul id="kurze_zeit" class="list compact">
-                                {% for exhibition in object.get_published_exhibitions %}
-                                    <li class="item">
-                                        {% if exhibition.cover_image %}
-                                            <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }})"></a>
-                                        {% endif %}
-                                        <a href="{{ exhibition.get_url_path }}">
-                                            <h4>{{ exhibition.museum.title }}</h4>
-                                            <h3>{{ exhibition.title }}</h3>
-                                            <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                                </ul>
-                            </li>
-                        </ul>  
-                    </li>
-                {% endif %} 
 
                 {% if museum.get_twitter_username %}
                     <li class="accordion-group">  

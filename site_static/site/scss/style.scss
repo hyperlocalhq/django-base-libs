@@ -1570,26 +1570,20 @@ aside {
         .time { display: block; color: rgba(0,0,0,0.5);}
       }
       .accordion-inner {
-        padding: 9px 25px;
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+        padding-top: 12px !important;
+        padding-bottom: 15px !important;
         border-top: 1px solid rgba(0,0,0,0.05);
-        > ul {
-          margin-left: -25px;
-          margin-right: -25px;
-          margin-top: -9px;
-          margin-bottom: -9px;
-
-          > li {
-            padding: 14px 25px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            &:last-child{ border: none;}
-          }
-        }
       }
     }
   }
 }
 
 dl {
+  padding-bottom: 10px;
+  &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+
   dt {
     font-weight: normal;
     font-weight: 500;
@@ -1604,7 +1598,6 @@ dl {
       overflow: hidden;
     }
   }
-  padding-bottom: 10px;
 }
 
 #cms_toolbar {
