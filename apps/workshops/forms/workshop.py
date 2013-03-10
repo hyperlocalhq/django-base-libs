@@ -78,6 +78,11 @@ class BasicInfoForm(ModelForm):
             },
         )
     '''
+    location = forms.ChoiceField(
+        label=_("Location"),
+        widget=forms.RadioSelect,
+        required=True,
+        )
     class Meta:
         model = Workshop
         
@@ -92,8 +97,8 @@ class BasicInfoForm(ModelForm):
             'is_for_deaf',
             'is_for_blind',
             'is_for_learning_difficulties',
-            
-            'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
+            #'museum',
+            'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
             'organizing_museum', 'organizer_title', 'organizer_url_link',
             ]
@@ -114,7 +119,11 @@ class BasicInfoForm(ModelForm):
         self.fields['languages'].help_text = ""
         self.fields['languages'].empty_label = None
 
-        self.fields['museum'].queryset = Museum.objects.owned_by(get_current_user())
+        #self.fields['museum'].queryset = Museum.objects.owned_by(get_current_user())
+        location_choices = [(m.pk, m.__unicode__()) for m in Museum.objects.owned_by(get_current_user())]
+        location_choices += [("another", _("Another location"))]
+        
+        self.fields['location'].choices = location_choices
         self.fields['organizing_museum'].queryset = Museum.objects.owned_by(get_current_user())
         self.fields['exhibition'].queryset = Exhibition.objects.owned_by(get_current_user())
         
@@ -160,9 +169,9 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Location"),
+            "location", #"museum",
             layout.Row(
                 layout.Div(
-                    "museum",
                     "location_name",
                     "street_address",
                     "street_address2",
@@ -407,7 +416,7 @@ def load_data(instance=None):
         form_step_data['basic']['tags'] = instance.tags
         form_step_data['basic']['languages'] = instance.languages.all()
         form_step_data['basic']['other_languages'] = instance.other_languages
-        form_step_data['basic']['museum'] = instance.museum
+        form_step_data['basic']['location'] = instance.museum and instance.museum.pk or "another"
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
         form_step_data['basic']['street_address2'] = instance.street_address2
@@ -466,7 +475,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         instance.other_languages = form_step_data['basic']['other_languages'] 
-        instance.museum = form_step_data['basic']['museum']
+        location = form_step_data['basic']['location']
+        museum = None
+        if location and location != "another":
+            museum = Museum.objects.get(pk=location)
+        instance.museum = museum
         instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
         instance.street_address2 = form_step_data['basic']['street_address2'] 
@@ -559,7 +572,10 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.other_languages = form_step_data['basic']['other_languages'] 
-    instance.museum = form_step_data['basic']['museum']
+    location = form_step_data['basic']['location']
+    museum = None
+    if location and location != "another":
+        museum = Museum.objects.get(pk=location)
     instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']
     instance.street_address2 = form_step_data['basic']['street_address2'] 
