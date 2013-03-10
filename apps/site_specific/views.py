@@ -89,10 +89,10 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 @never_cache
 @login_required
 def dashboard(request):
-    owned_museums = Museum.objects.owned_by(request.user)
-    owned_exhibitions = Exhibition.objects.owned_by(request.user)
-    owned_events = Event.objects.owned_by(request.user)
-    owned_workshops = Workshop.objects.owned_by(request.user)
+    owned_museums = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
+    owned_exhibitions = Exhibition.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
+    owned_events = Event.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
+    owned_workshops = Workshop.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
     context = {
         'owned_museums': owned_museums,
         'owned_exhibitions': owned_exhibitions,
@@ -100,6 +100,43 @@ def dashboard(request):
         'owned_workshops': owned_workshops,
         }
     return render(request, "accounts/dashboard.html", context)
+
+@never_cache
+@login_required
+def dashboard_museums(request):
+    owned_museums = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    context = {
+        'owned_museums': owned_museums,
+        }
+    return render(request, "accounts/dashboard_museums.html", context)
+    
+@never_cache
+@login_required
+def dashboard_exhibitions(request):
+    owned_exhibitions = Exhibition.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    context = {
+        'owned_exhibitions': owned_exhibitions,
+        }
+    return render(request, "accounts/dashboard_exhibitions.html", context)
+    
+@never_cache
+@login_required
+def dashboard_events(request):
+    owned_events = Event.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    context = {
+        'owned_events': owned_events,
+        }
+    return render(request, "accounts/dashboard_events.html", context)
+    
+@never_cache
+@login_required
+def dashboard_workshops(request):
+    owned_workshops = Workshop.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    context = {
+        'owned_workshops': owned_workshops,
+        }
+    return render(request, "accounts/dashboard_workshops.html", context)
+    
 
 @never_cache
 @staff_member_required
