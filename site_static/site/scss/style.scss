@@ -457,6 +457,12 @@ a:active  { outline: none;}
 
 // ================= LIST =================
 
+
+.museum-list .list > li     { height: 253px !important; }
+.event-list .list > li      { height: 253px !important; }
+.exhibition-list .list > li { height: 253px !important; }
+.workshop-list .list > li   { height: 273px !important; }
+
 .list {
   margin-right: -60px;
   margin-left: -20px;
