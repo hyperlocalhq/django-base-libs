@@ -207,6 +207,12 @@
         
         <article class="with_sidebar">
             <header>
+                <time>
+                    {% for workshop_time in workshop.workshoptime_set.all %}
+                        {{ workshop_time.workshop_date|date:"j. F Y" }}
+                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                    {% endfor %}
+                <time>
                 <h1>{{ workshop.title }}</h1>
                 {% if workshop.subtitle %}
                     <h2>{{ workshop.subtitle }}</h2>
@@ -214,12 +220,6 @@
                 {% if workshop.workshop_type %}
                     <h3>{{ workshop.workshop_type }}</h3>
                 {% endif %}
-                <time>
-                    {% for workshop_time in workshop.workshoptime_set.all %}
-                        {{ workshop_time.workshop_date|date:"j. F Y" }}
-                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
-                    {% endfor %}
-                <time>
                 
                 {% if workshop.museum %}
                     <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
@@ -243,8 +243,6 @@
         </article>
   </div>
 </div>
-
-{% include "utils/images.html" %}
 
 {% endwith %}
 

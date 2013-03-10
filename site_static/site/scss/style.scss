@@ -458,10 +458,10 @@ a:active  { outline: none;}
 // ================= LIST =================
 
 
-.museum-list .list > li     { height: 233px !important; }
-.event-list .list > li      { height: 253px !important; }
-.exhibition-list .list > li { height: 273px !important; }
-.workshop-list .list > li   { height: 273px !important; }
+.museum-list .list > li     { height: 263px !important; }
+.event-list .list > li      { height: 293px !important; }
+.exhibition-list .list > li { height: 303px !important; }
+.workshop-list .list > li   { height: 303px !important; }
 
 .list {
   margin-right: -60px;
@@ -567,7 +567,7 @@ a:active  { outline: none;}
     .img { 
       background-color: rgba(0,0,0,0.05);
       width: 100%;
-      height: 150px;
+      height: 180px;
       display: block;
       overflow: hidden;
       background-size: cover;
@@ -878,6 +878,7 @@ nav.actions {
   &.icon-view       { background-image: url("../img/icons/inv/view.svg");}
   &.icon-edit       { background-image: url("../img/icons/inv/edit.svg");}
   &.icon-favorite   { background-image: url("../img/icons/inv/favorite.svg");}
+  &.icon-favorite.active   { background-image: url("../img/icons/inv/favorite_active.svg");}
   &.icon-location   { background-image: url("../img/icons/inv/location.svg");}
   &.icon-cancel     { background-image: url("../img/icons/inv/cancel.svg");}
   &.icon-fullscreen { background-image: url("../img/icons/inv/fullscreen.svg");}
@@ -1618,6 +1619,29 @@ dl {
     }
   }
 }
+.cms-plugin-article_selection {
+
+
+  h2 { 
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 25px;
+    display: block;
+    &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+  }
+  
+  h3 { 
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 25px;
+    margin-top: -25px;
+    display: block;
+    &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+  }
+
+
+}
 
 #cms_toolbar {
   form {
@@ -1847,6 +1871,7 @@ dl {
       color: rgba(0,0,0,0.75);
       width: 184px;
       width: 235px;
+      width: 320px;
       margin-right: 20px;
       float: left;
       &:nth-child(4n) {margin-right: 0px; }
@@ -1864,6 +1889,7 @@ dl {
         position: relative;
         background-color: rgba(0, 0, 0, 0.05);
         box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        display: none !important;
       }
 
       .description {

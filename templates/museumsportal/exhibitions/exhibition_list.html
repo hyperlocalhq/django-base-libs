@@ -37,9 +37,7 @@
         {% endfor %}
     </ul>
 
-    <ul class="filter option-set clearfix" id="smartlist" data-filter-group="smartlist">
-        <li><a data-filter-value="" href="#any-smartlist" class="selected">Alle</a></li>
-
+    <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
         {% for status_code, status_verbose in facets.categories.statuses %}
           {% if status_code == facets.selected.status %}
               <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
@@ -47,9 +45,7 @@
               <li ><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
           {% endif %}
       {% endfor %}
-    </ul>
-
-    <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
+      
         <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
 
         {% for cat in facets.categories.categories %}
