@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
-{% block title %}{% trans "Exhibitions" %}{% endblock %}
+{% block title %}{% trans "Exhibitions" %} – {% endblock %}
 {% block bodyclass %}exhibition-list{% endblock %}
 
 {% block js %}
@@ -39,8 +39,8 @@
     </ul>
     {% endcomment %} -->
 
-    <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
-        <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
+    <ul class="filter option-set clearfix" id="smartlist" data-filter-group="smartlist">
+        <li><a data-filter-value="" href="#any-smartlist" class="selected">Alle</a></li>
 
         {% for status_code, status_verbose in facets.categories.statuses %}
           {% if status_code == facets.selected.status %}
@@ -49,11 +49,16 @@
               <li ><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
           {% endif %}
       {% endfor %}
+    </ul>
+
+    <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
+        <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
 
         {% for cat in facets.categories.categories %}
             <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
         {% endfor %}
     </ul>
+
     <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
         <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
         {% tags_for_model exhibitions.Exhibition as exhibition_tags %}

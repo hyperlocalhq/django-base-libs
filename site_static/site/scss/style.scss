@@ -1048,17 +1048,21 @@ article {
     margin-bottom: 30px;
     position: relative;
 
-    h1 { 
+    h1, h2{ 
       font-weight: 500;
       margin: 0px;
-
-      span { 
-        display: block;
-        font-weight: 400;
-      }
+      font-weight: '400';
+      font-size: 30px;
+      line-height: 38px;
+      margin-bottom: 0px;
     }
-    
-    h3 { 
+
+    h2 { 
+      display: block;
+      font-weight: 400;
+    }
+  
+    h3, time { 
       text-transform: uppercase;
       font-size: 20px;
       margin-top: 30px;
@@ -1566,50 +1570,34 @@ aside {
         .time { display: block; color: rgba(0,0,0,0.5);}
       }
       .accordion-inner {
-        padding: 9px 25px;
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+        padding-top: 12px !important;
+        padding-bottom: 15px !important;
         border-top: 1px solid rgba(0,0,0,0.05);
-        > ul {
-          margin-left: -25px;
-          margin-right: -25px;
-          margin-top: -9px;
-          margin-bottom: -9px;
-
-          > li {
-            padding: 14px 25px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            &:last-child{ border: none;}
-          }
-        }
       }
     }
   }
 }
 
 dl {
+  padding-bottom: 10px;
+  &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+
   dt {
     font-weight: normal;
     font-weight: 500;
   }
-  &.inset {
-    dt {
+  dd {
+    a {
       display: inline-block;
-      width: 15%;
+      margin-left: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      overflow: hidden;
     }
-    dd {
-      display: inline-block;
-      width: 80%;
-      a {
-        display: inline-block;
-        margin-left: 0;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        width: 100%;
-        overflow: hidden;
-      }
-    }
-    margin-bottom: 0px;
   }
-  margin-bottom: 10px;
 }
 
 #cms_toolbar {
@@ -1692,6 +1680,7 @@ dl {
     background-repeat: no-repeat;
     color: white;
     font-weight: 400;
+    white-space: nowrap;
     &:hover { background-color: black; }
   }
 

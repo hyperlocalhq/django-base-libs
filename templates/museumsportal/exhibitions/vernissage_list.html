@@ -96,23 +96,8 @@
                     <a class="more" href="{{ exhibition.get_url_path }}">more</a>
                 </div> -->
                 
-                {% with exhibition.museum as museum %}
-                  {% if museum.latitude %}
-                      <script type="text/javascript">
-                      //<![CDATA[
-                      (function(undefined) {
-                          var iIndex = aGeopositions.length;
-                          aGeopositions[iIndex] = {
-                              latitude: {{ museum.latitude }},
-                              longitude: {{ museum.longitude }},
-                              categories: "initial_{{ exhibition.title|slugify|slice:"0:1" }}{% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
-                              content: 
-                              '<a href="{{ exhibition.get_url_path }}">{{ exhibition.title }} {{ museum.title }} <span>{% trans "more" %}</span></a>'
-                          }
-                      }());
-                      //]]>
-                      </script>
-                  {% endif %}
+                {% with exhibition as list_item %}
+                    {% include "utils/geo_position.html" %}
                 {% endwith %}
             </li>
         {% endfor %}

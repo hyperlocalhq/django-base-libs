@@ -30,13 +30,10 @@
 
 {% block content %}
 {% include "utils/gmap.html" %}
-
+{% with object as workshop %}
 <div class="content clearfix">
   <div class="inner">
-    {% with object as workshop %}
-
         {% include "utils/cover_image.html" %}
-        
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
 
@@ -51,24 +48,22 @@
                         </h4>
                         <ul id="collapse-location" class="accordion-body collapse">  
                             <li class="accordion-inner">
-                                {% if workshop.street_address %}
-                                    <dl class="address">
-                                        <dt>{% trans "Address" %}</dt>
-                                        <dd>{{ workshop.location_name }}</dd>
-                                        <dd>{{ workshop.street_address }}</dd>
-                                        {% if workshop.street_address2 %}<dd>{{ workshop.street_address2 }}</dd>{% endif %} 
-                                        <dd>{{ workshop.postal_code }} {{ workshop.city }}</dd>
-                                    </dl>
-                                {% else %}
+                                {% if workshop.museum %}
                                     {% with workshop.museum as museum %}
                                         <dl class="address">
-                                            <dt>{% trans "Address" %}</dt>
-                                            <dd>{{ museum.title }}</dd>
+                                            <dt><a href="{{ museum.get_url_path }}">{{ museum.title }}</a> </dt>
                                             <dd>{{ museum.street_address }}</dd>
                                             {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                                             <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
                                         </dl>
                                     {% endwith %}
+                                {% else %}
+                                    <dl class="address">
+                                        <dt>{{ workshop.location_name }}</dt>
+                                        <dd>{{ workshop.street_address }}</dd>
+                                        {% if workshop.street_address2 %}<dd>{{ workshop.street_address2 }}</dd>{% endif %} 
+                                        <dd>{{ workshop.postal_code }} {{ workshop.city }}</dd>
+                                    </dl>
                                 {% endif %}
                                 {% if workshop.organizing_museum %}
                                     <dl>
@@ -215,12 +210,13 @@
         
         <article class="with_sidebar">
             <header>
-                <h1>
-                    {{ workshop.title }}
-                    {% if workshop.subtitle %}
-                        <span>{{ workshop.subtitle }}</span>
-                    {% endif %}
-                </h1>
+                <h1>{{ workshop.title }}</h1>
+                {% if workshop.subtitle %}
+                    <h2>{{ workshop.subtitle }}</h2>
+                {% endif %}
+                {% if workshop.workshop_type %}
+                    <h3>{{ workshop.workshop_type }}</h3>
+                {% endif %}
                 <time>
                     {% for workshop_time in workshop.workshoptime_set.all %}
                         {{ workshop_time.workshop_date|date:"j. F Y" }}
@@ -247,9 +243,7 @@
                     {% endfor %}
                 {% endif %}
             </ul>   
-
         </article>
-
   </div>
 </div>
 
@@ -276,6 +270,10 @@
                         <h4>{{ workshop.title }}</h4>
                         <h5>{% trans "till" %} {{ workshop.end|date:"d.m.Y" }}</h5>
                     </a>
+                    
+                    {% with workshop as list_item %}
+                        {% include "utils/geo_position.html" %}
+                    {% endwith %}
                 </li>
             {% endfor %}
         </ul>
