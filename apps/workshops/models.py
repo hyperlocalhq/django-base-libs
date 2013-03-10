@@ -61,6 +61,8 @@ TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 class WorkshopManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
+        if user.has_perm("workshos.change_workshop"):
+            return self.get_query_set()
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="workshops",
             content_type__model="workshop",

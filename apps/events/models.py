@@ -85,6 +85,8 @@ class EventCategory(MPTTModel, SlugMixin()):
 class EventManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
+        if user.has_perm("events.change_event"):
+            return self.get_query_set()
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="events",
             content_type__model="event",

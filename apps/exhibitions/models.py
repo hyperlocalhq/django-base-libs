@@ -99,6 +99,8 @@ class ExhibitionManager(models.Manager):
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
+        if user.has_perm("exhibitions.change_exhibition"):
+            return self.get_query_set()
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="exhibitions",
             content_type__model="exhibition",
