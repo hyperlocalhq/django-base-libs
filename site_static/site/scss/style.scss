@@ -458,10 +458,10 @@ a:active  { outline: none;}
 // ================= LIST =================
 
 
-.museum-list .list > li     { height: 233px !important; }
-.event-list .list > li      { height: 253px !important; }
-.exhibition-list .list > li { height: 273px !important; }
-.workshop-list .list > li   { height: 273px !important; }
+.museum-list .list > li     { height: 253px !important; }
+.event-list .list > li      { height: 283px !important; }
+.exhibition-list .list > li { height: 293px !important; }
+.workshop-list .list > li   { height: 293px !important; }
 
 .list {
   margin-right: -60px;
@@ -567,7 +567,7 @@ a:active  { outline: none;}
     .img { 
       background-color: rgba(0,0,0,0.05);
       width: 100%;
-      height: 150px;
+      height: 180px;
       display: block;
       overflow: hidden;
       background-size: cover;
@@ -878,6 +878,7 @@ nav.actions {
   &.icon-view       { background-image: url("../img/icons/inv/view.svg");}
   &.icon-edit       { background-image: url("../img/icons/inv/edit.svg");}
   &.icon-favorite   { background-image: url("../img/icons/inv/favorite.svg");}
+  &.icon-favorite.active   { background-image: url("../img/icons/inv/favorite_active.svg");}
   &.icon-location   { background-image: url("../img/icons/inv/location.svg");}
   &.icon-cancel     { background-image: url("../img/icons/inv/cancel.svg");}
   &.icon-fullscreen { background-image: url("../img/icons/inv/fullscreen.svg");}
