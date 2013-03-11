@@ -279,7 +279,23 @@ class EventTime(models.Model):
         
     def get_secure_id(self):
         return int(self.pk) + SECURITY_SUMMAND
+
+class Organizer(models.Model):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizing museum"), blank=True, null=True, related_name="event_organizer")
+    organizer_title = models.CharField(_("Other Organizer"), max_length=255, blank=True)
+    organizer_url_link = URLField(_("Organizer URL"), blank=True)
+    
+    def __unicode__(self):
+        if self.organizing_museum:
+            return self.organizing_museum
+        return self.organizer_title
         
+    class Meta:
+        ordering = ("organizing_museum__title", "organizer_title")
+        verbose_name = _("Organizer")
+        verbose_name_plural = _("Organizers")
+
 class MediaFile(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
     path = FileBrowseField(_('File path'), max_length=255, directory="events/", help_text=_("A path to a locally stored image, video, or audio file."))

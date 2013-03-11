@@ -15,6 +15,7 @@ from base_libs.admin.tree_editor import TreeEditor
 Workshop = models.get_model("workshops", "Workshop")
 WorkshopTime = models.get_model("workshops", "WorkshopTime")
 MediaFile = models.get_model("workshops", "MediaFile")
+Organizer = models.get_model("workshops", "Organizer")
 
 class WorkshopTimeInline(admin.StackedInline):
     model = WorkshopTime
@@ -25,6 +26,10 @@ class MediaFileInline(ExtendedStackedInline):
     extra = 0
     sortable = True
     sortable_field_name = "sort_order"
+
+class OrganizerInline(ExtendedStackedInline):
+    model = Organizer
+    extra = 0
 
 class WorkshopAdmin(ExtendedModelAdmin):
     class Media:
@@ -51,7 +56,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("languages",)
     
-    inlines = [WorkshopTimeInline, MediaFileInline]
+    inlines = [WorkshopTimeInline, MediaFileInline, OrganizerInline]
     
     def is_geoposition_set(self, obj):
         if obj.latitude:

@@ -280,6 +280,22 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return qs[0].path
     cover_image = property(_get_cover_image)
 
+class Organizer(models.Model):
+    exhibition = models.ForeignKey(Exhibition)
+    organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizing museum"), blank=True, null=True, related_name="exhibition_organizer")
+    organizer_title = models.CharField(_("Other Organizer"), max_length=255, blank=True)
+    organizer_url_link = URLField(_("Organizer URL"), blank=True)
+    
+    def __unicode__(self):
+        if self.organizing_museum:
+            return self.organizing_museum
+        return self.organizer_title
+        
+    class Meta:
+        ordering = ("organizing_museum__title", "organizer_title")
+        verbose_name = _("Organizer")
+        verbose_name_plural = _("Organizers")
+
 class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)
     title = MultilingualCharField(_('Season title'), max_length=255)

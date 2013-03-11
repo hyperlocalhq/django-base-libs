@@ -264,7 +264,23 @@ class WorkshopTime(models.Model):
         
     def get_secure_id(self):
         return int(self.pk) + SECURITY_SUMMAND
+
+class Organizer(models.Model):
+    workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))
+    organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizing museum"), blank=True, null=True, related_name="workshop_organizer")
+    organizer_title = models.CharField(_("Other Organizer"), max_length=255, blank=True)
+    organizer_url_link = URLField(_("Organizer URL"), blank=True)
+    
+    def __unicode__(self):
+        if self.organizing_museum:
+            return self.organizing_museum
+        return self.organizer_title
         
+    class Meta:
+        ordering = ("organizing_museum__title", "organizer_title")
+        verbose_name = _("Organizer")
+        verbose_name_plural = _("Organizers")
+
 class MediaFile(CreationModificationDateMixin):
     workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))
     path = FileBrowseField(_('File path'), max_length=255, directory="workshops/", help_text=_("A path to a locally stored image, video, or audio file."))
