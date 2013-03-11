@@ -223,6 +223,12 @@ a:active  { outline: none;}
 
 // ================= HEADER =================
 
+#support {
+  position: absolute;
+  left: 0px;
+  top: 20px;
+}
+
 #meta {
   position: absolute;
   right: 0px;
@@ -242,7 +248,7 @@ a:active  { outline: none;}
     
     li {margin-left: 2px; }
 
-    a {
+    > a {
       margin: 0px !important;
       display: block;
       background-color: rgba(0,0,0,0.05);
@@ -261,6 +267,7 @@ a:active  { outline: none;}
       }
     }
   }
+
   #lang {
     width: 32px;
     padding-top: 32px;
@@ -272,12 +279,6 @@ a:active  { outline: none;}
   }
   #user li {
     p, a { padding-right: 10px; padding-left: 10px; width: auto; }
-  }
-
-  #support {
-    position: absolute;
-    right: 1000px;
-    margin-right: -100px;
   }
 }
 
@@ -1724,6 +1725,18 @@ dl {
     text-align: right;
    }
 }
+
+#dashboard .alerts { 
+  padding: 25px !important; 
+  background-color: rgba(255,255,0,0.2);
+  margin-bottom: 35px;
+  h2 {
+    font-size: 20px;
+    line-height: 20px;
+    display: block;
+  }
+}
+
 #dashboard_footer .inner { padding-bottom: 80px !important; }
 
 .fieldset-imagegallery,
