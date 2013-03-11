@@ -2167,6 +2167,7 @@ header.intro {
 
 // ================= MAGAZINE SERIES =================
 
+.plan_organize_overview,
 .magazine_series_featured,
 .magazine_series {
   article {
@@ -2254,6 +2255,9 @@ header.intro {
         border: none !important;
         &.cms_placeholder-bar { width: 100%;}
         &.cms_placeholder { clear: none; }
+
+        &:nth-child(3n) { margin-right: 0px; }
+        &:nth-child(3n+1) { clear: left;}
         
         .img {
           display: block;
@@ -2360,40 +2364,40 @@ header.intro {
 // ================= PLAN ORGANIZE OVERVIEW =================
 
 .plan_organize_overview {
-  .isotope {
-    margin-top: 60px;
-    margin-right: -100px;
-    > div {
-      background-color: rgba(0,0,0,0.05);
-      color: black;
-      margin: 0px !important;
-      margin-bottom: 20px !important; 
-      margin-right: 20px !important; 
-      padding: 0px !important;
-      border: none !important;
-      display: table;
-      float: left;
-      a, p {
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-        color: inherit;
-        font-size: 40px;
-        line-height: 40px;
-        // padding-left: 50px;
-        // padding-right: 50px;
-      }
-      &:nth-child(1) { width: 660px; height: 220px; }
-      &:nth-child(2) { width: 320px; height: 320px; }
-      &:nth-child(3) { width: 320px; height: 460px; }
-      &:nth-child(4) { width: 320px; height: 220px; }
-      &:nth-child(5) { width: 320px; height: 220px; }
-      &:nth-child(6) { width: 320px; height: 220px; }
-      &:nth-child(7) { width: 660px; height: 220px; }
-      &:nth-child(8) { width: 320px; height: 120px; }
-      &:nth-child(9) { width: 320px; height: 220px; }
-    }
-  }
+  // .isotope {
+  //   margin-top: 60px;
+  //   margin-right: -100px;
+  //   > div {
+  //     background-color: rgba(0,0,0,0.05);
+  //     color: black;
+  //     margin: 0px !important;
+  //     margin-bottom: 20px !important; 
+  //     margin-right: 20px !important; 
+  //     padding: 0px !important;
+  //     border: none !important;
+  //     display: table;
+  //     float: left;
+  //     a, p {
+  //       display: table-cell;
+  //       vertical-align: middle;
+  //       text-align: center;
+  //       color: inherit;
+  //       font-size: 40px;
+  //       line-height: 40px;
+  //       // padding-left: 50px;
+  //       // padding-right: 50px;
+  //     }
+  //     &:nth-child(1) { width: 660px; height: 220px; }
+  //     &:nth-child(2) { width: 320px; height: 320px; }
+  //     &:nth-child(3) { width: 320px; height: 460px; }
+  //     &:nth-child(4) { width: 320px; height: 220px; }
+  //     &:nth-child(5) { width: 320px; height: 220px; }
+  //     &:nth-child(6) { width: 320px; height: 220px; }
+  //     &:nth-child(7) { width: 660px; height: 220px; }
+  //     &:nth-child(8) { width: 320px; height: 120px; }
+  //     &:nth-child(9) { width: 320px; height: 220px; }
+  //   }
+  // }
 }
 
 #sub_menu {
