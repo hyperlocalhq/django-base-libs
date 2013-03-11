@@ -165,7 +165,7 @@
                                     {% endwith %}
                                 {% else %}
                                     {% for season in museum.season_set.all %}
-                                        <dt>{% trans "Season" %}</dt>
+                                        <dt>{{ season.title }}</dt>
                                         <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
                                         {% if season.is_appointment_based %}
                                             <dd>{% trans "Based on appointment" %}</dd>
