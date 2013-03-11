@@ -333,7 +333,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)
-    title = MultilingualCharField(_('Season title'), max_length=255, blank=True)
+    title = MultilingualCharField(_('Season title'), max_length=255)
     start = models.DateField(_("Start"))
     end = models.DateField(_("End"))
     last_entry = MultilingualCharField(_("Last entry"), max_length=255, blank=True)
