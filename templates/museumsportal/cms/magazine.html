@@ -10,15 +10,14 @@
       {% placeholder "main_content" %} 
     </article>
     <section class="clearfix marginal"> 
-      <h2>{% trans "Series Highlights" %}</h2>
-      {% placeholder "series_items_featured" inherit %} </section>
-  </div>
-</div>
-<div class="content clearfix">
-  <div class="inner clearfix">
-    <section class="clearfix marginal nonfeatured">
-      <h2>{% trans "The Complete Series" %}</h2>
-      {% placeholder "series_items_featured" inherit %} {% placeholder "series_items" inherit %}</section>
+      <h2>{% trans "More Articles" %}</h2>
+      {% placeholder "series_items_featured" inherit %} 
+    </section>
+    <section class="clearfix marginal nonfeatured"> 
+      <h2>{% trans "All Articles of the Section" %}</h2>
+      {% placeholder "series_items_featured" inherit %} 
+      {% placeholder "series_items" inherit %}
+    </section>
   </div>
 </div>
 <!-- <ul id="sub_menu"> {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %} </ul> -->
