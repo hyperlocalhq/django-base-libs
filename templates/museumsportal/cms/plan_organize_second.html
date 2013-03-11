@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n cms_tags menu_tags %}
+{% block bodyclass %}plan_organize{% endblock %}
+
+{% block content %}
+<div class="content clearfix">
+  <div class="inner">
+    <header class="intro clearfix">{% placeholder "intro" %}</header>
+  </div>
+</div>
+
+<div class="content clearfix">
+  <div class="inner">
+    <article> 
+      <section class="clearfix">{% placeholder "main_content" %}</section>
+      <section class="clearfix marginal">
+        {% placeholder "plan_organize_first" inherit %}
+        {% placeholder "marginal_content" %}</section>
+    </article>
+  </div>
+</div>
+{% endblock %}

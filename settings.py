@@ -423,8 +423,9 @@ CMS_TEMPLATES = [
     ('cms/default.html', gettext('Default')),
     ('cms/start.html', gettext('Homepage')),   
 
-    ('cms/plan_organize_overview.html', gettext(u'Plan & Organize – Overview')),
-    ('cms/plan_organize.html', gettext(u'Plan & Organize - Detail')),              # previous: visitor_info.html
+    ('cms/plan_organize_first.html', gettext(u'Plan & Organize – First')),
+    ('cms/plan_organize_second.html', gettext(u'Plan & Organize - Second')),              # previous: visitor_info.html
+    ('cms/plan_organize_third.html', gettext(u'Plan & Organize - Third')),              # previous: visitor_info.html
 
     ('cms/magazine_overview.html', gettext(u'Magazine – Overview')),
     ('cms/magazine.html', gettext(u'Magazine - Detail')),
