@@ -415,18 +415,18 @@ CMS_PLACEHOLDER_CONF = {
     },
 }
 
-CMS_TEMPLATES = (
+CMS_TEMPLATES = [
     ('cms/default.html', gettext('Default')),
     ('cms/start.html', gettext('Homepage')),   
 
-    ('cms/plan_organize_overview.html', gettext('Plan & Organize – Overview')),
-    ('cms/plan_organize.html', gettext('Plan & Organize - Detail')),              # previous: visitor_info.html
+    ('cms/plan_organize_overview.html', gettext(u'Plan & Organize – Overview')),
+    ('cms/plan_organize.html', gettext(u'Plan & Organize - Detail')),              # previous: visitor_info.html
 
-    ('cms/magazine_overview.html', gettext('Magazine – Overview')),
-    ('cms/magazine.html', gettext('Magazine - Detail')),
-    ('cms/magazine_series.html', gettext('Magazine – Series')),                   # previous: series.html
-    ('cms/magazine_series_featured.html', gettext('Magazine – Featured Series')), # previous: series_with_featured.html
-)
+    ('cms/magazine_overview.html', gettext(u'Magazine – Overview')),
+    ('cms/magazine.html', gettext(u'Magazine - Detail')),
+    ('cms/magazine_series.html', gettext(u'Magazine – Series')),                   # previous: series.html
+    ('cms/magazine_series_featured.html', gettext(u'Magazine – Featured Series')), # previous: series_with_featured.html
+]
 
 # UPDATE cms_page SET template = REPLACE(template,'cms/visitor_info.html','cms/plan_organize.html');
 # UPDATE cms_page SET template = REPLACE(template,'cms/series.html','cms/magazine_series.html');
