@@ -1390,6 +1390,7 @@ MUSEUM_FORM_STEPS = {
     'onsubmit': submit_step,
     'onsave': save_data,
     'onreset': cancel_editing,
+    'general_error_message': _("There are errors in this form. Please correct them and try to save again."),
     'name': 'museum_registration',
     'default_path': ["basic", "address", "opening", "prices", "services", "accessibility", "mediation", "gallery"],
 }

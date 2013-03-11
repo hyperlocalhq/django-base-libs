@@ -80,6 +80,10 @@ TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
     os.path.join(ROOT_PATH, "museumsportal", "templates", "admin"),
     ] + TEMPLATE_DIRS
 
+TEMPLATE_CONTEXT_PROCESSORS.append(
+    "django.contrib.messages.context_processors.messages"
+    )
+
 PATH_TMP = os.path.join(ROOT_PATH, "museumsportal", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
