@@ -2577,3 +2577,40 @@ header.intro {
     } 
   }
 }
+
+.editorial-content {
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+
+  a.img {
+    img { }
+    p { } 
+  }
+
+  .description {
+  }
+
+  .title {
+    h3 {
+      font-size: 30px;
+      line-height: 36px;
+    } 
+    
+    display: block;
+    margin-bottom: 10px !important;
+  }
+
+  .more { 
+    a {
+      font-size: 14px;
+      line-height: 20px;
+      color: white;
+      padding: 5px;
+      padding-left: 8px;
+      padding-right: 8px;
+      background-color: black;
+      &:hover { opacity: 0.9 !important;}
+    }
+  }
+}
