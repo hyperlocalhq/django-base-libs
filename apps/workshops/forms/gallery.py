@@ -61,7 +61,7 @@ class ImageFileForm(forms.Form):
             """,
             layout.HTML("""{% load image_modifications %}
                 {% if media_file.path %}
-                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}" alt="" />
+                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
                 {% endif %}
             """),
             "media_file",
@@ -127,7 +127,7 @@ class ImageDeletionForm(forms.Form):
             _("Delete Photo?"),
             layout.HTML("""{% load image_modifications %}
                 {% if media_file.path %}
-                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}" alt="" />
+                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
                     <p>Are you sure you want to delete this photo?</p>
                 {% endif %}
             """),
