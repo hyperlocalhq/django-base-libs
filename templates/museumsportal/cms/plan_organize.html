@@ -6,6 +6,10 @@
 <div class="content clearfix">
   <div class="inner">
     <header class="intro clearfix">{% placeholder "intro" %}</header>
+  </div>
+</div>
+<div class="content clearfix">
+  <div class="inner">
     <article> 
       <section>{% placeholder "main_content" %}</section>
       <section class="clearfix" id="images"><ul class="images"><li>{% placeholder "image_block" %}<li><ul></section>
@@ -14,14 +18,14 @@
 </div>
 
 <!-- <article>
-      <ul class="list text_only clearfix">
-          {% if LANGUAGE_CODE == "de" %}
-                  {% show_menu_below_id "visitor_info_de" 0 100 100 100 "menu/side_menu.html" %}
-              {% else %}
-                  {% show_menu_below_id "visitor_info_en" 0 100 100 100 "menu/side_menu.html" %}
-              {% endif %}
-      </ul>
-    </article> -->
+    <ul class="list text_only clearfix">
+        {% if LANGUAGE_CODE == "de" %}
+                {% show_menu_below_id "visitor_info_de" 0 100 100 100 "menu/side_menu.html" %}
+            {% else %}
+                {% show_menu_below_id "visitor_info_en" 0 100 100 100 "menu/side_menu.html" %}
+            {% endif %}
+    </ul>
+  </article> -->
 <script>
     $(window).load(function() {
         $('.images').isotope({
