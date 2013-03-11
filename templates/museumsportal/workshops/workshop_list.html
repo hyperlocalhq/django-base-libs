@@ -90,13 +90,10 @@
                 </nav>
     
                 <a href="{{ workshop.get_url_path }}">
+                    <h4>{{ workshop.workshop_type }}{% with workshop.workshoptime_set.all.0 as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4>
                     <h3>{{ workshop.title }}</h3>
                     <h4>{{ workshop.subtitle }}</h4>
-                    <h4>{{ workshop.workshop_type }}</h4>
-                    <h4>{{ workshop.museum.title }}</h4>
-                    {% with workshop.workshoptime_set.all.0 as workshop_time %}
-                        <h5>{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|date:"H:i" }}</h5>
-                    {% endwith %}
+                    <h5>{{ workshop.museum.title }}</h5>
                 </a>
     
                 <div class="description">

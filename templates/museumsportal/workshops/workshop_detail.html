@@ -155,12 +155,16 @@
                                         <dd class="meeting_place">{{ workshop.meeting_place }}</dd>
                                     </dl>
                                 {% endif %}
-                                <dt>{% trans "Age groups" %}</dt>
-                                <dd class="meeting_place">
-                                    {% for cat in workshop.age_groups.all %}
-                                        {{ cat.title }}{% if not forloop.last %}, {% endif %}
-                                    {% endfor %}
-                                </dd>
+
+                                {% if workshop.age_groups %}
+                                    <dt>{% trans "Age groups" %}</dt>
+                                    <dd class="meeting_place">
+                                        {% for cat in workshop.age_groups.all %}
+                                            {{ cat.title }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </dd>
+                                {% endif %}
+                                
                                 {% if workshop.get_languages %}
                                     <dl>
                                         <dt>{% trans "Languages" %}</dt>
@@ -171,37 +175,6 @@
                         </ul>  
                     </li>
                 {% endif %}
-
-                <!-- ======= Other Workshops ======= -->
-
-                {% if object.get_other_workshops %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-workshops">{% trans "Other Workshops" %}</a>  
-                        </h4>  
-                        <ul id="collapse-workshops" class="accordion-body collapse">
-                            <li class="accordion-inner">
-                                <ul class="list compact">
-                                {% for workshop in object.get_other_workshops %}
-                                    <li class="item">
-                                        {% if workshop.cover_image %}
-                                            <a class="img" href="{{ workshop.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }})"></a>
-                                        {% endif %}
-            
-                                        <a href="{{ workshop.get_url_path }}">
-                                            <h3>{{ workshop.museum.title }}</h3>
-                                            <h4>{{ workshop.title }}</h4>
-                                            {% with workshop.workshoptime_set.all.0 as workshop_time %}
-                                                <h5>{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|date:"H:i" }}</h5>
-                                            {% endwith %}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                {% endif %} 
             </ul> 
         </section>
         
@@ -244,36 +217,35 @@
   </div>
 </div>
 
+
+{% if object.get_other_workshops %}
+    <div class="content" class="clearfix">
+        <div class="inner">
+            <h2>{% trans "Other Workshops of" %} 
+    {% if workshop.museum %} {% with workshop.museum as museum %} {{ museum.title }} {% endwith %} {% else %} {{ workshop.location_name }} {% endif %}
+            </h2>
+            <ul id="container" class="list tiles small clearfix">
+                
+                {% for workshop in object.get_other_workshops %}
+                    <li class="item">
+                        <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
+
+                        <a href="{{ workshop.get_url_path }}">
+                            {% with workshop.workshoptime_set.all.0 as workshop_time %}
+                                <h4>{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|date:"H:i" }}</h4>
+                            {% endwith %}
+                            <h3>{{ workshop.title }}</h3>
+                            <h4>{{ workshop.subtitle }}</h4>
+                            <h5>{{ workshop.museum.title }}</h5>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>  
+    {% endif %} 
 {% endwith %}
 
-<div class="content" class="clearfix">
-    <div class="inner">
-        <h2>Nur noch kurze Zeit</h2>
-        <ul id="container" class="list tiles small clearfix">
-            {% get_objects closing_soon workshops.Workshop 5 as workshops_closing_soon %}
-            {% for workshop in workshops_closing_soon %}
-                <li class="item">
-                    <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
-
-                    <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-favorite"></button>
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
-                    </nav>
-                    
-                    <a href="{{ workshop.get_url_path }}">
-                        <h3>{{ workshop.museum.title }}</h3>
-                        <h4>{{ workshop.title }}</h4>
-                        <h5>{% trans "till" %} {{ workshop.end|date:"d.m.Y" }}</h5>
-                    </a>
-                    
-                    {% with workshop as list_item %}
-                        {% include "utils/geo_position.html" %}
-                    {% endwith %}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>  
 
 {% include "utils/gallery.html" %}
 {% include "utils/page_controls.html" %}
