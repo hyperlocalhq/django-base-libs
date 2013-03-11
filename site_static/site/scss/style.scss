@@ -2058,9 +2058,11 @@ header.intro {
         width: 100%;
         float: left !important;
         position: relative;
-        padding-bottom: 40px;
-        margin-right: 20px;
-        border: none !important;
+
+        padding-bottom: 30px !important;
+        margin-bottom: 50px !important;
+        border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+
         &.cms_placeholder-bar { width: 100%;}
         &.cms_placeholder { clear: none; }
         
