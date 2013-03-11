@@ -5,7 +5,7 @@
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
-      <header class="intro clearfix">{% placeholder "intro" %}</header>
+    <header class="intro clearfix">{% placeholder "intro" %}</header>
   </div>
 </div>
 
@@ -17,19 +17,4 @@
     </article>
   </div>
 </div>
-
-{% if not request.toolbar.edit_mode %}
-  <script>
-    $(window).load(function() {
-      $('.isotope').isotope({
-          itemSelector : '.cms-plugin-richtext',
-          layoutMode : 'masonry',
-          masonry: {
-              columnWidth: 340
-          }
-      });
-    });
-  </script>
-{% endif %}
-
 {% endblock %}
