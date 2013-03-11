@@ -2204,20 +2204,21 @@ header.intro {
           line-height: 21px;
           color: rgba(0,0,0,0.75);
           width: 184px;
-          width: 235px;
+          // width: 235px;
           margin-right: 20px;
+          padding-bottom: 20px;
 
-          &:nth-child(4n) {margin-right: 0px; }
-          &:nth-child(4n+1) { clear: both;}
+          &:nth-child(5n) {margin-right: 0px; }
+          &:nth-child(5n+1) { clear: both;}
 
           .img {
             display: block;
             overflow: hidden;
-            height: 160px !important;
+            height: 120px !important;
             width: 100% !important;
             background-size: cover;
             background-position: top;
-            margin-bottom: 10px !important;
+            margin-bottom: 6px !important;
           }
 
           .description {
@@ -2225,10 +2226,13 @@ header.intro {
             line-height: inherit;
             display: none;
           }
+          .caption {
+            display: none;
+          }
 
           .title {
-            font-size: 16px;
-            line-height: 22px;
+            font-size: 13px;
+            line-height: 18px;
             h3 {
               font-size: inherit;
               line-height: inherit;
