@@ -19,6 +19,7 @@ Exhibition = models.get_model("exhibitions", "Exhibition")
 Season = models.get_model("exhibitions", "Season")
 SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
 MediaFile = models.get_model("exhibitions", "MediaFile")
+Organizer = models.get_model("exhibitions", "Organizer")
 
 class ExhibitionCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
@@ -50,6 +51,10 @@ class MediaFileInline(ExtendedStackedInline):
     extra = 0
     sortable = True
     sortable_field_name = "sort_order"
+
+class OrganizerInline(ExtendedStackedInline):
+    model = Organizer
+    extra = 0
 
 class ExhibitionAdminForm(forms.ModelForm):
     museum = AutocompleteModelChoiceField(
@@ -120,7 +125,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories",)
     
-    inlines = [SeasonInline, SpecialOpeningTimeInline, MediaFileInline]
+    inlines = [OrganizerInline, SeasonInline, SpecialOpeningTimeInline, MediaFileInline]
 
     def get_museum_display(self, obj):
         return '<a href="/admin/museums/museum/%d/">%s</a>' % (obj.museum.id, obj.museum.title)

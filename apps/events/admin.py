@@ -16,6 +16,7 @@ EventCategory = models.get_model("events", "EventCategory")
 Event = models.get_model("events", "Event")
 EventTime = models.get_model("events", "EventTime")
 MediaFile = models.get_model("events", "MediaFile")
+Organizer = models.get_model("events", "Organizer")
 
 class EventCategoryAdmin(TreeEditor, ExtendedModelAdmin):
     save_on_top = True
@@ -37,6 +38,10 @@ class MediaFileInline(ExtendedStackedInline):
     extra = 0
     sortable = True
     sortable_field_name = "sort_order"
+
+class OrganizerInline(ExtendedStackedInline):
+    model = Organizer
+    extra = 0
 
 class EventAdmin(ExtendedModelAdmin):
     class Media:
@@ -60,7 +65,7 @@ class EventAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "languages")
     
-    inlines = [EventTimeInline, MediaFileInline]
+    inlines = [EventTimeInline, MediaFileInline, OrganizerInline]
     
     def is_geoposition_set(self, obj):
         if obj.latitude:
