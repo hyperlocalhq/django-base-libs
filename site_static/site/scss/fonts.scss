@@ -33,3 +33,21 @@
     font-weight: 600;
     font-style: normal;
 }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+    @font-face {
+        font-family: 'calluna_sans';
+        src: url('../fonts/callunasanslight.svg#calluna_sans_lightregular') format('svg');
+    }
+    
+    @font-face {
+        font-family: 'calluna_sans';
+        src: url('../fonts/callunasansbold.svg#calluna_sansbold') format('svg');
+    }
+
+    @font-face {
+        font-family: 'calluna_sans';
+        src: url('../fonts/callunasansblack.svg#calluna_sans_blackregular') format('svg');
+    }
+}
