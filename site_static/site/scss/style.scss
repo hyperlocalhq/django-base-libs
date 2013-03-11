@@ -1776,7 +1776,6 @@ dl {
 // ================= MAGAZINE DETAIL =================
 
 .magazine {
-
   article {
     width: 620px;
     float: left;
@@ -1818,7 +1817,7 @@ dl {
       font-size: 13px;
       line-height: 21px;
       color: rgba(0,0,0,0.75);
-      padding-bottom: 40px;
+      padding-bottom: 25px;
       margin-bottom: 40px;
       border-bottom: 1px solid rgba(0,0,0,0.05);
       width: 100%;
@@ -1881,53 +1880,63 @@ dl {
       font-size: 12px;
       line-height: 21px;
       color: rgba(0,0,0,0.75);
-      width: 100%;
-      padding-top: 15px !important;
-      padding-bottom: 10px !important;
+      width: 320px;
       margin: 0px;
+      margin-right: 20px;
+      padding-top: 15px !important;
+      padding-bottom: 20px !important;
+      margin-bottom: 20px !important;
       float: left;
       position: relative;
-
-      background-color: rgba(0,0,0,0.05);
-      color: rgba(0,0,0,0.75) !important;
-      display: block;
-      padding-left: 25px;
-      padding-right: 25px;
-
-      box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      margin-bottom: 2px;
       border: none;
 
+      // background-color: rgba(0,0,0,0.05);
+      // color: rgba(0,0,0,0.75) !important;
+      // display: block;
+      // padding-left: 25px;
+      // padding-right: 25px;
 
-      &:hover { background-color: rgba(0,0,0,0.075);
-        .description, h3, h4 { color: rgba(0,0,0,0.5) !important;}
+      // box-sizing: border-box;
+      // -moz-box-sizing: border-box;
+      // margin-bottom: 2px;
+      // border: none;
+
+
+      &:hover { 
+        // background-color: rgba(0,0,0,0.075);
+        // .description, h3, h4 { color: rgba(0,0,0,0.5) !important;}
       }
 
-      &:nth-child(3n) {margin-right: 0px; }
-      &:nth-child(3n+1) { clear: both;}
+      &:nth-child(3n+1) { margin-right: 0px; }
+      &:nth-child(3n+2) { clear: both;}
 
       .img {
         width: 100%;
-        background: none !important;
-        position: absolute;
-        height: 100% !important;
+        height: 140px !important;
         width: 100%;
         padding: 0px;
         margin: 0px;
-        top: 0px;
-        left: 0px;
+        margin-bottom: 10px;
+        display: none;
       }
 
-      .description,
+
       .title {
         font-size: 16px;
         line-height: 22px;
-        white-space: nowrap;
-        width: 100%;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        display: inline-block;
+      }
+
+      .description {
+        font-size: 13px;
+        line-height: 21px;
+        color: rgba(0,0,0,0.75);
+
+        // white-space: nowrap;
+        // width: 100%;
+        // text-overflow: ellipsis;
+        // overflow: hidden;
+        // display: inline-block;
+
         padding-bottom: 5px;
         &:empty{ display: none;}
 
@@ -1942,8 +1951,6 @@ dl {
       }
 
       .more { 
-        margin-top: -10px;
-        display: none;
         a {
           font-size: 14px;
           line-height: 20px;
@@ -1958,6 +1965,7 @@ dl {
     }
   }
 }
+
 // ================= HEADER INTRO =================
 
 header.intro { 
@@ -1980,6 +1988,7 @@ header.intro {
     margin-bottom: 25px;
     margin-top: -25px;
     display: block;
+    text-transform: none;
     &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
   }
 
@@ -2203,18 +2212,20 @@ header.intro {
           font-size: 13px;
           line-height: 21px;
           color: rgba(0,0,0,0.75);
-          width: 184px;
-          // width: 235px;
+          // width: 150px;
+          // width: 184px;
+          width: 235px;
+          // width: 320px;
           margin-right: 20px;
           padding-bottom: 20px;
 
-          &:nth-child(5n) {margin-right: 0px; }
-          &:nth-child(5n+1) { clear: both;}
+          &:nth-child(4n)   { margin-right: 0px; }
+          &:nth-child(4n+1) { clear: both;}
 
           .img {
             display: block;
             overflow: hidden;
-            height: 120px !important;
+            height: 130px !important;
             width: 100% !important;
             background-size: cover;
             background-position: top;
@@ -2224,7 +2235,6 @@ header.intro {
           .description {
             font-size: inherit;
             line-height: inherit;
-            display: none;
           }
           .caption {
             display: none;
