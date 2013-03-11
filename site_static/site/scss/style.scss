@@ -267,6 +267,7 @@ a:active  { outline: none;}
       }
     }
   }
+
   #lang {
     width: 32px;
     padding-top: 32px;
@@ -1724,6 +1725,18 @@ dl {
     text-align: right;
    }
 }
+
+#dashboard .alerts { 
+  padding: 25px !important; 
+  background-color: rgba(255,255,0,0.2);
+  margin-bottom: 35px;
+  h2 {
+    font-size: 20px;
+    line-height: 20px;
+    display: block;
+  }
+}
+
 #dashboard_footer .inner { padding-bottom: 80px !important; }
 
 .fieldset-imagegallery,
