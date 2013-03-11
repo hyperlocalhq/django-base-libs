@@ -84,6 +84,8 @@
                     </li>
                     <li id="tools" class="clearfix">
                         <ul>
+                            <li><a class="icon icon-home"  rel="tooltip" data-placement="bottom" data-original-title="Home" href="/">{% trans "Home" %}</a> </li>
+
                             {% block edit_item %}{% endblock %}
                             
                             {% if request.user.is_authenticated %} 

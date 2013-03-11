@@ -5,8 +5,12 @@
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
+      <header class="intro clearfix">{% placeholder "intro" %}</header>
+  </div>
+</div>
+<div class="content clearfix">
+  <div class="inner">
     <article>
-      <header  class="intro clearfix">{% placeholder "intro" %}</header>
       <section class="clearfix">{% placeholder "main_content" %}</section>
       <section class="clearfix marginal">{% placeholder "marginal_content" %}</section>
     </article>

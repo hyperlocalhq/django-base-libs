@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cms_tags menu_tags %}
+{% load cms_tags menu_tags i18n %}
 {% block bodyclass %}magazine{% endblock %}
 
 {% block content %}
@@ -9,10 +9,18 @@
     <header class="intro clearfix">{% placeholder "intro" %}</header>
       {% placeholder "main_content" %} 
     </article>
-    <section class="clearfix marginal"> {% placeholder "series_items_featured" inherit %} </section>
-    <section class="clearfix marginal nonfeatured">{% placeholder "series_items" inherit %}</section>
+    <section class="clearfix marginal"> 
+      <h2>{% trans "Series Highlights" %}</h2>
+      {% placeholder "series_items_featured" inherit %} </section>
   </div>
 </div>
-<ul id="sub_menu"> {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %} </ul>
+<div class="content clearfix">
+  <div class="inner clearfix">
+    <section class="clearfix marginal nonfeatured">
+      <h2>{% trans "The Complete Series" %}</h2>
+      {% placeholder "series_items_featured" inherit %} {% placeholder "series_items" inherit %}</section>
+  </div>
+</div>
+<!-- <ul id="sub_menu"> {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %} </ul> -->
 
 {% endblock %}
