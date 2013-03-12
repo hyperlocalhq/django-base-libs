@@ -1996,60 +1996,6 @@ dl {
   }
 }
 
-// ================= HEADER INTRO =================
-
-header.intro { 
-  &:empty{ display: none;}
-  width: 100%; 
-
-  *:empty{ display: none;}
-
-  h2 { 
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 42px;
-    margin-bottom: 0px;
-    display: block;
-    &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
-  }
-  
-  h3 { 
-    font-size: 30px;
-    line-height: 42px;
-    margin-bottom: 0px;
-    display: block;
-    text-transform: none;
-    &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
-  }
-
-  h4 { 
-    text-transform: uppercase;
-    font-size: 20px;
-    margin-bottom: 25px;
-    &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
-  }
-  
-  .small p {font-size: 16px; line-height: 22px; width: 66%}
-
-  p {
-    font-size: 30px;
-    line-height: 42px;
-    margin-bottom: 25px;
-    &:last-child { margin-bottom: 0px; }
-    &.img_block, &.img_left {display: none !important; }
-    &.img {
-      margin-top: -40px !important;
-      color: rgba(0,0,0,0.75);
-      font-size: 12px;
-      line-height: 18px;
-      padding-bottom:0px !important;
-      margin-bottom: 0px !important;
-      br  { display: none; }
-      img { display: block; margin-bottom: 10px; }
-    }
-  }
-}
-
 // ================= MAGAZINE OVERVIEW =================
 
 .magazine_overview {
@@ -2568,7 +2514,64 @@ header.intro {
   }
 }
 
+
+
+// ================= PLUGIN INTRO =================
+
+
 article {
+
+  .cms-plugin-intro {
+    width: 100%; 
+    *:empty{ display: none;}
+    &:empty{ display: none;}
+
+    h2 { 
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 42px;
+      margin-bottom: 0px;
+      display: block;
+      &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+    }
+    
+    h3 { 
+      font-size: 30px;
+      line-height: 42px;
+      margin-bottom: 0px;
+      display: block;
+      text-transform: none;
+      &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+    }
+
+    h4 { 
+      text-transform: uppercase;
+      font-size: 20px;
+      margin-bottom: 25px;
+      &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+    }
+    
+    .small p {font-size: 16px; line-height: 22px; width: 66%}
+
+    p {
+      font-size: 25px;
+      line-height: 36px;
+      margin-bottom: 25px;
+      &:last-child { margin-bottom: 0px; }
+      &.img_block, &.img_left {display: none !important; }
+      &.img {
+        margin-top: -40px !important;
+        color: rgba(0,0,0,0.75);
+        font-size: 12px;
+        line-height: 18px;
+        padding-bottom:0px !important;
+        margin-bottom: 0px !important;
+        br  { display: none; }
+        img { display: block; margin-bottom: 10px; }
+      }
+    }
+  }
+
   .cms-plugin-richtext {
     &:not(:last-child) {
       border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -2584,10 +2587,12 @@ article {
       margin: 0px;
       position: relative;
 
-      &:not(:first-of-type) {
-        margin-top: 40px;
-      }
+      &:not(:first-of-type) {margin-top: 40px; }
     }
+    
+    h2 { margin-bottom: 10px; font-weight: 500; }
+    h3 { margin-bottom: 10px; }
+
     ul,
     li,
     p { 
