@@ -4,7 +4,7 @@
 {% block content %}
 <div class="content clearfix">
     <div class="inner">
-        <ul id="photos" class="list clearfix">
+        <ul id="photos" class="list tiles clearfix">
             {% for media_file in workshop.mediafile_set.all %}
                 <li class="item" data-token="{{ media_file.get_token }}">
                     <div class="inner"> 

@@ -459,9 +459,15 @@ a:active  { outline: none;}
     margin: 0px;
     margin-right: -60px;
     overflow: auto;
+    height: auto;
 
     > li { 
       cursor: move !important;
+      width: 320px;
+      height: 253px;
+      position: relative;
+      float: left;
+      margin-right: 20px;
 
       &.ui-state-highlight {
         background-color: rgba(0,0,0,0.05) !important;
@@ -473,10 +479,14 @@ a:active  { outline: none;}
       }
 
       .img { 
+        display: block;
         height: auto;
         margin: 0px;
         padding: 0px;
         cursor: move !important;
+        background-size: cover !important;
+        background-position: center;
+        background-repeat: no-repeat;
 
         img { width: 100%; opacity: 0 !important; height: 150px;}
       }
@@ -509,6 +519,7 @@ a:active  { outline: none;}
           box-sizing: border-box;
           -moz-box-sizing: border-box;
           opacity: 0;
+          display: none;
 
           .title { 
             font-weight: 500; 
@@ -541,21 +552,28 @@ a:active  { outline: none;}
       width: 1000px;
       height: auto;
       position: relative;
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 15px;
+      line-height: 22px;
 
-      border-bottom: 1px solid rgba(0,0,0,0.05); 
+      // border-bottom: 1px solid rgba(0,0,0,0.05); 
+
+
+      border-bottom: 10px solid white;
+      background-color: rgba(0,0,0,0.05);
+      padding-left: 25px;
+      padding-top: 6px;
+      padding-bottom: 6px;
 
       &:hover{
+        background-color: rgba(0,0,0,0);
+
         .actions {opacity: 1; }
         .img{ 
           opacity: 0.9;
           .overlay { border: 1px solid rgba(0,0,0,0.1); }
         }
       }
-
-      .actions { opacity: 0; margin-top: 25px; }
-
+      .actions { opacity: 0; }
       .img { display: none;}
       
       a {
@@ -672,8 +690,6 @@ a:active  { outline: none;}
       }
     }
   }
-
-  
 
   &.collapsed {
     > li {
@@ -812,30 +828,6 @@ a:active  { outline: none;}
         h5 { font-weight: 400; opacity: 0.5;}
       }
     }
-  }
-
-  &.text_only {
-    // > li {
-    //   width: 320px;
-    //   height: 160px;
-    //   margin-right: 20px;
-    //   float: left;
-    //   border-bottom: 2px solid rgba(0,0,0,0.05);
-    //   padding-bottom: 8px;
-    //   margin-bottom: 20px;
-
-    //   font-size: 14px;
-    //   line-height: 16px;
-
-      
-    //   ul {
-    //     > li { margin-bottom: 10px;}
-    //   }
-      
-    //   &:nth-child(6n) {
-    //     margin-right: 0px;
-    //   }
-    // }
   }
 }
 
