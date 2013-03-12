@@ -21,14 +21,14 @@
 
 {% if list_item.is_exhibition %}
     {% with list_item.museum as museum %}
-        {% if list_item.latitude %}
+        {% if list_item.latitude or museum.latitude %}
             <script type="text/javascript">
             //<![CDATA[
             (function(undefined) {
                 var iIndex = aGeopositions.length;
                 aGeopositions[iIndex] = {
-                    latitude: {{ museum.latitude }},
-                    longitude: {{ museum.longitude }},
+                    latitude: {{ list_item.latitude|default:museum.latitude }},
+                    longitude: {{ list_item.latitude|default:museum.longitude }},
                     categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% if list_item.closing_soon %} closing_soon{% endif %}{% if list_item.newly_opened %} newly_opened{% endif %}{% for cat in list_item.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                     content: 
                     '<a href="{{ list_item.get_url_path }}">{{ museum.title }} </a>'
@@ -42,14 +42,14 @@
 
 {% if list_item.is_event %}
     {% with list_item.museum as museum %}
-        {% if list_item.latitude %}
+        {% if list_item.latitude or museum.latitude %}
             <script type="text/javascript">
             //<![CDATA[
             (function(undefined) {
                 var iIndex = aGeopositions.length;
                 aGeopositions[iIndex] = {
-                    latitude: {{ museum.latitude }},
-                    longitude: {{ museum.longitude }},
+                    latitude: {{ list_item.latitude|default:museum.latitude }},
+                    longitude: {{ list_item.latitude|default:museum.longitude }},
                     categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% if list_item.closing_soon %} closing_soon{% endif %}{% if list_item.newly_opened %} newly_opened{% endif %}{% for cat in list_item.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                     content: 
                     '<a href="{{ list_item.get_url_path }}">{{ museum.title }} </a>'
@@ -63,14 +63,14 @@
 
 {% if list_item.is_workshop %}
     {% with list_item.museum as museum %}
-        {% if list_item.latitude %}
+        {% if list_item.latitude or museum.latitude %}
             <script type="text/javascript">
             //<![CDATA[
             (function(undefined) {
                 var iIndex = aGeopositions.length;
                 aGeopositions[iIndex] = {
-                    latitude: {{ museum.latitude }},
-                    longitude: {{ museum.longitude }},
+                    latitude: {{ list_item.latitude|default:museum.latitude }},
+                    longitude: {{ list_item.latitude|default:museum.longitude }},
                     categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% if list_item.closing_soon %} closing_soon{% endif %}{% if list_item.newly_opened %} newly_opened{% endif %}{% for cat in list_item.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                     content: 
                     '<a href="{{ list_item.get_url_path }}">{{ museum.title }} </a>'

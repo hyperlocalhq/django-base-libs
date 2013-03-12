@@ -1,12 +1,10 @@
-.map_visible{
+.map_visible {
 
   #wrapper {
     > #gmap_wrapper {
      height: 350px; 
     }
   }
-
-  
 
   &.map_fullscreen{
     // overflow: hidden;

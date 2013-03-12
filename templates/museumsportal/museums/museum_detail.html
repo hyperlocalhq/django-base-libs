@@ -4,8 +4,6 @@
 {% block bodyclass %}museum-detail{% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/swipe.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
     <script type="text/javascript">
         var aGeopositions = [];
@@ -31,19 +29,15 @@
 {% block content %}
 {% include "utils/gmap.html" %}
 
-    {% with object as museum %}
+{% with object as museum %}
 <div class="content clearfix">
     <div class="inner">
-
         {% include "utils/cover_image.html" %}
-
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
-                            {% trans "Location" %}  
-                        </a>  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location"> {% trans "Location" %}</a>
                     </h4>  
                     <ul id="collapse-location" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">  
@@ -57,7 +51,7 @@
                         
                             {% if museum.phone_number %}
                             <dl>
-                                <dt>{% trans "Tel" %}</dt>
+                                <dt>{% trans "Telephone" %}</dt>
                                 <dd>+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</dd>
                             </dl>
                             {% endif %} 
@@ -71,7 +65,7 @@
                             
                             {% if museum.website %}
                             <dl>
-                                <dt>{% trans "Web" %}</dt>
+                                <dt>{% trans "Website" %}</dt>
                                 <dd><a href="{{ museum.website }}">{{ museum.website|humanize_url:"30" }}</a></dd>
                             </dl>
                             {% endif %}
@@ -156,8 +150,10 @@
                                             {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
-                                            <dt>{% trans "Last entry" %}</dt>
-                                            <dd>{{ season.last_entry }}</dd>
+                                            <dl>
+                                                <dt>{% trans "Last entry" %}</dt>
+                                                <dd>{{ season.last_entry }}</dd>
+                                            </dl>
                                         {% endif %}
                                         {% if season.exceptions %}
                                             <p>{{ season.get_rendered_exceptions }}</p>
@@ -165,30 +161,34 @@
                                     {% endwith %}
                                 {% else %}
                                     {% for season in museum.season_set.all %}
-                                        <dt>{{ season.title }}</dt>
-                                        <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                                        <dl>
+                                            <dt>{{ season.title }}</dt>
+                                            <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                                        </dl>
                                         {% if season.is_appointment_based %}
-                                            <dd>{% trans "Based on appointment" %}</dd>
+                                        <dl>
+                                            <dt>{% trans "Based on appointment" %}</dt>
+                                        </dl>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
-                                                {% if forloop.first %}<dl>{% endif %}
-                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
-                                                <dd>
-                                                    {% if same_hours.list.0.open %}
-                                                         {{ same_hours.list.0.open|time:"H:i" }}
-                                                         {% if same_hours.list.0.break_close %}
-                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% else %}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% endif %}
-                                                    {% else %}				 
-                                                        {% trans "closed" %}
-                                                    {% endif %}
-                                                </dd>
-                                                {% if forloop.last %}</dl>{% endif %}
+                                                <dl>
+                                                    <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
+                                                    <dd>
+                                                        {% if same_hours.list.0.open %}
+                                                             {{ same_hours.list.0.open|time:"H:i" }}
+                                                             {% if same_hours.list.0.break_close %}
+                                                                - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                                  / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                                - {{ same_hours.list.0.close|time:"H:i" }}
+                                                             {% else %}
+                                                                - {{ same_hours.list.0.close|time:"H:i" }}
+                                                             {% endif %}
+                                                        {% else %}				 
+                                                            {% trans "closed" %}
+                                                        {% endif %}
+                                                    </dd>
+                                                </dl>
                                             {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
@@ -355,21 +355,23 @@
                                     {{ service }} {% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </dl>
-
-                            {% if museum.service_phone_number %}
-                                <dl>
-                                    <dt>{% trans "Service Phone" %}</dt>
-                                    <dd>+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</dd>
-                                </dl>
-                            {% endif %} 
                         </li>
+
+                        {% if museum.service_phone_number %}
+                        <li class="accordion-inner"> 
+                            <dl>
+                                <dt>{% trans "Service Phone" %}</dt>
+                                <dd>+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</dd>
+                            </dl>
+                        </li>
+                        {% endif %} 
                     </ul>  
                 </li>  
                 {% endif %}
 
                 <!-- ======= Accessibility ======= -->
 
-                {% if museum.accessibility or museum.accessibility_options.count %}
+                {% if museum.accessibility_options.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
@@ -385,13 +387,11 @@
                                     <!-- <img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" /> -->
                                 {% endfor %}
                             </li>
-                            {% if museum.accessibility %}
-                                <li class="accordion-inner"> 
-                                    <div class="accessibility">
-                                        {{ museum.get_rendered_accessibility }}
-                                    </div>
-                                </li>
-                            {% endif %} 
+                            <li class="accordion-inner"> 
+                                <div class="accessibility">
+                                    {{ museum.get_rendered_accessibility }}
+                                </div>
+                            </li>
                         </ul>  
                     </li>  
                 {% endif %}  
@@ -506,9 +506,7 @@
         </article>
     </div>
 </div>
-
 {% endwith %}
-
 
 <!-- ======= Exhibitions ======= -->
 
@@ -520,16 +518,20 @@
             {% for exhibition in object.get_published_exhibitions %}
                 <li class="item">
                     <a class="img" href="{{ museum.get_url_path }}" {% if museum.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image }}|modified_path:"museum_list" }}"{% endif %}>
+                    </a>
 
                     <nav class="actions">
                         <button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-favorite"></button>
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
                     </nav>
                     <a href="{{ exhibition.get_url_path }}">
                         <h4>{{ exhibition.museum.title }}</h4>
                         <h3>{{ exhibition.title }}</h3>
                         <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                     </a>
+                    {% with exhibition as list_item %}
+                        {% include "utils/geo_position.html" %}
+                    {% endwith %}
                 </li>
             {% endfor %}
         </ul>

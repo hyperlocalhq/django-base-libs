@@ -359,21 +359,6 @@ a:active  { outline: none;}
         padding-right: 12px;
         margin-right: 12px;
       }
-      
-      // &:hover { 
-      //   > div {
-      //     height: 250px; 
-      //     opacity: 1;
-      //   }
-      // }
-
-      // &.last-child,
-      // &:last-child {
-      //   width: 100%;
-      //   height: 0px;
-      //   overflow: hidden;
-      //   position: relative;
-      // }
 
       > div { 
         border-top: 1px solid rgba(0,0,0,0.05);
@@ -421,6 +406,8 @@ a:active  { outline: none;}
   }
 }
 
+// ================= FOOTER =================
+
 #footer {
   background-color: transparent;
   .inner { 
@@ -457,7 +444,6 @@ a:active  { outline: none;}
 }
 
 // ================= LIST =================
-
 
 .museum-list .list > li     { height: 263px !important; }
 .event-list .list > li      { height: 303px !important; }
@@ -578,7 +564,6 @@ a:active  { outline: none;}
       box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
       position: relative;
 
-
       -webkit-transition-property: opacity;
       -webkit-transition-duration: 0.125s;
       -webkit-transition-timing: ease-in-out;
@@ -627,9 +612,7 @@ a:active  { outline: none;}
   }
 
   &.collapsed {
-
     > li {
-
       &.class1 { 
        .description { margin-left: 0px; }
         clear: left;
@@ -652,7 +635,6 @@ a:active  { outline: none;}
         opacity: 0;
         cursor: default;
         background-color: white;
-
         -webkit-transition-property: all;
         -webkit-transition-duration: 0.25s;
         -webkit-transition-delay: 0s;
@@ -684,7 +666,6 @@ a:active  { outline: none;}
       &.open { 
         padding-bottom: 250px;
         margin-bottom: 50px;
-
         -webkit-transition-delay: 0s;
         z-index: 10000;
 
@@ -811,6 +792,7 @@ a:active  { outline: none;}
 }
 
 // ================= ACTIONS =================
+
 ul.actions,
 nav.actions {
   -webkit-transition-property: all;
@@ -953,6 +935,7 @@ nav.actions {
     padding: 0px;
     margin: 0px;
   }
+
   .compact { margin: -9px -15px !important;}
 
   table {
@@ -975,20 +958,21 @@ nav.actions {
         text-align: center;
         height: auto;
       }
-
     }
+
     tbody {
       tr:nth-child(2n+1) {
         background-color: rgba(0,0,0,0.05);
       }
       th:first-child {
-          background-color: rgba(0,0,0,0.05);
-        }
+        background-color: rgba(0,0,0,0.05);
+      }
     }
   }
 }
 
-// ================= ARTICLE =================
+// ================= MUSEUM EXHIBITION EVENT WORKSHOP DETAIL PAGES  =================
+
 .museum-detail article,
 .exhibition-detail article,
 .event-detail article,
@@ -1265,8 +1249,14 @@ aside {
 
 // ================= TAGS AND FILTERS =================
 
-#alphabetical,
+// #alphabetical,
 #tags { display: none;}
+
+#gmap_toggle_perm {
+  position: absolute;
+  top: 40px;
+  right: 0px;
+}
 
 .tags,
 .filter {
@@ -1318,8 +1308,8 @@ aside {
 }
 
 // ================= BACK TO TOP =================
-#preview_page {
 
+#preview_page {
     position: fixed;
     bottom: 0px;
     left: 0px;
@@ -1351,7 +1341,6 @@ aside {
       background-image: url("../img/icons/inv/view.svg");
     }
 }
-
 
 #to-top { 
     position: fixed;
@@ -1555,7 +1544,14 @@ aside {
 
 dl {
   padding-bottom: 10px;
+
   &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+  &.inset { 
+    dt,
+    dd { 
+      display: inline-block;
+    }
+  }
 
   dt {
     font-weight: normal;
@@ -1572,31 +1568,6 @@ dl {
     }
   }
 }
-
-
-// .cms-plugin-richtext {
-//   padding-bottom: 30px;
-//   margin-bottom: 30px;
-//   border-bottom: 1px solid rgba(0,0,0,0.05);
-
-//   h2 { 
-//     font-weight: 500;
-//     font-size: 40px;
-//     line-height: 48px;
-//     margin-bottom: 25px;
-//     display: block;
-//     &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
-//   }
-  
-//   h3 { 
-//     font-size: 40px;
-//     line-height: 48px;
-//     margin-bottom: 25px;
-//     margin-top: -25px;
-//     display: block;
-//     &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
-//   }
-// }
 
 .cms-plugin-article_selection {
   h2 { 
@@ -1718,7 +1689,6 @@ dl {
     li {
       position: relative;
       
-
       &:hover {
         > a { background-color: rgba(0,0,0,0.075);}
       }
@@ -1751,6 +1721,7 @@ dl {
 }
 
 // ================= MAGAZINE DETAIL =================
+
 .magazine {
   article {
     width: 620px;
@@ -2295,70 +2266,14 @@ header.intro {
   }
 }
 
-// ================= PLAN ORGANIZE OVERVIEW =================
-
-.plan_organize {
-  article {
-    div {
-      p:last-child a:last-child { 
-        font-size: 14px;
-        line-height: 20px;
-        color: white;
-        padding: 5px;
-        padding-left: 8px;
-        padding-right: 8px;
-        background-color: black;
-        &:hover { opacity: 0.9 !important;}
-      }
-    }
-  }
-}
-
-// ================= PLAN ORGANIZE OVERVIEW =================
-
-.plan_organize_overview {
-  // .isotope {
-  //   margin-top: 60px;
-  //   margin-right: -100px;
-  //   > div {
-  //     background-color: rgba(0,0,0,0.05);
-  //     color: black;
-  //     margin: 0px !important;
-  //     margin-bottom: 20px !important; 
-  //     margin-right: 20px !important; 
-  //     padding: 0px !important;
-  //     border: none !important;
-  //     display: table;
-  //     float: left;
-  //     a, p {
-  //       display: table-cell;
-  //       vertical-align: middle;
-  //       text-align: center;
-  //       color: inherit;
-  //       font-size: 40px;
-  //       line-height: 40px;
-  //       // padding-left: 50px;
-  //       // padding-right: 50px;
-  //     }
-  //     &:nth-child(1) { width: 660px; height: 220px; }
-  //     &:nth-child(2) { width: 320px; height: 320px; }
-  //     &:nth-child(3) { width: 320px; height: 460px; }
-  //     &:nth-child(4) { width: 320px; height: 220px; }
-  //     &:nth-child(5) { width: 320px; height: 220px; }
-  //     &:nth-child(6) { width: 320px; height: 220px; }
-  //     &:nth-child(7) { width: 660px; height: 220px; }
-  //     &:nth-child(8) { width: 320px; height: 120px; }
-  //     &:nth-child(9) { width: 320px; height: 220px; }
-  //   }
-  // }
-}
-
 #sub_menu {
   > li {
     margin-bottom: 20px !important;
     display: block;
   }
 }
+
+// ================= ACCESSIBILITY OPTIONS =================
 
 #div_id_accessibility_options {
   > div { 
@@ -2460,8 +2375,6 @@ header.intro {
   }
 }
 
-
-
 .modal-body {
   box-shadow: none !important;
   border-radius: 0px !important;
@@ -2509,14 +2422,7 @@ header.intro {
   }
 }
 
-// .mceIframeContainer { padding: 0px !important; border: none !important;}
-// .mceLayout tr:first-child,
-// .mceStatusbar,
-// .mceToolbar { display: none !important;}
-
-
 #favorites {
-
   li {
     white-space: nowrap;
     h2, h3 ,h4 , h5 {
@@ -2530,8 +2436,6 @@ header.intro {
     } 
   }
 }
-
-
 
 article {
   .cms-plugin-richtext {
@@ -2562,12 +2466,8 @@ article {
       font-size: 20px;
       line-height: 32px;
       padding-bottom: 20px;
-      &:last-child{
-        padding: 0px !important;
-      }
-    }
 
-    p { 
+      &:last-child{ padding: 0px !important; }
       &.img_block,
       &.img_left {
         margin-right: 40px;
@@ -2591,6 +2491,7 @@ article {
       .img_block,
       .img_left { float: left;}
     }
+
     &:nth-child(2n) {
       // .img_left { float: right;}
     }
@@ -2620,7 +2521,6 @@ article {
     .description {
     }
 
-
     p { 
       font-size: 20px;
       line-height: 32px;
@@ -2629,7 +2529,7 @@ article {
         padding: 0px !important;
       }
     }
-    
+
     .title {
       h3 {
         font-size: 30px;

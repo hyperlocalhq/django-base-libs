@@ -152,6 +152,8 @@ var oMap;
                 //oMap.setCenter($(this).data('marker_obj').getPosition());
                 //oMap.setZoom(16);
                 //$("#museum_list_map").autoscroll();
+                console.log ("test")
+                $('html, body').animate({scrollTop:0}, 'slow');
                 $('body').addClass('map_visible');
                 setTimeout(function() {
                     google.maps.event.trigger(oMap, 'resize');
