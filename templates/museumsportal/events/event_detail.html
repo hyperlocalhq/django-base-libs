@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites %}
 {% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}event-detail{% endblock %}
 
 {% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
     <script type="text/javascript">
         var aGeopositions = [];
         var settings = {
@@ -95,6 +96,9 @@
                         </li>
                     </ul>  
                 </li>
+
+                <!-- ======= Opening hours ======= -->
+
                 {% if museum.season_set.count or museum.specialopeningtime_set.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
@@ -107,90 +111,103 @@
                                 {% if museum.season_set.count == 1 %}
                                     {% with museum.season_set.all.0 as season %}
                                         {% if season.is_appointment_based %}
-                                            <p>{% trans "Based on appointment" %}</p>
+                                            <dt>{% trans "Based on appointment" %}</dt>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
-                                                {% if forloop.first %}<dl>{% endif %}
-                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
-                                                <dd>
-                                                    {% if same_hours.list.0.open %}
-                                                         {{ same_hours.list.0.open|time:"H:i" }}
-                                                         {% if same_hours.list.0.break_close %}
-                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% else %}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% endif %}
-                                                    {% else %}               
-                                                        {% trans "closed" %}
-                                                    {% endif %}
-                                                </dd>
-                                                {% if forloop.last %}</dl>{% endif %}
+                                                <dl>
+                                                    <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
+                                                    <dd>
+                                                        {% if same_hours.list.0.open %}
+                                                             {{ same_hours.list.0.open|time:"H:i" }}
+                                                             {% if same_hours.list.0.break_close %}
+                                                                - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                                  / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                                - {{ same_hours.list.0.close|time:"H:i" }}
+                                                             {% else %}
+                                                                - {{ same_hours.list.0.close|time:"H:i" }}
+                                                             {% endif %}
+                                                        {% else %}               
+                                                            {% trans "closed" %}
+                                                        {% endif %}
+                                                    </dd>
+                                                </dl>
                                             {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
-                                            <div class="last_entry">{% trans "Last entry" %}: {{ season.last_entry }}</div>
+                                            <dl>
+                                                <dt>{% trans "Last entry" %}</dt>
+                                                <dd>{{ season.last_entry }}</dd>
+                                            </dl>
                                         {% endif %}
                                         {% if season.exceptions %}
-                                            <div class="exceptions">{{ season.get_rendered_exceptions }}</div>
+                                            <p>{{ season.get_rendered_exceptions }}</p>
                                         {% endif %}
                                     {% endwith %}
                                 {% else %}
                                     {% for season in museum.season_set.all %}
-                                        <h5>{% trans "Season" %} {{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</h5>
+                                        <dl>
+                                            <dt>{{ season.title }}</dt>
+                                            <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                                        </dl>
                                         {% if season.is_appointment_based %}
-                                            <p>{% trans "Based on appointment" %}</p>
+                                        <dl>
+                                            <dt>{% trans "Based on appointment" %}</dt>
+                                        </dl>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
-                                                {% if forloop.first %}<dl>{% endif %}
-                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
-                                                <dd>
-                                                    {% if same_hours.list.0.open %}
-                                                         {{ same_hours.list.0.open|time:"H:i" }}
-                                                         {% if same_hours.list.0.break_close %}
-                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% else %}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% endif %}
-                                                    {% else %}               
-                                                        {% trans "closed" %}
-                                                    {% endif %}
-                                                </dd>
-                                                {% if forloop.last %}</dl>{% endif %}
+                                                <dl>
+                                                    <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
+                                                    <dd>
+                                                        {% if same_hours.list.0.open %}
+                                                             {{ same_hours.list.0.open|time:"H:i" }}
+                                                             {% if same_hours.list.0.break_close %}
+                                                                - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                                  / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                                - {{ same_hours.list.0.close|time:"H:i" }}
+                                                             {% else %}
+                                                                - {{ same_hours.list.0.close|time:"H:i" }}
+                                                             {% endif %}
+                                                        {% else %}               
+                                                            {% trans "closed" %}
+                                                        {% endif %}
+                                                    </dd>
+                                                </dl>
                                             {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
-                                            <div class="last_entry">{% trans "Last entry" %}: {{ season.last_entry }}</div>
+                                        <dl>
+                                            <dt>{% trans "Last entry" %}</dt>
+                                            <dd>{{ season.last_entry }}</dd>
+                                        </dl>
                                         {% endif %}
                                         {% if season.exceptions %}
-                                            <div class="exceptions">{{ season.get_rendered_exceptions }}</div>
+                                            <p>{{ season.get_rendered_exceptions }}</p>
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
                                 
                                 {% if museum.specialopeningtime_set.count %}
-                                    <h5>{% trans "Special Opening hours" %}</h5>
                                     {% for special_opening in museum.specialopeningtime_set.all %}
-                                        <h6>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
+                                    <dl>
+                                        <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
                                         {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
-                                        </h6>
+                                        </dt>
                                         {% if special_opening.is_closed %}
-                                            {% trans "Closed" %}
+                                            <dd>{% trans "Closed" %}</dd>
                                         {% else %}
                                             {% if special_opening.is_regular %}
-                                                {% trans "Regular Opening hours" %}
+                                                <dd>{% trans "Regular Opening hours" %}</dd>
                                             {% else %}
-                                                {{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}
+                                                <dd>{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}</dd>
                                                 {% if season.sun_break_close %}
-                                                    | {% trans "Break:" %} {{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}
+                                                    <dt>{% trans "Break:" %}</dt>
+                                                    <dd>{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}</dd>
                                                 {% endif %}
                                             {% endif %}
                                         {% endif %}
+                                    </dl>
                                     {% endfor %}
                                 {% endif %}
                             </li>
@@ -258,7 +275,7 @@
                     </li>
                 {% endif %} 
 
-                <!-- ======= Other Events ======= -->
+                <!-- ======= Other Information ======= -->
 
                 {% if event.meeting_place or event.get_languages %}
                     <li class="accordion-group">  
@@ -284,37 +301,6 @@
                             </li>
                         </ul>  
                     </li>
-                {% endif %} 
-
-                <!-- ======= Other Events ======= -->
-
-                {% if object.get_other_events %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-events">{% trans "Other Events" %}</a>  
-                        </h4>  
-                        <ul id="collapse-events" class="accordion-body collapse">
-                            <li class="accordion-inner">
-                                <ul class="list compact">
-                                {% for event in object.get_other_events %}
-                                    <li class="item">
-                                        {% if event.cover_image %}
-                                            <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }})"></a>
-                                        {% endif %}
-            
-                                        <a href="{{ event.get_url_path }}">
-                                            <h3>{{ event.museum.title }}</h3>
-                                            <h4>{{ event.title }}</h4>
-                                            {% with event.eventtime_set.all.0 as event_time %}
-                                                <h5>{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|date:"H:i" }}</h5>
-                                            {% endwith %}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                                </ul>
-                            </li>
-                        </ul>  
-                    </li> 
                 {% endif %} 
             </ul> 
 
@@ -366,30 +352,33 @@
   </div>
 </div>
 
-{% endwith %}
+<!-- ======= Other Events ======= -->
 
+{% if object.get_other_events %}
 <div class="content" class="clearfix">
     <div class="inner">
-        <h2>Nur noch kurze Zeit</h2>
-        <ul id="container" class="list tiles small clearfix">
-            {% get_objects closing_soon events.Event 5 as events_closing_soon %}
-            {% for event in events_closing_soon %}
+        <h2>{% blocktrans with event.museum.title as museum_title %}More current events of <span>{{ museum_title }}</span>{% endblocktrans %}</h2>
+        <ul class="list rows clearfix">
+            {% for event in object.get_other_events %}
                 <li class="item">
-                    <a class="img" href="{{ event.get_url_path }}" {% if event.cover_image %}data-background="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}{% endif %}">
-                        <span class="spinner loading"></span>
-                    </a>
+                    {% if event.cover_image %}
+                        <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }})"></a>
+                    {% endif %}
 
                     <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-favorite"></button>
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                        {% if request.user.is_authenticated %}
+                            {% adding2favorites for event %}
+                        {% endif %}
+                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
                     </nav>
-                    
+
                     <a href="{{ event.get_url_path }}">
-                        <h3>{{ event.museum.title }}</h3>
-                        <h4>{{ event.title }}</h4>
-                        <h5>{% trans "till" %} {{ event.end|date:"d.m.Y" }}</h5>
+                        <h3>{{ event.title }}</h3>
+                        <h4>{{ event.subtitle }}</h4>
+                        {% with event.eventtime_set.all.0 as event_time %}
+                            <h5>{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|date:"H:i" }}</h5>
+                        {% endwith %}
                     </a>
-        
                     {% with event as list_item %}
                         {% include "utils/geo_position.html" %}
                     {% endwith %}
@@ -398,6 +387,9 @@
         </ul>
     </div>
 </div>
+{% endif %} 
+
+{% endwith %}
 
 {% include "utils/gallery.html" %}
 {% include "utils/page_controls.html" %}

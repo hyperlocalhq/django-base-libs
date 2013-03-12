@@ -52,7 +52,7 @@
             {% endfor %}
         </ul>
         
-        <ul id="container" class="list tiles clearfix">
+        <ul id="container" class="list rows clearfix">
             {% for event in object_list %}
                 {% tags_for_object event as tags %}
                 <li class="item initial_{{ event.title|slugify|slice:"0:1" }} {% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">

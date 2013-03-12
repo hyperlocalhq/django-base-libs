@@ -57,7 +57,7 @@ button {
   line-height: 18px;
   color: black;
   padding: 18px;
-  background-color: rgba(0,0,0,0.025);
+  background-color: rgba(0,0,0,0.05);
   background-image: none;
   background-repeat: no-repeat;
   background-position: center !important;
@@ -75,7 +75,7 @@ button {
   &[name="reset"] { 
     float: left; 
     margin: 0px !important;
-    background-color: rgba(0,0,0,0.025) !important;
+    background-color: rgba(0,0,0,0.05) !important;
     color: black !important;
   }
 
@@ -97,7 +97,7 @@ button {
 
 
   &:active {
-    background-color: rgba(0,0,0,0.025) !important;
+    background-color: rgba(0,0,0,0.05) !important;
     color: black !important;
     opacity: 0.75;
   }
@@ -729,7 +729,7 @@ label.radio {
               text-align: left;
               text-indent: 10px;
               color: rgba(0,0,0,0.5);
-              background-color: rgba(0,0,0,0.025);
+              background-color: rgba(0,0,0,0.05);
             } 
           }
           

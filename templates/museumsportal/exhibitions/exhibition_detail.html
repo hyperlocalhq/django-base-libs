@@ -1,10 +1,11 @@
 
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites %}
 {% block title %}{% trans "Exhibition" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}exhibition-detail{% endblock %}
 
 {% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
     <script type="text/javascript">
         var aGeopositions = [];
         var settings = {
@@ -89,41 +90,41 @@
                         </li>
                     </ul>  
                 </li>
+
+                {% if exhibition.vernissage %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
-                            {% trans "Duration" %}
+                            {% trans "Vernissage" %}
                         </a>
                     </h4>
                     <ul id="collapse-times" class="accordion-body collapse">  
                         <li class="accordion-inner">
-                            {% if exhibition.permanent %}
-                                <dl>
-                                    <dt>{% trans "Permanent exhibition" %}</dt>
-                                </dl>
-                            {% else %}
-                                <dl>
-                                    <dt>{% trans "Exhibition" %}</dt>
-                                    <dd>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</dd>
-                                </dl>
-                            {% endif %}
-
-                            {% if exhibition.vernissage %}
-                                <dl>
-                                    <dt>{% trans "Vernissage" %}</dt>
-                                    <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}</dd>
-                                </dl>
-                            {% endif %} 
-
-                            {% if exhibition.finissage %}
-                                <dl>
-                                    <dt>{% trans "Finissage" %}</dt>
-                                    <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}</dd>
-                                </dl>
-                            {% endif %} 
+                            <dl>
+                                <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}</dd>
+                            </dl>
                         </li>
                     </ul>  
                 </li>
+                {% endif %} 
+
+                {% if exhibition.finissage %}
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                            {% trans "Finissage" %}
+                        </a>
+                    </h4>
+                    <ul id="collapse-times" class="accordion-body collapse">  
+                        <li class="accordion-inner">
+                            <dl>
+                                <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}</dd>
+                            </dl>
+                        </li>
+                    </ul>  
+                </li>
+                {% endif %} 
+
                 {% if exhibition.season_set.count or exhibition.specialopeningtime_set.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
@@ -225,6 +226,11 @@
                         </ul>  
                     </li>
                 {% endif %}
+
+                <!-- ======= Tickets ======= -->
+
+                {% if exhibition.free_entrance or exhibition.admission_price or exhibition.reduced_price or exhibition.arrangements_for_children or exhibition.free_entrance_for or exhibition.family_ticket or exhibition.group_ticket or exhibition.free_entrance_times or exhibition.yearly_ticket or exhibition.other_tickets or exhibition.member_of_exhibitionspass %}
+
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
@@ -313,6 +319,8 @@
                         </li>
                     </ul>  
                 </li>
+                {% endif %}
+
                 {% if exhibition.suitable_for_disabled or exhibition.suitable_for_disabled_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
@@ -334,30 +342,6 @@
                         </ul>  
                     </li>
                 {% endif %}
-
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-exhibitions">{% trans "Exhibitions" %}</a>  
-                    </h4>  
-                    <ul id="collapse-exhibitions" class="accordion-body collapse">
-                        <li class="accordion-inner">
-                            <ul id="kurze_zeit" class="list compact">
-                            {% for exhibition in object.get_other_exhibitions %}
-                                <li class="item">
-                                    {% if exhibition.cover_image %}
-                                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }})"></a>
-                                    {% endif %}
-                                        <a href="{{ exhibition.get_url_path }}">
-                                            <h4>{{ exhibition.museum.title }}</h4>
-                                            <h3>{{ exhibition.title }}</h3>
-                                            <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
-                                        </a>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                    </ul>  
-                </li> 
             </ul> 
         </section>
             
@@ -396,32 +380,30 @@
   </div>
 </div>
 
-{% endwith %}
-
+{% if object.get_other_exhibitions %}
 <div class="content" class="clearfix">
     <div class="inner">
-        <h2>Nur noch kurze Zeit</h2>
-        <ul id="container" class="list tiles small clearfix">
-            {% get_objects closing_soon exhibitions.Exhibition 5 as exhibitions_closing_soon %}
-            {% for exhibition in exhibitions_closing_soon %}
+        <h2>{% blocktrans with exhibition.museum.title as museum_title %}More current Exhibitions of <span>{{ museum_title }}</span>{% endblocktrans %}</h2>
+        <ul class="list tiles small clearfix">
+            {% for exhibition in object.get_other_exhibitions %}
                 <li class="item">
-                    
-                    <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %}data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}"{% endif %}>
-                        <span class="spinner loading"></span>
-                        
-                    </a>
+                    {% if exhibition.cover_image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }})"></a>
+                    {% endif %}
 
                     <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-favorite"></button>
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                        {% if request.user.is_authenticated %}
+                            {% adding2favorites for exhibition %}
+                        {% endif %}
+                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
                     </nav>
-                        
+
                     <a href="{{ exhibition.get_url_path }}">
-                        <h3>{{ exhibition.museum.title }}</h3>
-                        <h4>{{ exhibition.title }}</h4>
-                        <h5>{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                        <h3>{{ exhibition.title }}</h3>
+                        <h4>{{ exhibition.subtitle }}</h4>
+                        <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                     </a>
-                
+
                     {% with exhibition as list_item %}
                         {% include "utils/geo_position.html" %}
                     {% endwith %}
@@ -430,6 +412,9 @@
         </ul>
     </div>
 </div>  
+{% endif %}
+
+{% endwith %}
 
 {% include "utils/gallery.html" %}
 {% include "utils/page_controls.html" %}

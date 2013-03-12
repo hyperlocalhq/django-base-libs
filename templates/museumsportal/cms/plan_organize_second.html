@@ -11,7 +11,12 @@
       {% placeholder "main_content" %}
     </article>
     <section class="clearfix marginal">
-      <div class="first">{% placeholder "plan_organize_first" inherit %}</div>
+      <ul id="sub_nav">{% show_menu_below_id "planen_organisieren" 0 100 100 100 "menu/side_menu.html" %}</ul>
+
+      {% comment %}
+      <!-- <div class="first">{% placeholder "plan_organize_first" inherit %}</div> -->
+      {% endcomment %}
+
     </section>
   </div>
 </div>
