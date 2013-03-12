@@ -288,7 +288,7 @@ class Organizer(models.Model):
     
     def __unicode__(self):
         if self.organizing_museum:
-            return self.organizing_museum
+            return self.organizing_museum.title
         return self.organizer_title
         
     class Meta:
