@@ -1590,6 +1590,7 @@ aside {
       padding-top: 16px;
       padding-left: 25px;
 
+
       &:hover {
         color: black;
         background-color: rgba(0,0,0,0.05);
@@ -1601,6 +1602,16 @@ aside {
       li {
         &:first-child > a { padding-top: 12px; }
         &:last-child  > a { padding-bottom: 12px; }
+        a {
+          display: inline-block;
+          margin-left: 0;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          width: 100%;
+          overflow: hidden;
+          box-sizing: border-box !important;
+          -moz-box-sizing: border-box !important;
+        }
       }
       a {
         &:hover {
@@ -2566,19 +2577,15 @@ article {
       margin-bottom: 40px;
     }
 
-    h2{
+    h2, h3 {
       top: 5px;
       position: relative;
-    }
-
-    h3 {
       font-size: 30px;
-      line-height: 30px;
-      margin-bottom: 20px;
-      top: 5px;
+      line-height: 36px;
+      margin: 0px;
       position: relative;
 
-      &:not(:first-child) {
+      &:not(:first-of-type) {
         margin-top: 40px;
       }
     }
