@@ -1579,8 +1579,6 @@ aside {
     border-bottom: 10px solid white;
     margin-bottom: 0px;
     background-color: rgba(0,0,0,0.05);
-    &:first-child > a {padding-top: 22px; }
-    &:last-child  > a {padding-bottom: 19px; }
 
     > a { 
       font-weight: 500;
@@ -1600,6 +1598,10 @@ aside {
 
     ul {
       border-top: 1px solid rgba(0,0,0,0.05);
+      li {
+        &:first-child > a { padding-top: 12px; }
+        &:last-child  > a { padding-bottom: 12px; }
+      }
       a {
         &:hover {
           color: black;
