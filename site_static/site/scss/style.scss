@@ -1558,18 +1558,14 @@ aside {
   a { 
     padding-left: 25px !important;
     padding-right: 25px !important;
-
     padding-top: 6px;
     padding-bottom: 6px;
     display: block;
-
-
   }
 
   li.selected {
     > a {
-      background-color: rgba(0,0,0,0.1) !important;
-      // background-color: $blue !important;
+      background-color: rgba(0,0,0,0.05) !important;
       color: black !important;
       // padding-top: 8px;
       // padding-bottom: 8px;
@@ -1583,6 +1579,8 @@ aside {
     border-bottom: 10px solid white;
     margin-bottom: 0px;
     background-color: rgba(0,0,0,0.05);
+    &:first-child > a {padding-top: 22px; }
+    &:last-child  > a {padding-bottom: 19px; }
 
     > a { 
       font-weight: 500;
@@ -1602,8 +1600,6 @@ aside {
 
     ul {
       border-top: 1px solid rgba(0,0,0,0.05);
-      padding-top: 6px;
-      padding-bottom: 6px;
       a {
         &:hover {
           color: black;
