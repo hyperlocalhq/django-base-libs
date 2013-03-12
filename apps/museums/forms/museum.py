@@ -557,7 +557,6 @@ class AddressForm(ModelForm):
             ))
         layout_blocks.append(layout.Fieldset(
             _("Social media"),
-            # TODO: add formset here
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.social.management_form }}
             <div id="social">
@@ -568,7 +567,7 @@ class AddressForm(ModelForm):
                 {% endfor %}
             </div>
             <!-- used by javascript -->
-            <div id="social_empty_form" class="event_time formset-form tabular-inline" style="display: none">
+            <div id="social_empty_form" class="social formset-form tabular-inline" style="display: none">
                 {% with formsets.social.empty_form as form %}
                     {% crispy form %}
                 {% endwith %}
