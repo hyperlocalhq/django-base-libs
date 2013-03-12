@@ -1,4 +1,4 @@
-{% load image_modifications fb_tags auth_extended i18n %}
+{% load image_modifications fb_tags auth_extended i18n favorites %}
 
 {% if object.cover_image %}
 <header id="slideshow">
@@ -10,6 +10,10 @@
 
         {% if museum == object %}
         <nav class="actions">
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for museum %}
+            {% endif %}
+
             {% if_has_perm "museums.change_museum" museum %}
                 <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop " onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';"></button>
             {% end_if_has_perm %}
@@ -19,6 +23,10 @@
 
         {% if exhibition == object %}
         <nav class="actions">
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for exhibition %}
+            {% endif %}
+
             {% if_has_perm "exhibitions.change_exhibition" exhibition %}
                 <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url exhibition.cover_image "cover" request request.path %}';"></button>
             {% end_if_has_perm %}
@@ -28,6 +36,10 @@
 
         {% if workshop == object %}
         <nav class="actions">
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for workshop %}
+            {% endif %}
+            
             {% if_has_perm "workshops.change_workshop" workshop %}
                 <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';"></button>
             {% end_if_has_perm %}
@@ -37,6 +49,9 @@
 
         {% if event == object %}
         <nav class="actions">
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for event %}
+            {% endif %}
             {% if_has_perm "events.change_event" event %}
                 <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';"></button>
             {% end_if_has_perm %}

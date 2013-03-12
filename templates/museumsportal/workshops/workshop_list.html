@@ -31,13 +31,11 @@
   <div class="inner">
     <h1>{% trans "Guided Tours" %}</h1>
 
-    <!-- {% comment %}
     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
         {% for item in abc_list %}
           <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
         {% endfor %}
     </ul>
-    {% endcomment %} -->
 
     <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
         <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
@@ -63,7 +61,7 @@
         {% endfor %}
     </ul>
 
-    <ul id="container" class="list tiles collapsed clearfix">
+    <ul id="container" class="list rows collapsed clearfix">
         {% for workshop in object_list %}
             {% tags_for_object workshop as tags %}
             <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ workshop.title|slugify|slice:"0:1" }} {% if workshop.closing_soon %} closing_soon{% endif %}{% if workshop.newly_opened %} newly_opened{% endif %}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
@@ -90,16 +88,11 @@
                 </nav>
     
                 <a href="{{ workshop.get_url_path }}">
-                    <h4>{{ workshop.workshop_type }}{% with workshop.workshoptime_set.all.0 as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4>
+                    <h4>{{ workshop.workshop_type }} {% with workshop.workshoptime_set.all.0 as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4>
                     <h3>{{ workshop.title }}</h3>
                     <h4>{{ workshop.subtitle }}</h4>
                     <h5>{{ workshop.museum.title }}</h5>
                 </a>
-    
-                <div class="description">
-                    <p>{{ workshop.get_rendered_description|striptags }}</p>
-                    <a class="more" href="{{ workshop.get_url_path }}">more</a>
-                </div>
                 
                 {% with workshop as list_item %}
                     {% include "utils/geo_position.html" %}

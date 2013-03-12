@@ -205,14 +205,9 @@
     
     <script type="text/javascript">
     $(function() {
-        $('.location').click(function(e){
-            $('html, body').animate({scrollTop:0}, 'slow');
-            e.preventDefault();
-        });
-
         $('#to-top').click(function(e){
             $('html, body').animate({scrollTop:0}, 'slow');
-            e.preventDefault();
+            return false;
         });
         
         $(window).scroll(function() {

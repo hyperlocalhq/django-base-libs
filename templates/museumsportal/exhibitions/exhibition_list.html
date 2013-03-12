@@ -31,12 +31,6 @@
   <div class="inner">
     <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
 
-    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
-        {% for item in abc_list %}
-          <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
-        {% endfor %}
-    </ul>
-
     <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
         {% for status_code, status_verbose in facets.categories.statuses %}
           {% if status_code == facets.selected.status %}

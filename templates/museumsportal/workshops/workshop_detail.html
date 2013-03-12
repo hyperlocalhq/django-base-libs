@@ -4,8 +4,7 @@
 {% block bodyclass %}workshop-detail{% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/swipe.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
     <script type="text/javascript">
         var aGeopositions = [];
         var settings = {
@@ -110,29 +109,39 @@
                         </h4>  
                         <ul id="collapse-prices" class="accordion-body collapse">  
                             <li class="accordion-inner">
-                                <dl>
                                 {% if workshop.free_entrance %}
-                                    <dt>{% trans "Free entrance" %}</dt>
+                                    <dl>
+                                        <dt>{% trans "Free entrance" %}</dt>
+                                    </dl>
                                 {% else %}
                                     {% if workshop.admission_price %}
-                                        <dt>{% trans "Admission price" %}: {{ workshop.admission_price|currencyfmt:"EUR" }}</dt>
+                                        <dl>
+                                            <dt>{% trans "Admission price" %}: {{ workshop.admission_price|currencyfmt:"EUR" }}</dt>
+                                        {% if workshop.admission_price_info %}
+                                            <dd class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</dd>
+                                        {% endif %}
+                                        </dl>
                                     {% endif %}
-                                    {% if workshop.admission_price_info %}
-                                        <dd class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</dd>
-                                    {% endif %}
+
                                     {% if workshop.reduced_price %}
-                                        <dt>{% trans "Reduced price" %}: {{ workshop.reduced_price|currencyfmt:"EUR" }}</dt>
-                                    {% endif %}
-                                    {% if workshop.reduced_price_info %}
-                                        <dd class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</dd>
+                                        <dl>
+                                            <dt>{% trans "Reduced price" %}: {{ workshop.reduced_price|currencyfmt:"EUR" }}</dt>
+                                            <dl>
+                                            {% if workshop.reduced_price_info %}
+                                                <dd class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</dd>
+                                            {% endif %}
+                                        </dl>
                                     {% endif %}
                                 {% endif %}
-                                {% if workshop.booking_info %}
+                            </li>
+                            {% if workshop.booking_info %}
+                            <li class="accordion-inner">
+                                <dl>
                                     <dt>{% trans "Booking info" %}</dt>
                                     <dd class="booking_info">{{ workshop.get_rendered_booking_info }}</dd>
-                                {% endif %}
                                 </dl>
                             </li>
+                            {% endif %}
                         </ul>  
                     </li>
                 {% endif %}
@@ -224,8 +233,7 @@
             <h2>{% trans "Other Workshops of" %} 
     {% if workshop.museum %} {% with workshop.museum as museum %} {{ museum.title }} {% endwith %} {% else %} {{ workshop.location_name }} {% endif %}
             </h2>
-            <ul id="container" class="list tiles small clearfix">
-                
+            <ul class="list rows clearfix">
                 {% for workshop in object.get_other_workshops %}
                     <li class="item">
                         <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
@@ -235,7 +243,9 @@
                                 <h4>{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|date:"H:i" }}</h4>
                             {% endwith %}
                             <h3>{{ workshop.title }}</h3>
-                            <h4>{{ workshop.subtitle }}</h4>
+                            {% if workshop.subtitle %}
+                                <h4>{{ workshop.subtitle }}</h4>
+                            {% endif %}
                             <h5>{{ workshop.museum.title }}</h5>
                         </a>
                     </li>

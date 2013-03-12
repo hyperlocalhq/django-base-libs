@@ -1,12 +1,10 @@
-.map_visible{
+.map_visible {
 
   #wrapper {
     > #gmap_wrapper {
      height: 350px; 
     }
   }
-
-  
 
   &.map_fullscreen{
     // overflow: hidden;
@@ -126,7 +124,7 @@
         height: 35px;
         display: block;
         font-weight: 500;
-        border-bottom: 1px solid rgba(0,0,0,0.1); 
+        border-bottom: 1px solid rgba(0,0,0,0.05); 
 
         white-space: nowrap;
         text-overflow: ellipsis;

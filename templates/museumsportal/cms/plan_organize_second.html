@@ -5,18 +5,19 @@
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
-    <header class="intro clearfix">{% placeholder "intro" %}</header>
-  </div>
-</div>
-
-<div class="content clearfix">
-  <div class="inner">
     <article> 
-      <section class="clearfix">{% placeholder "main_content" %}</section>
-      <section class="clearfix marginal">
-        {% placeholder "plan_organize_first" inherit %}
-        {% placeholder "marginal_content" %}</section>
+      <header class="intro clearfix">{% placeholder "intro" %}</header>
+      {% placeholder "plan_organize_second" %}
+      {% placeholder "main_content" %}
     </article>
+    <section class="clearfix marginal">
+      <ul id="sub_nav">{% show_menu_below_id "planen_organisieren" 0 100 100 100 "menu/side_menu.html" %}</ul>
+
+      {% comment %}
+      <!-- <div class="first">{% placeholder "plan_organize_first" inherit %}</div> -->
+      {% endcomment %}
+
+    </section>
   </div>
 </div>
 {% endblock %}

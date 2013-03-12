@@ -22,13 +22,11 @@
     <div class="inner">
         <h1>{% trans "Events in the Museums of Berlin" %}</h1>
         
-        {% comment %}
         <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
             {% for item in abc_list %}
               <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
             {% endfor %}
         </ul>
-        {% endcomment %}
         
         <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
             <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
@@ -54,7 +52,7 @@
             {% endfor %}
         </ul>
         
-        <ul id="container" class="list tiles clearfix">
+        <ul id="container" class="list rows clearfix">
             {% for event in object_list %}
                 {% tags_for_object event as tags %}
                 <li class="item initial_{{ event.title|slugify|slice:"0:1" }} {% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">
