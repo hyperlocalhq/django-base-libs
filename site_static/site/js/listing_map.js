@@ -36,7 +36,6 @@ var oMap;
                 }
             };
             var oNode = document.getElementById("gmap");
-            console.log ("alert")
             if (oNode) {
                 oMap = new google.maps.Map(oNode, oOptions);
             }
