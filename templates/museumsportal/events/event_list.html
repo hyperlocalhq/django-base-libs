@@ -137,12 +137,11 @@
     var $padding = 0;
     var $topOffset = 267;
     var $footerHeight = 83;
-    var height = $('#filters').height();
-
 
     function scrollSticky(){
         if($(window).height() >= $stickyHeight) {
             var aOffset = $('#filters').offset();
+            var height = $('#filters').height();
 
             if($(document).height() - $footerHeight - $padding < $(window).scrollTop() + $stickyHeight) {
                 var $top = $(document).height() - $stickyHeight - $footerHeight - $padding;
@@ -155,7 +154,7 @@
 
             }else{
                 $('#filters').attr('style', 'position:relative;');
-                $('#container').css("margin-top",0);
+                $('#container').css("margin-top",-40);
             }
         }
     }
