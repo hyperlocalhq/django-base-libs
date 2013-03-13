@@ -564,6 +564,9 @@ a:active  { outline: none;}
       padding-top: 6px;
       padding-bottom: 6px;
 
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+
       &:hover{
         background-color: rgba(0,0,0,0);
 
@@ -1304,9 +1307,6 @@ aside {
 }
 
 // ================= TAGS AND FILTERS =================
-
-// #alphabetical,
-#tags { display: none;}
 
 #gmap_toggle_perm {
   position: absolute;
