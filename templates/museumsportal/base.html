@@ -216,11 +216,18 @@
                     });
                     // remove the corresponding item from filter summary
                     $('#filter_summary li[data-filter-group="' + group + '"][data-filter-value="' + value + '"]').remove();
+                    if ($('#filter_summary').children().length == 1) {
+                        $('#filter_summary').empty();
+                    }
                 } else {
                     $optionSet.find('.all.selected').removeClass('selected');
                     filters[group].push(value);
                     // change selected class
                     $this.addClass('selected');
+                    if ($('#filter_summary').text() == "") {
+                        var $li = $('<li><a href="">{% trans "Reset all filters" %}</a></li>');
+                        $('#filter_summary').append($li);
+                    }
                     var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
                     $('#filter_summary').append($li);
                 }
@@ -230,6 +237,9 @@
                 filters[group] = []
                 // remove elements from filter summary
                 $('#filter_summary li[data-filter-group="' + group + '"]').remove();
+                if ($('#filter_summary').children().length == 1) {
+                    $('#filter_summary').empty();
+                }
                 // change selected class
                 $this.addClass('selected');
             }
@@ -254,8 +264,13 @@
             var $this = $(this).parents('li');
             var group = $this.attr('data-filter-group');
             var value = $this.attr('data-filter-value');
-            // trigger the click on corresponding filter
-            $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();            
+            if (!group && !value) {
+                // trigger the clicks on all selected filters
+                $('#filters a.selected').click();
+            } else {
+                // trigger the click on corresponding filter
+                $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();
+            }            
         })
         
         var hashChanged = false;
