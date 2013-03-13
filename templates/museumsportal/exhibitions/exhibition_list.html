@@ -28,9 +28,9 @@
 
 <div class="content" class="clearfix">
   <div class="inner">
+    <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
+    
     <div id="filters">
-        <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
-        
         <ul class="nav nav-tabs" id="filter_tabs">
             <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
             <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
@@ -133,59 +133,8 @@
     </ul>
   </div>
 </div>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>    
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/listing_map.js"></script>
-    <script type="text/javascript">
-    //<![CDATA[
-    (function($, undefined) {
-        $(function() {
-            $('#gmap_toggle').click(function() {
-                $('body').toggleClass('map_visible');
-                setTimeout(function() {
-                    google.maps.event.trigger(oMap, 'resize');
-                }, 600);
-            });
-            $('#gmap_fullscreen').click(function() {
-                $('body').toggleClass('map_fullscreen');
-                setTimeout(function() {
-                    google.maps.event.trigger(oMap, 'resize');
-                }, 600);
-            });
-        });
-    }(jQuery));
-    //]]>
-    </script>
 
-<script>
-    var $stickyHeight = 600;
-    var $padding = 0;
-    var $topOffset = 267;
-    var $footerHeight = 83;
+{% include "utils/gmap_scripts.html" %}
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/sticky.js"></script>
 
-    function scrollSticky(){
-        if($(window).height() >= $stickyHeight) {
-            var aOffset = $('#filters').offset();
-            var height = $('#filters').height();
-
-            if($(document).height() - $footerHeight - $padding < $(window).scrollTop() + $stickyHeight) {
-                var $top = $(document).height() - $stickyHeight - $footerHeight - $padding;
-                $('#filters').attr('style', 'position:absolute; top:'+$top+'px;');
-                $('#container').css("margin-top",height);
-
-            }else if($(window).scrollTop() + $padding > $topOffset) {
-                $('#filters').attr('style', 'position:fixed; top:'+$padding+'px;');
-                $('#container').css("margin-top",height);
-
-            }else{
-                $('#filters').attr('style', 'position:relative;');
-                $('#container').css("margin-top",-40);
-            }
-        }
-    }
-
-    $(window).scroll(function(){
-        scrollSticky()
-    });
-</script>
 {% endblock %}

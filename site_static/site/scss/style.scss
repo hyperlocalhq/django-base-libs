@@ -221,9 +221,15 @@ a:active  { outline: none;}
 }
 
 #header, .content, #footer {
+  width: 100%;
   background-color: white;  
   border-top: 1px solid rgba(0,0,0,0.05);
+  &.sticky > .inner {
+    padding-bottom: 0px !important;
+    background-color: white !important;
+  }
 }
+.sticky {z-index: 10000; }
 
 // ================= HEADER =================
 
@@ -545,7 +551,6 @@ a:active  { outline: none;}
     padding-left: 20px;
     padding-top: 40px;
     padding-right: 40px;
-    margin-top: -40px;
 
     > li { 
       width: 1000px;
@@ -611,7 +616,6 @@ a:active  { outline: none;}
     padding-top: 40px;
     padding-bottom: 40px;
     padding-right: 40px;
-    margin-top: -40px;
 
     > li { 
       width: 320px;
@@ -1319,13 +1323,16 @@ aside {
  margin: 0px;
  background-color: white;
  z-index: 10000;
+ // &:hover .tab-content {display: block; }
+ // .tab-content {display: none; }
 }
 
 
 #filter_tabs { 
   font-size: 12px !important;
   line-height: 16px !important;
-  border-bottom: 1px solid rgba(0,0,0,0.05); 
+  border-bottom: none; 
+  margin-bottom: 0px;
 
   li { 
     display: inline-block; 
@@ -1371,7 +1378,8 @@ aside {
 .tags,
 .filter {
   font-size: 0px;
-  padding-bottom: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   -webkit-transform: translate(0px,0px); /* Safari and Chrome */
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;
@@ -1383,6 +1391,7 @@ aside {
     padding-bottom: 10px;
     font-weight: 500;
   }
+
   li { 
     font-size: 16px;
     line-height: 10px;
@@ -1408,7 +1417,7 @@ aside {
 
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important;
-      
+
       -webkit-background-clip: padding-box;
       -moz-background-clip: padding;
       background-clip: padding-box;
@@ -2641,6 +2650,17 @@ article {
         img { display: block; margin-bottom: 10px; }
       }
     }
+  }
+  
+  .img_and_desc {
+    margin-right: 40px;
+    color: rgba(0,0,0,0.75);
+    font-size: 12px;
+    line-height: 18px;
+    width: 235px;
+    padding-bottom:0px !important;
+    margin-bottom: 0px !important;
+    margin-top: 10px !important;
   }
 
   .cms-plugin-richtext {
