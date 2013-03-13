@@ -197,30 +197,44 @@
         });
 
         // filter buttons
-        $('.filter a').click(function(){
+        $('.filter a').click(function(e){
+            e.preventDefault();
             var $this = $(this);
-            // don't proceed if already selected
-            if ( $this.hasClass('selected') ) {
-                return;
+
+            var $optionSet = $this.parents('.option-set');
+            // store filter value in object
+            // i.e. filters.category = ['.cat_history']
+            var group = $optionSet.attr('data-filter-group');
+            filters[group] = filters[group] || [];
+            var value = $this.attr('data-filter-value');
+            
+            if (value) {
+                if ($this.hasClass('selected')) {
+                    $this.removeClass('selected');
+                    filters[group] = jQuery.grep(filters[group], function(v) {
+                        return v != value;
+                    });
+                } else {
+                    $optionSet.find('.all.selected').removeClass('selected');
+                    filters[group].push(value);
+                    // change selected class
+                    $this.addClass('selected');
+                }
+            } else {
+                $optionSet.find('.selected').removeClass('selected');
+                filters[group] = []
+                // change selected class
+                $this.addClass('selected');
             }
             
-            var $optionSet = $this.parents('.option-set');
-            // change selected class
-            $optionSet.find('.selected').removeClass('selected');
-            $this.addClass('selected');
-            
-            // store filter value in object
-            // i.e. filters.color = 'red'
-            var group = $optionSet.attr('data-filter-group');
-            filters[ group ] = $this.attr('data-filter-value');
             // convert object into array
             var isoFilters = [];
-            for ( var prop in filters ) {
-                isoFilters.push( filters[ prop ] )
+            for (var prop in filters) {
+                isoFilters.push(filters[prop].join(''));
             }
             var selector = isoFilters.join('');
 
-            $container.isotope({ filter: selector });            
+            $container.isotope({filter: selector});            
             $(".list .img:in-viewport").lazyload();
             $container.trigger("map_filter", { filter: isoFilters});
             $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
