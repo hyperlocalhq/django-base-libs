@@ -433,35 +433,6 @@
                     </li>  
                 {% endif %}  
 
-                <!-- ======= Guided Tours ======= -->
-                    
-                {% if object.get_workshops %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">   {% trans "Guided Tours" %} 
-                            </a>  
-                        </h4>  
-                        <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
-                            <li class="accordion-inner">
-                                {% with museum.get_workshops as workshops %}
-                                    {% for workshop in workshops %}
-                                    <dl>
-                                        <a href="{{ workshop.get_url_path }}">
-                                            <dt>{{ workshop.title }}</dt>
-                                            {% with workshop.workshoptime_set.all.0 as wtime %}
-                                                <dd>{{ wtime.workshop_date|date:"j. F Y" }}</dd>
-                                                <dd>{{ wtime.start|time:"H:i" }} - {{ wtime.end|time:"H:i" }}</dd>
-                                            {% endwith %}
-                                        </a>
-                                    </dl>
-                                    {% endfor %}
-                                {% endwith %}
-                                </dl>
-                            </li>
-                        </ul>  
-                    </li>  
-                {% endif %}
-
                 {% if museum.get_twitter_username %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
@@ -540,6 +511,54 @@
     </div>
 </div>
 {% endif %} 
+
+<!-- ======= Guided Tours ======= -->
+    
+{% if object.get_published_workshops %}
+<div class="content clearfix">
+    <div class="inner clearfix">
+        <h2>{% trans "Current Guided Tours of" %} {{ museum.title }}</h2>
+        <ul class="list rows clearfix"> 
+            {% for workshop in object.get_published_workshops %}
+            <li>
+                <a href="{{ workshop.get_url_path }}">
+                    <h4>{{ workshop.workshop_type }} {% with workshop.workshoptime_set.all.0 as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4>
+                    <h3>{{ workshop.title }}</h3>
+                    <h4>{{ workshop.subtitle }}</h4>
+                    <h5>{{ workshop.museum.title }}</h5>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+<!-- ======= Events ======= -->
+    
+{% if object.get_published_events %}
+<div class="content clearfix">
+    <div class="inner clearfix">
+        <h2>{% trans "Current Events of" %} {{ museum.title }}</h2>
+        <ul class="list rows clearfix"> 
+            {% for event in object.get_published_events %}
+            <li>
+                <a href="{{ event.get_url_path }}">
+                    <h4>{% with event.eventtime_set.all.0 as event_time %}{{ event_time.event_date|date:"j. F Y" }}{{ event_time.start|date:"H:i" }}{% endwith %}</h4>
+                    <h3>{{ event.title }}</h3>
+                    <h4>{{ event.subtitle }}</h4>
+                    <h5>{{ event.museum.title }}</h5>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+                    
+
+<!-- ======= Workshops ======= -->
+
 
 {% endwith %}
 
