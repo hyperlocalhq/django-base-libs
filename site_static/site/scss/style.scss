@@ -1314,6 +1314,54 @@ aside {
   right: 0px;
 }
 
+
+
+#filter_tabs { 
+  font-size: 12px;
+  line-height: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.05); 
+
+  li { 
+    display: inline-block; 
+    background-color: rgba(0,0,0,0.0); 
+    line-height: inherit;
+    font-size: inherit;
+
+    &.active{
+      a { 
+        color: black;
+        background-color: rgba(0,0,0,0.05); 
+        border: none !important;
+        &:hover { 
+          background-color: rgba(0,0,0,0.05); 
+        }
+      }
+    }
+
+    span,
+    a { 
+      padding: 0px;
+      padding-right: 10px;
+      padding-left: 10px;
+      font-size: 16px;
+      line-height: 40px;
+      display: inline-block;
+      color: rgba(0,0,0,0.5);
+      border-radius: 0px !important;
+      border: none !important;
+    } 
+
+    a { 
+      &:hover { 
+        color: black;
+        background-color: rgba(0,0,0,0); 
+        border: none !important;
+      }
+    }
+  } 
+} 
+
+
 .tags,
 .filter {
   font-size: 0px;
