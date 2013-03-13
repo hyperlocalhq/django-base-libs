@@ -19,7 +19,7 @@ var oMap;
     var oCurrentMarker = null;
     
     $(document).ready(function() {
-        var $oList = $('#container');
+        var $oList = $('body');
         if ($oList.length) {
             var oOptions = {
                 zoom: 13,
@@ -36,6 +36,7 @@ var oMap;
                 }
             };
             var oNode = document.getElementById("gmap");
+            console.log ("alert")
             if (oNode) {
                 oMap = new google.maps.Map(oNode, oOptions);
             }

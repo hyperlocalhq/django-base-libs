@@ -114,22 +114,25 @@
                                         <dt>{% trans "Free entrance" %}</dt>
                                     </dl>
                                 {% else %}
-                                    {% if workshop.admission_price %}
+                                    {% if workshop.admission_price or workshop.admission_price_info%}
                                         <dl>
+                                        {% if workshop.admission_price %}
                                             <dt>{% trans "Admission price" %}: {{ workshop.admission_price|currencyfmt:"EUR" }}</dt>
+                                        {% endif %}
                                         {% if workshop.admission_price_info %}
                                             <dd class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</dd>
                                         {% endif %}
                                         </dl>
                                     {% endif %}
 
-                                    {% if workshop.reduced_price %}
+                                    {% if workshop.reduced_price or workshop.reduced_price_info%}
                                         <dl>
+                                        {% if workshop.reduced_price %}
                                             <dt>{% trans "Reduced price" %}: {{ workshop.reduced_price|currencyfmt:"EUR" }}</dt>
-                                            <dl>
-                                            {% if workshop.reduced_price_info %}
-                                                <dd class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</dd>
-                                            {% endif %}
+                                        {% endif %}
+                                        {% if workshop.reduced_price_info %}
+                                            <dd class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</dd>
+                                        {% endif %}
                                         </dl>
                                     {% endif %}
                                 {% endif %}
@@ -150,11 +153,11 @@
 
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
                             {% trans "DATES" %} 
                         </a>  
                     </h4>  
-                    <ul id="collapse-prices" class="accordion-body collapse">  
+                    <ul id="collapse-dates" class="accordion-body collapse">  
                         <li class="accordion-inner">
                             {% for workshop_time in workshop.workshoptime_set.all %}
                             <dl>
@@ -210,10 +213,10 @@
         <article class="with_sidebar">
             <header>
                 <time>
-                    {% for workshop_time in workshop.workshoptime_set.all %}
+                    {% with workshop.workshoptime_set.all.0 as workshop_time %}
                         {{ workshop_time.workshop_date|date:"j. F Y" }}
                         {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
-                    {% endfor %}
+                    {% endwith %}
                 <time>
                 <h1>{{ workshop.title }}</h1>
                 {% if workshop.subtitle %}
