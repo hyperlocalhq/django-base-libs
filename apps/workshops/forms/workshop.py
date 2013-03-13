@@ -20,6 +20,7 @@ Museum = models.get_model("museums", "Museum")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 Workshop = models.get_model("workshops", "Workshop")
 WorkshopTime = models.get_model("workshops", "WorkshopTime")
+Organizer = models.get_model("workshops", "Organizer")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
@@ -28,26 +29,9 @@ from museumsportal.utils.forms import InlineFormSet
 from museumsportal.utils.forms import SplitDateTimeWidget
 
 class BasicInfoForm(ModelForm):
-    '''
     museum = AutocompleteModelChoiceField(
         required=False,
-        label=_("Museum"),
-        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
-        app="museums",
-        qs_function="get_published_museums",
-        display_attr="title",
-        add_display_attr="get_address",
-        options={
-            "minChars": 1,
-            "max": 20,
-            "mustMatch": 1,
-            "highlight" : False,
-            "multipleSeparator": ",,, ",
-            },
-        )
-    organizing_museum = AutocompleteModelChoiceField(
-        required=False,
-        label=_("Organizing museum"),
+        label=_("Museum from the list / <a href=\"#\">Free location</a>"),
         # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
@@ -77,12 +61,6 @@ class BasicInfoForm(ModelForm):
             "multipleSeparator": ",,, ",
             },
         )
-    '''
-    location = forms.ChoiceField(
-        label=_("Location"),
-        widget=forms.RadioSelect,
-        required=True,
-        )
     class Meta:
         model = Workshop
         
@@ -97,10 +75,8 @@ class BasicInfoForm(ModelForm):
             'is_for_deaf',
             'is_for_blind',
             'is_for_learning_difficulties',
-            #'museum',
-            'location_name', 'street_address', 'street_address2', 'postal_code',
+            'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
-            'organizing_museum', 'organizer_title', 'organizer_url_link',
             ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -119,13 +95,7 @@ class BasicInfoForm(ModelForm):
         self.fields['languages'].help_text = ""
         self.fields['languages'].empty_label = None
 
-        #self.fields['museum'].queryset = Museum.objects.owned_by(get_current_user())
-        location_choices = [(m.pk, m.__unicode__()) for m in Museum.objects.owned_by(get_current_user())]
-        location_choices += [("another", _("Another location"))]
-        
-        self.fields['location'].choices = location_choices
-        self.fields['organizing_museum'].queryset = Museum.objects.owned_by(get_current_user())
-        self.fields['exhibition'].queryset = Exhibition.objects.owned_by(get_current_user())
+        self.fields['location_name'].label = _("Free location / <a href=\"#\">Museum from the list</a>")
         
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
@@ -169,9 +139,9 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            "location", #"museum",
             layout.Row(
                 layout.Div(
+                    "museum",
                     "location_name",
                     "street_address",
                     "street_address2",
@@ -197,16 +167,29 @@ class BasicInfoForm(ModelForm):
             css_class="fieldset-where",
             ))
         layout_blocks.append(layout.Fieldset(
-            _("Organizer"),
-            layout.Row(
-                "organizing_museum",
-                "exhibition",
-                ),
-            layout.Row(
-                "organizer_title",
-                "organizer_url_link",
-                ),
-            css_class="fieldset-organizer",
+            _("Organizers (when differ from location)"),
+            layout.HTML("""{% load crispy_forms_tags i18n %}
+            {{ formsets.organizers.management_form }}
+            <div id="organizers">
+                {% for form in formsets.organizers.forms %}
+                    <div class="organizer formset-form tabular-inline">
+                        {% crispy form %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- used by javascript -->
+            <div id="organizers_empty_form" class="organizer formset-form tabular-inline" style="display: none">
+                {% with formsets.organizers.empty_form as form %}
+                    {% crispy form %}
+                {% endwith %}
+            </div>
+            """),
+            css_id="organizers_fieldset",
+            ))
+        layout_blocks.append(layout.Fieldset(
+            _("Related exhibition"),
+            "exhibition",
+            css_class="fieldset-related-exhibition",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
@@ -252,6 +235,58 @@ class BasicInfoForm(ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
             )
+
+class OrganizerForm(ModelForm):
+    organizing_museum = AutocompleteModelChoiceField(
+        required=False,
+        label=_("Museum from the list / <a href=\"#\">Free location</a>"),
+        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        app="museums",
+        qs_function="get_published_museums",
+        display_attr="title",
+        add_display_attr="get_address",
+        options={
+            "minChars": 1,
+            "max": 20,
+            "mustMatch": 1,
+            "highlight" : False,
+            "multipleSeparator": ",,, ",
+            },
+        )
+    
+    class Meta:
+        model = Organizer
+    def __init__(self, *args, **kwargs):
+        super(OrganizerForm, self).__init__(*args, **kwargs)
+
+        self.fields['organizer_title'].label = _("Free location / <a href=\"#\">Museum from the list</a>")
+        self.fields['organizer_url_link'].label = _("Website")
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_blocks = []
+
+        layout_blocks.append(
+            layout.Div(
+                layout.Row(
+                    layout.Div("organizing_museum", css_class="max"), 
+                    css_class="flex",
+                    ),
+                layout.Row(
+                    layout.Div("organizer_title"),
+                    layout.Div("organizer_url_link", css_class="max"),
+                    css_class="flex",
+                    ),
+                css_class="div_organizer"
+                )
+            )
+
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )
+
+OrganizerFormset = inlineformset_factory(Workshop, Organizer, form=OrganizerForm, formset=InlineFormSet, extra=0)
+
 
 class PricesForm(ModelForm):
     class Meta:
@@ -402,7 +437,7 @@ def load_data(instance=None):
     form_step_data = {}
     if instance:
         form_step_data = {
-            'basic': {'_filled': True},
+            'basic': {'_filled': True, 'sets': {'organizers': []}},
             'times': {'_filled': True, 'sets': {'workshop_times': [],}},
             'prices': {'_filled': True},
             'gallery': {'_filled': True},
@@ -416,7 +451,7 @@ def load_data(instance=None):
         form_step_data['basic']['tags'] = instance.tags
         form_step_data['basic']['languages'] = instance.languages.all()
         form_step_data['basic']['other_languages'] = instance.other_languages
-        form_step_data['basic']['location'] = instance.museum and instance.museum.pk or "another"
+        form_step_data['basic']['museum'] = instance.museum
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
         form_step_data['basic']['street_address2'] = instance.street_address2
@@ -426,10 +461,8 @@ def load_data(instance=None):
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
         form_step_data['basic']['exhibition'] = instance.exhibition
-        form_step_data['basic']['organizing_museum'] = instance.organizing_museum
-        form_step_data['basic']['organizer_title'] = instance.organizer_title
-        form_step_data['basic']['organizer_url_link'] = instance.organizer_url_link
-        for f in [            'has_group_offer',
+        for f in [
+            'has_group_offer',
             'is_for_preschool',
             'is_for_primary_school',
             'is_for_youth',
@@ -441,7 +474,14 @@ def load_data(instance=None):
             'is_for_learning_difficulties',
             ]:
             form_step_data['basic'][f] = getattr(instance, f)
-    
+
+        for organizer in instance.organizer_set.all():
+            organizer_dict = {}
+            organizer_dict['organizing_museum'] = organizer.organizing_museum
+            organizer_dict['organizer_title'] = organizer.organizer_title
+            organizer_dict['organizer_url_link'] = organizer.organizer_url_link
+            form_step_data['basic']['sets']['organizers'].append(organizer_dict)
+            
         for workshop_time in instance.workshoptime_set.all():
             workshop_time_dict = {}
             workshop_time_dict['workshop_date'] = workshop_time.workshop_date
@@ -475,11 +515,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         instance.other_languages = form_step_data['basic']['other_languages'] 
-        location = form_step_data['basic']['location']
-        museum = None
-        if location and location != "another":
-            museum = Museum.objects.get(pk=location)
-        instance.museum = museum
+        instance.museum = form_step_data['basic']['museum']
         instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
         instance.street_address2 = form_step_data['basic']['street_address2'] 
@@ -489,9 +525,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
         instance.exhibition = form_step_data['basic']['exhibition']
-        instance.organizing_museum = form_step_data['basic']['organizing_museum']
-        instance.organizer_title = form_step_data['basic']['organizer_title']
-        instance.organizer_url_link = form_step_data['basic']['organizer_url_link']
         instance.tags = form_step_data['basic']['tags']
         for f in [
             'is_for_preschool',
@@ -515,6 +548,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.languages.clear()
         for cat in form_step_data['basic']['languages']:
             instance.languages.add(cat)
+        
+        instance.organizer_set.all().delete()
+        for organizer_dict in form_step_data['basic']['sets']['organizers']:
+            organizer = Organizer(workshop=instance)
+            organizer.organizing_museum = organizer_dict['organizing_museum'] 
+            organizer.organizer_title = organizer_dict['organizer_title']
+            organizer.organizer_url_link = organizer_dict['organizer_url_link']
+            organizer.save()
         
         form_step_data['_pk'] = instance.pk
 
@@ -585,9 +626,6 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
     instance.exhibition = form_step_data['basic']['exhibition']
-    instance.organizing_museum = form_step_data['basic']['organizing_museum']
-    instance.organizer_title = form_step_data['basic']['organizer_title']
-    instance.organizer_url_link = form_step_data['basic']['organizer_url_link']
     for f in [
         'is_for_preschool',
         'is_for_primary_school',
@@ -627,6 +665,14 @@ def save_data(form_steps, form_step_data, instance=None):
     for cat in form_step_data['basic']['languages']:
         instance.languages.add(cat)
     
+    instance.organizer_set.all().delete()
+    for organizer_dict in form_step_data['basic']['sets']['organizers']:
+        organizer = Organizer(workshop=instance)
+        organizer.organizing_museum = organizer_dict['organizing_museum'] 
+        organizer.organizer_title = organizer_dict['organizer_title']
+        organizer.organizer_url_link = organizer_dict['organizer_url_link']
+        organizer.save()
+
     instance.workshoptime_set.all().delete()
     for workshop_time_dict in form_step_data['times']['sets']['workshop_times']:
         workshop_time = WorkshopTime(workshop=instance)
@@ -647,6 +693,9 @@ WORKSHOP_FORM_STEPS = {
         'title': _("Basic Information"),
         'template': "workshops/forms/basic_info_form.html",
         'form': BasicInfoForm,
+        'formsets': {
+            'organizers': OrganizerFormset,
+        }
     },
     'times': {
         'title': _("Times"),

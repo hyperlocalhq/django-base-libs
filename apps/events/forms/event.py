@@ -622,7 +622,7 @@ def save_data(form_steps, form_step_data, instance=None):
     
     instance.organizer_set.all().delete()
     for organizer_dict in form_step_data['basic']['sets']['organizers']:
-        organizer = Organizer(exhibition=instance)
+        organizer = Organizer(event=instance)
         organizer.organizing_museum = organizer_dict['organizing_museum'] 
         organizer.organizer_title = organizer_dict['organizer_title']
         organizer.organizer_url_link = organizer_dict['organizer_url_link']
