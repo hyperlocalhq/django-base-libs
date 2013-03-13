@@ -365,13 +365,6 @@
                         <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }})"></a>
                     {% endif %}
 
-                    <nav class="actions">
-                        {% if request.user.is_authenticated %}
-                            {% adding2favorites for event %}
-                        {% endif %}
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
-                    </nav>
-
                     <a href="{{ event.get_url_path }}">
                         <h3>{{ event.title }}</h3>
                         <h4>{{ event.subtitle }}</h4>

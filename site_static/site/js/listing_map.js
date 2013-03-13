@@ -19,7 +19,7 @@ var oMap;
     var oCurrentMarker = null;
     
     $(document).ready(function() {
-        var $oList = $('#container');
+        var $oList = $('body');
         if ($oList.length) {
             var oOptions = {
                 zoom: 13,
