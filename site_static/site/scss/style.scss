@@ -72,7 +72,7 @@ a {
 h1 {
   font-weight: '400';
   font-size: 40px;
-  line-height: 48px;
+  line-height: 40px;
   margin-bottom: 30px;
 }
 
@@ -219,11 +219,13 @@ a:active  { outline: none;}
     &:empty{ display: none;}
   }
 }
+#header, .content {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
 
 #header, .content, #footer {
   width: 100%;
   background-color: white;  
-  border-top: 1px solid rgba(0,0,0,0.05);
   &.sticky > .inner {
     padding-bottom: 0px !important;
     background-color: white !important;
@@ -305,7 +307,7 @@ a:active  { outline: none;}
 }
 
 #header {
-  border-top: none;
+  border: none !important;
   .logo {
     position: absolute;
     top: 30px;
@@ -358,6 +360,7 @@ a:active  { outline: none;}
   -webkit-transition-timing: ease-in-out;
   height: 50px;
   background-color: white;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 
   // &:hover {  height: 300px; }
 
@@ -561,6 +564,7 @@ a:active  { outline: none;}
     margin-right: -60px;
     margin-left: -20px;
     padding-left: 20px;
+    margin-top: -40px;
     padding-top: 40px;
     padding-right: 40px;
 
@@ -625,6 +629,7 @@ a:active  { outline: none;}
     margin-right: -60px;
     margin-left: -20px;
     padding-left: 20px;
+    margin-top: -40px;
     padding-top: 40px;
     padding-bottom: 40px;
     padding-right: 40px;
@@ -1253,7 +1258,6 @@ aside {
         top: 0;
         left: 0;
         background-color: rgba(0,0,0,0.05);
-        box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
       }
 
       .overlay {
@@ -1335,8 +1339,8 @@ aside {
  margin: 0px;
  background-color: white;
  z-index: 10000;
- // &:hover .tab-content {display: block; }
- // .tab-content {display: none; }
+ &:hover .tab-content {display: block; }
+ .tab-content {display: none; }
 }
 
 
@@ -1390,8 +1394,8 @@ aside {
 .tags,
 .filter {
   font-size: 0px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   -webkit-transform: translate(0px,0px); /* Safari and Chrome */
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;
@@ -1413,10 +1417,16 @@ aside {
     margin-right: 5px;
 
     .selected,
-    &.active ,
-    &:hover  { 
+    &.active {
       background-color: $blue;
       color: white;
+    }
+    
+    &:hover {
+      background-color: rgba(0,0,0,0.05);
+      a {
+        opacity: 0.8;
+      }
     }
 
     a { 
@@ -1643,6 +1653,7 @@ aside {
 // ================= ACCORDION =================
 .tools {
   height: 65px;
+  margin-bottom: 25px;
 }
 
 #sub_nav {
@@ -1714,7 +1725,7 @@ aside {
 }
 
 .accordion {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   font-size: 14px;
   line-height: 20px;
 

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites %}
 {% block title %}{% trans "Guided Tour" %} – {{ object.title }}{% endblock %}
 {% block bodyclass %}workshop-detail{% endblock %}
 
@@ -34,13 +34,6 @@
   <div class="inner">
         {% include "utils/cover_image.html" %}
         <section class="sidebar">
-
-            {% if request.user.is_authenticated %}
-                <div class="tools">
-                {% adding2favorites for workshop using "favorites/includes/favorite_detail.html" %}
-                </div>
-            {% endif %}
-
             <ul class="accordion" id="accordion2">  
 
                 <!-- ======= Location ======= -->
@@ -215,6 +208,12 @@
                     </li>
                 {% endif %}
             </ul> 
+
+            {% if request.user.is_authenticated %}
+                <div class="tools">
+                {% adding2favorites for workshop using "favorites/includes/favorite_detail.html" %}
+                </div>
+            {% endif %}
         </section>
         
         <article class="with_sidebar">
