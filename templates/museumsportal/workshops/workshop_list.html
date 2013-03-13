@@ -7,25 +7,15 @@
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 	<script type="text/javascript">
-	//$(function() {
-    //    var scroller = new StickyScroller("#head_filter", {
-    //       start: $('#head_filter').offset().top,
-    //        margin: 0
-    //    });
-	//});
     var aGeopositions = [];
     var settings = {
         STATIC_URL: "{{ STATIC_URL }}"
     }
     </script>
 {% endblock %}
-<!-- {% comment %}
-{% block bodyclass %}map_visible {% if "closing_soon" == facets.selected.status %}closing_soon{% endif %}{% endblock %}
-{% endcomment %} -->
-
 {% block content %}
-{% include "utils/gmap.html" %}
-<div class="content" class="clearfix">
+<div class="content clearfix sticky">
+    {% include "utils/gmap.html" %}
     <div class="inner">
         <h1>{% trans "Guided Tours, Workshops and other educational offers" %}</h1>
         
@@ -81,39 +71,42 @@
                 </div>
             </div>
         </div>
-
-    <ul id="container" class="list rows collapsed clearfix">
-        {% for workshop in object_list %}
-            {% tags_for_object workshop as tags %}
-            <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ workshop.title|slugify|slice:"0:1" }} {% if workshop.closing_soon %} closing_soon{% endif %}{% if workshop.newly_opened %} newly_opened{% endif %}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
-                <nav class="actions">
-                    {% if request.user.is_authenticated %}
-                        {% adding2favorites for workshop %}
-                    {% endif %}
-                    {% if_has_perm "workshops.change_workshop" workshop %}
-                        {% if workshop.cover_image %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';"></button>
-                        {% else %}{% if workshop.museum.cover_image %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';"></button>
-                        {% endif %}{% endif %}
-                    {% end_if_has_perm %}
-                    <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
-                </nav>
-    
-                <a href="{{ workshop.get_url_path }}">
-                    <h4>{{ workshop.workshop_type }} {% with workshop.workshoptime_set.all.0 as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4>
-                    <h3>{{ workshop.title }}</h3>
-                    <h4>{{ workshop.subtitle }}</h4>
-                    <h5>{{ workshop.museum.title }}</h5>
-                </a>
-                
-                {% with workshop as list_item %}
-                    {% include "utils/geo_position.html" %}
-                {% endwith %}
-            </li>
-        {% endfor %}
-    </ul>
-  </div>
+    </div>
+</div>
+<div class="content" class="clearfix">
+    <div class="inner">
+        <ul id="container" class="list rows collapsed clearfix">
+            {% for workshop in object_list %}
+                {% tags_for_object workshop as tags %}
+                <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ workshop.title|slugify|slice:"0:1" }} {% if workshop.closing_soon %} closing_soon{% endif %}{% if workshop.newly_opened %} newly_opened{% endif %}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
+                    <nav class="actions">
+                        {% if request.user.is_authenticated %}
+                            {% adding2favorites for workshop %}
+                        {% endif %}
+                        {% if_has_perm "workshops.change_workshop" workshop %}
+                            {% if workshop.cover_image %}
+                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';"></button>
+                            {% else %}{% if workshop.museum.cover_image %}
+                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';"></button>
+                            {% endif %}{% endif %}
+                        {% end_if_has_perm %}
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                    </nav>
+        
+                    <a href="{{ workshop.get_url_path }}">
+                        <h4>{{ workshop.workshop_type }} {% with workshop.workshoptime_set.all.0 as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4>
+                        <h3>{{ workshop.title }}</h3>
+                        <h4>{{ workshop.subtitle }}</h4>
+                        <h5>{{ workshop.museum.title }}</h5>
+                    </a>
+                    
+                    {% with workshop as list_item %}
+                        {% include "utils/geo_position.html" %}
+                    {% endwith %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 
 {% include "utils/gmap_scripts.html" %}

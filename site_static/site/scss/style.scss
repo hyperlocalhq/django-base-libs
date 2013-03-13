@@ -229,7 +229,19 @@ a:active  { outline: none;}
     background-color: white !important;
   }
 }
-.sticky {z-index: 10000; }
+.sticky {
+  z-index: 10000; 
+  -webkit-transform: translate3d(0px, 0, 0) !important;
+  -moz-transform: translate3d(0px, 0, 0) !important;
+  -o-transform: translate3d(0px, 0, 0) !important;
+  transform: translate3d(0px, 0, 0) !important;
+}
+#container {
+  -webkit-transform: translate3d(0px, 0, 0) !important;
+  -moz-transform: translate3d(0px, 0, 0) !important;
+  -o-transform: translate3d(0px, 0, 0) !important;
+  transform: translate3d(0px, 0, 0) !important;
+}
 
 // ================= HEADER =================
 

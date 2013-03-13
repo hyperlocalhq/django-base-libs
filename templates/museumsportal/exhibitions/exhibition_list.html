@@ -7,82 +7,75 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
     <script type="text/javascript">
-	//$(function() {
-    //    var scroller = new StickyScroller("#head_filter", {
-    //       start: $('#head_filter').offset().top,
-    //        margin: 0
-    //    });
-	//});
-    var aGeopositions = [];
-    var settings = {
-        STATIC_URL: "{{ STATIC_URL }}"
-    }
+        var aGeopositions = [];
+        var settings = {
+            STATIC_URL: "{{ STATIC_URL }}"
+        }
     </script>
 {% endblock %}
-<!-- {% comment %}
-{% block bodyclass %}map_visible {% if "closing_soon" == facets.selected.status %}closing_soon{% endif %}{% endblock %}
-{% endcomment %} -->
 
 {% block content %}
-{% include "utils/gmap.html" %}
+<div class="content clearfix sticky">
+    {% include "utils/gmap.html" %}
+    <div class="inner">
+        <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
 
-<div class="content" class="clearfix">
-  <div class="inner">
-    <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
-    
-    <div id="filters">
-        <ul class="nav nav-tabs" id="filter_tabs">
-            <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
-            <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
-            <li><a href="#filter-tags">{% trans "Tags" %}</a></li>
-        </ul>
+        <div id="filters">
+            <ul class="nav nav-tabs" id="filter_tabs">
+                <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
+                <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
+                <li><a href="#filter-tags">{% trans "Tags" %}</a></li>
+            </ul>
 
-        <script>
-            $('#filter_tabs a').click(function (e) {
-              e.preventDefault();
-              $(this).tab('show');
-            })
-        </script>
-     
-        <div class="tab-content">
-            <div class="tab-pane active" id="filter-categories">
-                <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
-                    {% for status_code, status_verbose in facets.categories.statuses %}
-                      {% if status_code == facets.selected.status %}
-                          <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
-                      {% else %}
-                          <li ><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
-                      {% endif %}
+            <script>
+                $('#filter_tabs a').click(function (e) {
+                  e.preventDefault();
+                  $(this).tab('show');
+                })
+            </script>
+         
+            <div class="tab-content">
+                <div class="tab-pane active" id="filter-categories">
+                    <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
+                        {% for status_code, status_verbose in facets.categories.statuses %}
+                          {% if status_code == facets.selected.status %}
+                              <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
+                          {% else %}
+                              <li ><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                      
+                        <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
+
+                        {% for cat in facets.categories.categories %}
+                            <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="tab-pane" id="filter-alphabetical">
+                    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
+                    {% for item in abc_list %}
+                      <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
                     {% endfor %}
-                  
-                    <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
-
-                    {% for cat in facets.categories.categories %}
-                        <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div class="tab-pane" id="filter-alphabetical">
-                <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
-                {% for item in abc_list %}
-                  <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
-                {% endfor %}
-                </ul>
-            </div>
-            
-            <div class="tab-pane" id="filter-tags">
-                <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
-                    <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
-                    {% tags_for_model exhibitions.Exhibition as exhibition_tags %}
-                    {% for tag in exhibition_tags %}
-                        <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
-                    {% endfor %}
-                </ul>
+                    </ul>
+                </div>
+                
+                <div class="tab-pane" id="filter-tags">
+                    <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
+                        <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
+                        {% tags_for_model exhibitions.Exhibition as exhibition_tags %}
+                        {% for tag in exhibition_tags %}
+                            <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-
+</div>
+<div class="content" class="clearfix">
+  <div class="inner">
     <ul id="container" class="list tiles collapsed clearfix">
         {% for exhibition in object_list %}
             {% tags_for_object exhibition as tags %}
