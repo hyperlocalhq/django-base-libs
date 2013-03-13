@@ -1387,7 +1387,6 @@ aside {
     font-size: 16px;
     line-height: 10px;
     display: inline-block;
-    background-color: rgba(0,0,0,0.05);
     color: black;
     margin-bottom: 5px;
     margin-right: 5px;
@@ -1401,10 +1400,23 @@ aside {
 
     a { 
       color: inherit;
+      background-color: rgba(0,0,0,0.05);
       display: inline-block;
       line-height: 10px;
       white-space: nowrap;
       padding: 10px;
+
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      
+      -webkit-background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box;
+
+      -webkit-transform: translate3d(0px, 0, 0) !important;
+      -moz-transform: translate3d(0px, 0, 0) !important;
+      -o-transform: translate3d(0px, 0, 0) !important;
+      transform: translate3d(0px, 0, 0) !important;
     }
 
     span { 
