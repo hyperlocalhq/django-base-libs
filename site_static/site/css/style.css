@@ -475,6 +475,9 @@ form {
       form fieldset .row > div > div:last-child,
       form fieldset > div:last-child {
         margin-bottom: 0px !important; }
+    /* line 316, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
+    form fieldset .div_organizer {
+      margin-bottom: 20px !important; }
     /* line 318, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/form.scss */
     form fieldset h2 {
       border: none;
@@ -1103,7 +1106,7 @@ div.tagsinput {
       height: 380px; }
     /* line 55, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
     #dyn_set_map #gmap_wrapper.exhibition_map {
-      height: 550px; }
+      height: 460px; }
     /* line 56, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/maps.scss */
     #dyn_set_map #gmap_wrapper.event_map {
       height: 550px; }
