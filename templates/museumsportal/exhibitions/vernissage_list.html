@@ -3,7 +3,18 @@
 {% block bodyclass %}exhibition-list{% endblock %}
 
 {% block js %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/stickysidebar.jquery.js"></script>
+
+    <script>
+      $(function () {
+        $("#filters").stickySidebar({
+            speed: 0
+          , padding: 0
+          , constrain: true
+        });
+      });
+    </script>
+
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 	<script type="text/javascript">

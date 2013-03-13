@@ -7,7 +7,7 @@ var gettext = window.gettext || function(text) {return text};
         sSlug: "",
         sInnerTextToAdd: gettext("Add to favorites"),
         sTitleToAdd: gettext("Add to favorites"),
-        sInnerTextToRemove: gettext("It's your favorite"),
+        sInnerTextToRemove: gettext("Remove from favorites"),
         sTitleToRemove: gettext("Remove from favorites"),
         init: function() {
             var oSelf = self.FavoriteManager; 

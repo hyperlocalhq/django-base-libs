@@ -116,7 +116,6 @@
       $this.css({
           position: "absolute"
         , top: Math.floor(currOff.top - data.offs.top) + "px"
-        , left: Math.floor(currOff.left - data.offs.left) + "px"
         , margin: 0
         , width: $this.width()
       }).data("stickySB", data);

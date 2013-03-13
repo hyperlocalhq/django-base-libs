@@ -4,7 +4,34 @@
 {% block bodyclass %}workshop-list{% endblock %}
 
 {% block js %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
+    <script>
+        var $stickyHeight = 600;
+        var $padding = 0;
+        var $topOffset = 267;
+        var $footerHeight = 83;
+
+        function scrollSticky(){
+            if($(window).height() >= $stickyHeight) {
+                var aOffset = $('#filters').offset();
+
+                if($(document).height() - $footerHeight - $padding < $(window).scrollTop() + $stickyHeight) {
+                    var $top = $(document).height() - $stickyHeight - $footerHeight - $padding;
+                    $('#filters').attr('style', 'position:absolute; top:'+$top+'px;');
+
+                }else if($(window).scrollTop() + $padding > $topOffset) {
+                    $('#filters').attr('style', 'position:fixed; top:'+$padding+'px;');
+
+                }else{
+                    $('#filters').attr('style', 'position:relative;');
+                }
+            }
+        }
+
+        $(window).scroll(function(){
+            scrollSticky()
+        });
+    </script>
+
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 	<script type="text/javascript">
@@ -26,74 +53,68 @@
 
 {% block content %}
 {% include "utils/gmap.html" %}
-
 <div class="content" class="clearfix">
-  <div class="inner">
-    <h1>{% trans "Guided Tours, Workshops and other educational offers" %}</h1>
-        
-    <ul class="nav nav-tabs" id="filter_tabs">
-        <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
-        <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
-        <li><a href="#filter-tags">{% trans "Tags" %}</a></li>
-    </ul>
+    <div class="inner">
 
-    <script>
-        $('#filter_tabs a').click(function (e) {
-          e.preventDefault();
-          $(this).tab('show');
-        })
-    </script>
-
-    <div id="filters" class="tab-content">
-        <div class="tab-pane active" id="filter-categories">
-            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
-                <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
-
-                {% for status_code, status_verbose in facets.categories.statuses %}
-                  {% if status_code == facets.selected.status %}
-                      <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
-                  {% else %}
-                      <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
-                  {% endif %}
-                {% endfor %}
-
-                {% for cat in facets.categories.categories %}
-                <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
-                {% endfor %}
+        <div id="filters">
+            <h1>{% trans "Guided Tours, Workshops and other educational offers" %}</h1>
+            
+            <ul class="nav nav-tabs" id="filter_tabs">
+                <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
+                <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
+                <li><a href="#filter-tags">{% trans "Tags" %}</a></li>
             </ul>
-        </div>
 
-        <div class="tab-pane" id="filter-alphabetical">
-            <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
-            {% for item in abc_list %}
-              <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
-            {% endfor %}
-            </ul>
+            <script>
+                $('#filter_tabs a').click(function (e) {
+                  e.preventDefault();
+                  $(this).tab('show');
+                })
+            </script>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="filter-categories">
+                    <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
+                        <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
+
+                        {% for status_code, status_verbose in facets.categories.statuses %}
+                          {% if status_code == facets.selected.status %}
+                              <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
+                          {% else %}
+                              <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+
+                        {% for cat in facets.categories.categories %}
+                        <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="tab-pane" id="filter-alphabetical">
+                    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
+                    {% for item in abc_list %}
+                      <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+                    {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="tab-pane" id="filter-tags">
+                    <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
+                        <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
+                        {% tags_for_model workshops.Workshop as workshop_tags %}
+                        {% for tag in workshop_tags %}
+                            <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-        
-        <div class="tab-pane" id="filter-tags">
-            <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
-                <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
-                {% tags_for_model workshops.Workshop as workshop_tags %}
-                {% for tag in workshop_tags %}
-                    <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
 
     <ul id="container" class="list rows collapsed clearfix">
         {% for workshop in object_list %}
             {% tags_for_object workshop as tags %}
             <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ workshop.title|slugify|slice:"0:1" }} {% if workshop.closing_soon %} closing_soon{% endif %}{% if workshop.newly_opened %} newly_opened{% endif %}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
-                
-                <a class="img" href="{{ workshop.get_url_path }}" 
-                {% if workshop.cover_image %}data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}"{% else %}
-                {% if workshop.museum.cover_image %}data-background="{{ MEDIA_URL }}{{ workshop.museum.cover_image|modified_path:"workshop_list" }}"{% endif %}{% endif %}>
-                    <span class="spinner loading"></span>
-                    
-                </a>
-
                 <nav class="actions">
                     {% if request.user.is_authenticated %}
                         {% adding2favorites for workshop %}
@@ -123,7 +144,6 @@
     </ul>
   </div>
 </div>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=de&amp;region=DE"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>    
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/listing_map.js"></script>
     <script type="text/javascript">

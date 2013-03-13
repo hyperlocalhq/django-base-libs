@@ -35,6 +35,13 @@
     <div class="inner">
         {% include "utils/cover_image.html" %}
         <section class="sidebar">
+
+            {% if request.user.is_authenticated %}
+                <div class="tools">
+                {% adding2favorites for museum using "favorites/includes/favorite_detail.html" %}
+                </div>
+            {% endif %}
+
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  

@@ -199,7 +199,7 @@ function StickyScroller(obj, options)
     {
         width: obj.width(),
         height: obj.height(),
-        position: "absolute",
+        position: "fixed",
         top: top,
         left: left,
         right: right
