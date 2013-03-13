@@ -146,6 +146,26 @@
                     </li>
                 {% endif %}
 
+                <!-- ======= DATES ======= -->
+
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+                            {% trans "DATES" %} 
+                        </a>  
+                    </h4>  
+                    <ul id="collapse-prices" class="accordion-body collapse">  
+                        <li class="accordion-inner">
+                            {% for workshop_time in workshop.workshoptime_set.all %}
+                            <dl>
+                                <dt>{{ workshop_time.workshop_date|date:"j. F Y" }}
+                                {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}</dt>
+                            </dl>
+                               
+                            {% endfor %}
+                        </li>
+                    </ul>  
+                </li>
 
                 <!-- ======= Other Information ======= -->
 
