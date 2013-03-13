@@ -1,0 +1,5 @@
+{% load base_tags i18n %}
+<button class="btn-block" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');">
+  <span class="add-fav">{% trans "Add to Favorites" %}</span>&nbsp;
+</button>
+

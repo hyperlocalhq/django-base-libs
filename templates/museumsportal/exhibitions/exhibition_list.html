@@ -4,10 +4,37 @@
 {% block bodyclass %}exhibition-list{% endblock %}
 
 {% block js %}
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
-	<script type="text/javascript">
+    <script>
+        var $stickyHeight = 600;
+        var $padding = 0;
+        var $topOffset = 267;
+        var $footerHeight = 83;
+
+        function scrollSticky(){
+            if($(window).height() >= $stickyHeight) {
+                var aOffset = $('#filters').offset();
+
+                if($(document).height() - $footerHeight - $padding < $(window).scrollTop() + $stickyHeight) {
+                    var $top = $(document).height() - $stickyHeight - $footerHeight - $padding;
+                    $('#filters').attr('style', 'position:absolute; top:'+$top+'px;');
+
+                }else if($(window).scrollTop() + $padding > $topOffset) {
+                    $('#filters').attr('style', 'position:fixed; top:'+$padding+'px;');
+
+                }else{
+                    $('#filters').attr('style', 'position:relative;');
+                }
+            }
+        }
+
+        $(window).scroll(function(){
+            scrollSticky()
+        });
+    </script>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+    <script type="text/javascript">
 	//$(function() {
     //    var scroller = new StickyScroller("#head_filter", {
     //       start: $('#head_filter').offset().top,
@@ -29,8 +56,9 @@
 
 <div class="content" class="clearfix">
   <div class="inner">
-    <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
-
+    <div id="filters">
+        <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
+        
         <ul class="nav nav-tabs" id="filter_tabs">
             <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
             <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
@@ -44,7 +72,7 @@
             })
         </script>
      
-        <div id="filters" class="tab-content">
+        <div class="tab-content">
             <div class="tab-pane active" id="filter-categories">
                 <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
                     {% for status_code, status_verbose in facets.categories.statuses %}
@@ -81,6 +109,7 @@
                 </ul>
             </div>
         </div>
+    </div>
 
     <ul id="container" class="list tiles collapsed clearfix">
         {% for exhibition in object_list %}

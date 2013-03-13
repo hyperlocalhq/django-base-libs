@@ -4,7 +4,6 @@
 {% block bodyclass %}event-list{% endblock %}
 
 {% block js %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/StickyScroller.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 	<script type="text/javascript">
@@ -21,55 +20,57 @@
 <div class="content clearfix">
     <div class="inner">
         <h1>{% trans "Events in the Museums of Berlin" %}</h1>
-        
-        <ul class="nav nav-tabs" id="filter_tabs">
-            <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
-            <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
-            <li><a href="#filter-tags">{% trans "Tags" %}</a></li>
-        </ul>
 
-        <script>
-            $('#filter_tabs a').click(function (e) {
-              e.preventDefault();
-              $(this).tab('show');
-            })
-        </script>
+        <div id="filters">
+            <ul class="nav nav-tabs" id="filter_tabs">
+                <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
+                <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
+                <li><a href="#filter-tags">{% trans "Tags" %}</a></li>
+            </ul>
 
-        <div id="filters" class="tab-content">
-            <div class="tab-pane active" id="filter-categories">
-                <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
-                    <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
-                
-                    {% for status_code, status_verbose in facets.categories.statuses %}
-                      {% if status_code == facets.selected.status %}
-                          <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
-                      {% else %}
-                          <li ><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
-                      {% endif %}
-                  {% endfor %}
-                
-                    {% for cat in facets.categories.categories %}
-                    <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+            <script>
+                $('#filter_tabs a').click(function (e) {
+                  e.preventDefault();
+                  $(this).tab('show');
+                })
+            </script>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="filter-categories">
+                    <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
+                        <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
+                    
+                        {% for status_code, status_verbose in facets.categories.statuses %}
+                          {% if status_code == facets.selected.status %}
+                              <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
+                          {% else %}
+                              <li ><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
+                          {% endif %}
+                      {% endfor %}
+                    
+                        {% for cat in facets.categories.categories %}
+                        <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="tab-pane" id="filter-alphabetical">
+                    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
+                    {% for item in abc_list %}
+                      <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
                     {% endfor %}
-                </ul>
-            </div>
-
-            <div class="tab-pane" id="filter-alphabetical">
-                <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
-                {% for item in abc_list %}
-                  <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
-                {% endfor %}
-                </ul>
-            </div>
-            
-            <div class="tab-pane" id="filter-tags">
-                <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
-                    <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
-                    {% tags_for_model events.Event as event_tags %}
-                    {% for tag in event_tags %}
-                        <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
-                    {% endfor %}
-                </ul>
+                    </ul>
+                </div>
+                
+                <div class="tab-pane" id="filter-tags">
+                    <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
+                        <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
+                        {% tags_for_model events.Event as event_tags %}
+                        {% for tag in event_tags %}
+                            <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
         
@@ -77,13 +78,6 @@
             {% for event in object_list %}
                 {% tags_for_object event as tags %}
                 <li class="item initial_{{ event.title|slugify|slice:"0:1" }} {% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">
-                    <a class="img" href="{{ event.get_url_path }}"  
-                    {% if event.cover_image %}data-background="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}"{% else %}
-                    {% if event.museum.cover_image %}data-background="{{ MEDIA_URL }}{{ event.museum.cover_image|modified_path:"event_list" }}"{% endif %}{% endif %}>
-                        <span class="spinner loading"></span>
-                        
-                    </a>
-
                     <nav class="actions">
                         {% if request.user.is_authenticated %}
                             {% adding2favorites for event %}
@@ -137,4 +131,37 @@
 }(jQuery));
 //]]>
 </script>
+
+<script>
+    var $stickyHeight = 600;
+    var $padding = 0;
+    var $topOffset = 267;
+    var $footerHeight = 83;
+
+    function scrollSticky(){
+        if($(window).height() >= $stickyHeight) {
+            var aOffset = $('#filters').offset();
+            var height = $('#filters').height();
+
+            if($(document).height() - $footerHeight - $padding < $(window).scrollTop() + $stickyHeight) {
+                var $top = $(document).height() - $stickyHeight - $footerHeight - $padding;
+                $('#filters').attr('style', 'position:absolute; top:'+$top+'px;');
+                $('#container').css("margin-top",height);
+
+            }else if($(window).scrollTop() + $padding > $topOffset) {
+                $('#filters').attr('style', 'position:fixed; top:'+$padding+'px;');
+                $('#container').css("margin-top",height);
+
+            }else{
+                $('#filters').attr('style', 'position:relative;');
+                $('#container').css("margin-top",-40);
+            }
+        }
+    }
+
+    $(window).scroll(function(){
+        scrollSticky()
+    });
+</script>
+
 {% endblock %}

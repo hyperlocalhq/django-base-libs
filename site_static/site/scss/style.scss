@@ -544,7 +544,6 @@ a:active  { outline: none;}
     margin-left: -20px;
     padding-left: 20px;
     padding-top: 40px;
-    padding-bottom: 40px;
     padding-right: 40px;
     margin-top: -40px;
 
@@ -1314,18 +1313,25 @@ aside {
   right: 0px;
 }
 
+#filters {
+ width: 1000px !important; 
+ padding: 0px;
+ margin: 0px;
+ background-color: white;
+ z-index: 10000;
+}
 
 
 #filter_tabs { 
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 12px !important;
+  line-height: 16px !important;
   border-bottom: 1px solid rgba(0,0,0,0.05); 
 
   li { 
     display: inline-block; 
     background-color: rgba(0,0,0,0.0); 
-    line-height: inherit;
-    font-size: inherit;
+    line-height: inherit !important;
+    font-size: inherit !important;
 
     &.active{
       a { 
@@ -1336,7 +1342,7 @@ aside {
           background-color: rgba(0,0,0,0.05); 
         }
       }
-    }
+    } 
 
     span,
     a { 
@@ -1602,6 +1608,10 @@ aside {
 }
 
 // ================= ACCORDION =================
+.tools {
+  height: 65px;
+}
+
 #sub_nav {
   a { 
     padding-left: 25px !important;

@@ -35,6 +35,13 @@
     <div class="inner">
         {% include "utils/cover_image.html" %}
         <section class="sidebar">
+
+            {% if request.user.is_authenticated %}
+                <div class="tools">
+                {% adding2favorites for museum using "favorites/includes/favorite_detail.html" %}
+                </div>
+            {% endif %}
+
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
@@ -433,35 +440,6 @@
                     </li>  
                 {% endif %}  
 
-                <!-- ======= Guided Tours ======= -->
-                    
-                {% if object.get_workshops %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">   {% trans "Guided Tours" %} 
-                            </a>  
-                        </h4>  
-                        <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
-                            <li class="accordion-inner">
-                                {% with museum.get_workshops as workshops %}
-                                    {% for workshop in workshops %}
-                                    <dl>
-                                        <a href="{{ workshop.get_url_path }}">
-                                            <dt>{{ workshop.title }}</dt>
-                                            {% with workshop.workshoptime_set.all.0 as wtime %}
-                                                <dd>{{ wtime.workshop_date|date:"j. F Y" }}</dd>
-                                                <dd>{{ wtime.start|time:"H:i" }} - {{ wtime.end|time:"H:i" }}</dd>
-                                            {% endwith %}
-                                        </a>
-                                    </dl>
-                                    {% endfor %}
-                                {% endwith %}
-                                </dl>
-                            </li>
-                        </ul>  
-                    </li>  
-                {% endif %}
-
                 {% if museum.get_twitter_username %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
@@ -513,33 +491,85 @@
 {% if object.get_published_exhibitions %}
 <div class="content clearfix">
     <div class="inner clearfix">
-        <h2>{% trans "Current Exhibitions of" %} {{ museum.title }}</h2>
-        <ul class="list tiles small clearfix"> 
+        <h2>{% blocktrans with exhibition.museum.title as museum_title %}Current Exhibitions of {{ museum_title }}{% endblocktrans %}</h2>
+        <ul class="list rows clearfix"> 
             {% for exhibition in object.get_published_exhibitions %}
                 <li class="item">
-                    <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }}"{% endif %}> </a>
+            
+                    {% comment %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }}"{% endif %}> </a>
 
-                    <nav class="actions">
-                        {% if request.user.is_authenticated %}
-                            {% adding2favorites for exhibition %}
-                        {% endif %}
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
-                    </nav>
+                        <nav class="actions">
+                            {% if request.user.is_authenticated %}
+                                {% adding2favorites for exhibition %}
+                            {% endif %}
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                        </nav>
+
+                        {% with exhibition as list_item %}
+                            {% include "utils/geo_position.html" %}
+                        {% endwith %}
+                    {% endcomment %}
 
                     <a href="{{ exhibition.get_url_path }}">
                         <h3>{{ exhibition.title }}</h3>
                         <h4>{{ exhibition.subtitle }}</h4>
                         <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                     </a>
-                    {% with exhibition as list_item %}
-                        {% include "utils/geo_position.html" %}
-                    {% endwith %}
                 </li>
             {% endfor %}
         </ul>
     </div>
 </div>
 {% endif %} 
+
+<!-- ======= Guided Tours ======= -->
+    
+{% if object.get_published_workshops %}
+<div class="content clearfix">
+    <div class="inner clearfix">
+        <h2>{% blocktrans with exhibition.museum.title as museum_title %}Current Guided Tours of {{ museum_title }}{% endblocktrans %}</h2>
+        <ul class="list rows clearfix"> 
+            {% for workshop in object.get_published_workshops %}
+            <li>
+                <a href="{{ workshop.get_url_path }}">
+                    <h4>{{ workshop.workshop_type }} {% with workshop.workshoptime_set.all.0 as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4>
+                    <h3>{{ workshop.title }}</h3>
+                    <h4>{{ workshop.subtitle }}</h4>
+                    <h5>{{ workshop.museum.title }}</h5>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+<!-- ======= Events ======= -->
+    
+{% if object.get_published_events %}
+<div class="content clearfix">
+    <div class="inner clearfix">
+        <h2>{% blocktrans with exhibition.museum.title as museum_title %}Current Events of {{ museum_title }}{% endblocktrans %}</h2>
+        <ul class="list rows clearfix"> 
+            {% for event in object.get_published_events %}
+            <li>
+                <a href="{{ event.get_url_path }}">
+                    <h4>{% with event.eventtime_set.all.0 as event_time %}{{ event_time.event_date|date:"j. F Y" }}{{ event_time.start|date:"H:i" }}{% endwith %}</h4>
+                    <h3>{{ event.title }}</h3>
+                    <h4>{{ event.subtitle }}</h4>
+                    <h5>{{ event.museum.title }}</h5>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+                    
+
+<!-- ======= Workshops ======= -->
+
 
 {% endwith %}
 
