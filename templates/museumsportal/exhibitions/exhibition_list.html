@@ -4,34 +4,6 @@
 {% block bodyclass %}exhibition-list{% endblock %}
 
 {% block js %}
-    <script>
-        var $stickyHeight = 600;
-        var $padding = 0;
-        var $topOffset = 267;
-        var $footerHeight = 83;
-
-        function scrollSticky(){
-            if($(window).height() >= $stickyHeight) {
-                var aOffset = $('#filters').offset();
-
-                if($(document).height() - $footerHeight - $padding < $(window).scrollTop() + $stickyHeight) {
-                    var $top = $(document).height() - $stickyHeight - $footerHeight - $padding;
-                    $('#filters').attr('style', 'position:absolute; top:'+$top+'px;');
-
-                }else if($(window).scrollTop() + $padding > $topOffset) {
-                    $('#filters').attr('style', 'position:fixed; top:'+$padding+'px;');
-
-                }else{
-                    $('#filters').attr('style', 'position:relative;');
-                }
-            }
-        }
-
-        $(window).scroll(function(){
-            scrollSticky()
-        });
-    </script>
-
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
     <script type="text/javascript">
@@ -184,4 +156,36 @@
     }(jQuery));
     //]]>
     </script>
+
+<script>
+    var $stickyHeight = 600;
+    var $padding = 0;
+    var $topOffset = 267;
+    var $footerHeight = 83;
+
+    function scrollSticky(){
+        if($(window).height() >= $stickyHeight) {
+            var aOffset = $('#filters').offset();
+            var height = $('#filters').height();
+
+            if($(document).height() - $footerHeight - $padding < $(window).scrollTop() + $stickyHeight) {
+                var $top = $(document).height() - $stickyHeight - $footerHeight - $padding;
+                $('#filters').attr('style', 'position:absolute; top:'+$top+'px;');
+                $('#container').css("margin-top",height);
+
+            }else if($(window).scrollTop() + $padding > $topOffset) {
+                $('#filters').attr('style', 'position:fixed; top:'+$padding+'px;');
+                $('#container').css("margin-top",height);
+
+            }else{
+                $('#filters').attr('style', 'position:relative;');
+                $('#container').css("margin-top",-40);
+            }
+        }
+    }
+
+    $(window).scroll(function(){
+        scrollSticky()
+    });
+</script>
 {% endblock %}
