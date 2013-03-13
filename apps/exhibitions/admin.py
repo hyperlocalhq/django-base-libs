@@ -117,7 +117,6 @@ class ExhibitionAdmin(ExtendedModelAdmin):
         'show_family_ticket',
         'show_yearly_ticket',
     )}),]
-    fieldsets += [(_("Organizer"), {'fields': ('organizing_museum', 'organizer_title', 'organizer_url_link')}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'newly_opened', 'featured', 'closing_soon', 'is_for_children',)}),]
     fieldsets += [(_("Suitability"), {'fields': ('suitable_for_disabled', get_admin_lang_section(_("Description"), ['suitable_for_disabled_info', ]))}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
