@@ -221,7 +221,7 @@
                     filters[group].push(value);
                     // change selected class
                     $this.addClass('selected');
-                    var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '">' + $this.text() + ' <a href="">&times;</a></li>');
+                    var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
                     $('#filter_summary').append($li);
                 }
             } else {
