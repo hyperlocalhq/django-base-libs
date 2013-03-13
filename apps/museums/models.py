@@ -316,10 +316,22 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return qs[0].path
     cover_image = property(_get_cover_image)
 
+    def get_exhibitions(self):
+        Exhibition = models.get_model("exhibitions", "Exhibition")
+        return Exhibition.objects.filter(
+            models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
+            )
+        
+    def get_events(self):
+        Event = models.get_model("events", "Event")
+        return Event.objects.filter(
+            models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
+            )
+
     def get_workshops(self):
         Workshop = models.get_model("workshops", "Workshop")
         return Workshop.objects.filter(
-            models.Q(museum=self) | models.Q(organizing_museum=self)
+            models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
             )
 
     def get_twitter_username(self):
