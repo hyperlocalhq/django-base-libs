@@ -71,7 +71,9 @@
         removeGeoPos: function() {
             $("#id_latitude").val("");
             $("#id_longitude").val("");
-            oMarker.setMap(null);
+            if (oMarker) {
+                oMarker.setMap(null);
+            }
         },
         getAddress4search: function() {
             var aFullAddress = [];
