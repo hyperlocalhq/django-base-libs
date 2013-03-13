@@ -214,15 +214,22 @@
                     filters[group] = jQuery.grep(filters[group], function(v) {
                         return v != value;
                     });
+                    // remove the corresponding item from filter summary
+                    $('#filter_summary li[data-filter-group="' + group + '"][data-filter-value="' + value + '"]').remove();
                 } else {
                     $optionSet.find('.all.selected').removeClass('selected');
                     filters[group].push(value);
                     // change selected class
                     $this.addClass('selected');
+                    var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '">' + $this.text() + ' <a href="">&times;</a></li>');
+                    $('#filter_summary').append($li);
                 }
             } else {
+                // "all" situation
                 $optionSet.find('.selected').removeClass('selected');
                 filters[group] = []
+                // remove elements from filter summary
+                $('#filter_summary li[data-filter-group="' + group + '"]').remove();
                 // change selected class
                 $this.addClass('selected');
             }
@@ -241,6 +248,15 @@
             
             return false;
         });
+        
+        $('#filter_summary a').live('click', function(e) {
+            e.preventDefault();
+            var $this = $(this).parents('li');
+            var group = $this.attr('data-filter-group');
+            var value = $this.attr('data-filter-value');
+            // trigger the click on corresponding filter
+            $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();            
+        })
         
         var hashChanged = false;
         $(window).bind( 'hashchange', function( event ){
