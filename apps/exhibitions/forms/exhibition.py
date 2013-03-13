@@ -45,24 +45,6 @@ class BasicInfoForm(ModelForm):
             "multipleSeparator": ",,, ",
             },
         )
-    '''
-    organizing_museum = AutocompleteModelChoiceField(
-        required=False,
-        label=u"Name",
-        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
-        app="museums",
-        qs_function="get_published_museums",
-        display_attr="title",
-        add_display_attr="get_address",
-        options={
-            "minChars": 1,
-            "max": 20,
-            "mustMatch": 1,
-            "highlight" : False,
-            "multipleSeparator": ",,, ",
-            },
-        )
-    '''
     class Meta:
         model = Exhibition
         
@@ -196,7 +178,7 @@ class BasicInfoForm(ModelForm):
                 {% endwith %}
             </div>
             """),
-            css_id="social_channels_fieldset",
+            css_id="organizers_fieldset",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
@@ -258,10 +240,17 @@ class OrganizerForm(ModelForm):
         layout_blocks = []
 
         layout_blocks.append(
-            layout.Row(
-                layout.Div("organizing_museum", "organizer_title", css_class="div_organizer"),
-                layout.Div("organizer_url_link",css_class="max",),
-                css_class="flex",
+            layout.Div(
+                layout.Row(
+                    layout.Div("organizing_museum", css_class="max"), 
+                    css_class="flex",
+                    ),
+                layout.Row(
+                    layout.Div("organizer_title"),
+                    layout.Div("organizer_url_link", css_class="max"),
+                    css_class="flex",
+                    ),
+                css_class="div_organizer"
                 )
             )
 

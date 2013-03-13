@@ -157,27 +157,27 @@
             
             $('div[id$="organizing_museum"]>label>a').live("click", function() {
                 var $organizer = $(this).parents('.div_organizer:first');
-                $organizer.find('div[id$="organizing_museum"]').parent().hide();
+                $organizer.find('div[id$="organizing_museum"]').parents('.row:first').hide();
                 $organizer.find(':input[id$="organizing_museum"]').val("");
                 $organizer.find(':input[id$="organizing_museum_text"]').val("");
-                $organizer.find('div[id$="organizer_title"]').parent().show();
+                $organizer.find('div[id$="organizer_title"]').parents('.row:first').show();
                 return false;
             });
             $('div[id$="organizer_title"]>label>a').live("click", function() {
                 var $organizer = $(this).parents('.div_organizer:first');
-                $organizer.find('div[id$="organizer_title"]').parent().hide();
+                $organizer.find('div[id$="organizer_title"]').parents('.row:first').hide();
                 $organizer.find(':input[id$="organizer_title"]').val("");
-                $organizer.find('div[id$="organizing_museum"]').parent().show();
+                $organizer.find('div[id$="organizing_museum"]').parents('.row:first').show();
                 return false;
             });
             $(':input[id$="organizer_title"]').each(function() {
                 var $organizer = $(this).parents('.div_organizer:first');
                 if (!$(this).val()) {
-                    $organizer.find('div[id$="organizer_title"]').parent().hide();
-                    $organizer.find('div[id$="organizing_museum"]').parent().show();
+                    $organizer.find('div[id$="organizer_title"]').parents('.row:first').hide();
+                    $organizer.find('div[id$="organizing_museum"]').parents('.row:first').show();
                 } else {
-                    $organizer.find('div[id$="organizing_museum"]').parent().hide();
-                    $organizer.find('div[id$="organizer_title"]').parent().show();
+                    $organizer.find('div[id$="organizing_museum"]').parents('.row:first').hide();
+                    $organizer.find('div[id$="organizer_title"]').parents('.row:first').show();
                 }
             })
             
