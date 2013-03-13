@@ -21,6 +21,8 @@ from base_libs.views.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list, object_detail
+from jetson.apps.utils.views import get_abc_list
+from jetson.apps.utils.views import filter_abc
 from jetson.apps.utils.views import show_form_step
 from jetson.apps.utils.context_processors import prev_next_processor
 
@@ -87,9 +89,15 @@ def workshop_list(request):
     #    qs = qs.order_by("-workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
         
     qs = qs.distinct()
+    
+    abc_filter = request.GET.get('by-abc', None)
+    abc_list = get_abc_list(qs, "title", abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title", abc_filter)
         
     extra_context = {}
     extra_context['form'] = form
+    extra_context['abc_list'] = abc_list
     extra_context['facets'] = facets
 
     return object_list(
