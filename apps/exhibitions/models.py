@@ -158,11 +158,6 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     show_yearly_ticket = models.BooleanField(_("Yearly ticket"), blank=True)
     member_of_museumspass = models.BooleanField(_("Museumspass Berlin"))
     
-    # organizer
-    organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizing museum"), blank=True, null=True, related_name="organized_exhibitions")
-    organizer_title = models.CharField(_("Other Organizer"), max_length=255, blank=True)
-    organizer_url_link = URLField(_("Organizer URL"), blank=True)
-    
     suitable_for_disabled = models.BooleanField(_("Exhibition suitable for people with disabilities"))
     suitable_for_disabled_info = MultilingualTextField(_("Suitability for people with disabilities info"), blank=True)
     
