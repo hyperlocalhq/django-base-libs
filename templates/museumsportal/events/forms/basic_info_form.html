@@ -1,5 +1,5 @@
 {% extends "events/forms/base.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags i18n %}
 
 {% block stylesheet %}
     {{ block.super }}
@@ -11,7 +11,7 @@
     {{ block.super }}
     <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
-    <script src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.js"></script>
 {% endblock %}
 
@@ -29,13 +29,8 @@
             })
             $('.timeinput').timepicker();
             $('#id_tags').tagsInput();
-            $('[name="location"]:last').each(function() {
-                var $new_controls = $('<div class="controls"></div>');
-                $new_controls.append($(this).parents('label:first'));
-                $('#div_id_location').append($new_controls);
-            });
-            $('[name="location"]').click(function() {
-                if ($(this).val() != "another") {
+            $('#id_museum').click(function() {
+                if ($(this).val()) {
                     $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
                         $('#id_location_name').val(data['title']).addClass("noneditable");
                         $('#id_street_address').val(data['street_address']).addClass("noneditable");
@@ -46,18 +41,147 @@
                         $('#id_longitude').val(data['longitude']).addClass("noneditable");
                         $('#dyn_locate_geo').click();
                     }, 'json');
-                } else {
-                    $('#id_location_name').val("").removeClass("noneditable");
-                    $('#id_street_address').val("").removeClass("noneditable");
-                    $('#id_street_address2').val("").removeClass("noneditable");
-                    $('#id_postal_code').val("").removeClass("noneditable");
-                    $('#id_city').val("").removeClass("noneditable");
-                    GMapManager.removeGeoPos();
                 }
             });
-            if (!$('[name="location"]:checked').val()) {
-                $('[name="location"]:first').click();
+        });
+        function reinit_widgets() {
+            $('[rel=tooltip]').tooltip();
+            $('.dateinput').datepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1
+            })
+            $('.timeinput').timepicker();
+        }
+        function set_index_for_fields($formset_form, index) {
+            $formset_form.find(':input').each(function() {
+                var $field = $(this);
+                if ($field.attr("id")) {
+                    $field.attr(
+                        "id",
+                        $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+                if ($field.attr("name")) {
+                    $field.attr(
+                        "name",
+                        $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+            $formset_form.find('label').each(function() {
+                var $field = $(this);
+                if ($field.attr("for")) {
+                    $field.attr(
+                        "for",
+                        $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+            $formset_form.find('div').each(function() {
+                var $field = $(this);
+                if ($field.attr("id")) {
+                    $field.attr(
+                        "id",
+                        $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+        }
+            
+        $(function() {
+            $(
+                '<a class="add btn btn-small btn-primary" id="add_organizer" href="#">{% trans "Add organizer" %}</a>'
+            ).insertAfter('#organizers').click(function() {
+                var $total_forms = $('#id_organizers-TOTAL_FORMS');
+                var $new_form = $('#organizers_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#organizers').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                AutocompleteManager.reinit($new_form);
+                reinit_widgets();
+                return false;
+            });
+            
+            $('.formset-form').each(function() {
+                var $season = $(this);
+                $season.find('input:checkbox[id$=DELETE]').each(function() {
+                    var $checkbox = $(this);
+                    var $deleteLink = $(
+                        '<div class"min"><button class="delete icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
+                    );
+                    $checkbox.parents('.formset-form').find(".row").append($deleteLink);
+                    $checkbox.parent().hide();
+                });
+            });
+            $('.delete').live("click", function() {
+                var $season = $(this).parents('.formset-form:first');
+                var $checkbox = $season.find('input:checkbox[id$=DELETE]');
+                $checkbox.attr("checked", "checked");
+                $season.hide();
+                return false;
+            });
+            
+            // Initial state
+            var $total_forms = $('#id_organizers-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_organizer').click();
             }
+            reinit_widgets();
+            
+            $('#div_id_museum>label>a').click(function() {
+                $('#div_id_museum').parent().hide();
+                $('#div_id_location_name').parent().show();
+                $('#id_museum').val("");
+                $('#id_museum_text').val("");
+                
+                $('#id_location_name').val("").removeClass("noneditable");
+                $('#id_street_address').val("").removeClass("noneditable");
+                $('#id_street_address2').val("").removeClass("noneditable");
+                $('#id_postal_code').val("").removeClass("noneditable");
+                $('#id_city').val("").removeClass("noneditable");
+                GMapManager.removeGeoPos();
+                
+                return false;
+            });
+            $('#div_id_location_name>label>a').click(function() {
+                $('#div_id_location_name').parent().hide();
+                $('#div_id_museum').parent().show();
+                return false;
+            });
+            if ($('#id_museum').val() || !$('#id_location_name').val()) {
+                $('#div_id_location_name').parent().hide();
+                $('#div_id_museum').parent().show();
+            } else {
+                $('#div_id_museum').parent().hide();
+                $('#div_id_location_name').parent().show();
+            }
+            
+            $('div[id$="organizing_museum"]>label>a').live("click", function() {
+                var $organizer = $(this).parents('.div_organizer:first');
+                $organizer.find('div[id$="organizing_museum"]').parents('.row:first').hide();
+                $organizer.find(':input[id$="organizing_museum"]').val("");
+                $organizer.find(':input[id$="organizing_museum_text"]').val("");
+                $organizer.find('div[id$="organizer_title"]').parents('.row:first').show();
+                return false;
+            });
+            $('div[id$="organizer_title"]>label>a').live("click", function() {
+                var $organizer = $(this).parents('.div_organizer:first');
+                $organizer.find('div[id$="organizer_title"]').parents('.row:first').hide();
+                $organizer.find(':input[id$="organizer_title"]').val("");
+                $organizer.find('div[id$="organizing_museum"]').parents('.row:first').show();
+                return false;
+            });
+            $(':input[id$="organizer_title"]').each(function() {
+                var $organizer = $(this).parents('.div_organizer:first');
+                if (!$(this).val()) {
+                    $organizer.find('div[id$="organizer_title"]').parents('.row:first').hide();
+                    $organizer.find('div[id$="organizing_museum"]').parents('.row:first').show();
+                } else {
+                    $organizer.find('div[id$="organizing_museum"]').parents('.row:first').hide();
+                    $organizer.find('div[id$="organizer_title"]').parents('.row:first').show();
+                }
+            })
+            
         });
     </script>
 {% endblock %}
