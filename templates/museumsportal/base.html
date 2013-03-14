@@ -201,12 +201,13 @@
             e.preventDefault();
             var $this = $(this);
 
-            var $optionSet = $this.parents('.option-set');
+            var $optionSet = $this.parents('.option-set:first');
             // store filter value in object
             // i.e. filters.category = ['.cat_history']
             var group = $optionSet.attr('data-filter-group');
             filters[group] = filters[group] || [];
             var value = $this.attr('data-filter-value');
+            var single_selection = $optionSet.attr('data-single-selection');
             
             if (value) {
                 if ($this.hasClass('selected')) {
@@ -216,22 +217,25 @@
                     });
                     // remove the corresponding item from filter summary
                     $('#filter_summary li[data-filter-group="' + group + '"][data-filter-value="' + value + '"]').remove();
+                    if ($('#filter_summary').children().length == 1) {
+                        $('#filter_summary').empty();
+                    }
                 } else {
-                    $optionSet.find('.all.selected').removeClass('selected');
-                    filters[group].push(value);
+                    if (single_selection) {
+                        $optionSet.find('a.selected').click();
+                        filters[group] = [value];
+                    } else {
+                        filters[group].push(value);
+                    }
                     // change selected class
                     $this.addClass('selected');
+                    if ($('#filter_summary').text() == "") {
+                        var $li = $('<li><a href="">{% trans "Reset all filters" %}</a></li>');
+                        $('#filter_summary').append($li);
+                    }
                     var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
                     $('#filter_summary').append($li);
                 }
-            } else {
-                // "all" situation
-                $optionSet.find('.selected').removeClass('selected');
-                filters[group] = []
-                // remove elements from filter summary
-                $('#filter_summary li[data-filter-group="' + group + '"]').remove();
-                // change selected class
-                $this.addClass('selected');
             }
             
             // convert object into array
@@ -254,8 +258,13 @@
             var $this = $(this).parents('li');
             var group = $this.attr('data-filter-group');
             var value = $this.attr('data-filter-value');
-            // trigger the click on corresponding filter
-            $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();            
+            if (!group && !value) {
+                // trigger the clicks on all selected filters
+                $('#filters a.selected').click();
+            } else {
+                // trigger the click on corresponding filter
+                $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();
+            }            
         })
         
         var hashChanged = false;

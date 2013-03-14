@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="tab-pane" id="filter-alphabetical">
-                    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
+                    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
                     {% for item in abc_list %}
                         {% if not forloop.first %}
                             <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
