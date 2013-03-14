@@ -6,21 +6,23 @@
 <div class="content clearfix">
   <div class="inner clearfix">
     <article class="clearfix"> 
-      <header class="intro clearfix">{% placeholder "intro" %}</header>
+      {% placeholder "intro" %}
       {% placeholder "main_content" %} 
     </article>
-
     <section class="clearfix marginal"> 
       <ul id="sub_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
       {% comment %} <!-- <ul id="sub_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul> --> {% endcomment %}
     </section>
-
-    <article class="clearfix"> 
-      <h2>{% trans "All Articles of the Section" %}</h2>
-      {% placeholder "series_items_featured" inherit %} 
-    </article>
   </div>
 </div>
+
+<div class="content clearfix">
+  <div class="inner">
+    <article class="clearfix featured">
+      <section class="clearfix featured">{% placeholder "series_items_featured" inherit %}</section>
+    </article>
+  </div>
+</div>   
 <!-- <ul id="sub_menu"> {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %} </ul> -->
 
 {% endblock %}
