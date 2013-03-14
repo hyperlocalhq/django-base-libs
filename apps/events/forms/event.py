@@ -273,7 +273,7 @@ OrganizerFormset = inlineformset_factory(Event, Organizer, form=OrganizerForm, f
 class PricesForm(ModelForm):
     class Meta:
         model = Event
-        fields = ['admission_price', 'reduced_price']
+        fields = ['free_admission', 'admission_price', 'reduced_price']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
@@ -298,6 +298,7 @@ class PricesForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
+            layout.Row('free_admission', css_class="inline"),
             layout.Row('admission_price', 'reduced_price'),
             layout.Row(
                 css_class="div-admission_price_info-details",
@@ -460,7 +461,7 @@ def load_data(instance=None):
             event_time_dict['end'] = event_time.end
             form_step_data['times']['sets']['event_times'].append(event_time_dict)
     
-        fields = ['admission_price', 'reduced_price']
+        fields = ['free_admission', 'admission_price', 'reduced_price']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
@@ -541,7 +542,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if "_pk" in form_step_data:
             instance = Event.objects.get(pk=form_step_data['_pk'])
         
-            fields = ['admission_price', 'reduced_price']
+            fields = ['free_admission', 'admission_price', 'reduced_price']
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 fields += [
                     'admission_price_info_%s' % lang_code,
@@ -591,7 +592,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.tags = form_step_data['basic']['tags']
     instance.suitable_for_children = form_step_data['basic']['suitable_for_children']
 
-    fields = ['admission_price', 'reduced_price']
+    fields = ['free_admission', 'admission_price', 'reduced_price']
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         fields += [
             'admission_price_info_%s' % lang_code,

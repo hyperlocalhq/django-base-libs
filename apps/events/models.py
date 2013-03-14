@@ -122,6 +122,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
     exhibition = models.ForeignKey(Exhibition, verbose_name=_("Related exhibition"), blank=True, null=True)
 
+    free_admission = models.BooleanField(_("Free admission"))
     meeting_place = MultilingualCharField(_("Meeting place"), max_length=255, blank=True)
     admission_price = models.DecimalField(_(u"Admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
