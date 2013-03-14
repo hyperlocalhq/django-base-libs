@@ -17,51 +17,44 @@
 {% block content %}
 <div class="content clearfix sticky">
     {% include "utils/gmap.html" %}
-    
     <div class="inner">
         <h1>{% trans "Museums, Palaces, and Memorials" %}</h1>
+
         <div id="filters">
-            <ul class="nav nav-tabs" id="filter_tabs">
-                <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
-                <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
-                <li><a href="#filter-tags">{% trans "Tags" %}</a></li>
-            </ul>
+            <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
+                  <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
+                  <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabetisch" %}</button>
+            </div>
 
-            <script>
-                $('#filter_tabs a').click(function (e) {
-                  e.preventDefault();
-                  $(this).tab('show');
-                })
-            </script>
-         
-            <div class="tab-content">
-                <div class="tab-pane active" id="filter-categories">
-                    <ul class="filter option-set clearfix" id="categories" data-filter-group="category">
-                        {% for cat in facets.categories.categories %}
-                            <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
+            <button id="filter_reset" type="button" class="btn btn-primary icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">{% trans "Reset all filters" %}</button>
 
-                <div class="tab-pane" id="filter-alphabetical">
-                    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
-                    {% for item in abc_list %}
-                        {% if not forloop.first %}
-                            <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
-                        {% endif %}
-                    {% endfor %}
-                    </ul>
+            <div class="accordion" id="filter-options">
+                <div class="accordion-group">
+                    <div id="filter-categories" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
+                                {% for cat in facets.categories.categories %}
+                                <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="tab-pane" id="filter-tags">
-                    <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
-                        {% tags_for_model museums.Museum as museum_tags %}
-                        {% for tag in museum_tags %}
-                            <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
-                        {% endfor %}
-                    </ul>
+                <div class="accordion-group">
+                    <div id="filter-alphabetic" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
+                            {% for item in abc_list %}
+                            {% if not forloop.first %}
+                                <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+                            {% endif %}
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
+         
             <ul id="filter_summary"></ul>
         </div>
     </div>
@@ -72,7 +65,6 @@
             {% for museum in object_list %}
                 {% tags_for_object museum as tags %}
                 <li class="item initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">
-                    
                     {% if museum.cover_image %}
                         <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}">
                             <span class="spinner loading"></span>
