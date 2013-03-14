@@ -193,12 +193,20 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     def is_newly_open(self):
         today = date.today()
         two_weeks = timedelta(days=14)
-        return today - two_weeks < self.start < today
+        return today - two_weeks <= self.start <= today
         
     def is_closing_soon(self):
         today = date.today()
         two_weeks = timedelta(days=14)
-        return today < self.end < today + two_weeks
+        return today <= self.end <= today + two_weeks
+    
+    def is_actual(self):
+        today = date.today()
+        return self.start <= today <= self.end
+        
+    def is_upcoming(self):
+        today = date.today()
+        return today < self.start
         
     def get_tags(self):
         return Tag.objects.get_for_object(self)

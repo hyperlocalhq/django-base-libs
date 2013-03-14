@@ -32,6 +32,7 @@
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabetisch" %}</button>
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
                 {% comment %}
                 <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button> -->
                 {% endcomment %}
@@ -64,6 +65,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="accordion-group">
+                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
+                                <li><a href="" data-filter-value=".is_actual">{% trans "Actual" %}</a></li>
+                                <li><a href="" data-filter-value=".is_newly_open">{% trans "Newly open" %}</a></li>
+                                <li><a href="" data-filter-value=".is_closing_soon">{% trans "Closing soon" %}</a></li>
+                                <li><a href="" data-filter-value=".is_upcoming">{% trans "Upcoming" %}</a></li>
+                                <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
+                                
+                                <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
+                                <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
+                                <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
+                                <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
+                                <li><a href="" data-filter-value=".is_for_disabled">{% trans "Suitable for people with disabilities" %}</a></li>
+                                <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children / families / youth" %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 {% comment %}
                 <!-- <div class="accordion-group">
                     <div id="filter-tags" class="accordion-body collapse" style="height: 0px;">
@@ -89,7 +110,7 @@
     <ul id="container" class="list tiles collapsed clearfix">
         {% for exhibition in object_list %}
             {% tags_for_object exhibition as tags %}
-            <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
+            <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if exhibition.is_newly_open %} is_newly_open{% endif %}{% if exhibition.is_newly_open %} is_closing_soon{% endif %}{% if exhibition.is_actual %} is_actual{% endif %}{% if exhibition.is_upcoming %} is_upcoming{% endif %}{% if exhibition.free_entrance %} is_free_entrance{% endif %}{% if exhibition.show_family_ticket %} is_family_ticket{% endif %}{% if exhibition.show_group_ticket %} is_group_ticket{% endif %}{% if exhibition.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if exhibition.member_of_museumspass %} is_museumspass{% endif %}{% if exhibition.suitable_for_disabled %} is_for_disabled{% endif %}{% if exhibition.is_for_children %} is_for_children{% endif %}" style="cursor: pointer">
                 {% if exhibition.cover_image %}
                     <a class="img" href="{{ exhibition.get_url_path }}">
                         <img src="{{ STATIC_URL }}site/img/none.gif" data-original="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}" alt="" />
