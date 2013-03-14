@@ -151,6 +151,51 @@
                         <li><a href="/en/imprint/">Imprint</a></li>
                     {% endif %}
                 </ul>
+
+                <div id="sponsors" class="clearfix">
+                    <ul>
+                        <li class="title">{% trans "Supported by" %}</li>
+                        <li id="sponsor_eu">
+                            <a title="EU" target="_blank" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm">
+                                <img src="{{ STATIC_URL }}/site/img/footer/europa.png">
+                                <strong>EU</strong>
+                            </a>
+                        </li><li id="sponsor_efre">
+                            <a title="EFRE" target="_blank" href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html">
+                                <img src="{{ STATIC_URL }}/site/img/footer/efre.png">
+                                <strong>Kulturprojekte Berlin</strong>
+                            </a>
+                        </li><li id="sponsor_projektzukunft">
+                            <a title="Projektzukunft" target="_blank" href="http://www.projektzukunft.berlin.de/">
+                                <img src="{{ STATIC_URL }}/site/img/footer/projektzukunft.png">
+                                <strong>Projektzukunft</strong>
+                            </a>
+                        </li><li id="sponsor_beberlin">
+                            <a title="Be-Berlin" target="_blank" href="http://www.berlin.de/sen/kultur/index.de.php">
+                                <img src="{{ STATIC_URL }}/site/img/footer/beberlin.png">
+                                <strong>Be-Berlin</strong>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="title">{% trans "A service from" %}</li>
+                        <li>
+                            <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
+                                <img src="{{ STATIC_URL }}/site/img/footer/kulturprojekte.png">
+                                <strong>Kulturprojekte Berlin</strong>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="title">{% trans "Together with Berlin museums and" %}</li>
+                        <li>
+                            <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum/">
+                                <img src="{{ STATIC_URL }}/site/img/footer/lmb.png">
+                                <strong>Landesverband der Museen zu Berlin e.V.</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </footer>
         {% endblock %}
