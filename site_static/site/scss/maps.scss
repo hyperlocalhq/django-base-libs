@@ -47,12 +47,12 @@
     position: relative;
     background-color: rgba(0,0,0,0.05);
 
-    &.museum_map     { height: 380px; }
-    &.exhibition_map { height: 460px; }
-    &.event_map      { height: 550px; }
-    &.workshop_map   { height: 550px; }
+    &.museum_map     { height: 380px !important; }
+    &.exhibition_map { height: 460px !important; }
+    &.event_map      { height: 550px !important; }
+    &.workshop_map   { height: 466px !important; }
 
-    #gmap  { height: 100%; }
+    #gmap  { height: 100% !important; }
   }
 }
 
