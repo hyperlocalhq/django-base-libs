@@ -13,3 +13,13 @@
     width: 1000px;
     margin: auto;
     position: relative; } }
+
+
+@media print {
+
+  #navigation,
+  #header {
+    display: none;
+  }
+
+}

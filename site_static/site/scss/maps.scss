@@ -1,7 +1,21 @@
+#wrapper{
+  margin-top: 0px;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out;
+}
+
 .map_visible {
+    #wrapper{
+      margin-top: 200px;
+    }
 
     #gmap_wrapper {
      height: 200px !important; 
+     position: fixed;
+     top: 0px;
+     z-index: 40000;
     }
 
   &.map_fullscreen{
@@ -26,7 +40,7 @@
           color: white;
         }
       }
-      }
+    }
   }
 }
 
