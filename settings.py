@@ -304,7 +304,7 @@ ADMIN_APP_INDEX = (
              ('tastypie', {
                 'models':("ApiKey",),
                 }),
-            ('configuration', {
+             ('configuration', {
                 'models':("SiteSettings",),
                 }),
         )
