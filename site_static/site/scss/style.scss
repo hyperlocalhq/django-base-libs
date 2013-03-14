@@ -593,7 +593,7 @@ a:active  { outline: none;}
       -moz-box-sizing: border-box;
 
       &:hover{
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(0,0,0,0.075);
 
         .actions {opacity: 1; }
         .img{ 
