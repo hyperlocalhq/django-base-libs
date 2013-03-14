@@ -27,6 +27,7 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import InlineFormSet
 from museumsportal.utils.forms import SplitDateTimeWidget
+_("Particularities")
 
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
