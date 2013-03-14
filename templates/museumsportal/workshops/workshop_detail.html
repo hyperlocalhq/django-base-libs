@@ -199,7 +199,9 @@
                                 {% if workshop.get_languages %}
                                     <dl>
                                         <dt>{% trans "Languages" %}</dt>
-                                        <dd class="languages">{{ workshop.get_languages|join:", " }}</dd>
+                                        {% for language in workshop.get_languages %}
+                                            <dd class="languages">{{ language }}</dd>
+                                        {% endfor %}
                                     </dl>
                                 {% endif %}
                             </li>
