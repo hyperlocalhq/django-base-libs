@@ -154,7 +154,7 @@ var oMap;
                 //$("#museum_list_map").autoscroll();
                 console.log ("test")
                 // $('html, body').animate({scrollTop:0}, 'slow');
-                $('body').toggleClass('map_visible');
+                $('body').addClass('map_visible');
                 setTimeout(function() {
                     google.maps.event.trigger(oMap, 'resize');
                 }, 600);

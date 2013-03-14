@@ -2,68 +2,71 @@
 
 <header id="slideshow"> {% slideshow "start_slideshow_de" %} </header>
 <article>
-    <ul class="list compact clearfix">
-        {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-        {% for exhibition in exhibitions_closing_soon %}
-            <li class="item">
-                {% if exhibition.cover_image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list"}})"></a>
-                {% endif %}
-                <a href="{{ exhibition.get_url_path }}">
-                    <h3>{{ exhibition.title }}</h3>
-                    <h4>{{ exhibition.museum.title }}</h4>
-                    <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="clearfix">
+        <ul class="list compact clearfix">
+            <li class="title"><h3>{% trans "Newly Opened" %}</h3></li>
 
-    <ul class="list compact clearfix">
-        {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-        {% for exhibition in exhibitions_closing_soon %}
-            <li class="item">
-                {% if exhibition.cover_image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
-                {% endif %}
-                <a href="{{ exhibition.get_url_path }}">
-                    <h3>{{ exhibition.title }}</h3>
-                    <h4>{{ exhibition.museum.title }}</h4>
-                    <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+            {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
+    
+            {% for exhibition in exhibitions_newly_opened %}
+                <li class="item">
+                    {% if exhibition.cover_image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h3>{{ exhibition.title }}</h3>
+                        <h4>{{ exhibition.museum.title }}</h4>
+                        <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
 
-    <ul class="list compact clearfix">
-        {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-        {% for exhibition in exhibitions_closing_soon %}
-            <li class="item">
-                {% if exhibition.cover_image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
-                {% endif %}
-                <a href="{{ exhibition.get_url_path }}">
-                    <h3>{{ exhibition.title }}</h3>
-                    <h4>{{ exhibition.museum.title }}</h4>
-                    <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+        <ul class="list compact clearfix">
+            <li class="title"><h3>{% trans "Must see" %}</h3></li>
+            {% get_objects featured exhibitions.Exhibition as exhibitions_featured %}
+            {% for exhibition in exhibitions_featured %}
+                <li class="item">
+                    {% if exhibition.cover_image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h3>{{ exhibition.title }}</h3>
+                        <h4>{{ exhibition.museum.title }}</h4>
+                        <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <ul class="list compact clearfix">
+            <li class="title"><h3>{% trans "Magazin" %}</h3></li>
+            {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
+            
+            {% placeholder "featured_magazin" %}
+
+          <!--   {% for exhibition in exhibitions_closing_soon %}
+                <li class="item">
+                    {% if exhibition.cover_image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
+                    {% endif %}
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h3>{{ exhibition.title }}</h3>
+                        <h4>{{ exhibition.museum.title }}</h4>
+                        <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+                </li>
+            {% endfor %} -->
+        </ul>
+    </div>
+
+    <div>
+        <ul class="clearfix" id="tweets" data-twitter-username="museumsportal"> </ul> 
+        <div class="clearfix"><a href="https://twitter.com/museumsportal" target="_blank">Folgen Sie uns auf Twitter</a></div>
+    </div>
+
 </article>
 
-<!-- <div id="twitterfeed">
-    <h2 class="catHead">Twitterfeed</h2>
-    <div class="sector-select hidable">
-        <div id="twitterfeed">
-            <h2 class="catHead">Twitterfeed</h2>
-            <div class="sector-select hidable">
-                <ul id="tweets" data-twitter-username="museumsportal">
-                    <li><a href="https://twitter.com/museumsportal" target="_blank">Folgen Sie uns auf Twitter</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div> -->
 <!-- 
     <ul>
         <li class="title">

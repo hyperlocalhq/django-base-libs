@@ -358,6 +358,7 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("RichTextPlugin", "HeadlinePlugin"),
         'name': _("Typehead")
     },
+
     'top_image': {
         'plugins': ("FilebrowserImagePlugin"),
         'name': _("Top Image")
@@ -416,6 +417,11 @@ CMS_PLACEHOLDER_CONF = {
     'right_column': {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Right Column")
+    },
+
+    'featured_magazin': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Featured Magazin")
     },
 }
 

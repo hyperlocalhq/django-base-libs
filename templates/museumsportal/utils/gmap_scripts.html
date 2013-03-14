@@ -13,6 +13,13 @@
                 }, 650);
             });
 
+            $('#gmap_toggle2').click(function() {
+                $('body').toggleClass('map_visible');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 650);
+            });
+
             $('#gmap_fullscreen').click(function() {
                 $('body').toggleClass('map_fullscreen');
                 setTimeout(function() {

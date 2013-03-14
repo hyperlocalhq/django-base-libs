@@ -1,15 +1,34 @@
 {% load i18n image_modifications %}
-<div class="editorial-content">
-      <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})">
-        <img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />
-      {% if object.image_caption %} <p class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %} 
-      </a>
-      
-    <a class="title" href="{{ object.website }}">
-      <h3>{{ object.title }}</h3>
-      <h4>{{ object.subtitle }}</h4>
-    </a>
 
-    <p class="description">{{ object.get_rendered_description|removetags:"p" }}</p>
-    <p class="more"><a href="{{ object.website }}">{% trans "more" %}…</a></p>
-</div>
+{% with placeholder.title|slugify as placeholder_title %}
+  {% if placeholder_title == "featured_magazin" %}
+
+  <li class="item">
+      <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})"></a>
+      <a href="{{ exhibition.get_url_path }}">
+          <h3>{{ object.title }}</h3>
+          <h4>{{ object.subtitle }}</h4>
+          <h5>{{ object.image_caption }}</h5>
+      </a>
+  </li>
+
+  {% else %}
+
+  <div class="editorial-content">
+        <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})">
+          <img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />
+        {% if object.image_caption %} <p class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %} 
+        </a>
+        
+      <a class="title" href="{{ object.website }}">
+        <h3>{{ object.title }}</h3>
+        <h4>{{ object.subtitle }}</h4>
+      </a>
+
+      <p class="description">{{ object.get_rendered_description|removetags:"p" }}</p>
+      <p class="more"><a href="{{ object.website }}">{% trans "more" %}…</a></p>
+  </div>
+  
+  {% endif %}
+
+{% endwith %}
