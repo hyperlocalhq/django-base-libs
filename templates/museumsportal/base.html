@@ -54,6 +54,9 @@
 
 <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
 
+    {% block map %}
+    {% endblock %}
+
     {% block toolbar %}
         {% cms_toolbar %}
     {% endblock %}
@@ -89,12 +92,12 @@
                             {% block edit_item %}{% endblock %}
                             
                             {% if request.user.is_authenticated %} 
-                            <li><a class="dashboard icon icon-white icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Dashboard" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Dashboard" %}</span></a></li>
+                            <li><a class="dashboard icon icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Dashboard" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Dashboard" %}</span></a></li>
                             {% endif %}
                             
-                            <li><a class="favorites icon icon-white icon-favorites" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>{% trans "Favorites" %}</span></a></li>
+                            <li><a class="favorites icon icon-favorites" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>{% trans "Favorites" %}</span></a></li>
 
-                            <li><a class="print icon icon-white icon-favorites" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Print" %}" onclick="window.print();return false" href="#">&nbsp;<span>{% trans "Print" %}</span></a></li>
+                            <li><a class="print icon icon-print" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Print" %}" onclick="window.print();return false" href="#">&nbsp;<span>{% trans "Print" %}</span></a></li>
                         </ul>
                     </li>
                     <li>

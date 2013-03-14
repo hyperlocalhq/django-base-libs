@@ -205,8 +205,9 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
         langs = []
         for lang in self.languages.all():
             langs.append(lang.get_name())
-        for lang in self.other_languages.split(","):
-            langs.append(lang)
+        if self.other_languages:
+            for lang in self.other_languages.split(","):
+                langs.append(lang)
         return langs
 
     def _get_cover_image(self):

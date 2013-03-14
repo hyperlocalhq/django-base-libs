@@ -20,6 +20,10 @@
     </script>
 {% endblock %}
 
+{% block map %}
+    {% include "utils/gmap.html" %}
+{% endblock %}
+
 {% block edit_item %}
     {% if_has_perm "workshops.change_workshop" object %}
     <li><a class="edit icon icon-white icon-edit" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
@@ -27,7 +31,6 @@
 {% endblock %}
 
 {% block content %}
-{% include "utils/gmap.html" %}
 {% with object as workshop %}
 <div class="content clearfix">
     <div class="inner clearfix">
@@ -41,10 +44,10 @@
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
-                                {% trans "Location" %}
+                                {% trans "Venue" %}
                             </a>
                         </h4>
-                        <ul id="collapse-location" class="accordion-body collapse">  
+                        <ul id="collapse-location" class="accordion-body collapse in">  
                             <li class="accordion-inner">
                                 {% if workshop.museum %}
                                     {% with workshop.museum as museum %}
@@ -149,11 +152,12 @@
                 {% endif %}
 
                 <!-- ======= DATES ======= -->
-
+                
+                {% if workshop_time %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
-                            {% trans "DATES" %} 
+                            {% trans "Date and Time" %} 
                         </a>  
                     </h4>  
                     <ul id="collapse-dates" class="accordion-body collapse">  
@@ -163,11 +167,11 @@
                                 <dt>{{ workshop_time.workshop_date|date:"j. F Y" }}
                                 {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}</dt>
                             </dl>
-                               
                             {% endfor %}
                         </li>
                     </ul>  
                 </li>
+                {% endif %}
 
                 <!-- ======= Other Information ======= -->
 
@@ -220,17 +224,19 @@
         <article class="with_sidebar">
             <header>
                 <time>
-                    {% with workshop.workshoptime_set.all.0 as workshop_time %}
-                        {{ workshop_time.workshop_date|date:"j. F Y" }}
-                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
-                    {% endwith %}
+                    {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                        {% trans "Bookable Offer" %}: {{ workshop.workshop_type }}
+                    {% else %}
+                        {{ workshop.workshop_type }} {% trans "on" %}
+                        {% with workshop.workshoptime_set.all.0 as workshop_time %}
+                            {{ workshop_time.workshop_date|date:"j. F Y" }}
+                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                        {% endwith %}
+                    {% endif %}
                 <time>
                 <h1>{{ workshop.title }}</h1>
                 {% if workshop.subtitle %}
                     <h2>{{ workshop.subtitle }}</h2>
-                {% endif %}
-                {% if workshop.workshop_type %}
-                    <h3>{{ workshop.workshop_type }}</h3>
                 {% endif %}
                 
                 {% if workshop.museum %}
@@ -238,8 +244,9 @@
                 {% endif %}
             </header>
             {{ workshop.get_rendered_description }}
-            
-            <ul class="tags">
+
+            {% comment %}
+            <!-- <ul class="tags">
                 {% if workshop.categories.count %}
                     {% for cat in workshop.categories.all %}
                         <li class="cat"><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/workshops/{% endif %}#filter=.cat_{{ cat.title|slugify }}">{{ cat.title }}</a></li>
@@ -251,12 +258,11 @@
                         <li><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/workshops/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
                     {% endfor %}
                 {% endif %}
-            </ul>   
+            </ul> -->
+            {% endcomment %} 
         </article>
-  </div>
+    </div>
 </div>
-
-{% include "utils/images.html" %}
 
 {% if object.get_other_workshops %}
     <div class="content" class="clearfix">

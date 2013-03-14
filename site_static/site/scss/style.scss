@@ -1005,6 +1005,7 @@ nav.actions {
 }
 
 #meta {
+  .icon-print      { background-image: url("../img/icons/print.svg");}
   .icon-home       { background-image: url("../img/icons/home.svg");}
   .icon-view       { background-image: url("../img/icons/view.svg");}
   .icon-edit       { background-image: url("../img/icons/edit.svg");}
@@ -1015,6 +1016,7 @@ nav.actions {
   .icon-facebook   { background-image: url("../img/icons/facebook.svg"); }
   .icon-twitter    { background-image: url("../img/icons/twitter.svg"); }
 
+  .icon-print:hover     { background-image: url("../img/icons/inv/print.svg");}
   .icon-home:hover      { background-image: url("../img/icons/inv/home.svg");}
   .icon-view:hover      { background-image: url("../img/icons/inv/view.svg");}
   .icon-edit:hover      { background-image: url("../img/icons/inv/edit.svg");}
@@ -1831,6 +1833,8 @@ dl {
   }
   dd {
     &.languages {
+      display: inline-block;
+      
       &:after {
         content: ", ";
       }

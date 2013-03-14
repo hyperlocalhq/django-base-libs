@@ -13,6 +13,11 @@
     }
     </script>
 {% endblock %}
+
+{% block map %}
+    {% include "utils/gmap.html" %}
+{% endblock %}
+
 {% block content %}
 <div class="content clearfix sticky">
     <nav id="map_controls">
@@ -20,14 +25,12 @@
         <a class="btn icon icon-white icon-rss" rel="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">{% trans "RSS Feed" %}</a>
     </nav>
     
-    {% include "utils/gmap.html" %}
     <div class="inner">
         <h1>{% trans "Guided Tours, Workshops and educational offers" %}</h1>
         <div id="filters">
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabetisch" %}</button>
-                <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button>
             </div>
 
             <button id="filter_reset" type="button" class="btn btn-primary icon icon-black icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">{% trans "Reset all filters" %}</button>
@@ -61,18 +64,6 @@
                                     <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
                                 {% endif %}
                             {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-group">
-                    <div id="filter-tags" class="accordion-body collapse" style="height: 0px;">
-                        <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
-                                {% tags_for_model workshops.Workshop as workshop_tags %}
-                                {% for tag in workshop_tags %}
-                                    <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
-                                {% endfor %}
                             </ul>
                         </div>
                     </div>

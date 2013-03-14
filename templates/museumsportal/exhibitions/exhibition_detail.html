@@ -21,6 +21,10 @@
     </script>
 {% endblock %}
 
+{% block map %}
+    {% include "utils/gmap.html" %}
+{% endblock %}
+
 {% block edit_item %}
     {% if_has_perm "exhibitions.change_exhibition" object %}
     <li><a class="edit icon icon-white icon-edit" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
@@ -28,7 +32,6 @@
 {% endblock %}
 
 {% block content %}
-{% include "utils/gmap.html" %}
 {% with object as exhibition %}
 <div class="content clearfix">
     <div class="inner clearfix">
@@ -41,7 +44,7 @@
                             {% trans "Location" %}
                         </a>
                     </h4>
-                    <ul id="collapse-location" class="accordion-body collapse">  
+                    <ul id="collapse-location" class="accordion-body collapse in">  
                         <li class="accordion-inner">
                             {% if exhibition.museum %}
                                 {% with exhibition.museum as museum %}
@@ -365,7 +368,8 @@
             </header>
             {{ exhibition.get_rendered_description }}
             
-            <ul class="tags">
+            {% comment %}
+            <!-- <ul class="tags">
                 {% if exhibition.categories.count %}
                     {% for cat in exhibition.categories.all %}
                         <li class="cat"><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/exhibitions/{% endif %}#filter=.cat_{{ cat.title|slugify }}">{{ cat.title }}</a></li>
@@ -377,7 +381,8 @@
                         <li><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/exhibitions/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
                     {% endfor %}
                 {% endif %}
-            </ul>   
+            </ul>   -->
+            {% endcomment %} 
 
         </article>
   </div>
