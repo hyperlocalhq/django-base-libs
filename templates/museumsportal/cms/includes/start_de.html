@@ -7,7 +7,7 @@
         {% for exhibition in exhibitions_closing_soon %}
             <li class="item">
                 {% if exhibition.cover_image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }}|modified_path:"museum_list")"></a>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list"}})"></a>
                 {% endif %}
                 <a href="{{ exhibition.get_url_path }}">
                     <h3>{{ exhibition.title }}</h3>
@@ -23,7 +23,7 @@
         {% for exhibition in exhibitions_closing_soon %}
             <li class="item">
                 {% if exhibition.cover_image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }}|modified_path:"museum_list")"></a>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
                 {% endif %}
                 <a href="{{ exhibition.get_url_path }}">
                     <h3>{{ exhibition.title }}</h3>
@@ -39,7 +39,7 @@
         {% for exhibition in exhibitions_closing_soon %}
             <li class="item">
                 {% if exhibition.cover_image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }}|modified_path:"museum_list")"></a>
+                    <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
                 {% endif %}
                 <a href="{{ exhibition.get_url_path }}">
                     <h3>{{ exhibition.title }}</h3>
