@@ -1,8 +1,6 @@
 {% load i18n image_modifications %}
 
-{% with placeholder.title|slugify as placeholder_title %}
-  {% if placeholder_title == "featured_magazin" %}
-
+  {% if placeholder == "featured_magazin" %}
   <li class="item">
       <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})"></a>
       <a href="{{ exhibition.get_url_path }}">
@@ -28,7 +26,4 @@
       <p class="description">{{ object.get_rendered_description|removetags:"p" }}</p>
       <p class="more"><a href="{{ object.website }}">{% trans "more" %}…</a></p>
   </div>
-  
-  {% endif %}
-
-{% endwith %}
+{% endif %}
