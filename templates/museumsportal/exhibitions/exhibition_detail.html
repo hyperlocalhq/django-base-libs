@@ -64,22 +64,23 @@
                                 </dl>
                             {% endif %}
 
-                            {% if exhibition.organizing_museum %}
+                            {% if exhibition.organizer_set.count %}
                                 <dl>
                                     <dt>{% trans "Organizer" %}</dt>
-                                    <dd><a href="{{ exhibition.organizing_museum.get_url_path }}">{{ exhibition.organizing_museum.title }}</a></dd>
-                                </dl>
-                            {% else %}
-                                {% if exhibition.organizer_title %}
-                                    <dl>
-                                        <dt>{% trans "Organizer" %}</dt>
-                                        {% if exhibition.organizer_url_link %}
-                                            <dd><a href="{{ exhibition.organizer_url_link }}">{{ exhibition.organizer_title }}</a></dd>
-                                        {% else %}
-                                            <dd>{{ exhibition.organizer_title }}</dd>
+                                    {% for organizer in exhibition.organizer_set.all %}
+                                        {% if organizer.organizing_museum %}
+                                        <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd> 
                                         {% endif %}
-                                    </dl>
-                                {% endif %}
+
+                                        {% if organizer.organizer_title %}
+                                            {% if organizer.organizer_url_link %}
+                                                <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
+                                            {% else %}
+                                                <dd>{{ organizer.organizer_title }}</dd>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </dl>
                             {% endif %}
                         </li>
                         <li class="accordion-inner">

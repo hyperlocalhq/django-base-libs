@@ -66,23 +66,26 @@
                                         <dd>{{ workshop.postal_code }} {{ workshop.city }}</dd>
                                     </dl>
                                 {% endif %}
-                                {% if workshop.organizing_museum %}
+
+                                {% if workshop.organizer_set.count %}
                                     <dl>
                                         <dt>{% trans "Organizer" %}</dt>
-                                        <dd><a href="{{ workshop.organizing_museum.get_url_path }}">{{ workshop.organizing_museum.title }}</a></dd>
-                                    </dl>
-                                {% else %}
-                                    {% if workshop.organizer_title %}
-                                        <dl>
-                                            <dt>{% trans "Organizer" %}</dt>
-                                            {% if workshop.organizer_url_link %}
-                                                <dd><a href="{{ workshop.organizer_url_link }}">{{ workshop.organizer_title }}</a></dd>
-                                            {% else %}
-                                                <dd>{{ workshop.organizer_title }}</dd>
+                                        {% for organizer in workshop.organizer_set.all %}
+                                            {% if organizer.organizing_museum %}
+                                            <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd> 
                                             {% endif %}
-                                        </dl>
-                                    {% endif %}
+
+                                            {% if organizer.organizer_title %}
+                                                {% if organizer.organizer_url_link %}
+                                                    <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
+                                                {% else %}
+                                                    <dd>{{ organizer.organizer_title }}</dd>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </dl>
                                 {% endif %}
+
                                 {% if workshop.exhibition %}
                                     <dl>
                                         <dt>{% trans "Related exhibition" %}</dt>
@@ -232,7 +235,7 @@
                             {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
                         {% endwith %}
                     {% endif %}</time>
-                    
+
                 <h1>{{ workshop.title }}</h1>
                 {% if workshop.subtitle %}
                     <h2>{{ workshop.subtitle }}</h2>

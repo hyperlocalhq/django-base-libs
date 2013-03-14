@@ -64,23 +64,26 @@
                                     </dl>
                                 {% endwith %}
                             {% endif %}
-                            {% if event.organizing_museum %}
+
+                            {% if event.organizer_set.count %}
                                 <dl>
                                     <dt>{% trans "Organizer" %}</dt>
-                                    <dd><a href="{{ event.organizing_museum.get_url_path }}">{{ event.organizing_museum.title }}</a></dd>
-                                </dl>
-                            {% else %}
-                                {% if event.organizer_title %}
-                                    <dl>
-                                        <dt>{% trans "Organizer" %}</dt>
-                                        {% if event.organizer_url_link %}
-                                            <dd><a href="{{ event.organizer_url_link }}">{{ event.organizer_title }}</a></dd>
-                                        {% else %}
-                                            <dd>{{ event.organizer_title }}</dd>
+                                    {% for organizer in event.organizer_set.all %}
+                                        {% if organizer.organizing_museum %}
+                                        <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd> 
                                         {% endif %}
-                                    </dl>
-                                {% endif %}
+
+                                        {% if organizer.organizer_title %}
+                                            {% if organizer.organizer_url_link %}
+                                                <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
+                                            {% else %}
+                                                <dd>{{ organizer.organizer_title }}</dd>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </dl>
                             {% endif %}
+                            
                             {% if event.event %}
                                 <dl>
                                     <dt>{% trans "Related event" %}</dt>
