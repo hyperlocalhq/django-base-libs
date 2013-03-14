@@ -54,8 +54,8 @@ class EventAdmin(ExtendedModelAdmin):
     list_filter = ('creation_date', 'status', 'categories',)
     search_fields = ('title', 'subtitle', 'event_type', 'slug')
     
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'event_type', 'description'])
-    fieldsets += [(None, {'fields': ('slug', 'link',)}),]
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'event_type', 'description', 'website'])
+    fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'languages', 'other_languages', 'suitable_for_children')}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude', 'exhibition')}),]
     fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]

@@ -100,6 +100,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     event_type = MultilingualCharField(_("Type"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
+    website = MultilingualCharField(_("Website"), max_length=255, blank=True)
     image = FileBrowseField(_('Image'), max_length=200, directory="events/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
@@ -128,8 +129,6 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     booking_info = MultilingualTextField(_("Booking info"), blank=True)
-
-    link = URLField(_("Website link"), blank=True)
 
     objects = EventManager()
 

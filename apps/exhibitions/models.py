@@ -166,8 +166,6 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     is_for_children = models.BooleanField(_("Special for children / families / youth"), blank=True)
 
-    link = URLField(_("Website link"), blank=True)
-
     objects = ExhibitionManager()
     
     row_level_permissions = True

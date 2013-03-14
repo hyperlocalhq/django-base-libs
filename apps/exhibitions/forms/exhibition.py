@@ -50,7 +50,7 @@ class BasicInfoForm(ModelForm):
         
         fields = ['start', 'end', 'permanent', 'exhibition_extended',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
-            'city', 'latitude', 'longitude', 'link', 
+            'city', 'latitude', 'longitude',  
             'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
             ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -58,6 +58,7 @@ class BasicInfoForm(ModelForm):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
+                'website_%s' % lang_code,
                 'catalog_%s' % lang_code,
                 ]
     def __init__(self, *args, **kwargs):
@@ -80,6 +81,7 @@ class BasicInfoForm(ModelForm):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
+                'website_%s' % lang_code,
                 'catalog_%s' % lang_code,
                 ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
@@ -108,10 +110,13 @@ class BasicInfoForm(ModelForm):
                 *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
+                css_class="div-website",
+                *('website_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
                 css_class="div-catalog",
                 *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-            'link',
             css_class="fieldset-basic-info",
             ))
 
@@ -749,8 +754,8 @@ def load_data(instance=None):
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
+            form_step_data['basic']['website_%s' % lang_code] = getattr(instance, 'website_%s' % lang_code)
             form_step_data['basic']['catalog_%s' % lang_code] = getattr(instance, 'catalog_%s' % lang_code)
-        form_step_data['basic']['link'] = instance.link
         form_step_data['basic']['start'] = instance.start
         form_step_data['basic']['end'] = instance.end
         form_step_data['basic']['permanent'] = instance.permanent
@@ -874,10 +879,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
             setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+            getattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
             getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
             getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
-        instance.link = form_step_data['basic']['link'] 
         instance.start = form_step_data['basic']['start'] 
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
@@ -1131,10 +1136,10 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+        getattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
         getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
-    instance.link = form_step_data['basic']['link'] 
     instance.start = form_step_data['basic']['start'] 
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
