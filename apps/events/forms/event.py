@@ -65,7 +65,7 @@ class BasicInfoForm(ModelForm):
         model = Event
         
         fields = ['categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
-            'link', 'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
+            'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
             ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -74,6 +74,7 @@ class BasicInfoForm(ModelForm):
                 'subtitle_%s' % lang_code,
                 'event_type_%s' % lang_code,
                 'description_%s' % lang_code,
+                'website_%s' % lang_code,
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
@@ -95,6 +96,7 @@ class BasicInfoForm(ModelForm):
                 'subtitle_%s' % lang_code,
                 'event_type_%s' % lang_code,
                 'description_%s' % lang_code,
+                'website_%s' % lang_code,
                 ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
@@ -125,7 +127,10 @@ class BasicInfoForm(ModelForm):
                 css_class="div-description",
                 *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-            'link',
+            layout.Row(
+                css_class="div-website",
+                *('website_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
             css_class="fieldset-basic-info",
             ))
 
@@ -431,7 +436,7 @@ def load_data(instance=None):
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['event_type_%s' % lang_code] = getattr(instance, 'event_type_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
-        form_step_data['basic']['link'] = instance.link
+            form_step_data['basic']['website_%s' % lang_code] = getattr(instance, 'website_%s' % lang_code)
         form_step_data['basic']['categories'] = instance.categories.all()
         form_step_data['basic']['tags'] = instance.tags
         form_step_data['basic']['languages'] = instance.languages.all()
@@ -487,8 +492,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
             setattr(instance, 'event_type_%s' % lang_code, form_step_data['basic']['event_type_%s' % lang_code])
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+            setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-        instance.link = form_step_data['basic']['link']
         instance.other_languages = form_step_data['basic']['other_languages']
         instance.museum = form_step_data['basic']['museum']
         instance.location_name = form_step_data['basic']['location_name']
@@ -579,8 +584,8 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'event_type_%s' % lang_code, form_step_data['basic']['event_type_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
+        setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-    instance.link = form_step_data['basic']['link']
     instance.other_languages = form_step_data['basic']['other_languages']
     instance.museum = form_step_data['basic']['museum']
     instance.location_name = form_step_data['basic']['location_name']
