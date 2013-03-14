@@ -73,7 +73,7 @@
                         {% if request.user.is_authenticated %}
                             {% adding2favorites for exhibition %}
                         {% endif %}
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
                     </nav>
 
                     <a href="{{ exhibition.get_url_path }}">

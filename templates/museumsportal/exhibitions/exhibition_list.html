@@ -16,10 +16,15 @@
 
 {% block content %}
 <div class="content clearfix sticky">
+    <nav id="map_controls">
+        <button id="gmap_toggle" class="btn icon icon-white icon-location" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}"></button>
+        
+        <a class="btn icon icon-white icon-rss" rel="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">{% trans "RSS Feed" %}</a>
+    </nav>
+
     {% include "utils/gmap.html" %}
     <div class="inner">
         <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
-
         <div id="filters">
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
@@ -27,7 +32,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button>
             </div>
 
-            <button id="filter_reset" type="button" class="btn btn-primary icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">{% trans "Reset all filters" %}</button>
+            <button id="filter_reset" type="button" class="btn btn-primary icon icon-black icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">{% trans "Reset all filters" %}</button>
 
             <div class="accordion" id="filter-options">
                 <div class="accordion-group">
@@ -101,15 +106,15 @@
                 <nav class="actions">
                     {% if_has_perm "exhibitions.change_exhibition" exhibition %}
                         {% if exhibition.cover_image %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-crop" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';"></button>
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-white icon-crop" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';"></button>
                         {% else %}{% if exhibition.museum.cover_image %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-crop" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';"></button>
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-white icon-crop" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';"></button>
                         {% endif %}{% endif %}
                     {% end_if_has_perm %}
                     {% if request.user.is_authenticated %}
                         {% adding2favorites for exhibition %}
                     {% endif %}
-                    <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                    <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
                 </nav>
 
                 <a href="{{ exhibition.get_url_path }}">

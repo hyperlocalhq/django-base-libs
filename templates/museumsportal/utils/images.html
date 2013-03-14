@@ -1,6 +1,6 @@
 {% load fb_tags i18n image_modifications %}
 <div class="content clearfix">
-    <div class="inner">
+    <div class="inner clearfix">
         <article id="images" >
             <ul class="images clearfix">
             {% for mf in object.mediafile_set.all %}
@@ -23,7 +23,7 @@
                         {% endwith %}
                     </div>
                      <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-fullscreen"></button>
+                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
                     </nav>
                 </li>
             {% endfor %}

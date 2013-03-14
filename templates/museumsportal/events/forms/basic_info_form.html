@@ -107,7 +107,7 @@
                 $season.find('input:checkbox[id$=DELETE]').each(function() {
                     var $checkbox = $(this);
                     var $deleteLink = $(
-                        '<div class"min"><button class="delete icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
+                        '<div class"min"><button class="delete icon icon-white icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
                     );
                     $checkbox.parents('.formset-form').find(".row").append($deleteLink);
                     $checkbox.parent().hide();
