@@ -65,7 +65,6 @@ class BasicInfoForm(ModelForm):
         model = Workshop
         
         fields = ['tags', 'languages', 'other_languages',
-            'has_group_offer',
             'is_for_preschool',
             'is_for_primary_school',
             'is_for_youth',
@@ -206,7 +205,6 @@ class BasicInfoForm(ModelForm):
 
             layout.Div(
                 layout.HTML("""{% load i18n %} <label>{% trans "Particularities" %}</label> """),
-                'has_group_offer',
                 'is_for_preschool',
                 'is_for_primary_school',
                 'is_for_youth',
@@ -359,13 +357,43 @@ class PricesForm(ModelForm):
 class TimesForm(ModelForm):
     class Meta:
         model = Workshop
-        fields = []
+        fields = [
+            'has_group_offer',
+            ]
 
     def __init__(self, *args, **kwargs):
         super(TimesForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_tag = False
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
         layout_blocks = []
+        layout_blocks.append(layout.Fieldset(
+            _("Booking"),
+            layout.Row(
+                'has_group_offer',
+                css_class="inline",
+                ),
+            ))
+        layout_blocks.append(layout.Fieldset(
+            _("Date and Time"),
+            layout.HTML("""{% load crispy_forms_tags i18n %}
+            {{ formsets.workshop_times.management_form }}
+            <div id="workshop_times">
+                {% for form in formsets.workshop_times.forms %}
+                    <div class="workshop_time formset-form tabular-inline">
+                        {% crispy form %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- used by javascript -->
+            <div id="workshop_times_empty_form" class="workshop_time formset-form tabular-inline" style="display: none">
+                {% with formsets.workshop_times.empty_form as form %}
+                    {% crispy form %}
+                {% endwith %}
+            </div>
+            """),
+            css_id="workshop_times_fieldset",
+            ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
@@ -387,6 +415,7 @@ class WorkshopTimeForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(WorkshopTimeForm, self).__init__(*args, **kwargs)
+        self.fields['workshop_date'].label = _("Date")
         self.fields['start'].widget = forms.TimeInput(format='%H:%M')
         self.fields['end'].widget = forms.TimeInput(format='%H:%M')
         
@@ -462,7 +491,6 @@ def load_data(instance=None):
         form_step_data['basic']['longitude'] = instance.longitude
         form_step_data['basic']['exhibition'] = instance.exhibition
         for f in [
-            'has_group_offer',
             'is_for_preschool',
             'is_for_primary_school',
             'is_for_youth',
@@ -482,6 +510,7 @@ def load_data(instance=None):
             organizer_dict['organizer_url_link'] = organizer.organizer_url_link
             form_step_data['basic']['sets']['organizers'].append(organizer_dict)
             
+        form_step_data['times']['has_group_offer'] = instance.has_group_offer
         for workshop_time in instance.workshoptime_set.all():
             workshop_time_dict = {}
             workshop_time_dict['workshop_date'] = workshop_time.workshop_date
@@ -562,7 +591,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     if current_step == "times":
         if "_pk" in form_step_data:
             instance = Workshop.objects.get(pk=form_step_data['_pk'])
-
+            instance.has_group_offer = form_step_data['times']['has_group_offer']
+            instance.save()
             instance.workshoptime_set.all().delete()
             for workshop_time_dict in form_step_data['times']['sets']['workshop_times']:
                 workshop_time = WorkshopTime(workshop=instance)
@@ -639,6 +669,8 @@ def save_data(form_steps, form_step_data, instance=None):
         ]:
         setattr(instance, f, form_step_data['basic'][f])
     instance.tags = form_step_data['basic']['tags']
+
+    instance.has_group_offer = form_step_data['times']['has_group_offer']
 
     fields = ['admission_price', 'reduced_price']
     for lang_code, lang_name in FRONTEND_LANGUAGES:

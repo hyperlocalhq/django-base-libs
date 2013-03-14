@@ -2,34 +2,9 @@
 {% load crispy_forms_tags i18n %}
 
 {% block multistep_form %}
-<form action="" method="post">
-{{ formsets.workshop_times.management_form }}
-
-<fieldset id="workshop_times_fieldset">
-    <legend>{% trans "Date and Time" %}</legend>
-    <div id="workshop_times">
-        <div class="row flex">
-            <div><label>{% trans "Date" %}</label></div>
-            <div><label>{% trans "Start" %}</label></div>
-            <div><label>{% trans "End" %}</label></div>
-            <div class="min"><label></label></div>
-        </div>
-        {% for form in formsets.workshop_times.forms %}
-            <div class="workshop_time formset-form tabular-inline">
-                {% crispy form %}
-            </div>
-        {% endfor %}
-    </div>
-</fieldset>
-<!-- used by javascript -->
-<div id="workshop_times_empty_form" class="workshop_time formset-form tabular-inline" style="display: none">
-    {% with formsets.workshop_times.empty_form as form %}
-        {% crispy form %}
-    {% endwith %}
-</div>
 
 {% crispy form %}
-</form>
+
 <script type="text/javascript">
 (function($, undefined) {
     function reinit_widgets() {
@@ -78,6 +53,14 @@
     }
         
     $(function() {
+        $('#id_has_group_offer').change(function() {
+            if ($(this).attr('checked')) {
+                $('#workshop_times_fieldset').hide();
+            } else {
+                $('#workshop_times_fieldset').show();
+            }
+        }).change();
+    
         $(
             '<a id="add_workshop_time" class="add btn btn-small btn-primary" href="#">{% trans "Add another workshop time" %}</a>'
         ).insertAfter('#workshop_times').click(function() {
