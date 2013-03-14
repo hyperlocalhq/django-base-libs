@@ -22,7 +22,6 @@
         <h1>{% trans "Events in the Museums of Berlin" %}</h1>
         <div id="filters">
             <ul class="nav nav-tabs" id="filter_tabs">
-                <li class="active"><a href="#filter-categories">{% trans "Categories" %}</a></li>
                 <li><a href="#filter-alphabetical">{% trans "Alphabetisch" %}</a></li>
                 <li><a href="#filter-tags">{% trans "Tags" %}</a></li>
             </ul>
@@ -37,8 +36,6 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="filter-categories">
                     <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
-                        <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
-                    
                         {% for status_code, status_verbose in facets.categories.statuses %}
                           {% if status_code == facets.selected.status %}
                               <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
@@ -56,14 +53,15 @@
                 <div class="tab-pane" id="filter-alphabetical">
                     <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
                     {% for item in abc_list %}
-                      <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+                        {% if not forloop.first %}
+                            <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+                        {% endif %}
                     {% endfor %}
                     </ul>
                 </div>
                 
                 <div class="tab-pane" id="filter-tags">
                     <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
-                        <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
                         {% tags_for_model events.Event as event_tags %}
                         {% for tag in event_tags %}
                             <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>

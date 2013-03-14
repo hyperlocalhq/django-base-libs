@@ -1339,8 +1339,8 @@ aside {
  margin: 0px;
  background-color: white;
  z-index: 10000;
- &:hover .tab-content {display: block; }
- .tab-content {display: none; }
+ // &:hover .tab-content {display: block; }
+ // .tab-content {display: none; }
 }
 
 
@@ -1390,12 +1390,14 @@ aside {
   } 
 } 
 
+.tab-content {
+  padding-top: 10px;
+}
+
 #filter_summary,
 .tags,
 .filter {
   font-size: 0px;
-  padding-top: 20px;
-  padding-bottom: 20px;
   -webkit-transform: translate(0px,0px); /* Safari and Chrome */
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;

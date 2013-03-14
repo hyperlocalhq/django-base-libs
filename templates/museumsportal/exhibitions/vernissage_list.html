@@ -29,7 +29,6 @@
         {% endcomment %} -->
 
         <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
-            <li><a data-filter-value="" href="#any-category" class="selected">Alle</a></li>
 
             {% for status_code, status_verbose in facets.categories.statuses %}
               {% if status_code == facets.selected.status %}
@@ -45,7 +44,6 @@
         </ul>
         
         <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
-            <li><a data-filter-value="" href="#any-tag" class="selected">Alle</a></li>
             {% tags_for_model exhibitions.Exhibition as exhibition_tags %}
             {% for tag in exhibition_tags %}
                 <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
