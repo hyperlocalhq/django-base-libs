@@ -231,7 +231,8 @@ a:active  { outline: none;}
   width: 100%;
   background-color: white;  
   &.sticky > .inner {
-    padding-bottom: 0px !important;
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
     background-color: white !important;
   }
 }
@@ -320,12 +321,12 @@ a:active  { outline: none;}
 
     .img {
       display: block;
-      height: 70px;
+      height: 35px;
       width: 400px;
       background-image: url("../img/logo_img.svg");
       background-repeat: no-repeat;
       background-position: left;
-      background-size: cover;
+      background-size: contain;
       float: left;
       margin-right: 15px;
       margin-top: -6px;
@@ -693,7 +694,7 @@ a:active  { outline: none;}
           -webkit-transition-timing: ease-in-out;
           background-color: #f2f2f2;
 
-          background-image: url("../img/spinner.gif");
+          // background-image: url("../img/spinner.gif");
           background-position: center;
           background-repeat: no-repeat;
 
@@ -969,6 +970,8 @@ nav.actions {
   &.icon-rent       { background-image: url("../img/icons/inv/rent.svg"); }
   &.icon-other      { background-image: url("../img/icons/inv/other.svg"); }
   &.icon-delete     { background-image: url("../img/icons/inv/cancel.svg"); }
+
+  &.icon-delete     { background-image: url("../img/icons/delete.svg");}
 
   &.transparent {
     background-color: transparent !important;
@@ -1338,67 +1341,82 @@ aside {
 }
 
 #filters {
- width: 1000px !important; 
- padding: 0px;
- margin: 0px;
- background-color: white;
- z-index: 10000;
+width: 1000px !important; 
+padding: 0px;
+margin: 0px;
+background-color: white;
+z-index: 10000;
  // &:hover .tab-content {display: block; }
  // .tab-content {display: none; }
+ .accordion,
+ .accordion-inner,
+ .accordion-group { 
+    border: none;
+    margin: 0px;
+    padding: 0px;
+  }
 }
 
+#filter-toggle {
+  display: inline-block;
+}
 
-#filter_tabs { 
-  font-size: 12px !important;
-  line-height: 16px !important;
-  border-bottom: none; 
-  margin-bottom: 0px;
+#filters .btn {
+  margin: 0px;
+  padding: 0px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 16px;
+  line-height: 40px;
+  display: inline-block;
+  color: rgba(0,0,0,0.5);
+  border-radius: 0px !important;
+  border: none !important;
+  background-color: rgba(0,0,0,0.05) !important; 
+  color: black !important;
+  margin-bottom: 5px;
+  margin-right: 5px;
 
-  li { 
-    display: inline-block; 
-    background-color: rgba(0,0,0,0.0); 
-    line-height: inherit !important;
-    font-size: inherit !important;
-
-    &.active{
-      a { 
-        color: black;
-        background-color: rgba(0,0,0,0.05); 
-        border: none !important;
-        &:hover { 
-          background-color: rgba(0,0,0,0.05); 
-        }
-      }
-    } 
-
-    span,
-    a { 
-      padding: 0px;
-      padding-right: 10px;
-      padding-left: 10px;
-      font-size: 16px;
-      line-height: 40px;
-      display: inline-block;
-      color: rgba(0,0,0,0.5);
-      border-radius: 0px !important;
-      border: none !important;
-    } 
-
-    a { 
-      &:hover { 
-        color: black;
-        background-color: rgba(0,0,0,0); 
-        border: none !important;
-      }
+  &#filter_reset {
+    &:hover { 
+      background-color: black !important;
+      background-image: url("../img/icons/inv/delete.svg") !important;
     }
-  } 
-} 
+  }
 
-.tab-content {
-  padding-top: 10px;
+  &:hover { 
+    background-color: rgba(0,0,0,0.075) !important; 
+  }
+
+  &.active {
+    background-color: #00aefd !important;
+    color: white !important;
+    &.collapsed {
+      background-color: rgba(0,0,0,0.05) !important; 
+      color: black !important;
+    }
+  }
 }
 
-#filter_summary,
+#filter_summary {
+  li {
+    display: inline-block; 
+    margin-right: 5px;
+
+    &:after {
+        content: " / ";
+        opacity: 0.25;
+      }
+
+    &:first-child:after,
+    &:last-child:after {
+      content: "" !important;
+    }
+  }
+  padding-bottom: 15px;
+  &:empty{ display: none !important;}
+}
+
 .tags,
 .filter {
   font-size: 0px;
@@ -1730,7 +1748,7 @@ aside {
   }
 }
 
-.accordion {
+.sidebar .accordion {
   margin-bottom: 10px;
   font-size: 14px;
   line-height: 20px;

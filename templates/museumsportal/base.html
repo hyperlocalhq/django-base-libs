@@ -230,7 +230,7 @@
                     // change selected class
                     $this.addClass('selected');
                     if ($('#filter_summary').text() == "") {
-                        var $li = $('<li><a href="">{% trans "Reset all filters" %}</a></li>');
+                        var $li = $('<li><b>{% trans "Filter selection" %}:</b></li>');
                         $('#filter_summary').append($li);
                     }
                     var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
@@ -269,6 +269,11 @@
             }            
         })
         
+        $('#filter_reset').live('click', function(e) {
+            e.preventDefault();
+            $('#filters a.selected').click();
+        })
+        
         if (window.location.hash) {
             // get options object from hash
             var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
@@ -296,7 +301,7 @@
            $("[rel=tooltip]").tooltip();
        }
     
-       $('.accordion-body').collapse('show');
+       // $('.accordion-body').collapse('show');
     });
 
     </script>
