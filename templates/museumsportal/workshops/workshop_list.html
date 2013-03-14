@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
-{% block title %}{% trans "Guided Tours" %} – {% endblock %}
+{% block title %}{% trans "Guided Tours, Workshops and educational offers" %} – {% endblock %}
 {% block bodyclass %}workshop-list{% endblock %}
 
 {% block js %}
@@ -17,7 +17,7 @@
 <div class="content clearfix sticky">
     {% include "utils/gmap.html" %}
     <div class="inner">
-        <h1>{% trans "Guided Tours, Workshops and other educational offers" %}</h1>
+        <h1>{% trans "Guided Tours, Workshops and educational offers" %}</h1>
 
         <div id="filters">
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">

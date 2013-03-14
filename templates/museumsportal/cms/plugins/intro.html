@@ -1,6 +1,6 @@
 <div class="cms-plugin-intro">
-    <h2>{{ object.title }}</h2>
-    {% if object.subtitle %}<h3>{{ object.subtitle }}</h3>{% endif %}
+    <h1>{{ object.title }}</h1>
+    {% if object.subtitle %}<h2>{{ object.subtitle }}</h2>{% endif %}
     {{ object.get_rendered_description }}
     <div class="small">{{ object.get_rendered_subdescription }}</div>
 </div>
