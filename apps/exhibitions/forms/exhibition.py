@@ -50,8 +50,7 @@ class BasicInfoForm(ModelForm):
         
         fields = ['start', 'end', 'permanent', 'exhibition_extended',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
-            'city', 'latitude', 'longitude', 
-            #'organizing_museum', 'organizer_title', 'organizer_url_link',
+            'city', 'latitude', 'longitude', 'link', 
             'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
             ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -112,9 +111,9 @@ class BasicInfoForm(ModelForm):
                 css_class="div-catalog",
                 *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-
-                css_class="fieldset-basic-info",
-                ))
+            'link',
+            css_class="fieldset-basic-info",
+            ))
 
         layout_blocks.append(layout.Fieldset(
             _("Duration"),
@@ -751,6 +750,7 @@ def load_data(instance=None):
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
             form_step_data['basic']['catalog_%s' % lang_code] = getattr(instance, 'catalog_%s' % lang_code)
+        form_step_data['basic']['link'] = instance.link
         form_step_data['basic']['start'] = instance.start
         form_step_data['basic']['end'] = instance.end
         form_step_data['basic']['permanent'] = instance.permanent
@@ -877,6 +877,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
             getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+        instance.link = form_step_data['basic']['link'] 
         instance.start = form_step_data['basic']['start'] 
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
@@ -1133,6 +1134,7 @@ def save_data(form_steps, form_step_data, instance=None):
         getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+    instance.link = form_step_data['basic']['link'] 
     instance.start = form_step_data['basic']['start'] 
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
