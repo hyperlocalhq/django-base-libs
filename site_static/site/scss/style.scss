@@ -810,6 +810,7 @@ a:active  { outline: none;}
     padding: 0px !important;
     margin: 0px !important;
     margin-right: 20px !important;
+    margin-bottom: 40px !important;
     &:nth-child(3n) {margin-right: 0px !important; }
 
     > li {
@@ -821,6 +822,8 @@ a:active  { outline: none;}
       float: left;
       position: relative;
       overflow: hidden;
+      
+      &.title h3 { font-weight: 500; margin-bottom: 15px; display: block; }
 
       .img { 
         background-color: rgba(0,0,0,0.05);
@@ -2704,6 +2707,8 @@ dl {
   .small p {font-size: 16px; line-height: 22px; width: 66%}
 
   p {
+    &:first-of-type {margin-top: 20px; }
+
     font-size: 25px;
     line-height: 36px;
     margin-bottom: 25px;
@@ -2894,4 +2899,38 @@ dl {
 .menu-exhibitions,
 .menu-guided-tours {
   display: none !important;
+}
+
+#tweets {
+  width: 100%;
+  display: block;
+  li {
+    display: block;
+    height: auto;
+    width: 320px;
+    min-height: 170px;
+    position: relative;
+    font-size: 20px;
+    line-height: 30px;
+    font-size: 16px;
+    line-height: 26px;
+
+    background-color: rgba(0,0,0,0.05);
+
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    float: left;
+    margin-right: 20px;
+    .created_at a { font-weight: 500; color: black;}
+
+    &:nth-child(3n) { margin-right: 0px; }
+    &:nth-child(3n+1) { clear: left;}
+
+  }
 }
