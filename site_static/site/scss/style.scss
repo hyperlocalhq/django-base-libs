@@ -618,7 +618,7 @@ a:active  { outline: none;}
           text-overflow: ellipsis;
           width: 100%;
           overflow: hidden;
-          &:empty{ display: none;}
+          &:empty{ display: none !important;}
         }
 
         h3 { 

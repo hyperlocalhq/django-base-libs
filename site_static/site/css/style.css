@@ -2449,7 +2449,7 @@ a:active {
         overflow: hidden; }
         /* line 621, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
         .list.rows > li a h3:empty, .list.rows > li a h4:empty, .list.rows > li a h5:empty {
-          display: none; }
+          display: none !important; }
       /* line 624, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
       .list.rows > li a h3 {
         font-size: 25px;

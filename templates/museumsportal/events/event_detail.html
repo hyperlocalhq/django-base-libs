@@ -319,10 +319,14 @@
             <header>
                 
                 {% if event.permanent %}
-                <time>{% trans "Permanent event" %}</time>
+                <time>{% trans "Permanent event" %} {% if event.event_type %}{{ event.event_type }}{% endif %}</time>
                 {% else %}
-                <!-- <span class="from_date">{{ event.start|date:"j. F Y" }}</span> {% trans "till" %} {{ event.end|date:"j. F Y" }} -->
-
+                    <time>{% if event.event_type %}{{ event.event_type }}: {% endif %}
+                        {% with event.eventtime_set.all.0 as event_time %}
+                        {{ event_time.event_date|date:"j. F Y" }}
+                        </br>
+                        {% endwith %}
+                </time>
                 {% endif %}
                 
                 <h1> {{ event.title }} </h1>

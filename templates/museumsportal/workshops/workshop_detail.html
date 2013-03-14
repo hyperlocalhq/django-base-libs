@@ -223,17 +223,16 @@
         
         <article class="with_sidebar">
             <header>
-                <time>
-                    {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                <time>{% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
                         {% trans "Bookable Offer" %}: {{ workshop.workshop_type }}
                     {% else %}
-                        {{ workshop.workshop_type }} {% trans "on" %}
+                        {{ workshop.workshop_type }} 
                         {% with workshop.workshoptime_set.all.0 as workshop_time %}
                             {{ workshop_time.workshop_date|date:"j. F Y" }}
                             {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
                         {% endwith %}
-                    {% endif %}
-                <time>
+                    {% endif %}</time>
+                    
                 <h1>{{ workshop.title }}</h1>
                 {% if workshop.subtitle %}
                     <h2>{{ workshop.subtitle }}</h2>
@@ -276,9 +275,15 @@
                         <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
 
                         <a href="{{ workshop.get_url_path }}">
-                            {% with workshop.workshoptime_set.all.0 as workshop_time %}
-                                <h4>{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|date:"H:i" }}</h4>
-                            {% endwith %}
+                            {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                                <h4>{% trans "Bookable Offer" %} {% if workshop.workshop_type %} : {{ workshop.workshop_type }} {% endif %}</h4> 
+                            {% else %}
+                                <h4>{{ workshop.workshop_type }}:
+                                {% with workshop.workshoptime_set.all.0 as workshop_time %}
+                                    {{ workshop_time.workshop_date|date:"j. F Y" }}
+                                    {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                                {% endwith %}</h4>
+                            {% endif %}
                             <h3>{{ workshop.title }}</h3>
                             {% if workshop.subtitle %}
                                 <h4>{{ workshop.subtitle }}</h4>
