@@ -201,12 +201,13 @@
             e.preventDefault();
             var $this = $(this);
 
-            var $optionSet = $this.parents('.option-set');
+            var $optionSet = $this.parents('.option-set:first');
             // store filter value in object
             // i.e. filters.category = ['.cat_history']
             var group = $optionSet.attr('data-filter-group');
             filters[group] = filters[group] || [];
             var value = $this.attr('data-filter-value');
+            var single_selection = $optionSet.attr('data-single-selection');
             
             if (value) {
                 if ($this.hasClass('selected')) {
@@ -220,8 +221,12 @@
                         $('#filter_summary').empty();
                     }
                 } else {
-                    $optionSet.find('.all.selected').removeClass('selected');
-                    filters[group].push(value);
+                    if (single_selection) {
+                        $optionSet.find('a.selected').click();
+                        filters[group] = [value];
+                    } else {
+                        filters[group].push(value);
+                    }
                     // change selected class
                     $this.addClass('selected');
                     if ($('#filter_summary').text() == "") {
@@ -231,17 +236,6 @@
                     var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
                     $('#filter_summary').append($li);
                 }
-            } else {
-                // "all" situation
-                $optionSet.find('.selected').removeClass('selected');
-                filters[group] = []
-                // remove elements from filter summary
-                $('#filter_summary li[data-filter-group="' + group + '"]').remove();
-                if ($('#filter_summary').children().length == 1) {
-                    $('#filter_summary').empty();
-                }
-                // change selected class
-                $this.addClass('selected');
             }
             
             // convert object into array
