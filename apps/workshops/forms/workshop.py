@@ -289,7 +289,7 @@ OrganizerFormset = inlineformset_factory(Workshop, Organizer, form=OrganizerForm
 class PricesForm(ModelForm):
     class Meta:
         model = Workshop
-        fields = ['admission_price', 'reduced_price']
+        fields = ['free_admission', 'admission_price', 'reduced_price']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
@@ -314,6 +314,7 @@ class PricesForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
+            layout.Row('free_admission', css_class="inline"),
             layout.Row('admission_price', 'reduced_price'),
             layout.Row(
                 css_class="div-admission_price_info-details",
@@ -518,7 +519,7 @@ def load_data(instance=None):
             workshop_time_dict['end'] = workshop_time.end
             form_step_data['times']['sets']['workshop_times'].append(workshop_time_dict)
     
-        fields = ['admission_price', 'reduced_price']
+        fields = ['free_admission', 'admission_price', 'reduced_price']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
@@ -605,7 +606,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if "_pk" in form_step_data:
             instance = Workshop.objects.get(pk=form_step_data['_pk'])
         
-            fields = ['admission_price', 'reduced_price']
+            fields = ['free_admission', 'admission_price', 'reduced_price']
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 fields += [
                     'admission_price_info_%s' % lang_code,
@@ -643,10 +644,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.other_languages = form_step_data['basic']['other_languages'] 
-    location = form_step_data['basic']['location']
-    museum = None
-    if location and location != "another":
-        museum = Museum.objects.get(pk=location)
+    instance.museum = form_step_data['basic']['museum']
     instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']
     instance.street_address2 = form_step_data['basic']['street_address2'] 
@@ -672,7 +670,7 @@ def save_data(form_steps, form_step_data, instance=None):
 
     instance.has_group_offer = form_step_data['times']['has_group_offer']
 
-    fields = ['admission_price', 'reduced_price']
+    fields = ['free_admission', 'admission_price', 'reduced_price']
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         fields += [
             'admission_price_info_%s' % lang_code,
