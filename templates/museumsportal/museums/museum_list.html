@@ -30,6 +30,7 @@
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabetisch" %}</button>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
                     {% comment %}
                     <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button> -->
                     {% endcomment %}
@@ -41,7 +42,7 @@
                 <div class="accordion-group">
                     <div id="filter-categories" class="accordion-body collapse" style="height: 0px;">
                         <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
+                            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
                                 {% for cat in facets.categories.categories %}
                                 <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
                                 {% endfor %}
@@ -62,6 +63,30 @@
                         </div>
                     </div>
                 </div>
+                <div class="accordion-group">
+                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
+                                <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
+                                <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
+                                <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
+                                <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
+                                <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
+                                <li><a href="" data-filter-value=".has_service_shop">{% trans "Museum Shop" %}</a></li>
+                                <li><a href="" data-filter-value=".has_service_restaurant">{% trans "Restaurant" %}</a></li>
+                                <li><a href="" data-filter-value=".has_service_cafe">{% trans "Cafe" %}</a></li>
+                                <li><a href="" data-filter-value=".has_service_library">{% trans "Library" %}</a></li>
+                                <li><a href="" data-filter-value=".has_service_archive">{% trans "Archive" %}</a></li>
+                                <li><a href="" data-filter-value=".has_service_diaper_changing">{% trans "Diaper changing table" %}</a></li>
+                                <li><a href="" data-filter-value=".has_audioguide">{% trans "Audioguide" %}</a></li>
+                                <li><a href="" data-filter-value=".has_audioguide_for_children">{% trans "Audioguide for children" %}</a></li>
+                                <li><a href="" data-filter-value=".has_audioguide_for_learning_difficulties">{% trans "Audioguide for people with learning difficulties" %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
          
             <ul id="filter_summary"></ul>
@@ -73,7 +98,7 @@
         <ul id="container" class="list tiles clearfix">
             {% for museum in object_list %}
                 {% tags_for_object museum as tags %}
-                <li class="item initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">
+                <li class="item initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museums.is_for_children %} is_for_children{% endif %}{% if museums.open_on_mondays %} is_open_on_mondays{% endif %}{% if museums.free_entrance %} is_free_entrance{% endif %}{% if museums.show_family_ticket %} is_family_ticket{% endif %}{% if museums.show_group_ticket %} is_group_ticket{% endif %}{% if museums.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museums.member_of_museumspass %} is_museumspass{% endif %}{% if museums.service_shop %} has_service_shop{% endif %}{% if museums.service_restaurant %} has_service_restaurant{% endif %}{% if museums.service_cafe %} has_service_cafe{% endif %}{% if museums.service_library %} has_service_library{% endif %}{% if museums.service_archive %} has_service_archive{% endif %}{% if museums.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museums.has_audioguide %} has_audioguide{% endif %}{% if museums.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museums.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}">
                     {% if museum.cover_image %}
                         <a class="img" href="{{ museum.get_url_path }}">
                             <img src="{{ STATIC_URL }}site/img/none.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}" alt="" />
