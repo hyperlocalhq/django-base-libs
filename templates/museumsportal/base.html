@@ -244,6 +244,8 @@
                 isoFilters.push(filters[prop].join(''));
             }
             var selector = isoFilters.join('');
+            
+            $.bbq.pushState({filter: selector});
 
             $container.isotope({filter: selector});            
             $(".list .img:in-viewport").lazyload();
@@ -267,31 +269,17 @@
             }            
         })
         
-        var hashChanged = false;
-        $(window).bind( 'hashchange', function( event ){
-            if (!window.location.hash) {
-                return;
-            }
+        if (window.location.hash) {
             // get options object from hash
-            var hashOptions = window.location.hash ? $.deparam.fragment( window.location.hash, true ) : {},
-                // do not animate first call
-                aniEngine = hashChanged ? 'best-available' : 'none',
-                // apply defaults where no option was specified
-                options = $.extend( {}, hashOptions, { animationEngine: aniEngine } );
+            var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
             // apply options from hash
-            $container.isotope( options );
-            $(".list .img:in-viewport").lazyload();
-            // save options
-            hashChanged = true;
-            if (hashOptions) {
-                var $categories = $('#categories');
-                $('a[href="#any-category"]', $categories).removeClass("selected");
-                $('a[href="' + window.location.hash + '"]', $categories).addClass("selected");
-            }
-            
-          })
-            // trigger hashchange to capture any hash data on init
-            .trigger('hashchange');
+            $(options.filter.split('.')).each(function() {
+                if (!this) {
+                    return;
+                }
+                $('#filters a[data-filter-value=".' + this + '"]').click();
+            })
+        }
         
         
     });
