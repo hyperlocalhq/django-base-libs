@@ -92,14 +92,12 @@
             {% tags_for_object exhibition as tags %}
             <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
                 {% if exhibition.cover_image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}">
-                        <span class="spinner loading"></span>
-                        
+                    <a class="img" href="{{ exhibition.get_url_path }}">
+                        <img src="{{ STATIC_URL }}site/img/none.gif" data-original="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}" alt="" />
                     </a>
                 {% else %}
-                    <a class="img" href="{{ exhibition.get_url_path }}"{% if exhibition.museum.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.museum.cover_image|modified_path:"exhibition_list" }}"{% endif %}>
-                        <span class="spinner loading"></span>
-                        
+                    <a class="img" href="{{ exhibition.get_url_path }}">
+                        <img src="{{ STATIC_URL }}site/img/none.gif" data-original="{{ MEDIA_URL }}{{ exhibition.museum.cover_image|modified_path:"exhibition_list" }}" alt="" />
                     </a>
                 {% endif %}
 

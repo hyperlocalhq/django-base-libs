@@ -70,8 +70,8 @@
                 {% tags_for_object museum as tags %}
                 <li class="item initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">
                     {% if museum.cover_image %}
-                        <a class="img" href="{{ museum.get_url_path }}"  data-background="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}">
-                            <span class="spinner loading"></span>
+                        <a class="img" href="{{ museum.get_url_path }}">
+                            <img src="{{ STATIC_URL }}site/img/none.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}" alt="" />
                         </a>
                     {% endif %}
 

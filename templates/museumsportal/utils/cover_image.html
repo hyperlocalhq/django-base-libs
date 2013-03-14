@@ -4,7 +4,7 @@
 <header id="slideshow">
         <ul id="slide">
             <li>
-                <span class="img" style="background-image: url({{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }})"></span>
+                <img src="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}" alt="" />
             </li>
         </ul>
 
