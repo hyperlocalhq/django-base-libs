@@ -74,6 +74,7 @@ class BasicInfoForm(ModelForm):
             'is_for_deaf',
             'is_for_blind',
             'is_for_learning_difficulties',
+            'link',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
             ]
@@ -132,9 +133,10 @@ class BasicInfoForm(ModelForm):
                 css_class="div-description",
                 *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            'link',
 
-                css_class="fieldset-basic-info",
-                ))
+            css_class="fieldset-basic-info",
+            ))
 
         layout_blocks.append(layout.Fieldset(
             _("Location"),
@@ -478,6 +480,7 @@ def load_data(instance=None):
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['workshop_type_%s' % lang_code] = getattr(instance, 'workshop_type_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
+        form_step_data['basic']['link'] = instance.link
         form_step_data['basic']['tags'] = instance.tags
         form_step_data['basic']['languages'] = instance.languages.all()
         form_step_data['basic']['other_languages'] = instance.other_languages
@@ -544,6 +547,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'workshop_type_%s' % lang_code, form_step_data['basic']['workshop_type_%s' % lang_code])
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+        instance.link = form_step_data['basic']['link'] 
         instance.other_languages = form_step_data['basic']['other_languages'] 
         instance.museum = form_step_data['basic']['museum']
         instance.location_name = form_step_data['basic']['location_name']
@@ -643,6 +647,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'workshop_type_%s' % lang_code, form_step_data['basic']['workshop_type_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+    instance.link = form_step_data['basic']['link'] 
     instance.other_languages = form_step_data['basic']['other_languages'] 
     instance.museum = form_step_data['basic']['museum']
     instance.location_name = form_step_data['basic']['location_name']

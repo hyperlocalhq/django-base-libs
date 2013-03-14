@@ -114,6 +114,8 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     booking_info = MultilingualTextField(_("Booking info"), blank=True)
 
+    link = URLField(_("Website link"), blank=True)
+
     objects = WorkshopManager()
 
     row_level_permissions = True
