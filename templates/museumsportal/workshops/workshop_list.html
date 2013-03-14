@@ -15,10 +15,14 @@
 {% endblock %}
 {% block content %}
 <div class="content clearfix sticky">
+    <nav id="map_controls">
+        <button id="gmap_toggle" class="btn icon icon-white icon-location" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}"></button>
+        <a class="btn icon icon-white icon-rss" rel="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">{% trans "RSS Feed" %}</a>
+    </nav>
+    
     {% include "utils/gmap.html" %}
     <div class="inner">
         <h1>{% trans "Guided Tours, Workshops and educational offers" %}</h1>
-
         <div id="filters">
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
@@ -26,7 +30,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button>
             </div>
 
-            <button id="filter_reset" type="button" class="btn btn-primary icon icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">{% trans "Reset all filters" %}</button>
+            <button id="filter_reset" type="button" class="btn btn-primary icon icon-black icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">{% trans "Reset all filters" %}</button>
 
             <div class="accordion" id="filter-options">
                 <div class="accordion-group">
@@ -91,12 +95,12 @@
                         {% endif %}
                         {% if_has_perm "workshops.change_workshop" workshop %}
                             {% if workshop.cover_image %}
-                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';"></button>
+                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';"></button>
                             {% else %}{% if workshop.museum.cover_image %}
-                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-crop" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';"></button>
+                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';"></button>
                             {% endif %}{% endif %}
                         {% end_if_has_perm %}
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-location"></button>
+                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
                     </nav>
         
                     <a href="{{ workshop.get_url_path }}">

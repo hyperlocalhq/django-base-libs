@@ -1,4 +1,4 @@
 {% load base_tags i18n %}
-<button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-favorite{% if not is_not_favorite_for_user %} faved{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');">
+<button rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-white icon-favorite{% if not is_not_favorite_for_user %} faved{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');">
 </button>
 

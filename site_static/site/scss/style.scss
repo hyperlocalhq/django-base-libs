@@ -948,30 +948,45 @@ nav.actions {
   height: 40px;
   width: 40px;
 
-  &.icon-crop       { background-image: url("../img/icons/inv/crop.svg");}
-  &.icon-add        { background-image: url("../img/icons/inv/add.svg");}
-  &.icon-view       { background-image: url("../img/icons/inv/view.svg");}
-  &.icon-edit       { background-image: url("../img/icons/inv/edit.svg");}
-  &.icon-favorite   { background-image: url("../img/icons/inv/favorite.svg");}
-  &.icon-favorite.active   { background-image: url("../img/icons/inv/favorite_active.svg");}
-  &.icon-location   { background-image: url("../img/icons/inv/location.svg");}
-  &.icon-cancel     { background-image: url("../img/icons/inv/cancel.svg");}
-  &.icon-fullscreen { background-image: url("../img/icons/inv/fullscreen.svg");}
-  &.icon-shop       { background-image: url("../img/icons/inv/shop.svg"); }
-  &.icon-books      { background-image: url("../img/icons/inv/books.svg"); }
-  &.icon-restaurant { background-image: url("../img/icons/inv/restaurant.svg"); }
-  &.icon-cafe       { background-image: url("../img/icons/inv/cafe.svg"); }
-  &.icon-library    { background-image: url("../img/icons/inv/library.svg"); }
-  &.icon-archive    { background-image: url("../img/icons/inv/archive.svg"); }
-  &.icon-studio     { background-image: url("../img/icons/inv/studio.svg"); }
-  &.icon-online     { background-image: url("../img/icons/inv/online.svg"); }
-  &.icon-diaper     { background-image: url("../img/icons/inv/diaper.svg"); }
-  &.icon-birthdays  { background-image: url("../img/icons/inv/birthdays.svg"); }
-  &.icon-rent       { background-image: url("../img/icons/inv/rent.svg"); }
-  &.icon-other      { background-image: url("../img/icons/inv/other.svg"); }
-  &.icon-delete     { background-image: url("../img/icons/inv/cancel.svg"); }
+  &.icon-white {
+    &.icon-crop              { background-image: url("../img/icons/inv/crop.svg");}
+    &.icon-add               { background-image: url("../img/icons/inv/add.svg");}
+    &.icon-view              { background-image: url("../img/icons/inv/view.svg");}
+    &.icon-edit              { background-image: url("../img/icons/inv/edit.svg");}
+    &.icon-favorite          { background-image: url("../img/icons/inv/favorite.svg");}
+    &.icon-favorite.active   { background-image: url("../img/icons/inv/favorite_active.svg");}
+    &.icon-rss               { background-image: url("../img/icons/inv/rss.svg");}
+    &.icon-location          { background-image: url("../img/icons/inv/location.svg");}
+    &.icon-cancel            { background-image: url("../img/icons/inv/cancel.svg");}
+    &.icon-fullscreen        { background-image: url("../img/icons/inv/fullscreen.svg");}
+    &.icon-shop              { background-image: url("../img/icons/inv/shop.svg"); }
+    &.icon-books             { background-image: url("../img/icons/inv/books.svg"); }
+    &.icon-restaurant        { background-image: url("../img/icons/inv/restaurant.svg"); }
+    &.icon-cafe              { background-image: url("../img/icons/inv/cafe.svg"); }
+    &.icon-library           { background-image: url("../img/icons/inv/library.svg"); }
+    &.icon-archive           { background-image: url("../img/icons/inv/archive.svg"); }
+    &.icon-studio            { background-image: url("../img/icons/inv/studio.svg"); }
+    &.icon-online            { background-image: url("../img/icons/inv/online.svg"); }
+    &.icon-diaper            { background-image: url("../img/icons/inv/diaper.svg"); }
+    &.icon-birthdays         { background-image: url("../img/icons/inv/birthdays.svg"); }
+    &.icon-rent              { background-image: url("../img/icons/inv/rent.svg"); }
+    &.icon-other             { background-image: url("../img/icons/inv/other.svg"); }
+    &.icon-delete            { background-image: url("../img/icons/inv/cancel.svg"); }
+  }
 
-  &.icon-delete     { background-image: url("../img/icons/delete.svg");}
+  &.icon-black {
+    &.icon-rss             { background-image: url("../img/icons/rss.svg");}
+    &.icon-location        { background-image: url("../img/icons/location.svg");}
+    &.icon-crop            { background-image: url("../img/icons/crop.svg");}
+    &.icon-add             { background-image: url("../img/icons/add.svg");}
+    &.icon-view            { background-image: url("../img/icons/view.svg");}
+    &.icon-edit            { background-image: url("../img/icons/edit.svg");}
+    &.icon-favorite        { background-image: url("../img/icons/favorite.svg");}
+    &.icon-location        { background-image: url("../img/icons/location.svg");}
+    &.cancel               { background-image: url("../img/icons/cancel.svg");}
+    &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
+    &.icon-delete          { background-image: url("../img/icons/delete.svg");}
+  }
 
   &.transparent {
     background-color: transparent !important;
@@ -984,7 +999,7 @@ nav.actions {
     &.icon-edit            { background-image: url("../img/icons/edit.svg");}
     &.icon-favorite        { background-image: url("../img/icons/favorite.svg");}
     &.icon-location        { background-image: url("../img/icons/location.svg");}
-    // &.cancel          { background-image: url("../img/icons/cancel.svg");}
+    &.cancel               { background-image: url("../img/icons/cancel.svg");}
     &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
   }
 }
@@ -1088,7 +1103,7 @@ nav.actions {
         }
 
         img { display: block; width: 100%; }
-        &:first-child { width: 660px;}
+        // &:first-child { width: 660px;}
 
         &:hover { 
           .info {
@@ -1121,9 +1136,9 @@ nav.actions {
           -webkit-transition-property: all;
           -webkit-transition-duration: 0.25s;
           -webkit-transition-timing: ease-in-out;
+            padding-top: 10px;
 
           .title { 
-            padding-top: 10px;
             font-weight: 500; 
           }
 

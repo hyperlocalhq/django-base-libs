@@ -22,19 +22,16 @@
 
 {% block edit_item %}
     {% if_has_perm "events.change_event" object %}
-    <li><a class="edit icon icon-edit" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
+    <li><a class="edit icon icon-white icon-edit" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
     {% end_if_has_perm %}
 {% endblock %}
 
 {% block content %}
 {% include "utils/gmap.html" %}
-
+{% with object as event %}
 <div class="content clearfix">
-  <div class="inner">
-    {% with object as event %}
-
+    <div class="inner clearfix">
         {% include "utils/cover_image.html" %}
-        
         <section class="sidebar">
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
@@ -317,10 +314,10 @@
                 <time>
                     {% if event.permanent %}{% trans "Permanent event" %}{% else %}
             
-                    {% for event_time in event.eventtime_set.all %}
-                            {{ event_time.event_date|date:"j. F Y" }} – 
-                            {{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}
-                    {% endfor %}
+                        {% for event_time in event.eventtime_set.all %}
+                                {{ event_time.event_date|date:"j. F Y" }} – 
+                                {{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}</br>
+                        {% endfor %}
 
                     <!-- <span class="from_date">{{ event.start|date:"j. F Y" }}</span> {% trans "till" %} {{ event.end|date:"j. F Y" }} -->
 
@@ -356,6 +353,8 @@
         </article>
   </div>
 </div>
+
+{% include "utils/images.html" %}
 
 <!-- ======= Other Events ======= -->
 
