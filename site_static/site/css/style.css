@@ -3028,12 +3028,6 @@ nav.actions {
         .workshop-detail article#images ul li img {
           display: block;
           width: 100%; }
-        /* line 1106, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
-        .museum-detail article#images ul li:first-child,
-        .exhibition-detail article#images ul li:first-child,
-        .event-detail article#images ul li:first-child,
-        .workshop-detail article#images ul li:first-child {
-          width: 660px; }
         /* line 1109, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
         .museum-detail article#images ul li:hover .info,
         .exhibition-detail article#images ul li:hover .info,
@@ -3077,15 +3071,15 @@ nav.actions {
           -webkit-transition-property: all;
           -webkit-transition-duration: 0.25s;
           -webkit-transition-timing: ease-in-out;
+          padding-top: 10px;
           color: rgba(0, 0, 0, 0.75);
           font-size: 12px;
           line-height: 18px; }
-          /* line 1140, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
+          /* line 1141, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
           .museum-detail article#images ul li .info .title,
           .exhibition-detail article#images ul li .info .title,
           .event-detail article#images ul li .info .title,
           .workshop-detail article#images ul li .info .title {
-            padding-top: 10px;
             font-weight: 500; }
   /* line 1153, /Users/thomashelbig/Virtualenvs/museumsportal/project/museumsportal/site_static/site/scss/style.scss */
   .museum-detail article header,

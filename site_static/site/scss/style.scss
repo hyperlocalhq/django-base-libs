@@ -1103,7 +1103,7 @@ nav.actions {
         }
 
         img { display: block; width: 100%; }
-        &:first-child { width: 660px;}
+        // &:first-child { width: 660px;}
 
         &:hover { 
           .info {
@@ -1136,9 +1136,9 @@ nav.actions {
           -webkit-transition-property: all;
           -webkit-transition-duration: 0.25s;
           -webkit-transition-timing: ease-in-out;
+            padding-top: 10px;
 
           .title { 
-            padding-top: 10px;
             font-weight: 500; 
           }
 
