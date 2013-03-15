@@ -35,6 +35,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabet" %}</button>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-calendar">{% trans "Calendar" %}</button>
             </div>
 
             <button id="filter_reset" type="button" class="btn btn-primary icon icon-black icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">{% trans "Reset all filters" %}</button>
@@ -74,6 +75,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="accordion-group">
+                    <div id="filter-calendar" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+                                <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
+                                <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
+                                <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>
+                                <li><a href="" data-filter-value=".is_within_30_days">{% trans "30 Days" %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
          
             <ul id="filter_summary"></ul>
@@ -86,7 +99,7 @@
         <ul id="container" class="list rows clearfix">
             {% for event in object_list %}
                 {% tags_for_object event as tags %}
-                <li class="item initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}">
+                <li class="item initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}">
                     <nav class="actions">
                         {% if request.user.is_authenticated %}
                             {% adding2favorites for event %}
@@ -102,7 +115,7 @@
                     </nav>
         
                     <a href="{{ event.get_url_path }}">
-                        <h4>{% with event.eventtime_set.all.0 as event_time %}{{ event_time.event_date|date:"j. F Y" }}{{ event_time.start|date:"H:i" }}{% endwith %}</h4>
+                        <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}{{ event_time.start|date:"H:i" }}{% endwith %}</h4>
                         <h3>{{ event.title }}</h3>
                         <h4>{{ event.subtitle }}</h4>
                         <h5>{{ event.museum.title }}</h5>

@@ -335,7 +335,7 @@
                 <time>{% trans "Permanent event" %} {% if event.event_type %}{{ event.event_type }}{% endif %}</time>
                 {% else %}
                     <time>{% if event.event_type %}{{ event.event_type }}: {% endif %}
-                        {% with event.eventtime_set.all.0 as event_time %}
+                        {% with event.get_closest_event_time as event_time %}
                         {{ event_time.event_date|date:"j. F Y" }}
                         </br>
                         {% endwith %}
