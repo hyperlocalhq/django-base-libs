@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-14 20:06+0100\n"
-"PO-Revision-Date: 2013-03-14 21:34\n"
+"PO-Revision-Date: 2013-03-14 23:43\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -122,19 +122,16 @@ msgid "Homepage"
 msgstr "Startseite"
 
 #: settings.py:426
-#, fuzzy
 msgid "Plan & Organize – First"
-msgstr "Planen & Organisieren - Übersicht"
+msgstr "Planen & Organisieren - Erste Ebene"
 
 #: settings.py:427
-#, fuzzy
 msgid "Plan & Organize - Second"
-msgstr "Planen & Organisieren - Detail"
+msgstr "Planen & Organisieren - Zweite Ebene"
 
 #: settings.py:428
-#, fuzzy
 msgid "Plan & Organize - Third"
-msgstr "Planen & Organisieren - Detail"
+msgstr "Planen & Organisieren - Dritte Ebene"
 
 #: settings.py:430
 msgid "Magazine – Overview"
@@ -652,14 +649,14 @@ msgstr "Nur noch kurze Zeit"
 #: apps/exhibitions/forms/exhibition.py:219
 #: apps/workshops/forms/workshop.py:34 apps/workshops/forms/workshop.py:246
 msgid "Museum from the list / <a href=\"#\">Free location</a>"
-msgstr ""
+msgstr "Gelistetes Museum / <a href=\"#\">Sonstiger Ort</a>"
 
 #: apps/events/forms/event.py:91 apps/events/forms/event.py:249
 #: apps/exhibitions/forms/exhibition.py:77
 #: apps/exhibitions/forms/exhibition.py:239
 #: apps/workshops/forms/workshop.py:98 apps/workshops/forms/workshop.py:266
 msgid "Free location / <a href=\"#\">Museum from the list</a>"
-msgstr ""
+msgstr "Sonstiger Ort / <a href=\"#\">Gelistetes Museum</a>"
 
 #: apps/events/forms/event.py:113 apps/exhibitions/forms/exhibition.py:99
 #: apps/workshops/forms/workshop.py:120
@@ -669,7 +666,7 @@ msgstr "Basisinformation"
 #: apps/events/forms/event.py:167 apps/exhibitions/forms/exhibition.py:168
 #: apps/workshops/forms/workshop.py:175
 msgid "Organizers (when differ from location)"
-msgstr ""
+msgstr "Veranstalter (falls nicht identisch mit Standort)"
 
 #: apps/events/forms/event.py:192 apps/exhibitions/forms/exhibition.py:188
 #: apps/workshops/forms/workshop.py:200
@@ -776,6 +773,9 @@ msgstr "Bilddaten"
 msgid ""
 "There are errors in this form. Please correct them and try to save again."
 msgstr ""
+"Dieses Formular wurde noch nicht vollständig oder korrekt ausgefüllt. Bitte "
+"korrigieren Sie die entsprechend markierten Felder und speichern das "
+"Formular dann erneut!"
 
 #: apps/events/forms/gallery.py:24 apps/exhibitions/forms/gallery.py:24
 #: apps/museums/forms/gallery.py:24 apps/workshops/forms/gallery.py:24
@@ -1729,7 +1729,6 @@ msgid "from search by query"
 msgstr "from search by query"
 
 #: apps/twitterwall/models.py:143
-#, fuzzy
 msgid "by twitter user from user timeline settings"
 msgstr "by twitter user from user timeline settings"
 
@@ -1997,9 +1996,8 @@ msgid "Favorites"
 msgstr "Favoriten"
 
 #: templates/museumsportal/base.html:233
-#, fuzzy
 msgid "Filter selection"
-msgstr "Artikel Auswahl"
+msgstr "Auswahl filtern"
 
 #: templates/museumsportal/accounts/dashboard.html:6
 msgid "Input Mask"
@@ -2258,9 +2256,8 @@ msgstr ""
 " gelandet."
 
 #: templates/museumsportal/cms/magazine.html:20
-#, fuzzy
 msgid "All Articles of the Section"
-msgstr "Artikel Auswahl"
+msgstr "Alle Artikel zu dieser Rubrik"
 
 #: templates/museumsportal/cms/plugins/editorial_content.html:14
 #: templates/museumsportal/cms/plugins/newly_opened_exhibition.html:16
@@ -2375,7 +2372,7 @@ msgstr "Dauerausstellung"
 #: templates/museumsportal/events/event_detail.html:364
 #, python-format
 msgid "Current Events of <span>%(museum_title)s</span>"
-msgstr ""
+msgstr "Aktuelle Veranstaltungen von <span>%(museum_title)s</span>"
 
 #: templates/museumsportal/events/event_list.html:21
 #: templates/museumsportal/exhibitions/exhibition_list.html:20
@@ -2389,7 +2386,7 @@ msgstr "Karte zeigen"
 #: templates/museumsportal/museums/museum_list.html:21
 #: templates/museumsportal/workshops/workshop_list.html:20
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS Feed"
 
 #: templates/museumsportal/events/event_list.html:31
 #: templates/museumsportal/exhibitions/exhibition_list.html:31
@@ -2437,9 +2434,8 @@ msgstr "Neue Veranstaltung eintragen"
 #: templates/museumsportal/events/forms/basic_info_form.html:93
 #: templates/museumsportal/exhibitions/forms/basic_info_form.html:92
 #: templates/museumsportal/workshops/forms/basic_info_form.html:93
-#, fuzzy
 msgid "Add organizer"
-msgstr "Veranstalter"
+msgstr "Veranstalter hinzufügen"
 
 #: templates/museumsportal/events/forms/gallery_form.html:14
 #: templates/museumsportal/exhibitions/forms/gallery_form.html:14
@@ -2494,14 +2490,13 @@ msgid "Suitable for disabled"
 msgstr "Speziell geeignet für Menschen mit Handicap"
 
 #: templates/museumsportal/exhibitions/exhibition_detail.html:391
-#, fuzzy, python-format
+#, python-format
 msgid "More Exhibitions of %(museum_title)s"
-msgstr "%(museum_title)s bearbeiten"
+msgstr "Weitere Ausstellungen %(museum_title)s"
 
 #: templates/museumsportal/exhibitions/vernissage_list.html:3
-#, fuzzy
 msgid "Vernissages"
-msgstr "Vernissage"
+msgstr "Vernissagen"
 
 #: templates/museumsportal/exhibitions/vernissage_list.html:21
 msgid "Vernissages in the Museums of Berlin"
@@ -2562,7 +2557,6 @@ msgid ""
 msgstr "Drücken Sie ESC, um zur Standardeinstellung zurückzukehren"
 
 #: templates/museumsportal/museums/museum_detail.html:57
-#, fuzzy
 msgid "Telephone"
 msgstr "Servicetelefon"
 
