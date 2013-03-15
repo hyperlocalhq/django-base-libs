@@ -3,7 +3,7 @@
   {% if placeholder == "featured_magazin" %}
   <li class="item">
       <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})"></a>
-      <a href="{{ exhibition.get_url_path }}">
+      <a href="{{ object.website }}">
           <h3>{{ object.title }}</h3>
           <h4>{{ object.subtitle }}</h4>
           <h5>{{ object.image_caption }}</h5>
@@ -11,7 +11,6 @@
   </li>
 
   {% else %}
-
   <div class="editorial-content">
         <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})">
           <img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />
