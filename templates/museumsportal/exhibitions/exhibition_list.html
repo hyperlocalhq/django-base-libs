@@ -21,9 +21,12 @@
 {% block content %}
 <div class="content clearfix sticky">
     <nav id="map_controls">
+        <a class="btn icon icon-white icon-favorite active" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
+
         <button id="gmap_toggle" class="btn icon icon-white icon-location" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}"></button>
         
         <a class="btn icon icon-white icon-rss" rel="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">{% trans "RSS Feed" %}</a>
+
     </nav>
 
     <div class="inner">
@@ -137,6 +140,10 @@
                 {% endif %}
 
                 <nav class="actions">
+                    {% if request.user.is_authenticated %}
+                        {% adding2favorites for exhibition %}
+                    {% endif %}
+
                     {% if_has_perm "exhibitions.change_exhibition" exhibition %}
                         {% if exhibition.cover_image %}
                             <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-white icon-crop" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';"></button>
@@ -144,9 +151,6 @@
                             <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-white icon-crop" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';"></button>
                         {% endif %}{% endif %}
                     {% end_if_has_perm %}
-                    {% if request.user.is_authenticated %}
-                        {% adding2favorites for exhibition %}
-                    {% endif %}
                     <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
                 </nav>
 

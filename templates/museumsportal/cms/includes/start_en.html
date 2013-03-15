@@ -5,17 +5,17 @@
 <article>
     <div class="clearfix">
         <ul class="list compact clearfix">
-            <li class="title"><h3>{% trans "Newly Opened" %}</h3></li>
+            <li class="title"><h3>{% trans "Featured Museums" %}</h3></li>
             {% placeholder "featured_magazin" %}
         </ul>
 
         <ul class="list compact clearfix">
-            <li class="title"><h3>{% trans "Must see" %}</h3></li>
+            <li class="title"><h3>{% trans "Good to know" %}</h3></li>
             {% placeholder "featured_magazin" %}
         </ul>
 
         <ul class="list compact clearfix">
-            <li class="title"><h3>{% trans "Magazin" %}</h3></li>
+            <li class="title"><h3>{% trans "Featured Exhibitions" %}</h3></li>
             {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
             
             {% placeholder "featured_magazin" %}

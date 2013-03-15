@@ -37,6 +37,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
   font-weight: 400;
+  background-color: #f2f2f2;
 }
 
 ::selection {background: #ffb7b7; /* Safari */ }
@@ -207,6 +208,9 @@ a:active  { outline: none;}
 #dashboard_header,
 #header, .content {
   border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.content {
 }
 
 #header, .content, #footer {
@@ -418,7 +422,6 @@ a:active  { outline: none;}
 // ================= FOOTER =================
 
 #footer {
-  background-color: transparent;
   .inner { 
 
     ul.navigation {
@@ -559,6 +562,7 @@ a:active  { outline: none;}
 
       // border-bottom: 1px solid rgba(0,0,0,0.05); 
 
+      &.delete { display: none; }
 
       border-bottom: 10px solid white;
       background-color: rgba(0,0,0,0.05);
@@ -572,13 +576,13 @@ a:active  { outline: none;}
       &:hover{
         background-color: rgba(0,0,0,0.075);
 
-        .actions {opacity: 1; }
+        .actions button {opacity: 1; }
         .img{ 
           opacity: 0.9;
           .overlay { border: 1px solid rgba(0,0,0,0.1); }
         }
       }
-      .actions { opacity: 0; }
+      .actions button { opacity: 0; }
       .img { display: none;}
       
       a {
@@ -589,6 +593,7 @@ a:active  { outline: none;}
 
         h4 { font-weight: 400;}
         h5 { font-weight: 400; opacity: 0.5; }
+
         h3, h4 , h5 {
           display: inline-block;
           white-space: nowrap;
@@ -625,10 +630,10 @@ a:active  { outline: none;}
       line-height: 20px;
       padding-bottom: 0px ;
       margin-right: 20px;
-      .actions {opacity: 0; }
+      .actions button {opacity: 0; }
 
       &:hover{
-        .actions {opacity: 1; }
+        .actions button {opacity: 1; }
         .img{ 
           opacity: 0.9;
           .overlay { border: 1px solid rgba(0,0,0,0.1); }
@@ -901,9 +906,6 @@ a:active  { outline: none;}
 
 ul.actions,
 nav.actions {
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.125s;
-  -webkit-transition-timing: ease-in-out;
   position: absolute;
   z-index: 2000;
   right: 0px;
@@ -915,6 +917,9 @@ nav.actions {
 
   a,
   button { 
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.125s;
+    -webkit-transition-timing: ease-in-out;
     float: right;
     background-color: rgba(0,0,0,0.95) !important;
     width: 40px !important;
@@ -976,7 +981,7 @@ nav.actions {
     &.icon-view              { background-image: url("../img/icons/inv/view.svg");}
     &.icon-edit              { background-image: url("../img/icons/inv/edit.svg");}
     &.icon-favorite          { background-image: url("../img/icons/inv/favorite.svg");}
-    &.icon-favorite.active   { background-image: url("../img/icons/inv/favorite_active.svg");}
+    &.icon-favorite.active   { background-image: url("../img/icons/inv/favorite_active.svg"); opacity: 1!important;}
     &.icon-rss               { background-image: url("../img/icons/inv/rss.svg");}
     &.icon-location          { background-image: url("../img/icons/inv/location.svg");}
     &.icon-cancel            { background-image: url("../img/icons/inv/cancel.svg");}
@@ -2101,10 +2106,8 @@ dl {
 #workshop_times_fieldset,
 #event_times_fieldset,
 #social_channels_fieldset,
-#favorites,
 #item_container,
-#dashboard,
-#favorites {
+#dashboard {
   fieldset { margin-bottom: 60px; position: relative; }
   legend {font-size: 28px; padding-bottom: 10px; border: none !important;}
   
@@ -2134,7 +2137,6 @@ dl {
   ul {
     li {
       position: relative;
-      
       &:hover {
         > a { background-color: rgba(0,0,0,0.075);}
       }
@@ -2648,17 +2650,13 @@ dl {
 }
 
 #favorites {
-  li {
-    white-space: nowrap;
-    h2, h3 ,h4 , h5 {
-      display: inline-block;
-      &:after {
-        content: " – ";
-      }
-      &:last-child:after {
-        content: "" !important;
-      }
-    } 
+  h3 {
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 10px;
+  }
+  ul {
+    margin-bottom: 30px;
   }
 }
 
@@ -2785,7 +2783,7 @@ dl {
   h2 { margin-bottom: 10px; font-weight: 500; }
   h3 { margin-bottom: 10px; }
 
-  ul {margin-top: 30px; }
+  ul { margin-top: 10px; }
 
   li{ 
     font-size: 16px;
@@ -2793,11 +2791,11 @@ dl {
     margin-bottom: 0px;
 
     background-color: rgba(0,0,0,0.05);
-    border-bottom: 10px solid white;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
     padding-left: 25px;
     padding-right: 25px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 
 
     &:last-child{ border: none !important; }
@@ -2986,6 +2984,7 @@ dl {
 #footer_sponsors {
   width: 100%;
   background-color: rgba(0,0,0,0.05);
+  background-color: #f2f2f2;
   > div {
     padding-top: 20px !important;
     padding-bottom: 20px !important;
