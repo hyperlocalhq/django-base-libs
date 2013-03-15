@@ -207,7 +207,53 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     def is_upcoming(self):
         today = date.today()
         return today < self.start
+    
+    def is_today(self):
+        return self.is_actual()
         
+    def is_tomorrow(self):
+        today = date.today()
+        one_day = timedelta(days=1)
+        return self.start <= today + one_day <= self.end
+        
+    def is_within_days(self, days=0):
+        selected_start = date.today()
+        selected_end = selected_start + timedelta(days=days)
+        conditions = False
+        """
+        Get events which start date is within the selected range
+        -----[--selected range--]----- time ->
+                   [-event-]
+                          [-event-]
+        """
+        conditions = conditions or (
+            selected_start <= self.start <= selected_end
+            )
+        """
+        .. which started before and will end after the selected range
+        -----[-selected range-]------- time ->
+           [------event---------]
+        """
+        conditions = conditions or (
+            self.start <= selected_start and selected_end <= self.end
+            )
+        """
+        .. or which end date is within the selected range
+        -----[--selected range--]----- time ->
+                 [-event-]
+          [-event-]
+        """
+        conditions = conditions or (
+            selected_start <= self.end <= selected_end
+            )
+        return conditions
+        
+    def is_within_7_days(self):
+        return self.is_within_days(7)
+    
+    def is_within_30_days(self):
+        return self.is_within_days(30)
+    
     def get_tags(self):
         return Tag.objects.get_for_object(self)
 
