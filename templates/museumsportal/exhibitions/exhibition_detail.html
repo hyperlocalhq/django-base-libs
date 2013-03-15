@@ -91,6 +91,16 @@
                         </li>
                     </ul>  
                 </li>
+                
+                {% if exhibition.museum %}
+                    {% with exhibition.museum as list_item %}
+                        {% include "utils/bvg.html" %}
+                    {% endwith %}
+                {% else %}
+                    {% with exhibition as list_item %}
+                        {% include "utils/bvg.html" %}
+                    {% endwith %}
+                {% endif %}
 
                 {% if exhibition.vernissage %}
                 <li class="accordion-group">  
@@ -371,9 +381,9 @@
             {{ exhibition.get_rendered_description }}
 
             {% if exhibition.website %}
-                <p> <a href="{{ exhibition.website }}" target="_blank">{% trans "Link to exhibition" %}</a> </p>
+                <p>{% trans "More at" %}  <a href="{{ exhibition.website }}" target="_blank">{{ exhibition.website|humanize_url:"45" }}</a> </p>
             {% endif %}
-            
+
             {% comment %}
             <!-- <ul class="tags">
                 {% if exhibition.categories.count %}

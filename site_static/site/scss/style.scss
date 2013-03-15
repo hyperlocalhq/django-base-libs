@@ -1888,10 +1888,61 @@ z-index: 10000;
   margin-bottom: 10px;
   font-size: 14px;
   line-height: 20px;
+  form {
+    label {
+      width: 100%;
+      display: block;
+      margin-bottom: 10px;
+    }
+  input[type=submit] {
+    background-color: black !important;
+    margin-bottom: 10px !important;
+  }
+
+    
+  textarea,
+  input[type=text], 
+  input[type=email], 
+  input[type=password], 
+  input[type=search] {
+      margin-top: 5px;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      font-size: 15px !important;
+      line-height: 20px !important;
+    }
+    .radios {
+      white-space: nowrap;
+      label { 
+        position: relative;
+        padding: 0px !important;
+        padding-left: 30px !important;
+        padding-right: 15px !important;
+        line-height: 40px;
+        height: 40px !important;
+        width: auto;
+        display: inline-block;
+        box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        min-height: auto;
+        &:hover {background-color: rgba(0,0,0,0.075); cursor: pointer; }
+
+        input[type="radio"], 
+        input[type="checkbox"] {
+          margin: 0px !important;
+          display: inline-block;
+          margin-right: 5px !important;
+          top: 50%;
+          left: 0px;
+          margin-left: 10px !important;
+          margin-top: -6px !important;
+          position: absolute;
+        }
+      }
+    }
+  }
 
   .accordion-heading {
-
-
     a { 
       font-weight: 500;
       text-transform: uppercase;

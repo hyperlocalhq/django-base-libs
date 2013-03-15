@@ -97,14 +97,18 @@
                                 {% include "utils/geo_position.html" %}
                             {% endwith %}
                         </li>
-                        {% if event.website %}
-                            <li class="accordion-inner">
-                                <a href="{{ event.website }}" target="_blank">{% trans "Link to event" %}</a>
-                            </li>
-                        {% endif %}
-                        
                     </ul>  
                 </li>
+                
+                {% if event.museum %}
+                    {% with event.museum as list_item %}
+                        {% include "utils/bvg.html" %}
+                    {% endwith %}
+                {% else %}
+                    {% with event as list_item %}
+                        {% include "utils/bvg.html" %}
+                    {% endwith %}
+                {% endif %}
 
                 <!-- ======= Opening hours ======= -->
 
@@ -350,6 +354,10 @@
                 <a href="{{ event.museum.get_url_path }}"><h3>{{ event.museum.title }}</h3></a>
             </header>
             {{ event.get_rendered_description }}
+
+            {% if event.website %}
+                <p>{% trans "More at" %}  <a href="{{ event.website }}" target="_blank">{{ event.website|humanize_url:"45" }}</a> </p>
+            {% endif %}
             
             {% comment %}
             <!-- <ul class="tags">

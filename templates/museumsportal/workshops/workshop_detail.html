@@ -99,13 +99,18 @@
                                     {% include "utils/geo_position.html" %}
                                 {% endwith %}
                             </li>
-                            {% if workshop.website %}
-                                <li class="accordion-inner">
-                                    <a href="{{ workshop.website }}" target="_blank">{% trans "Link to guided tour" %}</a>
-                                </li>
-                            {% endif %}
                         </ul>  
                     </li>
+                {% endif %}
+                
+                {% if workshop.museum %}
+                    {% with workshop.museum as list_item %}
+                        {% include "utils/bvg.html" %}
+                    {% endwith %}
+                {% else %}
+                    {% with workshop as list_item %}
+                        {% include "utils/bvg.html" %}
+                    {% endwith %}
                 {% endif %}
 
                 <!-- ======= Prices ======= -->
@@ -250,6 +255,10 @@
                 {% endif %}
             </header>
             {{ workshop.get_rendered_description }}
+
+            {% if workshop.website %}
+                <p>{% trans "More at" %}  <a href="{{ workshop.website }}" target="_blank">{{ workshop.website|humanize_url:"45" }}</a> </p>
+            {% endif %}
 
             {% comment %}
             <!-- <ul class="tags">
