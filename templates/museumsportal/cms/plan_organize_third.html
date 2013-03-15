@@ -5,7 +5,7 @@
 {% block content %}
 <div class="content clearfix">
   <div class="inner">
-    <article> 
+    <article class="clearfix with_sidebar"> 
       <header class="intro clearfix">{% placeholder "intro" %}</header>
       {% placeholder "main_content" %}
     </article>
@@ -16,7 +16,7 @@
     {% else %}
       <ul id="sub_nav">{% show_menu_below_id "plan_organize" 0 100 100 100 "menu/side_menu.html" %}</ul>
     {% endif %}
-      
+
       {% comment %}
       <!--  <div class="second">{% placeholder "plan_organize_second" inherit %}</div>
       <div class="first">{% placeholder "plan_organize_first" inherit %}</div> -->
