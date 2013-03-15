@@ -1723,9 +1723,6 @@ h2 {
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
-  h2 span {
-    display: inline-block;
-    white-space: nowrap; }
 
 *::-webkit-scrollbar-corner,
 *::-webkit-scrollbar {
@@ -4305,27 +4302,27 @@ dl {
   top: 5px;
   position: relative;
   font-size: 30px;
-  line-height: 30px;
+  line-height: 32px;
   margin: 0px;
   position: relative;
-  font-weight: 500; }
+  font-weight: 300; }
   .cms-plugin-richtext h2:not(:first-of-type) {
     margin-top: 40px; }
 .cms-plugin-richtext h3 {
   top: 5px;
   position: relative;
-  font-size: 30px;
-  line-height: 30px;
+  font-size: 25px;
+  line-height: 32px;
   margin: 0px;
   font-weight: 300;
   position: relative; }
   .cms-plugin-richtext h3:not(:first-of-type) {
     margin-top: 40px; }
-.cms-plugin-richtext h4 {
+.cms-plugin-richtext h5 {
   top: 5px;
   position: relative;
   font-size: 20px;
-  line-height: 28px;
+  line-height: 32px;
   margin: 0px;
   font-weight: 500;
   position: relative; }
@@ -4334,6 +4331,8 @@ dl {
   font-weight: 500; }
 .cms-plugin-richtext h3 {
   margin-bottom: 10px; }
+.cms-plugin-richtext li {
+  list-style: disc; }
 .cms-plugin-richtext ul,
 .cms-plugin-richtext li,
 .cms-plugin-richtext p {
