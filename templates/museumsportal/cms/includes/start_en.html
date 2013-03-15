@@ -1,58 +1,17 @@
 {% load base_tags cms_tags i18n image_modifications slideshows infoblocks %}
 
-<header> {% slideshow "start_slideshow_de" %} </header>
+<header> {% slideshow "start_slideshow_en" %} </header>
 
 <article>
     <div class="clearfix">
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Newly Opened" %}</h3></li>
-
-            {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
-    
-            {% for exhibition in exhibitions_newly_opened %}
-                <li class="item">
-                    {% if exhibition.cover_image %}
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
-                    {% endif %}
-                    <a class="txt" href="{{ exhibition.get_url_path }}">
-                        <h4>{{ exhibition.end|date:"d.m.Y" }}</h4>
-                        <h3>{{ exhibition.title }}</h3>
-                        <h4>{{ exhibition.subtitle }}</h4>
-                        <h5>{{ exhibition.museum.title }}</h5>
-                        {% comment %}
-                            {% if forloop.first %}
-                            <p>
-                                {% with object.get_rendered_teaser_text|striptags as teaser_text %}
-                                    {% with exhibition.get_rendered_teaser|striptags as teaser %}
-                                        {% with exhibition.get_rendered_description|striptags|truncatewords:20 as description %}
-                                            {{ teaser_text|default:teaser|default:description }}
-                                        {% endwith %}
-                                    {% endwith %}
-                                {% endwith %}
-                            </p>
-                            {% endif %}
-                        {% endcomment %}
-                    </a>
-                </li>
-            {% endfor %}
+            {% placeholder "featured_magazin" %}
         </ul>
 
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Must see" %}</h3></li>
-            {% get_objects featured exhibitions.Exhibition as exhibitions_featured %}
-            {% for exhibition in exhibitions_featured %}
-                <li class="item">
-                    {% if exhibition.cover_image %}
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
-                    {% endif %}
-                    <a class="txt" href="{{ exhibition.get_url_path }}">
-                        <h4>{{ exhibition.end|date:"d.m.Y" }}</h4>
-                        <h3>{{ exhibition.title }}</h3>
-                        <h4>{{ exhibition.subtitle }}</h4>
-                        <h5>{{ exhibition.museum.title }}</h5>
-                    </a>
-                </li>
-            {% endfor %}
+            {% placeholder "featured_magazin" %}
         </ul>
 
         <ul class="list compact clearfix">
@@ -66,7 +25,6 @@
     <div class="twitter_frontpage">
         <h3>{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h3>
         <ul class="clearfix" id="tweets" data-twitter-username="museumsportal"> 
-            <li class="facebook"><h3> <a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">{% trans "Follow us on facebook" %}</a> </h3></li>
         </ul> 
         <div class="clearfix"></div>
     </div>
