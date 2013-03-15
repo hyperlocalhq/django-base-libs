@@ -1,6 +1,6 @@
 {% load image_modifications fb_tags %}
 
-<p class="img">
+<p class="img_block">
     {% if object.mod %}
         <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:object.mod.sysname }}" alt="{{ object.alt|escape }}"{% if object.css_class %} class="{{ object.css_class }}"{% endif %} />
     {% else %}
