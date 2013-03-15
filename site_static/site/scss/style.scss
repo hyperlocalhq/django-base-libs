@@ -1894,22 +1894,21 @@ z-index: 10000;
       display: block;
       margin-bottom: 10px;
     }
-  input[type=submit] {
-    background-color: black !important;
-    margin-bottom: 10px !important;
-  }
-
-    
-  textarea,
-  input[type=text], 
-  input[type=email], 
-  input[type=password], 
-  input[type=search] {
+    input[type=submit] {
+      margin-bottom: 10px !important;
+    }
+      
+    textarea,
+    input[type=text], 
+    input[type=email], 
+    input[type=password], 
+    input[type=search] {
       margin-top: 5px;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important;
       font-size: 15px !important;
       line-height: 20px !important;
+      height: 30px !important;
     }
     .radios {
       white-space: nowrap;
@@ -1939,6 +1938,13 @@ z-index: 10000;
           position: absolute;
         }
       }
+    }
+
+    textarea {
+      height: 50px !important;
+      min-height: auto !important;
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
     }
   }
 

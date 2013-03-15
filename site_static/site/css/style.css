@@ -3206,7 +3206,6 @@ aside {
     display: block;
     margin-bottom: 10px; }
   .sidebar .accordion form input[type=submit] {
-    background-color: black !important;
     margin-bottom: 10px !important; }
   .sidebar .accordion form textarea,
   .sidebar .accordion form input[type=text],
@@ -3217,7 +3216,8 @@ aside {
     box-sizing: border-box !important;
     -moz-box-sizing: border-box !important;
     font-size: 15px !important;
-    line-height: 20px !important; }
+    line-height: 20px !important;
+    height: 30px !important; }
   .sidebar .accordion form .radios {
     white-space: nowrap; }
     .sidebar .accordion form .radios label {
@@ -3245,6 +3245,11 @@ aside {
         margin-left: 10px !important;
         margin-top: -6px !important;
         position: absolute; }
+  .sidebar .accordion form textarea {
+    height: 50px !important;
+    min-height: auto !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important; }
   .sidebar .accordion .accordion-heading a {
     font-weight: 500;
     text-transform: uppercase;
