@@ -90,7 +90,6 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     is_for_primary_school = models.BooleanField(_("Special for children of primary school age (6-12 years)"), blank=True)
     is_for_youth = models.BooleanField(_("Special for youth (aged 13 years)"), blank=True)
     is_for_families = models.BooleanField(_("Special for families"), blank=True)
-    is_for_disabled = models.BooleanField(_("Special for disabled people"), blank=True)
     is_for_wheelchaired = models.BooleanField(_("Special for people in wheelchairs"), blank=True)
     is_for_deaf = models.BooleanField(_("Special for deaf people"), blank=True)
     is_for_blind = models.BooleanField(_("Special for blind people"), blank=True)
