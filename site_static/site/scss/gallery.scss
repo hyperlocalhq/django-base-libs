@@ -12,6 +12,11 @@
         -webkit-transform: scale(1) !important;
     }
 }
+#gallery.frontpage {
+    position: relative;
+    top: 0px;
+    border: 1px solid red;
+}
 
 #gallery {
     position: fixed;
@@ -48,7 +53,6 @@
     }
     
     > span {
-
         width: 40px;
         height: 120px;
         line-height: 95px;

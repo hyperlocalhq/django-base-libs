@@ -1,52 +1,37 @@
 {% load i18n image_modifications %}
-<div class="front-page-slideshow">
-    <ul id="slide">
+
+<script type="text/javascript" src="http://malsup.github.com/jquery.cycle.all.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('#slideshow').cycle({
+        fx:      'fade',
+        speed:  350,
+        timeout:  5000,
+        prev:    '#slide-prev',
+        next:    '#slide-next',
+        pager:   '#pager',
+    });
+});
+</script>
+
+<div id="slideshow-wrapper">
+    <ul id="slideshow">
         {% for slide in slides %}
             <li>
-                <a class="img" href="{{ slide.link }}" style="background-image: url({{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }})">
-                    <span class="overlay" href="{{ slide.link }}">
-                        <h2>{{ slide.title|striptags }}</h2>
-                        <h3>{{ slide.subtitle|striptags }}</h3>
-                    </span>
-                </a>
+                <a class="img" href="{{ slide.link }}">
+                <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" />
 
-                <nav class="actions">
-                  <a href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Add to Favorites" %}" class="favorite icon icon-white icon-favorite"></a>
-                  <a href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></a>
-                </nav>
+                <span class="overlay" href="{{ slide.link }}">
+                    <h2>{{ slide.title|striptags }}</h2>
+                    <h3>{{ slide.subtitle|striptags }}</h3>
+                </span>
+                </a>
             </li>
         {% endfor %}
     </ul>
 
+    <a id="slide-prev" href="#"><span>Prev</span></a> 
+    <a id="slide-next" href="#"><span>Next</span></a>
     <div id="pager"></div>
-
-
-    <div class="controls">
-        <a id="prev" href="#">&nbsp;</a>
-        <a id="next" href="#">&nbsp;</a>
-    </div>
 </div>
-
-<script type="text/javascript">
-    (function($, undefined) {
-        function pagerFactory(idx, slide) {
-            var s = idx > 2 ? ' ' : '';
-            return '<li'+s+'><a href="#">'+(idx+1)+'</a></li>';
-        };
-    
-        $(function() {
-            $('#stage').cycle({
-                fx:                 'fade',
-                speed:              400,
-                timeout:            6000,
-                pause:            	1,
-                pager:              '#nav',
-                slideExpr:          '.slide',
-                next:               '#next', 
-                prev:               '#prev',
-                easing:             'easeInOutSine',
-                pagerAnchorBuilder: pagerFactory
-            });
-        });
-    }(jQuery));
-</script>
