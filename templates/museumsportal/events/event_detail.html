@@ -218,9 +218,9 @@
                     </li>
                 {% endif %}
 
-                <!-- ======= Other Events ======= -->
+                <!-- ======= Date and Time ======= -->
 
-                {% if object.get_other_events %}
+                {% if event.eventtime_set.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
@@ -240,9 +240,9 @@
                     </li>
                 {% endif %} 
 
-                <!-- ======= Other Events ======= -->
+                <!-- ======= Prices ======= -->
 
-                {% if object.get_other_events %}
+                {% if event.free_admission or event.admission_price or event.admission_price_info or event.reduced_price or event.reduced_price_info or event.booking_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
@@ -252,7 +252,7 @@
                         <ul id="collapse-prices" class="accordion-body collapse">  
                             <li class="accordion-inner">
                                 <dl>
-                                {% if event.free_entrance %}
+                                {% if event.free_admission %}
                                     <dt>{% trans "Free entrance" %}</dt>
                                 {% else %}
                                     {% if event.admission_price %}

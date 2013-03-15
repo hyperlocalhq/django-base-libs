@@ -104,8 +104,7 @@
                 {% endif %}
 
                 <!-- ======= Prices ======= -->
-
-                {% if workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
+                {% if workshop.free_admission or workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
@@ -114,9 +113,9 @@
                         </h4>  
                         <ul id="collapse-prices" class="accordion-body collapse">  
                             <li class="accordion-inner">
-                                {% if workshop.free_entrance %}
+                                {% if workshop.free_admission %}
                                     <dl>
-                                        <dt>{% trans "Free entrance" %}</dt>
+                                        <dt>{% trans "Free guided tour" %}</dt>
                                     </dl>
                                 {% else %}
                                     {% if workshop.admission_price or workshop.admission_price_info%}
