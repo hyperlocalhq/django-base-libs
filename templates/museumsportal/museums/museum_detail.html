@@ -115,6 +115,10 @@
                     </ul>  
                 </li>
 
+                {% with museum as list_item %}
+                    {% include "utils/bvg.html" %}
+                {% endwith %}
+
                 <!-- ======= Opening hours ======= -->
 
                 {% if museum.season_set.count or museum.specialopeningtime_set.count %}
@@ -468,6 +472,10 @@
             </header>
             
             {{ museum.get_rendered_description }}
+
+            {% if museum.website %}
+                <p>{% trans "More at" %}  <a href="{{ museum.website }}" target="_blank">{{ museum.website|humanize_url:"45" }}</a> </p>
+            {% endif %}
             
             {% comment %}
 <!--             <ul class="tags">

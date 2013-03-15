@@ -3201,6 +3201,50 @@ aside {
   margin-bottom: 10px;
   font-size: 14px;
   line-height: 20px; }
+  .sidebar .accordion form label {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px; }
+  .sidebar .accordion form input[type=submit] {
+    background-color: black !important;
+    margin-bottom: 10px !important; }
+  .sidebar .accordion form textarea,
+  .sidebar .accordion form input[type=text],
+  .sidebar .accordion form input[type=email],
+  .sidebar .accordion form input[type=password],
+  .sidebar .accordion form input[type=search] {
+    margin-top: 5px;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    font-size: 15px !important;
+    line-height: 20px !important; }
+  .sidebar .accordion form .radios {
+    white-space: nowrap; }
+    .sidebar .accordion form .radios label {
+      position: relative;
+      padding: 0px !important;
+      padding-left: 30px !important;
+      padding-right: 15px !important;
+      line-height: 40px;
+      height: 40px !important;
+      width: auto;
+      display: inline-block;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      min-height: auto; }
+      .sidebar .accordion form .radios label:hover {
+        background-color: rgba(0, 0, 0, 0.075);
+        cursor: pointer; }
+      .sidebar .accordion form .radios label input[type="radio"],
+      .sidebar .accordion form .radios label input[type="checkbox"] {
+        margin: 0px !important;
+        display: inline-block;
+        margin-right: 5px !important;
+        top: 50%;
+        left: 0px;
+        margin-left: 10px !important;
+        margin-top: -6px !important;
+        position: absolute; }
   .sidebar .accordion .accordion-heading a {
     font-weight: 500;
     text-transform: uppercase;

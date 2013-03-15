@@ -1,121 +1,71 @@
-<div id="bvg_widget">
-    {% if LANGUAGE_CODE == "de" %}
-        <div class="bvg_lang_de">
-            <h2>So erreichen Sie uns</h2>
-            <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
-        
-            <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
-                <fieldset class="clearfix">
-                
-                    <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
-                
-                    <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
-                    <input type="hidden" name="_charset_" value="utf-8"/>
-                    <input type="hidden" value="yes" name="start"/>
-                
-                    <ul>
-                        <li>
-                            <label for="wdgt_from">Von</label>
-                            <input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
-                        </li>
-                        
-                        <li>
-                            <label for="wdgt_to">Nach</label>
-                            
-                            <textarea name="to" id="wdgt_to" >{{ event.museum.street_address }}, {% if event.museum.street_address2 %}{{ event.museum.street_address2 }}, {% endif %}&#10;{{ event.museum.postal_code }} {{ event.museum.city }}</textarea>
-                        </li>
-                        
-                        <li>
-                            <label for="wdgt_date">Am</label>
-                            <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-                        </li>
-                        
-                        <li>
-                            <label for="wdgt_time">Um</label>
-                            <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
-                        </li>
-                        
-                        <li class="radios">
-                            <label for="wdgt_arr">Ankunft</label>
-                            <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
-                            
-                            <label for="wdgt_dep">Abfahrt</label>
-                            <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
-                        </li>
-                        <li>
-                            <input id="submit" type="submit" name="start" value="Anfrage abschicken">
-                        </li>
-                        
-                    </ul>
-                </fieldset>
-            </form>
-         </div>
-    {% else %}
-        <div class="bvg_lang_en">
-            <h2>How to get there</h2>
-            <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
-        
-            <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/query.bin/en?ld=0.1" name="fahrinfo_formular" id="fahrinfo_formular">
-                <fieldset class="clearfix">
-                
-                    <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
-                    <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
+{% load  i18n  %}
+
+<li class="accordion-group">  
+    <h4 class="accordion-heading">  
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">{% trans "How to get there" %}</a>
+    </h4>  
+    <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
+        <li class="accordion-inner">
+            {% if LANGUAGE_CODE == "de" %}
+            <form class="clearfix" method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
+            {% else %}
+            <form class="clearfix" method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/query.bin/en?ld=0.1" name="fahrinfo_formular" id="fahrinfo_formular">
+            {% endif %}
+                <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
+            
+                <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
+                <input type="hidden" name="_charset_" value="utf-8"/>
+                <input type="hidden" value="yes" name="start"/>
+            
+                <dl>
+                    <dd>
+                        <label for="wdgt_from">{% trans "Point of departure" %}
+                        <input placeholder="{% trans "Location" %}" type="text" name="from" id="wdgt_from" value="">
+                        </label>
+                    </dd>
                     
-                    <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
-                    <input type="hidden" name="_charset_" value="utf-8"/>
-                    <input type="hidden" value="yes" name="start"/>
-                
-                    <ul>
-                        <li>
-                            <label for="wdgt_from">From</label>
-                            <input placeholder="Location" type="text" name="from" id="wdgt_from" value="">
-                        </li>
+                    <dd>
+                        <label for="wdgt_to">{% trans "Destination" %}
                         
-                        <li>
-                            <label for="wdgt_to">To</label>
-                            
-                            <textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }}, {{ museum.city }}</textarea>
-                        </li>
+                        <textarea name="to" id="wdgt_to" >{{ list_item.street_address }}, {% if list_item.street_address2 %}{{ list_item.street_address2 }}, {% endif %}&#10;{{ list_item.postal_code }} {{ list_item.city }}</textarea>
+                        </label>
+                    </dd>
+                    
+                    <dd>
+                        <label for="wdgt_date">{% trans "Date" %}
+                        <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                        </label>
+                    </dd>
+                    
+                    <dd>
+                        <label for="wdgt_time">{% trans "Time" %}
+                        <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}"></label>
+                    </dd>
+                    
+                    <dd class="radios">
+                        <label for="wdgt_arr">{% trans "Arrival" %}
+                        <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive"></label>
                         
-                        <li>
-                            <label for="wdgt_date">Date</label>
-                            <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-                        </li>
-                        
-                        <li>
-                            <label for="wdgt_time">Time</label>
-                            <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
-                        </li>
-                        
-                        <li class="radios">
-                            <label for="wdgt_arr">Arrival</label>
-                            <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
-                            
-                            <label for="wdgt_dep">Departure</label>
-                            <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
-                        </li>
-                        <li>
-                            <input id="submit" type="submit" name="start" value="Submit request">
-                        </li>
-                    </ul>
-                </fieldset>
+                        <label for="wdgt_dep">{% trans "Departure" %}
+                        <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked"></label>
+                    </dd>
+                    <dd>
+                        <input class="btn btn-primary btn-block" id="submit" type="submit" name="start" value="{% trans "Submit request" %}">
+                    </dd>
+                </dl>
             </form>
-        </div>
-    {% endif %}
-    
-    <script type="text/javascript">
-    $('#fahrinfo_formular').submit(function() {
-        $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
-        $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
-    })
-    </script>
-</div>
+        </li>
+    </ul>  
+</li> 
+
+<script type="text/javascript">
+$('#fahrinfo_formular').submit(function() {
+$('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
+$('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
+})
+</script>

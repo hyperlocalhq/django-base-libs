@@ -1,0 +1,117 @@
+<dl id="bvg_widget" class="bvg">
+{% if LANGUAGE_CODE == "de" %}
+    <dt>So erreichen Sie uns</dt>
+    <dd>
+        <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
+        <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/" name="fahrinfo_formular" id="fahrinfo_formular">
+            <fieldset class="clearfix">
+            
+                <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
+
+                <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
+                <input type="hidden" name="_charset_" value="utf-8"/>
+                <input type="hidden" value="yes" name="start"/>
+            
+                <ul>
+                <li>
+                    <label for="wdgt_from">Von</label>
+                    <input placeholder="Standort" type="text" name="from" id="wdgt_from" value="">
+                </li>
+                
+                <li>
+                    <label for="wdgt_to">Nach</label>
+                    
+                    <textarea name="to" id="wdgt_to" >{{ museum.street_address }},&#10;{{ museum.postal_code }} {{ museum.city }}</textarea>
+                </li>
+                
+                <li>
+                    <label for="wdgt_date">Am</label>
+                    <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                </li>
+                
+                <li>
+                    <label for="wdgt_time">Um</label>
+                    <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
+                </li>
+                
+                <li class="radios">
+                    <label for="wdgt_arr">Ankunft</label>
+                    <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
+                    
+                    <label for="wdgt_dep">Abfahrt</label>
+                    <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
+                    </li>
+                    <li>
+                        <input id="submit" type="submit" name="start" value="Anfrage abschicken">
+                    </li>
+                    </ul>
+            </fieldset>
+        </form>
+    </dd>
+{% else %}
+    <dt>How to get there</dt>
+    <dd>
+        <a id="bvg_logo" href="http://www.bvg.de/index.php/de/9430/name/Widgets.html" target="_blank" name="logo">&nbsp;</a>
+        
+        <form method="post" target="_blank" action="http://www.fahrinfo-berlin.de/Fahrinfo/bin/query.bin/en?ld=0.1" name="fahrinfo_formular" id="fahrinfo_formular">
+            <fieldset class="clearfix">
+            
+                <input type="hidden" name="REQ0JourneyStopsS0ALocation" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsS0AAddress" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsS0APOI" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0ALocation" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0AAddress" value="1" />
+                <input type="hidden" name="REQ0JourneyStopsZ0APOI" value="1" />
+                
+                <input type="hidden" name="REQ0JourneyStopsZA1" value="7"/>
+                <input type="hidden" name="_charset_" value="utf-8"/>
+                <input type="hidden" value="yes" name="start"/>
+                
+                <ul>
+                <li>
+                    <label for="wdgt_from">From</label>
+                    <input placeholder="Location" type="text" name="from" id="wdgt_from" value="">
+                </li>
+                
+                <li>
+                    <label for="wdgt_to">To</label>
+                    
+                    <textarea name="to" id="wdgt_to" >{{ museum.postal_code }} {{ museum.city }} &#10;{{ museum.street_address }}</textarea>
+                </li>
+                
+                <li>
+                    <label for="wdgt_date">Date</label>
+                    <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                </li>
+                
+                <li>
+                    <label for="wdgt_time">Time</label>
+                    <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">
+                </li>
+                
+                <li class="radios">
+                    <label for="wdgt_arr">Arrival</label>
+                    <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive">
+                    
+                    <label for="wdgt_dep">Departure</label>
+                    <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked">
+                    </li>
+                    <li>
+                        <input id="submit" type="submit" name="start" value="Submit request">
+                    </li>
+                    </ul>
+            </fieldset>
+        </form>
+    </dd>
+{% endif %}
+<script type="text/javascript">
+$('#fahrinfo_formular').submit(function() {
+    $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
+    $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
+})
+</script>
