@@ -2844,7 +2844,7 @@ dl {
     font-size: 12px;
     line-height: 18px;
     width: 100%;
-    // float: left;
+    float: none !important;
     > div { display: inline;}
     br { display: none;}
     img { 

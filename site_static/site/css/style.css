@@ -4381,7 +4381,8 @@ dl {
   color: rgba(0, 0, 0, 0.75);
   font-size: 12px;
   line-height: 18px;
-  width: 100%; }
+  width: 100%;
+  float: none !important; }
   .cms-plugin-richtext .img_and_desc > div,
   .cms-plugin-richtext .img_left > div,
   .cms-plugin-richtext .img_block > div {
