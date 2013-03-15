@@ -14,11 +14,24 @@
                     {% if exhibition.cover_image %}
                         <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
                     {% endif %}
-                    <a href="{{ exhibition.get_url_path }}">
+                    <a class="txt" href="{{ exhibition.get_url_path }}">
                         <h4>{{ exhibition.end|date:"d.m.Y" }}</h4>
                         <h3>{{ exhibition.title }}</h3>
                         <h4>{{ exhibition.subtitle }}</h4>
                         <h5>{{ exhibition.museum.title }}</h5>
+                        {% comment %}
+                            {% if forloop.first %}
+                            <p>
+                                {% with object.get_rendered_teaser_text|striptags as teaser_text %}
+                                    {% with exhibition.get_rendered_teaser|striptags as teaser %}
+                                        {% with exhibition.get_rendered_description|striptags|truncatewords:20 as description %}
+                                            {{ teaser_text|default:teaser|default:description }}
+                                        {% endwith %}
+                                    {% endwith %}
+                                {% endwith %}
+                            </p>
+                            {% endif %}
+                        {% endcomment %}
                     </a>
                 </li>
             {% endfor %}
@@ -32,7 +45,7 @@
                     {% if exhibition.cover_image %}
                         <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
                     {% endif %}
-                    <a href="{{ exhibition.get_url_path }}">
+                    <a class="txt" href="{{ exhibition.get_url_path }}">
                         <h4>{{ exhibition.end|date:"d.m.Y" }}</h4>
                         <h3>{{ exhibition.title }}</h3>
                         <h4>{{ exhibition.subtitle }}</h4>
@@ -51,8 +64,10 @@
     </div>
 
     <div class="twitter_frontpage">
-        <h3>{% trans "Twitterfeed" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h3>
-        <ul class="clearfix" id="tweets" data-twitter-username="museumsportal"> </ul> 
+        <h3>{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h3>
+        <ul class="clearfix" id="tweets" data-twitter-username="museumsportal"> 
+            <li class="facebook"><h3> <a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">{% trans "Follow us on facebook" %}</a> </h3></li>
+        </ul> 
         <div class="clearfix"></div>
     </div>
 </article>
