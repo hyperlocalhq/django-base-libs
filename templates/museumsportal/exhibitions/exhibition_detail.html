@@ -89,11 +89,6 @@
                                 {% include "utils/geo_position.html" %}
                             {% endwith %}
                         </li>
-                        {% if exhibition.website %}
-                            <li class="accordion-inner">
-                                <a href="{{ exhibition.website }}" target="_blank">{% trans "Link to exhibition" %}</a>
-                            </li>
-                        {% endif %}
                     </ul>  
                 </li>
 
@@ -374,6 +369,10 @@
                 <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
             </header>
             {{ exhibition.get_rendered_description }}
+
+            {% if exhibition.website %}
+                <p> <a href="{{ exhibition.website }}" target="_blank">{% trans "Link to exhibition" %}</a> </p>
+            {% endif %}
             
             {% comment %}
             <!-- <ul class="tags">
