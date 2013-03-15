@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-15 20:07+0100\n"
-"PO-Revision-Date: 2013-03-15 18:17\n"
+"PO-Revision-Date: 2013-03-16 00:00\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.6.5\n"
 
@@ -500,13 +500,13 @@ msgstr "Längengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 
 #: apps/events/models.py:124 apps/events/forms/event.py:50
 #: apps/events/forms/event.py:187 apps/workshops/models.py:108
@@ -715,7 +715,7 @@ msgstr "Weiter"
 #: apps/workshops/forms/workshop.py:458
 #: templates/museumsportal/utils/gmap.html:5
 msgid "Close"
-msgstr "Schließen"
+msgstr "Speichern und schließen"
 
 #: apps/events/forms/event.py:214 apps/events/forms/event.py:219
 #: apps/events/forms/event.py:334 apps/events/forms/event.py:339
@@ -1436,8 +1436,8 @@ msgstr "Login"
 
 #: apps/site_specific/forms.py:56 apps/site_specific/forms.py:166
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 "Bitte geben Sie Ihre Email oder Benutzernamen und Passwort ein. Achten Sie "
 "auf eine korrekte Groß-/Kleinschreibung"
@@ -2159,8 +2159,8 @@ msgstr "Passwort ändern"
 
 #: templates/museumsportal/accounts/password_change_form.html:9
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 "Bitte geben Sie zuerst Ihr altes Passwort ein und danach zweimal Ihr neues "
 "Passwort, um sicherzugehen, dass Sie dieses korrekt eingegeben haben."
@@ -2179,11 +2179,11 @@ msgstr "Passwort zurücksetzen"
 #: templates/museumsportal/accounts/password_reset_complete.html:10
 #, python-format
 msgid ""
-"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
-"\">log in</a> now."
+"Your password has been set. You may go ahead and <a "
+"href=\"%(login_url)s\">log in</a> now."
 msgstr ""
-"Ihr Passwort wurde gespeichert. Sie können sich nun unter <a href="
-"\"%(login_url)s\">einloggen</a>."
+"Ihr Passwort wurde gespeichert. Sie können sich nun unter <a "
+"href=\"%(login_url)s\">einloggen</a>."
 
 #: templates/museumsportal/accounts/password_reset_confirm.html:13
 msgid ""
@@ -2209,8 +2209,8 @@ msgstr ""
 #: templates/museumsportal/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
 msgstr ""
 "Sie erhalten diese Email, da Sie das Zurücksetzen Ihres Passwortes für Ihr "
 "Nutzerkonto bei %(site_name)s beantragt haben."
@@ -2271,9 +2271,9 @@ msgstr "Sie haben es fast geschafft"
 
 #: templates/museumsportal/accounts/register_verify_required.html:10
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 "Um die Registrierung abzuschließen, müssen wir überprüfen, dass Sie eine "
 "gültige E-Mail-Adresse eingegeben haben. Sie erhalten dazu in Kürze eine "
@@ -2284,8 +2284,8 @@ msgid ""
 "Please also check your Spam folder to make sure that our message has not "
 "been filtered out."
 msgstr ""
-"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort "
-"gelandet."
+"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort"
+" gelandet."
 
 #: templates/museumsportal/cms/includes/start_de.html:8
 #: templates/museumsportal/cms/includes/start_en.html:8
@@ -2426,7 +2426,7 @@ msgstr "Dauerausstellung"
 #: templates/museumsportal/museums/museum_detail.html:477
 #: templates/museumsportal/workshops/workshop_detail.html:260
 msgid "More at"
-msgstr ""
+msgstr "Mehr unter:"
 
 #: templates/museumsportal/events/event_detail.html:387
 #, python-format
@@ -2518,7 +2518,7 @@ msgstr "Finissage"
 #: templates/museumsportal/exhibitions/exhibition_detail.html:249
 #: templates/museumsportal/museums/museum_detail.html:246
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "Eintritt"
 
 #: templates/museumsportal/exhibitions/exhibition_detail.html:279
 #: templates/museumsportal/museums/museum_detail.html:272
@@ -2538,7 +2538,7 @@ msgstr "Informationen zu freiem Eintritt:"
 #: templates/museumsportal/exhibitions/exhibition_detail.html:321
 #: templates/museumsportal/museums/museum_detail.html:308
 msgid "Other tickets"
-msgstr "Weitere Tickets"
+msgstr "Sonstige Eintrittskosten"
 
 #: templates/museumsportal/exhibitions/exhibition_detail.html:327
 msgid "Member if Exhibitionspass Berlin"
@@ -2685,7 +2685,7 @@ msgstr "Speziell geeignet für Menschen mit Lernschwäche"
 
 #: templates/museumsportal/museums/museum_detail.html:508
 msgid "Current Exhibitions"
-msgstr "Aktuelle Ausstellungen"
+msgstr "Laufende Ausstellungen"
 
 #: templates/museumsportal/museums/museum_detail.html:546
 msgid "Current Guided Tours, Workshops and educational offers"
@@ -2739,8 +2739,8 @@ msgstr "Autorisierung bestätigen"
 #, python-format
 msgid ""
 "Please fill in this form to create and account at Museumsportal Berlin and "
-"to confirm that you are the owner of <a href=\"%(museum_link)s\">"
-"%(museum_title)s</a>."
+"to confirm that you are the owner of <a "
+"href=\"%(museum_link)s\">%(museum_title)s</a>."
 msgstr ""
 "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
 "Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
@@ -2749,8 +2749,8 @@ msgstr ""
 #: templates/museumsportal/site_specific/claiming_confirmation.html:27
 #, python-format
 msgid ""
-"Please login to confirm that you are the owner of <a href=\"%(museum_link)s"
-"\">%(museum_title)s</a>."
+"Please login to confirm that you are the owner of <a "
+"href=\"%(museum_link)s\">%(museum_title)s</a>."
 msgstr ""
 "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
 "Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
@@ -2771,29 +2771,27 @@ msgstr "Zurück zur Übersicht"
 
 #: templates/museumsportal/utils/bvg.html:5
 msgid "How to get there"
-msgstr ""
+msgstr "So erreichen Sie uns"
 
 #: templates/museumsportal/utils/bvg.html:27
 msgid "Point of departure"
-msgstr ""
+msgstr "Von"
 
 #: templates/museumsportal/utils/bvg.html:33
-#, fuzzy
 msgid "Destination"
-msgstr "Beschreibung"
+msgstr "Nach"
 
 #: templates/museumsportal/utils/bvg.html:51
 msgid "Arrival"
-msgstr ""
+msgstr "Ankunft"
 
 #: templates/museumsportal/utils/bvg.html:54
-#, fuzzy
 msgid "Departure"
-msgstr "Featured"
+msgstr "Abfahrt"
 
 #: templates/museumsportal/utils/bvg.html:58
 msgid "Submit request"
-msgstr ""
+msgstr "Anfrage abschicken"
 
 #: templates/museumsportal/utils/cover_image.html:12
 #: templates/museumsportal/utils/cover_image.html:21
@@ -2908,8 +2906,8 @@ msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 #~ msgstr "Themenverwandte Museen"
 
 #~ msgid ""
-#~ "Please confirm that you are the owner of <a href=\"%(museum_link)s\">"
-#~ "%(museum_title)s</a>."
+#~ "Please confirm that you are the owner of <a "
+#~ "href=\"%(museum_link)s\">%(museum_title)s</a>."
 #~ msgstr ""
 #~ "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
 #~ "Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
@@ -2958,8 +2956,8 @@ msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 #~ "Your Web browser doesn't appear to have cookies enabled. Cookies are "
 #~ "required for logging in."
 #~ msgstr ""
-#~ "Bei Ihrem Webbrowser scheint das Speichern von Cookies deaktiviert zu "
-#~ "sein. Cookies müssen aktiviert sein für den Login."
+#~ "Bei Ihrem Webbrowser scheint das Speichern von Cookies deaktiviert zu sein. "
+#~ "Cookies müssen aktiviert sein für den Login."
 
 #~ msgid "Claiming Invitation"
 #~ msgstr "Einladung an Museumsadministratoren"
@@ -2967,14 +2965,12 @@ msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 #~ msgid "Username for login"
 #~ msgstr "Username für Login"
 
-#~ msgid ""
-#~ "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+#~ msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 #~ msgstr ""
 #~ "Nur alphanumerische Zeichen (Buchstaben, Ziffern und @/./+/-/_) sind "
 #~ "erlaubt. Maximal 30 Zeichen bitte."
 
-#~ msgid ""
-#~ "This value may contain only letters, numbers and @/./+/-/_ characters."
+#~ msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 #~ msgstr "Bitte nur Buchstaben, Zahlen und folgende Zeichen @/./+/-/_"
 
 #~ msgid "First name"
