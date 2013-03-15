@@ -28,7 +28,7 @@
                 var iIndex = aGeopositions.length;
                 aGeopositions[iIndex] = {
                     latitude: {{ list_item.latitude|default:museum.latitude }},
-                    longitude: {{ list_item.latitude|default:museum.longitude }},
+                    longitude: {{ list_item.longitude|default:museum.longitude }},
                     categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% if list_item.closing_soon %} closing_soon{% endif %}{% if list_item.newly_opened %} newly_opened{% endif %}{% for cat in list_item.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                     content: 
                     '<a href="{{ list_item.get_url_path }}">{{ museum.title }} </a>'
@@ -49,7 +49,7 @@
                 var iIndex = aGeopositions.length;
                 aGeopositions[iIndex] = {
                     latitude: {{ list_item.latitude|default:museum.latitude }},
-                    longitude: {{ list_item.latitude|default:museum.longitude }},
+                    longitude: {{ list_item.longitude|default:museum.longitude }},
                     categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% if list_item.closing_soon %} closing_soon{% endif %}{% if list_item.newly_opened %} newly_opened{% endif %}{% for cat in list_item.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                     content: 
                     '<a href="{{ list_item.get_url_path }}">{{ museum.title }} </a>'
@@ -70,7 +70,7 @@
                 var iIndex = aGeopositions.length;
                 aGeopositions[iIndex] = {
                     latitude: {{ list_item.latitude|default:museum.latitude }},
-                    longitude: {{ list_item.latitude|default:museum.longitude }},
+                    longitude: {{ list_item.longitude|default:museum.longitude }},
                     categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% if list_item.closing_soon %} closing_soon{% endif %}{% if list_item.newly_opened %} newly_opened{% endif %}{% for cat in list_item.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}",
                     content: 
                     '<a href="{{ list_item.get_url_path }}">{{ museum.title }} </a>'
