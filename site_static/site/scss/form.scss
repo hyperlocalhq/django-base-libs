@@ -503,7 +503,14 @@ form {
           border-right: 2px solid white;
 
           &.has_weekday {
-            > div { float: left; margin-left: 2px; width: 202px;}
+            font-size: 0px;
+            line-height: 0px;
+            white-space: nowrap;
+            > div { 
+              float: left;
+              margin-left: 2px; 
+              margin-right: -1px; 
+              width: 201px;}
           }
        }
        .weekday {
@@ -516,6 +523,7 @@ form {
         background-color: rgba(0,0,0,0.05);
         overflow: hidden;
         float: left;
+        display: block;
        }
     }
 
@@ -689,8 +697,10 @@ label.radio {
     background-position: center;
     background-repeat: no-repeat;
     z-index: 10000;
+    background-color: rgba(0,0,0,0.1) !important;
+
     &:hover { opacity: 0.5;
-      background-color: rgba(0,0,0,0.1) !important;
+      background-color: rgba(0,0,0,0.15) !important;
     }
   }
 }
@@ -717,7 +727,7 @@ label.radio {
 
           &:nth-child(1) { 
             label { 
-              position: absolute;
+              &.with {margin-top: 25px !important; }
               bottom: 0px;
               margin-bottom: 0 !important;
               left: 0px;
