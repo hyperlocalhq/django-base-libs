@@ -2688,7 +2688,7 @@ dl {
   &:empty{ display: none;}
 
   h1 { 
-    font-weight: 300;
+    font-weight: 500;
     font-size: 30px;
     line-height: 30px;
     margin-bottom: 0px;
@@ -2845,6 +2845,8 @@ dl {
   padding-bottom: 30px;
   margin-bottom: 30px;
   border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;  
 
   a.img {
     display: block;
