@@ -10,7 +10,12 @@
       {% placeholder "main_content" %}
     </article>
     <section class="clearfix marginal">
+      
+    {% if LANGUAGE_CODE == "de" %}
       <ul id="sub_nav">{% show_menu_below_id "planen_organisieren" 0 100 100 100 "menu/side_menu.html" %}</ul>
+    {% else %}
+      <ul id="sub_nav">{% show_menu_below_id "plan_organize" 0 100 100 100 "menu/side_menu.html" %}</ul>
+    {% endif %}
       
       {% comment %}
       <!--  <div class="second">{% placeholder "plan_organize_second" inherit %}</div>
