@@ -89,6 +89,11 @@
                                 {% include "utils/geo_position.html" %}
                             {% endwith %}
                         </li>
+                        {% if exhibition.website %}
+                            <li class="accordion-inner">
+                                <a href="{{ exhibition.website }}" target="_blank">{% trans "Link to exhibition" %}</a>
+                            </li>
+                        {% endif %}
                     </ul>  
                 </li>
 

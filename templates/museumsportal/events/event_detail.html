@@ -97,6 +97,12 @@
                                 {% include "utils/geo_position.html" %}
                             {% endwith %}
                         </li>
+                        {% if event.website %}
+                            <li class="accordion-inner">
+                                <a href="{{ event.website }}" target="_blank">{% trans "Link to event" %}</a>
+                            </li>
+                        {% endif %}
+                        
                     </ul>  
                 </li>
 
