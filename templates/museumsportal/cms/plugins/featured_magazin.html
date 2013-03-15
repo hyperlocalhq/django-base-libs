@@ -1,15 +1,14 @@
 {% load i18n image_modifications %}
 <li class="item">
     {% if exhibition.cover_image %}
-        <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image }}|modified_path:"museum_list")"></a>
+        <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}|modified_path:"museum_list")"></a>
     {% endif %}
     <a href="{{ exhibition.get_url_path }}">
-        <h3>{{ exhibition.title }}</h3>
-        <h4>{{ exhibition.museum.title }}</h4>
-        <h5>bis {{ exhibition.end|date:"d.m.Y" }}</h5>
+        <h3>{{ object.title }}</h3>
+        <h4>{{ object.subtitle }}</h4>
+        <h5>{% if object.image_caption %}</h5>
     </a>
 </li>
-
 
 {% load i18n image_modifications %}
 <div class="editorial-content">

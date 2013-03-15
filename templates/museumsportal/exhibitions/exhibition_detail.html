@@ -138,11 +138,11 @@
                                 {% if exhibition.season_set.count == 1 %}
                                     {% with exhibition.season_set.all.0 as season %}
                                         {% if season.is_appointment_based %}
-                                            <p>{% trans "Based on appointment" %}</p>
+                                            <dd>{% trans "Based on appointment" %}</dd>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
-                                                {% if forloop.first %}<dl>{% endif %}
+                                            <dl>
                                                 <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
                                                 <dd>
                                                     {% if same_hours.list.0.open %}
@@ -158,21 +158,21 @@
                                                         {% trans "closed" %}
                                                     {% endif %}
                                                 </dd>
-                                                {% if forloop.last %}</dl>{% endif %}
+                                            </dl>
                                             {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
-                                            <div class="last_entry">{% trans "Last entry" %}: {{ season.last_entry }}</div>
+                                            <dd>{% trans "Last entry" %}: {{ season.last_entry }}</dd>
                                         {% endif %}
                                         {% if season.exceptions %}
-                                            <div class="exceptions">{{ season.get_rendered_exceptions }}</div>
+                                            <dd>{{ season.get_rendered_exceptions }}</dd>
                                         {% endif %}
                                     {% endwith %}
                                 {% else %}
                                     {% for season in exhibition.season_set.all %}
                                         <h5>{% trans "Season" %} {{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</h5>
                                         {% if season.is_appointment_based %}
-                                            <p>{% trans "Based on appointment" %}</p>
+                                            <dd>{% trans "Based on appointment" %}</dd>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
@@ -204,23 +204,24 @@
                                     {% endfor %}
                                 {% endif %}
                                 {% if exhibition.specialopeningtime_set.count %}
-                                    <h5>{% trans "Special Opening hours" %}</h5>
                                     {% for special_opening in exhibition.specialopeningtime_set.all %}
-                                        <h6>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
+                                        <dl>
+                                        <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
                                         {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
-                                        </h6>
+                                        </dt>
                                         {% if special_opening.is_closed %}
-                                            {% trans "Closed" %}
+                                            <dd>{% trans "Closed" %}</dd>
                                         {% else %}
                                             {% if special_opening.is_regular %}
-                                                {% trans "Regular Opening hours" %}
+                                                <dd>{% trans "Regular Opening hours" %}</dd>
                                             {% else %}
-                                                {{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}
+                                                <dd>{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}
                                                 {% if season.sun_break_close %}
                                                     | {% trans "Break:" %} {{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}
                                                 {% endif %}
                                             {% endif %}
                                         {% endif %}
+                                        </dl>
                                     {% endfor %}
                                 {% endif %}
                             </li>

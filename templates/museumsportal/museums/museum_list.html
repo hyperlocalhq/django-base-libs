@@ -30,8 +30,8 @@
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabetisch" %}</button>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
                     {% comment %}
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button> -->
                     <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button> -->
                     {% endcomment %}
             </div>
@@ -67,12 +67,12 @@
                     <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;" data-single-selection="1">
                         <div class="accordion-inner">
                             <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
-                                <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
                                 <li><a href="" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
                                 <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
 
                                 {% comment %}
-                                    <!-- <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
+                                    <!-- <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
+                                    <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
                                     <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
                                     <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
                                     <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
