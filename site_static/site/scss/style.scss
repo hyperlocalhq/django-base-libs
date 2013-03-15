@@ -2057,7 +2057,7 @@ dl {
       font-weight: 500;
     }
 
-    > div {
+    .editorial-content {
       font-size: 13px;
       line-height: 21px;
       color: rgba(0,0,0,0.75);
@@ -2133,7 +2133,7 @@ dl {
       margin-bottom: 10px;
     }
 
-    > div {
+    .editorial-content {
       font-size: 13px;
       line-height: 21px;
       color: rgba(0,0,0,0.75);
@@ -2169,7 +2169,7 @@ dl {
       margin-bottom: -30px;
       
       &.featured {
-        > div {
+        .editorial-content {
           &:nth-child(3n) { margin-right: 0px; }
           &:nth-child(3n+1) { clear: left;}
         } 
@@ -2178,7 +2178,7 @@ dl {
       &.nonfeatured {
         &:empty{ display: none !important;}
 
-        > div {
+        .editorial-content {
           font-size: 13px;
           line-height: 21px;
           color: rgba(0,0,0,0.75);
@@ -2234,7 +2234,7 @@ dl {
         }
       }
 
-      > div {
+      .editorial-content {
         width: 100%;
         float: left !important;
         position: relative;
