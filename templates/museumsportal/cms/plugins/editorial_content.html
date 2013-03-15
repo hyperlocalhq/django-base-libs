@@ -13,7 +13,7 @@
   {% else %}
   <div class="editorial-content">
         <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})">
-          <img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />
+          {% if object.image %}<img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />{% endif %} 
         {% if object.image_caption %} <p class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %} 
         </a>
         

@@ -812,7 +812,7 @@ a:active  { outline: none;}
     &:nth-child(3n) {margin-right: 0px !important; }
 
     li {
-      border-top: 10px solid white;
+      margin-bottom: 10px;
       font-size: 15px;
       line-height: 21px;
       width: 100%;
@@ -828,7 +828,7 @@ a:active  { outline: none;}
 
         h3 { 
           font-weight: 500; 
-          margin-bottom: 15px; 
+          margin-bottom: 5px !important; 
           display: block; 
           text-transform: uppercase;
           text-transform: uppercase;
@@ -869,17 +869,11 @@ a:active  { outline: none;}
         h4,
         h5 {
           white-space: nowrap;
-
           text-overflow: ellipsis;
-
           width: 100%;
-
           overflow: hidden;
-
           box-sizing: border-box !important;
-
           -moz-box-sizing: border-box !important;
-
         }
       }
     }
