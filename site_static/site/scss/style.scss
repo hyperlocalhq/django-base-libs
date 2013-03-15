@@ -2839,10 +2839,10 @@ dl {
 }
 
 .cms-plugin-richtext {
-  &:not(:last-child) {
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    padding-bottom: 40px;
-    margin-bottom: 40px;
+  &:not(:first-of-type) {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 40px;
+    margin-top: 40px;
   }
 
   h2, h3 {
@@ -2865,6 +2865,9 @@ dl {
     font-size: 20px;
     line-height: 32px;
     padding-bottom: 20px;
+    strong {
+      font-weight: 500;
+    }
 
     &:last-child{ padding: 0px !important; }
     
@@ -2925,9 +2928,9 @@ dl {
 }
 
 .editorial-content {
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 1px solid rgba(0,0,0,0.05) !important;
   box-sizing: border-box;
   -moz-box-sizing: border-box;  
 
@@ -2935,7 +2938,8 @@ dl {
     display: block;
     float: left;
     width: 200px;
-    margin-top: 7px;
+    top: 7px;
+    position: relative;
     margin-right: 20px;
     img { }
     p { } 
