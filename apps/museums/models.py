@@ -313,23 +313,32 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return qs[0].path
     cover_image = property(_get_cover_image)
 
-    def get_published_exhibitions(self):
+    def get_exhibitions(self):
         Exhibition = models.get_model("exhibitions", "Exhibition")
         return Exhibition.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-            ).filter(status="published").distinct().order_by("-start")
+            ).distinct().order_by("-start")
         
-    def get_published_events(self):
+    def get_published_exhibitions(self):
+        return self.get_exhibitions().filter(status="published")
+        
+    def get_events(self):
         Event = models.get_model("events", "Event")
         return Event.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-            ).filter(status="published").distinct()
+            ).distinct()
 
-    def get_published_workshops(self):
+    def get_published_events(self):
+        return self.get_events().filter(status="published")
+
+    def get_workshops(self):
         Workshop = models.get_model("workshops", "Workshop")
         return Workshop.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-            ).filter(status="published").distinct()
+            ).distinct()
+            
+    def get_published_workshops(self):
+        return self.get_workshops().filter(status="published")
 
     def get_twitter_username(self):
         if not hasattr(self, '_twitter_username_cache'):

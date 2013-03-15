@@ -195,6 +195,9 @@ def register_and_claim_museum(request, invitation_code):
     login_form = ClaimingLoginForm(u, initial={'email_or_username': email}, prefix="login")
     
     if request.method == "POST":
+        from django.contrib.auth.models import Group
+        group, _created = Group.objects.get_or_create(name=u"Museum Owners")
+        
         if "register" in request.POST:
             register_form = ClaimingRegisterForm(u, request.POST, prefix="register")
             if register_form.is_valid():
@@ -208,16 +211,14 @@ def register_and_claim_museum(request, invitation_code):
                 u.is_active = True
                 u.set_password(cleaned['password'])
                 u.save()
-                
+                u.groups.add(group)
                 # set museum's and its exhibitions' owner
                 museum.set_owner(u)
-                for e in museum.exhibition_set.all():
+                for e in museum.get_exhibitions():
                     e.set_owner(u)
-                for e in museum.organized_exhibitions.all():
+                for e in museum.get_events():
                     e.set_owner(u)
-                for e in museum.event_set.all():
-                    e.set_owner(u)
-                for w in museum.workshop_set.all():
+                for w in museum.get_workshops():
                     w.set_owner(u)
                     
                 # login the current user
@@ -228,29 +229,27 @@ def register_and_claim_museum(request, invitation_code):
             login_form = ClaimingLoginForm(u, request.POST, prefix="login")
             if login_form.is_valid():
                 u = login_form.get_user()
+                u.groups.add(group)
                 # set museum's and its exhibitions' owner
                 museum.set_owner(u)
-                for e in museum.exhibition_set.all():
+                for e in museum.get_exhibitions():
                     e.set_owner(u)
-                for e in museum.organized_exhibitions.all():
+                for e in museum.get_events():
                     e.set_owner(u)
-                for e in museum.event_set.all():
-                    e.set_owner(u)
-                for w in museum.workshop_set.all():
+                for w in museum.get_workshops():
                     w.set_owner(u)
                 auth_login(request, u)
                 return redirect("dashboard")
         if "confirm" in request.POST:
             u = authenticate(email=email)
+            u.groups.add(group)
             # set museum's and its exhibitions' owner
             museum.set_owner(u)
-            for e in museum.exhibition_set.all():
+            for e in museum.get_exhibitions():
                 e.set_owner(u)
-            for e in museum.organized_exhibitions.all():
+            for e in museum.get_events():
                 e.set_owner(u)
-            for e in museum.event_set.all():
-                e.set_owner(u)
-            for w in museum.workshop_set.all():
+            for w in museum.get_workshops():
                 w.set_owner(u)
             auth_login(request, u)
             return redirect("dashboard")

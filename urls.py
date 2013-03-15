@@ -79,7 +79,7 @@ urlpatterns += patterns('',
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
         }),
     
-    url(r'^login/$', 'museumsportal.apps.site_specific.views.login', {'template_name': 'accounts/login.html', 'redirect_to': '/dashboard/'}, name="login"),
+    url(r'^login/$', 'museumsportal.apps.site_specific.views.login', {'template_name': 'accounts/login.html', 'redirect_to': '/'}, name="login"),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}, name="logout"),
     url(r'^signup/$', 'museumsportal.apps.site_specific.views.register' ),
     url(r'^signup/almost-done/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/register_verify_required.html'}),
