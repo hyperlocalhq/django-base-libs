@@ -21,6 +21,8 @@
 {% block content %}
 <div class="content clearfix sticky">
     <nav id="map_controls">
+        <a class="btn icon icon-white icon-favorite active" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
+        
         <button id="gmap_toggle" class="btn icon icon-white icon-location" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}"></button>
     </nav>
     
@@ -109,13 +111,15 @@
                     {% endif %}
 
                     <nav class="actions">
-                        {% if_has_perm "museums.change_museum" museum %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';"></button>
-                        {% end_if_has_perm %}
                         {% if request.user.is_authenticated %}
                             {% adding2favorites for museum %}
                         {% endif %}
+
                         <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
+
+                        {% if_has_perm "museums.change_museum" museum %}
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';"></button>
+                        {% end_if_has_perm %}
                     </nav>
                     
                     <a href="{{ museum.get_url_path }}">

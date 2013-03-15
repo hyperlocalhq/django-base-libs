@@ -1682,7 +1682,8 @@ body {
   line-height: 26px;
   overflow-y: scroll;
   overflow-x: hidden;
-  font-weight: 400; }
+  font-weight: 400;
+  background-color: #f2f2f2; }
 
 ::selection {
   background: #ffb7b7;
@@ -2010,23 +2011,21 @@ a:active {
         #navigation > ul > li > a:hover {
           color: #00aefd; }
 
-#footer {
-  background-color: transparent; }
-  #footer .inner ul.navigation li {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 14px;
-    height: 14px;
-    padding: 0px;
-    padding-right: 12px;
-    margin-right: 10px;
-    border-right: 1px solid rgba(0, 0, 0, 0.1); }
-    #footer .inner ul.navigation li.selected a {
+#footer .inner ul.navigation li {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 14px;
+  height: 14px;
+  padding: 0px;
+  padding-right: 12px;
+  margin-right: 10px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1); }
+  #footer .inner ul.navigation li.selected a {
+    color: #00aefd; }
+  #footer .inner ul.navigation li a {
+    color: black; }
+    #footer .inner ul.navigation li a:hover {
       color: #00aefd; }
-    #footer .inner ul.navigation li a {
-      color: black; }
-      #footer .inner ul.navigation li a:hover {
-        color: #00aefd; }
 
 @-webkit-keyframes SPINNER {
   0% {
@@ -2133,15 +2132,17 @@ a:active {
     padding-bottom: 6px;
     box-sizing: border-box;
     -moz-box-sizing: border-box; }
+    .list.rows > li.delete {
+      display: none; }
     .list.rows > li:hover {
       background-color: rgba(0, 0, 0, 0.075); }
-      .list.rows > li:hover .actions {
+      .list.rows > li:hover .actions button {
         opacity: 1; }
       .list.rows > li:hover .img {
         opacity: 0.9; }
         .list.rows > li:hover .img .overlay {
           border: 1px solid rgba(0, 0, 0, 0.1); }
-    .list.rows > li .actions {
+    .list.rows > li .actions button {
       opacity: 0; }
     .list.rows > li .img {
       display: none; }
@@ -2183,9 +2184,9 @@ a:active {
     line-height: 20px;
     padding-bottom: 0px;
     margin-right: 20px; }
-    .list.tiles > li .actions {
+    .list.tiles > li .actions button {
       opacity: 0; }
-    .list.tiles > li:hover .actions {
+    .list.tiles > li:hover .actions button {
       opacity: 1; }
     .list.tiles > li:hover .img {
       opacity: 0.9; }
@@ -2405,9 +2406,6 @@ a:active {
 
 ul.actions,
 nav.actions {
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.125s;
-  -webkit-transition-timing: ease-in-out;
   position: absolute;
   z-index: 2000;
   right: 0px;
@@ -2422,6 +2420,9 @@ nav.actions {
   ul.actions button,
   nav.actions a,
   nav.actions button {
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.125s;
+    -webkit-transition-timing: ease-in-out;
     float: right;
     background-color: rgba(0, 0, 0, 0.95) !important;
     width: 40px !important;
@@ -2469,7 +2470,8 @@ nav.actions {
   .icon.icon-white.icon-favorite {
     background-image: url("../img/icons/inv/favorite.svg"); }
   .icon.icon-white.icon-favorite.active {
-    background-image: url("../img/icons/inv/favorite_active.svg"); }
+    background-image: url("../img/icons/inv/favorite_active.svg");
+    opacity: 1!important; }
   .icon.icon-white.icon-rss {
     background-image: url("../img/icons/inv/rss.svg"); }
   .icon.icon-white.icon-location {
@@ -3483,10 +3485,8 @@ dl {
 #workshop_times_fieldset fieldset,
 #event_times_fieldset fieldset,
 #social_channels_fieldset fieldset,
-#favorites fieldset,
 #item_container fieldset,
-#dashboard fieldset,
-#favorites fieldset {
+#dashboard fieldset {
   margin-bottom: 60px;
   position: relative; }
 #organizers_fieldset legend,
@@ -3494,10 +3494,8 @@ dl {
 #workshop_times_fieldset legend,
 #event_times_fieldset legend,
 #social_channels_fieldset legend,
-#favorites legend,
 #item_container legend,
-#dashboard legend,
-#favorites legend {
+#dashboard legend {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important; }
@@ -3506,10 +3504,8 @@ dl {
 #workshop_times_fieldset .add,
 #event_times_fieldset .add,
 #social_channels_fieldset .add,
-#favorites .add,
 #item_container .add,
-#dashboard .add,
-#favorites .add {
+#dashboard .add {
   position: absolute;
   right: 0px;
   top: 0px;
@@ -3534,30 +3530,24 @@ dl {
   #workshop_times_fieldset .add:hover,
   #event_times_fieldset .add:hover,
   #social_channels_fieldset .add:hover,
-  #favorites .add:hover,
   #item_container .add:hover,
-  #dashboard .add:hover,
-  #favorites .add:hover {
+  #dashboard .add:hover {
     background-color: black; }
 #organizers_fieldset ul li,
 .fieldset-imagegallery ul li,
 #workshop_times_fieldset ul li,
 #event_times_fieldset ul li,
 #social_channels_fieldset ul li,
-#favorites ul li,
 #item_container ul li,
-#dashboard ul li,
-#favorites ul li {
+#dashboard ul li {
   position: relative; }
   #organizers_fieldset ul li:hover > a,
   .fieldset-imagegallery ul li:hover > a,
   #workshop_times_fieldset ul li:hover > a,
   #event_times_fieldset ul li:hover > a,
   #social_channels_fieldset ul li:hover > a,
-  #favorites ul li:hover > a,
   #item_container ul li:hover > a,
-  #dashboard ul li:hover > a,
-  #favorites ul li:hover > a {
+  #dashboard ul li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
   #organizers_fieldset ul li > h3,
   #organizers_fieldset ul li > span,
@@ -3574,18 +3564,12 @@ dl {
   #social_channels_fieldset ul li > h3,
   #social_channels_fieldset ul li > span,
   #social_channels_fieldset ul li > a,
-  #favorites ul li > h3,
-  #favorites ul li > span,
-  #favorites ul li > a,
   #item_container ul li > h3,
   #item_container ul li > span,
   #item_container ul li > a,
   #dashboard ul li > h3,
   #dashboard ul li > span,
-  #dashboard ul li > a,
-  #favorites ul li > h3,
-  #favorites ul li > span,
-  #favorites ul li > a {
+  #dashboard ul li > a {
     background-color: rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.75) !important;
     display: block;
@@ -3611,18 +3595,12 @@ dl {
     #social_channels_fieldset ul li > h3 .title,
     #social_channels_fieldset ul li > span .title,
     #social_channels_fieldset ul li > a .title,
-    #favorites ul li > h3 .title,
-    #favorites ul li > span .title,
-    #favorites ul li > a .title,
     #item_container ul li > h3 .title,
     #item_container ul li > span .title,
     #item_container ul li > a .title,
     #dashboard ul li > h3 .title,
     #dashboard ul li > span .title,
-    #dashboard ul li > a .title,
-    #favorites ul li > h3 .title,
-    #favorites ul li > span .title,
-    #favorites ul li > a .title {
+    #dashboard ul li > a .title {
       font-weight: 500; }
     #organizers_fieldset ul li > h3:hover h3, #organizers_fieldset ul li > h3:hover h4, #organizers_fieldset ul li > h3:hover h5,
     #organizers_fieldset ul li > span:hover h3,
@@ -3667,15 +3645,6 @@ dl {
     #social_channels_fieldset ul li > a:hover h3,
     #social_channels_fieldset ul li > a:hover h4,
     #social_channels_fieldset ul li > a:hover h5,
-    #favorites ul li > h3:hover h3,
-    #favorites ul li > h3:hover h4,
-    #favorites ul li > h3:hover h5,
-    #favorites ul li > span:hover h3,
-    #favorites ul li > span:hover h4,
-    #favorites ul li > span:hover h5,
-    #favorites ul li > a:hover h3,
-    #favorites ul li > a:hover h4,
-    #favorites ul li > a:hover h5,
     #item_container ul li > h3:hover h3,
     #item_container ul li > h3:hover h4,
     #item_container ul li > h3:hover h5,
@@ -3693,16 +3662,7 @@ dl {
     #dashboard ul li > span:hover h5,
     #dashboard ul li > a:hover h3,
     #dashboard ul li > a:hover h4,
-    #dashboard ul li > a:hover h5,
-    #favorites ul li > h3:hover h3,
-    #favorites ul li > h3:hover h4,
-    #favorites ul li > h3:hover h5,
-    #favorites ul li > span:hover h3,
-    #favorites ul li > span:hover h4,
-    #favorites ul li > span:hover h5,
-    #favorites ul li > a:hover h3,
-    #favorites ul li > a:hover h4,
-    #favorites ul li > a:hover h5 {
+    #dashboard ul li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
     #organizers_fieldset ul li > h3 h3, #organizers_fieldset ul li > h3 h5,
     #organizers_fieldset ul li > span h3,
@@ -3733,12 +3693,6 @@ dl {
     #social_channels_fieldset ul li > span h5,
     #social_channels_fieldset ul li > a h3,
     #social_channels_fieldset ul li > a h5,
-    #favorites ul li > h3 h3,
-    #favorites ul li > h3 h5,
-    #favorites ul li > span h3,
-    #favorites ul li > span h5,
-    #favorites ul li > a h3,
-    #favorites ul li > a h5,
     #item_container ul li > h3 h3,
     #item_container ul li > h3 h5,
     #item_container ul li > span h3,
@@ -3750,13 +3704,7 @@ dl {
     #dashboard ul li > span h3,
     #dashboard ul li > span h5,
     #dashboard ul li > a h3,
-    #dashboard ul li > a h5,
-    #favorites ul li > h3 h3,
-    #favorites ul li > h3 h5,
-    #favorites ul li > span h3,
-    #favorites ul li > span h5,
-    #favorites ul li > a h3,
-    #favorites ul li > a h5 {
+    #dashboard ul li > a h5 {
       display: inline-block;
       font-size: 16px !important; }
     #organizers_fieldset ul li > h3 h5,
@@ -3774,18 +3722,12 @@ dl {
     #social_channels_fieldset ul li > h3 h5,
     #social_channels_fieldset ul li > span h5,
     #social_channels_fieldset ul li > a h5,
-    #favorites ul li > h3 h5,
-    #favorites ul li > span h5,
-    #favorites ul li > a h5,
     #item_container ul li > h3 h5,
     #item_container ul li > span h5,
     #item_container ul li > a h5,
     #dashboard ul li > h3 h5,
     #dashboard ul li > span h5,
-    #dashboard ul li > a h5,
-    #favorites ul li > h3 h5,
-    #favorites ul li > span h5,
-    #favorites ul li > a h5 {
+    #dashboard ul li > a h5 {
       font-weight: 400;
       float: right;
       opacity: 0.5;
@@ -4185,14 +4127,12 @@ dl {
       background-color: black !important;
       color: white !important; }
 
-#favorites li {
-  white-space: nowrap; }
-  #favorites li h2, #favorites li h3, #favorites li h4, #favorites li h5 {
-    display: inline-block; }
-    #favorites li h2:after, #favorites li h3:after, #favorites li h4:after, #favorites li h5:after {
-      content: " – "; }
-    #favorites li h2:last-child:after, #favorites li h3:last-child:after, #favorites li h4:last-child:after, #favorites li h5:last-child:after {
-      content: "" !important; }
+#favorites h3 {
+  font-size: 20px;
+  line-height: 32px;
+  margin-bottom: 10px; }
+#favorites ul {
+  margin-bottom: 30px; }
 
 .intro
 .cms-plugin-intro {
@@ -4314,7 +4254,7 @@ dl {
 .cms-plugin-richtext h3 {
   margin-bottom: 10px; }
 .cms-plugin-richtext ul {
-  margin-top: 30px; }
+  margin-top: 10px; }
 .cms-plugin-richtext li {
   font-size: 16px;
   line-height: 20px;
@@ -4323,8 +4263,8 @@ dl {
   border-bottom: 10px solid white;
   padding-left: 25px;
   padding-right: 25px;
-  padding-top: 6px;
-  padding-bottom: 6px; }
+  padding-top: 15px;
+  padding-bottom: 15px; }
   .cms-plugin-richtext li:last-child {
     border: none !important; }
 .cms-plugin-richtext ul,
@@ -4482,7 +4422,8 @@ dl {
 
 #footer_sponsors {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.05); }
+  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #f2f2f2; }
   #footer_sponsors > div {
     padding-top: 20px !important;
     padding-bottom: 20px !important;

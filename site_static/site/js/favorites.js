@@ -39,11 +39,13 @@ var gettext = window.gettext || function(text) {return text};
                         title: oSelf.sTitleToRemove
                     }).addClass("active");
                     $oSpan.html(oSelf.sInnerTextToRemove);
+                    $oEl.attr("data-original-title",oSelf.sInnerTextToRemove);
                 } else {
                     $oEl.attr({
                         title: oSelf.sTitleToAdd
                     }).removeClass("active");
                     $oSpan.html(oSelf.sInnerTextToAdd);
+                    $oEl.attr("data-original-title",oSelf.sInnerTextToAdd);
                 }
                 if (oData["count"] != undefined) {
                     $oEl.children(".favorites_count").text(oData["count"]);
