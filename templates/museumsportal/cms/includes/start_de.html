@@ -1,6 +1,7 @@
 {% load base_tags cms_tags i18n image_modifications slideshows infoblocks %}
 
-<header id="slideshow"> {% slideshow "start_slideshow_de" %} </header>
+<header> {% slideshow "start_slideshow_de" %} </header>
+
 <article>
     <div class="clearfix">
         <ul class="list compact clearfix">
@@ -50,44 +51,8 @@
     </div>
 
     <div class="twitter_frontpage">
-        <h3>{% trans "Twitterfeed" %}</h3>
+        <h3>{% trans "Twitterfeed" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h3>
         <ul class="clearfix" id="tweets" data-twitter-username="museumsportal"> </ul> 
-        <div class="clearfix"><a href="https://twitter.com/museumsportal" target="_blank">Folgen Sie uns auf Twitter</a></div>
+        <div class="clearfix"></div>
     </div>
-
 </article>
-
-<!-- 
-    <ul>
-        <li class="title">
-           <h2>Neu eröffnet</h2>
-        </li>
-        {% placeholder "left_column" %}
-        {% comment %}
-        {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
-        {% for exhibition in exhibitions_newly_opened %}
-            <div class="article short" onclick="location.href='{{ exhibition.get_url_path }}';">
-                {% if exhibition.cover_image %}
-                    <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}" alt="" /></a>
-                {% endif %}
-                <h4>{{ exhibition.museum.title }}</h4>
-                <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
-                <p>
-                    {% with exhibition.get_rendered_description|striptags as description %}
-                        {% with description|truncatewords:35 as sliced_description %}
-                            {{ sliced_description }}
-                        {% endwith %}
-                    {% endwith %}
-                </p>
-                <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
-            </div>
-        {% endfor %}
-        {% endcomment %}
-    </ul>
-
-    <ul>
-        <li class="title">
-           <h2>Aus der Redaktion</h2>
-        </li>
-        {% placeholder "start_page_content" %}
-    </ul>  -->
