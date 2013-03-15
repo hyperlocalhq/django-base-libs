@@ -29,7 +29,6 @@
         <h1>{% trans "Guided Tours, Workshops and educational offers" %}</h1>
         <div id="filters">
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
-                <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabet" %}</button>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
             </div>
 
@@ -37,20 +36,7 @@
 
             <div class="accordion" id="filter-options">
                 <div class="accordion-group">
-                    <div id="filter-alphabetic" class="accordion-body collapse" style="height: 0px;">
-                        <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
-                            {% for item in abc_list %}
-                                {% if not forloop.first %}
-                                    <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
-                                {% endif %}
-                            {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-group">
-                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;">
+                    <div id="filter-smartlists" class="accordion-body collapse in" style="height: 0px;">
                         <div class="accordion-inner">
                             <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
                                 <li><a href="" data-filter-value=".has_group_offer">{% trans "Has bookable group offer" %}</a></li>
@@ -62,7 +48,10 @@
                                 <li><a href="" data-filter-value=".is_for_deaf">{% trans "Special for deaf people" %}</a></li>
                                 <li><a href="" data-filter-value=".is_for_blind">{% trans "Special for blind people" %}</a></li>
                                 <li><a href="" data-filter-value=".is_for_learning_difficulties">{% trans "Special for people with learning difficulties" %}</a></li>
-                                <li><a href="" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a></li>
+                                
+                                {% comment %}
+                                <!-- <li><a href="" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a></li> -->
+                                {% endcomment %}
                             </ul>
                         </div>
                     </div>
