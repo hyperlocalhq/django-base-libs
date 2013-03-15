@@ -2765,12 +2765,24 @@ dl {
     margin-bottom: 40px;
   }
 
+  h2 {
+    top: 5px;
+    position: relative;
+    font-size: 30px;
+    line-height: 30px;
+    margin: 0px;
+    position: relative;
+    font-weight: 500;
+    &:not(:first-of-type) {margin-top: 40px; }
+  }
+
   h3 {
     top: 5px;
     position: relative;
     font-size: 30px;
     line-height: 30px;
     margin: 0px;
+    font-weight: 300;
     position: relative;
     &:not(:first-of-type) {margin-top: 40px; }
   }
