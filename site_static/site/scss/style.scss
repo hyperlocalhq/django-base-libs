@@ -821,7 +821,8 @@ a:active  { outline: none;}
       position: relative;
       overflow: hidden;
       background-color: rgba(0,0,0,0.05);
-      &:hover {background-color: rgba(0,0,0,0.075); }
+
+      &:hover { background-color: rgba(0,0,0,0.075); }
       &.title {
         background: none; 
         &:hover {background: none; }
@@ -855,13 +856,15 @@ a:active  { outline: none;}
         padding: 0px;
       }
 
-      a {
+      a.txt {
         padding: 10px;
         padding-left: 95px;
         display: block;
         font-size: 12px;
         line-height: 16px;
         min-height: 70px;
+        &:hover * { color: black; }
+
         h3 { font-weight: 500; }
         h4 { font-weight: 400; }
         h5 { font-weight: 400; opacity: 0.5;}
@@ -875,6 +878,20 @@ a:active  { outline: none;}
           box-sizing: border-box !important;
           -moz-box-sizing: border-box !important;
         }
+        p {
+          margin-top: 10px;
+          overflow: hidden;
+          max-height: 64px;
+        }
+      }
+
+      &.first {
+        .img { 
+          width: 100% !important;
+          height: 200px;
+          position: relative;
+        }
+        a {padding: 10px !important; }
       }
     }
   }
@@ -1273,7 +1290,16 @@ aside {
   }
 }
 
+
+#cover_image {
+  height: 350px;
+  position: relative;
+  margin-top: -40px;
+  margin-bottom: 40px;
+}
+
 // ================= SLIDESHOW =================
+
 #slideshow-wrapper {
   margin-top: -40px;
   margin-bottom: 40px;
@@ -2839,10 +2865,10 @@ dl {
 }
 
 .cms-plugin-richtext {
-  &:not(:last-child) {
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    padding-bottom: 40px;
-    margin-bottom: 40px;
+  &:not(:first-of-type) {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 40px;
+    margin-top: 40px;
   }
 
   h2, h3 {
@@ -2865,6 +2891,9 @@ dl {
     font-size: 20px;
     line-height: 32px;
     padding-bottom: 20px;
+    strong {
+      font-weight: 500;
+    }
 
     &:last-child{ padding: 0px !important; }
     
@@ -2925,9 +2954,9 @@ dl {
 }
 
 .editorial-content {
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 1px solid rgba(0,0,0,0.05) !important;
   box-sizing: border-box;
   -moz-box-sizing: border-box;  
 
@@ -2935,7 +2964,8 @@ dl {
     display: block;
     float: left;
     width: 200px;
-    margin-top: 7px;
+    top: 7px;
+    position: relative;
     margin-right: 20px;
     img { }
     p { } 
@@ -3029,26 +3059,21 @@ dl {
   width: 100%;
   display: block;
   li {
-    display: block;
-    height: auto;
-    width: 320px;
-    min-height: 150px;
+    height: 135px;
     position: relative;
-    font-size: 20px;
-    line-height: 30px;
-    font-size: 14px;
-    line-height: 22px;
+    padding: 15px;
+    font-size: 12px;
+    line-height: 18px;
 
     background-color: rgba(0,0,0,0.05);
 
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
+    width: 235px;
+    margin-right: 20px;
 
 
     box-sizing: border-box;
     -moz-box-sizing: border-box;
+
     float: left;
     margin-right: 20px;
     a { color: $blue; 
@@ -3056,9 +3081,13 @@ dl {
     }
     .created_at a { font-weight: 500; color: black;}
 
-    &:nth-child(3n) { margin-right: 0px; }
-    &:nth-child(3n+1) { clear: left;}
+    &:nth-child(4n) { margin-right: 0px; }
+    &:nth-child(4n+1) { clear: left;}
 
+    &.facebook {
+      background-color: #3d5e96;
+      color: white;
+    }
   }
 }
 
@@ -3074,9 +3103,18 @@ dl {
     &:hover { color: black; }
   }
 }
+#footer_sponsors {
+  width: 100%;
+  background-color: rgba(0,0,0,0.05);
+  > div {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    width: 1000px;
+    margin: auto;
+  }
+}
 
 #sponsors {
-  padding-top: 30px;
   h4 {
     font-size: 10px;
   }
@@ -3091,7 +3129,8 @@ dl {
     a {
       padding-right: 20px;
       display: inline-block; 
-      &:hover { color: black; }
+      opacity: 0.85;
+      &:hover { color: black; opacity: 1;}
 
       span { display: none;}
     }
