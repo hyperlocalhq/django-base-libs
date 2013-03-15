@@ -394,7 +394,7 @@
                     <a href="{{ event.get_url_path }}">
                         <h3>{{ event.title }}</h3>
                         <h4>{{ event.subtitle }}</h4>
-                        {% with event.eventtime_set.all.0 as event_time %}
+                        {% with event.get_closest_event_time as event_time %}
                             <h5>{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|date:"H:i" }}</h5>
                         {% endwith %}
                     </a>
