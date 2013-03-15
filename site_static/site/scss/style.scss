@@ -514,7 +514,7 @@ a:active  { outline: none;}
         width: 1000px !important;
         height: 350px !important;
         .inner { }
-        img { height: 350px !important; opacity: 0;}
+        img { height: 350px !important; opacity: 1;}
       }
       
       .inner { overflow: hidden; position: relative;}
@@ -2057,7 +2057,7 @@ dl {
       font-weight: 500;
     }
 
-    > div {
+    .editorial-content {
       font-size: 13px;
       line-height: 21px;
       color: rgba(0,0,0,0.75);
@@ -2133,7 +2133,7 @@ dl {
       margin-bottom: 10px;
     }
 
-    > div {
+    .editorial-content {
       font-size: 13px;
       line-height: 21px;
       color: rgba(0,0,0,0.75);
@@ -2169,7 +2169,7 @@ dl {
       margin-bottom: -30px;
       
       &.featured {
-        > div {
+        .editorial-content {
           &:nth-child(3n) { margin-right: 0px; }
           &:nth-child(3n+1) { clear: left;}
         } 
@@ -2178,7 +2178,7 @@ dl {
       &.nonfeatured {
         &:empty{ display: none !important;}
 
-        > div {
+        .editorial-content {
           font-size: 13px;
           line-height: 21px;
           color: rgba(0,0,0,0.75);
@@ -2234,7 +2234,7 @@ dl {
         }
       }
 
-      > div {
+      .editorial-content {
         width: 100%;
         float: left !important;
         position: relative;
@@ -2688,7 +2688,7 @@ dl {
   &:empty{ display: none;}
 
   h1 { 
-    font-weight: 300;
+    font-weight: 500;
     font-size: 30px;
     line-height: 30px;
     margin-bottom: 0px;
@@ -2845,6 +2845,8 @@ dl {
   padding-bottom: 30px;
   margin-bottom: 30px;
   border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;  
 
   a.img {
     display: block;
