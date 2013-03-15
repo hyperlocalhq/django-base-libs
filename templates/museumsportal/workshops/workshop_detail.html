@@ -99,6 +99,11 @@
                                     {% include "utils/geo_position.html" %}
                                 {% endwith %}
                             </li>
+                            {% if workshop.website %}
+                                <li class="accordion-inner">
+                                    <a href="{{ workshop.website }}" target="_blank">{% trans "Link to guided tour" %}</a>
+                                </li>
+                            {% endif %}
                         </ul>  
                     </li>
                 {% endif %}
@@ -142,12 +147,12 @@
                                 {% endif %}
                             </li>
                             {% if workshop.booking_info %}
-                            <li class="accordion-inner">
-                                <dl>
-                                    <dt>{% trans "Booking info" %}</dt>
-                                    <dd class="booking_info">{{ workshop.get_rendered_booking_info }}</dd>
-                                </dl>
-                            </li>
+                                <li class="accordion-inner">
+                                    <dl>
+                                        <dt>{% trans "Booking info" %}</dt>
+                                        <dd class="booking_info">{{ workshop.get_rendered_booking_info }}</dd>
+                                    </dl>
+                                </li>
                             {% endif %}
                         </ul>  
                     </li>
