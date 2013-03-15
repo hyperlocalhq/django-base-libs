@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -133,6 +133,33 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
         if not self.museum:
             return []
         return self.museum.workshop_set.filter(status="published").exclude(pk=self.pk)
+
+    def is_today(self):
+        today = date.today()
+        return self.workshoptime_set.filter(workshop_date=today)
+        
+    def is_tomorrow(self):
+        today = date.today()
+        one_day = timedelta(days=1)
+        return self.workshoptime_set.filter(workshop_date=today + one_day).count()
+        
+    def is_within_days(self, days=0):
+        selected_start = date.today()
+        selected_end = selected_start + timedelta(days=days)
+        return self.workshoptime_set.filter(workshop_date__gte=selected_start, workshop_date__lte=selected_end).count()
+        
+    def is_within_7_days(self):
+        return self.is_within_days(7)
+    
+    def is_within_30_days(self):
+        return self.is_within_days(30)
+    
+    def get_closest_workshop_time(self):
+        today = date.today()
+        qs = self.workshoptime_set.filter(workshop_date__gte=today)
+        if qs:
+            return qs[0]
+        return None
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")

@@ -165,7 +165,7 @@
 
                 <!-- ======= DATES ======= -->
                 
-                {% if workshop_time %}
+                {% if workshop.workshoptime_set.count %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
@@ -239,7 +239,7 @@
                         {% trans "Bookable Offer" %}: {{ workshop.workshop_type }}
                     {% else %}
                         {{ workshop.workshop_type }} 
-                        {% with workshop.workshoptime_set.all.0 as workshop_time %}
+                        {% with workshop.get_closest_workshop_time as workshop_time %}
                             {{ workshop_time.workshop_date|date:"j. F Y" }}
                             {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
                         {% endwith %}
