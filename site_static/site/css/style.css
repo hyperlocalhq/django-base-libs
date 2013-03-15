@@ -4333,25 +4333,25 @@ dl {
   margin-bottom: 10px; }
 .cms-plugin-richtext li {
   list-style: disc;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  font-size: 20px;
+  line-height: 32px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important; }
+  .cms-plugin-richtext li:last-child {
+    border: none !important; }
 .cms-plugin-richtext ul,
-.cms-plugin-richtext li,
 .cms-plugin-richtext p {
   font-size: 20px;
   line-height: 32px;
   padding-bottom: 20px; }
   .cms-plugin-richtext ul strong,
-  .cms-plugin-richtext li strong,
   .cms-plugin-richtext p strong {
     font-weight: 500; }
   .cms-plugin-richtext ul:last-child,
-  .cms-plugin-richtext li:last-child,
   .cms-plugin-richtext p:last-child {
     padding: 0px !important; }
   .cms-plugin-richtext ul.img_block,
-  .cms-plugin-richtext li.img_block,
   .cms-plugin-richtext p.img_block {
     margin-right: 40px;
     color: rgba(0, 0, 0, 0.75);
@@ -4362,11 +4362,9 @@ dl {
     margin-bottom: 30px !important;
     margin-top: 10px !important; }
     .cms-plugin-richtext ul.img_block br,
-    .cms-plugin-richtext li.img_block br,
     .cms-plugin-richtext p.img_block br {
       display: none; }
     .cms-plugin-richtext ul.img_block img,
-    .cms-plugin-richtext li.img_block img,
     .cms-plugin-richtext p.img_block img {
       display: block;
       margin-bottom: 10px;
