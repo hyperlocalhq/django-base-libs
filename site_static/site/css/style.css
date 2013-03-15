@@ -1919,6 +1919,10 @@ a:active {
     padding-left: 10px;
     width: auto; }
 
+#header,
+#navigation {
+  background-color: transparent; }
+
 #header {
   border: none !important; }
   #header .logo {
@@ -1960,9 +1964,7 @@ a:active {
   -webkit-transition-duration: 0.25s;
   -webkit-transition-delay: 0.125s;
   -webkit-transition-timing: ease-in-out;
-  height: 50px;
-  background-color: white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+  height: 50px; }
   #navigation > ul {
     width: 1000px;
     margin: auto;
@@ -2011,21 +2013,23 @@ a:active {
         #navigation > ul > li > a:hover {
           color: #00aefd; }
 
-#footer .inner ul.navigation li {
-  display: inline-block;
-  font-size: 14px;
-  line-height: 14px;
-  height: 14px;
-  padding: 0px;
-  padding-right: 12px;
-  margin-right: 10px;
-  border-right: 1px solid rgba(0, 0, 0, 0.1); }
-  #footer .inner ul.navigation li.selected a {
-    color: #00aefd; }
-  #footer .inner ul.navigation li a {
-    color: black; }
-    #footer .inner ul.navigation li a:hover {
+#footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.05); }
+  #footer .inner ul.navigation li {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 14px;
+    height: 14px;
+    padding: 0px;
+    padding-right: 12px;
+    margin-right: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1); }
+    #footer .inner ul.navigation li.selected a {
       color: #00aefd; }
+    #footer .inner ul.navigation li a {
+      color: black; }
+      #footer .inner ul.navigation li a:hover {
+        color: #00aefd; }
 
 @-webkit-keyframes SPINNER {
   0% {
@@ -3478,7 +3482,8 @@ dl {
     display: block; }
 
 #dashboard_footer .inner {
-  padding-bottom: 80px !important; }
+  padding-bottom: 80px !important;
+  padding-top: 30px !important; }
 
 #organizers_fieldset fieldset,
 .fieldset-imagegallery fieldset,
@@ -4185,8 +4190,7 @@ dl {
     width: 66%; }
   .cms-plugin-intro p {
     font-size: 25px;
-    line-height: 36px;
-    margin-bottom: 25px; }
+    line-height: 36px; }
     .cms-plugin-intro p:first-of-type {
       margin-top: 20px; }
     .cms-plugin-intro p:last-child {

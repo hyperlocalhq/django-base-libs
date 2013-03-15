@@ -294,6 +294,11 @@ a:active  { outline: none;}
   }
 }
 
+#header,
+#navigation {
+  background-color: transparent;
+}
+
 #header {
   border: none !important;
   .logo {
@@ -347,8 +352,6 @@ a:active  { outline: none;}
   -webkit-transition-delay: 0.125s;
   -webkit-transition-timing: ease-in-out;
   height: 50px;
-  background-color: white;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
 
   // &:hover {  height: 300px; }
 
@@ -422,8 +425,8 @@ a:active  { outline: none;}
 // ================= FOOTER =================
 
 #footer {
+  border-top: 1px solid rgba(0,0,0,0.05);
   .inner { 
-
     ul.navigation {
 
       li {
@@ -2065,6 +2068,7 @@ dl {
 
 // ================= DASHBOARD =================
 
+
 #dashboard_footer,
 #dashboard_header{
    .inner { padding-top: 1px !important;  padding-bottom: 0px !important; }
@@ -2099,7 +2103,7 @@ dl {
   }
 }
 
-#dashboard_footer .inner { padding-bottom: 80px !important; }
+#dashboard_footer .inner { padding-bottom: 80px !important; padding-top: 30px !important; }
 
 #organizers_fieldset,
 .fieldset-imagegallery,
@@ -2714,7 +2718,6 @@ dl {
 
     font-size: 25px;
     line-height: 36px;
-    margin-bottom: 25px;
     &:last-child { margin-bottom: 0px; }
     &.img_block, &.img_left {display: none !important; }
     &.img {
