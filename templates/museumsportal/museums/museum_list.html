@@ -30,8 +30,8 @@
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabetisch" %}</button>
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
                     {% comment %}
+                    <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button> -->
                     <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button> -->
                     {% endcomment %}
             </div>
@@ -42,7 +42,7 @@
                 <div class="accordion-group">
                     <div id="filter-categories" class="accordion-body collapse" style="height: 0px;">
                         <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
+                            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
                                 {% for cat in facets.categories.categories %}
                                 <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
                                 {% endfor %}
@@ -64,25 +64,28 @@
                     </div>
                 </div>
                 <div class="accordion-group">
-                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;">
+                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;" data-single-selection="1">
                         <div class="accordion-inner">
                             <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
                                 <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
                                 <li><a href="" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
                                 <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
-                                <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
-                                <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
-                                <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
-                                <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
-                                <li><a href="" data-filter-value=".has_service_shop">{% trans "Museum Shop" %}</a></li>
-                                <li><a href="" data-filter-value=".has_service_restaurant">{% trans "Restaurant" %}</a></li>
-                                <li><a href="" data-filter-value=".has_service_cafe">{% trans "Cafe" %}</a></li>
-                                <li><a href="" data-filter-value=".has_service_library">{% trans "Library" %}</a></li>
-                                <li><a href="" data-filter-value=".has_service_archive">{% trans "Archive" %}</a></li>
-                                <li><a href="" data-filter-value=".has_service_diaper_changing">{% trans "Diaper changing table" %}</a></li>
-                                <li><a href="" data-filter-value=".has_audioguide">{% trans "Audioguide" %}</a></li>
-                                <li><a href="" data-filter-value=".has_audioguide_for_children">{% trans "Audioguide for children" %}</a></li>
-                                <li><a href="" data-filter-value=".has_audioguide_for_learning_difficulties">{% trans "Audioguide for people with learning difficulties" %}</a></li>
+
+                                {% comment %}
+                                    <!-- <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
+                                    <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
+                                    <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
+                                    <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_service_shop">{% trans "Museum Shop" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_service_restaurant">{% trans "Restaurant" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_service_cafe">{% trans "Cafe" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_service_library">{% trans "Library" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_service_archive">{% trans "Archive" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_service_diaper_changing">{% trans "Diaper changing table" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_audioguide">{% trans "Audioguide" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_audioguide_for_children">{% trans "Audioguide for children" %}</a></li>
+                                    <li><a href="" data-filter-value=".has_audioguide_for_learning_difficulties">{% trans "Audioguide for people with learning difficulties" %}</a></li> -->
+                                {% endcomment %}
                             </ul>
                         </div>
                     </div>
