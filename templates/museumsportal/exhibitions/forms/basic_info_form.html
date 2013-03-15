@@ -15,7 +15,7 @@
     <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.js"></script>
 {% endblock %}
 
-{% block bodyclass %}map_visible{% endblock %}
+{% block bodyclass %}{% endblock %}
 
 {% block multistep_form %}
     {% crispy form %}
@@ -106,7 +106,7 @@
                 $season.find('input:checkbox[id$=DELETE]').each(function() {
                     var $checkbox = $(this);
                     var $deleteLink = $(
-                        '<div class"min"><button class="delete icon icon-white icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
+                        '<div class"min"><button class="delete icon icon-black icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
                     );
                     $checkbox.parents('.formset-form').find(".row").append($deleteLink);
                     $checkbox.parent().hide();

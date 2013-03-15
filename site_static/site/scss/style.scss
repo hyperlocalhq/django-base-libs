@@ -507,14 +507,14 @@ a:active  { outline: none;}
         background-position: center;
         background-repeat: no-repeat;
 
-        img { width: 100%; opacity: 0 !important; height: 150px;}
+        img { width: 100%; height: 150px;}
       }
 
       &:first-child {
         width: 1000px !important;
         height: 350px !important;
         .inner { }
-        img { height: 350px !important; opacity: 1;}
+        img { height: 350px !important; }
       }
       
       .inner { overflow: hidden; position: relative;}

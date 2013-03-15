@@ -544,10 +544,15 @@ form {
     position: relative; }
     .row > div .row > div {
       border-right: 2px solid white; }
-      .row > div .row > div.has_weekday > div {
-        float: left;
-        margin-left: 2px;
-        width: 202px; }
+      .row > div .row > div.has_weekday {
+        font-size: 0px;
+        line-height: 0px;
+        white-space: nowrap; }
+        .row > div .row > div.has_weekday > div {
+          float: left;
+          margin-left: 2px;
+          margin-right: -1px;
+          width: 201px; }
     .row > div .row .weekday {
       font-size: 18px;
       line-height: 40px;
@@ -557,7 +562,8 @@ form {
       color: rgba(0, 0, 0, 0.5);
       background-color: rgba(0, 0, 0, 0.05);
       overflow: hidden;
-      float: left; }
+      float: left;
+      display: block; }
     .row > div.closed {
       width: 40px !important;
       position: absolute;
@@ -703,13 +709,14 @@ label.radio {
     text-indent: 100px;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 10000; }
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.1) !important; }
     .input-append .pick-date:hover,
     .input-append .pick-time:hover,
     .input-prepend .pick-date:hover,
     .input-prepend .pick-time:hover {
       opacity: 0.5;
-      background-color: rgba(0, 0, 0, 0.1) !important; }
+      background-color: rgba(0, 0, 0, 0.15) !important; }
 
 .fieldset-contact-person > .row:nth-child(4) label,
 .fieldset-other-contact-info > .row:nth-child(4) label {
@@ -731,7 +738,6 @@ label.radio {
   width: 35% !important; }
 .fieldset-contact-person > .row > div .row > div:nth-child(1) label,
 .fieldset-other-contact-info > .row > div .row > div:nth-child(1) label {
-  position: absolute;
   bottom: 0px;
   margin-bottom: 0 !important;
   left: 0px;
@@ -743,6 +749,9 @@ label.radio {
   text-indent: 10px;
   color: rgba(0, 0, 0, 0.5);
   background-color: rgba(0, 0, 0, 0.05); }
+  .fieldset-contact-person > .row > div .row > div:nth-child(1) label.with,
+  .fieldset-other-contact-info > .row > div .row > div:nth-child(1) label.with {
+    margin-top: 25px !important; }
 
 div.tagsinput {
   background: #FFF;
@@ -1980,14 +1989,12 @@ a:active {
       background-repeat: no-repeat; }
       .list#photos > li .img img {
         width: 100%;
-        opacity: 0 !important;
         height: 150px; }
     .list#photos > li:first-child {
       width: 1000px !important;
       height: 350px !important; }
       .list#photos > li:first-child img {
-        height: 350px !important;
-        opacity: 1; }
+        height: 350px !important; }
     .list#photos > li .inner {
       overflow: hidden;
       position: relative; }

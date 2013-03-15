@@ -529,12 +529,12 @@ class AddressForm(ModelForm):
             layout.Row(
                 layout.Div(
                     layout.Row(
-                    layout.HTML('{% load i18n %}<div><label>{% trans "Phone" %}</label></div>'),
+                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Phone" %}</label></div>'),
                     'phone_country', 'phone_area', 'phone_number'),
                 ),
                 layout.Div(
                     layout.Row(
-                    layout.HTML('{% load i18n %}<div><label>{% trans "Fax" %}</label></div>'),
+                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
                     'fax_country', 'fax_area', 'fax_number'),
                 ),
             ),
