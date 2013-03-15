@@ -167,6 +167,8 @@ def export_json_exhibitions(request):
 @never_cache
 @login_required
 def add_exhibition(request):
+    if not request.user.has_perm("exhibitions.add_exhibition"):
+        return access_denied(request)
     return show_form_step(request, EXHIBITION_FORM_STEPS, extra_context={});
     
 @never_cache

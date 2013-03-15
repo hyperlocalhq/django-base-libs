@@ -130,6 +130,8 @@ def workshop_detail(request, slug):
 @never_cache
 @login_required
 def add_workshop(request):
+    if not request.user.has_perm("workshops.add_workshop"):
+        return access_denied(request)
     return show_form_step(request, WORKSHOP_FORM_STEPS, extra_context={});
     
 @never_cache

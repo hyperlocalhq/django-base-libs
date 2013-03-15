@@ -141,6 +141,8 @@ def event_detail(request, slug):
 @never_cache
 @login_required
 def add_event(request):
+    if not request.user.has_perm("events.add_event"):
+        return access_denied(request)
     return show_form_step(request, EVENT_FORM_STEPS, extra_context={});
     
 @never_cache

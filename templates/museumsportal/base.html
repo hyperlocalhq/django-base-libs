@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications %}
+{% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications base_tags %}
 <html lang="{{ LANGUAGE_CODE }}"> 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -91,8 +91,10 @@
 
                             {% block edit_item %}{% endblock %}
                             
-                            {% if request.user.is_authenticated %} 
-                            <li><a class="dashboard icon icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Dashboard" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Dashboard" %}</span></a></li>
+                            {% if request.user.is_authenticated %}
+                                {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
+                                    <li><a class="dashboard icon icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Dashboard" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Dashboard" %}</span></a></li>
+                                {% endif %}
                             {% endif %}
                             
                             <li><a class="favorites icon icon-favorites" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>{% trans "Favorites" %}</span></a></li>
