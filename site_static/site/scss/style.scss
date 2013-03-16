@@ -2741,6 +2741,8 @@ dl {
 }
 
 .cms-plugin-richtext {
+  padding-bottom: 40px;
+
   &:not(:last-of-type) {
     border-bottom: 1px solid rgba(0,0,0,0.05);
     padding-bottom: 40px;
@@ -2766,7 +2768,7 @@ dl {
     margin: 0px;
     font-weight: 300;
     position: relative;
-    &:not(:first-of-type) {margin-top: 40px; }
+    margin-top: 40px;
   }
 
   h4 {
