@@ -257,7 +257,8 @@ button {
   button.btn-small {
     font-size: 16px;
     line-height: 16px;
-    padding: 10px; }
+    padding: 10px;
+    white-space: nowrap; }
   .btn:active,
   input[type=submit]:active,
   input[type=reset]:active,
@@ -1619,7 +1620,7 @@ html {
   color: #000;
   background: #FFF; }
 
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+body, div, dl, dt, dd, ul, ol, li, h1, h3, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
   margin: 0;
   padding: 0; }
 
@@ -1640,7 +1641,7 @@ li {
 caption, th {
   text-align: left; }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h3, h3, h4, h5, h6 {
   font-size: 100%;
   font-weight: normal; }
 
@@ -1693,14 +1694,14 @@ body {
   background: #ffb7b7;
   /* Firefox */ }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h3, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
   line-height: inherit; }
-  h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  h1 a, h3 a, h3 a, h4 a, h5 a, h6 a {
     color: black; }
 
-a h1, a h2, a h3, a h4, a h5, a h6 {
+a h1, a h3, a h3, a h4, a h5, a h6 {
   color: black; }
 
 h1 {
@@ -1709,12 +1710,12 @@ h1 {
   line-height: 30px;
   margin-bottom: 30px; }
 
-h2 {
+h3 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block; }
-  h2:last-child {
+  h3:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 
@@ -1807,8 +1808,8 @@ p a {
       .table .cell .inner footer {
         font-size: 14px;
         line-height: 22px; }
-      .table > div .inner h2,
-      .table .cell .inner h2 {
+      .table > div .inner h3,
+      .table .cell .inner h3 {
         margin-bottom: 10px; }
       .table > div .inner header,
       .table .cell .inner header {
@@ -2399,7 +2400,7 @@ a:active {
 
 #teaser {
   margin-right: -20px; }
-  #teaser h2 {
+  #teaser h3 {
     font-size: 18px;
     text-transform: uppercase; }
   #teaser ul {
@@ -2738,10 +2739,10 @@ nav.actions {
       display: block;
       font-weight: 500;
       margin: 0px; }
-    .museum-detail article header h2,
-    .exhibition-detail article header h2,
-    .event-detail article header h2,
-    .workshop-detail article header h2 {
+    .museum-detail article header h3,
+    .exhibition-detail article header h3,
+    .event-detail article header h3,
+    .workshop-detail article header h3 {
       font-size: 30px;
       line-height: 38px;
       display: block;
@@ -2959,14 +2960,14 @@ aside {
         z-index: 1000;
         padding: 40px;
         padding-bottom: 35px; }
-        #slideshow-wrapper #slideshow li .overlay h2 {
+        #slideshow-wrapper #slideshow li .overlay h3 {
           font-weight: 500;
           font-size: 40px;
           line-height: 48px;
           margin-bottom: 25px;
           display: block;
           color: white; }
-          #slideshow-wrapper #slideshow li .overlay h2:last-child {
+          #slideshow-wrapper #slideshow li .overlay h3:last-child {
             margin-bottom: 0px;
             padding-bottom: 0px; }
         #slideshow-wrapper #slideshow li .overlay h3 {
@@ -3411,13 +3412,13 @@ dl {
     width: 100%;
     overflow: hidden; }
 
-.cms-plugin-article_selection h2 {
+.cms-plugin-article_selection h3 {
   font-weight: 500;
   font-size: 40px;
   line-height: 48px;
   margin-bottom: 25px;
   display: block; }
-  .cms-plugin-article_selection h2:last-child {
+  .cms-plugin-article_selection h3:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 .cms-plugin-article_selection h3 {
@@ -3457,12 +3458,12 @@ dl {
   #dashboard_header .inner {
     padding-top: 1px !important;
     padding-bottom: 0px !important; }
-  #dashboard_footer h2,
-  #dashboard_header h2 {
+  #dashboard_footer h3,
+  #dashboard_header h3 {
     margin-top: 60px;
     margin-bottom: 30px !important; }
-    #dashboard_footer h2 span,
-    #dashboard_header h2 span {
+    #dashboard_footer h3 span,
+    #dashboard_header h3 span {
       font-weight: 300;
       color: rgba(0, 0, 0, 0.5);
       font-size: 16px;
@@ -3476,7 +3477,7 @@ dl {
   padding: 25px !important;
   background-color: rgba(255, 255, 0, 0.2);
   margin-bottom: 35px; }
-  #dashboard .alerts h2 {
+  #dashboard .alerts h3 {
     font-size: 20px;
     line-height: 20px;
     display: block; }
@@ -4158,13 +4159,13 @@ dl {
     .cms-plugin-intro h1:last-child {
       margin-bottom: 0px;
       padding-bottom: 0px; }
-  .cms-plugin-intro h2 {
+  .cms-plugin-intro h3 {
     font-weight: 300;
     font-size: 30px;
     line-height: 42px;
     margin-bottom: 0px;
     display: block; }
-    .cms-plugin-intro h2:last-child {
+    .cms-plugin-intro h3:last-child {
       margin-bottom: 0px;
       padding-bottom: 0px; }
   .cms-plugin-intro h3 {
@@ -4228,7 +4229,7 @@ dl {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding-bottom: 40px;
     margin-bottom: 40px; }
-  .cms-plugin-richtext h2 {
+  .cms-plugin-richtext h3 {
     top: 5px;
     position: relative;
     font-size: 30px;
@@ -4236,7 +4237,7 @@ dl {
     margin: 0px;
     position: relative;
     font-weight: 300; }
-    .cms-plugin-richtext h2:not(:first-of-type) {
+    .cms-plugin-richtext h3:not(:first-of-type) {
       margin-top: 40px; }
   .cms-plugin-richtext h3 {
     top: 5px;
@@ -4255,7 +4256,7 @@ dl {
     margin: 0px;
     font-weight: 500;
     position: relative; }
-  .cms-plugin-richtext h2 {
+  .cms-plugin-richtext h3 {
     margin-bottom: 10px;
     font-weight: 500; }
   .cms-plugin-richtext h3 {
