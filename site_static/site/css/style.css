@@ -2838,6 +2838,9 @@ aside {
   aside:empty {
     border: 1px solid red; }
   aside p {
+    font-size: 12px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.75);
     display: inline;
     font-size: inherit;
     line-height: inherit;
@@ -2847,7 +2850,7 @@ aside {
     aside p a {
       word-break: break-all; }
     aside p:not(:last-child):after {
-      content: " Â· ";
+      content: " · ";
       margin-right: 3px;
       margin-left: 3px; }
 
