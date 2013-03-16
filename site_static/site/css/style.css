@@ -4153,6 +4153,9 @@ dl {
 #favorites ul {
   margin-bottom: 30px; }
 
+.with_sidebar .cms-plugin-intro {
+  padding-bottom: 40px; }
+
 .cms-plugin-intro {
   width: 100%; }
   .cms-plugin-intro *:empty {
@@ -4211,7 +4214,7 @@ dl {
   color: rgba(0, 0, 0, 0.75);
   font-size: 12px !important;
   line-height: 18px !important;
-  width: 260px;
+  width: 240px;
   float: left !important; }
   .img_left div, .img_left span {
     display: inline; }

@@ -2684,8 +2684,7 @@ dl {
 
 // ================= PLUGIN INTRO =================
 
-.intro .cms-plugin-intro {
-}
+.with_sidebar .cms-plugin-intro { padding-bottom: 40px;}
 
 .cms-plugin-intro {
   width: 100%; 
@@ -2743,7 +2742,7 @@ dl {
   color: rgba(0,0,0,0.75);
   font-size: 12px !important;
   line-height: 18px !important;
-  width: 260px;
+  width: 240px;
   float: left !important;
   div, span { display: inline;}
   br { display: none;}
