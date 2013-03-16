@@ -2353,6 +2353,12 @@ dl {
 .featured {
   .cms_placeholder-bar { width: 100%;}
   .cms_placeholder { clear: none; }
+  .cms-plugin-richtext {
+    width: 100%;
+    display: block;
+    float: none;
+    clear: both;
+  }
 
   .editorial-content {
     width: 320px;
