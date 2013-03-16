@@ -169,7 +169,7 @@ input[type=submit],
 input[type=reset],
 button {
   display: inline-block;
-  border-radius: 0;
+  border-radius: 0 !important;
   border: none !important;
   text-shadow: none;
   font-size: 22px;
@@ -2357,7 +2357,7 @@ a:active {
       background-position: center;
       background-repeat: no-repeat;
       margin-bottom: 9px;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
       position: absolute;
       left: 0;
       top: 0;
@@ -2388,15 +2388,28 @@ a:active {
         box-sizing: border-box !important;
         -moz-box-sizing: border-box !important; }
       .list.compact li a.txt p {
-        margin-top: 10px;
-        overflow: hidden;
-        max-height: 64px; }
-    .list.compact li.first .img {
-      width: 100% !important;
-      height: 200px;
-      position: relative; }
-    .list.compact li.first a {
-      padding: 10px !important; }
+        display: none; }
+    .list.compact li:nth-child(2) {
+      background: none !important;
+      padding-bottom: 40px;
+      height: 370px; }
+      .list.compact li:nth-child(2) .txt {
+        padding: 0px;
+        background: none !important; }
+        .list.compact li:nth-child(2) .txt h3,
+        .list.compact li:nth-child(2) .txt h4,
+        .list.compact li:nth-child(2) .txt h5 {
+          font-size: 14px !important;
+          line-height: 20px !important; }
+        .list.compact li:nth-child(2) .txt p {
+          font-size: 12px !important;
+          line-height: 18px !important;
+          margin-top: 8px;
+          display: block; }
+      .list.compact li:nth-child(2) .img {
+        width: 100% !important;
+        height: 200px;
+        position: relative; }
 
 #teaser {
   margin-right: -20px; }
