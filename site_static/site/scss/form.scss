@@ -175,7 +175,7 @@ input[type=submit],
 input[type=reset], 
 button {
   display: inline-block;
-  border-radius: 0;
+  border-radius: 0 !important;
   border: none !important;
   text-shadow: none;
   font-size: 22px;
