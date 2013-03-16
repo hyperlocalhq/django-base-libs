@@ -257,7 +257,8 @@ button {
   button.btn-small {
     font-size: 16px;
     line-height: 16px;
-    padding: 10px; }
+    padding: 10px;
+    white-space: nowrap; }
   .btn:active,
   input[type=submit]:active,
   input[type=reset]:active,
