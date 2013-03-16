@@ -9,13 +9,13 @@
 @import 'picker';
 
 html{color:#000;background:#FFF;}
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+body,div,dl,dt,dd,ul,ol,li,h1,h3,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
 table{border-collapse:collapse;border-spacing:0;}
 fieldset,img{border:0;}
 address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
 li{list-style:none;}
 caption,th{text-align:left;}
-h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}
+h1,h3,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}
 abbr,acronym{border:0;font-variant:normal;}
 sup{vertical-align:text-top; line-height: 150%; font-weight: 500;}
 sub{vertical-align:text-bottom;}
@@ -43,7 +43,7 @@ body {
 ::selection {background: #ffb7b7; /* Safari */ }
 ::-moz-selection {background: #ffb7b7; /* Firefox */ }
 
-h1,h2,h3,h4,h5,h6 {
+h1,h3,h3,h4,h5,h6 {
   padding: 0;
   margin: 0;
   line-height: inherit;
@@ -53,7 +53,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 a {
-  h1,h2,h3,h4,h5,h6 {
+  h1,h3,h3,h4,h5,h6 {
     color: black;
   }
 }
@@ -66,7 +66,7 @@ h1 {
 }
 
 
-h2 { 
+h3 { 
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
@@ -178,7 +178,7 @@ p a{font-weight: 500; }
         font-size: 14px;
         line-height: 22px;
       }
-      h2 { margin-bottom: 10px}
+      h3 { margin-bottom: 10px}
       header { padding-bottom: 20px !important; }
       footer { padding-top: 20px !important; }
     }
@@ -893,7 +893,7 @@ a:active  { outline: none;}
 
 #teaser {
   margin-right: -20px;
-  h2 {
+  h3 {
     font-size: 18px;
     text-transform: uppercase;
   }
@@ -1195,7 +1195,7 @@ nav.actions {
       margin: 0px;
     }
 
-    h2  { 
+    h3  { 
       font-size: 30px;
       line-height: 38px;
       display: block;
@@ -1436,7 +1436,7 @@ aside {
         padding: 40px;
         padding-bottom: 35px;
 
-        h2 { 
+        h3 { 
           font-weight: 500;
           font-size: 40px;
           line-height: 48px;
@@ -2023,7 +2023,7 @@ dl {
 }
 
 .cms-plugin-article_selection {
-  h2 { 
+  h3 { 
     font-weight: 500;
     font-size: 40px;
     line-height: 48px;
@@ -2072,7 +2072,7 @@ dl {
 #dashboard_footer,
 #dashboard_header{
    .inner { padding-top: 1px !important;  padding-bottom: 0px !important; }
-   h2 { 
+   h3 { 
     margin-top: 60px; 
     margin-bottom: 30px !important;
     span {
@@ -2096,7 +2096,7 @@ dl {
   padding: 25px !important; 
   background-color: rgba(255,255,0,0.2);
   margin-bottom: 35px;
-  h2 {
+  h3 {
     font-size: 20px;
     line-height: 20px;
     display: block;
@@ -2685,7 +2685,7 @@ dl {
     &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
   }
 
-  h2 { 
+  h3 { 
     font-weight: 300;
     font-size: 30px;
     line-height: 42px;
@@ -2741,13 +2741,15 @@ dl {
 }
 
 .cms-plugin-richtext {
+  padding-bottom: 40px;
+
   &:not(:last-of-type) {
     border-bottom: 1px solid rgba(0,0,0,0.05);
     padding-bottom: 40px;
     margin-bottom: 40px;
   }
 
-  h2 {
+  h3 {
     top: 5px;
     position: relative;
     font-size: 30px;
@@ -2766,7 +2768,7 @@ dl {
     margin: 0px;
     font-weight: 300;
     position: relative;
-    &:not(:first-of-type) {margin-top: 40px; }
+    margin-top: 40px;
   }
 
   h4 {
@@ -2779,7 +2781,7 @@ dl {
     position: relative;
   }
   
-  h2 { margin-bottom: 10px; font-weight: 500; }
+  h3 { margin-bottom: 10px; font-weight: 500; }
   h3 { margin-bottom: 10px; }
 
   ul { margin-top: 10px; }
