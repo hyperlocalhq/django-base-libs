@@ -2666,9 +2666,8 @@ dl {
 
 // ================= PLUGIN INTRO =================
 
-.intro 
-.cms-plugin-intro {
-  padding-bottom: 0px;
+.intro .cms-plugin-intro {
+  padding-bottom: 30px;
 }
 
 .cms-plugin-intro {
@@ -2715,34 +2714,30 @@ dl {
 
   p {
     &:first-of-type {margin-top: 20px; }
-
     font-size: 25px;
     line-height: 36px;
-
-    &:last-child { margin-bottom: 0px; }
-    &.img_block, &.img_left {display: none !important; }
-    &.img {
-      margin-top: -40px !important;
-      color: rgba(0,0,0,0.75);
-      font-size: 12px;
-      line-height: 18px;
-      padding-bottom:0px !important;
-      margin-bottom: 0px !important;
-      br  { display: none; }
-      img { display: block; margin-bottom: 10px; }
-    }
   }
 }
 
-.img_and_desc {
-  margin-right: 40px;
+.img_and_desc,
+.img_left,
+.img_block {
+  padding-bottom:0px !important;
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+  margin-right: 0px !important;
   color: rgba(0,0,0,0.75);
   font-size: 12px;
   line-height: 18px;
-  width: 235px;
-  padding-bottom:0px !important;
-  margin-bottom: 0px !important;
-  margin-top: 10px !important;
+  width: 100%;
+  float: none !important;
+  div, span { display: inline;}
+  br { display: none;}
+  img { 
+    display: block; 
+    margin-bottom: 10px; 
+    width: 100% !important;
+  }
 }
 
 .cms-plugin-richtext {
@@ -2814,9 +2809,9 @@ dl {
       font-weight: 500;
     }
 
-    &:last-child{ padding: 0px !important; }
+    &:last-child { padding: 0px !important; }
     
-    &.img_block{
+    &.img_block {
       margin-right: 40px;
       color: rgba(0,0,0,0.75);
       font-size: 12px;
@@ -2834,26 +2829,7 @@ dl {
     }
   }
   
-  .img_and_desc,
-  .img_left,
-  .img_block {
-    padding-bottom:0px !important;
-    margin-top: 10px !important;
-    margin-bottom: 20px !important;
-    margin-right: 0px !important;
-    color: rgba(0,0,0,0.75);
-    font-size: 12px;
-    line-height: 18px;
-    width: 100%;
-    float: none !important;
-    > div { display: inline;}
-    br { display: none;}
-    img { 
-      display: block; 
-      margin-bottom: 10px; 
-      width: 100% !important;
-    }
-  }
+  
 
   &:nth-child(1n) {
     .img_block,
