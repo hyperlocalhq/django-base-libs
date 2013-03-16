@@ -2685,12 +2685,10 @@ dl {
 // ================= PLUGIN INTRO =================
 
 .intro .cms-plugin-intro {
-  padding-bottom: 30px;
 }
 
 .cms-plugin-intro {
   width: 100%; 
-  padding-bottom: 30px;
   *:empty{ display: none;}
   &:empty{ display: none;}
 
@@ -2737,16 +2735,35 @@ dl {
   }
 }
 
+.img_left {
+  padding-bottom:0px !important;
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+  margin-right: 40px !important;
+  color: rgba(0,0,0,0.75);
+  font-size: 12px !important;
+  line-height: 18px !important;
+  width: 320px;
+  float: left !important;
+  div, span { display: inline;}
+  br { display: none;}
+  img { 
+    display: block; 
+    margin-bottom: 10px; 
+    width: 100% !important;
+  }
+}
+
+
 .img_and_desc,
-.img_left,
 .img_block {
   padding-bottom:0px !important;
   margin-top: 10px !important;
   margin-bottom: 20px !important;
   margin-right: 0px !important;
   color: rgba(0,0,0,0.75);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 12px !important;
+  line-height: 18px !important;
   width: 100%;
   float: none !important;
   div, span { display: inline;}

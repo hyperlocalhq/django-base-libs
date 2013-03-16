@@ -4153,12 +4153,8 @@ dl {
 #favorites ul {
   margin-bottom: 30px; }
 
-.intro .cms-plugin-intro {
-  padding-bottom: 30px; }
-
 .cms-plugin-intro {
-  width: 100%;
-  padding-bottom: 30px; }
+  width: 100%; }
   .cms-plugin-intro *:empty {
     display: none; }
   .cms-plugin-intro:empty {
@@ -4207,30 +4203,44 @@ dl {
     .cms-plugin-intro p:first-of-type {
       margin-top: 20px; }
 
+.img_left {
+  padding-bottom: 0px !important;
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+  margin-right: 4px !important;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 12px !important;
+  line-height: 18px !important;
+  width: 320px;
+  float: left !important; }
+  .img_left div, .img_left span {
+    display: inline; }
+  .img_left br {
+    display: none; }
+  .img_left img {
+    display: block;
+    margin-bottom: 10px;
+    width: 100% !important; }
+
 .img_and_desc,
-.img_left,
 .img_block {
   padding-bottom: 0px !important;
   margin-top: 10px !important;
   margin-bottom: 20px !important;
   margin-right: 0px !important;
   color: rgba(0, 0, 0, 0.75);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 12px !important;
+  line-height: 18px !important;
   width: 100%;
   float: none !important; }
   .img_and_desc div, .img_and_desc span,
-  .img_left div,
-  .img_left span,
   .img_block div,
   .img_block span {
     display: inline; }
   .img_and_desc br,
-  .img_left br,
   .img_block br {
     display: none; }
   .img_and_desc img,
-  .img_left img,
   .img_block img {
     display: block;
     margin-bottom: 10px;
