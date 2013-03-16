@@ -57,7 +57,7 @@ def museum_list(request):
     facets = {
         'selected': {},
         'categories': {
-            'categories': MuseumCategory.objects.filter(level=0).order_by("title_%s" % request.LANGUAGE_CODE),
+            'categories': MuseumCategory.objects.all().order_by("title_%s" % request.LANGUAGE_CODE),
             'open_on_mondays': _("Open on Mondays"),
             'free_entrance': _("Free entrance"),
             },

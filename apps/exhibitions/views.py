@@ -64,7 +64,7 @@ def exhibition_list(request):
     facets = {
         'selected': {},
         'categories': {
-            'categories': get_related_queryset(Exhibition, "categories").filter(level=0).order_by("title_%s" % request.LANGUAGE_CODE),
+            'categories': get_related_queryset(Exhibition, "categories").all().order_by("title_%s" % request.LANGUAGE_CODE),
             'statuses': STATUS_CHOICES,
             },
         }
