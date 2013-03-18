@@ -426,7 +426,6 @@ a:active  { outline: none;}
 // ================= FOOTER =================
 
 #footer {
-  border-top: 1px solid rgba(0,0,0,0.05);
   .inner { 
     ul.navigation {
 
@@ -2252,8 +2251,11 @@ dl {
     margin-bottom: 40px;
 
 
-    &:nth-child(3n) { margin-right: 0px; }
-    &:nth-child(3n+1) { clear: left;}
+    &:last-child {
+      padding-bottom: 0px;
+      border-bottom: none;
+      margin-bottom: 0px;
+    }
     
     .img {
       display: block;

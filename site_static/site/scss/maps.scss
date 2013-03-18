@@ -79,6 +79,10 @@
   height: 0px;
   position: absolute;
   z-index: 10000;
+  .btn {
+    width: 40px !important;
+    height: 40px !important;
+  }
 }
 
 #gmap_wrapper  {

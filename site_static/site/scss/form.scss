@@ -227,6 +227,10 @@ button {
     color: black !important;
     opacity: 0.75;
   }
+  &.icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
 }
 
 input[type=radio] {}

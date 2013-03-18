@@ -266,6 +266,12 @@ button {
     background-color: rgba(0, 0, 0, 0.05) !important;
     color: black !important;
     opacity: 0.75; }
+  .btn.icon,
+  input[type=submit].icon,
+  input[type=reset].icon,
+  button.icon {
+    width: 40px !important;
+    height: 40px !important; }
 
 input[type=range] {
   -webkit-appearance: none;
@@ -1090,6 +1096,9 @@ div.tagsinput {
   height: 0px;
   position: absolute;
   z-index: 10000; }
+  #map_controls .btn {
+    width: 40px !important;
+    height: 40px !important; }
 
 #gmap_wrapper {
   width: 100%;
@@ -2015,23 +2024,21 @@ a:active {
         #navigation > ul > li > a:hover {
           color: #00aefd; }
 
-#footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.05); }
-  #footer .inner ul.navigation li {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 14px;
-    height: 14px;
-    padding: 0px;
-    padding-right: 12px;
-    margin-right: 10px;
-    border-right: 1px solid rgba(0, 0, 0, 0.1); }
-    #footer .inner ul.navigation li.selected a {
+#footer .inner ul.navigation li {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 14px;
+  height: 14px;
+  padding: 0px;
+  padding-right: 12px;
+  margin-right: 10px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1); }
+  #footer .inner ul.navigation li.selected a {
+    color: #00aefd; }
+  #footer .inner ul.navigation li a {
+    color: black; }
+    #footer .inner ul.navigation li a:hover {
       color: #00aefd; }
-    #footer .inner ul.navigation li a {
-      color: black; }
-      #footer .inner ul.navigation li a:hover {
-        color: #00aefd; }
 
 @-webkit-keyframes SPINNER {
   0% {
@@ -3817,10 +3824,10 @@ dl {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding-bottom: 40px;
   margin-bottom: 40px; }
-  .magazine_overview .editorial-content:nth-child(3n) {
-    margin-right: 0px; }
-  .magazine_overview .editorial-content:nth-child(3n+1) {
-    clear: left; }
+  .magazine_overview .editorial-content:last-child {
+    padding-bottom: 0px;
+    border-bottom: none;
+    margin-bottom: 0px; }
   .magazine_overview .editorial-content .img {
     display: block;
     overflow: hidden;
