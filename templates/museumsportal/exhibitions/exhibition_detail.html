@@ -332,7 +332,7 @@
                         {% endif %}                     
                     {% endwith %}
                 {% else %}
-                    {% if exhibition.free_entrance or exhibition.admission_price or exhibition.reduced_price or exhibition.arrangements_for_children or exhibition.free_entrance_for or exhibition.family_ticket or exhibition.group_ticket or exhibition.free_entrance_times or exhibition.yearly_ticket or exhibition.other_tickets or exhibition.member_of_exhibitionspass %}
+                    {% if exhibition.free_entrance or exhibition.admission_price or exhibition.reduced_price %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
@@ -362,59 +362,6 @@
                                                 <dd>{{ exhibition.get_rendered_reduced_price_info }}</dd>
                                             {% endif %}
                                         </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.arrangements_for_children %}
-                                        <dl>
-                                            <dt>{% trans "Arrangements for children" %}</dt>
-                                            <dd>{{ exhibition.get_rendered_arrangements_for_children }}</dd>
-                                        </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.free_entrance_for %}
-                                        <dl>
-                                            <dt>{% trans "Free entrance for" %}</dt>
-                                            <dd>{{ exhibition.get_rendered_free_entrance_for }}</dd>
-                                        </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.family_ticket %}
-                                        <dl>
-                                            <dt>{% trans "Family ticket" %}</dt>
-                                            <dd>{{ exhibition.get_rendered_family_ticket }}</dd>
-                                        </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.group_ticket %}
-                                        <dl>
-                                            <dt>{% trans "Group ticket" %}</dt>
-                                            <dd>{{ exhibition.get_rendered_group_ticket }}</dd>
-                                        </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.free_entrance_times %}
-                                        <dl>
-                                            <dt>{% trans "Free entrance times" %}</dt>
-                                            <dd>{{ exhibition.get_rendered_free_entrance_times }}</dd>
-                                        </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.yearly_ticket %}
-                                        <dl>
-                                            <dt>{% trans "Yearly ticket" %}</dt>
-                                            <dd>{{ exhibition.get_rendered_yearly_ticket }}</dd>
-                                        </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.other_tickets %}
-                                        <dl>
-                                            <dt>{% trans "Other tickets" %}</dt>
-                                            <dd>{{ exhibition.get_rendered_other_tickets }}</dd>
-                                        </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.member_of_exhibitionspass %}
-                                        <dt>{% trans "Member if Exhibitionspass Berlin" %}</dt>
                                     {% endif %}
                                 {% endif %}
                                 </dl>

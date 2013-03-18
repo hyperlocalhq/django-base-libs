@@ -110,12 +110,9 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name', 'street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += get_admin_lang_section(_("Other locations"), ['other_locations', ])
     fieldsets += [(_("Time"), {'fields': ('start','end', 'vernissage', 'finissage', 'exhibition_extended', 'permanent')}),]
-    fieldsets += [(_("Prices"), {'fields': ('museum_prices', 'free_entrance', 'member_of_museumspass', 
+    fieldsets += [(_("Prices"), {'fields': ('museum_prices', 'free_entrance',  
         'admission_price', get_admin_lang_section(_("Price info"), ['admission_price_info']),
         'reduced_price', get_admin_lang_section(_("Price info"), ['reduced_price_info']),
-        'show_group_ticket', get_admin_lang_section(_("Price info"), ['group_ticket']),
-        'show_family_ticket',
-        'show_yearly_ticket',
     )}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'newly_opened', 'featured', 'closing_soon', 'is_for_children',)}),]
     fieldsets += [(_("Suitability"), {'fields': ('suitable_for_disabled', get_admin_lang_section(_("Description"), ['suitable_for_disabled_info', ]))}),]
