@@ -152,11 +152,6 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     reduced_price_info = MultilingualTextField(_("Reduced admission price info"), blank=True)
-    show_family_ticket = models.BooleanField(_("Family ticket"), blank=True)
-    show_group_ticket = models.BooleanField(_("Group ticket"), blank=True)
-    group_ticket = MultilingualTextField(_("Group ticket"), blank=True)
-    show_yearly_ticket = models.BooleanField(_("Yearly ticket"), blank=True)
-    member_of_museumspass = models.BooleanField(_("Museumspass Berlin"))
     
     suitable_for_disabled = models.BooleanField(_("Exhibition suitable for people with disabilities"))
     suitable_for_disabled_info = MultilingualTextField(_("Suitability for people with disabilities info"), blank=True)
