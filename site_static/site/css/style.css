@@ -3826,7 +3826,7 @@ dl {
   margin-bottom: 40px; }
   .magazine_overview .editorial-content:last-child {
     padding-bottom: 0px;
-    border-bottom: none;
+    border: none !important;
     margin-bottom: 0px; }
   .magazine_overview .editorial-content .img {
     display: block;
@@ -4476,3 +4476,4 @@ dl {
       opacity: 1; }
     #sponsors > div a span {
       display: none; }
+one; }
