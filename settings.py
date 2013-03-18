@@ -12,11 +12,11 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('Berliner Museumsportal Webmaster', 'bendoraitis@studio38.de'),
+     ('Museumsportal Berlin Webmaster', 'bendoraitis@studio38.de'),
 )
 
 MANAGERS = ( 
-     ('Berliner Museumsportal Webmaster', 'museumsportal@kulturprojekte-berlin.de'),
+     ('Museumsportal Berlin Webmaster', 'museumsportal@kulturprojekte-berlin.de'),
 )
 
 TIME_ZONE = 'Europe/Berlin'
@@ -477,7 +477,7 @@ FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
 ### GRAPPELLI ###
 
 execfile(os.path.join(ROOT_PATH, "jetson/settings/grappelli.py"))
-GRAPPELLI_ADMIN_HEADLINE = "Berliner Museumsportal Admin"
+GRAPPELLI_ADMIN_HEADLINE = "Museumsportal Berlin Admin"
 
 ### OTHER SETTINGS ###
 
