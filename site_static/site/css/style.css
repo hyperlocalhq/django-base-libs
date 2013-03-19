@@ -1424,8 +1424,8 @@ div.tagsinput {
     border-bottom: 0px solid black;
     margin: 0px !important; }
     #gallery nav button {
-      width: 60px;
-      height: 60px;
+      width: 60px !important;
+      height: 60px !important;
       margin: 0px !important;
       display: block;
       background-color: black;
@@ -1966,6 +1966,7 @@ a:active {
       height: 35px;
       width: 400px;
       background-image: url("../img/logo_img.svg");
+      background-image: url("../img/logo_img.png");
       background-repeat: no-repeat;
       background-position: left;
       background-size: contain;
