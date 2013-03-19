@@ -51,6 +51,10 @@
       -ms-user-select: none;
       user-select: none;
     }
+
+    &.only_one {
+        .prev, .next { display: none;}
+    }
     
     > span {
         width: 40px;

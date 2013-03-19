@@ -1289,6 +1289,8 @@ div.tagsinput {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; }
+  #gallery.only_one .prev, #gallery.only_one .next {
+    display: none; }
   #gallery > span {
     width: 40px;
     height: 120px;
