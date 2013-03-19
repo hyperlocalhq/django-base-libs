@@ -11,5 +11,10 @@
         $('#gallery .info').click(function(e){
             $('#gallery').toggleClass('info');
         });
+
+
+        if($('#gallery ul li').length == 1){
+          $("#gallery").addClass('only_one');
+        }
     });
 </script>
