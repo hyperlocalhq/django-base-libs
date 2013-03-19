@@ -21,6 +21,24 @@
   font-weight: 600;
   font-style: normal; }
 
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @font-face {
+    font-family: "calluna_sans";
+    src: url("../fonts/callunasanslight-webfont.svg#ba2e6cd3-424d-420d-9979-f02312873084") format("svg");
+    font-weight: 400;
+    font-style: normal; }
+
+  @font-face {
+    font-family: "calluna_sans";
+    src: url("../fonts/callunasansbold-webfont.svg#2f64837d-6dcf-4dea-97e0-9eaca9ac5970") format("svg");
+    font-weight: 500;
+    font-style: normal; }
+
+  @font-face {
+    font-family: "calluna_sans";
+    src: url("../fonts/callunasansblack-webfont.svg#5e3efd8b-0e69-4e4f-97bf-828b81df0afc") format("svg");
+    font-weight: 600;
+    font-style: normal; } }
 select {
   width: 100%;
   border-radius: 0;
@@ -2401,7 +2419,7 @@ a:active {
     .list.compact li:nth-child(2) {
       background: none !important;
       padding-bottom: 40px;
-      height: 370px; }
+      height: 425px; }
       .list.compact li:nth-child(2) .txt {
         padding: 0px;
         background: none !important; }
@@ -2411,8 +2429,8 @@ a:active {
           font-size: 14px !important;
           line-height: 20px !important; }
         .list.compact li:nth-child(2) .txt p {
-          font-size: 12px !important;
-          line-height: 18px !important;
+          font-size: 14px !important;
+          line-height: 22px !important;
           margin-top: 8px;
           display: block; }
       .list.compact li:nth-child(2) .img {
