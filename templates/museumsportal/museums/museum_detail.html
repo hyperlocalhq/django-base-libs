@@ -79,32 +79,6 @@
                                     <dd><a href="{{ social.url }}">{{ social.channel_type }}</a></dd>
                                 </dl>
                             {% endfor %}
-                            
-                            {% if museum.contact_name %}
-                                <dl>
-                                {% if museum.contact_phone_number %}
-                                    <dt>{% trans "Contact phone" %}</dt>
-                                    <dd>{{ museum.contact_phone_country }} {{ museum.contact_phone_area }} {{ museum.contact_phone_number }} </dd>
-                                {% endif %}
-                                </dl>
-
-                                {% if museum.contact_email %}
-                                    <dl>
-                                        <dt>{% trans "Contact email" %}</dt>
-                                        <dd>{{ museum.contact_email }} </dd>
-                                    </dl>
-                                {% endif %}
-                            {% endif %}
-                            
-                            {% if museum.post_street_address %}
-                                <dl>
-                                    <dt>{% trans "Postal address" %}</dt>
-                                    <dd>{{ museum.post_street_address }}</dd>
-                                    {% if museum.post_street_address2 %}<dd>{{ museum.post_street_address2 }}</dd>{% endif %} 
-                                    <dd>{{ museum.post_postal_code }} {{ museum.post_city }}</dd>
-                                </dl>
-                            {% endif %}
-                            
                         </li>
                         <li class="accordion-inner">
                             {% with museum as list_item %}
@@ -132,8 +106,14 @@
                             <li class="accordion-inner">
                                 {% if museum.season_set.count == 1 %}
                                     {% with museum.season_set.all.0 as season %}
+                                        <dl>
+                                            <dt>{{ season.title }}</dt>
+                                            <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                                        </dl>
                                         {% if season.is_appointment_based %}
-                                            <dt>{% trans "Based on appointment" %}</dt>
+                                            <dl>
+                                                <dt>{% trans "Based on appointment" %}</dt>
+                                            </dl>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
@@ -173,9 +153,9 @@
                                             <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
                                         </dl>
                                         {% if season.is_appointment_based %}
-                                        <dl>
-                                            <dt>{% trans "Based on appointment" %}</dt>
-                                        </dl>
+                                            <dl>
+                                                <dt>{% trans "Based on appointment" %}</dt>
+                                            </dl>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
@@ -267,18 +247,6 @@
                                         {% endif %}
                                     </dl>
                                 {% endif %}
-                                {% if museum.arrangements_for_children %}
-                                    <dl>
-                                        <dt>{% trans "Arrangements for children" %}</dt>
-                                        <dd>{{ museum.get_rendered_arrangements_for_children }} </dd>
-                                    </dl>
-                                {% endif %}
-                                {% if museum.free_entrance_for %}
-                                    <dl>
-                                        <dt>{% trans "Free entrance for" %}</dt>
-                                        <dd>{{ museum.get_rendered_free_entrance_for }} </dd>
-                                    </dl>
-                                {% endif %}
                                 {% if museum.show_family_ticket %}
                                     <dl>
                                         <dt>{% trans "Family ticket" %}</dt>
@@ -291,22 +259,10 @@
                                         <dd>{{ museum.get_rendered_group_ticket }} </dd>
                                     </dl>
                                 {% endif %}
-                                {% if museum.free_entrance_times %}
-                                    <dl>
-                                        <dt>{% trans "Free entrance times" %}</dt>
-                                        <dd>{{ museum.get_rendered_free_entrance_times }} </dd>
-                                    </dl>
-                                {% endif %}
                                 {% if museum.show_yearly_ticket %}
                                     <dl>
                                         <dt>{% trans "Yearly ticket" %}</dt>
                                         <dd>{% infoblock "yearly_ticket_info" %} </dd>
-                                    </dl>
-                                {% endif %}
-                                {% if museum.other_tickets %}
-                                    <dl>
-                                        <dt>{% trans "Other tickets" %}</dt>
-                                        <dd>{{ museum.get_rendered_other_tickets }}</dd>
                                     </dl>
                                 {% endif %}
                                 {% if museum.member_of_museumspass %}
@@ -334,7 +290,7 @@
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-services">  
-                            {% filter fix_ampersands %}{% trans "Services" %}{% endfilter %} 
+                            {% trans "Services" %} 
                         </a>  
                     </h4>  
                     <ul id="collapse-services" class="accordion-body collapse" style="height: 0px; ">
@@ -382,7 +338,7 @@
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
-                                {% filter fix_ampersands %}{% trans "Accessibility" %}{% endfilter %} 
+                                {% trans "Accessibility" %} 
                             </a>  
                         </h4>  
                         <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
