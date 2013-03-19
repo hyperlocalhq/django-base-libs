@@ -84,10 +84,10 @@
                                 </dl>
                             {% endif %}
                             
-                            {% if event.event %}
+                            {% if event.exhibition %}
                                 <dl>
-                                    <dt>{% trans "Related event" %}</dt>
-                                    <dd><a href="{{ event.event.get_url_path }}">{{ event.event.title }}</a></dd>
+                                    <dt>{% trans "Related exhibition" %}</dt>
+                                    <dd><a href="{{ event.exhibition.get_url_path }}">{{ event.exhibition.title }}</a></dd>
                                 </dl>
                             {% endif %}
                         </li>
