@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from datetime import datetime
+from datetime import datetime, time
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -250,6 +250,65 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             if getattr(self, fn)
             ])
     get_address.short_description = _("Address")
+    
+    def is_open_until(self, weekday, closing_time):
+        """
+        weekday := "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun"
+        closing_time := time(hh, mm)
+        """
+        today = datetime.today()
+        if not hasattr(self, "_actual_season"): # let's cache the actual season
+            actual_seasons = self.season_set.filter(start__lte=today, end__gte=today)
+            self._actual_season = None
+            if actual_seasons.count():
+                self._actual_season = actual_seasons[0]
+        if self._actual_season:
+            return closing_time <= getattr(self._actual_season, "%s_close" % weekday, time(0, 0))
+        return False
+        
+    # open till 20:00
+    def is_open_on_mon_till_20(self):
+        return self.is_open_until("mon", time(20, 0))
+    
+    def is_open_on_tue_till_20(self):
+        return self.is_open_until("tue", time(20, 0))
+    
+    def is_open_on_wed_till_20(self):
+        return self.is_open_until("wed", time(20, 0))
+    
+    def is_open_on_thu_till_20(self):
+        return self.is_open_until("thu", time(20, 0))
+    
+    def is_open_on_fri_till_20(self):
+        return self.is_open_until("fri", time(20, 0))
+    
+    def is_open_on_sat_till_20(self):
+        return self.is_open_until("sat", time(20, 0))
+    
+    def is_open_on_sun_till_20(self):
+        return self.is_open_until("sun", time(20, 0))
+    
+    # open till 22:00
+    def is_open_on_mon_till_22(self):
+        return self.is_open_until("mon", time(22, 0))
+    
+    def is_open_on_tue_till_22(self):
+        return self.is_open_until("tue", time(22, 0))
+    
+    def is_open_on_wed_till_22(self):
+        return self.is_open_until("wed", time(22, 0))
+    
+    def is_open_on_thu_till_22(self):
+        return self.is_open_until("thu", time(22, 0))
+    
+    def is_open_on_fri_till_22(self):
+        return self.is_open_until("fri", time(22, 0))
+    
+    def is_open_on_sat_till_22(self):
+        return self.is_open_until("sat", time(22, 0))
+    
+    def is_open_on_sun_till_22(self):
+        return self.is_open_until("sun", time(22, 0))
     
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")

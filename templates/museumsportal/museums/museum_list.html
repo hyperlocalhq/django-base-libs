@@ -33,6 +33,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabet" %}</button>
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-open-late">{% trans "Open late" %}</button>
                     {% comment %}
                     <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button> -->
                     {% endcomment %}
@@ -66,9 +67,9 @@
                     </div>
                 </div>
                 <div class="accordion-group">
-                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;" data-single-selection="1">
+                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;">
                         <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
+                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
                                 <li><a href="" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
                                 <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
 
@@ -92,6 +93,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="accordion-group">
+                    <div id="filter-open-late" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+                                <li><a href="" data-filter-value=".is_open_on_mon_till_20">{% trans "till 20:00 on Mondays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_mon_till_22">{% trans "till 22:00 on Mondays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_tue_till_20">{% trans "till 20:00 on Tuesdays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_tue_till_22">{% trans "till 22:00 on Tuesdays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_wed_till_20">{% trans "till 20:00 on Wednesdays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_wed_till_22">{% trans "till 22:00 on Wednesdays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_thu_till_20">{% trans "till 20:00 on Thursdays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_thu_till_22">{% trans "till 22:00 on Thursdays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_fri_till_20">{% trans "till 20:00 on Fridays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_fri_till_22">{% trans "till 22:00 on Fridays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_sat_till_20">{% trans "till 20:00 on Saturdays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_sat_till_22">{% trans "till 22:00 on Saturdays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_sun_till_20">{% trans "till 20:00 on Sundays" %}</a></li>
+                                <li><a href="" data-filter-value=".is_open_on_sun_till_22">{% trans "till 22:00 on Sundays" %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
          
             <ul id="filter_summary"></ul>
@@ -103,7 +126,7 @@
         <ul id="container" class="list tiles clearfix">
             {% for museum in object_list %}
                 {% tags_for_object museum as tags %}
-                <li class="item initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}">
+                <li class="item initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}">
                     {% if museum.cover_image %}
                         <a class="img" href="{{ museum.get_url_path }}">
                             <img src="{{ STATIC_URL }}site/img/none.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}" alt="" />
