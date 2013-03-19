@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 @import 'variables';
 @import 'fonts';
@@ -878,7 +879,7 @@ a:active  { outline: none;}
       &:nth-child(2) {
         background: none !important;
         padding-bottom: 40px;
-        height: 370px;
+        height: 425px;
         .txt { 
           padding: 0px;
           background: none !important;
@@ -890,8 +891,8 @@ a:active  { outline: none;}
           }
 
           p {
-            font-size: 12px !important;
-            line-height: 18px !important;
+            font-size: 14px !important;
+            line-height: 22px !important;
 
             margin-top: 8px;
             display: block;
