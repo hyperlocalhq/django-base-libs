@@ -365,7 +365,34 @@ class Season(OpeningHoursMixin):
         ordering = ('start',)
         verbose_name = _("Season")
         verbose_name_plural = _("Seasons")
-        
+
+    def get_opening_hours(self):
+        WEEKDAYS = (
+            ("mon", _("Monday")),
+            ("tue", _("Tuesday")),
+            ("wed", _("Wednesday")),
+            ("thu", _("Thursday")),
+            ("fri", _("Friday")),
+            ("sat", _("Saturday")),
+            ("sun", _("Sunday")),
+        )
+        times = []
+        for key, val in WEEKDAYS:
+            times.append({
+                "weekday": val,
+                "open": getattr(self, "%s_open" % key),
+                "break_close": getattr(self, "%s_break_close" % key),
+                "break_open": getattr(self, "%s_break_open" % key),
+                "close": getattr(self, "%s_close" % key),
+                "times": "-".join((
+                    str(getattr(self, "%s_open" % key)),
+                    str(getattr(self, "%s_break_close" % key)),
+                    str(getattr(self, "%s_break_open" % key)),
+                    str(getattr(self, "%s_close" % key))
+                )),
+            })
+        return times
+
 class SpecialOpeningTime(models.Model):
     museum = models.ForeignKey(Museum)
     yyyy = models.PositiveIntegerField(_("Year"), blank=True, null=True, choices=YEAR_CHOICES, help_text=_("Leave this field empty, if the occasion happens every year at the same time."))

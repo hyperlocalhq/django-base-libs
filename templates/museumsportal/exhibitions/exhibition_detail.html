@@ -146,8 +146,14 @@
                             <li class="accordion-inner">
                                 {% if exhibition.season_set.count == 1 %}
                                     {% with exhibition.season_set.all.0 as season %}
+                                        <dl>
+                                            <dt>{{ season.title }}</dt>
+                                            <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                                        </dl>
                                         {% if season.is_appointment_based %}
-                                            <dd>{% trans "Based on appointment" %}</dd>
+                                            <dl>
+                                                <dd>{% trans "Based on appointment" %}</dd>
+                                            </dl>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
@@ -179,9 +185,14 @@
                                     {% endwith %}
                                 {% else %}
                                     {% for season in exhibition.season_set.all %}
-                                        <h5>{% trans "Season" %} {{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</h5>
+                                        <dl>
+                                            <dt>{{ season.title }}</dt>
+                                            <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                                        </dl>
                                         {% if season.is_appointment_based %}
-                                            <dd>{% trans "Based on appointment" %}</dd>
+                                            <dl>
+                                                <dd>{% trans "Based on appointment" %}</dd>
+                                            </dl>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
