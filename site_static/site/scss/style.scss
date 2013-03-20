@@ -192,6 +192,7 @@ a:link   { text-decoration: none;}
 a:hover   { text-decoration: none; color: $blue;}
 a:visited { text-decoration: none;}
 a:active  { outline: none;}
+a:active { outline: none !important; border: none !important; }
 
 #wrapper {
   height: 100%;
@@ -1980,9 +1981,10 @@ z-index: 10000;
       background-size: contain;
       background-position: right;
       background-repeat: no-repeat;
-      &:hover,
+      color: black;
+
+      &:hover {background-color: rgba(0,0,0,0.05); }
       &.collapsed { background-image: url("../img/icons/down.svg"); color: black;
-        &:hover {background-image: url("../img/icons/left.svg"); }
       }
     }
   }

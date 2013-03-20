@@ -117,7 +117,7 @@
                 {% if workshop.free_admission or workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                                 {% trans "Prices" %} 
                             </a>  
                         </h4>  
@@ -168,7 +168,7 @@
                 {% if workshop.workshoptime_set.count %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
                             {% trans "Date and Time" %} 
                         </a>  
                     </h4>  
@@ -190,7 +190,7 @@
                 {% if workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
                                 {% trans "Other Information" %} 
                             </a>  
                         </h4>  

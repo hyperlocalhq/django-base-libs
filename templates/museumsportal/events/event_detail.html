@@ -115,7 +115,7 @@
                 {% if museum.season_set.count or museum.specialopeningtime_set.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                                 {% trans "Opening hours" %}
                             </a>  
                         </h4>  
@@ -233,7 +233,7 @@
                 {% if event.eventtime_set.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
                                 {% trans "Date and Time" %}
                             </a>
                         </h4>
@@ -255,7 +255,7 @@
                 {% if event.free_admission or event.admission_price or event.admission_price_info or event.reduced_price or event.reduced_price_info or event.booking_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                                 {% trans "Prices" %} 
                             </a>  
                         </h4>  
@@ -297,7 +297,7 @@
                 {% if event.meeting_place or event.get_languages %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
                                 {% trans "Other info" %} 
                             </a>  
                         </h4>  
