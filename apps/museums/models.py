@@ -97,6 +97,8 @@ class MuseumManager(models.Manager):
         return self.get_query_set().filter(pk__in=ids)
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
+    parent = models.ForeignKey("self", verbose_name=_("Parent museum"), blank=True, null=True)
+    
     title = MultilingualCharField(_("Name"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)

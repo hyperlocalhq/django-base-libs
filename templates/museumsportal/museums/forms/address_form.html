@@ -10,6 +10,7 @@
     {{ block.super }}
     <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
 {% endblock %}
 
 {% block bodyclass %}{% endblock %}
@@ -99,6 +100,21 @@
             $('#add_social').click();
         }
         reinit_widgets();
+        
+        $('#id_parent').change(function() {
+            if ($(this).val()) {
+                $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
+                    $('#id_street_address').val(data['street_address']).addClass("noneditable");
+                    $('#id_street_address2').val(data['street_address2']).addClass("noneditable");
+                    $('#id_postal_code').val(data['postal_code']).addClass("noneditable");
+                    $('#id_city').val(data['city']).addClass("noneditable");
+                    $('#id_latitude').val(data['latitude']).addClass("noneditable");
+                    $('#id_longitude').val(data['longitude']).addClass("noneditable");
+                    $('#dyn_locate_geo').click();
+                }, 'json');
+            }
+        });
+
     });
 })(jQuery);
 </script>

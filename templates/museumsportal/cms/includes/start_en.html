@@ -6,19 +6,17 @@
     <div class="clearfix">
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Featured Museums" %}</h3></li>
-            {% placeholder "featured_magazin" %}
+            {% placeholder "start_page_left" %}
         </ul>
 
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Good to know" %}</h3></li>
-            {% placeholder "featured_magazin" %}
+            {% placeholder "start_page_center" %}
         </ul>
 
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Featured Exhibitions" %}</h3></li>
-            {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-            
-            {% placeholder "featured_magazin" %}
+            {% placeholder "start_page_right" %}
         </ul>
     </div>
 
@@ -30,7 +28,8 @@
     </div>
 </article>
 
-<!-- <div class="marginal">
+{% comment %}<!--
+<div class="marginal">
     <ul class="social">
         <li><a class="facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">Facebook</a></li>
         <li><a class="twitter" href="https://twitter.com/museumsportal">Twitter</a></li>
@@ -65,4 +64,5 @@
     <div id="redaktion" class="rightCol">
         {% placeholder "center_column" %}
     </div>
-</div> -->
+</div>
+-->{% endcomment %}

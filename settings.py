@@ -423,6 +423,18 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Featured Magazin")
     },
+    'start_page_left': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Start page left")
+    },
+    'start_page_center': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Start page center")
+    },
+    'start_page_right': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Start page right")
+    },
 }
 
 CMS_TEMPLATES = [
