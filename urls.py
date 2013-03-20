@@ -32,6 +32,12 @@ v1_api.register(MuseumResource())
 v1_api.register(ExhibitionCategoryResource())
 v1_api.register(ExhibitionResource())
 
+v2_api = Api(api_name='v2')
+v2_api.register(MuseumCategoryResource())
+v2_api.register(MuseumResource())
+v2_api.register(ExhibitionCategoryResource())
+v2_api.register(ExhibitionResource())
+
 urlpatterns = patterns(path_in_installed_app('image_mods.views'),
     url(r'^admin/filebrowser/versions/$', 'versions', name="fb_versions"),
     url(r'^filebrowser/get-version/$', 'get_or_create_modified_path', name="fb_get_version"),
@@ -53,6 +59,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
     url(r'^api/', include(v1_api.urls)),
+    url(r'^api/', include(v2_api.urls)),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^helper/autocomplete/(?P<app>[^/]+)/(?P<qs_function>[^/]+)/(?P<display_attr>[^/]+)/(?P<add_display_attr>[^/]+)/$', 'base_libs.views.ajax_autocomplete'),
     url(r'^helper/favorite/(?P<content_type_id>[0-9]+)/(?P<object_id>[0-9]+)/$', 'jetson.apps.favorites.views.json_set_favorite'),
