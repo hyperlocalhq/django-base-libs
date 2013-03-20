@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from base_libs.forms.fields import AutocompleteModelChoiceField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
 
@@ -473,9 +474,25 @@ class PricesForm(ModelForm):
                 
         
 class AddressForm(ModelForm):
+    parent = AutocompleteModelChoiceField(
+        required=False,
+        label=_("Parent museum"),
+        # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
+        app="museums",
+        qs_function="get_published_museums",
+        display_attr="title",
+        add_display_attr="get_address",
+        options={
+            "minChars": 1,
+            "max": 20,
+            "mustMatch": 1,
+            "highlight" : False,
+            "multipleSeparator": ",,, ",
+            },
+        )
     class Meta:
         model = Museum
-        fields = ['street_address', 'street_address2', 'postal_code', 'district',
+        fields = ['parent', 'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude',
             'phone_country', 'phone_area', 'phone_number', 
             'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number', 
@@ -496,6 +513,7 @@ class AddressForm(ModelForm):
             _("Location"),
             layout.Row(
                 layout.Div(
+                    'parent',
                     'street_address', 
                     'street_address2',
                     'postal_code', 
@@ -913,7 +931,7 @@ def load_data(instance=None):
         for f in fields:
             form_step_data['prices'][f] = getattr(instance, f)
         
-        fields = ['street_address', 'street_address2', 'postal_code', 'district',
+        fields = ['parent', 'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude',
             'phone_country', 'phone_area', 'phone_number',
             'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
@@ -988,7 +1006,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     if current_step == "address":
         if "_pk" in form_step_data:
             instance = Museum.objects.get(pk=form_step_data['_pk'])
-            fields = ['street_address', 'street_address2', 'postal_code', 'district',
+            fields = ['parent', 'street_address', 'street_address2', 'postal_code', 'district',
                 'city', 'latitude', 'longitude',
                 'phone_country', 'phone_area', 'phone_number',
                 'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
@@ -1196,7 +1214,7 @@ def save_data(form_steps, form_step_data, instance=None):
             ]:
             setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
-    fields = ['street_address', 'street_address2', 'postal_code', 'district',
+    fields = ['parent', 'street_address', 'street_address2', 'postal_code', 'district',
         'city', 'latitude', 'longitude',
         'phone_country', 'phone_area', 'phone_number',
         'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
