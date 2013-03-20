@@ -39,7 +39,7 @@
             <ul class="accordion" id="accordion2">  
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
                             {% trans "Location" %}
                         </a>
                     </h4>
@@ -454,6 +454,40 @@
 </div>
 
 {% include "utils/images.html" %}
+
+{% if object.get_related_published_workshops.count %}
+    <div class="content" class="clearfix">
+        <div class="inner">
+            <h2>{% trans "Other Workshops of" %} 
+    {% if workshop.museum %} {% with workshop.museum as museum %} {{ museum.title }} {% endwith %} {% else %} {{ workshop.location_name }} {% endif %}
+            </h2>
+            <ul class="list rows clearfix">
+                {% for workshop in object.get_related_published_workshops %}
+                    <li class="item">
+                        <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
+
+                        <a href="{{ workshop.get_url_path }}">
+                            {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                                <h4>{% trans "Bookable Offer" %} {% if workshop.workshop_type %} : {{ workshop.workshop_type }} {% endif %}</h4> 
+                            {% else %}
+                                <h4>{{ workshop.workshop_type }}:
+                                {% with workshop.get_closest_workshop_time as workshop_time %}
+                                    {{ workshop_time.workshop_date|date:"j. F Y" }}
+                                    {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                                {% endwith %}</h4>
+                            {% endif %}
+                            <h3>{{ workshop.title }}</h3>
+                            {% if workshop.subtitle %}
+                                <h4>{{ workshop.subtitle }}</h4>
+                            {% endif %}
+                            <h5>{{ workshop.museum.title }}</h5>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>  
+{% endif %} 
 
 {% if object.get_other_exhibitions %}
 <div class="content" class="clearfix">

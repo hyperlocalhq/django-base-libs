@@ -240,8 +240,8 @@
                     {% else %}
                         {{ workshop.workshop_type }} 
                         {% with workshop.get_closest_workshop_time as workshop_time %}
-                            {{ workshop_time.workshop_date|date:"j. F Y" }}
-                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                            <nobr>{{ workshop_time.workshop_date|date:"j. F Y" }}
+                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}</nobr>
                         {% endwith %}
                     {% endif %}</time>
 
@@ -255,6 +255,10 @@
                 {% endif %}
             </header>
             {{ workshop.get_rendered_description }}
+
+            {% if workshop.exhibition %}
+                <p>{% trans "Continue to" %} <a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition }}</a></p>
+            {% endif %}
 
             {% if workshop.website %}
                 <p>{% trans "More at" %}  <a href="{{ workshop.website }}" target="_blank">{{ workshop.website|humanize_url:"45" }}</a> </p>

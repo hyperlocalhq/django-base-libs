@@ -188,11 +188,10 @@ p a{font-weight: 700; }
   }
 }
 
-a:link   { text-decoration: none;}
+a:link    { text-decoration: none;}
 a:hover   { text-decoration: none; color: $blue;}
 a:visited { text-decoration: none;}
-a:active  { outline: none;}
-a:active { outline: none !important; border: none !important; }
+a:active  { outline: none !important; }
 
 #wrapper {
   height: 100%;
