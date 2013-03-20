@@ -77,6 +77,9 @@ class ExhibitionManager(models.Manager):
     def featured(self):
         return self.filter(featured=True, status="published")
         
+    def featured_in_magazine(self):
+        return self.filter(featured_in_magazine=True, status="published")
+        
     def closing_soon(self):
         lang_code = get_current_language()
         return self.filter(closing_soon=True, status="published").order_by("-featured", "end", "title_%s" % lang_code)
@@ -143,6 +146,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     newly_opened = models.BooleanField(_("Newly opened"))
     featured = models.BooleanField(_("Featured"))
+    featured_in_magazine = models.BooleanField(_("Featured in Magazine"))
     closing_soon = models.BooleanField(_("Closing soon"))
     
     # prices

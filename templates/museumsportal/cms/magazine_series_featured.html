@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cms_tags menu_tags infoblocks %}
+{% load cms_tags menu_tags infoblocks base_tags i18n %}
 {% block bodyclass %}magazine_series_featured{% endblock %}
 
 {% block js %}
@@ -37,6 +37,23 @@
   </div>
 </div> -->
 {% endcomment %}
+
+<div class="content clearfix">
+  <div class="inner">
+    <article class="clearfix">
+    <h2>{% trans "New exhibitions opened under the theme year" %}</h2>
+    {% get_objects featured_in_magazine exhibitions.Exhibition as featured_exhibitions %}
+    {% for exhibition in featured_exhibitions %}
+        <div>
+            <h3>{{ exhibition.title }}</h3>
+            <p>{{ exhibition.get_rendered_description|striptags|truncatewords:"75" }}</p>
+            <a href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
+        </div>
+    {% endfor %}
+    </article>
+  </div>
+</div>
+
 
 <div class="content clearfix">
   <div class="inner">
