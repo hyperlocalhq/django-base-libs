@@ -266,6 +266,12 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return []
         return self.museum.exhibition_set.filter(status="published").exclude(pk=self.pk)
 
+    def get_related_published_events(self):
+        return self.event_set.filter(status="published")
+
+    def get_related_published_workshops(self):
+        return self.workshop_set.filter(status="published")
+
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
         PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
