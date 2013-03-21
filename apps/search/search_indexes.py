@@ -8,10 +8,10 @@ from base_libs.templatetags.base_tags import decode_entities
 from haystack import indexes, site
 from cms_search.search_helpers.indexes import MultiLanguageIndex
 
-Museum = models.get_model("museums", "Museum")
-Exhibition = models.get_model("exhibitions", "Exhibition")
-Event = models.get_model("events", "Event")
-Workshop = models.get_model("workshops", "Workshop")
+from museumsportal.apps.museums.models import Museum
+from museumsportal.apps.exhibitions.models import Exhibition
+from museumsportal.apps.events.models import Event
+from museumsportal.apps.workshops.models import Workshop
 
 class MuseumIndex(MultiLanguageIndex):
     text = indexes.CharField(document=True, use_template=False)
