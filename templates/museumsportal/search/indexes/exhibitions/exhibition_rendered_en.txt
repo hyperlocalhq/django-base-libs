@@ -1,0 +1,17 @@
+{% load base_tags image_modifications %}
+{% with object as exhibition %}
+    <li class="item">
+        <a href="/en/exhibitions/{{ exhibition.slug }}/">
+            <h4>Exhibition</h4>
+            {% if exhibition.museum %}
+                <h3>{{ exhibition.museum.title_en|default:exhibition.museum.title_de|safe }}</h3>
+            {% endif %}
+            <h4>{{ exhibition.title_en|default:exhibition.title_de|safe }}</h4>
+            {% if exhibition.permanent %}
+                <date>Permanent exhibition</date>
+            {% else %}
+                <date>{{ exhibition.start|date:"j.m" }} – {{ exhibition.end|date:"j.m.Y" }}</date>
+            {% endif %}
+        </a>
+    </li>
+{% endwith %}
