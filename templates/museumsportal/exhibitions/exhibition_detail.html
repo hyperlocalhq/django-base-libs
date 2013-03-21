@@ -352,10 +352,10 @@
                         </h4>  
                         <ul id="collapse-prices" class="accordion-body collapse">  
                             <li class="accordion-inner">
-                                <dl>
                                 {% if exhibition.free_entrance %}
-                                    <dt>{% trans "Free entrance" %}</dt>
-    
+                                    <dl>
+                                        <dt>{% trans "Free entrance" %}</dt>
+                                    </dl>
                                 {% else %}
                                     {% if exhibition.admission_price %}
                                         <dl>
@@ -375,7 +375,6 @@
                                         </dl>
                                     {% endif %}
                                 {% endif %}
-                                </dl>
                             </li>
                         </ul>  
                     </li>
