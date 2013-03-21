@@ -117,7 +117,7 @@
                 {% if workshop.free_admission or workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                                 {% trans "Prices" %} 
                             </a>  
                         </h4>  
@@ -168,7 +168,7 @@
                 {% if workshop.workshoptime_set.count %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
                             {% trans "Date and Time" %} 
                         </a>  
                     </h4>  
@@ -190,7 +190,7 @@
                 {% if workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
                                 {% trans "Other Information" %} 
                             </a>  
                         </h4>  
@@ -240,8 +240,8 @@
                     {% else %}
                         {{ workshop.workshop_type }} 
                         {% with workshop.get_closest_workshop_time as workshop_time %}
-                            {{ workshop_time.workshop_date|date:"j. F Y" }}
-                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                            <nobr>{{ workshop_time.workshop_date|date:"j. F Y" }}
+                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}</nobr>
                         {% endwith %}
                     {% endif %}</time>
 
@@ -255,6 +255,10 @@
                 {% endif %}
             </header>
             {{ workshop.get_rendered_description }}
+
+            {% if workshop.exhibition %}
+                <p>{% trans "Continue to" %} <a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition }}</a></p>
+            {% endif %}
 
             {% if workshop.website %}
                 <p>{% trans "More at" %}  <a href="{{ workshop.website }}" target="_blank">{{ workshop.website|humanize_url:"45" }}</a> </p>

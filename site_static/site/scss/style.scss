@@ -188,10 +188,10 @@ p a{font-weight: 700; }
   }
 }
 
-a:link   { text-decoration: none;}
+a:link    { text-decoration: none;}
 a:hover   { text-decoration: none; color: $blue;}
 a:visited { text-decoration: none;}
-a:active  { outline: none;}
+a:active  { outline: none !important; }
 
 #wrapper {
   height: 100%;
@@ -1924,9 +1924,9 @@ z-index: 10000;
       margin-top: 5px;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important;
-      font-size: 15px !important;
-      line-height: 20px !important;
-      height: 30px !important;
+      padding: 0px !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
     }
     .radios {
       white-space: nowrap;
@@ -1959,10 +1959,9 @@ z-index: 10000;
     }
 
     textarea {
-      height: 50px !important;
+      height: 60px !important;
       min-height: auto !important;
-      padding-top: 5px !important;
-      padding-bottom: 5px !important;
+      padding-top: 7px !important;
     }
   }
 
@@ -1980,9 +1979,10 @@ z-index: 10000;
       background-size: contain;
       background-position: right;
       background-repeat: no-repeat;
-      &:hover,
+      color: black;
+
+      &:hover {background-color: rgba(0,0,0,0.05); }
       &.collapsed { background-image: url("../img/icons/down.svg"); color: black;
-        &:hover {background-image: url("../img/icons/left.svg"); }
       }
     }
   }
@@ -2043,6 +2043,11 @@ dl {
       text-overflow: ellipsis;
       width: 100%;
       overflow: hidden;
+    }
+  }
+  dl {
+    dd { width: 49%; float: left; margin-right: 2%;
+      &:last-child { margin-right: 0 !important; }
     }
   }
 }

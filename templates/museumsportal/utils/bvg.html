@@ -1,8 +1,9 @@
 {% load  i18n  %}
 
+{% if list_item.street_address %}
 <li class="accordion-group">  
     <h4 class="accordion-heading">  
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">{% trans "How to get there" %}</a>
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">{% trans "How to get there" %}</a>
     </h4>  
     <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
         <li class="accordion-inner">
@@ -35,18 +36,20 @@
                         <textarea name="to" id="wdgt_to" >{{ list_item.street_address }}, {% if list_item.street_address2 %}{{ list_item.street_address2 }}, {% endif %}&#10;{{ list_item.postal_code }} {{ list_item.city }}</textarea>
                         </label>
                     </dd>
-                    
-                    <dd>
-                        <label for="wdgt_date">{% trans "Date" %}
-                        <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
-                        </label>
-                    </dd>
-                    
-                    <dd>
-                        <label for="wdgt_time">{% trans "Time" %}
-                        <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}"></label>
-                    </dd>
-                    
+
+                    <dl class="clearfix">
+                        <dd>
+                            <label for="wdgt_date">{% trans "Date" %}
+                            <input type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
+                            </label>
+                        </dd>
+                        
+                        <dd>
+                            <label for="wdgt_time">{% trans "Time" %}
+                            <input type="text" name="time" id="wdgt_time" value="{% now "H:i" %}"></label>
+                        </dd>
+                    </dl>
+                        
                     <dd class="radios">
                         <label for="wdgt_arr">{% trans "Arrival" %}
                         <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive"></label>
@@ -69,3 +72,5 @@ $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
 $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
 })
 </script>
+
+{% endif %}

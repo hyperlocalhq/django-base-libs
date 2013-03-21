@@ -104,7 +104,7 @@
                 {% if exhibition.vernissage %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
                             {% trans "Vernissage" %}
                         </a>
                     </h4>
@@ -121,7 +121,7 @@
                 {% if exhibition.finissage %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
                             {% trans "Finissage" %}
                         </a>
                     </h4>
@@ -138,11 +138,11 @@
                 {% if exhibition.season_set.count or exhibition.specialopeningtime_set.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                                 {% trans "Opening hours" %}
                             </a>  
                         </h4>  
-                        <ul id="collapse-opening-times" class="accordion-body collapse in">  
+                        <ul id="collapse-opening-times" class="accordion-body collapse">  
                             <li class="accordion-inner">
                                 {% if exhibition.season_set.count == 1 %}
                                     {% with exhibition.season_set.all.0 as season %}
@@ -256,7 +256,7 @@
                         {% if museum.free_entrance or museum.admission_price or museum.admission_price_info or museum.reduced_price or museum.reduced_price_info or museum.arrangements_for_children or museum.free_entrance_for or museum.family_ticket or museum.group_ticket or museum.free_entrance_times or museum.yearly_ticket or museum.other_tickets or museum.member_of_museumspass or museum.group_booking_phone_number or museum.service_phone_number %}
                         <li class="accordion-group">  
                             <h4 class="accordion-heading">  
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                                     {% trans "Tickets" %} 
                                 </a>  
                             </h4>  
@@ -346,16 +346,16 @@
                     {% if exhibition.free_entrance or exhibition.admission_price or exhibition.reduced_price %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                                 {% trans "Tickets" %} 
                             </a>  
                         </h4>  
                         <ul id="collapse-prices" class="accordion-body collapse">  
                             <li class="accordion-inner">
-                                <dl>
                                 {% if exhibition.free_entrance %}
-                                    <dt>{% trans "Free entrance" %}</dt>
-    
+                                    <dl>
+                                        <dt>{% trans "Free entrance" %}</dt>
+                                    </dl>
                                 {% else %}
                                     {% if exhibition.admission_price %}
                                         <dl>
@@ -375,7 +375,6 @@
                                         </dl>
                                     {% endif %}
                                 {% endif %}
-                                </dl>
                             </li>
                         </ul>  
                     </li>
@@ -385,7 +384,7 @@
                 {% if exhibition.suitable_for_disabled or exhibition.suitable_for_disabled_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
                                 {% trans "Accessibility" %}
                             </a>
                         </h4>
@@ -454,6 +453,40 @@
 </div>
 
 {% include "utils/images.html" %}
+
+{% if object.get_related_published_workshops.count %}
+    <div class="content" class="clearfix">
+        <div class="inner">
+            <h2>{% trans "Other Workshops of" %} 
+    {% if workshop.museum %} {% with workshop.museum as museum %} {{ museum.title }} {% endwith %} {% else %} {{ workshop.location_name }} {% endif %}
+            </h2>
+            <ul class="list rows clearfix">
+                {% for workshop in object.get_related_published_workshops %}
+                    <li class="item">
+                        <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
+
+                        <a href="{{ workshop.get_url_path }}">
+                            {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                                <h4>{% trans "Bookable Offer" %} {% if workshop.workshop_type %} : {{ workshop.workshop_type }} {% endif %}</h4> 
+                            {% else %}
+                                <h4>{{ workshop.workshop_type }}:
+                                {% with workshop.get_closest_workshop_time as workshop_time %}
+                                    {{ workshop_time.workshop_date|date:"j. F Y" }}
+                                    {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                                {% endwith %}</h4>
+                            {% endif %}
+                            <h3>{{ workshop.title }}</h3>
+                            {% if workshop.subtitle %}
+                                <h4>{{ workshop.subtitle }}</h4>
+                            {% endif %}
+                            <h5>{{ workshop.museum.title }}</h5>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>  
+{% endif %} 
 
 {% if object.get_other_exhibitions %}
 <div class="content" class="clearfix">

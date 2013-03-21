@@ -1217,6 +1217,7 @@ div.tagsinput {
       vertical-align: middle;
       text-align: center; }
       .location .wrapper .inner > span a {
+        font-weight: 700;
         color: inherit;
         text-align: center;
         display: inline-block;
@@ -1862,7 +1863,7 @@ a:visited {
   text-decoration: none; }
 
 a:active {
-  outline: none; }
+  outline: none !important; }
 
 #wrapper {
   height: 100%;
@@ -3366,9 +3367,9 @@ aside {
     margin-top: 5px;
     box-sizing: border-box !important;
     -moz-box-sizing: border-box !important;
-    font-size: 15px !important;
-    line-height: 20px !important;
-    height: 30px !important; }
+    padding: 0px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important; }
   .sidebar .accordion form .radios {
     white-space: nowrap; }
     .sidebar .accordion form .radios label {
@@ -3397,10 +3398,9 @@ aside {
         margin-top: -6px !important;
         position: absolute; }
   .sidebar .accordion form textarea {
-    height: 50px !important;
+    height: 60px !important;
     min-height: auto !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important; }
+    padding-top: 7px !important; }
   .sidebar .accordion .accordion-heading a {
     font-weight: 700;
     text-transform: uppercase;
@@ -3412,12 +3412,13 @@ aside {
     background-image: url("../img/icons/left.svg");
     background-size: contain;
     background-position: right;
-    background-repeat: no-repeat; }
-    .sidebar .accordion .accordion-heading a:hover, .sidebar .accordion .accordion-heading a.collapsed {
+    background-repeat: no-repeat;
+    color: black; }
+    .sidebar .accordion .accordion-heading a:hover {
+      background-color: rgba(0, 0, 0, 0.05); }
+    .sidebar .accordion .accordion-heading a.collapsed {
       background-image: url("../img/icons/down.svg");
       color: black; }
-      .sidebar .accordion .accordion-heading a:hover:hover, .sidebar .accordion .accordion-heading a.collapsed:hover {
-        background-image: url("../img/icons/left.svg"); }
   .sidebar .accordion .accordion-group {
     border: none;
     border-bottom: 10px solid white;
@@ -3459,6 +3460,12 @@ dl {
     text-overflow: ellipsis;
     width: 100%;
     overflow: hidden; }
+  dl dl dd {
+    width: 49%;
+    float: left;
+    margin-right: 2%; }
+    dl dl dd:last-child {
+      margin-right: 0 !important; }
 
 .cms-plugin-article_selection h2 {
   font-weight: 700;
