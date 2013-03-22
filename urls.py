@@ -25,6 +25,12 @@ from museumsportal.apps.search.views import SearchView
 
 admin.autodiscover()
 
+from cms.models import monkeypatch_reverse
+import haystack
+
+monkeypatch_reverse()
+haystack.autodiscover()
+
 handler404 = "jetson.apps.error_handler.views.page_not_found"
 handler500 = "jetson.apps.error_handler.views.server_error"
 

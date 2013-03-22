@@ -497,7 +497,7 @@ GRAPPELLI_ADMIN_HEADLINE = "Museumsportal Berlin Admin"
 
 ### HAYSTACK ###
 
-HAYSTACK_SITECONF = "museumsportal.search_sites"
+HAYSTACK_SITECONF = "museumsportal.search_sites_dummy"
 HAYSTACK_SEARCH_ENGINE = "whoosh"
 HAYSTACK_WHOOSH_PATH = os.path.join(PATH_TMP, "site_index")
 HAYSTACK_ENABLE_REGISTRATIONS = True
