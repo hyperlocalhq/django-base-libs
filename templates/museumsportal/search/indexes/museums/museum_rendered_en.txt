@@ -1,0 +1,10 @@
+{% load base_tags image_modifications %}
+{% with object as museum %}
+    <li class="item">
+        <a href="/en/museums/{{ museum.slug }}/">
+            <h4>Museum</h4>
+            <h3>{{ museum.title_en|default:museum.title_de|safe }}</h3>
+            <h4>{{ museum.get_address|safe }}</h4>
+        </a>
+    </li>
+{% endwith %}

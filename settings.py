@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     "crispy_forms",
     "rosetta",
     "babeldjango",
+    "haystack",
     
     ### Required CMS Django 2.2 apps ###
     "cms",
@@ -167,6 +168,8 @@ INSTALLED_APPS = (
     "menus",
     "south",
     "sekizai",
+    "cms_search",
+    "cms_search.search_helpers",
     
     ### CMS plugins ###
     "cms.plugins.*",
@@ -203,6 +206,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.events",
     "museumsportal.apps.workshops",
     "museumsportal.apps.site_specific",
+    "museumsportal.apps.search",
 )
 
 
@@ -490,6 +494,13 @@ FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
 
 execfile(os.path.join(ROOT_PATH, "jetson/settings/grappelli.py"))
 GRAPPELLI_ADMIN_HEADLINE = "Museumsportal Berlin Admin"
+
+### HAYSTACK ###
+
+HAYSTACK_SITECONF = "museumsportal.search_sites_dummy"
+HAYSTACK_SEARCH_ENGINE = "whoosh"
+HAYSTACK_WHOOSH_PATH = os.path.join(PATH_TMP, "site_index")
+HAYSTACK_ENABLE_REGISTRATIONS = True
 
 ### OTHER SETTINGS ###
 

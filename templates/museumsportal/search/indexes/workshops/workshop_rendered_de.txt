@@ -1,0 +1,14 @@
+{% load base_tags image_modifications %}
+{% with object as workshop %}
+    <li class="item">
+        <a href="/de/fuehrungen/{{ workshop.slug }}/">
+            <h4>Führung</h4>
+            <h3>{{ workshop.title_de }}</h3>
+            <h4>{{ workshop.subtitle_de }}</h4>
+            {% if workshop.museum %}
+                <h5>{{ workshop.museum.title_de }}</h5>
+            {% endif %}
+            <date>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</date>
+        </a>
+    </li>
+{% endwith %}
