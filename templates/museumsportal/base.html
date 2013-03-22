@@ -104,7 +104,7 @@
                             
                             {% if request.user.is_authenticated %}
                                 {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
-                                    <li><a class="dashboard icon icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Dashboard" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Input Mask" %}</span></a></li>
+                                    <li><a class="dashboard icon icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Input Mask" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Input Mask" %}</span></a></li>
                                 {% endif %}
                             {% endif %}
                             
