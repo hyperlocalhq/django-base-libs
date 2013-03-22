@@ -127,7 +127,7 @@
             }
             reinit_widgets();
             
-            $('#div_id_museum>label>a').click(function() {
+            $('#div_id_museum>label>a,#div_id_museum .help-block>a').click(function() {
                 $('#div_id_museum').parent().hide();
                 $('#div_id_location_name').parent().show();
                 $('#id_museum').val("");
@@ -142,7 +142,7 @@
                 
                 return false;
             });
-            $('#div_id_location_name>label>a').click(function() {
+            $('#div_id_location_name>label>a,#div_id_location_name .help-block>a').click(function() {
                 $('#div_id_location_name').parent().hide();
                 $('#div_id_museum').parent().show();
                 return false;
@@ -155,7 +155,7 @@
                 $('#div_id_location_name').parent().show();
             }
             
-            $('div[id$="organizing_museum"]>label>a').live("click", function() {
+            $('div[id$="organizing_museum"]>label>a,div[id$="organizing_museum"] .help-block>a').live("click", function() {
                 var $organizer = $(this).parents('.div_organizer:first');
                 $organizer.find('div[id$="organizing_museum"]').parents('.row:first').hide();
                 $organizer.find(':input[id$="organizing_museum"]').val("");
@@ -163,7 +163,7 @@
                 $organizer.find('div[id$="organizer_title"]').parents('.row:first').show();
                 return false;
             });
-            $('div[id$="organizer_title"]>label>a').live("click", function() {
+            $('div[id$="organizer_title"]>label>a,div[id$="organizer_title"] .help-block>a').live("click", function() {
                 var $organizer = $(this).parents('.div_organizer:first');
                 $organizer.find('div[id$="organizer_title"]').parents('.row:first').hide();
                 $organizer.find(':input[id$="organizer_title"]').val("");
