@@ -853,10 +853,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
             setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
-            getattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
-            getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
+            setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
+            setattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-            getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+            setattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         instance.start = form_step_data['basic']['start'] 
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
@@ -1101,10 +1101,10 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
-        getattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
-        getattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
+        setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
+        setattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-        getattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
+        setattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
     instance.start = form_step_data['basic']['start'] 
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
