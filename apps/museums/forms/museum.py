@@ -714,7 +714,7 @@ class AccessibilityForm(ModelForm):
 
             layout.Row(
                 css_class="div-accessibility-details",
-                *('accessibility_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                *(layout.Field('accessibility_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
             'accessibility_options',
@@ -762,31 +762,31 @@ class MediationForm(ModelForm):
         layout_blocks = []
         
         layout_blocks.append(layout.Fieldset(
-            _("Mediation"),
+            _("Audioguides"),
 
             layout.Div(
                 layout.HTML("""{% load i18n %} <label>{% trans "Available Audioguides" %}</label> """),
+                'has_audioguide',
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("""{% load i18n %} <label>{% trans "Languages" %}</label> """),
+                        'has_audioguide_de',
+                        'has_audioguide_en',
+                        'has_audioguide_fr',
+                        'has_audioguide_it', 
+                        'has_audioguide_sp',
+                        'has_audioguide_pl',
+                        'has_audioguide_tr',
+                        css_class="inline min",
+                        ),
+                    layout.Div("audioguide_other_languages", css_class="max"),
+                    css_id="div_audioguide_languages",
+                    css_class="flex merge",
+                    ),
                 'has_audioguide_for_children',
                 'has_audioguide_for_learning_difficulties',
-                'has_audioguide',
                 ),
 
-            layout.Row(
-                layout.Div(
-                    layout.HTML("""{% load i18n %} <label>{% trans "Languages" %}</label> """),
-                    'has_audioguide_de',
-                    'has_audioguide_en',
-                    'has_audioguide_fr',
-                    'has_audioguide_it', 
-                    'has_audioguide_sp',
-                    'has_audioguide_pl',
-                    'has_audioguide_tr',
-                    css_class="inline min",
-                    ),
-                layout.Div("audioguide_other_languages", css_class="max"),
-                css_id="div_audioguide_languages",
-                css_class="flex merge",
-                ),
             ))
 
         if self.instance and self.instance.pk:
@@ -1140,6 +1140,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(instance, 'accessibility_%s' % lang_code, form_step_data['accessibility']['accessibility_%s' % lang_code])
+                setattr(instance, 'accessibility_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
 
             instance.save()
             
@@ -1235,13 +1236,7 @@ def save_data(form_steps, form_step_data, instance=None):
     
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'accessibility_%s' % lang_code, form_step_data['accessibility']['accessibility_%s' % lang_code])
-
-    for lang_code, lang_name in FRONTEND_LANGUAGES:
-        for f in [
-            'accessibility_%s' % lang_code,
-            ]:
-            setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
-
+        setattr(instance, 'accessibility_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
 
     fields = [
         'has_audioguide',
@@ -1393,7 +1388,7 @@ MUSEUM_FORM_STEPS = {
         'form': AccessibilityForm,
     },
     'mediation': {
-        'title': _("Mediation"),
+        'title': _("Audioguides"),
         'template': "museums/forms/mediation_form.html",
         'form': MediationForm,
     },
