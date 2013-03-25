@@ -296,6 +296,19 @@ input::-webkit-slider-thumb {
   }
 }
 
+.textarea,
+textarea,
+input[type=text], 
+input[type=email], 
+input[type=password], 
+input[type=search] {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 input[type=text], 
 input[type=email], 
 input[type=password], 
@@ -312,12 +325,6 @@ input[type=search] {
   font-size: 18px;
   line-height: 22px;
   color: rgba(0,0,0,0.75);
-
-  -webkit-user-select: text;
-  -khtml-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
 
   &::-webkit-input-placeholder { color: rgba(0,0,0,0.125); }
   &:-moz-placeholder { color: rgba(0,0,0,0.125);}
