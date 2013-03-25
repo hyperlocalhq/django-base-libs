@@ -61,6 +61,7 @@ class BasicInfoForm(ModelForm):
                 'description_%s' % lang_code,
                 'website_%s' % lang_code,
                 'catalog_%s' % lang_code,
+                'catalog_ordering_%s' % lang_code,
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
@@ -85,6 +86,7 @@ class BasicInfoForm(ModelForm):
                 'description_%s' % lang_code,
                 'website_%s' % lang_code,
                 'catalog_%s' % lang_code,
+                'catalog_ordering_%s' % lang_code,
                 ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
@@ -118,6 +120,10 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 css_class="div-catalog",
                 *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                ),
+            layout.Row(
+                css_class="div-catalog",
+                *('catalog_ordering_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             css_class="fieldset-basic-info",
             ))
@@ -736,6 +742,7 @@ def load_data(instance=None):
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
             form_step_data['basic']['website_%s' % lang_code] = getattr(instance, 'website_%s' % lang_code)
             form_step_data['basic']['catalog_%s' % lang_code] = getattr(instance, 'catalog_%s' % lang_code)
+            form_step_data['basic']['catalog_ordering_%s' % lang_code] = getattr(instance, 'catalog_ordering_%s' % lang_code)
         form_step_data['basic']['start'] = instance.start
         form_step_data['basic']['end'] = instance.end
         form_step_data['basic']['permanent'] = instance.permanent
@@ -857,6 +864,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
             setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
             setattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
+            setattr(instance, 'catalog_ordering_%s' % lang_code, form_step_data['basic']['catalog_ordering_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
             setattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         instance.start = form_step_data['basic']['start'] 
@@ -1105,6 +1113,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
         setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
         setattr(instance, 'catalog_%s' % lang_code, form_step_data['basic']['catalog_%s' % lang_code])
+        setattr(instance, 'catalog_ordering_%s' % lang_code, form_step_data['basic']['catalog_ordering_%s' % lang_code])
         setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         setattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
     instance.start = form_step_data['basic']['start'] 

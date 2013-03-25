@@ -104,11 +104,11 @@
                 {% if exhibition.vernissage %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-vernissage">  
                             {% trans "Vernissage" %}
                         </a>
                     </h4>
-                    <ul id="collapse-times" class="accordion-body collapse">  
+                    <ul id="collapse-vernissage" class="accordion-body collapse">  
                         <li class="accordion-inner">
                             <dl>
                                 <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}</dd>
@@ -121,16 +121,42 @@
                 {% if exhibition.finissage %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-finissage">  
                             {% trans "Finissage" %}
                         </a>
                     </h4>
-                    <ul id="collapse-times" class="accordion-body collapse">  
+                    <ul id="collapse-finissage" class="accordion-body collapse">  
                         <li class="accordion-inner">
                             <dl>
                                 <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}</dd>
                             </dl>
                         </li>
+                    </ul>  
+                </li>
+                {% endif %} 
+
+                {% if exhibition.catalog or exhibition.catalog_ordering %}
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-catalog">  
+                            {% trans "Catalog" %}
+                        </a>
+                    </h4>
+                    <ul id="collapse-catalog" class="accordion-body collapse">  
+                        {% if exhibition.get_rendered_catalog %}
+                            <li class="accordion-inner">
+                                <dl>
+                                    <dd>{{ exhibition.get_rendered_catalog }}</dd>
+                                </dl>
+                            </li>
+                        {% endif %}
+                        {% if exhibition.catalog_ordering %}
+                            <li class="accordion-inner">
+                                <dl>
+                                    <dd><a href="{{ exhibition.catalog_ordering }}">{% trans "Ordering possibilities" %}</a></dd>
+                                </dl>
+                            </li>
+                        {% endif %}
                     </ul>  
                 </li>
                 {% endif %} 
