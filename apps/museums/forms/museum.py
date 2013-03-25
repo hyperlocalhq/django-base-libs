@@ -714,7 +714,7 @@ class AccessibilityForm(ModelForm):
 
             layout.Row(
                 css_class="div-accessibility-details",
-                *('accessibility_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                *(layout.Field('accessibility_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
             'accessibility_options',
@@ -1140,6 +1140,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(instance, 'accessibility_%s' % lang_code, form_step_data['accessibility']['accessibility_%s' % lang_code])
+                setattr(instance, 'accessibility_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
 
             instance.save()
             
@@ -1235,13 +1236,7 @@ def save_data(form_steps, form_step_data, instance=None):
     
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'accessibility_%s' % lang_code, form_step_data['accessibility']['accessibility_%s' % lang_code])
-
-    for lang_code, lang_name in FRONTEND_LANGUAGES:
-        for f in [
-            'accessibility_%s' % lang_code,
-            ]:
-            setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
-
+        setattr(instance, 'accessibility_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
 
     fields = [
         'has_audioguide',
