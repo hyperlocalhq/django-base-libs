@@ -47,6 +47,7 @@ STATUS_CHOICES = (
     ('not_listed', _("Not Listed")),
     ('expired', _("Expired")),
     ('import', _("Imported")),
+    ('trashed', _("Trashed")),
     ) 
 
 YEAR_CHOICES = [(i,i) for i in range(1997, datetime.now().year+10)]
@@ -103,14 +104,14 @@ class ExhibitionManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("exhibitions.change_exhibition"):
-            return self.get_query_set()
+            return self.get_query_set().exclude(status="trashed")
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="exhibitions",
             content_type__model="exhibition",
             sysname__startswith="owners",
             users=user,
             ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids)
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
 class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     museum = models.ForeignKey("museums.Museum", verbose_name=_("Museum"), blank=True, null=True)

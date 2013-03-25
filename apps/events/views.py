@@ -160,7 +160,8 @@ def delete_event(request, slug):
     if not request.user.has_perm("events.delete_event", instance):
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
-        instance.delete()
+        instance.status = "trashed"
+        instance.save()
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
     
