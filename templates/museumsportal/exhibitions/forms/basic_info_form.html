@@ -28,7 +28,7 @@
                 weekStart: 1
             })
             $('.timeinput').timepicker();
-            $('#id_tags').tagsInput();
+            $('#id_tags').tagsInput({defaultText: '{% trans "add a tag" %}'});
             $('#id_museum').change(function() {
                 if ($(this).val()) {
                     $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
