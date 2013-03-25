@@ -15,6 +15,9 @@ STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
+_("Add Image")
+_("Edit Image")
+
 class ImageFileForm(forms.Form):
     goto_next = forms.CharField(
         widget=forms.HiddenInput(),

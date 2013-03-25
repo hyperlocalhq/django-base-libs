@@ -8,7 +8,7 @@
 {% block multistep_form %}
     <form>
         <fieldset class="fieldset-imagegallery">
-            <legend>Image Gallery</legend>
+            <legend>{% trans "Image Gallery" %}</legend>
             <ul id="photos" class="list" data-load-url="{{ event.get_url_path }}gallery/">
             </ul>
             <a id="add_photo" class="add btn btn-small btn-primary" href="{{ event.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
