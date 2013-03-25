@@ -179,6 +179,17 @@ def change_exhibition(request, slug):
         return access_denied(request)
     return show_form_step(request, EXHIBITION_FORM_STEPS, extra_context={'exhibition': instance}, instance=instance);
 
+@never_cache
+@login_required
+def delete_exhibition(request, slug):
+    instance = get_object_or_404(Exhibition, slug=slug)
+    if not request.user.has_perm("exhibitions.delete_exhibition", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.delete()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
+    
 
 ### MEDIA FILE MANAGEMENT ###
 

@@ -153,6 +153,18 @@ def change_event(request, slug):
         return access_denied(request)
     return show_form_step(request, EVENT_FORM_STEPS, extra_context={'event': instance}, instance=instance);
 
+@never_cache
+@login_required
+def delete_event(request, slug):
+    instance = get_object_or_404(Event, slug=slug)
+    if not request.user.has_perm("events.delete_event", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.delete()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
+    
+
 
 ### MEDIA FILE MANAGEMENT ###
 

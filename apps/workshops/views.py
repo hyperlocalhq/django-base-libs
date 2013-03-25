@@ -142,6 +142,16 @@ def change_workshop(request, slug):
         return access_denied(request)
     return show_form_step(request, WORKSHOP_FORM_STEPS, extra_context={'workshop': instance}, instance=instance);
 
+@never_cache
+@login_required
+def delete_workshop(request, slug):
+    instance = get_object_or_404(Workshop, slug=slug)
+    if not request.user.has_perm("workshops.delete_workshop", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.delete()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
 
 ### MEDIA FILE MANAGEMENT ###
 

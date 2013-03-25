@@ -10,6 +10,7 @@ urlpatterns = patterns('museumsportal.apps.events.views',
     url(r'^rss/$', EventRssFeed()),
     url(r'^(?P<slug>[^/]+)/$', 'event_detail', name='event_detail'),
     url(r'^(?P<slug>[^/]+)/change/$', 'change_event', name='change_event'),    
+    url(r'^(?P<slug>[^/]+)/delete/$', 'delete_event', name='delete_event'),    
     # gallery
     url(r'^(?P<slug>[^/]+)/gallery/$', 'gallery_overview', name='event_gallery_overview'),    
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_mediafile', name='event_add_mediafile'),    
