@@ -29,7 +29,7 @@
             })
             $('.timeinput').timepicker();
             $('#id_tags').tagsInput();
-            $('#id_museum').click(function() {
+            $('#id_museum').change(function() {
                 if ($(this).val()) {
                     $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
                         $('#id_location_name').val(data['title']).addClass("noneditable");
