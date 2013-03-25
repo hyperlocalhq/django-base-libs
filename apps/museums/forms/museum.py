@@ -762,31 +762,31 @@ class MediationForm(ModelForm):
         layout_blocks = []
         
         layout_blocks.append(layout.Fieldset(
-            _("Mediation"),
+            _("Audioguides"),
 
             layout.Div(
                 layout.HTML("""{% load i18n %} <label>{% trans "Available Audioguides" %}</label> """),
+                'has_audioguide',
+                layout.Row(
+                    layout.Div(
+                        layout.HTML("""{% load i18n %} <label>{% trans "Languages" %}</label> """),
+                        'has_audioguide_de',
+                        'has_audioguide_en',
+                        'has_audioguide_fr',
+                        'has_audioguide_it', 
+                        'has_audioguide_sp',
+                        'has_audioguide_pl',
+                        'has_audioguide_tr',
+                        css_class="inline min",
+                        ),
+                    layout.Div("audioguide_other_languages", css_class="max"),
+                    css_id="div_audioguide_languages",
+                    css_class="flex merge",
+                    ),
                 'has_audioguide_for_children',
                 'has_audioguide_for_learning_difficulties',
-                'has_audioguide',
                 ),
 
-            layout.Row(
-                layout.Div(
-                    layout.HTML("""{% load i18n %} <label>{% trans "Languages" %}</label> """),
-                    'has_audioguide_de',
-                    'has_audioguide_en',
-                    'has_audioguide_fr',
-                    'has_audioguide_it', 
-                    'has_audioguide_sp',
-                    'has_audioguide_pl',
-                    'has_audioguide_tr',
-                    css_class="inline min",
-                    ),
-                layout.Div("audioguide_other_languages", css_class="max"),
-                css_id="div_audioguide_languages",
-                css_class="flex merge",
-                ),
             ))
 
         if self.instance and self.instance.pk:
@@ -1388,7 +1388,7 @@ MUSEUM_FORM_STEPS = {
         'form': AccessibilityForm,
     },
     'mediation': {
-        'title': _("Mediation"),
+        'title': _("Audioguides"),
         'template': "museums/forms/mediation_form.html",
         'form': MediationForm,
     },
