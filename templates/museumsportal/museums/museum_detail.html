@@ -51,6 +51,10 @@
                                     {% if museum.parent.street_address2 %}<dd>{{ museum.parent.street_address2 }}</dd>{% endif %}
                                     {% if museum.parent.district %}<dd>{{ museum.parent.district }}</dd>{% endif %}
                                     <dd>{{ museum.parent.postal_code }} {{ museum.parent.city }}</dd>
+                                    {% with museum as list_item %}
+                                        <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+                                        {% include "utils/geo_position.html" %}
+                                    {% endwith %}
                                 </dl>
                             {% else %}
                                 <dl>
@@ -59,9 +63,15 @@
                                     {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %}
                                     {% if museum.district %}<dd>{{ museum.district }}</dd>{% endif %}
                                     <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+                                    {% with museum as list_item %}
+                                        <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+                                        {% include "utils/geo_position.html" %}
+                                    {% endwith %}
+                                    
                                 </dl>
                             {% endif %}
                         
+                                    
                             {% if museum.phone_number %}
                             <dl>
                                 <dt>{% trans "Telephone" %}</dt>
@@ -91,12 +101,6 @@
                                     {% endfor %}
                                 </dl>
                             {% endif %}
-                        </li>
-                        <li class="accordion-inner">
-                            {% with museum as list_item %}
-                                <a href="#" class="location">{% trans "Show location on map" %}</a>
-                                {% include "utils/geo_position.html" %}
-                            {% endwith %}
                         </li>
                     </ul>  
                 </li>
