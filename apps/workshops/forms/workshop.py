@@ -31,8 +31,8 @@ from museumsportal.utils.forms import SplitDateTimeWidget
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
         required=False,
-        label=_("Museum from the list / <a href=\"#\">Free location</a>"),
-        help_text=_("If location doesn't exist in the database, please click <a href=\"#\">here</a> to enter it."),
+        label=_("Museum from the list <b>(active)</b> / <a href=\"#\">Free location</a>"),
+        # help_text=_("If location doesn't exist in the database, please click <a href=\"#\">here</a> to enter it."),
         app="museums",
         qs_function="get_published_museums",
         display_attr="title",
@@ -94,8 +94,8 @@ class BasicInfoForm(ModelForm):
         self.fields['languages'].help_text = ""
         self.fields['languages'].empty_label = None
 
-        self.fields['location_name'].label = _("Free location / <a href=\"#\">Museum from the list</a>")
-        self.fields['location_name'].help_text = _("If you want to select a location from the database, please click <a href=\"#\">here</a>.")
+        self.fields['location_name'].label = _("Free location <b>(active)</b> / <a href=\"#\">Museum from the list</a>")
+        # self.fields['location_name'].help_text = _("If you want to select a location from the database, please click <a href=\"#\">here</a>.")
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
@@ -242,8 +242,8 @@ class BasicInfoForm(ModelForm):
 class OrganizerForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
         required=False,
-        label=_("Museum from the list / <a href=\"#\">Free location</a>"),
-        help_text=_("If organizer doesn't exist in the database, please click <a href=\"#\">here</a> to enter it."),
+        label=_("Museum from the list <b>(active)</b> / <a href=\"#\">Other Organizer</a>"),
+        # help_text=_("If organizer doesn't exist in the database, please click <a href=\"#\">here</a> to enter it."),
         app="museums",
         qs_function="get_published_museums",
         display_attr="title",
@@ -262,9 +262,9 @@ class OrganizerForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(OrganizerForm, self).__init__(*args, **kwargs)
 
-        self.fields['organizer_title'].label = _("Free location / <a href=\"#\">Museum from the list</a>")
+        self.fields['organizer_title'].label = _("Other Organizer <b>(active)</b> / <a href=\"#\">Museum from the list</a>")
         self.fields['organizer_url_link'].label = _("Website")
-        self.fields['organizer_title'].help_text = _("If you want to select an organizer from the database, please click <a href=\"#\">here</a>.")
+        # self.fields['organizer_title'].help_text = _("If you want to select an organizer from the database, please click <a href=\"#\">here</a>.")
 
         self.helper = FormHelper()
         self.helper.form_tag = False

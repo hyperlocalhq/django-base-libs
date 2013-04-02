@@ -2,13 +2,14 @@
 {% with object as workshop %}
     <li class="item">
         <a href="/en/workshops/{{ workshop.slug }}/">
-            <h4>Guided Tour</h4>
+            <h4>Guided Tour
+            <span>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|time:"H:i" }}{% endwith %}</span>
+            </h4>
             <h3>{{ workshop.title_en|default:workshop.title_de }}</h3>
             <h4>{{ workshop.subtitle_en|default:workshop.subtitle_de }}</h4>
             {% if workshop.museum %}
                 <h5>{{ workshop.museum.title_en|default:workshop.museum.title_de }}</h5>
             {% endif %}
-            <date>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</date>
         </a>
     </li>
 {% endwith %}

@@ -6,6 +6,14 @@ $(document).ready(function() {
             editor.addShortcut("ctrl+i","nix","Dummy");
             editor.addShortcut("ctrl+u","nix","Dummy");
         }
+
+        (function() {
+           var config = {
+             kitId: 'qru0sat',
+             scriptTimeout: 3000
+           };
+           var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+        })();
     }        
     $('textarea.tinymce').tinymce({
         // Location of TinyMCE script
