@@ -98,6 +98,15 @@
                     {% endcomment %}
                     <li id="tools" class="clearfix">
                         <ul>
+
+                            <!-- <li><a class="search icon icon-search" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Search" %}" href="/search">&nbsp;<span>{% trans "Search" %}</span></a></li> -->
+                            <li>
+                                <form id="mini_search" action="/search/" method="get">
+                                    <input id="mini_search_input" type="text" class="textinput textInput form_text" name="q" placeholder="Search">
+                                    <input rel="tooltip" data-placement="bottom" data-original-title="{% trans "Search" %}" id="mini_search_submit" type="submit" name="submit" value="Suche" class="transparent icon icon-search" id="submit-id-submit">‌
+                                </form>
+                            </li>
+
                             <li><a class="icon icon-white icon-home"  rel="tooltip" data-placement="bottom" data-original-title="Home" href="/">{% trans "Home" %}</a> </li>
 
                             {% block edit_item %}{% endblock %}
