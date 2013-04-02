@@ -3878,16 +3878,13 @@ dl {
 .magazine_overview .cms_placeholder {
   clear: none; }
 .magazine_overview .editorial-content {
-  width: 100%;
-  float: left !important;
+  border-bottom: 10px solid white;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 25px !important;
+  padding-left: 355px !important;
   position: relative;
-  padding-top: 0px !important;
-  margin-top: 0px !important;
-  padding-bottom: 40px;
-  margin-right: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding-bottom: 40px;
-  margin-bottom: 40px; }
+  box-sizing: border-box;
+  -moz-box-sizing: border-box; }
   .magazine_overview .editorial-content:last-child {
     padding-bottom: 0px;
     border: none !important;
@@ -3896,18 +3893,20 @@ dl {
     display: block;
     overflow: hidden;
     width: 320px !important;
-    height: 220px !important;
-    float: left;
-    margin-right: 40px;
+    height: auto !important;
     background-size: cover;
     background-position: top;
-    margin-bottom: 20px !important;
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
     -webkit-transition-property: all;
     -webkit-transition-duration: 0.25s;
     -webkit-transition-timing: ease-in-out; }
+    .magazine_overview .editorial-content .img img {
+      display: none; }
     .magazine_overview .editorial-content .img:hover {
       opacity: 0.9; }
       .magazine_overview .editorial-content .img:hover .caption {
@@ -3943,7 +3942,7 @@ dl {
       line-height: inherit;
       font-size: 30px;
       line-height: 30px;
-      font-weight: 300;
+      font-weight: 700;
       padding: 0px;
       margin: 0px;
       margin-top: 3px;
