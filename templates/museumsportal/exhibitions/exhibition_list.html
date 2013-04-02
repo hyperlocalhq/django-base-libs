@@ -155,7 +155,9 @@
                 </nav>
 
                 <a href="{{ exhibition.get_url_path }}">
-                    <h4><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }} </h4>
+
+
+                    <h4><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% if exhibition.permanent %}{% trans "until further notice" %}{% else %}{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}</h4>
                     <h3>{{ exhibition.title }}</h3>
                     <h4>{{ exhibition.subtitle }}</h4>
                     <h5>{{ exhibition.museum.title }}</h5>
