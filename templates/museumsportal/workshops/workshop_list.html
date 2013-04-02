@@ -101,7 +101,7 @@
                         <!-- <h4>{{ workshop.workshop_type }} {% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4> -->
 
                         {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                            <h4>{% trans "Bookable Offer" %}:  {% if workshop.workshop_type %}{{ workshop.workshop_type }} {% endif %}</h4> 
+                            <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
                         {% else %}
                             <h4>{{ workshop.workshop_type }}:
                             {% with workshop.get_closest_workshop_time as workshop_time %}
