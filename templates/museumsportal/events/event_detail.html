@@ -253,7 +253,7 @@
                                 {% for event_time in event.eventtime_set.all %}
                                     <p>
                                         {{ event_time.event_date|date:"j. F Y" }}
-                                        {{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}
+                                         {{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}
                                     </p>
                                 {% endfor %}
                             </li>
@@ -348,7 +348,7 @@
                     <time>{% if event.event_type %}{{ event.event_type }}: {% endif %}
                         {% with event.get_closest_event_time as event_time %}
                         {{ event_time.event_date|date:"j. F Y" }}
-                        {{ event_time.start|time:"H:i" }}
+                         {{ event_time.start|time:"H:i" }}
                         </br>
                         {% endwith %}
                 </time>
@@ -401,7 +401,7 @@
 
                     <a href="{{ event.get_url_path }}">
                         {% with event.get_closest_event_time as event_time %}
-                            <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}{{ event_time.start|time:"H:i" }}{% endwith %}</h4>
+                            <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% endwith %}</h4>
                         {% endwith %}
                         <h3>{{ event.title }}</h3>
                         <h4>{{ event.subtitle }}</h4>
