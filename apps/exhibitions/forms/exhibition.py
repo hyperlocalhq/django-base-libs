@@ -18,6 +18,7 @@ from base_libs.middleware import get_current_user
 
 Museum = models.get_model("museums", "Museum")
 Exhibition = models.get_model("exhibitions", "Exhibition")
+ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Season = models.get_model("exhibitions", "Season")
 SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
 Organizer = models.get_model("exhibitions", "Organizer")
@@ -27,6 +28,9 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import InlineFormSet
 from museumsportal.utils.forms import SplitDateTimeWidget
+from museumsportal.utils.forms import ModelMultipleChoiceTreeField
+
+# translatable strings
 _("Particularities")
 
 class BasicInfoForm(ModelForm):
@@ -45,6 +49,11 @@ class BasicInfoForm(ModelForm):
             "highlight" : False,
             "multipleSeparator": ",,, ",
             },
+        )
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        required=False,
+        queryset=ExhibitionCategory.objects.all(),
         )
     class Meta:
         model = Exhibition
@@ -71,7 +80,7 @@ class BasicInfoForm(ModelForm):
 
         self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
-        self.fields['categories'].widget = forms.CheckboxSelectMultiple()
+        #self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
         self.fields['categories'].empty_label = None
         self.fields['categories'].level_indicator = "/ "
