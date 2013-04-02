@@ -375,6 +375,18 @@ input::-webkit-slider-thumb {
   .error .help-inline {
     color: #b94a48; }
 
+.textarea,
+textarea,
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=search] {
+   -webkit-user-select: text;
+   -khtml-user-select: text;
+   -moz-user-select: text;
+   -ms-user-select: text;
+   user-select: text; }
+
 input[type=text],
 input[type=email],
 input[type=password],

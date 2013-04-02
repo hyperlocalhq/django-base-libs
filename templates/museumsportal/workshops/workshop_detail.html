@@ -103,6 +103,14 @@
                                         <dd><a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition.title }}</a></dd>
                                     </dl>
                                 {% endif %}
+
+                                {% if workshop.website %}
+                                <dl>
+                                    <dt>{% trans "Website" %}</dt>
+                                    <dd><a class="crop" href="{{ workshop.website }}">{{ workshop.website|humanize_url:"50" }}</a></dd>
+                                </dl>
+                                {% endif %}
+
                             </li>
                         </ul>  
                     </li>

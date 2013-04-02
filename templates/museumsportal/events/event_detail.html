@@ -100,6 +100,13 @@
                                     <dd><a href="{{ event.exhibition.get_url_path }}">{{ event.exhibition.title }}</a></dd>
                                 </dl>
                             {% endif %}
+
+                            {% if event.website %}
+                            <dl>
+                                <dt>{% trans "Website" %}</dt>
+                                <dd><a class="crop" href="{{ event.website }}">{{ event.website|humanize_url:"50" }}</a></dd>
+                            </dl>
+                            {% endif %}
                         </li>
                     </ul>  
                 </li>
