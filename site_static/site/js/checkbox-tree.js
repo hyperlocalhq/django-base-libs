@@ -7,7 +7,8 @@
             $(':checkbox', $tree).bind('activate', function() {
                 var $li = $(this).closest('li');
                 if ($(this).attr('checked')) {
-                    $li.find('ul').show().parents('ul').show();
+                    $li.find('ul').show();
+                    $li.parents('ul').show();
                 } else {
                     $li.find('ul').hide().find(':checked').attr('checked', null);
                 }
