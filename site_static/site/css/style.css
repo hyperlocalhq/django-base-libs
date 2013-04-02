@@ -3822,9 +3822,10 @@ dl {
     #dashboard ul li > span h5,
     #dashboard ul li > a h5 {
       font-weight: 300;
-      float: right;
       opacity: 0.5;
       margin-right: 85px;
+      position: absolute;
+      right: 0px;
       font-size: 13px !important; }
 
 .magazine .featured {
