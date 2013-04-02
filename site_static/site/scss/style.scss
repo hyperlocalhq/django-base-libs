@@ -1034,7 +1034,7 @@ nav.actions {
     &.icon-edit            { background-image: url("../img/icons/edit.svg");}
     &.icon-favorite        { background-image: url("../img/icons/favorite.svg");}
     &.icon-location        { background-image: url("../img/icons/location.svg");}
-    &.cancel               { background-image: url("../img/icons/cancel.svg");}
+    &.icon-cancel               { background-image: url("../img/icons/cancel.svg");}
     &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
     &.icon-delete          { background-image: url("../img/icons/delete.svg");}
   }
@@ -1050,7 +1050,7 @@ nav.actions {
     &.icon-edit            { background-image: url("../img/icons/edit.svg");}
     &.icon-favorite        { background-image: url("../img/icons/favorite.svg");}
     &.icon-location        { background-image: url("../img/icons/location.svg");}
-    &.cancel               { background-image: url("../img/icons/cancel.svg");}
+    &.icon-cancel               { background-image: url("../img/icons/cancel.svg");}
     &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
   }
 }
@@ -2144,7 +2144,25 @@ dl {
 #dashboard {
   fieldset { margin-bottom: 60px; position: relative; }
   legend {font-size: 28px; padding-bottom: 10px; border: none !important;}
-  
+    
+  .icon-last-edited { 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 100px;
+    height: 20px;
+    width: 20px;
+  } 
+  .actions {
+    width: 80px;
+    text-align: left;
+    a {
+      float: left;
+    }
+  }
   .add {
     position: absolute;
     right: 0px;
@@ -2196,7 +2214,7 @@ dl {
            h3, h4 ,h5 { color: rgba(0,0,0,0.5) !important;}
         }
         h3 ,h5 { display: inline-block; font-size: 16px !important;}
-        h5   { font-weight: 300; float: right; opacity: 0.5; margin-right: 45px; font-size: 13px !important;}
+        h5   { font-weight: 300; float: right; opacity: 0.5; margin-right: 85px; font-size: 13px !important;}
       }
     }
   }

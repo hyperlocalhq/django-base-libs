@@ -498,13 +498,8 @@ textarea {
   color: rgba(0, 0, 0, 0.75); }
 
 form {
-  width: 100%;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; }
+  width: 100%; }
+  a
   form *::-webkit-scrollbar-corner, form *::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -2573,7 +2568,7 @@ nav.actions {
     background-image: url("../img/icons/favorite.svg"); }
   .icon.icon-black.icon-location {
     background-image: url("../img/icons/location.svg"); }
-  .icon.icon-black.cancel {
+  .icon.icon-black.icon-cancel {
     background-image: url("../img/icons/cancel.svg"); }
   .icon.icon-black.icon-fullscreen {
     background-image: url("../img/icons/fullscreen.svg"); }
@@ -2597,7 +2592,7 @@ nav.actions {
       background-image: url("../img/icons/favorite.svg"); }
     .icon.transparent.icon-location {
       background-image: url("../img/icons/location.svg"); }
-    .icon.transparent.cancel {
+    .icon.transparent.icon-cancel {
       background-image: url("../img/icons/cancel.svg"); }
     .icon.transparent.icon-fullscreen {
       background-image: url("../img/icons/fullscreen.svg"); }
@@ -3560,6 +3555,39 @@ dl {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important; }
+#organizers_fieldset .icon-last-edited,
+.fieldset-imagegallery .icon-last-edited,
+#workshop_times_fieldset .icon-last-edited,
+#event_times_fieldset .icon-last-edited,
+#social_channels_fieldset .icon-last-edited,
+#item_container .icon-last-edited,
+#dashboard .icon-last-edited {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 100px;
+  height: 20px;
+  width: 20px; }
+#organizers_fieldset .actions,
+.fieldset-imagegallery .actions,
+#workshop_times_fieldset .actions,
+#event_times_fieldset .actions,
+#social_channels_fieldset .actions,
+#item_container .actions,
+#dashboard .actions {
+  width: 80px;
+  text-align: left; }
+  #organizers_fieldset .actions a,
+  .fieldset-imagegallery .actions a,
+  #workshop_times_fieldset .actions a,
+  #event_times_fieldset .actions a,
+  #social_channels_fieldset .actions a,
+  #item_container .actions a,
+  #dashboard .actions a {
+    float: left; }
 #organizers_fieldset .add,
 .fieldset-imagegallery .add,
 #workshop_times_fieldset .add,
@@ -3792,7 +3820,7 @@ dl {
       font-weight: 300;
       float: right;
       opacity: 0.5;
-      margin-right: 45px;
+      margin-right: 85px;
       font-size: 13px !important; }
 
 .magazine .featured {
