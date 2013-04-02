@@ -45,10 +45,15 @@
             <div class="messages">
                 {% for message in messages %}
                 <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
                     {{ message }}
                 </div>
                 {% endfor %}
+            </div>
+        {% else %}
+            <div class="messages">
+                <div class="alert alert-warning">
+                    {% trans "Fields with * are required." %}
+                </div>
             </div>
         {% endif %}
         {% block multistep_form %}

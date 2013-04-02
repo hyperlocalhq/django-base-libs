@@ -52,8 +52,13 @@
                 </div>
                 {% endfor %}
             </div>
+        {% else %}
+            <div class="messages">
+                <div class="alert alert-warning">
+                    {% trans "Fields with * are required." %}
+                </div>
+            </div>
         {% endif %}
-    
         {% block multistep_form %}
         {% endblock %}
     </div>
