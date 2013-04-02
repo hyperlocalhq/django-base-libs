@@ -8,7 +8,7 @@
             {% if workshop.museum %}
                 <h5>{{ workshop.museum.title_de }}</h5>
             {% endif %}
-            <date>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</date>
+            <date>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|time:"H:i" }}{% endwith %}</date>
         </a>
     </li>
 {% endwith %}

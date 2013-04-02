@@ -8,7 +8,7 @@
             {% if event.museum %}
                 <h5>{{ event.museum.title_de }}</h5>
             {% endif %}
-            <date>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}{{ event_time.start|date:"H:i" }}{% endwith %}</date>
+            <date>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}{{ event_time.start|time:"H:i" }}{% endwith %}</date>
         </a>
     </li>
 {% endwith %}

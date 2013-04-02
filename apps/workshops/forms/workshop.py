@@ -242,7 +242,7 @@ class BasicInfoForm(ModelForm):
 class OrganizerForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
         required=False,
-        label=_("Museum from the list <b>(active)</b> / <a href=\"#\">Free location</a>"),
+        label=_("Museum from the list <b>(active)</b> / <a href=\"#\">Other Organizer</a>"),
         # help_text=_("If organizer doesn't exist in the database, please click <a href=\"#\">here</a> to enter it."),
         app="museums",
         qs_function="get_published_museums",
@@ -262,7 +262,7 @@ class OrganizerForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(OrganizerForm, self).__init__(*args, **kwargs)
 
-        self.fields['organizer_title'].label = _("Free location <b>(active)</b> / <a href=\"#\">Museum from the list</a>")
+        self.fields['organizer_title'].label = _("Other Organizer <b>(active)</b> / <a href=\"#\">Museum from the list</a>")
         self.fields['organizer_url_link'].label = _("Website")
         # self.fields['organizer_title'].help_text = _("If you want to select an organizer from the database, please click <a href=\"#\">here</a>.")
 
