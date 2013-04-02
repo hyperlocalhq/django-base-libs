@@ -983,6 +983,22 @@ div.tagsinput {
   overflow-y: auto;
   max-height: 250px; }
 
+#search_form {
+  padding: 0px !important;
+  margin: 0px !important;
+  border: none !important; }
+  #search_form #div_id_q > label,
+  #search_form #div_id_models > label {
+    display: none !important; }
+  #search_form #id_q {
+    display: inline-block !important;
+    font-size: 22px !important;
+    line-height: 18px !important;
+    padding: 18px !important;
+    height: 54px !important;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important; }
+
 .isotope-item {
   z-index: 2; }
 

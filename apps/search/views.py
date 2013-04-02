@@ -15,16 +15,22 @@ class SearchView(SearchViewBase):
         form_helper.form_method = "GET"
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
-            _("Search"),
-            "q",
+            "",
+
             layout.Div(
                 'models',
                 css_class="inline",
                 ),
+
+            layout.Row(
+                layout.Div("q", css_class="max"),
+                layout.Div(layout.Submit('submit', _('Search')),),
+                css_class="flex",
+                ),
+            
+            css_id="search_form",
             ))
-        layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('submit', _('Search')),
-            ))
+
         form_helper.layout = layout.Layout(
             *layout_blocks
             )        
