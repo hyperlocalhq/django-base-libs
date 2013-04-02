@@ -494,6 +494,7 @@ a
         font-weight: 700;
         margin-right: 5px;
       }
+      
     }
 
     .formset-form {
@@ -599,7 +600,10 @@ a
     }
   }
 
-  label { white-space: nowrap;}
+  label { white-space: nowrap;
+
+      a:link, a:visited { text-decoration: none; color: $blue;}
+  }
 
   // &:last-child{
   //   textarea, input { margin: 0px !important;}

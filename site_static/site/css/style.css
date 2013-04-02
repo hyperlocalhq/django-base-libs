@@ -659,6 +659,9 @@ form {
       padding-top: 30px !important; }
   .row label {
     white-space: nowrap; }
+    .row label a:link, .row label a:visited {
+      text-decoration: none;
+      color: #00aefd; }
   .row.flex {
     table-layout: auto !important; }
     .row.flex.merge .inline {
