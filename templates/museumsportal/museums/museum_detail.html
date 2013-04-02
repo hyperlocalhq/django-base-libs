@@ -417,20 +417,6 @@
                         </ul>  
                     </li>  
                 {% endif %}  
-
-                {% if museum.get_twitter_username %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-twitterfeed">{% trans "Twitter" %}</a>  
-                        </h4>  
-                        <ul id="collapse-twitterfeed" class="accordion-body collapse">
-                            <li class="accordion-inner">
-                                <ul id="tweets" data-twitter-username="{{ museum.get_twitter_username }}">
-                                </ul>
-                            </li>
-                        </ul>  
-                    </li> 
-                {% endif %}
             </ul> 
 
             {% if request.user.is_authenticated %}
@@ -452,6 +438,7 @@
             
             {{ museum.get_rendered_description }}
             
+
             {% comment %}
 <!--             <ul class="tags">
                 {% if museum.categories.count %}
@@ -473,6 +460,18 @@
 </div>
 
 {% include "utils/images.html" %}
+
+{% if museum.get_twitter_username %}
+<div class="content clearfix">
+    <div class="inner">
+        <article class="clearfix">
+            <h2>{% trans "Current Tweets" %}</h2>
+            <ul id="tweets" data-twitter-username="{{ museum.get_twitter_username }}"></ul>
+        </article>
+    </div>
+</div> 
+{% endif %}
+
 
 <!-- ======= Exhibitions ======= -->
 
