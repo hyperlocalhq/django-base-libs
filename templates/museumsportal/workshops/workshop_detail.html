@@ -126,7 +126,30 @@
                     {% endwith %}
                 {% endif %}
 
+                <!-- ======= DATES ======= -->
+                
+                {% if workshop.workshoptime_set.count %}
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
+                            {% trans "Date and Time" %} 
+                        </a>  
+                    </h4>  
+                    <ul id="collapse-dates" class="accordion-body collapse">  
+                        <li class="accordion-inner">
+                            {% for workshop_time in workshop.workshoptime_set.all %}
+                            <dl>
+                                <dt>{{ workshop_time.workshop_date|date:"j. F Y" }}
+                                {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}</dt>
+                            </dl>
+                            {% endfor %}
+                        </li>
+                    </ul>  
+                </li>
+                {% endif %}
+
                 <!-- ======= Prices ======= -->
+
                 {% if workshop.free_admission or workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
@@ -174,28 +197,6 @@
                             {% endif %}
                         </ul>  
                     </li>
-                {% endif %}
-
-                <!-- ======= DATES ======= -->
-                
-                {% if workshop.workshoptime_set.count %}
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
-                            {% trans "Date and Time" %} 
-                        </a>  
-                    </h4>  
-                    <ul id="collapse-dates" class="accordion-body collapse">  
-                        <li class="accordion-inner">
-                            {% for workshop_time in workshop.workshoptime_set.all %}
-                            <dl>
-                                <dt>{{ workshop_time.workshop_date|date:"j. F Y" }}
-                                {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}</dt>
-                            </dl>
-                            {% endfor %}
-                        </li>
-                    </ul>  
-                </li>
                 {% endif %}
 
                 <!-- ======= Other Information ======= -->
@@ -299,9 +300,7 @@
 {% if object.get_other_workshops %}
     <div class="content" class="clearfix">
         <div class="inner">
-            <h2>{% trans "Other Workshops of" %} 
-    {% if workshop.museum %} {% with workshop.museum as museum %} {{ museum.title }} {% endwith %} {% else %} {{ workshop.location_name }} {% endif %}
-            </h2>
+            <h2>{% trans "Other Guided Tours, Workshops and educational offers" %}</h2>
             <ul class="list rows clearfix">
                 {% for workshop in object.get_other_workshops %}
                     <li class="item">
