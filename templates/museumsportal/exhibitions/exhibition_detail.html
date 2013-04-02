@@ -463,11 +463,8 @@
                 {% endif %}
                 <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
             </header>
+            
             {{ exhibition.get_rendered_description }}
-
-            {% if exhibition.website %}
-                <p>{% trans "More at" %}  <a href="{{ exhibition.website }}" target="_blank">{{ exhibition.website|humanize_url:"45" }}</a> </p>
-            {% endif %}
 
             {% comment %}
             <!-- <ul class="tags">

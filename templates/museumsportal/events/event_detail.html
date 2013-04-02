@@ -365,10 +365,6 @@
                 <a href="{{ event.museum.get_url_path }}"><h3>{{ event.museum.title }}</h3></a>
             </header>
             {{ event.get_rendered_description }}
-
-            {% if event.website %}
-                <p>{% trans "More at" %}  <a href="{{ event.website }}" target="_blank">{{ event.website|humanize_url:"45" }}</a> </p>
-            {% endif %}
             
             {% comment %}
             <!-- <ul class="tags">

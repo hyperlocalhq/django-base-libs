@@ -270,14 +270,6 @@
             </header>
             {{ workshop.get_rendered_description }}
 
-            {% if workshop.exhibition %}
-                <p>{% trans "Continue to" %} <a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition }}</a></p>
-            {% endif %}
-
-            {% if workshop.website %}
-                <p>{% trans "More at" %}  <a href="{{ workshop.website }}" target="_blank">{{ workshop.website|humanize_url:"45" }}</a> </p>
-            {% endif %}
-
             {% comment %}
             <!-- <ul class="tags">
                 {% if workshop.categories.count %}
