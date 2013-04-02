@@ -269,6 +269,22 @@ button {
   button.btn-inverse {
     background-color: white !important;
     color: black !important; }
+  .btn.btn-link,
+  input[type=submit].btn-link,
+  input[type=reset].btn-link,
+  button.btn-link {
+    color: #0088cc;
+    cursor: pointer !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border-color: transparent !important;
+    color: rgba(0, 0, 0, 0.15) !important; }
+    .btn.btn-link:hover,
+    input[type=submit].btn-link:hover,
+    input[type=reset].btn-link:hover,
+    button.btn-link:hover {
+      text-decoration: none !important;
+      background-color: transparent;
+      cursor: default !important; }
   .btn.btn-small,
   input[type=submit].btn-small,
   input[type=reset].btn-small,
