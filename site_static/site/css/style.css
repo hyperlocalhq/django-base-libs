@@ -3448,7 +3448,7 @@ dl {
       content: ", "; }
     dl dd.languages:last-child:after {
       content: "" !important; }
-  dl dd a {
+  dl dd a.crop {
     display: inline-block;
     margin-left: 0;
     white-space: nowrap;

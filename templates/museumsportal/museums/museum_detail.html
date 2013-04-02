@@ -380,29 +380,34 @@
                             </a>  
                         </h4>  
                         <ul id="collapse-mediation-offer" class="accordion-body collapse" style="height: 0px; ">
-                            <li class="accordion-inner">
-                                <dl>
-                                    {% if museum.has_audioguide %}
-                                        <dt>{% trans "In" %}
+                            {% if museum.has_audioguide %}
+                                <li class="accordion-inner">
+                                    <dl>
+                                        <dt>
                                         {% if museum.get_audioguide_languages %}
+                                            {% trans "In" %}
                                             {% for lang in museum.get_audioguide_languages %}
                                                 {{ lang }}{% if not forloop.last %}, {% endif %}
                                             {% endfor %}
                                         {% endif %}
                                         </dt>
-                                    {% endif %}
-                                </dl>
-                                <dl>
-                                    {% if museum.has_audioguide_for_children %}
+                                    </dl>
+                                </li>
+                            {% endif %}
+                            {% if museum.has_audioguide_for_children %}
+                                <li class="accordion-inner">
+                                    <dl>
                                         <dt>{% trans "For children and teenager" %}</dt>
-                                    {% endif %}
-                                </dl>
-                                <dl>
-                                    {% if museum.has_audioguide_for_learning_difficulties %}
+                                    </dl>
+                                </li>
+                            {% endif %}
+                            {% if museum.has_audioguide_for_learning_difficulties %}
+                                <li class="accordion-inner">
+                                    <dl>
                                         <dt>{% trans "For people with learning difficulties" %}</dt>
-                                    {% endif %}
-                                </dl>
-                            </li>
+                                    </dl>
+                                </li>
+                            {% endif %}
                         </ul>  
                     </li>  
                 {% endif %}  
