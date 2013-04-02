@@ -91,6 +91,13 @@
                                     {% endfor %}
                                 </dl>
                             {% endif %}
+                            
+                            {% if exhibition.website %}
+                            <dl>
+                                <dt>{% trans "Website" %}</dt>
+                                <dd><a href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"30" }}</a></dd>
+                            </dl>
+                            {% endif %}
                         </li>
                     </ul>  
                 </li>
