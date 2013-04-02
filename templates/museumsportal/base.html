@@ -260,18 +260,23 @@
         $('.filter a').click(function(e){
             e.preventDefault();
             var $this = $(this);
+            var $li = $this.closest('li');
 
-            var $optionSet = $this.parents('.option-set:first');
+            var $optionSet = $this.closest('.option-set');
             // store filter value in object
             // i.e. filters.category = ['.cat_history']
             var group = $optionSet.attr('data-filter-group');
             filters[group] = filters[group] || [];
             var value = $this.attr('data-filter-value');
             var single_selection = $optionSet.attr('data-single-selection');
+            var hierarchical = $optionSet.attr('data-hierarchical');
+            var level = parseInt($li.attr('data-level'), 10);
             
             if (value) {
                 if ($this.hasClass('selected')) {
                     $this.removeClass('selected');
+                    $li.removeClass('selected');
+                    $li.find('a.selected').click();
                     filters[group] = jQuery.grep(filters[group], function(v) {
                         return v != value;
                     });
@@ -281,14 +286,32 @@
                         $('#filter_summary').empty();
                     }
                 } else {
-                    if (single_selection) {
-                        $optionSet.find('a.selected').click();
-                        filters[group] = [value];
+                    if (hierarchical) {
+                        if (single_selection) {
+                            // unselect previously selected
+                            if (level == 0) {
+                                console.log($optionSet.find('a.selected'));
+                                $optionSet.find('a.selected').click();
+                                filters[group] = [value];
+                            } else {
+                                $optionSet.find('li.level-1 a.selected').click();
+                                filters[group] = [value];
+                            }
+                        } else {
+                            filters[group].push(value);
+                        }
                     } else {
-                        filters[group].push(value);
+                        if (single_selection) {
+                            // unselect previously selected
+                            $optionSet.find('a.selected').click();
+                            filters[group] = [value];
+                        } else {
+                            filters[group].push(value);
+                        }
                     }
                     // change selected class
                     $this.addClass('selected');
+                    $li.addClass('selected');
                     if ($('#filter_summary').text() == "") {
                         var $li = $('<li><b>{% trans "Filter selection" %}:</b></li>');
                         $('#filter_summary').append($li);
@@ -317,7 +340,7 @@
         
         $('#filter_summary a').live('click', function(e) {
             e.preventDefault();
-            var $this = $(this).parents('li');
+            var $this = $(this).closest('li');
             var group = $this.attr('data-filter-group');
             var value = $this.attr('data-filter-value');
             if (!group && !value) {
