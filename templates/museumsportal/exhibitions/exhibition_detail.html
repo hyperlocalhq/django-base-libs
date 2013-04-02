@@ -52,6 +52,11 @@
                                         <dd>{{ museum.street_address }}</dd>
                                         {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                                         <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+
+                                        {% with exhibition as list_item %}
+                                            <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+                                            {% include "utils/geo_position.html" %}
+                                        {% endwith %}
                                     </dl>
                                 {% endwith %}
                             {% else %}
@@ -60,6 +65,11 @@
                                     <dd>{{ exhibition.street_address }}</dd>
                                     {% if exhibition.street_address2 %}<dd>{{ exhibition.street_address2 }}</dd>{% endif %} 
                                     <dd>{{ exhibition.postal_code }} {{ exhibition.city }}</dd>
+
+                                    {% with exhibition as list_item %}
+                                        <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+                                        {% include "utils/geo_position.html" %}
+                                    {% endwith %}
                                 </dl>
                             {% endif %}
 
@@ -81,12 +91,6 @@
                                     {% endfor %}
                                 </dl>
                             {% endif %}
-                        </li>
-                        <li class="accordion-inner">
-                            {% with exhibition as list_item %}
-                                <a href="#" class="location">{% trans "Show location on map" %}</a>
-                                {% include "utils/geo_position.html" %}
-                            {% endwith %}
                         </li>
                     </ul>  
                 </li>

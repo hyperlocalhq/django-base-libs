@@ -56,7 +56,13 @@
                                             <dd>{{ museum.street_address }}</dd>
                                             {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                                             <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+                                            
+                                            {% with workshop as list_item %}
+                                                <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
+                                                {% include "utils/geo_position.html" %}</dd>
+                                            {% endwith %}
                                         </dl>
+
                                     {% endwith %}
                                 {% else %}
                                     <dl class="address">
@@ -64,6 +70,11 @@
                                         <dd>{{ workshop.street_address }}</dd>
                                         {% if workshop.street_address2 %}<dd>{{ workshop.street_address2 }}</dd>{% endif %} 
                                         <dd>{{ workshop.postal_code }} {{ workshop.city }}</dd>
+
+                                        {% with workshop as list_item %}
+                                            <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
+                                            {% include "utils/geo_position.html" %}</dd>
+                                        {% endwith %}
                                     </dl>
                                 {% endif %}
 
@@ -92,12 +103,6 @@
                                         <dd><a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition.title }}</a></dd>
                                     </dl>
                                 {% endif %}
-                            </li>
-                            <li class="accordion-inner">
-                                {% with workshop as list_item %}
-                                    <a href="#" class="location">{% trans "Show location on map" %}</a>
-                                    {% include "utils/geo_position.html" %}
-                                {% endwith %}
                             </li>
                         </ul>  
                     </li>

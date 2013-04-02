@@ -52,6 +52,11 @@
                                     <dd>{{ event.street_address }}</dd>
                                     {% if event.street_address2 %}<dd>{{ event.street_address2 }}</dd>{% endif %} 
                                     <dd>{{ event.postal_code }} {{ event.city }}</dd>
+
+                                    {% with event as list_item %}
+                                        <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
+                                        {% include "utils/geo_position.html" %}</dd>
+                                    {% endwith %}
                                 </dl>
                             {% else %}
                                 {% with event.museum as museum %}
@@ -61,6 +66,11 @@
                                         <dd>{{ museum.street_address }}</dd>
                                         {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
                                         <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+
+                                        {% with event as list_item %}
+                                            <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
+                                            {% include "utils/geo_position.html" %}</dd>
+                                        {% endwith %}
                                     </dl>
                                 {% endwith %}
                             {% endif %}
@@ -90,12 +100,6 @@
                                     <dd><a href="{{ event.exhibition.get_url_path }}">{{ event.exhibition.title }}</a></dd>
                                 </dl>
                             {% endif %}
-                        </li>
-                        <li class="accordion-inner">
-                            {% with event as list_item %}
-                                <a href="#" class="location">{% trans "Show location on map" %}</a>
-                                {% include "utils/geo_position.html" %}
-                            {% endwith %}
                         </li>
                     </ul>  
                 </li>
