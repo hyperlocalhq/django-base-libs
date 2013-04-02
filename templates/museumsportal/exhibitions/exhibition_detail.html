@@ -527,7 +527,7 @@
 {% if object.get_published_events %}
 <div class="content clearfix">
     <div class="inner clearfix">
-        <h2>{% trans "Current Events" %}</h2>
+        <h2>{% trans "Events" %}</h2>
         <ul class="list rows clearfix"> 
             {% for event in object.get_related_published_events %}
             <li>
@@ -549,7 +549,7 @@
 {% if object.get_other_exhibitions %}
 <div class="content" class="clearfix">
     <div class="inner">
-        <h2>{% trans "More Current Exhibitions" %}</h2>
+        <h2>{% trans "More Exhibitions" %}</h2>
         <ul class="list rows clearfix">
             {% for exhibition in object.get_other_exhibitions %}
                 <li class="item">
