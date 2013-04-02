@@ -463,11 +463,8 @@
                 {% endif %}
                 <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
             </header>
+            
             {{ exhibition.get_rendered_description }}
-
-            {% if exhibition.website %}
-                <p>{% trans "More at" %}  <a href="{{ exhibition.website }}" target="_blank">{{ exhibition.website|humanize_url:"45" }}</a> </p>
-            {% endif %}
 
             {% comment %}
             <!-- <ul class="tags">
@@ -494,9 +491,7 @@
 {% if object.get_related_published_workshops.count %}
     <div class="content" class="clearfix">
         <div class="inner">
-            <h2>{% trans "Other Workshops of" %} 
-    {% if workshop.museum %} {% with workshop.museum as museum %} {{ museum.title }} {% endwith %} {% else %} {{ workshop.location_name }} {% endif %}
-            </h2>
+            <h2>{% trans "Guided Tours, Workshops and educational offers" %}</h2>
             <ul class="list rows clearfix">
                 {% for workshop in object.get_related_published_workshops %}
                     <li class="item">
@@ -504,7 +499,7 @@
 
                         <a href="{{ workshop.get_url_path }}">
                             {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                                <h4>{% trans "Bookable Offer" %} {% if workshop.workshop_type %} : {{ workshop.workshop_type }} {% endif %}</h4> 
+                                <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
                             {% else %}
                                 <h4>{{ workshop.workshop_type }}:
                                 {% with workshop.get_closest_workshop_time as workshop_time %}
@@ -516,7 +511,6 @@
                             {% if workshop.subtitle %}
                                 <h4>{{ workshop.subtitle }}</h4>
                             {% endif %}
-                            <h5>{{ workshop.museum.title }}</h5>
                         </a>
                     </li>
                 {% endfor %}
@@ -525,10 +519,34 @@
     </div>  
 {% endif %} 
 
+<!-- ======= Events ======= -->
+    
+{% if object.get_published_events %}
+<div class="content clearfix">
+    <div class="inner clearfix">
+        <h2>{% trans "Events" %}</h2>
+        <ul class="list rows clearfix"> 
+            {% for event in object.get_related_published_events %}
+            <li>
+                <a href="{{ event.get_url_path }}">
+                    <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}{{ event_time.start|date:"H:i" }}{% endwith %}</h4>
+                    <h3>{{ event.title }}</h3>
+                    <h4>{{ event.subtitle }}</h4>
+                    <h5>{{ event.museum.title }}</h5>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+<!-- ======= Exhibitions ======= -->
+
 {% if object.get_other_exhibitions %}
 <div class="content" class="clearfix">
     <div class="inner">
-        <h2>{% blocktrans with exhibition.museum.title as museum_title %}More Exhibitions of {{ museum_title }}{% endblocktrans %}</h2>
+        <h2>{% trans "More Exhibitions" %}</h2>
         <ul class="list rows clearfix">
             {% for exhibition in object.get_other_exhibitions %}
                 <li class="item">

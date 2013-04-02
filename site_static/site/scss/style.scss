@@ -192,6 +192,7 @@ a:link    { text-decoration: none;}
 a:hover   { text-decoration: none; color: $blue;}
 a:visited { text-decoration: none;}
 a:active  { outline: none !important; }
+a:focus  { outline: none !important; }
 
 #wrapper {
   height: 100%;
@@ -573,6 +574,7 @@ a:active  { outline: none !important; }
       border-bottom: 10px solid white;
       background-color: rgba(0,0,0,0.05);
       padding-left: 25px;
+      padding-right: 25px;
       padding-top: 6px;
       padding-bottom: 6px;
 
@@ -695,11 +697,17 @@ a:active  { outline: none !important; }
         h4 { font-weight: 300;}
         h5 { font-weight: 300; opacity: 0.5; }
         h3, h4 , h5 {
-          display: inline-block;
+          display: block;
           white-space: nowrap;
           text-overflow: ellipsis;
           width: 100%;
           overflow: hidden;
+          height: 22px !important;
+          line-height: 20px !important;
+          margin: 0px !important;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+
           &:empty{ display: none;}
 
         }

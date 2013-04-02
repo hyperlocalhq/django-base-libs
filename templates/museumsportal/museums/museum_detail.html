@@ -451,10 +451,6 @@
             </header>
             
             {{ museum.get_rendered_description }}
-
-            {% if museum.website %}
-                <p>{% trans "More at" %}  <a href="{{ museum.website }}" target="_blank">{{ museum.website|humanize_url:"45" }}</a> </p>
-            {% endif %}
             
             {% comment %}
 <!--             <ul class="tags">
@@ -515,28 +511,6 @@
 </div>
 {% endif %} 
 
-<!-- ======= Guided Tours ======= -->
-    
-{% if object.get_published_workshops %}
-<div class="content clearfix">
-    <div class="inner clearfix">
-        <h2>{% trans "Current Guided Tours, Workshops and educational offers" %}</h2>
-        <ul class="list rows clearfix"> 
-            {% for workshop in object.get_published_workshops %}
-            <li>
-                <a href="{{ workshop.get_url_path }}">
-                    <h4>{{ workshop.workshop_type }} {% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|date:"H:i" }}{% endwith %}</h4>
-                    <h3>{{ workshop.title }}</h3>
-                    <h4>{{ workshop.subtitle }}</h4>
-                    <h5>{{ workshop.museum.title }}</h5>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
-{% endif %}
-
 <!-- ======= Events ======= -->
     
 {% if object.get_published_events %}
@@ -558,10 +532,37 @@
     </div>
 </div>
 {% endif %}
+
+<!-- ======= Guided Tours ======= -->
+    
+{% if object.get_published_workshops %}
+<div class="content clearfix">
+    <div class="inner clearfix">
+        <h2>{% trans "Current Guided Tours, Workshops and educational offers" %}</h2>
+        <ul class="list rows clearfix"> 
+            {% for workshop in object.get_published_workshops %}
+            <li>
+                <a href="{{ workshop.get_url_path }}">
+                    {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                        <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
+                    {% else %}
+                        <h4>{{ workshop.workshop_type }}:
+                        {% with workshop.get_closest_workshop_time as workshop_time %}
+                            {{ workshop_time.workshop_date|date:"j. F Y" }}
+                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                        {% endwith %}</h4>
+                    {% endif %}
+                    <h3>{{ workshop.title }}</h3>
+                    <h4>{{ workshop.subtitle }}</h4>
+                    <h5>{{ workshop.museum.title }}</h5>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
                     
-
-<!-- ======= Workshops ======= -->
-
 
 {% endwith %}
 

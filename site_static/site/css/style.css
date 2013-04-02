@@ -1872,6 +1872,9 @@ a:visited {
 a:active {
   outline: none !important; }
 
+a:focus {
+  outline: none !important; }
+
 #wrapper {
   height: 100%;
   width: 100%; }
@@ -2173,6 +2176,7 @@ a:active {
     border-bottom: 10px solid white;
     background-color: rgba(0, 0, 0, 0.05);
     padding-left: 25px;
+    padding-right: 25px;
     padding-top: 6px;
     padding-bottom: 6px;
     box-sizing: border-box;
@@ -2280,11 +2284,16 @@ a:active {
       font-weight: 300;
       opacity: 0.5; }
     .list.tiles > li a h3, .list.tiles > li a h4, .list.tiles > li a h5 {
-      display: inline-block;
+      display: block;
       white-space: nowrap;
       text-overflow: ellipsis;
       width: 100%;
-      overflow: hidden; }
+      overflow: hidden;
+      height: 22px !important;
+      line-height: 20px !important;
+      margin: 0px !important;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box; }
       .list.tiles > li a h3:empty, .list.tiles > li a h4:empty, .list.tiles > li a h5:empty {
         display: none; }
 .list.collapsed > li.class1 {
