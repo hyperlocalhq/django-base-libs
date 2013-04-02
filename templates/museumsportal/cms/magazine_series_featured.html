@@ -17,8 +17,9 @@
 <div class="content clearfix">
     <div class="inner">
         <article class="clearfix">
+            <h2>Serie</h2>
+            
             <section class="clearfix featured">
-                <h2>Serie</h2>
                 {% placeholder "series_items_featured" %}
             </section>
             <section class="clearfix nonfeatured"> {% placeholder "series_items" %}</section>
@@ -46,12 +47,17 @@
         <div class="inner">
             <article class="clearfix">
                 <h2>{% trans "New exhibitions opened under the theme year" %}</h2>
-                <ul class="list row clearfix">
+                <ul class="list rows clearfix">
                     {% for exhibition in featured_exhibitions %}
                         <li>
-                            <h3>{{ exhibition.title }}</h3>
-                            <p>{{ exhibition.get_rendered_description|striptags|truncatewords:"75" }}</p>
-                            <a href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
+                            <a href="{{ exhibition.get_url_path }}">
+                                <h3>{{ exhibition.title }}</h3>
+                                <h4>{{ exhibition.subtitle }}</h4>
+                                <h5>{{ exhibition.museum.title }}</h5>
+                            </a>
+
+                            <!-- <p>{{ exhibition.get_rendered_description|striptags|truncatewords:"75" }}</p> -->
+                            <!-- <a href="{{ exhibition.get_url_path }}">{% trans "more" %}</a> -->
                         </li>
                     {% endfor %}
                 </ul>
@@ -59,13 +65,13 @@
         </div>
     </div>
 {% endif %}
-
+<!-- 
 <div class="content clearfix">
     <div class="inner">
         <article class="clearfix"> {% placeholder "main_content" %} </article>
     </div>
 </div>
-
+ -->
 <div class="content clearfix">
     <div class="inner">
         <article class="clearfix">
