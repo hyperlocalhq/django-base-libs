@@ -2284,11 +2284,16 @@ a:focus {
       font-weight: 300;
       opacity: 0.5; }
     .list.tiles > li a h3, .list.tiles > li a h4, .list.tiles > li a h5 {
-      display: inline-block;
+      display: block;
       white-space: nowrap;
       text-overflow: ellipsis;
       width: 100%;
-      overflow: hidden; }
+      overflow: hidden;
+      height: 22px !important;
+      line-height: 20px !important;
+      margin: 0px !important;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box; }
       .list.tiles > li a h3:empty, .list.tiles > li a h4:empty, .list.tiles > li a h5:empty {
         display: none; }
 .list.collapsed > li.class1 {

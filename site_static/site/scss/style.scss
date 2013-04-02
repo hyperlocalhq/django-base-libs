@@ -697,11 +697,17 @@ a:focus  { outline: none !important; }
         h4 { font-weight: 300;}
         h5 { font-weight: 300; opacity: 0.5; }
         h3, h4 , h5 {
-          display: inline-block;
+          display: block;
           white-space: nowrap;
           text-overflow: ellipsis;
           width: 100%;
           overflow: hidden;
+          height: 22px !important;
+          line-height: 20px !important;
+          margin: 0px !important;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+
           &:empty{ display: none;}
 
         }
