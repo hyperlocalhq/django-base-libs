@@ -1021,13 +1021,13 @@ div.tagsinput {
     height: 32px !important;
     font-size: 14px !important;
     line-height: 32px !important;
-    font-weight: 700 !important;
+    font-weight: 300 !important;
     color: black !important;
     width: 140px !important;
     padding: 0px !important;
-    padding-left: 10px !important;
-    padding-right: 30px !important;
-    display: block !important; }
+    text-indent: 10px !important;
+    display: block !important;
+    margin-right: 34px !important; }
     #mini_search #mini_search_input::-webkit-input-placeholder {
       color: rgba(0, 0, 0, 0.5); }
     #mini_search #mini_search_input:-moz-placeholder {
@@ -1049,6 +1049,9 @@ div.tagsinput {
     background-position: right;
     background-repeat: no-repeat;
     background-color: rgba(0, 0, 0, 0.05) !important; }
+    #mini_search #mini_search_submit:hover {
+      background-color: black !important;
+      background-image: url("../img/icons/inv/search.svg"); }
 
 .isotope-item {
   z-index: 2; }
