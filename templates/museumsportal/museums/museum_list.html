@@ -49,14 +49,12 @@
                                 {% for cat in facets.categories.categories %}
                                     {% if cat.is_root_node %}
                                         <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}" >{{ cat.title }}</a>
+                                        </li>
                                         {% if cat.get_children %}
-                                            <ul>
                                             {% for child in cat.get_children %}
                                                 <li class="level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a>
                                             {% endfor %}
-                                            </ul>
                                         {% endif %}
-                                        </li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>
