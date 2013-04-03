@@ -280,11 +280,21 @@
             var single_selection = $optionSet.attr('data-single-selection');
             var hierarchical = $optionSet.attr('data-hierarchical');
             var level = parseInt($li.attr('data-level'), 10);
+            var second_level_selector = $this.attr('data-second-level-at');
+            var second_level_target = $this.attr('data-target');
+            var $second_level;
+            if (second_level_selector) {
+                $second_level = $(second_level_selector);
+            }
             
             if (value) {
                 if ($this.hasClass('selected')) {
                     $this.removeClass('selected');
                     $li.removeClass('selected');
+                    if ($second_level && level == 0) {
+                        $second_level.find('a.selected').click();
+                        $second_level.find('ul.in').removeClass('in');
+                    }
                     filters[group] = jQuery.grep(filters[group], function(v) {
                         return v != value;
                     });
@@ -300,9 +310,14 @@
                             // and collect filters
                             if (level == 0) {
                                 $optionSet.find('a.selected').click();
+                                if ($second_level) {
+                                    $second_level.find('ul.in').removeClass('in');
+                                }
                                 filters[group] = [value];
                             } else {
-                                $optionSet.find('li.level-1 a.selected').click();
+                                if ($second_level) {
+                                    $second_level.find('a.selected').click();
+                                }
                                 filters[group].push(value);
                             }
                         } else {
@@ -321,6 +336,9 @@
                     // change selected class
                     $this.addClass('selected');
                     $li.addClass('selected');
+                    if ($second_level) {
+                        $second_level.find(second_level_target).addClass('in');
+                    }
                     if ($('#filter_summary').text() == "") {
                         var $li = $('<li><b>{% trans "Filter selection" %}:</b></li>');
                         $('#filter_summary').append($li);
