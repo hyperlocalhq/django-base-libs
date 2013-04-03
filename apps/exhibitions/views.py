@@ -191,17 +191,29 @@ def delete_exhibition(request, slug):
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
     
+@never_cache
+@login_required
+def change_exhibition_status(request, slug):
+    instance = get_object_or_404(Exhibition, slug=slug)
+    if not request.user.has_perm("exhibitions.change_exhibition", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.status = request.POST['status']
+        instance.save()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
+    
 
 ### MEDIA FILE MANAGEMENT ###
 
-def update_mediafile_ordering(tokens, museum):
+def update_mediafile_ordering(tokens, exhibition):
     # tokens is in this format:
     # "<mediafile1_token>,<mediafile2_token>,<mediafile3_token>"
     mediafiles = []
     for mediafile_token in tokens.split(u","):
         mediafile = get_object_or_404(
             MediaFile,
-            museum=museum,
+            exhibition=exhibition,
             pk=MediaFile.token_to_pk(mediafile_token)
             )
         mediafiles.append(mediafile)
