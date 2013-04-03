@@ -2,43 +2,43 @@
 
 {% if object.cover_image %}
 <header id="cover_image">
-        <img src="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}" alt="" />
+    <img src="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
 
-        {% if museum == object %}
+    {% if museum == object %}
         <nav class="actions">
             {% if_has_perm "museums.change_museum" museum %}
                 <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop " onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';"></button>
             {% end_if_has_perm %}
             <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
         </nav>
-        {% endif %}
+    {% endif %}
 
-        {% if exhibition == object %}
+    {% if exhibition == object %}
         <nav class="actions">
             {% if_has_perm "exhibitions.change_exhibition" exhibition %}
                 <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url exhibition.cover_image "cover" request request.path %}';"></button>
             {% end_if_has_perm %}
             <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
         </nav>
-        {% endif %}
+    {% endif %}
 
-        {% if workshop == object %}
+    {% if workshop == object %}
         <nav class="actions">
             {% if_has_perm "workshops.change_workshop" workshop %}
                 <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';"></button>
             {% end_if_has_perm %}
             <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
         </nav>
-        {% endif %}
+    {% endif %}
 
-        {% if event == object %}
+    {% if event == object %}
         <nav class="actions">
             {% if_has_perm "events.change_event" event %}
                 <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';"></button>
             {% end_if_has_perm %}
             <button rel="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
         </nav>
-        {% endif %}
+    {% endif %}
 </header>
 {% endif %}
 
