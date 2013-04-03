@@ -48,11 +48,11 @@
                             <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
                                 {% for cat in facets.categories.categories %}
                                     {% if cat.is_root_node %}
-                                        <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}"{% if cat.get_children %} data-second-level-at="#second_level_cats" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a></li>
+                                        <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}"{% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>
-                            <div id="second_level_cats">
+                            <div id="level-1-cat-container" class="level-1-container">
                                 {% for cat in facets.categories.categories %}
                                     {% if cat.is_root_node %}
                                         {% if cat.get_children %}
