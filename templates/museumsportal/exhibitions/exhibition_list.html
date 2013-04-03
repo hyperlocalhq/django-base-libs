@@ -48,9 +48,19 @@
                 <div class="accordion-group">
                     <div id="filter-categories" class="accordion-body collapse" style="height: 0px;">
                         <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
+                            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
                                 {% for cat in facets.categories.categories %}
-                                <li{% if cat.level > 0 %} style="display: none"{% endif %}><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}" >{{ cat.title }}</a></li>
+                                    {% if cat.is_root_node %}
+                                        <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}" >{{ cat.title }}</a>
+                                        {% if cat.get_children %}
+                                            <ul>
+                                            {% for child in cat.get_children %}
+                                                <li class="level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a>
+                                            {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                        </li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
@@ -94,7 +104,7 @@
                 <div class="accordion-group">
                     <div id="filter-calendar" class="accordion-body collapse" style="height: 0px;">
                         <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+                            <ul class="filter option-set clearfix" id="calendar" data-filter-group="calendar" data-single-selection="1">
                                 <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
                                 <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
                                 <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>

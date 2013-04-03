@@ -285,7 +285,6 @@
                 if ($this.hasClass('selected')) {
                     $this.removeClass('selected');
                     $li.removeClass('selected');
-                    $li.find('a.selected').click();
                     filters[group] = jQuery.grep(filters[group], function(v) {
                         return v != value;
                     });
@@ -298,13 +297,13 @@
                     if (hierarchical) {
                         if (single_selection) {
                             // unselect previously selected
+                            // and collect filters
                             if (level == 0) {
-                                console.log($optionSet.find('a.selected'));
                                 $optionSet.find('a.selected').click();
                                 filters[group] = [value];
                             } else {
                                 $optionSet.find('li.level-1 a.selected').click();
-                                filters[group] = [value];
+                                filters[group].push(value);
                             }
                         } else {
                             filters[group].push(value);
@@ -312,6 +311,7 @@
                     } else {
                         if (single_selection) {
                             // unselect previously selected
+                            // and collect filters
                             $optionSet.find('a.selected').click();
                             filters[group] = [value];
                         } else {
