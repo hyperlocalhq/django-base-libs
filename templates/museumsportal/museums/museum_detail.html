@@ -73,27 +73,24 @@
                                 </dl>
                             {% endif %}
                         
-
-                            {% if museum.phone_number %}
                             <dl>
-                                <dt>{% trans "Telephone" %}</dt>
-                                <dd>+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</dd>
-                            </dl>
+                            {% if museum.phone_number %}
+                                <dt>{% trans "Telephone" %}
+                                <span class="right">+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</span>
+                                </dt>
                             {% endif %} 
                             
                             {% if museum.fax_number %}
-                            <dl>
-                                <dt>{% trans "Fax" %}</dt>
-                                <dd>+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</dd>
-                            </dl>
+                                <dt>{% trans "Fax" %}
+                                <span class="right">+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</span>
+                                </dt>
                             {% endif %} 
                             
                             {% if museum.website %}
-                            <dl>
-                                <dt>{% trans "Website" %}</dt>
-                                <dd><a class="crop" href="{{ museum.website }}">{{ museum.website|humanize_url:"50" }}</a></dd>
-                            </dl>
+                                <dt>{% trans "Website" %} <span class="right"><a class="crop" href="{{ museum.website }}">{{ museum.website|humanize_url:"25" }}</a></span>
+                                </dt>
                             {% endif %}
+                            </dl>
 
                             {% if museum.socialmediachannel_set.count %}
                                 <dl>
