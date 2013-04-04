@@ -267,8 +267,8 @@ var error_messages = {
         var $total_forms = $('#id_seasons-TOTAL_FORMS');
         if ($total_forms.val() == "0") {
             $('#add_season').click();
-            $('#id_seasons-0-title_de').val("Ganzjährige Öffnungszeiten");
-            $('#id_seasons-0-title_en').val("Year-round opening times");
+            $('#id_seasons-0-title_de').val("Ganzjährig");
+            $('#id_seasons-0-title_en').val("Year-round");
             $('#id_seasons-0-start').val((new Date()).getFullYear()+"-01-01");
             $('#id_seasons-0-end').val((new Date()).getFullYear()+"-12-31");
             $(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']).each(function() {
