@@ -3522,9 +3522,16 @@ aside {
       padding-top: 12px !important;
       padding-bottom: 15px !important;
       border-top: 1px solid rgba(0, 0, 0, 0.05); }
+      .sidebar .accordion .accordion-group .accordion-body .accordion-inner.tight {
+        padding-top: 5px !important;
+        padding-bottom: 7px !important; }
 
 dl {
-  padding-bottom: 10px; }
+  padding-bottom: 10px;
+  position: relative; }
+  dl .right {
+    position: absolute;
+    right: 0px; }
   dl:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }

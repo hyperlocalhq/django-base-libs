@@ -2014,6 +2014,10 @@ z-index: 10000;
         padding-top: 12px !important;
         padding-bottom: 15px !important;
         border-top: 1px solid rgba(0,0,0,0.05);
+        &.tight {
+          padding-top: 5px !important;
+          padding-bottom: 7px !important;
+        }
       }
     }
   }
@@ -2021,6 +2025,9 @@ z-index: 10000;
 
 dl {
   padding-bottom: 10px;
+  position: relative;
+
+  .right { position: absolute; right: 0px;}
 
   &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
   &.inset { 
