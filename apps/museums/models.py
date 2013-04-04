@@ -152,6 +152,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     # accessibility
     accessibility = MultilingualTextField(_("Accessibility"), blank=True)
+    mobidat = MultilingualTextField(_("Mobidat"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
     
     service_shop = models.BooleanField(_("Museum Shop"), blank=True)

@@ -97,7 +97,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Location"), {'fields': ('parent', 'street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', (_("Group bookings phone"), {'fields': ('group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number')}), (_("Service phone"), {'fields': ('service_phone_country', 'service_phone_area', 'service_phone_number')}),)}),]
     fieldsets += [(_("Mediation offer"), {'fields': ('has_audioguide', (_("Audioguide languages"), {'fields': ('has_audioguide_de', 'has_audioguide_en', 'has_audioguide_fr', 'has_audioguide_it', 'has_audioguide_sp', 'has_audioguide_pl', 'has_audioguide_tr', 'audioguide_other_languages')}), 'has_audioguide_for_children', 'has_audioguide_for_learning_difficulties')}),]
-    fieldsets += [(_("Accessibility"), {'fields': ['accessibility_options', get_admin_lang_section(_("Explanation"), ['accessibility',])]})]
+    fieldsets += [(_("Accessibility"), {'fields': ['accessibility_options', get_admin_lang_section(_("Explanation"), ['accessibility', 'mobidat'])]})]
     fieldsets += [(_("Services"), {'fields': [
         'service_shop', 
         'service_restaurant',

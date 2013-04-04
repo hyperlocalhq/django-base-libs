@@ -368,11 +368,20 @@
                                     <!-- <img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" /> -->
                                 {% endfor %}
                             </li>
-                            <li class="accordion-inner"> 
-                                <div class="accessibility">
-                                    {{ museum.get_rendered_accessibility }}
-                                </div>
-                            </li>
+                            {% if museum.get_rendered_accessibility %}
+                                <li class="accordion-inner"> 
+                                    <div class="accessibility">
+                                        {{ museum.get_rendered_accessibility }}
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if museum.get_rendered_mobidat %}
+                                <li class="accordion-inner"> 
+                                    <div class="accessibility">
+                                        {{ museum.get_rendered_mobidat }}
+                                    </div>
+                                </li>
+                            {% endif %}
                         </ul>  
                     </li>  
                 {% endif %}  
