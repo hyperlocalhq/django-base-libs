@@ -2049,7 +2049,6 @@ z-index: 10000;
 dl {
   padding-bottom: 10px;
   position: relative;
-
   .right { position: absolute; right: 0px; font-weight: 300; }
 
   &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
@@ -2074,6 +2073,10 @@ dl {
       &:last-child:after {
         content: "" !important;
       }
+    }
+      
+    a:link { color: $blue;
+      &:hover{ color: black;}
     }
 
     a.crop {
