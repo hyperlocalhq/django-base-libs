@@ -2211,7 +2211,7 @@ dl {
     margin-top: 0px;
   } 
   li:hover .actions { opacity: 1; }
-  
+
   .actions {
     width: 80px;
     height: 20px;
@@ -2263,32 +2263,32 @@ dl {
       }
       .status { 
         position: absolute;
-        top: 5px;
+        top: 8px;
         right: 80px;
         width: 115px;
         .sbToggle {
-          height: 30px;
+          height: 24px;
           width: 100%;
           background-color: rgba(0,0,0,0);
-          opacity: 0;
+          opacity: 0.25;
           &.sbToggleOpen{
             opacity: 0.5;
             background-color: rgba(0,0,0,0.15);
           }
         }
         .sbHolder{
-          background-color: rgba(0,0,0,0);
+          background-color: rgba(0,0,0,0.025);
           border: none;
           font-family: inherit;
           font-weight: 300 !important;
           color: rgba(0,0,0,0.75) !important;
           display: inline-block;
-          height: 30px;
+          height: 24px;
           position: relative;
           width: 100%;
 
           font-size: 13px !important;
-          line-height: 30px !important;
+          line-height: 24px !important;
 
           &:hover {background-color: rgba(0,0,0,0); }
         }
@@ -2299,7 +2299,7 @@ dl {
         }
         .sbSelector{
           font-size: 13px !important;
-          line-height: 30px !important;
+          line-height: 24px !important;
           width: 100%; 
           box-sizing: border-box;
           -moz-box-sizing: border-box;

@@ -3804,7 +3804,7 @@ dl {
   #item_container fieldset > ul > li .status,
   #dashboard fieldset > ul > li .status {
     position: absolute;
-    top: 5px;
+    top: 8px;
     right: 80px;
     width: 115px; }
     #organizers_fieldset fieldset > ul > li .status .sbToggle,
@@ -3814,10 +3814,10 @@ dl {
     #social_channels_fieldset fieldset > ul > li .status .sbToggle,
     #item_container fieldset > ul > li .status .sbToggle,
     #dashboard fieldset > ul > li .status .sbToggle {
-      height: 30px;
+      height: 24px;
       width: 100%;
       background-color: rgba(0, 0, 0, 0);
-      opacity: 0; }
+      opacity: 0.25; }
       #organizers_fieldset fieldset > ul > li .status .sbToggle.sbToggleOpen,
       .fieldset-imagegallery fieldset > ul > li .status .sbToggle.sbToggleOpen,
       #workshop_times_fieldset fieldset > ul > li .status .sbToggle.sbToggleOpen,
@@ -3834,17 +3834,17 @@ dl {
     #social_channels_fieldset fieldset > ul > li .status .sbHolder,
     #item_container fieldset > ul > li .status .sbHolder,
     #dashboard fieldset > ul > li .status .sbHolder {
-      background-color: rgba(0, 0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.025);
       border: none;
       font-family: inherit;
       font-weight: 300 !important;
       color: rgba(0, 0, 0, 0.75) !important;
       display: inline-block;
-      height: 30px;
+      height: 24px;
       position: relative;
       width: 100%;
       font-size: 13px !important;
-      line-height: 30px !important; }
+      line-height: 24px !important; }
       #organizers_fieldset fieldset > ul > li .status .sbHolder:hover,
       .fieldset-imagegallery fieldset > ul > li .status .sbHolder:hover,
       #workshop_times_fieldset fieldset > ul > li .status .sbHolder:hover,
@@ -3870,7 +3870,7 @@ dl {
     #item_container fieldset > ul > li .status .sbSelector,
     #dashboard fieldset > ul > li .status .sbSelector {
       font-size: 13px !important;
-      line-height: 30px !important;
+      line-height: 24px !important;
       width: 100%;
       box-sizing: border-box;
       -moz-box-sizing: border-box; }
