@@ -180,9 +180,9 @@
                             </a>  
                         </h4>  
                         <ul id="collapse-opening-times" class="accordion-body collapse">  
-                            <li class="accordion-inner">
-                                {% if exhibition.season_set.count == 1 %}
-                                    {% with exhibition.season_set.all.0 as season %}
+                            {% if exhibition.season_set.count == 1 %}
+                                {% with exhibition.season_set.all.0 as season %}
+                                    <li class="accordion-inner">
                                         <dl>
                                             <dt>{{ season.title }}</dt>
                                             <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
@@ -195,9 +195,9 @@
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
                                             <dl>
-                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
-                                                <dd>
+                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
                                                     {% if same_hours.list.0.open %}
+                                                    <span class="right">
                                                          {{ same_hours.list.0.open|time:"H:i" }}
                                                          {% if same_hours.list.0.break_close %}
                                                             - {{ same_hours.list.0.break_close|time:"H:i" }}
@@ -208,20 +208,28 @@
                                                          {% endif %}
                                                     {% else %}				 
                                                         {% trans "closed" %}
+                                                    </span>
                                                     {% endif %}
-                                                </dd>
+                                                </dt>
                                             </dl>
                                             {% endfor %}                                   
                                         {% endif %}
                                         {% if season.last_entry %}
-                                            <dd>{% trans "Last entry" %}: {{ season.last_entry }}</dd>
+                                            <dl>
+                                                <dt>{% trans "Last entry" %}</dt>
+                                                <dd>{{ season.last_entry }}</dd>
+                                            </dl>
                                         {% endif %}
                                         {% if season.exceptions %}
-                                            <dd>{{ season.get_rendered_exceptions }}</dd>
+                                            <dl>
+                                                <dd>{{ season.get_rendered_exceptions }}</dd>
+                                            </dl>
                                         {% endif %}
-                                    {% endwith %}
-                                {% else %}
-                                    {% for season in exhibition.season_set.all %}
+                                    </li>
+                                {% endwith %}
+                            {% else %}
+                                {% for season in exhibition.season_set.all %}
+                                    <li class="accordion-inner">
                                         <dl>
                                             <dt>{{ season.title }}</dt>
                                             <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
@@ -232,36 +240,47 @@
                                             </dl>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
-                                            {% for same_hours in opening_hours %}
-                                                {% if forloop.first %}<dl>{% endif %}
-                                                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
-                                                <dd>
-                                                    {% if same_hours.list.0.open %}
-                                                         {{ same_hours.list.0.open|time:"H:i" }}
-                                                         {% if same_hours.list.0.break_close %}
-                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% else %}
-                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                         {% endif %}
-                                                    {% else %}				 
-                                                        {% trans "closed" %}
-                                                    {% endif %}
-                                                </dd>
-                                                {% if forloop.last %}</dl>{% endif %}
-                                            {% endfor %}                                   
+                                            <dl>
+                                                {% for same_hours in opening_hours %}
+                                                        <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
+                                                            {% if same_hours.list.0.open %}
+                                                                <span class="right">
+                                                                     {{ same_hours.list.0.open|time:"H:i" }}
+                                                                     {% if same_hours.list.0.break_close %}
+                                                                        - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                                          / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                                        - {{ same_hours.list.0.close|time:"H:i" }}
+                                                                     {% else %}
+                                                                        - {{ same_hours.list.0.close|time:"H:i" }}
+                                                                     {% endif %}
+                                                                </span>
+                                                            {% else %}				 
+                                                                <span class="right">
+                                                                    {% trans "closed" %}
+                                                                </span>
+                                                            {% endif %}
+                                                        </dt>
+                                                {% endfor %}                                   
+                                            </dl>
                                         {% endif %}
                                         {% if season.last_entry %}
-                                            <div class="last_entry">{% trans "Last entry" %}: {{ season.last_entry }}</div>
+                                            <dl>
+                                                <dt>{% trans "Last entry" %}
+                                                <span class="right">{{ season.last_entry }}</span>
+                                                </dt>
+                                            </dl>
                                         {% endif %}
                                         {% if season.exceptions %}
-                                            <div class="exceptions">{{ season.get_rendered_exceptions }}</div>
+                                            <dl>
+                                                <dd>{{ season.get_rendered_exceptions }}</dd>
+                                            </dl>
                                         {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                                {% if exhibition.specialopeningtime_set.count %}
-                                    {% for special_opening in exhibition.specialopeningtime_set.all %}
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                            {% if exhibition.specialopeningtime_set.count %}
+                                {% for special_opening in exhibition.specialopeningtime_set.all %}
+                                    <li class="accordion-inner">
                                         <dl>
                                         <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
                                         {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
@@ -279,9 +298,9 @@
                                             {% endif %}
                                         {% endif %}
                                         </dl>
-                                    {% endfor %}
-                                {% endif %}
-                            </li>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
                         </ul>  
                     </li>
                 {% endif %}
