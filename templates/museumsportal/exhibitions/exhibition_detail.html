@@ -94,8 +94,9 @@
                             
                             {% if exhibition.website %}
                             <dl>
-                                <dt>{% trans "Website" %}</dt>
-                                <dd><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"50" }}</a></dd>
+                                <dt>{% trans "Website" %}
+                                    <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
+                                </dt>
                             </dl>
                             {% endif %}
                         </li>
@@ -456,7 +457,7 @@
                 {% endif %}
 
                 <!-- ======= Accessibility ======= -->
-                
+
                 {% if exhibition.suitable_for_disabled or exhibition.suitable_for_disabled_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
