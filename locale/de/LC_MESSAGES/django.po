@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 22:11+0100\n"
-"PO-Revision-Date: 2013-03-25 16:03\n"
+"POT-Creation-Date: 2013-04-04 16:19+0200\n"
+"PO-Revision-Date: 2013-04-03 16:51\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,13 +18,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.6.5\n"
 
-#: settings.py:29 settings.py:34 settings.py:351 apps/museums/models.py:165
-#: apps/museums/models.py:221 apps/twitterwall/models.py:84
+#: settings.py:29 settings.py:34 settings.py:351 apps/museums/models.py:166
+#: apps/museums/models.py:222 apps/twitterwall/models.py:84
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:30 settings.py:35 settings.py:352 apps/museums/models.py:166
-#: apps/museums/models.py:223 apps/twitterwall/models.py:79
+#: settings.py:30 settings.py:35 settings.py:352 apps/museums/models.py:167
+#: apps/museums/models.py:224 apps/twitterwall/models.py:79
 msgid "English"
 msgstr "Englisch"
 
@@ -90,78 +90,83 @@ msgid "Series Items"
 msgstr "Serien Objekte"
 
 #: settings.py:398
+#, fuzzy
+msgid "Jewish Museum"
+msgstr "Neues Museum hinzufügen"
+
+#: settings.py:403
 msgid "Series Exhibitions"
 msgstr "Serien Ausstellungen"
 
-#: settings.py:403
+#: settings.py:408
 msgid "Series Images"
 msgstr "Serien Bilder"
 
-#: settings.py:408
+#: settings.py:413
 msgid "Start Page Content"
 msgstr "Startseiten-Inhalt"
 
-#: settings.py:413
+#: settings.py:418
 msgid "Left Column"
 msgstr "Linke Spalte"
 
-#: settings.py:418
+#: settings.py:423
 msgid "Center Column"
 msgstr "Mittlere Spalte"
 
-#: settings.py:423
+#: settings.py:428
 msgid "Right Column"
 msgstr "Rechte Spalte"
 
-#: settings.py:428
+#: settings.py:433
 msgid "Featured Magazin"
 msgstr "Featured Magazin"
 
-#: settings.py:432
+#: settings.py:437
 msgid "Start page left"
 msgstr "Startseite links"
 
-#: settings.py:436
+#: settings.py:441
 msgid "Start page center"
 msgstr "Startseite mittig"
 
-#: settings.py:440
+#: settings.py:445
 msgid "Start page right"
 msgstr "Startseiten rechts"
 
-#: settings.py:445
+#: settings.py:450
 msgid "Default"
 msgstr "Standard"
 
-#: settings.py:446
+#: settings.py:451
 msgid "Homepage"
 msgstr "Startseite"
 
-#: settings.py:448
+#: settings.py:453
 msgid "Plan & Organize – First"
 msgstr "Planen & Organisieren - Erste Ebene"
 
-#: settings.py:449
+#: settings.py:454
 msgid "Plan & Organize - Second"
 msgstr "Planen & Organisieren - Zweite Ebene"
 
-#: settings.py:450
+#: settings.py:455
 msgid "Plan & Organize - Third"
 msgstr "Planen & Organisieren - Dritte Ebene"
 
-#: settings.py:452
+#: settings.py:457
 msgid "Magazine – Overview"
 msgstr "Magazin - Übersicht"
 
-#: settings.py:453
+#: settings.py:458
 msgid "Magazine - Detail"
 msgstr "Magazin - Detail"
 
-#: settings.py:454
+#: settings.py:459
 msgid "Magazine – Series"
 msgstr "Magazin - Serie"
 
-#: settings.py:455
+#: settings.py:460
 msgid "Magazine – Featured Series"
 msgstr "Magazin - Featured Serie"
 
@@ -274,9 +279,12 @@ msgstr "Untertitel"
 
 #: apps/editorial/models.py:16 apps/editorial/models.py:33
 #: apps/events/models.py:104 apps/events/forms/event.py:251
-#: apps/exhibitions/models.py:124 apps/exhibitions/forms/exhibition.py:248
+#: apps/exhibitions/models.py:124 apps/exhibitions/forms/exhibition.py:257
 #: apps/workshops/models.py:80 apps/workshops/forms/workshop.py:266
-#: templates/museumsportal/museums/museum_detail.html:81
+#: templates/museumsportal/events/event_detail.html:106
+#: templates/museumsportal/exhibitions/exhibition_detail.html:97
+#: templates/museumsportal/museums/museum_detail.html:90
+#: templates/museumsportal/workshops/workshop_detail.html:109
 msgid "Website"
 msgstr "Website"
 
@@ -314,9 +322,9 @@ msgstr "Einleitungen"
 
 #: apps/events/admin.py:59 apps/events/models.py:109
 #: apps/exhibitions/admin.py:117 apps/exhibitions/models.py:71
-#: apps/exhibitions/models.py:165 apps/museums/admin.py:89
-#: apps/museums/models.py:67 apps/museums/models.py:111
-#: apps/workshops/admin.py:47
+#: apps/exhibitions/models.py:165 apps/exhibitions/forms/exhibition.py:54
+#: apps/museums/admin.py:89 apps/museums/models.py:67
+#: apps/museums/models.py:111 apps/workshops/admin.py:47
 #: templates/museumsportal/events/event_list.html:35
 #: templates/museumsportal/exhibitions/exhibition_list.html:36
 #: templates/museumsportal/museums/museum_list.html:33
@@ -325,7 +333,7 @@ msgid "Categories"
 msgstr "Kategorien"
 
 #: apps/events/admin.py:60 apps/events/forms/event.py:139
-#: apps/exhibitions/admin.py:110 apps/exhibitions/forms/exhibition.py:147
+#: apps/exhibitions/admin.py:110 apps/exhibitions/forms/exhibition.py:156
 #: apps/museums/admin.py:97 apps/museums/forms/museum.py:513
 #: apps/twitterwall/models.py:117 apps/workshops/admin.py:51
 #: apps/workshops/forms/workshop.py:146
@@ -337,11 +345,11 @@ msgstr "Standort"
 
 #: apps/events/admin.py:61 apps/events/forms/event.py:307
 #: apps/events/forms/event.py:675 apps/exhibitions/admin.py:113
-#: apps/exhibitions/forms/exhibition.py:620 apps/museums/admin.py:90
+#: apps/exhibitions/forms/exhibition.py:633 apps/museums/admin.py:90
 #: apps/workshops/admin.py:52 apps/workshops/forms/workshop.py:322
 #: apps/workshops/forms/workshop.py:745
-#: templates/museumsportal/events/event_detail.html:259
-#: templates/museumsportal/workshops/workshop_detail.html:121
+#: templates/museumsportal/events/event_detail.html:154
+#: templates/museumsportal/workshops/workshop_detail.html:159
 msgid "Prices"
 msgstr "Preise"
 
@@ -352,7 +360,7 @@ msgstr "Details"
 
 #: apps/events/admin.py:62 apps/events/models.py:107
 #: apps/exhibitions/admin.py:119 apps/exhibitions/models.py:167
-#: apps/museums/admin.py:109 apps/museums/models.py:176
+#: apps/museums/admin.py:109 apps/museums/models.py:177
 #: apps/twitterwall/models.py:144 apps/workshops/admin.py:53
 #: apps/workshops/models.py:83
 msgid "Status"
@@ -364,10 +372,11 @@ msgid "Geoposition?"
 msgstr "Geoposition?"
 
 #: apps/events/cms_app.py:8
-#: templates/museumsportal/accounts/dashboard.html:114
+#: templates/museumsportal/accounts/dashboard.html:122
 #: templates/museumsportal/accounts/dashboard_events.html:14
 #: templates/museumsportal/events/event_list.html:4
 #: templates/museumsportal/events/forms/base.html:31
+#: templates/museumsportal/exhibitions/exhibition_detail.html:568
 #: templates/museumsportal/favorites/favorites.html:76
 msgid "Events"
 msgstr "Veranstaltungen"
@@ -378,12 +387,24 @@ msgstr "Veranstaltungen"
 
 #: apps/events/models.py:39 apps/exhibitions/models.py:45
 #: apps/museums/models.py:42 apps/workshops/models.py:39
+#: templates/museumsportal/accounts/dashboard.html:101
+#: templates/museumsportal/accounts/dashboard.html:135
+#: templates/museumsportal/accounts/dashboard.html:169
+#: templates/museumsportal/accounts/dashboard_events.html:27
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:27
+#: templates/museumsportal/accounts/dashboard_workshops.html:27
 msgid "Draft"
 msgstr "Entwurf"
 
 #: apps/events/models.py:40 apps/exhibitions/models.py:46
 #: apps/museums/models.py:43 apps/twitterwall/models.py:108
 #: apps/workshops/models.py:40
+#: templates/museumsportal/accounts/dashboard.html:102
+#: templates/museumsportal/accounts/dashboard.html:136
+#: templates/museumsportal/accounts/dashboard.html:170
+#: templates/museumsportal/accounts/dashboard_events.html:28
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:28
+#: templates/museumsportal/accounts/dashboard_workshops.html:28
 msgid "Published"
 msgstr "Veröffentlicht"
 
@@ -400,6 +421,12 @@ msgstr "Importiert"
 
 #: apps/events/models.py:43 apps/exhibitions/models.py:48
 #: apps/workshops/models.py:43
+#: templates/museumsportal/accounts/dashboard.html:103
+#: templates/museumsportal/accounts/dashboard.html:137
+#: templates/museumsportal/accounts/dashboard.html:171
+#: templates/museumsportal/accounts/dashboard_events.html:29
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:29
+#: templates/museumsportal/accounts/dashboard_workshops.html:29
 msgid "Expired"
 msgstr "Abgelaufen"
 
@@ -431,12 +458,12 @@ msgid "tags"
 msgstr "Stichworte"
 
 #: apps/events/models.py:111 apps/workshops/models.py:86
-#: templates/museumsportal/events/event_detail.html:314
-#: templates/museumsportal/workshops/workshop_detail.html:217
+#: templates/museumsportal/events/event_detail.html:209
+#: templates/museumsportal/workshops/workshop_detail.html:233
 msgid "Languages"
 msgstr "Sprachen"
 
-#: apps/events/models.py:112 apps/museums/models.py:172
+#: apps/events/models.py:112 apps/museums/models.py:173
 #: apps/workshops/models.py:87
 msgid "Other languages"
 msgstr "Andere Sprachen"
@@ -446,8 +473,8 @@ msgid "Also suitable for children"
 msgstr "Geeignet für Kinder"
 
 #: apps/events/models.py:115 apps/exhibitions/admin.py:129
-#: apps/exhibitions/models.py:117 apps/museums/models.py:190
-#: apps/museums/models.py:491 apps/site_specific/forms.py:64
+#: apps/exhibitions/models.py:117 apps/museums/models.py:191
+#: apps/museums/models.py:492 apps/site_specific/forms.py:64
 #: apps/workshops/models.py:99
 #: templates/museumsportal/museums/museum_detail.html:3
 msgid "Museum"
@@ -527,8 +554,8 @@ msgstr ""
 #: apps/events/models.py:125 apps/events/forms/event.py:50
 #: apps/events/forms/event.py:188 apps/workshops/models.py:109
 #: apps/workshops/forms/workshop.py:50 apps/workshops/forms/workshop.py:195
-#: templates/museumsportal/events/event_detail.html:89
-#: templates/museumsportal/workshops/workshop_detail.html:91
+#: templates/museumsportal/events/event_detail.html:99
+#: templates/museumsportal/workshops/workshop_detail.html:102
 msgid "Related exhibition"
 msgstr "Zugehörige Ausstellung"
 
@@ -557,8 +584,8 @@ msgid "Reduced admission price (€)"
 msgstr "Eintrittspreis ermäßigt (€)"
 
 #: apps/events/models.py:132 apps/workshops/models.py:116
-#: templates/museumsportal/events/event_detail.html:286
-#: templates/museumsportal/workshops/workshop_detail.html:157
+#: templates/museumsportal/events/event_detail.html:181
+#: templates/museumsportal/workshops/workshop_detail.html:195
 msgid "Booking info"
 msgstr "Buchungsinformation"
 
@@ -613,9 +640,9 @@ msgstr "Website des Veranstalters"
 
 #: apps/events/models.py:322 apps/exhibitions/models.py:352
 #: apps/workshops/models.py:306
-#: templates/museumsportal/events/event_detail.html:70
-#: templates/museumsportal/exhibitions/exhibition_detail.html:68
-#: templates/museumsportal/workshops/workshop_detail.html:72
+#: templates/museumsportal/events/event_detail.html:80
+#: templates/museumsportal/exhibitions/exhibition_detail.html:78
+#: templates/museumsportal/workshops/workshop_detail.html:83
 msgid "Organizer"
 msgstr "Veranstalter"
 
@@ -624,30 +651,30 @@ msgstr "Veranstalter"
 msgid "Organizers"
 msgstr "Veranstalter"
 
-#: apps/events/models.py:327 apps/exhibitions/models.py:443
-#: apps/museums/models.py:492 apps/slideshows/models.py:29
+#: apps/events/models.py:327 apps/exhibitions/models.py:444
+#: apps/museums/models.py:493 apps/slideshows/models.py:29
 #: apps/workshops/models.py:311
 msgid "File path"
 msgstr "Dateipfad"
 
-#: apps/events/models.py:327 apps/exhibitions/models.py:443
-#: apps/museums/models.py:492 apps/workshops/models.py:311
+#: apps/events/models.py:327 apps/exhibitions/models.py:444
+#: apps/museums/models.py:493 apps/workshops/models.py:311
 msgid "A path to a locally stored image, video, or audio file."
 msgstr "Dateipfad zu einem lokal gespeicherten Bild oder Video"
 
-#: apps/events/models.py:328 apps/exhibitions/models.py:444
-#: apps/museums/models.py:493 apps/slideshows/models.py:36
+#: apps/events/models.py:328 apps/exhibitions/models.py:445
+#: apps/museums/models.py:494 apps/slideshows/models.py:36
 #: apps/workshops/models.py:312
 msgid "Sort order"
 msgstr "Reihenfolge"
 
-#: apps/events/models.py:332 apps/exhibitions/models.py:448
-#: apps/museums/models.py:497 apps/workshops/models.py:316
+#: apps/events/models.py:332 apps/exhibitions/models.py:449
+#: apps/museums/models.py:498 apps/workshops/models.py:316
 msgid "Media File"
 msgstr "Mediendatei"
 
-#: apps/events/models.py:333 apps/exhibitions/models.py:449
-#: apps/museums/models.py:498 apps/workshops/models.py:317
+#: apps/events/models.py:333 apps/exhibitions/models.py:450
+#: apps/museums/models.py:499 apps/workshops/models.py:317
 msgid "Media Files"
 msgstr "Mediendaten"
 
@@ -658,53 +685,33 @@ msgstr "Neu eröffnet"
 
 #: apps/events/views.py:43 apps/exhibitions/models.py:152
 #: apps/exhibitions/views.py:43 apps/workshops/views.py:43
-#: templates/museumsportal/exhibitions/exhibition_list.html:79
+#: templates/museumsportal/exhibitions/exhibition_list.html:96
 msgid "Closing soon"
 msgstr "Nur noch kurze Zeit"
 
-#: apps/events/forms/event.py:34 apps/events/forms/event.py:230
-#: apps/exhibitions/forms/exhibition.py:35
-#: apps/exhibitions/forms/exhibition.py:227
-#: apps/workshops/forms/workshop.py:34 apps/workshops/forms/workshop.py:245
-msgid "Museum from the list / <a href=\"#\">Free location</a>"
+#: apps/events/forms/event.py:34 apps/exhibitions/forms/exhibition.py:39
+#: apps/workshops/forms/workshop.py:34
+#, fuzzy
+msgid "Museum from the list <b>(active)</b> / <a href=\"#\">Free location</a>"
 msgstr "Gelistetes Museum / <a href=\"#\">Sonstiger Ort</a>"
 
-#: apps/events/forms/event.py:35 apps/exhibitions/forms/exhibition.py:36
-#: apps/workshops/forms/workshop.py:35
-msgid ""
-"If location doesn't exist in the database, please click <a href=\"#\">here</"
-"a> to enter it."
-msgstr ""
-"Sollte der Veranstaltungsort nicht in der Datenbank  existieren, klicken Sie "
-"bitte <a href=\"#\">hier,</a> um ihn einzutragen.  "
-
-#: apps/events/forms/event.py:91 apps/events/forms/event.py:250
-#: apps/exhibitions/forms/exhibition.py:79
-#: apps/exhibitions/forms/exhibition.py:247
-#: apps/workshops/forms/workshop.py:97 apps/workshops/forms/workshop.py:265
-msgid "Free location / <a href=\"#\">Museum from the list</a>"
+#: apps/events/forms/event.py:91 apps/exhibitions/forms/exhibition.py:88
+#: apps/workshops/forms/workshop.py:97
+#, fuzzy
+msgid "Free location <b>(active)</b> / <a href=\"#\">Museum from the list</a>"
 msgstr "Sonstiger Ort / <a href=\"#\">Gelistetes Museum</a>"
 
-#: apps/events/forms/event.py:92 apps/exhibitions/forms/exhibition.py:80
-#: apps/workshops/forms/workshop.py:98
-msgid ""
-"If you want to select a location from the database, please click <a href=\"#"
-"\">here</a>."
-msgstr ""
-"Zum Eintragen eines in der Datenbank gelisteten Veranstaltungsortes klicken "
-"Sie bitte <a href=\"#\">hier</a>."
-
-#: apps/events/forms/event.py:114 apps/exhibitions/forms/exhibition.py:103
+#: apps/events/forms/event.py:114 apps/exhibitions/forms/exhibition.py:112
 #: apps/workshops/forms/workshop.py:120
 msgid "Basic Info"
 msgstr "Basisinformation"
 
-#: apps/events/forms/event.py:168 apps/exhibitions/forms/exhibition.py:176
+#: apps/events/forms/event.py:168 apps/exhibitions/forms/exhibition.py:185
 #: apps/workshops/forms/workshop.py:175
 msgid "Organizers (when differ from location)"
 msgstr "Veranstalter (falls nicht identisch mit Standort)"
 
-#: apps/events/forms/event.py:193 apps/exhibitions/forms/exhibition.py:196
+#: apps/events/forms/event.py:193 apps/exhibitions/forms/exhibition.py:205
 #: apps/workshops/forms/workshop.py:200
 #: templates/museumsportal/museums/forms/basic_info_form.html:74
 msgid "Categories and Tags"
@@ -713,14 +720,14 @@ msgstr "Kategorien und Stichworte"
 #: apps/events/forms/event.py:213 apps/events/forms/event.py:219
 #: apps/events/forms/event.py:334 apps/events/forms/event.py:340
 #: apps/events/forms/event.py:360 apps/events/forms/event.py:366
-#: apps/exhibitions/forms/exhibition.py:210
-#: apps/exhibitions/forms/exhibition.py:216
-#: apps/exhibitions/forms/exhibition.py:289
-#: apps/exhibitions/forms/exhibition.py:295
-#: apps/exhibitions/forms/exhibition.py:638
-#: apps/exhibitions/forms/exhibition.py:644
-#: apps/exhibitions/forms/exhibition.py:689
-#: apps/exhibitions/forms/exhibition.py:695 apps/museums/forms/museum.py:98
+#: apps/exhibitions/forms/exhibition.py:219
+#: apps/exhibitions/forms/exhibition.py:225
+#: apps/exhibitions/forms/exhibition.py:298
+#: apps/exhibitions/forms/exhibition.py:304
+#: apps/exhibitions/forms/exhibition.py:651
+#: apps/exhibitions/forms/exhibition.py:657
+#: apps/exhibitions/forms/exhibition.py:702
+#: apps/exhibitions/forms/exhibition.py:708 apps/museums/forms/museum.py:98
 #: apps/museums/forms/museum.py:104 apps/museums/forms/museum.py:124
 #: apps/museums/forms/museum.py:130 apps/museums/forms/museum.py:461
 #: apps/museums/forms/museum.py:467 apps/museums/forms/museum.py:598
@@ -736,11 +743,11 @@ msgstr "Weiter"
 
 #: apps/events/forms/event.py:214 apps/events/forms/event.py:335
 #: apps/events/forms/event.py:361 apps/events/forms/event.py:413
-#: apps/exhibitions/forms/exhibition.py:211
-#: apps/exhibitions/forms/exhibition.py:290
-#: apps/exhibitions/forms/exhibition.py:639
-#: apps/exhibitions/forms/exhibition.py:690
-#: apps/exhibitions/forms/exhibition.py:716 apps/museums/forms/museum.py:99
+#: apps/exhibitions/forms/exhibition.py:220
+#: apps/exhibitions/forms/exhibition.py:299
+#: apps/exhibitions/forms/exhibition.py:652
+#: apps/exhibitions/forms/exhibition.py:703
+#: apps/exhibitions/forms/exhibition.py:729 apps/museums/forms/museum.py:99
 #: apps/museums/forms/museum.py:125 apps/museums/forms/museum.py:462
 #: apps/museums/forms/museum.py:599 apps/museums/forms/museum.py:668
 #: apps/museums/forms/museum.py:727 apps/museums/forms/museum.py:795
@@ -756,16 +763,16 @@ msgstr "Speichern und schließen"
 #: apps/events/forms/event.py:362 apps/events/forms/event.py:367
 #: apps/events/forms/event.py:414 apps/events/forms/event.py:419
 #: apps/events/forms/gallery.py:87 apps/events/forms/gallery.py:144
-#: apps/exhibitions/forms/exhibition.py:212
-#: apps/exhibitions/forms/exhibition.py:217
-#: apps/exhibitions/forms/exhibition.py:291
-#: apps/exhibitions/forms/exhibition.py:296
-#: apps/exhibitions/forms/exhibition.py:640
-#: apps/exhibitions/forms/exhibition.py:645
-#: apps/exhibitions/forms/exhibition.py:691
-#: apps/exhibitions/forms/exhibition.py:696
-#: apps/exhibitions/forms/exhibition.py:717
-#: apps/exhibitions/forms/exhibition.py:722
+#: apps/exhibitions/forms/exhibition.py:221
+#: apps/exhibitions/forms/exhibition.py:226
+#: apps/exhibitions/forms/exhibition.py:300
+#: apps/exhibitions/forms/exhibition.py:305
+#: apps/exhibitions/forms/exhibition.py:653
+#: apps/exhibitions/forms/exhibition.py:658
+#: apps/exhibitions/forms/exhibition.py:704
+#: apps/exhibitions/forms/exhibition.py:709
+#: apps/exhibitions/forms/exhibition.py:730
+#: apps/exhibitions/forms/exhibition.py:735
 #: apps/exhibitions/forms/gallery.py:87 apps/exhibitions/forms/gallery.py:144
 #: apps/museums/forms/gallery.py:87 apps/museums/forms/gallery.py:144
 #: apps/museums/forms/museum.py:100 apps/museums/forms/museum.py:105
@@ -785,31 +792,27 @@ msgstr "Speichern und schließen"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: apps/events/forms/event.py:231 apps/exhibitions/forms/exhibition.py:228
-#: apps/workshops/forms/workshop.py:246
+#: apps/events/forms/event.py:230 apps/exhibitions/forms/exhibition.py:236
+#: apps/workshops/forms/workshop.py:245
+#, fuzzy
 msgid ""
-"If organizer doesn't exist in the database, please click <a href=\"#\">here</"
-"a> to enter it."
-msgstr ""
-"Sollte der Veranstalter nicht in der Datenbank  existieren, klicken Sie "
-"bitte <a href=\"#\">hier,</a> um ihn einzutragen.  "
+"Museum from the list <b>(active)</b> / <a href=\"#\">Other Organizer</a>"
+msgstr "Gelistetes Museum / <a href=\"#\">Sonstiger Ort</a>"
 
-#: apps/events/forms/event.py:252 apps/exhibitions/forms/exhibition.py:249
-#: apps/workshops/forms/workshop.py:267
+#: apps/events/forms/event.py:250 apps/exhibitions/forms/exhibition.py:256
+#: apps/workshops/forms/workshop.py:265
+#, fuzzy
 msgid ""
-"If you want to select an organizer from the database, please click <a href="
-"\"#\">here</a>."
-msgstr ""
-"Zum Eintragen eines in der Datenbank gelisteten Veranstalters klicken Sie "
-"bitte <a href=\"#\">hier</a>."
+"Other Organizer <b>(active)</b> / <a href=\"#\">Museum from the list</a>"
+msgstr "Sonstiger Ort / <a href=\"#\">Gelistetes Museum</a>"
 
-#: apps/events/forms/event.py:418 apps/exhibitions/forms/exhibition.py:721
+#: apps/events/forms/event.py:418 apps/exhibitions/forms/exhibition.py:734
 #: apps/museums/forms/museum.py:826 apps/workshops/forms/workshop.py:465
 #: templates/museumsportal/image_mods/recrop.html:168
 msgid "Save"
 msgstr "Speichern"
 
-#: apps/events/forms/event.py:659 apps/exhibitions/forms/exhibition.py:1252
+#: apps/events/forms/event.py:659 apps/exhibitions/forms/exhibition.py:1269
 #: apps/museums/forms/museum.py:1354 apps/workshops/forms/workshop.py:729
 msgid "Basic Information"
 msgstr "Basisinformation"
@@ -818,12 +821,12 @@ msgstr "Basisinformation"
 msgid "Times"
 msgstr "Zeiten"
 
-#: apps/events/forms/event.py:680 apps/exhibitions/forms/exhibition.py:1279
+#: apps/events/forms/event.py:680 apps/exhibitions/forms/exhibition.py:1296
 #: apps/museums/forms/museum.py:1396 apps/workshops/forms/workshop.py:750
 msgid "Images"
 msgstr "Bilddaten"
 
-#: apps/events/forms/event.py:689 apps/exhibitions/forms/exhibition.py:1288
+#: apps/events/forms/event.py:689 apps/exhibitions/forms/exhibition.py:1305
 #: apps/museums/forms/museum.py:1405 apps/workshops/forms/workshop.py:759
 msgid ""
 "There are errors in this form. Please correct them and try to save again."
@@ -886,15 +889,15 @@ msgstr "Bilddatei löschen?"
 
 #: apps/events/forms/gallery.py:143 apps/exhibitions/forms/gallery.py:143
 #: apps/museums/forms/gallery.py:143 apps/workshops/forms/gallery.py:143
-#: templates/museumsportal/accounts/dashboard.html:101
-#: templates/museumsportal/accounts/dashboard.html:127
-#: templates/museumsportal/accounts/dashboard.html:153
-#: templates/museumsportal/accounts/dashboard_events.html:27
-#: templates/museumsportal/accounts/dashboard_exhibitions.html:28
-#: templates/museumsportal/accounts/dashboard_workshops.html:27
+#: templates/museumsportal/accounts/dashboard.html:109
+#: templates/museumsportal/accounts/dashboard.html:143
+#: templates/museumsportal/accounts/dashboard.html:177
+#: templates/museumsportal/accounts/dashboard_events.html:35
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:35
+#: templates/museumsportal/accounts/dashboard_workshops.html:35
 #: templates/museumsportal/events/forms/basic_info_form.html:110
 #: templates/museumsportal/events/forms/times_form.html:98
-#: templates/museumsportal/exhibitions/forms/basic_info_form.html:109
+#: templates/museumsportal/exhibitions/forms/basic_info_form.html:110
 #: templates/museumsportal/exhibitions/forms/opening_form.html:151
 #: templates/museumsportal/museums/forms/address_form.html:83
 #: templates/museumsportal/museums/forms/opening_form.html:151
@@ -906,26 +909,25 @@ msgstr "Löschen"
 #: apps/exhibitions/admin.py:46 apps/museums/admin.py:63
 #: apps/workshops/forms/workshop.py:425
 #: templates/museumsportal/events/forms/times_form.html:12
-#: templates/museumsportal/utils/bvg.html:42 utils/forms.py:58
+#: templates/museumsportal/utils/bvg.html:42 utils/forms.py:63
 msgid "Date"
 msgstr "Datum"
 
-#: apps/exhibitions/admin.py:47 apps/exhibitions/forms/exhibition.py:1260
+#: apps/exhibitions/admin.py:47 apps/exhibitions/forms/exhibition.py:1277
 #: apps/museums/admin.py:64 apps/museums/forms/museum.py:367
 #: apps/museums/forms/museum.py:1359
 #: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:3
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:28
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:37
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:3
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:28
-#: templates/museumsportal/events/event_detail.html:119
-#: templates/museumsportal/exhibitions/exhibition_detail.html:168
-#: templates/museumsportal/museums/museum_detail.html:114
+#: templates/museumsportal/exhibitions/exhibition_detail.html:190
+#: templates/museumsportal/museums/museum_detail.html:117
 msgid "Opening hours"
 msgstr "Öffnungszeiten"
 
 #: apps/exhibitions/admin.py:47 apps/museums/admin.py:64
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:145
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:172
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:154
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:181
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:145
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:172
 msgid "Exceptions"
@@ -936,7 +938,7 @@ msgid "Other locations"
 msgstr "Andere Standorte"
 
 #: apps/exhibitions/admin.py:112 templates/museumsportal/utils/bvg.html:48
-#: utils/forms.py:60
+#: utils/forms.py:65
 msgid "Time"
 msgstr "Zeit"
 
@@ -950,7 +952,7 @@ msgid "Suitability"
 msgstr "Eignung"
 
 #: apps/exhibitions/cms_app.py:8 apps/exhibitions/models.py:183
-#: templates/museumsportal/accounts/dashboard.html:87
+#: templates/museumsportal/accounts/dashboard.html:88
 #: templates/museumsportal/accounts/dashboard_exhibitions.html:14
 #: templates/museumsportal/exhibitions/exhibition_list.html:3
 #: templates/museumsportal/exhibitions/forms/base.html:33
@@ -972,22 +974,22 @@ msgid "Press text"
 msgstr "Pressetext"
 
 #: apps/exhibitions/models.py:125
-#: templates/museumsportal/exhibitions/exhibition_detail.html:142
+#: templates/museumsportal/exhibitions/exhibition_detail.html:162
 msgid "Catalog"
 msgstr "Katalog"
 
 #: apps/exhibitions/models.py:126
 msgid "Catalog ordering possibilities"
-msgstr ""
+msgstr "Bestellmöglichkeiten Katalog"
 
 #: apps/exhibitions/models.py:128 apps/exhibitions/models.py:358
-#: apps/museums/models.py:417
+#: apps/museums/models.py:418
 #: templates/museumsportal/events/forms/times_form.html:13
 msgid "Start"
 msgstr "Von"
 
 #: apps/exhibitions/models.py:129 apps/exhibitions/models.py:359
-#: apps/museums/models.py:418
+#: apps/museums/models.py:419
 #: templates/museumsportal/events/forms/times_form.html:14
 msgid "End"
 msgstr "Bis"
@@ -997,7 +999,7 @@ msgid "Exhibition extended"
 msgstr "Ausstellung verlängert"
 
 #: apps/exhibitions/models.py:133
-#: templates/museumsportal/exhibitions/exhibition_detail.html:444
+#: templates/museumsportal/exhibitions/exhibition_detail.html:495
 msgid "Permanent exhibition"
 msgstr "Dauerausstellung"
 
@@ -1019,11 +1021,11 @@ msgstr "Siehe Preisinformation des Museums"
 
 #: apps/exhibitions/models.py:156 apps/museums/models.py:142
 #: apps/museums/views.py:62
-#: templates/museumsportal/events/event_detail.html:266
-#: templates/museumsportal/exhibitions/exhibition_detail.html:292
-#: templates/museumsportal/exhibitions/exhibition_detail.html:383
-#: templates/museumsportal/museums/museum_detail.html:244
-#: templates/museumsportal/museums/museum_list.html:75
+#: templates/museumsportal/events/event_detail.html:161
+#: templates/museumsportal/exhibitions/exhibition_detail.html:341
+#: templates/museumsportal/exhibitions/exhibition_detail.html:432
+#: templates/museumsportal/museums/museum_detail.html:260
+#: templates/museumsportal/museums/museum_list.html:90
 msgid "Free entrance"
 msgstr "Eintritt frei"
 
@@ -1043,125 +1045,129 @@ msgstr "Spezielle Eignung für Menschen mit Behinderung"
 msgid "Special for children / families / youth"
 msgstr "Speziell für Kinder / Familien / Jugendliche"
 
-#: apps/exhibitions/models.py:182 apps/exhibitions/models.py:442
+#: apps/exhibitions/models.py:182 apps/exhibitions/models.py:443
 #: templates/museumsportal/exhibitions/exhibition_detail.html:3
 msgid "Exhibition"
 msgstr "Ausstellung"
 
-#: apps/exhibitions/models.py:357 apps/museums/models.py:416
+#: apps/exhibitions/models.py:357 apps/museums/models.py:417
 msgid "Season title"
 msgstr "Name der Saison"
 
-#: apps/exhibitions/models.py:360 apps/museums/models.py:419
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:134
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:161
+#: apps/exhibitions/models.py:360 apps/museums/models.py:420
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:143
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:170
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:134
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:161
-#: templates/museumsportal/events/event_detail.html:152
-#: templates/museumsportal/events/event_detail.html:194
-#: templates/museumsportal/exhibitions/exhibition_detail.html:206
-#: templates/museumsportal/exhibitions/exhibition_detail.html:245
-#: templates/museumsportal/museums/museum_detail.html:153
-#: templates/museumsportal/museums/museum_detail.html:195
+#: templates/museumsportal/exhibitions/exhibition_detail.html:236
+#: templates/museumsportal/exhibitions/exhibition_detail.html:286
+#: templates/museumsportal/museums/museum_detail.html:159
+#: templates/museumsportal/museums/museum_detail.html:207
 msgid "Last entry"
 msgstr "Letzter Einlass"
 
-#: apps/exhibitions/models.py:369 apps/exhibitions/forms/exhibition.py:347
-#: apps/museums/models.py:428 apps/museums/forms/museum.py:183
+#: apps/exhibitions/models.py:361
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:17
+#: templates/museumsportal/exhibitions/exhibition_detail.html:207
+msgid "Open 24/7"
+msgstr ""
+
+#: apps/exhibitions/models.py:370 apps/exhibitions/forms/exhibition.py:356
+#: apps/museums/models.py:429 apps/museums/forms/museum.py:183
 msgid "Season"
 msgstr "Saison"
 
-#: apps/exhibitions/models.py:370 apps/museums/models.py:429
+#: apps/exhibitions/models.py:371 apps/museums/models.py:430
 msgid "Seasons"
 msgstr "Saisons"
 
-#: apps/exhibitions/models.py:374 apps/museums/models.py:433
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:32
+#: apps/exhibitions/models.py:375 apps/museums/models.py:434
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:41
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:32
 msgid "Monday"
 msgstr "Montag"
 
-#: apps/exhibitions/models.py:375 apps/museums/models.py:434
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:33
+#: apps/exhibitions/models.py:376 apps/museums/models.py:435
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:42
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:33
 msgid "Tuesday"
 msgstr "Dienstag"
 
-#: apps/exhibitions/models.py:376 apps/museums/models.py:435
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:34
+#: apps/exhibitions/models.py:377 apps/museums/models.py:436
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:43
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:34
 msgid "Wednesday"
 msgstr "Mittwoch"
 
-#: apps/exhibitions/models.py:377 apps/museums/models.py:436
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:35
+#: apps/exhibitions/models.py:378 apps/museums/models.py:437
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:44
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:35
 msgid "Thursday"
 msgstr "Donnerstag"
 
-#: apps/exhibitions/models.py:378 apps/museums/models.py:437
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:36
+#: apps/exhibitions/models.py:379 apps/museums/models.py:438
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:45
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:36
 msgid "Friday"
 msgstr "Freitag"
 
-#: apps/exhibitions/models.py:379 apps/museums/models.py:438
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:37
+#: apps/exhibitions/models.py:380 apps/museums/models.py:439
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:46
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:37
 msgid "Saturday"
 msgstr "Samstag"
 
-#: apps/exhibitions/models.py:380 apps/museums/models.py:439
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:38
+#: apps/exhibitions/models.py:381 apps/museums/models.py:440
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:47
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:38
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: apps/exhibitions/models.py:401 apps/museums/models.py:460
+#: apps/exhibitions/models.py:402 apps/museums/models.py:461
 msgid "Year"
 msgstr "Jahr"
 
-#: apps/exhibitions/models.py:401 apps/museums/models.py:460
+#: apps/exhibitions/models.py:402 apps/museums/models.py:461
 msgid ""
 "Leave this field empty, if the occasion happens every year at the same time."
 msgstr ""
 "Lassen Sie dieses Feld leer falls die Veranstaltung jedes Jahr zur gleichen "
 "Zeit stattfindet"
 
-#: apps/exhibitions/models.py:402 apps/museums/models.py:461
+#: apps/exhibitions/models.py:403 apps/museums/models.py:462
 msgid "Month"
 msgstr "Monat"
 
-#: apps/exhibitions/models.py:403 apps/museums/models.py:462
+#: apps/exhibitions/models.py:404 apps/museums/models.py:463
 msgid "Day"
 msgstr "Tag"
 
-#: apps/exhibitions/models.py:405 apps/museums/models.py:464
+#: apps/exhibitions/models.py:406 apps/museums/models.py:465
 msgid "Day label"
 msgstr "Tagesbezeichnung"
 
-#: apps/exhibitions/models.py:405 apps/museums/models.py:464
+#: apps/exhibitions/models.py:406 apps/museums/models.py:465
 msgid "e.g. Christmas, Easter, etc."
 msgstr "z.B. Weihnachten, Ostern, etc."
 
-#: apps/exhibitions/models.py:407 apps/exhibitions/forms/exhibition.py:303
-#: apps/exhibitions/forms/exhibition.py:304
-#: apps/exhibitions/forms/exhibition.py:305
-#: apps/exhibitions/forms/exhibition.py:306
-#: apps/exhibitions/forms/exhibition.py:307
-#: apps/exhibitions/forms/exhibition.py:308
-#: apps/exhibitions/forms/exhibition.py:309 apps/museums/models.py:466
+#: apps/exhibitions/models.py:408 apps/exhibitions/forms/exhibition.py:312
+#: apps/exhibitions/forms/exhibition.py:313
+#: apps/exhibitions/forms/exhibition.py:314
+#: apps/exhibitions/forms/exhibition.py:315
+#: apps/exhibitions/forms/exhibition.py:316
+#: apps/exhibitions/forms/exhibition.py:317
+#: apps/exhibitions/forms/exhibition.py:318 apps/museums/models.py:467
 #: apps/museums/forms/museum.py:138 apps/museums/forms/museum.py:139
 #: apps/museums/forms/museum.py:140 apps/museums/forms/museum.py:141
 #: apps/museums/forms/museum.py:142 apps/museums/forms/museum.py:143
 #: apps/museums/forms/museum.py:144
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:117
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:118
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:119
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:120
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:121
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:122
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:123
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:126
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:127
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:128
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:129
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:130
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:131
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:132
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:117
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:118
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:119
@@ -1169,103 +1175,99 @@ msgstr "z.B. Weihnachten, Ostern, etc."
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:121
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:122
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:123
-#: templates/museumsportal/events/event_detail.html:211
-#: templates/museumsportal/exhibitions/exhibition_detail.html:259
-#: templates/museumsportal/museums/museum_detail.html:212
+#: templates/museumsportal/exhibitions/exhibition_detail.html:306
+#: templates/museumsportal/museums/museum_detail.html:226
 msgid "Closed"
 msgstr "Geschlossen"
 
-#: apps/exhibitions/models.py:408 apps/museums/models.py:467
-#: templates/museumsportal/events/event_detail.html:214
-#: templates/museumsportal/exhibitions/exhibition_detail.html:262
-#: templates/museumsportal/museums/museum_detail.html:215
+#: apps/exhibitions/models.py:409 apps/museums/models.py:468
 msgid "Regular Opening hours"
 msgstr "Reguläre Öffnungszeiten"
 
-#: apps/exhibitions/models.py:410 apps/museums/models.py:469
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:44
+#: apps/exhibitions/models.py:411 apps/museums/models.py:470
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:53
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:44
 msgid "Opens"
 msgstr "Öffnet"
 
-#: apps/exhibitions/models.py:411 apps/museums/models.py:470
+#: apps/exhibitions/models.py:412 apps/museums/models.py:471
 msgid "Break Starts"
 msgstr "Pausenbeginn"
 
-#: apps/exhibitions/models.py:412 apps/museums/models.py:471
+#: apps/exhibitions/models.py:413 apps/museums/models.py:472
 msgid "Break Ends"
 msgstr "Pausenende"
 
-#: apps/exhibitions/models.py:413 apps/museums/models.py:472
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:98
+#: apps/exhibitions/models.py:414 apps/museums/models.py:473
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:107
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:98
 msgid "Closes"
 msgstr "Schließt"
 
-#: apps/exhibitions/models.py:415 apps/museums/models.py:474
+#: apps/exhibitions/models.py:416 apps/museums/models.py:475
 msgid "Exceptions for working hours"
 msgstr "Sonderöffnungszeiten"
 
-#: apps/exhibitions/models.py:427 apps/museums/models.py:486
+#: apps/exhibitions/models.py:428 apps/museums/models.py:487
 msgid "Special opening time"
 msgstr "Sonderöffnungszeiten"
 
-#: apps/exhibitions/models.py:428 apps/museums/models.py:487
+#: apps/exhibitions/models.py:429 apps/museums/models.py:488
 msgid "Special Opening hours"
 msgstr "Besondere Öffnungszeiten"
 
-#: apps/exhibitions/models.py:438
+#: apps/exhibitions/models.py:439
 msgid "Newly opened exhibition"
 msgstr "Neu eröffnete Ausstellung"
 
-#: apps/exhibitions/models.py:439
+#: apps/exhibitions/models.py:440
 msgid "Newly opened exhibitions"
 msgstr "Neu eröffnete Ausstellungen"
 
-#: apps/exhibitions/forms/exhibition.py:30
+#: apps/exhibitions/forms/exhibition.py:34
 msgid "Particularities"
 msgstr "Besonderheiten"
 
-#: apps/exhibitions/forms/exhibition.py:132
+#: apps/exhibitions/forms/exhibition.py:141
 msgid "Duration"
 msgstr "Dauer"
 
-#: apps/exhibitions/forms/exhibition.py:322 apps/museums/forms/museum.py:157
+#: apps/exhibitions/forms/exhibition.py:331 apps/museums/forms/museum.py:157
 msgid "Additional Information"
 msgstr "Zusatzinformation"
 
-#: apps/exhibitions/forms/exhibition.py:463
-#: apps/exhibitions/forms/exhibition.py:579 apps/museums/forms/museum.py:304
+#: apps/exhibitions/forms/exhibition.py:476
+#: apps/exhibitions/forms/exhibition.py:592 apps/museums/forms/museum.py:304
 #: apps/museums/forms/museum.py:380
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:131
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:158
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:140
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:167
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:131
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:158
 msgid "Additional info"
 msgstr "Weitere Informationen"
 
-#: apps/exhibitions/forms/exhibition.py:507 apps/museums/forms/museum.py:341
+#: apps/exhibitions/forms/exhibition.py:520 apps/museums/forms/museum.py:341
 msgid "Every year"
 msgstr "Jährlich"
 
-#: apps/exhibitions/forms/exhibition.py:525
+#: apps/exhibitions/forms/exhibition.py:538
 msgid "Closing Time / Holiday"
 msgstr "Schließ- bzw. Feiertag"
 
-#: apps/exhibitions/forms/exhibition.py:629 apps/museums/forms/museum.py:435
+#: apps/exhibitions/forms/exhibition.py:642 apps/museums/forms/museum.py:435
 msgid "Reduced Prices"
 msgstr "Ermäßigter Preis"
 
-#: apps/exhibitions/forms/exhibition.py:676
-#: apps/exhibitions/forms/exhibition.py:1274 apps/museums/admin.py:100
+#: apps/exhibitions/forms/exhibition.py:689
+#: apps/exhibitions/forms/exhibition.py:1291 apps/museums/admin.py:100
 #: apps/museums/models.py:154 apps/museums/forms/museum.py:713
 #: apps/museums/forms/museum.py:1386
-#: templates/museumsportal/exhibitions/exhibition_detail.html:414
-#: templates/museumsportal/museums/museum_detail.html:353
+#: templates/museumsportal/exhibitions/exhibition_detail.html:465
+#: templates/museumsportal/museums/museum_detail.html:369
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
-#: apps/exhibitions/forms/exhibition.py:1269 apps/museums/forms/museum.py:426
+#: apps/exhibitions/forms/exhibition.py:1286 apps/museums/forms/museum.py:426
 #: apps/museums/forms/museum.py:1368
 msgid "Admission"
 msgstr "Eintrittspreis"
@@ -1291,7 +1293,7 @@ msgid "Phone"
 msgstr "Tel."
 
 #: apps/museums/admin.py:98
-#: templates/museumsportal/museums/museum_detail.html:74
+#: templates/museumsportal/museums/museum_detail.html:84
 msgid "Fax"
 msgstr "Fax"
 
@@ -1317,7 +1319,7 @@ msgstr "Erklärung"
 
 #: apps/museums/admin.py:101 apps/museums/forms/museum.py:653
 #: apps/museums/forms/museum.py:1381
-#: templates/museumsportal/museums/museum_detail.html:305
+#: templates/museumsportal/museums/museum_detail.html:321
 msgid "Services"
 msgstr "Service"
 
@@ -1329,8 +1331,8 @@ msgstr "Museumsmitarbeiter einladen"
 msgid "Owners"
 msgstr "Besitzer"
 
-#: apps/museums/cms_app.py:8 apps/museums/models.py:191
-#: templates/museumsportal/accounts/dashboard.html:166
+#: apps/museums/cms_app.py:8 apps/museums/models.py:192
+#: templates/museumsportal/accounts/dashboard.html:190
 #: templates/museumsportal/accounts/dashboard_museums.html:14
 #: templates/museumsportal/favorites/favorites.html:26
 #: templates/museumsportal/museums/museum_list.html:3
@@ -1346,7 +1348,7 @@ msgstr "Reihenfolge"
 msgid "Accessibility option"
 msgstr "Barrierefreiheit"
 
-#: apps/museums/models.py:85 apps/museums/models.py:155
+#: apps/museums/models.py:85 apps/museums/models.py:156
 msgid "Accessibility options"
 msgstr "Barrierefreiheit"
 
@@ -1386,25 +1388,25 @@ msgid "Email"
 msgstr "Email"
 
 #: apps/museums/models.py:139 apps/museums/views.py:61
-#: templates/museumsportal/museums/museum_list.html:74
+#: templates/museumsportal/museums/museum_list.html:89
 msgid "Open on Mondays"
 msgstr "Montags geöffnet"
 
 #: apps/museums/models.py:147
-#: templates/museumsportal/exhibitions/exhibition_detail.html:324
-#: templates/museumsportal/museums/museum_detail.html:264
+#: templates/museumsportal/exhibitions/exhibition_detail.html:373
+#: templates/museumsportal/museums/museum_detail.html:280
 msgid "Family ticket"
 msgstr "Familienticket"
 
 #: apps/museums/models.py:148 apps/museums/models.py:149
-#: templates/museumsportal/exhibitions/exhibition_detail.html:330
-#: templates/museumsportal/museums/museum_detail.html:270
+#: templates/museumsportal/exhibitions/exhibition_detail.html:379
+#: templates/museumsportal/museums/museum_detail.html:286
 msgid "Group ticket"
 msgstr "Gruppenticket"
 
 #: apps/museums/models.py:150
-#: templates/museumsportal/exhibitions/exhibition_detail.html:342
-#: templates/museumsportal/museums/museum_detail.html:276
+#: templates/museumsportal/exhibitions/exhibition_detail.html:391
+#: templates/museumsportal/museums/museum_detail.html:292
 msgid "Yearly ticket"
 msgstr "Jahreskarte"
 
@@ -1412,95 +1414,99 @@ msgstr "Jahreskarte"
 msgid "Museumspass Berlin"
 msgstr "Partner beim Museumspass Berlin "
 
-#: apps/museums/models.py:157 apps/museums/models.py:205
+#: apps/museums/models.py:155
+msgid "Mobidat"
+msgstr ""
+
+#: apps/museums/models.py:158 apps/museums/models.py:206
 msgid "Museum Shop"
 msgstr "Museumsshop"
 
-#: apps/museums/models.py:158 apps/museums/models.py:207
-#: templates/museumsportal/museums/museum_detail.html:315
+#: apps/museums/models.py:159 apps/museums/models.py:208
+#: templates/museumsportal/museums/museum_detail.html:331
 msgid "Restaurant"
 msgstr "Restaurant"
 
-#: apps/museums/models.py:159 apps/museums/models.py:209
-#: templates/museumsportal/museums/museum_detail.html:318
+#: apps/museums/models.py:160 apps/museums/models.py:210
+#: templates/museumsportal/museums/museum_detail.html:334
 msgid "Cafe"
 msgstr "Café"
 
-#: apps/museums/models.py:160 apps/museums/models.py:211
-#: templates/museumsportal/museums/museum_detail.html:321
+#: apps/museums/models.py:161 apps/museums/models.py:212
+#: templates/museumsportal/museums/museum_detail.html:337
 msgid "Library"
 msgstr "Bibliothek"
 
-#: apps/museums/models.py:161 apps/museums/models.py:213
-#: templates/museumsportal/museums/museum_detail.html:324
+#: apps/museums/models.py:162 apps/museums/models.py:214
+#: templates/museumsportal/museums/museum_detail.html:340
 msgid "Archive"
 msgstr "Archiv"
 
-#: apps/museums/models.py:162 apps/museums/models.py:215
-#: templates/museumsportal/museums/museum_detail.html:327
+#: apps/museums/models.py:163 apps/museums/models.py:216
+#: templates/museumsportal/museums/museum_detail.html:343
 msgid "Diaper changing table"
 msgstr "Wickeltisch"
 
-#: apps/museums/models.py:164
+#: apps/museums/models.py:165
 msgid "Audioguide"
 msgstr "Audioguide"
 
-#: apps/museums/models.py:167 apps/museums/models.py:225
+#: apps/museums/models.py:168 apps/museums/models.py:226
 #: apps/twitterwall/models.py:83
 msgid "French"
-msgstr "französisch"
+msgstr "Französisch"
 
-#: apps/museums/models.py:168 apps/museums/models.py:227
+#: apps/museums/models.py:169 apps/museums/models.py:228
 #: apps/twitterwall/models.py:89
 msgid "Italian"
-msgstr "italienisch"
+msgstr "Italienisch"
 
-#: apps/museums/models.py:169 apps/museums/models.py:229
+#: apps/museums/models.py:170 apps/museums/models.py:230
 #: apps/twitterwall/models.py:98
 msgid "Spanish"
-msgstr "spanisch"
+msgstr "Spanisch"
 
-#: apps/museums/models.py:170 apps/museums/models.py:231
+#: apps/museums/models.py:171 apps/museums/models.py:232
 #: apps/twitterwall/models.py:94
 msgid "Polish"
 msgstr "Polnisch"
 
-#: apps/museums/models.py:171 apps/museums/models.py:233
+#: apps/museums/models.py:172 apps/museums/models.py:234
 #: apps/twitterwall/models.py:102
 msgid "Turkish"
 msgstr "türkisch"
 
-#: apps/museums/models.py:173
+#: apps/museums/models.py:174
 msgid "Audioguide for children"
 msgstr "Audioguide für Kinder und Jugendliche"
 
-#: apps/museums/models.py:174
+#: apps/museums/models.py:175
 msgid "Audioguide for people with learning difficulties"
 msgstr "Audioguide speziell geeignet für Menschen mit Lernschwäche"
 
-#: apps/museums/models.py:255 apps/museums/forms/museum.py:1373
+#: apps/museums/models.py:256 apps/museums/forms/museum.py:1373
 #: templates/museumsportal/events/event_detail.html:50
-#: templates/museumsportal/events/event_detail.html:59
+#: templates/museumsportal/events/event_detail.html:64
 msgid "Address"
 msgstr "Adresse"
 
-#: apps/museums/models.py:515
+#: apps/museums/models.py:516
 msgid "Social media type"
 msgstr "Social-Media Dienst"
 
-#: apps/museums/models.py:515
+#: apps/museums/models.py:516
 msgid "e.g. twitter, facebook, etc."
 msgstr "Twitter, Facebook, o.ä."
 
-#: apps/museums/models.py:516 apps/twitterwall/models.py:119
+#: apps/museums/models.py:517 apps/twitterwall/models.py:119
 msgid "URL"
 msgstr "URL"
 
-#: apps/museums/models.py:520
+#: apps/museums/models.py:521
 msgid "Social media channel"
 msgstr "Social-Media Dienst"
 
-#: apps/museums/models.py:521
+#: apps/museums/models.py:522
 msgid "Social media channels"
 msgstr "Social-Media Dienste"
 
@@ -1529,8 +1535,8 @@ msgid "Offers"
 msgstr "Angebote"
 
 #: apps/museums/forms/museum.py:542
-#: templates/museumsportal/accounts/dashboard.html:31
-#: templates/museumsportal/accounts/dashboard.html:273
+#: templates/museumsportal/accounts/dashboard.html:32
+#: templates/museumsportal/accounts/dashboard.html:315
 msgid "Contact"
 msgstr "Kontaktdaten"
 
@@ -1539,11 +1545,12 @@ msgid "Social media"
 msgstr "Social-Media Kanal"
 
 #: apps/museums/forms/museum.py:765 apps/museums/forms/museum.py:1391
-#: templates/museumsportal/museums/museum_detail.html:379
+#: templates/museumsportal/museums/museum_detail.html:404
 msgid "Audioguides"
 msgstr "Audioguides"
 
-#: apps/search/views.py:18 apps/search/views.py:26
+#: apps/search/views.py:27 templates/museumsportal/base.html:103
+#: templates/museumsportal/base.html:107
 msgid "Search"
 msgstr "Suche"
 
@@ -1972,9 +1979,9 @@ msgid "Booking"
 msgstr "Buchungsinformationen"
 
 #: apps/workshops/forms/workshop.py:385
-#: templates/museumsportal/events/event_detail.html:237
+#: templates/museumsportal/events/event_detail.html:130
 #: templates/museumsportal/events/forms/times_form.html:9
-#: templates/museumsportal/workshops/workshop_detail.html:172
+#: templates/museumsportal/workshops/workshop_detail.html:135
 msgid "Date and Time"
 msgstr "Datum und Uhrzeit"
 
@@ -2013,22 +2020,22 @@ msgstr "Von Karte entfernen"
 msgid "Visiting by Appointment"
 msgstr "Besuchszeit nach Absprache"
 
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:17
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:26
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:17
 msgid "Expanded"
 msgstr "Erweiterte Öffnungszeiten"
 
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:23
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:32
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:23
 msgid "Apply to all weekdays"
 msgstr "Auf alle Wochentage anwenden"
 
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:62
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:71
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:62
 msgid "Break starts"
 msgstr "Pause beginnt"
 
-#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:80
+#: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:89
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:80
 msgid "Break ends"
 msgstr "Pause endet"
@@ -2070,50 +2077,50 @@ msgstr "Add another %(verbose_name)s"
 msgid "Back"
 msgstr "Zurück"
 
-#: templates/museumsportal/base.html:102
-#: templates/museumsportal/accounts/dashboard.html:45
+#: templates/museumsportal/base.html:111
+#: templates/museumsportal/accounts/dashboard.html:46
 msgid "Home"
 msgstr "Startseite"
 
-#: templates/museumsportal/base.html:108
+#: templates/museumsportal/base.html:117
 #: templates/museumsportal/accounts/dashboard.html:6
-#: templates/museumsportal/accounts/dashboard.html:49
-#: templates/museumsportal/accounts/dashboard.html:71
+#: templates/museumsportal/accounts/dashboard.html:50
+#: templates/museumsportal/accounts/dashboard.html:72
 msgid "Input Mask"
 msgstr "Eingabemaske"
 
-#: templates/museumsportal/base.html:118
+#: templates/museumsportal/base.html:127
 msgid "Print"
 msgstr "Drucken"
 
-#: templates/museumsportal/base.html:179
+#: templates/museumsportal/base.html:188
 msgid "Supported by"
 msgstr "Gefördert durch"
 
-#: templates/museumsportal/base.html:198
+#: templates/museumsportal/base.html:207
 msgid "A service from"
 msgstr "Ein Service von"
 
-#: templates/museumsportal/base.html:205
+#: templates/museumsportal/base.html:214
 msgid "Together with Berlin museums and"
 msgstr "Gemeinsam mit den Berliner Museen und"
 
-#: templates/museumsportal/base.html:295
+#: templates/museumsportal/base.html:347
 msgid "Filter selection"
 msgstr "Ihre aktuelle Filterauswahl"
 
-#: templates/museumsportal/accounts/dashboard.html:39
-#: templates/museumsportal/accounts/dashboard.html:277
+#: templates/museumsportal/accounts/dashboard.html:40
+#: templates/museumsportal/accounts/dashboard.html:319
 #, python-format
 msgid "Hello, %(first_name)s"
 msgstr "Hallo, %(first_name)s!"
 
-#: templates/museumsportal/accounts/dashboard.html:40
-#: templates/museumsportal/accounts/dashboard.html:278
+#: templates/museumsportal/accounts/dashboard.html:41
+#: templates/museumsportal/accounts/dashboard.html:320
 msgid "Logout"
 msgstr "Abmelden"
 
-#: templates/museumsportal/accounts/dashboard.html:52
+#: templates/museumsportal/accounts/dashboard.html:53
 #: templates/museumsportal/events/event_list.html:25
 #: templates/museumsportal/exhibitions/exhibition_list.html:24
 #: templates/museumsportal/favorites/favorites.html:17
@@ -2123,15 +2130,15 @@ msgstr "Abmelden"
 msgid "Favorites"
 msgstr "Favoriten"
 
-#: templates/museumsportal/accounts/dashboard.html:86
+#: templates/museumsportal/accounts/dashboard.html:87
 #: templates/museumsportal/accounts/dashboard_exhibitions.html:13
 msgid "Add exhibition"
 msgstr "Neue Ausstellung eintragen"
 
-#: templates/museumsportal/accounts/dashboard.html:95
-#: templates/museumsportal/accounts/dashboard.html:122
-#: templates/museumsportal/accounts/dashboard.html:148
-#: templates/museumsportal/accounts/dashboard.html:178
+#: templates/museumsportal/accounts/dashboard.html:96
+#: templates/museumsportal/accounts/dashboard.html:130
+#: templates/museumsportal/accounts/dashboard.html:164
+#: templates/museumsportal/accounts/dashboard.html:202
 #: templates/museumsportal/accounts/dashboard_events.html:22
 #: templates/museumsportal/accounts/dashboard_exhibitions.html:22
 #: templates/museumsportal/accounts/dashboard_museums.html:26
@@ -2139,47 +2146,48 @@ msgstr "Neue Ausstellung eintragen"
 msgid "Last modification"
 msgstr "Letzte Änderung"
 
-#: templates/museumsportal/accounts/dashboard.html:99
-#: templates/museumsportal/accounts/dashboard.html:125
-#: templates/museumsportal/accounts/dashboard.html:151
-#: templates/museumsportal/accounts/dashboard.html:184
-#: templates/museumsportal/accounts/dashboard_events.html:25
-#: templates/museumsportal/accounts/dashboard_exhibitions.html:26
+#: templates/museumsportal/accounts/dashboard.html:107
+#: templates/museumsportal/accounts/dashboard.html:141
+#: templates/museumsportal/accounts/dashboard.html:175
+#: templates/museumsportal/accounts/dashboard.html:208
+#: templates/museumsportal/accounts/dashboard_events.html:33
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:33
 #: templates/museumsportal/accounts/dashboard_museums.html:32
-#: templates/museumsportal/accounts/dashboard_workshops.html:25
+#: templates/museumsportal/accounts/dashboard_workshops.html:33
 #: templates/museumsportal/events/forms/base.html:26
-#: templates/museumsportal/events/forms/base.html:58
+#: templates/museumsportal/events/forms/base.html:64
 #: templates/museumsportal/exhibitions/forms/base.html:28
-#: templates/museumsportal/exhibitions/forms/base.html:61
+#: templates/museumsportal/exhibitions/forms/base.html:66
 #: templates/museumsportal/museums/forms/base.html:26
-#: templates/museumsportal/museums/forms/base.html:58
+#: templates/museumsportal/museums/forms/base.html:63
 #: templates/museumsportal/workshops/forms/base.html:26
-#: templates/museumsportal/workshops/forms/base.html:58
+#: templates/museumsportal/workshops/forms/base.html:64
 msgid "Preview"
 msgstr "Vorschau"
 
-#: templates/museumsportal/accounts/dashboard.html:108
-#: templates/museumsportal/accounts/dashboard_exhibitions.html:35
+#: templates/museumsportal/accounts/dashboard.html:116
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:42
 msgid "You don't have any exhibitions."
 msgstr "Sie haben noch keine Ausstellungen eingetragen."
 
-#: templates/museumsportal/accounts/dashboard.html:113
+#: templates/museumsportal/accounts/dashboard.html:121
 #: templates/museumsportal/accounts/dashboard_events.html:13
 msgid "Add event"
 msgstr "Neue Veranstaltung eintragen"
 
-#: templates/museumsportal/accounts/dashboard.html:134
-#: templates/museumsportal/accounts/dashboard_events.html:34
+#: templates/museumsportal/accounts/dashboard.html:150
+#: templates/museumsportal/accounts/dashboard_events.html:42
 msgid "You don't have any events."
 msgstr "Sie haben noch keine Veranstaltungen eingetragen."
 
-#: templates/museumsportal/accounts/dashboard.html:139
+#: templates/museumsportal/accounts/dashboard.html:155
 #: templates/museumsportal/accounts/dashboard_workshops.html:13
 msgid "Add Guided Tour"
 msgstr "Neue Führung eintragen"
 
-#: templates/museumsportal/accounts/dashboard.html:140
+#: templates/museumsportal/accounts/dashboard.html:156
 #: templates/museumsportal/accounts/dashboard_workshops.html:14
+#: templates/museumsportal/exhibitions/exhibition_detail.html:535
 #: templates/museumsportal/favorites/favorites.html:101
 #: templates/museumsportal/workshops/workshop_list.html:3
 #: templates/museumsportal/workshops/workshop_list.html:31
@@ -2187,51 +2195,51 @@ msgstr "Neue Führung eintragen"
 msgid "Guided Tours, Workshops and educational offers"
 msgstr "Führungen, Workshops und sonstige pädagogische Angebote"
 
-#: templates/museumsportal/accounts/dashboard.html:160
-#: templates/museumsportal/accounts/dashboard_workshops.html:34
+#: templates/museumsportal/accounts/dashboard.html:184
+#: templates/museumsportal/accounts/dashboard_workshops.html:42
 msgid "You don't have any workshops."
 msgstr "Sie haben noch keine Führungen eingetragen."
 
-#: templates/museumsportal/accounts/dashboard.html:165
+#: templates/museumsportal/accounts/dashboard.html:189
 #: templates/museumsportal/accounts/dashboard_museums.html:13
 msgid "Add museum"
 msgstr "Neues Museum hinzufügen"
 
-#: templates/museumsportal/accounts/dashboard.html:189
+#: templates/museumsportal/accounts/dashboard.html:213
 #: templates/museumsportal/accounts/dashboard_museums.html:37
 msgid "You don't have any museums."
 msgstr "Ihnen wurde noch kein Museum zugeordnet."
 
-#: templates/museumsportal/accounts/dashboard.html:205
-#: templates/museumsportal/accounts/dashboard_events.html:50
-#: templates/museumsportal/accounts/dashboard_exhibitions.html:51
-#: templates/museumsportal/accounts/dashboard_workshops.html:51
+#: templates/museumsportal/accounts/dashboard.html:229
+#: templates/museumsportal/accounts/dashboard_events.html:58
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:58
+#: templates/museumsportal/accounts/dashboard_workshops.html:59
 msgid "Yes, Please"
-msgstr ""
+msgstr "Ja"
 
-#: templates/museumsportal/accounts/dashboard.html:206
-#: templates/museumsportal/accounts/dashboard_events.html:51
-#: templates/museumsportal/accounts/dashboard_exhibitions.html:52
-#: templates/museumsportal/accounts/dashboard_workshops.html:52
+#: templates/museumsportal/accounts/dashboard.html:230
+#: templates/museumsportal/accounts/dashboard_events.html:59
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:59
+#: templates/museumsportal/accounts/dashboard_workshops.html:60
 msgid "No, Thanks"
-msgstr ""
+msgstr "Nein"
 
-#: templates/museumsportal/accounts/dashboard.html:217
-#: templates/museumsportal/accounts/dashboard_exhibitions.html:63
+#: templates/museumsportal/accounts/dashboard.html:241
+#: templates/museumsportal/accounts/dashboard_exhibitions.html:70
 msgid "Do you really want to delete this exhibition?"
-msgstr ""
+msgstr "Möchten Sie diese Ausstellung wirklich löschen?"
 
-#: templates/museumsportal/accounts/dashboard.html:234
-#: templates/museumsportal/accounts/dashboard_events.html:62
+#: templates/museumsportal/accounts/dashboard.html:258
+#: templates/museumsportal/accounts/dashboard_events.html:70
 msgid "Do you really want to delete this event?"
-msgstr ""
+msgstr "Möchten Sie diese Veranstaltung wirklich löschen?"
 
-#: templates/museumsportal/accounts/dashboard.html:251
-#: templates/museumsportal/accounts/dashboard_workshops.html:63
+#: templates/museumsportal/accounts/dashboard.html:275
+#: templates/museumsportal/accounts/dashboard_workshops.html:71
 msgid "Do you really want to delete this guided tour?"
-msgstr ""
+msgstr "Möchten Sie diese Führung wirklich löschen?"
 
-#: templates/museumsportal/accounts/dashboard.html:279
+#: templates/museumsportal/accounts/dashboard.html:321
 msgid "Back to Input Mask"
 msgstr "Zur Startseite der Eingabemaske"
 
@@ -2404,11 +2412,15 @@ msgstr ""
 "Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort "
 "gelandet."
 
-#: templates/museumsportal/cms/magazine_series_featured.html:47
+#: templates/museumsportal/cms/magazine_series_featured.html:30
+msgid "Window of the Online-Project of the Jewish Museum Berlin"
+msgstr ""
+
+#: templates/museumsportal/cms/magazine_series_featured.html:55
 msgid "New exhibitions opened under the theme year"
 msgstr "Neu eröffnete Ausstellungen im Rahmen des Themenjahres."
 
-#: templates/museumsportal/cms/magazine_series_featured.html:52
+#: templates/museumsportal/cms/magazine_series_featured.html:66
 #: templates/museumsportal/cms/plugins/editorial_content.html:26
 #: templates/museumsportal/cms/plugins/featured_magazin.html:26
 #: templates/museumsportal/cms/plugins/newly_opened_exhibition.html:16
@@ -2431,7 +2443,6 @@ msgstr "Magazin"
 
 #: templates/museumsportal/cms/includes/start_de.html:71
 #: templates/museumsportal/cms/includes/start_en.html:24
-#: templates/museumsportal/museums/museum_detail.html:413
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -2472,96 +2483,71 @@ msgstr "Bearbeiten"
 msgid "Venue"
 msgstr "Veranstaltungsort"
 
-#: templates/museumsportal/events/event_detail.html:96
+#: templates/museumsportal/events/event_detail.html:57
+#: templates/museumsportal/events/event_detail.html:71
 #: templates/museumsportal/events/event_list.html:114
-#: templates/museumsportal/exhibitions/exhibition_detail.html:87
-#: templates/museumsportal/exhibitions/exhibition_list.html:157
+#: templates/museumsportal/exhibitions/exhibition_detail.html:57
+#: templates/museumsportal/exhibitions/exhibition_detail.html:70
+#: templates/museumsportal/exhibitions/exhibition_list.html:174
 #: templates/museumsportal/exhibitions/vernissage_list.html:77
-#: templates/museumsportal/museums/museum_detail.html:97
-#: templates/museumsportal/museums/museum_list.html:143
-#: templates/museumsportal/workshops/workshop_detail.html:98
+#: templates/museumsportal/museums/museum_detail.html:56
+#: templates/museumsportal/museums/museum_detail.html:69
+#: templates/museumsportal/museums/museum_list.html:158
+#: templates/museumsportal/workshops/workshop_detail.html:61
+#: templates/museumsportal/workshops/workshop_detail.html:75
 #: templates/museumsportal/workshops/workshop_list.html:98
 msgid "Show location on map"
 msgstr "Auf der Karte anzeigen"
 
-#: templates/museumsportal/events/event_detail.html:127
-#: templates/museumsportal/events/event_detail.html:168
-#: templates/museumsportal/exhibitions/exhibition_detail.html:181
-#: templates/museumsportal/exhibitions/exhibition_detail.html:220
-#: templates/museumsportal/museums/museum_detail.html:127
-#: templates/museumsportal/museums/museum_detail.html:169
-msgid "Based on appointment"
-msgstr "Nach Absprache"
-
-#: templates/museumsportal/events/event_detail.html:144
-#: templates/museumsportal/events/event_detail.html:186
-#: templates/museumsportal/exhibitions/exhibition_detail.html:199
-#: templates/museumsportal/exhibitions/exhibition_detail.html:238
-#: templates/museumsportal/museums/museum_detail.html:145
-#: templates/museumsportal/museums/museum_detail.html:187
-msgid "closed"
-msgstr "Geschlossen"
-
-#: templates/museumsportal/events/event_detail.html:218
-#: templates/museumsportal/exhibitions/exhibition_detail.html:266
-#: templates/museumsportal/museums/museum_detail.html:219
-msgid "Break:"
-msgstr "Pause: "
-
-#: templates/museumsportal/events/event_detail.html:245
-#: templates/museumsportal/exhibitions/exhibition_detail.html:446
-#: templates/museumsportal/exhibitions/exhibition_detail.html:502
-#: templates/museumsportal/exhibitions/exhibition_detail.html:545
-#: templates/museumsportal/exhibitions/exhibition_list.html:161
+#: templates/museumsportal/events/event_detail.html:139
+#: templates/museumsportal/exhibitions/exhibition_detail.html:497
+#: templates/museumsportal/exhibitions/exhibition_detail.html:548
+#: templates/museumsportal/exhibitions/exhibition_detail.html:614
+#: templates/museumsportal/exhibitions/exhibition_list.html:180
 #: templates/museumsportal/exhibitions/vernissage_list.html:84
 #: templates/museumsportal/favorites/favorites.html:59
-#: templates/museumsportal/museums/museum_detail.html:500
-#: templates/museumsportal/workshops/workshop_detail.html:180
-#: templates/museumsportal/workshops/workshop_detail.html:244
-#: templates/museumsportal/workshops/workshop_detail.html:305
+#: templates/museumsportal/museums/museum_detail.html:525
+#: templates/museumsportal/museums/museum_detail.html:572
+#: templates/museumsportal/workshops/workshop_detail.html:144
+#: templates/museumsportal/workshops/workshop_detail.html:260
+#: templates/museumsportal/workshops/workshop_detail.html:311
+#: templates/museumsportal/workshops/workshop_list.html:110
 msgid "till"
 msgstr "bis"
 
-#: templates/museumsportal/events/event_detail.html:269
-#: templates/museumsportal/exhibitions/exhibition_detail.html:296
-#: templates/museumsportal/exhibitions/exhibition_detail.html:388
-#: templates/museumsportal/museums/museum_detail.html:248
-#: templates/museumsportal/workshops/workshop_detail.html:134
+#: templates/museumsportal/events/event_detail.html:164
+#: templates/museumsportal/exhibitions/exhibition_detail.html:345
+#: templates/museumsportal/exhibitions/exhibition_detail.html:437
+#: templates/museumsportal/museums/museum_detail.html:264
+#: templates/museumsportal/workshops/workshop_detail.html:172
 msgid "Admission price"
 msgstr "Eintrittspreis"
 
-#: templates/museumsportal/events/event_detail.html:275
-#: templates/museumsportal/exhibitions/exhibition_detail.html:304
-#: templates/museumsportal/exhibitions/exhibition_detail.html:397
-#: templates/museumsportal/museums/museum_detail.html:256
-#: templates/museumsportal/workshops/workshop_detail.html:145
+#: templates/museumsportal/events/event_detail.html:170
+#: templates/museumsportal/exhibitions/exhibition_detail.html:353
+#: templates/museumsportal/exhibitions/exhibition_detail.html:446
+#: templates/museumsportal/museums/museum_detail.html:272
+#: templates/museumsportal/workshops/workshop_detail.html:183
 msgid "Reduced price"
 msgstr "Ermäßigter Preis"
 
-#: templates/museumsportal/events/event_detail.html:301
+#: templates/museumsportal/events/event_detail.html:196
 msgid "Other info"
 msgstr "Weitere Informationen"
 
-#: templates/museumsportal/events/event_detail.html:308
-#: templates/museumsportal/workshops/workshop_detail.html:201
+#: templates/museumsportal/events/event_detail.html:203
+#: templates/museumsportal/workshops/workshop_detail.html:217
 msgid "Meeting point"
 msgstr "Treffpunkt"
 
-#: templates/museumsportal/events/event_detail.html:335
+#: templates/museumsportal/events/event_detail.html:230
 msgid "Permanent event"
 msgstr "Dauerausstellung"
 
-#: templates/museumsportal/events/event_detail.html:359
-#: templates/museumsportal/exhibitions/exhibition_detail.html:458
-#: templates/museumsportal/museums/museum_detail.html:445
-#: templates/museumsportal/workshops/workshop_detail.html:264
-msgid "More at"
-msgstr "Mehr unter:"
-
-#: templates/museumsportal/events/event_detail.html:387
-#, python-format
-msgid "Current Events of <span>%(museum_title)s</span>"
-msgstr "Aktuelle Veranstaltungen von <span>%(museum_title)s</span>"
+#: templates/museumsportal/events/event_detail.html:279
+#, fuzzy
+msgid "More Events"
+msgstr "Meine Veranstaltungen"
 
 #: templates/museumsportal/events/event_list.html:27
 #: templates/museumsportal/exhibitions/exhibition_list.html:26
@@ -2603,34 +2589,34 @@ msgid "Reset all filters"
 msgstr "Alle Filter zurücksetzen"
 
 #: templates/museumsportal/events/event_list.html:82
-#: templates/museumsportal/exhibitions/exhibition_list.html:100
+#: templates/museumsportal/exhibitions/exhibition_list.html:117
 #: templates/museumsportal/workshops/workshop_list.html:67
 msgid "Today"
 msgstr "Heute"
 
 #: templates/museumsportal/events/event_list.html:83
-#: templates/museumsportal/exhibitions/exhibition_list.html:101
+#: templates/museumsportal/exhibitions/exhibition_list.html:118
 #: templates/museumsportal/workshops/workshop_list.html:68
 msgid "Tomorrow"
 msgstr "Morgen"
 
 #: templates/museumsportal/events/event_list.html:84
-#: templates/museumsportal/exhibitions/exhibition_list.html:102
+#: templates/museumsportal/exhibitions/exhibition_list.html:119
 #: templates/museumsportal/workshops/workshop_list.html:69
 msgid "7 Days"
 msgstr "7 Tage"
 
 #: templates/museumsportal/events/event_list.html:85
-#: templates/museumsportal/exhibitions/exhibition_list.html:103
+#: templates/museumsportal/exhibitions/exhibition_list.html:120
 #: templates/museumsportal/workshops/workshop_list.html:70
 msgid "30 Days"
 msgstr "30 Tage"
 
 #: templates/museumsportal/events/event_list.html:109
 #: templates/museumsportal/events/event_list.html:111
-#: templates/museumsportal/exhibitions/exhibition_list.html:152
-#: templates/museumsportal/exhibitions/exhibition_list.html:154
-#: templates/museumsportal/museums/museum_list.html:146
+#: templates/museumsportal/exhibitions/exhibition_list.html:169
+#: templates/museumsportal/exhibitions/exhibition_list.html:171
+#: templates/museumsportal/museums/museum_list.html:161
 #: templates/museumsportal/utils/cover_image.html:10
 #: templates/museumsportal/utils/cover_image.html:19
 #: templates/museumsportal/utils/cover_image.html:28
@@ -2648,14 +2634,22 @@ msgstr "Neue Veranstaltung"
 msgid "Add new event"
 msgstr "Neue Veranstaltung eintragen"
 
+#: templates/museumsportal/events/forms/base.html:56
+#: templates/museumsportal/exhibitions/forms/base.html:58
+#: templates/museumsportal/museums/forms/base.html:55
+#: templates/museumsportal/workshops/forms/base.html:56
+#, fuzzy
+msgid "Fields with * are required."
+msgstr "Pflichtfeld. Bitte ausfüllen."
+
 #: templates/museumsportal/events/forms/basic_info_form.html:31
-#: templates/museumsportal/exhibitions/forms/basic_info_form.html:31
+#: templates/museumsportal/exhibitions/forms/basic_info_form.html:32
 #: templates/museumsportal/workshops/forms/basic_info_form.html:31
 msgid "add a tag"
 msgstr "Stichwort hinzufügen"
 
 #: templates/museumsportal/events/forms/basic_info_form.html:93
-#: templates/museumsportal/exhibitions/forms/basic_info_form.html:92
+#: templates/museumsportal/exhibitions/forms/basic_info_form.html:93
 #: templates/museumsportal/workshops/forms/basic_info_form.html:93
 msgid "Add organizer"
 msgstr "Veranstalter hinzufügen"
@@ -2678,81 +2672,106 @@ msgstr "Bilddatei hinzufügen"
 msgid "Add event time"
 msgstr "Weiteren Veranstaltungszeitraum hinzufügen"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:108
+#: templates/museumsportal/exhibitions/exhibition_detail.html:124
 msgid "Vernissage"
 msgstr "Vernissage"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:125
+#: templates/museumsportal/exhibitions/exhibition_detail.html:143
 msgid "Finissage"
 msgstr "Finissage"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:156
+#: templates/museumsportal/exhibitions/exhibition_detail.html:176
 msgid "Ordering possibilities"
+msgstr "Bestellmöglichkeiten"
+
+#: templates/museumsportal/exhibitions/exhibition_detail.html:203
+#: templates/museumsportal/exhibitions/exhibition_detail.html:257
+#: templates/museumsportal/museums/museum_detail.html:130
+#: templates/museumsportal/museums/museum_detail.html:178
+msgid "Based on appointment"
+msgstr "Nach Absprache"
+
+#: templates/museumsportal/exhibitions/exhibition_detail.html:227
+#: templates/museumsportal/exhibitions/exhibition_detail.html:277
+#: templates/museumsportal/museums/museum_detail.html:150
+#: templates/museumsportal/museums/museum_detail.html:198
+msgid "closed"
+msgstr "Geschlossen"
+
+#: templates/museumsportal/exhibitions/exhibition_detail.html:309
+#: templates/museumsportal/museums/museum_detail.html:229
+msgid "Regular"
 msgstr ""
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:286
-#: templates/museumsportal/exhibitions/exhibition_detail.html:376
-#: templates/museumsportal/museums/museum_detail.html:238
+#: templates/museumsportal/exhibitions/exhibition_detail.html:313
+#: templates/museumsportal/museums/museum_detail.html:233
+msgid "Break:"
+msgstr "Pause: "
+
+#: templates/museumsportal/exhibitions/exhibition_detail.html:335
+#: templates/museumsportal/exhibitions/exhibition_detail.html:425
+#: templates/museumsportal/museums/museum_detail.html:254
 msgid "Tickets"
 msgstr "Eintritt"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:312
+#: templates/museumsportal/exhibitions/exhibition_detail.html:361
 msgid "Arrangements for children"
 msgstr "Eintrittsregelungen für Kinder und Jugendliche"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:318
+#: templates/museumsportal/exhibitions/exhibition_detail.html:367
 msgid "Free entrance for"
 msgstr "Eintritt frei für"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:336
+#: templates/museumsportal/exhibitions/exhibition_detail.html:385
 msgid "Free entrance times"
 msgstr "Informationen zu freiem Eintritt:"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:348
+#: templates/museumsportal/exhibitions/exhibition_detail.html:397
 msgid "Other tickets"
 msgstr "Sonstige Eintrittskosten"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:354
-#: templates/museumsportal/museums/museum_detail.html:282
+#: templates/museumsportal/exhibitions/exhibition_detail.html:403
+#: templates/museumsportal/museums/museum_detail.html:298
 msgid "Member of Museumspass Berlin"
 msgstr "Partner beim Museumspass Berlin "
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:362
-#: templates/museumsportal/museums/museum_detail.html:290
+#: templates/museumsportal/exhibitions/exhibition_detail.html:411
+#: templates/museumsportal/museums/museum_detail.html:306
 msgid "Group booking"
 msgstr "Gruppenbuchungen"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:420
+#: templates/museumsportal/exhibitions/exhibition_detail.html:471
 msgid "Suitable for disabled"
 msgstr "Speziell geeignet für Menschen mit Behinderung"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:487
-#: templates/museumsportal/workshops/workshop_detail.html:290
-msgid "Other Workshops of"
-msgstr "Weitere Führungen"
-
-#: templates/museumsportal/exhibitions/exhibition_detail.html:497
-#: templates/museumsportal/workshops/workshop_detail.html:239
-#: templates/museumsportal/workshops/workshop_detail.html:300
+#: templates/museumsportal/exhibitions/exhibition_detail.html:543
+#: templates/museumsportal/museums/museum_detail.html:567
+#: templates/museumsportal/workshops/workshop_detail.html:255
+#: templates/museumsportal/workshops/workshop_detail.html:306
+#: templates/museumsportal/workshops/workshop_list.html:105
 msgid "Bookable Offer"
 msgstr "Buchbare Angebote"
 
-#: templates/museumsportal/exhibitions/exhibition_detail.html:521
-#, python-format
-msgid "More Exhibitions of %(museum_title)s"
-msgstr "Weitere Ausstellungen %(museum_title)s"
+#: templates/museumsportal/exhibitions/exhibition_detail.html:590
+#, fuzzy
+msgid "More Exhibitions"
+msgstr "Meine Ausstellungen"
 
-#: templates/museumsportal/exhibitions/exhibition_list.html:77
+#: templates/museumsportal/exhibitions/exhibition_list.html:94
 msgid "Current"
 msgstr "Aktuell"
 
-#: templates/museumsportal/exhibitions/exhibition_list.html:78
+#: templates/museumsportal/exhibitions/exhibition_list.html:95
 msgid "Newly open"
 msgstr "Neu eröffnet"
 
-#: templates/museumsportal/exhibitions/exhibition_list.html:80
+#: templates/museumsportal/exhibitions/exhibition_list.html:97
 msgid "Upcoming"
 msgstr "Demnächst"
+
+#: templates/museumsportal/exhibitions/exhibition_list.html:180
+msgid "until further notice"
+msgstr ""
 
 #: templates/museumsportal/exhibitions/vernissage_list.html:3
 msgid "Vernissages"
@@ -2824,45 +2843,50 @@ msgid ""
 "Press ESC to switch to the default selection area and default canvas color."
 msgstr "Drücken Sie ESC, um zur Standardeinstellung zurückzukehren"
 
-#: templates/museumsportal/museums/museum_detail.html:67
+#: templates/museumsportal/museums/museum_detail.html:78
 msgid "Telephone"
 msgstr "Servicetelefon"
 
-#: templates/museumsportal/museums/museum_detail.html:88
+#: templates/museumsportal/museums/museum_detail.html:97
 msgid "Social Networks"
 msgstr "Soziale Netzwerke"
 
-#: templates/museumsportal/museums/museum_detail.html:312
+#: templates/museumsportal/museums/museum_detail.html:328
 msgid "Shop"
 msgstr "Shop"
 
-#: templates/museumsportal/museums/museum_detail.html:338
+#: templates/museumsportal/museums/museum_detail.html:354
 msgid "Service Phone"
 msgstr "Servicetelefon"
 
-#: templates/museumsportal/museums/museum_detail.html:386
+#: templates/museumsportal/museums/museum_detail.html:413
 msgid "In"
 msgstr "In"
 
-#: templates/museumsportal/museums/museum_detail.html:397
+#: templates/museumsportal/museums/museum_detail.html:425
 msgid "For children and teenager"
 msgstr "Für Kinder und Jugendliche"
 
-#: templates/museumsportal/museums/museum_detail.html:402
+#: templates/museumsportal/museums/museum_detail.html:432
 msgid "For people with learning difficulties"
 msgstr "Speziell geeignet für Menschen mit Lernschwäche"
 
-#: templates/museumsportal/museums/museum_detail.html:476
+#: templates/museumsportal/museums/museum_detail.html:488
+#, fuzzy
+msgid "Current Tweets"
+msgstr "Aktuelle Veranstaltungen"
+
+#: templates/museumsportal/museums/museum_detail.html:501
 msgid "Current Exhibitions"
 msgstr "Laufende Ausstellungen"
 
-#: templates/museumsportal/museums/museum_detail.html:514
-msgid "Current Guided Tours, Workshops and educational offers"
-msgstr "Aktuelle Führungen, Workshops und sonstige pädagogische Angebote"
-
-#: templates/museumsportal/museums/museum_detail.html:536
+#: templates/museumsportal/museums/museum_detail.html:539
 msgid "Current Events"
 msgstr "Aktuelle Veranstaltungen"
+
+#: templates/museumsportal/museums/museum_detail.html:561
+msgid "Current Guided Tours, Workshops and educational offers"
+msgstr "Aktuelle Führungen, Workshops und sonstige pädagogische Angebote"
 
 #: templates/museumsportal/museums/museum_list.html:30
 msgid "Museums, Palaces, and Memorials"
@@ -2872,59 +2896,59 @@ msgstr "Museen, Schlösser und Gedenkstätten  "
 msgid "Open late"
 msgstr "Abends geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:102
+#: templates/museumsportal/museums/museum_list.html:117
 msgid "till 20:00 on Mondays"
 msgstr "Montags bis 20 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:103
+#: templates/museumsportal/museums/museum_list.html:118
 msgid "till 22:00 on Mondays"
 msgstr "Montags bis 22 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:104
+#: templates/museumsportal/museums/museum_list.html:119
 msgid "till 20:00 on Tuesdays"
 msgstr "Dienstags bis 20 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:105
+#: templates/museumsportal/museums/museum_list.html:120
 msgid "till 22:00 on Tuesdays"
 msgstr "Dienstags bis 22 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:106
+#: templates/museumsportal/museums/museum_list.html:121
 msgid "till 20:00 on Wednesdays"
 msgstr "Mittwochs bis 20 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:107
+#: templates/museumsportal/museums/museum_list.html:122
 msgid "till 22:00 on Wednesdays"
 msgstr "Mittwochs bis 22 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:108
+#: templates/museumsportal/museums/museum_list.html:123
 msgid "till 20:00 on Thursdays"
 msgstr "Donnerstags bis 20 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:109
+#: templates/museumsportal/museums/museum_list.html:124
 msgid "till 22:00 on Thursdays"
 msgstr "Donnerstags bis 22 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:110
+#: templates/museumsportal/museums/museum_list.html:125
 msgid "till 20:00 on Fridays"
 msgstr "Freitags bis 20 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:111
+#: templates/museumsportal/museums/museum_list.html:126
 msgid "till 22:00 on Fridays"
 msgstr "Freitags bis 22 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:112
+#: templates/museumsportal/museums/museum_list.html:127
 msgid "till 20:00 on Saturdays"
 msgstr "Samstags bis 20 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:113
+#: templates/museumsportal/museums/museum_list.html:128
 msgid "till 22:00 on Saturdays"
 msgstr "Samstags bis 22 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:114
+#: templates/museumsportal/museums/museum_list.html:129
 msgid "till 20:00 on Sundays"
 msgstr "Sonntags bis 20 Uhr geöffnet"
 
-#: templates/museumsportal/museums/museum_list.html:115
+#: templates/museumsportal/museums/museum_list.html:130
 msgid "till 22:00 on Sundays"
 msgstr "Sonntags bis 22 Uhr geöffnet"
 
@@ -2956,13 +2980,21 @@ msgstr "Schließ- bzw. Feiertage"
 msgid "Add Closing time / Holiday"
 msgstr "Schließ- bzw. Feiertag hinzufügen"
 
-#: templates/museumsportal/search/search.html:10
-msgid "Results"
-msgstr "Suchergebnisse"
-
-#: templates/museumsportal/search/search.html:39
+#: templates/museumsportal/search/search.html:40
 msgid "No results found."
 msgstr "Keine Suchergebnisse"
+
+#: templates/museumsportal/search/search.html:47
+#: templates/museumsportal/search/search.html:49
+#, fuzzy
+msgid "Previous Page"
+msgstr "Vorschau"
+
+#: templates/museumsportal/search/search.html:53
+#: templates/museumsportal/search/search.html:55
+#, fuzzy
+msgid "Next Page"
+msgstr "Weiter"
 
 #: templates/museumsportal/site_specific/claiming_confirmation.html:4
 msgid "Claiming confirmation"
@@ -3007,8 +3039,8 @@ msgid "Back to the list"
 msgstr "Zurück zur Übersicht"
 
 #: templates/museumsportal/utils/bvg.html:6
-msgid "How to get there"
-msgstr "So erreichen Sie uns"
+msgid "Public Transport"
+msgstr ""
 
 #: templates/museumsportal/utils/bvg.html:28
 msgid "Point of departure"
@@ -3043,21 +3075,22 @@ msgstr "Ganzseitig"
 msgid "Guided Tour"
 msgstr "Führung"
 
-#: templates/museumsportal/workshops/workshop_detail.html:128
+#: templates/museumsportal/workshops/workshop_detail.html:166
 msgid "Free guided tour"
 msgstr "Kostenlose Führung"
 
-#: templates/museumsportal/workshops/workshop_detail.html:194
+#: templates/museumsportal/workshops/workshop_detail.html:210
 msgid "Other Information"
 msgstr "Weitere Informationen"
 
-#: templates/museumsportal/workshops/workshop_detail.html:207
+#: templates/museumsportal/workshops/workshop_detail.html:223
 msgid "Age groups"
 msgstr "Altersgruppen"
 
-#: templates/museumsportal/workshops/workshop_detail.html:260
-msgid "Continue to"
-msgstr "Weiter zu"
+#: templates/museumsportal/workshops/workshop_detail.html:298
+#, fuzzy
+msgid "Other Guided Tours, Workshops and educational offers"
+msgstr "Führungen, Workshops und sonstige pädagogische Angebote"
 
 #: templates/museumsportal/workshops/forms/base.html:8
 msgid "New Guided Tour"
@@ -3070,6 +3103,55 @@ msgstr "Neue Führung eintragen"
 #: templates/museumsportal/workshops/forms/times_form.html:65
 msgid "Add another workshop time"
 msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
+
+#~ msgid ""
+#~ "If location doesn't exist in the database, please click <a href=\"#"
+#~ "\">here</a> to enter it."
+#~ msgstr ""
+#~ "Sollte der Veranstaltungsort nicht in der Datenbank  existieren, klicken "
+#~ "Sie bitte <a href=\"#\">hier,</a> um ihn einzutragen.  "
+
+#~ msgid ""
+#~ "If you want to select a location from the database, please click <a href="
+#~ "\"#\">here</a>."
+#~ msgstr ""
+#~ "Zum Eintragen eines in der Datenbank gelisteten Veranstaltungsortes "
+#~ "klicken Sie bitte <a href=\"#\">hier</a>."
+
+#~ msgid ""
+#~ "If organizer doesn't exist in the database, please click <a href=\"#"
+#~ "\">here</a> to enter it."
+#~ msgstr ""
+#~ "Sollte der Veranstalter nicht in der Datenbank  existieren, klicken Sie "
+#~ "bitte <a href=\"#\">hier,</a> um ihn einzutragen.  "
+
+#~ msgid ""
+#~ "If you want to select an organizer from the database, please click <a "
+#~ "href=\"#\">here</a>."
+#~ msgstr ""
+#~ "Zum Eintragen eines in der Datenbank gelisteten Veranstalters klicken Sie "
+#~ "bitte <a href=\"#\">hier</a>."
+
+#~ msgid "More at"
+#~ msgstr "Mehr unter:"
+
+#~ msgid "Current Events of <span>%(museum_title)s</span>"
+#~ msgstr "Aktuelle Veranstaltungen von <span>%(museum_title)s</span>"
+
+#~ msgid "Other Workshops of"
+#~ msgstr "Weitere Führungen"
+
+#~ msgid "More Exhibitions of %(museum_title)s"
+#~ msgstr "Weitere Ausstellungen %(museum_title)s"
+
+#~ msgid "Results"
+#~ msgstr "Suchergebnisse"
+
+#~ msgid "How to get there"
+#~ msgstr "So erreichen Sie uns"
+
+#~ msgid "Continue to"
+#~ msgstr "Weiter zu"
 
 #~ msgid "Mediation"
 #~ msgstr "Vermittlungsangebote"
@@ -3281,12 +3363,6 @@ msgstr "Weiteres Datum eintragen, an dem die Führung stattfindet."
 
 #~ msgid "My Museums"
 #~ msgstr "Meine Institution "
-
-#~ msgid "My Exhibitions"
-#~ msgstr "Meine Ausstellungen"
-
-#~ msgid "My Events"
-#~ msgstr "Meine Veranstaltungen"
 
 #~ msgid "My Workshops"
 #~ msgstr "Meine Führungen"
