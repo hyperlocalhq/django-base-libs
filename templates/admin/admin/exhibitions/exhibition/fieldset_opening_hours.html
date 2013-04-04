@@ -10,6 +10,15 @@
             </div>
         </div>
     </div>
+    <div class="row is_open_24_7{% if form.is_open_24_7.errors %} errors{% endif %}">
+        <div>
+            <div class="column span-4">&nbsp;</div>
+            <div class="column span-flexible">
+                {{ form.is_open_24_7 }}<label for="id_{{ inline_admin_formset.formset.prefix }}-{{ counter }}-is_open_24_7"{% if form.is_open_24_7.field.required %} class="required"{% endif %}>{% trans "Open 24/7" %}</label>
+                {{ form.is_open_24_7.errors }}
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="cell">
             <div class="column span-4">&nbsp;</div>

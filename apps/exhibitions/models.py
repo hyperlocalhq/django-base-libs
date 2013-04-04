@@ -358,6 +358,7 @@ class Season(OpeningHoursMixin):
     start = models.DateField(_("Start"))
     end = models.DateField(_("End"))
     last_entry = MultilingualCharField(_("Last entry"), max_length=255, blank=True)
+    is_open_24_7 = models.BooleanField(_("Open 24/7"))
     
     def __unicode__(self):
         if self.start and self.end:

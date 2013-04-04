@@ -362,7 +362,11 @@ class SeasonForm(ModelForm):
                 layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
                 layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off")
                 ),
-            "is_appointment_based",
+            layout.Div(
+                "is_appointment_based", 
+                "is_open_24_7",
+                css_class="inline",
+                ),
 
             layout.HTML(
             """{% load i18n %}
@@ -783,6 +787,7 @@ def load_data(instance=None):
             season_dict['start'] = season.start
             season_dict['end'] = season.end
             season_dict['is_appointment_based'] = season.is_appointment_based
+            season_dict['is_open_24_7'] = season.is_open_24_7
             season_dict['mon_open'] = season.mon_open
             season_dict['mon_break_close'] = season.mon_break_close
             season_dict['mon_break_open'] = season.mon_break_open
@@ -923,6 +928,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 season_dict['start'] = season.start
                 season_dict['end'] = season.end
                 season_dict['is_appointment_based'] = season.is_appointment_based
+                season_dict['is_open_24_7'] = season.is_open_24_7
                 season_dict['mon_open'] = season.mon_open
                 season_dict['mon_break_close'] = season.mon_break_close
                 season_dict['mon_break_open'] = season.mon_break_open
@@ -1007,6 +1013,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 season.start = season_dict['start'] 
                 season.end = season_dict['end'] 
                 season.is_appointment_based = season_dict['is_appointment_based'] 
+                season.is_open_24_7 = season_dict['is_open_24_7'] 
                 if not season_dict['mon_is_closed']:
                     season.mon_open = season_dict['mon_open'] 
                     season.mon_break_close = season_dict['mon_break_close'] 
@@ -1189,6 +1196,7 @@ def save_data(form_steps, form_step_data, instance=None):
         season.start = season_dict['start'] 
         season.end = season_dict['end'] 
         season.is_appointment_based = season_dict['is_appointment_based'] 
+        season.is_open_24_7 = season_dict['is_open_24_7'] 
         if not season_dict['mon_is_closed']:
             season.mon_open = season_dict['mon_open'] 
             season.mon_break_close = season_dict['mon_break_close'] 

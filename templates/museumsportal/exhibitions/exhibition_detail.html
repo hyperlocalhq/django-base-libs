@@ -191,6 +191,10 @@
                                             <dl>
                                                 <dd>{% trans "Based on appointment" %}</dd>
                                             </dl>
+                                        {% else %}{% if season.is_open_24_7 %}
+                                            <dl>
+                                                <dd>{% trans "Open 24/7" %}</dd>
+                                            </dl>
                                         {% else %}
                                             {% regroup season.get_opening_hours by times as opening_hours %}
                                             {% for same_hours in opening_hours %}
@@ -213,7 +217,7 @@
                                                 </dt>
                                             </dl>
                                             {% endfor %}                                   
-                                        {% endif %}
+                                        {% endif %}{% endif %}
                                         {% if season.last_entry %}
                                             <dl>
                                                 <dt>{% trans "Last entry" %}</dt>
