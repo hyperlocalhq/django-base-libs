@@ -102,6 +102,8 @@
                     </ul>  
                 </li>
                 
+                <!-- ======= BVG ======= -->
+
                 {% if exhibition.museum %}
                     {% with exhibition.museum as list_item %}
                         {% include "utils/bvg.html" %}
@@ -111,6 +113,8 @@
                         {% include "utils/bvg.html" %}
                     {% endwith %}
                 {% endif %}
+
+                <!-- ======= Vernissage ======= -->
 
                 {% if exhibition.vernissage %}
                 <li class="accordion-group">  
@@ -129,6 +133,8 @@
                 </li>
                 {% endif %} 
 
+                <!-- ======= Finissage ======= -->
+
                 {% if exhibition.finissage %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
@@ -145,6 +151,8 @@
                     </ul>  
                 </li>
                 {% endif %} 
+
+                <!-- ======= Catalog ======= -->
 
                 {% if exhibition.catalog or exhibition.catalog_ordering %}
                 <li class="accordion-group">  
@@ -171,6 +179,8 @@
                     </ul>  
                 </li>
                 {% endif %} 
+
+                <!-- ======= Opening hours ======= -->
 
                 {% if exhibition.season_set.count or exhibition.specialopeningtime_set.count %}
                     <li class="accordion-group">  
@@ -445,6 +455,8 @@
                     {% endif %}
                 {% endif %}
 
+                <!-- ======= Accessibility ======= -->
+                
                 {% if exhibition.suitable_for_disabled or exhibition.suitable_for_disabled_info %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
