@@ -4668,13 +4668,13 @@ dl {
   width: 100%;
   display: block; }
   #tweets li {
-    height: 160px;
     position: relative;
     padding: 15px;
     font-size: 14px;
     line-height: 21px;
     background-color: rgba(0, 0, 0, 0.05);
     width: 235px;
+    width: 320px;
     margin-right: 20px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -4687,10 +4687,11 @@ dl {
     #tweets li .created_at a {
       font-weight: 700;
       color: black; }
-    #tweets li:nth-child(4n) {
+    #tweets li:nth-child(3n) {
       margin-right: 0px; }
-    #tweets li:nth-child(4n+1) {
-      clear: left; }
+    #tweets li:nth-child(4n) {
+      clear: left;
+      display: none; }
     #tweets li.facebook {
       background-color: #3d5e96;
       color: white; }

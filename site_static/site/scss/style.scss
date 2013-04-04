@@ -3177,7 +3177,6 @@ dl {
   width: 100%;
   display: block;
   li {
-    height: 160px;
     position: relative;
     padding: 15px;
     font-size: 14px;
@@ -3186,6 +3185,7 @@ dl {
     background-color: rgba(0,0,0,0.05);
 
     width: 235px;
+    width: 320px;
     margin-right: 20px;
 
 
@@ -3199,8 +3199,8 @@ dl {
     }
     .created_at a { font-weight: 700; color: black;}
 
-    &:nth-child(4n) { margin-right: 0px; }
-    &:nth-child(4n+1) { clear: left;}
+    &:nth-child(3n) { margin-right: 0px; }
+    &:nth-child(4n) { clear: left; display: none;}
 
     &.facebook {
       background-color: #3d5e96;
