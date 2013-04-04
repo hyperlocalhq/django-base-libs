@@ -393,6 +393,11 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Series Items")
     },
     
+    'jewish_museum': {
+        'plugins': ("EditorialContentPlugin"),
+        'name': _("Jewish Museum")
+    },
+    
     'series_exhibitions': {
         'plugins': ("EditorialContentPlugin"),
         'name': _("Series Exhibitions")

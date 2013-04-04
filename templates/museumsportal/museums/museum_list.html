@@ -58,13 +58,13 @@
                                         {% if cat.get_children %}
                                             <ul id="cat_{{ cat.slug }}" class="filter option-set clearfix collapse" data-single-selection="1" data-hierarchical="1">
                                             {% for child in cat.get_children %}
-                                                <li class="x-level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a>
+                                                <li class="x-level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a></li>
                                             {% endfor %}
                                             </ul>
                                         {% endif %}
                                     {% endif %}
                                 {% endfor %}
-                            </li>
+                            </div>
                         </div>
                     </div>
                 </div>

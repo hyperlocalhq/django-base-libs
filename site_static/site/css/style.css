@@ -3522,9 +3522,16 @@ aside {
       padding-top: 12px !important;
       padding-bottom: 15px !important;
       border-top: 1px solid rgba(0, 0, 0, 0.05); }
+      .sidebar .accordion .accordion-group .accordion-body .accordion-inner.tight {
+        padding-top: 5px !important;
+        padding-bottom: 7px !important; }
 
 dl {
-  padding-bottom: 10px; }
+  padding-bottom: 10px;
+  position: relative; }
+  dl .right {
+    position: absolute;
+    right: 0px; }
   dl:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
@@ -4201,6 +4208,104 @@ dl {
       .nonfeatured .editorial-content .more a:hover {
         opacity: 0.9 !important; }
 
+.jewish_museum:empty {
+  display: none !important; }
+.jewish_museum .editorial-content {
+  border-bottom: none !important;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 25px !important;
+  padding-left: 355px !important;
+  position: relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box; }
+  .jewish_museum .editorial-content:last-child {
+    padding-bottom: 0px;
+    border: none !important;
+    margin-bottom: 0px; }
+  .jewish_museum .editorial-content .img {
+    display: block;
+    overflow: hidden;
+    width: 320px !important;
+    height: auto !important;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.25s;
+    -webkit-transition-timing: ease-in-out; }
+    .jewish_museum .editorial-content .img img {
+      display: none; }
+    .jewish_museum .editorial-content .img:hover {
+      opacity: 0.9; }
+      .jewish_museum .editorial-content .img:hover .caption {
+        -webkit-transform: translate3d(0px, 0, 0) !important;
+        -moz-transform: translate3d(0px, 0, 0) !important;
+        -o-transform: translate3d(0px, 0, 0) !important;
+        transform: translate3d(0px, 0, 0) !important; }
+    .jewish_museum .editorial-content .img .caption {
+      position: absolute;
+      width: 100%;
+      bottom: 0px;
+      background-color: white;
+      color: rgba(0, 0, 0, 0.75);
+      font-size: 13px;
+      line-height: 18px;
+      padding-top: 5px !important;
+      -webkit-transform: translate3d(0px, 100%, 0) !important;
+      -moz-transform: translate3d(0px, 100%, 0) !important;
+      -o-transform: translate3d(0px, 100%, 0) !important;
+      transform: translate3d(0px, 100%, 0) !important;
+      -webkit-transition-property: all;
+      -webkit-transition-duration: 0.25s;
+      -webkit-transition-timing: ease-in-out; }
+  .jewish_museum .editorial-content .description {
+    font-size: 20px;
+    line-height: 30px;
+    padding: 0px !important; }
+  .jewish_museum .editorial-content .title {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 0px !important; }
+    .jewish_museum .editorial-content .title h3 {
+      font-size: inherit;
+      line-height: inherit;
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: 700;
+      padding: 0px;
+      margin: 0px;
+      font-size: 20px;
+      line-height: 30px; }
+    .jewish_museum .editorial-content .title h4 {
+      font-size: inherit;
+      line-height: inherit;
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: 300;
+      padding: 0px;
+      margin: 0px; }
+  .jewish_museum .editorial-content .more {
+    margin-top: -10px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px; }
+    .jewish_museum .editorial-content .more a {
+      font-size: 14px;
+      line-height: 20px;
+      color: white;
+      padding: 5px;
+      padding-left: 8px;
+      padding-right: 8px;
+      background-color: black; }
+      .jewish_museum .editorial-content .more a:hover {
+        opacity: 0.9 !important; }
+
 #sub_menu > li {
   margin-bottom: 20px !important;
   display: block; }
@@ -4563,13 +4668,13 @@ dl {
   width: 100%;
   display: block; }
   #tweets li {
-    height: 160px;
     position: relative;
     padding: 15px;
     font-size: 14px;
     line-height: 21px;
     background-color: rgba(0, 0, 0, 0.05);
     width: 235px;
+    width: 320px;
     margin-right: 20px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -4582,10 +4687,11 @@ dl {
     #tweets li .created_at a {
       font-weight: 700;
       color: black; }
-    #tweets li:nth-child(4n) {
+    #tweets li:nth-child(3n) {
       margin-right: 0px; }
-    #tweets li:nth-child(4n+1) {
-      clear: left; }
+    #tweets li:nth-child(4n) {
+      clear: left;
+      display: none; }
     #tweets li.facebook {
       background-color: #3d5e96;
       color: white; }
