@@ -222,7 +222,7 @@
                                             <dd>{% trans "Closed" %}</dd>
                                         {% else %}
                                             {% if special_opening.is_regular %}
-                                                <dd>{% trans "Regular Opening hours" %}</dd>
+                                                <dd>{% trans "Regular" %}</dd>
                                             {% else %}
                                                 <dd>{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}</dd>
                                                 {% if season.sun_break_close %}

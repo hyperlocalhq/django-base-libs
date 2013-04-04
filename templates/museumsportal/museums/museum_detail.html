@@ -229,7 +229,7 @@
                                             <span class="right">{% trans "Closed" %}</span>
                                         {% else %}
                                             {% if special_opening.is_regular %}
-                                                <span class="right">{% trans "Regular Opening hours" %}</span>
+                                                <span class="right">{% trans "Regular" %}</span>
                                             {% else %}
                                                 <span class="right">{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}</span>
                                                 {% if season.sun_break_close %}

@@ -222,8 +222,9 @@
                                         {% endif %}{% endif %}
                                         {% if season.last_entry %}
                                             <dl>
-                                                <dt>{% trans "Last entry" %}</dt>
-                                                <dd>{{ season.last_entry }}</dd>
+                                                <dt>{% trans "Last entry" %}
+                                                <span class="right">{{ season.last_entry }}</span>
+                                                </dt>
                                             </dl>
                                         {% endif %}
                                         {% if season.exceptions %}
@@ -294,7 +295,7 @@
                                             <span class="right">{% trans "Closed" %}</span>
                                         {% else %}
                                             {% if special_opening.is_regular %}
-                                                <span class="right">{% trans "Regular Opening hours" %}</span>
+                                                <span class="right">{% trans "Regular" %}</span>
                                             {% else %}
                                                 <span class="right">{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}
                                                 {% if season.sun_break_close %}
