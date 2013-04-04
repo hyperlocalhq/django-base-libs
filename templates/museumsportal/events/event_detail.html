@@ -127,11 +127,11 @@
                     {% if museum.season_set.count or museum.specialopeningtime_set.count %}
                         <li class="accordion-group">  
                             <h4 class="accordion-heading">  
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
+                                <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                                     {% trans "Opening hours" %}
                                 </a>  
                             </h4>  
-                            <ul id="collapse-opening-times" class="accordion-body collapse" style="height: 0px; ">
+                            <ul id="collapse-opening-times" class="accordion-body collapse in">
                                 {% if museum.season_set.count == 1 %}
                                     {% with museum.season_set.all.0 as season %}
                                         <li class="accordion-inner">
@@ -181,8 +181,8 @@
                                         {% endwith %}
                                         </li>
                                     {% else %}
-                                        <li class="accordion-inner">
                                         {% for season in museum.season_set.all %}
+                                        <li class="accordion-inner">
                                             <dl>
                                                 <dt>{{ season.title }}</dt>
                                                 <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
@@ -193,8 +193,8 @@
                                                 </dl>
                                             {% else %}
                                                 {% regroup season.get_opening_hours by times as opening_hours %}
+                                                <dl>
                                                 {% for same_hours in opening_hours %}
-                                                    <dl>
                                                         <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
                                                                 <span class="right">
                                                                     {% if same_hours.list.0.open %}
@@ -213,8 +213,8 @@
                                                                 </span>
                                                             {% endif %}
                                                         </dt>
-                                                    </dl>
                                                 {% endfor %}                                   
+                                                </dl>
                                             {% endif %}
                                             {% if season.last_entry %}
                                             <dl>
@@ -226,8 +226,8 @@
                                             {% if season.exceptions %}
                                                 <dd>{{ season.get_rendered_exceptions }}</dd>
                                             {% endif %}
-                                        {% endfor %}
                                         </li>
+                                        {% endfor %}
                                     {% endif %}
                                     
                                     {% if museum.specialopeningtime_set.count %}
