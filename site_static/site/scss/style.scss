@@ -2639,9 +2639,11 @@ dl {
 
       border-bottom: none !important;
       background-color: rgba(0,0,0,0.05);
+      background-color: #E1F2EC;
       padding: 25px !important;
       padding-left: 355px !important;
       position: relative;
+      color: #B55E1B;
 
       box-sizing: border-box;
       -moz-box-sizing: border-box;
@@ -2660,7 +2662,7 @@ dl {
       background-size: cover;
       background-position: top;
       background-repeat: no-repeat;
-
+      border: 10px solid #B55E1B;
       position: absolute;
       left: 0px;
       top: 0px;
@@ -2712,14 +2714,18 @@ dl {
       font-size: 20px;
       line-height: 30px;
       padding: 0px !important;
+      color: inherit;
     }
 
     .title {
       font-size: 16px;
       line-height: 22px;
+      margin-top: -4px !important;
       margin-bottom: 0px !important;
+        color: inherit;
 
       h3 {
+        color: inherit;
         font-size: inherit;
         line-height: inherit;
         font-size: 20px;
@@ -2732,6 +2738,7 @@ dl {
       } 
 
       h4 {
+        color: inherit;
         font-size: inherit;
         line-height: inherit;
         font-size: 20px;
@@ -2755,7 +2762,7 @@ dl {
         padding: 5px;
         padding-left: 8px;
         padding-right: 8px;
-        background-color: black;
+        background-color: #B55E1B;
         &:hover { opacity: 0.9 !important;}
       }
     }
