@@ -123,121 +123,123 @@
 
                 <!-- ======= Opening hours ======= -->
 
-                {% if museum.season_set.count or museum.specialopeningtime_set.count %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
-                                {% trans "Opening hours" %}
-                            </a>  
-                        </h4>  
-                        <ul id="collapse-opening-times" class="accordion-body collapse" style="height: 0px; ">
-                            <li class="accordion-inner">
-                                {% if museum.season_set.count == 1 %}
-                                    {% with museum.season_set.all.0 as season %}
-                                        {% if season.is_appointment_based %}
-                                            <dt>{% trans "Based on appointment" %}</dt>
-                                        {% else %}
-                                            {% regroup season.get_opening_hours by times as opening_hours %}
-                                            {% for same_hours in opening_hours %}
+                {% with event.museum as museum %}
+                    {% if museum.season_set.count or museum.specialopeningtime_set.count %}
+                        <li class="accordion-group">  
+                            <h4 class="accordion-heading">  
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
+                                    {% trans "Opening hours" %}
+                                </a>  
+                            </h4>  
+                            <ul id="collapse-opening-times" class="accordion-body collapse" style="height: 0px; ">
+                                <li class="accordion-inner">
+                                    {% if museum.season_set.count == 1 %}
+                                        {% with museum.season_set.all.0 as season %}
+                                            {% if season.is_appointment_based %}
+                                                <dt>{% trans "Based on appointment" %}</dt>
+                                            {% else %}
+                                                {% regroup season.get_opening_hours by times as opening_hours %}
+                                                {% for same_hours in opening_hours %}
+                                                    <dl>
+                                                        <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
+                                                        <dd>
+                                                            {% if same_hours.list.0.open %}
+                                                                 {{ same_hours.list.0.open|time:"H:i" }}
+                                                                 {% if same_hours.list.0.break_close %}
+                                                                    - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                                      / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
+                                                                 {% else %}
+                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
+                                                                 {% endif %}
+                                                            {% else %}               
+                                                                {% trans "closed" %}
+                                                            {% endif %}
+                                                        </dd>
+                                                    </dl>
+                                                {% endfor %}                                   
+                                            {% endif %}
+                                            {% if season.last_entry %}
                                                 <dl>
-                                                    <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
-                                                    <dd>
-                                                        {% if same_hours.list.0.open %}
-                                                             {{ same_hours.list.0.open|time:"H:i" }}
-                                                             {% if same_hours.list.0.break_close %}
-                                                                - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                                  / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                                - {{ same_hours.list.0.close|time:"H:i" }}
-                                                             {% else %}
-                                                                - {{ same_hours.list.0.close|time:"H:i" }}
-                                                             {% endif %}
-                                                        {% else %}               
-                                                            {% trans "closed" %}
-                                                        {% endif %}
-                                                    </dd>
+                                                    <dt>{% trans "Last entry" %}</dt>
+                                                    <dd>{{ season.last_entry }}</dd>
                                                 </dl>
-                                            {% endfor %}                                   
-                                        {% endif %}
-                                        {% if season.last_entry %}
+                                            {% endif %}
+                                            {% if season.exceptions %}
+                                                <p>{{ season.get_rendered_exceptions }}</p>
+                                            {% endif %}
+                                        {% endwith %}
+                                    {% else %}
+                                        {% for season in museum.season_set.all %}
+                                            <dl>
+                                                <dt>{{ season.title }}</dt>
+                                                <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                                            </dl>
+                                            {% if season.is_appointment_based %}
+                                            <dl>
+                                                <dt>{% trans "Based on appointment" %}</dt>
+                                            </dl>
+                                            {% else %}
+                                                {% regroup season.get_opening_hours by times as opening_hours %}
+                                                {% for same_hours in opening_hours %}
+                                                    <dl>
+                                                        <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
+                                                        <dd>
+                                                            {% if same_hours.list.0.open %}
+                                                                 {{ same_hours.list.0.open|time:"H:i" }}
+                                                                 {% if same_hours.list.0.break_close %}
+                                                                    - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                                      / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
+                                                                 {% else %}
+                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
+                                                                 {% endif %}
+                                                            {% else %}               
+                                                                {% trans "closed" %}
+                                                            {% endif %}
+                                                        </dd>
+                                                    </dl>
+                                                {% endfor %}                                   
+                                            {% endif %}
+                                            {% if season.last_entry %}
                                             <dl>
                                                 <dt>{% trans "Last entry" %}</dt>
                                                 <dd>{{ season.last_entry }}</dd>
                                             </dl>
-                                        {% endif %}
-                                        {% if season.exceptions %}
-                                            <p>{{ season.get_rendered_exceptions }}</p>
-                                        {% endif %}
-                                    {% endwith %}
-                                {% else %}
-                                    {% for season in museum.season_set.all %}
+                                            {% endif %}
+                                            {% if season.exceptions %}
+                                                <p>{{ season.get_rendered_exceptions }}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    
+                                    {% if museum.specialopeningtime_set.count %}
+                                        {% for special_opening in museum.specialopeningtime_set.all %}
                                         <dl>
-                                            <dt>{{ season.title }}</dt>
-                                            <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
-                                        </dl>
-                                        {% if season.is_appointment_based %}
-                                        <dl>
-                                            <dt>{% trans "Based on appointment" %}</dt>
-                                        </dl>
-                                        {% else %}
-                                            {% regroup season.get_opening_hours by times as opening_hours %}
-                                            {% for same_hours in opening_hours %}
-                                                <dl>
-                                                    <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</dt>
-                                                    <dd>
-                                                        {% if same_hours.list.0.open %}
-                                                             {{ same_hours.list.0.open|time:"H:i" }}
-                                                             {% if same_hours.list.0.break_close %}
-                                                                - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                                  / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                                - {{ same_hours.list.0.close|time:"H:i" }}
-                                                             {% else %}
-                                                                - {{ same_hours.list.0.close|time:"H:i" }}
-                                                             {% endif %}
-                                                        {% else %}               
-                                                            {% trans "closed" %}
-                                                        {% endif %}
-                                                    </dd>
-                                                </dl>
-                                            {% endfor %}                                   
-                                        {% endif %}
-                                        {% if season.last_entry %}
-                                        <dl>
-                                            <dt>{% trans "Last entry" %}</dt>
-                                            <dd>{{ season.last_entry }}</dd>
-                                        </dl>
-                                        {% endif %}
-                                        {% if season.exceptions %}
-                                            <p>{{ season.get_rendered_exceptions }}</p>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                                
-                                {% if museum.specialopeningtime_set.count %}
-                                    {% for special_opening in museum.specialopeningtime_set.all %}
-                                    <dl>
-                                        <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
-                                        {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
-                                        </dt>
-                                        {% if special_opening.is_closed %}
-                                            <dd>{% trans "Closed" %}</dd>
-                                        {% else %}
-                                            {% if special_opening.is_regular %}
-                                                <dd>{% trans "Regular Opening hours" %}</dd>
+                                            <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
+                                            {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
+                                            </dt>
+                                            {% if special_opening.is_closed %}
+                                                <dd>{% trans "Closed" %}</dd>
                                             {% else %}
-                                                <dd>{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}</dd>
-                                                {% if season.sun_break_close %}
-                                                    <dt>{% trans "Break:" %}</dt>
-                                                    <dd>{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}</dd>
+                                                {% if special_opening.is_regular %}
+                                                    <dd>{% trans "Regular Opening hours" %}</dd>
+                                                {% else %}
+                                                    <dd>{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}</dd>
+                                                    {% if season.sun_break_close %}
+                                                        <dt>{% trans "Break:" %}</dt>
+                                                        <dd>{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}</dd>
+                                                    {% endif %}
                                                 {% endif %}
                                             {% endif %}
-                                        {% endif %}
-                                    </dl>
-                                    {% endfor %}
-                                {% endif %}
-                            </li>
-                        </ul>  
-                    </li>
-                {% endif %}
+                                        </dl>
+                                        {% endfor %}
+                                    {% endif %}
+                                </li>
+                            </ul>  
+                        </li>
+                    {% endif %}
+                {% endwith %}
 
                 <!-- ======= Date and Time ======= -->
 
