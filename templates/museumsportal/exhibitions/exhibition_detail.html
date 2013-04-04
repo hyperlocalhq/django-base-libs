@@ -92,13 +92,25 @@
                                 </dl>
                             {% endif %}
                             
-                            {% if exhibition.website %}
                             <dl>
-                                <dt>{% trans "Website" %}
-                                    <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
-                                </dt>
+
+                                {% if exhibition.museum.phone_number %}
+                                    <dt>{% trans "Telephone" %}
+                                    <span class="right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</span>
+                                    </dt>
+                                {% endif %} 
+                                
+                                {% if exhibition.museum.fax_number %}
+                                    <dt>{% trans "Fax" %}
+                                    <span class="right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
+                                    </dt>
+                                {% endif %} 
+                                {% if exhibition.museum.website %}
+                                    <dt>{% trans "Website" %}
+                                        <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
+                                    </dt>
+                                {% endif %}
                             </dl>
-                            {% endif %}
                         </li>
                     </ul>  
                 </li>
