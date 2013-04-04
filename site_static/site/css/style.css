@@ -3170,6 +3170,27 @@ aside {
   #filter_summary li {
     display: inline-block;
     margin-right: 5px; }
+    #filter_summary li a:hover {
+      color: #ff4582; }
+      #filter_summary li a:hover:after {
+        font-size: 15px;
+        top: 2px;
+        position: relative;
+        margin-left: 5px;
+        content: " ";
+        color: white !important;
+        font-weight: 900 !important;
+        background-color: #ff4582;
+        border-radius: 20px;
+        display: inline-block;
+        height: 14px;
+        width: 14px;
+        text-align: center;
+        line-height: 13px;
+        background-image: url("../img/icons/inv/cancel.svg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat; }
     #filter_summary li:after {
       content: " / ";
       opacity: 0.25; }
@@ -3531,7 +3552,8 @@ dl {
   position: relative; }
   dl .right {
     position: absolute;
-    right: 0px; }
+    right: 0px;
+    font-weight: 300; }
   dl:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
@@ -3547,6 +3569,10 @@ dl {
       content: ", "; }
     dl dd.languages:last-child:after {
       content: "" !important; }
+  dl dd a:link {
+    color: #00aefd; }
+    dl dd a:link:hover {
+      color: black; }
   dl dd a.crop {
     display: inline-block;
     margin-left: 0;

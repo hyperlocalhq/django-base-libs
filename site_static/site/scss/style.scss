@@ -1564,6 +1564,29 @@ z-index: 10000;
     display: inline-block; 
     margin-right: 5px;
 
+    a:hover{
+      color: $red;
+      &:after {
+        font-size: 15px;
+        top: 2px;
+        position: relative;
+        margin-left: 5px;
+        content: " ";
+        color: white !important;
+        font-weight: 900 !important;
+        background-color: $red;
+        border-radius: 20px;
+        display: inline-block;
+        height: 14px;
+        width: 14px;
+        text-align: center;
+        line-height: 13px;
+        background-image: url("../img/icons/inv/cancel.svg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    }
     &:after {
         content: " / ";
         opacity: 0.25;
@@ -2026,8 +2049,7 @@ z-index: 10000;
 dl {
   padding-bottom: 10px;
   position: relative;
-
-  .right { position: absolute; right: 0px;}
+  .right { position: absolute; right: 0px; font-weight: 300; }
 
   &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
   &.inset { 
@@ -2051,6 +2073,10 @@ dl {
       &:last-child:after {
         content: "" !important;
       }
+    }
+      
+    a:link { color: $blue;
+      &:hover{ color: black;}
     }
 
     a.crop {
