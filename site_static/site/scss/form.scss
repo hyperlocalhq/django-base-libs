@@ -76,6 +76,7 @@ select {
   top: 0;
   width: 100%;
 }
+
 .sbSelector:link, .sbSelector:visited, .sbSelector:hover{
   color: rgba(0,0,0,0.75) !important;
   outline: none;
@@ -130,7 +131,7 @@ select {
   padding: 0;
 }
 .sbOptions a{
-  border-bottom: solid 1px rgba(0,0,0,0.1);
+  border-bottom: solid 1px rgba(0,0,0,0.025);
   display: block;
   outline: none;
   padding-left: 14px;

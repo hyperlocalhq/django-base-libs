@@ -2144,6 +2144,14 @@ dl {
 
 #dashboard_footer,
 #dashboard_header{
+  position: relative;
+    .status { 
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      width: 170px;
+    }
+
    .inner { padding-top: 1px !important;  padding-bottom: 0px !important; }
    h2 { 
     margin-top: 60px; 
@@ -2234,9 +2242,66 @@ dl {
     &:hover { background-color: black; }
   }
 
-  ul {
-    li {
+  fieldset > ul {
+    > li {
       position: relative;
+      
+      &:hover {
+        .status {
+          opacity: 1;
+          .sbToggle {
+            background-color: rgba(0,0,0,0.15);
+            opacity: 0.5;
+          }
+          .sbHolder{
+            background-color: rgba(0,0,0,0);
+          }
+        }
+      }
+      .status { 
+        position: absolute;
+        top: 5px;
+        right: 80px;
+        width: 115px;
+        .sbToggle {
+          height: 30px;
+          width: 100%;
+          background-color: rgba(0,0,0,0);
+          opacity: 0;
+          &.sbToggleOpen{
+            opacity: 0.5;
+            background-color: rgba(0,0,0,0.15);
+          }
+        }
+        .sbHolder{
+          background-color: rgba(0,0,0,0);
+          border: none;
+          font-family: inherit;
+          font-weight: 300 !important;
+          color: rgba(0,0,0,0.75) !important;
+          display: inline-block;
+          height: 30px;
+          position: relative;
+          width: 100%;
+
+          font-size: 13px !important;
+          line-height: 30px !important;
+
+          &:hover {background-color: rgba(0,0,0,0); }
+        }
+
+        .sbOptions a{
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+        .sbSelector{
+          font-size: 13px !important;
+          line-height: 30px !important;
+          width: 100%; 
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+        }
+      }
 
       &:hover {
         > a { background-color: rgba(0,0,0,0.075);}
@@ -2264,9 +2329,10 @@ dl {
         }
         h3 ,h5 { display: inline-block; font-size: 16px !important;}
         h5   { font-weight: 300; 
-          opacity: 0.5; margin-right: 85px; 
-          position: absolute;
-          right: 0px;
+          opacity: 0.5; 
+          margin-right: 285px; 
+          position: relative;
+          top: -2px;
           font-size: 13px !important;}
       }
     }

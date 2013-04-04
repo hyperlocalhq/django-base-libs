@@ -144,7 +144,7 @@ select {
   padding: 0; }
 
 .sbOptions a {
-  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  border-bottom: solid 1px rgba(0, 0, 0, 0.025);
   display: block;
   outline: none;
   padding-left: 14px;
@@ -3623,8 +3623,15 @@ dl {
 
 #dashboard_footer,
 #dashboard_header {
+  position: relative;
   font-size: 13px;
   line-height: 16px; }
+  #dashboard_footer .status,
+  #dashboard_header .status {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 170px; }
   #dashboard_footer .inner,
   #dashboard_header .inner {
     padding-top: 1px !important;
@@ -3747,43 +3754,146 @@ dl {
   #item_container .add:hover,
   #dashboard .add:hover {
     background-color: black; }
-#organizers_fieldset ul li,
-.fieldset-imagegallery ul li,
-#workshop_times_fieldset ul li,
-#event_times_fieldset ul li,
-#social_channels_fieldset ul li,
-#item_container ul li,
-#dashboard ul li {
+#organizers_fieldset fieldset > ul > li,
+.fieldset-imagegallery fieldset > ul > li,
+#workshop_times_fieldset fieldset > ul > li,
+#event_times_fieldset fieldset > ul > li,
+#social_channels_fieldset fieldset > ul > li,
+#item_container fieldset > ul > li,
+#dashboard fieldset > ul > li {
   position: relative; }
-  #organizers_fieldset ul li:hover > a,
-  .fieldset-imagegallery ul li:hover > a,
-  #workshop_times_fieldset ul li:hover > a,
-  #event_times_fieldset ul li:hover > a,
-  #social_channels_fieldset ul li:hover > a,
-  #item_container ul li:hover > a,
-  #dashboard ul li:hover > a {
+  #organizers_fieldset fieldset > ul > li:hover .status,
+  .fieldset-imagegallery fieldset > ul > li:hover .status,
+  #workshop_times_fieldset fieldset > ul > li:hover .status,
+  #event_times_fieldset fieldset > ul > li:hover .status,
+  #social_channels_fieldset fieldset > ul > li:hover .status,
+  #item_container fieldset > ul > li:hover .status,
+  #dashboard fieldset > ul > li:hover .status {
+    opacity: 1; }
+    #organizers_fieldset fieldset > ul > li:hover .status .sbToggle,
+    .fieldset-imagegallery fieldset > ul > li:hover .status .sbToggle,
+    #workshop_times_fieldset fieldset > ul > li:hover .status .sbToggle,
+    #event_times_fieldset fieldset > ul > li:hover .status .sbToggle,
+    #social_channels_fieldset fieldset > ul > li:hover .status .sbToggle,
+    #item_container fieldset > ul > li:hover .status .sbToggle,
+    #dashboard fieldset > ul > li:hover .status .sbToggle {
+      background-color: rgba(0, 0, 0, 0.15);
+      opacity: 0.5; }
+    #organizers_fieldset fieldset > ul > li:hover .status .sbHolder,
+    .fieldset-imagegallery fieldset > ul > li:hover .status .sbHolder,
+    #workshop_times_fieldset fieldset > ul > li:hover .status .sbHolder,
+    #event_times_fieldset fieldset > ul > li:hover .status .sbHolder,
+    #social_channels_fieldset fieldset > ul > li:hover .status .sbHolder,
+    #item_container fieldset > ul > li:hover .status .sbHolder,
+    #dashboard fieldset > ul > li:hover .status .sbHolder {
+      background-color: rgba(0, 0, 0, 0); }
+  #organizers_fieldset fieldset > ul > li .status,
+  .fieldset-imagegallery fieldset > ul > li .status,
+  #workshop_times_fieldset fieldset > ul > li .status,
+  #event_times_fieldset fieldset > ul > li .status,
+  #social_channels_fieldset fieldset > ul > li .status,
+  #item_container fieldset > ul > li .status,
+  #dashboard fieldset > ul > li .status {
+    position: absolute;
+    top: 5px;
+    right: 80px;
+    width: 115px; }
+    #organizers_fieldset fieldset > ul > li .status .sbToggle,
+    .fieldset-imagegallery fieldset > ul > li .status .sbToggle,
+    #workshop_times_fieldset fieldset > ul > li .status .sbToggle,
+    #event_times_fieldset fieldset > ul > li .status .sbToggle,
+    #social_channels_fieldset fieldset > ul > li .status .sbToggle,
+    #item_container fieldset > ul > li .status .sbToggle,
+    #dashboard fieldset > ul > li .status .sbToggle {
+      height: 30px;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0);
+      opacity: 0; }
+      #organizers_fieldset fieldset > ul > li .status .sbToggle.sbToggleOpen,
+      .fieldset-imagegallery fieldset > ul > li .status .sbToggle.sbToggleOpen,
+      #workshop_times_fieldset fieldset > ul > li .status .sbToggle.sbToggleOpen,
+      #event_times_fieldset fieldset > ul > li .status .sbToggle.sbToggleOpen,
+      #social_channels_fieldset fieldset > ul > li .status .sbToggle.sbToggleOpen,
+      #item_container fieldset > ul > li .status .sbToggle.sbToggleOpen,
+      #dashboard fieldset > ul > li .status .sbToggle.sbToggleOpen {
+        opacity: 0.5;
+        background-color: rgba(0, 0, 0, 0.15); }
+    #organizers_fieldset fieldset > ul > li .status .sbHolder,
+    .fieldset-imagegallery fieldset > ul > li .status .sbHolder,
+    #workshop_times_fieldset fieldset > ul > li .status .sbHolder,
+    #event_times_fieldset fieldset > ul > li .status .sbHolder,
+    #social_channels_fieldset fieldset > ul > li .status .sbHolder,
+    #item_container fieldset > ul > li .status .sbHolder,
+    #dashboard fieldset > ul > li .status .sbHolder {
+      background-color: rgba(0, 0, 0, 0);
+      border: none;
+      font-family: inherit;
+      font-weight: 300 !important;
+      color: rgba(0, 0, 0, 0.75) !important;
+      display: inline-block;
+      height: 30px;
+      position: relative;
+      width: 100%;
+      font-size: 13px !important;
+      line-height: 30px !important; }
+      #organizers_fieldset fieldset > ul > li .status .sbHolder:hover,
+      .fieldset-imagegallery fieldset > ul > li .status .sbHolder:hover,
+      #workshop_times_fieldset fieldset > ul > li .status .sbHolder:hover,
+      #event_times_fieldset fieldset > ul > li .status .sbHolder:hover,
+      #social_channels_fieldset fieldset > ul > li .status .sbHolder:hover,
+      #item_container fieldset > ul > li .status .sbHolder:hover,
+      #dashboard fieldset > ul > li .status .sbHolder:hover {
+        background-color: rgba(0, 0, 0, 0); }
+    #organizers_fieldset fieldset > ul > li .status .sbOptions a,
+    .fieldset-imagegallery fieldset > ul > li .status .sbOptions a,
+    #workshop_times_fieldset fieldset > ul > li .status .sbOptions a,
+    #event_times_fieldset fieldset > ul > li .status .sbOptions a,
+    #social_channels_fieldset fieldset > ul > li .status .sbOptions a,
+    #item_container fieldset > ul > li .status .sbOptions a,
+    #dashboard fieldset > ul > li .status .sbOptions a {
+      padding-top: 5px;
+      padding-bottom: 5px; }
+    #organizers_fieldset fieldset > ul > li .status .sbSelector,
+    .fieldset-imagegallery fieldset > ul > li .status .sbSelector,
+    #workshop_times_fieldset fieldset > ul > li .status .sbSelector,
+    #event_times_fieldset fieldset > ul > li .status .sbSelector,
+    #social_channels_fieldset fieldset > ul > li .status .sbSelector,
+    #item_container fieldset > ul > li .status .sbSelector,
+    #dashboard fieldset > ul > li .status .sbSelector {
+      font-size: 13px !important;
+      line-height: 30px !important;
+      width: 100%;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box; }
+  #organizers_fieldset fieldset > ul > li:hover > a,
+  .fieldset-imagegallery fieldset > ul > li:hover > a,
+  #workshop_times_fieldset fieldset > ul > li:hover > a,
+  #event_times_fieldset fieldset > ul > li:hover > a,
+  #social_channels_fieldset fieldset > ul > li:hover > a,
+  #item_container fieldset > ul > li:hover > a,
+  #dashboard fieldset > ul > li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  #organizers_fieldset ul li > h3,
-  #organizers_fieldset ul li > span,
-  #organizers_fieldset ul li > a,
-  .fieldset-imagegallery ul li > h3,
-  .fieldset-imagegallery ul li > span,
-  .fieldset-imagegallery ul li > a,
-  #workshop_times_fieldset ul li > h3,
-  #workshop_times_fieldset ul li > span,
-  #workshop_times_fieldset ul li > a,
-  #event_times_fieldset ul li > h3,
-  #event_times_fieldset ul li > span,
-  #event_times_fieldset ul li > a,
-  #social_channels_fieldset ul li > h3,
-  #social_channels_fieldset ul li > span,
-  #social_channels_fieldset ul li > a,
-  #item_container ul li > h3,
-  #item_container ul li > span,
-  #item_container ul li > a,
-  #dashboard ul li > h3,
-  #dashboard ul li > span,
-  #dashboard ul li > a {
+  #organizers_fieldset fieldset > ul > li > h3,
+  #organizers_fieldset fieldset > ul > li > span,
+  #organizers_fieldset fieldset > ul > li > a,
+  .fieldset-imagegallery fieldset > ul > li > h3,
+  .fieldset-imagegallery fieldset > ul > li > span,
+  .fieldset-imagegallery fieldset > ul > li > a,
+  #workshop_times_fieldset fieldset > ul > li > h3,
+  #workshop_times_fieldset fieldset > ul > li > span,
+  #workshop_times_fieldset fieldset > ul > li > a,
+  #event_times_fieldset fieldset > ul > li > h3,
+  #event_times_fieldset fieldset > ul > li > span,
+  #event_times_fieldset fieldset > ul > li > a,
+  #social_channels_fieldset fieldset > ul > li > h3,
+  #social_channels_fieldset fieldset > ul > li > span,
+  #social_channels_fieldset fieldset > ul > li > a,
+  #item_container fieldset > ul > li > h3,
+  #item_container fieldset > ul > li > span,
+  #item_container fieldset > ul > li > a,
+  #dashboard fieldset > ul > li > h3,
+  #dashboard fieldset > ul > li > span,
+  #dashboard fieldset > ul > li > a {
     background-color: rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.75) !important;
     display: block;
@@ -3794,159 +3904,159 @@ dl {
     -moz-box-sizing: border-box;
     margin-bottom: 2px;
     white-space: nowrap; }
-    #organizers_fieldset ul li > h3 .title,
-    #organizers_fieldset ul li > span .title,
-    #organizers_fieldset ul li > a .title,
-    .fieldset-imagegallery ul li > h3 .title,
-    .fieldset-imagegallery ul li > span .title,
-    .fieldset-imagegallery ul li > a .title,
-    #workshop_times_fieldset ul li > h3 .title,
-    #workshop_times_fieldset ul li > span .title,
-    #workshop_times_fieldset ul li > a .title,
-    #event_times_fieldset ul li > h3 .title,
-    #event_times_fieldset ul li > span .title,
-    #event_times_fieldset ul li > a .title,
-    #social_channels_fieldset ul li > h3 .title,
-    #social_channels_fieldset ul li > span .title,
-    #social_channels_fieldset ul li > a .title,
-    #item_container ul li > h3 .title,
-    #item_container ul li > span .title,
-    #item_container ul li > a .title,
-    #dashboard ul li > h3 .title,
-    #dashboard ul li > span .title,
-    #dashboard ul li > a .title {
+    #organizers_fieldset fieldset > ul > li > h3 .title,
+    #organizers_fieldset fieldset > ul > li > span .title,
+    #organizers_fieldset fieldset > ul > li > a .title,
+    .fieldset-imagegallery fieldset > ul > li > h3 .title,
+    .fieldset-imagegallery fieldset > ul > li > span .title,
+    .fieldset-imagegallery fieldset > ul > li > a .title,
+    #workshop_times_fieldset fieldset > ul > li > h3 .title,
+    #workshop_times_fieldset fieldset > ul > li > span .title,
+    #workshop_times_fieldset fieldset > ul > li > a .title,
+    #event_times_fieldset fieldset > ul > li > h3 .title,
+    #event_times_fieldset fieldset > ul > li > span .title,
+    #event_times_fieldset fieldset > ul > li > a .title,
+    #social_channels_fieldset fieldset > ul > li > h3 .title,
+    #social_channels_fieldset fieldset > ul > li > span .title,
+    #social_channels_fieldset fieldset > ul > li > a .title,
+    #item_container fieldset > ul > li > h3 .title,
+    #item_container fieldset > ul > li > span .title,
+    #item_container fieldset > ul > li > a .title,
+    #dashboard fieldset > ul > li > h3 .title,
+    #dashboard fieldset > ul > li > span .title,
+    #dashboard fieldset > ul > li > a .title {
       font-weight: 700; }
-    #organizers_fieldset ul li > h3:hover h3, #organizers_fieldset ul li > h3:hover h4, #organizers_fieldset ul li > h3:hover h5,
-    #organizers_fieldset ul li > span:hover h3,
-    #organizers_fieldset ul li > span:hover h4,
-    #organizers_fieldset ul li > span:hover h5,
-    #organizers_fieldset ul li > a:hover h3,
-    #organizers_fieldset ul li > a:hover h4,
-    #organizers_fieldset ul li > a:hover h5,
-    .fieldset-imagegallery ul li > h3:hover h3,
-    .fieldset-imagegallery ul li > h3:hover h4,
-    .fieldset-imagegallery ul li > h3:hover h5,
-    .fieldset-imagegallery ul li > span:hover h3,
-    .fieldset-imagegallery ul li > span:hover h4,
-    .fieldset-imagegallery ul li > span:hover h5,
-    .fieldset-imagegallery ul li > a:hover h3,
-    .fieldset-imagegallery ul li > a:hover h4,
-    .fieldset-imagegallery ul li > a:hover h5,
-    #workshop_times_fieldset ul li > h3:hover h3,
-    #workshop_times_fieldset ul li > h3:hover h4,
-    #workshop_times_fieldset ul li > h3:hover h5,
-    #workshop_times_fieldset ul li > span:hover h3,
-    #workshop_times_fieldset ul li > span:hover h4,
-    #workshop_times_fieldset ul li > span:hover h5,
-    #workshop_times_fieldset ul li > a:hover h3,
-    #workshop_times_fieldset ul li > a:hover h4,
-    #workshop_times_fieldset ul li > a:hover h5,
-    #event_times_fieldset ul li > h3:hover h3,
-    #event_times_fieldset ul li > h3:hover h4,
-    #event_times_fieldset ul li > h3:hover h5,
-    #event_times_fieldset ul li > span:hover h3,
-    #event_times_fieldset ul li > span:hover h4,
-    #event_times_fieldset ul li > span:hover h5,
-    #event_times_fieldset ul li > a:hover h3,
-    #event_times_fieldset ul li > a:hover h4,
-    #event_times_fieldset ul li > a:hover h5,
-    #social_channels_fieldset ul li > h3:hover h3,
-    #social_channels_fieldset ul li > h3:hover h4,
-    #social_channels_fieldset ul li > h3:hover h5,
-    #social_channels_fieldset ul li > span:hover h3,
-    #social_channels_fieldset ul li > span:hover h4,
-    #social_channels_fieldset ul li > span:hover h5,
-    #social_channels_fieldset ul li > a:hover h3,
-    #social_channels_fieldset ul li > a:hover h4,
-    #social_channels_fieldset ul li > a:hover h5,
-    #item_container ul li > h3:hover h3,
-    #item_container ul li > h3:hover h4,
-    #item_container ul li > h3:hover h5,
-    #item_container ul li > span:hover h3,
-    #item_container ul li > span:hover h4,
-    #item_container ul li > span:hover h5,
-    #item_container ul li > a:hover h3,
-    #item_container ul li > a:hover h4,
-    #item_container ul li > a:hover h5,
-    #dashboard ul li > h3:hover h3,
-    #dashboard ul li > h3:hover h4,
-    #dashboard ul li > h3:hover h5,
-    #dashboard ul li > span:hover h3,
-    #dashboard ul li > span:hover h4,
-    #dashboard ul li > span:hover h5,
-    #dashboard ul li > a:hover h3,
-    #dashboard ul li > a:hover h4,
-    #dashboard ul li > a:hover h5 {
+    #organizers_fieldset fieldset > ul > li > h3:hover h3, #organizers_fieldset fieldset > ul > li > h3:hover h4, #organizers_fieldset fieldset > ul > li > h3:hover h5,
+    #organizers_fieldset fieldset > ul > li > span:hover h3,
+    #organizers_fieldset fieldset > ul > li > span:hover h4,
+    #organizers_fieldset fieldset > ul > li > span:hover h5,
+    #organizers_fieldset fieldset > ul > li > a:hover h3,
+    #organizers_fieldset fieldset > ul > li > a:hover h4,
+    #organizers_fieldset fieldset > ul > li > a:hover h5,
+    .fieldset-imagegallery fieldset > ul > li > h3:hover h3,
+    .fieldset-imagegallery fieldset > ul > li > h3:hover h4,
+    .fieldset-imagegallery fieldset > ul > li > h3:hover h5,
+    .fieldset-imagegallery fieldset > ul > li > span:hover h3,
+    .fieldset-imagegallery fieldset > ul > li > span:hover h4,
+    .fieldset-imagegallery fieldset > ul > li > span:hover h5,
+    .fieldset-imagegallery fieldset > ul > li > a:hover h3,
+    .fieldset-imagegallery fieldset > ul > li > a:hover h4,
+    .fieldset-imagegallery fieldset > ul > li > a:hover h5,
+    #workshop_times_fieldset fieldset > ul > li > h3:hover h3,
+    #workshop_times_fieldset fieldset > ul > li > h3:hover h4,
+    #workshop_times_fieldset fieldset > ul > li > h3:hover h5,
+    #workshop_times_fieldset fieldset > ul > li > span:hover h3,
+    #workshop_times_fieldset fieldset > ul > li > span:hover h4,
+    #workshop_times_fieldset fieldset > ul > li > span:hover h5,
+    #workshop_times_fieldset fieldset > ul > li > a:hover h3,
+    #workshop_times_fieldset fieldset > ul > li > a:hover h4,
+    #workshop_times_fieldset fieldset > ul > li > a:hover h5,
+    #event_times_fieldset fieldset > ul > li > h3:hover h3,
+    #event_times_fieldset fieldset > ul > li > h3:hover h4,
+    #event_times_fieldset fieldset > ul > li > h3:hover h5,
+    #event_times_fieldset fieldset > ul > li > span:hover h3,
+    #event_times_fieldset fieldset > ul > li > span:hover h4,
+    #event_times_fieldset fieldset > ul > li > span:hover h5,
+    #event_times_fieldset fieldset > ul > li > a:hover h3,
+    #event_times_fieldset fieldset > ul > li > a:hover h4,
+    #event_times_fieldset fieldset > ul > li > a:hover h5,
+    #social_channels_fieldset fieldset > ul > li > h3:hover h3,
+    #social_channels_fieldset fieldset > ul > li > h3:hover h4,
+    #social_channels_fieldset fieldset > ul > li > h3:hover h5,
+    #social_channels_fieldset fieldset > ul > li > span:hover h3,
+    #social_channels_fieldset fieldset > ul > li > span:hover h4,
+    #social_channels_fieldset fieldset > ul > li > span:hover h5,
+    #social_channels_fieldset fieldset > ul > li > a:hover h3,
+    #social_channels_fieldset fieldset > ul > li > a:hover h4,
+    #social_channels_fieldset fieldset > ul > li > a:hover h5,
+    #item_container fieldset > ul > li > h3:hover h3,
+    #item_container fieldset > ul > li > h3:hover h4,
+    #item_container fieldset > ul > li > h3:hover h5,
+    #item_container fieldset > ul > li > span:hover h3,
+    #item_container fieldset > ul > li > span:hover h4,
+    #item_container fieldset > ul > li > span:hover h5,
+    #item_container fieldset > ul > li > a:hover h3,
+    #item_container fieldset > ul > li > a:hover h4,
+    #item_container fieldset > ul > li > a:hover h5,
+    #dashboard fieldset > ul > li > h3:hover h3,
+    #dashboard fieldset > ul > li > h3:hover h4,
+    #dashboard fieldset > ul > li > h3:hover h5,
+    #dashboard fieldset > ul > li > span:hover h3,
+    #dashboard fieldset > ul > li > span:hover h4,
+    #dashboard fieldset > ul > li > span:hover h5,
+    #dashboard fieldset > ul > li > a:hover h3,
+    #dashboard fieldset > ul > li > a:hover h4,
+    #dashboard fieldset > ul > li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
-    #organizers_fieldset ul li > h3 h3, #organizers_fieldset ul li > h3 h5,
-    #organizers_fieldset ul li > span h3,
-    #organizers_fieldset ul li > span h5,
-    #organizers_fieldset ul li > a h3,
-    #organizers_fieldset ul li > a h5,
-    .fieldset-imagegallery ul li > h3 h3,
-    .fieldset-imagegallery ul li > h3 h5,
-    .fieldset-imagegallery ul li > span h3,
-    .fieldset-imagegallery ul li > span h5,
-    .fieldset-imagegallery ul li > a h3,
-    .fieldset-imagegallery ul li > a h5,
-    #workshop_times_fieldset ul li > h3 h3,
-    #workshop_times_fieldset ul li > h3 h5,
-    #workshop_times_fieldset ul li > span h3,
-    #workshop_times_fieldset ul li > span h5,
-    #workshop_times_fieldset ul li > a h3,
-    #workshop_times_fieldset ul li > a h5,
-    #event_times_fieldset ul li > h3 h3,
-    #event_times_fieldset ul li > h3 h5,
-    #event_times_fieldset ul li > span h3,
-    #event_times_fieldset ul li > span h5,
-    #event_times_fieldset ul li > a h3,
-    #event_times_fieldset ul li > a h5,
-    #social_channels_fieldset ul li > h3 h3,
-    #social_channels_fieldset ul li > h3 h5,
-    #social_channels_fieldset ul li > span h3,
-    #social_channels_fieldset ul li > span h5,
-    #social_channels_fieldset ul li > a h3,
-    #social_channels_fieldset ul li > a h5,
-    #item_container ul li > h3 h3,
-    #item_container ul li > h3 h5,
-    #item_container ul li > span h3,
-    #item_container ul li > span h5,
-    #item_container ul li > a h3,
-    #item_container ul li > a h5,
-    #dashboard ul li > h3 h3,
-    #dashboard ul li > h3 h5,
-    #dashboard ul li > span h3,
-    #dashboard ul li > span h5,
-    #dashboard ul li > a h3,
-    #dashboard ul li > a h5 {
+    #organizers_fieldset fieldset > ul > li > h3 h3, #organizers_fieldset fieldset > ul > li > h3 h5,
+    #organizers_fieldset fieldset > ul > li > span h3,
+    #organizers_fieldset fieldset > ul > li > span h5,
+    #organizers_fieldset fieldset > ul > li > a h3,
+    #organizers_fieldset fieldset > ul > li > a h5,
+    .fieldset-imagegallery fieldset > ul > li > h3 h3,
+    .fieldset-imagegallery fieldset > ul > li > h3 h5,
+    .fieldset-imagegallery fieldset > ul > li > span h3,
+    .fieldset-imagegallery fieldset > ul > li > span h5,
+    .fieldset-imagegallery fieldset > ul > li > a h3,
+    .fieldset-imagegallery fieldset > ul > li > a h5,
+    #workshop_times_fieldset fieldset > ul > li > h3 h3,
+    #workshop_times_fieldset fieldset > ul > li > h3 h5,
+    #workshop_times_fieldset fieldset > ul > li > span h3,
+    #workshop_times_fieldset fieldset > ul > li > span h5,
+    #workshop_times_fieldset fieldset > ul > li > a h3,
+    #workshop_times_fieldset fieldset > ul > li > a h5,
+    #event_times_fieldset fieldset > ul > li > h3 h3,
+    #event_times_fieldset fieldset > ul > li > h3 h5,
+    #event_times_fieldset fieldset > ul > li > span h3,
+    #event_times_fieldset fieldset > ul > li > span h5,
+    #event_times_fieldset fieldset > ul > li > a h3,
+    #event_times_fieldset fieldset > ul > li > a h5,
+    #social_channels_fieldset fieldset > ul > li > h3 h3,
+    #social_channels_fieldset fieldset > ul > li > h3 h5,
+    #social_channels_fieldset fieldset > ul > li > span h3,
+    #social_channels_fieldset fieldset > ul > li > span h5,
+    #social_channels_fieldset fieldset > ul > li > a h3,
+    #social_channels_fieldset fieldset > ul > li > a h5,
+    #item_container fieldset > ul > li > h3 h3,
+    #item_container fieldset > ul > li > h3 h5,
+    #item_container fieldset > ul > li > span h3,
+    #item_container fieldset > ul > li > span h5,
+    #item_container fieldset > ul > li > a h3,
+    #item_container fieldset > ul > li > a h5,
+    #dashboard fieldset > ul > li > h3 h3,
+    #dashboard fieldset > ul > li > h3 h5,
+    #dashboard fieldset > ul > li > span h3,
+    #dashboard fieldset > ul > li > span h5,
+    #dashboard fieldset > ul > li > a h3,
+    #dashboard fieldset > ul > li > a h5 {
       display: inline-block;
       font-size: 16px !important; }
-    #organizers_fieldset ul li > h3 h5,
-    #organizers_fieldset ul li > span h5,
-    #organizers_fieldset ul li > a h5,
-    .fieldset-imagegallery ul li > h3 h5,
-    .fieldset-imagegallery ul li > span h5,
-    .fieldset-imagegallery ul li > a h5,
-    #workshop_times_fieldset ul li > h3 h5,
-    #workshop_times_fieldset ul li > span h5,
-    #workshop_times_fieldset ul li > a h5,
-    #event_times_fieldset ul li > h3 h5,
-    #event_times_fieldset ul li > span h5,
-    #event_times_fieldset ul li > a h5,
-    #social_channels_fieldset ul li > h3 h5,
-    #social_channels_fieldset ul li > span h5,
-    #social_channels_fieldset ul li > a h5,
-    #item_container ul li > h3 h5,
-    #item_container ul li > span h5,
-    #item_container ul li > a h5,
-    #dashboard ul li > h3 h5,
-    #dashboard ul li > span h5,
-    #dashboard ul li > a h5 {
+    #organizers_fieldset fieldset > ul > li > h3 h5,
+    #organizers_fieldset fieldset > ul > li > span h5,
+    #organizers_fieldset fieldset > ul > li > a h5,
+    .fieldset-imagegallery fieldset > ul > li > h3 h5,
+    .fieldset-imagegallery fieldset > ul > li > span h5,
+    .fieldset-imagegallery fieldset > ul > li > a h5,
+    #workshop_times_fieldset fieldset > ul > li > h3 h5,
+    #workshop_times_fieldset fieldset > ul > li > span h5,
+    #workshop_times_fieldset fieldset > ul > li > a h5,
+    #event_times_fieldset fieldset > ul > li > h3 h5,
+    #event_times_fieldset fieldset > ul > li > span h5,
+    #event_times_fieldset fieldset > ul > li > a h5,
+    #social_channels_fieldset fieldset > ul > li > h3 h5,
+    #social_channels_fieldset fieldset > ul > li > span h5,
+    #social_channels_fieldset fieldset > ul > li > a h5,
+    #item_container fieldset > ul > li > h3 h5,
+    #item_container fieldset > ul > li > span h5,
+    #item_container fieldset > ul > li > a h5,
+    #dashboard fieldset > ul > li > h3 h5,
+    #dashboard fieldset > ul > li > span h5,
+    #dashboard fieldset > ul > li > a h5 {
       font-weight: 300;
       opacity: 0.5;
-      margin-right: 85px;
-      position: absolute;
-      right: 0px;
+      margin-right: 285px;
+      position: relative;
+      top: -2px;
       font-size: 13px !important; }
 
 .magazine .featured {
