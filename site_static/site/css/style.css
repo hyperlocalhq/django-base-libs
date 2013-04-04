@@ -3702,6 +3702,14 @@ dl {
   background-image: url("../img/icons/edit.svg");
   opacity: 0.35;
   margin-top: 0px; }
+#organizers_fieldset li:hover .actions,
+.fieldset-imagegallery li:hover .actions,
+#workshop_times_fieldset li:hover .actions,
+#event_times_fieldset li:hover .actions,
+#social_channels_fieldset li:hover .actions,
+#item_container li:hover .actions,
+#dashboard li:hover .actions {
+  opacity: 1; }
 #organizers_fieldset .actions,
 .fieldset-imagegallery .actions,
 #workshop_times_fieldset .actions,
@@ -3711,7 +3719,8 @@ dl {
 #dashboard .actions {
   width: 80px;
   height: 20px;
-  text-align: left; }
+  text-align: left;
+  opacity: 0.25; }
   #organizers_fieldset .actions a,
   .fieldset-imagegallery .actions a,
   #workshop_times_fieldset .actions a,

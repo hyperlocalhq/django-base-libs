@@ -2210,15 +2210,18 @@ dl {
     opacity: 0.35;
     margin-top: 0px;
   } 
-
+  li:hover .actions { opacity: 1; }
+  
   .actions {
     width: 80px;
     height: 20px;
     text-align: left;
+    opacity: 0.25;
     a {
       float: left;
     }
   }
+
   .add {
     position: absolute;
     right: 0px;
