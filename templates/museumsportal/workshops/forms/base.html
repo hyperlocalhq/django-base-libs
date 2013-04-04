@@ -13,6 +13,7 @@
     {{ block.super }}
     <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{ STATIC_URL }}site/css/timepicker.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/jquery.selectbox.css" rel="stylesheet" media="screen" type="text/css" />
 {% endblock %}
 
 {% block js %}
@@ -20,6 +21,7 @@
     <script src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-datepicker.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-timepicker.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
 {% endblock %}
 
 {% block edit_item %}
@@ -35,6 +37,28 @@
 {% endblock %}
 
 {% block form_steps %}
+    {% if workshop %}
+        <div class="status">
+            <select class="status-switch" data-url="{{ workshop.get_url_path }}status/">
+                <option value="draft"{% if workshop.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                <option value="published"{% if workshop.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
+                <option value="expired"{% if workshop.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
+            </select>
+        </div>
+        <script>
+            $(function() {
+                $('.status').hover(function() {
+                    $(this).addClass('hover');
+                }, function() {
+                    $(this).removeClass('hover');
+                }).mouseleave();
+                $('.status-switch').change(function() {
+                    var $this = $(this);
+                    $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+                });
+            });
+        </script>
+    {% endif %}
     {% include "utils/step_list.html" %}
 {% endblock %}
 
@@ -63,3 +87,13 @@
 </div>
 <a id="preview_page" href="{{ workshop.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
 {% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $("select").not('[name*="__prefix__"]').selectbox();
+        });
+    </script>
+{% endblock %}
+

@@ -37,6 +37,28 @@
 {% endblock %}
 
 {% block form_steps %}
+    {% if exhibition %}
+        <div class="status">
+            <select class="status-switch" data-url="{{ exhibition.get_url_path }}status/">
+                <option value="draft"{% if exhibition.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                <option value="published"{% if exhibition.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
+                <option value="expired"{% if exhibition.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
+            </select>
+        </div>
+        <script>
+            $(function() {
+                $('.status').hover(function() {
+                    $(this).addClass('hover');
+                }, function() {
+                    $(this).removeClass('hover');
+                }).mouseleave();
+                $('.status-switch').change(function() {
+                    var $this = $(this);
+                    $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+                });
+            });
+        </script>
+    {% endif %}
     {% include "utils/step_list.html" %}
 {% endblock %}
 
@@ -64,5 +86,14 @@
     </div>
 </div>
 <a id="preview_page" href="{{ exhibition.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
-<script> $("select").selectbox(); </script>
 {% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $("select").not('[name*="__prefix__"]').selectbox();
+        });
+    </script>
+{% endblock %}
+

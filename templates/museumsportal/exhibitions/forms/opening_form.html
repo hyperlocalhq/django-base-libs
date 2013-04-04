@@ -81,6 +81,7 @@ var error_messages = {
             weekStart: 1
         })
         $('#seasons .timeinput,#special_openings .timeinput').timepicker();
+        $("select").not('[name*="__prefix__"]').selectbox();
     }
     
     function set_index_for_fields($formset_form, index) {
