@@ -21,7 +21,7 @@
                             $(list).css("height","auto");
                             $(list).height($(list).height());
                         };
-                        $(list).height($(list).height());
+                        // $(list).height($(list).height());
                         $(list).find('img').load(resize).error(resize);
                     }                    
                 })

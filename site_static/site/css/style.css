@@ -2204,18 +2204,14 @@ a:focus {
   .list#photos > li {
     cursor: move !important;
     width: 320px;
-    height: 253px;
     position: relative;
     float: left;
     margin-right: 20px;
     height: auto;
     margin-bottom: 20px;
     overflow: hidden; }
-    .list#photos > li:nth-child(3n+1) {
-      clear: left; }
     .list#photos > li.ui-state-highlight {
-      background-color: rgba(0, 0, 0, 0.05) !important;
-      height: 150px; }
+      background-color: rgba(0, 0, 0, 0.05) !important; }
       .list#photos > li.ui-state-highlight:first-child {
         width: 1000px !important;
         height: 350px !important; }

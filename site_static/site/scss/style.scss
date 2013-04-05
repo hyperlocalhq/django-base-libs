@@ -476,17 +476,12 @@ a:focus  { outline: none !important; }
     > li { 
       cursor: move !important;
       width: 320px;
-      height: 253px;
       position: relative;
       float: left;
       margin-right: 20px;
-      
-      &:nth-child(3n+1) { clear: left;}
-
 
       &.ui-state-highlight {
         background-color: rgba(0,0,0,0.05) !important;
-        height: 150px;
         &:first-child {
           width: 1000px !important;
           height: 350px !important;
