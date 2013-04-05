@@ -477,8 +477,13 @@ a:focus  { outline: none !important; }
       cursor: move !important;
       width: 320px;
       position: relative;
-      float: left;
       margin-right: 20px;
+      display: inline-block;
+
+      // &:nth-child(1n+1) { float: left; }
+      // &:nth-child(4n+1) { 
+      //   clear: left;
+      //  }
 
       &.ui-state-highlight {
         background-color: rgba(0,0,0,0.05) !important;
