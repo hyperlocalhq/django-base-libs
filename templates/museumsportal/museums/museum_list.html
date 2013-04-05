@@ -155,9 +155,11 @@
 
                         <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
 
-                        {% if_has_perm "museums.change_museum" museum %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';"></button>
-                        {% end_if_has_perm %}
+                        {% if museum.cover_image %}
+                            {% if_has_perm "museums.change_museum" museum %}
+                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';"></button>
+                            {% end_if_has_perm %}
+                        {% endif %}
                     </nav>
                     
                     <a href="{{ museum.get_url_path }}">
