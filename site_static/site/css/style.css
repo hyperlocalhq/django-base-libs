@@ -2512,6 +2512,7 @@ a:focus {
       top: 0;
       padding: 0px; }
     .list.compact li a.txt {
+      float: left;
       padding: 10px;
       padding-left: 95px;
       display: block !important;
@@ -2538,7 +2539,9 @@ a:focus {
         width: 100%;
         display: inline-block;
         box-sizing: border-box !important;
-        -moz-box-sizing: border-box !important; }
+        -moz-box-sizing: border-box !important;
+        margin: 0px !important;
+        display: block !important; }
       .list.compact li a.txt p {
         display: none; }
     .list.compact li:nth-child(2) {
@@ -2547,7 +2550,9 @@ a:focus {
       height: 380px; }
       .list.compact li:nth-child(2) .txt {
         padding: 0px;
-        background: none !important; }
+        background: none !important;
+        width: 100%;
+        display: block !important; }
         .list.compact li:nth-child(2) .txt h3,
         .list.compact li:nth-child(2) .txt h4,
         .list.compact li:nth-child(2) .txt h5 {

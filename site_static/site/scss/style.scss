@@ -859,6 +859,7 @@ a:focus  { outline: none !important; }
       }
 
       a.txt {
+        float: left;
         padding: 10px;
         padding-left: 95px;
         display: block !important;
@@ -883,6 +884,8 @@ a:focus  { outline: none !important; }
           display: inline-block;
           box-sizing: border-box !important;
           -moz-box-sizing: border-box !important;
+          margin: 0px !important;
+          display: block !important;
         }
         p { display: none;}
 
@@ -895,6 +898,8 @@ a:focus  { outline: none !important; }
         .txt { 
           padding: 0px;
           background: none !important;
+          width: 100%;
+          display: block !important;
           h3,
           h4,
           h5 { 
