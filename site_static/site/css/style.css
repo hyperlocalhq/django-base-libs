@@ -2211,29 +2211,29 @@ a:focus {
     height: auto;
     margin-bottom: 20px;
     overflow: hidden; }
+    .list#photos > li:nth-child(3n+1) {
+      clear: left; }
     .list#photos > li.ui-state-highlight {
       background-color: rgba(0, 0, 0, 0.05) !important;
       height: 150px; }
       .list#photos > li.ui-state-highlight:first-child {
         width: 1000px !important;
         height: 350px !important; }
-    .list#photos > li .img {
-      display: block;
-      height: auto;
-      margin: 0px;
-      padding: 0px;
-      cursor: move !important;
-      background-size: cover !important;
-      background-position: center;
-      background-repeat: no-repeat; }
-      .list#photos > li .img img {
-        width: 100%;
-        height: 150px; }
+    .list#photos > li .img img {
+      width: 100%; }
+    .list#photos > li .img .max {
+      display: block; }
+    .list#photos > li .img .cover {
+      display: none; }
     .list#photos > li:first-child {
       width: 1000px !important;
       height: 350px !important; }
       .list#photos > li:first-child img {
         height: 350px !important; }
+      .list#photos > li:first-child .img .cover {
+        display: block !important; }
+      .list#photos > li:first-child .img .max {
+        display: none !important; }
     .list#photos > li .inner {
       overflow: hidden;
       position: relative; }
@@ -3596,6 +3596,8 @@ dl {
   dl dt {
     font-weight: normal;
     font-weight: 700; }
+  dl dd p a {
+    display: inline-block; }
   dl dd.languages {
     display: inline-block; }
     dl dd.languages:after {
@@ -3761,7 +3763,7 @@ dl {
   #social_channels_fieldset .actions a,
   #item_container .actions a,
   #dashboard .actions a {
-    float: left; }
+    float: right; }
 #organizers_fieldset .add,
 .fieldset-imagegallery .add,
 #workshop_times_fieldset .add,

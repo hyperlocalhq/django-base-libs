@@ -162,7 +162,9 @@
                                             </dl>
                                         {% endif %}
                                         {% if season.exceptions %}
-                                            <p>{{ season.get_rendered_exceptions }}</p>
+                                            <dl>
+                                                <dd>{{ season.get_rendered_exceptions }}</dd>
+                                            </dl>
                                         {% endif %}
                                     {% endwith %}
                                     </li>
