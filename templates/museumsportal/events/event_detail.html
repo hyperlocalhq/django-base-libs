@@ -123,7 +123,7 @@
 
                 <!-- ======= Date and Time ======= -->
 
-                {% if event.eventtime_set.count %}
+                {% if event.get_upcoming_event_times.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
@@ -131,7 +131,7 @@
                             </a>
                         </h4>
                         <ul id="collapse-times" class="accordion-body collapse">  
-                            {% for event_time in event.eventtime_set.all %}
+                            {% for event_time in event.get_upcoming_event_times %}
                                 <li class="accordion-inner tight">
                                     <dl>
                                         <dt>

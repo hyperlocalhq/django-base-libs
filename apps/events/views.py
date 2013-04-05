@@ -98,7 +98,8 @@ def event_list(request):
     #    qs = qs.order_by("eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
     #else:
     #    qs = qs.order_by("-eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
-        
+    qs = qs.order_by("closest_event_date", "closest_event_time", "title_%s" % request.LANGUAGE_CODE)        
+
     qs = qs.distinct()
     
     abc_filter = request.GET.get('by-abc', None)

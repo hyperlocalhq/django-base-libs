@@ -546,6 +546,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 event_time.start = event_time_dict['start']
                 event_time.end = event_time_dict['end']
                 event_time.save()
+                
+            instance.update_closest_event_time()
 
     if current_step == "prices":
         if "_pk" in form_step_data:
@@ -646,6 +648,8 @@ def save_data(form_steps, form_step_data, instance=None):
         event_time.start = event_time_dict['start']
         event_time.end = event_time_dict['end']
         event_time.save()
+
+    instance.update_closest_event_time()
 
     form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
     
