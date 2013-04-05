@@ -567,7 +567,7 @@
                     {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
                         <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
                     {% else %}
-                        <h4>{{ workshop.workshop_type }}:
+                        <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
                         {% with workshop.get_closest_workshop_time as workshop_time %}
                             {{ workshop_time.workshop_date|date:"j. F Y" }}
                             {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}

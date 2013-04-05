@@ -34,4 +34,16 @@
         </ul>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#photos').isotope({
+            itemSelector : '.item',
+            layoutMode : 'masonry',
+            masonry: {
+                columnWidth: 340
+            }
+        });
+    });
+</script>
 {% endblock %}

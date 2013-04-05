@@ -476,17 +476,17 @@ a:focus  { outline: none !important; }
     > li { 
       cursor: move !important;
       width: 320px;
-      height: 253px;
       position: relative;
-      float: left;
       margin-right: 20px;
-      
-      &:nth-child(3n+1) { clear: left;}
+      display: inline-block;
 
+      // &:nth-child(1n+1) { float: left; }
+      // &:nth-child(4n+1) { 
+      //   clear: left;
+      //  }
 
       &.ui-state-highlight {
         background-color: rgba(0,0,0,0.05) !important;
-        height: 150px;
         &:first-child {
           width: 1000px !important;
           height: 350px !important;
@@ -859,12 +859,16 @@ a:focus  { outline: none !important; }
       }
 
       a.txt {
+        float: left;
         padding: 10px;
         padding-left: 95px;
-        display: block;
+        display: block !important;
         font-size: 13px;
         line-height: 18px;
-        height: 75px;
+        width: 100%;
+        box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+
         &:hover * { color: black; }
 
         h3 { font-weight: 700; }
@@ -875,10 +879,13 @@ a:focus  { outline: none !important; }
         h5 {
           white-space: nowrap;
           text-overflow: ellipsis;
-          width: 100%;
           overflow: hidden;
+          width: 100%;
+          display: inline-block;
           box-sizing: border-box !important;
           -moz-box-sizing: border-box !important;
+          margin: 0px !important;
+          display: block !important;
         }
         p { display: none;}
 
@@ -891,6 +898,8 @@ a:focus  { outline: none !important; }
         .txt { 
           padding: 0px;
           background: none !important;
+          width: 100%;
+          display: block !important;
           h3,
           h4,
           h5 { 

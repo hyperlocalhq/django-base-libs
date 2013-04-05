@@ -2204,18 +2204,14 @@ a:focus {
   .list#photos > li {
     cursor: move !important;
     width: 320px;
-    height: 253px;
     position: relative;
-    float: left;
     margin-right: 20px;
+    display: inline-block;
     height: auto;
     margin-bottom: 20px;
     overflow: hidden; }
-    .list#photos > li:nth-child(3n+1) {
-      clear: left; }
     .list#photos > li.ui-state-highlight {
-      background-color: rgba(0, 0, 0, 0.05) !important;
-      height: 150px; }
+      background-color: rgba(0, 0, 0, 0.05) !important; }
       .list#photos > li.ui-state-highlight:first-child {
         width: 1000px !important;
         height: 350px !important; }
@@ -2516,12 +2512,15 @@ a:focus {
       top: 0;
       padding: 0px; }
     .list.compact li a.txt {
+      float: left;
       padding: 10px;
       padding-left: 95px;
-      display: block;
+      display: block !important;
       font-size: 13px;
       line-height: 18px;
-      height: 75px; }
+      width: 100%;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important; }
       .list.compact li a.txt:hover * {
         color: black; }
       .list.compact li a.txt h3 {
@@ -2536,10 +2535,13 @@ a:focus {
       .list.compact li a.txt h5 {
         white-space: nowrap;
         text-overflow: ellipsis;
-        width: 100%;
         overflow: hidden;
+        width: 100%;
+        display: inline-block;
         box-sizing: border-box !important;
-        -moz-box-sizing: border-box !important; }
+        -moz-box-sizing: border-box !important;
+        margin: 0px !important;
+        display: block !important; }
       .list.compact li a.txt p {
         display: none; }
     .list.compact li:nth-child(2) {
@@ -2548,7 +2550,9 @@ a:focus {
       height: 380px; }
       .list.compact li:nth-child(2) .txt {
         padding: 0px;
-        background: none !important; }
+        background: none !important;
+        width: 100%;
+        display: block !important; }
         .list.compact li:nth-child(2) .txt h3,
         .list.compact li:nth-child(2) .txt h4,
         .list.compact li:nth-child(2) .txt h5 {
