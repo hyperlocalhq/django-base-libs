@@ -109,7 +109,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     fieldsets += [(None, {'fields': ('slug',)}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name', 'street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += get_admin_lang_section(_("Other locations"), ['other_locations', ])
-    fieldsets += [(_("Time"), {'fields': ('start','end', 'vernissage', 'finissage', 'exhibition_extended', 'permanent')}),]
+    fieldsets += [(_("Time"), {'fields': ('start','end', 'vernissage', 'finissage', 'exhibition_extended', 'permanent', 'museum_opening_hours')}),]
     fieldsets += [(_("Prices"), {'fields': ('museum_prices', 'free_entrance',  
         'admission_price', get_admin_lang_section(_("Price info"), ['admission_price_info']),
         'reduced_price', get_admin_lang_section(_("Price info"), ['reduced_price_info']),

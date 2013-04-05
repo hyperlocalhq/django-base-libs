@@ -32,6 +32,10 @@ from museumsportal.utils.forms import ModelMultipleChoiceTreeField
 
 # translatable strings
 _("Particularities")
+_("Add Individual Opening Hours")
+_("Opening Hours")
+_("Add Closing Time / Holiday")
+_("Closing Times / Holidays")
 
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
@@ -286,13 +290,68 @@ OrganizerFormset = inlineformset_factory(Exhibition, Organizer, form=OrganizerFo
 class OpeningForm(ModelForm):
     class Meta:
         model = Exhibition
-        fields = []
+        fields = ['museum_opening_hours']
     
     def __init__(self, *args, **kwargs):
         super(OpeningForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_tag = False
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
         layout_blocks = []
+        layout_blocks.append(layout.Fieldset(
+            _("Museum's Opening Hours"),
+            'museum_opening_hours',
+            css_id="fieldset_museum_opening_hours",
+            ))
+        layout_blocks.append(layout.HTML("""{% load i18n crispy_forms_tags %}
+            <div id="item_container">
+                <fieldset>
+                    <a class="add" id="add_season" href="#">{% trans "Add Individual Opening Hours" %}</a>
+                    <legend>{% trans "Opening Hours" %}</legend>
+                    <ul id="season_list">
+                        <li> </li>
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <a class="add" id="add_special_opening" href="#">{% trans "Add Closing Time / Holiday" %}</a>
+                    <legend>{% trans "Closing Times / Holidays" %}</legend>
+                    <ul id="special_opening_list">
+                        <li> </li>
+                    </ul>
+                </fieldset>
+            </div>
+            
+            {{ formsets.seasons.management_form }}
+            {{ formsets.special_openings.management_form }}
+            
+            <div id="seasons">
+                {% for form in formsets.seasons.forms %}
+                    <div class="season formset-form" style="display: none">
+                        {% crispy form %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- used by javascript -->
+            <div id="seasons_empty_form" class="season formset-form" style="display: none">
+                {% with formsets.seasons.empty_form as form %}
+                    {% crispy form %}
+                {% endwith %}
+            </div>
+            
+            <div id="special_openings">
+                {% for form in formsets.special_openings.forms %}
+                    <div class="special_opening formset-form" style="display: none">
+                        {% crispy form %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- used by javascript -->
+            <div id="special_openings_empty_form" class="special_opening formset-form" style="display: none">
+                {% with formsets.special_openings.empty_form as form %}
+                    {% crispy form %}
+                {% endwith %}
+            </div>
+            """))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
@@ -782,6 +841,8 @@ def load_data(instance=None):
             organizer_dict['organizer_url_link'] = organizer.organizer_url_link
             form_step_data['basic']['sets']['organizers'].append(organizer_dict)
     
+        form_step_data['opening']['museum_opening_hours'] = instance.museum_opening_hours
+    
         for season in instance.season_set.all():
             season_dict = {}
             season_dict['start'] = season.start
@@ -923,6 +984,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         # fill in Opening hours from museum
         if not form_step_data.get('opening', {}).get('_filled', False):
             form_step_data['opening'] = {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}}
+            
+            '''
             for season in museum.season_set.all():
                 season_dict = {}
                 season_dict['start'] = season.start
@@ -988,6 +1051,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 special_opening_dict['break_open'] = special_opening.break_open
                 special_opening_dict['closing'] = special_opening.closing
                 form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
+        '''
         
         # fill in prices from museum
         if not form_step_data.get('prices', {}).get('_filled', False):
@@ -1006,6 +1070,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     if current_step == "opening":
         if "_pk" in form_step_data:
             instance = Exhibition.objects.get(pk=form_step_data['_pk'])
+
+            instance.museum_opening_hours = form_step_data['opening']['museum_opening_hours'] 
+            instance.save()
 
             instance.season_set.all().delete()
             for season_dict in form_step_data['opening']['sets']['seasons']:
@@ -1149,6 +1216,8 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.finissage = form_step_data['basic']['finissage']
     instance.tags = form_step_data['basic']['tags']
     instance.is_for_children = form_step_data['basic']['is_for_children']
+
+    instance.museum_opening_hours = form_step_data['opening']['museum_opening_hours'] 
 
     fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price', 
         ]

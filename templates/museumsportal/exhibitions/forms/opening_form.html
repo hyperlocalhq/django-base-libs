@@ -16,59 +16,9 @@
 {% endblock %}
 
 {% block multistep_form %}
-<div id="item_container">
-    <form>
-        <fieldset>
-            <a class="add" id="add_season" href="#">{% trans "Add Opening Hours" %}</a>
-            <legend>{% trans "Opening Hours" %}</legend>
-            <ul id="season_list">
-                <li> </li>
-            </ul>
-        </fieldset>
-        <fieldset>
-            <a class="add" id="add_special_opening" href="#">{% trans "Add Closing Time / Holiday" %}</a>
-            <legend>{% trans "Closing Times / Holidays" %}</legend>
-            <ul id="special_opening_list">
-                <li> </li>
-            </ul>
-        </fieldset>
-    </form>
-</div>
-
-<form action="" method="post">
-{{ formsets.seasons.management_form }}
-{{ formsets.special_openings.management_form }}
-
-<div id="seasons">
-    {% for form in formsets.seasons.forms %}
-        <div class="season formset-form" style="display: none">
-            {% crispy form %}
-        </div>
-    {% endfor %}
-</div>
-<!-- used by javascript -->
-<div id="seasons_empty_form" class="season formset-form" style="display: none">
-    {% with formsets.seasons.empty_form as form %}
-        {% crispy form %}
-    {% endwith %}
-</div>
-
-<div id="special_openings">
-    {% for form in formsets.special_openings.forms %}
-        <div class="special_opening formset-form" style="display: none">
-            {% crispy form %}
-        </div>
-    {% endfor %}
-</div>
-<!-- used by javascript -->
-<div id="special_openings_empty_form" class="special_opening formset-form" style="display: none">
-    {% with formsets.special_openings.empty_form as form %}
-        {% crispy form %}
-    {% endwith %}
-</div>
 
 {% crispy form %}
-</form>
+
 <script type="text/javascript">
 var error_messages = {
     required: "{% trans "This field is required." %}"
@@ -127,6 +77,7 @@ var error_messages = {
             set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
             $('#seasons').append($new_form);
             $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            $('#fieldset_museum_opening_hours').hide();
             $('#item_container').hide();
             $('.form-actions:last').hide();
             reinit_widgets();
@@ -139,6 +90,7 @@ var error_messages = {
             $('#special_openings').append($new_form);
             $total_forms.val(parseInt($total_forms.val(), 10) + 1);
             reinit_widgets();
+            $('#fieldset_museum_opening_hours').hide();
             $('#item_container').hide();
             $('.form-actions:last').hide();
             return false;
@@ -201,6 +153,7 @@ var error_messages = {
                 var $mirror = $season.data('mirror');
                 $mirror.html(html);
             }
+            $('#fieldset_museum_opening_hours').show();
             $('#item_container').show();
             $('.form-actions:last').show();
             return false;
@@ -214,6 +167,7 @@ var error_messages = {
             if ($mirror) {
                 $mirror.remove();
             }
+            $('#fieldset_museum_opening_hours').show();
             $('#item_container').show();
             $('.form-actions:last').show();
             return false;
@@ -238,6 +192,7 @@ var error_messages = {
                 var $mirror = $season.data('mirror');
                 $mirror.html(html);
             }
+            $('#fieldset_museum_opening_hours').show();
             $('#item_container').show();
             $('.form-actions:last').show();
             return false;
@@ -251,6 +206,7 @@ var error_messages = {
             if ($mirror) {
                 $mirror.remove();
             }
+            $('#fieldset_museum_opening_hours').show();
             $('#item_container').show();
             $('.form-actions:last').show();
             return false;
@@ -259,6 +215,7 @@ var error_messages = {
             var $mirror = $(this).parents('.item:first');
             var $origin = $mirror.data('origin');
             $origin.show();
+            $('#fieldset_museum_opening_hours').hide();
             $('#item_container').hide();
             $('.form-actions:last').hide();
             return false;
@@ -267,6 +224,7 @@ var error_messages = {
         // Initial state
         var $total_forms = $('#id_seasons-TOTAL_FORMS');
         if ($total_forms.val() == "0") {
+            /*
             $('#add_season').click();
             $('#id_seasons-0-title_de').val("Ganzjährig");
             $('#id_seasons-0-title_en').val("Year-round");
@@ -277,6 +235,7 @@ var error_messages = {
                 $('#id_seasons-0-' + this + '_close').val("18:00");
             });
             $(':input.save-link').click();
+            */
         } else {
             $(':input.save-link').click();
         }
