@@ -2,7 +2,7 @@
 
 {% if placeholder == "featured_magazin" or "start_page" in placeholder %}
   <li class="item">
-      <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})"></a>
+      <a class="img" alt="{{ object.image_caption }}" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})"></a>
       <a class="txt" href="{{ object.website }}">
           <h3>{{ object.title }}</h3>
           <h4>{{ object.subtitle }}</h4>

@@ -4407,7 +4407,8 @@ dl {
       transform: translate3d(0px, 100%, 0) !important;
       -webkit-transition-property: all;
       -webkit-transition-duration: 0.25s;
-      -webkit-transition-timing: ease-in-out; }
+      -webkit-transition-timing: ease-in-out;
+      display: none; }
   .jewish_museum .editorial-content .description {
     font-size: 20px;
     line-height: 30px;
