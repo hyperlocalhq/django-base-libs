@@ -2519,6 +2519,7 @@ a:focus {
       font-size: 13px;
       line-height: 18px;
       width: 100%;
+      height: 90px;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important; }
       .list.compact li a.txt:hover * {
@@ -2542,6 +2543,10 @@ a:focus {
         -moz-box-sizing: border-box !important;
         margin: 0px !important;
         display: block !important; }
+        .list.compact li a.txt h3:empty,
+        .list.compact li a.txt h4:empty,
+        .list.compact li a.txt h5:empty {
+          display: none !important; }
       .list.compact li a.txt p {
         display: none; }
     .list.compact li:nth-child(2) {
