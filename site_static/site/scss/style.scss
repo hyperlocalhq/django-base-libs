@@ -864,8 +864,9 @@ a:focus  { outline: none !important; }
         display: block !important;
         font-size: 13px;
         line-height: 18px;
-        height: 95px;
         width: 100%;
+        box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
 
         &:hover * { color: black; }
 
@@ -875,10 +876,13 @@ a:focus  { outline: none !important; }
         h3,
         h4,
         h5 {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
           width: 100%;
+          display: inline-block;
           box-sizing: border-box !important;
           -moz-box-sizing: border-box !important;
-          display: block !important;
         }
         p { display: none;}
 

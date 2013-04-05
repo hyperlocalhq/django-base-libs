@@ -2517,8 +2517,9 @@ a:focus {
       display: block !important;
       font-size: 13px;
       line-height: 18px;
-      height: 95px;
-      width: 100%; }
+      width: 100%;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important; }
       .list.compact li a.txt:hover * {
         color: black; }
       .list.compact li a.txt h3 {
@@ -2531,10 +2532,13 @@ a:focus {
       .list.compact li a.txt h3,
       .list.compact li a.txt h4,
       .list.compact li a.txt h5 {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
         width: 100%;
+        display: inline-block;
         box-sizing: border-box !important;
-        -moz-box-sizing: border-box !important;
-        display: block !important; }
+        -moz-box-sizing: border-box !important; }
       .list.compact li a.txt p {
         display: none; }
     .list.compact li:nth-child(2) {
