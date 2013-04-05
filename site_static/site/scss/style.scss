@@ -861,10 +861,12 @@ a:focus  { outline: none !important; }
       a.txt {
         padding: 10px;
         padding-left: 95px;
-        display: block;
+        display: block !important;
         font-size: 13px;
         line-height: 18px;
-        height: 75px;
+        height: 95px;
+        width: 100%;
+
         &:hover * { color: black; }
 
         h3 { font-weight: 700; }
@@ -873,12 +875,10 @@ a:focus  { outline: none !important; }
         h3,
         h4,
         h5 {
-          white-space: nowrap;
-          text-overflow: ellipsis;
           width: 100%;
-          overflow: hidden;
           box-sizing: border-box !important;
           -moz-box-sizing: border-box !important;
+          display: block !important;
         }
         p { display: none;}
 
