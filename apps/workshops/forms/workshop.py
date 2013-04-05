@@ -608,6 +608,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 workshop_time.end = workshop_time_dict['end']
                 workshop_time.save()
 
+            instance.update_closest_workshop_time()
+
     if current_step == "prices":
         if "_pk" in form_step_data:
             instance = Workshop.objects.get(pk=form_step_data['_pk'])
@@ -716,6 +718,8 @@ def save_data(form_steps, form_step_data, instance=None):
         workshop_time.start = workshop_time_dict['start']
         workshop_time.end = workshop_time_dict['end']
         workshop_time.save()
+
+    instance.update_closest_workshop_time()
 
     form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
     

@@ -88,6 +88,8 @@ def workshop_list(request):
     #else:
     #    qs = qs.order_by("-workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
         
+    qs = qs.order_by("closest_workshop_date", "closest_workshop_time", "title_%s" % request.LANGUAGE_CODE)
+
     qs = qs.distinct()
     
     abc_filter = request.GET.get('by-abc', None)

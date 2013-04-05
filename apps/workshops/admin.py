@@ -63,5 +63,16 @@ class WorkshopAdmin(ExtendedModelAdmin):
         return '<img alt="False" src="%sgrappelli/img/admin/icon-no.gif">' % settings.STATIC_URL
     is_geoposition_set.allow_tags = True
     is_geoposition_set.short_description = _("Geoposition?")
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            instance.save()
+        formset.save_m2m()
+        if instances:
+            instance = instances[0]
+            if isinstance(instance, WorkshopTime):
+                instance.workshop.update_closest_workshop_time()
         
+
 admin.site.register(Workshop, WorkshopAdmin)

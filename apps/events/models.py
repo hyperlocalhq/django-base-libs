@@ -96,6 +96,16 @@ class EventManager(models.Manager):
             ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
+    def update_expired(self):
+        for obj in self.exclude(
+            status="expired",
+            ):
+            obj.update_closest_event_time()
+        self.filter(
+            closest_event_date__isnull=True,
+            ).exclude(status="expired").update(status="expired")
+        
+        
 class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
@@ -130,6 +140,9 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     booking_info = MultilingualTextField(_("Booking info"), blank=True)
+
+    closest_event_date = models.DateField(_("Event date"), editable=False, blank=True, null=True)
+    closest_event_time = models.TimeField(_("Event start time"), editable=False, blank=True, null=True)
 
     objects = EventManager()
 
@@ -173,10 +186,29 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     
     def get_closest_event_time(self):
         today = date.today()
-        qs = self.eventtime_set.filter(event_date__gte=today)
+        qs = self.eventtime_set.filter(event_date__gte=today).order_by("event_date", "start")
         if qs:
             return qs[0]
         return None
+
+    def update_closest_event_time(self):
+        event_time = self.get_closest_event_time()
+        if event_time:
+            Event.objects.filter(pk=self.pk).update(
+                closest_event_date=event_time.event_date,
+                closest_event_time=event_time.start,
+                )
+        else:
+            Event.objects.filter(pk=self.pk).update(
+                closest_event_date=None,
+                closest_event_time=None,
+                )
+
+    def get_upcoming_event_times(self):
+        today = date.today()
+        return self.eventtime_set.filter(
+            event_date__gte=today
+            ).order_by("event_date", "start")
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")

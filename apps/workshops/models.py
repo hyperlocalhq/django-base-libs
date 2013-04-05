@@ -71,6 +71,16 @@ class WorkshopManager(models.Manager):
             users=user,
             ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        
+    def update_expired(self):
+        for obj in self.exclude(
+            status="expired",
+            ):
+            obj.update_closest_workshop_time()
+        self.filter(
+            closest_workshop_date__isnull=True,
+            ).exclude(status="expired").update(status="expired")
+
 
 class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -114,6 +124,9 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     booking_info = MultilingualTextField(_("Booking info"), blank=True)
+
+    closest_workshop_date = models.DateField(_("Workshop date"), editable=False, blank=True, null=True)
+    closest_workshop_time = models.TimeField(_("Workshop start time"), editable=False, blank=True, null=True)
 
     objects = WorkshopManager()
 
@@ -161,6 +174,25 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
         if qs:
             return qs[0]
         return None
+
+    def update_closest_workshop_time(self):
+        workshop_time = self.get_closest_workshop_time()
+        if workshop_time:
+            Workshop.objects.filter(pk=self.pk).update(
+                closest_workshop_date=workshop_time.workshop_date,
+                closest_workshop_time=workshop_time.start,
+                )
+        else:
+            Workshop.objects.filter(pk=self.pk).update(
+                closest_workshop_date=None,
+                closest_workshop_time=None,
+                )
+
+    def get_upcoming_workshop_times(self):
+        today = date.today()
+        return self.workshoptime_set.filter(
+            workshop_date__gte=today
+            ).order_by("workshop_date", "start")
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")

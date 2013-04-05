@@ -73,4 +73,15 @@ class EventAdmin(ExtendedModelAdmin):
     is_geoposition_set.allow_tags = True
     is_geoposition_set.short_description = _("Geoposition?")
         
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            instance.save()
+        formset.save_m2m()
+        if instances:
+            instance = instances[0]
+            if isinstance(instance, EventTime):
+                instance.event.update_closest_event_time()
+        
+
 admin.site.register(Event, EventAdmin)
