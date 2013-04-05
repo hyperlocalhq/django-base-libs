@@ -128,7 +128,7 @@
 
                 <!-- ======= DATES ======= -->
                 
-                {% if workshop.workshoptime_set.count %}
+                {% if workshop.get_upcoming_workshop_times.count %}
                 <li class="accordion-group">  
                     <h4 class="accordion-heading">  
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
@@ -136,7 +136,7 @@
                         </a>  
                     </h4>  
                     <ul id="collapse-dates" class="accordion-body collapse">  
-                        {% for workshop_time in workshop.workshoptime_set.all %}
+                        {% for workshop_time in workshop.get_upcoming_workshop_times %}
                             <li class="accordion-inner tight">
                                 <dl>
                                     <dt>
