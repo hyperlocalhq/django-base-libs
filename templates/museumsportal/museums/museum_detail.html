@@ -362,7 +362,7 @@
 
                 <!-- ======= Accessibility ======= -->
 
-                {% if museum.accessibility_options.count %}
+                {% if museum.accessibility_options.count or museum.accessibility or museum.mobidat %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
@@ -370,22 +370,24 @@
                             </a>  
                         </h4>  
                         <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
-                            <li class="accordion-inner">
-                                {% for opt in museum.accessibility_options.all %}
-                                    <dl>
-                                        <dt>{{ opt.title|escape }}</dt>
-                                    </dl>
-                                    <!-- <img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" /> -->
-                                {% endfor %}
-                            </li>
-                            {% if museum.get_rendered_accessibility %}
+                            {% if museum.accessibility_options.count %}
+                                <li class="accordion-inner">
+                                    {% for opt in museum.accessibility_options.all %}
+                                        <dl>
+                                            <dt>{{ opt.title|escape }}</dt>
+                                        </dl>
+                                        <!-- <img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" /> -->
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                            {% if museum.accessibility %}
                                 <li class="accordion-inner"> 
                                     <div class="accessibility">
                                         {{ museum.get_rendered_accessibility }}
                                     </div>
                                 </li>
                             {% endif %}
-                            {% if museum.get_rendered_mobidat %}
+                            {% if museum.mobidat %}
                                 <li class="accordion-inner"> 
                                     <div class="accessibility">
                                         {{ museum.get_rendered_mobidat }}
@@ -457,9 +459,8 @@
             
             {{ museum.get_rendered_description }}
             
-
-            {% comment %}
-<!--             <ul class="tags">
+            {% comment %}<!--
+            <ul class="tags">
                 {% if museum.categories.count %}
                     {% for cat in museum.categories.all %}
                         <li class="cat"><a href="{% if LANGUAGE_CODE == "de" %}/de/museen/{% else %}/en/museums/{% endif %}#filter=.cat_{{ cat.title|slugify }}">{{ cat.title }}</a></li>
@@ -472,8 +473,8 @@
                         <li><a href="{% if LANGUAGE_CODE == "de" %}/de/museen/{% else %}/en/museums/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
                     {% endfor %}
                 {% endif %}
-            </ul>    -->
-            {% endcomment %} 
+            </ul>
+            -->{% endcomment %} 
         </article>
     </div>
 </div>
