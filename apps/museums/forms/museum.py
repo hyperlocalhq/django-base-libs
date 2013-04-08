@@ -27,9 +27,29 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import InlineFormSet
 
-# Translate Helpers
-_("Available Audioguides")
+# translatable strings to collect
+_("Particularities")
+_("Opening Hours")
+_("From")
+_("To")
+_("Mo")
+_("Tu")
+_("We")
+_("Th")
+_("Fr")
+_("Sa")
+_("Su")
+_("Breaks")
 _("Available Offers")
+_("Location")
+_("Relocate on map")
+_("Remove from map")
+_("Phone")
+_("Fax")
+_("Booking Phone")
+_("Service Phone")
+_("Available Services")
+_("Languages")
 
 class BasicInfoForm(ModelForm):
     class Meta:

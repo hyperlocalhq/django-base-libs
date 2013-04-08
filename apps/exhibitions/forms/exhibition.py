@@ -30,12 +30,25 @@ from museumsportal.utils.forms import InlineFormSet
 from museumsportal.utils.forms import SplitDateTimeWidget
 from museumsportal.utils.forms import ModelMultipleChoiceTreeField
 
-# translatable strings
+# translatable strings to collect
 _("Particularities")
 _("Add Individual Opening Hours")
 _("Opening Hours")
 _("Add Closing Time / Holiday")
 _("Closing Times / Holidays")
+_("Location")
+_("Relocate on map")
+_("Remove from map")
+_("From")
+_("To")
+_("Mo")
+_("Tu")
+_("We")
+_("Th")
+_("Fr")
+_("Sa")
+_("Su")
+_("Breaks")
 
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
