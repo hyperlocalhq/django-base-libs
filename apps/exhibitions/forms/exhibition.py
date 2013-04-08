@@ -128,7 +128,7 @@ class BasicInfoForm(ModelForm):
                 ),
             layout.Row(
                 css_class="div-website",
-                *('website_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
                 css_class="div-catalog",
@@ -136,7 +136,7 @@ class BasicInfoForm(ModelForm):
                 ),
             layout.Row(
                 css_class="div-catalog",
-                *('catalog_ordering_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                *(layout.Field('catalog_ordering_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             css_class="fieldset-basic-info",
             ))
@@ -273,7 +273,7 @@ class OrganizerForm(ModelForm):
                     ),
                 layout.Row(
                     layout.Div("organizer_title"),
-                    layout.Div("organizer_url_link", css_class="max"),
+                    layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="max"),
                     css_class="flex",
                     ),
                 css_class="div_organizer"

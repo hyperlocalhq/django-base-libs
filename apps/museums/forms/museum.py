@@ -542,7 +542,7 @@ class AddressForm(ModelForm):
             _("Contact"),
 
             layout.Row(
-                'email', 'website'),
+                'email', layout.Field('website', placeholder="http://")),
 
             layout.Row(
                 layout.Div(
@@ -624,7 +624,7 @@ class SocialMediaChannelForm(ModelForm):
         layout_blocks.append(
             layout.Row(
                 "channel_type",
-                layout.Div("url",css_class="max",),
+                layout.Div(layout.Field("url", placeholder="http://"), css_class="max",),
                 css_class="flex",
                 )
             )
