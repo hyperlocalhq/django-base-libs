@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-from base_libs.forms.fields import AutocompleteModelChoiceField
+from base_libs.forms.fields import AutocompleteModelChoiceField, DecimalField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
 
@@ -278,6 +278,18 @@ OrganizerFormset = inlineformset_factory(Event, Organizer, form=OrganizerForm, f
 
 
 class PricesForm(ModelForm):
+    admission_price = DecimalField(
+        label=_(u"Admission price (€)"),
+        max_digits=5,
+        decimal_places=2,
+        required=False,
+        )
+    reduced_price = DecimalField(
+        label=_(u"Reduced admission price (€)"),
+        max_digits=5,
+        decimal_places=2,
+        required=False,
+        )
     class Meta:
         model = Event
         fields = ['free_admission', 'admission_price', 'reduced_price']
