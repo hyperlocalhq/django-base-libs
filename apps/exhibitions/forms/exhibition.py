@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-from base_libs.forms.fields import AutocompleteModelChoiceField
+from base_libs.forms.fields import AutocompleteModelChoiceField, DecimalField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
 
@@ -30,12 +30,25 @@ from museumsportal.utils.forms import InlineFormSet
 from museumsportal.utils.forms import SplitDateTimeWidget
 from museumsportal.utils.forms import ModelMultipleChoiceTreeField
 
-# translatable strings
+# translatable strings to collect
 _("Particularities")
 _("Add Individual Opening Hours")
 _("Opening Hours")
 _("Add Closing Time / Holiday")
 _("Closing Times / Holidays")
+_("Location")
+_("Relocate on map")
+_("Remove from map")
+_("From %(time)s")
+_("To %(time)s")
+_("Mo")
+_("Tu")
+_("We")
+_("Th")
+_("Fr")
+_("Sa")
+_("Su")
+_("Breaks")
 
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
@@ -128,7 +141,7 @@ class BasicInfoForm(ModelForm):
                 ),
             layout.Row(
                 css_class="div-website",
-                *('website_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
                 css_class="div-catalog",
@@ -136,7 +149,7 @@ class BasicInfoForm(ModelForm):
                 ),
             layout.Row(
                 css_class="div-catalog",
-                *('catalog_ordering_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                *(layout.Field('catalog_ordering_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             css_class="fieldset-basic-info",
             ))
@@ -273,7 +286,7 @@ class OrganizerForm(ModelForm):
                     ),
                 layout.Row(
                     layout.Div("organizer_title"),
-                    layout.Div("organizer_url_link", css_class="max"),
+                    layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="max"),
                     css_class="flex",
                     ),
                 css_class="div_organizer"
@@ -434,8 +447,8 @@ class SeasonForm(ModelForm):
                     <fieldset>
                         <legend>{% trans "Opening Hours" %}</legend>
                         <div class="row">
-                            <div><label>{% trans "From" %}</label></div>
-                            <div><label>{% trans "To" %}</label></div>
+                            <div><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
+                            <div><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
                         </div>
                          <div class="row">
                             <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
@@ -484,44 +497,44 @@ class SeasonForm(ModelForm):
                 <div>
                     <fieldset>
                         <legend>{% trans "Breaks" %}</legend>
-                    <div class="row">
-                        <div><label>{% trans "From" %}</label></div>
-                        <div><label>{% trans "To" %}</label></div>
-                    </div>
-                    <div class="row">
-                        <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        <div>"""), layout.Field("mon_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                    </div>
-                        {% load i18n %}
-                    <div class="row">
-                        <div class="has_weekday"><label class="weekday">{% trans "Tu" %}</label>"""), layout.Field("tue_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        <div>"""), layout.Field("tue_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                    </div>
-                        {% load i18n %}
-                    <div class="row">
-                        <div class="has_weekday"><label class="weekday">{% trans "We" %}</label>"""), layout.Field("wed_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        <div>"""), layout.Field("wed_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                    </div>
-                        {% load i18n %}
-                    <div class="row">
-                        <div class="has_weekday"><label class="weekday">{% trans "Th" %}</label>"""), layout.Field("thu_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        <div>"""), layout.Field("thu_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                    </div>
-                        {% load i18n %}
-                    <div class="row">
-                        <div class="has_weekday"><label class="weekday">{% trans "Fr" %}</label>"""), layout.Field("fri_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        <div>"""), layout.Field("fri_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                    </div>
-                        {% load i18n %}
-                    <div class="row">
-                        <div class="has_weekday"><label class="weekday">{% trans "Sa" %}</label>"""), layout.Field("sat_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        <div>"""), layout.Field("sat_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                    </div>
-                        {% load i18n %}
-                    <div class="row">
-                        <div class="has_weekday"><label class="weekday">{% trans "Su" %}</label>"""), layout.Field("sun_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        <div>"""), layout.Field("sun_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                    </div>
+                        <div class="row">
+                            <div><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
+                            <div><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("mon_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                        </div>
+                            {% load i18n %}
+                        <div class="row">
+                            <div class="has_weekday"><label class="weekday">{% trans "Tu" %}</label>"""), layout.Field("tue_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("tue_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                        </div>
+                            {% load i18n %}
+                        <div class="row">
+                            <div class="has_weekday"><label class="weekday">{% trans "We" %}</label>"""), layout.Field("wed_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("wed_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                        </div>
+                            {% load i18n %}
+                        <div class="row">
+                            <div class="has_weekday"><label class="weekday">{% trans "Th" %}</label>"""), layout.Field("thu_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("thu_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                        </div>
+                            {% load i18n %}
+                        <div class="row">
+                            <div class="has_weekday"><label class="weekday">{% trans "Fr" %}</label>"""), layout.Field("fri_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("fri_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                        </div>
+                            {% load i18n %}
+                        <div class="row">
+                            <div class="has_weekday"><label class="weekday">{% trans "Sa" %}</label>"""), layout.Field("sat_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("sat_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                        </div>
+                            {% load i18n %}
+                        <div class="row">
+                            <div class="has_weekday"><label class="weekday">{% trans "Su" %}</label>"""), layout.Field("sun_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div>"""), layout.Field("sun_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                        </div>
                     </fieldset>
                 </div>
             </div>
@@ -664,6 +677,18 @@ class SpecialOpeningTimeForm(ModelForm):
 SpecialOpeningTimeFormset = inlineformset_factory(Exhibition, SpecialOpeningTime, form=SpecialOpeningTimeForm, formset=InlineFormSet, extra=0)
 
 class PricesForm(ModelForm):
+    admission_price = DecimalField(
+        label=_(u"Admission price (€)"),
+        max_digits=5,
+        decimal_places=2,
+        required=False,
+        )
+    reduced_price = DecimalField(
+        label=_(u"Reduced admission price (€)"),
+        max_digits=5,
+        decimal_places=2,
+        required=False,
+        )
     class Meta:
         model = Exhibition
         fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price',
