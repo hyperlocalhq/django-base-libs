@@ -19,7 +19,7 @@
                         var list = this;
                         resize = function(){
                             $(list).css("height","auto");
-                            $(list).height($(list).height());
+                            //$(list).height($(list).height());
                         };
                         // $(list).height($(list).height());
                         $(list).find('img').load(resize).error(resize);
@@ -78,6 +78,45 @@
                 reinit();
             }
         }
+        var options = $.extend(translatable_file_uploader_options, {
+            allowedExtensions: ['gif', 'jpg', 'png', 'tif'],               
+            action: "/helper/ajax-upload/",
+            element: $('#image_uploader')[0],
+            multiple: false,
+            onComplete: function(id, fileName, responseJSON) {
+                if(responseJSON.success) {
+                    $('.messages').html("");
+                    // set the original to media_file_path
+                    $('#id_media_file_path').val('uploads/' + fileName);
+                    // load the modified version for the preview
+                    $.post('/helper/modified-path/', {
+                        file_path: 'uploads/' + fileName,
+                        mod_sysname: 'cover'
+                    }, function(data, textStatus, jqXHR) {
+                        $('#image_preview').html('<img alt="" src="/media/' + data + '" />');
+                        $('#image_uploader').hide();
+                    },
+                    'text'
+                    );
+                }
+            },
+            onAllComplete: function(uploads) {
+                // uploads is an array of maps
+                // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                $('.qq-upload-success').fadeOut("slow", function() {
+                    $(this).remove();
+                });
+            },
+            params: {
+                'csrf_token': $('input[name="csrfmiddlewaretoken"]').val(),
+                'csrf_name': 'csrfmiddlewaretoken',
+                'csrf_xname': 'X-CSRFToken'
+            }, 
+            showMessage: function(message) {
+                $('.messages').html('<div class="alert alert-error">' + message + '</div>');
+            }
+        });
+        var uploader = new qq.FileUploader(options);
     }    
     
     $(function() {

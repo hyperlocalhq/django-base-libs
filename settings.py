@@ -161,6 +161,7 @@ INSTALLED_APPS = (
     "rosetta",
     "babeldjango",
     "haystack",
+    "ajaxuploader",
     
     ### Required CMS Django 2.2 apps ###
     "cms",

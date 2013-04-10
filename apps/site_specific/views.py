@@ -23,6 +23,8 @@ from forms import ClaimingLoginForm
 from forms import ClaimingConfirmForm
 from forms import RegistrationForm
 
+from ajaxuploader.views import AjaxFileUploader
+
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.crypt import cryptString, decryptString
 
@@ -341,3 +343,4 @@ def confirm_registration(request, encrypted_email):
         )
     return redirect('/signup/welcome/')
 
+uploader = AjaxFileUploader()

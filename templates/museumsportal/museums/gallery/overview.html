@@ -28,6 +28,7 @@
 
                     <nav class="actions">
                         <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" rel="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="edit icon icon-white icon-edit"></a>
+                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop " onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';"></button>
                     </nav>
                 </li>        
             {% endfor %}

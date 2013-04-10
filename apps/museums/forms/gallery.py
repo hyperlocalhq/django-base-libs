@@ -16,19 +16,30 @@ STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
 # translatable strings to collect
+_("Please enable JavaScript to use file uploader.")
 _("Add Image")
 _("Edit Image")
+_("Crop image")
+_("Delete")
+_("Do you really want to delete this image?")
+_("Yes, Please")
+_("No, Thanks")
+_("Are you sure you want to delete this photo?")
 
 class ImageFileForm(forms.Form):
     goto_next = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
         )
-    media_file = ImageField(
-        label= _("Image File"),
-        help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
+    #media_file = ImageField(
+    #    label= _("Image File"),
+    #    help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
+    #    required=False,
+    #    min_dimensions=IMAGE_MIN_DIMENSIONS,
+    #    )
+    media_file_path = forms.CharField(
+        widget=forms.HiddenInput(),
         required=False,
-        min_dimensions=IMAGE_MIN_DIMENSIONS,
         )
     author = forms.CharField(
         label=_('Author'),
@@ -63,12 +74,21 @@ class ImageFileForm(forms.Form):
                 {% trans "Add Image" %}
             {% endif %}
             """,
-            layout.HTML("""{% load image_modifications %}
-                {% if media_file.path %}
-                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
+            layout.HTML("""{% load i18n image_modifications %}
+                <div id="image_preview">
+                    {% if media_file.path %}
+                        <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
+                    {% endif %}
+                </div>
+                {% if not media_file.path %}
+                    <div id="image_uploader">
+                        <noscript>
+                            <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                        </noscript>
+                    </div>
                 {% endif %}
             """),
-            "media_file",
+            "media_file_path",
             "goto_next",
             layout.Row(
                 css_class="div-title",
@@ -129,10 +149,10 @@ class ImageDeletionForm(forms.Form):
 
         layout_blocks.append(layout.Fieldset(
             _("Delete Photo?"),
-            layout.HTML("""{% load image_modifications %}
+            layout.HTML("""{% load i18n image_modifications %}
                 {% if media_file.path %}
                     <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
-                    <p>Are you sure you want to delete this photo?</p>
+                    <p>{% trans "Are you sure you want to delete this photo?" %}</p>
                 {% endif %}
             """),
             "goto_next",

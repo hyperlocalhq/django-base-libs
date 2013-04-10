@@ -498,7 +498,10 @@ a:focus  { outline: none !important; }
         .max { display: block;}
         .cover { display: none;}
       }
-
+      
+      .crop {
+          display: none;
+      }
       &:first-child {
         width: 1000px !important;
         height: 350px !important;
@@ -507,6 +510,9 @@ a:focus  { outline: none !important; }
         .img {
           .cover { display: block !important;}
           .max { display: none !important;}
+        }
+        .crop {
+            display: block !important;
         }
       }
       
