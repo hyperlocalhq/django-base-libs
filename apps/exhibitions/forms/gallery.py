@@ -23,11 +23,15 @@ class ImageFileForm(forms.Form):
         widget=forms.HiddenInput(),
         required=False,
         )
-    media_file = ImageField(
-        label= _("Image File"),
-        help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
+    #media_file = ImageField(
+    #    label= _("Image File"),
+    #    help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
+    #    required=False,
+    #    min_dimensions=IMAGE_MIN_DIMENSIONS,
+    #    )
+    media_file_path = forms.CharField(
+        widget=forms.HiddenInput(),
         required=False,
-        min_dimensions=IMAGE_MIN_DIMENSIONS,
         )
     author = forms.CharField(
         label=_('Author'),
@@ -62,12 +66,21 @@ class ImageFileForm(forms.Form):
                 {% trans "Add Image" %}
             {% endif %}
             """,
-            layout.HTML("""{% load image_modifications %}
-                {% if media_file.path %}
-                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
+            layout.HTML("""{% load i18n image_modifications %}
+                <div id="image_preview">
+                    {% if media_file.path %}
+                        <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
+                    {% endif %}
+                </div>
+                {% if not media_file.path %}
+                    <div id="image_uploader">
+                        <noscript>
+                            <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                        </noscript>
+                    </div>
                 {% endif %}
             """),
-            "media_file",
+            "media_file_path",
             "goto_next",
             layout.Row(
                 css_class="div-title",

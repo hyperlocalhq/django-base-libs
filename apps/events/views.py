@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import shutil
 from datetime import datetime, date, timedelta
 
 from django.db import models
@@ -247,15 +248,12 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         # Passing request.FILES to the form always breaks the form validation
         # WHY!?? As a workaround, let's validate just the POST and then 
         # manage FILES separately. 
-        if not media_file_obj and ("media_file" not in request.FILES):
-            # new media file - media file required
-            form.fields['media_file'].required = True
         if form.is_valid():
             cleaned = form.cleaned_data
             path = ""
             if media_file_obj and media_file_obj.path:
                 path = media_file_obj.path.path
-            if cleaned.get("media_file", None):
+            if cleaned.get("media_file_path", None):
                 if path:
                     # delete the old file
                     try:
@@ -263,21 +261,28 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                     except OSError:
                         pass
                     path = ""
-            media_file_path = ""
-            if cleaned.get("media_file", None):
-                fname, fext = os.path.splitext(cleaned['media_file'].name)
-                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
-                path = "".join((rel_dir, filename)) 
-                FileManager.save_file(
-                    path=path,
-                    content=cleaned['media_file'],
-                    )
-                media_file_path = path
-            
+                    
             if not media_file_obj:
                 media_file_obj = MediaFile(
                     event=instance
                     )
+                    
+            media_file_path = ""
+            if cleaned.get("media_file_path", None):
+                tmp_path = cleaned['media_file_path']
+                abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+                
+                fname, fext = os.path.splitext(tmp_path)
+                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+                dest_path = "".join((rel_dir, filename))
+                FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+                abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+                
+                shutil.copy2(abs_tmp_path, abs_dest_path)
+                
+                os.remove(abs_tmp_path);
+                media_file_obj.path = media_file_path = dest_path
+                media_file_obj.save()
             
             from filebrowser.base import FileObject
             
@@ -295,8 +300,6 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
 
             file_description.save()
             
-            if media_file_path: # update media_file path
-                media_file_obj.path = media_file_path
             if not media_file_obj.pk:
                 media_file_obj.sort_order = MediaFile.objects.filter(
                     event=instance,
@@ -333,7 +336,6 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         else:
             # new media file
             form = form_class()
-            form.fields['media_file'].required = True
 
     form.helper.form_action = request.path + "?hidden_iframe=1"
 

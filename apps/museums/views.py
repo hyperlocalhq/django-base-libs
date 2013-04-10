@@ -12,7 +12,6 @@ from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from django.http import Http404
-from django.core.files import File
 
 from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
@@ -244,9 +243,6 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         # Passing request.FILES to the form always breaks the form validation
         # WHY!?? As a workaround, let's validate just the POST and then 
         # manage FILES separately. 
-        if not media_file_obj and ("media_file" not in request.FILES):
-            # new media file - media file required
-            form.fields['media_file_path'].required = True
         if form.is_valid():
             cleaned = form.cleaned_data
             path = ""
@@ -274,6 +270,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 fname, fext = os.path.splitext(tmp_path)
                 filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
                 dest_path = "".join((rel_dir, filename))
+                FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
                 abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
                 
                 shutil.copy2(abs_tmp_path, abs_dest_path)

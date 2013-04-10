@@ -32,7 +32,9 @@
                     return false;
                 });
                 $('#photos').find('.crop').each(function() {
-                    $(this).attr('href', $(this).attr('href').replace(/goto_next=.+$/gim, "goto_next=" + location.href));
+                    if ($(this).attr('href')) {
+                        $(this).attr('href', $(this).attr('href').replace(/goto_next=.+$/gim, "goto_next=" + location.href));
+                    }
                 });
                 $('#add_photo').click(function() {
                     $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
@@ -79,7 +81,7 @@
             }
         }
         var options = $.extend(translatable_file_uploader_options, {
-            allowedExtensions: ['gif', 'jpg', 'png', 'tif'],               
+            allowedExtensions: ['gif', 'jpg', 'png', 'tif', 'bmp'],               
             action: "/helper/ajax-upload/",
             element: $('#image_uploader')[0],
             multiple: false,
