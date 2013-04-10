@@ -872,6 +872,7 @@ a:focus  { outline: none !important; }
         font-size: 13px;
         line-height: 18px;
         width: 100%;
+        height: 90px;
         box-sizing: border-box !important;
         -moz-box-sizing: border-box !important;
 
@@ -892,6 +893,9 @@ a:focus  { outline: none !important; }
           -moz-box-sizing: border-box !important;
           margin: 0px !important;
           display: block !important;
+          
+          &:empty{ display: none !important;}
+
         }
         p { display: none;}
 
