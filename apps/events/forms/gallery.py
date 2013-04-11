@@ -75,7 +75,7 @@ class ImageFileForm(forms.Form):
                 {% trans "Add Image" %}
             {% endif %}
             """,
-            layout.HTML("""{% load i18n image_modifications %}
+            layout.HTML(u"""{% load i18n image_modifications %}
                 <div id="image_preview">
                     {% if media_file.path %}
                         <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"one_column" }}?now={% now "YmdHis" %}" alt="" />
