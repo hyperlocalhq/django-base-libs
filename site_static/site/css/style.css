@@ -3270,6 +3270,11 @@ aside {
     .tags li.x-level-1 a,
     .filter li.x-level-1 a {
       background-color: rgba(0, 0, 0, 0.025); }
+    .tags li.x-level-1 .selected, .tags li.x-level-1.active,
+    .filter li.x-level-1 .selected,
+    .filter li.x-level-1.active {
+      background-color: #00aefd;
+      color: white; }
     .tags li .selected, .tags li.active,
     .filter li .selected,
     .filter li.active {

@@ -1644,8 +1644,14 @@ z-index: 10000;
     color: black;
     margin-bottom: 5px;
     margin-right: 5px;
-    &.x-level-1 a {
-      background-color: rgba(0, 0, 0, 0.025);
+    &.x-level-1 {
+      a {background-color: rgba(0, 0, 0, 0.025); }
+      .selected,
+      &.active {
+        background-color: $blue;
+        color: white;
+      }
+      
     }
     .selected,
     &.active {
