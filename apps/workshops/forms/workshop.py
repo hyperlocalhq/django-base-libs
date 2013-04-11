@@ -591,7 +591,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             'is_for_learning_difficulties',
             ]:
             setattr(instance, f, form_step_data['basic'][f])
-        instance.status = "draft"
+            
+        if not instance.status:
+            instance.status = "draft"
         instance.save()
         
         if '_pk' not in form_step_data:
