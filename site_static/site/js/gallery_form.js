@@ -97,6 +97,7 @@
                     }, function(data, textStatus, jqXHR) {
                         $('#image_preview').html('<img alt="" src="/media/' + data + '" />');
                         $('#image_uploader').hide();
+                        $('#image_help_text').hide();
                     },
                     'text'
                     );
