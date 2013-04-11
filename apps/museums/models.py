@@ -46,7 +46,7 @@ STATUS_CHOICES = (
     ('trashed', _("Trashed")),
     ) 
 
-YEAR_CHOICES = [(i,i) for i in range(1997, datetime.now().year+10)]
+YEAR_CHOICES = [(i,i) for i in range(datetime.now().year, datetime.now().year+5)]
 
 DAY_CHOICES = [(i,i) for i in range(1, 32)]
 
