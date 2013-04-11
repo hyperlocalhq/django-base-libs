@@ -235,7 +235,7 @@
                          {{ event_time.start|time:"H:i" }}
                         </br>
                         {% endwith %}
-                </time>
+                    </time>
                 {% endif %}
                 
                 <h1> {{ event.title }} </h1>
@@ -246,8 +246,13 @@
               <!--   {% if event.event_type %}
                     <h3>{{ event.event_type }}</h3>
                 {% endif %} -->
-                
-                <a href="{{ event.museum.get_url_path }}"><h3>{{ event.museum.title }}</h3></a>
+                {% if event.location_name %}
+                    <h3>{{ event.location_name }}</h3>
+                {% else %}
+                    {% if event.museum %}
+                        <a href="{{ event.museum.get_url_path }}"><h3>{{ event.museum.title }}</h3></a>
+                    {% endif %}
+                {% endif %}
             </header>
             {{ event.get_rendered_description }}
             
