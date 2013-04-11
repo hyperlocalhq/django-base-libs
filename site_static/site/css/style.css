@@ -1087,6 +1087,9 @@ div.tagsinput {
       background-color: black !important;
       background-image: url("../img/icons/inv/search.svg"); }
 
+#image_preview {
+  width: 490px; }
+
 .isotope-item {
   z-index: 2; }
 
@@ -3618,6 +3621,11 @@ dl {
   dl dt {
     font-weight: normal;
     font-weight: 700; }
+  dl dd.access img {
+    float: left;
+    margin-right: 10px;
+    bottom: -2px;
+    position: relative; }
   dl dd p a {
     display: inline-block; }
   dl dd.languages {

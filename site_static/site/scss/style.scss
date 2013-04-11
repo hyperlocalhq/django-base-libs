@@ -2091,6 +2091,12 @@ dl {
     font-weight: 700;
   }
   dd {
+    &.access img {
+      float: left;
+      margin-right: 10px;
+      bottom: -2px;
+      position: relative;
+    }
     p {
       a {
         display: inline-block;

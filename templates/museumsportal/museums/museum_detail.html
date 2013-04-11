@@ -373,14 +373,13 @@
                         </h4>  
                         <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
                             {% if museum.accessibility_options.count %}
-                                <li class="accordion-inner">
                                     {% for opt in museum.accessibility_options.all %}
-                                        <dl>
-                                            <dt>{{ opt.title|escape }}</dt>
+                                <li class="accordion-inner">
+                                        <dl class="clearfix">
+                                            <dd class="access"><img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" />{{ opt.title|escape }}</dd>
                                         </dl>
-                                        <!-- <img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" /> -->
-                                    {% endfor %}
                                 </li>
+                                    {% endfor %}
                             {% endif %}
                             {% if museum.accessibility %}
                                 <li class="accordion-inner"> 
