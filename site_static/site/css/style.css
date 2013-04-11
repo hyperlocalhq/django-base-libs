@@ -2813,6 +2813,11 @@ nav.actions {
 .event-detail article,
 .workshop-detail article {
   position: relative; }
+  .museum-detail article iframe,
+  .exhibition-detail article iframe,
+  .event-detail article iframe,
+  .workshop-detail article iframe {
+    width: 620px; }
   .museum-detail article.with_sidebar,
   .exhibition-detail article.with_sidebar,
   .event-detail article.with_sidebar,

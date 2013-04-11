@@ -1156,7 +1156,9 @@ nav.actions {
 .museum-detail article,
 .exhibition-detail article,
 .event-detail article,
-.workshop-detail article { 
+.workshop-detail article {
+
+  iframe {width: 620px; }
 
   position: relative;
   &.with_sidebar { width: 620px; float: left;}
