@@ -3399,3 +3399,20 @@ dl {
   }
 }
 
+#workshop_notices {
+  width: 1060px;
+  li {
+    background-color: rgba(0,0,0,0.05);
+    width: 235px !important;
+    margin-right: 20px; 
+    float: left; 
+  }
+  p { width: 100%; height: 100px; display: table; table-layout: fixed; }
+  a { display: table-cell; text-align: center; vertical-align: middle; 
+    &:hover {
+      background-color: $blue;
+      color: white;
+      
+    };
+  }
+}
