@@ -384,6 +384,11 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Footnotes")
     },
 
+    'editorial_notices': {
+        'plugins': ("EditorialContentPlugin"),
+        'name': _("editorial notices")
+    },
+
     'series_items_featured': {
         'plugins': ("EditorialContentPlugin"),
         'name': _("Series Items Featured")
