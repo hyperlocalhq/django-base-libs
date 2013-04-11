@@ -158,7 +158,7 @@
                 </div>
                 <p>{% trans "Press ESC to switch to the default selection area and default canvas color." %}</p>
                 <div class="form_field">
-                    {{ form.bgcolor.label_tag }}
+                    <label for="id_bgcolor">{% trans "Canvas color" %}</label>
                     {{ form.bgcolor }}
                     {{ form.bgcolor.errors }}
                     <div id="colorSelector"><div style="background-color: {{ form.bgcolor.data }};"></div></div>

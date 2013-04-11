@@ -12,7 +12,12 @@
             format: 'yyyy-mm-dd',
             weekStart: 1
         })
-        $('#workshop_times .timeinput').timepicker();
+        $('#workshop_times .timeinput').timepicker({
+            str_hours: '{% trans "Hours" %}',
+            str_minutes: '{% trans "Minutes" %}',
+            str_confirm: '{% trans "Confirm" %}',
+            str_close: '{% trans "Close" %}',
+        });
         $("[rel=tooltip]").tooltip();
     }
     

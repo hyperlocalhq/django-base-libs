@@ -30,7 +30,12 @@ var error_messages = {
             format: 'yyyy-mm-dd',
             weekStart: 1
         })
-        $('#seasons .timeinput,#special_openings .timeinput').timepicker();
+        $('#seasons .timeinput,#special_openings .timeinput').timepicker({
+            str_hours: '{% trans "Hours" %}',
+            str_minutes: '{% trans "Minutes" %}',
+            str_confirm: '{% trans "Confirm" %}',
+            str_close: '{% trans "Close" %}',
+        });
         $("select").not('[name*="__prefix__"]').selectbox();
     }
     
