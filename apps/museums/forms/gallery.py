@@ -77,7 +77,7 @@ class ImageFileForm(forms.Form):
             layout.HTML("""{% load i18n image_modifications %}
                 <div id="image_preview">
                     {% if media_file.path %}
-                        <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
+                        <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"one_column" }}?now={% now "YmdHis" %}" alt="" />
                     {% endif %}
                 </div>
                 {% if not media_file.path %}
