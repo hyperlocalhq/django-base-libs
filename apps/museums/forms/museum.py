@@ -13,6 +13,8 @@ from django.core.urlresolvers import reverse
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from babeldjango.templatetags.babel import decimalfmt
+
 from base_libs.forms.fields import AutocompleteModelChoiceField, DecimalField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
@@ -556,7 +558,7 @@ class PricesForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Admission"),
             layout.Div('free_entrance'), 
-            'admission_price',
+            layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
             layout.Row(
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
@@ -564,7 +566,7 @@ class PricesForm(ModelForm):
             ))
         layout_blocks.append(layout.Fieldset(
             _("Reduced Prices"),
-            'reduced_price',
+            layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
             layout.Row(
                 *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
