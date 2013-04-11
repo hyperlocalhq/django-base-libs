@@ -93,7 +93,7 @@
                     // load the modified version for the preview
                     $.post('/helper/modified-path/', {
                         file_path: 'uploads/' + fileName,
-                        mod_sysname: 'cover'
+                        mod_sysname: 'one_column'
                     }, function(data, textStatus, jqXHR) {
                         $('#image_preview').html('<img alt="" src="/media/' + data + '" />');
                         $('#image_uploader').hide();
