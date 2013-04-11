@@ -28,7 +28,12 @@
                 format: 'yyyy-mm-dd',
                 weekStart: 1
             })
-            $('.timeinput').timepicker();
+            $('.timeinput').timepicker({
+                str_hours: '{% trans "Hours" %}',
+                str_minutes: '{% trans "Minutes" %}',
+                str_confirm: '{% trans "Confirm" %}',
+                str_close: '{% trans "Close" %}',
+            });
             $('#id_tags').tagsInput({defaultText: '{% trans "add a tag" %}'});
             $('#id_museum').change(function() {
                 if ($(this).val()) {
@@ -50,7 +55,12 @@
                 format: 'yyyy-mm-dd',
                 weekStart: 1
             })
-            $('.timeinput').timepicker();
+            $('.timeinput').timepicker({
+                str_hours: '{% trans "Hours" %}',
+                str_minutes: '{% trans "Minutes" %}',
+                str_confirm: '{% trans "Confirm" %}',
+                str_close: '{% trans "Close" %}',
+            });
         }
         function set_index_for_fields($formset_form, index) {
             $formset_form.find(':input').each(function() {

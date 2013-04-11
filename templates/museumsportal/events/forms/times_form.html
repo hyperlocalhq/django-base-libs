@@ -37,7 +37,12 @@
             format: 'yyyy-mm-dd',
             weekStart: 1
         })
-        $('#event_times .timeinput').timepicker();
+        $('#event_times .timeinput').timepicker({
+            str_hours: '{% trans "Hours" %}',
+            str_minutes: '{% trans "Minutes" %}',
+            str_confirm: '{% trans "Confirm" %}',
+            str_close: '{% trans "Close" %}',
+        });
         $("[rel=tooltip]").tooltip();
     }
     
