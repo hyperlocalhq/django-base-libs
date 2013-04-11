@@ -2817,7 +2817,8 @@ nav.actions {
   .exhibition-detail article iframe,
   .event-detail article iframe,
   .workshop-detail article iframe {
-    width: 620px; }
+    width: 620px;
+    margin-top: 30px; }
   .museum-detail article.with_sidebar,
   .exhibition-detail article.with_sidebar,
   .event-detail article.with_sidebar,
@@ -4957,3 +4958,23 @@ dl {
       opacity: 1; }
     #sponsors > div a span {
       display: none; }
+
+#workshop_notices {
+  width: 1060px; }
+  #workshop_notices li {
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 235px !important;
+    margin-right: 20px;
+    float: left; }
+  #workshop_notices p {
+    width: 100%;
+    height: 100px;
+    display: table;
+    table-layout: fixed; }
+  #workshop_notices a {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle; }
+    #workshop_notices a:hover {
+      background-color: #00aefd;
+      color: white; }
