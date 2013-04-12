@@ -2234,7 +2234,10 @@ dl {
 #item_container,
 #dashboard {
   fieldset { margin-bottom: 60px; position: relative; }
-  legend {font-size: 28px; padding-bottom: 10px; border: none !important;}
+  legend {font-size: 28px; padding-bottom: 10px; border: none !important; }
+  .all {color: $blue !important; font-size: 13px !important; line-height: 24px !important;
+  &:hover { color: black !important;}
+   } 
     
   .icon-last-edited { 
     background-size: cover;
@@ -3412,7 +3415,7 @@ dl {
     &:hover {
       background-color: $blue;
       color: white;
-      
+
     };
   }
 }

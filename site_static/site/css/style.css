@@ -3754,6 +3754,24 @@ dl {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important; }
+#organizers_fieldset .all,
+.fieldset-imagegallery .all,
+#workshop_times_fieldset .all,
+#event_times_fieldset .all,
+#social_channels_fieldset .all,
+#item_container .all,
+#dashboard .all {
+  color: #00aefd !important;
+  font-size: 13px !important;
+  line-height: 24px !important; }
+  #organizers_fieldset .all:hover,
+  .fieldset-imagegallery .all:hover,
+  #workshop_times_fieldset .all:hover,
+  #event_times_fieldset .all:hover,
+  #social_channels_fieldset .all:hover,
+  #item_container .all:hover,
+  #dashboard .all:hover {
+    color: black !important; }
 #organizers_fieldset .icon-last-edited,
 .fieldset-imagegallery .icon-last-edited,
 #workshop_times_fieldset .icon-last-edited,
