@@ -438,6 +438,7 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Featured Magazin")
     },
+
     'start_page_left': {
         'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
         'name': _("Start page left")

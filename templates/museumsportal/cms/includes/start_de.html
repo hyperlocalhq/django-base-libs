@@ -6,64 +6,17 @@
     <div class="clearfix">
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Newly Opened" %}</h3></li>
-
-            {% get_objects newly_opened exhibitions.Exhibition 5 as exhibitions_newly_opened %}
-
-    
-            {% for exhibition in exhibitions_newly_opened %}
-                <li class="item">
-                    {% if exhibition.cover_image %}
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
-                    {% endif %}
-                    <a class="txt" href="{{ exhibition.get_url_path }}">
-                        <h3>{{ exhibition.title }}</h3>
-                        <h4>{{ exhibition.subtitle }}</h4>
-                        <h5>{{ exhibition.museum.title }}</h5>
-                        {% if forloop.first %}
-                        <p>
-                        {% with exhibition.get_rendered_teaser|striptags|truncatewords:38 as teaser %}
-                            {% with exhibition.get_rendered_description|striptags|truncatewords:38 as description %}
-                                {{ teaser|default:description }}
-                            {% endwith %}
-                        {% endwith %}
-                        </p>
-                        {% endif %}
-                    </a>
-                </li>
-            {% endfor %}
+            {% placeholder "start_page_left" %}
         </ul>
 
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Must see" %}</h3></li>
-            {% get_objects featured exhibitions.Exhibition as exhibitions_featured %}
-            {% for exhibition in exhibitions_featured %}
-                <li class="item">
-                    {% if exhibition.cover_image %}
-                        <a class="img" href="{{ exhibition.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }})"></a>
-                    {% endif %}
-                    <a class="txt" href="{{ exhibition.get_url_path }}">
-                        <h3>{{ exhibition.title }}</h3>
-                        <h4>{{ exhibition.subtitle }}</h4>
-                        <h5>{{ exhibition.museum.title }}</h5>
-                     {% if forloop.first %}
-                        <p>
-                        {% with exhibition.get_rendered_teaser|striptags|truncatewords:38 as teaser %}
-                            {% with exhibition.get_rendered_description|striptags|truncatewords:38 as description %}
-                                {{ teaser|default:description }}
-                            {% endwith %}
-                        {% endwith %}
-                        </p>
-                    {% endif %}
-                    </a>
-                </li>
-            {% endfor %}
+            {% placeholder "start_page_center" %}
         </ul>
 
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Magazin" %}</h3></li>
-            {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-            
-            {% placeholder "featured_magazin" %}
+            {% placeholder "start_page_right" %}
         </ul>
     </div>
 

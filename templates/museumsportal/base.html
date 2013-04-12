@@ -116,13 +116,17 @@
                                     <li><a class="dashboard icon icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Input Mask" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Input Mask" %}</span></a></li>
                                 {% endif %}
                             {% endif %}
-                            
-                            {% comment %}
-                            <!-- <li><a class="favorites icon icon-favorites" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>{% trans "Favorites" %}</span></a></li> -->
-                            {% endcomment %}
-                            
+
+                            {% if request.user.is_authenticated %}
+                                <li><a class="favorites icon icon-favorites" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>{% trans "Favorites" %}</span></a></li>
+                            {% endif %}
 
                             <li><a class="print icon icon-print" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Print" %}" onclick="window.print();return false" href="#">&nbsp;<span>{% trans "Print" %}</span></a></li>
+
+                            <li><a class="twitter icon icon-twitter" rel="tooltip" data-placement="bottom" data-original-title="Twitter" href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
+
+                            <li><a class="facebook icon icon-facebook" rel="tooltip" data-placement="bottom" data-original-title="Facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
+
                         </ul>
                     </li>
                     <li>

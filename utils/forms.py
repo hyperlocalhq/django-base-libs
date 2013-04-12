@@ -51,13 +51,17 @@ class SplitDateTimeWidget(forms.SplitDateTimeWidget):
     def format_output(self, rendered_widgets):
         return """
             <div class="row">
-                <div class="clearfix control-group">
-                    <label>%s</label>
-                    <div class="controls">%s</div>
+                <div>
+                    <div class="clearfix control-group">
+                        <label>%s</label>
+                        <div class="controls">%s</div>
+                    </div>
                 </div>
-                <div class="clearfix control-group">
-                    <label>%s</label>
-                    <div class="controls">%s</div>
+                <div>
+                    <div class="clearfix control-group">
+                        <label>%s</label>
+                        <div class="controls">%s</div>
+                    </div>
                 </div>
             </div>""" % (
                 ugettext("Date"),

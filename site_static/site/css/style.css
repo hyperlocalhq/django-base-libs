@@ -1996,6 +1996,9 @@ a:focus {
     padding-bottom: 40px; }
     #wrapper > * > .inner:empty {
       display: none; }
+    #wrapper > * > .inner.notices {
+      padding-top: 20px;
+      padding-bottom: 20px; }
 
 #dashboard_header,
 #header, .content {
@@ -3182,6 +3185,7 @@ aside {
   width: 1000px !important;
   padding: 0px;
   margin: 0px;
+  margin-bottom: 20px !important;
   background-color: white;
   z-index: 10000; }
   #filters .accordion,
@@ -3722,11 +3726,12 @@ dl {
     float: right;
     text-align: right; }
 
-#dashboard .alerts {
+#dashboard .alert {
   padding: 25px !important;
-  background-color: rgba(255, 255, 0, 0.2);
-  margin-bottom: 35px; }
-  #dashboard .alerts h2 {
+  margin-bottom: 35px !important;
+  border-radius: 0px !important;
+  border: none !important; }
+  #dashboard .alert h2 {
     font-size: 20px;
     line-height: 20px;
     display: block; }
@@ -3754,6 +3759,24 @@ dl {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important; }
+#organizers_fieldset .all,
+.fieldset-imagegallery .all,
+#workshop_times_fieldset .all,
+#event_times_fieldset .all,
+#social_channels_fieldset .all,
+#item_container .all,
+#dashboard .all {
+  color: #00aefd !important;
+  font-size: 13px !important;
+  line-height: 24px !important; }
+  #organizers_fieldset .all:hover,
+  .fieldset-imagegallery .all:hover,
+  #workshop_times_fieldset .all:hover,
+  #event_times_fieldset .all:hover,
+  #social_channels_fieldset .all:hover,
+  #item_container .all:hover,
+  #dashboard .all:hover {
+    color: black !important; }
 #organizers_fieldset .icon-last-edited,
 .fieldset-imagegallery .icon-last-edited,
 #workshop_times_fieldset .icon-last-edited,
@@ -4959,22 +4982,39 @@ dl {
     #sponsors > div a span {
       display: none; }
 
-#workshop_notices {
+#notices h3 {
+  font-size: 13px;
+  line-height: 13px;
+  margin-bottom: 10px;
+  margin-top: -10px; }
+#notices #event_notices,
+#notices #workshop_notices {
   width: 1060px; }
-  #workshop_notices li {
+  #notices #event_notices li,
+  #notices #workshop_notices li {
     background-color: rgba(0, 0, 0, 0.05);
     width: 235px !important;
     margin-right: 20px;
     float: left; }
-  #workshop_notices p {
+  #notices #event_notices p,
+  #notices #workshop_notices p {
     width: 100%;
     height: 100px;
     display: table;
     table-layout: fixed; }
-  #workshop_notices a {
+  #notices #event_notices a,
+  #notices #workshop_notices a {
     display: table-cell;
     text-align: center;
-    vertical-align: middle; }
-    #workshop_notices a:hover {
-      background-color: #00aefd;
+    vertical-align: middle;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: #00aefd !important;
+    color: white !important;
+    font-size: 18px;
+    line-height: 20px;
+    text-transform: uppercase; }
+    #notices #event_notices a:hover,
+    #notices #workshop_notices a:hover {
+      background-color: black !important;
       color: white; }

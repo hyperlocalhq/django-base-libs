@@ -205,6 +205,10 @@ a:focus  { outline: none !important; }
     padding-top: 40px;
     padding-bottom: 40px;
     &:empty{ display: none;}
+    &.notices{ 
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
 }
 
@@ -1526,6 +1530,7 @@ aside {
 width: 1000px !important; 
 padding: 0px;
 margin: 0px;
+margin-bottom: 20px !important;
 background-color: white;
 z-index: 10000;
  // &:hover .tab-content {display: block; }
@@ -2213,10 +2218,11 @@ dl {
    }
 }
 
-#dashboard .alerts { 
+#dashboard .alert { 
   padding: 25px !important; 
-  background-color: rgba(255,255,0,0.2);
-  margin-bottom: 35px;
+  margin-bottom: 35px !important  ;
+  border-radius: 0px !important;
+  border: none !important;
   h2 {
     font-size: 20px;
     line-height: 20px;
@@ -2234,7 +2240,10 @@ dl {
 #item_container,
 #dashboard {
   fieldset { margin-bottom: 60px; position: relative; }
-  legend {font-size: 28px; padding-bottom: 10px; border: none !important;}
+  legend {font-size: 28px; padding-bottom: 10px; border: none !important; }
+  .all {color: $blue !important; font-size: 13px !important; line-height: 24px !important;
+  &:hover { color: black !important;}
+   } 
     
   .icon-last-edited { 
     background-size: cover;
@@ -3399,20 +3408,32 @@ dl {
   }
 }
 
-#workshop_notices {
-  width: 1060px;
-  li {
-    background-color: rgba(0,0,0,0.05);
-    width: 235px !important;
-    margin-right: 20px; 
-    float: left; 
-  }
-  p { width: 100%; height: 100px; display: table; table-layout: fixed; }
-  a { display: table-cell; text-align: center; vertical-align: middle; 
-    &:hover {
-      background-color: $blue;
-      color: white;
-      
-    };
+#notices {
+  h3 {font-size: 13px; line-height: 13px; margin-bottom: 10px; margin-top: -10px;}
+  #event_notices,
+  #workshop_notices {
+    width: 1060px;
+    li {
+      background-color: rgba(0,0,0,0.05);
+      width: 235px !important;
+      margin-right: 20px; 
+      float: left; 
+    }
+    p { width: 100%; height: 100px; display: table; table-layout: fixed; }
+    a { display: table-cell; text-align: center; vertical-align: middle; 
+      padding-left: 0px;
+      padding-right: 0px;
+      background-color: $blue !important;
+      color: white !important;
+      font-size: 18px;
+      line-height: 20px;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: black !important;
+        color: white;
+
+      };
+    }
   }
 }
