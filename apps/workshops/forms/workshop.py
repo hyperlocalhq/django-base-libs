@@ -296,13 +296,13 @@ OrganizerFormset = inlineformset_factory(Workshop, Organizer, form=OrganizerForm
 
 class PricesForm(ModelForm):
     admission_price = DecimalField(
-        label=_(u"Admission price (€)"),
+        label=_(u"Price (€)"),
         max_digits=5,
         decimal_places=2,
         required=False,
         )
     reduced_price = DecimalField(
-        label=_(u"Reduced admission price (€)"),
+        label=_(u"Reduced price (€)"),
         max_digits=5,
         decimal_places=2,
         required=False,
@@ -326,6 +326,8 @@ class PricesForm(ModelForm):
                 'booking_info_%s' % lang_code,
                 ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+                
+        self.fields['free_admission'].label = _("Free offer")
 
         self.helper = FormHelper()
         self.helper.form_action = ""
