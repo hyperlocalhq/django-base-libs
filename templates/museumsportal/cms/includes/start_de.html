@@ -31,6 +31,7 @@
                     </a>
                 </li>
             {% endfor %}
+            {% placeholder "newly_opened" %}
         </ul>
 
         <ul class="list compact clearfix">
@@ -57,12 +58,11 @@
                     </a>
                 </li>
             {% endfor %}
+            {% placeholder "must_see" %}
         </ul>
 
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Magazin" %}</h3></li>
-            {% get_objects closing_soon exhibitions.Exhibition as exhibitions_closing_soon %}
-            
             {% placeholder "featured_magazin" %}
         </ul>
     </div>

@@ -96,7 +96,7 @@
                                 <dl>
                                     <dt>{% trans "Social Networks" %}</dt>
                                     {% for social in museum.socialmediachannel_set.all %}
-                                        <dd class="social-{{ social.channel_type|slugify }}"><a href="{{ social.url }}">{{ social.channel_type }}</a></dd>
+                                        <dd class="social-{{ social.channel_type|slugify }}"><a target="_blank" href="{{ social.url }}">{{ social.channel_type }}</a></dd>
                                     {% endfor %}
                                 </dl>
                             {% endif %}
