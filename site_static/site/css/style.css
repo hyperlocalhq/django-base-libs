@@ -4982,34 +4982,39 @@ dl {
     #sponsors > div a span {
       display: none; }
 
-#event_notices,
-#workshop_notices {
+#notices h3 {
+  font-size: 13px;
+  line-height: 13px;
+  margin-bottom: 10px;
+  margin-top: -10px; }
+#notices #event_notices,
+#notices #workshop_notices {
   width: 1060px; }
-  #event_notices li,
-  #workshop_notices li {
+  #notices #event_notices li,
+  #notices #workshop_notices li {
     background-color: rgba(0, 0, 0, 0.05);
     width: 235px !important;
     margin-right: 20px;
     float: left; }
-  #event_notices p,
-  #workshop_notices p {
+  #notices #event_notices p,
+  #notices #workshop_notices p {
     width: 100%;
     height: 100px;
     display: table;
     table-layout: fixed; }
-  #event_notices a,
-  #workshop_notices a {
+  #notices #event_notices a,
+  #notices #workshop_notices a {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
     background-color: #00aefd !important;
     color: white !important;
-    font-size: 25px;
-    line-height: 25px;
+    font-size: 18px;
+    line-height: 20px;
     text-transform: uppercase; }
-    #event_notices a:hover,
-    #workshop_notices a:hover {
+    #notices #event_notices a:hover,
+    #notices #workshop_notices a:hover {
       background-color: black !important;
       color: white; }

@@ -434,16 +434,6 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Right Column")
     },
 
-    'newly_opened': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Newly Opened")
-    },
-
-    'must_see': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Must See")
-    },
-
     'featured_magazin': {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Featured Magazin")
