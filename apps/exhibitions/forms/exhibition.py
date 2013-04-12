@@ -404,7 +404,7 @@ class SeasonForm(ModelForm):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
-            _("Season"),
+            _("Individual Opening Time of the Exhibition"),
             layout.Div(
                 "is_appointment_based", 
                 "is_open_24_7",

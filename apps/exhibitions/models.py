@@ -3,7 +3,7 @@
 from datetime import datetime, date, timedelta
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
@@ -360,9 +360,7 @@ class Season(OpeningHoursMixin):
     is_open_24_7 = models.BooleanField(_("Open 24/7"))
     
     def __unicode__(self):
-        if self.start and self.end:
-            return u"%s - %s" % (self.start.strftime('%Y-%m-%d'), self.end.strftime('%Y-%m-%d'))
-        return u""
+        return ugettext("Individual Opening Time of the Exhibition")
         
     class Meta:
         verbose_name = _("Season")
