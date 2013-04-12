@@ -526,8 +526,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.exhibition = form_step_data['basic']['exhibition']
         instance.tags = form_step_data['basic']['tags']
         instance.suitable_for_children = form_step_data['basic']['suitable_for_children']
-
-        instance.status = "draft"
+        
+        if not instance.status:
+            instance.status = "draft"
         instance.save()
         
         if '_pk' not in form_step_data:

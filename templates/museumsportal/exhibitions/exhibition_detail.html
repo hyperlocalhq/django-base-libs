@@ -78,9 +78,18 @@
                                     <dt>{% trans "Organizer" %}</dt>
                                     {% for organizer in exhibition.organizer_set.all %}
                                         {% if organizer.organizing_museum %}
-                                        <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd> 
+                                            <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
+                                            {% if organizer.organizing_museum.phone_number %}
+                                                <dt>{% trans "Telephone" %}
+                                                <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
+                                                </dt>
+                                            {% endif %} 
+                                            {% if organizer.organizing_museum.fax_number %}
+                                                <dt>{% trans "Fax" %}
+                                                <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
+                                                </dt>
+                                            {% endif %}
                                         {% endif %}
-
                                         {% if organizer.organizer_title %}
                                             {% if organizer.organizer_url_link %}
                                                 <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
@@ -93,7 +102,6 @@
                             {% endif %}
                             
                             <dl>
-
                                 {% if exhibition.museum.phone_number %}
                                     <dt>{% trans "Telephone" %}
                                     <span class="right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</span>
@@ -104,8 +112,9 @@
                                     <dt>{% trans "Fax" %}
                                     <span class="right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
                                     </dt>
-                                {% endif %} 
-                                {% if exhibition.museum.website %}
+                                {% endif %}
+                                
+                                {% if exhibition.website %}
                                     <dt>{% trans "Website" %}
                                         <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
                                     </dt>
@@ -653,7 +662,13 @@
                 {% if exhibition.subtitle %}
                     <h2>{{ exhibition.subtitle }}</h2>
                 {% endif %}
-                <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
+                {% if exhibition.location_name %}
+                    <h3>{{ exhibition.location_name }}</h3>
+                {% else %}
+                    {% if exhibition.museum %}
+                        <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
+                    {% endif %}
+                {% endif %}
             </header>
             
             {{ exhibition.get_rendered_description }}

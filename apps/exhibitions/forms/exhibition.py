@@ -986,7 +986,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.finissage = form_step_data['basic']['finissage']
         instance.tags = form_step_data['basic']['tags']
         instance.is_for_children = form_step_data['basic']['is_for_children']
-        instance.status = "draft"
+        if not instance.status:
+            instance.status = "draft"
         instance.save()
         
         if '_pk' not in form_step_data:

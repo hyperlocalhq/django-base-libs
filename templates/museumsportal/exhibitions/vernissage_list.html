@@ -77,10 +77,14 @@
                     </nav>
 
                     <a href="{{ exhibition.get_url_path }}">
-                      <h3>{{ exhibition.vernissage|date:"j. F Y H:i" }}</h3>
-                      <h3>{{ exhibition.museum.title }}</h3>
-                      <h4>{{ exhibition.title }}</h4>
-                      <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                        <h3>{{ exhibition.vernissage|date:"j. F Y H:i" }}</h3>
+                        {% if exhibition.location_name %}
+                            <h3>{{ exhibition.location_name }}</h3>
+                        {% else %}
+                            <h3>{{ exhibition.museum.title }}</h3>
+                        {% endif %}
+                        <h4>{{ exhibition.title }}</h4>
+                        <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
                     </a>
 
                     <!-- <div class="description">

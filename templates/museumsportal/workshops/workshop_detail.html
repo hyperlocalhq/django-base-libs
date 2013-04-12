@@ -266,8 +266,12 @@
                     <h2>{{ workshop.subtitle }}</h2>
                 {% endif %}
                 
-                {% if workshop.museum %}
-                    <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
+                {% if workshop.location_name %}
+                    <h3>{{ workshop.location_name }}</h3>
+                {% else %}
+                    {% if workshop.museum %}
+                        <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
+                    {% endif %}
                 {% endif %}
             </header>
             {{ workshop.get_rendered_description }}

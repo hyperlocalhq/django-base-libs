@@ -25,6 +25,7 @@ _("Do you really want to delete this image?")
 _("Yes, Please")
 _("No, Thanks")
 _("Are you sure you want to delete this photo?")
+_(u"Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min).")
 
 class ImageFileForm(forms.Form):
     goto_next = forms.CharField(
@@ -74,7 +75,7 @@ class ImageFileForm(forms.Form):
                 {% trans "Add Image" %}
             {% endif %}
             """,
-            layout.HTML("""{% load i18n image_modifications %}
+            layout.HTML(u"""{% load i18n image_modifications %}
                 <div id="image_preview">
                     {% if media_file.path %}
                         <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"one_column" }}?now={% now "YmdHis" %}" alt="" />
@@ -86,6 +87,7 @@ class ImageFileForm(forms.Form):
                             <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                         </noscript>
                     </div>
+                    <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
                 {% endif %}
             """),
             "media_file_path",
