@@ -2213,10 +2213,11 @@ dl {
    }
 }
 
-#dashboard .alerts { 
+#dashboard .alert { 
   padding: 25px !important; 
-  background-color: rgba(255,255,0,0.2);
-  margin-bottom: 35px;
+  margin-bottom: 35px !important  ;
+  border-radius: 0px !important;
+  border: none !important;
   h2 {
     font-size: 20px;
     line-height: 20px;
