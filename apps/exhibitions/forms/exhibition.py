@@ -580,14 +580,11 @@ class PricesForm(ModelForm):
             layout.Row(
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-            css_class="fieldset-prices",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Reduced Prices"),
             layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
             layout.Row(
                 *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            css_class="fieldset-prices",
             ))
 
         if self.instance and self.instance.pk:
