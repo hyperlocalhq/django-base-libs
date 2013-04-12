@@ -356,9 +356,6 @@ class Organizer(models.Model):
 
 class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)
-    title = MultilingualCharField(_('Season title'), max_length=255)
-    start = models.DateField(_("Start"))
-    end = models.DateField(_("End"))
     last_entry = MultilingualCharField(_("Last entry"), max_length=255, blank=True)
     is_open_24_7 = models.BooleanField(_("Open 24/7"))
     
@@ -368,7 +365,6 @@ class Season(OpeningHoursMixin):
         return u""
         
     class Meta:
-        ordering = ('start',)
         verbose_name = _("Season")
         verbose_name_plural = _("Seasons")
 
@@ -398,37 +394,6 @@ class Season(OpeningHoursMixin):
                 )),
             })
         return times
-
-class SpecialOpeningTime(models.Model):
-    exhibition = models.ForeignKey(Exhibition)
-    yyyy = models.PositiveIntegerField(_("Year"), blank=True, null=True, choices=YEAR_CHOICES, help_text=_("Leave this field empty, if the occasion happens every year at the same time."))
-    mm = models.PositiveIntegerField(_("Month"), choices=MONTH_CHOICES)
-    dd = models.PositiveIntegerField(_("Day"), choices=DAY_CHOICES)
-
-    day_label = MultilingualCharField(_('Day label'), max_length=255, blank=True, help_text=_("e.g. Christmas, Easter, etc."))
-
-    is_closed = models.BooleanField(_("Closed"))
-    is_regular = models.BooleanField(_("Regular Opening hours"))
-    
-    opening = models.TimeField(_('Opens'), blank=True, null=True)
-    break_close = models.TimeField(_('Break Starts'), blank=True, null=True)
-    break_open = models.TimeField(_('Break Ends'), blank=True, null=True)
-    closing = models.TimeField(_('Closes'), blank=True, null=True)
-    
-    exceptions = MultilingualTextField(_('Exceptions for working hours'), blank=True)
-    
-    def __unicode__(self):
-        result = u"%s %s" % (self.get_mm_display(), self.dd)
-        if self.yyyy:
-            result = u"%s %s" % (self.yyyy, result)
-        if self.day_label:
-            result += u" - " + self.day_label
-        return result
-    
-    class Meta:
-        ordering = ("yyyy", "mm", "dd")
-        verbose_name = _("Special opening time")
-        verbose_name_plural = _("Special Opening hours")
 
 class NewlyOpenedExhibition(CMSPlugin):
     exhibition = models.ForeignKey(Exhibition, limit_choices_to={'newly_opened': True})
