@@ -20,8 +20,7 @@
 
 
 {% block content %}
-
-<div class="content" class="clearfix"><div class="inner clearfix"><ul id="workshop_notices" class="clearfix"><li>{% infoblock "workshop_notice_1" %}</li><li>{% infoblock "workshop_notice_2" %}</li><li>{% infoblock "workshop_notice_3" %}</li> <li>{% infoblock "workshop_notice_4" %}</li></ul></div>´</div>
+<div class="content" class="clearfix"><div class="inner notices clearfix"><ul id="workshop_notices" class="clearfix"><li>{% infoblock "workshop_notice_1" %}</li><li>{% infoblock "workshop_notice_2" %}</li><li>{% infoblock "workshop_notice_3" %}</li><li>{% infoblock "workshop_notice_4" %}</li></ul></div></div>
 
 <div class="content clearfix sticky">
     <nav id="map_controls">
@@ -79,10 +78,6 @@
          
             <ul id="filter_summary"></ul>
         </div>
-    </div>
-</div>
-<div class="content" class="clearfix">
-    <div class="inner">
 
         <ul id="container" class="list rows collapsed clearfix">
             {% for workshop in object_list %}

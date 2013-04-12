@@ -1996,6 +1996,9 @@ a:focus {
     padding-bottom: 40px; }
     #wrapper > * > .inner:empty {
       display: none; }
+    #wrapper > * > .inner.notices {
+      padding-top: 20px;
+      padding-bottom: 20px; }
 
 #dashboard_header,
 #header, .content {
@@ -3182,6 +3185,7 @@ aside {
   width: 1000px !important;
   padding: 0px;
   margin: 0px;
+  margin-bottom: 20px !important;
   background-color: white;
   z-index: 10000; }
   #filters .accordion,
@@ -4978,22 +4982,34 @@ dl {
     #sponsors > div a span {
       display: none; }
 
+#event_notices,
 #workshop_notices {
   width: 1060px; }
+  #event_notices li,
   #workshop_notices li {
     background-color: rgba(0, 0, 0, 0.05);
     width: 235px !important;
     margin-right: 20px;
     float: left; }
+  #event_notices p,
   #workshop_notices p {
     width: 100%;
     height: 100px;
     display: table;
     table-layout: fixed; }
+  #event_notices a,
   #workshop_notices a {
     display: table-cell;
     text-align: center;
-    vertical-align: middle; }
+    vertical-align: middle;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #00aefd !important;
+    color: white !important;
+    font-size: 25px;
+    line-height: 25px;
+    text-transform: uppercase; }
+    #event_notices a:hover,
     #workshop_notices a:hover {
-      background-color: #00aefd;
+      background-color: black !important;
       color: white; }

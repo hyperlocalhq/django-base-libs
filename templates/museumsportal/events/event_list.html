@@ -20,6 +20,8 @@
 {% endblock %}
 
 {% block content %}
+<div class="content" class="clearfix"><div class="inner notices clearfix"><ul id="event_notices" class="clearfix"><li>{% infoblock "event_notice_1" %}</li><li>{% infoblock "event_notice_2" %}</li><li>{% infoblock "event_notice_3" %}</li><li>{% infoblock "event_notice_4" %}</li></ul></div></div>
+
 <div class="content clearfix sticky">
     <nav id="map_controls">
         <a class="btn icon icon-white icon-favorite active" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
@@ -91,11 +93,6 @@
          
             <ul id="filter_summary"></ul>
         </div>
-    </div>
-</div>
-
-<div class="content clearfix">
-    <div class="inner">
         <ul id="container" class="list rows clearfix">
             {% for event in object_list %}
                 {% tags_for_object event as tags %}
