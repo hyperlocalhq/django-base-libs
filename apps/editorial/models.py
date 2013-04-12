@@ -68,3 +68,23 @@ class Intro(CMSPlugin):
         ordering = ['title']
         verbose_name = _("Intro")
         verbose_name_plural = _("Intros")
+        
+class FrontpageTeaser(CMSPlugin):
+    title = models.CharField(_("Title"), max_length=255)
+    title2 = models.CharField(_("Title 2"), max_length=255, blank=True)
+    title3 = models.CharField(_("Title 3"), max_length=255, blank=True)
+    description = ExtendedTextField(_("Description"), blank=True)
+    website = models.CharField(_("Website"), max_length=255, blank=True)
+
+    image = FileBrowseField(_('Image'), max_length=255, extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
+    image_caption = ExtendedTextField(_("Image Caption"), max_length=255, blank=True)
+
+    def __unicode__(self):
+        return self.title
+        
+    class Meta:
+        ordering = ['title']
+        verbose_name = _("Frontpage Teaser")
+        verbose_name_plural = _("Frontpage Teasers")
+
+        
