@@ -340,10 +340,9 @@
                                 </ul>  
                             </li>
                         {% endif %}
-
                     {% endwith %}
                 {% else %}
-                    {% if exhibition.season_set.count or exhibition.specialopeningtime_set.count %}
+                    {% if exhibition.season_set.count %}
                         <li class="accordion-group">  
                             <h4 class="accordion-heading">  
                                 <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
@@ -354,10 +353,6 @@
                                 {% if exhibition.season_set.count == 1 %}
                                     {% with exhibition.season_set.all.0 as season %}
                                         <li class="accordion-inner">
-                                            <dl>
-                                                <dt>{{ season.title }}</dt>
-                                                <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
-                                            </dl>
                                             {% if season.is_appointment_based %}
                                                 <dl>
                                                     <dd>{% trans "Based on appointment" %}</dd>
@@ -408,10 +403,6 @@
                                 {% else %}
                                     {% for season in exhibition.season_set.all %}
                                         <li class="accordion-inner">
-                                            <dl>
-                                                <dt>{{ season.title }}</dt>
-                                                <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
-                                            </dl>
                                             {% if season.is_appointment_based %}
                                                 <dl>
                                                     <dd>{% trans "Based on appointment" %}</dd>
@@ -455,30 +446,6 @@
                                             {% endif %}
                                         </li>
                                     {% endfor %}
-                                {% endif %}
-                                {% if exhibition.specialopeningtime_set.count %}
-                                    <li class="accordion-inner">
-                                        <dl>
-                                        {% for special_opening in exhibition.specialopeningtime_set.all %}
-                                            <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
-                                            {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
-                                            {% if special_opening.is_closed %}
-                                                <span class="right">{% trans "Closed" %}</span>
-                                            {% else %}
-                                                {% if special_opening.is_regular %}
-                                                    <span class="right">{% trans "Regular" %}</span>
-                                                {% else %}
-                                                    <span class="right">{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}
-                                                    {% if season.sun_break_close %}
-                                                        | {% trans "Break:" %} {{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}
-                                                    {% endif %}
-                                                    </span>
-                                                {% endif %}
-                                            {% endif %}
-                                            </dt>
-                                        {% endfor %}
-                                        </dl>
-                                    </li>
                                 {% endif %}
                             </ul>  
                         </li>
