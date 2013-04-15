@@ -88,18 +88,6 @@ var error_messages = {
             reinit_widgets();
             return false;
         });
-        $('#add_special_opening').click(function() {
-            var $total_forms = $('#id_special_openings-TOTAL_FORMS');
-            var $new_form = $('#special_openings_empty_form').clone(true).attr("id", null).show();
-            set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
-            $('#special_openings').append($new_form);
-            $total_forms.val(parseInt($total_forms.val(), 10) + 1);
-            reinit_widgets();
-            $('#fieldset_museum_opening_hours').hide();
-            $('#item_container').hide();
-            $('.form-actions:last').hide();
-            return false;
-        });
         
         $('.formset-form').each(function() {
             var $season = $(this);
@@ -148,7 +136,7 @@ var error_messages = {
             var html = '<ul class="actions">'
                 + '<li><button rel="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="transparent edit icon icon-white icon-edit"></button></li>'
                 + '</ul>'
-                + '<a class="edit" href="#"><span class="title">' + $season.find('[name$="-title_' + settings.lang + '"]').val() + '</span> ' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</a>';
+                + '<a class="edit" href="#"><span class="title">{% trans "Individual Opening Time of the Exhibition" %}</span></a>';
             if (!$season.data('mirror')) {
                 var $mirror = $('<li class="item">' + html + '</li>');
                 $('#season_list li:last').before($mirror);
@@ -161,6 +149,7 @@ var error_messages = {
             $('#fieldset_museum_opening_hours').show();
             $('#item_container').show();
             $('.form-actions:last').show();
+            $('#add_season').hide();
             return false;
         });
         $('#seasons .delete').live("click", function() {
@@ -175,45 +164,7 @@ var error_messages = {
             $('#fieldset_museum_opening_hours').show();
             $('#item_container').show();
             $('.form-actions:last').show();
-            return false;
-        });
-        // SPECIAL OPENINGS
-        $('#special_openings .save-link').live("click", function() {
-            var $season = $(this).parents('.formset-form:first');
-            if (!validate($season)) {
-                return;
-            }
-            $season.hide();
-            var html = '<ul class="actions">'
-                + '<li><button rel="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="edit transparent icon icon-white icon-edit"></button></li>'
-                + '</ul>'
-                + '<a href="#" class="edit"><span class="title">' + $season.find('[name$="-day_label_' + settings.lang + '"]').val() + '</span> ' + $season.find('[name$="-yyyy"]').val() + ' ' + $season.find('[name$="-mm"] option:selected').text() + ' ' + $season.find('[name$="-dd"]').val() + '</a>';
-            if (!$season.data('mirror')) {
-                var $mirror = $('<li class="item">' + html + '</li>');
-                $('#special_opening_list li:last').before($mirror);
-                $mirror.data('origin', $season);
-                $season.data('mirror', $mirror);
-            } else {
-                var $mirror = $season.data('mirror');
-                $mirror.html(html);
-            }
-            $('#fieldset_museum_opening_hours').show();
-            $('#item_container').show();
-            $('.form-actions:last').show();
-            return false;
-        });
-        $('#special_openings .delete').live("click", function() {
-            var $season = $(this).parents('.formset-form:first');
-            var $checkbox = $season.find('input:checkbox[id$=DELETE]');
-            $checkbox.attr("checked", "checked");
-            $season.hide();
-            var $mirror = $season.data('mirror');
-            if ($mirror) {
-                $mirror.remove();
-            }
-            $('#fieldset_museum_opening_hours').show();
-            $('#item_container').show();
-            $('.form-actions:last').show();
+            $('#add_season').show();
             return false;
         });
         $('#item_container .edit').live("click", function() {
@@ -228,20 +179,8 @@ var error_messages = {
         
         // Initial state
         var $total_forms = $('#id_seasons-TOTAL_FORMS');
-        if ($total_forms.val() == "0") {
-            /*
-            $('#add_season').click();
-            $('#id_seasons-0-title_de').val("Ganzjährig");
-            $('#id_seasons-0-title_en').val("Year-round");
-            $('#id_seasons-0-start').val((new Date()).getFullYear()+"-01-01");
-            $('#id_seasons-0-end').val((new Date()).getFullYear()+"-12-31");
-            $(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']).each(function() {
-                $('#id_seasons-0-' + this + '_open').val("10:00");
-                $('#id_seasons-0-' + this + '_close').val("18:00");
-            });
-            $(':input.save-link').click();
-            */
-        } else {
+        if ($total_forms.val() != "0") {
+            $('#add_season').hide();
             $(':input.save-link').click();
         }
         reinit_widgets();

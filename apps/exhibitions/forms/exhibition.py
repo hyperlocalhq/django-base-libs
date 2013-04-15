@@ -22,7 +22,6 @@ Museum = models.get_model("museums", "Museum")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Season = models.get_model("exhibitions", "Season")
-SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
 Organizer = models.get_model("exhibitions", "Organizer")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
@@ -327,13 +326,6 @@ class OpeningForm(ModelForm):
                         <li> </li>
                     </ul>
                 </fieldset>
-                <fieldset>
-                    <a class="add" id="add_special_opening" href="#">{% trans "Add Closing Time / Holiday" %}</a>
-                    <legend>{% trans "Closing Times / Holidays" %}</legend>
-                    <ul id="special_opening_list">
-                        <li> </li>
-                    </ul>
-                </fieldset>
             </div>
             
             {{ formsets.seasons.management_form }}
@@ -353,19 +345,6 @@ class OpeningForm(ModelForm):
                 {% endwith %}
             </div>
             
-            <div id="special_openings">
-                {% for form in formsets.special_openings.forms %}
-                    <div class="special_opening formset-form" style="display: none">
-                        {% crispy form %}
-                    </div>
-                {% endfor %}
-            </div>
-            <!-- used by javascript -->
-            <div id="special_openings_empty_form" class="special_opening formset-form" style="display: none">
-                {% with formsets.special_openings.empty_form as form %}
-                    {% crispy form %}
-                {% endwith %}
-            </div>
             """))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
@@ -401,12 +380,10 @@ class SeasonForm(ModelForm):
         super(SeasonForm, self).__init__(*args, **kwargs)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            self.fields['title_%s' % lang_code].required = True
             self.fields['exceptions_%s' % lang_code].label = _("Additional Information")
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
-                'title_%s' % lang_code,
                 'last_entry_%s' % lang_code,
                 'exceptions_%s' % lang_code,
                 ]:
@@ -427,15 +404,7 @@ class SeasonForm(ModelForm):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
-            _("Season"),
-            layout.Row(
-                css_class="div-title",
-                *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
-                layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off")
-                ),
+            _("Individual Opening Time of the Exhibition"),
             layout.Div(
                 "is_appointment_based", 
                 "is_open_24_7",
@@ -567,117 +536,6 @@ class SeasonForm(ModelForm):
 
 SeasonFormset = inlineformset_factory(Exhibition, Season, form=SeasonForm, formset=InlineFormSet, extra=0)
 
-class SpecialOpeningTimeForm(ModelForm):
-    class Meta:
-        model = SpecialOpeningTime
-        exclude = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            exclude.append("exceptions_%s_markup_type" % lang_code)
-    def __init__(self, *args, **kwargs):
-        super(SpecialOpeningTimeForm, self).__init__(*args, **kwargs)
-
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            for f in [
-                'day_label_%s' % lang_code,
-                'exceptions_%s' % lang_code,
-                ]:
-                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
-
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            for f in [
-                'day_label_%s' % lang_code,
-                ]:
-                self.fields[f].help_text = ""
-
-        for fname in ["opening", "break_close", "break_open", "closing"]:
-            self.fields[fname].widget = forms.TimeInput(format='%H:%M')
-        self.fields['yyyy'].choices[0] = ("", _("Every year"))
-        self.fields['yyyy'].help_text = ""
-
-        # remove labels from Closing Time / Holiday  
-        self.fields['opening'].widget = forms.TimeInput(format='%H:%M')
-        self.fields['opening'].label = ""
-        self.fields['break_close'].widget = forms.TimeInput(format='%H:%M')
-        self.fields['break_close'].label = ""
-        self.fields['break_open'].widget = forms.TimeInput(format='%H:%M')
-        self.fields['break_open'].label = ""
-        self.fields['closing'].widget = forms.TimeInput(format='%H:%M')
-        self.fields['closing'].label = ""
-
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-        layout_blocks = []
-
-        layout_blocks.append(layout.Fieldset(
-            _("Closing Time / Holiday"),
-            layout.Row(
-                css_class="div-accessibility-details",
-                *('day_label_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            
-            layout.Row(
-                "yyyy", "mm", "dd",
-                ),
-
-            layout.Div(
-                layout.HTML("""{% load i18n %} <label>{% trans "Particularities" %}</label> """),
-                "is_closed", "is_regular", 
-                ),
-            
-            layout.HTML(
-                """{% load i18n %}
-                <div class="row">
-                    <div>
-                        <fieldset>
-                            <legend>{% trans "Opening Hours" %}</legend>
-                            <div class="row">
-                                <div><label>{% trans "From" %}</label></div>
-                                <div><label>{% trans "To" %}</label></div>
-                            </div>
-                             <div class="row">
-                                <div>"""), layout.Field("opening", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("closing", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    {% load i18n %}
-                    <div>
-                        <fieldset>
-                            <legend>{% trans "Breaks" %}</legend>
-                            <div class="row">
-                                <div><label>{% trans "From" %}</label></div>
-                                <div><label>{% trans "To" %}</label></div>
-                            </div>
-                            <div class="row">
-                                <div>"""), layout.Field("break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            </div>
-                        </fieldset>
-                    </div>
-                </div>
-                """
-                ),
-            
-
-            css_class="fieldset-opening-times",
-            ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Additional info"),
-            layout.Row(
-                css_class="div-accessibility-details",
-                *('exceptions_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-
-                css_class="fieldset-additional-info",
-                ))
-
-        self.helper.layout = layout.Layout(
-            *layout_blocks
-            )
-
-SpecialOpeningTimeFormset = inlineformset_factory(Exhibition, SpecialOpeningTime, form=SpecialOpeningTimeForm, formset=InlineFormSet, extra=0)
-
 class PricesForm(ModelForm):
     admission_price = DecimalField(
         label=_(u"Admission price (€)"),
@@ -722,14 +580,11 @@ class PricesForm(ModelForm):
             layout.Row(
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-            css_class="fieldset-prices",
-            ))
-        layout_blocks.append(layout.Fieldset(
-            _("Reduced Prices"),
             layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
             layout.Row(
                 *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            css_class="fieldset-prices",
             ))
 
         if self.instance and self.instance.pk:
@@ -872,8 +727,6 @@ def load_data(instance=None):
     
         for season in instance.season_set.all():
             season_dict = {}
-            season_dict['start'] = season.start
-            season_dict['end'] = season.end
             season_dict['is_appointment_based'] = season.is_appointment_based
             season_dict['is_open_24_7'] = season.is_open_24_7
             season_dict['mon_open'] = season.mon_open
@@ -912,30 +765,10 @@ def load_data(instance=None):
             season_dict['sun_close'] = season.sun_close
             season_dict['sun_is_closed'] = not season.sun_open
             for lang_code, lang_name in FRONTEND_LANGUAGES:
-                season_dict['title_%s' % lang_code] = getattr(season, 'title_%s' % lang_code)
                 season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
             form_step_data['opening']['sets']['seasons'].append(season_dict)
             
-        for special_opening in instance.specialopeningtime_set.all():
-            special_opening_dict = {}
-            special_opening_dict['yyyy'] = special_opening.yyyy
-            special_opening_dict['get_yyyy_display'] = special_opening.get_yyyy_display()
-            special_opening_dict['mm'] = special_opening.mm
-            special_opening_dict['get_mm_display'] = special_opening.get_mm_display()
-            special_opening_dict['dd'] = special_opening.dd
-            special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
-            for lang_code, lang_name in FRONTEND_LANGUAGES:
-                special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
-                special_opening_dict['exceptions_%s' % lang_code] = getattr(special_opening, 'exceptions_%s' % lang_code)
-            special_opening_dict['is_closed'] = special_opening.is_closed
-            special_opening_dict['is_regular'] = special_opening.is_regular
-            special_opening_dict['opening'] = special_opening.opening
-            special_opening_dict['break_close'] = special_opening.break_close
-            special_opening_dict['break_open'] = special_opening.break_open
-            special_opening_dict['closing'] = special_opening.closing
-            form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
-    
         fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price', 
             ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -1105,8 +938,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance.season_set.all().delete()
             for season_dict in form_step_data['opening']['sets']['seasons']:
                 season = Season(exhibition=instance)
-                season.start = season_dict['start'] 
-                season.end = season_dict['end'] 
                 season.is_appointment_based = season_dict['is_appointment_based'] 
                 season.is_open_24_7 = season_dict['is_open_24_7'] 
                 if not season_dict['mon_is_closed']:
@@ -1145,30 +976,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     season.sun_break_open = season_dict['sun_break_open'] 
                     season.sun_close = season_dict['sun_close']
                 for lang_code, lang_name in FRONTEND_LANGUAGES:
-                    setattr(season, 'title_%s' % lang_code, season_dict['title_%s' % lang_code])
                     setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
                     setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
                     setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
                 season.save()
                 
-            instance.specialopeningtime_set.all().delete()
-            for special_opening_dict in form_step_data['opening']['sets']['special_openings']:
-                special_opening = SpecialOpeningTime(exhibition=instance)
-                special_opening.yyyy = special_opening_dict['yyyy'] 
-                special_opening.mm = special_opening_dict['mm']
-                special_opening.dd = special_opening_dict['dd']
-                for lang_code, lang_name in FRONTEND_LANGUAGES:
-                    setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
-                    setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
-                    setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
-                special_opening.is_closed = special_opening_dict['is_closed'] 
-                special_opening.is_regular = special_opening_dict['is_regular'] 
-                special_opening.opening = special_opening_dict['opening'] 
-                special_opening.break_close = special_opening_dict['break_close'] 
-                special_opening.break_open = special_opening_dict['break_open'] 
-                special_opening.closing = special_opening_dict['closing']
-                special_opening.save()
-        
     if current_step == "prices":
         if "_pk" in form_step_data:
             instance = Exhibition.objects.get(pk=form_step_data['_pk'])
@@ -1290,8 +1102,6 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.season_set.all().delete()
     for season_dict in form_step_data['opening']['sets']['seasons']:
         season = Season(exhibition=instance)
-        season.start = season_dict['start'] 
-        season.end = season_dict['end'] 
         season.is_appointment_based = season_dict['is_appointment_based'] 
         season.is_open_24_7 = season_dict['is_open_24_7'] 
         if not season_dict['mon_is_closed']:
@@ -1330,30 +1140,11 @@ def save_data(form_steps, form_step_data, instance=None):
             season.sun_break_open = season_dict['sun_break_open'] 
             season.sun_close = season_dict['sun_close']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            setattr(season, 'title_%s' % lang_code, season_dict['title_%s' % lang_code])
             setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
             setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         season.save()
         
-    instance.specialopeningtime_set.all().delete()
-    for special_opening_dict in form_step_data['opening']['sets']['special_openings']:
-        special_opening = SpecialOpeningTime(exhibition=instance)
-        special_opening.yyyy = special_opening_dict['yyyy'] 
-        special_opening.mm = special_opening_dict['mm']
-        special_opening.dd = special_opening_dict['dd']
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            setattr(special_opening, 'day_label_%s' % lang_code, special_opening_dict['day_label_%s' % lang_code])
-            setattr(special_opening, 'exceptions_%s' % lang_code, special_opening_dict['exceptions_%s' % lang_code])
-            setattr(special_opening, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
-        special_opening.is_closed = special_opening_dict['is_closed'] 
-        special_opening.is_regular = special_opening_dict['is_regular'] 
-        special_opening.opening = special_opening_dict['opening'] 
-        special_opening.break_close = special_opening_dict['break_close'] 
-        special_opening.break_open = special_opening_dict['break_open'] 
-        special_opening.closing = special_opening_dict['closing']
-        special_opening.save()
-
     form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
     
     return form_step_data
@@ -1376,7 +1167,6 @@ EXHIBITION_FORM_STEPS = {
         'form': OpeningForm, # dummy form
         'formsets': {
             'seasons': SeasonFormset,
-            'special_openings': SpecialOpeningTimeFormset,
         }
     },
     'prices': {

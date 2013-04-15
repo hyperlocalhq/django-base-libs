@@ -163,13 +163,13 @@
                             <li class="accordion-inner">
                                 {% if workshop.free_admission %}
                                     <dl>
-                                        <dt>{% trans "Free guided tour" %}</dt>
+                                        <dt>{% trans "Free offer" %}</dt>
                                     </dl>
                                 {% else %}
                                     {% if workshop.admission_price or workshop.admission_price_info%}
                                         <dl>
                                         {% if workshop.admission_price %}
-                                            <dt>{% trans "Admission price" %}: {{ workshop.admission_price|currencyfmt:"EUR" }}</dt>
+                                            <dt>{% trans "Price" %}: {{ workshop.admission_price|currencyfmt:"EUR" }}</dt>
                                         {% endif %}
                                         {% if workshop.admission_price_info %}
                                             <dd class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</dd>

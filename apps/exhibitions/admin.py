@@ -17,7 +17,6 @@ from base_libs.forms.fields import AutocompleteModelChoiceField
 ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 Season = models.get_model("exhibitions", "Season")
-SpecialOpeningTime = models.get_model("exhibitions", "SpecialOpeningTime")
 MediaFile = models.get_model("exhibitions", "MediaFile")
 Organizer = models.get_model("exhibitions", "Organizer")
 
@@ -38,13 +37,6 @@ class SeasonInline(ExtendedStackedInline):
     model = Season
     extra = 0
     template = "admin/exhibitions/exhibition/season_inline.html"
-
-class SpecialOpeningTimeInline(ExtendedStackedInline):
-    model = SpecialOpeningTime
-    extra = 0
-    fieldsets = get_admin_lang_section(_("Title"), ['day_label'])
-    fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
-    fieldsets += [(_("Opening hours"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing', get_admin_lang_section(_("Exceptions"), ['exceptions']))})]
 
 class MediaFileInline(ExtendedStackedInline):
     model = MediaFile
@@ -121,7 +113,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories",)
     
-    inlines = [OrganizerInline, SeasonInline, SpecialOpeningTimeInline, MediaFileInline]
+    inlines = [OrganizerInline, SeasonInline, MediaFileInline]
 
     def get_museum_display(self, obj):
         return '<a href="/admin/museums/museum/%d/">%s</a>' % (obj.museum.id, obj.museum.title)
