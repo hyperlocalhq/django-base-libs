@@ -2545,9 +2545,6 @@ a:focus {
       .list.compact li a.txt h3,
       .list.compact li a.txt h4,
       .list.compact li a.txt h5 {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
         width: 100%;
         display: inline-block;
         box-sizing: border-box !important;
@@ -3796,33 +3793,6 @@ dl {
   background-image: url("../img/icons/edit.svg");
   opacity: 0.35;
   margin-top: 0px; }
-#organizers_fieldset li:hover .actions,
-.fieldset-imagegallery li:hover .actions,
-#workshop_times_fieldset li:hover .actions,
-#event_times_fieldset li:hover .actions,
-#social_channels_fieldset li:hover .actions,
-#item_container li:hover .actions,
-#dashboard li:hover .actions {
-  opacity: 1; }
-#organizers_fieldset .actions,
-.fieldset-imagegallery .actions,
-#workshop_times_fieldset .actions,
-#event_times_fieldset .actions,
-#social_channels_fieldset .actions,
-#item_container .actions,
-#dashboard .actions {
-  width: 80px;
-  height: 20px;
-  text-align: left;
-  opacity: 0.25; }
-  #organizers_fieldset .actions a,
-  .fieldset-imagegallery .actions a,
-  #workshop_times_fieldset .actions a,
-  #event_times_fieldset .actions a,
-  #social_channels_fieldset .actions a,
-  #item_container .actions a,
-  #dashboard .actions a {
-    float: right; }
 #organizers_fieldset .add,
 .fieldset-imagegallery .add,
 #workshop_times_fieldset .add,
@@ -3857,6 +3827,87 @@ dl {
   #item_container .add:hover,
   #dashboard .add:hover {
     background-color: black; }
+#organizers_fieldset fieldset > ul.museums li:hover .actions, #organizers_fieldset fieldset > ul.exhibitions li:hover .actions, #organizers_fieldset fieldset > ul.events li:hover .actions, #organizers_fieldset fieldset > ul.workshops li:hover .actions,
+.fieldset-imagegallery fieldset > ul.museums li:hover .actions,
+.fieldset-imagegallery fieldset > ul.exhibitions li:hover .actions,
+.fieldset-imagegallery fieldset > ul.events li:hover .actions,
+.fieldset-imagegallery fieldset > ul.workshops li:hover .actions,
+#workshop_times_fieldset fieldset > ul.museums li:hover .actions,
+#workshop_times_fieldset fieldset > ul.exhibitions li:hover .actions,
+#workshop_times_fieldset fieldset > ul.events li:hover .actions,
+#workshop_times_fieldset fieldset > ul.workshops li:hover .actions,
+#event_times_fieldset fieldset > ul.museums li:hover .actions,
+#event_times_fieldset fieldset > ul.exhibitions li:hover .actions,
+#event_times_fieldset fieldset > ul.events li:hover .actions,
+#event_times_fieldset fieldset > ul.workshops li:hover .actions,
+#social_channels_fieldset fieldset > ul.museums li:hover .actions,
+#social_channels_fieldset fieldset > ul.exhibitions li:hover .actions,
+#social_channels_fieldset fieldset > ul.events li:hover .actions,
+#social_channels_fieldset fieldset > ul.workshops li:hover .actions,
+#item_container fieldset > ul.museums li:hover .actions,
+#item_container fieldset > ul.exhibitions li:hover .actions,
+#item_container fieldset > ul.events li:hover .actions,
+#item_container fieldset > ul.workshops li:hover .actions,
+#dashboard fieldset > ul.museums li:hover .actions,
+#dashboard fieldset > ul.exhibitions li:hover .actions,
+#dashboard fieldset > ul.events li:hover .actions,
+#dashboard fieldset > ul.workshops li:hover .actions {
+  opacity: 1; }
+#organizers_fieldset fieldset > ul.museums .actions, #organizers_fieldset fieldset > ul.exhibitions .actions, #organizers_fieldset fieldset > ul.events .actions, #organizers_fieldset fieldset > ul.workshops .actions,
+.fieldset-imagegallery fieldset > ul.museums .actions,
+.fieldset-imagegallery fieldset > ul.exhibitions .actions,
+.fieldset-imagegallery fieldset > ul.events .actions,
+.fieldset-imagegallery fieldset > ul.workshops .actions,
+#workshop_times_fieldset fieldset > ul.museums .actions,
+#workshop_times_fieldset fieldset > ul.exhibitions .actions,
+#workshop_times_fieldset fieldset > ul.events .actions,
+#workshop_times_fieldset fieldset > ul.workshops .actions,
+#event_times_fieldset fieldset > ul.museums .actions,
+#event_times_fieldset fieldset > ul.exhibitions .actions,
+#event_times_fieldset fieldset > ul.events .actions,
+#event_times_fieldset fieldset > ul.workshops .actions,
+#social_channels_fieldset fieldset > ul.museums .actions,
+#social_channels_fieldset fieldset > ul.exhibitions .actions,
+#social_channels_fieldset fieldset > ul.events .actions,
+#social_channels_fieldset fieldset > ul.workshops .actions,
+#item_container fieldset > ul.museums .actions,
+#item_container fieldset > ul.exhibitions .actions,
+#item_container fieldset > ul.events .actions,
+#item_container fieldset > ul.workshops .actions,
+#dashboard fieldset > ul.museums .actions,
+#dashboard fieldset > ul.exhibitions .actions,
+#dashboard fieldset > ul.events .actions,
+#dashboard fieldset > ul.workshops .actions {
+  width: 80px;
+  height: 20px;
+  text-align: left;
+  opacity: 0.25; }
+  #organizers_fieldset fieldset > ul.museums .actions a, #organizers_fieldset fieldset > ul.exhibitions .actions a, #organizers_fieldset fieldset > ul.events .actions a, #organizers_fieldset fieldset > ul.workshops .actions a,
+  .fieldset-imagegallery fieldset > ul.museums .actions a,
+  .fieldset-imagegallery fieldset > ul.exhibitions .actions a,
+  .fieldset-imagegallery fieldset > ul.events .actions a,
+  .fieldset-imagegallery fieldset > ul.workshops .actions a,
+  #workshop_times_fieldset fieldset > ul.museums .actions a,
+  #workshop_times_fieldset fieldset > ul.exhibitions .actions a,
+  #workshop_times_fieldset fieldset > ul.events .actions a,
+  #workshop_times_fieldset fieldset > ul.workshops .actions a,
+  #event_times_fieldset fieldset > ul.museums .actions a,
+  #event_times_fieldset fieldset > ul.exhibitions .actions a,
+  #event_times_fieldset fieldset > ul.events .actions a,
+  #event_times_fieldset fieldset > ul.workshops .actions a,
+  #social_channels_fieldset fieldset > ul.museums .actions a,
+  #social_channels_fieldset fieldset > ul.exhibitions .actions a,
+  #social_channels_fieldset fieldset > ul.events .actions a,
+  #social_channels_fieldset fieldset > ul.workshops .actions a,
+  #item_container fieldset > ul.museums .actions a,
+  #item_container fieldset > ul.exhibitions .actions a,
+  #item_container fieldset > ul.events .actions a,
+  #item_container fieldset > ul.workshops .actions a,
+  #dashboard fieldset > ul.museums .actions a,
+  #dashboard fieldset > ul.exhibitions .actions a,
+  #dashboard fieldset > ul.events .actions a,
+  #dashboard fieldset > ul.workshops .actions a {
+    float: right; }
 #organizers_fieldset fieldset > ul > li,
 .fieldset-imagegallery fieldset > ul > li,
 #workshop_times_fieldset fieldset > ul > li,

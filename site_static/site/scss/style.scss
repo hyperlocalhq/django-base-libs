@@ -888,9 +888,9 @@ a:focus  { outline: none !important; }
         h3,
         h4,
         h5 {
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
+          // white-space: nowrap;
+          // text-overflow: ellipsis;
+          // overflow: hidden;
           width: 100%;
           display: inline-block;
           box-sizing: border-box !important;
@@ -2259,18 +2259,6 @@ dl {
     opacity: 0.35;
     margin-top: 0px;
   } 
-  li:hover .actions { opacity: 1; }
-
-  .actions {
-    width: 80px;
-    height: 20px;
-    text-align: left;
-    opacity: 0.25;
-    a {
-      float: right;
-    }
-  }
-
   .add {
     position: absolute;
     right: 0px;
@@ -2295,6 +2283,27 @@ dl {
   }
 
   fieldset > ul {
+
+    
+    &.museums,
+    &.exhibitions,
+    &.events,
+    &.workshops {
+      
+      li:hover .actions { opacity: 1; }
+
+      .actions {
+        width: 80px;
+        height: 20px;
+        text-align: left;
+        opacity: 0.25;
+        a {
+          float: right;
+        }
+      }
+    }
+    
+
     > li {
       position: relative;
       
