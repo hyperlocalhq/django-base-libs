@@ -104,13 +104,22 @@ class EventManager(models.Manager):
         self.filter(
             closest_event_date__isnull=True,
             ).exclude(status="expired").update(status="expired")
-        
+
+    def populate_press_text(self):
+        for e in self.all():
+            for lang_code, lang_name in settings.LANGUAGES:
+                if not getattr(e, "press_text_%s" % lang_code):
+                    setattr(e, "press_text_%s" % lang_code, getattr(e, "description_%s" % lang_code))
+                    setattr(e, "press_text_%s_markup_type" % lang_code, getattr(e, "description_%s_markup_type" % lang_code))
+            e.save()
+
         
 class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     event_type = MultilingualCharField(_("Type"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
+    press_text = MultilingualTextField(_("Press text"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
     image = FileBrowseField(_('Image'), max_length=200, directory="events/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     
