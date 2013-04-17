@@ -374,7 +374,9 @@ class MediaFile(CreationModificationDateMixin):
         verbose_name_plural = _("Media Files")
         
     def __unicode__(self):
-        return self.path.path
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
 
     def get_token(self):
         if self.pk:
