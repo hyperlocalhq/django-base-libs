@@ -32,6 +32,7 @@ from museumsportal.utils.forms import InlineFormSet
 # translatable strings to collect
 _("Name")
 _("Subtitle")
+_("Description")
 _("Categories")
 _("Tags")
 _("Special for children")
@@ -64,38 +65,8 @@ class BasicInfoForm(ModelForm):
         
         fields = []
         
-        #fields = ['tags', 'categories']
-        #for lang_code, lang_name in FRONTEND_LANGUAGES:
-        #    fields += [
-        #        'title_%s' % lang_code,
-        #        'subtitle_%s' % lang_code,
-        #        'description_%s' % lang_code,
-        #        ]
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fields += [
-                'press_text_%s' % lang_code,
-                ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
-
-        #self.fields['tags'].widget = forms.TextInput()
-        #self.fields['tags'].help_text = ""
-        #self.fields['categories'].widget = forms.CheckboxSelectMultiple()
-        #self.fields['categories'].help_text = ""
-        #self.fields['categories'].empty_label = None
-
-        #for lang_code, lang_name in FRONTEND_LANGUAGES:
-        #    for f in [
-        #        'title_%s' % lang_code,
-        #        'subtitle_%s' % lang_code,
-        #        'description_%s' % lang_code,
-        #        ]:
-        #        self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            for f in [
-                'press_text_%s' % lang_code,
-                ]:
-                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -106,22 +77,8 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
             
-        #    layout.Row(
-        #        css_class="div-accessibility-details",
-        #        *(layout.Field('title_%s' % lang_code, disabled="disabled") for lang_code, lang_name in FRONTEND_LANGUAGES)
-        #        ),
-
-        #    layout.Row(
-        #        css_class="div-accessibility-details",
-        #        *(layout.Field('subtitle_%s' % lang_code, disabled="disabled") for lang_code, lang_name in FRONTEND_LANGUAGES)
-        #        ),
-
-        #    layout.Row(
-        #        css_class="div-accessibility-details",
-        #        *(layout.Field('description_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
-        #        ),
             layout.HTML("""{% load i18n %}
-                <div class="row div-accessibility-details">
+                <div class="row">
                     <div id="div_id_title_de" class="clearfix control-group">
                         <label for="id_title_de" class="control-label requiredField">
                         {% trans "Name" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
@@ -137,7 +94,7 @@ class BasicInfoForm(ModelForm):
                         </div>
                     </div>
                 </div>
-                <div class="row div-accessibility-details">
+                <div class="row">
                     <div id="div_id_subtitle_de" class="clearfix control-group">
                         <label for="id_subtitle_de" class="control-label ">
                         {% trans "Subtitle" %} <span class="lang">DE</span></label>
@@ -153,20 +110,33 @@ class BasicInfoForm(ModelForm):
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div id="div_id_description_de" class="clearfix control-group">
+                        <label for="id_description_de" class="control-label ">
+                        {% trans "Description" %} <span class="lang">DE</span></label>
+                        <div class="controls">
+                            <div id="id_description_de" rows="10" cols="40" name="description_de" class="textarea" aria-hidden="true">
+                                {{ museum.description_de|safe }}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="div_id_description_en" class="clearfix control-group">
+                        <label for="id_description_en" class="control-label ">
+                        {% trans "Description" %} <span class="lang">EN</span></label>
+                        <div class="controls">
+                            <div id="id_description_en" rows="10" cols="40" name="description_en" class="textarea" aria-hidden="true">
+                                {{ museum.description_en|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>                
                 """),
             
-            layout.Row(
-                css_class="div-press-text",
-                *(layout.Field('press_text_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-
                 css_class="fieldset-basic-info",
                 ))
 
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
-        #    layout.Field("categories", disabled="disabled"),
-        #    layout.Field("tags", disabled="disabled"),
             layout.HTML("""{% load i18n base_tags %}
                 <div id="div_id_categories" class="clearfix control-group">
                     <label for="id_categories_0" class="control-label requiredField">
@@ -982,7 +952,6 @@ def load_data(instance=None):
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
-            form_step_data['basic']['press_text_%s' % lang_code] = getattr(instance, 'press_text_%s' % lang_code)
         form_step_data['basic']['categories'] = instance.categories.all()
         form_step_data['basic']['tags'] = instance.tags
     
@@ -1117,30 +1086,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance = Museum.objects.get(pk=form_step_data['_pk'])
         else:
             instance = Museum()
-        #for lang_code, lang_name in FRONTEND_LANGUAGES:
-        #    setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
-        #    setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
-        #    setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
-        #    setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-        #instance.tags = form_step_data['basic']['tags']
-        #if not instance.pk:
-        #    instance.status = "draft"
-        #instance.save()
-        
-        #if '_pk' not in form_step_data:
-        #    user = get_current_user()
-        #    instance.set_owner(user)
-        
-        #instance.categories.clear()
-        #for cat in form_step_data['basic']['categories']:
-        #    instance.categories.add(cat)
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
-            setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-            if not getattr(instance, "description_%s" % lang_code):
-                setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
-                setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-                
         
         form_step_data['_pk'] = instance.pk
         
@@ -1326,19 +1271,6 @@ def save_data(form_steps, form_step_data, instance=None):
             instance = Museum.objects.get(pk=form_step_data['_pk'])
         else:
             instance = Museum()
-
-    #for lang_code, lang_name in FRONTEND_LANGUAGES:
-    #    setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
-    #    setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
-    #    setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['description_%s' % lang_code])
-    #    setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-    #instance.tags = form_step_data['basic']['tags'] 
-    for lang_code, lang_name in FRONTEND_LANGUAGES:
-        setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
-        setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-        if not getattr(instance, "description_%s" % lang_code):
-            setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
-            setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
 
     fields = ['free_entrance', 'admission_price', 'reduced_price', 'member_of_museumspass',
         'show_family_ticket',

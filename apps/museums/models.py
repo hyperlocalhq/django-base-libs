@@ -103,7 +103,6 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     title = MultilingualCharField(_("Name"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
-    press_text = MultilingualTextField(_("Press text"), blank=True)
 
     image = FileBrowseField(_('Image'), max_length=255, directory="museums/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True, editable=False)
