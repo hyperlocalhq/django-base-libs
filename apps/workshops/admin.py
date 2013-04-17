@@ -42,7 +42,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     list_filter = ('creation_date', 'status', )
     search_fields = ('title', 'subtitle', 'workshop_type', 'slug')
     
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'workshop_type', 'description', 'website', ])
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'workshop_type', 'description', 'press_text', 'website', ])
     fieldsets += [(None, {'fields': ('slug',)}),]
     fieldsets += [(_("Categories"), {'fields': ('tags', 'languages', 'other_languages', 
         'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_wheelchaired',
