@@ -113,6 +113,15 @@ class ExhibitionManager(models.Manager):
             ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
+    def populate_press_text(self):
+        for e in self.all():
+            for lang_code, lang_name in settings.LANGUAGES:
+                if not getattr(e, "press_text_%s" % lang_code):
+                    setattr(e, "press_text_%s" % lang_code, getattr(e, "description_%s" % lang_code))
+                    setattr(e, "press_text_%s_markup_type" % lang_code, getattr(e, "description_%s_markup_type" % lang_code))
+            e.save()
+
+
 class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     museum = models.ForeignKey("museums.Museum", verbose_name=_("Museum"), blank=True, null=True)
     
