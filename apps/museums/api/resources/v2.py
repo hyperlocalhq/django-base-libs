@@ -14,7 +14,12 @@ from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import strip_html
 
 MuseumCategory = models.get_model("museums", "MuseumCategory")
+AccessibilityOption = models.get_model("museums", "AccessibilityOption")
 Museum = models.get_model("museums", "Museum")
+Season = models.get_model("museums", "Season")
+SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
+MediaFile = models.get_model("museums", "MediaFile")
+SocialMediaChannel = models.get_model("museums", "SocialMediaChannel")
 
 class MuseumCategoryResource(ModelResource):
     class Meta:
@@ -27,8 +32,89 @@ class MuseumCategoryResource(ModelResource):
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
 
+class AccessibilityOptionResource(ModelResource):
+    class Meta:
+        queryset = AccessibilityOption.objects.all()
+        resource_name = 'accessibility_option'
+        allowed_methods = ['get']
+        excludes = ['title', 'slug', 'image', 'sort_order']
+        authentication = ApiKeyAuthentication()
+        authorization = ReadOnlyAuthorization()
+        serializer = Serializer(formats=['json', 'xml'])
+        cache = SimpleCache(timeout=10)
+
+class SeasonResource(ModelResource):
+    class Meta:
+        queryset = Season.objects.all()
+        resource_name = 'museum_season'
+        allowed_methods = ['get']
+        excludes = ['exceptions', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
+        authentication = ApiKeyAuthentication()
+        authorization = ReadOnlyAuthorization()
+        serializer = Serializer(formats=['json', 'xml'])
+        cache = SimpleCache(timeout=10)
+
+    def dehydrate(self, bundle):
+        bundle.data['exceptions_en'] = strip_html(bundle.obj.get_rendered_exceptions_en())
+        bundle.data['exceptions_de'] = strip_html(bundle.obj.get_rendered_exceptions_de())
+        return bundle
+        
+class SpecialOpeningTimeResource(ModelResource):
+    class Meta:
+        queryset = SpecialOpeningTime.objects.all()
+        resource_name = 'museum_special_opening_time'
+        allowed_methods = ['get']
+        excludes = ['exceptions', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
+        authentication = ApiKeyAuthentication()
+        authorization = ReadOnlyAuthorization()
+        serializer = Serializer(formats=['json', 'xml'])
+        cache = SimpleCache(timeout=10)
+
+    def dehydrate(self, bundle):
+        bundle.data['exceptions_en'] = strip_html(bundle.obj.get_rendered_exceptions_en())
+        bundle.data['exceptions_de'] = strip_html(bundle.obj.get_rendered_exceptions_de())
+        return bundle
+
+class MediaFileResource(ModelResource):
+    class Meta:
+        queryset = MediaFile.objects.all()
+        resource_name = 'museum_media_file'
+        allowed_methods = ['get']
+        excludes = ['path', 'sort_order']
+        authentication = ApiKeyAuthentication()
+        authorization = ReadOnlyAuthorization()
+        serializer = Serializer(formats=['json', 'xml'])
+        cache = SimpleCache(timeout=10)
+
+    def dehydrate(self, bundle):
+        if bundle.obj.path:
+            bundle.data['url'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.path.path,
+                ))
+        else:
+            bundle.data['url'] = ""
+        return bundle
+
+class SocialMediaChannelResource(ModelResource):
+    class Meta:
+        queryset = SocialMediaChannel.objects.all()
+        resource_name = 'museum_social_media_chanel'
+        allowed_methods = ['get']
+        excludes = []
+        authentication = ApiKeyAuthentication()
+        authorization = ReadOnlyAuthorization()
+        serializer = Serializer(formats=['json', 'xml'])
+        cache = SimpleCache(timeout=10)
+
 class MuseumResource(ModelResource):
     categories = fields.ToManyField(MuseumCategoryResource, "categories", full=True)
+    accessibility_options = fields.ToManyField(AccessibilityOptionResource, "accessibility_options", full=True)
+    seasons = fields.ToManyField(SeasonResource, "season_set", full=True)
+    special_opening_times = fields.ToManyField(SpecialOpeningTimeResource, "specialopeningtime_set", full=True)
+    media_files = fields.ToManyField(MediaFileResource, "mediafile_set", full=True)
+    social_media_channels = fields.ToManyField(SocialMediaChannelResource, "socialmediachannel_set", full=True)
     
     class Meta:
         queryset = Museum.objects.all()
@@ -41,9 +127,12 @@ class MuseumResource(ModelResource):
             'subtitle_en', 'subtitle_de',
             'street_address', 'street_address2', 'postal_code', 'city', 'country',
             'latitude', 'longitude',
-            'phone', 'fax', 'email',
-            'image',
-            'categories', 'status', 'open_on_mondays', 'free_entrance',
+            'email', 'website',
+            'categories', 'status', 'open_on_mondays',
+            'free_entrance', 'admission_price', 'reduced_price',
+            'show_family_ticket', 'show_group_ticket', 'show_yearly_ticket', 'member_of_museumspass',
+            'service_shop', 'service_restaurant', 'service_cafe', 'service_library', 'service_archive', 'service_diaper_changing_table',
+            'has_audioguide', 'has_audioguide_de', 'has_audioguide_en', 'has_audioguide_fr', 'has_audioguide_it', 'has_audioguide_sp', 'has_audioguide_pl', 'has_audioguide_tr', 'audioguide_other_languages', 'has_audioguide_for_children', 'has_audioguide_for_learning_difficulties',
             ]
         filtering = {
             'creation_date': ALL,
@@ -57,14 +146,6 @@ class MuseumResource(ModelResource):
         cache = SimpleCache(timeout=10)
         
     def dehydrate(self, bundle):
-        if bundle.obj.image:
-            bundle.data['image'] = "".join((
-                get_website_url(),
-                settings.MEDIA_URL[1:],
-                bundle.obj.image.path,
-                ))
-        else:
-            bundle.data['image'] = ""
         bundle.data['link_de'] = "".join((
             get_website_url(),
             "de/museen/",
@@ -77,10 +158,32 @@ class MuseumResource(ModelResource):
             bundle.obj.slug,
             "/",
             ))
-        bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_press_text_en())
-        bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_press_text_de())
-        bundle.data['image_caption_en'] = strip_html(bundle.obj.get_rendered_image_caption_en())
-        bundle.data['image_caption_de'] = strip_html(bundle.obj.get_rendered_image_caption_de())
+        bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_description_en())
+        bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_description_de())
+        
+        bundle.data['admission_price_info_en'] = strip_html(bundle.obj.get_rendered_admission_price_info_en())
+        bundle.data['admission_price_info_de'] = strip_html(bundle.obj.get_rendered_admission_price_info_de())
+        
+        bundle.data['reduced_price_info_en'] = strip_html(bundle.obj.get_rendered_reduced_price_info_en())
+        bundle.data['reduced_price_info_de'] = strip_html(bundle.obj.get_rendered_reduced_price_info_de())
+        
+        bundle.data['group_ticket_en'] = strip_html(bundle.obj.get_rendered_group_ticket_en())
+        bundle.data['group_ticket_de'] = strip_html(bundle.obj.get_rendered_group_ticket_de())
+        
+        bundle.data['accessibility_en'] = strip_html(bundle.obj.get_rendered_accessibility_en())
+        bundle.data['accessibility_de'] = strip_html(bundle.obj.get_rendered_accessibility_de())
+        
+        bundle.data['mobidat_en'] = strip_html(bundle.obj.get_rendered_mobidat_en())
+        bundle.data['mobidat_de'] = strip_html(bundle.obj.get_rendered_mobidat_de())
+        
+        if bundle.obj.phone_number:
+            bundle.data['phone'] = [bundle.obj.phone_country, bundle.obj.phone_area, bundle.obj.phone_number]
+        if bundle.obj.fax_number:
+            bundle.data['fax'] = [bundle.obj.fax_country, bundle.obj.fax_area, bundle.obj.fax_number]
+        if bundle.obj.group_bookings_phone_number:
+            bundle.data['group_bookings_phone'] = [bundle.obj.group_bookings_phone_country, bundle.obj.group_bookings_phone_area, bundle.obj.group_bookings_phone_number]
+        if bundle.obj.service_phone_number:
+            bundle.data['service_phone'] = [bundle.obj.service_phone_country, bundle.obj.service_phone_area, bundle.obj.service_phone_number]
         return bundle
         
         

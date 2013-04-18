@@ -9,10 +9,14 @@ from django.views.generic.simple import direct_to_template
 from filebrowser.sites import site
 
 from tastypie.api import Api
+# API v1
 from museumsportal.apps.museums.api.resources import v1 as museums_api_v1
 from museumsportal.apps.exhibitions.api.resources import v1 as exhibitions_api_v1
+# API v2
 from museumsportal.apps.museums.api.resources import v2 as museums_api_v2
 from museumsportal.apps.exhibitions.api.resources import v2 as exhibitions_api_v2
+from museumsportal.apps.events.api.resources import v2 as events_api_v2
+from museumsportal.apps.workshops.api.resources import v2 as workshops_api_v2
 
 from jetson.apps.utils.decorators import login_required
 from base_libs.utils.misc import path_in_installed_app
@@ -42,7 +46,12 @@ v1_api.register(exhibitions_api_v1.ExhibitionResource())
 
 v2_api = Api(api_name='v2')
 v2_api.register(museums_api_v2.MuseumCategoryResource())
+v2_api.register(museums_api_v2.AccessibilityOptionResource())
 v2_api.register(museums_api_v2.MuseumResource())
+v2_api.register(museums_api_v2.SeasonResource())
+v2_api.register(museums_api_v2.SpecialOpeningTimeResource())
+v2_api.register(museums_api_v2.MediaFileResource())
+v2_api.register(museums_api_v2.SocialMediaChannelResource())
 v2_api.register(exhibitions_api_v2.ExhibitionCategoryResource())
 v2_api.register(exhibitions_api_v2.ExhibitionResource())
 

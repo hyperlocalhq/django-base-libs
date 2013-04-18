@@ -28,7 +28,7 @@ class ExhibitionCategoryResource(ModelResource):
         cache = SimpleCache(timeout=10)
 
 class ExhibitionResource(ModelResource):
-    museum = fields.ToOneField("museumsportal.apps.museums.api.resources.MuseumResource", "museum")
+    museum = fields.ToOneField("museumsportal.apps.museums.api.resources.v2.MuseumResource", "museum", null=True)
     categories = fields.ToManyField(ExhibitionCategoryResource, "categories", full=True)
     
     class Meta:
