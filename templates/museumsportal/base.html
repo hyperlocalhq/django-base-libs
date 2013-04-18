@@ -73,8 +73,6 @@
     {% endblock %}
 
 	<div id="wrapper">
-
-
         <!-- Header
         ================================================== -->
         {% block header %}
@@ -96,6 +94,10 @@
                                     <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
                                 {% endcomment %}
                             {% endif %}
+
+                            {% block museums_login %}
+                            
+                            {% endblock %}
                         </ul>
                     </li>
                     <li id="tools" class="clearfix">

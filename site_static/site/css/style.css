@@ -2026,6 +2026,33 @@ a:focus {
   left: 0px;
   top: 20px; }
 
+#login_button {
+  display: block;
+  position: relative;
+  height: 32px;
+  line-height: 32px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap; }
+  #login_button a {
+    margin: 0px !important;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.05);
+    height: 32px;
+    color: black;
+    line-height: inherit !important;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: auto; }
+    #login_button a span {
+      display: none; }
+    #login_button a:hover {
+      background-color: black !important;
+      color: white; }
+
 #meta {
   position: absolute;
   right: 0px;
