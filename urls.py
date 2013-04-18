@@ -57,6 +57,15 @@ v2_api.register(exhibitions_api_v2.ExhibitionResource())
 v2_api.register(exhibitions_api_v2.SeasonResource())
 v2_api.register(exhibitions_api_v2.OrganizerResource())
 v2_api.register(exhibitions_api_v2.MediaFileResource())
+v2_api.register(events_api_v2.EventCategoryResource())
+v2_api.register(events_api_v2.OrganizerResource())
+v2_api.register(events_api_v2.EventTimeResource())
+v2_api.register(events_api_v2.MediaFileResource())
+v2_api.register(events_api_v2.EventResource())
+v2_api.register(workshops_api_v2.OrganizerResource())
+v2_api.register(workshops_api_v2.WorkshopTimeResource())
+v2_api.register(workshops_api_v2.MediaFileResource())
+v2_api.register(workshops_api_v2.WorkshopResource())
 
 urlpatterns = patterns(path_in_installed_app('image_mods.views'),
     url(r'^admin/filebrowser/versions/$', 'versions', name="fb_versions"),

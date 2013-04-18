@@ -120,6 +120,12 @@ class ExhibitionResource(ModelResource):
         cache = SimpleCache(timeout=10)
             
     def dehydrate(self, bundle):
+        bundle.data['link_en'] = "".join((
+            get_website_url(),
+            "en/exhibitions/",
+            bundle.obj.slug,
+            "/",
+            ))
         bundle.data['link_de'] = "".join((
             get_website_url(),
             "de/ausstellungen/",
