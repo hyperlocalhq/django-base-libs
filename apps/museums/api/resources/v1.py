@@ -13,13 +13,13 @@ from tastypie.cache import SimpleCache
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import strip_html
 
-ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
-Exhibition = models.get_model("exhibitions", "Exhibition")
+MuseumCategory = models.get_model("museums", "MuseumCategory")
+Museum = models.get_model("museums", "Museum")
 
-class ExhibitionCategoryResource(ModelResource):
+class MuseumCategoryResource(ModelResource):
     class Meta:
-        queryset = ExhibitionCategory.objects.all()
-        resource_name = 'exhibition_category'
+        queryset = MuseumCategory.objects.all()
+        resource_name = 'museum_category'
         allowed_methods = ['get']
         excludes = ['title', 'slug', 'sort_order']
         authentication = ApiKeyAuthentication()
@@ -27,22 +27,23 @@ class ExhibitionCategoryResource(ModelResource):
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
 
-class ExhibitionResource(ModelResource):
-    museum = fields.ToOneField("museumsportal.apps.museums.api.resources.MuseumResource", "museum")
-    categories = fields.ToManyField(ExhibitionCategoryResource, "categories", full=True)
+class MuseumResource(ModelResource):
+    categories = fields.ToManyField(MuseumCategoryResource, "categories", full=True)
     
     class Meta:
-        queryset = Exhibition.objects.all()
-        resource_name = 'exhibition'
+        queryset = Museum.objects.all()
+        resource_name = 'museum'
         allowed_methods = ['get']
         fields = [
             'id',
             'creation_date', 'modified_date',
             'title_en', 'title_de',
             'subtitle_en', 'subtitle_de',
-            'start', 'end',
+            'street_address', 'street_address2', 'postal_code', 'city', 'country',
+            'latitude', 'longitude',
+            'phone', 'fax', 'email',
             'image',
-            'categories', 'status',
+            'categories', 'status', 'open_on_mondays', 'free_entrance',
             ]
         filtering = {
             'creation_date': ALL,
@@ -54,7 +55,7 @@ class ExhibitionResource(ModelResource):
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
-            
+        
     def dehydrate(self, bundle):
         if bundle.obj.image:
             bundle.data['image'] = "".join((
@@ -66,19 +67,26 @@ class ExhibitionResource(ModelResource):
             bundle.data['image'] = ""
         bundle.data['link_de'] = "".join((
             get_website_url(),
-            "de/ausstellungen/",
+            "de/museen/",
             bundle.obj.slug,
             "/",
             ))
-        bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_press_text_en())
-        bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_press_text_de())
+        bundle.data['link_en'] = "".join((
+            get_website_url(),
+            "en/museums/",
+            bundle.obj.slug,
+            "/",
+            ))
+        bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_description_en())
+        bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_description_de())
         bundle.data['image_caption_en'] = strip_html(bundle.obj.get_rendered_image_caption_en())
         bundle.data['image_caption_de'] = strip_html(bundle.obj.get_rendered_image_caption_de())
         return bundle
         
+        
     def apply_filters(self, request, applicable_filters):
         from dateutil.parser import parse
-        base_object_list = super(ExhibitionResource, self).apply_filters(request, applicable_filters)
+        base_object_list = super(MuseumResource, self).apply_filters(request, applicable_filters)
         created_or_modified_since = request.GET.get('created_or_modified_since', None)
         if created_or_modified_since:
             try:
@@ -90,4 +98,4 @@ class ExhibitionResource(ModelResource):
                     models.Q(creation_date__gte=created_or_modified_since) |
                     models.Q(modified_date__gte=created_or_modified_since)
                     )
-        return base_object_list
+        return base_object_list        
