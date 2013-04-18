@@ -85,19 +85,19 @@
                     <span class="img">Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
                 </a>
                 <ul id="meta" class="clearfix">
-                    {% comment %}
-                    <!-- <li id="user" class="clearfix">
+                    <li id="user" class="clearfix">
                         <ul>
                             {% if request.user.is_authenticated %} 
                                 <li><p>{% blocktrans with first_name=request.user.first_name|default:request.user.username %}Hello, {{ first_name }}{% endblocktrans %}</p></li>
                                 <li><a class="logout" href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
                             {% else %}
-                                <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
-                                <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li>
+                                {% comment %}
+                                    <!-- <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
+                                    <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
+                                {% endcomment %}
                             {% endif %}
                         </ul>
-                    </li> -->
-                    {% endcomment %}
+                    </li>
                     <li id="tools" class="clearfix">
                         <ul>
 
