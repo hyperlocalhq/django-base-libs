@@ -3203,6 +3203,7 @@ dl {
   h2 { margin-bottom: 10px; font-weight: 700; }
   h3 { margin-bottom: 10px; }
 
+  ol,
   ul { margin-top: 10px; }
 
   li{ 
@@ -3216,7 +3217,6 @@ dl {
     padding-right: 25px;
     padding-top: 15px;
     padding-bottom: 15px;
-
 
     &:last-child{ border: none !important; }
   }
