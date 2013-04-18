@@ -150,6 +150,9 @@ class ExhibitionResource(ModelResource):
         bundle.data['suitable_for_disabled_info_en'] = strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_en())
         bundle.data['suitable_for_disabled_info_de'] = strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_de())
         
+        if bundle.obj.permanent:
+            bundle.data['end'] = "2099-12-31"
+        
         return bundle
         
     def apply_filters(self, request, applicable_filters):
