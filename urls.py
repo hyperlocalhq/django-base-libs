@@ -54,6 +54,9 @@ v2_api.register(museums_api_v2.MediaFileResource())
 v2_api.register(museums_api_v2.SocialMediaChannelResource())
 v2_api.register(exhibitions_api_v2.ExhibitionCategoryResource())
 v2_api.register(exhibitions_api_v2.ExhibitionResource())
+v2_api.register(exhibitions_api_v2.SeasonResource())
+v2_api.register(exhibitions_api_v2.OrganizerResource())
+v2_api.register(exhibitions_api_v2.MediaFileResource())
 
 urlpatterns = patterns(path_in_installed_app('image_mods.views'),
     url(r'^admin/filebrowser/versions/$', 'versions', name="fb_versions"),

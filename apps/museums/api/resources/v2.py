@@ -133,6 +133,7 @@ class MuseumResource(ModelResource):
             'show_family_ticket', 'show_group_ticket', 'show_yearly_ticket', 'member_of_museumspass',
             'service_shop', 'service_restaurant', 'service_cafe', 'service_library', 'service_archive', 'service_diaper_changing_table',
             'has_audioguide', 'has_audioguide_de', 'has_audioguide_en', 'has_audioguide_fr', 'has_audioguide_it', 'has_audioguide_sp', 'has_audioguide_pl', 'has_audioguide_tr', 'audioguide_other_languages', 'has_audioguide_for_children', 'has_audioguide_for_learning_difficulties',
+            'status',
             ]
         filtering = {
             'creation_date': ALL,
