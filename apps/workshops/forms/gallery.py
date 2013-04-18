@@ -48,7 +48,8 @@ class ImageFileForm(forms.Form):
         max_length=255,
         )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, media_file_obj=None, *args, **kwargs):
+        self.media_file_obj = media_file_obj
         super(ImageFileForm, self).__init__(*args, **kwargs)
         for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
             self.fields['title_%s' % lang_code] = forms.CharField(
@@ -135,6 +136,12 @@ class ImageFileForm(forms.Form):
         self.helper.layout = layout.Layout(
             *layout_blocks
             )
+
+    def clean(self):
+        cleaned = self.cleaned_data
+        if not cleaned.get("media_file_path") and not self.media_file_obj:
+            raise forms.ValidationError(_("You need to upload a valid file."))
+        return cleaned
 
 class ImageDeletionForm(forms.Form):
     goto_next = forms.CharField(

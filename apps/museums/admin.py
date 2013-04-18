@@ -84,7 +84,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     list_filter = ('creation_date', 'status', 'categories', 'open_on_mondays', 'free_entrance')
     search_fields = ('title', 'subtitle', 'slug')
     
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description', 'press_text'])
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description',])
     fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'open_on_mondays', 'is_for_children')}),]
     fieldsets += [(_("Prices"), {'fields': ('free_entrance', 'member_of_museumspass', 

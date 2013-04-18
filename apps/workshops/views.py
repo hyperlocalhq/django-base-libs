@@ -232,7 +232,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
 
     if request.method=="POST":
         # just after submitting data
-        form = form_class(request.POST, request.FILES)
+        form = form_class(media_file_obj, request.POST, request.FILES)
         # Passing request.FILES to the form always breaks the form validation
         # WHY!?? As a workaround, let's validate just the POST and then 
         # manage FILES separately. 
@@ -320,10 +320,10 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             initial = {}
             initial.update(media_file_obj.__dict__)
             initial.update(file_description.__dict__)
-            form = form_class(initial=initial)
+            form = form_class(media_file_obj, initial=initial)
         else:
             # new media file
-            form = form_class()
+            form = form_class(media_file_obj)
 
     form.helper.form_action = request.path + "?hidden_iframe=1"
 
