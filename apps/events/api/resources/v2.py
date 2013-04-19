@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.conf import settings
+from django.utils.translation import activate
 
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie import fields
@@ -12,6 +13,9 @@ from tastypie.cache import SimpleCache
 
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import strip_html
+from base_libs.middleware import get_current_language
+
+from filebrowser.models import FileDescription
 
 EventCategory = models.get_model("events", "EventCategory")
 Event = models.get_model("events", "Event")
@@ -70,8 +74,18 @@ class MediaFileResource(ModelResource):
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
                 ))
-        else:
-            bundle.data['url'] = ""
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=bundle.obj.path,
+                    ).order_by("pk")[0]
+            except:
+                pass
+            else:
+                bundle.data['title_de'] = file_description.title_de
+                bundle.data['title_en'] = file_description.title_en
+                bundle.data['description_de'] = file_description.description_de
+                bundle.data['description_en'] = file_description.description_en
+                bundle.data['author'] = file_description.author
         return bundle
 
 class EventResource(ModelResource):
@@ -131,6 +145,11 @@ class EventResource(ModelResource):
         
         bundle.data['booking_info_en'] = strip_html(bundle.obj.get_rendered_booking_info_en())
         bundle.data['booking_info_de'] = strip_html(bundle.obj.get_rendered_booking_info_de())
+        
+        current_language = get_current_language()
+        activate("de")
+        bundle.data['languages_de'] = bundle.obj.get_languages()
+        activate(current_language)
         
         return bundle
         

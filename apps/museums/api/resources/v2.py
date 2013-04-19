@@ -13,6 +13,8 @@ from tastypie.cache import SimpleCache
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import strip_html
 
+from filebrowser.models import FileDescription
+
 MuseumCategory = models.get_model("museums", "MuseumCategory")
 AccessibilityOption = models.get_model("museums", "AccessibilityOption")
 Museum = models.get_model("museums", "Museum")
@@ -48,7 +50,7 @@ class SeasonResource(ModelResource):
         queryset = Season.objects.all()
         resource_name = 'museum_season'
         allowed_methods = ['get']
-        excludes = ['exceptions', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
+        excludes = ['title', 'exceptions', 'last_entry', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
         authentication = ApiKeyAuthentication()
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
@@ -64,7 +66,7 @@ class SpecialOpeningTimeResource(ModelResource):
         queryset = SpecialOpeningTime.objects.all()
         resource_name = 'museum_special_opening_time'
         allowed_methods = ['get']
-        excludes = ['exceptions', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
+        excludes = ['day_label', 'exceptions', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
         authentication = ApiKeyAuthentication()
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
@@ -93,8 +95,19 @@ class MediaFileResource(ModelResource):
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
                 ))
-        else:
-            bundle.data['url'] = ""
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=bundle.obj.path,
+                    ).order_by("pk")[0]
+            except:
+                pass
+            else:
+                bundle.data['title_de'] = file_description.title_de
+                bundle.data['title_en'] = file_description.title_en
+                bundle.data['description_de'] = file_description.description_de
+                bundle.data['description_en'] = file_description.description_en
+                bundle.data['author'] = file_description.author
+        
         return bundle
 
 class SocialMediaChannelResource(ModelResource):
@@ -133,7 +146,6 @@ class MuseumResource(ModelResource):
             'show_family_ticket', 'show_group_ticket', 'show_yearly_ticket', 'member_of_museumspass',
             'service_shop', 'service_restaurant', 'service_cafe', 'service_library', 'service_archive', 'service_diaper_changing_table',
             'has_audioguide', 'has_audioguide_de', 'has_audioguide_en', 'has_audioguide_fr', 'has_audioguide_it', 'has_audioguide_sp', 'has_audioguide_pl', 'has_audioguide_tr', 'audioguide_other_languages', 'has_audioguide_for_children', 'has_audioguide_for_learning_difficulties',
-            'status',
             ]
         filtering = {
             'creation_date': ALL,
@@ -159,8 +171,8 @@ class MuseumResource(ModelResource):
             bundle.obj.slug,
             "/",
             ))
-        bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_description_en())
-        bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_description_de())
+        #bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_description_en())
+        #bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_description_de())
         
         bundle.data['admission_price_info_en'] = strip_html(bundle.obj.get_rendered_admission_price_info_en())
         bundle.data['admission_price_info_de'] = strip_html(bundle.obj.get_rendered_admission_price_info_de())

@@ -13,6 +13,8 @@ from tastypie.cache import SimpleCache
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import strip_html
 
+from filebrowser.models import FileDescription
+
 ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 Organizer = models.get_model("exhibitions", "Organizer")
@@ -35,7 +37,7 @@ class SeasonResource(ModelResource):
         queryset = Season.objects.all()
         resource_name = 'exhibition_season'
         allowed_methods = ['get']
-        excludes = ['exceptions', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
+        excludes = ['last_entry', 'exceptions', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
         authentication = ApiKeyAuthentication()
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
@@ -78,8 +80,18 @@ class MediaFileResource(ModelResource):
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
                 ))
-        else:
-            bundle.data['url'] = ""
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=bundle.obj.path,
+                    ).order_by("pk")[0]
+            except:
+                pass
+            else:
+                bundle.data['title_de'] = file_description.title_de
+                bundle.data['title_en'] = file_description.title_en
+                bundle.data['description_de'] = file_description.description_de
+                bundle.data['description_en'] = file_description.description_en
+                bundle.data['author'] = file_description.author
         return bundle
 
 class ExhibitionResource(ModelResource):
