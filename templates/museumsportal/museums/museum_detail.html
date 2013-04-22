@@ -74,20 +74,35 @@
                             {% endif %}
                         
                             <dl>
-                            {% if museum.phone_number %}
-                                <dt>{% trans "Telephone" %}
-                                <span class="right">+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</span>
+
+                            {% if museum.service_phone_number %}
+                                <dt>{% trans "Service" %}</dt>
+                                    <span class="right">+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</span>
                                 </dt>
                             {% endif %} 
+
+                            {% if museum.phone_number %}
+                                <dt>{% trans "Telephone" %}
+                                    <span class="right">+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</span>
+                                </dt>
+                            {% endif %} 
+
+                            {% if museum.group_bookings_phone_number %}
+                                <dt>{% trans "Booking" %}</dt>
+                                    <span class="right">+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</span>
+                                </dt>
+                            {% endif %} 
+
                             
                             {% if museum.fax_number %}
                                 <dt>{% trans "Fax" %}
-                                <span class="right">+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</span>
+                                    <span class="right">+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</span>
                                 </dt>
                             {% endif %} 
                             
                             {% if museum.website %}
-                                <dt>{% trans "Website" %} <span class="right"><a class="crop" href="{{ museum.website }}">{{ museum.website|humanize_url:"25" }}</a></span>
+                                <dt>{% trans "Website" %}
+                                    <span class="right"><a class="crop" href="{{ museum.website }}">{{ museum.website|humanize_url:"25" }}</a></span>
                                 </dt>
                             {% endif %}
                             </dl>
