@@ -136,10 +136,12 @@
                             {% if museum.season_set.count == 1 %}
                                 {% with museum.season_set.all.0 as season %}
                                     <li class="accordion-inner">
-                                        <dl>
+                                        {% comment %}
+                                       <!--  <dl>
                                             <dt>{{ season.title }}</dt>
                                             <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
-                                        </dl>
+                                        </dl> -->
+                                        {% endcomment %}
                                         {% if season.is_appointment_based %}
                                             <dl>
                                                 <dt>{% trans "Based on appointment" %}</dt>
