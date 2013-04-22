@@ -103,7 +103,7 @@
                             
                             <dl>
                                 {% if exhibition.museum.service_phone_number %}
-                                    <dt>{% trans "Service" %}</dt>
+                                    <dt>{% trans "Service Telephone" %}</dt>
                                         <span class="right">+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</span>
                                     </dt>
                                 {% endif %} 
@@ -115,7 +115,7 @@
                                 {% endif %} 
 
                                 {% if exhibition.museum.group_bookings_phone_number %}
-                                    <dt>{% trans "Booking" %}</dt>
+                                    <dt>{% trans "Booking Telephone" %}</dt>
                                         <span class="right">+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</span>
                                     </dt>
                                 {% endif %} 
@@ -126,7 +126,7 @@
                                         <span class="right">+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</span>
                                     </dt>
                                 {% endif %} 
-                                
+
                                 {% if exhibition.website %}
                                     <dt>{% trans "Website" %}
                                         <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
@@ -549,8 +549,9 @@
                                 {% if museum.group_bookings_phone_number %}
                                 <li class="accordion-inner"> 
                                     <dl>
-                                        <dt>{% trans "Group booking" %}</dt>
-                                        <dd>+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</dd>
+                                        <dt>{% trans "Booking Telephone" %}
+                                            <span class="right">+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</span>
+                                        </dt>
                                     </dl>
                                 </li>
                                 {% endif %} 

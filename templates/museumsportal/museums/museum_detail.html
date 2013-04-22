@@ -76,7 +76,7 @@
                             <dl>
 
                             {% if museum.service_phone_number %}
-                                <dt>{% trans "Service" %}</dt>
+                                <dt>{% trans "Service Telephone" %}</dt>
                                     <span class="right">+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</span>
                                 </dt>
                             {% endif %} 
@@ -88,7 +88,7 @@
                             {% endif %} 
 
                             {% if museum.group_bookings_phone_number %}
-                                <dt>{% trans "Booking" %}</dt>
+                                <dt>{% trans "Booking Telephone" %}</dt>
                                     <span class="right">+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</span>
                                 </dt>
                             {% endif %} 
@@ -320,7 +320,7 @@
                         {% if museum.group_bookings_phone_number %}
                         <li class="accordion-inner"> 
                             <dl>
-                                <dt>{% trans "Group booking" %}</dt>
+                                <dt>{% trans "Booking Telephone" %}</dt>
                                 <dd>+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</dd>
                             </dl>
                         </li>
@@ -368,7 +368,7 @@
                         {% if museum.service_phone_number %}
                         <li class="accordion-inner"> 
                             <dl>
-                                <dt>{% trans "Service Phone" %}</dt>
+                                <dt>{% trans "Service Telephone" %}</dt>
                                 <dd>+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</dd>
                             </dl>
                         </li>
