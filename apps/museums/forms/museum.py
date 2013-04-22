@@ -669,7 +669,7 @@ class AddressForm(ModelForm):
                 ),
                 layout.Div(
                     layout.Row(
-                    layout.HTML('{% load i18n %}<div><label>{% trans "Service Phone" %}</label></div>'),
+                    layout.HTML('{% load i18n %}<div><label>{% trans "Service Telephone" %}</label></div>'),
                      'service_phone_country', 'service_phone_area', 'service_phone_number'),
                 ),
             ),
