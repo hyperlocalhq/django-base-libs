@@ -32,7 +32,6 @@ class MuseumIndex(MultiLanguageIndex):
                     "title_%s" % lang_code,
                     "subtitle_%s" % lang_code,
                     "description_%s" % lang_code,
-                    "press_text_%s" % lang_code,
                     )
                 )
             text = decode_entities(text)

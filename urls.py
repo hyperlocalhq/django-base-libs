@@ -9,10 +9,14 @@ from django.views.generic.simple import direct_to_template
 from filebrowser.sites import site
 
 from tastypie.api import Api
-from museumsportal.apps.museums.api.resources import MuseumCategoryResource
-from museumsportal.apps.museums.api.resources import MuseumResource
-from museumsportal.apps.exhibitions.api.resources import ExhibitionCategoryResource
-from museumsportal.apps.exhibitions.api.resources import ExhibitionResource
+# API v1
+from museumsportal.apps.museums.api.resources import v1 as museums_api_v1
+from museumsportal.apps.exhibitions.api.resources import v1 as exhibitions_api_v1
+# API v2
+from museumsportal.apps.museums.api.resources import v2 as museums_api_v2
+from museumsportal.apps.exhibitions.api.resources import v2 as exhibitions_api_v2
+from museumsportal.apps.events.api.resources import v2 as events_api_v2
+from museumsportal.apps.workshops.api.resources import v2 as workshops_api_v2
 
 from jetson.apps.utils.decorators import login_required
 from base_libs.utils.misc import path_in_installed_app
@@ -35,16 +39,33 @@ handler404 = "jetson.apps.error_handler.views.page_not_found"
 handler500 = "jetson.apps.error_handler.views.server_error"
 
 v1_api = Api(api_name='v1')
-v1_api.register(MuseumCategoryResource())
-v1_api.register(MuseumResource())
-v1_api.register(ExhibitionCategoryResource())
-v1_api.register(ExhibitionResource())
+v1_api.register(museums_api_v1.MuseumCategoryResource())
+v1_api.register(museums_api_v1.MuseumResource())
+v1_api.register(exhibitions_api_v1.ExhibitionCategoryResource())
+v1_api.register(exhibitions_api_v1.ExhibitionResource())
 
 v2_api = Api(api_name='v2')
-v2_api.register(MuseumCategoryResource())
-v2_api.register(MuseumResource())
-v2_api.register(ExhibitionCategoryResource())
-v2_api.register(ExhibitionResource())
+v2_api.register(museums_api_v2.MuseumCategoryResource())
+v2_api.register(museums_api_v2.AccessibilityOptionResource())
+v2_api.register(museums_api_v2.MuseumResource())
+v2_api.register(museums_api_v2.SeasonResource())
+v2_api.register(museums_api_v2.SpecialOpeningTimeResource())
+v2_api.register(museums_api_v2.MediaFileResource())
+v2_api.register(museums_api_v2.SocialMediaChannelResource())
+v2_api.register(exhibitions_api_v2.ExhibitionCategoryResource())
+v2_api.register(exhibitions_api_v2.ExhibitionResource())
+v2_api.register(exhibitions_api_v2.SeasonResource())
+v2_api.register(exhibitions_api_v2.OrganizerResource())
+v2_api.register(exhibitions_api_v2.MediaFileResource())
+v2_api.register(events_api_v2.EventCategoryResource())
+v2_api.register(events_api_v2.OrganizerResource())
+v2_api.register(events_api_v2.EventTimeResource())
+v2_api.register(events_api_v2.MediaFileResource())
+v2_api.register(events_api_v2.EventResource())
+v2_api.register(workshops_api_v2.OrganizerResource())
+v2_api.register(workshops_api_v2.WorkshopTimeResource())
+v2_api.register(workshops_api_v2.MediaFileResource())
+v2_api.register(workshops_api_v2.WorkshopResource())
 
 urlpatterns = patterns(path_in_installed_app('image_mods.views'),
     url(r'^admin/filebrowser/versions/$', 'versions', name="fb_versions"),

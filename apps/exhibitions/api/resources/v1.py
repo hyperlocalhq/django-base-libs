@@ -28,7 +28,7 @@ class ExhibitionCategoryResource(ModelResource):
         cache = SimpleCache(timeout=10)
 
 class ExhibitionResource(ModelResource):
-    museum = fields.ToOneField("museumsportal.apps.museums.api.resources.MuseumResource", "museum")
+    museum = fields.ToOneField("museumsportal.apps.museums.api.resources.v1.MuseumResource", "museum", null=True)
     categories = fields.ToManyField(ExhibitionCategoryResource, "categories", full=True)
     
     class Meta:
@@ -91,3 +91,4 @@ class ExhibitionResource(ModelResource):
                     models.Q(modified_date__gte=created_or_modified_since)
                     )
         return base_object_list
+        
