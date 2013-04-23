@@ -93,6 +93,12 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
+        self.fields['press_text_%s' % settings.LANGUAGE_CODE].required = True
+        self.fields['start'].required = True
+        self.fields['street_address'].required = True
+        self.fields['postal_code'].required = True
+        self.fields['city'].required = True
+
         self.fields['vernissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
         self.fields['finissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
 
@@ -158,24 +164,23 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Duration"),
             layout.Row(
+                layout.Div("permanent", css_class="inline"),
+                layout.Div("exhibition_extended", css_class="inline"),
+            ),
+            layout.Row(
                 layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
                 layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
             ),
             layout.Field("vernissage", autocomplete="off"),
             layout.Field("finissage", autocomplete="off"),
-            layout.Div(
-                "permanent",
-                "exhibition_extended",
-                css_class="inline",
-                ),
             css_class="fieldset-when",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Location"),
             layout.Row(
                 layout.Div(
-                "museum",
-                "location_name",
+                layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
+                layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
                 "street_address",
                 "street_address2",
                 "postal_code",
@@ -247,6 +252,10 @@ class BasicInfoForm(ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
             )
+
+    #def clean(self):
+    #    cleaned = self.cleaned_data
+    #    return cleaned
 
 class OrganizerForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
