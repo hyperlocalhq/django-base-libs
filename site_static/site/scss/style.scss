@@ -3478,8 +3478,21 @@ dl {
   }
 }
 
-#ownership_confirmation p,
-#ownership_confirmation {
-  font-size: 16px !important;
-  line-height: 26px !important;
+#confirm_ownership {
+  p {
+  font-size: 13px !important;
+  line-height: 22px !important;
+  text-align: left !important;
+  margin-bottom: 15px !important;
+  color: black;
+  }
+
+  .inner {
+    width: 550px !important;
+  }
+  
+  .modal-body {
+    max-height: 2000px !important;
+    background-color: white;
+  }
 }
