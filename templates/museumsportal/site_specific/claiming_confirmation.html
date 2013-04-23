@@ -1,5 +1,5 @@
 {% extends "site_specific/base.html" %}
-{% load base_tags i18n crispy_forms_tags %}
+{% load base_tags i18n crispy_forms_tags infoblocks %}
 
 {% block title %}{% trans "Claiming confirmation" %}{% endblock %}
 
@@ -54,9 +54,7 @@
             <div class="cell">
                 <div class="inner">
                     <div class="modal-body">
-                        <p>Wichtig: Mit dem Einstellen von Inhalten (zum Beispiel Texten, Fotos, Videos etc.) in das Museumsportal gewähren Sie der Kulturprojekte Berlin GmbH das zeitlich, räumlich und inhaltlich unbeschränkte, nicht-ausschließliche Recht, diese Inhalte zum Betrieb des Museumsportals öffentlich zugänglich zu machen, zu senden, anderweitig öffentlich wiederzugeben, zu vervielfältigen, zu verbreiten, auszustellen, vorzutragen, aufzuführen und vorzuführen und – soweit dies für die Ausübung der vorgenannte Rechte erforderlich oder zweckmäßig ist – zu bearbeiten. Diese Nutzungsrechteeinräumung bezieht sich ausdrücklich auch auf etwaige Motive, die auf Fotos oder Grafiken abgebildet sind. Zur bestimmungsgemäßen Nutzung der Kulturprojekte Berlin im Rahmen des Museumsportals gehört auch die Weitergabe der Inhalte an Dritte (zum Beispiel Zeitungen, Zeitschriften, Stadtmagazine, andere Internetportale), die in ihren Print- und Online-Medien über die Veranstaltungen berichten und zu diesem Zwecke die Inhalte nutzen.</p>
-                        <p>Mit dem Einstellen der Inhalte garantieren Sie, die Rechte in vorgenanntem Umfang einräumen zu können. Sie stellen die Kulturprojekte Berlin GmbH von allen Ansprüchen Dritter frei, die diese Dritten gegen die Kulturprojekte wegen vermeintlicher oder tatsächlich gegebener Rechtsverletzungen geltend machen.</p>
-                        <p>Bei Fragen wenden Sie Sich bitte an das Museumsportal Team. Sie erreichen uns per Mail: museumsportal@kulturprojekte-berlin.de oder Telefon: 030 - 247 49-855.</p>
+                        {% infoblock "confirm_ownership" %}
                     </div>
                     <div class="modal-footer">
                         <button id="button-id-confirm-ownership" class="btn btn-primary">{% trans "I agree" %}</button>
