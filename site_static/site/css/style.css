@@ -5097,3 +5097,15 @@ dl {
     #notices #workshop_notices a:hover {
       background-color: black !important;
       color: white; }
+
+#confirm_ownership p {
+  font-size: 13px !important;
+  line-height: 22px !important;
+  text-align: left !important;
+  margin-bottom: 15px !important;
+  color: black; }
+#confirm_ownership .inner {
+  width: 550px !important; }
+#confirm_ownership .modal-body {
+  max-height: 2000px !important;
+  background-color: white; }
