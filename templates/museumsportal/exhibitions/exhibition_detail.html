@@ -72,34 +72,6 @@
                                     {% endwith %}
                                 </dl>
                             {% endif %}
-
-                            {% if exhibition.organizer_set.count %}
-                                <dl>
-                                    <dt>{% trans "Organizer" %}</dt>
-                                    {% for organizer in exhibition.organizer_set.all %}
-                                        {% if organizer.organizing_museum %}
-                                            <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
-                                            {% if organizer.organizing_museum.phone_number %}
-                                                <dt>{% trans "Telephone" %}
-                                                <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
-                                                </dt>
-                                            {% endif %} 
-                                            {% if organizer.organizing_museum.fax_number %}
-                                                <dt>{% trans "Fax" %}
-                                                <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
-                                                </dt>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% if organizer.organizer_title %}
-                                            {% if organizer.organizer_url_link %}
-                                                <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
-                                            {% else %}
-                                                <dd>{{ organizer.organizer_title }}</dd>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </dl>
-                            {% endif %}
                             
                             <dl>
                                 {% if exhibition.museum.service_phone_number %}
@@ -133,6 +105,34 @@
                                     </dt>
                                 {% endif %}
                             </dl>
+
+                            {% if exhibition.organizer_set.count %}
+                                <dl>
+                                    <dt>{% trans "Organizer" %}</dt>
+                                    {% for organizer in exhibition.organizer_set.all %}
+                                        {% if organizer.organizing_museum %}
+                                            <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
+                                            {% if organizer.organizing_museum.phone_number %}
+                                                <dt>{% trans "Telephone" %}
+                                                <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
+                                                </dt>
+                                            {% endif %} 
+                                            {% if organizer.organizing_museum.fax_number %}
+                                                <dt>{% trans "Fax" %}
+                                                <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
+                                                </dt>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if organizer.organizer_title %}
+                                            {% if organizer.organizer_url_link %}
+                                                <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
+                                            {% else %}
+                                                <dd>{{ organizer.organizer_title }}</dd>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </dl>
+                            {% endif %}
                         </li>
                     </ul>  
                 </li>
