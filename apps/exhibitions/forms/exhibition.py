@@ -179,14 +179,14 @@ class BasicInfoForm(ModelForm):
             _("Location"),
             layout.Row(
                 layout.Div(
-                layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
-                layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
-                "street_address",
-                "street_address2",
-                "postal_code",
-                "district",
-                "city",
-                ),
+                    layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
+                    layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
+                    "street_address",
+                    "street_address2",
+                    "postal_code",
+                    "district",
+                    "city",
+                    ),
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
@@ -253,9 +253,13 @@ class BasicInfoForm(ModelForm):
             *layout_blocks
             )
 
-    #def clean(self):
-    #    cleaned = self.cleaned_data
-    #    return cleaned
+    def clean(self):
+        cleaned_data = super(BasicInfoForm, self).clean()
+        if not cleaned_data.get("museum") and not cleaned_data.get("location_name"):
+            self._errors['museum'] = self.error_class([_("This field is required.")])
+            del cleaned_data['museum']
+            del cleaned_data['location_name']
+        return cleaned_data
 
 class OrganizerForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(

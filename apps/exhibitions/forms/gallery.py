@@ -44,7 +44,7 @@ class ImageFileForm(forms.Form):
         )
     author = forms.CharField(
         label=_('Author'),
-        required=False,
+        required=True,
         max_length=255,
         )
 
