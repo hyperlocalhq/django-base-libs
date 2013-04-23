@@ -6,6 +6,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.template.defaultfilters import date as django_date
+from django.utils.translation import activate
 
 from mptt.models import MPTTModel
 from mptt.managers import TreeManager
@@ -330,6 +332,20 @@ class WorkshopTime(models.Model):
         
     def get_secure_id(self):
         return int(self.pk) + SECURITY_SUMMAND
+        
+    def get_humanized_date_en(self):
+        current_language = get_current_language()
+        activate("en")
+        the_date = django_date(self.workshop_date, "jS F Y")
+        activate(current_language)
+        return the_date
+
+    def get_humanized_date_de(self):
+        current_language = get_current_language()
+        activate("de")
+        the_date = django_date(self.workshop_date, "j. F Y")
+        activate(current_language)
+        return the_date
 
 class Organizer(models.Model):
     workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))
