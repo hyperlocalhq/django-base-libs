@@ -93,6 +93,12 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
+        self.fields['press_text_%s' % settings.LANGUAGE_CODE].required = True
+        self.fields['start'].required = True
+        self.fields['street_address'].required = True
+        self.fields['postal_code'].required = True
+        self.fields['city'].required = True
+
         self.fields['vernissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
         self.fields['finissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
 
@@ -158,30 +164,29 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Duration"),
             layout.Row(
+                layout.Div("permanent", css_class="inline"),
+                layout.Div("exhibition_extended", css_class="inline"),
+            ),
+            layout.Row(
                 layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
                 layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
             ),
             layout.Field("vernissage", autocomplete="off"),
             layout.Field("finissage", autocomplete="off"),
-            layout.Div(
-                "permanent",
-                "exhibition_extended",
-                css_class="inline",
-                ),
             css_class="fieldset-when",
             ))
         layout_blocks.append(layout.Fieldset(
             _("Location"),
             layout.Row(
                 layout.Div(
-                "museum",
-                "location_name",
-                "street_address",
-                "street_address2",
-                "postal_code",
-                "district",
-                "city",
-                ),
+                    layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
+                    layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
+                    "street_address",
+                    "street_address2",
+                    "postal_code",
+                    "district",
+                    "city",
+                    ),
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
@@ -247,6 +252,14 @@ class BasicInfoForm(ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
             )
+
+    def clean(self):
+        cleaned_data = super(BasicInfoForm, self).clean()
+        if not cleaned_data.get("museum") and not cleaned_data.get("location_name"):
+            self._errors['museum'] = self.error_class([_("This field is required.")])
+            del cleaned_data['museum']
+            del cleaned_data['location_name']
+        return cleaned_data
 
 class OrganizerForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
@@ -944,41 +957,41 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 season = Season(exhibition=instance)
                 season.is_appointment_based = season_dict['is_appointment_based'] 
                 season.is_open_24_7 = season_dict['is_open_24_7'] 
-                if not season_dict['mon_is_closed']:
-                    season.mon_open = season_dict['mon_open'] 
-                    season.mon_break_close = season_dict['mon_break_close'] 
-                    season.mon_break_open = season_dict['mon_break_open']
-                    season.mon_close = season_dict['mon_close']
-                if not season_dict['tue_is_closed']:
-                    season.tue_open = season_dict['tue_open'] 
-                    season.tue_break_close = season_dict['tue_break_close'] 
-                    season.tue_break_open = season_dict['tue_break_open'] 
-                    season.tue_close = season_dict['tue_close'] 
-                if not season_dict['wed_is_closed']:
-                    season.wed_open = season_dict['wed_open']
-                    season.wed_break_close = season_dict['wed_break_close'] 
-                    season.wed_break_open = season_dict['wed_break_open'] 
-                    season.wed_close = season_dict['wed_close'] 
-                if not season_dict['thu_is_closed']:
-                    season.thu_open = season_dict['thu_open'] 
-                    season.thu_break_close = season_dict['thu_break_close'] 
-                    season.thu_break_open = season_dict['thu_break_open'] 
-                    season.thu_close = season_dict['thu_close'] 
-                if not season_dict['fri_is_closed']:
-                    season.fri_open = season_dict['fri_open'] 
-                    season.fri_break_close = season_dict['fri_break_close'] 
-                    season.fri_break_open = season_dict['fri_break_open'] 
-                    season.fri_close = season_dict['fri_close'] 
-                if not season_dict['sat_is_closed']:
-                    season.sat_open = season_dict['sat_open']
-                    season.sat_break_close = season_dict['sat_break_close'] 
-                    season.sat_break_open = season_dict['sat_break_open']
-                    season.sat_close = season_dict['sat_close']
-                if not season_dict['sun_is_closed']:
-                    season.sun_open = season_dict['sun_open'] 
-                    season.sun_break_close = season_dict['sun_break_close'] 
-                    season.sun_break_open = season_dict['sun_break_open'] 
-                    season.sun_close = season_dict['sun_close']
+                #if not season_dict['mon_is_closed']:
+                season.mon_open = season_dict['mon_open'] 
+                season.mon_break_close = season_dict['mon_break_close'] 
+                season.mon_break_open = season_dict['mon_break_open']
+                season.mon_close = season_dict['mon_close']
+                #if not season_dict['tue_is_closed']:
+                season.tue_open = season_dict['tue_open'] 
+                season.tue_break_close = season_dict['tue_break_close'] 
+                season.tue_break_open = season_dict['tue_break_open'] 
+                season.tue_close = season_dict['tue_close'] 
+                #if not season_dict['wed_is_closed']:
+                season.wed_open = season_dict['wed_open']
+                season.wed_break_close = season_dict['wed_break_close'] 
+                season.wed_break_open = season_dict['wed_break_open'] 
+                season.wed_close = season_dict['wed_close'] 
+                #if not season_dict['thu_is_closed']:
+                season.thu_open = season_dict['thu_open'] 
+                season.thu_break_close = season_dict['thu_break_close'] 
+                season.thu_break_open = season_dict['thu_break_open'] 
+                season.thu_close = season_dict['thu_close'] 
+                #if not season_dict['fri_is_closed']:
+                season.fri_open = season_dict['fri_open'] 
+                season.fri_break_close = season_dict['fri_break_close'] 
+                season.fri_break_open = season_dict['fri_break_open'] 
+                season.fri_close = season_dict['fri_close'] 
+                #if not season_dict['sat_is_closed']:
+                season.sat_open = season_dict['sat_open']
+                season.sat_break_close = season_dict['sat_break_close'] 
+                season.sat_break_open = season_dict['sat_break_open']
+                season.sat_close = season_dict['sat_close']
+                #if not season_dict['sun_is_closed']:
+                season.sun_open = season_dict['sun_open'] 
+                season.sun_break_close = season_dict['sun_break_close'] 
+                season.sun_break_open = season_dict['sun_break_open'] 
+                season.sun_close = season_dict['sun_close']
                 for lang_code, lang_name in FRONTEND_LANGUAGES:
                     setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
                     setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
@@ -1112,41 +1125,41 @@ def save_data(form_steps, form_step_data, instance=None):
         season = Season(exhibition=instance)
         season.is_appointment_based = season_dict['is_appointment_based'] 
         season.is_open_24_7 = season_dict['is_open_24_7'] 
-        if not season_dict['mon_is_closed']:
-            season.mon_open = season_dict['mon_open'] 
-            season.mon_break_close = season_dict['mon_break_close'] 
-            season.mon_break_open = season_dict['mon_break_open']
-            season.mon_close = season_dict['mon_close']
-        if not season_dict['tue_is_closed']:
-            season.tue_open = season_dict['tue_open'] 
-            season.tue_break_close = season_dict['tue_break_close'] 
-            season.tue_break_open = season_dict['tue_break_open'] 
-            season.tue_close = season_dict['tue_close'] 
-        if not season_dict['wed_is_closed']:
-            season.wed_open = season_dict['wed_open']
-            season.wed_break_close = season_dict['wed_break_close'] 
-            season.wed_break_open = season_dict['wed_break_open'] 
-            season.wed_close = season_dict['wed_close'] 
-        if not season_dict['thu_is_closed']:
-            season.thu_open = season_dict['thu_open'] 
-            season.thu_break_close = season_dict['thu_break_close'] 
-            season.thu_break_open = season_dict['thu_break_open'] 
-            season.thu_close = season_dict['thu_close'] 
-        if not season_dict['fri_is_closed']:
-            season.fri_open = season_dict['fri_open'] 
-            season.fri_break_close = season_dict['fri_break_close'] 
-            season.fri_break_open = season_dict['fri_break_open'] 
-            season.fri_close = season_dict['fri_close'] 
-        if not season_dict['sat_is_closed']:
-            season.sat_open = season_dict['sat_open']
-            season.sat_break_close = season_dict['sat_break_close'] 
-            season.sat_break_open = season_dict['sat_break_open']
-            season.sat_close = season_dict['sat_close']
-        if not season_dict['sun_is_closed']:
-            season.sun_open = season_dict['sun_open'] 
-            season.sun_break_close = season_dict['sun_break_close'] 
-            season.sun_break_open = season_dict['sun_break_open'] 
-            season.sun_close = season_dict['sun_close']
+        #if not season_dict['mon_is_closed']:
+        season.mon_open = season_dict['mon_open'] 
+        season.mon_break_close = season_dict['mon_break_close'] 
+        season.mon_break_open = season_dict['mon_break_open']
+        season.mon_close = season_dict['mon_close']
+        #if not season_dict['tue_is_closed']:
+        season.tue_open = season_dict['tue_open'] 
+        season.tue_break_close = season_dict['tue_break_close'] 
+        season.tue_break_open = season_dict['tue_break_open'] 
+        season.tue_close = season_dict['tue_close'] 
+        #if not season_dict['wed_is_closed']:
+        season.wed_open = season_dict['wed_open']
+        season.wed_break_close = season_dict['wed_break_close'] 
+        season.wed_break_open = season_dict['wed_break_open'] 
+        season.wed_close = season_dict['wed_close'] 
+        #if not season_dict['thu_is_closed']:
+        season.thu_open = season_dict['thu_open'] 
+        season.thu_break_close = season_dict['thu_break_close'] 
+        season.thu_break_open = season_dict['thu_break_open'] 
+        season.thu_close = season_dict['thu_close'] 
+        #if not season_dict['fri_is_closed']:
+        season.fri_open = season_dict['fri_open'] 
+        season.fri_break_close = season_dict['fri_break_close'] 
+        season.fri_break_open = season_dict['fri_break_open'] 
+        season.fri_close = season_dict['fri_close'] 
+        #if not season_dict['sat_is_closed']:
+        season.sat_open = season_dict['sat_open']
+        season.sat_break_close = season_dict['sat_break_close'] 
+        season.sat_break_open = season_dict['sat_break_open']
+        season.sat_close = season_dict['sat_close']
+        #if not season_dict['sun_is_closed']:
+        season.sun_open = season_dict['sun_open'] 
+        season.sun_break_close = season_dict['sun_break_close'] 
+        season.sun_break_open = season_dict['sun_break_open'] 
+        season.sun_close = season_dict['sun_close']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])

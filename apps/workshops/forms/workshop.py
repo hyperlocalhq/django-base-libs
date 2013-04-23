@@ -89,6 +89,10 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
+        self.fields['street_address'].required = True
+        self.fields['postal_code'].required = True
+        self.fields['city'].required = True
+
         self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
         
@@ -148,8 +152,8 @@ class BasicInfoForm(ModelForm):
             _("Location"),
             layout.Row(
                 layout.Div(
-                    "museum",
-                    "location_name",
+                    layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
+                    layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
                     "street_address",
                     "street_address2",
                     "postal_code",
@@ -240,6 +244,14 @@ class BasicInfoForm(ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
             )
+
+    def clean(self):
+        cleaned_data = super(BasicInfoForm, self).clean()
+        if not cleaned_data.get("museum") and not cleaned_data.get("location_name"):
+            self._errors['museum'] = self.error_class([_("This field is required.")])
+            del cleaned_data['museum']
+            del cleaned_data['location_name']
+        return cleaned_data
 
 class OrganizerForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
@@ -442,6 +454,7 @@ class WorkshopTimeForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(WorkshopTimeForm, self).__init__(*args, **kwargs)
         self.fields['workshop_date'].label = _("Date")
+        self.fields['start'].required = True
         self.fields['start'].widget = forms.TimeInput(format='%H:%M')
         self.fields['end'].widget = forms.TimeInput(format='%H:%M')
         
