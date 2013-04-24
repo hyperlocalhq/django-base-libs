@@ -58,7 +58,7 @@
                     </div>
                     <div class="modal-footer">
                         <button id="button-id-confirm-ownership" class="btn btn-primary">{% trans "I agree" %}</button>
-                        <button id="button-id-cancel-ownership" name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">{% trans "I disagree" %}</button>
+                        <button id="button-id-cancel-ownership" name="cancel" class="btn">{% trans "I disagree" %}</button>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
             $('#confirm_ownership').modal('hide');
         });
         $('#button-id-cancel-ownership').click(function() {
-            location.href = "/";
+            location.href = "/de/kontakt/";
         });
     });
     </script>
