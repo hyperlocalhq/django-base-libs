@@ -2,7 +2,7 @@
 {% load crispy_forms_tags i18n %}
 
 {% block multistep_form %}
-<form action="" method="post">
+<form action="" method="post" id="event_times_form">
 {{ formsets.event_times.management_form }}
 
 <fieldset id="event_times_fieldset">
@@ -30,6 +30,8 @@
 
 {% crispy form %}
 </form>
+
+{% crispy batch_event_time_form %}
 <script type="text/javascript">
 (function($, undefined) {
     function reinit_widgets() {
@@ -94,6 +96,14 @@
             reinit_widgets();
             return false;
         });
+        $(
+            '<a class="add btn btn-small btn-primary" id="add_batch_event_times" href="#">{% trans "Add batch event times" %}</a>'
+        ).insertAfter('#event_times_fieldset').click(function() {
+            $('#batch_event_time_form').show();
+            $('#event_times_form').hide();
+            return false;
+        });
+
         
         $('.formset-form').each(function() {
             var $season = $(this);
@@ -120,6 +130,38 @@
             $('#add_event_time').click();
         }
         reinit_widgets();
+
+        $('#batch_event_time_form .dateinput').datepicker({
+            format: 'yyyy-mm-dd',
+            weekStart: 1
+        })
+        $('#batch_event_time_form .timeinput').timepicker({
+            str_hours: '{% trans "Hours" %}',
+            str_minutes: '{% trans "Minutes" %}',
+            str_confirm: '{% trans "Confirm" %}',
+            str_close: '{% trans "Close" %}',
+        });
+        $('#batch_event_time_form').submit(function() {
+            $.post('{{ event.get_url_path }}batch-event-times/',
+                $(this).serialize(),
+                function(data) {
+                    $(data).each(function() {
+                        date_obj = this;
+                        $('#add_event_time').click();
+                        var $event_time = $('#event_times .event_time:last');
+                        $event_time.find('[name$="-event_date"]').val(date_obj['event_date']);
+                        $event_time.find('[name$="-start"]').val(date_obj['start']);
+                        if (date_obj['end']) {
+                            $event_time.find('[name$="-end"]').val(date_obj['end']);
+                        }
+                    });
+                    $('#batch_event_time_form').hide();
+                    $('#event_times_form').show();
+                },
+                "json"
+            );
+            return false;
+        }).hide();
     });
 })(jQuery);
 </script>
