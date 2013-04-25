@@ -678,6 +678,8 @@
 
 {% include "utils/images.html" %}
 
+<!-- ======= Workshops ======= -->
+
 {% if object.get_related_published_workshops.count %}
     <div class="content" class="clearfix">
         <div class="inner">
@@ -712,7 +714,7 @@
 
 <!-- ======= Events ======= -->
     
-{% if object.get_published_events %}
+{% if object.get_related_published_events.count %}
 <div class="content clearfix">
     <div class="inner clearfix">
         <h2>{% trans "Events" %}</h2>
