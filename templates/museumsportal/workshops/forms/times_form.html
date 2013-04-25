@@ -63,8 +63,10 @@
         $('#id_has_group_offer').change(function() {
             if ($(this).attr('checked')) {
                 $('#workshop_times_fieldset').hide();
+                $('#add_batch_workshop_times').parent().hide();
             } else {
                 $('#workshop_times_fieldset').show();
+                $('#add_batch_workshop_times').parent().show();
             }
         }).change();
     
