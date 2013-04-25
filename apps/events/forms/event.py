@@ -559,6 +559,7 @@ class BatchEventTimeForm(forms.Form):
         
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Create event times')),
+            layout.Button('go_back', _('Go back')),
             ))
 
         self.helper.layout = layout.Layout(

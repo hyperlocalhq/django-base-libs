@@ -99,6 +99,24 @@
         $(
             '<a class="add btn btn-small btn-primary" id="add_batch_event_times" href="#">{% trans "Add batch event times" %}</a>'
         ).insertAfter('#event_times_fieldset').click(function() {
+            // cleanup previous inputs if any
+            $('#id_range_start').val('');
+            $('#id_range_end').val('');
+            $('#id_mon_start').val('');
+            $('#id_mon_end').val('');
+            $('#id_tue_start').val('');
+            $('#id_tue_end').val('');
+            $('#id_wed_start').val('');
+            $('#id_wed_end').val('');
+            $('#id_thu_start').val('');
+            $('#id_thu_end').val('');
+            $('#id_fri_start').val('');
+            $('#id_fri_end').val('');
+            $('#id_sat_start').val('');
+            $('#id_sat_end').val('');
+            $('#id_sun_start').val('');
+            $('#id_sun_end').val('');
+            
             $('#batch_event_time_form').show();
             $('#event_times_form').hide();
             return false;
@@ -162,6 +180,11 @@
             );
             return false;
         }).hide();
+        
+        $('#button-id-go_back').click(function() {
+            $('#batch_event_time_form').hide();
+            $('#event_times_form').show();
+        });
     });
 })(jQuery);
 </script>
