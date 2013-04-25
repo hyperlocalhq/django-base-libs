@@ -427,6 +427,145 @@ class EventTimeForm(ModelForm):
 
 EventTimeFormset = inlineformset_factory(Event, EventTime, form=EventTimeForm, formset=InlineFormSet, extra=0)
 
+class BatchEventTimeForm(forms.Form):
+    range_start = forms.DateField(
+        label=_("Start"),
+        required=True,
+        )
+    range_end = forms.DateField(
+        label=_("End"),
+        required=True,
+        )
+    repeat = forms.ChoiceField(
+        label=_("Repeat"),
+        required=True,
+        choices=((1, _("Every week")), (2, _("Every second week"))),
+        )
+    mon_start = forms.TimeField(
+        label=_("Starts on Monday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    mon_end = forms.TimeField(
+        label=_("Ends on Monday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    tue_start = forms.TimeField(
+        label=_("Starts on Tuesday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    tue_end = forms.TimeField(
+        label=_("Ends on Tuesday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    wed_start = forms.TimeField(
+        label=_("Starts on Wednesday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    wed_end = forms.TimeField(
+        label=_("Ends on Wednesday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    thu_start = forms.TimeField(
+        label=_("Starts on Thursday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    thu_end = forms.TimeField(
+        label=_("Ends on Thursday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    fri_start = forms.TimeField(
+        label=_("Starts on Friday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    fri_end = forms.TimeField(
+        label=_("Ends on Friday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    sat_start = forms.TimeField(
+        label=_("Starts on Saturday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    sat_end = forms.TimeField(
+        label=_("Ends on Saturday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    sun_start = forms.TimeField(
+        label=_("Starts on Sunday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+    sun_end = forms.TimeField(
+        label=_("Ends on Sunday"),
+        required=False,
+        widget=forms.TimeInput(format='%H:%M'),
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(BatchEventTimeForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = "batch_event_time_form"
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        layout_blocks = []
+        layout_blocks.append(layout.Fieldset(
+            _("Batch event time creation"),
+            
+            layout.Row(
+                layout.Field("range_start", placeholder="yyyy-mm-dd"),
+                layout.Field("range_end", placeholder="yyyy-mm-dd"),
+                ),
+            "repeat",
+            layout.Row(
+                layout.Field("mon_start", placeholder="00:00"),
+                layout.Field("mon_end", placeholder="00:00"),
+                ),
+            layout.Row(
+                layout.Field("tue_start", placeholder="00:00"),
+                layout.Field("tue_end", placeholder="00:00"),
+                ),
+            layout.Row(
+                layout.Field("wed_start", placeholder="00:00"),
+                layout.Field("wed_end", placeholder="00:00"),
+                ),
+            layout.Row(
+                layout.Field("thu_start", placeholder="00:00"),
+                layout.Field("thu_end", placeholder="00:00"),
+                ),
+            layout.Row(
+                layout.Field("fri_start", placeholder="00:00"),
+                layout.Field("fri_end", placeholder="00:00"),
+                ),
+            layout.Row(
+                layout.Field("sat_start", placeholder="00:00"),
+                layout.Field("sat_end", placeholder="00:00"),
+                ),
+            layout.Row(
+                layout.Field("sun_start", placeholder="00:00"),
+                layout.Field("sun_end", placeholder="00:00"),
+                ),
+            ))
+        
+        layout_blocks.append(bootstrap.FormActions(
+            layout.Submit('submit', _('Create event times')),
+            layout.Button('go_back', _('Go back')),
+            ))
+
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+            )
+
 class GalleryForm(ModelForm):
     class Meta:
         model = Event
@@ -606,9 +745,12 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
+    extra_context = {}
     if "_pk" in form_step_data:
-        return {'event': Event.objects.get(pk=form_step_data['_pk'])}
-    return {}
+        extra_context['event'] = Event.objects.get(pk=form_step_data['_pk'])
+    if current_step == "times":
+        extra_context['batch_event_time_form'] = BatchEventTimeForm()
+    return extra_context
 
 def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance

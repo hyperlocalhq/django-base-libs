@@ -12,6 +12,7 @@ urlpatterns = patterns('museumsportal.apps.events.views',
     url(r'^(?P<slug>[^/]+)/change/$', 'change_event', name='change_event'),    
     url(r'^(?P<slug>[^/]+)/delete/$', 'delete_event', name='delete_event'),    
     url(r'^(?P<slug>[^/]+)/status/$', 'change_event_status', name='change_event_status'),    
+    url(r'^(?P<slug>[^/]+)/batch-event-times/$', 'batch_event_times', name='batch_event_times'),    
     # gallery
     url(r'^(?P<slug>[^/]+)/gallery/$', 'gallery_overview', name='event_gallery_overview'),    
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_mediafile', name='event_add_mediafile'),    
