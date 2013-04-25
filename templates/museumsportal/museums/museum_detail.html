@@ -105,6 +105,14 @@
                                     <span class="right"><a class="crop" href="{{ museum.website }}">{{ museum.website|humanize_url:"25" }}</a></span>
                                 </dt>
                             {% endif %}
+
+                            {% if museum.email %}
+                                {% load site_specific_tags %}
+                                <dt>{% trans "Email" %}
+                                    <span class="right">{% encrypt_email museum.email %}</span>
+                                </dt>
+                            {% endif %}
+
                             </dl>
 
                             {% if museum.socialmediachannel_set.count %}
