@@ -194,7 +194,7 @@ def batch_event_times(request, slug):
                         models.Q(yyyy=None) | models.Q(yyyy=d.year), mm=d.month, dd=d.day, is_closed=True
                         ))
                 
-                if cleaned['repeat'] == 1 or week_count % 2 == 0 and not is_closing_day:
+                if (cleaned['repeat'] == 1 or week_count % 2 == 0) and not is_closing_day:
                     start_time = cleaned['%s_start' % weekdays[wd]]
                     if start_time:
                         start_time = start_time.strftime("%H:%M")

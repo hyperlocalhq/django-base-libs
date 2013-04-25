@@ -33,7 +33,7 @@ MediaFile = models.get_model("workshops", "MediaFile")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
-from forms.workshop import WORKSHOP_FORM_STEPS
+from forms.workshop import WORKSHOP_FORM_STEPS, BatchWorkshopTimeForm
 from forms.gallery import ImageFileForm, ImageDeletionForm
 
 from jetson.apps.image_mods.models import FileManager
@@ -155,6 +155,54 @@ def delete_workshop(request, slug):
         instance.status = "trashed"
         instance.save()
         return HttpResponse("OK")
+    return redirect(instance.get_url_path())
+
+@never_cache
+@login_required
+def batch_workshop_times(request, slug):
+    weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+    instance = get_object_or_404(Workshop, slug=slug)
+    if request.method == "POST" and request.is_ajax():
+        form = BatchWorkshopTimeForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            d1 = cleaned['range_start']
+            # start with the first Monday after this date
+            while d1.weekday() != 0:
+                d1 = d1 + timedelta(days=1)
+            d2 = cleaned['range_end']
+            delta = d2 - d1
+            workshop_times = []
+            week_count = 0
+            for i in range(delta.days + 1):
+                d = d1 + timedelta(days=i)
+                wd = d.weekday()
+                
+                is_closing_day = False
+                if instance.museum:
+                    is_closing_day = bool(instance.museum.specialopeningtime_set.filter(
+                        models.Q(yyyy=None) | models.Q(yyyy=d.year), mm=d.month, dd=d.day, is_closed=True
+                        ))
+                
+                if (cleaned['repeat'] == 1 or week_count % 2 == 0) and not is_closing_day:
+                    start_time = cleaned['%s_start' % weekdays[wd]]
+                    if start_time:
+                        start_time = start_time.strftime("%H:%M")
+                    
+                    end_time = cleaned['%s_end' % weekdays[wd]]
+                    if end_time:
+                        end_time = end_time.strftime("%H:%M")
+                    
+                    if start_time:
+                        workshop_times.append({
+                            'workshop_date': d.strftime("%Y-%m-%d"),
+                            'start': start_time,
+                            'end': end_time,
+                            })
+                if wd == 6:
+                    week_count += 1
+            return HttpResponse(simplejson.dumps(workshop_times))
+        return HttpResponse(simplejson.dumps([]))
     return redirect(instance.get_url_path())
 
 @never_cache
