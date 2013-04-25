@@ -529,30 +529,20 @@ class BatchEventTimeForm(forms.Form):
             "repeat",
             layout.Row(
                 layout.Field("mon_start", placeholder="00:00"),
-                layout.Field("mon_end", placeholder="00:00"),
-                ),
-            layout.Row(
                 layout.Field("tue_start", placeholder="00:00"),
-                layout.Field("tue_end", placeholder="00:00"),
-                ),
-            layout.Row(
                 layout.Field("wed_start", placeholder="00:00"),
-                layout.Field("wed_end", placeholder="00:00"),
-                ),
-            layout.Row(
                 layout.Field("thu_start", placeholder="00:00"),
-                layout.Field("thu_end", placeholder="00:00"),
-                ),
-            layout.Row(
                 layout.Field("fri_start", placeholder="00:00"),
-                layout.Field("fri_end", placeholder="00:00"),
-                ),
-            layout.Row(
                 layout.Field("sat_start", placeholder="00:00"),
-                layout.Field("sat_end", placeholder="00:00"),
+                layout.Field("sun_start", placeholder="00:00"),
                 ),
             layout.Row(
-                layout.Field("sun_start", placeholder="00:00"),
+                layout.Field("mon_end", placeholder="00:00"),
+                layout.Field("tue_end", placeholder="00:00"),
+                layout.Field("wed_end", placeholder="00:00"),
+                layout.Field("thu_end", placeholder="00:00"),
+                layout.Field("fri_end", placeholder="00:00"),
+                layout.Field("sat_end", placeholder="00:00"),
                 layout.Field("sun_end", placeholder="00:00"),
                 ),
             ))
