@@ -2116,6 +2116,15 @@ dl {
   position: relative;
   .right { position: absolute; right: 0px; font-weight: 300; }
 
+  a.crop {
+    display: inline-block;
+    margin-left: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+  }
+  
   &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
   &.inset { 
     dt,
@@ -2155,14 +2164,6 @@ dl {
     //   &:hover{ color: black;}
     // }
 
-    a.crop {
-      display: inline-block;
-      margin-left: 0;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      width: 100%;
-      overflow: hidden;
-    }
   }
   dl {
     dd { width: 49%; float: left; margin-right: 2%;

@@ -3647,6 +3647,13 @@ dl {
     position: absolute;
     right: 0px;
     font-weight: 300; }
+  dl a.crop {
+    display: inline-block;
+    margin-left: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden; }
   dl:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
@@ -3669,13 +3676,6 @@ dl {
       content: ", "; }
     dl dd.languages:last-child:after {
       content: "" !important; }
-  dl dd a.crop {
-    display: inline-block;
-    margin-left: 0;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 100%;
-    overflow: hidden; }
   dl dl dd {
     width: 49%;
     float: left;
