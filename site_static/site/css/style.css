@@ -783,7 +783,7 @@ label.radio {
     margin-right: 5px !important;
     top: 50%;
     left: 0px;
-    margin-left: 0px !important;
+    margin-left: 10px !important;
     margin-top: -6px !important;
     position: absolute; }
 
@@ -819,7 +819,7 @@ label.radio {
         display: inline-block;
         margin-right: 5px !important;
         top: 50%;
-        left: 0px;
+        left: 0px !important;
         margin-left: 10px !important;
         margin-top: -6px !important;
         position: absolute; }
@@ -891,6 +891,7 @@ label.radio {
   .input-append .pick-time,
   .input-prepend .pick-date,
   .input-prepend .pick-time {
+    overflow: hidden !important;
     position: absolute;
     right: 0px;
     padding: 0px;
