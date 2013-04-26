@@ -100,8 +100,17 @@ class BasicInfoForm(ModelForm):
         self.fields['postal_code'].required = True
         self.fields['city'].required = True
 
-        self.fields['vernissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
-        self.fields['finissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
+        self.fields['start'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['start'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['end'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['end'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['vernissage'].widget = SplitDateTimeWidget(date_format="%d.%m.%Y", time_format='%H:%M')
+        self.fields['vernissage'].input_formats=('%d.%m.%Y %H:%M',)
+        
+        self.fields['finissage'].widget = SplitDateTimeWidget(date_format="%d.%m.%Y", time_format='%H:%M')
+        self.fields['finissage'].input_formats=('%d.%m.%Y %H:%M',)
 
         self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
@@ -170,8 +179,8 @@ class BasicInfoForm(ModelForm):
                 "exhibition_extended",
             ),
             layout.Row(
-                layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
-                layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
+                layout.Field("start", placeholder="dd.mm.yyyy", autocomplete="off"),
+                layout.Field("end", placeholder="dd.mm.yyyy", autocomplete="off"),
             ),
             layout.Field("vernissage", autocomplete="off"),
             layout.Field("finissage", autocomplete="off"),

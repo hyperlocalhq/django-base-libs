@@ -456,6 +456,8 @@ class WorkshopTimeForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(WorkshopTimeForm, self).__init__(*args, **kwargs)
+        self.fields['workshop_date'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['workshop_date'].input_formats=('%d.%m.%Y',)
         self.fields['workshop_date'].label = _("Date")
         self.fields['start'].required = True
         self.fields['start'].widget = forms.TimeInput(format='%H:%M')
@@ -466,7 +468,7 @@ class WorkshopTimeForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(
             layout.Row(
-                layout.Field("workshop_date", placeholder="yyyy-mm-dd"),
+                layout.Field("workshop_date", placeholder="dd.mm.yyyy", autocomplete="off"),
                 layout.Field("start", placeholder="00:00"),
                 layout.Field("end", placeholder="00:00"),
                 css_class="flex",
@@ -566,6 +568,12 @@ class BatchWorkshopTimeForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(BatchWorkshopTimeForm, self).__init__(*args, **kwargs)
+        self.fields['range_start'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['range_start'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['range_end'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['range_end'].input_formats=('%d.%m.%Y',)
+        
         self.helper = FormHelper()
         self.helper.form_id = "batch_workshop_time_form"
         self.helper.form_action = ""
@@ -575,8 +583,8 @@ class BatchWorkshopTimeForm(forms.Form):
             _("Batch workshop time creation"),
             
             layout.Row(
-                layout.Field("range_start", placeholder="yyyy-mm-dd"),
-                layout.Field("range_end", placeholder="yyyy-mm-dd"),
+                layout.Field("range_start", placeholder="dd.mm.yyyy"),
+                layout.Field("range_end", placeholder="dd.mm.yyyy"),
                 ),
             "repeat",
             layout.Row(
@@ -840,7 +848,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
-    instance.email = form_step_data['basic']['enail']
+    instance.email = form_step_data['basic']['email']
     instance.exhibition = form_step_data['basic']['exhibition']
     for f in [
         'is_for_preschool',

@@ -406,6 +406,9 @@ class EventTimeForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(EventTimeForm, self).__init__(*args, **kwargs)
+        self.fields['event_date'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['event_date'].input_formats=('%d.%m.%Y',)
+        
         self.fields['start'].required = True
         self.fields['start'].widget = forms.TimeInput(format='%H:%M')
         self.fields['end'].widget = forms.TimeInput(format='%H:%M')
@@ -415,7 +418,7 @@ class EventTimeForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(
             layout.Row(
-                layout.Field("event_date", placeholder="yyyy-mm-dd"),
+                layout.Field("event_date", placeholder="dd.mm.yyyy", autocomplete="off"),
                 layout.Field("start", placeholder="00:00"),
                 layout.Field("end", placeholder="00:00"),
                 css_class="flex",
@@ -515,6 +518,12 @@ class BatchEventTimeForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(BatchEventTimeForm, self).__init__(*args, **kwargs)
+        self.fields['range_start'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['range_start'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['range_end'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['range_end'].input_formats=('%d.%m.%Y',)
+        
         self.helper = FormHelper()
         self.helper.form_id = "batch_event_time_form"
         self.helper.form_action = ""
@@ -524,8 +533,8 @@ class BatchEventTimeForm(forms.Form):
             _("Batch event time creation"),
             
             layout.Row(
-                layout.Field("range_start", placeholder="yyyy-mm-dd"),
-                layout.Field("range_end", placeholder="yyyy-mm-dd"),
+                layout.Field("range_start", placeholder="dd.mm.yyyy"),
+                layout.Field("range_end", placeholder="dd.mm.yyyy"),
                 ),
             "repeat",
             layout.Row(
