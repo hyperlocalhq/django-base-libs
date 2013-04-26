@@ -19,9 +19,11 @@
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		
 		if (this.isInput) {
+		    /*
 			this.element.on({
 				focus: $.proxy(this.show, this)
 			});
+			*/
 		} else {
 			if (this.component){
 				this.component.on('click', $.proxy(this.show, this));
@@ -447,6 +449,7 @@
                     });
                     $('button.done', $picker).click(function() {
                         $input.val($('date', this.picker).text());
+                        $input.focus();
                         $("#popup").removeClass("on").delay(250).queue(function () {
                             $(this).remove();
                             $(this).dequeue();

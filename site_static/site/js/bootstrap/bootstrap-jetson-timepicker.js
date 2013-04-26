@@ -153,6 +153,7 @@
                     });
                     $('button.done', $picker).click(function() {
                         $input.val($sel_hours.text() + ':' + $sel_minutes.text());
+                        $input.focus();
                         $("#popup").removeClass("on").delay(250).queue(function () {
                             $(this).remove();
                             $(this).dequeue();

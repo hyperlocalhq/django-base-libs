@@ -192,6 +192,31 @@
                 }
             })
             
+            $('#id_permanent').click(function() {
+                if ($(this).is(':checked')) {
+                    $('#div_id_exhibition_extended').hide();
+                    $('#div_id_end').hide();
+                } else {
+                    $('#div_id_exhibition_extended').show();
+                    $('#div_id_end').show();
+                }
+            }).each(function() {
+                if ($(this).is(':checked')) {
+                    $('#div_id_exhibition_extended').hide();
+                    $('#div_id_end').hide();
+                }
+            });
+            $('#id_end').each(function() {
+                if ($(this).val()) {
+                    $(this).data('initial', $(this).val());
+                }
+            }).on("change blur", function() {
+                var initial = $(this).data('initial');
+                if (initial && initial != $(this).val()) {
+                    $('#id_exhibition_extended').prop('checked', true);
+                }
+            });
+            
         });
         
     </script>

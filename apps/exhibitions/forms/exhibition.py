@@ -166,8 +166,8 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Duration"),
             layout.Row(
-                layout.Div("permanent", css_class="inline"),
-                layout.Div("exhibition_extended", css_class="inline"),
+                "permanent",
+                "exhibition_extended",
             ),
             layout.Row(
                 layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
@@ -257,6 +257,11 @@ class BasicInfoForm(ModelForm):
 
     def clean(self):
         cleaned_data = super(BasicInfoForm, self).clean()
+        start = cleaned_data.get("start")
+        end = cleaned_data.get("end")
+        if start and end and start > end:
+            self._errors['end'] = self.error_class([_("End date should be later than the start date.")])
+            del cleaned_data['end']
         if not cleaned_data.get("museum") and not cleaned_data.get("location_name"):
             self._errors['museum'] = self.error_class([_("This field is required.")])
             del cleaned_data['museum']
