@@ -100,6 +100,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     press_text = MultilingualTextField(_("Press text"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
     image = FileBrowseField(_('Image'), max_length=200, directory="workshops/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
+    email = models.EmailField(_("Email"), max_length=255, blank=True)
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 

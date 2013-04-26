@@ -49,6 +49,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
         'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties',
     )}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude', 'exhibition')}),]
+    fieldsets += [(_("Contacts"), {'fields': ('email',)}),]
     fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     

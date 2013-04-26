@@ -67,6 +67,7 @@ class BasicInfoForm(ModelForm):
         model = Workshop
         
         fields = ['tags', 'languages', 'other_languages',
+            'email',
             'is_for_preschool',
             'is_for_primary_school',
             'is_for_youth',
@@ -144,6 +145,7 @@ class BasicInfoForm(ModelForm):
                 css_class="div-website",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            "email",
 
             css_class="fieldset-basic-info",
             ))
@@ -660,6 +662,7 @@ def load_data(instance=None):
         form_step_data['basic']['city'] = instance.city
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
+        form_step_data['basic']['email'] = instance.email
         form_step_data['basic']['exhibition'] = instance.exhibition
         for f in [
             'is_for_preschool',
@@ -727,6 +730,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
+        instance.email = form_step_data['basic']['email']
         instance.exhibition = form_step_data['basic']['exhibition']
         instance.tags = form_step_data['basic']['tags']
         for f in [
@@ -836,6 +840,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
+    instance.email = form_step_data['basic']['enail']
     instance.exhibition = form_step_data['basic']['exhibition']
     for f in [
         'is_for_preschool',

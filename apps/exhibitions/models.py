@@ -133,6 +133,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
     catalog = MultilingualTextField(_("Catalog"), blank=True)
     catalog_ordering = MultilingualCharField(_("Catalog ordering possibilities"), max_length=255, blank=True)
+    email = models.EmailField(_("Email"), max_length=255, blank=True)
 
     start = models.DateField(_("Start"), blank=True, null=True)
     end = models.DateField(_("End"), blank=True, null=True)

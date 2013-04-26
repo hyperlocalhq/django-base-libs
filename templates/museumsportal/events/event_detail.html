@@ -112,6 +112,13 @@
                                          <span class="right"><a class="crop" href="{{ event.website }}">{{ event.website|humanize_url:"25" }}</a></span>
                                     </dt>
                                 {% endif %}
+
+                                {% if event.email %}
+                                    {% load site_specific_tags %}
+                                    <dt>{% trans "Email" %}
+                                        <span class="right">{% encrypt_email event.email %}</span>
+                                    </dt>
+                                {% endif %}
                             </dl>
 
                             {% if event.organizer_set.count %}
