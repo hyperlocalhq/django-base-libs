@@ -388,7 +388,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         Event = models.get_model("events", "Event")
         return Event.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-            ).distinct()
+            ).distinct().order_by('closest_event_date', 'closest_event_time')
 
     def get_published_events(self):
         return self.get_events().filter(status="published")
@@ -397,7 +397,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         Workshop = models.get_model("workshops", "Workshop")
         return Workshop.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-            ).distinct()
+            ).distinct().order_by('closest_workshop_date', 'closest_workshop_time')
             
     def get_published_workshops(self):
         return self.get_workshops().filter(status="published")
