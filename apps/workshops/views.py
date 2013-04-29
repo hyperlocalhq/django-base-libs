@@ -183,9 +183,12 @@ def batch_workshop_times(request, slug):
                     is_closing_day = bool(instance.museum.specialopeningtime_set.filter(
                         models.Q(yyyy__isnull=True) | models.Q(yyyy=d.year), mm=d.month, dd=d.day, is_closed=True
                         ))
-                    is_closing_day = is_closing_day or not getattr(instance.museum.season_set.filter(
-                        start__lte=d, end__gte=d
-                        )[0], '%s_open' % weekdays[wd])
+                    try:
+                        is_closing_day = is_closing_day or not getattr(instance.museum.season_set.filter(
+                            start__lte=d, end__gte=d
+                            )[0], '%s_open' % weekdays[wd])
+                    except:
+                        pass
                 
                 if (cleaned['repeat'] == "1" or week_count % 2 == 0) and not is_closing_day:
                     start_time = cleaned['%s_start' % weekdays[wd]]
