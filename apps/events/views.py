@@ -205,7 +205,7 @@ def batch_event_times(request, slug):
                     
                     if start_time:
                         event_times.append({
-                            'event_date': d.strftime("%Y-%m-%d"),
+                            'event_date': d.strftime("%d.%m.%Y"),
                             'start': start_time,
                             'end': end_time,
                             })

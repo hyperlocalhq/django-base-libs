@@ -195,7 +195,7 @@ def batch_workshop_times(request, slug):
                     
                     if start_time:
                         workshop_times.append({
-                            'workshop_date': d.strftime("%Y-%m-%d"),
+                            'workshop_date': d.strftime("%d.%m.%Y"),
                             'start': start_time,
                             'end': end_time,
                             })
