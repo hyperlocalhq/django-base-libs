@@ -167,9 +167,9 @@ def batch_workshop_times(request, slug):
         if form.is_valid():
             cleaned = form.cleaned_data
             d1 = cleaned['range_start']
-            # start with the first Monday after this date
-            while d1.weekday() != 0:
-                d1 = d1 + timedelta(days=1)
+            ## start with the first Monday after this date
+            #while d1.weekday() != 0:
+            #    d1 = d1 + timedelta(days=1)
             d2 = cleaned['range_end']
             delta = d2 - d1
             workshop_times = []
@@ -181,10 +181,13 @@ def batch_workshop_times(request, slug):
                 is_closing_day = False
                 if instance.museum:
                     is_closing_day = bool(instance.museum.specialopeningtime_set.filter(
-                        models.Q(yyyy=None) | models.Q(yyyy=d.year), mm=d.month, dd=d.day, is_closed=True
+                        models.Q(yyyy__isnull=True) | models.Q(yyyy=d.year), mm=d.month, dd=d.day, is_closed=True
                         ))
+                    is_closing_day = is_closing_day or not getattr(instance.museum.season_set.filter(
+                        start__lte=d, end__gte=d
+                        )[0], '%s_open' % weekdays[wd])
                 
-                if (cleaned['repeat'] == 1 or week_count % 2 == 0) and not is_closing_day:
+                if (cleaned['repeat'] == "1" or week_count % 2 == 0) and not is_closing_day:
                     start_time = cleaned['%s_start' % weekdays[wd]]
                     if start_time:
                         start_time = start_time.strftime("%H:%M")
