@@ -146,10 +146,10 @@ class Command(NoArgsCommand):
             exhibition.free_entrance = bool(exhibition_dict['generell_frei'])
             exhibition.admission_price = bool(exhibition_dict['preis_voll'])
             exhibition.reduced_price = bool(exhibition_dict['preis_erm'])
-            exhibition.admission_price_info_de = exhibition_dict['more_tickets_de']
-            exhibition.admission_price_info_de_markup_type = "hw"
-            exhibition.admission_price_info_en = exhibition_dict['more_tickets_en']
-            exhibition.admission_price_info_en_markup_type = "hw"
+            exhibition.admission_price_info_de = exhibition_dict['more_tickets_de'].replace('<br />', '\n')
+            exhibition.admission_price_info_de_markup_type = "pt"
+            exhibition.admission_price_info_en = exhibition_dict['more_tickets_en'].replace('<br />', '\n')
+            exhibition.admission_price_info_en_markup_type = "pt"
             
             exhibition.save()
             
