@@ -73,14 +73,6 @@ class BasicInfoForm(ModelForm):
         required=False,
         queryset=ExhibitionCategory.objects.all(),
         )
-    website_de = forms.URLField(
-        label=_("Website"),
-        required=False,
-        )
-    website_en = forms.URLField(
-        label=_("Website"),
-        required=False,
-        )
     class Meta:
         model = Exhibition
         
@@ -101,6 +93,12 @@ class BasicInfoForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            self.fields['website_%s' % lang_code] = forms.URLField(
+                label=_("Website"),
+                required=False,
+                )
 
         self.fields['press_text_%s' % settings.LANGUAGE_CODE].required = True
         self.fields['start'].required = True

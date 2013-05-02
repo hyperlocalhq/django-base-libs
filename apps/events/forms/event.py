@@ -63,14 +63,6 @@ class BasicInfoForm(ModelForm):
             "multipleSeparator": ",,, ",
             },
         )
-    website_de = forms.URLField(
-        label=_("Website"),
-        required=False,
-        )
-    website_en = forms.URLField(
-        label=_("Website"),
-        required=False,
-        )
     class Meta:
         model = Event
         
@@ -88,6 +80,12 @@ class BasicInfoForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            self.fields['website_%s' % lang_code] = forms.URLField(
+                label=_("Website"),
+                required=False,
+                )
 
         self.fields['street_address'].required = True
         self.fields['postal_code'].required = True
