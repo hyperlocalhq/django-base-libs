@@ -122,8 +122,8 @@ class Command(NoArgsCommand):
                 exhibition.permanent = True
             else:
                 exhibition.end = parse_datetime(exhibition_dict['end'])
-            exhibition.website_de = exhibition_dict['web_link_de']
-            exhibition.website_en = exhibition_dict['web_link_en']
+            exhibition.website_de = exhibition_dict['web_link_de'].replace('&amp;', '&')
+            exhibition.website_en = exhibition_dict['web_link_en'].replace('&amp;', '&')
             exhibition.description_de = exhibition_dict['description_de']
             exhibition.description_de_markup_type = "hw"
             exhibition.description_en = exhibition_dict['description_en']
