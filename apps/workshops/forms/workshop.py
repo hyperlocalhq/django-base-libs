@@ -63,6 +63,14 @@ class BasicInfoForm(ModelForm):
             "multipleSeparator": ",,, ",
             },
         )
+    website_de = forms.URLField(
+        label=_("Website"),
+        required=False,
+        )
+    website_en = forms.URLField(
+        label=_("Website"),
+        required=False,
+        )
     class Meta:
         model = Workshop
         
