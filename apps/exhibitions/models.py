@@ -281,10 +281,10 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         return self.museum.exhibition_set.filter(status="published").exclude(pk=self.pk)
 
     def get_related_published_events(self):
-        return self.event_set.filter(status="published")
+        return self.event_set.filter(status="published").order_by('closest_event_date', 'closest_event_time')
 
     def get_related_published_workshops(self):
-        return self.workshop_set.filter(status="published")
+        return self.workshop_set.filter(status="published").order_by('closest_workshop_date', 'closest_workshop_time')
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
