@@ -178,6 +178,7 @@
                 var $organizer = $(this).parents('.div_organizer:first');
                 $organizer.find('div[id$="organizer_title"]').parents('.row:first').hide();
                 $organizer.find(':input[id$="organizer_title"]').val("");
+                $organizer.find(':input[id$="organizer_url_link"]').val("");
                 $organizer.find('div[id$="organizing_museum"]').parents('.row:first').show();
                 return false;
             });
