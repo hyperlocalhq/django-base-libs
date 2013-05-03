@@ -14,7 +14,7 @@ class Command(NoArgsCommand):
         verbosity = int(options.get('verbosity', NORMAL))
         skip_images = options.get('skip_images')
         
-        weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+        weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
         
         import re
         import urllib2
@@ -117,6 +117,7 @@ class Command(NoArgsCommand):
 
             exhibition.title_de = exhibition_dict['name_de']
             exhibition.title_en = exhibition_dict['name_en']
+            exhibition.slug = slugify(exhibition_dict['name_de'])
             exhibition.start = parse_datetime(exhibition_dict['start'])
             if exhibition_dict['dauerausstellung']:
                 exhibition.permanent = True
@@ -128,6 +129,10 @@ class Command(NoArgsCommand):
             exhibition.description_de_markup_type = "hw"
             exhibition.description_en = exhibition_dict['description_en']
             exhibition.description_en_markup_type = "hw"
+            exhibition.press_text_de = exhibition_dict['description_de']
+            exhibition.press_text_de_markup_type = "hw"
+            exhibition.press_text_en = exhibition_dict['description_en']
+            exhibition.press_text_en_markup_type = "hw"
             exhibition.status = "import"
             if museum:
                 exhibition.museum = museum
@@ -144,12 +149,14 @@ class Command(NoArgsCommand):
             exhibition.museum_opening_hours = exhibition_dict['opening_from_museum']
             
             exhibition.free_entrance = bool(exhibition_dict['generell_frei'])
-            exhibition.admission_price = bool(exhibition_dict['preis_voll'])
-            exhibition.reduced_price = bool(exhibition_dict['preis_erm'])
-            exhibition.admission_price_info_de = exhibition_dict['more_tickets_de'].replace('<br />', '\n')
-            exhibition.admission_price_info_de_markup_type = "pt"
-            exhibition.admission_price_info_en = exhibition_dict['more_tickets_en'].replace('<br />', '\n')
-            exhibition.admission_price_info_en_markup_type = "pt"
+            if exhibition_dict['preis_voll']:
+                exhibition.admission_price = int(exhibition_dict['preis_voll'])
+            if exhibition_dict['preis_erm']:
+                exhibition.reduced_price = int(exhibition_dict['preis_erm'])
+            exhibition.admission_price_info_de = """<p><a href="%s">Weitere Preisinformationen</a></p>""" % exhibition.website_de
+            exhibition.admission_price_info_de_markup_type = "hw"
+            exhibition.admission_price_info_en = """<p><a href="%s">More price information</a></p>""" % exhibition.website_en
+            exhibition.admission_price_info_en_markup_type = "hw"
             
             exhibition.save()
             
