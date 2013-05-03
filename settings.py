@@ -234,7 +234,7 @@ ADMIN_APP_INDEX = (
                 'models': ('EventCategory','Event',),
                 }),
             ('workshops', {
-                'models': ('WorkshopCategory','AgeGroup','Workshop',),
+                'models': ('WorkshopType', 'Workshop',),
                 }),
             ('slideshows', {
                 'models': ('Slideshow',),
