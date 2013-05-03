@@ -274,8 +274,8 @@ var error_messages = {
             $('#add_season').click();
             $('#id_seasons-0-title_de').val("Ganzjährig");
             $('#id_seasons-0-title_en').val("Year-round");
-            $('#id_seasons-0-start').val((new Date()).getFullYear()+"-01-01");
-            $('#id_seasons-0-end').val((new Date()).getFullYear()+"-12-31");
+            $('#id_seasons-0-start').val('01.01.' + (new Date()).getFullYear());
+            $('#id_seasons-0-end').val('31.12.' + (new Date()).getFullYear());
             $(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']).each(function() {
                 $('#id_seasons-0-' + this + '_open').val("10:00");
                 $('#id_seasons-0-' + this + '_close').val("18:00");
