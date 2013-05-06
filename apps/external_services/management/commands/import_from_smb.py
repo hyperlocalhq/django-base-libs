@@ -9,8 +9,12 @@ class Command(NoArgsCommand):
         make_option('--skip-images', action='store_true', dest='skip_images', default=False,
             help='Tells Django to NOT download images.'),
         )
-    help = """Imports events from Museumsportal Berlin"""
+    help = """Imports exhibitions, events, and workshops from Staatliche Museen zu Berlin"""
+    
     def handle_noargs(self, **options):
+        self.import_exhibitions(**options)
+        
+    def import_exhibitions(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
         skip_images = options.get('skip_images')
         
@@ -35,6 +39,7 @@ class Command(NoArgsCommand):
         image_mods = models.get_app("image_mods")
         Museum = models.get_model("museums", "Museum")
         Exhibition = models.get_model("exhibitions", "Exhibition")
+        Organizer = models.get_model("exhibitions", "Organizer")
         MediaFile = models.get_model("exhibitions", "MediaFile")
         Season = models.get_model("exhibitions", "Season")
         Event = models.get_model("events", "Event")
@@ -159,6 +164,11 @@ class Command(NoArgsCommand):
             exhibition.admission_price_info_en_markup_type = "hw"
             
             exhibition.save()
+            
+            if exhibition_dict['organizers']:
+                for organizer_id, organizer_title in exhibition_dict['organizers'].items():
+                    o = Organizer(exhibition=exhibition, organizer_title=organizer_title)
+                    o.save()
             
             if exhibition_dict['opening_times']:
                 season = Season(exhibition=exhibition)
