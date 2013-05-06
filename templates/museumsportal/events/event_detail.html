@@ -113,12 +113,6 @@
                                     </dt>
                                 {% endif %}
 
-                                {% if event.email %}
-                                    {% load site_specific_tags %}
-                                    <dt>{% trans "Email" %}
-                                        <span class="right">{% encrypt_email event.email %}</span>
-                                    </dt>
-                                {% endif %}
                             </dl>
 
                             {% if event.organizer_set.count %}

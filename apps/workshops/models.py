@@ -107,7 +107,6 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     press_text = MultilingualTextField(_("Press text"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
     image = FileBrowseField(_('Image'), max_length=200, directory="workshops/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
-    email = models.EmailField(_("Email"), max_length=255, blank=True)
     types = models.ManyToManyField(WorkshopType, verbose_name=_("Types"))
     description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."))
     

@@ -77,7 +77,6 @@ class BasicInfoForm(ModelForm):
         model = Exhibition
         
         fields = ['start', 'end', 'permanent', 'exhibition_extended',
-            'email',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude',  
             'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
@@ -166,7 +165,6 @@ class BasicInfoForm(ModelForm):
                 css_class="div-website",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-            "email",
             layout.Row(
                 css_class="div-catalog",
                 *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
@@ -737,7 +735,6 @@ def load_data(instance=None):
         form_step_data['basic']['end'] = instance.end
         form_step_data['basic']['permanent'] = instance.permanent
         form_step_data['basic']['exhibition_extended'] = instance.exhibition_extended
-        form_step_data['basic']['email'] = instance.email
         form_step_data['basic']['museum'] = instance.museum
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
@@ -846,7 +843,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
         instance.exhibition_extended = form_step_data['basic']['exhibition_extended'] 
-        instance.email = form_step_data['basic']['email'] 
         instance.museum = museum
         instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
@@ -1088,7 +1084,6 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
     instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
-    instance.email = form_step_data['basic']['email']
     instance.museum = form_step_data['basic']['museum']
     instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']

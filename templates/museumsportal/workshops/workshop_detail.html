@@ -115,12 +115,6 @@
                                         <dd><a class="crop" href="{{ workshop.website }}">{{ workshop.website|humanize_url:"50" }}</a></dd>
                                     {% endif %}
 
-                                    {% if workshop.email %}
-                                        {% load site_specific_tags %}
-                                        <dt>{% trans "Email" %}
-                                            <span class="right">{% encrypt_email workshop.email %}</span>
-                                        </dt>
-                                    {% endif %}
                                 </dl>
 
                                 {% if workshop.organizer_set.count %}

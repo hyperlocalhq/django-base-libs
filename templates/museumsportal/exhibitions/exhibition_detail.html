@@ -157,12 +157,6 @@
                                         </dt>
                                     {% endif %}
     
-                                    {% if exhibition.email %}
-                                        {% load site_specific_tags %}
-                                        <dt>{% trans "Email" %}
-                                            <span class="right">{% encrypt_email exhibition.email %}</span>
-                                        </dt>
-                                    {% endif %}
                                 </dl>                            
                             {% endif %}
                         </li>

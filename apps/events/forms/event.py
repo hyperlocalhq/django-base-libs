@@ -66,7 +66,7 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Event
         
-        fields = ['email', 'categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
+        fields = ['categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
             ]
@@ -144,7 +144,6 @@ class BasicInfoForm(ModelForm):
                 css_class="div-website",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-            "email",
             css_class="fieldset-basic-info",
             ))
 
@@ -629,7 +628,6 @@ def load_data(instance=None):
         form_step_data['basic']['city'] = instance.city
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
-        form_step_data['basic']['email'] = instance.email
         form_step_data['basic']['exhibition'] = instance.exhibition
     
         for organizer in instance.organizer_set.all():
@@ -686,7 +684,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
-        instance.email = form_step_data['basic']['email']
         instance.exhibition = form_step_data['basic']['exhibition']
         instance.tags = form_step_data['basic']['tags']
         instance.suitable_for_children = form_step_data['basic']['suitable_for_children']
@@ -788,7 +785,6 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
-    instance.email = form_step_data['basic']['email']
     instance.exhibition = form_step_data['basic']['exhibition']
     instance.tags = form_step_data['basic']['tags']
     instance.suitable_for_children = form_step_data['basic']['suitable_for_children']
