@@ -12,10 +12,17 @@ from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
+WorkshopType = models.get_model("workshops", "WorkshopType")
 Workshop = models.get_model("workshops", "Workshop")
 WorkshopTime = models.get_model("workshops", "WorkshopTime")
 MediaFile = models.get_model("workshops", "MediaFile")
 Organizer = models.get_model("workshops", "Organizer")
+
+class WorkshopTypeAdmin(ExtendedModelAdmin):
+    save_on_top = True
+    list_display = ('id', 'title', 'slug',)
+    fieldsets = get_admin_lang_section(_("Title"), ['title',])
+    fieldsets += [(None, {'fields': ('slug',)}),]
 
 class WorkshopTimeInline(admin.StackedInline):
     model = WorkshopTime
@@ -39,21 +46,22 @@ class WorkshopAdmin(ExtendedModelAdmin):
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
     list_display_links = ('title', )
-    list_filter = ('creation_date', 'status', )
+    list_filter = ('creation_date', 'types', 'status', )
     search_fields = ('title', 'subtitle', 'workshop_type', 'slug')
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'workshop_type', 'description', 'press_text', 'website', ])
-    fieldsets += [(None, {'fields': ('slug',)}),]
+    fieldsets += [(None, {'fields': ('slug', 'types')}),]
     fieldsets += [(_("Categories"), {'fields': ('tags', 'languages', 'other_languages', 
         'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_wheelchaired',
         'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties',
     )}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude', 'exhibition')}),]
+    fieldsets += [(_("Contacts"), {'fields': ('email',)}),]
     fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
-    filter_horizontal = ("languages",)
+    filter_horizontal = ("types", "languages", )
     
     inlines = [WorkshopTimeInline, MediaFileInline, OrganizerInline]
     
@@ -75,4 +83,5 @@ class WorkshopAdmin(ExtendedModelAdmin):
                 instance.workshop.update_closest_workshop_time()
         
 
+admin.site.register(WorkshopType, WorkshopTypeAdmin)
 admin.site.register(Workshop, WorkshopAdmin)

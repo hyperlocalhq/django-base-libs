@@ -66,7 +66,8 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Workshop
         
-        fields = ['tags', 'languages', 'other_languages',
+        fields = ['tags', 'types', 'languages', 'other_languages',
+            'email',
             'is_for_preschool',
             'is_for_primary_school',
             'is_for_youth',
@@ -82,12 +83,17 @@ class BasicInfoForm(ModelForm):
             fields += [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
-                'workshop_type_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'website_%s' % lang_code,
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            self.fields['website_%s' % lang_code] = forms.URLField(
+                label=_("Website"),
+                required=False,
+                )
 
         self.fields['street_address'].required = True
         self.fields['postal_code'].required = True
@@ -96,6 +102,10 @@ class BasicInfoForm(ModelForm):
         self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
         
+        self.fields['types'].widget = forms.CheckboxSelectMultiple()
+        self.fields['types'].help_text = ""
+        self.fields['types'].empty_label = None
+
         self.fields['languages'].widget = forms.CheckboxSelectMultiple()
         self.fields['languages'].help_text = ""
         self.fields['languages'].empty_label = None
@@ -107,7 +117,6 @@ class BasicInfoForm(ModelForm):
             for f in [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
-                'workshop_type_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'website_%s' % lang_code,
                 ]:
@@ -133,8 +142,8 @@ class BasicInfoForm(ModelForm):
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-type",
-                *('workshop_type_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
+                "types",
+                css_class="div-types",
                 ),
             layout.Row(
                 css_class="div-press_text",
@@ -144,6 +153,7 @@ class BasicInfoForm(ModelForm):
                 css_class="div-website",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            "email",
 
             css_class="fieldset-basic-info",
             ))
@@ -454,6 +464,8 @@ class WorkshopTimeForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(WorkshopTimeForm, self).__init__(*args, **kwargs)
+        self.fields['workshop_date'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['workshop_date'].input_formats=('%d.%m.%Y',)
         self.fields['workshop_date'].label = _("Date")
         self.fields['start'].required = True
         self.fields['start'].widget = forms.TimeInput(format='%H:%M')
@@ -464,7 +476,7 @@ class WorkshopTimeForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(
             layout.Row(
-                layout.Field("workshop_date", placeholder="yyyy-mm-dd"),
+                layout.Field("workshop_date", placeholder="dd.mm.yyyy", autocomplete="off"),
                 layout.Field("start", placeholder="00:00"),
                 layout.Field("end", placeholder="00:00"),
                 css_class="flex",
@@ -564,6 +576,12 @@ class BatchWorkshopTimeForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(BatchWorkshopTimeForm, self).__init__(*args, **kwargs)
+        self.fields['range_start'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['range_start'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['range_end'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['range_end'].input_formats=('%d.%m.%Y',)
+        
         self.helper = FormHelper()
         self.helper.form_id = "batch_workshop_time_form"
         self.helper.form_action = ""
@@ -573,8 +591,8 @@ class BatchWorkshopTimeForm(forms.Form):
             _("Batch workshop time creation"),
             
             layout.Row(
-                layout.Field("range_start", placeholder="yyyy-mm-dd"),
-                layout.Field("range_end", placeholder="yyyy-mm-dd"),
+                layout.Field("range_start", placeholder="dd.mm.yyyy"),
+                layout.Field("range_end", placeholder="dd.mm.yyyy"),
                 ),
             "repeat",
             layout.Row(
@@ -644,11 +662,11 @@ def load_data(instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
-            form_step_data['basic']['workshop_type_%s' % lang_code] = getattr(instance, 'workshop_type_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
             form_step_data['basic']['press_text_%s' % lang_code] = getattr(instance, 'press_text_%s' % lang_code)
             form_step_data['basic']['website_%s' % lang_code] = getattr(instance, 'website_%s' % lang_code)
         form_step_data['basic']['tags'] = instance.tags
+        form_step_data['basic']['types'] = instance.types.all()
         form_step_data['basic']['languages'] = instance.languages.all()
         form_step_data['basic']['other_languages'] = instance.other_languages
         form_step_data['basic']['museum'] = instance.museum
@@ -660,6 +678,7 @@ def load_data(instance=None):
         form_step_data['basic']['city'] = instance.city
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
+        form_step_data['basic']['email'] = instance.email
         form_step_data['basic']['exhibition'] = instance.exhibition
         for f in [
             'is_for_preschool',
@@ -710,7 +729,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
             setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
-            setattr(instance, 'workshop_type_%s' % lang_code, form_step_data['basic']['workshop_type_%s' % lang_code])
             setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
             setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
@@ -727,6 +745,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
+        instance.email = form_step_data['basic']['email']
         instance.exhibition = form_step_data['basic']['exhibition']
         instance.tags = form_step_data['basic']['tags']
         for f in [
@@ -748,6 +767,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if '_pk' not in form_step_data:
             user = get_current_user()
             instance.set_owner(user)
+        
+        instance.types.clear()
+        for cat in form_step_data['basic']['types']:
+            instance.types.add(cat)
         
         instance.languages.clear()
         for cat in form_step_data['basic']['languages']:
@@ -819,7 +842,6 @@ def save_data(form_steps, form_step_data, instance=None):
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
-        setattr(instance, 'workshop_type_%s' % lang_code, form_step_data['basic']['workshop_type_%s' % lang_code])
         setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
         setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
         setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
@@ -836,6 +858,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
+    instance.email = form_step_data['basic']['email']
     instance.exhibition = form_step_data['basic']['exhibition']
     for f in [
         'is_for_preschool',
@@ -872,6 +895,10 @@ def save_data(form_steps, form_step_data, instance=None):
     if is_new:
         user = get_current_user()
         instance.set_owner(user)    
+    
+    instance.types.clear()
+    for cat in form_step_data['basic']['types']:
+        instance.types.add(cat)
     
     instance.languages.clear()
     for cat in form_step_data['basic']['languages']:

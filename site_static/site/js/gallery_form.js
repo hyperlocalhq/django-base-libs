@@ -121,7 +121,6 @@
         });
         var uploader = new qq.FileUploader(options);
     }    
-    
     $(function() {
         reinit();
     });

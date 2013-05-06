@@ -25,7 +25,7 @@
     <script>
         $(function() {
             $('.dateinput').datepicker({
-                format: 'yyyy-mm-dd',
+                format: 'dd.mm.yyyy',
                 weekStart: 1
             })
             $('.timeinput').timepicker({
@@ -52,7 +52,7 @@
         function reinit_widgets() {
             $('[rel=tooltip]').tooltip();
             $('.dateinput').datepicker({
-                format: 'yyyy-mm-dd',
+                format: 'dd.mm.yyyy',
                 weekStart: 1
             })
             $('.timeinput').timepicker({
@@ -178,6 +178,7 @@
                 var $organizer = $(this).parents('.div_organizer:first');
                 $organizer.find('div[id$="organizer_title"]').parents('.row:first').hide();
                 $organizer.find(':input[id$="organizer_title"]').val("");
+                $organizer.find(':input[id$="organizer_url_link"]').val("");
                 $organizer.find('div[id$="organizing_museum"]').parents('.row:first').show();
                 return false;
             });
@@ -191,6 +192,31 @@
                     $organizer.find('div[id$="organizer_title"]').parents('.row:first').show();
                 }
             })
+            
+            $('#id_permanent').click(function() {
+                if ($(this).is(':checked')) {
+                    $('#div_id_exhibition_extended').hide();
+                    $('#div_id_end').hide();
+                } else {
+                    $('#div_id_exhibition_extended').show();
+                    $('#div_id_end').show();
+                }
+            }).each(function() {
+                if ($(this).is(':checked')) {
+                    $('#div_id_exhibition_extended').hide();
+                    $('#div_id_end').hide();
+                }
+            });
+            $('#id_end').each(function() {
+                if ($(this).val()) {
+                    $(this).data('initial', $(this).val());
+                }
+            }).on("change blur", function() {
+                var initial = $(this).data('initial');
+                if (initial && initial != $(this).val()) {
+                    $('#id_exhibition_extended').prop('checked', true);
+                }
+            });
             
         });
         

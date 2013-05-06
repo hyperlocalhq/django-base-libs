@@ -77,6 +77,7 @@ class BasicInfoForm(ModelForm):
         model = Exhibition
         
         fields = ['start', 'end', 'permanent', 'exhibition_extended',
+            'email',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude',  
             'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
@@ -93,14 +94,29 @@ class BasicInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            self.fields['website_%s' % lang_code] = forms.URLField(
+                label=_("Website"),
+                required=False,
+                )
+
         self.fields['press_text_%s' % settings.LANGUAGE_CODE].required = True
         self.fields['start'].required = True
         self.fields['street_address'].required = True
         self.fields['postal_code'].required = True
         self.fields['city'].required = True
 
-        self.fields['vernissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
-        self.fields['finissage'].widget = SplitDateTimeWidget(time_format='%H:%M')
+        self.fields['start'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['start'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['end'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['end'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['vernissage'].widget = SplitDateTimeWidget(date_format="%d.%m.%Y", time_format='%H:%M')
+        self.fields['vernissage'].input_formats=('%d.%m.%Y %H:%M',)
+        
+        self.fields['finissage'].widget = SplitDateTimeWidget(date_format="%d.%m.%Y", time_format='%H:%M')
+        self.fields['finissage'].input_formats=('%d.%m.%Y %H:%M',)
 
         self.fields['tags'].widget = forms.TextInput()
         self.fields['tags'].help_text = ""
@@ -150,6 +166,7 @@ class BasicInfoForm(ModelForm):
                 css_class="div-website",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            "email",
             layout.Row(
                 css_class="div-catalog",
                 *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
@@ -164,12 +181,12 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Duration"),
             layout.Row(
-                layout.Div("permanent", css_class="inline"),
-                layout.Div("exhibition_extended", css_class="inline"),
+                "permanent",
+                "exhibition_extended",
             ),
             layout.Row(
-                layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
-                layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off"),
+                layout.Field("start", placeholder="dd.mm.yyyy", autocomplete="off"),
+                layout.Field("end", placeholder="dd.mm.yyyy", autocomplete="off"),
             ),
             layout.Field("vernissage", autocomplete="off"),
             layout.Field("finissage", autocomplete="off"),
@@ -255,6 +272,11 @@ class BasicInfoForm(ModelForm):
 
     def clean(self):
         cleaned_data = super(BasicInfoForm, self).clean()
+        start = cleaned_data.get("start")
+        end = cleaned_data.get("end")
+        if start and end and start > end:
+            self._errors['end'] = self.error_class([_("End date should be later than the start date.")])
+            del cleaned_data['end']
         if not cleaned_data.get("museum") and not cleaned_data.get("location_name"):
             self._errors['museum'] = self.error_class([_("This field is required.")])
             del cleaned_data['museum']
@@ -715,6 +737,7 @@ def load_data(instance=None):
         form_step_data['basic']['end'] = instance.end
         form_step_data['basic']['permanent'] = instance.permanent
         form_step_data['basic']['exhibition_extended'] = instance.exhibition_extended
+        form_step_data['basic']['email'] = instance.email
         form_step_data['basic']['museum'] = instance.museum
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
@@ -823,6 +846,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
         instance.exhibition_extended = form_step_data['basic']['exhibition_extended'] 
+        instance.email = form_step_data['basic']['email'] 
         instance.museum = museum
         instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
@@ -1064,6 +1088,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
     instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
+    instance.email = form_step_data['basic']['email']
     instance.museum = form_step_data['basic']['museum']
     instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']

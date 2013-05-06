@@ -45,7 +45,22 @@
                     </h4>
                     <ul id="collapse-location" class="accordion-body collapse in">  
                         <li class="accordion-inner">
-                            {% if event.street_address %}
+                            {% if event.museum %}
+                                {% with event.museum as museum %}
+                                    <dl class="address">
+                                        <dt>{% trans "Address" %}</dt>
+                                        <dd><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></dd>
+                                        <dd>{{ museum.street_address }}</dd>
+                                        {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
+                                        <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+
+                                        {% with event as list_item %}
+                                            <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
+                                            {% include "utils/geo_position.html" %}</dd>
+                                        {% endwith %}
+                                    </dl>
+                                {% endwith %}
+                            {% else %}
                                 <dl class="address">
                                     <dt>{% trans "Address" %}</dt>
                                     <dd>{{ event.location_name }}</dd>
@@ -58,21 +73,6 @@
                                         {% include "utils/geo_position.html" %}</dd>
                                     {% endwith %}
                                 </dl>
-                            {% else %}
-                                {% with event.museum as museum %}
-                                    <dl class="address">
-                                        <dt>{% trans "Address" %}</dt>
-                                        <dd>{{ museum.title }}</dd>
-                                        <dd>{{ museum.street_address }}</dd>
-                                        {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
-                                        <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
-
-                                        {% with event as list_item %}
-                                            <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
-                                            {% include "utils/geo_position.html" %}</dd>
-                                        {% endwith %}
-                                    </dl>
-                                {% endwith %}
                             {% endif %}
                             
                             {% if event.exhibition %}
@@ -110,6 +110,13 @@
                                 {% if event.website %}
                                     <dt>{% trans "Website" %}
                                          <span class="right"><a class="crop" href="{{ event.website }}">{{ event.website|humanize_url:"25" }}</a></span>
+                                    </dt>
+                                {% endif %}
+
+                                {% if event.email %}
+                                    {% load site_specific_tags %}
+                                    <dt>{% trans "Email" %}
+                                        <span class="right">{% encrypt_email event.email %}</span>
                                     </dt>
                                 {% endif %}
                             </dl>

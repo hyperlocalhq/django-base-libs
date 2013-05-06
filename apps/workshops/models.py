@@ -9,10 +9,6 @@ from django.conf import settings
 from django.template.defaultfilters import date as django_date
 from django.utils.translation import activate
 
-from mptt.models import MPTTModel
-from mptt.managers import TreeManager
-from mptt.fields import TreeForeignKey, TreeManyToManyField
-
 from tagging.fields import TagField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
@@ -61,6 +57,17 @@ MINUTE_CHOICES = [(i,"%02d" % i) for i in range(0, 60)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 
+class WorkshopType(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    
+    def __unicode__(self):
+        return self.title
+        
+    class Meta:
+        ordering = ["title_de"]
+        verbose_name = _("Type")
+        verbose_name_plural = _("Types")
+
 class WorkshopManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
@@ -100,6 +107,8 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     press_text = MultilingualTextField(_("Press text"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
     image = FileBrowseField(_('Image'), max_length=200, directory="workshops/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
+    email = models.EmailField(_("Email"), max_length=255, blank=True)
+    types = models.ManyToManyField(WorkshopType, verbose_name=_("Types"))
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
@@ -284,6 +293,22 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
         if qs.count():
             return qs[0].path
     cover_image = property(_get_cover_image)
+
+    def get_particularities(self):
+        particularities = []
+        for f in [
+            "is_for_preschool",
+            "is_for_primary_school",
+            "is_for_youth",
+            "is_for_families",
+            "is_for_wheelchaired",
+            "is_for_deaf",
+            "is_for_blind",
+            "is_for_learning_difficulties",
+            ]:
+            if getattr(self, f):
+                particularities.append(unicode(self._meta.get_field(f).verbose_name))
+        return particularities
 
 class WorkshopTime(models.Model):
 

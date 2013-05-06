@@ -8,7 +8,7 @@
             {% for media_file in exhibition.mediafile_set.all %}
                 <li class="item" data-token="{{ media_file.get_token }}">
                     <div class="inner"> 
-                        <a class="edit img" href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"max" }}?now={% now "YmdHis" %}">
+                        <a class="reorder img" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"max" }}?now={% now "YmdHis" %}">
                             <span class="spinner loading"></span>
                             
                             <img class="cover" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />

@@ -66,7 +66,7 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Event
         
-        fields = ['categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
+        fields = ['email', 'categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
             ]
@@ -80,6 +80,12 @@ class BasicInfoForm(ModelForm):
                 ]
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            self.fields['website_%s' % lang_code] = forms.URLField(
+                label=_("Website"),
+                required=False,
+                )
 
         self.fields['street_address'].required = True
         self.fields['postal_code'].required = True
@@ -138,6 +144,7 @@ class BasicInfoForm(ModelForm):
                 css_class="div-website",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
+            "email",
             css_class="fieldset-basic-info",
             ))
 
@@ -405,6 +412,9 @@ class EventTimeForm(ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(EventTimeForm, self).__init__(*args, **kwargs)
+        self.fields['event_date'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['event_date'].input_formats=('%d.%m.%Y',)
+        
         self.fields['start'].required = True
         self.fields['start'].widget = forms.TimeInput(format='%H:%M')
         self.fields['end'].widget = forms.TimeInput(format='%H:%M')
@@ -414,7 +424,7 @@ class EventTimeForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(
             layout.Row(
-                layout.Field("event_date", placeholder="yyyy-mm-dd"),
+                layout.Field("event_date", placeholder="dd.mm.yyyy", autocomplete="off"),
                 layout.Field("start", placeholder="00:00"),
                 layout.Field("end", placeholder="00:00"),
                 css_class="flex",
@@ -514,6 +524,12 @@ class BatchEventTimeForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(BatchEventTimeForm, self).__init__(*args, **kwargs)
+        self.fields['range_start'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['range_start'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['range_end'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['range_end'].input_formats=('%d.%m.%Y',)
+        
         self.helper = FormHelper()
         self.helper.form_id = "batch_event_time_form"
         self.helper.form_action = ""
@@ -523,8 +539,8 @@ class BatchEventTimeForm(forms.Form):
             _("Batch event time creation"),
             
             layout.Row(
-                layout.Field("range_start", placeholder="yyyy-mm-dd"),
-                layout.Field("range_end", placeholder="yyyy-mm-dd"),
+                layout.Field("range_start", placeholder="dd.mm.yyyy"),
+                layout.Field("range_end", placeholder="dd.mm.yyyy"),
                 ),
             "repeat",
             layout.Row(
@@ -613,6 +629,7 @@ def load_data(instance=None):
         form_step_data['basic']['city'] = instance.city
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
+        form_step_data['basic']['email'] = instance.email
         form_step_data['basic']['exhibition'] = instance.exhibition
     
         for organizer in instance.organizer_set.all():
@@ -669,6 +686,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
+        instance.email = form_step_data['basic']['email']
         instance.exhibition = form_step_data['basic']['exhibition']
         instance.tags = form_step_data['basic']['tags']
         instance.suitable_for_children = form_step_data['basic']['suitable_for_children']
@@ -770,6 +788,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
+    instance.email = form_step_data['basic']['email']
     instance.exhibition = form_step_data['basic']['exhibition']
     instance.tags = form_step_data['basic']['tags']
     instance.suitable_for_children = form_step_data['basic']['suitable_for_children']

@@ -114,6 +114,13 @@
                                         <dt>{% trans "Website" %}</dt>
                                         <dd><a class="crop" href="{{ workshop.website }}">{{ workshop.website|humanize_url:"50" }}</a></dd>
                                     {% endif %}
+
+                                    {% if workshop.email %}
+                                        {% load site_specific_tags %}
+                                        <dt>{% trans "Email" %}
+                                            <span class="right">{% encrypt_email workshop.email %}</span>
+                                        </dt>
+                                    {% endif %}
                                 </dl>
 
                                 {% if workshop.organizer_set.count %}
@@ -226,7 +233,7 @@
 
                 <!-- ======= Other Information ======= -->
 
-                {% if workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
+                {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
@@ -235,6 +242,13 @@
                         </h4>  
                         <ul id="collapse-other-info" class="accordion-body collapse">  
                             <li class="accordion-inner">
+                                {% if workshop.get_particularities %}
+                                    <dl>
+                                        <dt>{% trans "Particularities" %}</dt>
+                                        <dd class="meeting_place">{{ workshop.get_particularities|join:'<br />' }}</dd>
+                                    </dl>
+                                {% endif %}
+                                
                                 {% if workshop.meeting_place %}
                                     <dl>
                                         <dt>{% trans "Meeting point" %}</dt>
@@ -275,9 +289,10 @@
         <article class="with_sidebar">
             <header>
                 <time>{% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                        {% trans "Bookable Offer" %}: {{ workshop.workshop_type }}
+                        {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
+                        {% trans "Bookable Offer" %}
                     {% else %}
-                        {% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} 
+                        {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} 
                         {% with workshop.get_closest_workshop_time as workshop_time %}
                             <nobr>{{ workshop_time.workshop_date|date:"j. F Y" }}
                             {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}</nobr>

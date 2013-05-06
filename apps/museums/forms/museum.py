@@ -243,6 +243,12 @@ class SeasonForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(SeasonForm, self).__init__(*args, **kwargs)
 
+        self.fields['start'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['start'].input_formats=('%d.%m.%Y',)
+        
+        self.fields['end'].widget = forms.DateInput(format='%d.%m.%Y')
+        self.fields['end'].input_formats=('%d.%m.%Y',)
+        
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             self.fields['title_%s' % lang_code].required = True
             self.fields['exceptions_%s' % lang_code].label = _("Additional Information")
@@ -277,8 +283,8 @@ class SeasonForm(ModelForm):
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                layout.Field("start", placeholder="yyyy-mm-dd", autocomplete="off"),
-                layout.Field("end", placeholder="yyyy-mm-dd", autocomplete="off")
+                layout.Field("start", placeholder="dd.mm.yyyy", autocomplete="off"),
+                layout.Field("end", placeholder="dd.mm.yyyy", autocomplete="off")
                 ),
 
             layout.Div(

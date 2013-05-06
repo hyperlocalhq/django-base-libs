@@ -37,7 +37,7 @@
 (function($, undefined) {
     function reinit_widgets() {
         $('#event_times .dateinput').datepicker({
-            format: 'yyyy-mm-dd',
+            format: 'dd.mm.yyyy',
             weekStart: 1
         })
         $('#event_times .timeinput').timepicker({
@@ -97,9 +97,9 @@
             reinit_widgets();
             return false;
         });
-        //$(
-        //    '<div class="form-actions"><a class="add btn btn-small btn-primary" id="add_batch_event_times" href="#">{% trans "Add batch event times" %}</a></div>'
-        //).insertAfter('#event_times_fieldset');
+        $(
+            '<div class="form-actions"><a class="add btn btn-small btn-primary" id="add_batch_event_times" href="#">{% trans "Add batch event times" %}</a></div>'
+        ).insertAfter('#event_times_fieldset');
         
         $('#add_batch_event_times').click(function() {
             // cleanup previous inputs if any
@@ -153,7 +153,7 @@
         reinit_widgets();
 
         $('#batch_event_time_form .dateinput').datepicker({
-            format: 'yyyy-mm-dd',
+            format: 'dd.mm.yyyy',
             weekStart: 1
         })
         $('#batch_event_time_form .timeinput').timepicker({

@@ -73,53 +73,42 @@
                                 </dl>
                             {% endif %}
                             
-                            <dl>
-                                {% if exhibition.museum.service_phone_number %}
-                                    <dt>{% trans "Service Telephone" %}
-                                        <span class="right">+{{ exhibition.museum.service_phone_country }} ({{ exhibition.museum.service_phone_area }}) {{ exhibition.museum.service_phone_number }}</span>
-                                    </dt>
-                                {% endif %} 
-
-                                {% if exhibition.museum.phone_number %}
-                                    <dt>{% trans "Telephone" %}
-                                        <span class="right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</span>
-                                    </dt>
-                                {% endif %} 
-
-                                {% if exhibition.museum.group_bookings_phone_number %}
-                                    <dt>{% trans "Booking Telephone" %}
-                                        <span class="right">+{{ exhibition.museum.group_bookings_phone_country }} ({{ exhibition.museum.group_bookings_phone_area }}) {{ exhibition.museum.group_bookings_phone_number }}</span>
-                                    </dt>
-                                {% endif %} 
-
-                                
-                                {% if exhibition.museum.fax_number %}
-                                    <dt>{% trans "Fax" %}
-                                        <span class="right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
-                                    </dt>
-                                {% endif %} 
-
-                                {% if exhibition.website %}
-                                    <dt>{% trans "Website" %}
-                                        <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
-                                    </dt>
-                                {% endif %}
-                            </dl>
-
                             {% if exhibition.organizer_set.count %}
                                 <dl>
                                     <dt>{% trans "Organizer" %}</dt>
                                     {% for organizer in exhibition.organizer_set.all %}
                                         {% if organizer.organizing_museum %}
                                             <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
+                                            {% if organizer.organizing_museum.service_phone_number %}
+                                                <dt>{% trans "Service Telephone" %}
+                                                    <span class="right">+{{ organizer.organizing_museum.service_phone_country }} ({{ organizer.organizing_museum.service_phone_area }}) {{ organizer.organizing_museum.service_phone_number }}</span>
+                                                </dt>
+                                            {% endif %} 
+            
                                             {% if organizer.organizing_museum.phone_number %}
                                                 <dt>{% trans "Telephone" %}
-                                                <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
+                                                    <span class="right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</span>
+                                                </dt>
+                                            {% endif %} 
+                                            {% if organizer.organizing_museum.group_bookings_phone_number %}
+                                                <dt>{% trans "Booking Telephone" %}
+                                                    <span class="right">+{{ organizer.organizing_museum.group_bookings_phone_country }} ({{ organizer.organizing_museum.group_bookings_phone_area }}) {{ organizer.organizing_museum.group_bookings_phone_number }}</span>
                                                 </dt>
                                             {% endif %} 
                                             {% if organizer.organizing_museum.fax_number %}
                                                 <dt>{% trans "Fax" %}
                                                 <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
+                                                </dt>
+                                            {% endif %}
+                                            {% if organizer.organizing_museum.website %}
+                                                <dt>{% trans "Website" %}
+                                                    <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"25" }}</a></span>
+                                                </dt>
+                                            {% endif %}
+                                            {% if organizer.organizing_museum.email %}
+                                                {% load site_specific_tags %}
+                                                <dt>{% trans "Email" %}
+                                                    <span class="right">{% encrypt_email organizer.organizing_museum.email %}</span>
                                                 </dt>
                                             {% endif %}
                                         {% endif %}
@@ -132,6 +121,49 @@
                                         {% endif %}
                                     {% endfor %}
                                 </dl>
+                            {% else %}
+                                {% comment %}<!--
+                                    No organizers specified 
+                                    so take the contact data from the museum (location)
+                                -->{% endcomment %}
+                                <dl>
+                                    {% if exhibition.museum.service_phone_number %}
+                                        <dt>{% trans "Service Telephone" %}
+                                            <span class="right">+{{ exhibition.museum.service_phone_country }} ({{ exhibition.museum.service_phone_area }}) {{ exhibition.museum.service_phone_number }}</span>
+                                        </dt>
+                                    {% endif %} 
+    
+                                    {% if exhibition.museum.phone_number %}
+                                        <dt>{% trans "Telephone" %}
+                                            <span class="right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</span>
+                                        </dt>
+                                    {% endif %} 
+    
+                                    {% if exhibition.museum.group_bookings_phone_number %}
+                                        <dt>{% trans "Booking Telephone" %}
+                                            <span class="right">+{{ exhibition.museum.group_bookings_phone_country }} ({{ exhibition.museum.group_bookings_phone_area }}) {{ exhibition.museum.group_bookings_phone_number }}</span>
+                                        </dt>
+                                    {% endif %} 
+    
+                                    {% if exhibition.museum.fax_number %}
+                                        <dt>{% trans "Fax" %}
+                                            <span class="right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
+                                        </dt>
+                                    {% endif %} 
+    
+                                    {% if exhibition.website %}
+                                        <dt>{% trans "Website" %}
+                                            <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
+                                        </dt>
+                                    {% endif %}
+    
+                                    {% if exhibition.email %}
+                                        {% load site_specific_tags %}
+                                        <dt>{% trans "Email" %}
+                                            <span class="right">{% encrypt_email exhibition.email %}</span>
+                                        </dt>
+                                    {% endif %}
+                                </dl>                            
                             {% endif %}
                         </li>
                     </ul>  
@@ -678,6 +710,8 @@
 
 {% include "utils/images.html" %}
 
+<!-- ======= Workshops ======= -->
+
 {% if object.get_related_published_workshops.count %}
     <div class="content" class="clearfix">
         <div class="inner">
@@ -712,7 +746,7 @@
 
 <!-- ======= Events ======= -->
     
-{% if object.get_published_events %}
+{% if object.get_related_published_events.count %}
 <div class="content clearfix">
     <div class="inner clearfix">
         <h2>{% trans "Events" %}</h2>
