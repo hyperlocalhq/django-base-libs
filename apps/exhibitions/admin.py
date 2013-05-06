@@ -98,7 +98,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     search_fields = ('title_de','title_en', 'subtitle_de','subtitle_en', 'slug', 'museum__title_de', 'museum__title_en',)
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'teaser', 'description', 'press_text', 'website', 'catalog', 'catalog_ordering'])
-    fieldsets += [(None, {'fields': ('slug',)}),]
+    fieldsets += [(None, {'fields': ('slug', 'description_locked',)}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name', 'street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude')}),]
     fieldsets += get_admin_lang_section(_("Other locations"), ['other_locations', ])
     fieldsets += [(_("Contacts"), {'fields': ('email',)}),]

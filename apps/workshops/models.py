@@ -109,6 +109,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     image = FileBrowseField(_('Image'), max_length=200, directory="workshops/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     email = models.EmailField(_("Email"), max_length=255, blank=True)
     types = models.ManyToManyField(WorkshopType, verbose_name=_("Types"))
+    description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."))
     
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 

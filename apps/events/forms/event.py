@@ -673,7 +673,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
             setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-            if not getattr(instance, 'description_%s' % lang_code):
+            if not instance.description_locked:
                 setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
                 setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         instance.other_languages = form_step_data['basic']['other_languages']
@@ -775,7 +775,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
         setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
         setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-        if not getattr(instance, 'description_%s' % lang_code):
+        if not instance.description_locked:
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.other_languages = form_step_data['basic']['other_languages']

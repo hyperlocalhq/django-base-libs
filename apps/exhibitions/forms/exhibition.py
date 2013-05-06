@@ -839,7 +839,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'catalog_ordering_%s' % lang_code, form_step_data['basic']['catalog_ordering_%s' % lang_code])
             setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
             setattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
-            if not getattr(instance, 'description_%s' % lang_code): 
+            if not instance.description_locked:
                 setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
                 setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         instance.start = form_step_data['basic']['start'] 
@@ -1080,7 +1080,7 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'catalog_ordering_%s' % lang_code, form_step_data['basic']['catalog_ordering_%s' % lang_code])
         setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         setattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
-        if not getattr(instance, 'description_%s' % lang_code): 
+        if not instance.description_locked: 
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
             

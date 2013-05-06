@@ -134,6 +134,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     catalog = MultilingualTextField(_("Catalog"), blank=True)
     catalog_ordering = MultilingualCharField(_("Catalog ordering possibilities"), max_length=255, blank=True)
     email = models.EmailField(_("Email"), max_length=255, blank=True)
+    description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."))
 
     start = models.DateField(_("Start"), blank=True, null=True)
     end = models.DateField(_("End"), blank=True, null=True)
