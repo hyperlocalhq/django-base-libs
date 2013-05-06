@@ -167,8 +167,20 @@ class Command(NoArgsCommand):
             
             if exhibition_dict['organizers']:
                 for organizer_id, organizer_title in exhibition_dict['organizers'].items():
-                    o = Organizer(exhibition=exhibition, organizer_title=organizer_title)
-                    o.save()
+                    try:
+                        # get museum by title
+                        organizing_museum = Museum.objects.get(
+                            title_de=organizer_title,
+                            )
+                    except:
+                        # save non-existing museum title as organizer title
+                        o = Organizer(exhibition=exhibition, organizer_title=organizer_title)
+                        o.save()
+                    else:
+                        if exhibition.museum != organizing_museum:
+                            # save organizing museum for museum by title
+                            o = Organizer(exhibition=exhibition, organizing_museum=organizing_museum)
+                            o.save()
             
             if exhibition_dict['opening_times']:
                 season = Season(exhibition=exhibition)
