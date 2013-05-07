@@ -349,6 +349,22 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return qs[0].path
     cover_image = property(_get_cover_image)
 
+    def get_museums_special_opening_times(self):
+        """
+        Return those museum's special opening times which fall
+        into the duration of exhibition
+        """
+        times = []
+        if self.museum:
+            if self.permanent:
+                times = self.museum.specialopeningtime_set.all()
+            else:
+                today = date.today()
+                for t in self.museum.specialopeningtime_set.all():
+                    if self.start <= date(t.yyyy or today.year, t.mm, t.dd) <= self.end:
+                        times.append(t)
+        return times
+        
 class Organizer(models.Model):
     exhibition = models.ForeignKey(Exhibition)
     organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizing museum"), blank=True, null=True, related_name="exhibition_organizer")
