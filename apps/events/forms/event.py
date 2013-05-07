@@ -74,7 +74,6 @@ class BasicInfoForm(ModelForm):
             fields += [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
-                'event_type_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'website_%s' % lang_code,
                 ]
@@ -107,7 +106,6 @@ class BasicInfoForm(ModelForm):
             for f in [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
-                'event_type_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'website_%s' % lang_code,
                 ]:
@@ -131,10 +129,6 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 css_class="div-subtitle",
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-type",
-                *('event_type_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
                 css_class="div-press_text",
@@ -610,7 +604,6 @@ def load_data(instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
-            form_step_data['basic']['event_type_%s' % lang_code] = getattr(instance, 'event_type_%s' % lang_code)
             form_step_data['basic']['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
             form_step_data['basic']['press_text_%s' % lang_code] = getattr(instance, 'press_text_%s' % lang_code)
             form_step_data['basic']['website_%s' % lang_code] = getattr(instance, 'website_%s' % lang_code)
@@ -667,7 +660,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
             setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
-            setattr(instance, 'event_type_%s' % lang_code, form_step_data['basic']['event_type_%s' % lang_code])
             setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
             setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
@@ -768,7 +760,6 @@ def save_data(form_steps, form_step_data, instance=None):
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
-        setattr(instance, 'event_type_%s' % lang_code, form_step_data['basic']['event_type_%s' % lang_code])
         setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
         setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
         setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
