@@ -247,7 +247,8 @@
                                     <li class="accordion-inner">
                                     <dl>
                                     {% for special_opening in museum.specialopeningtime_set.all %}
-                                        <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
+                                        {% if forloop.counter == 4 %}<dt><a href="" id="more_special_opening_times">{% trans "more" %}</a></dt>{% endif %}
+                                        <dt{% if forloop.counter > 3 %} style="display:none"{% endif %}>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
                                         {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
                                         {% if special_opening.is_closed %}
                                             <span class="right">{% trans "Closed" %}</span>
@@ -265,6 +266,15 @@
                                         </dt>
                                     {% endfor %}
                                     </dl>
+                                    <script>
+                                    $(function() {
+                                        $('#more_special_opening_times').click(function() {
+                                            $(this).closest('dl').find('dt').not(':visible').show();
+                                            $(this).closest('dt').remove();
+                                            return false;
+                                        });
+                                    });
+                                    </script>
                                     </li>
                                 {% endif %}
                             </li>
@@ -280,7 +290,7 @@
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                             {% trans "Tickets" %} 
                         </a>  
-                    </h4>  
+                    </h4>
                     <ul id="collapse-prices" class="accordion-body collapse" style="height: 0px; ">  
                         <li class="accordion-inner">
                             {% if museum.free_entrance %}
