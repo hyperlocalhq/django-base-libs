@@ -12,6 +12,7 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         self.update_expired_seasons(*args, **options)
+        self.delete_expired_special_opening_days(*args, **options)
         
     def update_expired_seasons(self, *args, **options):
         verbosity = int(options.get('verbosity', NORMAL))
@@ -45,3 +46,18 @@ class Command(BaseCommand):
             delete_after_sending = False,
             )
         
+    def delete_expired_special_opening_days(self, *args, **options):
+        verbosity = int(options.get('verbosity', NORMAL))
+        
+        from datetime import date
+        
+        Museum = models.get_model("museums", "Museum")
+        
+        now = date.today()
+        for m in Museum.objects.all():
+            for s in m.specialopeningtime_set.exclude(yyyy__isnull=True):
+                if date(s.yyyy, s.mm, s.dd) < now:
+                    s.delete()
+                if verbosity == 2:
+                    print m.get_url(), date(s.yyyy, s.mm, s.dd)
+
