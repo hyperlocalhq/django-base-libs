@@ -270,24 +270,25 @@
                                                     {% regroup season.get_opening_hours by times as opening_hours %}
                                                     <dl>
                                                     {% for same_hours in opening_hours %}
-                                                            <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
-                                                                {% if same_hours.list.0.open %}
-                                                                    <span class="right">
-                                                                     {{ same_hours.list.0.open|time:"H:i" }}
-                                                                     {% if same_hours.list.0.break_close %}
-                                                                        - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                                          / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                                        - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                     {% else %}
-                                                                        - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                     {% endif %}
-                                                                    </span>
-                                                                {% else %}				 
-                                                                    <span class="right">
-                                                                    {% trans "closed" %}
-                                                                    </span>
-                                                                {% endif %}
-                                                            </dt>
+                                                        <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
+                                                            {% if same_hours.list.0.open %}
+                                                                <span class="right">
+                                                                 {{ same_hours.list.0.open|time:"H:i" }}
+                                                                 {% if same_hours.list.0.break_close %}
+                                                                    - {{ same_hours.list.0.break_close|time:"H:i" }}
+                                                                      / {{ same_hours.list.0.break_open|time:"H:i" }}
+                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
+                                                                 {% else %}
+                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
+                                                                 {% endif %}
+                                                                 {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                                                                </span>
+                                                            {% else %}				 
+                                                                <span class="right">
+                                                                {% trans "closed" %}
+                                                                </span>
+                                                            {% endif %}
+                                                        </dt>
                                                     {% endfor %}                                   
                                                     </dl>
                                                 {% endif %}
@@ -329,6 +330,7 @@
                                                                          {% else %}
                                                                             - {{ same_hours.list.0.close|time:"H:i" }}
                                                                     {% endif %}
+                                                                    {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
                                                                 </span>
                                                             {% else %}				 
                                                                 <span class="right">
@@ -364,10 +366,10 @@
                                                 {% if special_opening.is_regular %}
                                                     <span class="right">{% trans "Regular" %}</span>
                                                 {% else %}
-                                                    <span class="right">{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}</span>
+                                                    <span class="right">{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
                                                     {% if season.sun_break_close %}
                                                         <dt>{% trans "Break:" %}
-                                                        <span class="right">{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}</span></dt>
+                                                        <span class="right">{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span></dt>
                                                     {% endif %}
                                                 {% endif %}
                                             {% endif %}
@@ -415,6 +417,7 @@
                                                                  {% else %}
                                                                     - {{ same_hours.list.0.close|time:"H:i" }}
                                                                  {% endif %}
+                                                                 {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
                                                             </span>
                                                         {% else %}				 
                                                             <span class="right">
@@ -461,6 +464,7 @@
                                                                          {% else %}
                                                                             - {{ same_hours.list.0.close|time:"H:i" }}
                                                                          {% endif %}
+                                                                         {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
                                                                     </span>
                                                                 {% else %}				 
                                                                     <span class="right">
@@ -721,7 +725,7 @@
                                     
                                 {% with workshop.get_closest_workshop_time as workshop_time %}
                                     {{ workshop_time.workshop_date|date:"j. F Y" }}
-                                    {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                                    {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
                                 {% endwith %}</h4>
                             {% endif %}
                             <h3>{{ workshop.title }}</h3>
@@ -746,7 +750,7 @@
             {% for event in object.get_related_published_events %}
             <li>
                 <a href="{{ event.get_url_path }}">
-                    <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}  {{ event_time.start|time:"H:i" }}{% endwith %}</h4>
+                    <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}  {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}</h4>
                     <h3>{{ event.title }}</h3>
                     <h4>{{ event.subtitle }}</h4>
                     <h5>{{ event.museum.title }}</h5>
@@ -786,7 +790,7 @@
                     <a href="{{ exhibition.get_url_path }}">
                         <h3>{{ exhibition.title }}</h3>
                         <h4>{{ exhibition.subtitle }}</h4>
-                        <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                        <h5>{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}</h5>
                     </a>
 
                 </li>

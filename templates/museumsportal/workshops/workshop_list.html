@@ -107,7 +107,7 @@
                             <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} 
                             {% with workshop.get_closest_workshop_time as workshop_time %}
                                 {{ workshop_time.workshop_date|date:"j. F Y" }}
-                                {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}.
+                                {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
                             {% endwith %}
                             {{ workshop.get_particularities|join:'. ' }}                            
                             </h4>
