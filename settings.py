@@ -526,6 +526,8 @@ API_LIMIT_PER_PAGE = 0
 
 GALLERY_IMAGE_MIN_DIMENSIONS = (100, 100)
 
+NOTIFY_ABOUT_SEASONS_TO_EMAIL = "j.boehmler@kulturprojekte-berlin.de"
+
 ### LOCAL SETTINGS ###
 
 try:

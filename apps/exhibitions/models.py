@@ -196,7 +196,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     def get_url_path(self):
         try:
-            path = u"/" + get_current_language() + reverse("%s:exhibition_detail" % get_current_language(), kwargs={'slug': self.slug})
+            #path = u"/" + get_current_language() + reverse("%s:exhibition_detail" % get_current_language(), kwargs={'slug': self.slug})
+            path = reverse("%s:exhibition_detail" % get_current_language(), kwargs={'slug': self.slug})
         except:
             # the apphook is not attached yet
             return ""
