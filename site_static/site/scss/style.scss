@@ -1296,9 +1296,11 @@ nav.actions {
     }
   
     h3 { 
+      text-transform: uppercase;
       font-size: 20px;
-      line-height: 28px;
-      margin-top: 30px;
+      line-height: 32px;
+      font-weight: 600;
+      margin-top: 25px;
     }
 
     h4 {
@@ -1311,6 +1313,11 @@ nav.actions {
     }
     .extras {
       margin-top: 25px;
+      dd, dt {
+        font-size: 20px;
+        line-height: 32px;
+      }
+
     }
   }
 

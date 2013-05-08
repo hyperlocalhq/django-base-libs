@@ -2978,9 +2978,11 @@ nav.actions {
     .exhibition-detail article header h3,
     .event-detail article header h3,
     .workshop-detail article header h3 {
+      text-transform: uppercase;
       font-size: 20px;
-      line-height: 28px;
-      margin-top: 30px; }
+      line-height: 32px;
+      font-weight: 600;
+      margin-top: 25px; }
     .museum-detail article header h4,
     .exhibition-detail article header h4,
     .event-detail article header h4,
@@ -2996,6 +2998,15 @@ nav.actions {
     .event-detail article header .extras,
     .workshop-detail article header .extras {
       margin-top: 25px; }
+      .museum-detail article header .extras dd, .museum-detail article header .extras dt,
+      .exhibition-detail article header .extras dd,
+      .exhibition-detail article header .extras dt,
+      .event-detail article header .extras dd,
+      .event-detail article header .extras dt,
+      .workshop-detail article header .extras dd,
+      .workshop-detail article header .extras dt {
+        font-size: 20px;
+        line-height: 32px; }
   .museum-detail article p,
   .exhibition-detail article p,
   .event-detail article p,
