@@ -563,7 +563,13 @@
                     <a href="{{ exhibition.get_url_path }}">
                         <h3>{{ exhibition.title }}</h3>
                         <h4>{{ exhibition.subtitle }}</h4>
-                        <h5>{{ exhibition.start|date:"d.m.Y" }} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                        <h5>
+                        {% if exhibition.permanent %}
+                            {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
+                        {% else %}
+                            {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
+                        {% endif %}
+                        </h5>
                     </a>
                 </li>
             {% endfor %}
