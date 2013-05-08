@@ -226,8 +226,8 @@
                 {% endif %}
 
                 <!-- ======= Other Information ======= -->
-
-                {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
+                {% comment %}
+                <!-- {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
@@ -270,7 +270,8 @@
                             </li>
                         </ul>  
                     </li>
-                {% endif %}
+                {% endif %} -->
+                {% endcomment %}
             </ul> 
 
             {% if request.user.is_authenticated %}
@@ -305,6 +306,42 @@
                         <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
                     {% endif %}
                 {% endif %}
+
+                {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups or workshop.get_languages %}
+                    <div class="extras">{% if workshop.get_particularities %}
+                        <dl>
+                            <dt>{% trans "Particularities" %}</dt>
+                            <dd class="meeting_place">{{ workshop.get_particularities|join:'<br />' }}</dd>
+                        </dl>
+                    {% endif %}
+                    
+                    {% if workshop.meeting_place %}
+                        <dl>
+                            <dt>{% trans "Meeting point" %}</dt>
+                            <dd class="meeting_place">{{ workshop.meeting_place }}</dd>
+                        </dl>
+                    {% endif %}
+
+                    {% if workshop.age_groups %}
+                        <dt>{% trans "Age groups" %}</dt>
+                        <dd class="meeting_place">
+                            {% for cat in workshop.age_groups.all %}
+                                {{ cat.title }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </dd>
+                    {% endif %}
+                    
+                    {% if workshop.get_languages %}
+                        <dl>
+                            <dt>{% trans "Languages" %}</dt>
+                            {% for language in workshop.get_languages %}
+                                <dd class="languages">{{ language }}</dd>
+                            {% endfor %}
+                        </dl>
+                    {% endif %}
+                    </div>
+                {% endif %}
+
             </header>
             {{ workshop.get_rendered_description }}
 
