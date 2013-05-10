@@ -2825,16 +2825,15 @@ dl {
     .img {
       display: block;
       overflow: hidden;
+      margin-top: -32px;
+      margin-bottom: -20px;
+      margin-left: -345px;
       width: 320px !important;
       height: auto !important;
       background-size: cover;
       background-position: top;
       background-repeat: no-repeat;
       // border: 10px solid #B55E1B;
-      position: absolute;
-      left: 0px;
-      top: 0px;
-      bottom: 0px;
 
       box-sizing: border-box;
       -moz-box-sizing: border-box;
@@ -2844,7 +2843,11 @@ dl {
       -webkit-transition-timing: ease-in-out;
 
       img {
-        display: none;
+        display: block;
+        width: 320px !important;
+        height: auto !important;
+        float: left;
+        background-color: black !important;
       }
 
       &:hover { 
