@@ -41,11 +41,9 @@ oTinyMCEConfig.style_formats = [
     {title: '[p] Image sidebar', selector: 'p', classes: 'img_left'},
     {title: '[p] Image main', selector: 'p', classes: 'img_block'},
     {title: 'Image styles'},
-    {title: '[img] Image left-aligned', selector: 'img', classes: 'img_left'},
-    {title: '[img] Image left-aligned (no top space)', selector: 'img', classes: 'img_left_nospacetop'},
-    {title: '[img] Image right-aligned', selector: 'img', classes : 'img_right'},
-    {title: '[img] Image right-aligned (no top space)', selector: 'img', classes: 'img_right_nospacetop'},
-    {title: '[img] Image Block', selector: 'img', classes: 'img_block'}
+    {title: '[div] Image sidebar', selector: 'div.img_and_desc', classes: 'img_left'},
+    {title: '[div] Image main', selector: 'div.img_and_desc', classes: 'img_block'}
 ];
 
+oTinyMCEConfig.image_container_classes = "Image sidebar=img_left;Image main=img_block"
 tinyMCE.init(oTinyMCEConfig);
