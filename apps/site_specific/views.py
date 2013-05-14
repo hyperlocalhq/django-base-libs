@@ -11,6 +11,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.utils.encoding import smart_str
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
+from django.utils.translation import ugettext_lazy as _
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.mailing.recipient import Recipient

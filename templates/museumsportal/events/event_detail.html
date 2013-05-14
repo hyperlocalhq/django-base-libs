@@ -255,7 +255,7 @@
                 <time>{% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
                     {% with event.get_closest_event_time as event_time %}
                     {{ event_time.event_date|date:"j. F Y" }}
-                     {{ event_time.start|time:"H:i" }}
+                     {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
                     </br>
                     {% endwith %}
                 </time>

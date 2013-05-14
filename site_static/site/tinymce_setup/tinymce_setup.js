@@ -37,12 +37,12 @@ oTinyMCEConfig.template_templates = [
 
 oTinyMCEConfig.style_formats = [
     {title: '[all] clearfix', selector: "*", classes: 'clearfix'},
-    {title: 'Paragraph styles'},
-    {title: '[p] Image sidebar', selector: 'p', classes: 'img_left'},
-    {title: '[p] Image main', selector: 'p', classes: 'img_block'},
     {title: 'Image styles'},
     {title: '[div] Image sidebar', selector: 'div.img_and_desc', classes: 'img_left'},
-    {title: '[div] Image main', selector: 'div.img_and_desc', classes: 'img_block'}
+    {title: '[div] Image main', selector: 'div.img_and_desc', classes: 'img_block'},
+    {title: 'Paragraph styles'},
+    {title: '[p] Image sidebar (deprecated)', selector: 'p', classes: 'img_left'},
+    {title: '[p] Image main (deprecated)', selector: 'p', classes: 'img_block'}
 ];
 
 oTinyMCEConfig.image_container_classes = "Image sidebar=img_left;Image main=img_block"
