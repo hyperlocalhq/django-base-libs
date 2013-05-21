@@ -140,7 +140,7 @@ class BasicInfoForm(ModelForm):
                 css_class="div-subtitle",
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
-            layout.Row(
+            layout.Div(
                 "types",
                 css_class="div-types",
                 ),
@@ -219,7 +219,7 @@ class BasicInfoForm(ModelForm):
                 css_class="flex merge",
                 ),
 
-            layout.Row(
+            layout.Div(
                 "tags",
                 ),
 

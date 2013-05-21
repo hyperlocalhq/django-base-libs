@@ -249,7 +249,7 @@ class BasicInfoForm(ModelForm):
                 css_class="inline"
                 ),
 
-            layout.Row("tags"),
+            layout.Div("tags"),
             css_class="fieldset-categories-tags",
             ))
         if self.instance and self.instance.pk:

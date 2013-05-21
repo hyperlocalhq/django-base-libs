@@ -210,7 +210,7 @@ class BasicInfoForm(ModelForm):
                 css_class="flex merge",
                 ),
 
-            layout.Row("tags"),
+            layout.Div("tags"),
 
             css_class="fieldset-categories-tags",
             ))

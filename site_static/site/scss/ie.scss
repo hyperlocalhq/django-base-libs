@@ -1,0 +1,12 @@
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .row {
+    > div {
+      width: 50%;
+    }
+  }
+  
+  div.tagsinput input {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
