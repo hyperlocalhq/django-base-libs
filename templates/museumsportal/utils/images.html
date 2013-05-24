@@ -1,14 +1,13 @@
-{% load fb_tags i18n image_modifications %}
+{% load base_tags fb_tags i18n image_modifications %}
 <div class="content clearfix">
     <div class="inner clearfix">
         <article id="images" >
             <ul class="images clearfix">
             {% for mf in object.mediafile_set.all %}
-                <li class="item">
-                    <div class="inner">
-                        <img src="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="" />
-                        
-                        {% with mf.path|file_description as file_desc %}
+                {% with mf.path|file_description as file_desc %}
+                    <li class="item">
+                        <div class="inner">
+                            <img src="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="{{ file_desc.description|remove_newlines|escape }}" />
                             <div class="info">
                                 {% if file_desc.title %}
                                     <span class="title">{{ file_desc.title }}</span>
@@ -20,12 +19,12 @@
                                     <span class="author">{{ file_desc.author }}</span>
                                 {% endif %}
                             </div>
-                        {% endwith %}
-                    </div>
-                     <nav class="actions">
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
-                    </nav>
-                </li>
+                        </div>
+                        <nav class="actions">
+                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
+                        </nav>
+                    </li>
+                {% endwith %}
             {% endfor %}
             </ul>
         </article>

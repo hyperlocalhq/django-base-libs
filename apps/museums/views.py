@@ -292,6 +292,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
                 setattr(file_description, 'description_%s' % lang_code, cleaned['description_%s' % lang_code])
             setattr(file_description, 'author', cleaned['author'])
+            setattr(file_description, 'copyright_limitations', cleaned['copyright_limitations'])
             
             file_description.save()
             

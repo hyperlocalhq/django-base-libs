@@ -47,18 +47,24 @@ class ImageFileForm(forms.Form):
         required=False,
         max_length=255,
         )
+    copyright_limitations = forms.CharField(
+        label=_('Details of any restrictions on use (time limit) for the disclosure to third parties (Cinemarketing, Berlin online, etc.)'),
+        help_text=_('If this field does not contain precise restrictions or if no restrictions are set, the rights of use are granted non-exclusively, and unrestricted in terms of time, place and content.'),
+        required=False,
+        max_length=255,
+        )
 
     def __init__(self, media_file_obj=None, *args, **kwargs):
         self.media_file_obj = media_file_obj
         super(ImageFileForm, self).__init__(*args, **kwargs)
         for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
             self.fields['title_%s' % lang_code] = forms.CharField(
-                label=_('Title <span class="lang">%s</span>') % lang_code.upper(),
+                label=_('Caption <span class="lang">%s</span>') % lang_code.upper(),
                 required=False,
                 max_length=255,
                 )
             self.fields['description_%s' % lang_code] = forms.CharField(
-                label= _('Description <span class="lang">%s</span>') % lang_code.upper(),
+                label= _('Description (will be used as alt attribute) <span class="lang">%s</span>') % lang_code.upper(),
                 required=False,
                 widget=forms.Textarea(),
                 )
@@ -102,6 +108,7 @@ class ImageFileForm(forms.Form):
                 *('description_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             "author",
+            "copyright_limitations",
 
                 css_class="fieldset-media-file",
                 ))

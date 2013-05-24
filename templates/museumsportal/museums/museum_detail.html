@@ -414,13 +414,13 @@
                         </h4>  
                         <ul id="collapse-accessibility" class="accordion-body collapse" style="height: 0px; ">
                             {% if museum.accessibility_options.count %}
-                                    {% for opt in museum.accessibility_options.all %}
-                                <li class="accordion-inner">
+                                {% for opt in museum.accessibility_options.all %}
+                                    <li class="accordion-inner">
                                         <dl class="clearfix">
                                             <dd class="access"><img alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" />{{ opt.title|escape }}</dd>
                                         </dl>
-                                </li>
-                                    {% endfor %}
+                                    </li>
+                                {% endfor %}
                             {% endif %}
                             {% if museum.accessibility %}
                                 <li class="accordion-inner"> 
@@ -545,7 +545,7 @@
             {% for exhibition in object.get_published_exhibitions %}
                 <li class="item">
             
-                    {% comment %}
+                    {% comment %}<!--
                         <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }}"{% endif %}> </a>
 
                         <nav class="actions">
@@ -558,7 +558,7 @@
                         {% with exhibition as list_item %}
                             {% include "utils/geo_position.html" %}
                         {% endwith %}
-                    {% endcomment %}
+                    -->{% endcomment %}
 
                     <a href="{{ exhibition.get_url_path }}">
                         <h3>{{ exhibition.title }}</h3>
