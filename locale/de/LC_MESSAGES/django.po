@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-24 20:08+0200\n"
+"POT-Creation-Date: 2013-05-27 15:35+0200\n"
 "PO-Revision-Date: 2013-05-21 15:08\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1093,7 +1093,8 @@ msgid "Copyright / Photographer"
 msgstr "Copyright / Fotograf(in)"
 
 #: apps/events/forms/gallery.py:51 apps/exhibitions/forms/gallery.py:51
-#: apps/museums/forms/gallery.py:51 apps/workshops/forms/gallery.py:51
+#: apps/museums/forms/gallery.py:51 apps/site_specific/models.py:8
+#: apps/workshops/forms/gallery.py:51
 msgid ""
 "Details of any restrictions on use (time limit) for the disclosure to third "
 "parties (Cinemarketing, Berlin online, etc.)"
@@ -1102,7 +1103,8 @@ msgstr ""
 "der Weitergabe an Dritte (Cinemarketing, Berlinonline, o.ä.)"
 
 #: apps/events/forms/gallery.py:52 apps/exhibitions/forms/gallery.py:52
-#: apps/museums/forms/gallery.py:52 apps/workshops/forms/gallery.py:52
+#: apps/museums/forms/gallery.py:52 apps/site_specific/models.py:9
+#: apps/workshops/forms/gallery.py:52
 msgid ""
 "If this field does not contain precise restrictions or if no restrictions "
 "are set, the rights of use are granted non-exclusively, and unrestricted in "
@@ -1958,6 +1960,14 @@ msgstr "Passwort zurücksetzen"
 #: apps/site_specific/forms.py:299
 msgid "Change my password"
 msgstr "Passwort ändern"
+
+#: apps/site_specific/models.py:12
+msgid "Caption"
+msgstr "Bildunterschrift"
+
+#: apps/site_specific/models.py:13
+msgid "Description (will be used as alt attribute)"
+msgstr "Beschreibung (wird als Alt-tag ausgegeben)"
 
 #: apps/site_specific/views.py:188
 msgid "Wrong invitation code."
