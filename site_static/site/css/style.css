@@ -704,7 +704,6 @@ form {
   .row > div {
     display: table-cell;
     border-right: 20px solid white;
-    width: 100%;
     vertical-align: top;
     position: relative; }
     .row > div .row > div {
@@ -3454,7 +3453,7 @@ aside {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 40px;
-    background-image: url("../img/icons/inv/arrow_up.png"); }
+    background-image: url("../img/icons/inv/top.png"); }
   #to-top.on span {
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);

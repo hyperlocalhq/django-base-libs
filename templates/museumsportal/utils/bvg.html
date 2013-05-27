@@ -51,11 +51,11 @@
                     </dl>
                         
                     <dd class="radios">
-                        <label for="wdgt_arr">{% trans "Arrival" %}
-                        <input id="wdgt_arr" type="radio" class="radio" name="timesel" value="arrive"></label>
-                        
-                        <label for="wdgt_dep">{% trans "Departure" %}
-                        <input id="wdgt_dep" type="radio" class="radio" name="timesel" value="depart" checked="checked"></label>
+                        <select name="timesel" size="3">
+                          <option value="arrive">{% trans "Arrival" %}</option>
+                          <option selected="selected" value="depart" >{% trans "Departure" %}</option>
+                        </select>
+                        <br/>
                     </dd>
                     <dd>
                         <input class="btn btn-primary btn-block" id="submit" type="submit" name="start" value="{% trans "Submit request" %}">
