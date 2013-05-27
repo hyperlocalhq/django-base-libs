@@ -3,6 +3,11 @@
 {% block title %}{% trans "Museum" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}museum-detail{% endblock %}
 
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/jquery.selectbox.css" rel="stylesheet" media="screen" type="text/css" />
+{% endblock %}
+
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
@@ -19,6 +24,8 @@
             });
         });
     </script>
+
+    <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>    
 {% endblock %}
 
 {% block map %}
@@ -633,4 +640,13 @@
 {% include "utils/page_controls.html" %}
 {% include "utils/gmap_scripts.html" %}
 {% include "utils/gallery_scripts.html" %}
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $("select").selectbox();
+        });
+    </script>
 {% endblock %}
