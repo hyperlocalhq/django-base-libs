@@ -118,9 +118,12 @@
                             {% if museum.socialmediachannel_set.count %}
                                 <dl>
                                     <dt>{% trans "Social Networks" %}</dt>
-                                    {% for social in museum.socialmediachannel_set.all %}
-                                        <dd class="social-{{ social.channel_type|slugify }}"><a target="_blank" href="{{ social.url }}">{{ social.channel_type }}</a></dd>
-                                    {% endfor %}
+                                    <dd>
+                                        {% for social in museum.socialmediachannel_set.all %}
+                                            <a target="_blank" href="{{ social.url }}">{{ social.channel_type }}</a>
+                                            {% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </dd>
                                 </dl>
                             {% endif %}
                         </li>

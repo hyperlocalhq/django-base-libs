@@ -120,6 +120,12 @@
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
+    
+                                    {% if exhibition.website %}
+                                        <dt>{% trans "Website" %}
+                                            <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
+                                        </dt>
+                                    {% endif %}
                                 </dl>
                             {% else %}
                                 {% comment %}<!--
@@ -156,7 +162,6 @@
                                             <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
                                         </dt>
                                     {% endif %}
-    
                                 </dl>                            
                             {% endif %}
                         </li>
