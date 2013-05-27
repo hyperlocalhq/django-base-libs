@@ -3,7 +3,7 @@
 {% if object.cover_image %}
     {% with object.cover_image|file_description as fd %}
         <header id="cover_image">
-            <img src="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="{{ fd.description|remove_newlines|escape }}" />
+            <img src="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="{{ fd.description|remove_newlines|escape }}" title="{{ fd.description|remove_newlines|escape }}" />
         
             {% if museum == object %}
                 <nav class="actions">

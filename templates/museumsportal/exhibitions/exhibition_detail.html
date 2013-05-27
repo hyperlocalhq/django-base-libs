@@ -108,7 +108,7 @@
                                             {% if organizer.organizing_museum.email %}
                                                 {% load site_specific_tags %}
                                                 <dt>{% trans "Email" %}
-                                                    <span class="right">{% encrypt_email organizer.organizing_museum.email %}</span>
+                                                    <span class="right">{% encrypt_email organizer.organizing_museum.email 30 %}</span>
                                                 </dt>
                                             {% endif %}
                                         {% endif %}
