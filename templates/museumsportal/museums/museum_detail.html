@@ -109,7 +109,7 @@
                             {% if museum.email %}
                                 {% load site_specific_tags %}
                                 <dt>{% trans "Email" %}
-                                    <span class="right">{% encrypt_email museum.email %}</span>
+                                    <span class="right">{% encrypt_email museum.email 30 %}</span>
                                 </dt>
                             {% endif %}
 

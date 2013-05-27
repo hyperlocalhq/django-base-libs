@@ -7,7 +7,7 @@
                 {% with mf.path|file_description as file_desc %}
                     <li class="item">
                         <div class="inner">
-                            <img src="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="{{ file_desc.description|remove_newlines|escape }}" />
+                            <img src="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="{{ file_desc.description|remove_newlines|escape }}" title="{{ file_desc.description|remove_newlines|escape }}" />
                             <div class="info">
                                 {% if file_desc.title %}
                                     <span class="title">{{ file_desc.title }}</span>
