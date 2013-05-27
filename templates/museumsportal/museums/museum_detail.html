@@ -73,8 +73,9 @@
                                     <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
                                     
                                     {% with museum as list_item %}
-                                        <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+                                        <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
                                         {% include "utils/geo_position.html" %}
+                                        </dd>
                                     {% endwith %}
                                     
                                 </dl>

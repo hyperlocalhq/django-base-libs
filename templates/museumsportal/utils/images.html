@@ -40,10 +40,11 @@
                 columnWidth: 340
             }
         });
-        
-        $('.images li').click(function(e){
-            $('body').toggleClass('gallery');
-            slider.slide($(this).index(), 0);
-        });
+        if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
+            $('.images li').click(function(e){
+                $('body').toggleClass('gallery');
+                slider.slide($(this).index(), 0);
+            });
+        }
     });
 </script>
