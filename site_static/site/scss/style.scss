@@ -356,7 +356,7 @@ a:focus  { outline: none !important; }
       display: block;
       height: 35px;
       width: 400px;
-      background-image: url("../img/logo_img.svg");
+      background-image: url("../img/logo_img.png");
       background-image: url("../img/logo_img.png");
       background-repeat: no-repeat;
       background-position: left;
@@ -1068,43 +1068,43 @@ nav.actions {
   width: 40px;
 
   &.icon-white {
-    &.icon-crop              { background-image: url("../img/icons/inv/crop.svg");}
-    &.icon-add               { background-image: url("../img/icons/inv/add.svg");}
-    &.icon-view              { background-image: url("../img/icons/inv/view.svg");}
-    &.icon-edit              { background-image: url("../img/icons/inv/edit.svg");}
-    &.icon-favorite          { background-image: url("../img/icons/inv/favorite.svg");}
-    &.icon-favorite.active   { background-image: url("../img/icons/inv/favorite_active.svg"); opacity: 1!important;}
-    &.icon-rss               { background-image: url("../img/icons/inv/rss.svg");}
-    &.icon-location          { background-image: url("../img/icons/inv/location.svg");}
-    &.icon-cancel            { background-image: url("../img/icons/inv/cancel.svg");}
-    &.icon-fullscreen        { background-image: url("../img/icons/inv/fullscreen.svg");}
-    &.icon-shop              { background-image: url("../img/icons/inv/shop.svg"); }
-    &.icon-books             { background-image: url("../img/icons/inv/books.svg"); }
-    &.icon-restaurant        { background-image: url("../img/icons/inv/restaurant.svg"); }
-    &.icon-cafe              { background-image: url("../img/icons/inv/cafe.svg"); }
-    &.icon-library           { background-image: url("../img/icons/inv/library.svg"); }
-    &.icon-archive           { background-image: url("../img/icons/inv/archive.svg"); }
-    &.icon-studio            { background-image: url("../img/icons/inv/studio.svg"); }
-    &.icon-online            { background-image: url("../img/icons/inv/online.svg"); }
-    &.icon-diaper            { background-image: url("../img/icons/inv/diaper.svg"); }
-    &.icon-birthdays         { background-image: url("../img/icons/inv/birthdays.svg"); }
-    &.icon-rent              { background-image: url("../img/icons/inv/rent.svg"); }
-    &.icon-other             { background-image: url("../img/icons/inv/other.svg"); }
-    &.icon-delete            { background-image: url("../img/icons/inv/cancel.svg"); }
+    &.icon-crop              { background-image: url("../img/icons/inv/crop.png");}
+    &.icon-add               { background-image: url("../img/icons/inv/add.png");}
+    &.icon-view              { background-image: url("../img/icons/inv/view.png");}
+    &.icon-edit              { background-image: url("../img/icons/inv/edit.png");}
+    &.icon-favorite          { background-image: url("../img/icons/inv/favorite.png");}
+    &.icon-favorite.active   { background-image: url("../img/icons/inv/favorite_active.png"); opacity: 1!important;}
+    &.icon-rss               { background-image: url("../img/icons/inv/rss.png");}
+    &.icon-location          { background-image: url("../img/icons/inv/location.png");}
+    &.icon-cancel            { background-image: url("../img/icons/inv/cancel.png");}
+    &.icon-fullscreen        { background-image: url("../img/icons/inv/fullscreen.png");}
+    &.icon-shop              { background-image: url("../img/icons/inv/shop.png"); }
+    &.icon-books             { background-image: url("../img/icons/inv/books.png"); }
+    &.icon-restaurant        { background-image: url("../img/icons/inv/restaurant.png"); }
+    &.icon-cafe              { background-image: url("../img/icons/inv/cafe.png"); }
+    &.icon-library           { background-image: url("../img/icons/inv/library.png"); }
+    &.icon-archive           { background-image: url("../img/icons/inv/archive.png"); }
+    &.icon-studio            { background-image: url("../img/icons/inv/studio.png"); }
+    &.icon-online            { background-image: url("../img/icons/inv/online.png"); }
+    &.icon-diaper            { background-image: url("../img/icons/inv/diaper.png"); }
+    &.icon-birthdays         { background-image: url("../img/icons/inv/birthdays.png"); }
+    &.icon-rent              { background-image: url("../img/icons/inv/rent.png"); }
+    &.icon-other             { background-image: url("../img/icons/inv/other.png"); }
+    &.icon-delete            { background-image: url("../img/icons/inv/cancel.png"); }
   }
 
   &.icon-black {
-    &.icon-rss             { background-image: url("../img/icons/rss.svg");}
-    &.icon-location        { background-image: url("../img/icons/location.svg");}
-    &.icon-crop            { background-image: url("../img/icons/crop.svg");}
-    &.icon-add             { background-image: url("../img/icons/add.svg");}
-    &.icon-view            { background-image: url("../img/icons/view.svg");}
-    &.icon-edit            { background-image: url("../img/icons/edit.svg");}
-    &.icon-favorite        { background-image: url("../img/icons/favorite.svg");}
-    &.icon-location        { background-image: url("../img/icons/location.svg");}
-    &.icon-cancel               { background-image: url("../img/icons/cancel.svg");}
-    &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
-    &.icon-delete          { background-image: url("../img/icons/delete.svg");}
+    &.icon-rss             { background-image: url("../img/icons/rss.png");}
+    &.icon-location        { background-image: url("../img/icons/location.png");}
+    &.icon-crop            { background-image: url("../img/icons/crop.png");}
+    &.icon-add             { background-image: url("../img/icons/add.png");}
+    &.icon-view            { background-image: url("../img/icons/view.png");}
+    &.icon-edit            { background-image: url("../img/icons/edit.png");}
+    &.icon-favorite        { background-image: url("../img/icons/favorite.png");}
+    &.icon-location        { background-image: url("../img/icons/location.png");}
+    &.icon-cancel               { background-image: url("../img/icons/cancel.png");}
+    &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.png");}
+    &.icon-delete          { background-image: url("../img/icons/delete.png");}
   }
 
   &.transparent {
@@ -1112,39 +1112,39 @@ nav.actions {
     opacity: 0.3 !important;
     &:hover { background-color: transparent !important; opacity: 1 !important;}
 
-    &.icon-crop            { background-image: url("../img/icons/crop.svg");}
-    &.icon-add             { background-image: url("../img/icons/add.svg");}
-    &.icon-view            { background-image: url("../img/icons/view.svg");}
-    &.icon-edit            { background-image: url("../img/icons/edit.svg");}
-    &.icon-favorite        { background-image: url("../img/icons/favorite.svg");}
-    &.icon-location        { background-image: url("../img/icons/location.svg");}
-    &.icon-cancel               { background-image: url("../img/icons/cancel.svg");}
-    &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.svg");}
+    &.icon-crop            { background-image: url("../img/icons/crop.png");}
+    &.icon-add             { background-image: url("../img/icons/add.png");}
+    &.icon-view            { background-image: url("../img/icons/view.png");}
+    &.icon-edit            { background-image: url("../img/icons/edit.png");}
+    &.icon-favorite        { background-image: url("../img/icons/favorite.png");}
+    &.icon-location        { background-image: url("../img/icons/location.png");}
+    &.icon-cancel               { background-image: url("../img/icons/cancel.png");}
+    &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.png");}
   }
 }
 
 #meta {
-  .icon-print      { background-image: url("../img/icons/print.svg");}
-  .icon-home       { background-image: url("../img/icons/home.svg");}
-  .icon-view       { background-image: url("../img/icons/view.svg");}
-  .icon-edit       { background-image: url("../img/icons/edit.svg");}
-  .icon-mail       { background-image: url("../img/icons/mail.svg");}
-  .icon-phone      { background-image: url("../img/icons/phone.svg");}
-  .icon-dashboard  { background-image: url("../img/icons/dashboard.svg"); }
-  .icon-favorites  { background-image: url("../img/icons/favorite.svg"); }
-  .icon-facebook   { background-image: url("../img/icons/facebook.svg"); }
-  .icon-twitter    { background-image: url("../img/icons/twitter.svg"); }
+  .icon-print      { background-image: url("../img/icons/print.png");}
+  .icon-home       { background-image: url("../img/icons/home.png");}
+  .icon-view       { background-image: url("../img/icons/view.png");}
+  .icon-edit       { background-image: url("../img/icons/edit.png");}
+  .icon-mail       { background-image: url("../img/icons/mail.png");}
+  .icon-phone      { background-image: url("../img/icons/phone.png");}
+  .icon-dashboard  { background-image: url("../img/icons/dashboard.png"); }
+  .icon-favorites  { background-image: url("../img/icons/favorite.png"); }
+  .icon-facebook   { background-image: url("../img/icons/facebook.png"); }
+  .icon-twitter    { background-image: url("../img/icons/twitter.png"); }
 
-  .icon-print:hover     { background-image: url("../img/icons/inv/print.svg");}
-  .icon-home:hover      { background-image: url("../img/icons/inv/home.svg");}
-  .icon-view:hover      { background-image: url("../img/icons/inv/view.svg");}
-  .icon-edit:hover      { background-image: url("../img/icons/inv/edit.svg");}
-  .icon-mail:hover      { background-image: url("../img/icons/inv/mail.svg");}
-  .icon-phone:hover     { background-image: url("../img/icons/inv/phone.svg");}
-  .icon-dashboard:hover { background-image: url("../img/icons/inv/dashboard.svg");}
-  .icon-favorites:hover { background-image: url("../img/icons/inv/favorite.svg");}
-  .icon-facebook:hover  { background-image: url("../img/icons/inv/facebook.svg");}
-  .icon-twitter:hover   { background-image: url("../img/icons/inv/twitter.svg");}
+  .icon-print:hover     { background-image: url("../img/icons/inv/print.png");}
+  .icon-home:hover      { background-image: url("../img/icons/inv/home.png");}
+  .icon-view:hover      { background-image: url("../img/icons/inv/view.png");}
+  .icon-edit:hover      { background-image: url("../img/icons/inv/edit.png");}
+  .icon-mail:hover      { background-image: url("../img/icons/inv/mail.png");}
+  .icon-phone:hover     { background-image: url("../img/icons/inv/phone.png");}
+  .icon-dashboard:hover { background-image: url("../img/icons/inv/dashboard.png");}
+  .icon-favorites:hover { background-image: url("../img/icons/inv/favorite.png");}
+  .icon-facebook:hover  { background-image: url("../img/icons/inv/facebook.png");}
+  .icon-twitter:hover   { background-image: url("../img/icons/inv/twitter.png");}
 }
 
 // ================= SIDEBAR =================
@@ -1497,14 +1497,14 @@ aside {
     left: 0px;  
     &:hover {left: -33px; }
     text-align: right;
-    background-image: url("../img/icons/inv/left.svg");
+    background-image: url("../img/icons/inv/left.png");
   }
 
   #slide-next { 
     &:hover {right: -33px; }
     right: 0px; 
     text-align: left;
-    background-image: url("../img/icons/inv/right.svg");
+    background-image: url("../img/icons/inv/right.png");
   }
 
   #slideshow { 
@@ -1614,7 +1614,7 @@ z-index: 10000;
   &#filter_reset {
     &:hover { 
       background-color: black !important;
-      background-image: url("../img/icons/inv/delete.svg") !important;
+      background-image: url("../img/icons/inv/delete.png") !important;
     }
   }
 
@@ -1654,7 +1654,7 @@ z-index: 10000;
         width: 14px;
         text-align: center;
         line-height: 13px;
-        background-image: url("../img/icons/inv/cancel.svg");
+        background-image: url("../img/icons/inv/cancel.png");
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -1813,7 +1813,7 @@ z-index: 10000;
       background-repeat: no-repeat;
       background-position: center;
       background-size: 40px;
-      background-image: url("../img/icons/inv/view.svg");
+      background-image: url("../img/icons/inv/view.png");
     }
 }
 
@@ -1862,7 +1862,7 @@ z-index: 10000;
       background-repeat: no-repeat;
       background-position: center;
       background-size: 40px;
-      background-image: url("../img/icons/inv/top.svg");
+      background-image: url("../img/icons/inv/top.png");
     }
 
     &.on { 
@@ -1951,7 +1951,7 @@ z-index: 10000;
       border-right: 20px solid transparent;
       text-align: right;
       margin-left: -190px;
-      background-image: url("../img/icons/inv/left.svg");
+      background-image: url("../img/icons/inv/left.png");
       background-position: center left;
 
       &:hover { margin-left: 0px; }
@@ -1963,7 +1963,7 @@ z-index: 10000;
       border-left: 20px solid transparent;
       text-align: left;
       margin-right: -190px;
-      background-image: url("../img/icons/inv/right.svg");
+      background-image: url("../img/icons/inv/right.png");
       background-position: center right;
       &:hover { margin-right: 0px; }
     }
@@ -2121,14 +2121,14 @@ z-index: 10000;
       padding-top: 16px;
       padding-left: 25px;
 
-      background-image: url("../img/icons/left.svg");
+      background-image: url("../img/icons/left.png");
       background-size: contain;
       background-position: right;
       background-repeat: no-repeat;
       color: black;
 
       &:hover {background-color: #e6e6e6; }
-      &.collapsed { background-image: url("../img/icons/down.svg"); color: black;
+      &.collapsed { background-image: url("../img/icons/down.png"); color: black;
       }
     }
   }
@@ -2336,7 +2336,7 @@ dl {
     text-indent: 100px;
     height: 18px;
     width: 18px;
-    background-image: url("../img/icons/edit.svg");
+    background-image: url("../img/icons/edit.png");
     opacity: 0.35;
     margin-top: 0px;
   } 
@@ -2353,7 +2353,7 @@ dl {
     padding: 0px;
     padding-right: 30px;
     padding-left: 12px;
-    background-image: url("../img/icons/inv/add-bold.svg");
+    background-image: url("../img/icons/inv/add-bold.png");
     background-size: 32px;
     background-position: right !important;
     background-repeat: no-repeat;
