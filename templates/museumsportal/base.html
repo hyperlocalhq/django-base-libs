@@ -55,6 +55,9 @@
                 }
             }
         });
+        if ($.browser.msie) {
+            $('html').addClass('msie');
+        }
 	</script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
