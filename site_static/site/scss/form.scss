@@ -24,7 +24,7 @@ select {
 
   cursor: pointer;
 
-  background-image: url("../img/icons/triangle_down.svg");
+  background-image: url("../img/icons/triangle_down.png");
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;
@@ -83,7 +83,7 @@ select {
   text-decoration: none;
 }
 .sbToggle{
-  background-image: url("../img/icons/triangle_down.svg");
+  background-image: url("../img/icons/triangle_down.png");
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;
@@ -871,8 +871,8 @@ label.radio {
 .input-prepend {
   margin-bottom: 0px;
 
-  .pick-date {background-image: url("../img/icons/calendar.svg"); }
-  .pick-time {background-image: url("../img/icons/clock.svg"); }
+  .pick-date {background-image: url("../img/icons/calendar.png"); }
+  .pick-time {background-image: url("../img/icons/clock.png"); }
 
   .pick-date,
   .pick-time {
@@ -995,7 +995,7 @@ div.tagsinput {
     a {
       overflow: hidden;
       text-indent: 1000px;
-      background-image: url("../img/icons/cancel.svg");
+      background-image: url("../img/icons/cancel.png");
       background-size: 32px;
       background-position: right;
       background-repeat: no-repeat;
@@ -1091,14 +1091,14 @@ div.tagsinput {
     right: 0px;
     top: 0px;
 
-    background-image: url("../img/icons/search.svg");
+    background-image: url("../img/icons/search.png");
     background-size: 32px;
     background-position: right;
     background-repeat: no-repeat;
     background-color: #f2f2f2 !important;
     &:hover {
       background-color: black !important;
-      background-image: url("../img/icons/inv/search.svg");
+      background-image: url("../img/icons/inv/search.png");
     }
   }
 }
