@@ -2121,14 +2121,14 @@ z-index: 10000;
       padding-top: 16px;
       padding-left: 25px;
 
-      background-image: url("../img/icons/left.png");
+      background-image: url("../img/icons/triangle_left.png");
       background-size: contain;
       background-position: right;
       background-repeat: no-repeat;
       color: black;
 
       &:hover {background-color: #e6e6e6; }
-      &.collapsed { background-image: url("../img/icons/down.png"); color: black;
+      &.collapsed { background-image: url("../img/icons/triangle_down.png"); color: black;
       }
     }
   }
