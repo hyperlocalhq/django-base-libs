@@ -12,9 +12,11 @@
                     {% if file_desc.title %}
                         <span class="title">{{ file_desc.title }}</span>
                     {% endif %}
+                    {% comment %}<!--
                     {% if file_desc.description %}
                         <span class="description">{{ file_desc.description }}</span>
                     {% endif %}
+                    -->{% endcomment %}
                     {% if file_desc.author %}
                         <span class="author">{{ file_desc.author }}</span>
                     {% endif %}
@@ -23,9 +25,6 @@
         </li>
         {% endfor %}
         {% if object.mediafile_set.count == 1 %}<li></li>{% endif %}
-        
-        
-      
       </ul>
     </div>
     
