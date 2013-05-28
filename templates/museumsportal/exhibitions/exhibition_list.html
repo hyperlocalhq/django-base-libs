@@ -54,6 +54,7 @@
                                         <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}"{% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
+                                <li class="level-0" data-level="0"><a data-filter-value=".is_for_children" href="#filter=.is_for_children">{% trans "Special for children / families / youth" %}</a></li>
                             </ul>
                             <div id="level-1-cat-container" class="level-1-container">
                                 {% for cat in facets.categories.categories %}
