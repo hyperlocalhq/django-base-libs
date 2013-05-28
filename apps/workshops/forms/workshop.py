@@ -133,11 +133,11 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
             layout.Row(
-                css_class="div-title",
+                css_class="div-title cols-2",
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-subtitle",
+                css_class="div-subtitle cols-2",
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Div(
@@ -145,11 +145,11 @@ class BasicInfoForm(ModelForm):
                 css_class="div-types",
                 ),
             layout.Row(
-                css_class="div-press_text",
+                css_class="div-press_text cols-2",
                 *(layout.Field('press_text_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-website",
+                css_class="div-website cols-2",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
@@ -182,6 +182,7 @@ class BasicInfoForm(ModelForm):
                 """),
                 "latitude",
                 "longitude",
+                css_class="cols-2",
                 ),
             css_class="fieldset-where",
             ))
@@ -360,9 +361,10 @@ class PricesForm(ModelForm):
             layout.Row(
                 layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
                 layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
+                css_class="cols-2",
                 ),
             layout.Row(
-                css_class="div-admission_price_info-details",
+                css_class="div-admission_price_info-details cols-2",
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             css_class="fieldset-prices",
@@ -372,12 +374,12 @@ class PricesForm(ModelForm):
             _("Details"),
 
             layout.Row(
-                css_class="div-meeting_place-details",
+                css_class="div-meeting_place-details cols-2",
                 *('meeting_place_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
             layout.Row(
-                css_class="div-booking_info-details",
+                css_class="div-booking_info-details cols-2",
                 *('booking_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
@@ -601,6 +603,7 @@ class BatchWorkshopTimeForm(forms.Form):
                 layout.Field("fri_start", placeholder="00:00"),
                 layout.Field("sat_start", placeholder="00:00"),
                 layout.Field("sun_start", placeholder="00:00"),
+                css_class="7-cols",
                 ),
             layout.Row(
                 layout.Field("mon_end", placeholder="00:00"),
@@ -610,6 +613,7 @@ class BatchWorkshopTimeForm(forms.Form):
                 layout.Field("fri_end", placeholder="00:00"),
                 layout.Field("sat_end", placeholder="00:00"),
                 layout.Field("sun_end", placeholder="00:00"),
+                css_class="7-cols",
                 ),
             ))
         

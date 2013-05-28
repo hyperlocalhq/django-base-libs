@@ -167,6 +167,7 @@ class BasicInfoForm(ModelForm):
                 """),
                 "latitude",
                 "longitude",
+                css_class="cols-2",
                 ),
             css_class="fieldset-where cols-2",
             ))
@@ -335,9 +336,10 @@ class PricesForm(ModelForm):
             layout.Row(
                 layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
                 layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
+                css_class="cols-2",
                 ),
             layout.Row(
-                css_class="div-admission_price_info-details",
+                css_class="div-admission_price_info-details cols-2",
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             css_class="fieldset-prices",
@@ -346,12 +348,12 @@ class PricesForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Details"),
             layout.Row(
-                css_class="div-meeting_place-details",
+                css_class="div-meeting_place-details cols-2",
                 *('meeting_place_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
             layout.Row(
-                css_class="div-booking_info-details",
+                css_class="div-booking_info-details cols-2",
                 *('booking_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
@@ -534,6 +536,7 @@ class BatchEventTimeForm(forms.Form):
             layout.Row(
                 layout.Field("range_start", placeholder="dd.mm.yyyy"),
                 layout.Field("range_end", placeholder="dd.mm.yyyy"),
+                css_class="cols-2",
                 ),
             "repeat",
             layout.Row(
@@ -544,6 +547,7 @@ class BatchEventTimeForm(forms.Form):
                 layout.Field("fri_start", placeholder="00:00"),
                 layout.Field("sat_start", placeholder="00:00"),
                 layout.Field("sun_start", placeholder="00:00"),
+                css_class="cols-7",
                 ),
             layout.Row(
                 layout.Field("mon_end", placeholder="00:00"),
@@ -553,6 +557,7 @@ class BatchEventTimeForm(forms.Form):
                 layout.Field("fri_end", placeholder="00:00"),
                 layout.Field("sat_end", placeholder="00:00"),
                 layout.Field("sun_end", placeholder="00:00"),
+                css_class="cols-7",
                 ),
             ))
         

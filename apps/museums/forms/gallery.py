@@ -104,7 +104,7 @@ class ImageFileForm(forms.Form):
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-description cols-2",
+                css_class="div-description cols-2w1",
                 *('description_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             "author",

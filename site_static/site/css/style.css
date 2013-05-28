@@ -714,6 +714,8 @@ form {
     width: 33.33333%; }
   .row.cols-4 > div {
     width: 25%; }
+  .row.cols-7 > div {
+    width: 14.25%; }
   .row > div {
     display: table-cell;
     border-right: 20px solid white;
@@ -3901,7 +3903,7 @@ dl {
   padding: 0px;
   padding-right: 30px;
   padding-left: 12px;
-  background-image: url("../img/icons/inv/add-bold.png");
+  background-image: url("../img/icons/inv/add_bold.png");
   background-size: 32px;
   background-position: right !important;
   background-repeat: no-repeat;
