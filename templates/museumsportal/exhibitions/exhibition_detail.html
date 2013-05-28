@@ -72,7 +72,6 @@
                                     {% endwith %}
                                 </dl>
                             {% endif %}
-                            
                             {% if exhibition.organizer_set.count %}
                                 <dl>
                                     <dt>{% trans "Organizer" %}</dt>
@@ -84,10 +83,9 @@
                                                     <span class="right">+{{ organizer.organizing_museum.service_phone_country }} ({{ organizer.organizing_museum.service_phone_area }}) {{ organizer.organizing_museum.service_phone_number }}</span>
                                                 </dt>
                                             {% endif %} 
-            
                                             {% if organizer.organizing_museum.phone_number %}
                                                 <dt>{% trans "Telephone" %}
-                                                    <span class="right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</span>
+                                                    <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
                                                 </dt>
                                             {% endif %} 
                                             {% if organizer.organizing_museum.group_bookings_phone_number %}
@@ -97,7 +95,7 @@
                                             {% endif %} 
                                             {% if organizer.organizing_museum.fax_number %}
                                                 <dt>{% trans "Fax" %}
-                                                <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
+                                                <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ organizer.organizing_museum.fax_number }}</span>
                                                 </dt>
                                             {% endif %}
                                             {% if organizer.organizing_museum.website %}

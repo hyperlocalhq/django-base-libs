@@ -64,13 +64,12 @@
             </form>
         </li>
     </ul>  
+    <script type="text/javascript">
+    $('#fahrinfo_formular').submit(function() {
+    $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
+    $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
+    })
+    </script>
 </li> 
-
-<script type="text/javascript">
-$('#fahrinfo_formular').submit(function() {
-$('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
-$('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
-})
-</script>
 
 {% endif %}

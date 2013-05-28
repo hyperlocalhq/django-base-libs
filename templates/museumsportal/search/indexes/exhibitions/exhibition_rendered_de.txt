@@ -9,10 +9,14 @@
                     Ausstellung: <span>{{ exhibition.start|date:"j.m" }} – {{ exhibition.end|date:"j.m.Y" }}</span>
                 {% endif %}
             </h4>
-            {% if exhibition.museum %}
-                <h3>{{ exhibition.museum.title_de|safe }}</h3>
+            <h3>{{ exhibition.title_de|safe }}</h3>
+            {% if exhibition.location_name %}
+                <h4>{{ exhibition.location_name|safe }}</h4>
+            {% else %}
+                {% if exhibition.museum %}
+                    <h4>{{ exhibition.museum.title_de|safe }}</h4>
+                {% endif %}
             {% endif %}
-            <h4>{{ exhibition.title_de|safe }}</h4>
         </a>
     </li>
 {% endwith %}

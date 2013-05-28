@@ -58,6 +58,7 @@ _("Booking Phone")
 _("Service Phone")
 _("Available Services")
 _("Languages")
+_("Available Audioguides")
 
 class BasicInfoForm(ModelForm):
     class Meta:
