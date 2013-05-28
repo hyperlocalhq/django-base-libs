@@ -1105,7 +1105,7 @@ nav.actions {
     &.icon-edit            { background-image: url("../img/icons/edit.png");}
     &.icon-favorite        { background-image: url("../img/icons/favorite.png");}
     &.icon-location        { background-image: url("../img/icons/location.png");}
-    &.icon-cancel               { background-image: url("../img/icons/cancel.png");}
+    &.icon-cancel          { background-image: url("../img/icons/cancel.png");}
     &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.png");}
     &.icon-delete          { background-image: url("../img/icons/delete.png");}
   }
@@ -1121,7 +1121,7 @@ nav.actions {
     &.icon-edit            { background-image: url("../img/icons/edit.png");}
     &.icon-favorite        { background-image: url("../img/icons/favorite.png");}
     &.icon-location        { background-image: url("../img/icons/location.png");}
-    &.icon-cancel               { background-image: url("../img/icons/cancel.png");}
+    &.icon-cancel          { background-image: url("../img/icons/cancel.png");}
     &.icon-fullscreen      { background-image: url("../img/icons/fullscreen.png");}
   }
 }
@@ -1134,7 +1134,7 @@ nav.actions {
   .icon-mail       { background-image: url("../img/icons/mail.png");}
   .icon-phone      { background-image: url("../img/icons/phone.png");}
   .icon-dashboard  { background-image: url("../img/icons/dashboard.png"); }
-  .icon-favorites  { background-image: url("../img/icons/favorite.png"); }
+  .icon-favorites  { background-image: url("../img/icons/favorite_active.png"); }
   .icon-facebook   { background-image: url("../img/icons/facebook.png"); }
   .icon-twitter    { background-image: url("../img/icons/twitter.png"); }
 
@@ -1145,7 +1145,7 @@ nav.actions {
   .icon-mail:hover      { background-image: url("../img/icons/inv/mail.png");}
   .icon-phone:hover     { background-image: url("../img/icons/inv/phone.png");}
   .icon-dashboard:hover { background-image: url("../img/icons/inv/dashboard.png");}
-  .icon-favorites:hover { background-image: url("../img/icons/inv/favorite.png");}
+  .icon-favorites:hover { background-image: url("../img/icons/inv/favorite_active.png");}
   .icon-facebook:hover  { background-image: url("../img/icons/inv/facebook.png");}
   .icon-twitter:hover   { background-image: url("../img/icons/inv/twitter.png");}
 }
@@ -1865,7 +1865,7 @@ z-index: 10000;
       background-repeat: no-repeat;
       background-position: center;
       background-size: 40px;
-      background-image: url("../img/icons/inv/top.png");
+      background-image: url("../img/icons/inv/arrow_up.png");
     }
 
     &.on { 
