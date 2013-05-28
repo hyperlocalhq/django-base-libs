@@ -150,27 +150,27 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
             layout.Row(
-                css_class="div-title",
+                css_class="div-title cols-2",
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-subtitle",
+                css_class="div-subtitle cols-2",
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-press_text",
+                css_class="div-press_text cols-2",
                 *(layout.Field('press_text_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-website",
+                css_class="div-website cols-2",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-catalog",
+                css_class="div-catalog cols-2",
                 *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-catalog",
+                css_class="div-catalog cols-2",
                 *(layout.Field('catalog_ordering_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             css_class="fieldset-basic-info",
@@ -181,10 +181,12 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 "permanent",
                 "exhibition_extended",
+                css_class="cols-2",
             ),
             layout.Row(
                 layout.Field("start", placeholder="dd.mm.yyyy", autocomplete="off"),
                 layout.Field("end", placeholder="dd.mm.yyyy", autocomplete="off"),
+                css_class="cols-2",
             ),
             layout.Field("vernissage", autocomplete="off"),
             layout.Field("finissage", autocomplete="off"),
@@ -216,6 +218,7 @@ class BasicInfoForm(ModelForm):
                 """),
                 "latitude",
                 "longitude",
+                css_class="cols-2",
                 ),
             css_class="fieldset-where",
             ))

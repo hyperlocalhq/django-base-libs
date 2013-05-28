@@ -462,10 +462,10 @@ CMS_TEMPLATES = [
     ('cms/plan_organize_second.html', gettext(u'Plan & Organize - Second')),              # previous: visitor_info.html
     ('cms/plan_organize_third.html', gettext(u'Plan & Organize - Third')),              # previous: visitor_info.html
 
-    ('cms/magazine_overview.html', gettext(u'Magazine – Overview')),
-    ('cms/magazine.html', gettext(u'Magazine - Detail')),
-    ('cms/magazine_series.html', gettext(u'Magazine – Series')),                   # previous: series.html
-    ('cms/magazine_series_featured.html', gettext(u'Magazine – Featured Series')), # previous: series_with_featured.html
+    ('cms/magazine_overview.html', gettext(u'Magazine – First')),
+    ('cms/magazine_series.html', gettext(u'Magazine – Second')),                   # previous: series.html
+    ('cms/magazine_series_featured.html', gettext(u'Magazine – Second - Featured')), # previous: series_with_featured.html
+    ('cms/magazine.html', gettext(u'Magazine - Third')),
 ]
 
 # UPDATE cms_page SET template = REPLACE(template,'cms/visitor_info.html','cms/plan_organize.html');

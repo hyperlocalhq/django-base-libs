@@ -2804,7 +2804,7 @@ nav.actions {
 #meta .icon-dashboard {
   background-image: url("../img/icons/dashboard.png"); }
 #meta .icon-favorites {
-  background-image: url("../img/icons/favorite.png"); }
+  background-image: url("../img/icons/favorite_active.png"); }
 #meta .icon-facebook {
   background-image: url("../img/icons/facebook.png"); }
 #meta .icon-twitter {
@@ -2824,7 +2824,7 @@ nav.actions {
 #meta .icon-dashboard:hover {
   background-image: url("../img/icons/inv/dashboard.png"); }
 #meta .icon-favorites:hover {
-  background-image: url("../img/icons/inv/favorite.png"); }
+  background-image: url("../img/icons/inv/favorite_active.png"); }
 #meta .icon-facebook:hover {
   background-image: url("../img/icons/inv/facebook.png"); }
 #meta .icon-twitter:hover {
@@ -3471,7 +3471,7 @@ aside {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 40px;
-    background-image: url("../img/icons/inv/top.png"); }
+    background-image: url("../img/icons/inv/arrow_up.png"); }
   #to-top.on span {
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
