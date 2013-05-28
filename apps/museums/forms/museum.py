@@ -447,7 +447,7 @@ class SpecialOpeningTimeForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Occasion"),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-accessibility-details cols-2",
                 *('day_label_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
@@ -457,7 +457,7 @@ class SpecialOpeningTimeForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Special date"),
 
-            layout.Row("yyyy", "mm", "dd"),
+            layout.Row("yyyy", "mm", "dd", css_class="cols-3"),
             
             css_class="fieldset-special-date",
             ))
@@ -471,6 +471,7 @@ class SpecialOpeningTimeForm(ModelForm):
                 layout.Field("break_close", placeholder="00:00", autocomplete="off"),
                 layout.Field("break_open", placeholder="00:00", autocomplete="off"),
                 layout.Field("closing", placeholder="00:00", autocomplete="off"),
+                css_class="cols-4",
                 ),
             css_class="fieldset-opening-times",
             ))
@@ -478,7 +479,7 @@ class SpecialOpeningTimeForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Additional info"),
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-accessibility-details cols-2",
                 *('exceptions_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 
