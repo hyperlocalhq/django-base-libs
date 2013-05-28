@@ -233,7 +233,11 @@
         {% endblock %}
 
 	</div>
-
+	<script>
+	var django = {
+	    jQuery: jQuery
+	};
+	</script>
     {% render_block "js" %}
 
     {{ site_settings.extra_body|safe }}
