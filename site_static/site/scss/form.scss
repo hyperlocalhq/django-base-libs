@@ -265,6 +265,12 @@ input::-webkit-slider-thumb {
   color: $red !important;
 }
 
+.help-block {
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 5px;
+}
+
 .error {
   color: $red;
   input,
@@ -651,6 +657,11 @@ a
     }
   }
   
+  &.cols-1 > div { width: 100%; }
+  &.cols-2 > div { width: 50%; }
+  &.cols-3 > div { width: 33.33333%; }
+  &.cols-4 > div { width: 25%; }
+
   > div{ 
     display: table-cell;
     border-right: 20px solid white;

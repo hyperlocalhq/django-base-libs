@@ -78,7 +78,7 @@ class BasicInfoForm(ModelForm):
             _("Basic Info"),
             
             layout.HTML("""{% load i18n %}
-                <div class="row">
+                <div class="row cols-2">
                     <div id="div_id_title_de" class="clearfix control-group">
                         <label for="id_title_de" class="control-label requiredField">
                         {% trans "Name" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
@@ -94,7 +94,7 @@ class BasicInfoForm(ModelForm):
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row cols-2">
                     <div id="div_id_subtitle_de" class="clearfix control-group">
                         <label for="id_subtitle_de" class="control-label ">
                         {% trans "Subtitle" %} <span class="lang">DE</span></label>
@@ -110,7 +110,7 @@ class BasicInfoForm(ModelForm):
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row cols-2">
                     <div id="div_id_description_de" class="clearfix control-group">
                         <label for="id_description_de" class="control-label ">
                         {% trans "Description" %} <span class="lang">DE</span></label>
@@ -536,6 +536,7 @@ class PricesForm(ModelForm):
             layout.Div('free_entrance'), 
             layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
             layout.Row(
+                css_class="cols-2",
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             css_class="fieldset-prices",
@@ -544,6 +545,7 @@ class PricesForm(ModelForm):
             _("Reduced Prices"),
             layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
             layout.Row(
+                css_class="cols-2",
                 *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             ))
@@ -643,6 +645,7 @@ class AddressForm(ModelForm):
                 """),
                 'latitude', 
                 'longitude',
+                css_class="cols-2",
                 ),
             css_class="fieldset-location",
             ))
@@ -651,7 +654,9 @@ class AddressForm(ModelForm):
             _("Contact"),
 
             layout.Row(
-                'email', layout.Field('website', placeholder="http://")),
+                'email', layout.Field('website', placeholder="http://"),
+                css_class="fieldset-location cols-2",
+                ),
 
             layout.Row(
                 layout.Div(
@@ -664,6 +669,7 @@ class AddressForm(ModelForm):
                     layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
                     'fax_country', 'fax_area', 'fax_number'),
                 ),
+                css_class="fieldset-location cols-2",
             ),
 
             layout.Row(
@@ -678,6 +684,7 @@ class AddressForm(ModelForm):
                     layout.HTML('{% load i18n %}<div><label>{% trans "Service Telephone" %}</label></div>'),
                      'service_phone_country', 'service_phone_area', 'service_phone_number'),
                 ),
+                css_class="fieldset-location cols-2",
             ),
 
             css_class="fieldset-other-contact-info",
@@ -822,7 +829,7 @@ class AccessibilityForm(ModelForm):
             _("Accessibility"),
 
             layout.Row(
-                css_class="div-accessibility-details",
+                css_class="div-accessibility-details cols-2",
                 *(layout.Field('accessibility_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
 

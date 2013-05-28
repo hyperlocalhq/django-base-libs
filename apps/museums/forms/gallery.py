@@ -100,11 +100,11 @@ class ImageFileForm(forms.Form):
             "media_file_path",
             "goto_next",
             layout.Row(
-                css_class="div-title",
+                css_class="div-title cols-2",
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             layout.Row(
-                css_class="div-description",
+                css_class="div-description cols-2",
                 *('description_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
                 ),
             "author",
