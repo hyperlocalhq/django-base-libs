@@ -593,6 +593,7 @@ class BatchWorkshopTimeForm(forms.Form):
             layout.Row(
                 layout.Field("range_start", placeholder="dd.mm.yyyy"),
                 layout.Field("range_end", placeholder="dd.mm.yyyy"),
+                css_class="cols-2",
                 ),
             "repeat",
             layout.Row(
@@ -603,7 +604,7 @@ class BatchWorkshopTimeForm(forms.Form):
                 layout.Field("fri_start", placeholder="00:00"),
                 layout.Field("sat_start", placeholder="00:00"),
                 layout.Field("sun_start", placeholder="00:00"),
-                css_class="7-cols",
+                css_class="cols-7",
                 ),
             layout.Row(
                 layout.Field("mon_end", placeholder="00:00"),
@@ -613,7 +614,7 @@ class BatchWorkshopTimeForm(forms.Form):
                 layout.Field("fri_end", placeholder="00:00"),
                 layout.Field("sat_end", placeholder="00:00"),
                 layout.Field("sun_end", placeholder="00:00"),
-                css_class="7-cols",
+                css_class="cols-7",
                 ),
             ))
         
