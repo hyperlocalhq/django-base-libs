@@ -196,7 +196,7 @@ class Command(BaseCommand):
                         tweet.tweetmedia_set.create(
                             media_url=media_dict['media_url'],
                             )
-                    for site in ss.sites.all():
+                    for site in uts.sites.all():
                         tweet.sites.add(site)
                 else:
                     tweet.by_user = True
