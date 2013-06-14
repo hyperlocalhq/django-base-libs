@@ -45,13 +45,18 @@ class Command(BaseCommand):
                     )
             return html
 
-        twitter = Twython()
+        twitter = Twython(
+            settings.TWITTER_CONSUMER_KEY,
+            settings.TWITTER_CONSUMER_SECRET,
+            settings.TWITTER_ACCESS_TOKEN,
+            settings.TWITTER_ACCESS_TOKEN_SECRET,
+            )
 
         ### import tweets by search ###
         last_tweets = Tweet.objects.filter(from_search=True).order_by('-id')
         params = {
             'result_type': "recent",
-            'rpp': 100,
+            'count': 100,
             'include_entities': "true",
             }
         if last_tweets:
@@ -60,25 +65,24 @@ class Command(BaseCommand):
         for ss in SearchSettings.objects.all():
             
             params['q'] = smart_str(ss.query)
-            params['page'] = 1
             
             search_results = twitter.search(**params)
-            while search_results:
+            while search_results.get('statuses', []):
                 # save search results
-                for tweet_dict in search_results['results']:
+                for tweet_dict in search_results['statuses']:
                     try:
                         twitter_user = TwitterUser.objects.get(
-                            id=tweet_dict['from_user_id'],
+                            id=tweet_dict['user']['id_str'],
                             )
                     except:
                         twitter_user = TwitterUser(
-                            id=tweet_dict['from_user_id'],
+                            id=tweet_dict['user']['id_str'],
                             )
-                    twitter_user.id_str = tweet_dict['from_user_id_str']
-                    twitter_user.screen_name = tweet_dict['from_user']
-                    twitter_user.name = tweet_dict['from_user_name']
-                    twitter_user.profile_image_url = tweet_dict['profile_image_url']
-                    twitter_user.language = tweet_dict['iso_language_code']
+                    twitter_user.id_str = tweet_dict['user']['id_str']
+                    twitter_user.screen_name = tweet_dict['user']['screen_name']
+                    twitter_user.name = tweet_dict['user']['name']
+                    twitter_user.profile_image_url = tweet_dict['user']['profile_image_url']
+                    twitter_user.language = tweet_dict['metadata']['iso_language_code']
                     twitter_user.save()
 
                     try:
@@ -122,8 +126,9 @@ class Command(BaseCommand):
                     pprint(search_results)
 
                 # load next page results
-                if search_results.get("next_page", ""):
-                    params['page'] += 1
+                max_id = search_results['search_metadata']['max_id']
+                if max_id:
+                    params['since_id'] = max_id
                     search_results = twitter.search(**params)
                 else:
                     search_results = {}
@@ -145,7 +150,7 @@ class Command(BaseCommand):
             if uts.exclude_replies:
                 params['exclude_replies'] = 'true'
 
-            user_timeline = twitter.getUserTimeline(**params)
+            user_timeline = twitter.get_user_timeline(**params)
             # save search results
             for tweet_dict in user_timeline:
                 try:
