@@ -2222,21 +2222,23 @@ a:focus {
         #navigation > ul > li > a:hover {
           color: #00aefd; }
 
-#footer .inner ul.navigation li {
-  display: inline-block;
-  font-size: 14px;
-  line-height: 14px;
-  height: 14px;
-  padding: 0px;
-  padding-right: 12px;
-  margin-right: 10px;
-  border-right: 1px solid #ebebeb; }
-  #footer .inner ul.navigation li.selected a {
-    color: #00aefd; }
-  #footer .inner ul.navigation li a {
-    color: black; }
-    #footer .inner ul.navigation li a:hover {
+#footer .inner ul.navigation {
+  white-space: nowrap; }
+  #footer .inner ul.navigation li {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 14px;
+    height: 14px;
+    padding: 0px;
+    padding-right: 7px;
+    margin-right: 4px;
+    border-right: 1px solid #ebebeb; }
+    #footer .inner ul.navigation li.selected a {
       color: #00aefd; }
+    #footer .inner ul.navigation li a {
+      color: black; }
+      #footer .inner ul.navigation li a:hover {
+        color: #00aefd; }
 
 @-webkit-keyframes SPINNER {
   0% {

@@ -476,15 +476,15 @@ a:focus  { outline: none !important; }
 #footer {
   .inner { 
     ul.navigation {
-
+      white-space: nowrap;
       li {
         display: inline-block;
         font-size: 14px;
         line-height: 14px;
         height: 14px;
         padding: 0px;
-        padding-right: 12px;
-        margin-right: 10px;
+        padding-right: 7px;
+        margin-right: 4px;
         border-right: 1px solid #ebebeb;
         
         &.selected a   { color: $blue;}
@@ -2476,7 +2476,7 @@ dl {
         overflow: hidden;
         max-width: 700px;
         }
-        
+
         h3 ,h5 { display: inline-block; font-size: 16px !important;}
         h5   { font-weight: 300; 
           opacity: 0.5; 
