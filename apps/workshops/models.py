@@ -80,14 +80,22 @@ class WorkshopManager(models.Manager):
             users=user,
             ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
-        
+
+    def fix_bookable(self):
+        self.filter(
+            status="expired",
+            has_group_offer=True,
+            ).update(status="published")
+
     def update_expired(self):
         for obj in self.exclude(
             status="expired",
+            has_group_offer=True,
             ):
             obj.update_closest_workshop_time()
         self.filter(
             closest_workshop_date__isnull=True,
+            has_group_offer=False,
             ).exclude(status="expired").update(status="expired")
 
     def populate_press_text(self):

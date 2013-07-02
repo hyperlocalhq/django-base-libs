@@ -3,6 +3,7 @@ import calendar
 from datetime import datetime
 from dateutil.parser import parse as datetime_parse
 from urllib2 import urlopen, HTTPError, URLError
+from twython import Twython
 
 from django.conf import settings
 from django.http import HttpResponse
@@ -13,16 +14,20 @@ from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import timesince
 from django.utils.translation import ugettext_lazy as _, ugettext
 
+@cache_page(60*15)
 def latest_tweets(request, twitter_username, number_of_tweets):
-    try:
-        url = urlopen('https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name=' + twitter_username + '&count=' + str(number_of_tweets))
-        json_string = url.read()
-    except (HTTPError, URLError):
-        json_string = ""
-    try:
-        tweets = json.loads(json_string)
-    except ValueError:
-        tweets = []
+    twitter = Twython(
+        settings.TWITTER_CONSUMER_KEY,
+        settings.TWITTER_CONSUMER_SECRET,
+        settings.TWITTER_ACCESS_TOKEN,
+        settings.TWITTER_ACCESS_TOKEN_SECRET,
+        )
+    tweets = twitter.get_user_timeline(
+        include_entities="true",
+        include_rts="true",
+        screen_name=twitter_username,
+        count=number_of_tweets,
+        )    
     for tweet in tweets:
         tweet['text_urlized'] = urlize(tweet['text'])
         tmp = []
@@ -35,8 +40,6 @@ def latest_tweets(request, twitter_username, number_of_tweets):
         tweet['text_urlized_atlinked'] = ' '.join(tmp)
         tweet['created_at_formatted'] = dateformat.format(datetime_parse(tweet['created_at']), 'd.m.Y H:i')
         tweet['created_timesince'] = ugettext("%s ago") % timesince(datetime_parse(tweet['created_at']))
-    # cache the response only if tweets were retrieved
-    f = lambda request: HttpResponse(json.dumps(tweets), mimetype="application/json")
-    if tweets:
-        return cache_page(f, 60*15)(request)
-    return f(request)
+        
+    return HttpResponse(json.dumps(tweets), mimetype="application/json")
+
