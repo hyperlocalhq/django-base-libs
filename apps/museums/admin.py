@@ -63,15 +63,15 @@ class SpecialOpeningTimeInline(ExtendedStackedInline):
     fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
     fieldsets += [(_("Opening hours"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing', get_admin_lang_section(_("Exceptions"), ['exceptions']))})]
 
+class SocialMediaChannelInline(admin.TabularInline):
+    model = SocialMediaChannel
+    extra = 0
+
 class MediaFileInline(ExtendedStackedInline):
     model = MediaFile
     extra = 0
     sortable = True
     sortable_field_name = "sort_order"
-
-class SocialMediaChannelInline(admin.TabularInline):
-    model = SocialMediaChannel
-    extra = 0
 
 class MuseumAdmin(ExtendedModelAdmin):
     class Media:
