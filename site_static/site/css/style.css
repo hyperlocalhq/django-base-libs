@@ -4811,9 +4811,10 @@ dl {
 #hotelbooking .inner {
   width: auto !important; }
 #hotelbooking .modal-body {
-  padding: 0px !important;
+  padding: 20px !important;
   overflow: hidden;
-  background-color: white !important; }
+  background-color: white !important;
+  max-height: auto !important; }
   #hotelbooking .modal-body iframe {
     border: none !important;
     padding: 20px; }
