@@ -4808,6 +4808,29 @@ dl {
     line-height: 40px;
     text-align: center; }
 
+#hotelbooking-toggle {
+  margin-bottom: 10px !important; }
+
+#hotel-cancel {
+  position: absolute;
+  top: 0px;
+  right: 0px; }
+
+#hotelbooking .inner {
+  width: auto !important; }
+#hotelbooking .modal-body {
+  position: relative;
+  height: 500px;
+  padding: 20px !important;
+  overflow: hidden;
+  background-color: white !important;
+  max-height: 700px !important; }
+  #hotelbooking .modal-body iframe {
+    border: none !important;
+    padding: 20px; }
+    #hotelbooking .modal-body iframe body {
+      padding: 50px; }
+
 .modal-footer {
   background-color: transparent;
   box-shadow: none !important;

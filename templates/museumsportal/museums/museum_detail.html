@@ -482,7 +482,20 @@
                         </ul>  
                     </li>  
                 {% endif %}  
+
+                <!-- ======= hotelbooking ======= -->
+
+                <li class="accordion-group">  
+                    <h4 class="accordion-heading">  
+                        </a>  
+                    </h4>  
+                </li>  
             </ul> 
+
+            <button class="btn-block" id="hotelbooking-toggle">
+             {% trans "Hotels and Package Offers" %}
+            </button>
+
 
             {% if request.user.is_authenticated %}
                 <div class="tools">
@@ -640,10 +653,37 @@
 {% include "utils/page_controls.html" %}
 {% include "utils/gmap_scripts.html" %}
 {% include "utils/gallery_scripts.html" %}
+
+<div id="hotelbooking" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="hotelbookingLabel" aria-hidden="true">
+    <div class="table">
+        <div class="cell">
+            <div class="inner">
+                <div class="modal-body">
+                    <p></p>
+                    <iframe style="" src="https://buchung1.visitberlin.de/hotelbuchung/controller?command=part&partid=93597537563" width="500px" height="500px" name="SELFHTML_in_a_box">
+                      <p>Ihr Browser kann leider keine eingebetteten Frames anzeigen:
+                      Sie k&ouml;nnen die eingebettete Seite &uuml;ber den folgenden Verweis
+                      aufrufen: <a href="../../../index.htm">SELFHTML</a></p>
+                    </iframe>
+                    <button id="hotel-cancel" name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+
 {% endblock %}
 
 {% block footer %}
     {{ block.super }}
+    <script>
+    $(function() {
+        $('#hotelbooking-toggle').click(function() {
+            $('#hotelbooking').modal('show');
+            return false;
+        });
+    });
+    </script>
     <script>
         $(function() {
             $("select").selectbox();
