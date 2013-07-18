@@ -3095,6 +3095,7 @@ dl {
   }
 }
 
+
 .modal-body {
   box-shadow: none !important;
   border-radius: 0px !important;
@@ -3110,6 +3111,23 @@ dl {
     font-size: 30px;
     line-height: 40px;
     text-align: center;
+  }
+}
+
+#hotelbooking {
+  .inner {
+    width: auto !important;
+  }
+  .modal-body {
+    padding: 0px !important;
+    overflow: hidden;
+    background-color: white !important;
+    iframe { border: none !important;
+      padding: 20px;
+      body {
+        padding: 50px;
+      }
+    }
   }
 }
 

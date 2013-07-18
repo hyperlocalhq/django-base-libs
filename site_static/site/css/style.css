@@ -4808,6 +4808,18 @@ dl {
     line-height: 40px;
     text-align: center; }
 
+#hotelbooking .inner {
+  width: auto !important; }
+#hotelbooking .modal-body {
+  padding: 0px !important;
+  overflow: hidden;
+  background-color: white !important; }
+  #hotelbooking .modal-body iframe {
+    border: none !important;
+    padding: 20px; }
+    #hotelbooking .modal-body iframe body {
+      padding: 50px; }
+
 .modal-footer {
   background-color: transparent;
   box-shadow: none !important;
