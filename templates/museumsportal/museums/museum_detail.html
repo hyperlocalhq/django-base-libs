@@ -492,7 +492,7 @@
                 </li>  
             </ul> 
 
-            <button class="btn-block" id="hotelbooking">
+            <button class="btn-block" id="hotelbooking-toggle">
              {% trans "Hotels and Package Offers" %}
             </button>
 
@@ -680,7 +680,6 @@
 {% block footer %}
     {{ block.super }}
     <script>
-            $('#hotelbooking').modal('show');
     $(function() {
         $('#hotelbooking-toggle').click(function() {
             $('#hotelbooking').modal('show');
