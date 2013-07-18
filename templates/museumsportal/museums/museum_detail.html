@@ -492,7 +492,7 @@
                 </li>  
             </ul> 
 
-            <button class="btn-block" id="hotelbooking">
+            <button class="btn-block" id="hotelbooking-toggle">
              {% trans "Hotels and Package Offers" %}
             </button>
 
@@ -667,8 +667,7 @@
                     </iframe>
                 </div>
                 <div class="modal-footer">
-                    <button id="button-id-confirm-deletion" class="btn btn-primary">{% trans "Yes, Please" %}</button>
-                    <button name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">{% trans "No, Thanks" %}</button>
+                    <button name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -680,16 +679,12 @@
 {% block footer %}
     {{ block.super }}
     <script>
-            $('#hotelbooking').modal('show');
-    $(function() {
-        $('#hotelbooking-toggle').click(function() {
-            $('#hotelbooking').modal('show');
-            return false;
-        });
-    });
-    </script>
-    <script>
+        //$('#hotelbooking').modal('show');
         $(function() {
+            $('#hotelbooking-toggle').click(function() {
+                $('#hotelbooking').modal('show');
+                return false;
+            });
             $("select").selectbox();
         });
     </script>
