@@ -2,67 +2,29 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.sites.models import Site
 
-from base_libs.models.models import MultiSiteMixin
 from base_libs.models.fields import URLField
 
 TWITTER_SEARCH_HELP = """
-<div class="twttr-dialog-content">
-  <table class="modal-table modal-table-bordered">
-  <thead>
-    <tr>
-      <th>Search operator</th>
-      <th>Finds tweets...</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>twitter search</td><td>containing both "twitter" and "search". This is the default operator.</td></tr>
-    <tr><td><b>"</b>happy hour<b>"</b></td><td>containing the exact phrase "happy hour".</td></tr>
-    <tr><td>love <b>OR</b> hate</td><td>containing either "love" or "hate" (or both).</td></tr>
-    <tr><td>beer <b>-</b>root</td><td>containing "beer" but not "root".</td></tr>
-    <tr><td><b>#</b>haiku</td><td>containing the hashtag "haiku".</td></tr>
-    <tr><td><b>from:</b>alexiskold</td><td>sent from person "alexiskold".</td></tr>
-    <tr><td><b>to:</b>techcrunch</td><td>sent to person "techcrunch".</td></tr>
-    <tr><td><b>@</b>mashable</td><td>referencing person "mashable".</td></tr>
-    <tr><td>"happy hour" <b>near:</b>"san francisco"</td><td>containing the exact phrase "happy hour" and sent near "san francisco".</td></tr>
-    <tr><td><b>near:</b>NYC <b>within:</b>15mi</td><td>sent within 15 miles of "NYC".</td></tr>
-    <tr><td>superhero <b>since:</b>2010-12-27</td><td>containing "superhero" and sent since date "2010-12-27" (year-month-day).</td></tr>
-    <tr><td>ftw <b>until:</b>2010-12-27</td><td>containing "ftw" and sent up to date "2010-12-27".</td></tr>
-    <tr><td>movie -scary <b>:)</b></td><td>containing "movie", but not "scary", and with a positive attitude.</td></tr>
-    <tr><td>flight <b>:(</b></td><td>containing "flight" and with a negative attitude.</td></tr>
-    <tr><td>traffic <b>?</b></td><td>containing "traffic" and asking a question.</td></tr>
-    <tr><td>hilarious <b>filter:links</b></td><td>containing "hilarious" and linking to URLs.</td></tr>
-    <tr><td>news <b>source:twitterfeed</b></td><td>containing "news" and entered via TwitterFeed</td></tr>
-  </tbody>
-  </table>
-</div>
+A comma-separated list of phrases which will be used to determine what Tweets will be delivered on the stream.
+A phrase may be one or more terms separated by spaces, and a phrase will match if all of the terms in the phrase
+are present in the Tweet, regardless of order and ignoring case.
 """
+
 
 class SearchSettings(models.Model):
     query = models.CharField(_("Search query"), max_length=140, help_text=TWITTER_SEARCH_HELP)
-    sites = models.ManyToManyField(
-         Site, 
-         verbose_name=_("Site"),
-         help_text=_("Show tweets with this hashtag on the selected sites"),
-         )
-    
+
     class Meta:
         verbose_name = _("Twitter search settings")
         verbose_name_plural = _("Twitter search settings")
 
     def __unicode__(self):
         return self.query
-        
+
+
 class UserTimelineSettings(models.Model):
     screen_name = models.CharField(_("Screen name"), max_length=20)
-    sites = models.ManyToManyField(
-         Site, 
-         verbose_name=_("Site"),
-         help_text=_("Show tweets from this user on the selected sites"),
-         )
-    include_rts = models.BooleanField(_("Include retweets"), default=True)
-    exclude_replies = models.BooleanField(_("Exclude replies"), default=True)
 
     class Meta:
         verbose_name = _("Twitter user timeline settings")
@@ -70,6 +32,7 @@ class UserTimelineSettings(models.Model):
 
     def __unicode__(self):
         return self.screen_name
+
 
 LANGUAGE_CHOICES = (
     ("ar", _("Arabic")),
@@ -107,7 +70,8 @@ LANGUAGE_CHOICES = (
 STATUS_CHOICES = (
     ('published', _("Published")),
     ('not_listed', _("Not Listed")),
-    ) 
+)
+
 
 class TwitterUser(models.Model):
     id = models.CharField(_("ID"), primary_key=True, max_length=20)
@@ -129,8 +93,7 @@ class TwitterUser(models.Model):
         return self.screen_name
 
 
-
-class Tweet(MultiSiteMixin):
+class Tweet(models.Model):
     id = models.CharField(_("ID"), primary_key=True, max_length=20)
     id_str = models.CharField(_("ID String"), help_text=_("Used in URLs"), max_length=20)
     creation_date = models.DateTimeField(_("Creation date"),)
@@ -150,7 +113,8 @@ class Tweet(MultiSiteMixin):
         
     def __unicode__(self):
         return "%s: %s" % (self.user.screen_name, self.text)
-        
+
+
 class TweetMedia(models.Model):
     tweet = models.ForeignKey(Tweet, verbose_name=_("Tweet"))
     media_url = URLField(_("Media URL"))
@@ -163,4 +127,3 @@ class TweetMedia(models.Model):
         
     def __unicode__(self):
         return self.media_url
-    

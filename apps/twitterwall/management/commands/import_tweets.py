@@ -10,6 +10,10 @@ SILENT, NORMAL, VERBOSE = 0, 1, 2
 class Command(BaseCommand):
     help = "imports tweets"
     def handle(self, *args, **options):
+        print "This command is outdated. Use stream_tweets instead."
+        if True:
+            return
+
         from twython import Twython
         from dateutil.parser import parse as parse_datetime
         from pprint import pprint

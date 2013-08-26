@@ -34,7 +34,7 @@ class TweetAdmin(ExtendedModelAdmin):
     fieldsets = [
         (_("Main data"), {'fields': ('id', 'id_str', 'creation_date', 'user', 'text', 'html')}),
         (_("Geoposition"), {'fields': ('latitude', 'longitude')}),
-        (_("Publishing"), {'fields': ('from_search', 'by_user', 'status', 'sites')}),
+        (_("Publishing"), {'fields': ('from_search', 'by_user', 'status')}),
     ]
     def get_text(self, obj):
         return obj.text
