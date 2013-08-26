@@ -51,7 +51,7 @@
             }
 
             function show_next_tweet() {
-                $('.tweet:eq(0)').addClass('out');
+                $('.tweet:eq(0)').addClass('out').removeClass('active');
                 $('.tweet:eq(1)').addClass('in').delay(TRANSITION_DURATION).queue(function() {
                     $('.tweet:eq(1)').addClass('active').removeClass('in');
                     $('.tweet:eq(0)').remove();
@@ -61,6 +61,7 @@
             }
 
             $(document).ready(function() {
+                $('.tweet:first').addClass('active');
                 loading_timeout = setTimeout(load_tweets, LOADING_TIMEOUT_DELAY);
                 view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
                 logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
