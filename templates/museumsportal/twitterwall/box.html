@@ -24,16 +24,24 @@
             var loading_timeout = null;
             var view_timeout = null;
             var logo_timeout = null;
+            var cleanup_timeout = null;
             var LOADING_TIMEOUT_DELAY = 5000;
             var VIEW_TIMEOUT_DELAY = 3000;
             var LOGO_TIMEOUT_DELAY = 15000;
             var TRANSITION_DURATION = 500;
+            var CLEANUP_TIMEOUT_DELAY = 60000;
 
             function insert_logo() {
                 // inserts a logo after the first or the entering tweet
                 $('<div class="tweet logo">Send a tweet with a hash tag #50ThingsAboutMe</div>')
                 .insertAfter($('.tweet').filter('.active,.in').get(0));
                 logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
+            }
+
+            function cleanup_stack() {
+                // deletes all tweets except first, second, and last three
+                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3)').remove();
+                cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
             }
 
             function load_tweets() {
@@ -65,6 +73,7 @@
                 loading_timeout = setTimeout(load_tweets, LOADING_TIMEOUT_DELAY);
                 view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
                 logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
+                cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
             });
         }(jQuery))
     </script>
