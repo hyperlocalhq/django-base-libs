@@ -28,7 +28,9 @@
             var TRANSITION_DURATION = 500;
 
             function insert_logo() {
-                $('<div class="logo">Send a tweet with a hash tag #50ThingsAboutMe</div>').insertAfter($(''))
+                // inserts a logo after the first or the entering tweet
+                $('<div class="logo">Send a tweet with a hash tag #50ThingsAboutMe</div>')
+                .insertAfter($('.tweet').find('.active,.in').get(0));
             }
 
             function load_tweets() {
@@ -37,7 +39,7 @@
                 var since_id = $tweets.find('.tweet:first').data("tweet-id");
                 if (since_id) {
                     since_id = since_id.replace(/t/, "");
-                    url += "&since_id=" + since_id;
+                    url += "?since_id=" + since_id;
                 }
                 $.get(url, function(data) {
                     $tweets.append(data);
@@ -46,7 +48,8 @@
             }
 
             function show_next_tweet() {
-                $('.tweet:first').hide(TRANSITION_DURATION, function())
+                $('.tweet:first').hide(TRANSITION_DURATION).remove();
+                view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
             }
 
             $(document).ready(function() {
