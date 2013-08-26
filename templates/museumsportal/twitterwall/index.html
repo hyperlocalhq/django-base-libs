@@ -1,110 +1,104 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Museumsportal Berlin {% block title %}{% endblock %}</title>
-        <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Museumsportal Berlin {% block title %}{% endblock %}</title>
+    <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
     <link href="{{ STATIC_URL }}site/css/reset.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{ STATIC_URL }}site/css/twitterwall.css" rel="stylesheet" media="screen" type="text/css" />
-        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.min.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
-        <script type="text/javascript">
-        
-         var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-348516-14']);
-          _gaq.push(['_gat._anonymizeIp']);
-          _gaq.push(['_trackPageview']);
-        
-          (function() {
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-348516-14']);
+        _gaq.push(['_gat._anonymizeIp']);
+        _gaq.push(['_trackPageview']);
+        (function() {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-        
-        </script>
+        })();
+    </script>
 </head>
 <body>
-
-        <div class="footer">
-                <div class="wrapper">
-                        <a class="studio38" target="_blank" href="http://www.studio38.de/">Powered by Studio 38</a>
-                        <a class="back" target="_blank" href="http://www.berliner-museumsportal.de">Zurück zum Museumsportal Berlin</a>
-                </div>
-        </div>
-        
+    <div class="footer">
         <div class="wrapper">
-        
-    <div id="header">
-        <h1>Berliner Twitternacht <span>16. März 2013 – Lange Nacht der Museen</span></h1>
-        <!--
-        <h2>Tweets von @MuseumsnachtB</h2>
-        <h2>Tweets mit dem Hashtag #LNBerlin</h2>
-        -->
+            <a class="studio38" target="_blank" href="http://www.studio38.de/">Powered by Studio 38</a>
+            <a class="back" target="_blank" href="http://www.berliner-museumsportal.de">Zurück zum Museumsportal Berlin</a>
+        </div>
     </div>
+        
+    <div class="wrapper">
+        
+        <div id="header">
+            <h1>Berliner Twitternacht <span>16. März 2013 – Lange Nacht der Museen</span></h1>
+            <!--
+            <h2>Tweets von @MuseumsnachtB</h2>
+            <h2>Tweets mit dem Hashtag #LNBerlin</h2>
+            -->
+        </div>
         
         <div class="tweet_wrapper">
 
             <div id="selected" class="cullumn">
-                    <div id="selected_user_tweets" class="tweet-list">
-                        {% for tweet in selected_user_tweets %}
-                            {% include "twitterwall/tweet.html" %}
-                        {% endfor %}
-                        <br style="clear:both" />
-                    </div>
+                <div id="selected_user_tweets" class="tweet-list">
+                    {% for tweet in selected_user_tweets %}
+                        {% include "twitterwall/tweet.html" %}
+                    {% endfor %}
+                    <br style="clear:both" />
+                </div>
             </div>
 
             <div id="searched" class="cullumn">
-                    <div id="tweets_from_search" class="tweet-list">
-                    
-                        {% for tweet in tweets_from_search %}
-                            {% include "twitterwall/tweet.html" %}
-                        {% endfor %}
-                        <br style="clear:both" />
-                    </div>
+                <div id="tweets_from_search" class="tweet-list">
+                    {% for tweet in tweets_from_search %}
+                        {% include "twitterwall/tweet.html" %}
+                    {% endfor %}
+                    <br style="clear:both" />
+                </div>
             </div>
-
-      </div>
+        </div>
     </div>
     
     <script type="text/javascript">
-    (function($, undefined) {
-        var timeout_user = null;
-        var timeout_search = null;
-        var TIMEOUT_DELAY = 30000;
-        function adjust_width($tweet_list) {
-            
-        }
-        function load_tweets_of_selected_users() {
-            var $selected_user_tweets = $('#selected_user_tweets');
-            var url = "{% url load_tweets %}?by_user=1";
-            var since_id = $selected_user_tweets.find('.tweet:first').data("tweet-id");
-            if (since_id) {
-                since_id = since_id.replace(/t/, "");
-                url += "&since_id=" + since_id;
+        (function($, undefined) {
+            var timeout_user = null;
+            var timeout_search = null;
+            var TIMEOUT_DELAY = 30000;
+            function adjust_width($tweet_list) {
+
             }
-            $.get(url, function(data) {
-                $selected_user_tweets.prepend(data);
+            function load_tweets_of_selected_users() {
+                var $selected_user_tweets = $('#selected_user_tweets');
+                var url = "{% url load_tweets %}?by_user=1";
+                var since_id = $selected_user_tweets.find('.tweet:first').data("tweet-id");
+                if (since_id) {
+                    since_id = since_id.replace(/t/, "");
+                    url += "&since_id=" + since_id;
+                }
+                $.get(url, function(data) {
+                    $selected_user_tweets.prepend(data);
+                    timeout_user = setTimeout(load_tweets_of_selected_users, TIMEOUT_DELAY);
+                }, "html");
+            }
+            function load_tweets_from_search() {
+                var $tweets_from_search = $('#tweets_from_search');
+                var url = "{% url load_tweets %}?from_search=1";
+                var since_id = $tweets_from_search.find('.tweet:first').data("tweet-id");
+                if (since_id) {
+                    since_id = since_id.replace(/t/, "");
+                    url += "&since_id=" + since_id;
+                }
+                $.get(url, function(data) {
+                    $tweets_from_search.prepend(data);
+                    timeout_search = setTimeout(load_tweets_from_search, TIMEOUT_DELAY);
+                }, "html");
+            }
+            $(document).ready(function() {
                 timeout_user = setTimeout(load_tweets_of_selected_users, TIMEOUT_DELAY);
-            }, "html");
-        }
-        function load_tweets_from_search() {
-            var $tweets_from_search = $('#tweets_from_search');
-            var url = "{% url load_tweets %}?from_search=1";
-            var since_id = $tweets_from_search.find('.tweet:first').data("tweet-id");
-            if (since_id) {
-                since_id = since_id.replace(/t/, "");
-                url += "&since_id=" + since_id;
-            }
-            $.get(url, function(data) {
-                $tweets_from_search.prepend(data);
                 timeout_search = setTimeout(load_tweets_from_search, TIMEOUT_DELAY);
-            }, "html");
-        }
-        $(document).ready(function() {
-            timeout_user = setTimeout(load_tweets_of_selected_users, TIMEOUT_DELAY);
-            timeout_search = setTimeout(load_tweets_from_search, TIMEOUT_DELAY);
-        });
-    }(jQuery))
+            });
+        }(jQuery))
     </script>
 </body>
 </html>
