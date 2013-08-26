@@ -23,20 +23,23 @@
         (function($, undefined) {
             var loading_timeout = null;
             var view_timeout = null;
+            var logo_timeout = null;
             var LOADING_TIMEOUT_DELAY = 5000;
             var VIEW_TIMEOUT_DELAY = 3000;
+            var LOGO_TIMEOUT_DELAY = 15000;
             var TRANSITION_DURATION = 500;
 
             function insert_logo() {
                 // inserts a logo after the first or the entering tweet
-                $('<div class="logo">Send a tweet with a hash tag #50ThingsAboutMe</div>')
-                .insertAfter($('.tweet').find('.active,.in').get(0));
+                $('<div class="tweet logo">Send a tweet with a hash tag #50ThingsAboutMe</div>')
+                .insertAfter($('.tweet').filter('.active,.in').get(0));
+                logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
             }
 
             function load_tweets() {
                 var $tweets = $('#tweets');
                 var url = "{% url load_tweets %}";
-                var since_id = $tweets.find('.tweet:first').data("tweet-id");
+                var since_id = $tweets.find('.tweet:last').data("tweet-id");
                 if (since_id) {
                     since_id = since_id.replace(/t/, "");
                     url += "?since_id=" + since_id;
@@ -48,13 +51,19 @@
             }
 
             function show_next_tweet() {
-                $('.tweet:first').hide(TRANSITION_DURATION).remove();
-                view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
+                $('.tweet:eq(0)').addClass('out');
+                $('.tweet:eq(1)').addClass('in').delay(TRANSITION_DURATION).queue(function() {
+                    $('.tweet:eq(1)').addClass('active').removeClass('in');
+                    $('.tweet:eq(0)').remove();
+                    $(this).dequeue();
+                    view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
+                });
             }
 
             $(document).ready(function() {
                 loading_timeout = setTimeout(load_tweets, LOADING_TIMEOUT_DELAY);
                 view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
+                logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
             });
         }(jQuery))
     </script>
