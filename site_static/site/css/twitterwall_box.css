@@ -1,42 +1,145 @@
+@import url(http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,400italic);
+html {
+  color: white;
+  background: black; }
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+fieldset, img {
+  border: 0; }
+
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-style: normal;
+  font-weight: normal; }
+
+li {
+  list-style: none; }
+
+caption, th {
+  text-align: left; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal; }
+
+q:before, q:after {
+  content: ''; }
+
+abbr, acronym {
+  border: 0;
+  font-variant: normal; }
+
+sup {
+  vertical-align: text-top; }
+
+sub {
+  vertical-align: text-bottom; }
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit; }
+
+input, textarea, select {
+  *font-size: 100%; }
+
+legend {
+  color: #000; }
+
 body {
-    background: #aaa;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+  background: black;
+  font-family: 'Neuton', serif;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; }
 
 .tweet-box {
-    width:537px;
-    height:225px;
-    position:absolute;
-    left:50%;
-    top:50%;
-    margin:-112px 0 0 -268px;
-    background: #fff;
-}
+  width: 537px;
+  height: 225px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -112px 0 0 -268px;
+  background: #fff; }
 
 .tweet-list {
-    display: block;
-    width: 537px;
-    height: 225px;
-    overflow: hidden;
-}
+  display: block;
+  width: 537px;
+  height: 225px;
+  overflow: hidden;
+  position: relative; }
 
 .tweet {
-    display: block;
-}
-
-.logo {
-    border: 1px solid blue;
-}
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  top: 100%;
+  height: 100%;
+  width: 100%;
+  font-size: 30px;
+  line-height: 140%;
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  -ms-transition: all .35s ease-in-out;
+  -o-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 15px 25px;
+  background-image: url("../img/twitter/painting-01.jpg");
+  color: white; }
+  .tweet a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none; }
+  .tweet .tweet-header {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: 13px;
+    line-height: 24px;
+    padding: 12px;
+    padding-right: 50px; }
+    .tweet .tweet-header img {
+      border-radius: 100%;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 5px;
+      bottom: 5px; }
+  .tweet:nth-child(1n) {
+    background-position: -100px 300px; }
+  .tweet:nth-child(2n) {
+    background-position: -100px 0px; }
+  .tweet:nth-child(3n) {
+    background-position: -300px 600px; }
+  .tweet:nth-child(4n) {
+    background-position: -600px 500px; }
+  .tweet:nth-child(5n) {
+    background-position: -100px 1000px; }
+  .tweet:nth-child(6n) {
+    background-position: -100px 700px; }
 
 .active {
-    background: yellow;
-}
+  top: 0%; }
+
 .in {
-    background: green;
-}
+  top: 0%; }
+
 .out {
-    background: red;
-}
+  top: -100%; }
