@@ -91,7 +91,7 @@ body {
   height: 100%;
   width: 100%;
   font-size: 30px;
-  line-height: 140%;
+  line-height: 130%;
   -webkit-transition: all .35s ease-in-out;
   -moz-transition: all .35s ease-in-out;
   -ms-transition: all .35s ease-in-out;
@@ -104,6 +104,9 @@ body {
   padding: 15px 25px;
   background-image: url("../img/twitter/painting-01.jpg");
   color: white; }
+  .tweet img {
+    margin-top: 10px;
+    display: block; }
   .tweet a {
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none; }
@@ -116,7 +119,7 @@ body {
     padding: 12px;
     padding-right: 50px; }
     .tweet .tweet-header img {
-      border-radius: 100%;
+      border-radius: 3px;
       width: 30px;
       height: 30px;
       position: absolute;
