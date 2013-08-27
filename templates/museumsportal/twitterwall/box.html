@@ -32,12 +32,15 @@
 
             function insert_logo() {
                 // inserts logo screens after the first or the entering tweet
-                $(
-                    '<div class="tweet logo">Willkommen zur <br />Langen Nacht der Museen</div>' +
-                    '<div class="tweet logo">Jetzt live mit-tweeten:<br />#LNBerlin</div>' +
-                    '<div class="tweet logo">und mitverfolgen auf:<br />www.twitter.com/museumsnachtB</div>' +
-                    '<div class="tweet logo">Mit freundlicher Unterstützung von:<br />Werther´s Original</div>'
-                ).insertAfter($('.tweet').filter('.active,.in').get(0));
+                clearTimeout(logo_timeout);
+                if (!$('.logo').length) {
+                    $(
+                        '<div class="tweet logo">Willkommen zur <br />Langen Nacht der Museen</div>' +
+                        '<div class="tweet logo">Jetzt live mit-tweeten:<br />#LNBerlin</div>' +
+                        '<div class="tweet logo">und mitverfolgen auf:<br />www.twitter.com/museumsnachtB</div>' +
+                        '<div class="tweet logo">Mit freundlicher Unterstützung von:<br />Werther´s Original</div>'
+                    ).insertAfter($('.tweet').filter('.active,.in').get(0));
+                }
                 logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
             }
 
@@ -73,6 +76,9 @@
             };
 
             function show_next_tweet() {
+                if ($('.tweet').length < 2) {
+                    insert_logo();
+                }
                 var $first_tweet = $('.tweet:eq(0)');
                 var $second_tweet = $('.tweet:eq(1)');
                 var animate_second_tweet_to = {top: '0%', opacity: 1};
