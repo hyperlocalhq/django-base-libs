@@ -101,7 +101,16 @@ def load_box_tweets(request):
         count = 0
 
     tweets = Tweet.objects.filter(**params).order_by("creation_date")
+
     if count:
         tweets = tweets[:count]
+
+    if not tweets:
+        tweets = Tweet.objects.filter(
+            status="published",
+        ).order_by("creation_date")
+        limit = 5
+        count = tweets.count()
+        tweets = tweets[count-limit:]
 
     return render(request, "twitterwall/box_tweets.html", {'tweets': tweets})
