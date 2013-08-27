@@ -23,6 +23,11 @@ b {
   -o-font-smoothing: antialiased;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 a:link,
@@ -59,7 +64,7 @@ a:visited {
     height: 100%;
     width: 100%;
     font-size: 30px;
-    line-height: 130%;
+    line-height: 120%;
 
     /*
     -webkit-transition: all .35s ease-in-out;
@@ -68,10 +73,6 @@ a:visited {
     -o-transition: all .35s ease-in-out;
     transition: all .35s ease-in-out;
     */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
 
     padding: 15px 25px;
     background-image: url("../img/twitter/painting-01.jpg");
@@ -88,8 +89,8 @@ a:visited {
     } 
     .tweet-header {
         position: absolute;
-        bottom: 0px;
-        right: 0px;
+        bottom: 7px;
+        right: 7px;
         font-size: 15px;
         line-height: 15px;
         padding: 0px;
@@ -110,9 +111,19 @@ a:visited {
         }
     }
     .tweet-media {
+        display: block;
         float: left;
-        max-width: 150px;
+        margin-top: -15px;
+        margin-left: -45px;
         margin-right: 20px;
+        height: 225px;
+        width: 230px;
+        overflow: hidden;
+        img {
+            margin: 0px;
+            margin-right: -45px;
+            height: 225px;
+        }
     }
     /*
     &.t1 { background-position: -100px 300px; }

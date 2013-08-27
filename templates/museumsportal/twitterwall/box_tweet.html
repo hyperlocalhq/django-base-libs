@@ -7,12 +7,15 @@
             <span class="username">@{{ tweet.user.screen_name }}</span>
         </a>
     </div>
+
     <div class="tweet-text">
+        {% if tweet.tweetmedia_set.count %}
         <div class="tweet-media">
             {% for tweet_media in tweet.tweetmedia_set.all %}
                 <img src="{{ tweet_media.media_url }}:thumb" alt="" />
             {% endfor %}
         </div>
+        {% endif %}
         <p>{{ tweet.html|safe }}</p>
     </div>
 </div>
