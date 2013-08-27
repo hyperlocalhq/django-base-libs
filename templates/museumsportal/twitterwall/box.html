@@ -40,7 +40,7 @@
 
             function cleanup_stack() {
                 // deletes all tweets except first, second, and last three
-                // $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3)').remove();
+                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3)').remove();
                 cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
             }
 
@@ -62,7 +62,7 @@
                 $('.tweet:eq(0)').addClass('out').removeClass('active');
                 $('.tweet:eq(1)').addClass('in').delay(TRANSITION_DURATION).queue(function() {
                     $('.tweet:eq(1)').addClass('active').removeClass('in');
-                    // $('.tweet:eq(0)').remove();
+                    $('.tweet:eq(0)').remove();
                     $(this).dequeue();
                     view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
                 });
