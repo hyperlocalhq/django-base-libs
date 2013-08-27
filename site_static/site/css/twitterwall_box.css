@@ -74,7 +74,7 @@ body {
   left: 50%;
   top: 50%;
   margin: -112px 0 0 -268px;
-  background: #fff; }
+  background: black; }
 
 .tweet-list {
   display: block;
@@ -125,34 +125,28 @@ body {
       position: absolute;
       right: 5px;
       bottom: 5px; }
-  .tweet:nth-child(1n) {
+  .tweet.t1 {
     background-position: -100px 300px; }
-  .tweet:nth-child(2n) {
-    background-position: -100px 0px; }
-  .tweet:nth-child(3n) {
+  .tweet.t2 {
+    background-position: -100px 400px; }
+  .tweet.t3 {
     background-position: -300px 600px; }
-  .tweet:nth-child(4n) {
+  .tweet.t4 {
     background-position: -600px 500px; }
-  .tweet:nth-child(5n) {
-    background-position: -100px 1000px; }
-  .tweet:nth-child(6n) {
+  .tweet.t5 {
+    background-position: -150px 1000px; }
+  .tweet.t6 {
     background-position: -100px 700px; }
+  .tweet.logo {
+    background-image: url("../img/twitter/werthers.jpg"); }
 
 .active {
-  top: 0%; }
+  top: 0%;
+  opacity: 1; }
 
 .in {
   top: 0%; }
 
 .out {
+  opacity: 0;
   top: -100%; }
-
-.t1 {
-    border-left: 5px solid yellow;
-}
-.t2 {
-    border-left: 5px solid green;
-}
-.t3 {
-    border-left: 5px solid red;
-}
