@@ -25,28 +25,25 @@
             var logo_timeout = null;
             var cleanup_timeout = null;
             var LOADING_TIMEOUT_DELAY = 5000;
-            var VIEW_TIMEOUT_DELAY = 4000;
+            var VIEW_TIMEOUT_DELAY = 5500;
             var LOGO_TIMEOUT_DELAY = 30000;
             var TRANSITION_DURATION = 500;
             var CLEANUP_TIMEOUT_DELAY = 60000;
 
             function insert_logo() {
                 // inserts logo screens after the first or the entering tweet
-                clearTimeout(logo_timeout);
-                if (!$('.logo').length) {
-                    $(
-                        '<div class="tweet logo">Willkommen zur <br />Langen Nacht der Museen</div>' +
-                        '<div class="tweet logo">Jetzt live mit-tweeten:<br />#LNBerlin</div>' +
-                        '<div class="tweet logo">und mitverfolgen auf:<br />www.twitter.com/museumsnachtB</div>' +
-                        '<div class="tweet logo">Mit freundlicher Unterstützung von:<br />Werther´s Original</div>'
-                    ).insertAfter($('.tweet').filter('.active,.in').get(0));
-                }
+                $(
+                    '<div class="tweet logo langenacht ln-1"><p>Willkommen zur <br /><b>Langen Nacht der Museen</b></p></div>' +
+                    '<div class="tweet logo langenacht ln-2"><p>Jetzt live mit-tweeten:<br /><b>#LNBerlin</b></p></div>' +
+                    '<div class="tweet logo langenacht ln-3"><p><b>und mitverfolgen auf:</b><br /><small>www.twitter.com/museumsnachtB</small></p></div>' +
+                    '<div class="tweet logo werthers"><p>Mit freundlicher Unterstützung von:<br />Werther´s Original</p></div>'
+                ).insertAfter($('.tweet').filter('.active,.in').get(0));
                 logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
             }
 
             function cleanup_stack() {
                 // deletes all tweets except first, second, and last three
-                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3),.logo').remove();
+                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3)').remove();
                 cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
             }
 
@@ -68,25 +65,29 @@
             var tweet_class_index = 1;
 
             var bg_positions = {
-                t1: {'background-position-x': '-100px', 'background-position-y': '300px'},
-                t2: {'background-position-x': '-100px', 'background-position-y': '400px'},
-                t3: {'background-position-x': '-300px', 'background-position-y': '600px'},
-                t4: {'background-position-x': '-600px', 'background-position-y': '500px'},
-                t5: {'background-position-x': '-150px', 'background-position-y': '1000px'},
-                t6: {'background-position-x': '-100px', 'background-position-y': '700px'}
+                t1:  {'background-position-x': '-100px', 'background-position-y': '300px'},
+                t2:  {'background-position-x': '-100px', 'background-position-y': '400px'},
+                t3:  {'background-position-x': '-300px', 'background-position-y': '600px'},
+                t4:  {'background-position-x': '-600px', 'background-position-y': '500px'},
+                t5:  {'background-position-x': '-150px', 'background-position-y': '1000px'},
+                t6:  {'background-position-x': '-100px', 'background-position-y': '700px'},
+
+                t7:  {'background-position-x': '-160px', 'background-position-y': '1700px'},
+                t8:  {'background-position-x': '1300px', 'background-position-y': '1980px'},
+                t9:  {'background-position-x': '-0px', 'background-position-y': '1900px'},
+                t10: {'background-position-x': '-750px', 'background-position-y': '750px'},
+                t11: {'background-position-x': '-1000px', 'background-position-y': '250px'},
+                t12: {'background-position-x': '-300px', 'background-position-y': '1200px'}
             };
 
             function show_next_tweet() {
-                if ($('.tweet').length < 2) {
-                    insert_logo();
-                }
                 var $first_tweet = $('.tweet:eq(0)');
                 var $second_tweet = $('.tweet:eq(1)');
                 var animate_second_tweet_to = {top: '0%', opacity: 1};
-                if (!$second_tweet.is('.logo')) {
+                if (!$second_tweet.is('.werthers')) {
                     // add t1, t2, or t3 class to the tweet which will be active soon
                     tweet_class_index++;
-                    if (tweet_class_index > 6) {
+                    if (tweet_class_index > 12) {
                         tweet_class_index = 1;
                     }
                     $second_tweet.addClass('t' + tweet_class_index);

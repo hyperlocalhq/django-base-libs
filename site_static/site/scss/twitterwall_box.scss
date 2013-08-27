@@ -4,12 +4,17 @@
 html{color:white;background:black;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
 
 body {
-    background: black;
+    background: #2c2c2c;
     font-family: 'Neuton', serif;
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
+    font-weight: 300;
+}
+
+b {
+    font-weight: 700;
 }
 
 * {
@@ -20,6 +25,13 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+a:link,
+a:active,
+a:hover,
+a:visited {
+    color: white;
+    text-decoration: none;
+} 
 .tweet-box {
     width:537px;
     height:225px;
@@ -28,6 +40,7 @@ body {
     top:50%;
     margin:-112px 0 0 -268px;
     background: black;
+    -webkit-box-shadow: 0 0 30px rgba(255,255,255,0.125);
 }
 
 .tweet-list {
@@ -81,6 +94,7 @@ body {
         line-height: 24px;
         padding: 12px;
         padding-right: 50px;
+        white-space: nowrap;
         img {
             border-radius: 3px;
             width: 30px;
@@ -90,6 +104,11 @@ body {
             bottom: 5px;
         }
     }
+    .tweet-media {
+        float: left;
+        max-width: 150px;
+        margin-right: 20px;
+    }
     /*
     &.t1 { background-position: -100px 300px; }
     &.t2 { background-position: -100px 400px; }
@@ -98,7 +117,13 @@ body {
     &.t5 { background-position: -150px 1000px; }
     &.t6 { background-position: -100px 700px; }
     */
-    &.logo { background-image: url("../img/twitter/werthers.jpg"); }
+    &.langenacht {
+        padding-top: 53px;
+        text-align: center;
+        line-height: 120%;
+        font-size: 45px;
+    }
+    &.werthers { background-image: url("../img/twitter/werthers.jpg"); }
 }
 
 .logo {

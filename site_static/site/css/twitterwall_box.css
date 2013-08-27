@@ -84,15 +84,21 @@ legend {
 
 /* line 6, ../scss/twitterwall_box.scss */
 body {
-  background: black;
+  background: #2c2c2c;
   font-family: 'Neuton', serif;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+  font-weight: 300;
 }
 
-/* line 15, ../scss/twitterwall_box.scss */
+/* line 16, ../scss/twitterwall_box.scss */
+b {
+  font-weight: 700;
+}
+
+/* line 20, ../scss/twitterwall_box.scss */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -101,7 +107,16 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* line 23, ../scss/twitterwall_box.scss */
+/* line 31, ../scss/twitterwall_box.scss */
+a:link,
+a:active,
+a:hover,
+a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+/* line 35, ../scss/twitterwall_box.scss */
 .tweet-box {
   width: 537px;
   height: 225px;
@@ -110,9 +125,10 @@ body {
   top: 50%;
   margin: -112px 0 0 -268px;
   background: black;
+  -webkit-box-shadow: 0 0 30px rgba(255, 255, 255, 0.125);
 }
 
-/* line 33, ../scss/twitterwall_box.scss */
+/* line 46, ../scss/twitterwall_box.scss */
 .tweet-list {
   display: block;
   width: 537px;
@@ -121,7 +137,7 @@ body {
   position: relative;
 }
 
-/* line 41, ../scss/twitterwall_box.scss */
+/* line 54, ../scss/twitterwall_box.scss */
 .tweet {
   overflow: hidden;
   display: block;
@@ -154,17 +170,17 @@ body {
   &.t6 { background-position: -100px 700px; }
   */
 }
-/* line 67, ../scss/twitterwall_box.scss */
+/* line 80, ../scss/twitterwall_box.scss */
 .tweet img {
   margin-top: 10px;
   display: block;
 }
-/* line 72, ../scss/twitterwall_box.scss */
+/* line 85, ../scss/twitterwall_box.scss */
 .tweet a {
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
 }
-/* line 76, ../scss/twitterwall_box.scss */
+/* line 89, ../scss/twitterwall_box.scss */
 .tweet .tweet-header {
   position: absolute;
   bottom: 0px;
@@ -173,8 +189,9 @@ body {
   line-height: 24px;
   padding: 12px;
   padding-right: 50px;
+  white-space: nowrap;
 }
-/* line 84, ../scss/twitterwall_box.scss */
+/* line 98, ../scss/twitterwall_box.scss */
 .tweet .tweet-header img {
   border-radius: 3px;
   width: 30px;
@@ -183,12 +200,25 @@ body {
   right: 5px;
   bottom: 5px;
 }
-/* line 101, ../scss/twitterwall_box.scss */
-.tweet.logo {
+/* line 107, ../scss/twitterwall_box.scss */
+.tweet .tweet-media {
+  float: left;
+  max-width: 150px;
+  margin-right: 20px;
+}
+/* line 120, ../scss/twitterwall_box.scss */
+.tweet.langenacht {
+  padding-top: 53px;
+  text-align: center;
+  line-height: 120%;
+  font-size: 45px;
+}
+/* line 126, ../scss/twitterwall_box.scss */
+.tweet.werthers {
   background-image: url("../img/twitter/werthers.jpg");
 }
 
-/* line 107, ../scss/twitterwall_box.scss */
+/* line 132, ../scss/twitterwall_box.scss */
 .active {
   /*
   top: 0%;
@@ -196,14 +226,14 @@ body {
   */
 }
 
-/* line 113, ../scss/twitterwall_box.scss */
+/* line 138, ../scss/twitterwall_box.scss */
 .in {
   /*
   top: 0%;
   */
 }
 
-/* line 118, ../scss/twitterwall_box.scss */
+/* line 143, ../scss/twitterwall_box.scss */
 .out {
   /*
   opacity: 0;
