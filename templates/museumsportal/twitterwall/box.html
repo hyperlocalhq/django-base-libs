@@ -46,7 +46,7 @@
 
             function load_tweets() {
                 var $tweets = $('#tweets');
-                var url = "{% url load_tweets %}";
+                var url = "{% url load_box_tweets %}";
                 var since_id = $tweets.find('.tweet:last').data("tweet-id");
                 if (since_id) {
                     since_id = since_id.replace(/t/, "");
@@ -58,18 +58,30 @@
                 }, "html");
             }
 
+            var tweet_class_index = 1;
+
             function show_next_tweet() {
-                $('.tweet:eq(0)').addClass('out').removeClass('active');
-                $('.tweet:eq(1)').addClass('in').delay(TRANSITION_DURATION).queue(function() {
-                    $('.tweet:eq(1)').addClass('active').removeClass('in');
-                    $('.tweet:eq(0)').remove();
+                var $first_tweet = $('.tweet:eq(0)');
+                var $second_tweet = $('.tweet:eq(1)');
+                if (!$second_tweet.is('.logo')) {
+                    // add t1, t2, or t3 class to the tweet which will be active soon
+                    tweet_class_index++;
+                    if (tweet_class_index > 3) {
+                        tweet_class_index = 1;
+                    }
+                    $second_tweet.addClass('t' + tweet_class_index);
+                }
+                $first_tweet.addClass('out').removeClass('active');
+                $second_tweet.addClass('in').delay(TRANSITION_DURATION).queue(function() {
+                    $first_tweet.remove();
+                    $second_tweet.addClass('active').removeClass('in');
                     $(this).dequeue();
                     view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
                 });
             }
 
             $(document).ready(function() {
-                $('.tweet:first').addClass('active');
+                $('.tweet:first').addClass('active').addClass('t1');
                 loading_timeout = setTimeout(load_tweets, LOADING_TIMEOUT_DELAY);
                 view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
                 logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
