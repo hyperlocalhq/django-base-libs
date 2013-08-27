@@ -57,6 +57,7 @@
                 }
                 $.get(url, function(data) {
                     $tweets.append(data);
+                    $('a:contains("pic.twitter.com")', $tweets).remove();
                     loading_timeout = setTimeout(load_tweets, LOADING_TIMEOUT_DELAY);
                 }, "html");
             }
