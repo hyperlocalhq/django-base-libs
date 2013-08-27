@@ -48,12 +48,13 @@ body {
     font-size: 30px;
     line-height: 130%;
 
-  -webkit-transition: all .35s ease-in-out;
-     -moz-transition: all .35s ease-in-out;
-      -ms-transition: all .35s ease-in-out;
-       -o-transition: all .35s ease-in-out;
-          transition: all .35s ease-in-out;
-
+    /*
+    -webkit-transition: all .35s ease-in-out;
+    -moz-transition: all .35s ease-in-out;
+    -ms-transition: all .35s ease-in-out;
+    -o-transition: all .35s ease-in-out;
+    transition: all .35s ease-in-out;
+    */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -89,12 +90,14 @@ body {
             bottom: 5px;
         }
     }
+    /*
     &.t1 { background-position: -100px 300px; }
     &.t2 { background-position: -100px 400px; }
     &.t3 { background-position: -300px 600px; }
     &.t4 { background-position: -600px 500px; }
     &.t5 { background-position: -150px 1000px; }
     &.t6 { background-position: -100px 700px; }
+    */
     &.logo { background-image: url("../img/twitter/werthers.jpg"); }
 }
 
@@ -102,13 +105,19 @@ body {
 }
 
 .active {
+    /*
     top: 0%;
     opacity: 1;
+    */
 }
 .in {
+    /*
     top: 0%;
+    */
 }
 .out {
+    /*
     opacity: 0;
     top: -100%;
+    */
 }

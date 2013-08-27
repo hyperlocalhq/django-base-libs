@@ -26,20 +26,24 @@
             var cleanup_timeout = null;
             var LOADING_TIMEOUT_DELAY = 5000;
             var VIEW_TIMEOUT_DELAY = 2000;
-            var LOGO_TIMEOUT_DELAY = 15000;
+            var LOGO_TIMEOUT_DELAY = 30000;
             var TRANSITION_DURATION = 500;
             var CLEANUP_TIMEOUT_DELAY = 60000;
 
             function insert_logo() {
-                // inserts a logo after the first or the entering tweet
-                $('<div class="tweet logo">Send a tweet with a hash tag #50ThingsAboutMe</div>')
-                .insertAfter($('.tweet').filter('.active,.in').get(0));
+                // inserts logo screens after the first or the entering tweet
+                $(
+                    '<div class="tweet logo">Willkommen zur <br />Langen Nacht der Museen</div>' +
+                    '<div class="tweet logo">Jetzt live mit-tweeten:<br />#LNBerlin</div>' +
+                    '<div class="tweet logo">und mitverfolgen auf:<br />www.twitter.com/museumsnachtB</div>' +
+                    '<div class="tweet logo">Mit freundlicher Unterstützung von:<br />Werther´s Original</div>'
+                ).insertAfter($('.tweet').filter('.active,.in').get(0));
                 logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
             }
 
             function cleanup_stack() {
                 // deletes all tweets except first, second, and last three
-                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3)').remove();
+                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3),.logo').remove();
                 cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
             }
 
@@ -59,9 +63,19 @@
 
             var tweet_class_index = 1;
 
+            var bg_positions = {
+                t1: {'background-position-x': '-100px', 'background-position-y': '300px'},
+                t2: {'background-position-x': '-100px', 'background-position-y': '400px'},
+                t3: {'background-position-x': '-300px', 'background-position-y': '600px'},
+                t4: {'background-position-x': '-600px', 'background-position-y': '500px'},
+                t5: {'background-position-x': '-150px', 'background-position-y': '1000px'},
+                t6: {'background-position-x': '-100px', 'background-position-y': '700px'}
+            };
+
             function show_next_tweet() {
                 var $first_tweet = $('.tweet:eq(0)');
                 var $second_tweet = $('.tweet:eq(1)');
+                var animate_second_tweet_to = {top: '0%', opacity: 1};
                 if (!$second_tweet.is('.logo')) {
                     // add t1, t2, or t3 class to the tweet which will be active soon
                     tweet_class_index++;
@@ -69,9 +83,10 @@
                         tweet_class_index = 1;
                     }
                     $second_tweet.addClass('t' + tweet_class_index);
+                    animate_second_tweet_to = $.extend(animate_second_tweet_to, bg_positions['t' + tweet_class_index]);
                 }
-                $first_tweet.addClass('out').removeClass('active');
-                $second_tweet.addClass('in').delay(TRANSITION_DURATION).queue(function() {
+                $first_tweet.addClass('out').animate({top: '-100%', opacity: 0}, TRANSITION_DURATION).removeClass('active');
+                $second_tweet.addClass('in').animate(animate_second_tweet_to, TRANSITION_DURATION).queue(function() {
                     $first_tweet.remove();
                     $second_tweet.addClass('active').removeClass('in');
                     $(this).dequeue();
