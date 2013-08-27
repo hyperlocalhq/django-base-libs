@@ -1,107 +1,83 @@
 @import url(http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,400italic);
-/* line 4, ../scss/twitterwall_box.scss */
 html {
   color: white;
-  background: black;
-}
+  background: black; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 table {
   border-collapse: collapse;
-  border-spacing: 0;
-}
+  border-spacing: 0; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 fieldset, img {
-  border: 0;
-}
+  border: 0; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 address, caption, cite, code, dfn, em, strong, th, var {
   font-style: normal;
-  font-weight: normal;
-}
+  font-weight: normal; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 li {
-  list-style: none;
-}
+  list-style: none; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 caption, th {
-  text-align: left;
-}
+  text-align: left; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
-  font-weight: normal;
-}
+  font-weight: normal; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 q:before, q:after {
-  content: '';
-}
+  content: ''; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 abbr, acronym {
   border: 0;
-  font-variant: normal;
-}
+  font-variant: normal; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 sup {
-  vertical-align: text-top;
-}
+  vertical-align: text-top; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 sub {
-  vertical-align: text-bottom;
-}
+  vertical-align: text-bottom; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
-  font-weight: inherit;
-}
+  font-weight: inherit; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 input, textarea, select {
-  *font-size: 100%;
-}
+  *font-size: 100%; }
 
-/* line 4, ../scss/twitterwall_box.scss */
 legend {
-  color: #000;
-}
+  color: #000; }
 
-/* line 6, ../scss/twitterwall_box.scss */
 body {
-  background: black;
+  background: #2c2c2c;
   font-family: 'Neuton', serif;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-}
+  font-weight: 300; }
 
-/* line 15, ../scss/twitterwall_box.scss */
+b {
+  font-weight: 700; }
+
 * {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  text-rendering: optimizeLegibility; }
 
-/* line 23, ../scss/twitterwall_box.scss */
+a:link,
+a:active,
+a:hover,
+a:visited {
+  color: white;
+  text-decoration: none; }
+
 .tweet-box {
   width: 537px;
   height: 225px;
@@ -110,18 +86,15 @@ body {
   top: 50%;
   margin: -112px 0 0 -268px;
   background: black;
-}
+  -webkit-box-shadow: 0 0 30px rgba(255, 255, 255, 0.125); }
 
-/* line 33, ../scss/twitterwall_box.scss */
 .tweet-list {
   display: block;
   width: 537px;
   height: 225px;
   overflow: hidden;
-  position: relative;
-}
+  position: relative; }
 
-/* line 41, ../scss/twitterwall_box.scss */
 .tweet {
   overflow: hidden;
   display: block;
@@ -152,61 +125,53 @@ body {
   &.t4 { background-position: -600px 500px; }
   &.t5 { background-position: -150px 1000px; }
   &.t6 { background-position: -100px 700px; }
-  */
-}
-/* line 67, ../scss/twitterwall_box.scss */
-.tweet img {
-  margin-top: 10px;
-  display: block;
-}
-/* line 72, ../scss/twitterwall_box.scss */
-.tweet a {
-  color: rgba(255, 255, 255, 0.9);
-  text-decoration: none;
-}
-/* line 76, ../scss/twitterwall_box.scss */
-.tweet .tweet-header {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  font-size: 13px;
-  line-height: 24px;
-  padding: 12px;
-  padding-right: 50px;
-}
-/* line 84, ../scss/twitterwall_box.scss */
-.tweet .tweet-header img {
-  border-radius: 3px;
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-}
-/* line 101, ../scss/twitterwall_box.scss */
-.tweet.logo {
-  background-image: url("../img/twitter/werthers.jpg");
-}
+  */ }
+  .tweet img {
+    margin-top: 10px;
+    display: block; }
+  .tweet a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none; }
+  .tweet .tweet-header {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: 13px;
+    line-height: 24px;
+    padding: 12px;
+    padding-right: 50px; }
+    .tweet .tweet-header img {
+      border-radius: 3px;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 5px;
+      bottom: 5px; }
+  .tweet .tweet-media {
+    float: left;
+    max-width: 150px;
+    margin-right: 20px; }
+  .tweet.langenacht {
+    padding-top: 53px;
+    text-align: center;
+    line-height: 120%;
+    font-size: 45px; }
+  .tweet.werthers {
+    background-image: url("../img/twitter/werthers.jpg"); }
 
-/* line 107, ../scss/twitterwall_box.scss */
 .active {
   /*
   top: 0%;
   opacity: 1;
-  */
-}
+  */ }
 
-/* line 113, ../scss/twitterwall_box.scss */
 .in {
   /*
   top: 0%;
-  */
-}
+  */ }
 
-/* line 118, ../scss/twitterwall_box.scss */
 .out {
   /*
   opacity: 0;
   top: -100%;
-  */
-}
+  */ }

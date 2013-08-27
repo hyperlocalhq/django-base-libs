@@ -8,11 +8,11 @@
         </a>
     </div>
     <div class="tweet-text">
+        <div class="tweet-media">
+            {% for tweet_media in tweet.tweetmedia_set.all %}
+                <img src="{{ tweet_media.media_url }}:thumb" alt="" />
+            {% endfor %}
+        </div>
         <p>{{ tweet.html|safe }}</p>
-    </div>
-    <div class="tweet-media">
-        {% for tweet_media in tweet.tweetmedia_set.all %}
-            <img src="{{ tweet_media.media_url }}:thumb" alt="" />
-        {% endfor %}
     </div>
 </div>
