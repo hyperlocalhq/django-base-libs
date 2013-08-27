@@ -159,10 +159,10 @@ class Command(DaemonCommand):
         
         # Requires Authentication as of Twitter API v1.1
         self.stream = MyStreamer(
-            settings.TWITTER_CONSUMER_KEY, 
-            settings.TWITTER_CONSUMER_SECRET,
-            settings.TWITTER_ACCESS_TOKEN,
-            settings.TWITTER_ACCESS_TOKEN_SECRET,
+            settings.TWITTER_STREAMING_CONSUMER_KEY,
+            settings.TWITTER_STREAMING_CONSUMER_SECRET,
+            settings.TWITTER_STREAMING_ACCESS_TOKEN,
+            settings.TWITTER_STREAMING_ACCESS_TOKEN_SECRET,
         )
 
         UserTimelineSettings = models.get_model("twitterwall", "UserTimelineSettings")
@@ -185,10 +185,10 @@ class Command(DaemonCommand):
 
         # get twitter user ids from screen names
         self.api = Twython(
-            settings.TWITTER_CONSUMER_KEY,
-            settings.TWITTER_CONSUMER_SECRET,
-            settings.TWITTER_ACCESS_TOKEN,
-            settings.TWITTER_ACCESS_TOKEN_SECRET,
+            settings.TWITTER_STREAMING_CONSUMER_KEY,
+            settings.TWITTER_STREAMING_CONSUMER_SECRET,
+            settings.TWITTER_STREAMING_ACCESS_TOKEN,
+            settings.TWITTER_STREAMING_ACCESS_TOKEN_SECRET,
         )
         user_ids = []
         if follow_query:
