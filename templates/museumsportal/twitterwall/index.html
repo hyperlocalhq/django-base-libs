@@ -2,12 +2,16 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Museumsportal Berlin {% block title %}{% endblock %}</title>
+    <title>Berliner Twitternacht – LANGE NACHT DER MUSEEN</title>
     <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
-    <link href="{{ STATIC_URL }}site/css/reset.css" rel="stylesheet" media="screen" type="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
     <link href="{{ STATIC_URL }}site/css/twitterwall.css" rel="stylesheet" media="screen" type="text/css" />
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.viewport.mini.js"></script>
     <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-348516-14']);
@@ -19,47 +23,126 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
+
+    <script>
+    window.ScrollZip = {
+        selectorLeft      : "#col-l .tweetx",
+        selectorRight     : "#col-r .tweetx",
+        absoluteYOffset   : 500,
+        windowWidthFactor : 0.33,
+        phaseHeight       : 200,
+        elementWidth      : 100,
+        elementHeight     : 100,
+
+        calcX: function(i, yo) {
+            var w = window.document.body.offsetWidth * ScrollZip.windowWidthFactor;
+            var sy = yo - i*ScrollZip.elementHeight;
+            var phase = sy/ScrollZip.phaseHeight;
+
+            if (phase>Math.PI/2) return w;
+            return Math.sin(phase)*w;
+        },
+
+        calcY: function(i, yo) {
+            return ScrollZip.absoluteYOffset + i*ScrollZip.elementHeight;
+        },
+
+        init: function() {
+            window.onscroll = function(e) {
+                var yo = window.pageYOffset;
+                var body = window.document.body;
+
+                leftEls  = document.querySelectorAll(ScrollZip.selectorLeft);
+                rightEls = document.querySelectorAll(ScrollZip.selectorRight);
+
+                for (var i=0; i<leftEls.length; i++) {
+                    el = leftEls[i];
+
+                    var x = ScrollZip.calcX(i, yo);
+                    var y = ScrollZip.calcY(i, yo);
+
+                    el.style.left = x+"px";
+                    el.style.top  = y+"px";
+                }
+
+                for (var i=0; i<rightEls.length; i++) {
+                    el = rightEls[i];
+
+                    var x = body.offsetWidth - ScrollZip.calcX(i, yo) - ScrollZip.elementWidth;
+                    var y = ScrollZip.calcY(i, yo);
+
+                    el.style.left = x+"px";
+                    el.style.top  = y+"px";
+                }
+            }
+        }
+    }
+
+    $(window).load(function() {
+      ScrollZip.init();
+
+      var heightleft = $('#col-l').height(),
+          heightright = $('#col-r').height();
+
+      if (heightleft < heightright) {
+        $('#col-l').css("height", heightright);
+      }
+      else {
+        $('#col-r').css("height", heightleft);
+      }
+    });
+
+    </script>
+
+
+    <script type="text/javascript" charset="utf-8">
+    // $(function() {
+    //     var previous = "";
+    //     $(window).bind("scroll", function(event) {
+
+    //         $(".tweet:below-the-fold").each(function() {
+    //           $(this).removeClass('inview');
+    //         });
+
+    //         $(".tweet:above-the-top").each(function() {
+    //           $(this).removeClass('inview');
+    //         });
+
+    //         $(".tweet:in-viewport").each(function() {
+    //           $(this).addClass('inview');
+    //         });
+    //     });
+    // });
+    </script>
+
 </head>
 <body>
-    <div class="footer">
+    <div id="title">
+        <h3>31. AUG 13</h3>
+        <h1>Berliner Twitternacht </h1>
+        <h2>Junge Wilde & alte Meister</h2>
+    </div>
+
+    <div class="col" id="col-l">
+        {% for tweet in selected_user_tweets %}
+            {% include "twitterwall/tweet.html" %}
+        {% endfor %}
+    </div>
+
+    <div class="col" id="col-r">
+        {% for tweet in tweets_from_search %}
+            {% include "twitterwall/tweet.html" %}
+        {% endfor %}
+        <p class="lead">Mit Tweeten: #LNBerlin</p>
+    </div>
+
+    <div id="footer">
         <div class="wrapper">
             <a class="studio38" target="_blank" href="http://www.studio38.de/">Powered by Studio 38</a>
-            <a class="back" target="_blank" href="http://www.berliner-museumsportal.de">Zurück zum Museumsportal Berlin</a>
+            <a class="back" target="_blank" href="http://www.museumsportal-berlin.de/">Zurück zum Portal</a>
         </div>
     </div>
-        
-    <div class="wrapper">
-        
-        <div id="header">
-            <h1>Berliner Twitternacht <span>16. März 2013 – Lange Nacht der Museen</span></h1>
-            <!--
-            <h2>Tweets von @MuseumsnachtB</h2>
-            <h2>Tweets mit dem Hashtag #LNBerlin</h2>
-            -->
-        </div>
-        
-        <div class="tweet_wrapper">
 
-            <div id="selected" class="cullumn">
-                <div id="selected_user_tweets" class="tweet-list">
-                    {% for tweet in selected_user_tweets %}
-                        {% include "twitterwall/tweet.html" %}
-                    {% endfor %}
-                    <br style="clear:both" />
-                </div>
-            </div>
-
-            <div id="searched" class="cullumn">
-                <div id="tweets_from_search" class="tweet-list">
-                    {% for tweet in tweets_from_search %}
-                        {% include "twitterwall/tweet.html" %}
-                    {% endfor %}
-                    <br style="clear:both" />
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <script type="text/javascript">
         (function($, undefined) {
             var timeout_user = null;

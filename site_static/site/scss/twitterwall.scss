@@ -1,0 +1,267 @@
+@import url(http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,400italic);
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, img, ins, kbd, q, samp, small, strong, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, footer, header, nav, section {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  -webkit-text-size-adjust:none;
+  background: black;
+  color: white;
+  font-family: 'Neuton', serif;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 120%;
+  overflow-x: hidden;
+
+  background-attachment: fixed;
+  background-image: url("../img/twitterwall/col-r.jpg");
+  background-position: bottom right;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: block;
+  height: 0;
+  visibility: hidden; }
+
+.clearfix:after {
+  clear: both; }
+
+.clearfix {
+  zoom: 1; }
+
+
+a {
+    color: #e1d2c0;
+    opacity: 0.9;
+    &:hover {
+      opacity: 1;
+      color: white;
+    }
+    text-decoration: none;
+
+   -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;
+}
+
+b {
+    font-weight: 700;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#title {
+  margin-top: 50px;
+  position: absolute;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  text-align: center;
+  z-index: 1000;
+  background-color: rgba(0,153,189,0.7);
+  h1 {
+    font-size: 80px;
+    line-height: 60px;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 6px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
+  h3 {
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  h2 {
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 6px;
+  }
+}
+
+.lead {
+  font-size: 60px !important;
+  line-height: 110%;
+  margin-top: 20px;
+}
+
+#col-l,
+#col-r {
+  min-height: 100%;
+  width: 50%;
+  padding: 25px 50px;
+  padding-top: 230px;
+  position: relative;
+  float: left;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+#col-l {
+  background-image: url("../img/twitterwall/col-l.jpg");
+  text-align: right;
+  .tweet-header {
+    padding-right: 75px;
+    img { right: 0px; }
+  }
+  .tweet {
+    // .avatar { -webkit-transform: scale(0);}
+    &.inview {
+      // .avatar { -webkit-transform: scale(1);}
+    }
+  }
+
+}
+#col-r {
+  text-align: left;
+  .tweet-header {
+    padding-left: 75px;
+    img { left: 0px; }
+  }
+  .tweet {
+    // .avatar { -webkit-transform: scale(0);}
+    &.inview {
+      // .avatar { -webkit-transform: scale(1);}
+    }
+  }
+}
+
+.tweet {
+
+
+          transition: all .5s ease-in-out .125s;
+       -o-transition: all .5s ease-in-out .125s;
+      -ms-transition: all .5s ease-in-out .125s;
+     -moz-transition: all .5s ease-in-out .125s;
+  -webkit-transition: all .5s ease-in-out .125s;
+
+
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 500px;
+  border-bottom: 1px solid rgba(255,255,255,0.125);
+  padding-top: 120px;
+  padding-bottom: 20px;
+  text-shadow: 0 0 6px black;
+
+  .tweet-text {
+    a {font-weight: 200; }
+    small {display: inline; }
+  }
+
+  .tweet-header {
+    line-height: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    // white-space: nowrap;
+
+    small {
+      font-size: 45%;
+      line-height: 90%;
+      display: inline;
+      padding-left: 5px;
+      padding-right: 5px;
+      padding-bottom: 3px;
+      &.fullname {
+        border-radius: 3px;
+        background-color: rgba(0,153,189,0.7);
+
+        font-weight: 700;
+      }
+      // &.time:after {
+      // display: inline-block;
+      // content: "·";
+      // margin-left: 5px;
+      // }
+    }
+
+    a {
+      color: white;
+    }
+    img {
+      bottom: -5px;
+      position: absolute;
+      height: 60px;
+      border-radius: 10%;
+      box-shadow: 0 0 15px rgba(100,73,54,0.65);
+      border: 2px solid black;
+
+            transition: all .25s ease-in-out;
+         -o-transition: all .25s ease-in-out;
+        -ms-transition: all .25s ease-in-out;
+       -moz-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    }
+  }
+
+  .tweet-media {
+    margin-top: 30px;
+    // margin-bottom: -30px;
+    img {
+      width: 100%;
+      border-radius: 4px;
+      box-shadow: 0 0 15px rgba(100,73,54,0.65);
+      border: 2px solid black;
+    }
+  }
+}
+
+#footer {
+  position: fixed;
+
+  z-index: 5000;
+  bottom: 0px;
+  width: 100%;
+  font-size: 15px;
+  line-height: 15px;
+  padding: 10px;
+  a {
+    color: white;
+    background-color: rgba(0,153,189,0.7);
+    border-radius: 3px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 1px;
+    padding-bottom: 3px;
+  }
+  .studio38 {}
+  .back { float: right;}
+  small {
+    font-size: 12px;
+    margin-bottom: 20px;
+      line-height: 135%;
+      display: block;
+  }
+}

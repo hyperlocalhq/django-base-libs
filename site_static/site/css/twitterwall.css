@@ -1,261 +1,278 @@
 @import url(http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,400italic);
+/* line 2, ../scss/twitterwall.scss */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, img, ins, kbd, q, samp, small, strong, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, footer, header, nav, section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
 
-body, html {
-  font-family: 'Neuton', serif;
-  color: #333;
+/* line 12, ../scss/twitterwall.scss */
+html {
   height: 100%;
   width: 100%;
-  background-color: black;
-  background-image: url(../img/twitter_wall_langenacht_2.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
+/* line 17, ../scss/twitterwall.scss */
 body {
+  -webkit-text-size-adjust: none;
+  background: black;
+  color: white;
+  font-family: 'Neuton', serif;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 120%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  background-attachment: fixed;
+  background-image: url("../img/twitterwall/col-r.jpg");
+  background-position: bottom right;
 }
 
+/* line 35, ../scss/twitterwall.scss */
+.clearfix:before,
+.clearfix:after {
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+/* line 40, ../scss/twitterwall.scss */
+.clearfix:after {
+  clear: both;
+}
+
+/* line 43, ../scss/twitterwall.scss */
+.clearfix {
+  zoom: 1;
+}
+
+/* line 47, ../scss/twitterwall.scss */
+a {
+  color: #e1d2c0;
+  opacity: 0.9;
+  text-decoration: none;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  /* Non standard for webkit */
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+/* line 50, ../scss/twitterwall.scss */
+a:hover {
+  opacity: 1;
+  color: white;
+}
+
+/* line 67, ../scss/twitterwall.scss */
+b {
+  font-weight: 700;
+}
+
+/* line 71, ../scss/twitterwall.scss */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-
-a {
-    color: #e17660;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.wrapper {
-  margin: auto;
-  position: relative;
-  padding: 5px;
-  max-width: 960px;
-}
-
-
-#selected { float: left;}
-#searched { float: right;}
-
-
-.cullumn {
-  width: 50%;    
-  height: 100%;
-  padding-bottom: 50px;
-  margin-top: 111px;
-  margin-left: auto;
-  margin-bottom: auto;
-  padding: 5px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-
-/* @group footer */
-
-.footer {
-  background-color: #000;
-  color: black;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 35px;
-  z-index: 1000000000;
-  color: white;
-  -webkit-box-shadow: 0px 0px 7px rgba(0,0,0,0.5);
-  margin-bottom: -10px;
-  margin-left: -10px;
-  margin-right: 10px;
-  padding: 4px 10px 13px;
-  font-size: 18px;
-  opacity: 0.9;
-}
-
-.studio38 {
-  float: right;
-  padding-top: 5px;
-  padding-bottom: 10px;
-}
-
-.studio38:hover {
-color: white;}
-
-.back {
-  float: left;
-  white-space: nowrap;
-  padding-top: 5px;
-  padding-bottom: 10px;
-}
-
-.back:hover {
-color: white;}
-
-.berlin {
-  width: 57px;
-  height: 66px;
-  background: url(../img/twitter_wall_b.png) no-repeat;
+/* line 83, ../scss/twitterwall.scss */
+#title {
+  margin-top: 50px;
   position: absolute;
-  color: transparent;
-  z-index: 10000000;
-  left: 13px;
-  bottom: -25px;
-}
-
-/* @end */
-
-h1 {
-  position: fixed; 
-  top: 0px;
-  left: 0px;
-  z-index: 2000;
-  color: white;
-  text-align: center;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  padding: 10px;
+  width: 100%;
   padding-top: 20px;
-  font-size: 54px;
-  line-height: 38px;
-  width: 100%;
-  background-color: black;
+  padding-bottom: 30px;
+  text-align: center;
+  z-index: 1000;
+  background-color: rgba(0, 153, 189, 0.7);
 }
-
-h1 span { 
-  display: block;
-  font-size: 18px;
-  line-height: 18px;
-  letter-spacing: 5px;
-  padding-top: 10px;
-  text-transform: uppercase;
-}
-
-h2 {
-  position: fixed;
-  vertical-align: top;
-  display: block;
-  white-space: nowrap;
-  float: left;
-  background-color: black !important;
-  height: 100px;
-  z-index: 1500;
-  height: 20px;
-  color: white;
-  top: 0px;
-  padding-left: 30px;
-  padding-bottom: 10px;
-  padding-top: 110px;
-}
-
-.tweet {
-  width: 100%;
-  font-size: 14px;
-  vertical-align: top;
-  display: block;
-  min-height: 125px;
-  position: relative;
-  float: left;
-  margin-bottom: 0;
-  opacity: 1;
-  color: white;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 28px;
-  margin-bottom: 100px;
-}
-
-div.tweet-media {
-  display: none;
-}
-
-#selected_user_tweets div.tweet div.tweet-media {
-  display: none;
-}
-
-.tweet p {
+/* line 92, ../scss/twitterwall.scss */
+#title h1 {
+  font-size: 80px;
+  line-height: 60px;
   font-style: italic;
-  word-wrap: break-word;
-  padding-left: 33px;
-  padding-right: 25px;
-  padding-top: 17px;
-  padding-bottom: 24px;
-  background-color: black;
-  background-color: rgba(0,0,0,0.91);
-}
-
-.tweet-header {
-  font-size: 13px;
-  line-height: 14px;
   font-weight: 400;
-  width: 100%;
-  float: left;
+  letter-spacing: 6px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+/* line 101, ../scss/twitterwall.scss */
+#title h3 {
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+/* line 106, ../scss/twitterwall.scss */
+#title h2 {
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: 6px;
+}
+
+/* line 114, ../scss/twitterwall.scss */
+.lead {
+  font-size: 60px !important;
+  line-height: 110%;
+  margin-top: 20px;
+}
+
+/* line 121, ../scss/twitterwall.scss */
+#col-l,
+#col-r {
+  min-height: 100%;
+  width: 50%;
+  padding: 25px 50px;
+  padding-top: 230px;
   position: relative;
-  padding-bottom: 10px;
-  font-style: normal;
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: black;
-  background-color: rgba(0,0,0,0.7);
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  float: left;
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
-#selected_user_tweets div.tweet div.tweet-text p a {
-  text-shadow: none;
+/* line 131, ../scss/twitterwall.scss */
+#col-l {
+  background-image: url("../img/twitterwall/col-l.jpg");
+  text-align: right;
+}
+/* line 134, ../scss/twitterwall.scss */
+#col-l .tweet-header {
+  padding-right: 75px;
+}
+/* line 136, ../scss/twitterwall.scss */
+#col-l .tweet-header img {
+  right: 0px;
 }
 
-.tweet-header a,
-.tweet-header a:hover {
-    text-decoration: none;
+/* line 146, ../scss/twitterwall.scss */
+#col-r {
+  text-align: left;
 }
-
-.tweet-header .time {
-    display: block;
-    padding-left: 10px;
+/* line 148, ../scss/twitterwall.scss */
+#col-r .tweet-header {
+  padding-left: 75px;
 }
-
-.tweet-header .fullname {
-  clear: right;
-  display: block;
-  margin-left: 10px;
-}
-
-.tweet-header a:hover .fullname {
-    text-decoration: underline;
-}
-
-.tweet-header .username {
-  display: block;
-  margin-left: 5px;
-  text-decoration: none;
-}
-
-.tweet-header .avatar {
-  position: absolute;
+/* line 150, ../scss/twitterwall.scss */
+#col-r .tweet-header img {
   left: 0px;
-  top: -1px;
-  width: 16px;
-  height: 16px;
-  border-radius: 100px;
-  margin: 10px;
 }
 
-.tweet-text {
-    clear: both;
-    margin-top: 10px;
+/* line 160, ../scss/twitterwall.scss */
+.tweet {
+  transition: all .5s ease-in-out .125s;
+  -o-transition: all .5s ease-in-out .125s;
+  -ms-transition: all .5s ease-in-out .125s;
+  -moz-transition: all .5s ease-in-out .125s;
+  -webkit-transition: all .5s ease-in-out .125s;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 500px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.125);
+  padding-top: 120px;
+  padding-bottom: 20px;
+  text-shadow: 0 0 6px black;
+}
+/* line 180, ../scss/twitterwall.scss */
+.tweet .tweet-text a {
+  font-weight: 200;
+}
+/* line 181, ../scss/twitterwall.scss */
+.tweet .tweet-text small {
+  display: inline;
+}
+/* line 184, ../scss/twitterwall.scss */
+.tweet .tweet-header {
+  line-height: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+/* line 190, ../scss/twitterwall.scss */
+.tweet .tweet-header small {
+  font-size: 45%;
+  line-height: 90%;
+  display: inline;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 3px;
+}
+/* line 197, ../scss/twitterwall.scss */
+.tweet .tweet-header small.fullname {
+  border-radius: 3px;
+  background-color: rgba(0, 153, 189, 0.7);
+  font-weight: 700;
+}
+/* line 210, ../scss/twitterwall.scss */
+.tweet .tweet-header a {
+  color: white;
+}
+/* line 213, ../scss/twitterwall.scss */
+.tweet .tweet-header img {
+  bottom: -5px;
+  position: absolute;
+  height: 60px;
+  border-radius: 10%;
+  box-shadow: 0 0 15px rgba(100, 73, 54, 0.65);
+  border: 2px solid black;
+  transition: all .25s ease-in-out;
+  -o-transition: all .25s ease-in-out;
+  -ms-transition: all .25s ease-in-out;
+  -moz-transition: all .25s ease-in-out;
+  -webkit-transition: all .25s ease-in-out;
+}
+/* line 229, ../scss/twitterwall.scss */
+.tweet .tweet-media {
+  margin-top: 30px;
+}
+/* line 232, ../scss/twitterwall.scss */
+.tweet .tweet-media img {
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(100, 73, 54, 0.65);
+  border: 2px solid black;
 }
 
-.hashtag {
-    color: #e17660;
+/* line 241, ../scss/twitterwall.scss */
+#footer {
+  position: fixed;
+  z-index: 5000;
+  bottom: 0px;
+  width: 100%;
+  font-size: 15px;
+  line-height: 15px;
+  padding: 10px;
+}
+/* line 250, ../scss/twitterwall.scss */
+#footer a {
+  color: white;
+  background-color: rgba(0, 153, 189, 0.7);
+  border-radius: 3px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 3px;
+}
+/* line 260, ../scss/twitterwall.scss */
+#footer .back {
+  float: right;
+}
+/* line 261, ../scss/twitterwall.scss */
+#footer small {
+  font-size: 12px;
+  margin-bottom: 20px;
+  line-height: 135%;
+  display: block;
 }
