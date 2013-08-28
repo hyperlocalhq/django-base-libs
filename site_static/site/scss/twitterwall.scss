@@ -1,6 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,400italic);
-html, body, div, sp
-an, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, img, ins, kbd, q, samp, small, strong, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, footer, header, nav, section {
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, img, ins, kbd, q, samp, small, strong, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, footer, header, nav, section {
   margin:0;
   padding:0;
   border:0;
@@ -28,7 +27,7 @@ body {
   overflow-x: hidden;
 
   background-attachment: fixed;
-  background-image: url("../img/col-r.jpg");
+  background-image: url("../img/twitterwall/col-r.jpg");
   background-position: bottom right;
 }
 
@@ -130,7 +129,7 @@ b {
 }
 
 #col-l {
-  background-image: url("../img/col-l.jpg");
+  background-image: url("../img/twitterwall/col-l.jpg");
   text-align: right;
   .tweet-header {
     padding-right: 75px;
@@ -159,11 +158,11 @@ b {
 }
 
 .tweet {
-          transition: background-color .05s ease-in-out .1s;
-       -o-transition: background-color .05s ease-in-out .1s;
-      -ms-transition: background-color .05s ease-in-out .1s;
-     -moz-transition: background-color .05s ease-in-out .1s;
-  -webkit-transition: background-color .05s ease-in-out .1s;
+  //         transition: background-color .05s ease-in-out .1s;
+  //      -o-transition: background-color .05s ease-in-out .1s;
+  //     -ms-transition: background-color .05s ease-in-out .1s;
+  //    -moz-transition: background-color .05s ease-in-out .1s;
+  // -webkit-transition: background-color .05s ease-in-out .1s;
 
   position: relative;
   display: inline-block;
