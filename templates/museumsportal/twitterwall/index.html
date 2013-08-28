@@ -10,8 +10,8 @@
     <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
     <link href="{{ STATIC_URL }}site/css/twitterwall.css" rel="stylesheet" media="screen" type="text/css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}site/js/jquery.viewport.mini.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-348516-14']);
@@ -23,98 +23,6 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
-
-    <script>
-    window.ScrollZip = {
-        selectorLeft      : "#col-l .tweetx",
-        selectorRight     : "#col-r .tweetx",
-        absoluteYOffset   : 500,
-        windowWidthFactor : 0.33,
-        phaseHeight       : 200,
-        elementWidth      : 100,
-        elementHeight     : 100,
-
-        calcX: function(i, yo) {
-            var w = window.document.body.offsetWidth * ScrollZip.windowWidthFactor;
-            var sy = yo - i*ScrollZip.elementHeight;
-            var phase = sy/ScrollZip.phaseHeight;
-
-            if (phase>Math.PI/2) return w;
-            return Math.sin(phase)*w;
-        },
-
-        calcY: function(i, yo) {
-            return ScrollZip.absoluteYOffset + i*ScrollZip.elementHeight;
-        },
-
-        init: function() {
-            window.onscroll = function(e) {
-                var yo = window.pageYOffset;
-                var body = window.document.body;
-
-                leftEls  = document.querySelectorAll(ScrollZip.selectorLeft);
-                rightEls = document.querySelectorAll(ScrollZip.selectorRight);
-
-                for (var i=0; i<leftEls.length; i++) {
-                    el = leftEls[i];
-
-                    var x = ScrollZip.calcX(i, yo);
-                    var y = ScrollZip.calcY(i, yo);
-
-                    el.style.left = x+"px";
-                    el.style.top  = y+"px";
-                }
-
-                for (var i=0; i<rightEls.length; i++) {
-                    el = rightEls[i];
-
-                    var x = body.offsetWidth - ScrollZip.calcX(i, yo) - ScrollZip.elementWidth;
-                    var y = ScrollZip.calcY(i, yo);
-
-                    el.style.left = x+"px";
-                    el.style.top  = y+"px";
-                }
-            }
-        }
-    }
-
-    $(window).load(function() {
-      ScrollZip.init();
-
-      var heightleft = $('#col-l').height(),
-          heightright = $('#col-r').height();
-
-      if (heightleft < heightright) {
-        $('#col-l').css("height", heightright);
-      }
-      else {
-        $('#col-r').css("height", heightleft);
-      }
-    });
-
-    </script>
-
-
-    <script type="text/javascript" charset="utf-8">
-    // $(function() {
-    //     var previous = "";
-    //     $(window).bind("scroll", function(event) {
-
-    //         $(".tweet:below-the-fold").each(function() {
-    //           $(this).removeClass('inview');
-    //         });
-
-    //         $(".tweet:above-the-top").each(function() {
-    //           $(this).removeClass('inview');
-    //         });
-
-    //         $(".tweet:in-viewport").each(function() {
-    //           $(this).addClass('inview');
-    //         });
-    //     });
-    // });
-    </script>
-
 </head>
 <body>
     <div id="title">
@@ -147,12 +55,10 @@
         (function($, undefined) {
             var timeout_user = null;
             var timeout_search = null;
-            var TIMEOUT_DELAY = 30000;
-            function adjust_width($tweet_list) {
+            var TIMEOUT_DELAY = 10000;
 
-            }
             function load_tweets_of_selected_users() {
-                var $selected_user_tweets = $('#selected_user_tweets');
+                var $selected_user_tweets = $('#col-l');
                 var url = "{% url load_tweets %}?by_user=1";
                 var since_id = $selected_user_tweets.find('.tweet:first').data("tweet-id");
                 if (since_id) {
@@ -164,8 +70,9 @@
                     timeout_user = setTimeout(load_tweets_of_selected_users, TIMEOUT_DELAY);
                 }, "html");
             }
+
             function load_tweets_from_search() {
-                var $tweets_from_search = $('#tweets_from_search');
+                var $tweets_from_search = $('#col-r');
                 var url = "{% url load_tweets %}?from_search=1";
                 var since_id = $tweets_from_search.find('.tweet:first').data("tweet-id");
                 if (since_id) {
@@ -177,10 +84,12 @@
                     timeout_search = setTimeout(load_tweets_from_search, TIMEOUT_DELAY);
                 }, "html");
             }
+
             $(document).ready(function() {
                 timeout_user = setTimeout(load_tweets_of_selected_users, TIMEOUT_DELAY);
                 timeout_search = setTimeout(load_tweets_from_search, TIMEOUT_DELAY);
             });
+
         }(jQuery))
     </script>
 </body>
