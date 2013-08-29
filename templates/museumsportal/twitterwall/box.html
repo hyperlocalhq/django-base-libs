@@ -60,7 +60,7 @@
             }
 
             function load_tweets() {
-                clearTimeout(load_tweets);
+                clearTimeout(loading_timeout);
                 var $tweets = $('#tweets');
                 var url = "{% url load_box_tweets %}";
                 var since_id = $tweets.find('.tweet:last').data("tweet-id");
@@ -94,7 +94,7 @@
             };
 
             function show_next_tweet() {
-                clearTimeout(show_next_tweet);
+                clearTimeout(view_timeout);
                 var $first_tweet = $('.tweet:eq(0)');
                 var $second_tweet = $('.tweet:eq(1)');
                 var animate_second_tweet_to = {top: '0%', opacity: 1};
