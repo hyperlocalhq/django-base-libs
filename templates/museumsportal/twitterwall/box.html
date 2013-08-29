@@ -43,7 +43,7 @@
             }
 
             function cleanup_stack() {
-                // deletes all tweets except first, second, and last three
+                // deletes all tweets except logos, first, second, and last three
                 clearTimeout(cleanup_timeout);
                 $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3),.logo').remove();
                 cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
@@ -95,6 +95,10 @@
 
             function show_next_tweet() {
                 clearTimeout(view_timeout);
+                if ($('.tweet').length < 4) {
+                    // security check: load tweets if there are less than 4 tweets in the stack
+                    load_tweets();
+                }
                 var $first_tweet = $('.tweet:eq(0)');
                 var $second_tweet = $('.tweet:eq(1)');
                 var animate_second_tweet_to = {top: '0%', opacity: 1};
