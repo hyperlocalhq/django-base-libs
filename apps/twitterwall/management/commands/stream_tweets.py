@@ -57,6 +57,7 @@ class MyStreamer(TwythonStreamer):
         return screen_name in self._follow_query
 
     def on_success(self, data):
+        from datetime import timedelta
         from dateutil.parser import parse as parse_datetime
         TwitterUser = models.get_model("twitterwall", "TwitterUser")
         Tweet = models.get_model("twitterwall", "Tweet")
@@ -92,7 +93,7 @@ class MyStreamer(TwythonStreamer):
                 tweet.creation_date = parse_datetime(
                     tweet_dict['created_at'],
                     ignoretz=True,
-                )
+                ) + timedelta(hours=2)  # Berlin time
                 tweet.text = tweet_dict['text']
                 tweet.html = self.format_html(tweet.text, tweet_dict.get('entities', {}))
                 geo = tweet_dict.get('geo', None)

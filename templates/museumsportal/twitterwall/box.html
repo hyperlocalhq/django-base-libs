@@ -30,6 +30,7 @@
             // show 4 logos after every 15 tweets
             var LOGO_TIMEOUT_DELAY = (VIEW_TIMEOUT_DELAY + TRANSITION_DURATION) * (4 + 15);
             var CLEANUP_TIMEOUT_DELAY = 60000;
+            var $tweets = $('#tweets');
 
             function insert_logo() {
                 // inserts logo screens after the first or the entering tweet
@@ -39,14 +40,14 @@
                     '<div class="tweet logo langenacht ln-2"><p>Jetzt live mit-tweeten:<br /><b>#LNBerlin</b></p></div>' +
                     '<div class="tweet logo langenacht ln-3"><p><b>und mitverfolgen auf:</b><br /><small>www.twitter.com/museumsnachtB</small></p></div>' +
                     '<div class="tweet logo werthers"></div>'
-                ).insertAfter($('.tweet').filter('.active,.in').get(0));
+                ).insertAfter($('.tweet', $tweets).filter('.active,.in').get(0));
                 logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
             }
 
             function cleanup_stack() {
                 // deletes all tweets except logos, first, second, and last three
                 clearTimeout(cleanup_timeout);
-                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3),.logo').remove();
+                $('.tweet', $tweets).not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3),.logo').remove();
                 cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
             }
 
@@ -54,7 +55,7 @@
                 // appends non-duplicating tweets from temporary $source to the $target
                 $('a:contains("pic.twitter.com")', $source).remove();
                 $('.tweet', $source).each(function() {
-                    if (!$target.find('.tweet[data-tweet-id="' + $(this).attr('data-tweet-id') + '"]').length) {
+                    if (!$('.tweet[data-tweet-id="' + $(this).attr('data-tweet-id') + '"]', $target).length) {
                         $target.append($(this));
                     }
                 });
@@ -62,9 +63,8 @@
 
             function load_tweets() {
                 clearTimeout(loading_timeout);
-                var $tweets = $('#tweets');
                 var url = "{% url load_box_tweets %}";
-                var since_id = $tweets.find('.tweet:last').data("tweet-id");
+                var since_id = $('.tweet:last', $tweets).data("tweet-id");
                 if (since_id) {
                     since_id = since_id.replace(/t/, "");
                     url += "?since_id=" + since_id;
@@ -96,12 +96,16 @@
 
             function show_next_tweet() {
                 clearTimeout(view_timeout);
-                if ($('.tweet').length < 4) {
+                if ($('.tweet', $tweets).length < 4) {
                     // security check: load tweets if there are less than 4 tweets in the stack
                     load_tweets();
                 }
-                var $first_tweet = $('.tweet:eq(0)');
-                var $second_tweet = $('.tweet:eq(1)');
+                var $first_tweet = $('.tweet:eq(0)', $tweets);
+                var $second_tweet = $('.tweet:eq(1)', $tweets);
+                if (!$second_tweet.length) {
+                    // another security check: reload page if there is no other tweet in the stack
+                    location.href = location.href;
+                }
                 var animate_second_tweet_to = {top: '0%', opacity: 1};
                 if (!$second_tweet.is('.werthers')) {
                     // add t1, t2, or t3 class to the tweet which will be active soon
@@ -122,7 +126,7 @@
             }
 
             $(function() {
-                $('.tweet:first').addClass('active').addClass('t1');
+                $('.tweet:first', $tweets).addClass('active').addClass('t1');
                 insert_logo();
                 loading_timeout = setTimeout(load_tweets, LOADING_TIMEOUT_DELAY);
                 view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
