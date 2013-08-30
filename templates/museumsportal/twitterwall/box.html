@@ -26,8 +26,9 @@
             var cleanup_timeout = null;
             var LOADING_TIMEOUT_DELAY = 10000;
             var VIEW_TIMEOUT_DELAY = 5500;
-            var LOGO_TIMEOUT_DELAY = VIEW_TIMEOUT_DELAY * 4 + 30000;
             var TRANSITION_DURATION = 500;
+            // show 4 logos after every 15 tweets
+            var LOGO_TIMEOUT_DELAY = (VIEW_TIMEOUT_DELAY + TRANSITION_DURATION) * (4 + 15);
             var CLEANUP_TIMEOUT_DELAY = 60000;
 
             function insert_logo() {
