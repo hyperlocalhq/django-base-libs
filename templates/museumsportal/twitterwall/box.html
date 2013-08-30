@@ -24,14 +24,15 @@
             var view_timeout = null;
             var logo_timeout = null;
             var cleanup_timeout = null;
-            var LOADING_TIMEOUT_DELAY = 5000;
+            var LOADING_TIMEOUT_DELAY = 10000;
             var VIEW_TIMEOUT_DELAY = 5500;
-            var LOGO_TIMEOUT_DELAY = 30000;
+            var LOGO_TIMEOUT_DELAY = VIEW_TIMEOUT_DELAY * 4 + 30000;
             var TRANSITION_DURATION = 500;
             var CLEANUP_TIMEOUT_DELAY = 60000;
 
             function insert_logo() {
                 // inserts logo screens after the first or the entering tweet
+                clearTimeout(logo_timeout);
                 $(
                     '<div class="tweet logo langenacht ln-1"><p>Willkommen zur <br /><b>Langen Nacht der Museen</b></p></div>' +
                     '<div class="tweet logo langenacht ln-2"><p>Jetzt live mit-tweeten:<br /><b>#LNBerlin</b></p></div>' +
@@ -42,12 +43,24 @@
             }
 
             function cleanup_stack() {
-                // deletes all tweets except first, second, and last three
-                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3)').remove();
+                // deletes all tweets except logos, first, second, and last three
+                clearTimeout(cleanup_timeout);
+                $('.tweet').not(':eq(0),:eq(1),:eq(-1),:eq(-2),:eq(-3),.logo').remove();
                 cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
             }
 
+            function append_new_tweets($source, $target) {
+                // appends non-duplicating tweets from temporary $source to the $target
+                $('a:contains("pic.twitter.com")', $source).remove();
+                $('.tweet', $source).each(function() {
+                    if (!$target.find('.tweet[data-tweet-id="' + $(this).attr('data-tweet-id') + '"]').length) {
+                        $target.append($(this));
+                    }
+                });
+            }
+
             function load_tweets() {
+                clearTimeout(loading_timeout);
                 var $tweets = $('#tweets');
                 var url = "{% url load_box_tweets %}";
                 var since_id = $tweets.find('.tweet:last').data("tweet-id");
@@ -56,8 +69,8 @@
                     url += "?since_id=" + since_id;
                 }
                 $.get(url, function(data) {
-                    $tweets.append(data);
-                    $('a:contains("pic.twitter.com")', $tweets).remove();
+                    var $tmp = $('<div></div>').append(data);
+                    append_new_tweets($tmp, $tweets);
                     loading_timeout = setTimeout(load_tweets, LOADING_TIMEOUT_DELAY);
                 }, "html");
             }
@@ -81,6 +94,11 @@
             };
 
             function show_next_tweet() {
+                clearTimeout(view_timeout);
+                if ($('.tweet').length < 4) {
+                    // security check: load tweets if there are less than 4 tweets in the stack
+                    load_tweets();
+                }
                 var $first_tweet = $('.tweet:eq(0)');
                 var $second_tweet = $('.tweet:eq(1)');
                 var animate_second_tweet_to = {top: '0%', opacity: 1};
@@ -102,11 +120,11 @@
                 });
             }
 
-            $(document).ready(function() {
+            $(function() {
                 $('.tweet:first').addClass('active').addClass('t1');
+                insert_logo();
                 loading_timeout = setTimeout(load_tweets, LOADING_TIMEOUT_DELAY);
                 view_timeout = setTimeout(show_next_tweet, VIEW_TIMEOUT_DELAY);
-                logo_timeout = setTimeout(insert_logo, LOGO_TIMEOUT_DELAY);
                 cleanup_timeout = setTimeout(cleanup_stack, CLEANUP_TIMEOUT_DELAY);
             });
         }(jQuery))
