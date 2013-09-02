@@ -3,6 +3,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import activate
+from django.utils.text import force_unicode
 
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie import fields
@@ -23,6 +24,23 @@ EventTime = models.get_model("events", "EventTime")
 Organizer = models.get_model("events", "Organizer")
 MediaFile = models.get_model("events", "MediaFile")
 
+
+def valid_XML_char_ordinal(i):
+    """
+    Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+    """
+    return ( # conditions ordered by presumed frequency
+        0x20 <= i <= 0xD7FF
+        or i in (0x9, 0xA, 0xD)
+        or 0xE000 <= i <= 0xFFFD
+        or 0x10000 <= i <= 0x10FFFF
+    )
+
+
+def strip_invalid_chars(text):
+    return u''.join(c for c in text if valid_XML_char_ordinal(ord(c)))
+
+
 class EventCategoryResource(ModelResource):
     class Meta:
         queryset = EventCategory.objects.all()
@@ -34,8 +52,10 @@ class EventCategoryResource(ModelResource):
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
 
+
 class OrganizerResource(ModelResource):
     organizing_museum = fields.ToOneField("museumsportal.apps.museums.api.resources.v2.MuseumResource", "organizing_museum", null=True)
+
     class Meta:
         queryset = Organizer.objects.all()
         resource_name = 'event_category'
@@ -46,6 +66,7 @@ class OrganizerResource(ModelResource):
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
 
+
 class EventTimeResource(ModelResource):
     class Meta:
         queryset = EventTime.objects.all()
@@ -55,6 +76,7 @@ class EventTimeResource(ModelResource):
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
+
 
 class MediaFileResource(ModelResource):
     class Meta:
@@ -73,11 +95,11 @@ class MediaFileResource(ModelResource):
                 get_website_url(),
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
-                ))
+            ))
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=bundle.obj.path,
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 pass
             else:
@@ -87,6 +109,7 @@ class MediaFileResource(ModelResource):
                 bundle.data['description_en'] = file_description.description_en
                 bundle.data['author'] = file_description.author
         return bundle
+
 
 class EventResource(ModelResource):
     museum = fields.ToOneField("museumsportal.apps.museums.api.resources.v2.MuseumResource", "museum", null=True)
@@ -112,39 +135,63 @@ class EventResource(ModelResource):
             'latitude', 'longitude',
             'free_admission', 'admission_price', 'reduced_price',
             'categories', 'status',
-            ]
+        ]
         filtering = {
             'creation_date': ALL,
             'modified_date': ALL,
             'status': ALL,
             'categories': ALL_WITH_RELATIONS,
-            }
+        }
         authentication = ApiKeyAuthentication()
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
-            
+
+    def dehydrate_title_en(self, bundle):
+        return strip_invalid_chars(bundle.data['title_en'])
+
+    def dehydrate_title_de(self, bundle):
+        return strip_invalid_chars(bundle.data['title_de'])
+
+    def dehydrate_subtitle_en(self, bundle):
+        return strip_invalid_chars(bundle.data['subtitle_en'])
+
+    def dehydrate_subtitle_de(self, bundle):
+        return strip_invalid_chars(bundle.data['subtitle_de'])
+
+    def dehydrate_event_type_en(self, bundle):
+        return strip_invalid_chars(bundle.data['event_type_en'])
+
+    def dehydrate_event_type_de(self, bundle):
+        return strip_invalid_chars(bundle.data['event_type_de'])
+
+    def dehydrate_meeting_place_en(self, bundle):
+        return strip_invalid_chars(bundle.data['meeting_place_en'])
+
+    def dehydrate_meeting_place_de(self, bundle):
+        return strip_invalid_chars(bundle.data['meeting_place_de'])
+
     def dehydrate(self, bundle):
         bundle.data['link_en'] = "".join((
             get_website_url(),
             "en/events/",
             bundle.obj.slug,
             "/",
-            ))
+        ))
         bundle.data['link_de'] = "".join((
             get_website_url(),
             "de/veranstaltungen/",
             bundle.obj.slug,
             "/",
-            ))
-        bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_press_text_en())
-        bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_press_text_de())
+        ))
+        bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_en()))
+        bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_de()))
+
+        bundle.data['admission_price_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_en()))
+        bundle.data['admission_price_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_de()))
         
-        bundle.data['admission_price_info_en'] = strip_html(bundle.obj.get_rendered_admission_price_info_en())
-        bundle.data['admission_price_info_de'] = strip_html(bundle.obj.get_rendered_admission_price_info_de())
-        
-        bundle.data['booking_info_en'] = strip_html(bundle.obj.get_rendered_booking_info_en())
-        bundle.data['booking_info_de'] = strip_html(bundle.obj.get_rendered_booking_info_de())
+        bundle.data['booking_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_booking_info_en()))
+        bundle.data['booking_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_booking_info_de()))
         
         current_language = get_current_language()
         activate("de")
@@ -166,6 +213,5 @@ class EventResource(ModelResource):
                 base_object_list = base_object_list.filter(
                     models.Q(creation_date__gte=created_or_modified_since) |
                     models.Q(modified_date__gte=created_or_modified_since)
-                    )
+                )
         return base_object_list
-        
