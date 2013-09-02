@@ -21,6 +21,7 @@ Organizer = models.get_model("exhibitions", "Organizer")
 Season = models.get_model("exhibitions", "Season")
 MediaFile = models.get_model("exhibitions", "MediaFile")
 
+
 class ExhibitionCategoryResource(ModelResource):
     class Meta:
         queryset = ExhibitionCategory.objects.all()
@@ -31,6 +32,7 @@ class ExhibitionCategoryResource(ModelResource):
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
+
 
 class SeasonResource(ModelResource):
     class Meta:
@@ -53,7 +55,7 @@ class OrganizerResource(ModelResource):
     organizing_museum = fields.ToOneField("museumsportal.apps.museums.api.resources.v2.MuseumResource", "organizing_museum", null=True)
     class Meta:
         queryset = Organizer.objects.all()
-        resource_name = 'exhibition_category'
+        resource_name = 'exhibition_organizer'
         allowed_methods = ['get']
         excludes = []
         authentication = ApiKeyAuthentication()
@@ -94,6 +96,7 @@ class MediaFileResource(ModelResource):
                 bundle.data['author'] = file_description.author
         return bundle
 
+
 class ExhibitionResource(ModelResource):
     museum = fields.ToOneField("museumsportal.apps.museums.api.resources.v2.MuseumResource", "museum", null=True)
     categories = fields.ToManyField(ExhibitionCategoryResource, "categories", full=True)
@@ -119,13 +122,13 @@ class ExhibitionResource(ModelResource):
             'museum_prices', 'free_entrance', 'admission_price', 'reduced_price',
             'museum_opening_hours', 'suitable_for_disabled', 'is_for_children',
             'categories', 'status',
-            ]
+        ]
         filtering = {
             'creation_date': ALL,
             'modified_date': ALL,
             'status': ALL,
             'categories': ALL_WITH_RELATIONS,
-            }
+        }
         authentication = ApiKeyAuthentication()
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
@@ -180,6 +183,5 @@ class ExhibitionResource(ModelResource):
                 base_object_list = base_object_list.filter(
                     models.Q(creation_date__gte=created_or_modified_since) |
                     models.Q(modified_date__gte=created_or_modified_since)
-                    )
+                )
         return base_object_list
-        
