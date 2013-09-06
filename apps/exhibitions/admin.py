@@ -106,6 +106,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
         'admission_price', get_admin_lang_section(_("Price info"), ['admission_price_info']),
         'reduced_price', get_admin_lang_section(_("Price info"), ['reduced_price_info']),
     )}),]
+    fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon', 'is_for_children',)}),]
     fieldsets += [(_("Suitability"), {'fields': ('suitable_for_disabled', get_admin_lang_section(_("Description"), ['suitable_for_disabled_info', ]))}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]

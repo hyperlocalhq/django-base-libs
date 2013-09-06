@@ -39,7 +39,7 @@ add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteFiel
 COUNTRY_CHOICES = (
     ('de', _("Germany")),
     ('-', "Other"),
-    )
+)
 
 STATUS_CHOICES = (
     ('draft', _("Draft")),
@@ -48,13 +48,14 @@ STATUS_CHOICES = (
     ('expired', _("Expired")),
     ('import', _("Imported")),
     ('trashed', _("Trashed")),
-    ) 
+)
 
 YEAR_CHOICES = [(i,i) for i in range(datetime.now().year, datetime.now().year+5)]
 
 DAY_CHOICES = [(i,i) for i in range(1, 32)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+
 
 class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
@@ -69,6 +70,7 @@ class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
         ordering = ["tree_id", "lft"]
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
+
 
 class ExhibitionManager(models.Manager):
     def newly_opened(self):
@@ -91,12 +93,12 @@ class ExhibitionManager(models.Manager):
             timestamp = timestamp()
         return self.filter(
             end__lt=timestamp,
-            ).distinct()
+        ).distinct()
             
     def update_expired(self):
         queryset = self.past().exclude(
             status="expired",
-            )
+        )
         for obj in queryset:
             obj.status = "expired"
             obj.save()
@@ -110,7 +112,7 @@ class ExhibitionManager(models.Manager):
             content_type__model="exhibition",
             sysname__startswith="owners",
             users=user,
-            ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
     def populate_press_text(self):
@@ -144,6 +146,9 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     
     image = FileBrowseField(_('Image'), max_length=255, directory="exhibitions/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True, editable=False)
+
+    pdf_document_de = FileBrowseField(_('PDF Document in German'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
+    pdf_document_en = FileBrowseField(_('PDF Document in English'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
 
     location_name = models.CharField(_("Location name"), max_length=255, blank=True)
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
@@ -234,32 +239,26 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         selected_start = date.today()
         selected_end = selected_start + timedelta(days=days)
         conditions = False
-        """
-        Get events which start date is within the selected range
-        -----[--selected range--]----- time ->
-                   [-event-]
-                          [-event-]
-        """
+        # Get events which start date is within the selected range
+        # -----[--selected range--]----- time ->
+        #            [-event-]
+        #                   [-event-]
         conditions = conditions or (
             selected_start <= self.start <= selected_end
-            )
-        """
-        .. which started before and will end after the selected range
-        -----[-selected range-]------- time ->
-           [------event---------]
-        """
+        )
+        # .. which started before and will end after the selected range
+        # -----[-selected range-]------- time ->
+        #    [------event---------]
         conditions = conditions or (
             self.start <= selected_start and selected_end <= self.end
-            )
-        """
-        .. or which end date is within the selected range
-        -----[--selected range--]----- time ->
-                 [-event-]
-          [-event-]
-        """
+        )
+        # .. or which end date is within the selected range
+        # -----[--selected range--]----- time ->
+        #          [-event-]
+        #   [-event-]
         conditions = conditions or (
             selected_start <= self.end <= selected_end
-            )
+        )
         return conditions
         
     def is_within_7_days(self):
@@ -296,11 +295,11 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Exhibition),
-                )
+            )
         except:
             role = PerObjectGroup(
                 sysname="owners",
-                )
+            )
             for lang_code, lang_name in settings.LANGUAGES:
                 setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
             role.content_object = self
@@ -309,7 +308,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             RowLevelPermission.objects.create_default_row_permissions(
                 model_instance=self,
                 owner=role,
-                )
+            )
         
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
@@ -323,7 +322,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Exhibition),
-                )
+            )
         except:
             return
         role.users.remove(user)
@@ -338,7 +337,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Exhibition),
-                )
+            )
         except:
             return []
         return role.users.all()
@@ -364,7 +363,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                     if self.start <= date(t.yyyy or today.year, t.mm, t.dd) <= self.end:
                         times.append(t)
         return times
-        
+
+
 class Organizer(models.Model):
     exhibition = models.ForeignKey(Exhibition)
     organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizing museum"), blank=True, null=True, related_name="exhibition_organizer")
@@ -380,6 +380,7 @@ class Organizer(models.Model):
         ordering = ("organizing_museum__title", "organizer_title")
         verbose_name = _("Organizer")
         verbose_name_plural = _("Organizers")
+
 
 class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)
@@ -420,6 +421,7 @@ class Season(OpeningHoursMixin):
             })
         return times
 
+
 class NewlyOpenedExhibition(CMSPlugin):
     exhibition = models.ForeignKey(Exhibition, limit_choices_to={'newly_opened': True})
     
@@ -430,6 +432,7 @@ class NewlyOpenedExhibition(CMSPlugin):
         ordering = ['exhibition__title']
         verbose_name = _("Newly opened exhibition")
         verbose_name_plural = _("Newly opened exhibitions")
+
 
 class MediaFile(CreationModificationDateMixin):
     exhibition = models.ForeignKey(Exhibition, verbose_name=_("Exhibition"))
