@@ -72,7 +72,7 @@ class BasicInfoForm(ModelForm):
             "minChars": 1,
             "max": 20,
             "mustMatch": 1,
-            "highlight" : False,
+            "highlight": False,
             "multipleSeparator": ",,, ",
         },
     )
@@ -105,7 +105,8 @@ class BasicInfoForm(ModelForm):
     class Meta:
         model = Exhibition
         
-        fields = ['start', 'end', 'permanent', 'exhibition_extended',
+        fields = [
+            'start', 'end', 'permanent', 'exhibition_extended',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
             'city', 'latitude', 'longitude',  
             'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
@@ -297,7 +298,7 @@ class BasicInfoForm(ModelForm):
                     <div class="pdf_upload" id="pdf_document_en_upload">
                         <div class="pdf_link">
                             <p class="lead">
-                            {% if exhibition.pdf_document_de %}
+                            {% if exhibition.pdf_document_en %}
                                 <a href="{{ MEDIA_URL }}{{ exhibition.pdf_document_en.path }}" target="_blank">{{ exhibition.pdf_document_en.filename }}</a>
                             {% endif %}
                             </p>

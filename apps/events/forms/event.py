@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import os
+import shutil
+
 from django.db import models
 from django import forms
 from django.forms.models import ModelForm
@@ -8,6 +11,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -17,6 +21,8 @@ from babeldjango.templatetags.babel import decimalfmt
 from base_libs.forms.fields import AutocompleteModelChoiceField, DecimalField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
+
+from jetson.apps.image_mods.models import FileManager
 
 Museum = models.get_model("museums", "Museum")
 Exhibition = models.get_model("exhibitions", "Exhibition")
@@ -28,7 +34,7 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import InlineFormSet
-from museumsportal.utils.forms import SplitDateTimeWidget
+
 
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
@@ -43,10 +49,10 @@ class BasicInfoForm(ModelForm):
             "minChars": 1,
             "max": 20,
             "mustMatch": 1,
-            "highlight" : False,
+            "highlight": False,
             "multipleSeparator": ",,, ",
-            },
-        )
+        },
+    )
     exhibition = AutocompleteModelChoiceField(
         required=False,
         label=_("Related exhibition"),
@@ -59,24 +65,47 @@ class BasicInfoForm(ModelForm):
             "minChars": 1,
             "max": 20,
             "mustMatch": 1,
-            "highlight" : False,
+            "highlight": False,
             "multipleSeparator": ",,, ",
-            },
-        )
+        },
+    )
+    pdf_document_de_path = forms.CharField(
+        max_length=255,
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+    delete_pdf_document_de = forms.BooleanField(
+        label=_("Delete PDF Document in German"),
+        required=False,
+        widget=forms.HiddenInput(),
+    )
+    pdf_document_en_path = forms.CharField(
+        max_length=255,
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+    delete_pdf_document_en = forms.BooleanField(
+        label=_("Delete PDF Document in English"),
+        required=False,
+        widget=forms.HiddenInput(),
+    )
+
     class Meta:
         model = Event
         
-        fields = ['categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
+        fields = [
+            'categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'district', 'city', 'latitude', 'longitude', 'exhibition',
-            ]
+        ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'website_%s' % lang_code,
-                ]
+            ]
+
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
@@ -84,7 +113,7 @@ class BasicInfoForm(ModelForm):
             self.fields['website_%s' % lang_code] = forms.URLField(
                 label=_("Website"),
                 required=False,
-                )
+            )
 
         self.fields['street_address'].required = True
         self.fields['postal_code'].required = True
@@ -108,7 +137,7 @@ class BasicInfoForm(ModelForm):
                 'subtitle_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'website_%s' % lang_code,
-                ]:
+            ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.fields['latitude'].widget = forms.HiddenInput()
@@ -125,21 +154,21 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 css_class="div-title cols-2",
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Row(
                 css_class="div-subtitle cols-2",
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Row(
                 css_class="div-press_text cols-2",
                 *(layout.Field('press_text_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Row(
                 css_class="div-website cols-2",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             css_class="fieldset-basic-info",
-            ))
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Location"),
@@ -152,7 +181,7 @@ class BasicInfoForm(ModelForm):
                     "postal_code",
                     "district",
                     "city",
-                    ),
+                ),
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
@@ -168,9 +197,9 @@ class BasicInfoForm(ModelForm):
                 "latitude",
                 "longitude",
                 css_class="cols-2",
-                ),
+            ),
             css_class="fieldset-where cols-2",
-            ))
+        ))
         layout_blocks.append(layout.Fieldset(
             _("Organizers (when differ from location)"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
@@ -190,12 +219,59 @@ class BasicInfoForm(ModelForm):
             </div>
             """),
             css_id="organizers_fieldset",
-            ))
+        ))
         layout_blocks.append(layout.Fieldset(
             _("Related exhibition"),
             "exhibition",
             css_class="fieldset-related-exhibition",
-            ))
+        ))
+        layout_blocks.append(layout.Fieldset(
+            _("PDF Documents"),
+            layout.Row(
+                layout.HTML(u"""{% load i18n image_modifications %}
+                    <div class="pdf_upload" id="pdf_document_de_upload">
+                        <div class="pdf_link">
+                            <p class="lead">
+                            {% if event.pdf_document_de %}
+                                <a href="{{ MEDIA_URL }}{{ event.pdf_document_de.path }}" target="_blank">{{ event.pdf_document_de.filename }}</a>
+                            {% endif %}
+                            </p>
+                        </div>
+                        <div class="pdf_uploader">
+                            <noscript>
+                                <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                            </noscript>
+                        </div>
+                        <p class="help-block">{% trans "Choose a PDF document in German" %}</p>
+                        <div class="messages"></div>
+                    </div>
+                """),
+                layout.HTML(u"""{% load i18n image_modifications %}
+                    <div class="pdf_upload" id="pdf_document_en_upload">
+                        <div class="pdf_link">
+                            <p class="lead">
+                            {% if event.pdf_document_en %}
+                                <a href="{{ MEDIA_URL }}{{ event.pdf_document_en.path }}" target="_blank">{{ event.pdf_document_en.filename }}</a>
+                            {% endif %}
+                            </p>
+                        </div>
+                        <div class="pdf_uploader">
+                            <noscript>
+                                <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                            </noscript>
+                        </div>
+                        <p class="help-block">{% trans "Choose a PDF document in English" %}</p>
+                        <div class="messages"></div>
+                    </div>
+                """),
+                css_class="cols-2",
+            ),
+            "pdf_document_de_path",
+            "delete_pdf_document_de",
+            "pdf_document_en_path",
+            "delete_pdf_document_en",
+            css_class="fieldset-pdf-files",
+        ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             
@@ -203,33 +279,33 @@ class BasicInfoForm(ModelForm):
                 layout.Div("languages", css_class="min"),
                 layout.Div("other_languages", css_class="max"),
                 css_class="flex merge",
-                ),
+            ),
             
             layout.Row(
                 layout.Div("categories", css_class="min"),
                 layout.Div(layout.HTML("""<label>&nbsp;</label> """),"suitable_for_children", css_class="inline max"),
                 css_class="flex merge",
-                ),
+            ),
 
             layout.Div("tags"),
 
             css_class="fieldset-categories-tags",
-            ))
+        ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
 
     def clean(self):
         cleaned_data = super(BasicInfoForm, self).clean()
@@ -238,6 +314,7 @@ class BasicInfoForm(ModelForm):
             del cleaned_data['museum']
             del cleaned_data['location_name']
         return cleaned_data
+
 
 class OrganizerForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
@@ -252,13 +329,14 @@ class OrganizerForm(ModelForm):
             "minChars": 1,
             "max": 20,
             "mustMatch": 1,
-            "highlight" : False,
+            "highlight": False,
             "multipleSeparator": ",,, ",
-            },
-        )
+        },
+    )
     
     class Meta:
         model = Organizer
+
     def __init__(self, *args, **kwargs):
         super(OrganizerForm, self).__init__(*args, **kwargs)
 
@@ -275,19 +353,19 @@ class OrganizerForm(ModelForm):
                 layout.Row(
                     layout.Div("organizing_museum", css_class="max"), 
                     css_class="flex",
-                    ),
+                ),
                 layout.Row(
                     layout.Div("organizer_title"),
                     layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="max"),
                     css_class="flex",
-                    ),
+                ),
                 css_class="div_organizer"
-                )
             )
+        )
 
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
 
 OrganizerFormset = inlineformset_factory(Event, Organizer, form=OrganizerForm, formset=InlineFormSet, extra=0)
 
@@ -298,13 +376,14 @@ class PricesForm(ModelForm):
         max_digits=5,
         decimal_places=2,
         required=False,
-        )
+    )
     reduced_price = DecimalField(
         label=_(u"Reduced admission price (€)"),
         max_digits=5,
         decimal_places=2,
         required=False,
-        )
+    )
+
     class Meta:
         model = Event
         fields = ['free_admission', 'admission_price', 'reduced_price']
@@ -313,7 +392,8 @@ class PricesForm(ModelForm):
                 'admission_price_info_%s' % lang_code,
                 'meeting_place_%s' % lang_code,
                 'booking_info_%s' % lang_code,
-                ]
+            ]
+
     def __init__(self, *args, **kwargs):
         super(PricesForm, self).__init__(*args, **kwargs)
 
@@ -322,7 +402,7 @@ class PricesForm(ModelForm):
                 'admission_price_info_%s' % lang_code,
                 'meeting_place_%s' % lang_code,
                 'booking_info_%s' % lang_code,
-                ]:
+            ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.helper = FormHelper()
@@ -337,46 +417,48 @@ class PricesForm(ModelForm):
                 layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
                 layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
                 css_class="cols-2",
-                ),
+            ),
             layout.Row(
                 css_class="div-admission_price_info-details cols-2",
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             css_class="fieldset-prices",
-            ))
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Details"),
             layout.Row(
                 css_class="div-meeting_place-details cols-2",
                 *('meeting_place_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
 
             layout.Row(
                 css_class="div-booking_info-details cols-2",
                 *('booking_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
 
-                css_class="fieldset-details",
-                ))
+            css_class="fieldset-details",
+        ))
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )        
+        )
+
 
 class TimesForm(ModelForm):
+
     class Meta:
         model = Event
         fields = []
@@ -391,17 +473,19 @@ class TimesForm(ModelForm):
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )        
+        )
+
 
 class EventTimeForm(ModelForm):
+
     class Meta:
         model = EventTime
         
@@ -423,99 +507,100 @@ class EventTimeForm(ModelForm):
                 layout.Field("start", placeholder="00:00"),
                 layout.Field("end", placeholder="00:00"),
                 css_class="flex",
-                ),
-            )
+            ),
+        )
 
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
 
 EventTimeFormset = inlineformset_factory(Event, EventTime, form=EventTimeForm, formset=InlineFormSet, extra=0)
+
 
 class BatchEventTimeForm(forms.Form):
     range_start = forms.DateField(
         label=_("Start"),
         required=True,
-        )
+    )
     range_end = forms.DateField(
         label=_("End"),
         required=True,
-        )
+    )
     repeat = forms.ChoiceField(
         label=_("Repeat"),
         required=True,
         choices=((1, _("Every week")), (2, _("Every second week"))),
-        )
+    )
     mon_start = forms.TimeField(
         label=_("Starts on Monday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     mon_end = forms.TimeField(
         label=_("Ends on Monday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     tue_start = forms.TimeField(
         label=_("Starts on Tuesday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     tue_end = forms.TimeField(
         label=_("Ends on Tuesday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     wed_start = forms.TimeField(
         label=_("Starts on Wednesday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     wed_end = forms.TimeField(
         label=_("Ends on Wednesday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     thu_start = forms.TimeField(
         label=_("Starts on Thursday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     thu_end = forms.TimeField(
         label=_("Ends on Thursday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     fri_start = forms.TimeField(
         label=_("Starts on Friday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     fri_end = forms.TimeField(
         label=_("Ends on Friday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     sat_start = forms.TimeField(
         label=_("Starts on Saturday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     sat_end = forms.TimeField(
         label=_("Ends on Saturday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     sun_start = forms.TimeField(
         label=_("Starts on Sunday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
     sun_end = forms.TimeField(
         label=_("Ends on Sunday"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
-        )
+    )
 
     def __init__(self, *args, **kwargs):
         super(BatchEventTimeForm, self).__init__(*args, **kwargs)
@@ -537,7 +622,7 @@ class BatchEventTimeForm(forms.Form):
                 layout.Field("range_start", placeholder="dd.mm.yyyy"),
                 layout.Field("range_end", placeholder="dd.mm.yyyy"),
                 css_class="cols-2",
-                ),
+            ),
             "repeat",
             layout.Row(
                 layout.Field("mon_start", placeholder="00:00"),
@@ -548,7 +633,7 @@ class BatchEventTimeForm(forms.Form):
                 layout.Field("sat_start", placeholder="00:00"),
                 layout.Field("sun_start", placeholder="00:00"),
                 css_class="cols-7",
-                ),
+            ),
             layout.Row(
                 layout.Field("mon_end", placeholder="00:00"),
                 layout.Field("tue_end", placeholder="00:00"),
@@ -558,19 +643,21 @@ class BatchEventTimeForm(forms.Form):
                 layout.Field("sat_end", placeholder="00:00"),
                 layout.Field("sun_end", placeholder="00:00"),
                 css_class="cols-7",
-                ),
-            ))
+            ),
+        ))
         
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Create event times')),
             layout.Button('go_back', _('Go back')),
-            ))
+        ))
 
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
+
 
 class GalleryForm(ModelForm):
+
     class Meta:
         model = Event
         fields = []
@@ -585,15 +672,15 @@ class GalleryForm(ModelForm):
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
 
 
 def load_data(instance=None):
@@ -605,7 +692,7 @@ def load_data(instance=None):
             'prices': {'_filled': True},
             'gallery': {'_filled': True},
             '_pk': instance.pk,
-            }
+        }
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
@@ -648,11 +735,12 @@ def load_data(instance=None):
                 'admission_price_info_%s' % lang_code,
                 'meeting_place_%s' % lang_code,
                 'booking_info_%s' % lang_code,
-                ]
+            ]
         for f in fields:
             form_step_data['prices'][f] = getattr(instance, f)
 
     return form_step_data
+
 
 def submit_step(current_step, form_steps, form_step_data, instance=None):
     if current_step == "basic":
@@ -689,6 +777,50 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance.status = "draft"
         instance.save()
         
+        rel_dir = "events/%s/" % instance.slug
+
+        if form_step_data['basic']['delete_pdf_document_de'] and instance.pdf_document_de:
+            FileManager.delete_file(instance.pdf_document_de.path)
+            instance.pdf_document_de = ""
+            form_step_data['basic']['delete_pdf_document_de'] = False
+
+        if form_step_data['basic']["pdf_document_de_path"]:
+            tmp_path = form_step_data['basic']["pdf_document_de_path"]
+            abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+
+            fname, fext = os.path.splitext(os.path.basename(tmp_path))
+            filename = slugify(fname) + fext
+            dest_path = "".join((rel_dir, filename))
+            FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+            abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+
+            shutil.move(abs_tmp_path, abs_dest_path)
+
+            instance.pdf_document_de = dest_path
+            form_step_data['basic']["pdf_document_de_path"] = ""
+
+        if form_step_data['basic']['delete_pdf_document_en'] and instance.pdf_document_en:
+            FileManager.delete_file(instance.pdf_document_en.path)
+            instance.pdf_document_en = ""
+            form_step_data['basic']['delete_pdf_document_en'] = False
+
+        if form_step_data['basic']["pdf_document_en_path"]:
+            tmp_path = form_step_data['basic']["pdf_document_en_path"]
+            abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+
+            fname, fext = os.path.splitext(os.path.basename(tmp_path))
+            filename = slugify(fname) + fext
+            dest_path = "".join((rel_dir, filename))
+            FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+            abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+
+            shutil.move(abs_tmp_path, abs_dest_path)
+
+            instance.pdf_document_en = dest_path
+            form_step_data['basic']["pdf_document_en_path"] = ""
+
+        instance.save()
+
         if '_pk' not in form_step_data:
             user = get_current_user()
             instance.set_owner(user)
@@ -735,7 +867,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     'admission_price_info_%s' % lang_code,
                     'meeting_place_%s' % lang_code,
                     'booking_info_%s' % lang_code,
-                    ]
+                ]
                 setattr(instance, "admission_price_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
                 setattr(instance, "meeting_place_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
                 setattr(instance, "booking_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
@@ -746,6 +878,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
     return form_step_data
 
+
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
     extra_context = {}
     if "_pk" in form_step_data:
@@ -753,6 +886,7 @@ def set_extra_context(current_step, form_steps, form_step_data, instance=None):
     if current_step == "times":
         extra_context['batch_event_time_form'] = BatchEventTimeForm()
     return extra_context
+
 
 def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance
@@ -791,7 +925,7 @@ def save_data(form_steps, form_step_data, instance=None):
             'admission_price_info_%s' % lang_code,
             'meeting_place_%s' % lang_code,
             'booking_info_%s' % lang_code,
-            ]
+        ]
         setattr(instance, "admission_price_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
         setattr(instance, "meeting_place_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
         setattr(instance, "booking_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
@@ -836,8 +970,10 @@ def save_data(form_steps, form_step_data, instance=None):
     
     return form_step_data
 
+
 def cancel_editing(request):
     return redirect("dashboard")
+
 
 EVENT_FORM_STEPS = {
     'basic': {
@@ -875,4 +1011,3 @@ EVENT_FORM_STEPS = {
     'name': 'event_registration',
     'default_path': ["basic", "times", "prices", "gallery"],
 }
-

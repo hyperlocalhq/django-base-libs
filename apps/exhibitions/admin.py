@@ -20,6 +20,7 @@ Season = models.get_model("exhibitions", "Season")
 MediaFile = models.get_model("exhibitions", "MediaFile")
 Organizer = models.get_model("exhibitions", "Organizer")
 
+
 class ExhibitionCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
     save_on_top = True
@@ -33,10 +34,12 @@ class ExhibitionCategoryAdmin(TreeEditor, ExtendedModelAdmin):
 
 admin.site.register(ExhibitionCategory, ExhibitionCategoryAdmin)
 
+
 class SeasonInline(ExtendedStackedInline):
     model = Season
     extra = 0
     template = "admin/exhibitions/exhibition/season_inline.html"
+
 
 class MediaFileInline(ExtendedStackedInline):
     model = MediaFile
@@ -44,9 +47,11 @@ class MediaFileInline(ExtendedStackedInline):
     sortable = True
     sortable_field_name = "sort_order"
 
+
 class OrganizerInline(ExtendedStackedInline):
     model = Organizer
     extra = 0
+
 
 class ExhibitionAdminForm(forms.ModelForm):
     museum = AutocompleteModelChoiceField(
@@ -61,10 +66,10 @@ class ExhibitionAdminForm(forms.ModelForm):
             "minChars": 1,
             "max": 20,
             "mustMatch": 1,
-            "highlight" : False,
+            "highlight": False,
             "multipleSeparator": ",,, ",
-            },
-        )
+        },
+    )
     organizing_museum = AutocompleteModelChoiceField(
         required=False,
         label=u"Name",
@@ -77,19 +82,23 @@ class ExhibitionAdminForm(forms.ModelForm):
             "minChars": 1,
             "max": 20,
             "mustMatch": 1,
-            "highlight" : False,
+            "highlight": False,
             "multipleSeparator": ",,, ",
-            },
-        )
+        },
+    )
+
     class Meta:
         model = Exhibition
 
+
 class ExhibitionAdmin(ExtendedModelAdmin):
     form = ExhibitionAdminForm
+
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
+        )
+
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon')
     list_editable = ('status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon')
@@ -122,4 +131,3 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     get_museum_display.short_description = _("Museum")
 
 admin.site.register(Exhibition, ExhibitionAdmin)
-

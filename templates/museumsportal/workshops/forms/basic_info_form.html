@@ -5,6 +5,7 @@
     {{ block.super }}
     <link href="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
     <link href="{{ STATIC_URL }}site/css/jquery.tagsinput.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}site/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block js %}
@@ -13,6 +14,7 @@
     <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.js"></script>
+    <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
 {% endblock %}
 
 {% block bodyclass %}{% endblock %}
@@ -23,15 +25,119 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gmaps_for_address.js"></script>
     <script>
         $(function() {
+            var translatable_file_uploader_options = {
+                template: '<div class="qq-uploader">' +
+                    '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
+                    '<div class="qq-upload-button btn btn-inverse"><i class="icon-arrow-up icon-white"></i> {% trans "Upload PDF" %}</div>' +
+                    '&nbsp;<button class="btn btn-danger qq-delete-button"><i class="icon-trash icon-white"></i> {% trans "Delete" %}</button>' +
+                    '<ul class="qq-upload-list"></ul>' +
+                '</div>',
+                // template for one item in file list
+                fileTemplate: '<li>' +
+                    '<span class="qq-upload-file"></span>' +
+                    '<span class="qq-upload-spinner"></span>' +
+                    '<span class="qq-upload-size"></span>' +
+                    '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
+                    '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
+                '</li>',
+                messages: {
+                    typeError: '{% trans "{file} has invalid extension. Only {extensions} are allowed." %}',
+                    sizeError: '{% trans "{file} is too large, maximum file size is {sizeLimit}." %}',
+                    minSizeError: '{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}',
+                    emptyError: '{% trans "{file} is empty, please select files again without it." %}',
+                    filesLimitError: '{% trans "No more than {filesLimit} files are allowed to be uploaded." %}',
+                    onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'
+                }
+            };
+            var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            var $pdf_document_de_upload = $('#pdf_document_de_upload');
+            var options_de = $.extend(translatable_file_uploader_options, {
+                allowedExtensions: ['pdf'],
+                action: "/helper/ajax-upload/",
+                element: $('.pdf_uploader', $pdf_document_de_upload)[0],
+                multiple: false,
+                onComplete: function(id, fileName, responseJSON) {
+                    if(responseJSON.success) {
+                        $('.messages', $pdf_document_de_upload).html("");
+                        // set the original to media_file_path
+                        $('#id_pdf_document_de_path').val('uploads/' + fileName);
+                        // show preview link
+                        $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + '</a></p>');
+                    }
+                },
+                onAllComplete: function(uploads) {
+                    // uploads is an array of maps
+                    // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                    $('.qq-upload-success').fadeOut("slow", function() {
+                        $(this).remove();
+                    });
+                },
+                params: {
+                    'csrf_token': csrfmiddlewaretoken,
+                    'csrf_name': 'csrfmiddlewaretoken',
+                    'csrf_xname': 'X-CSRFToken'
+                },
+                showMessage: function(message) {
+                    $('.messages', $pdf_document_de_upload).html('<div class="alert alert-error">' + message + '</div>');
+                }
+            });
+            var pdf_uploader_de = new qq.FileUploader(options_de);
+            $('.qq-delete-button', $pdf_document_de_upload).click(function() {
+                $('.pdf_link', $pdf_document_de_upload).html("");
+                $('#id_delete_pdf_document_de').val(1);
+                return false;
+            });
+
+            var $pdf_document_en_upload = $('#pdf_document_en_upload');
+            var options_en = $.extend(translatable_file_uploader_options, {
+                allowedExtensions: ['pdf'],
+                action: "/helper/ajax-upload/",
+                element: $('.pdf_uploader', $pdf_document_en_upload)[0],
+                multiple: false,
+                onComplete: function(id, fileName, responseJSON) {
+                    if(responseJSON.success) {
+                        $('.messages', $pdf_document_en_upload).html("");
+                        // set the original to media_file_path
+                        $('#id_pdf_document_en_path').val('uploads/' + fileName);
+                        // show preview link
+                        $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + '</a></p>');
+                    }
+                },
+                onAllComplete: function(uploads) {
+                    // uploads is an array of maps
+                    // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                    $('.qq-upload-success').fadeOut("slow", function() {
+                        $(this).remove();
+                    });
+                },
+                params: {
+                    'csrf_token': csrfmiddlewaretoken,
+                    'csrf_name': 'csrfmiddlewaretoken',
+                    'csrf_xname': 'X-CSRFToken'
+                },
+                showMessage: function(message) {
+                    $('.messages', $pdf_document_en_upload).html('<div class="alert alert-error">' + message + '</div>');
+                }
+            });
+            var pdf_uploader_en = new qq.FileUploader(options_en);
+            $('.qq-delete-button', $pdf_document_en_upload).click(function() {
+                $('.pdf_link', $pdf_document_en_upload).html("");
+                $('#id_delete_pdf_document_en').val(1);
+                return false;
+            });
+        });
+    </script>
+    <script>
+        $(function() {
             $('.dateinput').datepicker({
                 format: 'dd.mm.yyyy',
                 weekStart: 1
-            })
+            });
             $('.timeinput').timepicker({
                 str_hours: '{% trans "Hours" %}',
                 str_minutes: '{% trans "Minutes" %}',
                 str_confirm: '{% trans "Confirm" %}',
-                str_close: '{% trans "Close" %}',
+                str_close: '{% trans "Close" %}'
             });
             $('#id_tags').tagsInput({defaultText: '{% trans "add a tag" %}'});
             $('#id_museum').change(function() {
@@ -54,12 +160,12 @@
             $('.dateinput').datepicker({
                 format: 'dd.mm.yyyy',
                 weekStart: 1
-            })
+            });
             $('.timeinput').timepicker({
                 str_hours: '{% trans "Hours" %}',
                 str_minutes: '{% trans "Minutes" %}',
                 str_confirm: '{% trans "Confirm" %}',
-                str_close: '{% trans "Close" %}',
+                str_close: '{% trans "Close" %}'
             });
         }
         function set_index_for_fields($formset_form, index) {
