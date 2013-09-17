@@ -95,9 +95,15 @@ class WorkshopManager(models.Manager):
             has_group_offer=True,
         ):
             obj.update_closest_workshop_time()
+
         self.filter(
             closest_workshop_date__isnull=True,
             has_group_offer=False,
+        ).exclude(status="expired").update(status="expired")
+
+        self.filter(
+            exhibition__status="expired",
+            has_group_offer=True,
         ).exclude(status="expired").update(status="expired")
 
     def populate_press_text(self):

@@ -81,7 +81,9 @@
                                 {% if workshop.exhibition %}
                                     <dl>
                                         <dt>{% trans "Related exhibition" %}</dt>
-                                        <dd><a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition.title }}</a></dd>
+                                        <dd><a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition.title }}</a><br />
+                                            {% trans "Duration" %}: <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span> {% if workshop.exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if workshop.exhibition.end %}{% trans "till" %} {{ workshop.exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
+                                        </dd>
                                     </dl>
                                 {% endif %}
 
