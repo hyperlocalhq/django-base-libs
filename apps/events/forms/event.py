@@ -96,7 +96,7 @@ class BasicInfoForm(ModelForm):
         fields = [
             'categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
-            'district', 'city', 'latitude', 'longitude', 'exhibition',
+            'city', 'latitude', 'longitude', 'exhibition',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -179,7 +179,6 @@ class BasicInfoForm(ModelForm):
                     "street_address",
                     "street_address2",
                     "postal_code",
-                    "district",
                     "city",
                 ),
                 layout.HTML("""{% load i18n %}
@@ -709,7 +708,6 @@ def load_data(instance=None):
         form_step_data['basic']['street_address'] = instance.street_address
         form_step_data['basic']['street_address2'] = instance.street_address2
         form_step_data['basic']['postal_code'] = instance.postal_code
-        form_step_data['basic']['district'] = instance.district
         form_step_data['basic']['city'] = instance.city
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
@@ -765,7 +763,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.street_address = form_step_data['basic']['street_address']
         instance.street_address2 = form_step_data['basic']['street_address2'] 
         instance.postal_code = form_step_data['basic']['postal_code']
-        instance.district = form_step_data['basic']['district']
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
@@ -911,7 +908,6 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.street_address = form_step_data['basic']['street_address']
     instance.street_address2 = form_step_data['basic']['street_address2'] 
     instance.postal_code = form_step_data['basic']['postal_code']
-    instance.district = form_step_data['basic']['district']
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']

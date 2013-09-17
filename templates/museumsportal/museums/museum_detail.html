@@ -56,7 +56,6 @@
                                     <dt>{{ museum.parent.title }}</dt>
                                     <dd>{{ museum.parent.street_address }}</dd>
                                     {% if museum.parent.street_address2 %}<dd>{{ museum.parent.street_address2 }}</dd>{% endif %}
-                                    {% if museum.parent.district %}<dd>{{ museum.parent.district }}</dd>{% endif %}
                                     <dd>{{ museum.parent.postal_code }} {{ museum.parent.city }}</dd>
 
                                     {% with museum as list_item %}
@@ -69,7 +68,6 @@
                                     <dt>{{ museum.title }}</dt>
                                     <dd>{{ museum.street_address }}</dd>
                                     {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %}
-                                    {% if museum.district %}<dd>{{ museum.district }}</dd>{% endif %}
                                     <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
                                     
                                     {% with museum as list_item %}

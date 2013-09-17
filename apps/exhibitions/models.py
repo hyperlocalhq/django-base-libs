@@ -155,7 +155,6 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
     postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
-    district = models.CharField(_("District"), max_length=255, blank=True)
     city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
     country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255, blank=True)    
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)

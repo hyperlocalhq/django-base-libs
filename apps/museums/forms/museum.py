@@ -606,7 +606,7 @@ class AddressForm(ModelForm):
         )
     class Meta:
         model = Museum
-        fields = ['parent', 'street_address', 'street_address2', 'postal_code', 'district',
+        fields = ['parent', 'street_address', 'street_address2', 'postal_code',
             'city', 'latitude', 'longitude',
             'phone_country', 'phone_area', 'phone_number', 
             'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number', 
@@ -632,7 +632,6 @@ class AddressForm(ModelForm):
                     'street_address2',
                     'postal_code', 
                     'city',
-                    'district',
                     ),
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
@@ -1050,7 +1049,7 @@ def load_data(instance=None):
         for f in fields:
             form_step_data['prices'][f] = getattr(instance, f)
         
-        fields = ['parent', 'street_address', 'street_address2', 'postal_code', 'district',
+        fields = ['parent', 'street_address', 'street_address2', 'postal_code',
             'city', 'latitude', 'longitude',
             'phone_country', 'phone_area', 'phone_number',
             'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
@@ -1108,14 +1107,15 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     if current_step == "address":
         if "_pk" in form_step_data:
             instance = Museum.objects.get(pk=form_step_data['_pk'])
-            fields = ['parent', 'street_address', 'street_address2', 'postal_code', 'district',
+            fields = [
+                'parent', 'street_address', 'street_address2', 'postal_code',
                 'city', 'latitude', 'longitude',
                 'phone_country', 'phone_area', 'phone_number',
                 'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
                 'service_phone_country', 'service_phone_area', 'service_phone_number',
                 'fax_country', 'fax_area', 'fax_number',
                 'email', 'website', 
-                ]
+            ]
             for f in fields:
                 setattr(instance, f, form_step_data['address'][f])
             instance.save()
@@ -1310,14 +1310,15 @@ def save_data(form_steps, form_step_data, instance=None):
             ]:
             setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
-    fields = ['parent', 'street_address', 'street_address2', 'postal_code', 'district',
+    fields = [
+        'parent', 'street_address', 'street_address2', 'postal_code',
         'city', 'latitude', 'longitude',
         'phone_country', 'phone_area', 'phone_number',
         'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
         'service_phone_country', 'service_phone_area', 'service_phone_number',
         'fax_country', 'fax_area', 'fax_number',
         'email', 'website', 
-        ]
+    ]
     for f in fields:
         setattr(instance, f, form_step_data['address'][f])
     
