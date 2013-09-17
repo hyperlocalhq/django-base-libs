@@ -179,7 +179,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_other_workshops(self):
         if not self.museum:
             return []
-        return self.museum.workshop_set.filter(status="published").exclude(pk=self.pk)
+        return self.museum.workshop_set.filter(status="published").exclude(pk=self.pk).order_by("closest_workshop_date", "closest_workshop_time")
 
     def is_today(self):
         today = date.today()

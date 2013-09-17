@@ -179,7 +179,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_other_events(self):
         if not self.museum:
             return []
-        return self.museum.event_set.filter(status="published").exclude(pk=self.pk)
+        return self.museum.event_set.filter(status="published").exclude(pk=self.pk).order_by("closest_event_date", "closest_event_time")
 
     def is_today(self):
         today = date.today()
