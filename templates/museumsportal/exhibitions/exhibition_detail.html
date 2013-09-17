@@ -190,7 +190,7 @@
                     <ul id="collapse-vernissage" class="accordion-body collapse">  
                         <li class="accordion-inner">
                             <dl>
-                                <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}</dd>
+                                <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
                             </dl>
                         </li>
                     </ul>  
@@ -209,7 +209,7 @@
                     <ul id="collapse-finissage" class="accordion-body collapse">  
                         <li class="accordion-inner">
                             <dl>
-                                <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}</dd>
+                                <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
                             </dl>
                         </li>
                     </ul>  

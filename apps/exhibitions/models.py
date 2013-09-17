@@ -34,6 +34,7 @@ from mptt.fields import TreeForeignKey, TreeManyToManyField
 from jetson.apps.utils.models import MONTH_CHOICES
 
 from south.modelsinspector import add_introspection_rules
+
 add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
 COUNTRY_CHOICES = (
