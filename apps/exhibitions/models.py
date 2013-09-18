@@ -355,6 +355,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         """
         if not self.museum:
             return []
+        if self.permanent:
+            return self.museum.season_set.all()
         return self.museum.season_set.filter(
             # Get seasons which start date is within the exhibition duration
             # -----[------exhibition------]----- time ->
