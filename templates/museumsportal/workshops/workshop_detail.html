@@ -163,16 +163,29 @@
                     </h4>  
                     <ul id="collapse-dates" class="accordion-body collapse">  
                         {% for workshop_time in workshop.get_upcoming_workshop_times %}
-                            <li class="accordion-inner tight">
+                            <li class="accordion-inner tight{% if forloop.counter > 10 %} hidden{% endif %}">
                                 <dl>
                                     <dt>
-                                    {{ workshop_time.workshop_date|date:"j. F Y" }}
-                                     <span class="right">{{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
+                                        {{ workshop_time.workshop_date|date:"j. F Y" }}
+                                        <span class="right">{{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
                                     </dt>
                                 </dl>
                             </li>
                         {% endfor %}
-                    </ul>  
+                    </ul>
+                    <script>
+                        $(function() {
+                            var $dates = $('#collapse-dates');
+                            var $hidden_times = $('li.hidden', $dates).hide();
+                            if ($hidden_times.length) {
+                                $('<a href="">{% trans "more" %}...</a>').click(function() {
+                                    $(this).closest('li').remove();
+                                    $hidden_times.removeClass('hidden').show();
+                                    return false;
+                                }).appendTo('<li class="accordion-inner tight"></li>').parent().appendTo($dates);
+                            }
+                        });
+                    </script>
                 </li>
                 {% endif %}
 
