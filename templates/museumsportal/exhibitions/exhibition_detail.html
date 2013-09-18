@@ -274,8 +274,8 @@
                                     </a>  
                                 </h4>  
                                 <ul id="collapse-opening-times" class="accordion-body collapse in">
-                                    {% if museum.season_set.count == 1 %}
-                                        {% with museum.season_set.all.0 as season %}
+                                    {% if exhibition.get_actual_seasons.count == 1 %}
+                                        {% with exhibition.get_actual_seasons.0 as season %}
                                             <li class="accordion-inner">
                                                 {% comment %}
                                                     <!-- <dl>
@@ -326,7 +326,7 @@
                                             </li>
                                         {% endwith %}
                                     {% else %}
-                                        {% for season in museum.season_set.all %}
+                                        {% for season in exhibition.get_actual_seasons %}
                                         <li class="accordion-inner">
                                             <dl>
                                                 <dt>{{ season.title }}</dt>
@@ -379,7 +379,7 @@
                                         <li class="accordion-inner">
                                         <dl>
                                         {% for special_opening in exhibition.get_museums_special_opening_times %}
-                                            <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
+                                            <dt>
                                             {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
                                             {% if special_opening.is_closed %}
                                                 <span class="right">{% trans "Closed" %}</span>

@@ -348,6 +348,30 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return qs[0].path
     cover_image = property(_get_cover_image)
 
+    def get_actual_seasons(self):
+        """
+        Return those museum's seasons which are happening
+        during the duration of exhibition
+        """
+        if not self.museum:
+            return []
+        return self.museum.season_set.filter(
+            # Get seasons which start date is within the exhibition duration
+            # -----[------exhibition------]----- time ->
+            #                [-season-]
+            #                       [-season-]
+            models.Q(start__gte=self.start, start__lte=self.end) |
+            # .. which started before and will end after the exhibition duration
+            # -----[----exhibition----]----- time ->
+            #    [--------season--------]
+            models.Q(start__lte=self.start, end__gte=self.end) |
+            # .. or which end date is within the exhibition duration
+            # -----[------exhibition------]----- time ->
+            #         [-season-]
+            #   [-season-]
+            models.Q(end__gte=self.start, end__lte=self.end)
+        )
+
     def get_museums_special_opening_times(self):
         """
         Return those museum's special opening times which fall
