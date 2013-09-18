@@ -162,6 +162,24 @@
                                     {% endif %}
                                 </dl>                            
                             {% endif %}
+                            {% if exhibition.get_related_published_events.count %}
+                                <dl>
+                                    <dt>{% trans "Accompanying events" %}</dt>
+                                    <dd>
+                                        {% for event in exhibition.get_related_published_events %}
+                                            <a href="{{ event.get_url_path }}">
+                                                {% with event.get_closest_event_time as event_time %}
+                                                    {{ event_time.event_date|date:"j. F Y" }}
+                                                    {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                                                    <br />
+                                                {% endwith %}
+                                                {{ event.title }}
+                                            </a>
+                                            {% if not forloop.last %}<br />{% endif %}
+                                        {% endfor %}
+                                    </dd>
+                                </dl>
+                            {% endif %}
                         </li>
                     </ul>  
                 </li>

@@ -51,9 +51,9 @@ STATUS_CHOICES = (
     ('trashed', _("Trashed")),
 )
 
-YEAR_CHOICES = [(i,i) for i in range(datetime.now().year, datetime.now().year+5)]
+YEAR_CHOICES = [(i, i) for i in range(datetime.now().year, datetime.now().year+5)]
 
-DAY_CHOICES = [(i,i) for i in range(1, 32)]
+DAY_CHOICES = [(i, i) for i in range(1, 32)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 
