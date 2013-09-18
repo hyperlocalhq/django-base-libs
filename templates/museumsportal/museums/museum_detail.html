@@ -256,9 +256,9 @@
                                 
                             {% if museum.specialopeningtime_set.count %}
                                 <li class="accordion-inner">
-                                <dl>
+                                <dl id="special_openings">
                                 {% for special_opening in museum.specialopeningtime_set.all %}
-                                    <dt>
+                                    <dt{% if forloop.counter > 5 %} class="hidden"{% endif %}>
                                     {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
                                     {% if special_opening.is_closed %}
                                         <span class="right">{% trans "Closed" %}</span>
@@ -276,6 +276,19 @@
                                     </dt>
                                 {% endfor %}
                                 </dl>
+                                <script>
+                                    $(function() {
+                                        var $special_openings = $('#special_openings');
+                                        var $hidden_times = $('dt.hidden', $special_openings).hide();
+                                        if ($hidden_times.length) {
+                                            $('<a href="">{% trans "more" %}...</a>').click(function() {
+                                                $(this).closest('dd').remove();
+                                                $hidden_times.removeClass('hidden').show();
+                                                return false;
+                                            }).appendTo('<dd></dd>').parent().appendTo($special_openings);
+                                        }
+                                    });
+                                </script>
                                 </li>
                             {% endif %}
                         </ul>  
