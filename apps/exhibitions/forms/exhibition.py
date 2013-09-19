@@ -286,7 +286,7 @@ class BasicInfoForm(ModelForm):
                         <div class="pdf_link">
                             <p class="lead">
                             {% if exhibition.pdf_document_de %}
-                                <a href="{{ MEDIA_URL }}{{ exhibition.pdf_document_de.path }}" target="_blank">{{ exhibition.pdf_document_de.filename }}</a>
+                                <a class="btn btn-small" href="{{ MEDIA_URL }}{{ exhibition.pdf_document_de.path }}" target="_blank">{{ exhibition.pdf_document_de.filename }} ({% trans "Preview" %})</a>
                             {% endif %}
                             </p>
                         </div>
@@ -303,7 +303,7 @@ class BasicInfoForm(ModelForm):
                         <div class="pdf_link">
                             <p class="lead">
                             {% if exhibition.pdf_document_en %}
-                                <a href="{{ MEDIA_URL }}{{ exhibition.pdf_document_en.path }}" target="_blank">{{ exhibition.pdf_document_en.filename }}</a>
+                                <a class="btn btn-small" href="{{ MEDIA_URL }}{{ exhibition.pdf_document_en.path }}" target="_blank">{{ exhibition.pdf_document_en.filename }} ({% trans "Preview" %})</a>
                             {% endif %}
                             </p>
                         </div>
