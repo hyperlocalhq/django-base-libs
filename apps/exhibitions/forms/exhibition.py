@@ -282,7 +282,6 @@ class BasicInfoForm(ModelForm):
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                             </noscript>
                         </div>
-                        <p class="help-block">{% trans "Choose a PDF document in German" %}</p>
                         <div class="messages"></div>
                         <div class="pdf_link">
                             <p class="lead">
@@ -300,7 +299,6 @@ class BasicInfoForm(ModelForm):
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                             </noscript>
                         </div>
-                        <p class="help-block">{% trans "Choose a PDF document in English" %}</p>
                         <div class="messages"></div>
                         <div class="pdf_link">
                             <p class="lead">
