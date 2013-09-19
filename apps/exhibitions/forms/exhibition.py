@@ -277,13 +277,6 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 layout.HTML(u"""{% load i18n image_modifications %}
                     <div class="pdf_upload" id="pdf_document_de_upload">
-                        <div class="pdf_link">
-                            <p class="lead">
-                            {% if exhibition.pdf_document_de %}
-                                <a href="{{ MEDIA_URL }}{{ exhibition.pdf_document_de.path }}" target="_blank">{{ exhibition.pdf_document_de.filename }}</a>
-                            {% endif %}
-                            </p>
-                        </div>
                         <div class="pdf_uploader">
                             <noscript>
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
@@ -291,17 +284,17 @@ class BasicInfoForm(ModelForm):
                         </div>
                         <p class="help-block">{% trans "Choose a PDF document in German" %}</p>
                         <div class="messages"></div>
+                        <div class="pdf_link">
+                            <p class="lead">
+                            {% if exhibition.pdf_document_de %}
+                                <a href="{{ MEDIA_URL }}{{ exhibition.pdf_document_de.path }}" target="_blank">{{ exhibition.pdf_document_de.filename }}</a>
+                            {% endif %}
+                            </p>
+                        </div>
                     </div>
                 """),
                 layout.HTML(u"""{% load i18n image_modifications %}
                     <div class="pdf_upload" id="pdf_document_en_upload">
-                        <div class="pdf_link">
-                            <p class="lead">
-                            {% if exhibition.pdf_document_en %}
-                                <a href="{{ MEDIA_URL }}{{ exhibition.pdf_document_en.path }}" target="_blank">{{ exhibition.pdf_document_en.filename }}</a>
-                            {% endif %}
-                            </p>
-                        </div>
                         <div class="pdf_uploader">
                             <noscript>
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
@@ -309,6 +302,13 @@ class BasicInfoForm(ModelForm):
                         </div>
                         <p class="help-block">{% trans "Choose a PDF document in English" %}</p>
                         <div class="messages"></div>
+                        <div class="pdf_link">
+                            <p class="lead">
+                            {% if exhibition.pdf_document_en %}
+                                <a href="{{ MEDIA_URL }}{{ exhibition.pdf_document_en.path }}" target="_blank">{{ exhibition.pdf_document_en.filename }}</a>
+                            {% endif %}
+                            </p>
+                        </div>
                     </div>
                 """),
                 css_class="cols-2",
