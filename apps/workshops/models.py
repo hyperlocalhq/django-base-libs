@@ -40,12 +40,12 @@ STATUS_CHOICES = (
     ('import', _("Imported")),
     ('expired', _("Expired")),
     ('trashed', _("Trashed")),
-    )
+)
 
 COUNTRY_CHOICES = (
     ('de', _("Germany")),
     ('-', "Other"),
-    )
+)
 
 YEAR_CHOICES = [(i,i) for i in range(1997, datetime.now().year+10)]
 
@@ -56,6 +56,7 @@ HOUR_CHOICES = [(i,i) for i in range(0, 24)]
 MINUTE_CHOICES = [(i,"%02d" % i) for i in range(0, 60)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+
 
 class WorkshopType(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -68,6 +69,7 @@ class WorkshopType(CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Type")
         verbose_name_plural = _("Types")
 
+
 class WorkshopManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
@@ -78,25 +80,31 @@ class WorkshopManager(models.Manager):
             content_type__model="workshop",
             sysname__startswith="owners",
             users=user,
-            ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
     def fix_bookable(self):
         self.filter(
             status="expired",
             has_group_offer=True,
-            ).update(status="published")
+        ).update(status="published")
 
     def update_expired(self):
         for obj in self.exclude(
             status="expired",
             has_group_offer=True,
-            ):
+        ):
             obj.update_closest_workshop_time()
+
         self.filter(
             closest_workshop_date__isnull=True,
             has_group_offer=False,
-            ).exclude(status="expired").update(status="expired")
+        ).exclude(status="expired").update(status="expired")
+
+        self.filter(
+            exhibition__status="expired",
+            has_group_offer=True,
+        ).exclude(status="expired").update(status="expired")
 
     def populate_press_text(self):
         for e in self.all():
@@ -118,6 +126,9 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     types = models.ManyToManyField(WorkshopType, verbose_name=_("Types"))
     description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."))
     
+    pdf_document_de = FileBrowseField(_('PDF Document in German'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
+    pdf_document_en = FileBrowseField(_('PDF Document in English'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
+
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     tags = TagAutocompleteField(verbose_name=_("tags"))
@@ -139,7 +150,6 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
     postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
-    district = models.CharField(_("District"), max_length=255, blank=True)
     city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
     country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255, blank=True)    
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
@@ -174,7 +184,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_other_workshops(self):
         if not self.museum:
             return []
-        return self.museum.workshop_set.filter(status="published").exclude(pk=self.pk)
+        return self.museum.workshop_set.filter(status="published").exclude(pk=self.pk).order_by("closest_workshop_date", "closest_workshop_time")
 
     def is_today(self):
         today = date.today()
@@ -209,18 +219,18 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
             Workshop.objects.filter(pk=self.pk).update(
                 closest_workshop_date=workshop_time.workshop_date,
                 closest_workshop_time=workshop_time.start,
-                )
+            )
         else:
             Workshop.objects.filter(pk=self.pk).update(
                 closest_workshop_date=None,
                 closest_workshop_time=None,
-                )
+            )
 
     def get_upcoming_workshop_times(self):
         today = date.today()
         return self.workshoptime_set.filter(
             workshop_date__gte=today
-            ).order_by("workshop_date", "start")
+        ).order_by("workshop_date", "start")
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -231,11 +241,11 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Workshop),
-                )
+            )
         except:
             role = PerObjectGroup(
                 sysname="owners",
-                )
+            )
             for lang_code, lang_name in settings.LANGUAGES:
                 setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
             role.content_object = self
@@ -244,7 +254,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
             RowLevelPermission.objects.create_default_row_permissions(
                 model_instance=self,
                 owner=role,
-                )
+            )
         
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
@@ -258,7 +268,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Workshop),
-                )
+            )
         except:
             return
         role.users.remove(user)
@@ -273,7 +283,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Workshop),
-                )
+            )
         except:
             return []
         return role.users.all()
@@ -314,7 +324,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
             "is_for_deaf",
             "is_for_blind",
             "is_for_learning_difficulties",
-            ]:
+        ]:
             if getattr(self, f):
                 particularities.append(unicode(self._meta.get_field(f).verbose_name))
         return particularities
@@ -365,7 +375,7 @@ class WorkshopTime(models.Model):
         return self.end_hh != None
         
     def get_secure_id(self):
-        return int(self.pk) + SECURITY_SUMMAND
+        return int(self.pk) + TOKENIZATION_SUMMAND
         
     def get_humanized_date_en(self):
         current_language = get_current_language()
@@ -380,6 +390,7 @@ class WorkshopTime(models.Model):
         the_date = django_date(self.workshop_date, "j. F Y")
         activate(current_language)
         return the_date
+
 
 class Organizer(models.Model):
     workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))
@@ -396,6 +407,7 @@ class Organizer(models.Model):
         ordering = ("organizing_museum__title", "organizer_title")
         verbose_name = _("Organizer")
         verbose_name_plural = _("Organizers")
+
 
 class MediaFile(CreationModificationDateMixin):
     workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))

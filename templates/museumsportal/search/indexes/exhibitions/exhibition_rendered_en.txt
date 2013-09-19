@@ -4,7 +4,7 @@
         <a href="/en/exhibitions/{{ exhibition.slug }}/">
             <h4>
                 {% if exhibition.permanent %}
-                    <span>Permanent exhibition</span>
+                    Permanent exhibition{% if exhibition.start %}: <span>{{ exhibition.start|date:"j.m.Y" }} until further notice</span>{% endif %}
                 {% else %}
                     Exhibition: <span>{{ exhibition.start|date:"j.m" }} – {{ exhibition.end|date:"j.m.Y" }}</span>
                 {% endif %}

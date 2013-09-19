@@ -36,7 +36,7 @@ add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteFiel
 COUNTRY_CHOICES = (
     ('de', _("Germany")),
     ('-', "Other"),
-    )
+)
 
 STATUS_CHOICES = (
     ('draft', _("Draft")),
@@ -44,13 +44,14 @@ STATUS_CHOICES = (
     ('not_listed', _("Not Listed")),
     ('import', _("Imported")),
     ('trashed', _("Trashed")),
-    ) 
+)
 
-YEAR_CHOICES = [(i,i) for i in range(datetime.now().year, datetime.now().year+5)]
+YEAR_CHOICES = [(i, i) for i in range(datetime.now().year, datetime.now().year+5)]
 
-DAY_CHOICES = [(i,i) for i in range(1, 32)]
+DAY_CHOICES = [(i, i) for i in range(1, 32)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+
 
 class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
@@ -71,6 +72,7 @@ class MuseumCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
             MuseumCategory.objects.insert_node(self, self.parent)
         super(MuseumCategory, self).save(*args, **kwargs)
 
+
 class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
     image = FileBrowseField(_('Image'), max_length=255, directory="accessibility/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
@@ -84,6 +86,7 @@ class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
         verbose_name = _("Accessibility option")
         verbose_name_plural = _("Accessibility options")
 
+
 class MuseumManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
@@ -94,8 +97,9 @@ class MuseumManager(models.Manager):
             content_type__model="museum",
             sysname__startswith="owners",
             users=user,
-            ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     parent = models.ForeignKey("self", verbose_name=_("Parent museum"), blank=True, null=True)
@@ -114,8 +118,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     street_address = models.CharField(_("Street address"), max_length=255)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
     postal_code = models.CharField(_("Postal code"), max_length=255)
-    district = models.CharField(_("District"), max_length=255, blank=True)
-    city =  models.CharField(_("City"), default="Berlin", max_length=255)
+    city = models.CharField(_("City"), default="Berlin", max_length=255)
     country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255)    
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
@@ -241,7 +244,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         museums = Museum.objects.filter(
             categories__in=categories,
             status="published",
-            ).exclude(pk=self.pk).distinct()
+        ).exclude(pk=self.pk).distinct()
         return museums
         
     def get_tags(self):
@@ -252,7 +255,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             getattr(self, fn)
             for fn in ["street_address", "street_address2", "postal_code", "city"]
             if getattr(self, fn)
-            ])
+        ])
     get_address.short_description = _("Address")
     
     def is_open_until(self, weekday, closing_time):
@@ -323,11 +326,11 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Museum),
-                )
+            )
         except:
             role = PerObjectGroup(
                 sysname="owners",
-                )
+            )
             for lang_code, lang_name in settings.LANGUAGES:
                 setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
             role.content_object = self
@@ -336,7 +339,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             RowLevelPermission.objects.create_default_row_permissions(
                 model_instance=self,
                 owner=role,
-                )
+            )
         
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
@@ -365,7 +368,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Museum),
-                )
+            )
         except:
             return []
         return role.users.all()
@@ -380,7 +383,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         Exhibition = models.get_model("exhibitions", "Exhibition")
         return Exhibition.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-            ).distinct().order_by("-start")
+        ).distinct().order_by("-start")
         
     def get_published_exhibitions(self):
         return self.get_exhibitions().filter(status="published")
@@ -389,7 +392,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         Event = models.get_model("events", "Event")
         return Event.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-            ).distinct().order_by('closest_event_date', 'closest_event_time')
+        ).distinct().order_by('closest_event_date', 'closest_event_time')
 
     def get_published_events(self):
         return self.get_events().filter(status="published")
@@ -398,7 +401,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         Workshop = models.get_model("workshops", "Workshop")
         return Workshop.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-            ).distinct().order_by('closest_workshop_date', 'closest_workshop_time')
+        ).distinct().order_by('closest_workshop_date', 'closest_workshop_time')
             
     def get_published_workshops(self):
         return self.get_workshops().filter(status="published")
@@ -411,6 +414,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             if channels:
                 self._twitter_username_cache = re.sub(r'/$', "", re.sub(r'^https?://twitter.com/', "", channels[0].url)) 
         return self._twitter_username_cache
+
 
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)
@@ -455,6 +459,7 @@ class Season(OpeningHoursMixin):
                 )),
             })
         return times
+
 
 class SpecialOpeningTime(models.Model):
     museum = models.ForeignKey(Museum)
@@ -512,7 +517,8 @@ class MediaFile(CreationModificationDateMixin):
     @staticmethod
     def token_to_pk(token):
         return int(token) - TOKENIZATION_SUMMAND
-        
+
+
 class SocialMediaChannel(models.Model):
     museum = models.ForeignKey(Museum)
     channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))

@@ -4,7 +4,7 @@
         <a href="/de/ausstellungen/{{ exhibition.slug }}/">
             <h4>
                 {% if exhibition.permanent %}
-                    <span>Dauerausstellung</span>
+                    Dauerausstellung{% if exhibition.start %}: <span>{{ exhibition.start|date:"j.m.Y" }} bis auf Weiteres</span>{% endif %}
                 {% else %}
                     Ausstellung: <span>{{ exhibition.start|date:"j.m" }} – {{ exhibition.end|date:"j.m.Y" }}</span>
                 {% endif %}

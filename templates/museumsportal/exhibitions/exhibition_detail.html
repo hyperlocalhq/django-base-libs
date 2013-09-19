@@ -162,6 +162,24 @@
                                     {% endif %}
                                 </dl>                            
                             {% endif %}
+                            {% if exhibition.get_related_published_events.count %}
+                                <dl>
+                                    <dt>{% trans "Accompanying events" %}</dt>
+                                    <dd>
+                                        {% for event in exhibition.get_related_published_events %}
+                                            <a href="{{ event.get_url_path }}">
+                                                {% with event.get_closest_event_time as event_time %}
+                                                    {{ event_time.event_date|date:"j. F Y" }}
+                                                    {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                                                    <br />
+                                                {% endwith %}
+                                                {{ event.title }}
+                                            </a>
+                                            {% if not forloop.last %}<br />{% endif %}
+                                        {% endfor %}
+                                    </dd>
+                                </dl>
+                            {% endif %}
                         </li>
                     </ul>  
                 </li>
@@ -190,7 +208,7 @@
                     <ul id="collapse-vernissage" class="accordion-body collapse">  
                         <li class="accordion-inner">
                             <dl>
-                                <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}</dd>
+                                <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
                             </dl>
                         </li>
                     </ul>  
@@ -209,7 +227,7 @@
                     <ul id="collapse-finissage" class="accordion-body collapse">  
                         <li class="accordion-inner">
                             <dl>
-                                <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}</dd>
+                                <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
                             </dl>
                         </li>
                     </ul>  
@@ -256,8 +274,8 @@
                                     </a>  
                                 </h4>  
                                 <ul id="collapse-opening-times" class="accordion-body collapse in">
-                                    {% if museum.season_set.count == 1 %}
-                                        {% with museum.season_set.all.0 as season %}
+                                    {% if exhibition.get_actual_seasons.count == 1 %}
+                                        {% with exhibition.get_actual_seasons.0 as season %}
                                             <li class="accordion-inner">
                                                 {% comment %}
                                                     <!-- <dl>
@@ -308,7 +326,7 @@
                                             </li>
                                         {% endwith %}
                                     {% else %}
-                                        {% for season in museum.season_set.all %}
+                                        {% for season in exhibition.get_actual_seasons %}
                                         <li class="accordion-inner">
                                             <dl>
                                                 <dt>{{ season.title }}</dt>
@@ -359,9 +377,9 @@
                                     {% endif %}
                                     {% if exhibition.get_museums_special_opening_times %}
                                         <li class="accordion-inner">
-                                        <dl>
+                                        <dl id="special_openings">
                                         {% for special_opening in exhibition.get_museums_special_opening_times %}
-                                            <dt>{% if special_opening.day_label %}{{ special_opening.day_label }}{% endif %}
+                                            <dt{% if forloop.counter > 5 %} class="hidden"{% endif %}>
                                             {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
                                             {% if special_opening.is_closed %}
                                                 <span class="right">{% trans "Closed" %}</span>
@@ -379,6 +397,19 @@
                                             </dt>
                                         {% endfor %}
                                         </dl>
+                                        <script>
+                                            $(function() {
+                                                var $special_openings = $('#special_openings');
+                                                var $hidden_times = $('dt.hidden', $special_openings).hide();
+                                                if ($hidden_times.length) {
+                                                    $('<a href="">{% trans "more" %}...</a>').click(function() {
+                                                        $(this).closest('dd').remove();
+                                                        $hidden_times.removeClass('hidden').show();
+                                                        return false;
+                                                    }).appendTo('<dd></dd>').parent().appendTo($special_openings);
+                                                }
+                                            });
+                                        </script>
                                         </li>
                                     {% endif %}
                                 </ul>  

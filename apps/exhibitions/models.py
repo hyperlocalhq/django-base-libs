@@ -34,12 +34,13 @@ from mptt.fields import TreeForeignKey, TreeManyToManyField
 from jetson.apps.utils.models import MONTH_CHOICES
 
 from south.modelsinspector import add_introspection_rules
+
 add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
 COUNTRY_CHOICES = (
     ('de', _("Germany")),
     ('-', "Other"),
-    )
+)
 
 STATUS_CHOICES = (
     ('draft', _("Draft")),
@@ -48,13 +49,14 @@ STATUS_CHOICES = (
     ('expired', _("Expired")),
     ('import', _("Imported")),
     ('trashed', _("Trashed")),
-    ) 
+)
 
-YEAR_CHOICES = [(i,i) for i in range(datetime.now().year, datetime.now().year+5)]
+YEAR_CHOICES = [(i, i) for i in range(datetime.now().year, datetime.now().year+5)]
 
-DAY_CHOICES = [(i,i) for i in range(1, 32)]
+DAY_CHOICES = [(i, i) for i in range(1, 32)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+
 
 class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
@@ -69,6 +71,7 @@ class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
         ordering = ["tree_id", "lft"]
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
+
 
 class ExhibitionManager(models.Manager):
     def newly_opened(self):
@@ -91,12 +94,12 @@ class ExhibitionManager(models.Manager):
             timestamp = timestamp()
         return self.filter(
             end__lt=timestamp,
-            ).distinct()
+        ).distinct()
             
     def update_expired(self):
         queryset = self.past().exclude(
             status="expired",
-            )
+        )
         for obj in queryset:
             obj.status = "expired"
             obj.save()
@@ -110,7 +113,7 @@ class ExhibitionManager(models.Manager):
             content_type__model="exhibition",
             sysname__startswith="owners",
             users=user,
-            ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
     def populate_press_text(self):
@@ -145,11 +148,13 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     image = FileBrowseField(_('Image'), max_length=255, directory="exhibitions/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True, editable=False)
 
+    pdf_document_de = FileBrowseField(_('PDF Document in German'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
+    pdf_document_en = FileBrowseField(_('PDF Document in English'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
+
     location_name = models.CharField(_("Location name"), max_length=255, blank=True)
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
     postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
-    district = models.CharField(_("District"), max_length=255, blank=True)
     city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
     country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255, blank=True)    
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
@@ -234,32 +239,26 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         selected_start = date.today()
         selected_end = selected_start + timedelta(days=days)
         conditions = False
-        """
-        Get events which start date is within the selected range
-        -----[--selected range--]----- time ->
-                   [-event-]
-                          [-event-]
-        """
+        # Get events which start date is within the selected range
+        # -----[--selected range--]----- time ->
+        #            [-event-]
+        #                   [-event-]
         conditions = conditions or (
             selected_start <= self.start <= selected_end
-            )
-        """
-        .. which started before and will end after the selected range
-        -----[-selected range-]------- time ->
-           [------event---------]
-        """
+        )
+        # .. which started before and will end after the selected range
+        # -----[-selected range-]------- time ->
+        #    [------event---------]
         conditions = conditions or (
             self.start <= selected_start and selected_end <= self.end
-            )
-        """
-        .. or which end date is within the selected range
-        -----[--selected range--]----- time ->
-                 [-event-]
-          [-event-]
-        """
+        )
+        # .. or which end date is within the selected range
+        # -----[--selected range--]----- time ->
+        #          [-event-]
+        #   [-event-]
         conditions = conditions or (
             selected_start <= self.end <= selected_end
-            )
+        )
         return conditions
         
     def is_within_7_days(self):
@@ -296,11 +295,11 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Exhibition),
-                )
+            )
         except:
             role = PerObjectGroup(
                 sysname="owners",
-                )
+            )
             for lang_code, lang_name in settings.LANGUAGES:
                 setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
             role.content_object = self
@@ -309,7 +308,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             RowLevelPermission.objects.create_default_row_permissions(
                 model_instance=self,
                 owner=role,
-                )
+            )
         
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
@@ -323,7 +322,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Exhibition),
-                )
+            )
         except:
             return
         role.users.remove(user)
@@ -338,7 +337,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Exhibition),
-                )
+            )
         except:
             return []
         return role.users.all()
@@ -348,6 +347,32 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         if qs.count():
             return qs[0].path
     cover_image = property(_get_cover_image)
+
+    def get_actual_seasons(self):
+        """
+        Return those museum's seasons which are happening
+        during the duration of exhibition
+        """
+        if not self.museum:
+            return []
+        if self.permanent:
+            return self.museum.season_set.all()
+        return self.museum.season_set.filter(
+            # Get seasons which start date is within the exhibition duration
+            # -----[------exhibition------]----- time ->
+            #                [-season-]
+            #                       [-season-]
+            models.Q(start__gte=self.start, start__lte=self.end) |
+            # .. which started before and will end after the exhibition duration
+            # -----[----exhibition----]----- time ->
+            #    [--------season--------]
+            models.Q(start__lte=self.start, end__gte=self.end) |
+            # .. or which end date is within the exhibition duration
+            # -----[------exhibition------]----- time ->
+            #         [-season-]
+            #   [-season-]
+            models.Q(end__gte=self.start, end__lte=self.end)
+        )
 
     def get_museums_special_opening_times(self):
         """
@@ -364,7 +389,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                     if self.start <= date(t.yyyy or today.year, t.mm, t.dd) <= self.end:
                         times.append(t)
         return times
-        
+
+
 class Organizer(models.Model):
     exhibition = models.ForeignKey(Exhibition)
     organizing_museum = models.ForeignKey("museums.Museum", verbose_name=_("Organizing museum"), blank=True, null=True, related_name="exhibition_organizer")
@@ -380,6 +406,7 @@ class Organizer(models.Model):
         ordering = ("organizing_museum__title", "organizer_title")
         verbose_name = _("Organizer")
         verbose_name_plural = _("Organizers")
+
 
 class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)
@@ -420,6 +447,7 @@ class Season(OpeningHoursMixin):
             })
         return times
 
+
 class NewlyOpenedExhibition(CMSPlugin):
     exhibition = models.ForeignKey(Exhibition, limit_choices_to={'newly_opened': True})
     
@@ -430,6 +458,7 @@ class NewlyOpenedExhibition(CMSPlugin):
         ordering = ['exhibition__title']
         verbose_name = _("Newly opened exhibition")
         verbose_name_plural = _("Newly opened exhibitions")
+
 
 class MediaFile(CreationModificationDateMixin):
     exhibition = models.ForeignKey(Exhibition, verbose_name=_("Exhibition"))

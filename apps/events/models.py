@@ -44,12 +44,12 @@ STATUS_CHOICES = (
     ('import', _("Imported")),
     ('expired', _("Expired")),
     ('trashed', _("Trashed")),
-    )
+)
 
 COUNTRY_CHOICES = (
     ('de', _("Germany")),
     ('-', "Other"),
-    )
+)
 
 YEAR_CHOICES = [(i,i) for i in range(1997, datetime.now().year+10)]
 
@@ -61,12 +61,13 @@ MINUTE_CHOICES = [(i,"%02d" % i) for i in range(0, 60)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 
+
 class EventCategory(MPTTModel, SlugMixin()):
     parent = TreeForeignKey(
-       'self',
-       related_name="child_set",
-       blank=True,
-       null=True,
+        'self',
+        related_name="child_set",
+        blank=True,
+        null=True,
     )
     title = MultilingualCharField(_('title'), max_length=255)
     
@@ -85,6 +86,7 @@ class EventCategory(MPTTModel, SlugMixin()):
             EventCategory.objects.insert_node(self, self.parent)
         super(EventCategory, self).save(*args, **kwargs)
 
+
 class EventManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
@@ -95,17 +97,17 @@ class EventManager(models.Manager):
             content_type__model="event",
             sysname__startswith="owners",
             users=user,
-            ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
     def update_expired(self):
         for obj in self.exclude(
             status="expired",
-            ):
+        ):
             obj.update_closest_event_time()
         self.filter(
             closest_event_date__isnull=True,
-            ).exclude(status="expired").update(status="expired")
+        ).exclude(status="expired").update(status="expired")
 
     def populate_press_text(self):
         for e in self.all():
@@ -126,6 +128,9 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     image = FileBrowseField(_('Image'), max_length=200, directory="events/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."))
     
+    pdf_document_de = FileBrowseField(_('PDF Document in German'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
+    pdf_document_en = FileBrowseField(_('PDF Document in English'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
+
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     categories = TreeManyToManyField(EventCategory, verbose_name=_("Categories"))
@@ -139,7 +144,6 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
     postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
-    district = models.CharField(_("District"), max_length=255, blank=True)
     city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
     country = models.CharField(_("Country"), choices=COUNTRY_CHOICES, default='de', max_length=255, blank=True)    
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
@@ -174,7 +178,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_other_events(self):
         if not self.museum:
             return []
-        return self.museum.event_set.filter(status="published").exclude(pk=self.pk)
+        return self.museum.event_set.filter(status="published").exclude(pk=self.pk).order_by("closest_event_date", "closest_event_time")
 
     def is_today(self):
         today = date.today()
@@ -209,12 +213,12 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
             Event.objects.filter(pk=self.pk).update(
                 closest_event_date=event_time.event_date,
                 closest_event_time=event_time.start,
-                )
+            )
         else:
             Event.objects.filter(pk=self.pk).update(
                 closest_event_date=None,
                 closest_event_time=None,
-                )
+            )
 
     def get_upcoming_event_times(self):
         today = date.today()
@@ -231,11 +235,11 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Event),
-                )
+            )
         except:
             role = PerObjectGroup(
                 sysname="owners",
-                )
+            )
             for lang_code, lang_name in settings.LANGUAGES:
                 setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
             role.content_object = self
@@ -244,7 +248,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
             RowLevelPermission.objects.create_default_row_permissions(
                 model_instance=self,
                 owner=role,
-                )
+            )
         
         if not role.users.filter(pk=user.pk).count():
             role.users.add(user)
@@ -258,7 +262,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Event),
-                )
+            )
         except:
             return
         role.users.remove(user)
@@ -273,7 +277,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Event),
-                )
+            )
         except:
             return []
         return role.users.all()
@@ -302,6 +306,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
         if qs.count():
             return qs[0].path
     cover_image = property(_get_cover_image)
+
 
 class EventTime(models.Model):
     
@@ -349,7 +354,7 @@ class EventTime(models.Model):
         return self.end_hh != None
         
     def get_secure_id(self):
-        return int(self.pk) + SECURITY_SUMMAND
+        return int(self.pk) + TOKENIZATION_SUMMAND
         
     def get_humanized_date_en(self):
         current_language = get_current_language()
@@ -364,6 +369,7 @@ class EventTime(models.Model):
         the_date = django_date(self.event_date, "j. F Y")
         activate(current_language)
         return the_date
+
 
 class Organizer(models.Model):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
@@ -380,6 +386,7 @@ class Organizer(models.Model):
         ordering = ("organizing_museum__title", "organizer_title")
         verbose_name = _("Organizer")
         verbose_name_plural = _("Organizers")
+
 
 class MediaFile(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))

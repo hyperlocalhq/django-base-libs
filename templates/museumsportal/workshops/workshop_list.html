@@ -115,6 +115,11 @@
 
                         <h3>{{ workshop.title }}</h3>
                         <h4>{{ workshop.subtitle }}</h4>
+                        {% if workshop.exhibition %}
+                            <h5>{% blocktrans with workshop.exhibition.title as exhibition_title %}Accompanying program for exhibition "{{ exhibition_title }}"{% endblocktrans %}:
+                                <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span> {% if workshop.exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if workshop.exhibition.end %}{% trans "till" %} {{ workshop.exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
+                            </h5>
+                        {% endif %}
                         {% if workshop.location_name %}
                             <h5>{{ workshop.location_name }}</h5>
                         {% else %}

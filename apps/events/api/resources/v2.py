@@ -197,7 +197,20 @@ class EventResource(ModelResource):
         activate("de")
         bundle.data['languages_de'] = bundle.obj.get_languages()
         activate(current_language)
-        
+
+        if bundle.obj.pdf_document_de:
+            bundle.data['pdf_document_de'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.pdf_document_de.path,
+            ))
+        if bundle.obj.pdf_document_en:
+            bundle.data['pdf_document_en'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.pdf_document_en.path,
+            ))
+
         return bundle
         
     def apply_filters(self, request, applicable_filters):

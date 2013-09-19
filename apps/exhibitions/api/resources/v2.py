@@ -23,6 +23,7 @@ MediaFile = models.get_model("exhibitions", "MediaFile")
 
 
 class ExhibitionCategoryResource(ModelResource):
+
     class Meta:
         queryset = ExhibitionCategory.objects.all()
         resource_name = 'exhibition_category'
@@ -35,6 +36,7 @@ class ExhibitionCategoryResource(ModelResource):
 
 
 class SeasonResource(ModelResource):
+
     class Meta:
         queryset = Season.objects.all()
         resource_name = 'exhibition_season'
@@ -53,6 +55,7 @@ class SeasonResource(ModelResource):
 
 class OrganizerResource(ModelResource):
     organizing_museum = fields.ToOneField("museumsportal.apps.museums.api.resources.v2.MuseumResource", "organizing_museum", null=True)
+
     class Meta:
         queryset = Organizer.objects.all()
         resource_name = 'exhibition_organizer'
@@ -65,6 +68,7 @@ class OrganizerResource(ModelResource):
 
 
 class MediaFileResource(ModelResource):
+
     class Meta:
         queryset = MediaFile.objects.all()
         resource_name = 'exhibition_media_file'
@@ -81,11 +85,11 @@ class MediaFileResource(ModelResource):
                 get_website_url(),
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
-                ))
+            ))
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=bundle.obj.path,
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 pass
             else:
@@ -140,13 +144,13 @@ class ExhibitionResource(ModelResource):
             "en/exhibitions/",
             bundle.obj.slug,
             "/",
-            ))
+        ))
         bundle.data['link_de'] = "".join((
             get_website_url(),
             "de/ausstellungen/",
             bundle.obj.slug,
             "/",
-            ))
+        ))
         bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_press_text_en())
         bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_press_text_de())
         
@@ -167,7 +171,20 @@ class ExhibitionResource(ModelResource):
         
         if bundle.obj.permanent:
             bundle.data['end'] = "2099-12-31"
-        
+
+        if bundle.obj.pdf_document_de:
+            bundle.data['pdf_document_de'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.pdf_document_de.path,
+            ))
+        if bundle.obj.pdf_document_en:
+            bundle.data['pdf_document_en'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.pdf_document_en.path,
+            ))
+
         return bundle
         
     def apply_filters(self, request, applicable_filters):

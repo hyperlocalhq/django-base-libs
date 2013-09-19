@@ -18,15 +18,18 @@ WorkshopTime = models.get_model("workshops", "WorkshopTime")
 MediaFile = models.get_model("workshops", "MediaFile")
 Organizer = models.get_model("workshops", "Organizer")
 
+
 class WorkshopTypeAdmin(ExtendedModelAdmin):
     save_on_top = True
     list_display = ('id', 'title', 'slug',)
     fieldsets = get_admin_lang_section(_("Title"), ['title',])
     fieldsets += [(None, {'fields': ('slug',)}),]
 
+
 class WorkshopTimeInline(admin.StackedInline):
     model = WorkshopTime
     extra = 0
+
 
 class MediaFileInline(ExtendedStackedInline):
     model = MediaFile
@@ -34,15 +37,17 @@ class MediaFileInline(ExtendedStackedInline):
     sortable = True
     sortable_field_name = "sort_order"
 
+
 class OrganizerInline(ExtendedStackedInline):
     model = Organizer
     extra = 0
+
 
 class WorkshopAdmin(ExtendedModelAdmin):
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
+        )
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
     list_display_links = ('title', )
@@ -51,11 +56,12 @@ class WorkshopAdmin(ExtendedModelAdmin):
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'workshop_type', 'description', 'press_text', 'website', ])
     fieldsets += [(None, {'fields': ('slug', 'types', 'description_locked')}),]
-    fieldsets += [(_("Categories"), {'fields': ('tags', 'languages', 'other_languages', 
+    fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
+    fieldsets += [(_("Categories"), {'fields': ('tags', 'languages', 'other_languages',
         'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_wheelchaired',
         'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties',
     )}),]
-    fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'district', 'country','latitude','longitude', 'exhibition')}),]
+    fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'country','latitude','longitude', 'exhibition')}),]
     fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
@@ -81,6 +87,5 @@ class WorkshopAdmin(ExtendedModelAdmin):
             if isinstance(instance, WorkshopTime):
                 instance.workshop.update_closest_workshop_time()
         
-
 admin.site.register(WorkshopType, WorkshopTypeAdmin)
 admin.site.register(Workshop, WorkshopAdmin)

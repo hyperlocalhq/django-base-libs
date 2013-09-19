@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import os
+import shutil
+
 from django.db import models
 from django import forms
 from django.forms.models import ModelForm
@@ -8,6 +11,8 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
+
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -17,6 +22,8 @@ from babeldjango.templatetags.babel import decimalfmt
 from base_libs.forms.fields import AutocompleteModelChoiceField, DecimalField
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
+
+from jetson.apps.image_mods.models import FileManager
 
 Museum = models.get_model("museums", "Museum")
 Exhibition = models.get_model("exhibitions", "Exhibition")
@@ -51,6 +58,7 @@ _("Sa")
 _("Su")
 _("Breaks")
 
+
 class BasicInfoForm(ModelForm):
     museum = AutocompleteModelChoiceField(
         required=False,
@@ -64,23 +72,45 @@ class BasicInfoForm(ModelForm):
             "minChars": 1,
             "max": 20,
             "mustMatch": 1,
-            "highlight" : False,
+            "highlight": False,
             "multipleSeparator": ",,, ",
-            },
-        )
+        },
+    )
     categories = ModelMultipleChoiceTreeField(
         label=_("Categories"),
         required=False,
         queryset=ExhibitionCategory.objects.all(),
-        )
+    )
+    pdf_document_de_path = forms.CharField(
+        max_length=255,
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+    delete_pdf_document_de = forms.BooleanField(
+        label=_("Delete PDF Document in German"),
+        required=False,
+        widget=forms.HiddenInput(),
+    )
+    pdf_document_en_path = forms.CharField(
+        max_length=255,
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+    delete_pdf_document_en = forms.BooleanField(
+        label=_("Delete PDF Document in English"),
+        required=False,
+        widget=forms.HiddenInput(),
+    )
+
     class Meta:
         model = Exhibition
         
-        fields = ['start', 'end', 'permanent', 'exhibition_extended',
-            'museum', 'location_name', 'street_address', 'street_address2', 'postal_code', 'district',
+        fields = [
+            'start', 'end', 'permanent', 'exhibition_extended',
+            'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'city', 'latitude', 'longitude',  
             'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
-            ]
+        ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
@@ -89,7 +119,8 @@ class BasicInfoForm(ModelForm):
                 'website_%s' % lang_code,
                 'catalog_%s' % lang_code,
                 'catalog_ordering_%s' % lang_code,
-                ]
+            ]
+
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
 
@@ -97,7 +128,7 @@ class BasicInfoForm(ModelForm):
             self.fields['website_%s' % lang_code] = forms.URLField(
                 label=_("Website"),
                 required=False,
-                )
+            )
 
         self.fields['press_text_%s' % settings.LANGUAGE_CODE].required = True
         self.fields['start'].required = True
@@ -135,7 +166,7 @@ class BasicInfoForm(ModelForm):
                 'website_%s' % lang_code,
                 'catalog_%s' % lang_code,
                 'catalog_ordering_%s' % lang_code,
-                ]:
+            ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.fields['latitude'].widget = forms.HiddenInput()
@@ -152,29 +183,29 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 css_class="div-title cols-2",
                 *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Row(
                 css_class="div-subtitle cols-2",
                 *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Row(
                 css_class="div-press_text cols-2",
                 *(layout.Field('press_text_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Row(
                 css_class="div-website cols-2",
                 *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Row(
                 css_class="div-catalog cols-2",
                 *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Row(
                 css_class="div-catalog cols-2",
                 *(layout.Field('catalog_ordering_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             css_class="fieldset-basic-info",
-            ))
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Duration"),
@@ -191,7 +222,7 @@ class BasicInfoForm(ModelForm):
             layout.Field("vernissage", autocomplete="off"),
             layout.Field("finissage", autocomplete="off"),
             css_class="fieldset-when",
-            ))
+        ))
         layout_blocks.append(layout.Fieldset(
             _("Location"),
             layout.Row(
@@ -201,9 +232,8 @@ class BasicInfoForm(ModelForm):
                     "street_address",
                     "street_address2",
                     "postal_code",
-                    "district",
                     "city",
-                    ),
+                ),
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
@@ -219,9 +249,9 @@ class BasicInfoForm(ModelForm):
                 "latitude",
                 "longitude",
                 css_class="cols-2",
-                ),
+            ),
             css_class="fieldset-where",
-            ))
+        ))
         layout_blocks.append(layout.Fieldset(
             _("Organizers (when differ from location)"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
@@ -241,35 +271,80 @@ class BasicInfoForm(ModelForm):
             </div>
             """),
             css_id="organizers_fieldset",
-            ))
+        ))
+        layout_blocks.append(layout.Fieldset(
+            _("PDF Documents"),
+            layout.Row(
+                layout.HTML(u"""{% load i18n image_modifications %}
+                    <div class="pdf_upload" id="pdf_document_de_upload">
+                        <div class="pdf_uploader">
+                            <noscript>
+                                <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                            </noscript>
+                        </div>
+                        <div class="messages"></div>
+                        <div class="pdf_link">
+                            <p class="lead">
+                            {% if exhibition.pdf_document_de %}
+                                <a class="btn btn-small" href="{{ MEDIA_URL }}{{ exhibition.pdf_document_de.path }}" target="_blank">{{ exhibition.pdf_document_de.filename }} ({% trans "Preview" %})</a>
+                            {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                """),
+                layout.HTML(u"""{% load i18n image_modifications %}
+                    <div class="pdf_upload" id="pdf_document_en_upload">
+                        <div class="pdf_uploader">
+                            <noscript>
+                                <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                            </noscript>
+                        </div>
+                        <div class="messages"></div>
+                        <div class="pdf_link">
+                            <p class="lead">
+                            {% if exhibition.pdf_document_en %}
+                                <a class="btn btn-small" href="{{ MEDIA_URL }}{{ exhibition.pdf_document_en.path }}" target="_blank">{{ exhibition.pdf_document_en.filename }} ({% trans "Preview" %})</a>
+                            {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                """),
+                css_class="cols-2",
+            ),
+            "pdf_document_de_path",
+            "delete_pdf_document_de",
+            "pdf_document_en_path",
+            "delete_pdf_document_en",
+            css_class="fieldset-pdf-files",
+        ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             layout.Div("categories"),
 
             layout.Div(
                 layout.HTML("""{% load i18n %} <label>{% trans "Particularities" %}</label> """),
-                "is_for_children", 
+                "is_for_children",
                 css_class="inline"
-                ),
+            ),
 
             layout.Div("tags"),
             css_class="fieldset-categories-tags",
-            ))
+        ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
 
     def clean(self):
         cleaned_data = super(BasicInfoForm, self).clean()
@@ -283,6 +358,7 @@ class BasicInfoForm(ModelForm):
             del cleaned_data['museum']
             del cleaned_data['location_name']
         return cleaned_data
+
 
 class OrganizerForm(ModelForm):
     organizing_museum = AutocompleteModelChoiceField(
@@ -299,11 +375,12 @@ class OrganizerForm(ModelForm):
             "mustMatch": 1,
             "highlight" : False,
             "multipleSeparator": ",,, ",
-            },
-        )
+        },
+    )
     
     class Meta:
         model = Organizer
+
     def __init__(self, *args, **kwargs):
         super(OrganizerForm, self).__init__(*args, **kwargs)
 
@@ -320,19 +397,19 @@ class OrganizerForm(ModelForm):
                 layout.Row(
                     layout.Div("organizing_museum", css_class="max"), 
                     css_class="flex",
-                    ),
+                ),
                 layout.Row(
                     layout.Div("organizer_title"),
                     layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="max"),
                     css_class="flex",
-                    ),
+                ),
                 css_class="div_organizer"
-                )
             )
+        )
 
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
 
 OrganizerFormset = inlineformset_factory(Exhibition, Organizer, form=OrganizerForm, formset=InlineFormSet, extra=0)
 
@@ -352,7 +429,7 @@ class OpeningForm(ModelForm):
             _("Museum's Opening Hours"),
             'museum_opening_hours',
             css_id="fieldset_museum_opening_hours",
-            ))
+        ))
         layout_blocks.append(layout.HTML("""{% load i18n crispy_forms_tags %}
             <div id="item_container">
                 <fieldset>
@@ -381,21 +458,22 @@ class OpeningForm(ModelForm):
                 {% endwith %}
             </div>
             
-            """))
+        """))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )        
+        )
+
 
 class SeasonForm(ModelForm):
     mon_is_closed = forms.BooleanField(label=_("Closed"), required=False)
@@ -422,7 +500,7 @@ class SeasonForm(ModelForm):
             for f in [
                 'last_entry_%s' % lang_code,
                 'exceptions_%s' % lang_code,
-                ]:
+            ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         # remove labels from opening and closing times 
@@ -445,132 +523,129 @@ class SeasonForm(ModelForm):
                 "is_appointment_based", 
                 "is_open_24_7",
                 css_class="inline",
-                ),
-
-            layout.HTML(
-            """{% load i18n %}
-            <div class="row cols-2">
-                <div>
-                    <fieldset>
-                        <legend>{% trans "Opening Hours" %}</legend>
-                        <div class="row cols-2">
-                            <div><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
-                            <div><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
-                        </div>
-                         <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("mon_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div class="closed">"""), "mon_is_closed", layout.HTML("""</div>
-                        </div>
-                        {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Tu" %}</label>"""), layout.Field("tue_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("tue_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div class="closed">"""), "tue_is_closed", layout.HTML("""</div>
-                        </div>
-                        {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "We" %}</label>"""), layout.Field("wed_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("wed_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div class="closed">"""), "wed_is_closed", layout.HTML("""</div>
-                        </div>
-                        {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Th" %}</label>"""), layout.Field("thu_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("thu_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div class="closed">"""), "thu_is_closed", layout.HTML("""</div>
-                        </div>
-                        {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Fr" %}</label>"""), layout.Field("fri_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("fri_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div class="closed">"""), "fri_is_closed", layout.HTML("""</div>
-                        </div>
-                        {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Sa" %}</label>"""), layout.Field("sat_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("sat_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div class="closed">"""), "sat_is_closed", layout.HTML("""</div>
-                        </div>
-                        {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Su" %}</label>"""), layout.Field("sun_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("sun_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div class="closed">"""), "sun_is_closed", layout.HTML("""</div>
-                        </div>
-                    </fieldset>
-                </div>
-                {% load i18n %}
-                <div>
-                    <fieldset>
-                        <legend>{% trans "Breaks" %}</legend>
-                        <div class="row cols-2">
-                            <div><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
-                            <div><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
-                        </div>
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("mon_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        </div>
-                            {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Tu" %}</label>"""), layout.Field("tue_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("tue_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        </div>
-                            {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "We" %}</label>"""), layout.Field("wed_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("wed_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        </div>
-                            {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Th" %}</label>"""), layout.Field("thu_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("thu_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        </div>
-                            {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Fr" %}</label>"""), layout.Field("fri_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("fri_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        </div>
-                            {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Sa" %}</label>"""), layout.Field("sat_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("sat_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        </div>
-                            {% load i18n %}
-                        <div class="row cols-2">
-                            <div class="has_weekday"><label class="weekday">{% trans "Su" %}</label>"""), layout.Field("sun_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            <div>"""), layout.Field("sun_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            """
             ),
-
+            layout.HTML(
+                """{% load i18n %}
+                <div class="row cols-2">
+                    <div>
+                        <fieldset>
+                            <legend>{% trans "Opening Hours" %}</legend>
+                            <div class="row cols-2">
+                                <div><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
+                                <div><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
+                            </div>
+                             <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("mon_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed">"""), "mon_is_closed", layout.HTML("""</div>
+                            </div>
+                            {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Tu" %}</label>"""), layout.Field("tue_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("tue_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed">"""), "tue_is_closed", layout.HTML("""</div>
+                            </div>
+                            {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "We" %}</label>"""), layout.Field("wed_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("wed_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed">"""), "wed_is_closed", layout.HTML("""</div>
+                            </div>
+                            {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Th" %}</label>"""), layout.Field("thu_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("thu_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed">"""), "thu_is_closed", layout.HTML("""</div>
+                            </div>
+                            {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Fr" %}</label>"""), layout.Field("fri_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("fri_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed">"""), "fri_is_closed", layout.HTML("""</div>
+                            </div>
+                            {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Sa" %}</label>"""), layout.Field("sat_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("sat_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed">"""), "sat_is_closed", layout.HTML("""</div>
+                            </div>
+                            {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Su" %}</label>"""), layout.Field("sun_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("sun_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed">"""), "sun_is_closed", layout.HTML("""</div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    {% load i18n %}
+                    <div>
+                        <fieldset>
+                            <legend>{% trans "Breaks" %}</legend>
+                            <div class="row cols-2">
+                                <div><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
+                                <div><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
+                            </div>
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("mon_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            </div>
+                                {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Tu" %}</label>"""), layout.Field("tue_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("tue_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            </div>
+                                {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "We" %}</label>"""), layout.Field("wed_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("wed_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            </div>
+                                {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Th" %}</label>"""), layout.Field("thu_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("thu_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            </div>
+                                {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Fr" %}</label>"""), layout.Field("fri_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("fri_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            </div>
+                                {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Sa" %}</label>"""), layout.Field("sat_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("sat_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            </div>
+                                {% load i18n %}
+                            <div class="row cols-2">
+                                <div class="has_weekday"><label class="weekday">{% trans "Su" %}</label>"""), layout.Field("sun_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div>"""), layout.Field("sun_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                """
+            ),
             css_class="fieldset-season",
-            ))
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Additional info"),
             layout.Row(
                 css_class="div-accessibility-details cols-2",
                 *('last_entry_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-
+            ),
             layout.Row(
                 css_class="div-accessibility-details cols-2",
                 *('exceptions_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-
-                css_class="fieldset-additional-info",
-                ))
+            ),
+            css_class="fieldset-additional-info",
+        ))
 
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
 
 SeasonFormset = inlineformset_factory(Exhibition, Season, form=SeasonForm, formset=InlineFormSet, extra=0)
+
 
 class PricesForm(ModelForm):
     admission_price = DecimalField(
@@ -578,22 +653,23 @@ class PricesForm(ModelForm):
         max_digits=5,
         decimal_places=2,
         required=False,
-        )
+    )
     reduced_price = DecimalField(
         label=_(u"Reduced admission price (€)"),
         max_digits=5,
         decimal_places=2,
         required=False,
-        )
+    )
+
     class Meta:
         model = Exhibition
-        fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price',
-            ]
+        fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price',]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
                 'reduced_price_info_%s' % lang_code,
-                ]
+            ]
+
     def __init__(self, *args, **kwargs):
         super(PricesForm, self).__init__(*args, **kwargs)
 
@@ -601,7 +677,7 @@ class PricesForm(ModelForm):
             for f in [
                 'admission_price_info_%s' % lang_code,
                 'reduced_price_info_%s' % lang_code,
-                ]:
+            ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.helper = FormHelper()
@@ -616,30 +692,31 @@ class PricesForm(ModelForm):
             layout.Row(
                 css_class="cols-2",
                 *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
             layout.Row(
                 css_class="cols-2",
                 *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             css_class="fieldset-prices",
-            ))
+        ))
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )        
+        )
+
 
 class AccessibilityForm(ModelForm):
     class Meta:
@@ -648,14 +725,14 @@ class AccessibilityForm(ModelForm):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'suitable_for_disabled_info_%s' % lang_code,
-                ]
+            ]
     def __init__(self, *args, **kwargs):
         super(AccessibilityForm, self).__init__(*args, **kwargs)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             for f in [
                 'suitable_for_disabled_info_%s' % lang_code,
-                ]:
+            ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.helper = FormHelper()
@@ -671,26 +748,27 @@ class AccessibilityForm(ModelForm):
             layout.Row(
                 css_class="div-accessibility-details cols-2",
                 *('suitable_for_disabled_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
+            ),
             
             css_class="fieldset-accessibility",
-            ))
+        ))
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
+
 
 class GalleryForm(ModelForm):
     class Meta:
@@ -707,15 +785,15 @@ class GalleryForm(ModelForm):
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         else:
             layout_blocks.append(bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
                 SecondarySubmit('reset', _('Cancel')),
-                ))
+            ))
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
 
 
 def load_data(instance=None):
@@ -727,7 +805,7 @@ def load_data(instance=None):
             'prices': {'_filled': True},
             'accessibility': {'_filled': True},
             '_pk': instance.pk,
-            }
+        }
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
             form_step_data['basic']['subtitle_%s' % lang_code] = getattr(instance, 'subtitle_%s' % lang_code)
@@ -745,7 +823,6 @@ def load_data(instance=None):
         form_step_data['basic']['street_address'] = instance.street_address
         form_step_data['basic']['street_address2'] = instance.street_address2
         form_step_data['basic']['postal_code'] = instance.postal_code
-        form_step_data['basic']['district'] = instance.district
         form_step_data['basic']['city'] = instance.city
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
@@ -808,13 +885,12 @@ def load_data(instance=None):
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
             form_step_data['opening']['sets']['seasons'].append(season_dict)
             
-        fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price', 
-            ]
+        fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price',]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'admission_price_info_%s' % lang_code,
                 'reduced_price_info_%s' % lang_code,
-                ]
+            ]
         for f in fields:
             form_step_data['prices'][f] = getattr(instance, f)
     
@@ -823,6 +899,7 @@ def load_data(instance=None):
             form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code] = getattr(instance, 'suitable_for_disabled_info_%s' % lang_code)
 
     return form_step_data
+
 
 def submit_step(current_step, form_steps, form_step_data, instance=None):
     museum = form_step_data.get('basic', {}).get('museum', None)
@@ -853,7 +930,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.street_address = form_step_data['basic']['street_address']
         instance.street_address2 = form_step_data['basic']['street_address2'] 
         instance.postal_code = form_step_data['basic']['postal_code']
-        instance.district = form_step_data['basic']['district']
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
@@ -864,7 +940,51 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if not instance.status:
             instance.status = "draft"
         instance.save()
-        
+
+        rel_dir = "exhibitions/%s/" % instance.slug
+
+        if form_step_data['basic']['delete_pdf_document_de'] and instance.pdf_document_de:
+            FileManager.delete_file(instance.pdf_document_de.path)
+            instance.pdf_document_de = ""
+            form_step_data['basic']['delete_pdf_document_de'] = False
+
+        if form_step_data['basic']["pdf_document_de_path"]:
+            tmp_path = form_step_data['basic']["pdf_document_de_path"]
+            abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+
+            fname, fext = os.path.splitext(os.path.basename(tmp_path))
+            filename = slugify(fname) + fext
+            dest_path = "".join((rel_dir, filename))
+            FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+            abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+
+            shutil.move(abs_tmp_path, abs_dest_path)
+
+            instance.pdf_document_de = dest_path
+            form_step_data['basic']["pdf_document_de_path"] = ""
+
+        if form_step_data['basic']['delete_pdf_document_en'] and instance.pdf_document_en:
+            FileManager.delete_file(instance.pdf_document_en.path)
+            instance.pdf_document_en = ""
+            form_step_data['basic']['delete_pdf_document_en'] = False
+
+        if form_step_data['basic']["pdf_document_en_path"]:
+            tmp_path = form_step_data['basic']["pdf_document_en_path"]
+            abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+
+            fname, fext = os.path.splitext(os.path.basename(tmp_path))
+            filename = slugify(fname) + fext
+            dest_path = "".join((rel_dir, filename))
+            FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+            abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+
+            shutil.move(abs_tmp_path, abs_dest_path)
+
+            instance.pdf_document_en = dest_path
+            form_step_data['basic']["pdf_document_en_path"] = ""
+
+        instance.save()
+
         if '_pk' not in form_step_data:
             user = get_current_user()
             instance.set_owner(user)
@@ -888,84 +1008,81 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if not form_step_data.get('opening', {}).get('_filled', False):
             form_step_data['opening'] = {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}}
             
-            '''
-            for season in museum.season_set.all():
-                season_dict = {}
-                season_dict['start'] = season.start
-                season_dict['end'] = season.end
-                season_dict['is_appointment_based'] = season.is_appointment_based
-                season_dict['is_open_24_7'] = season.is_open_24_7
-                season_dict['mon_open'] = season.mon_open
-                season_dict['mon_break_close'] = season.mon_break_close
-                season_dict['mon_break_open'] = season.mon_break_open
-                season_dict['mon_close'] = season.mon_close
-                season_dict['mon_is_closed'] = not season.mon_open
-                season_dict['tue_open'] = season.tue_open
-                season_dict['tue_break_close'] = season.tue_break_close
-                season_dict['tue_break_open'] = season.tue_break_open
-                season_dict['tue_close'] = season.tue_close
-                season_dict['tue_is_closed'] = not season.tue_open
-                season_dict['wed_open'] = season.wed_open
-                season_dict['wed_break_close'] = season.wed_break_close
-                season_dict['wed_break_open'] = season.wed_break_open
-                season_dict['wed_close'] = season.wed_close
-                season_dict['wed_is_closed'] = not season.wed_open
-                season_dict['thu_open'] = season.thu_open
-                season_dict['thu_break_close'] = season.thu_break_close
-                season_dict['thu_break_open'] = season.thu_break_open
-                season_dict['thu_close'] = season.thu_close
-                season_dict['thu_is_closed'] = not season.thu_open
-                season_dict['fri_open'] = season.fri_open
-                season_dict['fri_break_close'] = season.fri_break_close
-                season_dict['fri_break_open'] = season.fri_break_open
-                season_dict['fri_close'] = season.fri_close
-                season_dict['fri_is_closed'] = not season.fri_open
-                season_dict['sat_open'] = season.sat_open
-                season_dict['sat_break_close'] = season.sat_break_close
-                season_dict['sat_break_open'] = season.sat_break_open
-                season_dict['sat_close'] = season.sat_close
-                season_dict['sat_is_closed'] = not season.sat_open
-                season_dict['sun_open'] = season.sun_open
-                season_dict['sun_break_close'] = season.sun_break_close
-                season_dict['sun_break_open'] = season.sun_break_open
-                season_dict['sun_close'] = season.sun_close
-                season_dict['sun_is_closed'] = not season.sun_open
-                for lang_code, lang_name in FRONTEND_LANGUAGES:
-                    season_dict['title_%s' % lang_code] = getattr(season, 'title_%s' % lang_code)
-                    season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
-                    season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
-                form_step_data['opening']['sets']['seasons'].append(season_dict)
-                
-            for special_opening in museum.specialopeningtime_set.all():
-                special_opening_dict = {}
-                special_opening_dict['yyyy'] = special_opening.yyyy
-                special_opening_dict['get_yyyy_display'] = special_opening.get_yyyy_display()
-                special_opening_dict['mm'] = special_opening.mm
-                special_opening_dict['get_mm_display'] = special_opening.get_mm_display()
-                special_opening_dict['dd'] = special_opening.dd
-                special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
-                for lang_code, lang_name in FRONTEND_LANGUAGES:
-                    special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
-                    special_opening_dict['exceptions_%s' % lang_code] = getattr(special_opening, 'exceptions_%s' % lang_code)
-                special_opening_dict['is_closed'] = special_opening.is_closed
-                special_opening_dict['is_regular'] = special_opening.is_regular
-                special_opening_dict['opening'] = special_opening.opening
-                special_opening_dict['break_close'] = special_opening.break_close
-                special_opening_dict['break_open'] = special_opening.break_open
-                special_opening_dict['closing'] = special_opening.closing
-                form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
-        '''
-        
+            # for season in museum.season_set.all():
+            #     season_dict = {}
+            #     season_dict['start'] = season.start
+            #     season_dict['end'] = season.end
+            #     season_dict['is_appointment_based'] = season.is_appointment_based
+            #     season_dict['is_open_24_7'] = season.is_open_24_7
+            #     season_dict['mon_open'] = season.mon_open
+            #     season_dict['mon_break_close'] = season.mon_break_close
+            #     season_dict['mon_break_open'] = season.mon_break_open
+            #     season_dict['mon_close'] = season.mon_close
+            #     season_dict['mon_is_closed'] = not season.mon_open
+            #     season_dict['tue_open'] = season.tue_open
+            #     season_dict['tue_break_close'] = season.tue_break_close
+            #     season_dict['tue_break_open'] = season.tue_break_open
+            #     season_dict['tue_close'] = season.tue_close
+            #     season_dict['tue_is_closed'] = not season.tue_open
+            #     season_dict['wed_open'] = season.wed_open
+            #     season_dict['wed_break_close'] = season.wed_break_close
+            #     season_dict['wed_break_open'] = season.wed_break_open
+            #     season_dict['wed_close'] = season.wed_close
+            #     season_dict['wed_is_closed'] = not season.wed_open
+            #     season_dict['thu_open'] = season.thu_open
+            #     season_dict['thu_break_close'] = season.thu_break_close
+            #     season_dict['thu_break_open'] = season.thu_break_open
+            #     season_dict['thu_close'] = season.thu_close
+            #     season_dict['thu_is_closed'] = not season.thu_open
+            #     season_dict['fri_open'] = season.fri_open
+            #     season_dict['fri_break_close'] = season.fri_break_close
+            #     season_dict['fri_break_open'] = season.fri_break_open
+            #     season_dict['fri_close'] = season.fri_close
+            #     season_dict['fri_is_closed'] = not season.fri_open
+            #     season_dict['sat_open'] = season.sat_open
+            #     season_dict['sat_break_close'] = season.sat_break_close
+            #     season_dict['sat_break_open'] = season.sat_break_open
+            #     season_dict['sat_close'] = season.sat_close
+            #     season_dict['sat_is_closed'] = not season.sat_open
+            #     season_dict['sun_open'] = season.sun_open
+            #     season_dict['sun_break_close'] = season.sun_break_close
+            #     season_dict['sun_break_open'] = season.sun_break_open
+            #     season_dict['sun_close'] = season.sun_close
+            #     season_dict['sun_is_closed'] = not season.sun_open
+            #     for lang_code, lang_name in FRONTEND_LANGUAGES:
+            #         season_dict['title_%s' % lang_code] = getattr(season, 'title_%s' % lang_code)
+            #         season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
+            #         season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
+            #     form_step_data['opening']['sets']['seasons'].append(season_dict)
+            #
+            # for special_opening in museum.specialopeningtime_set.all():
+            #     special_opening_dict = {}
+            #     special_opening_dict['yyyy'] = special_opening.yyyy
+            #     special_opening_dict['get_yyyy_display'] = special_opening.get_yyyy_display()
+            #     special_opening_dict['mm'] = special_opening.mm
+            #     special_opening_dict['get_mm_display'] = special_opening.get_mm_display()
+            #     special_opening_dict['dd'] = special_opening.dd
+            #     special_opening_dict['get_dd_display'] = special_opening.get_dd_display()
+            #     for lang_code, lang_name in FRONTEND_LANGUAGES:
+            #         special_opening_dict['day_label_%s' % lang_code] = getattr(special_opening, 'day_label_%s' % lang_code)
+            #         special_opening_dict['exceptions_%s' % lang_code] = getattr(special_opening, 'exceptions_%s' % lang_code)
+            #     special_opening_dict['is_closed'] = special_opening.is_closed
+            #     special_opening_dict['is_regular'] = special_opening.is_regular
+            #     special_opening_dict['opening'] = special_opening.opening
+            #     special_opening_dict['break_close'] = special_opening.break_close
+            #     special_opening_dict['break_open'] = special_opening.break_open
+            #     special_opening_dict['closing'] = special_opening.closing
+            #     form_step_data['opening']['sets']['special_openings'].append(special_opening_dict)
+
         # fill in prices from museum
         if not form_step_data.get('prices', {}).get('_filled', False):
             form_step_data['prices'] = {'_filled': True}
-            fields = ['free_entrance', 'admission_price', 'reduced_price', 
-                ]
+            fields = ['free_entrance', 'admission_price', 'reduced_price',]
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 fields += [
                     'admission_price_info_%s' % lang_code,
                     'reduced_price_info_%s' % lang_code,
-                    ]
+                ]
             for f in fields:
                 form_step_data['prices'][f] = getattr(museum, f)
             form_step_data['prices']['museum_prices'] = True
@@ -1027,13 +1144,12 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if "_pk" in form_step_data:
             instance = Exhibition.objects.get(pk=form_step_data['_pk'])
 
-            fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price', 
-                ]
+            fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price',]
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 fields += [
                     'admission_price_info_%s' % lang_code,
                     'reduced_price_info_%s' % lang_code,
-                    ]
+                ]
             for f in fields:
                 setattr(instance, f, form_step_data['prices'][f])
         
@@ -1041,7 +1157,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 for f in [
                     'admission_price_info_%s' % lang_code,
                     'reduced_price_info_%s' % lang_code,
-                    ]:
+                ]:
                     setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
             instance.save()
@@ -1059,10 +1175,12 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     # finally all exhibition will be saved and published by save_data()
     return form_step_data
 
+
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
     if "_pk" in form_step_data:
         return {'exhibition': Exhibition.objects.get(pk=form_step_data['_pk'])}
     return {}
+
 
 def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance
@@ -1094,7 +1212,6 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.street_address = form_step_data['basic']['street_address']
     instance.street_address2 = form_step_data['basic']['street_address2'] 
     instance.postal_code = form_step_data['basic']['postal_code']
-    instance.district = form_step_data['basic']['district']
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
@@ -1105,13 +1222,12 @@ def save_data(form_steps, form_step_data, instance=None):
 
     instance.museum_opening_hours = form_step_data['opening']['museum_opening_hours'] 
 
-    fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price', 
-        ]
+    fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price',]
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         fields += [
             'admission_price_info_%s' % lang_code,
             'reduced_price_info_%s' % lang_code,
-            ]
+        ]
     for f in fields:
         setattr(instance, f, form_step_data['prices'][f])
 
@@ -1119,7 +1235,7 @@ def save_data(form_steps, form_step_data, instance=None):
         for f in [
             'admission_price_info_%s' % lang_code,
             'reduced_price_info_%s' % lang_code,
-            ]:
+        ]:
             setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
     instance.suitable_for_disabled = form_step_data['accessibility']['suitable_for_disabled']
@@ -1194,9 +1310,11 @@ def save_data(form_steps, form_step_data, instance=None):
     form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
     
     return form_step_data
-    
+
+
 def cancel_editing(request):
     return redirect("dashboard")
+
 
 EXHIBITION_FORM_STEPS = {
     'basic': {
@@ -1239,4 +1357,3 @@ EXHIBITION_FORM_STEPS = {
     'name': 'exhibition_registration',
     'default_path': ["basic", "opening", "prices", "accessibility", 'gallery'],
 }
-
