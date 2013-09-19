@@ -25,11 +25,36 @@
     <script src="{{ STATIC_URL }}site/js/gmaps_for_address.js"></script>
     <script>
         $(function() {
-            var translatable_file_uploader_options = {
+            var translatable_file_uploader_options_de = {
                 template: '<div class="qq-uploader">' +
                     '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
-                    '<div class="qq-upload-button btn btn-inverse"><i class="icon-arrow-up icon-white"></i> {% trans "Upload PDF" %}</div>' +
-                    '&nbsp;<button class="btn btn-danger qq-delete-button"><i class="icon-trash icon-white"></i> {% trans "Delete" %}</button>' +
+                    '<div class="qq-upload-button btn btn-small">{% trans "Upload German PDF" %}</div>' +
+                    '&nbsp;<button class="btn  btn-small btn-danger qq-delete-button">{% trans "Delete" %}</button>' +
+                    '<ul class="qq-upload-list"></ul>' +
+                '</div>',
+                // template for one item in file list
+                fileTemplate: '<li>' +
+                    '<span class="qq-upload-file"></span>' +
+                    '<span class="qq-upload-spinner"></span>' +
+                    '<span class="qq-upload-size"></span>' +
+                    '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
+                    '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
+                '</li>',
+                messages: {
+                    typeError: '{% trans "{file} has invalid extension. Only {extensions} are allowed." %}',
+                    sizeError: '{% trans "{file} is too large, maximum file size is {sizeLimit}." %}',
+                    minSizeError: '{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}',
+                    emptyError: '{% trans "{file} is empty, please select files again without it." %}',
+                    filesLimitError: '{% trans "No more than {filesLimit} files are allowed to be uploaded." %}',
+                    onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'
+                }
+            };
+
+            var translatable_file_uploader_options_en = {
+                template: '<div class="qq-uploader">' +
+                    '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
+                    '<div class="qq-upload-button btn btn-small">{% trans "Upload English PDF" %}</div>' +
+                    '&nbsp;<button class="btn  btn-small btn-danger qq-delete-button">{% trans "Delete" %}</button>' +
                     '<ul class="qq-upload-list"></ul>' +
                 '</div>',
                 // template for one item in file list
@@ -52,7 +77,7 @@
 
             var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
             var $pdf_document_de_upload = $('#pdf_document_de_upload');
-            var options_de = $.extend(translatable_file_uploader_options, {
+            var options_de = $.extend(translatable_file_uploader_options_de, {
                 allowedExtensions: ['pdf'],
                 action: "/helper/ajax-upload/",
                 element: $('.pdf_uploader', $pdf_document_de_upload)[0],
@@ -63,7 +88,7 @@
                         // set the original to media_file_path
                         $('#id_pdf_document_de_path').val('uploads/' + fileName);
                         // show preview link
-                        $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + '</a></p>');
+                        $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-small" href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + ' (Preview)</a></p>');
                     }
                 },
                 onAllComplete: function(uploads) {
@@ -90,7 +115,7 @@
             });
 
             var $pdf_document_en_upload = $('#pdf_document_en_upload');
-            var options_en = $.extend(translatable_file_uploader_options, {
+            var options_en = $.extend(translatable_file_uploader_options_en, {
                 allowedExtensions: ['pdf'],
                 action: "/helper/ajax-upload/",
                 element: $('.pdf_uploader', $pdf_document_en_upload)[0],
@@ -101,7 +126,7 @@
                         // set the original to media_file_path
                         $('#id_pdf_document_en_path').val('uploads/' + fileName);
                         // show preview link
-                        $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + '</a></p>');
+                        $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-small" href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + ' (Preview)</a></p>');
                     }
                 },
                 onAllComplete: function(uploads) {
