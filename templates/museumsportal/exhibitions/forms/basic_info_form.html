@@ -88,7 +88,7 @@
                         // set the original to media_file_path
                         $('#id_pdf_document_de_path').val('uploads/' + fileName);
                         // show preview link
-                        $('.pdf_link', $pdf_document_de_upload).html('<p><a class="btn btn-small" href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + '</a></p>');
+                        $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-small" href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + ' (Preview)</a></p>');
                     }
                 },
                 onAllComplete: function(uploads) {
@@ -126,7 +126,7 @@
                         // set the original to media_file_path
                         $('#id_pdf_document_en_path').val('uploads/' + fileName);
                         // show preview link
-                        $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-small" href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + '</a></p>');
+                        $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-small" href="' +  settings.media_url + 'uploads/' + fileName  + '" target="_blank">' + fileName + ' (Preview)</a></p>');
                     }
                 },
                 onAllComplete: function(uploads) {

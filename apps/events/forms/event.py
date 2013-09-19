@@ -229,6 +229,12 @@ class BasicInfoForm(ModelForm):
             layout.Row(
                 layout.HTML(u"""{% load i18n image_modifications %}
                     <div class="pdf_upload" id="pdf_document_de_upload">
+                        <div class="pdf_uploader">
+                            <noscript>
+                                <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                            </noscript>
+                        </div>
+                        <div class="messages"></div>
                         <div class="pdf_link">
                             <p class="lead">
                             {% if event.pdf_document_de %}
@@ -236,17 +242,16 @@ class BasicInfoForm(ModelForm):
                             {% endif %}
                             </p>
                         </div>
+                    </div>
+                """),
+                layout.HTML(u"""{% load i18n image_modifications %}
+                    <div class="pdf_upload" id="pdf_document_en_upload">
                         <div class="pdf_uploader">
                             <noscript>
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                             </noscript>
                         </div>
-                        <p class="help-block">{% trans "Choose a PDF document in German" %}</p>
                         <div class="messages"></div>
-                    </div>
-                """),
-                layout.HTML(u"""{% load i18n image_modifications %}
-                    <div class="pdf_upload" id="pdf_document_en_upload">
                         <div class="pdf_link">
                             <p class="lead">
                             {% if event.pdf_document_en %}
@@ -254,13 +259,6 @@ class BasicInfoForm(ModelForm):
                             {% endif %}
                             </p>
                         </div>
-                        <div class="pdf_uploader">
-                            <noscript>
-                                <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
-                            </noscript>
-                        </div>
-                        <p class="help-block">{% trans "Choose a PDF document in English" %}</p>
-                        <div class="messages"></div>
                     </div>
                 """),
                 css_class="cols-2",
