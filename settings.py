@@ -539,6 +539,8 @@ GALLERY_IMAGE_MIN_DIMENSIONS = (100, 100)
 
 NOTIFY_ABOUT_SEASONS_TO_EMAIL = "j.boehmler@kulturprojekte-berlin.de"
 
+CRISPY_TEMPLATE_PACK = "bootstrap3"
+
 ### LOCAL SETTINGS ###
 
 try:
