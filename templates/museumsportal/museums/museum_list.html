@@ -183,13 +183,30 @@ var settings = {
           </span>
         {% endif %}
         <h3>{{ museum.title }}</h3>
+        <h4>{{ museum.subtitle }}&nbsp;</h4>
+      </a>
+      <div class="description">
+        <h3>{{ museum.title }}</h3>
         {% if museum.subtitle %}
         <h4>{{ museum.subtitle }}</h4>
         {% endif %}
-      </a>
-      <div class="description">
-        <p>{{ museum.get_rendered_description|striptags }}</p>
-        <a class="btn btn-info" href="{{ museum.get_url_path }}">{% trans "More" %}</a>
+
+        <h5>
+        {% if museum.parent %}
+          {{ museum.parent.street_address }}
+          {% if museum.parent.street_address2 %}{{ museum.parent.street_address2 }}{% endif %}
+          {{ museum.parent.postal_code }} {{ museum.parent.city }}
+        {% else %}
+          {{ museum.street_address }}
+          {% if museum.street_address2 %}
+            {{ museum.street_address2 }}
+          {% endif %}
+          {{ museum.postal_code }} {{ museum.city }}
+        {% endif %}
+        </h5>
+        
+        <p>{{ museum.get_rendered_description|striptags|truncatewords:"100" }}</p>
+        <a class="btn btn-default btn-lg" href="{{ museum.get_url_path }}">{% trans "More" %}</a>
       </div>
 
      {% comment %}

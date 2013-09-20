@@ -1,6 +1,5 @@
 @charset "UTF-8";
 @import 'variables';
-@import 'fonts';
 @import 'header';
 // @import 'form';
 @import 'isotope';
@@ -11,7 +10,6 @@
 @import 'list';
 @import 'actions';
 @import 'picker';
-@import 'ding';
 @import 'notices';
 @import 'filters';
 @import 'pagecontrols';
@@ -20,6 +18,7 @@
 @import 'cms-intro';
 @import 'cms-richtext';
 @import 'detail-pages';
+@import 'media';
 
 body {
   background-color: white;
@@ -41,7 +40,6 @@ body {
 
 #cms_toolbar {
   height: 42px;
-
 }
 
 h1,
@@ -94,7 +92,9 @@ p a{font-weight: 700; }
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important;
-  max-width: 200px;
+  .input-group {
+    width: 1px;
+  }
 }
 
 @-webkit-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
