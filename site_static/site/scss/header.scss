@@ -42,7 +42,7 @@
   z-index: 1001;
   font-size: 0px;
   white-space: nowrap;
-  > li {float: left; }
+  > div {float: left; margin-left: 2px;}
   #lang {
     li { display: none; float: none; }
     &:hover li { display: block; }

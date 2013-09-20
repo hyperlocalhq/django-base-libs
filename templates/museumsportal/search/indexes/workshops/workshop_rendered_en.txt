@@ -1,6 +1,6 @@
 {% load base_tags image_modifications %}
 {% with object as workshop %}
-    <li class="item">
+    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
         <a href="/en/workshops/{{ workshop.slug }}/">
             <h4>Guided Tour:
             <span>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.get_humanized_date_en }} {{ workshop_time.start|time:"H:i" }}{% endwith %}</span>
@@ -11,5 +11,5 @@
                 <h5>{{ workshop.museum.title_en|default:workshop.museum.title_de }}</h5>
             {% endif %}
         </a>
-    </li>
+    </div>
 {% endwith %}

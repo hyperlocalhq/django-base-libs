@@ -4,7 +4,7 @@
 	{{ field }}
 {% else %}
     <div>
-    	<div id="div_{{ field.auto_id }}" class="clearfix control-group{% if form_show_errors%}{% if field.errors %} error{% endif %}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+    	<div id="div_{{ field.auto_id }}" class="form-control{% if form_show_errors%}{% if field.errors %} error{% endif %}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
     		{% if field.label and not field|is_checkbox %}
     			<label for="{{ field.id_for_label }}" class="control-label {% if field.field.required %}requiredField{% endif %}">
     				{{ field.label|safe }} <span class="asteriskField">*</span>

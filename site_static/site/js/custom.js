@@ -26,20 +26,25 @@ $(function() {
     }
   });
 
-  $('.grid .img').click(function(){
-    $('#item-preview').attr("id","");
-    $(this).parents('.item').attr("id","item-preview");
+  $('.grid .item .cancel').click(function(){
+    $('#item-preview').attr("id","")
+  });
+
+  $('.grid .item > a').click(function(){
+    if($(this).parents('.item').attr("id")) {
+      $('#item-preview').attr("id","");
+    } else {
+      $('#item-preview').attr("id","");
+      $(this).parents('.item').attr("id","item-preview");
+    }
 
     item = $(this).parents('.item')
-    
     var left = item.position().left;
-
-    var test = item.css('-webkit-transform').match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))\))/)
-    console.log(test)
-
     var width = ($("#container").width());
 
-    console.log(left, width);
+    // var test = item.css('-webkit-transform').match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))\))/)
+    // console.log(test)
+    // console.log(left, width);
 
     item.find(".description").css({left: -left, width: width});
 

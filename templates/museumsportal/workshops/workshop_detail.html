@@ -36,19 +36,19 @@
     <div class="container">
         {% include "utils/cover_image.html" %}
         <section class="sidebar">
-            <ul class="accordion" id="accordion2">  
+            <div class="panel-group" id="accordion2">  
 
                 <!-- ======= Location ======= -->
 
                 {% if workshop.street_address or workshop.museum.street_address or workshop.organizing_museum or workshop.organizer_title or workshop.exhibition %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
+                    <div class="panel panel-default">  
+                        <div class="panel-heading">  
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
                                 {% trans "Venue" %}
                             </a>
                         </h4>
-                        <ul id="collapse-location" class="accordion-body collapse in">  
-                            <li class="accordion-inner">
+                        <ul id="collapse-location" class="panel-collapse collapse in">  
+                            <div class="panel-body">
                                 {% if workshop.museum %}
                                     {% with workshop.museum as museum %}
                                         <dl class="address">
@@ -155,13 +155,13 @@
                 <!-- ======= DATES ======= -->
                 
                 {% if workshop.get_upcoming_workshop_times.count %}
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
+                <div class="panel panel-default">  
+                    <div class="panel-heading">  
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
                             {% trans "Date and Time" %} 
                         </a>  
                     </h4>  
-                    <ul id="collapse-dates" class="accordion-body collapse">  
+                    <ul id="collapse-dates" class="panel-collapse collapse">  
                         {% for workshop_time in workshop.get_upcoming_workshop_times %}
                             <li class="accordion-inner tight{% if forloop.counter > 10 %} hidden{% endif %}">
                                 <dl>
@@ -192,14 +192,14 @@
                 <!-- ======= Prices ======= -->
 
                 {% if workshop.free_admission or workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
+                    <div class="panel panel-default">  
+                        <div class="panel-heading">  
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                                 {% trans "Prices" %} 
                             </a>  
                         </h4>  
-                        <ul id="collapse-prices" class="accordion-body collapse">  
-                            <li class="accordion-inner">
+                        <ul id="collapse-prices" class="panel-collapse collapse">  
+                            <div class="panel-body">
                                 {% if workshop.free_admission %}
                                     <dl>
                                         <dt>{% trans "Free offer" %}</dt>
@@ -229,7 +229,7 @@
                                 {% endif %}
                             </li>
                             {% if workshop.booking_info %}
-                                <li class="accordion-inner">
+                                <div class="panel-body">
                                     <dl>
                                         <dt>{% trans "Booking info" %}</dt>
                                         <dd class="booking_info">{{ workshop.get_rendered_booking_info }}</dd>
@@ -243,14 +243,14 @@
                 <!-- ======= Other Information ======= -->
                 {% comment %}
                 <!-- {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
+                    <div class="panel panel-default">  
+                        <div class="panel-heading">  
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
                                 {% trans "Other Information" %} 
                             </a>  
                         </h4>  
-                        <ul id="collapse-other-info" class="accordion-body collapse">  
-                            <li class="accordion-inner">
+                        <ul id="collapse-other-info" class="panel-collapse collapse">  
+                            <div class="panel-body">
                                 {% if workshop.get_particularities %}
                                     <dl>
                                         <dt>{% trans "Particularities" %}</dt>

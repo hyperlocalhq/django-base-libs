@@ -36,15 +36,15 @@
     <div class="container">
         {% include "utils/cover_image.html" %}
         <section class="sidebar">
-            <ul class="accordion" id="accordion2">  
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
+            <div class="panel-group" id="accordion2">  
+                <div class="panel panel-default">  
+                    <div class="panel-heading">  
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
                             {% trans "Location" %}
                         </a>
                     </h4>
-                    <ul id="collapse-location" class="accordion-body collapse in">  
-                        <li class="accordion-inner">
+                    <ul id="collapse-location" class="panel-collapse collapse in">  
+                        <div class="panel-body">
                             {% if exhibition.museum %}
                                 {% with exhibition.museum as museum %}
                                     <dl class="address">
@@ -199,14 +199,14 @@
                 <!-- ======= Vernissage ======= -->
 
                 {% if exhibition.vernissage %}
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
+                <div class="panel panel-default">  
+                    <div class="panel-heading">  
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-vernissage">  
                             {% trans "Vernissage" %}
                         </a>
                     </h4>
-                    <ul id="collapse-vernissage" class="accordion-body collapse">  
-                        <li class="accordion-inner">
+                    <ul id="collapse-vernissage" class="panel-collapse collapse">  
+                        <div class="panel-body">
                             <dl>
                                 <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
                             </dl>
@@ -218,14 +218,14 @@
                 <!-- ======= Finissage ======= -->
 
                 {% if exhibition.finissage %}
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
+                <div class="panel panel-default">  
+                    <div class="panel-heading">  
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-finissage">  
                             {% trans "Finissage" %}
                         </a>
                     </h4>
-                    <ul id="collapse-finissage" class="accordion-body collapse">  
-                        <li class="accordion-inner">
+                    <ul id="collapse-finissage" class="panel-collapse collapse">  
+                        <div class="panel-body">
                             <dl>
                                 <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
                             </dl>
@@ -237,22 +237,22 @@
                 <!-- ======= Catalog ======= -->
 
                 {% if exhibition.catalog or exhibition.catalog_ordering %}
-                <li class="accordion-group">  
-                    <h4 class="accordion-heading">  
+                <div class="panel panel-default">  
+                    <div class="panel-heading">  
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-catalog">  
                             {% trans "Catalog" %}
                         </a>
                     </h4>
-                    <ul id="collapse-catalog" class="accordion-body collapse">  
+                    <ul id="collapse-catalog" class="panel-collapse collapse">  
                         {% if exhibition.get_rendered_catalog %}
-                            <li class="accordion-inner">
+                            <div class="panel-body">
                                 <dl>
                                     <dd>{{ exhibition.get_rendered_catalog }}</dd>
                                 </dl>
                             </li>
                         {% endif %}
                         {% if exhibition.catalog_ordering %}
-                            <li class="accordion-inner">
+                            <div class="panel-body">
                                 <dl>
                                     <dd><a href="{{ exhibition.catalog_ordering }}">{% trans "Ordering possibilities" %}</a></dd>
                                 </dl>
@@ -267,16 +267,16 @@
                 {% if exhibition.museum_opening_hours %}
                     {% with exhibition.museum as museum %}
                         {% if museum.season_set.count or museum.specialopeningtime_set.count %}
-                            <li class="accordion-group">  
-                                <h4 class="accordion-heading">  
+                            <div class="panel panel-default">  
+                                <div class="panel-heading">  
                                     <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                                         {% trans "Opening hours" %}
                                     </a>  
                                 </h4>  
-                                <ul id="collapse-opening-times" class="accordion-body collapse in">
+                                <ul id="collapse-opening-times" class="panel-collapse collapse in">
                                     {% if exhibition.get_actual_seasons.count == 1 %}
                                         {% with exhibition.get_actual_seasons.0 as season %}
-                                            <li class="accordion-inner">
+                                            <div class="panel-body">
                                                 {% comment %}
                                                     <!-- <dl>
                                                         <dt>{{ season.title }}</dt>
@@ -327,7 +327,7 @@
                                         {% endwith %}
                                     {% else %}
                                         {% for season in exhibition.get_actual_seasons %}
-                                        <li class="accordion-inner">
+                                        <div class="panel-body">
                                             <dl>
                                                 <dt>{{ season.title }}</dt>
                                                 <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
@@ -376,7 +376,7 @@
                                         {% endfor %}
                                     {% endif %}
                                     {% if exhibition.get_museums_special_opening_times %}
-                                        <li class="accordion-inner">
+                                        <div class="panel-body">
                                         <dl id="special_openings">
                                         {% for special_opening in exhibition.get_museums_special_opening_times %}
                                             <dt{% if forloop.counter > 5 %} class="hidden"{% endif %}>
@@ -418,16 +418,16 @@
                     {% endwith %}
                 {% else %}
                     {% if exhibition.season_set.count %}
-                        <li class="accordion-group">  
-                            <h4 class="accordion-heading">  
+                        <div class="panel panel-default">  
+                            <div class="panel-heading">  
                                 <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                                     {% trans "Opening hours" %}
                                 </a>  
                             </h4>  
-                            <ul id="collapse-opening-times" class="accordion-body collapse in">  
+                            <ul id="collapse-opening-times" class="panel-collapse collapse in">  
                                 {% if exhibition.season_set.count == 1 %}
                                     {% with exhibition.season_set.all.0 as season %}
-                                        <li class="accordion-inner">
+                                        <div class="panel-body">
                                             {% if season.is_appointment_based %}
                                                 <dl>
                                                     <dd>{% trans "Based on appointment" %}</dd>
@@ -478,7 +478,7 @@
                                     {% endwith %}
                                 {% else %}
                                     {% for season in exhibition.season_set.all %}
-                                        <li class="accordion-inner">
+                                        <div class="panel-body">
                                             {% if season.is_appointment_based %}
                                                 <dl>
                                                     <dd>{% trans "Based on appointment" %}</dd>
@@ -534,14 +534,14 @@
                 {% if exhibition.museum_prices %}
                     {% with exhibition.museum as museum %}
                         {% if museum.free_entrance or museum.admission_price or museum.admission_price_info or museum.reduced_price or museum.reduced_price_info or museum.arrangements_for_children or museum.free_entrance_for or museum.family_ticket or museum.group_ticket or museum.free_entrance_times or museum.yearly_ticket or museum.other_tickets or museum.member_of_museumspass or museum.group_booking_phone_number or museum.service_phone_number %}
-                        <li class="accordion-group">  
-                            <h4 class="accordion-heading">  
+                        <div class="panel panel-default">  
+                            <div class="panel-heading">  
                                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                                     {% trans "Tickets" %} 
                                 </a>  
                             </h4>  
-                            <ul id="collapse-prices" class="accordion-body collapse" style="height: 0px; ">  
-                                <li class="accordion-inner">
+                            <ul id="collapse-prices" class="panel-collapse collapse" style="height: 0px; ">  
+                                <div class="panel-body">
                                     {% if museum.free_entrance %}
                                         {% trans "Free entrance" %}
                                     {% else %}
@@ -611,7 +611,7 @@
                                     {% endif %}
                                 </li>
                                 {% if museum.group_bookings_phone_number %}
-                                <li class="accordion-inner"> 
+                                <div class="panel-body"> 
                                     <dl>
                                         <dt>{% trans "Booking Telephone" %}
                                             <span class="right">+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</span>
@@ -625,14 +625,14 @@
                     {% endwith %}
                 {% else %}
                     {% if exhibition.free_entrance or exhibition.admission_price or exhibition.reduced_price %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
+                    <div class="panel panel-default">  
+                        <div class="panel-heading">  
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
                                 {% trans "Tickets" %} 
                             </a>  
                         </h4>  
-                        <ul id="collapse-prices" class="accordion-body collapse">  
-                            <li class="accordion-inner">
+                        <ul id="collapse-prices" class="panel-collapse collapse">  
+                            <div class="panel-body">
                                 {% if exhibition.free_entrance %}
                                     <dl>
                                         <dt>{% trans "Free entrance" %}</dt>
@@ -665,14 +665,14 @@
                 <!-- ======= Accessibility ======= -->
 
                 {% if exhibition.suitable_for_disabled or exhibition.suitable_for_disabled_info %}
-                    <li class="accordion-group">  
-                        <h4 class="accordion-heading">  
+                    <div class="panel panel-default">  
+                        <div class="panel-heading">  
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
                                 {% trans "Accessibility" %}
                             </a>
                         </h4>
-                        <ul id="collapse-accessibility" class="accordion-body collapse">
-                            <li class="accordion-inner">
+                        <ul id="collapse-accessibility" class="panel-collapse collapse">
+                            <div class="panel-body">
                                 {% if exhibition.suitable_for_disabled %}
                                     <p>{% trans "Suitable for disabled" %}</p>
                                 {% endif %}

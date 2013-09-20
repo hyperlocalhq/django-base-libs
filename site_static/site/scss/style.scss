@@ -23,7 +23,7 @@
 body {
   background-color: white;
   color: black;
-  font-family: 'calluna-sans', Helvetica, Arial, sans-serif;
+  font-family: 'calluna-sans', 'Lucida Grande', Arial, sans-serif;
   font-size: 16px;
   line-height: 26px;
   overflow-y: scroll;
@@ -54,7 +54,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  margin-top: 0px !important;
+  margin-top: 0px;
   font-family: 'calluna-sans', Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
@@ -64,7 +64,7 @@ h1 {
   font-weight: '400';
   font-size: 30px;
   line-height: 30px;
-  margin-top: 30px;
+  margin-top: 30px !important;
   margin-bottom: 30px;
 }
 
@@ -95,6 +95,12 @@ p a{font-weight: 700; }
   margin: 0px !important;
   .input-group {
     width: 1px;
+  }
+}
+
+.input-group {
+  .form-group {
+    margin-bottom: 0px;
   }
 }
 

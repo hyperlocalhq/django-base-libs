@@ -1,6 +1,6 @@
 {% load base_tags image_modifications %}
 {% with object as event %}
-    <li class="item">
+    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
         <a href="/en/events/{{ event.slug }}/">
             <h4>Event: 
             <span>{% with event.get_closest_event_time as event_time %}{{ event_time.get_humanized_date_en }} {{ event_time.start|time:"H:i" }}{% endwith %}</span>
@@ -12,5 +12,5 @@
             {% endif %}
             
         </a>
-    </li>
+    </div>
 {% endwith %}

@@ -6,18 +6,25 @@
   #search {
     display: none;
   }
+  .nav > li > a {
+		font-size: 14px;
+		padding: 0px 8px;
+	}
 }
 
 @media (min-width: 992px) { 
-
-  #search {
-    display: inline-block;
-  }
-  .navbar-form .input-group {
-    width: 200px !important;
-  }
+  .nav > li > a {
+		font-size: 18px;
+		padding: 0px 15px;
+	}
 }
 
 @media (min-width: 1200px) { 
 
+  .navbar-form .input-group {
+    width: 200px !important;
+  }
+  #search {
+    display: inline-block;
+  }
 }

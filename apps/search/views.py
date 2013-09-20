@@ -22,11 +22,20 @@ class SearchView(SearchViewBase):
                 css_class="inline",
                 ),
 
-            layout.Row(
-                layout.Div("q", css_class="max"),
-                layout.Div(layout.Submit('submit', _('Search')),),
-                css_class="flex",
+            layout.Div(
+                
+                layout.Div(
+                    layout.Div(layout.Field("q", css_class="form-control"), css_class="max"),
+                    css_class="form-group",
                 ),
+                
+                layout.Div(
+                    layout.Div(layout.Submit('submit', _('Search')),),
+                    css_class="input-group-btn",
+                ),
+
+            css_class="input-group",
+            ),
             
             css_id="search_form",
             ))

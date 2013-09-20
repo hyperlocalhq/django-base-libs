@@ -1,6 +1,6 @@
 {% load base_tags image_modifications %}
 {% with object as exhibition %}
-    <li class="item">
+    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
         <a href="/de/ausstellungen/{{ exhibition.slug }}/">
             <h4>
                 {% if exhibition.permanent %}
@@ -18,5 +18,5 @@
                 {% endif %}
             {% endif %}
         </a>
-    </li>
+    </div>
 {% endwith %}
