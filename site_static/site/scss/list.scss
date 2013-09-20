@@ -56,6 +56,10 @@
 }
 
 .grid {
+  .description {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
   .item {
     -webkit-transition: -webkit-transform 0.125s ease-in-out !important;
        -moz-transition: -moz-transform 0.125s ease-in-out !important;
