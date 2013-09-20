@@ -195,7 +195,7 @@ $(window).load(function() {
    $("[rel=tooltip]").tooltip();
  }
 
-   // $('.accordion-body').collapse('show');
+   // $('.panel-collapse').collapse('show');
  });
 
 $(function() {
