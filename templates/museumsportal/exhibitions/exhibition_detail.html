@@ -26,13 +26,13 @@
 
 {% block edit_item %}
     {% if_has_perm "exhibitions.change_exhibition" object %}
-    <li><a class="edit icon icon-white icon-edit" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
+    <li><a class="edit icon icon-white icon-edit" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
     {% end_if_has_perm %}
 {% endblock %}
 
 {% block content %}
 {% with object as exhibition %}
-<div class="content clearfix">
+<div class="container">
     <div class="container">
         {% include "utils/cover_image.html" %}
         <section class="sidebar">
@@ -778,7 +778,7 @@
 <!-- ======= Events ======= -->
     
 {% if object.get_related_published_events.count %}
-<div class="content clearfix">
+<div class="container">
     <div class="container">
         <h2>{% trans "Events" %}</h2>
         <ul class="list rows clearfix"> 
@@ -814,7 +814,7 @@
                             {% if request.user.is_authenticated %}
                                 {% adding2favorites for exhibition %}
                             {% endif %}
-                            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
+                            <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
                         </nav>
 
                         {% with exhibition as list_item %}

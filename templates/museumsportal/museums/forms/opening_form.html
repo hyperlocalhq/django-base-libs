@@ -193,7 +193,7 @@ var error_messages = {
             }
             $season.hide();
             var html = '<ul class="actions">'
-                + '<li><button rel="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="transparent edit icon icon-white icon-edit"></button></li>'
+                + '<li><button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="transparent edit icon icon-white icon-edit"></button></li>'
                 + '</ul>'
                 + '<a class="edit" href="#"><span class="title">' + $season.find('[name$="-title_' + settings.lang + '"]').val() + '</span> ' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</a>';
             if (!$season.data('mirror')) {
@@ -230,7 +230,7 @@ var error_messages = {
             }
             $season.hide();
             var html = '<ul class="actions">'
-                + '<li><button rel="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="edit transparent icon icon-white icon-edit"></a></li>'
+                + '<li><button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="edit transparent icon icon-white icon-edit"></a></li>'
                 + '</ul>'
                 + '<a class="edit" href="#"><span class="title">' + $season.find('[name$="-day_label_' + settings.lang + '"]').val() + '</span> ' + $season.find('[name$="-yyyy"]').val() + ' ' + $season.find('[name$="-mm"] option:selected').text() + ' ' + $season.find('[name$="-dd"]').val() + '</a>';
             if (!$season.data('mirror')) {
