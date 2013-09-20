@@ -643,7 +643,6 @@
       white-space: nowrap !important; }
 
 .grid .item .description {
-  margin-top: 20px;
   padding-left: 10px;
   padding-right: 10px;
   position: absolute;
@@ -655,6 +654,8 @@
   -ms-transition: opacity 0.125s ease-in-out !important;
   -o-transition: opacity 0.125s ease-in-out !important;
   transition: opacity 0.125s ease-in-out !important; }
+  .grid .item .description p {
+    margin-right: 40px; }
 .grid .item#item-preview {
   padding-bottom: 350px; }
   .grid .item#item-preview .description {
@@ -710,7 +711,8 @@
     /* Current draft standard */ }
 .grid .item > a {
   display: block;
-  color: black; }
+  color: black;
+  margin-bottom: 40px; }
   .grid .item > a:hover {
     color: black; }
   .grid .item > a h3 {
@@ -1401,6 +1403,7 @@
         padding-bottom: 7px !important; }
 
 dl {
+  margin: 0px;
   padding-bottom: 10px;
   position: relative; }
   dl .right {
@@ -1874,6 +1877,7 @@ h6,
 .h4,
 .h5,
 .h6 {
+  margin-top: 0px !important;
   font-family: 'calluna-sans', Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1; }
