@@ -32,7 +32,7 @@
 
 {% block content %}
 {% with object as exhibition %}
-<div class="content clearfix">
+<div class="container">
     <div class="container">
         {% include "utils/cover_image.html" %}
         <section class="sidebar">
@@ -778,7 +778,7 @@
 <!-- ======= Events ======= -->
     
 {% if object.get_related_published_events.count %}
-<div class="content clearfix">
+<div class="container">
     <div class="container">
         <h2>{% trans "Events" %}</h2>
         <ul class="list rows clearfix"> 

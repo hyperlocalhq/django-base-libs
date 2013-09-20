@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="content clearfix sticky">
+<div class="container sticky">
     {% include "utils/gmap.html" %}
     <div class="inner">
         <h1>{% trans "Vernissages in the Museums of Berlin" %}</h1>
@@ -51,7 +51,7 @@
         </ul>
     </div>
 </div>
-<div class="content clearfix sticky">
+<div class="container sticky">
     <div class="inner">
         <ul id="container" class="list tiles collapsed clearfix">
             {% for exhibition in object_list %}
