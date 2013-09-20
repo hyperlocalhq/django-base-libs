@@ -218,8 +218,10 @@ $(window).bind('scrollstop', function(e){
 });
 
 $(window).load(function() {
-  if ($("[rel=tooltip]").length) {
-    $("[rel=tooltip]").tooltip();
+  if ($("[data-toggle=tooltip]").length) {
+    $("[data-toggle=tooltip]").tooltip({
+      container: '.container'
+    });
   }
 
    // $('.panel-collapse').collapse('show');

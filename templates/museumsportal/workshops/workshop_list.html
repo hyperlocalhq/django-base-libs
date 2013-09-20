@@ -25,9 +25,9 @@ var settings = {
 
   <nav class="pull-right">
     {% if request.user.is_authenticated %}
-    <a class="btn icon icon-white icon-favorite active" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
+    <a class="btn icon icon-white icon-favorite active" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
     {% endif %}
-    <button id="gmap_toggle" class="btn btn-info" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
+    <button id="gmap_toggle" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
       <span class="icon icon-location"></span>
     </button>
   </nav>
@@ -47,7 +47,7 @@ var settings = {
       </label>
     </div>
 
-    <button id="filter_reset" type="button" class="btn btn-info" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
+    <button id="filter_reset" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
       <span class="icon icon-remove"></span>
       <span class="sr-only">{% trans "Reset all filters" %}</span>
     </button>
@@ -110,18 +110,18 @@ var settings = {
         {% endif %}
         {% if_has_perm "workshops.change_workshop" workshop %}
         {% if workshop.cover_image %}
-        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';">
-          <span class="icon icon-crop"></span>
+        <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';">
+          <span class="icon icon-tool-crop"></span>
           <span class="sr-only">{% trans "Crop Image" %}</span>
         </button>
         {% else %}{% if workshop.museum.cover_image %}
-        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';">
-          <span class="icon icon-crop"></span>
+        <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';">
+          <span class="icon icon-tool-crop"></span>
           <span class="sr-only">{% trans "Crop Image" %}</span>
         </button>
         {% endif %}{% endif %}
         {% end_if_has_perm %}
-        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location btn btn-default">
+        <button href="#" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location btn btn-default">
           <span class="icon icon-location"></span>
           <span class="sr-only">{% trans "Show location on map" %}</span>
         </button>

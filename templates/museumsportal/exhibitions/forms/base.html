@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block edit_item %}
-    <li><a class="preview icon icon-white icon-view" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Preview" %}" href="{{ exhibition.get_url_path }}?preview">&nbsp;<span>{% trans "Preview" %}</span></a></li>
+    <li><a class="preview icon icon-white icon-view" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Preview" %}" href="{{ exhibition.get_url_path }}?preview">&nbsp;<span>{% trans "Preview" %}</span></a></li>
 {% endblock %}
 
 {% block dashboard_title %}

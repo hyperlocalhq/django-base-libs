@@ -1,0 +1,156 @@
+#dashboard {
+  fieldset { margin-bottom: 60px; position: relative; }
+  legend {font-size: 28px; padding-bottom: 10px; border: none !important; }
+  .all {color: $blue !important; font-size: 13px !important; line-height: 24px !important;
+  &:hover { color: black !important;}
+   } 
+    
+  .icon-last-edited { 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 100px;
+    height: 18px;
+    width: 18px;
+    background-image: url("../img/icons/edit.png");
+    opacity: 0.35;
+    margin-top: 0px;
+  } 
+  .add {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 32px;
+    line-height: 32px !important;
+    background-color: rgba(0,0,0,0.075);
+    background-color: $blue;
+    margin-bottom: 4px; 
+    display: block;
+    padding: 0px;
+    padding-right: 30px;
+    padding-left: 12px;
+    background-image: url("../img/icons/inv/add_bold.png");
+    background-size: 32px;
+    background-position: right !important;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: 300;
+    white-space: nowrap;
+    &:hover { background-color: black; }
+  }
+
+  fieldset > ul {
+
+    &.museums,
+    &.exhibitions,
+    &.events,
+    &.workshops {
+      li:hover .actions { opacity: 1; }
+      .actions {opacity: 0.25; }
+    }
+    
+
+    > li {
+      position: relative;
+      
+      &:hover {
+        .status {
+          opacity: 1;
+          .sbToggle {
+            background-color: rgba(0,0,0,0.15);
+            opacity: 0.5;
+          }
+          .sbHolder{
+            background-color: rgba(0,0,0,0);
+          }
+        }
+      }
+      .status { 
+        position: absolute;
+        top: 8px;
+        right: 80px;
+        width: 115px;
+        .sbToggle {
+          height: 24px;
+          width: 100%;
+          background-color: rgba(0,0,0,0);
+          opacity: 0.25;
+          &.sbToggleOpen{
+            opacity: 0.5;
+            background-color: rgba(0,0,0,0.15);
+          }
+        }
+        .sbHolder{
+          background-color: rgba(0,0,0,0.025);
+          border: none;
+          font-family: inherit;
+          font-weight: 300 !important;
+          color: rgba(0,0,0,0.75) !important;
+          display: inline-block;
+          height: 24px;
+          position: relative;
+          width: 100%;
+
+          font-size: 13px !important;
+          line-height: 24px !important;
+
+          &:hover {background-color: rgba(0,0,0,0); }
+        }
+
+        .sbOptions a{
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+        .sbSelector{
+          font-size: 13px !important;
+          line-height: 24px !important;
+          width: 100%; 
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+        }
+      }
+
+      &:hover {
+        > a { background-color: rgba(0,0,0,0.075);}
+      }
+
+      > h3,
+      > span,
+      > a {
+        background-color: #f2f2f2;
+        color: rgba(0,0,0,0.75) !important;
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 10px;
+
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        margin-bottom: 2px;
+        white-space: nowrap;
+
+
+        .title { font-weight: 700; }
+
+        &:hover {
+           h3, h4 ,h5 { color: rgba(0,0,0,0.5) !important;}
+        }
+        h3 {
+
+        overflow: hidden;
+        max-width: 700px;
+        }
+
+        h3 ,h5 { display: inline-block; font-size: 16px !important;}
+        h5   { font-weight: 300; 
+          opacity: 0.5; 
+          position: relative;
+          top: -2px;
+          font-size: 13px !important;}
+      }
+    }
+  }
+}

@@ -22,12 +22,12 @@ var settings = {
 <div class="container">
   <nav class="pull-right">
     {% if request.user.is_authenticated %}
-    <a class="btn icon icon-white icon-favorite active" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
+    <a class="btn icon icon-white icon-favorite active" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
     {% endif %}
-    <button id="gmap_toggle" class="btn btn-info" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
+    <button id="gmap_toggle" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
       <span class="icon icon-location"></span>
     </button>
-    <a class="btn btn-info" rel="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">
+    <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">
       <span class="icon icon-signal"></span>
       <span class="sr-only">{% trans "RSS Feed" %}</span>
     </a>
@@ -58,7 +58,7 @@ var settings = {
       </label>
     </div>
 
-    <button id="filter_reset" type="button" class="btn btn-info" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
+    <button id="filter_reset" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
       <span class="icon icon-remove"></span>
       <span class="sr-only">{% trans "Reset all filters" %}</span>
     </button>
@@ -155,17 +155,17 @@ var settings = {
 
           {% if_has_perm "exhibitions.change_exhibition" exhibition %}
             {% if exhibition.cover_image %}
-              <button class="btn btn-default" rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';">
+              <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';">
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% else %}{% if exhibition.museum.cover_image %}
-              <button class="btn btn-default" rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';">
+              <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';">
                 <span class="icon icon-tool-crop"></span>
               </button>
             {% endif %}
           {% endif %}
         {% end_if_has_perm %}
-        <button class="btn btn-default" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location">
+        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location">
           <span class="icon icon-location"></span>
         </button>
       </div>
