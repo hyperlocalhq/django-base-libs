@@ -4,178 +4,202 @@
 {% block bodyclass %}museum-list{% endblock %}
 
 {% block js %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
-    <script type="text/javascript">
-        var aGeopositions = [];
-        var settings = {
-            STATIC_URL: "{{ STATIC_URL }}"
-        }
-    </script> 
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+<script type="text/javascript">
+var aGeopositions = [];
+var settings = {
+  STATIC_URL: "{{ STATIC_URL }}"
+}
+</script> 
 {% endblock %}
 
 {% block map %}
-    {% include "utils/gmap.html" %}
+  {% comment %}
+  <!-- {% include "utils/gmap.html" %} -->
+  {% endcomment %}
 {% endblock %}
 
 {% block content %}
-<div class="content clearfix sticky">
-    <nav id="map_controls">
-        {% if request.user.is_authenticated %}
-            <a class="btn icon icon-white icon-favorite active" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
-        {% endif %}
-        <button id="gmap_toggle" class="btn icon icon-white icon-location" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}"></button>
-    </nav>
-    
-    <div class="inner">
-        <h1>{% trans "Museums, Palaces, and Memorials" %}</h1>
-        <div id="filters">
-            <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-categories">{% trans "Categories" %}</button>
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-alphabetic">{% trans "Alphabet" %}</button>
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-open-late">{% trans "Open late" %}</button>
-                    {% comment %}
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-tags">{% trans "Tags" %}</button> -->
-                    {% endcomment %}
+<div class="container">
+
+  <nav class="pull-right">
+    {% if request.user.is_authenticated %}
+    <a class="btn icon icon-white icon-favorite active" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
+    {% endif %}
+    <button id="gmap_toggle" class="btn btn-info" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
+      <span class="icon icon-location"></span>
+    </button>
+  </nav>
+
+  <div class="inner">
+    <h1>{% trans "Museums, Palaces, and Memorials" %}</h1>
+
+    <div id="filters">
+      <div class="btn-group" id="filter-toggle" data-toggle="buttons">
+        <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories"> 
+          <input type="radio" name="options" id="filter-toggle-categories">
+          {% trans "Categories" %}  
+        </label>
+
+        <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic"> 
+          <input type="radio" name="options" id="filter-toggle-alphabetic">
+          {% trans "Alphabet" %}    
+        </label>
+
+        <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists"> 
+          <input type="radio" name="options" id="filter-toggle-smartlists">
+          {% trans "Smart lists" %} 
+        </label>
+
+        <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-open-late">   
+          <input type="radio" name="options" id="filter-toggle-open-late">
+          {% trans "Open late" %}    
+        </label>
+      </div>
+
+      <button id="filter_reset" type="button" class="btn btn-info" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
+        <span class="icon icon-remove"></span>
+        <span class="sr-only">{% trans "Reset all filters" %}</span>
+      </button>
+
+      <div class="panel-group" id="filter-options">
+        <div class="panel panel-default">
+          <div id="filter-categories" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+                {% for cat in facets.categories.categories %}
+                {% if cat.is_root_node %}
+                <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}"{% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a></li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+              <div id="level-1-cat-container" class="level-1-container">
+                {% for cat in facets.categories.categories %}
+                {% if cat.is_root_node %}
+                {% if cat.get_children %}
+                <ul id="cat_{{ cat.slug }}" class="filter option-set clearfix collapse" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+                  {% for child in cat.get_children %}
+                  <li class="x-level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a></li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+              </div>
             </div>
-
-            <button id="filter_reset" type="button" class="btn btn-primary icon icon-black icon-delete" rel="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">{% trans "Reset all filters" %}</button>
-
-            <div class="accordion" id="filter-options">
-                <div class="accordion-group">
-                    <div id="filter-categories" class="accordion-body collapse" style="height: 0px;">
-                        <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
-                                {% for cat in facets.categories.categories %}
-                                    {% if cat.is_root_node %}
-                                        <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}"{% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                            <div id="level-1-cat-container" class="level-1-container">
-                                {% for cat in facets.categories.categories %}
-                                    {% if cat.is_root_node %}
-                                        {% if cat.get_children %}
-                                            <ul id="cat_{{ cat.slug }}" class="filter option-set clearfix collapse" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
-                                            {% for child in cat.get_children %}
-                                                <li class="x-level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a></li>
-                                            {% endfor %}
-                                            </ul>
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-group">
-                    <div id="filter-alphabetic" class="accordion-body collapse" style="height: 0px;">
-                        <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
-                            {% for item in abc_list %}
-                                {% if not forloop.first %}
-                                    <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
-                                {% endif %}
-                            {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-group">
-                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;">
-                        <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
-                                <li><a href="" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
-
-                                {% comment %}
-                                    <!-- <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
-                                    <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
-                                    <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
-                                    <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
-                                    <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_service_shop">{% trans "Museum Shop" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_service_restaurant">{% trans "Restaurant" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_service_cafe">{% trans "Cafe" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_service_library">{% trans "Library" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_service_archive">{% trans "Archive" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_service_diaper_changing">{% trans "Diaper changing table" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_audioguide">{% trans "Audioguide" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_audioguide_for_children">{% trans "Audioguide for children" %}</a></li>
-                                    <li><a href="" data-filter-value=".has_audioguide_for_learning_difficulties">{% trans "Audioguide for people with learning difficulties" %}</a></li> -->
-                                {% endcomment %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-group">
-                    <div id="filter-open-late" class="accordion-body collapse" style="height: 0px;">
-                        <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="open_late" data-filter-group="open_late" data-single-selection="1">
-                                <li><a href="" data-filter-value=".is_open_on_mon_till_20">{% trans "till 20:00 on Mondays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_mon_till_22">{% trans "till 22:00 on Mondays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_tue_till_20">{% trans "till 20:00 on Tuesdays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_tue_till_22">{% trans "till 22:00 on Tuesdays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_wed_till_20">{% trans "till 20:00 on Wednesdays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_wed_till_22">{% trans "till 22:00 on Wednesdays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_thu_till_20">{% trans "till 20:00 on Thursdays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_thu_till_22">{% trans "till 22:00 on Thursdays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_fri_till_20">{% trans "till 20:00 on Fridays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_fri_till_22">{% trans "till 22:00 on Fridays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_sat_till_20">{% trans "till 20:00 on Saturdays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_sat_till_22">{% trans "till 22:00 on Saturdays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_sun_till_20">{% trans "till 20:00 on Sundays" %}</a></li>
-                                <li><a href="" data-filter-value=".is_open_on_sun_till_22">{% trans "till 22:00 on Sundays" %}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         
-            <ul id="filter_summary"></ul>
+          </div>
         </div>
-        <ul id="container" class="list tiles clearfix">
-            {% for museum in object_list %}
-                {% tags_for_object museum as tags %}
-                <li class="item initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}">
-                    {% if museum.cover_image %}
-                        <a class="img" href="{{ museum.get_url_path }}">
-                            <img src="{{ STATIC_URL }}site/img/none.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
-                        </a>
-                    {% endif %}
+        <div class="panel panel-default">
+          <div id="filter-alphabetic" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
+                {% for item in abc_list %}
+                {% if not forloop.first %}
+                <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div id="filter-smartlists" class="panel-collapse collapse">
+            <div class="panel-body">
+             <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+                <li><a href="" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
+                <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
 
-                    <nav class="actions">
-                        {% if request.user.is_authenticated %}
-                            {% adding2favorites for museum %}
-                        {% endif %}
-
-                        <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
-
-                        {% if museum.cover_image %}
-                            {% if_has_perm "museums.change_museum" museum %}
-                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-crop" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';"></button>
-                            {% end_if_has_perm %}
-                        {% endif %}
-                    </nav>
-                    
-                    <a href="{{ museum.get_url_path }}">
-                         <h3>{{ museum.title }}</h3>
-                        {% if museum.subtitle %}
-                            <h4>{{ museum.subtitle }}</h4>
-                        {% endif %}
-                        </a>
-                    
-                    {% with museum as list_item %}
-                        {% include "utils/geo_position.html" %}
-                    {% endwith %}
-                    
-                </li>
-            {% endfor %}
-        </ul>
+                {% comment %}
+                <!-- <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
+                <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
+                <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
+                <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
+                <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
+                <li><a href="" data-filter-value=".has_service_shop">{% trans "Museum Shop" %}</a></li>
+                <li><a href="" data-filter-value=".has_service_restaurant">{% trans "Restaurant" %}</a></li>
+                <li><a href="" data-filter-value=".has_service_cafe">{% trans "Cafe" %}</a></li>
+                <li><a href="" data-filter-value=".has_service_library">{% trans "Library" %}</a></li>
+                <li><a href="" data-filter-value=".has_service_archive">{% trans "Archive" %}</a></li>
+                <li><a href="" data-filter-value=".has_service_diaper_changing">{% trans "Diaper changing table" %}</a></li>
+                <li><a href="" data-filter-value=".has_audioguide">{% trans "Audioguide" %}</a></li>
+                <li><a href="" data-filter-value=".has_audioguide_for_children">{% trans "Audioguide for children" %}</a></li>
+                <li><a href="" data-filter-value=".has_audioguide_for_learning_difficulties">{% trans "Audioguide for people with learning difficulties" %}</a></li> -->
+                {% endcomment %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div id="filter-open-late" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul class="filter option-set clearfix" id="open_late" data-filter-group="open_late" data-single-selection="1">
+                <li><a href="" data-filter-value=".is_open_on_mon_till_20">{% trans "till 20:00 on Mondays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_mon_till_22">{% trans "till 22:00 on Mondays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_tue_till_20">{% trans "till 20:00 on Tuesdays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_tue_till_22">{% trans "till 22:00 on Tuesdays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_wed_till_20">{% trans "till 20:00 on Wednesdays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_wed_till_22">{% trans "till 22:00 on Wednesdays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_thu_till_20">{% trans "till 20:00 on Thursdays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_thu_till_22">{% trans "till 22:00 on Thursdays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_fri_till_20">{% trans "till 20:00 on Fridays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_fri_till_22">{% trans "till 22:00 on Fridays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_sat_till_20">{% trans "till 20:00 on Saturdays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_sat_till_22">{% trans "till 22:00 on Saturdays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_sun_till_20">{% trans "till 20:00 on Sundays" %}</a></li>
+                <li><a href="" data-filter-value=".is_open_on_sun_till_22">{% trans "till 22:00 on Sundays" %}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul id="filter_summary"></ul>
     </div>
+
+  <div id="container" class="row row-narrow grid">
+      {% for museum in object_list %}
+      {% tags_for_object museum as tags %}
+      <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3 initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}">
+        <div class="actions btn-group">
+          {% if request.user.is_authenticated %}
+            {% adding2favorites for museum %}
+          {% endif %}
+          <button rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location btn btn-default">
+            <span class="icon icon-location"></span>
+            <span class="sr-only">{% trans "Show location on map" %}</span>
+          </button>
+          {% if_has_perm "museums.change_museum" museum %}
+            <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';">
+              <span class="icon icon-crop"></span>
+              <span class="sr-only">{% trans "Crop Image" %}</span>
+            </button>
+          {% end_if_has_perm %}
+        </div>
+
+        <a href="{{ museum.get_url_path }}">
+          {% if museum.cover_image %}
+            <span class="img">
+              <img src="{{ STATIC_URL }}site/img/none_placeholder.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+            </span>
+          {% endif %}
+          <h3>{{ museum.title }}</h3>
+          {% if museum.subtitle %}
+          <h4>{{ museum.subtitle }}</h4>
+          {% endif %}
+        </a>
+       {% comment %}
+         {% with museum as list_item %}
+          <!-- {% include "utils/geo_position.html" %} -->
+         {% endwith %}
+       {% endcomment %}
+      </div>
+    {% endfor %}
+   </div>
+ </div>
 </div>  
 
-{% include "utils/gmap_scripts.html" %}
+{% comment %}
+<!-- {% include "utils/gmap_scripts.html" %} -->
+{% endcomment %}
 
 {% endblock %}

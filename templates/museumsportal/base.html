@@ -3,6 +3,8 @@
 <html lang="{{ LANGUAGE_CODE }}"> 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title>{% block title %}{% endblock %} Museumsportal Berlin</title>
 	<link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
 	
@@ -11,10 +13,11 @@
     {% endblock %}	
 	
     {% block stylesheet %}
+    <link href="{{ STATIC_URL }}site/css/normalize.css" rel="stylesheet" media="screen, print" type="text/css" />
     <link href="{{ STATIC_URL }}site/css/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
     <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
-    <link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen, print" type="text/css" />
-    <link href="{{ STATIC_URL }}site/css/ie.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen, print" type="text/css" /> -->
+    <!-- <link href="{{ STATIC_URL }}site/css/ie.css" rel="stylesheet" type="text/css" /> -->
     {% endblock %}
 	
     {% render_block "css" %}
@@ -32,139 +35,56 @@
     <![endif]-->
     <script type="text/javascript" src="/jssettings/"></script>
     <script type="text/javascript" src="/jsi18n/"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
-	<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
-	<script>
-        var csrftoken = $.cookie('csrftoken');
-        function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-        $.ajaxSetup({
-            crossDomain: false, // obviates need for sameOrigin test
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type)) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
-            }
-        });
-        if ($.browser.msie) {
-            $('html').addClass('msie');
-        }
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.lazyload.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.viewport.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
+    <script>
+          var csrftoken = $.cookie('csrftoken');
+          function csrfSafeMethod(method) {
+              // these HTTP methods do not require CSRF protection
+              return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+          }
+          $.ajaxSetup({
+              crossDomain: false, // obviates need for sameOrigin test
+              beforeSend: function(xhr, settings) {
+                  if (!csrfSafeMethod(settings.type)) {
+                      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                  }
+              }
+          });
+          if ($.browser.msie) {
+              $('html').addClass('msie');
+          }
 	</script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
 </head>
 
 
-
-
-
 <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
 
-    {% block map %}
-    {% endblock %}
-
-    {% block toolbar %}
-        {% cms_toolbar %}
-    {% endblock %}
+  {% block map %}{% endblock %}
+  {% block toolbar %}{% cms_toolbar %}{% endblock %}
 
 	<div id="wrapper">
         <!-- Header
         ================================================== -->
         {% block header %}
-		<header id="header" class="clearfix">
-            <div class="inner">
-
-                <a class="logo" href="/">
-                    <span class="img">Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
-                </a>
-                <ul id="meta" class="clearfix">
-                    <li id="user" class="clearfix">
-                        <ul>
-                            {% if request.user.is_authenticated %} 
-                                <li><p>{% blocktrans with first_name=request.user.first_name|default:request.user.username %}Hello, {{ first_name }}{% endblocktrans %}</p></li>
-                                <li><a class="logout" href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
-                            {% else %}
-                                {% comment %}
-                                    <!-- <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
-                                    <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
-                                {% endcomment %}
-                                    
-                                {% block museums_login %}
-                                
-                                {% endblock %}
-                            {% endif %}
-
-                        </ul>
-                    </li>
-                    <li id="tools" class="clearfix">
-                        <ul>
-
-                            <!-- <li><a class="search icon icon-search" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Search" %}" href="/search">&nbsp;<span>{% trans "Search" %}</span></a></li> -->
-                            <li>
-                                <form id="mini_search" action="/search/" method="get">
-                                    <input id="mini_search_input" type="text" class="textinput textInput form_text" name="q" placeholder="Search">
-                                    <input rel="tooltip" data-placement="bottom" data-original-title="{% trans "Search" %}" id="mini_search_submit" type="submit" name="submit" value="Suche" class="icon icon-search">‌
-                                </form>
-                            </li>
-
-                            <li><a class="icon icon-white icon-home"  rel="tooltip" data-placement="bottom" data-original-title="Home" href="/">{% trans "Home" %}</a> </li>
-
-                            {% block edit_item %}{% endblock %}
-                            
-                            {% if request.user.is_authenticated %}
-                                {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
-                                    <li><a class="dashboard icon icon-dashboard" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Input Mask" %}" href="/{{ LANGUAGE_CODE }}/dashboard/">&nbsp;<span>{% trans "Input Mask" %}</span></a></li>
-                                {% endif %}
-                            {% endif %}
-
-                            {% if request.user.is_authenticated %}
-                                <li><a class="favorites icon icon-favorites" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">&nbsp;<span>{% trans "Favorites" %}</span></a></li>
-                            {% endif %}
-
-                            <li><a class="print icon icon-print" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Print" %}" onclick="window.print();return false" href="#">&nbsp;<span>{% trans "Print" %}</span></a></li>
-
-                            <li><a class="twitter icon icon-twitter" rel="tooltip" data-placement="bottom" data-original-title="Twitter" href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
-
-                            <li><a class="facebook icon icon-facebook" rel="tooltip" data-placement="bottom" data-original-title="Facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
-
-                        </ul>
-                    </li>
-                    <li>
-                        <ul id="lang">
-                        {% block language_chooser %}
-                            {% language_chooser %}
-                        {% endblock %}
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-		</header>
-		
-        <nav id="navigation">
-            <ul>
-                <li{% if request.path == "/" %} class="selected"{% endif %}><a href="/">Home</a></li>
-                {% show_menu_below_id "start_page" 0 100 100 100 %}
-            </ul>
-        </nav>
+            {% include "utils/header.html" %}
+            {% include "utils/navigation.html" %}
         {% endblock %}
-
-
 
         <!-- Content
         ================================================== -->
 
-    		    {% block content %}
-    			{% endblock %}
+	    {% block content %}
+		{% endblock %}
 		
         <!-- Footer
         ================================================== -->
@@ -235,208 +155,10 @@
         {% endblock %}
 
 	</div>
-	<script>
-	var django = {
-	    jQuery: jQuery
-	};
-	</script>
-    {% render_block "js" %}
-
-    {{ site_settings.extra_body|safe }}
-
-    <script type="text/javascript">
-	$(function() {
-        $("a[href^='http://']").attr("target","_blank");	        
-	        
-	    if ($('#cms_toolbar').length) { // cms toolbar fix
-	        if ($('body').css('margin-top') == "-43px") {
-	            $('body').css('margin-top', 0);
-	        }
-	    }
-	});
-	</script>
-
-    <script type="text/javascript">
-    $(function() {
-        $('#to-top').click(function(e){
-            $('html, body').animate({scrollTop:0}, 'slow');
-            return false;
-        });
-        
-        $(window).scroll(function() {
-            if ($('body').offset().top < $(window).scrollTop()) {
-                $('#to-top').addClass('on');
-            } else {
-                $('#to-top').removeClass('on');
-            }
-        });
-    });
-    window.onresize = function(event) {}
-    </script>
-
-    <script type="text/javascript">
-    $(window).load(function() {
-        var $container = $('#container'),
-            filters = {};
-
-        $container.isotope({
-            itemSelector : '.item',
-            layoutMode : 'fitRows' 
-        });
-
-        // filter buttons
-        $('.filter a').click(function(e){
-            e.preventDefault();
-            var $this = $(this);
-            var $li = $this.closest('li');
-
-            var $optionSet = $this.closest('.option-set');
-            // store filter value in object
-            // i.e. filters.category = ['.cat_history']
-            var group = $optionSet.attr('data-filter-group');
-            filters[group] = filters[group] || [];
-            var value = $this.attr('data-filter-value');
-            var single_selection = $optionSet.attr('data-single-selection');
-            var hierarchical = $optionSet.attr('data-hierarchical');
-            var level = parseInt($li.attr('data-level'), 10);
-            var children_selector = $this.attr('data-level-1-at');
-            var target_child = $this.attr('data-target');
-            var $children;
-            if (children_selector) {
-                $children = $(children_selector);
-            } else if (level == 1) {
-                $children = $this.closest('.level-1-container');
-            }
-            
-            if (value) {
-                if ($this.hasClass('selected')) {
-                    $this.removeClass('selected');
-                    $li.removeClass('selected');
-                    if ($children && level == 0) {
-                        $children.find('a.selected').click();
-                        $children.find('ul.in').removeClass('in');
-                    }
-                    filters[group] = jQuery.grep(filters[group], function(v) {
-                        return v != value;
-                    });
-                    // remove the corresponding item from filter summary
-                    $('#filter_summary li[data-filter-group="' + group + '"][data-filter-value="' + value + '"]').remove();
-                    if ($('#filter_summary').children().length == 1) {
-                        $('#filter_summary').empty();
-                    }
-                } else {
-                    if (hierarchical) {
-                        if (single_selection) {
-                            // unselect previously selected
-                            // and collect filters
-                            if (level == 0) {
-                                $optionSet.find('a.selected').click();
-                                if ($children) {
-                                    $children.find('ul.in').removeClass('in');
-                                }
-                                filters[group] = [value];
-                            } else {
-                                if ($children) {
-                                    $children.find('a.selected').click();
-                                }
-                                filters[group].push(value);
-                            }
-                        } else {
-                            filters[group].push(value);
-                        }
-                    } else {
-                        if (single_selection) {
-                            // unselect previously selected
-                            // and collect filters
-                            $optionSet.find('a.selected').click();
-                            filters[group] = [value];
-                        } else {
-                            filters[group].push(value);
-                        }
-                    }
-                    // change selected class
-                    $this.addClass('selected');
-                    $li.addClass('selected');
-                    if ($children) {
-                        $children.find(target_child).addClass('in');
-                    }
-                    if ($('#filter_summary').text() == "") {
-                        var $li = $('<li><b>{% trans "Filter selection" %}:</b></li>');
-                        $('#filter_summary').append($li);
-                    }
-                    var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
-                    $('#filter_summary').append($li);
-                }
-            }
-            
-            // convert object into array
-            var isoFilters = [];
-            for (var prop in filters) {
-                isoFilters.push(filters[prop].join(''));
-            }
-            var selector = isoFilters.join('');
-            
-            $.bbq.pushState({filter: selector});
-
-            $container.isotope({filter: selector});            
-            $(".list img:in-viewport").lazyload();
-            $container.trigger("map_filter", { filter: isoFilters});
-            $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
-            
-            return false;
-        });
-        
-        $('#filter_summary a').live('click', function(e) {
-            e.preventDefault();
-            var $this = $(this).closest('li');
-            var group = $this.attr('data-filter-group');
-            var value = $this.attr('data-filter-value');
-            if (!group && !value) {
-                // trigger the clicks on all selected filters
-                $('#filters a.selected').click();
-            } else {
-                // trigger the click on corresponding filter
-                $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();
-            }            
-        })
-        
-        $('#filter_reset').live('click', function(e) {
-            e.preventDefault();
-            $('#filters a.selected').click();
-        })
-        
-        if (window.location.hash) {
-            // get options object from hash
-            var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
-            // apply options from hash
-            $(options.filter.split('.')).each(function() {
-                if (!this) {
-                    return;
-                }
-                $('#filters a[data-filter-value=".' + this + '"]').click();
-            })
-        }
-        
-        
-    });
-    $(window).load(function(){
-        $(".list img").lazyload();
-    });
-
-    $(window).bind('scrollstop', function(e){
-        $(".list img:in-viewport").lazyload();
-    });
-
-    $(window).load(function() {
-       if ($("[rel=tooltip]").length) {
-           $("[rel=tooltip]").tooltip();
-       }
     
-       // $('.accordion-body').collapse('show');
-    });
-
-    </script>
-
+    {% render_block "js" %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/custom.js"></script>
+    {{ site_settings.extra_body|safe }}
 </body>
 </html>
 

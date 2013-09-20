@@ -1,0 +1,196 @@
+@import 'variables';
+
+// ================= TAGS AND FILTERS =================
+
+#filters {
+max-width: 1200px;
+padding: 0px;
+margin: 0px;
+margin-bottom: 30px !important;
+background-color: white;
+z-index: 10000;
+ // &:hover .tab-content {display: block; }
+ // .tab-content {display: none; }
+ .accordion,
+ .accordion-inner,
+ .accordion-group { 
+    border: none;
+    margin: 0px;
+    padding: 0px;
+  }
+  ul {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .panel-body {
+    padding: 0px;
+  }
+}
+
+#filter-toggle {
+  display: inline-block;
+}
+
+#filters .btn {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  &.active {
+    background-color: $blue !important;
+    color: white !important;
+    &.collapsed {
+      background-color: $lightgrey !important; 
+      color: black !important;
+    }
+  }
+}
+
+#filter_summary {
+  li {
+    display: inline-block; 
+    margin-right: 5px;
+
+    a:hover{
+      color: $red;
+      &:after {
+        font-size: 15px;
+        top: 2px;
+        position: relative;
+        margin-left: 5px;
+        content: " ";
+        color: white !important;
+        font-weight: 900 !important;
+        background-color: $red;
+        border-radius: 20px;
+        display: inline-block;
+        height: 14px;
+        width: 14px;
+        text-align: center;
+        line-height: 13px;
+        background-image: url("../img/icons/inv/cancel.png");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    }
+    &:after {
+        content: " / ";
+        opacity: 0.25;
+      }
+
+    &:first-child:after,
+    &:last-child:after {
+      content: "" !important;
+    }
+  }
+  padding-bottom: 15px;
+  &:empty{ display: none !important;}
+}
+
+.tags,
+.filter {
+  font-size: 0px;
+  -webkit-transform: translate(0px,0px); /* Safari and Chrome */
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out;
+
+  .title { 
+    display: block;
+    padding-bottom: 10px;
+    font-weight: 700;
+  }
+
+  // .level-1 { display: none; }
+
+  li { 
+    font-size: 16px;
+    line-height: 10px;
+    display: inline-block;
+    color: black;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    &.x-level-1 {
+      a {background-color: rgba(0,0,0,0.025); }
+      .selected,
+      &.active {
+        background-color: $blue;
+        color: white;
+      }
+      
+    }
+    .selected,
+    &.active {
+      background-color: $blue;
+      color: white;
+    }
+    
+    &:hover {
+      background-color: #f2f2f2;
+      a {
+        opacity: 0.8;
+      }
+    }
+
+    a { 
+      color: inherit;
+      background-color: #f2f2f2;
+      display: inline-block;
+      line-height: 10px;
+      white-space: nowrap;
+      padding: 10px;
+
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+
+      -webkit-background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box;
+
+      -webkit-transform: translate3d(0px, 0, 0) !important;
+      -moz-transform: translate3d(0px, 0, 0) !important;
+      -o-transform: translate3d(0px, 0, 0) !important;
+      transform: translate3d(0px, 0, 0) !important;
+    }
+
+    span { 
+      background-color: #f2f2f2;
+      color: rgba(0,0,0,0.5);
+      display: inline-block;
+      white-space: nowrap;
+      margin-bottom: 5px;
+      line-height: 10px;
+      padding: 10px;
+    }
+  }
+}
+
+
+.level-1-container li {
+  background-color: $blue;
+  a {
+    color: white !important;
+    background-color: transparent;
+  }
+  &:hover {
+    background-color: black !important;
+     a {   opacity: 1 !important;
+    }  
+  }
+
+  &.selected,
+  &.active {
+    background-color: black !important;
+    a {
+    background-color: black !important;
+        color: white !important;
+    }
+
+    &:hover {
+      background-color: black !important;
+      a {
+      }
+    }
+  }
+}

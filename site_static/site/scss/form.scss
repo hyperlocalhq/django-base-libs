@@ -171,83 +171,83 @@ select {
   padding-left: 17px;
 }
 
-.btn, 
-input[type=submit], 
-input[type=reset], 
-button {
-  white-space: nowrap;
-  display: inline-block;
-  border-radius: 0 !important;
-  border: none !important;
-  text-shadow: none;
-  font-size: 22px;
-  line-height: 18px;
-  color: black;
-  padding: 18px;
-  background-color: #f2f2f2;
-  background-image: none;
-  background-repeat: no-repeat;
-  background-position: center !important;
-  text-shadow: none !important;
-  background-color: black !important;
-  color: white !important;
-  font-family: inherit !important;
-  box-shadow: none !important;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
+// .btn, 
+// input[type=submit], 
+// input[type=reset], 
+// button {
+//   white-space: nowrap;
+//   display: inline-block;
+//   border-radius: 0 !important;
+//   border: none !important;
+//   text-shadow: none;
+//   font-size: 22px;
+//   line-height: 18px;
+//   color: black;
+//   padding: 18px;
+//   background-color: #f2f2f2;
+//   background-image: none;
+//   background-repeat: no-repeat;
+//   background-position: center !important;
+//   text-shadow: none !important;
+//   background-color: black !important;
+//   color: white !important;
+//   font-family: inherit !important;
+//   box-shadow: none !important;
+//   box-sizing: border-box;
+//   -moz-box-sizing: border-box;
   
-  &:hover {box-shadow: none; } 
+//   &:hover {box-shadow: none; } 
 
-  &[name="cancel"],
-  &[name="reset"] { 
-    float: left; 
-    margin: 0px !important;
-    background-color: #f2f2f2 !important;
-    color: black !important;
-  }
+//   &[name="cancel"],
+//   &[name="reset"] { 
+//     float: left; 
+//     margin: 0px !important;
+//     background-color: #f2f2f2 !important;
+//     color: black !important;
+//   }
 
-  &.right { float: right; margin: 0px !important;}
-  &.full {  width: 100%; margin: 0px !important;}
+//   &.right { float: right; margin: 0px !important;}
+//   &.full {  width: 100%; margin: 0px !important;}
 
 
-  &.btn-primary { background-color: $blue !important; color: white !important;}
-  &.btn-warning { background-color: $red !important; color: white !important;}
-  &.btn-danger  { background-color: $red !important; color: white !important;}
-  &.btn-success { background-color: $green !important; color: white !important;}
-  &.btn-info    { background-color: $yellow !important; color: white !important;}
-  &.btn-inverse { background-color: white !important; color: black !important;}
+//   &.btn-primary { background-color: $blue !important; color: white !important;}
+//   &.btn-warning { background-color: $red !important; color: white !important;}
+//   &.btn-danger  { background-color: $red !important; color: white !important;}
+//   &.btn-success { background-color: $green !important; color: white !important;}
+//   &.btn-info    { background-color: $yellow !important; color: white !important;}
+//   &.btn-inverse { background-color: white !important; color: black !important;}
     
-  &.btn-link {
-    color: #0088cc;
-    cursor: pointer !important;
-    background-color: #f2f2f2 !important;
-    border-color: transparent !important;
-    color: rgba(0,0,0,0.15) !important;
+//   &.btn-link {
+//     color: #0088cc;
+//     cursor: pointer !important;
+//     background-color: #f2f2f2 !important;
+//     border-color: transparent !important;
+//     color: rgba(0,0,0,0.15) !important;
 
-    &:hover {
-      text-decoration: none !important;
-      background-color: transparent;
-      cursor: default !important;
-    }
-  }
+//     &:hover {
+//       text-decoration: none !important;
+//       background-color: transparent;
+//       cursor: default !important;
+//     }
+//   }
 
-  &.btn-small {
-    font-size: 16px;
-    line-height: 16px;
-    padding: 10px;
-    white-space: nowrap;
-  }
+//   &.btn-small {
+//     font-size: 16px;
+//     line-height: 16px;
+//     padding: 10px;
+//     white-space: nowrap;
+//   }
 
-  &:active {
-    background-color: #f2f2f2 !important;
-    color: black !important;
-    opacity: 0.75;
-  }
-  &.icon {
-    width: 40px !important;
-    height: 40px !important;
-  }
-}
+//   &:active {
+//     background-color: #f2f2f2 !important;
+//     color: black !important;
+//     opacity: 0.75;
+//   }
+//   &.icon {
+//     width: 40px !important;
+//     height: 40px !important;
+//   }
+// }
 
 input[type=radio] {}
 input[type=checkbox] {}
@@ -437,7 +437,7 @@ a
     position: relative !important;
   }
 
-  .row {
+  .form-row {
     margin: 0px;
     padding: 0px;
   }
@@ -450,14 +450,14 @@ a
     position: relative;
     
     fieldset { 
-      .row,
-      .row > div > div,
+      .form-row,
+      .form-row > div > div,
       > div {
         margin-bottom: 5px !important;
         &:last-child { margin-bottom: 0px !important; }
       }
 
-      .row:nth-of-type(1) { margin-bottom: 0px !important; }
+      .form-row:nth-of-type(1) { margin-bottom: 0px !important; }
     }
 
     &.multilingual { 
@@ -468,8 +468,8 @@ a
       &.lang-en {}
     }
 
-    .row,
-    .row > div > div,
+    .form-row,
+    .form-row > div > div,
     > div {
       margin-bottom: 20px !important;
       &:last-child { margin-bottom: 0px !important; }
@@ -526,12 +526,12 @@ a
       position: relative;
 
       &:first-child{ 
-        .row { label { display: block !important; }}
+        .form-row { label { display: block !important; }}
       }
 
       // label { display: none;}
 
-      .row {
+      .form-row {
         border-collapse: separate;
         border-right: 60px solid transparent !important;
 
@@ -603,7 +603,7 @@ a
   }
 } 
 
-.row { 
+.form-row { 
   width: 100%;
   clear: both;
   table-layout: fixed;
@@ -669,7 +669,7 @@ a
     vertical-align: top;
     position: relative;
 
-    .row {
+    .form-row {
        > div{ 
           border-right: 2px solid white;
 
@@ -913,14 +913,14 @@ label.radio {
 
 .fieldset-contact-person,
 .fieldset-other-contact-info {
-  > .row {
+  > .form-row {
 
     &:nth-child(4) {
       label { display: none;}
     }
 
     > div {
-      .row {
+      .form-row {
         > div {
            &:nth-child(1) {
             label { display: block !important;}

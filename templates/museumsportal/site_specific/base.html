@@ -53,19 +53,7 @@
     </div>
 </div>
     
-
 {% render_block "js" %}
 {{ site_settings.extra_body|safe }}
-<script type="text/javascript">
-$(function() {
-    $("a[href^='http://']").attr("target","_blank");	        
-        
-    if ($('#cms_toolbar').length) { // cms toolbar fix
-        if ($('body').css('margin-top') == "-43px") {
-            $('body').css('margin-top', 0);
-        }
-    }
-});
-</script>
 </body>
 </html>

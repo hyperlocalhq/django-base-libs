@@ -22,14 +22,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="content clearfix">
-  <div class="inner">
     {% if LANGUAGE_CODE == "de" %}
         {% include "cms/includes/start_de.html" %}
     {% else %}
         {% include "cms/includes/start_en.html" %}
     {% endif %}
-  </div>
-</div>
 {% endblock %}
 

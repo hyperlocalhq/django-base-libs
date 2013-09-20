@@ -1,5 +1,7 @@
 {% load base_tags i18n %}
-<button rel="tooltip" data-placement="top" data-original-title="{% if not is_not_favorite_for_user %}{% trans "Remove from Favorites" %}{% else %}{% trans "Add to Favorites" %}{% endif %}" class="favorite icon icon-white icon-favorite{% if not is_not_favorite_for_user %} active{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');">
+<button class="btn btn-default" rel="tooltip" data-placement="top" data-original-title="{% if not is_not_favorite_for_user %}{% trans "Remove from Favorites" %}{% else %}{% trans "Add to Favorites" %}{% endif %}" class="favorite icon icon-white icon-favorite{% if not is_not_favorite_for_user %} active{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');">
+  <span class="icon {% if not is_not_favorite_for_user %}icon-star-hollow{% else %}icon-star{% endif %}"></span>
+  <span class="sr-only">{% if not is_not_favorite_for_user %}{% trans "Remove from Favorites" %}{% else %}{% trans "Add to Favorites" %}{% endif %}</span>
 </button>
 
 

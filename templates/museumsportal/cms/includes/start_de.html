@@ -1,29 +1,35 @@
 {% load base_tags cms_tags i18n image_modifications slideshows infoblocks %}
 
-<header> {% slideshow "start_slideshow_de" %} </header>
+{% slideshow "start_slideshow_de" %} 
 
-<article>
-    <div class="clearfix">
-        <ul class="list compact clearfix">
-            <li class="title"><h3>{% trans "Newly Opened" %}</h3></li>
-            {% placeholder "start_page_left" %}
-        </ul>
-
-        <ul class="list compact clearfix">
-            <li class="title"><h3>{% trans "Must see" %}</h3></li>
-            {% placeholder "start_page_center" %}
-        </ul>
-
-        <ul class="list compact clearfix">
-            <li class="title"><h3>{% trans "Magazin" %}</h3></li>
-            {% placeholder "start_page_right" %}
-        </ul>
+<div class="container">
+  <div class="row row-narrow">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <h3>{% trans "Newly Opened" %}</h3>
+      <ul class="list compact clearfix">
+        {% placeholder "start_page_left" %}
+      </ul>
     </div>
 
-    <div class="twitter_frontpage">
-        <h3>{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h3>
-        <ul class="clearfix" id="tweets" data-twitter-username="museumsportal"> 
-        </ul> 
-        <div class="clearfix"></div>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <h3>{% trans "Must see" %}</h3>
+      <ul class="list compact clearfix">
+        {% placeholder "start_page_center" %}
+      </ul>
     </div>
-</article>
+
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <h3>{% trans "Magazin" %}</h3>
+      <ul class="list compact clearfix">
+        {% placeholder "start_page_right" %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="twitter_frontpage">
+    <h3>{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h3>
+    <ul class="clearfix" id="tweets" data-twitter-username="museumsportal"> 
+    </ul> 
+    <div class="clearfix"></div>
+  </div>
+</div>

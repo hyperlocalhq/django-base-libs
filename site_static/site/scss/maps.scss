@@ -70,21 +70,6 @@
   }
 }
 
-#map_controls  {
-  width: 1000px;
-  top: 25px;
-  left: 50%;
-  margin-left: -500px;
-  text-align: right;
-  height: 0px;
-  position: absolute;
-  z-index: 10000;
-  .btn {
-    width: 40px !important;
-    height: 40px !important;
-  }
-}
-
 #gmap_wrapper  {
   width: 100%;
   height: 0px;

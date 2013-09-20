@@ -7,6 +7,9 @@
     (function($, undefined) {
         $(function() {
             $('#gmap_toggle').click(function() {
+                if (!self.oMap) {
+                   initialize_map();
+                }
                 $('body').toggleClass('map_visible');
                 setTimeout(function() {
                     google.maps.event.trigger(oMap, 'resize');

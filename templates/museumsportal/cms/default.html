@@ -4,17 +4,13 @@
 
 {% block content %}
 
-<div class="content clearfix">
-  <div class="inner">
-      <header class="intro clearfix">{% placeholder "intro" %}</header>
-  </div>
+<div class="container">
+  <header class="intro clearfix">{% placeholder "intro" %}</header>
 </div>   
 
-<div class="content clearfix">
-  <div class="inner">
-    <article>
-      {% placeholder "main_content" %}
-    </article>
-  </div>
+<div class="container">
+  <article>
+    {% placeholder "main_content" %}
+  </article>
 </div>
 {% endblock %}

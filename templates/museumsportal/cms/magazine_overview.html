@@ -3,14 +3,8 @@
 {% block bodyclass %}magazine_overview{% endblock %}
 
 {% block content %}
-<div class="content clearfix">
-  <div class="inner">
-      <header class="intro clearfix">{% placeholder "intro" %}</header>
-  </div>
-</div>
-
-<div class="content clearfix">
-  <div class="inner">
+<div class="container">
+    <header class="intro clearfix">{% placeholder "intro" %}</header>
     <article>
       <section class="clearfix">{% placeholder "main_content" %}</section>
       <section class="clearfix marginal">{% placeholder "marginal_content" %}</section>
