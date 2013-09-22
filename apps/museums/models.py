@@ -415,6 +415,16 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                 self._twitter_username_cache = re.sub(r'/$', "", re.sub(r'^https?://twitter.com/', "", channels[0].url)) 
         return self._twitter_username_cache
 
+    def get_current_season(self):
+        today = datetime.today().date()
+        current_seasons = self.season_set.filter(
+            start__lte=today,
+            end__gte=today,
+        )
+        if current_seasons:
+            return current_seasons[0]
+        return None
+
 
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)
@@ -459,6 +469,10 @@ class Season(OpeningHoursMixin):
                 )),
             })
         return times
+
+    def is_current(self):
+        today = datetime.today().date()
+        return self.start <= today <= self.end
 
 
 class SpecialOpeningTime(models.Model):

@@ -227,7 +227,7 @@ $(document).ready(function(){
                           </a>
                         </h4>
                       </div>
-                      <div id="{{ season.title|slugify }}" class="panel-collapse collapse">
+                      <div id="{{ season.title|slugify }}" class="panel-collapse collapse{% if season.is_current %} in{% endif %}">
                         <div class="panel-body">
                             <p>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</p>
                             {% if season.is_appointment_based %}
