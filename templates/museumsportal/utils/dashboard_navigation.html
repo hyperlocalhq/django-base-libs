@@ -1,0 +1,42 @@
+{% load menu_tags i18n  %}
+
+<div class="navbar-wrapper">
+  <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="100">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- <a class="navbar-brand" href="#">Brand</a> -->
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/dashboard/conact/">{% trans "Contact" %}</a></li>
+        </ul>
+
+        <form class="navbar-form navbar-right" role="search" action="/search/" method="get">
+          <div class="input-group">
+            <div class="form-group">
+              <input id="search" type="text" class="form-control input-lg" name="q" placeholder="{% trans "Search" %}">
+            </div>
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-link btn-lg">
+                <span class="icon icon-zoom"></span>
+                <span class="sr-only">{% trans "Search" %}</span></a>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div><!-- /.navbar-collapse -->
+  </nav>
+</div>

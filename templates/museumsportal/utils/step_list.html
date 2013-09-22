@@ -1,14 +1,20 @@
 {% load i18n %}
 {% if steps %}
-    <ul class="form-steps">
-    {% for step in steps %}
-        <li{% if step.current %} class="active"{% endif %}>
-            {% if step.filled or step.active or step.current %}
-                <a class="txt" href="?step={{ forloop.counter }}"> {{ step.title|escape }} </a>
-            {% else %}
-                <span class="txt"> {{ step.title|escape }} </span>
-            {% endif %}
-        </li>
-    {% endfor %}
-    </ul>
+<div class="navbar-wrapper">
+    <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="100">
+        <div class="container">
+            <ul class="nav navbar-nav form-steps">
+            {% for step in steps %}
+                <li{% if step.current %} class="active"{% endif %}>
+                    {% if step.filled or step.active or step.current %}
+                        <a class="txt" href="?step={{ forloop.counter }}"> {{ step.title|escape }} </a>
+                    {% else %}
+                        <span class="txt"> {{ step.title|escape }} </span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </nav>
+</div>
 {% endif %}

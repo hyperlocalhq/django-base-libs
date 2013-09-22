@@ -2117,10 +2117,11 @@ fieldset[disabled] .btn-link:focus {
 }
 .btn-sm,
 .btn-xs {
-  padding: 5px 10px;
+  padding: 0px 10px;
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 30px;
   border-radius: 0px;
+  height: 30px;
 }
 .btn-xs {
   padding: 1px 5px;

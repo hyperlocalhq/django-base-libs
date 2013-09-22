@@ -1850,12 +1850,15 @@ dl {
   #search {
     display: inline-block; } }
 #dashboard fieldset {
-  margin-bottom: 60px;
+  margin-top: 60px;
   position: relative; }
 #dashboard legend {
   font-size: 28px;
   padding-bottom: 10px;
-  border: none !important; }
+  border: none !important;
+  margin: 0px; }
+  #dashboard legend a {
+    color: black; }
 #dashboard .all {
   color: #00aefd !important;
   font-size: 13px !important;
@@ -2196,6 +2199,9 @@ p a {
 
 .input-group .form-group {
   margin-bottom: 0px; }
+
+.tooltip {
+  pointer-events: none; }
 
 @-webkit-keyframes fadein {
   0% {

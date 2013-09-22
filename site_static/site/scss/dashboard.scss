@@ -1,6 +1,10 @@
 #dashboard {
-  fieldset { margin-bottom: 60px; position: relative; }
-  legend {font-size: 28px; padding-bottom: 10px; border: none !important; }
+  fieldset { margin-top: 60px; position: relative; }
+  legend {font-size: 28px; padding-bottom: 10px; border: none !important; margin: 0px;
+    a {
+      color: black;
+    }
+  }
   .all {color: $blue !important; font-size: 13px !important; line-height: 24px !important;
   &:hover { color: black !important;}
    } 
