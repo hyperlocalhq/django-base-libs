@@ -2,6 +2,7 @@
 
 <div id="images" class="content">
   <div class="container">
+    <h2>{% trans "Images" %}</h2>
     <div class="row row-narrow grid">
       {% for mf in object.mediafile_set.all %}
       {% with mf.path|file_description as file_desc %}

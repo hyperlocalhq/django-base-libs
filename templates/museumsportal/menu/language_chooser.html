@@ -1,4 +1,4 @@
 {% load menu_tags %}
 {% for language in languages %}
-<div><a class="btn btn-info {% ifequal current_language language.0 %} class="active"{% endifequal %}" href="/{{ language.0 }}/">{{ language.0|upper }}</a></div>
+<div><a class="btn btn-info{% ifequal current_language language.0 %} active{% endifequal %}" href="/{{ language.0 }}/">{{ language.0|upper }}</a></div>
 {% endfor %}

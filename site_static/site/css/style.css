@@ -604,8 +604,6 @@
 
 .item {
   list-style: none; }
-  .item a {
-    color: inherit; }
   .item:hover .actions {
     display: block; }
   .item .actions {
@@ -2320,35 +2318,49 @@ dl {
   .carousel-control.right:hover {
     right: -33px; }
 
-.carousel .item img {
-  opacity: 0.8; }
-.carousel .item .overlay {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  z-index: 1000;
-  padding: 40px;
-  padding-bottom: 35px; }
-  .carousel .item .overlay h2 {
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 48px;
-    margin-bottom: 25px;
-    display: block;
-    color: white; }
-    .carousel .item .overlay h2:last-child {
-      margin-bottom: 0px;
-      padding-bottom: 0px; }
-  .carousel .item .overlay h3 {
-    font-size: 40px;
-    line-height: 48px;
-    margin-bottom: 25px;
-    margin-top: -25px;
-    display: block;
-    color: white; }
-    .carousel .item .overlay h3:last-child {
-      margin-bottom: 0px;
-      padding-bottom: 0px; }
+.carousel .item {
+  background-color: black; }
+  .carousel .item img {
+    opacity: 0.8;
+    -webkit-filter: grayscale(100%);
+    /* New WebKit */
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    /* Not yet supported in Gecko, Opera or IE */
+    filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale");
+    /* Firefox 3.5+ */
+    filter: gray;
+    /* IE */
+    filter: grayscale(100%);
+    /* Current draft standard */ }
+  .carousel .item .overlay {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1000;
+    padding: 40px;
+    padding-bottom: 35px; }
+    .carousel .item .overlay h2 {
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 48px;
+      margin-bottom: 25px;
+      display: block;
+      color: white; }
+      .carousel .item .overlay h2:last-child {
+        margin-bottom: 0px;
+        padding-bottom: 0px; }
+    .carousel .item .overlay h3 {
+      font-size: 40px;
+      line-height: 48px;
+      margin-bottom: 25px;
+      margin-top: -25px;
+      display: block;
+      color: white; }
+      .carousel .item .overlay h3:last-child {
+        margin-bottom: 0px;
+        padding-bottom: 0px; }
 
 #footer ul.navigation {
   white-space: nowrap; }
@@ -2454,12 +2466,6 @@ h2 {
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
-
-h3 {
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 16px;
-  line-height: 20px; }
 
 p, dl, ul, ol {
   margin-left: 0px;

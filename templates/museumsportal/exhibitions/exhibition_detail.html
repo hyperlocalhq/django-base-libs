@@ -26,7 +26,7 @@ $(document).ready(function(){
 
 {% block edit_item %}
 {% if_has_perm "exhibitions.change_exhibition" object %}
-<li><a class="edit icon icon-white icon-edit" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></div>
+<div><a class="edit icon icon-white icon-edit" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></div>
 {% end_if_has_perm %}
 {% endblock %}
 
@@ -61,8 +61,8 @@ $(document).ready(function(){
 
         {{ exhibition.get_rendered_description }}
 
-      {% comment %}
-      <!-- <ul class="tags">
+        {% comment %}
+      <!-- <div class="tags">
       {% if exhibition.categories.count %}
       {% for cat in exhibition.categories.all %}
       <li class="cat"><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/exhibitions/{% endif %}#filter=.cat_{{ cat.title|slugify }}">{{ cat.title }}</a></div>
@@ -74,107 +74,101 @@ $(document).ready(function(){
       <li><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/exhibitions/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></div>
       {% endfor %}
       {% endif %}
-      </div>   -->
-      {% endcomment %} 
-    </article>
-  </div>
-  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+    </div>   -->
+    {% endcomment %} 
+  </article>
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+    <div class="panel-group" id="accordion2">  
+      <div class="panel panel-default">  
+        <div class="panel-heading">  
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
+            {% trans "Location" %}
+          </a>
+        </div>
+        <div id="collapse-location" class="panel-collapse collapse in">  
+          <div class="panel-body">
+            {% if exhibition.museum %}
+            {% with exhibition.museum as museum %}
+            <dl class="address">
+              <dt><a href="{{ museum.get_url_path }}">{{ museum.title }}</a> </dt>
+              <dd>{{ museum.street_address }}</dd>
+              {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
+              <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
 
-    <section class="sidebar">
-      <div class="panel-group" id="accordion2">  
-        <div class="panel panel-default">  
-          <div class="panel-heading">  
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
-              {% trans "Location" %}
-            </a>
-          </div>
-          <div id="collapse-location" class="panel-collapse collapse in">  
-            <div class="panel-body">
-              {% if exhibition.museum %}
-              {% with exhibition.museum as museum %}
-              <dl class="address">
-                <dt><a href="{{ museum.get_url_path }}">{{ museum.title }}</a> </dt>
-                <dd>{{ museum.street_address }}</dd>
-                {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
-                <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
-
-                {% with exhibition as list_item %}
-                <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
-                {% include "utils/geo_position.html" %}
-                {% endwith %}
-              </dl>
+              {% with exhibition as list_item %}
+              <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+              {% include "utils/geo_position.html" %}
               {% endwith %}
-              {% else %}
-              <dl class="address">
-                <dt>{{ exhibition.location_name }}</dt>
-                <dd>{{ exhibition.street_address }}</dd>
-                {% if exhibition.street_address2 %}<dd>{{ exhibition.street_address2 }}</dd>{% endif %} 
-                <dd>{{ exhibition.postal_code }} {{ exhibition.city }}</dd>
+            </dl>
+            {% endwith %}
+            {% else %}
+            <dl class="address">
+              <dt>{{ exhibition.location_name }}</dt>
+              <dd>{{ exhibition.street_address }}</dd>
+              {% if exhibition.street_address2 %}<dd>{{ exhibition.street_address2 }}</dd>{% endif %} 
+              <dd>{{ exhibition.postal_code }} {{ exhibition.city }}</dd>
 
-                {% with exhibition as list_item %}
-                <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
-                {% include "utils/geo_position.html" %}
-                {% endwith %}
-              </dl>
+              {% with exhibition as list_item %}
+              <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+              {% include "utils/geo_position.html" %}
+              {% endwith %}
+            </dl>
+            {% endif %}
+            {% if exhibition.organizer_set.count %}
+            <dl>
+              <dt>{% trans "Organizer" %}</dt>
+              {% for organizer in exhibition.organizer_set.all %}
+              {% if organizer.organizing_museum %}
+              <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
+              {% if organizer.organizing_museum.service_phone_number %}
+              <dt>{% trans "Service Telephone" %}
+                <span class="right">+{{ organizer.organizing_museum.service_phone_country }} ({{ organizer.organizing_museum.service_phone_area }}) {{ organizer.organizing_museum.service_phone_number }}</span>
+              </dt>
+              {% endif %} 
+              {% if organizer.organizing_museum.phone_number %}
+              <dt>{% trans "Telephone" %}
+                <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
+              </dt>
+              {% endif %} 
+              {% if organizer.organizing_museum.group_bookings_phone_number %}
+              <dt>{% trans "Booking Telephone" %}
+                <span class="right">+{{ organizer.organizing_museum.group_bookings_phone_country }} ({{ organizer.organizing_museum.group_bookings_phone_area }}) {{ organizer.organizing_museum.group_bookings_phone_number }}</span>
+              </dt>
+              {% endif %} 
+              {% if organizer.organizing_museum.fax_number %}
+              <dt>{% trans "Fax" %}
+                <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ organizer.organizing_museum.fax_number }}</span>
+              </dt>
               {% endif %}
-              {% if exhibition.organizer_set.count %}
-              <dl>
-                <dt>{% trans "Organizer" %}</dt>
-                {% for organizer in exhibition.organizer_set.all %}
-                {% if organizer.organizing_museum %}
-                <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
-                {% if organizer.organizing_museum.service_phone_number %}
-                <dt>{% trans "Service Telephone" %}
-                  <span class="right">+{{ organizer.organizing_museum.service_phone_country }} ({{ organizer.organizing_museum.service_phone_area }}) {{ organizer.organizing_museum.service_phone_number }}</span>
-                </dt>
-                {% endif %} 
-                {% if organizer.organizing_museum.phone_number %}
-                <dt>{% trans "Telephone" %}
-                  <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
-                </dt>
-                {% endif %} 
-                {% if organizer.organizing_museum.group_bookings_phone_number %}
-                <dt>{% trans "Booking Telephone" %}
-                  <span class="right">+{{ organizer.organizing_museum.group_bookings_phone_country }} ({{ organizer.organizing_museum.group_bookings_phone_area }}) {{ organizer.organizing_museum.group_bookings_phone_number }}</span>
-                </dt>
-                {% endif %} 
-                {% if organizer.organizing_museum.fax_number %}
-                <dt>{% trans "Fax" %}
-                  <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ organizer.organizing_museum.fax_number }}</span>
-                </dt>
-                {% endif %}
-                {% if organizer.organizing_museum.website %}
-                <dt>{% trans "Website" %}
-                  <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"25" }}</a></span>
-                </dt>
-                {% endif %}
-                {% if organizer.organizing_museum.email %}
-                {% load site_specific_tags %}
-                <dt>{% trans "Email" %}
-                  <span class="right">{% encrypt_email organizer.organizing_museum.email 30 %}</span>
-                </dt>
-                {% endif %}
-                {% endif %}
-                {% if organizer.organizer_title %}
-                {% if organizer.organizer_url_link %}
-                <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
-                {% else %}
-                <dd>{{ organizer.organizer_title }}</dd>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-
-                {% if exhibition.website %}
-                <dt>{% trans "Website" %}
-                  <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
-                </dt>
-                {% endif %}
-              </dl>
+              {% if organizer.organizing_museum.website %}
+              <dt>{% trans "Website" %}
+                <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"25" }}</a></span>
+              </dt>
+              {% endif %}
+              {% if organizer.organizing_museum.email %}
+              {% load site_specific_tags %}
+              <dt>{% trans "Email" %}
+                <span class="right">{% encrypt_email organizer.organizing_museum.email 30 %}</span>
+              </dt>
+              {% endif %}
+              {% endif %}
+              {% if organizer.organizer_title %}
+              {% if organizer.organizer_url_link %}
+              <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
               {% else %}
-            {% comment %}<!--
-              No organizers specified 
-              so take the contact data from the museum (location)
-            -->{% endcomment %}
+              <dd>{{ organizer.organizer_title }}</dd>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+
+              {% if exhibition.website %}
+              <dt>{% trans "Website" %}
+                <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
+              </dt>
+            </dl>
+            {% endif %}
+            {% else %}
             <dl>
               {% if exhibition.museum.service_phone_number %}
               <dt>{% trans "Service Telephone" %}
@@ -228,101 +222,102 @@ $(document).ready(function(){
           </div>
         </div>  
       </div>
+    </div>
 
-      <!-- ======= BVG ======= -->
+    <!-- ======= BVG ======= -->
 
-      {% if exhibition.museum %}
-      {% with exhibition.museum as list_item %}
-      {% include "utils/bvg.html" %}
-      {% endwith %}
-      {% else %}
-      {% with exhibition as list_item %}
-      {% include "utils/bvg.html" %}
-      {% endwith %}
-      {% endif %}
+    {% if exhibition.museum %}
+    {% with exhibition.museum as list_item %}
+    {% include "utils/bvg.html" %}
+    {% endwith %}
+    {% else %}
+    {% with exhibition as list_item %}
+    {% include "utils/bvg.html" %}
+    {% endwith %}
+    {% endif %}
 
-      <!-- ======= Vernissage ======= -->
+    <!-- ======= Vernissage ======= -->
 
-      {% if exhibition.vernissage %}
-      <div class="panel panel-default">  
-        <div class="panel-heading">  
-          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-vernissage">  
-            {% trans "Vernissage" %}
-          </a>
-        </div>
-        <div id="collapse-vernissage" class="panel-collapse collapse">  
-          <div class="panel-body">
-            <dl>
-              <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
-            </dl>
-          </div>
-        </div>  
+    {% if exhibition.vernissage %}
+    <div class="panel panel-default">  
+      <div class="panel-heading">  
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-vernissage">  
+          {% trans "Vernissage" %}
+        </a>
       </div>
-      {% endif %} 
-
-      <!-- ======= Finissage ======= -->
-
-      {% if exhibition.finissage %}
-      <div class="panel panel-default">  
-        <div class="panel-heading">  
-          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-finissage">  
-            {% trans "Finissage" %}
-          </a>
+      <div id="collapse-vernissage" class="panel-collapse collapse">  
+        <div class="panel-body">
+          <dl>
+            <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
+          </dl>
         </div>
-        <div id="collapse-finissage" class="panel-collapse collapse">  
-          <div class="panel-body">
-            <dl>
-              <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
-            </dl>
-          </div>
-        </div>  
+      </div>  
+    </div>
+    {% endif %} 
+
+    <!-- ======= Finissage ======= -->
+
+    {% if exhibition.finissage %}
+    <div class="panel panel-default">  
+      <div class="panel-heading">  
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-finissage">  
+          {% trans "Finissage" %}
+        </a>
       </div>
-      {% endif %} 
-
-      <!-- ======= Catalog ======= -->
-
-      {% if exhibition.catalog or exhibition.catalog_ordering %}
-      <div class="panel panel-default">  
-        <div class="panel-heading">  
-          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-catalog">  
-            {% trans "Catalog" %}
-          </a>
+      <div id="collapse-finissage" class="panel-collapse collapse">  
+        <div class="panel-body">
+          <dl>
+            <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
+          </dl>
         </div>
-        <div id="collapse-catalog" class="panel-collapse collapse">  
-          {% if exhibition.get_rendered_catalog %}
-          <div class="panel-body">
-            <dl>
-              <dd>{{ exhibition.get_rendered_catalog }}</dd>
-            </dl>
-          </div>
-          {% endif %}
-          {% if exhibition.catalog_ordering %}
-          <div class="panel-body">
-            <dl>
-              <dd><a href="{{ exhibition.catalog_ordering }}">{% trans "Ordering possibilities" %}</a></dd>
-            </dl>
-          </div>
-          {% endif %}
-        </div>  
+      </div>  
+    </div>
+    {% endif %} 
+
+    <!-- ======= Catalog ======= -->
+
+    {% if exhibition.catalog or exhibition.catalog_ordering %}
+    <div class="panel panel-default">  
+      <div class="panel-heading">  
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-catalog">  
+          {% trans "Catalog" %}
+        </a>
       </div>
-      {% endif %} 
+      <div id="collapse-catalog" class="panel-collapse collapse">  
+        {% if exhibition.get_rendered_catalog %}
+        <div class="panel-body">
+          <dl>
+            <dd>{{ exhibition.get_rendered_catalog }}</dd>
+          </dl>
+        </div>
+        {% endif %}
+        {% if exhibition.catalog_ordering %}
+        <div class="panel-body">
+          <dl>
+            <dd><a href="{{ exhibition.catalog_ordering }}">{% trans "Ordering possibilities" %}</a></dd>
+          </dl>
+        </div>
+        {% endif %}
+      </div>  
+    </div>
+    {% endif %} 
 
-      <!-- ======= Opening hours ======= -->
+    <!-- ======= Opening hours ======= -->
 
-      {% if exhibition.museum_opening_hours %}
-      {% with exhibition.museum as museum %}
-      {% if museum.season_set.count or museum.specialopeningtime_set.count %}
-      <div class="panel panel-default">  
-        <div class="panel-heading">  
-          <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
-            {% trans "Opening hours" %}
-          </a>  
-        </div>  
-        <div id="collapse-opening-times" class="panel-collapse collapse in">
-          {% if exhibition.get_actual_seasons.count == 1 %}
-          {% with exhibition.get_actual_seasons.0 as season %}
-          <div class="panel-body">
-                {% comment %}
+    {% if exhibition.museum_opening_hours %}
+    {% with exhibition.museum as museum %}
+    {% if museum.season_set.count or museum.specialopeningtime_set.count %}
+    <div class="panel panel-default">  
+      <div class="panel-heading">  
+        <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
+          {% trans "Opening hours" %}
+        </a>  
+      </div>  
+      <div id="collapse-opening-times" class="panel-collapse collapse in">
+        {% if exhibition.get_actual_seasons.count == 1 %}
+        {% with exhibition.get_actual_seasons.0 as season %}
+        <div class="panel-body">
+          {% comment %}
                 <!-- <dl>
                   <dt>{{ season.title }}</dt>
                   <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
@@ -474,8 +469,8 @@ $(document).ready(function(){
               <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
                 {% trans "Opening hours" %}
               </a>  
-            </h4>  
-            <ul id="collapse-opening-times" class="panel-collapse collapse in">  
+            </div>  
+            <div id="collapse-opening-times" class="panel-collapse collapse in">  
               {% if exhibition.season_set.count == 1 %}
               {% with exhibition.season_set.all.0 as season %}
               <div class="panel-body">
@@ -590,8 +585,8 @@ $(document).ready(function(){
           <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
             {% trans "Tickets" %} 
           </a>  
-        </h4>  
-        <ul id="collapse-prices" class="panel-collapse collapse" style="height: 0px; ">  
+        </div>  
+        <div id="collapse-prices" class="panel-collapse collapse" style="height: 0px; ">  
           <div class="panel-body">
             {% if museum.free_entrance %}
             {% trans "Free entrance" %}
@@ -681,8 +676,8 @@ $(document).ready(function(){
           <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
             {% trans "Tickets" %} 
           </a>  
-        </h4>  
-        <ul id="collapse-prices" class="panel-collapse collapse">  
+        </div>  
+        <div id="collapse-prices" class="panel-collapse collapse">  
           <div class="panel-body">
             {% if exhibition.free_entrance %}
             <dl>
@@ -720,8 +715,8 @@ $(document).ready(function(){
           <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
             {% trans "Accessibility" %}
           </a>
-        </h4>
-        <ul id="collapse-accessibility" class="panel-collapse collapse">
+        </div>
+        <div id="collapse-accessibility" class="panel-collapse collapse">
           <div class="panel-body">
             {% if exhibition.suitable_for_disabled %}
             <p>{% trans "Suitable for disabled" %}</p>
@@ -742,7 +737,6 @@ $(document).ready(function(){
       {% adding2favorites for exhibition using "favorites/includes/favorite_detail.html" %}
     </div>
     {% endif %}
-  </section>
 </div>
 </div>
 </div>
