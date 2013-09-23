@@ -1,11 +1,11 @@
 {% load base_tags i18n %}
 <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% if not is_not_favorite_for_user %}{% trans "Remove from Favorites" %}{% else %}{% trans "Add to Favorites" %}{% endif %}" class="favorite icon icon-white icon-favorite{% if not is_not_favorite_for_user %} active{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');">
 	{% if not is_not_favorite_for_user %}
-  <span class="icon icon-star-hollow"></span>
   <span class="sr-only">{% trans "Add to Favorites" %}</span>
+  <span class="icon icon-star-hollow"></span>
   {% else %}
-  <span class="icon icon-star"></span>
   <span class="sr-only">{% trans "Remove from Favorites" %}</span>
+  <span class="icon icon-star"></span>
   {% endif %}
 </button>
 

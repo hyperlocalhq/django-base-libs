@@ -20,10 +20,12 @@ var settings = {
 
 {% block content %}
 <div class="container">
-
-  <nav class="pull-right">
+  <nav id="controls" class="pull-right">
     {% if request.user.is_authenticated %}
-    <a class="btn icon icon-white icon-favorite active" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a>
+    <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
+      <span class="sr-only">{% trans "Favorites" %}</span>
+      <span class="icon icon-star"></span>
+    </a>
     {% endif %}
     <button id="gmap_toggle" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
       <span class="icon icon-location"></span>

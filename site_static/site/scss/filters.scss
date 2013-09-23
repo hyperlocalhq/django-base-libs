@@ -11,20 +11,20 @@ background-color: white;
 z-index: 10000;
  // &:hover .tab-content {display: block; }
  // .tab-content {display: none; }
- .accordion,
- .accordion-inner,
- .accordion-group { 
-    border: none;
-    margin: 0px;
-    padding: 0px;
-  }
-  ul {
-    margin: 0px;
-    padding: 0px;
-  }
-
-  .panel-body {
-    padding: 0px;
+ .panel + .panel {
+  margin-top: 0px;
+ }
+ .panel-collapse,
+ .panel {
+    background-color: transparent;
+   .panel-body { 
+      border: none;
+      margin: 0px;
+      padding: 0px;
+      ul {
+        margin: 0px;
+      }
+    }
   }
 }
 
@@ -39,7 +39,7 @@ z-index: 10000;
     background-color: $blue !important;
     color: white !important;
     &.collapsed {
-      background-color: $lightgrey !important; 
+      background-color: #f2f2f2 !important; 
       color: black !important;
     }
   }

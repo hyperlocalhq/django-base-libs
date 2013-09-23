@@ -4,739 +4,747 @@
 {% block bodyclass %}exhibition-detail{% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
-    <script type="text/javascript">
-        var aGeopositions = [];
-        var settings = {
-            STATIC_URL: "{{ STATIC_URL }}"
-        }
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+<script type="text/javascript">
+var aGeopositions = [];
+var settings = {
+  STATIC_URL: "{{ STATIC_URL }}"
+}
 
-        $(document).ready(function(){
-            $(".toggle_bvg").click(function () {
-                $("#bvg_widget").toggleClass("on");
-                return false;
-            });
-        });
-    </script>
+$(document).ready(function(){
+  $(".toggle_bvg").click(function () {
+    $("#bvg_widget").toggleClass("on");
+    return false;
+  });
+});
+</script>
 {% endblock %}
 
 {% block map %}
-    {% include "utils/gmap.html" %}
+{% include "utils/gmap.html" %}
 {% endblock %}
 
 {% block edit_item %}
-    {% if_has_perm "exhibitions.change_exhibition" object %}
-    <li><a class="edit icon icon-white icon-edit" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
-    {% end_if_has_perm %}
+{% if_has_perm "exhibitions.change_exhibition" object %}
+<li><a class="edit icon icon-white icon-edit" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></div>
+{% end_if_has_perm %}
 {% endblock %}
 
 {% block content %}
 {% with object as exhibition %}
 <div class="container">
-    <div class="container">
-        {% include "utils/cover_image.html" %}
-        <section class="sidebar">
-            <div class="panel-group" id="accordion2">  
-                <div class="panel panel-default">  
-                    <div class="panel-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
-                            {% trans "Location" %}
-                        </a>
-                    </h4>
-                    <ul id="collapse-location" class="panel-collapse collapse in">  
-                        <div class="panel-body">
-                            {% if exhibition.museum %}
-                                {% with exhibition.museum as museum %}
-                                    <dl class="address">
-                                        <dt><a href="{{ museum.get_url_path }}">{{ museum.title }}</a> </dt>
-                                        <dd>{{ museum.street_address }}</dd>
-                                        {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
-                                        <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
-
-                                        {% with exhibition as list_item %}
-                                            <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
-                                            {% include "utils/geo_position.html" %}
-                                        {% endwith %}
-                                    </dl>
-                                {% endwith %}
-                            {% else %}
-                                <dl class="address">
-                                    <dt>{{ exhibition.location_name }}</dt>
-                                    <dd>{{ exhibition.street_address }}</dd>
-                                    {% if exhibition.street_address2 %}<dd>{{ exhibition.street_address2 }}</dd>{% endif %} 
-                                    <dd>{{ exhibition.postal_code }} {{ exhibition.city }}</dd>
-
-                                    {% with exhibition as list_item %}
-                                        <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
-                                        {% include "utils/geo_position.html" %}
-                                    {% endwith %}
-                                </dl>
-                            {% endif %}
-                            {% if exhibition.organizer_set.count %}
-                                <dl>
-                                    <dt>{% trans "Organizer" %}</dt>
-                                    {% for organizer in exhibition.organizer_set.all %}
-                                        {% if organizer.organizing_museum %}
-                                            <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
-                                            {% if organizer.organizing_museum.service_phone_number %}
-                                                <dt>{% trans "Service Telephone" %}
-                                                    <span class="right">+{{ organizer.organizing_museum.service_phone_country }} ({{ organizer.organizing_museum.service_phone_area }}) {{ organizer.organizing_museum.service_phone_number }}</span>
-                                                </dt>
-                                            {% endif %} 
-                                            {% if organizer.organizing_museum.phone_number %}
-                                                <dt>{% trans "Telephone" %}
-                                                    <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
-                                                </dt>
-                                            {% endif %} 
-                                            {% if organizer.organizing_museum.group_bookings_phone_number %}
-                                                <dt>{% trans "Booking Telephone" %}
-                                                    <span class="right">+{{ organizer.organizing_museum.group_bookings_phone_country }} ({{ organizer.organizing_museum.group_bookings_phone_area }}) {{ organizer.organizing_museum.group_bookings_phone_number }}</span>
-                                                </dt>
-                                            {% endif %} 
-                                            {% if organizer.organizing_museum.fax_number %}
-                                                <dt>{% trans "Fax" %}
-                                                <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ organizer.organizing_museum.fax_number }}</span>
-                                                </dt>
-                                            {% endif %}
-                                            {% if organizer.organizing_museum.website %}
-                                                <dt>{% trans "Website" %}
-                                                    <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"25" }}</a></span>
-                                                </dt>
-                                            {% endif %}
-                                            {% if organizer.organizing_museum.email %}
-                                                {% load site_specific_tags %}
-                                                <dt>{% trans "Email" %}
-                                                    <span class="right">{% encrypt_email organizer.organizing_museum.email 30 %}</span>
-                                                </dt>
-                                            {% endif %}
-                                        {% endif %}
-                                        {% if organizer.organizer_title %}
-                                            {% if organizer.organizer_url_link %}
-                                                <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
-                                            {% else %}
-                                                <dd>{{ organizer.organizer_title }}</dd>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
-    
-                                    {% if exhibition.website %}
-                                        <dt>{% trans "Website" %}
-                                            <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
-                                        </dt>
-                                    {% endif %}
-                                </dl>
-                            {% else %}
-                                {% comment %}<!--
-                                    No organizers specified 
-                                    so take the contact data from the museum (location)
-                                -->{% endcomment %}
-                                <dl>
-                                    {% if exhibition.museum.service_phone_number %}
-                                        <dt>{% trans "Service Telephone" %}
-                                            <span class="right">+{{ exhibition.museum.service_phone_country }} ({{ exhibition.museum.service_phone_area }}) {{ exhibition.museum.service_phone_number }}</span>
-                                        </dt>
-                                    {% endif %} 
-    
-                                    {% if exhibition.museum.phone_number %}
-                                        <dt>{% trans "Telephone" %}
-                                            <span class="right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</span>
-                                        </dt>
-                                    {% endif %} 
-    
-                                    {% if exhibition.museum.group_bookings_phone_number %}
-                                        <dt>{% trans "Booking Telephone" %}
-                                            <span class="right">+{{ exhibition.museum.group_bookings_phone_country }} ({{ exhibition.museum.group_bookings_phone_area }}) {{ exhibition.museum.group_bookings_phone_number }}</span>
-                                        </dt>
-                                    {% endif %} 
-    
-                                    {% if exhibition.museum.fax_number %}
-                                        <dt>{% trans "Fax" %}
-                                            <span class="right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
-                                        </dt>
-                                    {% endif %} 
-    
-                                    {% if exhibition.website %}
-                                        <dt>{% trans "Website" %}
-                                            <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
-                                        </dt>
-                                    {% endif %}
-                                </dl>                            
-                            {% endif %}
-                            {% if exhibition.get_related_published_events.count %}
-                                <dl>
-                                    <dt>{% trans "Accompanying events" %}</dt>
-                                    <dd>
-                                        {% for event in exhibition.get_related_published_events %}
-                                            <a href="{{ event.get_url_path }}">
-                                                {% with event.get_closest_event_time as event_time %}
-                                                    {{ event_time.event_date|date:"j. F Y" }}
-                                                    {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                                    <br />
-                                                {% endwith %}
-                                                {{ event.title }}
-                                            </a>
-                                            {% if not forloop.last %}<br />{% endif %}
-                                        {% endfor %}
-                                    </dd>
-                                </dl>
-                            {% endif %}
-                        </li>
-                    </ul>  
-                </li>
-                
-                <!-- ======= BVG ======= -->
-
-                {% if exhibition.museum %}
-                    {% with exhibition.museum as list_item %}
-                        {% include "utils/bvg.html" %}
-                    {% endwith %}
-                {% else %}
-                    {% with exhibition as list_item %}
-                        {% include "utils/bvg.html" %}
-                    {% endwith %}
-                {% endif %}
-
-                <!-- ======= Vernissage ======= -->
-
-                {% if exhibition.vernissage %}
-                <div class="panel panel-default">  
-                    <div class="panel-heading">  
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-vernissage">  
-                            {% trans "Vernissage" %}
-                        </a>
-                    </h4>
-                    <ul id="collapse-vernissage" class="panel-collapse collapse">  
-                        <div class="panel-body">
-                            <dl>
-                                <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
-                            </dl>
-                        </li>
-                    </ul>  
-                </li>
-                {% endif %} 
-
-                <!-- ======= Finissage ======= -->
-
-                {% if exhibition.finissage %}
-                <div class="panel panel-default">  
-                    <div class="panel-heading">  
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-finissage">  
-                            {% trans "Finissage" %}
-                        </a>
-                    </h4>
-                    <ul id="collapse-finissage" class="panel-collapse collapse">  
-                        <div class="panel-body">
-                            <dl>
-                                <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
-                            </dl>
-                        </li>
-                    </ul>  
-                </li>
-                {% endif %} 
-
-                <!-- ======= Catalog ======= -->
-
-                {% if exhibition.catalog or exhibition.catalog_ordering %}
-                <div class="panel panel-default">  
-                    <div class="panel-heading">  
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-catalog">  
-                            {% trans "Catalog" %}
-                        </a>
-                    </h4>
-                    <ul id="collapse-catalog" class="panel-collapse collapse">  
-                        {% if exhibition.get_rendered_catalog %}
-                            <div class="panel-body">
-                                <dl>
-                                    <dd>{{ exhibition.get_rendered_catalog }}</dd>
-                                </dl>
-                            </li>
-                        {% endif %}
-                        {% if exhibition.catalog_ordering %}
-                            <div class="panel-body">
-                                <dl>
-                                    <dd><a href="{{ exhibition.catalog_ordering }}">{% trans "Ordering possibilities" %}</a></dd>
-                                </dl>
-                            </li>
-                        {% endif %}
-                    </ul>  
-                </li>
-                {% endif %} 
-
-                <!-- ======= Opening hours ======= -->
-
-                {% if exhibition.museum_opening_hours %}
-                    {% with exhibition.museum as museum %}
-                        {% if museum.season_set.count or museum.specialopeningtime_set.count %}
-                            <div class="panel panel-default">  
-                                <div class="panel-heading">  
-                                    <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
-                                        {% trans "Opening hours" %}
-                                    </a>  
-                                </h4>  
-                                <ul id="collapse-opening-times" class="panel-collapse collapse in">
-                                    {% if exhibition.get_actual_seasons.count == 1 %}
-                                        {% with exhibition.get_actual_seasons.0 as season %}
-                                            <div class="panel-body">
-                                                {% comment %}
-                                                    <!-- <dl>
-                                                        <dt>{{ season.title }}</dt>
-                                                        <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
-                                                    </dl> -->
-                                                {% endcomment %}
-                                                {% if season.is_appointment_based %}
-                                                    <dl>
-                                                        <dt>{% trans "Based on appointment" %}</dt>
-                                                    </dl>
-                                                {% else %}
-                                                    {% regroup season.get_opening_hours by times as opening_hours %}
-                                                    <dl>
-                                                    {% for same_hours in opening_hours %}
-                                                        <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
-                                                            {% if same_hours.list.0.open %}
-                                                                <span class="right">
-                                                                 {{ same_hours.list.0.open|time:"H:i" }}
-                                                                 {% if same_hours.list.0.break_close %}
-                                                                    - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                                      / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                 {% else %}
-                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                 {% endif %}
-                                                                 {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                                                </span>
-                                                            {% else %}				 
-                                                                <span class="right">
-                                                                {% trans "closed" %}
-                                                                </span>
-                                                            {% endif %}
-                                                        </dt>
-                                                    {% endfor %}                                   
-                                                    </dl>
-                                                {% endif %}
-                                                {% if season.last_entry %}
-                                                    <dl>
-                                                        <dt>{% trans "Last entry" %}
-                                                            <span class="right">{{ season.last_entry }}</span>
-                                                        </dt>
-                                                    </dl>
-                                                {% endif %}
-                                                {% if season.exceptions %}
-                                                    <p>{{ season.get_rendered_exceptions }}</p>
-                                                {% endif %}
-                                            </li>
-                                        {% endwith %}
-                                    {% else %}
-                                        {% for season in exhibition.get_actual_seasons %}
-                                        <div class="panel-body">
-                                            <dl>
-                                                <dt>{{ season.title }}</dt>
-                                                <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
-                                            </dl>
-                                            {% if season.is_appointment_based %}
-                                                <dl>
-                                                    <dt>{% trans "Based on appointment" %}</dt>
-                                                </dl>
-                                            {% else %}
-                                                {% regroup season.get_opening_hours by times as opening_hours %}
-                                                    <dl>
-                                                {% for same_hours in opening_hours %}
-                                                        <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
-                                                                <span class="right">
-                                                                    {% if same_hours.list.0.open %}
-                                                                         {{ same_hours.list.0.open|time:"H:i" }}
-                                                                         {% if same_hours.list.0.break_close %}
-                                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                         {% else %}
-                                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                    {% endif %}
-                                                                    {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                                                </span>
-                                                            {% else %}				 
-                                                                <span class="right">
-                                                                    {% trans "closed" %}
-                                                                </span>
-                                                            {% endif %}
-                                                        </dt>
-                                                {% endfor %}                                   
-                                                    </dl>
-                                            {% endif %}
-                                            {% if season.last_entry %}
-                                            <dl>
-                                                <dt>{% trans "Last entry" %}
-                                                    <span class="right">{{ season.last_entry }}</span>
-                                                </dt>
-                                            </dl>
-                                            {% endif %}
-                                            {% if season.exceptions %}
-                                                <dd>{{ season.get_rendered_exceptions }}</dd>
-                                            {% endif %}
-                                        </li>
-                                        {% endfor %}
-                                    {% endif %}
-                                    {% if exhibition.get_museums_special_opening_times %}
-                                        <div class="panel-body">
-                                        <dl id="special_openings">
-                                        {% for special_opening in exhibition.get_museums_special_opening_times %}
-                                            <dt{% if forloop.counter > 5 %} class="hidden"{% endif %}>
-                                            {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
-                                            {% if special_opening.is_closed %}
-                                                <span class="right">{% trans "Closed" %}</span>
-                                            {% else %}
-                                                {% if special_opening.is_regular %}
-                                                    <span class="right">{% trans "Regular" %}</span>
-                                                {% else %}
-                                                    <span class="right">{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
-                                                    {% if season.sun_break_close %}
-                                                        <dt>{% trans "Break:" %}
-                                                        <span class="right">{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span></dt>
-                                                    {% endif %}
-                                                {% endif %}
-                                            {% endif %}
-                                            </dt>
-                                        {% endfor %}
-                                        </dl>
-                                        <script>
-                                            $(function() {
-                                                var $special_openings = $('#special_openings');
-                                                var $hidden_times = $('dt.hidden', $special_openings).hide();
-                                                if ($hidden_times.length) {
-                                                    $('<a href="">{% trans "more" %}...</a>').click(function() {
-                                                        $(this).closest('dd').remove();
-                                                        $hidden_times.removeClass('hidden').show();
-                                                        return false;
-                                                    }).appendTo('<dd></dd>').parent().appendTo($special_openings);
-                                                }
-                                            });
-                                        </script>
-                                        </li>
-                                    {% endif %}
-                                </ul>  
-                            </li>
-                        {% endif %}
-                    {% endwith %}
-                {% else %}
-                    {% if exhibition.season_set.count %}
-                        <div class="panel panel-default">  
-                            <div class="panel-heading">  
-                                <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
-                                    {% trans "Opening hours" %}
-                                </a>  
-                            </h4>  
-                            <ul id="collapse-opening-times" class="panel-collapse collapse in">  
-                                {% if exhibition.season_set.count == 1 %}
-                                    {% with exhibition.season_set.all.0 as season %}
-                                        <div class="panel-body">
-                                            {% if season.is_appointment_based %}
-                                                <dl>
-                                                    <dd>{% trans "Based on appointment" %}</dd>
-                                                </dl>
-                                            {% else %}{% if season.is_open_24_7 %}
-                                                <dl>
-                                                    <dd>{% trans "Open 24/7" %}</dd>
-                                                </dl>
-                                            {% else %}
-                                                {% regroup season.get_opening_hours by times as opening_hours %}
-                                                <dl>
-                                                {% for same_hours in opening_hours %}
-                                                    <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
-                                                        {% if same_hours.list.0.open %}
-                                                            <span class="right">
-                                                                 {{ same_hours.list.0.open|time:"H:i" }}
-                                                                 {% if same_hours.list.0.break_close %}
-                                                                    - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                                      / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                 {% else %}
-                                                                    - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                 {% endif %}
-                                                                 {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                                            </span>
-                                                        {% else %}				 
-                                                            <span class="right">
-                                                                {% trans "closed" %}
-                                                            </span>
-                                                        {% endif %}
-                                                    </dt>
-                                                {% endfor %}                                   
-                                                </dl>
-                                            {% endif %}{% endif %}
-                                            {% if season.last_entry %}
-                                                <dl>
-                                                    <dt>{% trans "Last entry" %}
-                                                    <span class="right">{{ season.last_entry }}</span>
-                                                    </dt>
-                                                </dl>
-                                            {% endif %}
-                                            {% if season.exceptions %}
-                                                <dl>
-                                                    <dd>{{ season.get_rendered_exceptions }}</dd>
-                                                </dl>
-                                            {% endif %}
-                                        </li>
-                                    {% endwith %}
-                                {% else %}
-                                    {% for season in exhibition.season_set.all %}
-                                        <div class="panel-body">
-                                            {% if season.is_appointment_based %}
-                                                <dl>
-                                                    <dd>{% trans "Based on appointment" %}</dd>
-                                                </dl>
-                                            {% else %}
-                                                {% regroup season.get_opening_hours by times as opening_hours %}
-                                                <dl>
-                                                    {% for same_hours in opening_hours %}
-                                                            <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
-                                                                {% if same_hours.list.0.open %}
-                                                                    <span class="right">
-                                                                         {{ same_hours.list.0.open|time:"H:i" }}
-                                                                         {% if same_hours.list.0.break_close %}
-                                                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                                                              / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                         {% else %}
-                                                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                                                         {% endif %}
-                                                                         {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                                                    </span>
-                                                                {% else %}				 
-                                                                    <span class="right">
-                                                                        {% trans "closed" %}
-                                                                    </span>
-                                                                {% endif %}
-                                                            </dt>
-                                                    {% endfor %}                                   
-                                                </dl>
-                                            {% endif %}
-                                            {% if season.last_entry %}
-                                                <dl>
-                                                    <dt>{% trans "Last entry" %}
-                                                    <span class="right">{{ season.last_entry }}</span>
-                                                    </dt>
-                                                </dl>
-                                            {% endif %}
-                                            {% if season.exceptions %}
-                                                <dl>
-                                                    <dd>{{ season.get_rendered_exceptions }}</dd>
-                                                </dl>
-                                            {% endif %}
-                                        </li>
-                                    {% endfor %}
-                                {% endif %}
-                            </ul>  
-                        </li>
-                    {% endif %}
-                {% endif %}
-
-                <!-- ======= Tickets ======= -->
-
-                {% if exhibition.museum_prices %}
-                    {% with exhibition.museum as museum %}
-                        {% if museum.free_entrance or museum.admission_price or museum.admission_price_info or museum.reduced_price or museum.reduced_price_info or museum.arrangements_for_children or museum.free_entrance_for or museum.family_ticket or museum.group_ticket or museum.free_entrance_times or museum.yearly_ticket or museum.other_tickets or museum.member_of_museumspass or museum.group_booking_phone_number or museum.service_phone_number %}
-                        <div class="panel panel-default">  
-                            <div class="panel-heading">  
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
-                                    {% trans "Tickets" %} 
-                                </a>  
-                            </h4>  
-                            <ul id="collapse-prices" class="panel-collapse collapse" style="height: 0px; ">  
-                                <div class="panel-body">
-                                    {% if museum.free_entrance %}
-                                        {% trans "Free entrance" %}
-                                    {% else %}
-                                        {% if museum.admission_price %}
-                                            <dl>
-                                                <dt>{% trans "Admission price" %} {{ museum.admission_price|currencyfmt:"EUR" }}</dt>
-                                                {% if museum.admission_price_info %}
-                                                    <dd> {{ museum.get_rendered_admission_price_info }}</dd>
-                                                {% endif %}
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.reduced_price %}
-                                            <dl>
-                                                <dt>{% trans "Reduced price" %} {{ museum.reduced_price|currencyfmt:"EUR" }}</dt>
-                                                {% if museum.reduced_price_info %}
-                                                    <dd>{{ museum.get_rendered_reduced_price_info }} </dd>
-                                                {% endif %}
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.arrangements_for_children %}
-                                            <dl>
-                                                <dt>{% trans "Arrangements for children" %}</dt>
-                                                <dd>{{ museum.get_rendered_arrangements_for_children }} </dd>
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.free_entrance_for %}
-                                            <dl>
-                                                <dt>{% trans "Free entrance for" %}</dt>
-                                                <dd>{{ museum.get_rendered_free_entrance_for }} </dd>
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.show_family_ticket %}
-                                            <dl>
-                                                <dt>{% trans "Family ticket" %}</dt>
-                                                <dd>{% infoblock "family_ticket_info" %} </dd>
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.show_group_ticket %}
-                                            <dl>
-                                                <dt>{% trans "Group ticket" %}</dt>
-                                                <dd>{{ museum.get_rendered_group_ticket }} </dd>
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.free_entrance_times %}
-                                            <dl>
-                                                <dt>{% trans "Free entrance times" %}</dt>
-                                                <dd>{{ museum.get_rendered_free_entrance_times }} </dd>
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.show_yearly_ticket %}
-                                            <dl>
-                                                <dt>{% trans "Yearly ticket" %}</dt>
-                                                <dd>{% infoblock "yearly_ticket_info" %} </dd>
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.other_tickets %}
-                                            <dl>
-                                                <dt>{% trans "Other tickets" %}</dt>
-                                                <dd>{{ museum.get_rendered_other_tickets }}</dd>
-                                            </dl>
-                                        {% endif %}
-                                        {% if museum.member_of_museumspass %}
-                                            <dl>
-                                                <dt>{% trans "Member of Museumspass Berlin" %}</dt>
-                                            </dl>
-                                        {% endif %}
-                                    {% endif %}
-                                </li>
-                                {% if museum.group_bookings_phone_number %}
-                                <div class="panel-body"> 
-                                    <dl>
-                                        <dt>{% trans "Booking Telephone" %}
-                                            <span class="right">+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</span>
-                                        </dt>
-                                    </dl>
-                                </li>
-                                {% endif %} 
-                            </ul>  
-                        </li>  
-                        {% endif %}                     
-                    {% endwith %}
-                {% else %}
-                    {% if exhibition.free_entrance or exhibition.admission_price or exhibition.reduced_price %}
-                    <div class="panel panel-default">  
-                        <div class="panel-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
-                                {% trans "Tickets" %} 
-                            </a>  
-                        </h4>  
-                        <ul id="collapse-prices" class="panel-collapse collapse">  
-                            <div class="panel-body">
-                                {% if exhibition.free_entrance %}
-                                    <dl>
-                                        <dt>{% trans "Free entrance" %}</dt>
-                                    </dl>
-                                {% else %}
-                                    {% if exhibition.admission_price %}
-                                        <dl>
-                                            <dt>{% trans "Admission price" %} {{ exhibition.admission_price|currencyfmt:"EUR" }}</dt>
-                                            {% if exhibition.admission_price_info %}
-                                                <dd>{{ exhibition.get_rendered_admission_price_info }}</dd>
-                                            {% endif %}
-                                        </dl>
-                                    {% endif %}
-    
-                                    {% if exhibition.reduced_price %}
-                                        <dl>
-                                            <dt>{% trans "Reduced price" %} {{ exhibition.reduced_price|currencyfmt:"EUR" }}</dt>
-                                            {% if exhibition.reduced_price_info %}
-                                                <dd>{{ exhibition.get_rendered_reduced_price_info }}</dd>
-                                            {% endif %}
-                                        </dl>
-                                    {% endif %}
-                                {% endif %}
-                            </li>
-                        </ul>  
-                    </li>
-                    {% endif %}
-                {% endif %}
-
-                <!-- ======= Accessibility ======= -->
-
-                {% if exhibition.suitable_for_disabled or exhibition.suitable_for_disabled_info %}
-                    <div class="panel panel-default">  
-                        <div class="panel-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
-                                {% trans "Accessibility" %}
-                            </a>
-                        </h4>
-                        <ul id="collapse-accessibility" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                {% if exhibition.suitable_for_disabled %}
-                                    <p>{% trans "Suitable for disabled" %}</p>
-                                {% endif %}
-                                {% if exhibition.suitable_for_disabled_info %}
-                                    <div class="accessibility-desc">
-                                        {{ exhibition.get_rendered_suitable_for_disabled_info }}
-                                    </div>
-                                {% endif %}
-                            </li>
-                        </ul>  
-                    </li>
-                {% endif %}
-            </ul> 
-
-            {% if request.user.is_authenticated %}
-                <div class="tools">
-                {% adding2favorites for exhibition using "favorites/includes/favorite_detail.html" %}
-                </div>
+  {% include "utils/cover_image.html" %}
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+      <article class="with_sidebar">
+        <header>
+          <time>
+            {% if exhibition.permanent %}
+            {% trans "Permanent exhibition" %},
+            {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
+            {% else %}
+            {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
             {% endif %}
-        </section>
-            
-        <article class="with_sidebar">
-            <header>
-                <time>
-                    {% if exhibition.permanent %}
-                        {% trans "Permanent exhibition" %},
-                        {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
-                    {% else %}
-                        {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
-                    {% endif %}
-                </time>
-                <h1>{{ exhibition.title }}</h1>
-                {% if exhibition.subtitle %}
-                    <h2>{{ exhibition.subtitle }}</h2>
-                {% endif %}
-                {% if exhibition.location_name %}
-                    <h3>{{ exhibition.location_name }}</h3>
-                {% else %}
-                    {% if exhibition.museum %}
-                        <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
-                    {% endif %}
-                {% endif %}
-            </header>
-            
-            {{ exhibition.get_rendered_description }}
+          </time>
+          <h1>{{ exhibition.title }}</h1>
+          {% if exhibition.subtitle %}
+          <h2>{{ exhibition.subtitle }}</h2>
+          {% endif %}
+          {% if exhibition.location_name %}
+          <h3>{{ exhibition.location_name }}</h3>
+          {% else %}
+          {% if exhibition.museum %}
+          <a href="{{ exhibition.museum.get_url_path }}"><h3>{{ exhibition.museum.title }}</h3></a>
+          {% endif %}
+          {% endif %}
+        </header>
 
-            {% comment %}
-            <!-- <ul class="tags">
-                {% if exhibition.categories.count %}
-                    {% for cat in exhibition.categories.all %}
-                        <li class="cat"><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/exhibitions/{% endif %}#filter=.cat_{{ cat.title|slugify }}">{{ cat.title }}</a></li>
-                    {% endfor %}
-                {% endif %}
-                {% tags_for_object exhibition as tags %}
-                {% if tags %}
-                    {% for tag in tags %}
-                        <li><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/exhibitions/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
-                    {% endfor %}
-                {% endif %}
-            </ul>   -->
-            {% endcomment %} 
+        {{ exhibition.get_rendered_description }}
 
-        </article>
+      {% comment %}
+      <!-- <ul class="tags">
+      {% if exhibition.categories.count %}
+      {% for cat in exhibition.categories.all %}
+      <li class="cat"><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/exhibitions/{% endif %}#filter=.cat_{{ cat.title|slugify }}">{{ cat.title }}</a></div>
+      {% endfor %}
+      {% endif %}
+      {% tags_for_object exhibition as tags %}
+      {% if tags %}
+      {% for tag in tags %}
+      <li><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/exhibitions/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></div>
+      {% endfor %}
+      {% endif %}
+      </div>   -->
+      {% endcomment %} 
+    </article>
   </div>
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+    <section class="sidebar">
+      <div class="panel-group" id="accordion2">  
+        <div class="panel panel-default">  
+          <div class="panel-heading">  
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
+              {% trans "Location" %}
+            </a>
+          </div>
+          <div id="collapse-location" class="panel-collapse collapse in">  
+            <div class="panel-body">
+              {% if exhibition.museum %}
+              {% with exhibition.museum as museum %}
+              <dl class="address">
+                <dt><a href="{{ museum.get_url_path }}">{{ museum.title }}</a> </dt>
+                <dd>{{ museum.street_address }}</dd>
+                {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
+                <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+
+                {% with exhibition as list_item %}
+                <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+                {% include "utils/geo_position.html" %}
+                {% endwith %}
+              </dl>
+              {% endwith %}
+              {% else %}
+              <dl class="address">
+                <dt>{{ exhibition.location_name }}</dt>
+                <dd>{{ exhibition.street_address }}</dd>
+                {% if exhibition.street_address2 %}<dd>{{ exhibition.street_address2 }}</dd>{% endif %} 
+                <dd>{{ exhibition.postal_code }} {{ exhibition.city }}</dd>
+
+                {% with exhibition as list_item %}
+                <dd><a href="#" class="location">{% trans "Show location on map" %}</a></dd>
+                {% include "utils/geo_position.html" %}
+                {% endwith %}
+              </dl>
+              {% endif %}
+              {% if exhibition.organizer_set.count %}
+              <dl>
+                <dt>{% trans "Organizer" %}</dt>
+                {% for organizer in exhibition.organizer_set.all %}
+                {% if organizer.organizing_museum %}
+                <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
+                {% if organizer.organizing_museum.service_phone_number %}
+                <dt>{% trans "Service Telephone" %}
+                  <span class="right">+{{ organizer.organizing_museum.service_phone_country }} ({{ organizer.organizing_museum.service_phone_area }}) {{ organizer.organizing_museum.service_phone_number }}</span>
+                </dt>
+                {% endif %} 
+                {% if organizer.organizing_museum.phone_number %}
+                <dt>{% trans "Telephone" %}
+                  <span class="right">+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</span>
+                </dt>
+                {% endif %} 
+                {% if organizer.organizing_museum.group_bookings_phone_number %}
+                <dt>{% trans "Booking Telephone" %}
+                  <span class="right">+{{ organizer.organizing_museum.group_bookings_phone_country }} ({{ organizer.organizing_museum.group_bookings_phone_area }}) {{ organizer.organizing_museum.group_bookings_phone_number }}</span>
+                </dt>
+                {% endif %} 
+                {% if organizer.organizing_museum.fax_number %}
+                <dt>{% trans "Fax" %}
+                  <span class="right">+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ organizer.organizing_museum.fax_number }}</span>
+                </dt>
+                {% endif %}
+                {% if organizer.organizing_museum.website %}
+                <dt>{% trans "Website" %}
+                  <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"25" }}</a></span>
+                </dt>
+                {% endif %}
+                {% if organizer.organizing_museum.email %}
+                {% load site_specific_tags %}
+                <dt>{% trans "Email" %}
+                  <span class="right">{% encrypt_email organizer.organizing_museum.email 30 %}</span>
+                </dt>
+                {% endif %}
+                {% endif %}
+                {% if organizer.organizer_title %}
+                {% if organizer.organizer_url_link %}
+                <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
+                {% else %}
+                <dd>{{ organizer.organizer_title }}</dd>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+
+                {% if exhibition.website %}
+                <dt>{% trans "Website" %}
+                  <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
+                </dt>
+                {% endif %}
+              </dl>
+              {% else %}
+            {% comment %}<!--
+              No organizers specified 
+              so take the contact data from the museum (location)
+            -->{% endcomment %}
+            <dl>
+              {% if exhibition.museum.service_phone_number %}
+              <dt>{% trans "Service Telephone" %}
+                <span class="right">+{{ exhibition.museum.service_phone_country }} ({{ exhibition.museum.service_phone_area }}) {{ exhibition.museum.service_phone_number }}</span>
+              </dt>
+              {% endif %} 
+
+              {% if exhibition.museum.phone_number %}
+              <dt>{% trans "Telephone" %}
+                <span class="right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</span>
+              </dt>
+              {% endif %} 
+
+              {% if exhibition.museum.group_bookings_phone_number %}
+              <dt>{% trans "Booking Telephone" %}
+                <span class="right">+{{ exhibition.museum.group_bookings_phone_country }} ({{ exhibition.museum.group_bookings_phone_area }}) {{ exhibition.museum.group_bookings_phone_number }}</span>
+              </dt>
+              {% endif %} 
+
+              {% if exhibition.museum.fax_number %}
+              <dt>{% trans "Fax" %}
+                <span class="right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</span>
+              </dt>
+              {% endif %} 
+
+              {% if exhibition.website %}
+              <dt>{% trans "Website" %}
+                <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></span>
+              </dt>
+              {% endif %}
+            </dl>                            
+            {% endif %}
+            {% if exhibition.get_related_published_events.count %}
+            <dl>
+              <dt>{% trans "Accompanying events" %}</dt>
+              <dd>
+                {% for event in exhibition.get_related_published_events %}
+                <a href="{{ event.get_url_path }}">
+                  {% with event.get_closest_event_time as event_time %}
+                  {{ event_time.event_date|date:"j. F Y" }}
+                  {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                  <br />
+                  {% endwith %}
+                  {{ event.title }}
+                </a>
+                {% if not forloop.last %}<br />{% endif %}
+                {% endfor %}
+              </dd>
+            </dl>
+            {% endif %}
+          </div>
+        </div>  
+      </div>
+
+      <!-- ======= BVG ======= -->
+
+      {% if exhibition.museum %}
+      {% with exhibition.museum as list_item %}
+      {% include "utils/bvg.html" %}
+      {% endwith %}
+      {% else %}
+      {% with exhibition as list_item %}
+      {% include "utils/bvg.html" %}
+      {% endwith %}
+      {% endif %}
+
+      <!-- ======= Vernissage ======= -->
+
+      {% if exhibition.vernissage %}
+      <div class="panel panel-default">  
+        <div class="panel-heading">  
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-vernissage">  
+            {% trans "Vernissage" %}
+          </a>
+        </div>
+        <div id="collapse-vernissage" class="panel-collapse collapse">  
+          <div class="panel-body">
+            <dl>
+              <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
+            </dl>
+          </div>
+        </div>  
+      </div>
+      {% endif %} 
+
+      <!-- ======= Finissage ======= -->
+
+      {% if exhibition.finissage %}
+      <div class="panel panel-default">  
+        <div class="panel-heading">  
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-finissage">  
+            {% trans "Finissage" %}
+          </a>
+        </div>
+        <div id="collapse-finissage" class="panel-collapse collapse">  
+          <div class="panel-body">
+            <dl>
+              <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
+            </dl>
+          </div>
+        </div>  
+      </div>
+      {% endif %} 
+
+      <!-- ======= Catalog ======= -->
+
+      {% if exhibition.catalog or exhibition.catalog_ordering %}
+      <div class="panel panel-default">  
+        <div class="panel-heading">  
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-catalog">  
+            {% trans "Catalog" %}
+          </a>
+        </div>
+        <div id="collapse-catalog" class="panel-collapse collapse">  
+          {% if exhibition.get_rendered_catalog %}
+          <div class="panel-body">
+            <dl>
+              <dd>{{ exhibition.get_rendered_catalog }}</dd>
+            </dl>
+          </div>
+          {% endif %}
+          {% if exhibition.catalog_ordering %}
+          <div class="panel-body">
+            <dl>
+              <dd><a href="{{ exhibition.catalog_ordering }}">{% trans "Ordering possibilities" %}</a></dd>
+            </dl>
+          </div>
+          {% endif %}
+        </div>  
+      </div>
+      {% endif %} 
+
+      <!-- ======= Opening hours ======= -->
+
+      {% if exhibition.museum_opening_hours %}
+      {% with exhibition.museum as museum %}
+      {% if museum.season_set.count or museum.specialopeningtime_set.count %}
+      <div class="panel panel-default">  
+        <div class="panel-heading">  
+          <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
+            {% trans "Opening hours" %}
+          </a>  
+        </div>  
+        <div id="collapse-opening-times" class="panel-collapse collapse in">
+          {% if exhibition.get_actual_seasons.count == 1 %}
+          {% with exhibition.get_actual_seasons.0 as season %}
+          <div class="panel-body">
+                {% comment %}
+                <!-- <dl>
+                  <dt>{{ season.title }}</dt>
+                  <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                </dl> -->
+                {% endcomment %}
+
+                {% if season.is_appointment_based %}
+                <dl>
+                  <dt>{% trans "Based on appointment" %}</dt>
+                </dl>
+                {% else %}
+                {% regroup season.get_opening_hours by times as opening_hours %}
+                <dl>
+                  {% for same_hours in opening_hours %}
+                  <dt>
+                    {% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
+
+                    {% if same_hours.list.0.open %}
+                    <span class="right">
+                      {{ same_hours.list.0.open|time:"H:i" }}
+                      {% if same_hours.list.0.break_close %}
+                      - {{ same_hours.list.0.break_close|time:"H:i" }}
+                      / {{ same_hours.list.0.break_open|time:"H:i" }}
+                      - {{ same_hours.list.0.close|time:"H:i" }}
+                      {% else %}
+                      - {{ same_hours.list.0.close|time:"H:i" }}
+                      {% endif %}
+                      {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                    </span>
+                    {% else %}				 
+                    <span class="right">
+                      {% trans "closed" %}
+                    </span>
+                    {% endif %}
+                  </dt>
+                  {% endfor %}                                   
+                </dl>
+                {% endif %}
+
+                {% if season.last_entry %}
+                <dl>
+                  <dt>{% trans "Last entry" %}
+                    <span class="right">{{ season.last_entry }}</span>
+                  </dt>
+                </dl>
+                {% endif %}
+
+                {% if season.exceptions %}
+                <p>{{ season.get_rendered_exceptions }}</p>
+                {% endif %}
+
+              </div>
+              {% endwith %}
+              {% else %}
+              {% for season in exhibition.get_actual_seasons %}
+              <div class="panel-body">
+                <dl>
+                  <dt>{{ season.title }}</dt>
+                  <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
+                </dl>
+                {% if season.is_appointment_based %}
+                <dl>
+                  <dt>{% trans "Based on appointment" %}</dt>
+                </dl>
+                {% else %}
+                {% regroup season.get_opening_hours by times as opening_hours %}
+                <dl>
+                  {% for same_hours in opening_hours %}
+                  <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
+                    <span class="right">
+                      {% if same_hours.list.0.open %}
+                      {{ same_hours.list.0.open|time:"H:i" }}
+                      {% if same_hours.list.0.break_close %}
+                      - {{ same_hours.list.0.break_close|time:"H:i" }}
+                      / {{ same_hours.list.0.break_open|time:"H:i" }}
+                      - {{ same_hours.list.0.close|time:"H:i" }}
+                      {% else %}
+                      - {{ same_hours.list.0.close|time:"H:i" }}
+                      {% endif %}
+                      {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                    </span>
+                    {% else %}				 
+                    <span class="right">
+                      {% trans "closed" %}
+                    </span>
+                    {% endif %}
+                  </dt>
+                  {% endfor %}                                   
+                </dl>
+                {% endif %}
+                {% if season.last_entry %}
+                <dl>
+                  <dt>{% trans "Last entry" %}
+                    <span class="right">{{ season.last_entry }}</span>
+                  </dt>
+                </dl>
+                {% endif %}
+                {% if season.exceptions %}
+                <dd>{{ season.get_rendered_exceptions }}</dd>
+                {% endif %}
+              </div>
+              {% endfor %}
+              {% endif %}
+              {% if exhibition.get_museums_special_opening_times %}
+              <div class="panel-body">
+                <dl id="special_openings">
+                  {% for special_opening in exhibition.get_museums_special_opening_times %}
+                  <dt{% if forloop.counter > 5 %} class="hidden"{% endif %}>
+                  {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
+                  {% if special_opening.is_closed %}
+                  <span class="right">{% trans "Closed" %}</span>
+                  {% else %}
+                  {% if special_opening.is_regular %}
+                  <span class="right">{% trans "Regular" %}</span>
+                  {% else %}
+                  <span class="right">{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
+                  {% if season.sun_break_close %}
+                  <dt>{% trans "Break:" %}
+                    <span class="right">{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span></dt>
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
+                  </dt>
+                  {% endfor %}
+                </dl>
+                <script>
+                $(function() {
+                  var $special_openings = $('#special_openings');
+                  var $hidden_times = $('dt.hidden', $special_openings).hide();
+                  if ($hidden_times.length) {
+                    $('<a href="">{% trans "more" %}...</a>').click(function() {
+                      $(this).closest('dd').remove();
+                      $hidden_times.removeClass('hidden').show();
+                      return false;
+                    }).appendTo('<dd></dd>').parent().appendTo($special_openings);
+                  }
+                });
+                </script>
+              </div>
+              {% endif %}
+            </div>  
+          </div>
+          {% endif %}
+          {% endwith %}
+          {% else %}
+          {% if exhibition.season_set.count %}
+          <div class="panel panel-default">  
+            <div class="panel-heading">  
+              <a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
+                {% trans "Opening hours" %}
+              </a>  
+            </h4>  
+            <ul id="collapse-opening-times" class="panel-collapse collapse in">  
+              {% if exhibition.season_set.count == 1 %}
+              {% with exhibition.season_set.all.0 as season %}
+              <div class="panel-body">
+                {% if season.is_appointment_based %}
+                <dl>
+                  <dd>{% trans "Based on appointment" %}</dd>
+                </dl>
+                {% else %}{% if season.is_open_24_7 %}
+                <dl>
+                  <dd>{% trans "Open 24/7" %}</dd>
+                </dl>
+                {% else %}
+                {% regroup season.get_opening_hours by times as opening_hours %}
+                <dl>
+                  {% for same_hours in opening_hours %}
+                  <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
+                    {% if same_hours.list.0.open %}
+                    <span class="right">
+                     {{ same_hours.list.0.open|time:"H:i" }}
+                     {% if same_hours.list.0.break_close %}
+                     - {{ same_hours.list.0.break_close|time:"H:i" }}
+                     / {{ same_hours.list.0.break_open|time:"H:i" }}
+                     - {{ same_hours.list.0.close|time:"H:i" }}
+                     {% else %}
+                     - {{ same_hours.list.0.close|time:"H:i" }}
+                     {% endif %}
+                     {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                   </span>
+                   {% else %}				 
+                   <span class="right">
+                    {% trans "closed" %}
+                  </span>
+                  {% endif %}
+                </dt>
+                {% endfor %}                                   
+              </dl>
+              {% endif %}{% endif %}
+              {% if season.last_entry %}
+              <dl>
+                <dt>{% trans "Last entry" %}
+                  <span class="right">{{ season.last_entry }}</span>
+                </dt>
+              </dl>
+              {% endif %}
+              {% if season.exceptions %}
+              <dl>
+                <dd>{{ season.get_rendered_exceptions }}</dd>
+              </dl>
+              {% endif %}
+            </div>
+            {% endwith %}
+            {% else %}
+            {% for season in exhibition.season_set.all %}
+            <div class="panel-body">
+              {% if season.is_appointment_based %}
+              <dl>
+                <dd>{% trans "Based on appointment" %}</dd>
+              </dl>
+              {% else %}
+              {% regroup season.get_opening_hours by times as opening_hours %}
+              <dl>
+                {% for same_hours in opening_hours %}
+                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
+                  {% if same_hours.list.0.open %}
+                  <span class="right">
+                   {{ same_hours.list.0.open|time:"H:i" }}
+                   {% if same_hours.list.0.break_close %}
+                   - {{ same_hours.list.0.break_close|time:"H:i" }}
+                   / {{ same_hours.list.0.break_open|time:"H:i" }}
+                   - {{ same_hours.list.0.close|time:"H:i" }}
+                   {% else %}
+                   - {{ same_hours.list.0.close|time:"H:i" }}
+                   {% endif %}
+                   {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                 </span>
+                 {% else %}				 
+                 <span class="right">
+                  {% trans "closed" %}
+                </span>
+                {% endif %}
+              </dt>
+              {% endfor %}                                   
+            </dl>
+            {% endif %}
+            {% if season.last_entry %}
+            <dl>
+              <dt>{% trans "Last entry" %}
+                <span class="right">{{ season.last_entry }}</span>
+              </dt>
+            </dl>
+            {% endif %}
+            {% if season.exceptions %}
+            <dl>
+              <dd>{{ season.get_rendered_exceptions }}</dd>
+            </dl>
+            {% endif %}
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>  
+      </div>
+      {% endif %}
+      {% endif %}
+
+      <!-- ======= Tickets ======= -->
+
+      {% if exhibition.museum_prices %}
+      {% with exhibition.museum as museum %}
+      {% if museum.free_entrance or museum.admission_price or museum.admission_price_info or museum.reduced_price or museum.reduced_price_info or museum.arrangements_for_children or museum.free_entrance_for or museum.family_ticket or museum.group_ticket or museum.free_entrance_times or museum.yearly_ticket or museum.other_tickets or museum.member_of_museumspass or museum.group_booking_phone_number or museum.service_phone_number %}
+      <div class="panel panel-default">  
+        <div class="panel-heading">  
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+            {% trans "Tickets" %} 
+          </a>  
+        </h4>  
+        <ul id="collapse-prices" class="panel-collapse collapse" style="height: 0px; ">  
+          <div class="panel-body">
+            {% if museum.free_entrance %}
+            {% trans "Free entrance" %}
+            {% else %}
+            {% if museum.admission_price %}
+            <dl>
+              <dt>{% trans "Admission price" %} {{ museum.admission_price|currencyfmt:"EUR" }}</dt>
+              {% if museum.admission_price_info %}
+              <dd> {{ museum.get_rendered_admission_price_info }}</dd>
+              {% endif %}
+            </dl>
+            {% endif %}
+            {% if museum.reduced_price %}
+            <dl>
+              <dt>{% trans "Reduced price" %} {{ museum.reduced_price|currencyfmt:"EUR" }}</dt>
+              {% if museum.reduced_price_info %}
+              <dd>{{ museum.get_rendered_reduced_price_info }} </dd>
+              {% endif %}
+            </dl>
+            {% endif %}
+            {% if museum.arrangements_for_children %}
+            <dl>
+              <dt>{% trans "Arrangements for children" %}</dt>
+              <dd>{{ museum.get_rendered_arrangements_for_children }} </dd>
+            </dl>
+            {% endif %}
+            {% if museum.free_entrance_for %}
+            <dl>
+              <dt>{% trans "Free entrance for" %}</dt>
+              <dd>{{ museum.get_rendered_free_entrance_for }} </dd>
+            </dl>
+            {% endif %}
+            {% if museum.show_family_ticket %}
+            <dl>
+              <dt>{% trans "Family ticket" %}</dt>
+              <dd>{% infoblock "family_ticket_info" %} </dd>
+            </dl>
+            {% endif %}
+            {% if museum.show_group_ticket %}
+            <dl>
+              <dt>{% trans "Group ticket" %}</dt>
+              <dd>{{ museum.get_rendered_group_ticket }} </dd>
+            </dl>
+            {% endif %}
+            {% if museum.free_entrance_times %}
+            <dl>
+              <dt>{% trans "Free entrance times" %}</dt>
+              <dd>{{ museum.get_rendered_free_entrance_times }} </dd>
+            </dl>
+            {% endif %}
+            {% if museum.show_yearly_ticket %}
+            <dl>
+              <dt>{% trans "Yearly ticket" %}</dt>
+              <dd>{% infoblock "yearly_ticket_info" %} </dd>
+            </dl>
+            {% endif %}
+            {% if museum.other_tickets %}
+            <dl>
+              <dt>{% trans "Other tickets" %}</dt>
+              <dd>{{ museum.get_rendered_other_tickets }}</dd>
+            </dl>
+            {% endif %}
+            {% if museum.member_of_museumspass %}
+            <dl>
+              <dt>{% trans "Member of Museumspass Berlin" %}</dt>
+            </dl>
+            {% endif %}
+            {% endif %}
+          </div>
+          {% if museum.group_bookings_phone_number %}
+          <div class="panel-body"> 
+            <dl>
+              <dt>{% trans "Booking Telephone" %}
+                <span class="right">+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</span>
+              </dt>
+            </dl>
+          </div>
+          {% endif %} 
+        </div>  
+      </div>  
+      {% endif %}                     
+      {% endwith %}
+      {% else %}
+      {% if exhibition.free_entrance or exhibition.admission_price or exhibition.reduced_price %}
+      <div class="panel panel-default">  
+        <div class="panel-heading">  
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
+            {% trans "Tickets" %} 
+          </a>  
+        </h4>  
+        <ul id="collapse-prices" class="panel-collapse collapse">  
+          <div class="panel-body">
+            {% if exhibition.free_entrance %}
+            <dl>
+              <dt>{% trans "Free entrance" %}</dt>
+            </dl>
+            {% else %}
+            {% if exhibition.admission_price %}
+            <dl>
+              <dt>{% trans "Admission price" %} {{ exhibition.admission_price|currencyfmt:"EUR" }}</dt>
+              {% if exhibition.admission_price_info %}
+              <dd>{{ exhibition.get_rendered_admission_price_info }}</dd>
+              {% endif %}
+            </dl>
+            {% endif %}
+            {% if exhibition.reduced_price %}
+            <dl>
+              <dt>{% trans "Reduced price" %} {{ exhibition.reduced_price|currencyfmt:"EUR" }}</dt>
+              {% if exhibition.reduced_price_info %}
+              <dd>{{ exhibition.get_rendered_reduced_price_info }}</dd>
+              {% endif %}
+            </dl>
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>  
+      </div>
+      {% endif %}
+      {% endif %}
+
+      <!-- ======= Accessibility ======= -->
+
+      {% if exhibition.suitable_for_disabled or exhibition.suitable_for_disabled_info %}
+      <div class="panel panel-default">  
+        <div class="panel-heading">  
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
+            {% trans "Accessibility" %}
+          </a>
+        </h4>
+        <ul id="collapse-accessibility" class="panel-collapse collapse">
+          <div class="panel-body">
+            {% if exhibition.suitable_for_disabled %}
+            <p>{% trans "Suitable for disabled" %}</p>
+            {% endif %}
+            {% if exhibition.suitable_for_disabled_info %}
+            <div class="accessibility-desc">
+              {{ exhibition.get_rendered_suitable_for_disabled_info }}
+            </div>
+            {% endif %}
+          </div>
+        </div>  
+      </div>
+      {% endif %}
+    </div> 
+
+    {% if request.user.is_authenticated %}
+    <div class="tools">
+      {% adding2favorites for exhibition using "favorites/includes/favorite_detail.html" %}
+    </div>
+    {% endif %}
+  </section>
+</div>
+</div>
 </div>
 
 {% include "utils/images.html" %}
@@ -744,101 +752,82 @@
 <!-- ======= Workshops ======= -->
 
 {% if object.get_related_published_workshops.count %}
-    <div class="content" class="clearfix">
-        <div class="inner">
-            <h2>{% trans "Guided Tours, Workshops and educational offers" %}</h2>
-            <ul class="list rows clearfix">
-                {% for workshop in object.get_related_published_workshops %}
-                    <li class="item">
-                        <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
-
-                        <a href="{{ workshop.get_url_path }}">
-                            {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                                <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
-                            {% else %}
-                                <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
-                                    
-                                {% with workshop.get_closest_workshop_time as workshop_time %}
-                                    {{ workshop_time.workshop_date|date:"j. F Y" }}
-                                    {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                {% endwith %}</h4>
-                            {% endif %}
-                            <h3>{{ workshop.title }}</h3>
-                            {% if workshop.subtitle %}
-                                <h4>{{ workshop.subtitle }}</h4>
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+<div id="workshops" class="content">
+  <div class="container">
+    <h2>{% trans "Guided Tours, Workshops and educational offers" %}</h2>
+    <div class="list">
+      {% for workshop in object.get_related_published_workshops %}
+      <div class="item">
+        <a href="{{ workshop.get_url_path }}">
+          {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+          <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
+          {% else %}
+          <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
+            {% with workshop.get_closest_workshop_time as workshop_time %}
+            {{ workshop_time.workshop_date|date:"j. F Y" }}
+            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+            {% endwith %}</h4>
+            {% endif %}
+            <h3>{{ workshop.title }}</h3>
+            {% if workshop.subtitle %}
+            <h4>{{ workshop.subtitle }}</h4>
+            {% endif %}
+          </a>
         </div>
-    </div>  
+        {% endfor %}
+      </div>
+    </div>
+  </div>  
+</div>  
 {% endif %} 
 
 <!-- ======= Events ======= -->
-    
+
 {% if object.get_related_published_events.count %}
-<div class="container">
-    <div class="container">
-        <h2>{% trans "Events" %}</h2>
-        <ul class="list rows clearfix"> 
-            {% for event in object.get_related_published_events %}
-            <li>
-                <a href="{{ event.get_url_path }}">
-                    <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}  {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}</h4>
-                    <h3>{{ event.title }}</h3>
-                    <h4>{{ event.subtitle }}</h4>
-                    <h5>{{ event.museum.title }}</h5>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
+<div id="events" class="content">
+  <div class="container">
+    <h2>{% trans "Events" %}</h2>
+    <div class="list"> 
+      {% for event in object.get_related_published_events %}
+      <div class="item">
+        <a href="{{ event.get_url_path }}">
+          <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }}  {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}</h4>
+          <h3>{{ event.title }}</h3>
+          <h4>{{ event.subtitle }}</h4>
+          <h5>{{ event.museum.title }}</h5>
+        </a>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 </div>
 {% endif %}
 
 <!-- ======= Exhibitions ======= -->
 
 {% if object.get_other_exhibitions %}
-<div class="content" class="clearfix">
-    <div class="inner">
-        <h2>{% trans "More Exhibitions" %}</h2>
-        <ul class="list rows clearfix">
-            {% for exhibition in object.get_other_exhibitions %}
-                <li class="item">
-
-                    {% comment %}<!--
-                        <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }}"{% endif %}> </a>
-
-                        <nav class="actions">
-                            {% if request.user.is_authenticated %}
-                                {% adding2favorites for exhibition %}
-                            {% endif %}
-                            <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
-                        </nav>
-
-                        {% with exhibition as list_item %}
-                            {% include "utils/geo_position.html" %}
-                        {% endwith %}
-                    -->{% endcomment %}
-
-                    <a href="{{ exhibition.get_url_path }}">
-                        <h3>{{ exhibition.title }}</h3>
-                        <h4>{{ exhibition.subtitle }}</h4>
-                        <h5>
-                        {% if exhibition.permanent %}
-                            {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
-                        {% else %}
-                            {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
-                        {% endif %}
-                        </h5>
-                    </a>
-
-                </li>
-            {% endfor %}
-        </ul>
+<div id="exhibitions" class="content">
+  <div class="container">
+    <h2>{% trans "More Exhibitions" %}</h2>
+    <div class="list">
+      {% for exhibition in object.get_other_exhibitions %}
+      <div class="item">
+        <a href="{{ exhibition.get_url_path }}">
+          <h3>{{ exhibition.title }}</h3>
+          <h4>{{ exhibition.subtitle }}</h4>
+          <h5>
+            {% if exhibition.permanent %}
+            {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
+            {% else %}
+            {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
+            {% endif %}
+          </h5>
+        </a>
+      </div>
+      {% endfor %}
     </div>
-</div>  
+  </div>
+</div>
 {% endif %}
 
 {% endwith %}

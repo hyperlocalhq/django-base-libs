@@ -158,3 +158,49 @@
     }
   }
 }
+
+
+
+.inline {
+  display: block;
+  font-size: 0px;
+
+  > div {
+    display: inline-block;
+    white-space: nowrap;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 5px;
+    position: relative;
+
+    label { 
+      position: relative;
+      padding-right: 10px !important;
+      background-color: #f2f2f2;
+      line-height: 40px;
+      height: 40px !important;
+      display: inline-block !important;
+      min-height: auto;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+
+      &:hover {background-color: rgba(0,0,0,0.075); cursor: pointer; }
+
+      &.checkbox,
+      &.radio { padding-left: 30px !important;}
+
+      &.radio input[type="radio"], &.checkbox input[type="checkbox"] {
+        margin: 0px !important;
+        display: inline-block;
+        margin-right: 5px !important;
+        top: 50%;
+        left: 0px !important;
+        margin-left: 10px !important;
+        margin-top: -6px !important;
+        position: absolute;
+      }
+    }
+  }
+}

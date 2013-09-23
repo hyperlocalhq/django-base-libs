@@ -79,54 +79,66 @@ class BasicInfoForm(ModelForm):
             _("Basic Info"),
             
             layout.HTML("""{% load i18n %}
-                <div class="row cols-2">
-                    <div id="div_id_title_de" class="clearfix control-group">
-                        <label for="id_title_de" class="control-label requiredField">
-                        {% trans "Name" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
-                        <div class="controls">
-                            <input disabled="disabled" name="title_de" maxlength="255" type="text" class="textinput textInput form_text" value="{{ museum.title_de|escape }}" id="id_title_de">
-                        </div>
-                    </div>
-                    <div id="div_id_title_en" class="clearfix control-group">
-                        <label for="id_title_en" class="control-label ">
-                        {% trans "Name" %} <span class="lang">EN</span></label>
-                        <div class="controls">
-                            <input disabled="disabled" name="title_en" maxlength="255" type="text" class="textinput textInput form_text" value="{{ museum.title_en|escape }}" id="id_title_en">
-                        </div>
-                    </div>
-                </div>
-                <div class="row cols-2">
-                    <div id="div_id_subtitle_de" class="clearfix control-group">
-                        <label for="id_subtitle_de" class="control-label ">
-                        {% trans "Subtitle" %} <span class="lang">DE</span></label>
-                        <div class="controls">
-                            <input disabled="disabled" name="subtitle_de" maxlength="255" type="text" class="textinput textInput form_text" id="id_subtitle_de" value="{{ museum.subtitle_de|escape }}">
-                        </div>
-                    </div>
-                    <div id="div_id_subtitle_en" class="clearfix control-group">
-                        <label for="id_subtitle_en" class="control-label ">
-                        {% trans "Subtitle" %} <span class="lang">EN</span></label>
-                        <div class="controls">
-                            <input disabled="disabled" name="subtitle_en" maxlength="255" type="text" class="textinput textInput form_text" id="id_subtitle_en" value="{{ museum.subtitle_en|escape }}">
-                        </div>
-                    </div>
-                </div>
-                <div class="row cols-2">
-                    <div id="div_id_description_de" class="clearfix control-group">
-                        <label for="id_description_de" class="control-label ">
-                        {% trans "Description" %} <span class="lang">DE</span></label>
-                        <div class="controls">
-                            <div id="id_description_de" rows="10" cols="40" name="description_de" class="textarea" aria-hidden="true">
-                                {{ museum.description_de|safe }}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_title_de" class="clearfix control-group">
+                            <label for="id_title_de" class="control-label requiredField">
+                            {% trans "Name" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
+                            <div class="controls">
+                                <input disabled="disabled" name="title_de" maxlength="255" type="text" class="form-control textinput textInput form_text" value="{{ museum.title_de|escape }}" id="id_title_de">
                             </div>
                         </div>
                     </div>
-                    <div id="div_id_description_en" class="clearfix control-group">
-                        <label for="id_description_en" class="control-label ">
-                        {% trans "Description" %} <span class="lang">EN</span></label>
-                        <div class="controls">
-                            <div id="id_description_en" rows="10" cols="40" name="description_en" class="textarea" aria-hidden="true">
-                                {{ museum.description_en|safe }}
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_title_en" class="clearfix control-group">
+                            <label for="id_title_en" class="control-label ">
+                            {% trans "Name" %} <span class="lang">EN</span></label>
+                            <div class="controls">
+                                <input disabled="disabled" name="title_en" maxlength="255" type="text" class="form-control textinput textInput form_text" value="{{ museum.title_en|escape }}" id="id_title_en">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_subtitle_de" class="clearfix control-group">
+                            <label for="id_subtitle_de" class="control-label ">
+                            {% trans "Subtitle" %} <span class="lang">DE</span></label>
+                            <div class="controls">
+                                <input disabled="disabled" name="subtitle_de" maxlength="255" type="text" class="form-control textinput textInput form_text" id="id_subtitle_de" value="{{ museum.subtitle_de|escape }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_subtitle_en" class="clearfix control-group">
+                            <label for="id_subtitle_en" class="control-label ">
+                            {% trans "Subtitle" %} <span class="lang">EN</span></label>
+                            <div class="controls">
+                                <input disabled="disabled" name="subtitle_en" maxlength="255" type="text" class="form-control textinput textInput form_text" id="id_subtitle_en" value="{{ museum.subtitle_en|escape }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_description_de" class="clearfix control-group">
+                            <label for="id_description_de" class="control-label ">
+                            {% trans "Description" %} <span class="lang">DE</span></label>
+                            <div class="controls">
+                                <div id="id_description_de" rows="10" cols="40" name="description_de" class="form-control textarea" aria-hidden="true">
+                                    {{ museum.description_de|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_description_en" class="clearfix control-group">
+                            <label for="id_description_en" class="control-label ">
+                            {% trans "Description" %} <span class="lang">EN</span></label>
+                            <div class="controls">
+                                <div id="id_description_en" rows="10" cols="40" name="description_en" class="form-control textarea" aria-hidden="true">
+                                    {{ museum.description_en|safe }}
+                                </div>
                             </div>
                         </div>
                     </div>

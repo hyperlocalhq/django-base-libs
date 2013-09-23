@@ -4,29 +4,8 @@
   font-size: 14px;
   line-height: 20px;
   form {
-    label {
-      width: 100%;
-      display: block;
-      margin-bottom: 10px;
-    }
-    input[type=submit] {
-      margin-bottom: 10px !important;
-    }
-      
-    textarea,
-    input[type=text], 
-    input[type=email], 
-    input[type=password], 
-    input[type=search] {
-      margin-top: 5px;
-      box-sizing: border-box !important;
-      -moz-box-sizing: border-box !important;
-      padding: 0px !important;
-      padding-left: 10px !important;
-      padding-right: 10px !important;
-      background-color: #e6e6e6 !important;
-      
-      &:hover {background-color: #cfcfcf !important; }
+    .form-control {
+      border-color: #e6e6e6;
     }
 
     .radios {
@@ -61,8 +40,8 @@
 
     textarea {
       height: 60px !important;
-      min-height: auto !important;
-      padding-top: 7px !important;
+      min-height: auto;
+      padding-top: 7px;
     }
   }
 
@@ -116,7 +95,7 @@
     border: none;
     border-bottom: 10px solid white;
     margin-bottom: 0px;
-    background-color: #f2f2f2 !important;
+    background-color: #f2f2f2;
     
     &:last-child{ border: none;}
 
@@ -124,14 +103,14 @@
       &#collapse-twitterfeed {
         .time { display: block; color: rgba(0,0,0,0.5);}
       }
-      padding-left: 25px !important;
-      padding-right: 25px !important;
-      padding-top: 12px !important;
-      padding-bottom: 15px !important;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 12px;
+      padding-bottom: 15px;
       border-top: 1px solid #f2f2f2;
       &.tight {
-        padding-top: 5px !important;
-        padding-bottom: 7px !important;
+        padding-top: 5px;
+        padding-bottom: 7px;
       }
     }
   }

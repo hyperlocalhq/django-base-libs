@@ -151,7 +151,7 @@ $(document).ready(function(){
           $children.find(target_child).addClass('in');
         }
         if ($('#filter_summary').text() == "") {
-          var $li = $('<li><b>{% trans "Filter selection" %}:</b></li>');
+          var $li = $('<li><b>' + str_filter_selection + ':</b></li>');
           $('#filter_summary').append($li);
         }
         var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');

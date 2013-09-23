@@ -1,38 +1,43 @@
 {% load base_tags fb_tags i18n image_modifications %}
-<div class="row row-narrow grid" id="images">
-  {% for mf in object.mediafile_set.all %}
-  {% with mf.path|file_description as file_desc %}
-  <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="img">
-      <img src="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="{{ file_desc.description|remove_newlines|escape }}" title="{{ file_desc.description|remove_newlines|escape }}" />
+
+<div id="images" class="content">
+  <div class="container">
+    <div class="row row-narrow grid">
+      {% for mf in object.mediafile_set.all %}
+      {% with mf.path|file_description as file_desc %}
+      <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div class="img">
+          <img src="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="{{ file_desc.description|remove_newlines|escape }}" title="{{ file_desc.description|remove_newlines|escape }}" />
+        </div>
+       <!--  <div class="info">
+          {% if file_desc.title %}
+          <p><small class="title">{{ file_desc.title }}</small></p>
+          {% endif %}
+          {% if file_desc.description %}
+          <p><small class="description">{{ file_desc.description }}</small></p>
+          {% endif %}
+          {% if file_desc.author %}
+          <p><small class="author">{{ file_desc.author }}</small></p>
+          {% endif %}
+        </div> -->
+        <nav class="actions">
+          <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
+        </nav>
+      </div>
+      {% endwith %}
+      {% endfor %}
     </div>
-   <!--  <div class="info">
-      {% if file_desc.title %}
-      <p><small class="title">{{ file_desc.title }}</small></p>
-      {% endif %}
-      {% if file_desc.description %}
-      <p><small class="description">{{ file_desc.description }}</small></p>
-      {% endif %}
-      {% if file_desc.author %}
-      <p><small class="author">{{ file_desc.author }}</small></p>
-      {% endif %}
-    </div> -->
-    <nav class="actions">
-      <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
-    </nav>
   </div>
-  {% endwith %}
-  {% endfor %}
 </div>
 
 <script type="text/javascript">
 $(window).load(function() {
-  $('#images').isotope({
+  $('#images .grid').isotope({
     itemSelector : '.item',
     layoutMode : 'masonry',
   });
   if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
-    $('#images .item').click(function(e){
+    $('#images .grid .item').click(function(e){
       $('body').toggleClass('gallery');
       slider.slide($(this).index(), 0);
     });

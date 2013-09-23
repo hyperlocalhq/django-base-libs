@@ -383,9 +383,9 @@
     <div class="content" class="clearfix">
         <div class="inner">
             <h2>{% trans "Other Guided Tours, Workshops and educational offers" %}</h2>
-            <ul class="list rows clearfix">
+            <div class="list">
                 {% for workshop in object.get_other_workshops %}
-                    <li class="item">
+                    <div class="item">
                         <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
 
                         <a href="{{ workshop.get_url_path }}">

@@ -303,9 +303,9 @@
 <div class="content" class="clearfix">
     <div class="inner">
         <h2>{% trans "More Events" %}</h2>
-        <ul class="list rows clearfix">
+        <div class="list">
             {% for event in object.get_other_events %}
-                <li class="item">
+                <div class="item">
                     {% if event.cover_image %}
                         <a class="img" href="{{ event.get_url_path }}" style="background-image: url({{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }})"></a>
                     {% endif %}

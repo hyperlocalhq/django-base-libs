@@ -17,7 +17,7 @@
     </div>
 {% else %}
     {% if placeholder == "featured_magazin" or "start_page" in placeholder %}
-        <li class="item">
+        <div class="item">
             {% if object.position == 0 %}
                 <a class="img" alt="{{ object.image_caption }}" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})"></a>
             {% else %}
@@ -29,7 +29,7 @@
                 <h5>{{ object.image_caption }}</h5>
                 <p>{{ object.get_rendered_description|removetags:"p"|truncatewords:38 }}</p>
             </a>
-        </li>
+        </div>
     {% else %}
         <div class="editorial-content">
             <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})">

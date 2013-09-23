@@ -3,7 +3,7 @@
 {% if field.is_hidden %}
 	{{ field }}
 {% else %}
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> -->
         {% if field|is_checkbox %}
             <div class="form-group">
         {% endif %}
@@ -46,5 +46,5 @@
         {% if field|is_checkbox %}
             </div>
         {% endif %}
-    </div>
+    <!-- </div> -->
 {% endif %}

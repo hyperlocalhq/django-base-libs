@@ -100,8 +100,8 @@
         <!-- Footer ================================================== -->
 
         {% block footer %}
-        <footer id="footer" class="clearfix">
-            <div class="inner">
+        <div id="footer" class="content">
+            <div class="container">
                 <ul class="navigation">
                     {% show_menu_below_id "start_page" 0 0 1 1 %}
                     {% if LANGUAGE_CODE == "de" %}
@@ -114,12 +114,12 @@
                     <li><a href="/logodownload/">Logodownload</a></li>
                 </ul>
             </div>
-        </footer>
+        </div>
 
         <!-- Sponsors ================================================== -->
 
-        <div id="footer_sponsors">
-            <div id="sponsors" class="clearfix">
+        <div id="sponsors" class="content">
+            <div class="container">
                 <div>
                     <h4 class="title">{% trans "Supported by" %}</h4>
                     <a title="EU" target="_blank" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm">
