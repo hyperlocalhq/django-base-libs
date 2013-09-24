@@ -8,7 +8,7 @@
      @-o-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
         @keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-.fade { 
+.fade {
 
   -webkit-backface-visibility: hidden;
      -moz-backface-visibility: hidden;
@@ -44,11 +44,12 @@
     top: 0px;
     z-index: 10;
     display: none;
+    font-size: 0px;
   }
 }
 
-.list { 
-  .item { 
+.list {
+  .item {
     margin-top: 0px;
     margin-bottom: 10px;
     &.delete { display: none; }
@@ -56,7 +57,7 @@
     &:hover a{
       background-color: rgba(0,0,0,0.075);
     }
-    
+
     > a {
       background-color: #f2f2f2;
       color: black;
@@ -80,7 +81,7 @@
         &:empty{ display: none;}
       }
 
-      h3 { 
+      h3 {
         font-size: 25px;
         line-height: 40px;
         white-space: nowrap !important;
@@ -125,8 +126,8 @@
     }
 
     &#item-preview {
-      padding-bottom: 350px;
-      
+      padding-bottom: 450px;
+
       .description {
         display: block;
         opacity: 1;
@@ -135,25 +136,25 @@
       .img img {
         -webkit-filter: grayscale(0%); /* New WebKit */
         -moz-filter: grayscale(0%);
-        -ms-filter: grayscale(0%); 
-        -o-filter: grayscale(0%); /* Not yet supported in Gecko, Opera or IE */ 
+        -ms-filter: grayscale(0%);
+        -o-filter: grayscale(0%); /* Not yet supported in Gecko, Opera or IE */
         filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
         filter: none ; /* IE */
         filter: grayscale(0%); /* Current draft standard */
       }
     }
 
-    &:hover { opacity: 0.9; 
+    &:hover { opacity: 0.9;
       .img img {
           -webkit-filter: grayscale(0%); /* New WebKit */
           -moz-filter: grayscale(0%);
-          -ms-filter: grayscale(0%); 
-          -o-filter: grayscale(0%); /* Not yet supported in Gecko, Opera or IE */ 
+          -ms-filter: grayscale(0%);
+          -o-filter: grayscale(0%); /* Not yet supported in Gecko, Opera or IE */
           filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
           filter: none ; /* IE */
           filter: grayscale(0%); /* Current draft standard */
       }
-    } 
+    }
 
     .img {
       background-color: #f2f2f2;
@@ -165,8 +166,8 @@
 
         -webkit-filter: grayscale(100%); /* New WebKit */
         -moz-filter: grayscale(100%);
-        -ms-filter: grayscale(100%); 
-        -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */ 
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */
         filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
         filter: gray; /* IE */
         filter: grayscale(100%); /* Current draft standard */
@@ -177,8 +178,8 @@
       display: block;
       color: black;
       margin-bottom: 40px;
-      
-      &:hover { color: black; } 
+
+      &:hover { color: black; }
 
       h3 { font-weight: 700;}
       h4 { font-weight: 300;}
@@ -197,7 +198,7 @@
 
         &:empty{ display: none;}
       }
-    }   
+    }
   }
 }
 
@@ -220,13 +221,13 @@
 
     &:hover { background-color: rgba(0,0,0,0.075); }
     &.title {
-      background: none; 
+      background: none;
       &:hover {background: none; }
 
-      h3 { 
-        font-weight: 700; 
-        margin-bottom: 5px !important; 
-        display: block; 
+      h3 {
+        font-weight: 700;
+        margin-bottom: 5px !important;
+        display: block;
         text-transform: uppercase;
         text-transform: uppercase;
         font-size: 16px;
@@ -234,7 +235,7 @@
       }
     }
 
-    .img { 
+    .img {
       background-color: #f2f2f2;
       width: 80px;
       height: 100%;
@@ -282,7 +283,7 @@
         -moz-box-sizing: border-box !important;
         margin: 0px !important;
         display: block !important;
-        
+
         &:empty{ display: none !important;}
 
       }
@@ -294,14 +295,14 @@
       background: none !important;
       padding-bottom: 80px;
       height: 380px;
-      .txt { 
+      .txt {
         padding: 0px;
         background: none !important;
         width: 100%;
         display: block !important;
         h3,
         h4,
-        h5 { 
+        h5 {
           font-size: 14px !important;
           line-height: 20px !important;
         }
@@ -315,7 +316,7 @@
         }
       }
 
-      .img { 
+      .img {
         width: 100% !important;
         height: 200px;
         position: relative;

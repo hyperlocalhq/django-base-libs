@@ -35,29 +35,30 @@ var settings = {
       <span class="sr-only">{% trans "RSS Feed" %}</span>
     </a>
   </nav>
-  
+
   <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
 
   <div id="filters">
+    <script>var str_filter_selection = "{% trans "Filter selection" %}";</script>
     <div class="btn-group" id="filter-toggle" data-toggle="buttons">
-      <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories"> 
+      <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
         <input type="radio" name="options" id="filter-toggle-categories">
-        {% trans "Categories" %}  
+        {% trans "Categories" %}
       </label>
 
-      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic"> 
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
         <input type="radio" name="options" id="filter-toggle-alphabetic">
-        {% trans "Alphabet" %}    
+        {% trans "Alphabet" %}
       </label>
 
-      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists"> 
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
         <input type="radio" name="options" id="filter-toggle-smartlists">
-        {% trans "Smart lists" %} 
+        {% trans "Smart lists" %}
       </label>
 
-      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">   
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">
         <input type="radio" name="options" id="filter-toggle-calendar">
-        {% trans "Calendar" %}    
+        {% trans "Calendar" %}
       </label>
     </div>
 
@@ -102,7 +103,7 @@ var settings = {
             <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
               {% for item in abc_list %}
               {% if not forloop.first %}
-              <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+              <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
               {% endif %}
               {% endfor %}
             </ul>
@@ -118,7 +119,7 @@ var settings = {
               <li><a href="" data-filter-value=".is_closing_soon">{% trans "Closing soon" %}</a></li>
               <li><a href="" data-filter-value=".is_upcoming">{% trans "Upcoming" %}</a></li>
               {% comment %}
-              <!-- 
+              <!--
               <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
               <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
               <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
@@ -197,7 +198,7 @@ var settings = {
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <header>
               <h4><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% if exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if exhibition.end %}{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
-                
+
               </h4>
               <h3>{{ exhibition.title }} </h3>
               {% if exhibition.subtitle %}
@@ -215,6 +216,34 @@ var settings = {
           </div>
 
           <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
+
+            <p>
+              <small>
+                <b>
+                {% if exhibition.location_name %}
+                  {{ exhibition.location_name }}
+                {% else %}
+                  {{ exhibition.museum.title }}
+                  {% if exhibition.museum.subtitle %}
+                    <br/>{{ exhibition.museum.subtitle }}
+                  {% endif %}
+                {% endif %}
+                </b><br/>
+
+                {% if exhibition.museum %}
+                  {% with exhibition.museum as museum %}
+                    {{ museum.street_address }},
+                    {% if museum.street_address2 %},{{ museum.street_address2 }},{% endif %}
+                    {{ museum.postal_code }} {{ museum.city }}
+                  {% endwith %}
+                {% else %}
+                    {{ exhibition.street_address }},
+                    {% if exhibition.street_address2 %}, {{ exhibition.street_address2 }},{% endif %}
+                    {{ exhibition.postal_code }} {{ exhibition.city }}
+                {% endif %}
+              </small>
+            </p>
+
             {% with exhibition.museum.get_current_season as season %}
               {% if season %}
                 {% if season.is_appointment_based %}
@@ -223,29 +252,29 @@ var settings = {
                 </dl>
                 {% else %}
                 {% regroup season.get_opening_hours by times as opening_hours %}
-                <dl>
                   {% for same_hours in opening_hours %}
-                  <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
-                    {% if same_hours.list.0.open %}
-                    <span class="right">
-                      {{ same_hours.list.0.open|time:"H:i" }}
-                      {% if same_hours.list.0.break_close %}
-                      - {{ same_hours.list.0.break_close|time:"H:i" }}
-                      / {{ same_hours.list.0.break_open|time:"H:i" }}
-                      - {{ same_hours.list.0.close|time:"H:i" }}
-                      {% else %}
-                      - {{ same_hours.list.0.close|time:"H:i" }}
-                      {% endif %}
-                      {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                    </span>
-                    {% else %}
-                    <span class="right">
-                      {% trans "closed" %}
-                    </span>
-                    {% endif %}
-                  </dt>
+                    <dl>
+                      <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
+                      </dt>
+                        {% if same_hours.list.0.open %}
+                          <dd>
+                            {{ same_hours.list.0.open|time:"H:i" }}
+                            {% if same_hours.list.0.break_close %}
+                            - {{ same_hours.list.0.break_close|time:"H:i" }}
+                            / {{ same_hours.list.0.break_open|time:"H:i" }}
+                            - {{ same_hours.list.0.close|time:"H:i" }}
+                            {% else %}
+                            - {{ same_hours.list.0.close|time:"H:i" }}
+                            {% endif %}
+                            {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                          </dd>
+                        {% else %}
+                          <dd>
+                            {% trans "closed" %}
+                          </dd>
+                        {% endif %}
+                    </dl>
                   {% endfor %}
-                </dl>
                 {% endif %}
                 {% if season.last_entry %}
                 <dl>
@@ -255,46 +284,21 @@ var settings = {
                 </dl>
                 {% endif %}
                 {% if season.exceptions %}
-                <dl>
-                  <dd><small>{{ season.get_rendered_exceptions|striptags|truncatewords:"35"|urlize }}</small></dd>
-                </dl>
+                <p><small>{{ season.get_rendered_exceptions|striptags|truncatewords:"35"|urlize }}</small></p>
                 {% endif %}
               {% endif %}
             {% endwith %}
-
-            <p>
-              <small>
-
-                {% if exhibition.location_name %}
-                  {{ exhibition.location_name }},<br/>
-                {% else %}
-                  {{ exhibition.museum.title }},<br/>
-                {% endif %}
-
-                {% if exhibition.museum %}
-                  {% with exhibition.museum as museum %}
-                    {{ museum.street_address }},
-                    {% if museum.street_address2 %},{{ museum.street_address2 }},{% endif %} 
-                    {{ museum.postal_code }} {{ museum.city }}
-                  {% endwith %}
-                {% else %}
-                    {{ exhibition.street_address }},
-                    {% if exhibition.street_address2 %}, {{ exhibition.street_address2 }},{% endif %} 
-                    {{ exhibition.postal_code }} {{ exhibition.city }}
-                {% endif %}
-              </small>
-            </p>
           </div>
         </div>
       </div>
-  
+
       {% comment %}
       <!-- <div class="description">
           <p>{{ exhibition.get_rendered_description|striptags }}</p>
           <a class="more" href="{{ exhibition.get_url_path }}">more</a>
         </div> -->
       {% endcomment %}
-      
+
       {% comment %}
         {% with exhibition as list_item %}
         {% include "utils/geo_position.html" %}
@@ -308,6 +312,5 @@ var settings = {
 </div>
 
 <!-- {% include "utils/gmap_scripts.html" %} -->
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/sticky.js"></script>
 
 {% endblock %}

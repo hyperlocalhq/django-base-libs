@@ -5,7 +5,7 @@
     var oMap, oMarker;
     var $oGmapLocations;
     var aGmapsSearchResults;
-    
+
     function setMarkerDraggable(oMarker, fCallback, oParams) {
         oMarker.setDraggable(true);
         google.maps.event.addListener(oMarker, "dragend", function() {
@@ -13,7 +13,7 @@
             fCallback(oPoint.lat(), oPoint.lng(), oParams);
         });
     }
-        
+
     function recognizeLocation(sAddress, fCallback) {
         var oGeocoder = new google.maps.Geocoder();
         oGeocoder.geocode(
@@ -27,11 +27,11 @@
             }
         );
     }
-    
+
     var GMapManager = self.GMapManager = {
         init: function() {
             var oSelf = self.GMapManager;
-            var $oDynMapContainer = $("#gmap_wrapper").removeClass("hidden");
+            var $oDynMapContainer = $("#gmap-wrapper").removeClass("hidden");
             if ($oDynMapContainer.length) {
                 $("#dyn_locate_geo").click(oSelf.recognizeLocation);
                 $("#dyn_remove_geo").click(oSelf.removeGeoPos);
@@ -112,7 +112,7 @@
                 new google.maps.Point(0, 0),
                 new google.maps.Point(8, 25)
             );
-            
+
             oMarker = new google.maps.Marker({
                 position: oPoint,
                 map: oMap,
@@ -128,10 +128,10 @@
                 oMarker = null;
             }
             oSelf.drawMarker(oPoint);
-            
+
             oMap.panTo(oPoint, 15);
-            
-            
+
+
             setMarkerDraggable(
                 oMarker,
                 oSelf.correctGeoposition,
@@ -141,13 +141,13 @@
         correctGeoposition: function(iLat, iLng) {
             iLat = Math.round(iLat * 1000000) / 1000000;
             iLng = Math.round(iLng * 1000000) / 1000000;
-    
+
             $("#id_latitude").val(iLat);
             $("#id_longitude").val(iLng);
         },
         autocompleteAddress: function(oResults) {
             aGmapsSearchResults = oResults;
-            
+
             $oGmapLocations.html("");
             var i, iLen = oResults.length;
             function choose_location() {
@@ -235,13 +235,13 @@
             //self.GMapManager = null;
         }
     };
-    
+
     $(document).ready(function(){
         self.GMapManager.init();
     });
-    
+
     $(window).unload(function() {
         self.GMapManager.destruct();
     });
-    
+
 }(jQuery));

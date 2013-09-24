@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import 'ding';
 @import 'variables';
 @import 'header';
 // @import 'form';
@@ -25,6 +26,7 @@
 @import 'footer';
 
 body {
+  position: relative;
   background-color: white;
   color: black;
   font-family: 'calluna-sans', 'Lucida Grande', Arial, sans-serif;

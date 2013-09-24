@@ -3,6 +3,19 @@
 {% block title %}{% trans "Exhibition" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}exhibition-detail{% endblock %}
 
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:type" content="article" />
+    {% if object.image %}
+      <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+    {% else %}
+      <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/museumsportal_opengraph.png" />
+    {% endif %}
+    <meta property="og:url" content="{{ object.get_url }}" />
+    <meta property="og:site_name" content="Museumsportal Berlin" />
+    <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
 {% block js %}
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
   <script type="text/javascript">
@@ -10,13 +23,6 @@
     var settings = {
       STATIC_URL: "{{ STATIC_URL }}"
     }
-
-    $(document).ready(function(){
-      $(".toggle_bvg").click(function () {
-        $("#bvg_widget").toggleClass("on");
-        return false;
-      });
-    });
   </script>
 {% endblock %}
 
@@ -90,28 +96,33 @@
 
                 {% endif %}
 
-                <!-- ======= Tools ======= -->
               </header>
 
-              {% if request.user.is_authenticated %}
-                <div class="tools">
-                  {% adding2favorites for exhibition using "favorites/includes/favorite_detail.html" %}
-                  {% if exhibition.museum %}
-                    {% with exhibition.museum as museum %}
-                      {% with exhibition as list_item %}
-                        <a href="#" class="btn btn-info location">{% trans "Show location on map" %}</a>
-                        {% include "utils/geo_position.html" %}
-                      {% endwith %}
-                    {% endwith %}
-                  {% else %}
+              <!-- ======= Tools ======= -->
 
+              <div class="tools">
+                {% if request.user.is_authenticated %}
+                  {% adding2favorites for exhibition using "favorites/includes/favorite_detail.html" %}
+                {% endif %}
+
+                {% if exhibition.museum %}
+                  {% with exhibition.museum as museum %}
                     {% with exhibition as list_item %}
-                      <a href="#" class="btn btn-info location">{% trans "Show location on map" %}</a>
-                      {% include "utils/geo_position.html" %}
+                      <button class="btn btn-info location">{% trans "Show location on map" %}</button>
+                      {% include "utils/geo_position_detail.html" %}
                     {% endwith %}
-                  {% endif %}
-                </div>
-              {% endif %}
+                  {% endwith %}
+                {% else %}
+
+                  {% with exhibition as list_item %}
+                    <button class="btn btn-info location">{% trans "Show location on map" %}</button>
+                    {% include "utils/geo_position_detail.html" %}
+                  {% endwith %}
+                {% endif %}
+
+                <button class="btn btn-info share-twitter"  data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">Share on Twitter</button>
+                <button class="btn btn-info share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">Share on Facebook</button>
+              </div>
 
               {{ exhibition.get_rendered_description }}
 

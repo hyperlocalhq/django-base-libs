@@ -31,7 +31,7 @@ ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Season = models.get_model("exhibitions", "Season")
 Organizer = models.get_model("exhibitions", "Organizer")
 
-FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import InlineFormSet
@@ -104,11 +104,11 @@ class BasicInfoForm(ModelForm):
 
     class Meta:
         model = Exhibition
-        
+
         fields = [
             'start', 'end', 'permanent', 'exhibition_extended',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
-            'city', 'latitude', 'longitude',  
+            'city', 'latitude', 'longitude',
             'vernissage', 'finissage', 'tags', 'categories', "is_for_children",
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -138,13 +138,13 @@ class BasicInfoForm(ModelForm):
 
         self.fields['start'].widget = forms.DateInput(format='%d.%m.%Y')
         self.fields['start'].input_formats=('%d.%m.%Y',)
-        
+
         self.fields['end'].widget = forms.DateInput(format='%d.%m.%Y')
         self.fields['end'].input_formats=('%d.%m.%Y',)
-        
+
         self.fields['vernissage'].widget = SplitDateTimeWidget(date_format="%d.%m.%Y", time_format='%H:%M')
         self.fields['vernissage'].input_formats=('%d.%m.%Y %H:%M',)
-        
+
         self.fields['finissage'].widget = SplitDateTimeWidget(date_format="%d.%m.%Y", time_format='%H:%M')
         self.fields['finissage'].input_formats=('%d.%m.%Y %H:%M',)
 
@@ -171,11 +171,11 @@ class BasicInfoForm(ModelForm):
 
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
-        
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
-        
+
         layout_blocks = []
 
         layout_blocks.append(layout.Fieldset(
@@ -237,7 +237,7 @@ class BasicInfoForm(ModelForm):
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
-                        <div class="exhibition_map" id="gmap_wrapper">
+                        <div class="exhibition_map" id="gmap-wrapper">
                             <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                         </div>
                         <div class="form-actions">
@@ -341,7 +341,7 @@ class BasicInfoForm(ModelForm):
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
-        
+
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
@@ -377,7 +377,7 @@ class OrganizerForm(ModelForm):
             "multipleSeparator": ",,, ",
         },
     )
-    
+
     class Meta:
         model = Organizer
 
@@ -395,7 +395,7 @@ class OrganizerForm(ModelForm):
         layout_blocks.append(
             layout.Div(
                 layout.Row(
-                    layout.Div("organizing_museum", css_class="max"), 
+                    layout.Div("organizing_museum", css_class="max"),
                     css_class="flex",
                 ),
                 layout.Row(
@@ -418,7 +418,7 @@ class OpeningForm(ModelForm):
     class Meta:
         model = Exhibition
         fields = ['museum_opening_hours']
-    
+
     def __init__(self, *args, **kwargs):
         super(OpeningForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -440,10 +440,10 @@ class OpeningForm(ModelForm):
                     </ul>
                 </fieldset>
             </div>
-            
+
             {{ formsets.seasons.management_form }}
             {{ formsets.special_openings.management_form }}
-            
+
             <div id="seasons">
                 {% for form in formsets.seasons.forms %}
                     <div class="season formset-form" style="display: none">
@@ -457,7 +457,7 @@ class OpeningForm(ModelForm):
                     {% crispy form %}
                 {% endwith %}
             </div>
-            
+
         """))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
@@ -483,13 +483,13 @@ class SeasonForm(ModelForm):
     fri_is_closed = forms.BooleanField(label=_("Closed"), required=False)
     sat_is_closed = forms.BooleanField(label=_("Closed"), required=False)
     sun_is_closed = forms.BooleanField(label=_("Closed"), required=False)
-    
+
     class Meta:
         model = Season
         exclude = []
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             exclude.append("exceptions_%s_markup_type" % lang_code)
-        
+
     def __init__(self, *args, **kwargs):
         super(SeasonForm, self).__init__(*args, **kwargs)
 
@@ -503,7 +503,7 @@ class SeasonForm(ModelForm):
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
-        # remove labels from opening and closing times 
+        # remove labels from opening and closing times
         for weekday in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]:
             self.fields['%s_open' % weekday].widget = forms.TimeInput(format='%H:%M')
             self.fields['%s_open' % weekday].label = ""
@@ -513,14 +513,14 @@ class SeasonForm(ModelForm):
             self.fields['%s_break_open' % weekday].label = ""
             self.fields['%s_close' % weekday].widget = forms.TimeInput(format='%H:%M')
             self.fields['%s_close' % weekday].label = ""
-        
+
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Individual Opening Time of the Exhibition"),
             layout.Div(
-                "is_appointment_based", 
+                "is_appointment_based",
                 "is_open_24_7",
                 css_class="inline",
             ),
@@ -683,11 +683,11 @@ class PricesForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
-        
+
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
-            layout.Div('museum_prices', 'free_entrance', css_class="inline"), 
+            layout.Div('museum_prices', 'free_entrance', css_class="inline"),
             layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
             layout.Row(
                 css_class="cols-2",
@@ -712,7 +712,7 @@ class PricesForm(ModelForm):
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
-        
+
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
@@ -738,7 +738,7 @@ class AccessibilityForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
-        
+
         layout_blocks = []
 
         layout_blocks.append(layout.Fieldset(
@@ -749,7 +749,7 @@ class AccessibilityForm(ModelForm):
                 css_class="div-accessibility-details cols-2",
                 *('suitable_for_disabled_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
             ),
-            
+
             css_class="fieldset-accessibility",
         ))
 
@@ -764,7 +764,7 @@ class AccessibilityForm(ModelForm):
                 layout.Submit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
-        
+
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
@@ -774,7 +774,7 @@ class GalleryForm(ModelForm):
     class Meta:
         model = Exhibition
         fields = []
-        
+
     def __init__(self, *args, **kwargs):
         super(GalleryForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -831,16 +831,16 @@ def load_data(instance=None):
         form_step_data['basic']['categories'] = instance.categories.all()
         form_step_data['basic']['tags'] = instance.tags
         form_step_data['basic']['is_for_children'] = instance.is_for_children
-    
+
         for organizer in instance.organizer_set.all():
             organizer_dict = {}
             organizer_dict['organizing_museum'] = organizer.organizing_museum
             organizer_dict['organizer_title'] = organizer.organizer_title
             organizer_dict['organizer_url_link'] = organizer.organizer_url_link
             form_step_data['basic']['sets']['organizers'].append(organizer_dict)
-    
+
         form_step_data['opening']['museum_opening_hours'] = instance.museum_opening_hours
-    
+
         for season in instance.season_set.all():
             season_dict = {}
             season_dict['is_appointment_based'] = season.is_appointment_based
@@ -884,7 +884,7 @@ def load_data(instance=None):
                 season_dict['last_entry_%s' % lang_code] = getattr(season, 'last_entry_%s' % lang_code)
                 season_dict['exceptions_%s' % lang_code] = getattr(season, 'exceptions_%s' % lang_code)
             form_step_data['opening']['sets']['seasons'].append(season_dict)
-            
+
         fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price',]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -893,7 +893,7 @@ def load_data(instance=None):
             ]
         for f in fields:
             form_step_data['prices'][f] = getattr(instance, f)
-    
+
         form_step_data['accessibility']['suitable_for_disabled'] = instance.suitable_for_disabled
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code] = getattr(instance, 'suitable_for_disabled_info_%s' % lang_code)
@@ -910,7 +910,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         else:
             instance = Exhibition()
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
+            setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
             setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
             setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
@@ -921,14 +921,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             if not instance.description_locked:
                 setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
                 setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-        instance.start = form_step_data['basic']['start'] 
+        instance.start = form_step_data['basic']['start']
         instance.end = form_step_data['basic']['end']
-        instance.permanent = form_step_data['basic']['permanent'] 
-        instance.exhibition_extended = form_step_data['basic']['exhibition_extended'] 
+        instance.permanent = form_step_data['basic']['permanent']
+        instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
         instance.museum = museum
         instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
-        instance.street_address2 = form_step_data['basic']['street_address2'] 
+        instance.street_address2 = form_step_data['basic']['street_address2']
         instance.postal_code = form_step_data['basic']['postal_code']
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
@@ -988,26 +988,26 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if '_pk' not in form_step_data:
             user = get_current_user()
             instance.set_owner(user)
-        
+
         instance.categories.clear()
         for cat in form_step_data['basic']['categories']:
             instance.categories.add(cat)
-        
+
         instance.organizer_set.all().delete()
         for organizer_dict in form_step_data['basic']['sets']['organizers']:
             organizer = Organizer(exhibition=instance)
-            organizer.organizing_museum = organizer_dict['organizing_museum'] 
+            organizer.organizing_museum = organizer_dict['organizing_museum']
             organizer.organizer_title = organizer_dict['organizer_title']
             organizer.organizer_url_link = organizer_dict['organizer_url_link']
             organizer.save()
-        
+
         form_step_data['_pk'] = instance.pk
-        
+
     if current_step == "basic" and museum:
         # fill in Opening hours from museum
         if not form_step_data.get('opening', {}).get('_filled', False):
             form_step_data['opening'] = {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}}
-            
+
             # for season in museum.season_set.all():
             #     season_dict = {}
             #     season_dict['start'] = season.start
@@ -1086,60 +1086,60 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             for f in fields:
                 form_step_data['prices'][f] = getattr(museum, f)
             form_step_data['prices']['museum_prices'] = True
-    
+
     if current_step == "opening":
         if "_pk" in form_step_data:
             instance = Exhibition.objects.get(pk=form_step_data['_pk'])
 
-            instance.museum_opening_hours = form_step_data['opening']['museum_opening_hours'] 
+            instance.museum_opening_hours = form_step_data['opening']['museum_opening_hours']
             instance.save()
 
             instance.season_set.all().delete()
             for season_dict in form_step_data['opening']['sets']['seasons']:
                 season = Season(exhibition=instance)
-                season.is_appointment_based = season_dict['is_appointment_based'] 
-                season.is_open_24_7 = season_dict['is_open_24_7'] 
+                season.is_appointment_based = season_dict['is_appointment_based']
+                season.is_open_24_7 = season_dict['is_open_24_7']
                 #if not season_dict['mon_is_closed']:
-                season.mon_open = season_dict['mon_open'] 
-                season.mon_break_close = season_dict['mon_break_close'] 
+                season.mon_open = season_dict['mon_open']
+                season.mon_break_close = season_dict['mon_break_close']
                 season.mon_break_open = season_dict['mon_break_open']
                 season.mon_close = season_dict['mon_close']
                 #if not season_dict['tue_is_closed']:
-                season.tue_open = season_dict['tue_open'] 
-                season.tue_break_close = season_dict['tue_break_close'] 
-                season.tue_break_open = season_dict['tue_break_open'] 
-                season.tue_close = season_dict['tue_close'] 
+                season.tue_open = season_dict['tue_open']
+                season.tue_break_close = season_dict['tue_break_close']
+                season.tue_break_open = season_dict['tue_break_open']
+                season.tue_close = season_dict['tue_close']
                 #if not season_dict['wed_is_closed']:
                 season.wed_open = season_dict['wed_open']
-                season.wed_break_close = season_dict['wed_break_close'] 
-                season.wed_break_open = season_dict['wed_break_open'] 
-                season.wed_close = season_dict['wed_close'] 
+                season.wed_break_close = season_dict['wed_break_close']
+                season.wed_break_open = season_dict['wed_break_open']
+                season.wed_close = season_dict['wed_close']
                 #if not season_dict['thu_is_closed']:
-                season.thu_open = season_dict['thu_open'] 
-                season.thu_break_close = season_dict['thu_break_close'] 
-                season.thu_break_open = season_dict['thu_break_open'] 
-                season.thu_close = season_dict['thu_close'] 
+                season.thu_open = season_dict['thu_open']
+                season.thu_break_close = season_dict['thu_break_close']
+                season.thu_break_open = season_dict['thu_break_open']
+                season.thu_close = season_dict['thu_close']
                 #if not season_dict['fri_is_closed']:
-                season.fri_open = season_dict['fri_open'] 
-                season.fri_break_close = season_dict['fri_break_close'] 
-                season.fri_break_open = season_dict['fri_break_open'] 
-                season.fri_close = season_dict['fri_close'] 
+                season.fri_open = season_dict['fri_open']
+                season.fri_break_close = season_dict['fri_break_close']
+                season.fri_break_open = season_dict['fri_break_open']
+                season.fri_close = season_dict['fri_close']
                 #if not season_dict['sat_is_closed']:
                 season.sat_open = season_dict['sat_open']
-                season.sat_break_close = season_dict['sat_break_close'] 
+                season.sat_break_close = season_dict['sat_break_close']
                 season.sat_break_open = season_dict['sat_break_open']
                 season.sat_close = season_dict['sat_close']
                 #if not season_dict['sun_is_closed']:
-                season.sun_open = season_dict['sun_open'] 
-                season.sun_break_close = season_dict['sun_break_close'] 
-                season.sun_break_open = season_dict['sun_break_open'] 
+                season.sun_open = season_dict['sun_open']
+                season.sun_break_close = season_dict['sun_break_close']
+                season.sun_break_open = season_dict['sun_break_open']
                 season.sun_close = season_dict['sun_close']
                 for lang_code, lang_name in FRONTEND_LANGUAGES:
                     setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
                     setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
                     setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
                 season.save()
-                
+
     if current_step == "prices":
         if "_pk" in form_step_data:
             instance = Exhibition.objects.get(pk=form_step_data['_pk'])
@@ -1152,7 +1152,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 ]
             for f in fields:
                 setattr(instance, f, form_step_data['prices'][f])
-        
+
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 for f in [
                     'admission_price_info_%s' % lang_code,
@@ -1169,7 +1169,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance.suitable_for_disabled = form_step_data['accessibility']['suitable_for_disabled']
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(instance, 'suitable_for_disabled_info_%s' % lang_code, form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code])
-            
+
             instance.save()
 
     # finally all exhibition will be saved and published by save_data()
@@ -1184,14 +1184,14 @@ def set_extra_context(current_step, form_steps, form_step_data, instance=None):
 
 def save_data(form_steps, form_step_data, instance=None):
     is_new = not instance
-    
+
     if not instance:
         if '_pk' in form_step_data:
             instance = Exhibition.objects.get(pk=form_step_data['_pk'])
         else:
             instance = Exhibition()
     for lang_code, lang_name in FRONTEND_LANGUAGES:
-        setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
+        setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
         setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
@@ -1199,18 +1199,18 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, 'catalog_ordering_%s' % lang_code, form_step_data['basic']['catalog_ordering_%s' % lang_code])
         setattr(instance, 'press_text_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         setattr(instance, 'catalog_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
-        if not instance.description_locked: 
+        if not instance.description_locked:
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-            
-    instance.start = form_step_data['basic']['start'] 
+
+    instance.start = form_step_data['basic']['start']
     instance.end = form_step_data['basic']['end']
-    instance.permanent = form_step_data['basic']['permanent'] 
+    instance.permanent = form_step_data['basic']['permanent']
     instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
     instance.museum = form_step_data['basic']['museum']
     instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']
-    instance.street_address2 = form_step_data['basic']['street_address2'] 
+    instance.street_address2 = form_step_data['basic']['street_address2']
     instance.postal_code = form_step_data['basic']['postal_code']
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
@@ -1220,7 +1220,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.tags = form_step_data['basic']['tags']
     instance.is_for_children = form_step_data['basic']['is_for_children']
 
-    instance.museum_opening_hours = form_step_data['opening']['museum_opening_hours'] 
+    instance.museum_opening_hours = form_step_data['opening']['museum_opening_hours']
 
     fields = ['museum_prices', 'free_entrance', 'admission_price', 'reduced_price',]
     for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -1241,14 +1241,14 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.suitable_for_disabled = form_step_data['accessibility']['suitable_for_disabled']
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'suitable_for_disabled_info_%s' % lang_code, form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code])
-    
+
     instance.status = "published"
     instance.save()
-    
+
     if is_new:
         user = get_current_user()
-        instance.set_owner(user)    
-    
+        instance.set_owner(user)
+
     instance.categories.clear()
     for cat in form_step_data['basic']['categories']:
         instance.categories.add(cat)
@@ -1256,7 +1256,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.organizer_set.all().delete()
     for organizer_dict in form_step_data['basic']['sets']['organizers']:
         organizer = Organizer(exhibition=instance)
-        organizer.organizing_museum = organizer_dict['organizing_museum'] 
+        organizer.organizing_museum = organizer_dict['organizing_museum']
         organizer.organizer_title = organizer_dict['organizer_title']
         organizer.organizer_url_link = organizer_dict['organizer_url_link']
         organizer.save()
@@ -1264,51 +1264,51 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.season_set.all().delete()
     for season_dict in form_step_data['opening']['sets']['seasons']:
         season = Season(exhibition=instance)
-        season.is_appointment_based = season_dict['is_appointment_based'] 
-        season.is_open_24_7 = season_dict['is_open_24_7'] 
+        season.is_appointment_based = season_dict['is_appointment_based']
+        season.is_open_24_7 = season_dict['is_open_24_7']
         #if not season_dict['mon_is_closed']:
-        season.mon_open = season_dict['mon_open'] 
-        season.mon_break_close = season_dict['mon_break_close'] 
+        season.mon_open = season_dict['mon_open']
+        season.mon_break_close = season_dict['mon_break_close']
         season.mon_break_open = season_dict['mon_break_open']
         season.mon_close = season_dict['mon_close']
         #if not season_dict['tue_is_closed']:
-        season.tue_open = season_dict['tue_open'] 
-        season.tue_break_close = season_dict['tue_break_close'] 
-        season.tue_break_open = season_dict['tue_break_open'] 
-        season.tue_close = season_dict['tue_close'] 
+        season.tue_open = season_dict['tue_open']
+        season.tue_break_close = season_dict['tue_break_close']
+        season.tue_break_open = season_dict['tue_break_open']
+        season.tue_close = season_dict['tue_close']
         #if not season_dict['wed_is_closed']:
         season.wed_open = season_dict['wed_open']
-        season.wed_break_close = season_dict['wed_break_close'] 
-        season.wed_break_open = season_dict['wed_break_open'] 
-        season.wed_close = season_dict['wed_close'] 
+        season.wed_break_close = season_dict['wed_break_close']
+        season.wed_break_open = season_dict['wed_break_open']
+        season.wed_close = season_dict['wed_close']
         #if not season_dict['thu_is_closed']:
-        season.thu_open = season_dict['thu_open'] 
-        season.thu_break_close = season_dict['thu_break_close'] 
-        season.thu_break_open = season_dict['thu_break_open'] 
-        season.thu_close = season_dict['thu_close'] 
+        season.thu_open = season_dict['thu_open']
+        season.thu_break_close = season_dict['thu_break_close']
+        season.thu_break_open = season_dict['thu_break_open']
+        season.thu_close = season_dict['thu_close']
         #if not season_dict['fri_is_closed']:
-        season.fri_open = season_dict['fri_open'] 
-        season.fri_break_close = season_dict['fri_break_close'] 
-        season.fri_break_open = season_dict['fri_break_open'] 
-        season.fri_close = season_dict['fri_close'] 
+        season.fri_open = season_dict['fri_open']
+        season.fri_break_close = season_dict['fri_break_close']
+        season.fri_break_open = season_dict['fri_break_open']
+        season.fri_close = season_dict['fri_close']
         #if not season_dict['sat_is_closed']:
         season.sat_open = season_dict['sat_open']
-        season.sat_break_close = season_dict['sat_break_close'] 
+        season.sat_break_close = season_dict['sat_break_close']
         season.sat_break_open = season_dict['sat_break_open']
         season.sat_close = season_dict['sat_close']
         #if not season_dict['sun_is_closed']:
-        season.sun_open = season_dict['sun_open'] 
-        season.sun_break_close = season_dict['sun_break_close'] 
-        season.sun_break_open = season_dict['sun_break_open'] 
+        season.sun_open = season_dict['sun_open']
+        season.sun_break_close = season_dict['sun_break_close']
+        season.sun_break_open = season_dict['sun_break_open']
         season.sun_close = season_dict['sun_close']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(season, 'last_entry_%s' % lang_code, season_dict['last_entry_%s' % lang_code])
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
             setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         season.save()
-        
+
     form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
-    
+
     return form_step_data
 
 

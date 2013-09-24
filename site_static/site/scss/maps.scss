@@ -1,84 +1,20 @@
-#wrapper{
-  margin-top: 0px;
+#gmap-wrapper,
+#wrapper {
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out;
 }
 
-.map_visible {
-    #wrapper{
-      margin-left: 300px;
-    }
+#gmap-wrapper  {
+  position: fixed;
+  left: 0px;
+  top: 0px;
 
-    #gmap_wrapper {
-      position: fixed;
-      left: 0px;
-      top: 0px;
-    }
-
-  &.map_fullscreen{
-    // overflow: hidden;
-
-    #gmap_wrapper {
-      height: 1000px !important;
-    }
-
-    #categories {
-      -webkit-transform: translate(0px,-320px); /* Safari and Chrome */
-
-      li {
-        a {
-          background-color: white;
-          box-shadow: 0 0 0 2px #f2f2f2
-        }
-        .selected,
-        &.active a,
-        &:hover a {
-          background-color: $blue;
-          color: white;
-        }
-      }
-    }
-  }
-}
-
-#dyn_set_map {
-  border-right: 0px solid white;
-  position: relative;
-  .form-actions {
-    position: absolute;
-    z-index: 1000;
-    bottom: 20px;
-    width: 490px;
-    padding: 14px;
-  }
-
-  #gmap_wrapper  {
-
-    width: 490px;
-    position: relative;
-    background-color: #f2f2f2;
-
-    &.museum_map     { height: 380px !important; }
-    &.exhibition_map { height: 460px !important; }
-    &.event_map      { height: 550px !important; }
-    &.workshop_map   { height: 466px !important; }
-
-    #gmap  { height: 100% !important; }
-  }
-}
-
-#gmap_wrapper  {
   z-index: 2000;
   height: 100%;
-  width: 300px;
+  width: 0%;
   overflow: hidden;
-  position: relative;
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.5s;
-  -webkit-transition-delay: 0s;
-  -webkit-transition-timing: ease-in-out;
 
   #gmap  {
     width: auto;
@@ -100,6 +36,49 @@
     }
   }
 }
+
+.map_visible {
+  margin-left: 25% !important;
+
+  .affix {
+    width: 75%;
+  }
+
+  #gmap-wrapper  {
+    width: 25%;
+  }
+
+  &.map_fullscreen{
+    #gmap-wrapper  {
+      width: 100%;
+    }
+  }
+}
+
+#dyn_set_map {
+  border-right: 0px solid white;
+  position: relative;
+  .form-actions {
+    position: absolute;
+    z-index: 1000;
+    bottom: 20px;
+    width: 490px;
+    padding: 14px;
+  }
+
+  #gmap-wrapper  {
+    position: relative;
+    background-color: #f2f2f2;
+
+    &.museum_map     { height: 380px !important; }
+    &.exhibition_map { height: 460px !important; }
+    &.event_map      { height: 550px !important; }
+    &.workshop_map   { height: 466px !important; }
+
+    #gmap  { height: 100% !important; }
+  }
+}
+
 
 #gmap_locations {
   position: absolute;

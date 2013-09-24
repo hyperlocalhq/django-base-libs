@@ -523,10 +523,10 @@ dd {
   .dl-horizontal dd:after {
     content: " ";
     /* 1 */
-  
+
     display: table;
     /* 2 */
-  
+
   }
   .dl-horizontal dd:after {
     clear: both;
@@ -535,10 +535,10 @@ dd {
   .dl-horizontal dd:after {
     content: " ";
     /* 1 */
-  
+
     display: table;
     /* 2 */
-  
+
   }
   .dl-horizontal dd:after {
     clear: both;
@@ -2804,7 +2804,7 @@ input[type="button"].btn-block {
 .btn-group .btn + .btn-group,
 .btn-group .btn-group + .btn,
 .btn-group .btn-group + .btn-group {
-  margin-left: -1px;
+  /*margin-left: -1px;*/
 }
 .btn-toolbar:before,
 .btn-toolbar:after {
@@ -5389,6 +5389,7 @@ body.modal-open,
 .affix {
   top: 0px;
   position: fixed;
+  width: 100%;
 }
 @-ms-viewport {
   width: device-width;

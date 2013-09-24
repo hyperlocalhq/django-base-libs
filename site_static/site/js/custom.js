@@ -220,9 +220,7 @@ $(window).bind('scrollstop', function(e){
 
 $(window).load(function() {
   if ($("[data-toggle=tooltip]").length) {
-    $("[data-toggle=tooltip]").tooltip({
-      container: '.container'
-    });
+    $("[data-toggle=tooltip]").tooltip({});
   }
 
    $('.panel-collapse').collapse('show');
@@ -233,5 +231,59 @@ $(function() {
 
   if ($('#cms_toolbar').length) { // cms toolbar fix
     $('body').addClass('cms-toolbar-visible')
+  }
+});
+
+$('.share-twitter').sharrre({
+  share: {
+    twitter: true
+  },
+  template: 'Share on Twitter',
+  enableHover: false,
+  enableTracking: true,
+  buttons: { twitter: {via: 'MUSEUMSPORTAL'}},
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('twitter');
+  }
+});
+
+$('.share-facebook').sharrre({
+  share: {
+    facebook: true
+  },
+  template: 'Share on Facebook',
+  enableHover: false,
+  enableTracking: true,
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('facebook');
+  }
+});
+
+$('.share-image-twitter').sharrre({
+  share: {
+    twitter: true
+  },
+  template: '<span class="icon icon-social-twitter"></span> <span class="sr-only">{% trans "Share on Twitter" %}</span>',
+  enableHover: false,
+  enableTracking: true,
+  buttons: { twitter: {via: 'MUSEUMSPORTAL'}},
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('twitter');
+  }
+});
+
+$('.share-image-facebook').sharrre({
+  share: {
+    facebook: true
+  },
+  template: '<span class="icon icon-social-facebook"></span> <span class="sr-only">{% trans "Share on Facebook" %}</span>',
+  enableHover: false,
+  enableTracking: true,
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('facebook');
   }
 });

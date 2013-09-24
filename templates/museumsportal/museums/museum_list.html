@@ -11,13 +11,13 @@ var aGeopositions = [];
 var settings = {
   STATIC_URL: "{{ STATIC_URL }}"
 }
-</script> 
+</script>
 {% endblock %}
 
 {% block map %}
-  
-  {% include "utils/gmap.html" %} 
-  
+
+  {% include "utils/gmap.html" %}
+
 {% endblock %}
 
 {% block content %}
@@ -37,25 +37,27 @@ var settings = {
   <h1>{% trans "Museums, Palaces, and Memorials" %}</h1>
 
   <div id="filters">
+    <script>var str_filter_selection = "{% trans "Filter selection" %}";</script>
+
     <div class="btn-group" id="filter-toggle" data-toggle="buttons">
-      <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories"> 
+      <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
         <input type="radio" name="options" id="filter-toggle-categories">
-        {% trans "Categories" %}  
+        {% trans "Categories" %}
       </label>
 
-      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic"> 
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
         <input type="radio" name="options" id="filter-toggle-alphabetic">
-        {% trans "Alphabet" %}    
+        {% trans "Alphabet" %}
       </label>
 
-      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists"> 
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
         <input type="radio" name="options" id="filter-toggle-smartlists">
-        {% trans "Smart lists" %} 
+        {% trans "Smart lists" %}
       </label>
 
-      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-open-late">   
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-open-late">
         <input type="radio" name="options" id="filter-toggle-open-late">
-        {% trans "Open late" %}    
+        {% trans "Open late" %}
       </label>
     </div>
 
@@ -97,7 +99,7 @@ var settings = {
             <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
               {% for item in abc_list %}
               {% if not forloop.first %}
-              <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+              <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
               {% endif %}
               {% endfor %}
             </ul>
@@ -273,19 +275,14 @@ var settings = {
         </div>
       </div>
 
-
       {% with museum as list_item %}
         {% include "utils/geo_position.html" %}
       {% endwith %}
-       
 
     </div>
   {% endfor %}
  </div>
-</div>  
-
-
-{% include "utils/gmap_scripts.html" %} 
-
+</div>
+{% include "utils/gmap_scripts.html" %}
 
 {% endblock %}

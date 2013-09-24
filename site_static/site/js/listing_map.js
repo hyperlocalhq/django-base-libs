@@ -1,4 +1,4 @@
-(function($){  
+(function($){
     $.fn.autoscroll = function() {
         $('html,body').animate(
             {
@@ -8,7 +8,7 @@
             500
         );
         return this;
-    };  
+    };
 })(jQuery);
 
 var oMap;
@@ -17,7 +17,7 @@ var oMap;
     var oInfobox;
     var aMarkers = [];
     var oCurrentMarker = null;
-    
+
     $(document).ready(function() {
         var $oList = $('body');
         if ($oList.length) {
@@ -25,7 +25,7 @@ var oMap;
                 zoom: 13,
 				mapTypeControl: false,
 				zoomControl: true,
-				streetViewControl: true,                
+				streetViewControl: true,
                 center: new google.maps.LatLng(52.515306, 13.363863),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControlOptions: {
@@ -56,7 +56,7 @@ var oMap;
             }
         }
     });
-    
+
     function before_list_load() {
         if (oInfobox) {
             oInfobox.close();
@@ -67,10 +67,10 @@ var oMap;
         }
         aMarkers = [];
     }
-    
+
     function after_list_load() {
         var aPos = self.aGeopositions || [];
-        /* the center of the map should be (x, y), where 
+        /* the center of the map should be (x, y), where
         x = avg(min(xx), max(xx))
         y = avg(min(yy), max(yy))
         xx is the array of latitudes
@@ -92,7 +92,7 @@ var oMap;
                 sMarkerImg = window.settings.STATIC_URL + "site/img/gmap/markers_1-10.png"
                 iMarkerImgY = (-340);
             }
-            
+
             iLat = aPos[i]['latitude'];
             iLong = aPos[i]['longitude'];
             if (lat_max < iLat)
@@ -104,7 +104,7 @@ var oMap;
             if (iLong < long_min)
                 long_min = iLong;
             var oPoint = new google.maps.LatLng(iLat, iLong);
-            
+
             // DRAW MARKER
             var oImage = new google.maps.MarkerImage(
                 sMarkerImg,
@@ -123,7 +123,7 @@ var oMap;
                 new google.maps.Point(0, 0),
                 new google.maps.Point(8, 25)
             );
-            
+
             var oMarker = new google.maps.Marker({
                 position: oPoint,
                 map: oMap,
@@ -131,20 +131,23 @@ var oMap;
                 icon: oImage
             });
             oMarker.list_index = i;
-            (function(oMarker, sContent) {
-                google.maps.event.addListener(oMarker, 'click', function() {
-                    oInfobox = new StyledInfoWindow({
-                        position: oMarker.getPosition(),
-                        map: oMap,
-                        content: sContent
+
+            if (aPos[i]['content']) {
+                (function(oMarker, sContent) {
+                    google.maps.event.addListener(oMarker, 'click', function() {
+                        oInfobox = new StyledInfoWindow({
+                            position: oMarker.getPosition(),
+                            map: oMap,
+                            content: sContent
+                        });
                     });
-                });
-            }(oMarker, aPos[i]['content']));
+                }(oMarker, aPos[i]['content']));
+            }
 
             oMarker.categories = aPos[i]['categories'];
             aMarkers.push(oMarker);
             aPoints.push(oPoint);
-            
+
             // DRAW MARKER LINK
             $('.location:eq(' + i + ')').data('marker_obj', oMarker).click(function() {
                 oMap.setCenter($(this).data('marker_obj').getPosition());
@@ -166,7 +169,7 @@ var oMap;
         }
 
     }
-    
+
     function map_filter(event, param) {
         var categories = param.filter;
         $(aMarkers).each(function() {
@@ -185,7 +188,7 @@ var oMap;
             oMarker.setVisible(bVisible);
         });
     }
-    
+
     function fit_map(oMap, aPoints) {
         var oBounds = new google.maps.LatLngBounds();
         for (var i=0, iLen=aPoints.length; i<iLen; i++) {
@@ -196,7 +199,7 @@ var oMap;
             oNEPoint.lat() - .005,
             oNEPoint.lng() - .005
         ));
-        
+
         var oSWPoint = oBounds.getNorthEast();
         oBounds.extend(new google.maps.LatLng(
             oSWPoint.lat() + .005,
