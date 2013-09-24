@@ -29,7 +29,7 @@ body {
   color: black;
   font-family: 'calluna-sans', 'Lucida Grande', Arial, sans-serif;
   font-size: 15px;
-  line-height: 25px;
+  line-height: 180%;
   overflow-y: scroll;
   overflow-x: hidden;
   font-weight: 300;
@@ -73,12 +73,30 @@ h6,
   line-height: 1.1;
 }
 
+header {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    margin: 0px !important;
+    line-height: 160%;
+  }
+}
+
 h1 {
   font-weight: 400;
   font-size: 30px;
   line-height: 30px;
-  margin-top: 30px !important;
   margin-bottom: 30px;
+    margin-top: 30px !important;
 }
 
 h2 { 
@@ -104,8 +122,10 @@ dl {
 small {
   display: inline-block;
   line-height: 160%;
+  color: inherit;
 }
 
+a { color: inherit;} 
 a:link    { text-decoration: none;}
 a:hover   { text-decoration: none;}
 a:visited { text-decoration: none;}
@@ -131,35 +151,6 @@ p a{font-weight: 700; }
 
 .tooltip {
   pointer-events: none;
-}
-
-@-webkit-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-   @-moz-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-    @-ms-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-     @-o-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-
-img.fade { 
-  // opacity: 0;
-
-  -webkit-backface-visibility: hidden;
-     -moz-backface-visibility: hidden;
-      -ms-backface-visibility: hidden;
-       -o-backface-visibility: hidden;
-
-  &.in {
-    -webkit-animation: fadein 0.125s ease-out;
-       -moz-animation: fadein 0.125s ease-out;
-        -ms-animation: fadein 0.125s ease-out;
-         -o-animation: fadein 0.125s ease-out;
-            animation: fadein 0.125s ease-out;
-
-      -webkit-animation-fill-mode: backwards;
-         -moz-animation-fill-mode: backwards;
-          -ms-animation-fill-mode: backwards;
-           -o-animation-fill-mode: backwards;
-              animation-fill-mode: backwards;
-  }
 }
 
 

@@ -1,36 +1,36 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
 {% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications base_tags %}
-<html lang="{{ LANGUAGE_CODE }}"> 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>{% block title %}{% endblock %} Museumsportal Berlin</title>
-  <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
-  
-  {% block meta_tags %}
-  {{ site_settings.get_meta_tags|safe }}
-  {% endblock %}	
-  
-  {% block stylesheet %}
-  <link href="{{ STATIC_URL }}site/css/fonts.css" rel="stylesheet" media="screen, print" type="text/css" />
-  <link href="{{ STATIC_URL }}site/css/normalize.css" rel="stylesheet" media="screen, print" type="text/css" />
-  <link href="{{ STATIC_URL }}site/css/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
-  <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
-  <!-- <link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen, print" type="text/css" /> -->
-  <!-- <link href="{{ STATIC_URL }}site/css/ie.css" rel="stylesheet" type="text/css" /> -->
-  {% endblock %}
-  
-  {% render_block "css" %}
-  <script type="text/javascript">
-   (function() {
-      var config = {
-          kitId: 'qru0sat',
-          scriptTimeout: 3000
-      };
-      var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
-  })();
- </script>
+    <title>{% block title %}{% endblock %} Museumsportal Berlin</title>
+    <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+
+    {% block meta_tags %}
+      {{ site_settings.get_meta_tags|safe }}
+    {% endblock %}
+
+    {% block stylesheet %}
+      <link href="{{ STATIC_URL }}site/css/fonts.css" rel="stylesheet" media="screen, print" type="text/css" />
+      <link href="{{ STATIC_URL }}site/css/normalize.css" rel="stylesheet" media="screen, print" type="text/css" />
+      <link href="{{ STATIC_URL }}site/css/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
+      <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+      <!-- <link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen, print" type="text/css" /> -->
+      <!-- <link href="{{ STATIC_URL }}site/css/ie.css" rel="stylesheet" type="text/css" /> -->
+    {% endblock %}
+
+    {% render_block "css" %}
+    <script type="text/javascript">
+      (function() {
+        var config = {
+            kitId: 'qru0sat',
+            scriptTimeout: 3000
+        };
+        var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+      })();
+    </script>
     <!--[if lt IE 9]>
     <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
     <![endif]-->
@@ -46,122 +46,118 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
     <script>
-    var csrftoken = $.cookie('csrftoken');
-    function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-  }
-  $.ajaxSetup({
-    crossDomain: false, // obviates need for sameOrigin test
-    beforeSend: function(xhr, settings) {
-      if (!csrfSafeMethod(settings.type)) {
-        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      var csrftoken = $.cookie('csrftoken');
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
       }
-    }
-  });
-  if ($.browser.msie) {
-    $('html').addClass('msie');
-  }
-  </script>
-  {{ site_settings.extra_head|safe }}
-  {% block js %}{% endblock %}
-</head>
+      $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type)) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        }
+      });
+      if ($.browser.msie) {
+        $('html').addClass('msie');
+      }
+    </script>
+    {{ site_settings.extra_head|safe }}
+    {% block js %}{% endblock %}
+  </head>
 
 
-<body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
+  <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
+    {% block map %}{% endblock %}
+    {% block toolbar %}{% cms_toolbar %}{% endblock %}
 
-  {% block map %}{% endblock %}
-  {% block toolbar %}{% cms_toolbar %}{% endblock %}
+    <!-- Header ================================================== -->
 
-  <!-- Header ================================================== -->
-  {% block header %}
-  {% include "utils/header.html" %}
-  {% include "utils/navigation.html" %}
-  {% endblock %}
+    {% block header %}
+      {% include "utils/header.html" %}
+      {% include "utils/navigation.html" %}
+    {% endblock %}
 
-  <!-- Content ================================================== -->
+    <!-- Content ================================================== -->
 
-  {% block content %}
-  {% endblock %}
+    {% block content %}
+    {% endblock %}
 
-  <!-- Scroll to Top ================================================== -->
+    <!-- Scroll to Top ================================================== -->
 
-  <a href="#top" id="to-top">
-    <span>
-      {% if LANGUAGE_CODE == "de" %}
-      Zum Seitenanfang
-      {% else %}
-      Back to Top
-      {% endif %}
-    </span>
-  </a>
+    <a href="#top" id="to-top">
+      <span class="sr-only">{% trans "Back to top" %}</span>
+    </a>
 
-  <!-- Footer ================================================== -->
+    <!-- Footer ================================================== -->
 
-  {% block footer %}
-  <div id="footer" class="content">
-    <div class="container">
-      <ul class="navigation">
-        {% show_menu_below_id "start_page" 0 0 1 1 %}
-        {% if LANGUAGE_CODE == "de" %}
-        <li><a href="/de/impressum/">Impressum</a></li>
-        {% else %}
-        <li><a href="/en/imprint/">Imprint</a></li>
-        {% endif %}
-        <li><a href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
-        <li><a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
-        <li><a href="/logodownload/">Logodownload</a></li>
-      </ul>
-    </div>
-  </div>
+    {% block footer %}
+      <div id="footer" class="content">
+        <div class="container">
+          <ul class="navigation">
+            {% show_menu_below_id "start_page" 0 0 1 1 %}
 
-  <!-- Sponsors ================================================== -->
+            {% if LANGUAGE_CODE == "de" %}
+              <li><a href="/de/impressum/">Impressum</a></li>
+            {% else %}
+              <li><a href="/en/imprint/">Imprint</a></li>
+            {% endif %}
 
-  <div id="sponsors" class="content">
-    <div class="container">
-      <div>
-        <h4 class="title">{% trans "Supported by" %}</h4>
-        <a title="EU" target="_blank" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm">
-          <img src="{{ STATIC_URL }}/site/img/footer/europa.png" alt="EU" />
-          <span>EU</span>
-        </a>
-        <a title="EFRE" target="_blank" href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html">
-          <img src="{{ STATIC_URL }}/site/img/footer/efre.png" alt="EFRE" />
-          <span>Kulturprojekte Berlin</span>
-        </a>
-        <a title="Projektzukunft" target="_blank" href="http://www.projektzukunft.berlin.de/">
-          <img src="{{ STATIC_URL }}/site/img/footer/projektzukunft.png" alt="Projektzukunft" />
-          <span>Projektzukunft</span>
-        </a>
-        <a title="Be-Berlin" target="_blank" href="http://www.berlin.de/sen/kultur/index.de.php">
-          <img src="{{ STATIC_URL }}/site/img/footer/beberlin.png" alt="Be-Berlin" />
-          <span>Be-Berlin</span>
-        </a>
+            <li><a href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
+            <li><a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
+            <li><a href="/logodownload/">Logodownload</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h4 class="title">{% trans "A service from" %}</h4>
-        <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
-          <img src="{{ STATIC_URL }}/site/img/footer/kulturprojekte.png" alt="Kulturprojekte Berlin" />
-          <span>Kulturprojekte Berlin</span>
-        </a>
-      </div>
-      <div>
-        <h4>{% trans "Together with Berlin museums and" %}</h4>
-        <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum/">
-          <img src="{{ STATIC_URL }}/site/img/footer/lmb.png" alt="Landesverband der Museen zu Berlin e.V." />
-          <span>Landesverband der Museen zu Berlin e.V.</span>
-        </a>    
-      </div>
-    </div>
-  </div>
-  {% endblock %}
 
-  {% render_block "js" %}
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/custom.js"></script>
-  {{ site_settings.extra_body|safe }}
-</body>
+      <!-- Sponsors ================================================== -->
+
+      <div id="sponsors" class="content">
+        <div class="container">
+          <div>
+            <h4 class="title">{% trans "Supported by" %}</h4>
+            <a title="EU" target="_blank" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm">
+              <img src="{{ STATIC_URL }}/site/img/footer/europa.png" alt="EU" />
+              <span>EU</span>
+            </a>
+            <a title="EFRE" target="_blank" href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html">
+              <img src="{{ STATIC_URL }}/site/img/footer/efre.png" alt="EFRE" />
+              <span>Kulturprojekte Berlin</span>
+            </a>
+            <a title="Projektzukunft" target="_blank" href="http://www.projektzukunft.berlin.de/">
+              <img src="{{ STATIC_URL }}/site/img/footer/projektzukunft.png" alt="Projektzukunft" />
+              <span>Projektzukunft</span>
+            </a>
+            <a title="Be-Berlin" target="_blank" href="http://www.berlin.de/sen/kultur/index.de.php">
+              <img src="{{ STATIC_URL }}/site/img/footer/beberlin.png" alt="Be-Berlin" />
+              <span>Be-Berlin</span>
+            </a>
+          </div>
+          <div>
+            <h4 class="title">{% trans "A service from" %}</h4>
+            <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
+              <img src="{{ STATIC_URL }}/site/img/footer/kulturprojekte.png" alt="Kulturprojekte Berlin" />
+              <span>Kulturprojekte Berlin</span>
+            </a>
+          </div>
+          <div>
+            <h4>{% trans "Together with Berlin museums and" %}</h4>
+            <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum/">
+              <img src="{{ STATIC_URL }}/site/img/footer/lmb.png" alt="Landesverband der Museen zu Berlin e.V." />
+              <span>Landesverband der Museen zu Berlin e.V.</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+
+    {% render_block "js" %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/custom.js"></script>
+    {{ site_settings.extra_body|safe }}
+  </body>
 </html>
 
-<!-- 
+<!--
 <li><a class="facebook icon icon-white icon-facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380">&nbsp;<span>Facebook</span></a></li>
 <li><a class="twitter icon icon-white icon-twitter" href="https://twitter.com/museumsportal">&nbsp;<span>Twitter</span></a></li> -->

@@ -533,6 +533,7 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
+</div>    
 
   {% include "utils/images.html" %}
 
@@ -545,129 +546,140 @@ $(document).ready(function(){
 
   <!-- ======= Exhibitions ======= -->
 
-  {% if object.get_published_exhibitions %}
-    <h2>{% trans "Current Exhibitions" %}</h2>
-    <div class="list row"> 
-      {% for exhibition in object.get_published_exhibitions %}
-      <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        {% comment %}<!--
-          <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }}"{% endif %}> </a>
+{% if object.get_published_exhibitions %}
+  <div id="exhibitions" class="content">
+    <div class="container">
+      <h2>{% trans "Current Exhibitions" %}</h2>
+      <div class="list row"> 
+        {% for exhibition in object.get_published_exhibitions %}
+        <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          {% comment %}<!--
+            <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }}"{% endif %}> </a>
 
-          <nav class="actions">
-              {% if request.user.is_authenticated %}
-                  {% adding2favorites for exhibition %}
+            <nav class="actions">
+                {% if request.user.is_authenticated %}
+                    {% adding2favorites for exhibition %}
+                {% endif %}
+                <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
+            </nav>
+
+            {% with exhibition as list_item %}
+                {% include "utils/geo_position.html" %}
+            {% endwith %}
+          -->{% endcomment %}
+
+          <a href="{{ exhibition.get_url_path }}">
+            <h3>{{ exhibition.title }}</h3>
+            <h4>{{ exhibition.subtitle }}</h4>
+            <h5>
+              {% if exhibition.permanent %}
+              {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
+              {% else %}
+              {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
               {% endif %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
-          </nav>
-
-          {% with exhibition as list_item %}
-              {% include "utils/geo_position.html" %}
-          {% endwith %}
-        -->{% endcomment %}
-
-        <a href="{{ exhibition.get_url_path }}">
-          <h3>{{ exhibition.title }}</h3>
-          <h4>{{ exhibition.subtitle }}</h4>
-          <h5>
-            {% if exhibition.permanent %}
-            {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
-            {% else %}
-            {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
-            {% endif %}
-          </h5>
-        </a>
-      </div>
-      {% endfor %}
-    </div>
-  {% endif %} 
-
-  <!-- ======= Events ======= -->
-
-  {% if object.get_published_events %}
-    <h2>{% trans "Current Events" %}</h2>
-    <div class="list row"> 
-      {% for event in object.get_published_events %}
-      <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="{{ event.get_url_path }}">
-          <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}</h4>
-          <h3>{{ event.title }}</h3>
-          <h4>{{ event.subtitle }}</h4>
-          <h5>{{ event.museum.title }}</h5>
-        </a>
-      </div>
-      {% endfor %}
-    </div>
-  {% endif %}
-
-  <!-- ======= Guided Tours ======= -->
-
-  {% if object.get_published_workshops %}
-    <h2>{% trans "Current Guided Tours, Workshops and educational offers" %}</h2>
-    <div class="list row"> 
-      {% for workshop in object.get_published_workshops %}
-      <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="{{ workshop.get_url_path }}">
-          {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-          <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
-          {% else %}
-          <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
-            {% with workshop.get_closest_workshop_time as workshop_time %}
-            {{ workshop_time.workshop_date|date:"j. F Y" }}
-            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
-            {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-            {% endwith %}</h4>
-            {% endif %}
-            <h3>{{ workshop.title }}</h3>
-            <h4>{{ workshop.subtitle }}</h4>
-            <h5>{{ workshop.museum.title }}</h5>
+            </h5>
           </a>
         </div>
         {% endfor %}
       </div>
     </div>
-    {% endif %}
+  </div>
+{% endif %} 
 
-    {% endwith %}
+<!-- ======= Events ======= -->
 
-    {% include "utils/gallery.html" %}
-    {% include "utils/page_controls.html" %}
-    {% include "utils/gmap_scripts.html" %}
-    {% include "utils/gallery_scripts.html" %}
+{% if object.get_published_events %}
+  <div id="events" class="content">
+    <div class="container">
+      <h2>{% trans "Current Events" %}</h2>
+      <div class="list row"> 
+        {% for event in object.get_published_events %}
+        <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a href="{{ event.get_url_path }}">
+            <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}</h4>
+            <h3>{{ event.title }}</h3>
+            <h4>{{ event.subtitle }}</h4>
+            <h5>{{ event.museum.title }}</h5>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
 
-    <div id="hotelbooking" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="hotelbookingLabel" aria-hidden="true">
-      <div class="table">
-        <div class="cell">
-          <div class="inner">
-            <div class="modal-body">
-              <p></p>
-              <iframe style="" src="https://buchung1.visitberlin.de/hotelbuchung/controller?command=part&partid=93597537563" width="500px" height="500px" name="SELFHTML_in_a_box">
-              <p>Ihr Browser kann leider keine eingebetteten Frames anzeigen:
-                Sie k&ouml;nnen die eingebettete Seite &uuml;ber den folgenden Verweis
-                aufrufen: <a href="../../../index.htm">SELFHTML</a></p>
-              </iframe>
-              <button id="hotel-cancel" name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
+<!-- ======= Guided Tours ======= -->
+
+{% if object.get_published_workshops %}
+  <div id="workshops" class="content">
+    <div class="container">
+      <h2>{% trans "Current Guided Tours, Workshops and educational offers" %}</h2>
+      <div class="list row"> 
+        {% for workshop in object.get_published_workshops %}
+        <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a href="{{ workshop.get_url_path }}">
+            {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+            <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
+            {% else %}
+            <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
+              {% with workshop.get_closest_workshop_time as workshop_time %}
+              {{ workshop_time.workshop_date|date:"j. F Y" }}
+              {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+              {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+              {% endwith %}</h4>
+              {% endif %}
+              <h3>{{ workshop.title }}</h3>
+              <h4>{{ workshop.subtitle }}</h4>
+              <h5>{{ workshop.museum.title }}</h5>
+            </a>
           </div>
+          {% endfor %}
         </div>
       </div>
-    </div>    
-  </div>    
+    </div>
+  </div>
+{% endif %}
 
-    {% endblock %}
+{% endwith %}
 
-    {% block footer %}
-    {{ block.super }}
-    <script>
-    $(function() {
-      $('#hotelbooking-toggle').click(function() {
-        $('#hotelbooking').modal('show');
-        return false;
-      });
-    });
-    </script>
-    <script>
-    $(function() {
-      $("select").selectbox();
-    });
-    </script>
-    {% endblock %}
+{% include "utils/gallery.html" %}
+{% include "utils/page_controls.html" %}
+{% include "utils/gmap_scripts.html" %}
+{% include "utils/gallery_scripts.html" %}
+
+<div id="hotelbooking" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="hotelbookingLabel" aria-hidden="true">
+  <div class="table">
+    <div class="cell">
+      <div class="inner">
+        <div class="modal-body">
+          <p></p>
+          <iframe style="" src="https://buchung1.visitberlin.de/hotelbuchung/controller?command=part&partid=93597537563" width="500px" height="500px" name="SELFHTML_in_a_box">
+          <p>Ihr Browser kann leider keine eingebetteten Frames anzeigen:
+            Sie k&ouml;nnen die eingebettete Seite &uuml;ber den folgenden Verweis
+            aufrufen: <a href="../../../index.htm">SELFHTML</a></p>
+          </iframe>
+          <button id="hotel-cancel" name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    
+
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+<script>
+$(function() {
+  $('#hotelbooking-toggle').click(function() {
+    $('#hotelbooking').modal('show');
+    return false;
+  });
+});
+</script>
+<script>
+$(function() {
+  $("select").selectbox();
+});
+</script>
+{% endblock %}

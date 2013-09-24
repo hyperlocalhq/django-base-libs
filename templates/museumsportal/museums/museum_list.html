@@ -15,9 +15,9 @@ var settings = {
 {% endblock %}
 
 {% block map %}
-  {% comment %}
-  <!-- {% include "utils/gmap.html" %} -->
-  {% endcomment %}
+  
+  {% include "utils/gmap.html" %} 
+  
 {% endblock %}
 
 {% block content %}
@@ -190,10 +190,12 @@ var settings = {
       <div class="description">
         <div class="row row-narrow">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h3>{{ museum.title }}</h3>
-            {% if museum.subtitle %}
-            <h4>{{ museum.subtitle }}</h4>
-            {% endif %}
+            <header>
+              <h3>{{ museum.title }}</h3>
+              {% if museum.subtitle %}
+              <h4>{{ museum.subtitle }}</h4>
+              {% endif %}
+            </header>
           </div>
         </div>
 
@@ -271,18 +273,19 @@ var settings = {
         </div>
       </div>
 
-     {% comment %}
-       {% with museum as list_item %}
-        <!-- {% include "utils/geo_position.html" %} -->
-       {% endwith %}
-     {% endcomment %}
+
+      {% with museum as list_item %}
+        {% include "utils/geo_position.html" %}
+      {% endwith %}
+       
+
     </div>
   {% endfor %}
  </div>
 </div>  
 
-{% comment %}
-<!-- {% include "utils/gmap_scripts.html" %} -->
-{% endcomment %}
+
+{% include "utils/gmap_scripts.html" %} 
+
 
 {% endblock %}

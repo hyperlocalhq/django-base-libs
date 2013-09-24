@@ -1,11 +1,4 @@
 
-.row + .row { margin-top: 20px; }
-.row-narrow + .row-narrow { margin-top: 20px; }
-
-// .col-xs-12 + .col-xs-12,
-// .col-sm-12 + .col-sm-12,
-// .col-md-12 + .col-md-12,
-// .col-lg-12 + .col-lg-12 { margin-top: 20px; }
 
 .row {
   margin-right: -25px;
@@ -34,3 +27,6 @@
     }
   }
 }
+
+.row + .row { margin-top: 20px; }
+.row-narrow + .row-narrow { margin-top: 20px; }
