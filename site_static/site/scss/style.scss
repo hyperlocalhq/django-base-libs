@@ -99,7 +99,7 @@ h1 {
     margin-top: 30px !important;
 }
 
-h2 { 
+h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
@@ -117,7 +117,21 @@ p, dl, ul,ol {
 
 dl {
   margin-bottom: 0px;
+  padding: 0px;
+  dt {float: left; }
+  dd {float: right; }
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
 }
+
+dl + p { margin-bottom: 10px; }
+p + dl { margin-top: 10px; }
 
 small {
   display: inline-block;
@@ -125,7 +139,7 @@ small {
   color: inherit;
 }
 
-a { color: inherit;} 
+a { color: inherit;}
 a:link    { text-decoration: none;}
 a:hover   { text-decoration: none;}
 a:visited { text-decoration: none;}

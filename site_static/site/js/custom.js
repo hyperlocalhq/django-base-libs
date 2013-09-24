@@ -4,7 +4,7 @@ var django = {
 };
 
 $(function() {
-  $("a[href^='http://']").attr("target","_blank");	        
+  $("a[href^='http://']").attr("target","_blank");
 
     if ($('#cms_toolbar').length) { // cms toolbar fix
       if ($('body').css('margin-top') == "-43px") {
@@ -71,7 +71,7 @@ $(document).ready(function(){
 
   $container.isotope({
     itemSelector : '.item',
-    layoutMode : 'fitRows' 
+    layoutMode : 'fitRows'
   });
 
   // filter buttons
@@ -97,7 +97,7 @@ $(document).ready(function(){
     } else if (level == 1) {
       $children = $this.closest('.level-1-container');
     }
-    
+
     if (value) {
       if ($this.hasClass('selected')) {
         $this.removeClass('selected');
@@ -168,7 +168,7 @@ $(document).ready(function(){
 
   $.bbq.pushState({filter: selector});
 
-  $container.isotope({filter: selector});            
+  $container.isotope({filter: selector});
   $(".img img:in-viewport").lazyload();
   $container.trigger("map_filter", { filter: isoFilters});
   $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
@@ -188,7 +188,7 @@ $('#filter_summary a').live('click', function(e) {
   } else {
     // trigger the click on corresponding filter
     $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();
-  }            
+  }
 })
 
 $('#filter_reset').live('click', function(e) {
@@ -224,11 +224,11 @@ $(window).load(function() {
     });
   }
 
-   // $('.panel-collapse').collapse('show');
+   $('.panel-collapse').collapse('show');
 });
 
 $(function() {
-  $("a[href^='http://']").attr("target","_blank");            
+  $("a[href^='http://']").attr("target","_blank");
 
   if ($('#cms_toolbar').length) { // cms toolbar fix
     $('body').addClass('cms-toolbar-visible')

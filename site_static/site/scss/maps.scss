@@ -19,7 +19,7 @@
 
   &.map_fullscreen{
     // overflow: hidden;
-    
+
     #gmap_wrapper {
       height: 1000px !important;
     }
@@ -28,13 +28,13 @@
       -webkit-transform: translate(0px,-320px); /* Safari and Chrome */
 
       li {
-        a { 
+        a {
           background-color: white;
           box-shadow: 0 0 0 2px #f2f2f2
         }
         .selected,
         &.active a,
-        &:hover a { 
+        &:hover a {
           background-color: $blue;
           color: white;
         }
@@ -70,7 +70,8 @@
 }
 
 #gmap_wrapper  {
-  height: 100%; 
+  z-index: 2000;
+  height: 100%;
   width: 300px;
   overflow: hidden;
   position: relative;
@@ -80,7 +81,7 @@
   -webkit-transition-timing: ease-in-out;
 
   #gmap  {
-    width: auto; 
+    width: auto;
     height: 100%;
     width: 100%;
     min-height: 350px;
@@ -132,7 +133,7 @@
       height: 35px;
       display: block;
       font-weight: 500;
-      border-bottom: 1px solid #f2f2f2; 
+      border-bottom: 1px solid #f2f2f2;
 
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -141,7 +142,7 @@
 
       box-sizing: border-box;
       -moz-box-sizing: border-box;
-      &:hover { 
+      &:hover {
         color: white;
         background-color: black;
       }
@@ -150,11 +151,11 @@
 }
 
 .location {
-  .wrapper { 
+  .wrapper {
     text-align: center;
     height: 0;
 
-    .close { 
+    .close {
       top: 0px;
       right: 0px;
       position: absolute;
@@ -163,7 +164,7 @@
       display: none;
     }
 
-    .inner { 
+    .inner {
       text-align: left;
       display: table;
       background-color: black;
@@ -182,11 +183,11 @@
       line-height: 20px;
       font-weight: 500;
 
-      > span { 
+      > span {
         display: table-cell;
         vertical-align: middle;
         text-align: center;
-        a { 
+        a {
           font-weight: 700;
           color: inherit;
           text-align: center;
@@ -205,8 +206,8 @@
 
         &:after { border-top-color: white; }
       }
-    
-      
+
+
       &:after {
         content: "";
         position: absolute;
