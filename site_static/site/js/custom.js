@@ -211,6 +211,7 @@ if (window.location.hash) {
 
 $(document).ready(function(){
   $(".img img").lazyload();
+  $("select").selectbox();
 });
 
 $(window).bind('scrollstop', function(e){

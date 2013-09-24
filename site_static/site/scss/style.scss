@@ -39,10 +39,6 @@ body {
   margin: 0 !important;
 }
 
-#carousel-startpage {
-  margin-bottom: 30px;
-}
-
 ::selection {background: #ffb7b7; /* Safari */ }
 ::-moz-selection {background: #ffb7b7; /* Firefox */ }
 
@@ -186,7 +182,7 @@ p a{font-weight: 700; }
   min-height: 50px;
   padding: 0px 12px;
   font-size: 18px;
-  line-height: 50px;
+  line-height: 30px;
   color: black;
   vertical-align: middle;
   background-color: transparent;
@@ -196,6 +192,8 @@ p a{font-weight: 700; }
   box-shadow: none;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  resize: none;
+  background-image: url("../img/transparent-1.png");
 }
 .form-control:focus {
   border-color: #66afe9;

@@ -1,11 +1,23 @@
 
 // ================= MUSEUM EXHIBITION EVENT WORKSHOP DETAIL PAGES  =================
-#cover_image {
-  margin-bottom: 40px;
-  img {
-    width: 100%;
+#cover-image {
+  background-color: #f8f8f8;
+  .container div {
+    margin: -50px 0px;
+    img {
+      width: 100%;
+    }
   }
 }
+
+
+#slideshow {
+  background-color: #f8f8f8;
+  #carousel {
+    margin: -50px 0px;
+  }
+}
+
 
 .tools {
   margin-bottom: 30px;
@@ -115,7 +127,7 @@
       font-size: 20px;
       line-height: 32px;
       font-weight: 600;
-      margin-top: 25px;
+      margin-top: 25px !important;
     }
 
     h4 {

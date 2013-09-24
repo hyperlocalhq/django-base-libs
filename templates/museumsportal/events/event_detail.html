@@ -26,7 +26,12 @@
 
 {% block edit_item %}
     {% if_has_perm "events.change_event" object %}
-    <li><a class="edit icon icon-white icon-edit" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
+    <div>
+        <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">
+            <span class="sr-only">{% trans "Edit" %}</span>
+            <span class="icon icon-pencil"></span>
+        </a>
+    </div>
     {% end_if_has_perm %}
 {% endblock %}
 
@@ -36,14 +41,14 @@
     <div class="container">
         {% include "utils/cover_image.html" %}
         <section class="sidebar">
-            <div class="panel-group" id="accordion2">  
-                <div class="panel panel-default">  
-                    <div class="panel-heading">  
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
+            <div class="panel-group" id="accordion2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">
                             {% trans "Venue" %}
                         </a>
                     </h4>
-                    <ul id="collapse-location" class="panel-collapse collapse in">  
+                    <ul id="collapse-location" class="panel-collapse collapse in">
                         <div class="panel-body">
                             {% if event.museum %}
                                 {% with event.museum as museum %}
@@ -51,7 +56,7 @@
                                         <dt>{% trans "Address" %}</dt>
                                         <dd><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></dd>
                                         <dd>{{ museum.street_address }}</dd>
-                                        {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
+                                        {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %}
                                         <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
 
                                         {% with event as list_item %}
@@ -65,7 +70,7 @@
                                     <dt>{% trans "Address" %}</dt>
                                     <dd>{{ event.location_name }}</dd>
                                     <dd>{{ event.street_address }}</dd>
-                                    {% if event.street_address2 %}<dd>{{ event.street_address2 }}</dd>{% endif %} 
+                                    {% if event.street_address2 %}<dd>{{ event.street_address2 }}</dd>{% endif %}
                                     <dd>{{ event.postal_code }} {{ event.city }}</dd>
 
                                     {% with event as list_item %}
@@ -74,7 +79,7 @@
                                     {% endwith %}
                                 </dl>
                             {% endif %}
-                            
+
                             {% if event.exhibition %}
                                 <dl>
                                     <dt>{% trans "Related exhibition" %}</dt>
@@ -87,26 +92,26 @@
                                     <dt>{% trans "Service Telephone" %}
                                         <span class="right">+{{ event.museum.service_phone_country }} ({{ event.museum.service_phone_area }}) {{ event.museum.service_phone_number }}</span>
                                     </dt>
-                                {% endif %} 
+                                {% endif %}
 
                                 {% if event.museum.phone_number %}
                                     <dt>{% trans "Telephone" %}
                                         <span class="right">+{{ event.museum.phone_country }} ({{ event.museum.phone_area }}) {{ event.museum.phone_number }}</span>
                                     </dt>
-                                {% endif %} 
+                                {% endif %}
 
                                 {% if event.museum.group_bookings_phone_number %}
                                     <dt>{% trans "Booking Telephone" %}
                                         <span class="right">+{{ event.museum.group_bookings_phone_country }} ({{ event.museum.group_bookings_phone_area }}) {{ event.museum.group_bookings_phone_number }}</span>
                                     </dt>
-                                {% endif %} 
+                                {% endif %}
 
                                 {% if event.museum.fax_number %}
                                     <dt>{% trans "Fax" %}
                                         <span class="right">+{{ event.museum.fax_country }} ({{ event.museum.fax_area }}) {{ event.museum.fax_number }}</span>
                                     </dt>
-                                {% endif %} 
-                               
+                                {% endif %}
+
                                 {% if event.website %}
                                     <dt>{% trans "Website" %}
                                          <span class="right"><a class="crop" href="{{ event.website }}">{{ event.website|humanize_url:"25" }}</a></span>
@@ -120,7 +125,7 @@
                                     <dt>{% trans "Organizer" %}</dt>
                                     {% for organizer in event.organizer_set.all %}
                                         {% if organizer.organizing_museum %}
-                                        <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd> 
+                                        <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
                                         {% endif %}
 
                                         {% if organizer.organizer_title %}
@@ -134,9 +139,9 @@
                                 </dl>
                             {% endif %}
                         </li>
-                    </ul>  
+                    </ul>
                 </li>
-                
+
                 {% if event.museum %}
                     {% with event.museum as list_item %}
                         {% include "utils/bvg.html" %}
@@ -150,13 +155,13 @@
                 <!-- ======= Date and Time ======= -->
 
                 {% if event.get_upcoming_event_times.count %}
-                    <div class="panel panel-default">  
-                        <div class="panel-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">
                                 {% trans "Date and Time" %}
                             </a>
                         </h4>
-                        <ul id="collapse-times" class="panel-collapse collapse">  
+                        <ul id="collapse-times" class="panel-collapse collapse">
                             {% for event_time in event.get_upcoming_event_times %}
                                 <li class="accordion-inner tight">
                                     <dl>
@@ -167,20 +172,20 @@
                                     </dl>
                                 </li>
                             {% endfor %}
-                        </ul>  
+                        </ul>
                     </li>
-                {% endif %} 
+                {% endif %}
 
                 <!-- ======= Prices ======= -->
 
                 {% if event.free_admission or event.admission_price or event.admission_price_info or event.reduced_price or event.reduced_price_info or event.booking_info %}
-                    <div class="panel panel-default">  
-                        <div class="panel-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
-                                {% trans "Prices" %} 
-                            </a>  
-                        </h4>  
-                        <ul id="collapse-prices" class="panel-collapse collapse">  
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">
+                                {% trans "Prices" %}
+                            </a>
+                        </h4>
+                        <ul id="collapse-prices" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <dl>
                                 {% if event.free_admission %}
@@ -200,7 +205,7 @@
                                     {% endif %}
                                 {% endif %}
                                 </dl>
-                            </li> 
+                            </li>
                             {% if event.booking_info %}
                             <div class="panel-body">
                                 <dl>
@@ -209,20 +214,20 @@
                                 </dl>
                             </li>
                             {% endif %}
-                        </ul>  
+                        </ul>
                     </li>
-                {% endif %} 
+                {% endif %}
 
                 <!-- ======= Other Information ======= -->
 
                 {% if event.meeting_place or event.get_languages %}
-                    <div class="panel panel-default">  
-                        <div class="panel-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
-                                {% trans "Other info" %} 
-                            </a>  
-                        </h4>  
-                        <ul id="collapse-other-info" class="panel-collapse collapse">  
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">
+                                {% trans "Other info" %}
+                            </a>
+                        </h4>
+                        <ul id="collapse-other-info" class="panel-collapse collapse">
                             <div class="panel-body">
                                 {% if event.meeting_place %}
                                     <dl>
@@ -237,10 +242,10 @@
                                     </dl>
                                 {% endif %}
                             </li>
-                        </ul>  
+                        </ul>
                     </li>
-                {% endif %} 
-            </ul> 
+                {% endif %}
+            </ul>
 
             {% if request.user.is_authenticated %}
                 <div class="tools">
@@ -248,10 +253,10 @@
                 </div>
             {% endif %}
         </section>
-            
+
         <article class="with_sidebar">
             <header>
-                
+
                 <time>{% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
                     {% with event.get_closest_event_time as event_time %}
                         {{ event_time.event_date|date:"j. F Y" }}
@@ -259,7 +264,7 @@
                         </br>
                     {% endwith %}
                 </time>
-                
+
                 <h1> {{ event.title }} </h1>
                 {% if event.subtitle %}
                     <h2>{{ event.subtitle }}</h2>
@@ -277,7 +282,7 @@
                 {% endif %}
             </header>
             {{ event.get_rendered_description }}
-            
+
             {% comment %}
             <!-- <ul class="tags">
                 {% if event.categories.count %}
@@ -291,7 +296,7 @@
                         <li><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/events/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
                     {% endfor %}
                 {% endif %}
-            </ul> -->   
+            </ul> -->
             {% endcomment %}
         </article>
   </div>
@@ -328,7 +333,7 @@
         </ul>
     </div>
 </div>
-{% endif %} 
+{% endif %}
 
 {% endwith %}
 

@@ -1498,9 +1498,7 @@
         margin-top: -6px !important;
         position: absolute; }
   .panel-group form textarea {
-    height: 60px !important;
-    min-height: auto;
-    padding-top: 7px; }
+    height: 80px !important; }
   .panel-group .panel-heading {
     padding: 0px !important;
     position: relative; }
@@ -1769,10 +1767,17 @@ dl {
   .cms-plugin-richtext:after {
     clear: both; }
 
-#cover_image {
-  margin-bottom: 40px; }
-  #cover_image img {
-    width: 100%; }
+#cover-image {
+  background-color: #f8f8f8; }
+  #cover-image .container div {
+    margin: -50px 0px; }
+    #cover-image .container div img {
+      width: 100%; }
+
+#slideshow {
+  background-color: #f8f8f8; }
+  #slideshow #carousel {
+    margin: -50px 0px; }
 
 .tools {
   margin-bottom: 30px; }
@@ -1914,7 +1919,7 @@ dl {
       font-size: 20px;
       line-height: 32px;
       font-weight: 600;
-      margin-top: 25px; }
+      margin-top: 25px !important; }
     .museum-detail article header h4,
     .exhibition-detail article header h4,
     .event-detail article header h4,
@@ -2472,9 +2477,6 @@ body {
   -webkit-text-stroke: 1px transparent;
   margin: 0 !important; }
 
-#carousel-startpage {
-  margin-bottom: 30px; }
-
 ::selection {
   background: #ffb7b7;
   /* Safari */ }
@@ -2623,7 +2625,7 @@ p a {
   min-height: 50px;
   padding: 0px 12px;
   font-size: 18px;
-  line-height: 50px;
+  line-height: 30px;
   color: black;
   vertical-align: middle;
   background-color: transparent;
@@ -2632,7 +2634,9 @@ p a {
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; }
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  resize: none;
+  background-image: url("../img/transparent-1.png"); }
 
 .form-control:focus {
   border-color: #66afe9;

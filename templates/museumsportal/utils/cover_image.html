@@ -1,60 +1,64 @@
 {% load base_tags image_modifications fb_tags auth_extended i18n favorites %}
 
 {% if object.cover_image %}
-{% with object.cover_image|file_description as fd %}
-<header id="cover_image">
-  <img src="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="{{ fd.description|remove_newlines|escape }}" title="{{ fd.description|remove_newlines|escape }}" />
-  
-  {% if museum == object %}
-  <nav class="actions">
-    {% if_has_perm "museums.change_museum" museum %}
-    <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop " onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';"></button>
-    {% end_if_has_perm %}
-    <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
-  </nav>
-  {% endif %}
-  
-  {% if exhibition == object %}
-  <nav class="actions">
-    {% if_has_perm "exhibitions.change_exhibition" exhibition %}
-    <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop" onclick="location.href='{% cropping_url exhibition.cover_image "cover" request request.path %}';"></button>
-    {% end_if_has_perm %}
-    <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
-  </nav>
-  {% endif %}
-  
-  {% if workshop == object %}
-  <nav class="actions">
-    {% if_has_perm "workshops.change_workshop" workshop %}
-    <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';"></button>
-    {% end_if_has_perm %}
-    <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
-  </nav>
-  {% endif %}
-  
-  {% if event == object %}
-  <nav class="actions">
-    {% if_has_perm "events.change_event" event %}
-    <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';"></button>
-    {% end_if_has_perm %}
-    <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
-  </nav>
-  {% endif %}
-</header>
-{% endwith %}
+  <div id="cover-image" class="content">
+    <div class="container">
+      {% with object.cover_image|file_description as fd %}
+        <div>
+          <img src="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="{{ fd.description|remove_newlines|escape }}" title="{{ fd.description|remove_newlines|escape }}" />
+
+          {% if museum == object %}
+            <nav class="actions">
+              {% if_has_perm "museums.change_museum" museum %}
+              <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop " onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';"></button>
+              {% end_if_has_perm %}
+              <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
+            </nav>
+          {% endif %}
+
+          {% if exhibition == object %}
+            <nav class="actions">
+              {% if_has_perm "exhibitions.change_exhibition" exhibition %}
+              <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop" onclick="location.href='{% cropping_url exhibition.cover_image "cover" request request.path %}';"></button>
+              {% end_if_has_perm %}
+              <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
+            </nav>
+          {% endif %}
+
+          {% if workshop == object %}
+            <nav class="actions">
+              {% if_has_perm "workshops.change_workshop" workshop %}
+              <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';"></button>
+              {% end_if_has_perm %}
+              <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
+            </nav>
+          {% endif %}
+
+          {% if event == object %}
+            <nav class="actions">
+              {% if_has_perm "events.change_event" event %}
+              <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';"></button>
+              {% end_if_has_perm %}
+              <button data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Fullscreen" %}" class="fullscreen icon icon-white icon-fullscreen"></button>
+            </nav>
+          {% endif %}
+        </div>
+      {% endwith %}
+    </div>
+  </div>
 {% endif %}
 
 <script type="text/javascript">
-$(window).load(function() {
-  if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
-    $('#cover_image img').click(function(e){
-      $('body').toggleClass('gallery');
-      slider.slide($(this).index(), 0);
-    });
-    $('#cover_image .fullscreen').click(function(e){
-      $('body').toggleClass('gallery');
-      slider.slide($(this).index(), 0);
-    });
-  }
-});
+  $(window).load(function() {
+    if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
+      $('#cover_image img').click(function(e){
+        $('body').toggleClass('gallery');
+        slider.slide($(this).index(), 0);
+      });
+      $('#cover_image .fullscreen').click(function(e){
+        $('body').toggleClass('gallery');
+        slider.slide($(this).index(), 0);
+      });
+    }
+  });
 </script>
