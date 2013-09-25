@@ -9,24 +9,32 @@
         @keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
 
 .fade {
-
   -webkit-backface-visibility: hidden;
      -moz-backface-visibility: hidden;
       -ms-backface-visibility: hidden;
        -o-backface-visibility: hidden;
 
-  &.in {
-    -webkit-animation: fadein 0.125s ease-out;
-       -moz-animation: fadein 0.125s ease-out;
-        -ms-animation: fadein 0.125s ease-out;
-         -o-animation: fadein 0.125s ease-out;
-            animation: fadein 0.125s ease-out;
+  opacity: 0;
 
-      -webkit-animation-fill-mode: both;
-         -moz-animation-fill-mode: both;
-          -ms-animation-fill-mode: both;
-           -o-animation-fill-mode: both;
-              animation-fill-mode: both;
+  -webkit-transition: opacity 0.125s ease-in-out !important;
+     -moz-transition: opacity 0.125s ease-in-out !important;
+      -ms-transition: opacity 0.125s ease-in-out !important;
+       -o-transition: opacity 0.125s ease-in-out !important;
+          transition: opacity 0.125s ease-in-out !important;
+
+  &.in {
+    opacity: 1;
+    // -webkit-animation: fadein 0.125s ease-out;
+    //    -moz-animation: fadein 0.125s ease-out;
+    //     -ms-animation: fadein 0.125s ease-out;
+    //      -o-animation: fadein 0.125s ease-out;
+    //         animation: fadein 0.125s ease-out;
+
+    //   -webkit-animation-fill-mode: both;
+    //      -moz-animation-fill-mode: both;
+    //       -ms-animation-fill-mode: both;
+    //        -o-animation-fill-mode: both;
+    //           animation-fill-mode: both;
   }
 }
 
@@ -40,12 +48,22 @@
   }
   .actions {
     position: absolute;
-    right: 10px;
     top: 0px;
     z-index: 10;
     display: none;
     font-size: 0px;
+    padding: 10px;
+    .btn {
+      border-radius: 100% !important;
+      margin-left: 5px !important;
+    }
   }
+}
+
+.btn-round {
+  border-radius: 100% !important;
+  &.pull-right { margin-left: 5px !important;}
+  &.pull-left { margin-right: 5px !important;}
 }
 
 .list {

@@ -1,71 +1,12 @@
 
-var django = {
-  jQuery: jQuery
-};
 
-$(function() {
-  $("a[href^='http://']").attr("target","_blank");
-
-    if ($('#cms_toolbar').length) { // cms toolbar fix
-      if ($('body').css('margin-top') == "-43px") {
-        $('body').css('margin-top', 0);
-      }
-    }
-  });
-$(function() {
-  $('#to-top').click(function(e){
-    $('html, body').animate({scrollTop:0}, 'slow');
-    return false;
-  });
-
-  $(window).scroll(function() {
-    if ($('body').offset().top < $(window).scrollTop()) {
-      $('#to-top').addClass('on');
-    } else {
-      $('#to-top').removeClass('on');
-    }
-  });
-
-  $('.grid .item .cancel').click(function(){
-    $('#item-preview').attr("id","")
-  });
-
-  $('.grid .item > a').click(function(){
-    if($(this).parents('.item').attr("id")) {
-      $('#item-preview').attr("id","");
-    } else {
-      $('#item-preview').attr("id","");
-      $(this).parents('.item').attr("id","item-preview");
-    }
-
-    item = $(this).parents('.item')
-    var left = item.position().left;
-    var width = ($("#container").width());
-
-    // var test = item.css('-webkit-transform').match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))\))/)
-    // console.log(test)
-    // console.log(left, width);
-
-    item.find(".description").css({left: -left, width: width});
-
-    $('#container').isotope();
-    return false
-  });
+$(window).bind('scrollstop', function(e){
+  $(".img img:in-viewport").lazyload().addClass("in")
 });
 
-window.onresize = function(event) {
-  $('#container').isotope({
-    onLayout: function() {
-      item = $('#item-preview')
-      var left = item.position().left;
-      var width = $("#container").width();
-      item.find(".description").css({left: -left, width: width});
-    }
-  });
-}
 
 $(document).ready(function(){
-// $(window).load(function() {
+  $(".img img:in-viewport").lazyload().addClass("in")
   var $container = $('#container'),
   filters = {};
 
@@ -169,13 +110,11 @@ $(document).ready(function(){
   $.bbq.pushState({filter: selector});
 
   $container.isotope({filter: selector});
-  $(".img img:in-viewport").lazyload().addClass("in");
   $container.trigger("map_filter", { filter: isoFilters});
   $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
-
   return false;
-
 });
+
 
 $('#filter_summary a').live('click', function(e) {
   e.preventDefault();
@@ -189,12 +128,12 @@ $('#filter_summary a').live('click', function(e) {
     // trigger the click on corresponding filter
     $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();
   }
-})
+});
 
 $('#filter_reset').live('click', function(e) {
   e.preventDefault();
   $('#filters a.selected').click();
-})
+});
 
 if (window.location.hash) {
     // get options object from hash
@@ -205,84 +144,85 @@ if (window.location.hash) {
         return;
       }
       $('#filters a[data-filter-value=".' + this + '"]').click();
-    })
+    });
   }
 });
 
-$(document).ready(function(){
-  $("select").selectbox();
+$('.grid .item .cancel').click(function(){
+  $('#item-preview').attr("id","");
 });
 
-$(window).bind('scrollstop', function(e){
-  $(".img img:in-viewport").lazyload().addClass("in");
-});
-
-$(window).load(function() {
-  if ($("[data-toggle=tooltip]").length) {
-    $("[data-toggle=tooltip]").tooltip({});
+$('.grid .item > a').click(function(){
+  if($(this).parents('.item').attr("id")) {
+    $('#item-preview').attr("id","");
+  } else {
+    $('#item-preview').attr("id","");
+    $(this).parents('.item').attr("id","item-preview");
   }
 
-   $('.panel-collapse').collapse('show');
+  item = $(this).parents('.item');
+  var left = item.position().left;
+  var width = ($("#container").width());
+
+  // var test = item.css('-webkit-transform').match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))\))/)
+  // console.log(test)
+  // console.log(left, width);
+
+  item.find(".description").css({left: -left, width: width});
+
+  $('#container').isotope();
+  return false
 });
 
-$(function() {
-  $("a[href^='http://']").attr("target","_blank");
+window.onresize = function(event) {
+  $('#container').isotope({
+    onLayout: function() {
+      item = $('#item-preview');
+      var left = item.position().left;
+      var width = $("#container").width();
+      item.find(".description").css({left: -left, width: width});
+    }
+  });
+};
 
-  if ($('#cms_toolbar').length) { // cms toolbar fix
-    $('body').addClass('cms-toolbar-visible')
-  }
-});
 
-$('.share-twitter').sharrre({
-  share: {
-    twitter: true
-  },
-  template: 'Share on Twitter',
-  enableHover: false,
-  enableTracking: true,
-  buttons: { twitter: {via: 'MUSEUMSPORTAL'}},
-  click: function(api, options){
-    api.simulateClick();
-    api.openPopup('twitter');
-  }
-});
+// Keyboard Shortcuts
+document.onkeydown = function(event) {
+    var y = $(window).scrollTop();  //your current y position on the page
+    event = event || window.event;
 
-$('.share-facebook').sharrre({
-  share: {
-    facebook: true
-  },
-  template: 'Share on Facebook',
-  enableHover: false,
-  enableTracking: true,
-  click: function(api, options){
-    api.simulateClick();
-    api.openPopup('facebook');
-  }
-});
+    console.log (event.keyCode);
+    switch (event.keyCode || event.which) {
+        case 49: // 1
+            break;
+        case 50: // 2
+            break;
+        case 51: // 3
 
-$('.share-image-twitter').sharrre({
-  share: {
-    twitter: true
-  },
-  template: '<span class="icon icon-social-twitter"></span> <span class="sr-only">{% trans "Share on Twitter" %}</span>',
-  enableHover: false,
-  enableTracking: true,
-  buttons: { twitter: {via: 'MUSEUMSPORTAL'}},
-  click: function(api, options){
-    api.simulateClick();
-    api.openPopup('twitter');
-  }
-});
+            break;
+        case 52: // 4
+            break;
+        case 37: // left
+            break;
+        case 39: // right
+            break;
 
-$('.share-image-facebook').sharrre({
-  share: {
-    facebook: true
-  },
-  template: '<span class="icon icon-social-facebook"></span> <span class="sr-only">{% trans "Share on Facebook" %}</span>',
-  enableHover: false,
-  enableTracking: true,
-  click: function(api, options){
-    api.simulateClick();
-    api.openPopup('facebook');
-  }
-});
+        case 27: // esc
+    }
+};
+
+document.onkeyup = function(event) {
+    var y = $(window).scrollTop();  //your current y position on the page
+    event = event || window.event;
+
+    switch (event.keyCode || event.which) {
+
+        case 9: // tab
+            break;
+        case 37: // left
+            break;
+        case 39: // right
+            break;
+        case 27: // esc
+    }
+};

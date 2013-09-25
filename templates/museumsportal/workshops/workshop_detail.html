@@ -4,416 +4,438 @@
 {% block bodyclass %}workshop-detail{% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
-    <script type="text/javascript">
-        var aGeopositions = [];
-        var settings = {
-            STATIC_URL: "{{ STATIC_URL }}"
-        }
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript">
+    var aGeopositions = [];
+    var settings = {
+        STATIC_URL: "{{ STATIC_URL }}"
+    }
 
-        $(document).ready(function(){
-            $(".toggle_bvg").click(function () {
-                $("#bvg_widget").toggleClass("on");
-                return false;
-            });
-        });
-    </script>
+    $(document).ready(function(){
+      $(".toggle_bvg").click(function () {
+        $("#bvg_widget").toggleClass("on");
+        return false;
+      });
+    });
+  </script>
 {% endblock %}
 
 {% block map %}
-    {% include "utils/gmap.html" %}
+  {% include "utils/gmap.html" %}
 {% endblock %}
 
 {% block edit_item %}
-    {% if_has_perm "workshops.change_workshop" object %}
-    <li><a class="edit icon icon-white icon-edit" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span>{% trans "Edit" %}</span></a></li>
-    {% end_if_has_perm %}
+  {% if_has_perm "workshops.change_workshop" object %}
+    <div>
+      <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">
+        <span class="sr-only">{% trans "Edit" %}</span>
+        <span class="icon icon-pencil"></span>
+      </a>
+    </div>
+  {% end_if_has_perm %}
 {% endblock %}
 
 {% block content %}
-{% with object as workshop %}
-<div class="container">
-    <div class="container">
-        {% include "utils/cover_image.html" %}
-        <section class="sidebar">
-            <div class="panel-group" id="accordion2">  
+  {% with object as workshop %}
+    {% include "utils/cover_image.html" %}
 
-                <!-- ======= Location ======= -->
+    <div id="exhibition" class="content">
+      <div class="container">
 
-                {% if workshop.street_address or workshop.museum.street_address or workshop.organizing_museum or workshop.organizer_title or workshop.exhibition %}
-                    <div class="panel panel-default">  
-                        <div class="panel-heading">  
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">  
-                                {% trans "Venue" %}
-                            </a>
-                        </h4>
-                        <ul id="collapse-location" class="panel-collapse collapse in">  
-                            <div class="panel-body">
-                                {% if workshop.museum %}
-                                    {% with workshop.museum as museum %}
-                                        <dl class="address">
-                                            <dt><a href="{{ museum.get_url_path }}">{{ museum.title }}</a> </dt>
-                                            <dd>{{ museum.street_address }}</dd>
-                                            {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %} 
-                                            <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
-                                            
-                                            {% with workshop as list_item %}
-                                                <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
-                                                {% include "utils/geo_position.html" %}</dd>
-                                            {% endwith %}
-                                        </dl>
+        <div class="row">
 
-                                    {% endwith %}
-                                {% else %}
-                                    <dl class="address">
-                                        <dt>{{ workshop.location_name }}</dt>
-                                        <dd>{{ workshop.street_address }}</dd>
-                                        {% if workshop.street_address2 %}<dd>{{ workshop.street_address2 }}</dd>{% endif %} 
-                                        <dd>{{ workshop.postal_code }} {{ workshop.city }}</dd>
+          <!-- ======= Main Collumn ======= -->
 
-                                        {% with workshop as list_item %}
-                                            <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
-                                            {% include "utils/geo_position.html" %}</dd>
-                                        {% endwith %}
-                                    </dl>
-                                {% endif %}
+          <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+            <article>
+              <header>
+                <h2>
+                  <time>
+                    {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                      {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
+                      {% trans "Bookable Offer" %}
+                    {% else %}
+                      {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
+                      {% with workshop.get_closest_workshop_time as workshop_time %}
+                        <nobr>{{ workshop_time.workshop_date|date:"j. F Y" }}
+                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</nobr>
+                      {% endwith %}
+                    {% endif %}
+                  </time>
+                </h2>
 
-                                {% if workshop.exhibition %}
-                                    <dl>
-                                        <dt>{% trans "Related exhibition" %}</dt>
-                                        <dd><a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition.title }}</a><br />
-                                            {% trans "Duration" %}: <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span> {% if workshop.exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if workshop.exhibition.end %}{% trans "till" %} {{ workshop.exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
-                                        </dd>
-                                    </dl>
-                                {% endif %}
+                <h1>{{ workshop.title }}</h1>
 
-                                <dl>
-                                    {% if workshop.museum.service_phone_number %}
-                                        <dt>{% trans "Service Telephone" %}
-                                            <span class="right">+{{ workshop.museum.service_phone_country }} ({{ workshop.museum.service_phone_area }}) {{ workshop.museum.service_phone_number }}</span>
-                                        </dt>
-                                    {% endif %} 
-
-                                    {% if workshop.museum.phone_number %}
-                                        <dt>{% trans "Telephone" %}
-                                            <span class="right">+{{ workshop.museum.phone_country }} ({{ workshop.museum.phone_area }}) {{ workshop.museum.phone_number }}</span>
-                                        </dt>
-                                    {% endif %} 
-
-                                    {% if workshop.museum.group_bookings_phone_number %}
-                                        <dt>{% trans "Booking Telephone" %}
-                                            <span class="right">+{{ workshop.museum.group_bookings_phone_country }} ({{ workshop.museum.group_bookings_phone_area }}) {{ workshop.museum.group_bookings_phone_number }}</span>
-                                        </dt>
-                                    {% endif %} 
-
-                                    {% if workshop.museum.fax_number %}
-                                        <dt>{% trans "Fax" %}
-                                            <span class="right">+{{ workshop.museum.fax_country }} ({{ workshop.museum.fax_area }}) {{ workshop.museum.fax_number }}</span>
-                                        </dt>
-                                    {% endif %} 
-
-                                    {% if workshop.website %}
-                                        <dt>{% trans "Website" %}</dt>
-                                        <dd><a class="crop" href="{{ workshop.website }}">{{ workshop.website|humanize_url:"50" }}</a></dd>
-                                    {% endif %}
-
-                                </dl>
-
-                                {% if workshop.organizer_set.count %}
-                                    <dl>
-                                        <dt>{% trans "Organizer" %}</dt>
-                                        {% for organizer in workshop.organizer_set.all %}
-                                            {% if organizer.organizing_museum %}
-                                            <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd> 
-                                            {% endif %}
-
-                                            {% if organizer.organizer_title %}
-                                                {% if organizer.organizer_url_link %}
-                                                    <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
-                                                {% else %}
-                                                    <dd>{{ organizer.organizer_title }}</dd>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endfor %}
-                                    </dl>
-                                {% endif %}
-                            </li>
-                        </ul>  
-                    </li>
+                {% if workshop.subtitle %}
+                  <h2>{{ workshop.subtitle }}</h2>
                 {% endif %}
-                
-                {% if workshop.museum %}
-                    {% with workshop.museum as list_item %}
-                        {% include "utils/bvg.html" %}
-                    {% endwith %}
+
+                {% if workshop.location_name %}
+                  <h3>{{ workshop.location_name }}</h3>
                 {% else %}
-                    {% with workshop as list_item %}
-                        {% include "utils/bvg.html" %}
-                    {% endwith %}
+                  {% if workshop.museum %}
+                      <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
+                  {% endif %}
                 {% endif %}
 
-                <!-- ======= DATES ======= -->
-                
-                {% if workshop.get_upcoming_workshop_times.count %}
-                <div class="panel panel-default">  
-                    <div class="panel-heading">  
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">  
-                            {% trans "Date and Time" %} 
-                        </a>  
-                    </h4>  
-                    <ul id="collapse-dates" class="panel-collapse collapse">  
-                        {% for workshop_time in workshop.get_upcoming_workshop_times %}
-                            <li class="accordion-inner tight{% if forloop.counter > 10 %} hidden{% endif %}">
-                                <dl>
-                                    <dt>
-                                        {{ workshop_time.workshop_date|date:"j. F Y" }}
-                                        <span class="right">{{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
-                                    </dt>
-                                </dl>
-                            </li>
+                {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups or workshop.get_languages %}
+                    <div class="extras">{% if workshop.get_particularities %}
+                      <dl>
+                        <dt>{% trans "Particularities" %}</dt>
+                        <dd class="meeting_place">{{ workshop.get_particularities|join:'<br />' }}</dd>
+                      </dl>
+                    {% endif %}
+
+                    {% if workshop.meeting_place %}
+                      <dl>
+                        <dt>{% trans "Meeting point" %}</dt>
+                        <dd class="meeting_place">{{ workshop.meeting_place }}</dd>
+                      </dl>
+                    {% endif %}
+
+                    {% if workshop.age_groups %}
+                      <dt>{% trans "Age groups" %}</dt>
+                      <dd class="meeting_place">
+                        {% for cat in workshop.age_groups.all %}
+                          {{ cat.title }}{% if not forloop.last %}, {% endif %}
                         {% endfor %}
-                    </ul>
-                    <script>
-                        $(function() {
-                            var $dates = $('#collapse-dates');
-                            var $hidden_times = $('li.hidden', $dates).hide();
-                            if ($hidden_times.length) {
-                                $('<a href="">{% trans "more" %}...</a>').click(function() {
-                                    $(this).closest('li').remove();
-                                    $hidden_times.removeClass('hidden').show();
-                                    return false;
-                                }).appendTo('<li class="accordion-inner tight"></li>').parent().appendTo($dates);
-                            }
-                        });
-                    </script>
-                </li>
+                      </dd>
+                    {% endif %}
+
+                    {% if workshop.get_languages %}
+                      <dl>
+                        <dt>{% trans "Languages" %}</dt>
+                        {% for language in workshop.get_languages %}
+                          <dd class="languages">{{ language }}</dd>
+                        {% endfor %}
+                      </dl>
+                    {% endif %}
+                  </div>
                 {% endif %}
+              </header>
+              {{ workshop.get_rendered_description }}
 
-                <!-- ======= Prices ======= -->
+              {% comment %}
+              <!-- <ul class="tags">
+                  {% if workshop.categories.count %}
+                      {% for cat in workshop.categories.all %}
+                          <li class="cat"><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/workshops/{% endif %}#filter=.cat_{{ cat.title|slugify }}">{{ cat.title }}</a></li>
+                      {% endfor %}
+                  {% endif %}
+                  {% tags_for_object workshop as tags %}
+                  {% if tags %}
+                      {% for tag in tags %}
+                          <li><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/workshops/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
+                      {% endfor %}
+                  {% endif %}
+              </ul> -->
+              {% endcomment %}
+            </article>
+          </div> <!-- ======= End Main Collumn ======= -->
 
-                {% if workshop.free_admission or workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
-                    <div class="panel panel-default">  
-                        <div class="panel-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
-                                {% trans "Prices" %} 
-                            </a>  
-                        </h4>  
-                        <ul id="collapse-prices" class="panel-collapse collapse">  
+          <!-- ======= Marginal Collumn ======= -->
+
+          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="panel-group" id="accordion2">
+
+                  <!-- ======= Location ======= -->
+
+                  {% if workshop.street_address or workshop.museum.street_address or workshop.organizing_museum or workshop.organizer_title or workshop.exhibition %}
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">
+                              {% trans "Venue" %}
+                            </a>
+                          </div>
+                          <div id="collapse-location" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                {% if workshop.free_admission %}
-                                    <dl>
-                                        <dt>{% trans "Free offer" %}</dt>
-                                    </dl>
-                                {% else %}
-                                    {% if workshop.admission_price or workshop.admission_price_info%}
-                                        <dl>
-                                        {% if workshop.admission_price %}
-                                            <dt>{% trans "Price" %}: {{ workshop.admission_price|currencyfmt:"EUR" }}</dt>
-                                        {% endif %}
-                                        {% if workshop.admission_price_info %}
-                                            <dd class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</dd>
-                                        {% endif %}
-                                        </dl>
-                                    {% endif %}
+                            {% if workshop.museum %}
+                              {% with workshop.museum as museum %}
+                                <p class="address">
+                                  <b><a href="{{ museum.get_url_path }}">{{ museum.title }}</a> </b><br/>
+                                  {{ museum.street_address }}<br/>
+                                  {% if museum.street_address2 %}{{ museum.street_address2 }}<br/>{% endif %}
+                                  {{ museum.postal_code }} {{ museum.city }}<br/>
 
-                                    {% if workshop.reduced_price or workshop.reduced_price_info%}
-                                        <dl>
-                                        {% if workshop.reduced_price %}
-                                            <dt>{% trans "Reduced price" %}: {{ workshop.reduced_price|currencyfmt:"EUR" }}</dt>
-                                        {% endif %}
-                                        {% if workshop.reduced_price_info %}
-                                            <dd class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</dd>
-                                        {% endif %}
-                                        </dl>
-                                    {% endif %}
-                                {% endif %}
-                            </li>
-                            {% if workshop.booking_info %}
-                                <div class="panel-body">
-                                    <dl>
-                                        <dt>{% trans "Booking info" %}</dt>
-                                        <dd class="booking_info">{{ workshop.get_rendered_booking_info }}</dd>
-                                    </dl>
-                                </li>
+                                  {% with workshop as list_item %}
+                                    <a href="#" class="location">{% trans "Show location on map" %}</a>
+                                    {% include "utils/geo_position.html" %}
+                                  {% endwith %}
+                                </p>
+                              {% endwith %}
+                            {% else %}
+                              <p class="address">
+                                <b>{{ workshop.location_name }}</b><br/>
+                                {{ workshop.street_address }}<br/>
+                                {% if workshop.street_address2 %}{{ workshop.street_address2 }}<br/>{% endif %}
+                                {{ workshop.postal_code }} {{ workshop.city }}
+
+                                {% with workshop as list_item %}
+                                  <a href="#" class="location">{% trans "Show location on map" %}</a>
+                                  {% include "utils/geo_position.html" %}</dd>
+                                {% endwith %}
+                              </p>
                             {% endif %}
-                        </ul>  
-                    </li>
-                {% endif %}
 
-                <!-- ======= Other Information ======= -->
-                {% comment %}
-                <!-- {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
-                    <div class="panel panel-default">  
-                        <div class="panel-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">  
-                                {% trans "Other Information" %} 
-                            </a>  
-                        </h4>  
-                        <ul id="collapse-other-info" class="panel-collapse collapse">  
+                            {% if workshop.exhibition %}
+                              <dl>
+                                <dt>{% trans "Related exhibition" %}</dt>
+                                <dd><a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition.title }}</a><br />
+                                  {% trans "Duration" %}: <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span> {% if workshop.exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if workshop.exhibition.end %}{% trans "till" %} {{ workshop.exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
+                                </dd>
+                              </dl>
+                            {% endif %}
+
+                              {% if workshop.museum.service_phone_number %}
+                                <dl>
+                                  <dt>{% trans "Service Telephone" %} </dt>
+                                  <dd>+{{ workshop.museum.service_phone_country }} ({{ workshop.museum.service_phone_area }}) {{ workshop.museum.service_phone_number }}</dd>
+                                </dl>
+                              {% endif %}
+
+                              {% if workshop.museum.phone_number %}
+                                <dl>
+                                  <dt>{% trans "Telephone" %} </dt>
+                                  <dd>+{{ workshop.museum.phone_country }} ({{ workshop.museum.phone_area }}) {{ workshop.museum.phone_number }}</dd>
+                                </dl>
+                              {% endif %}
+
+                              {% if workshop.museum.group_bookings_phone_number %}
+                                <dl>
+                                  <dt>{% trans "Booking Telephone" %} </dt>
+                                  <dd>+{{ workshop.museum.group_bookings_phone_country }} ({{ workshop.museum.group_bookings_phone_area }}) {{ workshop.museum.group_bookings_phone_number }}</dd>
+                                </dl>
+                              {% endif %}
+
+                              {% if workshop.museum.fax_number %}
+                                <dl>
+                                  <dt>{% trans "Fax" %} </dt>
+                                  <dd>+{{ workshop.museum.fax_country }} ({{ workshop.museum.fax_area }}) {{ workshop.museum.fax_number }}</dd>
+                                </dl>
+                              {% endif %}
+
+                              {% if workshop.website %}
+                                <dl>
+                                  <dt>{% trans "Website" %}</dt>
+                                  <dd><a class="crop" href="{{ workshop.website }}">{{ workshop.website|humanize_url:"30" }}</a></dd>
+                                </dl>
+                              {% endif %}
+
+
+                          {% if workshop.organizer_set.count %}
+                            <dl>
+                                <dt>{% trans "Organizer" %}</dt>
+                                {% for organizer in workshop.organizer_set.all %}
+                                    {% if organizer.organizing_museum %}
+                                    <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
+                                    {% endif %}
+
+                                    {% if organizer.organizer_title %}
+                                        {% if organizer.organizer_url_link %}
+                                            <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
+                                        {% else %}
+                                            <dd>{{ organizer.organizer_title }}</dd>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </dl>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {% if workshop.museum %}
+                      {% with workshop.museum as list_item %}
+                          {% include "utils/bvg.html" %}
+                      {% endwith %}
+                  {% else %}
+                      {% with workshop as list_item %}
+                          {% include "utils/bvg.html" %}
+                      {% endwith %}
+                  {% endif %}
+
+                  <!-- ======= DATES ======= -->
+
+                  {% if workshop.get_upcoming_workshop_times.count %}
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">
+                          {% trans "Date and Time" %}
+                        </a>
+                      </div>
+                      <div id="collapse-dates" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          {% for workshop_time in workshop.get_upcoming_workshop_times %}
+                            <dl>
+                              <dt> {{ workshop_time.workshop_date|date:"j. F Y" }} </dt>
+                              <dd>{{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
+                            </dl>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <script>
+                        // $(function() {
+                        //   var $dates = $('#collapse-dates');
+                        //   var $hidden_times = $('li.hidden', $dates).hide();
+                        //   if ($hidden_times.length) {
+                        //     $('<a href="">{% trans "more" %}...</a>').click(function() {
+                        //       $(this).closest('li').remove();
+                        //       $hidden_times.removeClass('hidden').show();
+                        //       return false;
+                        //     }).appendTo('<li class="accordion-inner tight"></li>').parent().appendTo($dates);
+                        //   }
+                        // });
+                      </script>
+                    </div>
+                  {% endif %}
+
+                  <!-- ======= Prices ======= -->
+
+                  {% if workshop.free_admission or workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">
+                          {% trans "Prices" %}
+                        </a>
+                      </div>
+
+                      <div id="collapse-prices" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          {% if workshop.free_admission %}
+                            <dl>
+                              <dt>{% trans "Free offer" %}</dt>
+                            </dl>
+                          {% else %}
+                            {% if workshop.admission_price or workshop.admission_price_info%}
+                              <dl>
+                              {% if workshop.admission_price %}
+                                <dt>{% trans "Price" %}: {{ workshop.admission_price|currencyfmt:"EUR" }}</dt>
+                              {% endif %}
+
+                              {% if workshop.admission_price_info %}
+                                <dd class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</dd>
+                              {% endif %}
+                              </dl>
+                            {% endif %}
+
+                            {% if workshop.reduced_price or workshop.reduced_price_info%}
+                              <dl>
+                              {% if workshop.reduced_price %}
+                                <dt>{% trans "Reduced price" %}: {{ workshop.reduced_price|currencyfmt:"EUR" }}</dt>
+                              {% endif %}
+
+                              {% if workshop.reduced_price_info %}
+                                <dd class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</dd>
+                              {% endif %}
+                              </dl>
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                          {% if workshop.booking_info %}
                             <div class="panel-body">
-                                {% if workshop.get_particularities %}
-                                    <dl>
-                                        <dt>{% trans "Particularities" %}</dt>
-                                        <dd class="meeting_place">{{ workshop.get_particularities|join:'<br />' }}</dd>
-                                    </dl>
-                                {% endif %}
-                                
-                                {% if workshop.meeting_place %}
-                                    <dl>
-                                        <dt>{% trans "Meeting point" %}</dt>
-                                        <dd class="meeting_place">{{ workshop.meeting_place }}</dd>
-                                    </dl>
-                                {% endif %}
+                              <dl>
+                                <dt>{% trans "Booking info" %}</dt>
+                                <dd class="booking_info">{{ workshop.get_rendered_booking_info }}</dd>
+                              </dl>
+                            </div>
+                          {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
 
-                                {% if workshop.age_groups %}
-                                    <dt>{% trans "Age groups" %}</dt>
-                                    <dd class="meeting_place">
-                                        {% for cat in workshop.age_groups.all %}
-                                            {{ cat.title }}{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </dd>
-                                {% endif %}
-                                
-                                {% if workshop.get_languages %}
-                                    <dl>
-                                        <dt>{% trans "Languages" %}</dt>
-                                        {% for language in workshop.get_languages %}
-                                            <dd class="languages">{{ language }}</dd>
-                                        {% endfor %}
-                                    </dl>
-                                {% endif %}
-                            </li>
-                        </ul>  
-                    </li>
-                {% endif %} -->
-                {% endcomment %}
-            </ul> 
+                  <!-- ======= Other Information ======= -->
+                  {% comment %}
+                  <!-- {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">
+                                  {% trans "Other Information" %}
+                              </a>
+                          </h4>
+                          <ul id="collapse-other-info" class="panel-collapse collapse">
+                              <div class="panel-body">
+                                  {% if workshop.get_particularities %}
+                                      <dl>
+                                          <dt>{% trans "Particularities" %}</dt>
+                                          <dd class="meeting_place">{{ workshop.get_particularities|join:'<br />' }}</dd>
+                                      </dl>
+                                  {% endif %}
+
+                                  {% if workshop.meeting_place %}
+                                      <dl>
+                                          <dt>{% trans "Meeting point" %}</dt>
+                                          <dd class="meeting_place">{{ workshop.meeting_place }}</dd>
+                                      </dl>
+                                  {% endif %}
+
+                                  {% if workshop.age_groups %}
+                                      <dt>{% trans "Age groups" %}</dt>
+                                      <dd class="meeting_place">
+                                          {% for cat in workshop.age_groups.all %}
+                                              {{ cat.title }}{% if not forloop.last %}, {% endif %}
+                                          {% endfor %}
+                                      </dd>
+                                  {% endif %}
+
+                                  {% if workshop.get_languages %}
+                                      <dl>
+                                          <dt>{% trans "Languages" %}</dt>
+                                          {% for language in workshop.get_languages %}
+                                              <dd class="languages">{{ language }}</dd>
+                                          {% endfor %}
+                                      </dl>
+                                  {% endif %}
+                              </li>
+                          </ul>
+                      </li>
+                  {% endif %} -->
+                  {% endcomment %}
+              </div>
 
             {% if request.user.is_authenticated %}
                 <div class="tools">
                 {% adding2favorites for workshop using "favorites/includes/favorite_detail.html" %}
                 </div>
             {% endif %}
-        </section>
-        
-        <article class="with_sidebar">
-            <header>
-                <time>{% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                        {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
-                        {% trans "Bookable Offer" %}
-                    {% else %}
-                        {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} 
-                        {% with workshop.get_closest_workshop_time as workshop_time %}
-                            <nobr>{{ workshop_time.workshop_date|date:"j. F Y" }}
-                            {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</nobr>
-                        {% endwith %}
-                    {% endif %}</time>
-
-                <h1>{{ workshop.title }}</h1>
-                {% if workshop.subtitle %}
-                    <h2>{{ workshop.subtitle }}</h2>
-                {% endif %}
-                
-                {% if workshop.location_name %}
-                    <h3>{{ workshop.location_name }}</h3>
-                {% else %}
-                    {% if workshop.museum %}
-                        <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
-                    {% endif %}
-                {% endif %}
-
-                {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups or workshop.get_languages %}
-                    <div class="extras">{% if workshop.get_particularities %}
-                        <dl>
-                            <dt>{% trans "Particularities" %}</dt>
-                            <dd class="meeting_place">{{ workshop.get_particularities|join:'<br />' }}</dd>
-                        </dl>
-                    {% endif %}
-                    
-                    {% if workshop.meeting_place %}
-                        <dl>
-                            <dt>{% trans "Meeting point" %}</dt>
-                            <dd class="meeting_place">{{ workshop.meeting_place }}</dd>
-                        </dl>
-                    {% endif %}
-
-                    {% if workshop.age_groups %}
-                        <dt>{% trans "Age groups" %}</dt>
-                        <dd class="meeting_place">
-                            {% for cat in workshop.age_groups.all %}
-                                {{ cat.title }}{% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        </dd>
-                    {% endif %}
-                    
-                    {% if workshop.get_languages %}
-                        <dl>
-                            <dt>{% trans "Languages" %}</dt>
-                            {% for language in workshop.get_languages %}
-                                <dd class="languages">{{ language }}</dd>
-                            {% endfor %}
-                        </dl>
-                    {% endif %}
-                    </div>
-                {% endif %}
-
-            </header>
-            {{ workshop.get_rendered_description }}
-
-            {% comment %}
-            <!-- <ul class="tags">
-                {% if workshop.categories.count %}
-                    {% for cat in workshop.categories.all %}
-                        <li class="cat"><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/workshops/{% endif %}#filter=.cat_{{ cat.title|slugify }}">{{ cat.title }}</a></li>
-                    {% endfor %}
-                {% endif %}
-                {% tags_for_object workshop as tags %}
-                {% if tags %}
-                    {% for tag in tags %}
-                        <li><a href="{% if LANGUAGE_CODE == "de" %}/de/ausstellungen/{% else %}/en/workshops/{% endif %}#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
-                    {% endfor %}
-                {% endif %}
-            </ul> -->
-            {% endcomment %} 
-        </article>
-    </div>
-</div>
-
-{% if object.get_other_workshops %}
-    <div class="content" class="clearfix">
-        <div class="inner">
-            <h2>{% trans "Other Guided Tours, Workshops and educational offers" %}</h2>
-            <div class="list">
-                {% for workshop in object.get_other_workshops %}
-                    <div class="item">
-                        <a class="img" href="{% if workshop.cover_image %}{{ workshop.get_url_path }}" data-background="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% endif %}"><span class="spinner loading"></span></a>
-
-                        <a href="{{ workshop.get_url_path }}">
-                            {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                                <h4>{% trans "Bookable Offer" %} {% if workshop.workshop_type %} : {{ workshop.workshop_type }} {% endif %}</h4> 
-                            {% else %}
-                                <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
-                                {% with workshop.get_closest_workshop_time as workshop_time %}
-                                    {{ workshop_time.workshop_date|date:"j. F Y" }}
-                                    {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                {% endwith %}</h4>
-                            {% endif %}
-                            <h3>{{ workshop.title }}</h3>
-                            {% if workshop.subtitle %}
-                                <h4>{{ workshop.subtitle }}</h4>
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+          </div>
         </div>
-    </div>  
-    {% endif %} 
-{% endwith %}
+      </div>
+    </div>
+
+    {% if object.get_other_workshops %}
+      <div id="workshops" class="content">
+        <div class="container">
+          <h2>{% trans "Other Guided Tours, Workshops and educational offers" %}</h2>
+          <div class="list">
+            {% for workshop in object.get_other_workshops %}
+              <div class="item">
+                <a href="{{ workshop.get_url_path }}">
+                  {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                    <h4>{% trans "Bookable Offer" %} {% if workshop.workshop_type %} : {{ workshop.workshop_type }} {% endif %}</h4>
+                  {% else %}
+                    <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
+                    {% with workshop.get_closest_workshop_time as workshop_time %}
+                        {{ workshop_time.workshop_date|date:"j. F Y" }}
+                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                    {% endwith %}</h4>
+                  {% endif %}
+                  <h3>{{ workshop.title }}</h3>
+                  {% if workshop.subtitle %}
+                    <h4>{{ workshop.subtitle }}</h4>
+                  {% endif %}
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endwith %}
 
 
-{% include "utils/gallery.html" %}
-{% include "utils/page_controls.html" %}
-{% include "utils/gmap_scripts.html" %}
-{% include "utils/gallery_scripts.html" %}
+  {% include "utils/gallery.html" %}
+  {% include "utils/page_controls.html" %}
+  {% include "utils/gmap_scripts.html" %}
+  {% include "utils/gallery_scripts.html" %}
 {% endblock %}

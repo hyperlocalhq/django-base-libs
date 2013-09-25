@@ -2109,6 +2109,8 @@
     padding-left: 25px;
     margin-top: 25px;
     margin-right: -1px; }
+  .row .actions {
+    right: 25px; }
   .row.row-narrow {
     margin-right: -10px;
     margin-left: -10px;
@@ -2121,6 +2123,8 @@
       padding-left: 10px;
       margin-right: -1px;
       margin-top: 10px; }
+    .row.row-narrow .actions {
+      right: 10px; }
 
 .row + .row {
   margin-top: 20px; }
@@ -2170,18 +2174,15 @@
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
-  -o-backface-visibility: hidden; }
+  -o-backface-visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity 0.125s ease-in-out !important;
+  -moz-transition: opacity 0.125s ease-in-out !important;
+  -ms-transition: opacity 0.125s ease-in-out !important;
+  -o-transition: opacity 0.125s ease-in-out !important;
+  transition: opacity 0.125s ease-in-out !important; }
   .fade.in {
-    -webkit-animation: fadein 0.125s ease-out;
-    -moz-animation: fadein 0.125s ease-out;
-    -ms-animation: fadein 0.125s ease-out;
-    -o-animation: fadein 0.125s ease-out;
-    animation: fadein 0.125s ease-out;
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    -ms-animation-fill-mode: both;
-    -o-animation-fill-mode: both;
-    animation-fill-mode: both; }
+    opacity: 1; }
 
 .item {
   list-style: none; }
@@ -2189,11 +2190,21 @@
     display: block; }
   .item .actions {
     position: absolute;
-    right: 10px;
     top: 0px;
     z-index: 10;
     display: none;
-    font-size: 0px; }
+    font-size: 0px;
+    padding: 10px; }
+    .item .actions .btn {
+      border-radius: 100% !important;
+      margin-left: 5px !important; }
+
+.btn-round {
+  border-radius: 100% !important; }
+  .btn-round.pull-right {
+    margin-left: 5px !important; }
+  .btn-round.pull-left {
+    margin-right: 5px !important; }
 
 .list .item {
   margin-top: 0px;
@@ -3297,7 +3308,8 @@ dl {
 #cover-image {
   background-color: #f8f8f8; }
   #cover-image .container div {
-    margin: -50px 0px; }
+    margin: -50px 0px;
+    position: relative; }
     #cover-image .container div img {
       width: 100%; }
 
