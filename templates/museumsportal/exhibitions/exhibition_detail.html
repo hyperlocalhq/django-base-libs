@@ -379,7 +379,7 @@
                                         <li class="accordion-inner">
                                         <dl id="special_openings">
                                         {% for special_opening in exhibition.get_museums_special_opening_times %}
-                                            <dt{% if forloop.counter > 5 %} class="hidden"{% endif %}>
+                                            <dt{% if forloop.counter > 5 %} class="hidable"{% endif %}>
                                             {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
                                             {% if special_opening.is_closed %}
                                                 <span class="right">{% trans "Closed" %}</span>
@@ -400,11 +400,16 @@
                                         <script>
                                             $(function() {
                                                 var $special_openings = $('#special_openings');
-                                                var $hidden_times = $('dt.hidden', $special_openings).hide();
+                                                var $hidden_times = $('dt.hidable', $special_openings).hide();
                                                 if ($hidden_times.length) {
-                                                    $('<a href="">{% trans "more" %}...</a>').click(function() {
-                                                        $(this).closest('dd').remove();
-                                                        $hidden_times.removeClass('hidden').show();
+                                                    $('<a href="" data-action="expand">{% trans "more" %}...</a>').click(function() {
+                                                        if ($(this).data('action') == 'expand') {
+                                                            $hidden_times.show();
+                                                            $(this).data('action', 'collapse').html('{% trans "less" %}...');
+                                                        } else {
+                                                            $hidden_times.hide();
+                                                            $(this).data('action', 'expand').html('{% trans "more" %}...');
+                                                        }
                                                         return false;
                                                     }).appendTo('<dd></dd>').parent().appendTo($special_openings);
                                                 }
