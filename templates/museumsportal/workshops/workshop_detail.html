@@ -163,7 +163,7 @@
                     </h4>  
                     <ul id="collapse-dates" class="accordion-body collapse">  
                         {% for workshop_time in workshop.get_upcoming_workshop_times %}
-                            <li class="accordion-inner tight{% if forloop.counter > 10 %} hidden{% endif %}">
+                            <li class="accordion-inner tight{% if forloop.counter > 10 %} hidable{% endif %}">
                                 <dl>
                                     <dt>
                                         {{ workshop_time.workshop_date|date:"j. F Y" }}
@@ -176,11 +176,16 @@
                     <script>
                         $(function() {
                             var $dates = $('#collapse-dates');
-                            var $hidden_times = $('li.hidden', $dates).hide();
+                            var $hidden_times = $('li.hidable', $dates).hide();
                             if ($hidden_times.length) {
-                                $('<a href="">{% trans "more" %}...</a>').click(function() {
-                                    $(this).closest('li').remove();
-                                    $hidden_times.removeClass('hidden').show();
+                                $('<a href="" data-action="expand">{% trans "more" %}...</a>').click(function() {
+                                    if ($(this).data('action') == 'expand') {
+                                        $hidden_times.show();
+                                        $(this).data('action', 'collapse').html('{% trans "less" %}...');
+                                    } else {
+                                        $hidden_times.hide();
+                                        $(this).data('action', 'expand').html('{% trans "more" %}...');
+                                    }
                                     return false;
                                 }).appendTo('<li class="accordion-inner tight"></li>').parent().appendTo($dates);
                             }
@@ -298,7 +303,8 @@
         
         <article class="with_sidebar">
             <header>
-                <time>{% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                <time>
+                    {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
                         {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
                         {% trans "Bookable Offer" %}
                     {% else %}
@@ -307,7 +313,8 @@
                             <nobr>{{ workshop_time.workshop_date|date:"j. F Y" }}
                             {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</nobr>
                         {% endwith %}
-                    {% endif %}</time>
+                    {% endif %}
+                </time>
 
                 <h1>{{ workshop.title }}</h1>
                 {% if workshop.subtitle %}

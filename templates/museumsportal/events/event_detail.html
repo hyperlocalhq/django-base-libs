@@ -152,13 +152,13 @@
                 {% if event.get_upcoming_event_times.count %}
                     <li class="accordion-group">  
                         <h4 class="accordion-heading">  
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">  
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">
                                 {% trans "Date and Time" %}
                             </a>
                         </h4>
-                        <ul id="collapse-times" class="accordion-body collapse">  
+                        <ul id="collapse-dates" class="accordion-body collapse">
                             {% for event_time in event.get_upcoming_event_times %}
-                                <li class="accordion-inner tight">
+                                <li class="accordion-inner tight{% if forloop.counter > 10 %} hidable{% endif %}">
                                     <dl>
                                         <dt>
                                         {{ event_time.event_date|date:"j. F Y" }}
@@ -168,6 +168,24 @@
                                 </li>
                             {% endfor %}
                         </ul>  
+                        <script>
+                            $(function() {
+                                var $dates = $('#collapse-dates');
+                                var $hidden_times = $('li.hidable', $dates).hide();
+                                if ($hidden_times.length) {
+                                    $('<a href="" data-action="expand">{% trans "more" %}...</a>').click(function() {
+                                        if ($(this).data('action') == 'expand') {
+                                            $hidden_times.show();
+                                            $(this).data('action', 'collapse').html('{% trans "less" %}...');
+                                        } else {
+                                            $hidden_times.hide();
+                                            $(this).data('action', 'expand').html('{% trans "more" %}...');
+                                        }
+                                        return false;
+                                    }).appendTo('<li class="accordion-inner tight"></li>').parent().appendTo($dates);
+                                }
+                            });
+                        </script>
                     </li>
                 {% endif %} 
 
