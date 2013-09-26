@@ -100,7 +100,7 @@
                                             {% endif %}
                                             {% if organizer.organizing_museum.website %}
                                                 <dt>{% trans "Website" %}
-                                                    <span class="right"><a class="crop" href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"25" }}</a></span>
+                                                    <span class="right"><a class="crop" href="{{ exhibition.organizing_museum.website }}">{{ organizer.organizing_museum.website|humanize_url:"25" }}</a></span>
                                                 </dt>
                                             {% endif %}
                                             {% if organizer.organizing_museum.email %}
