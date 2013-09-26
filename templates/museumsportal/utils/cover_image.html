@@ -44,18 +44,17 @@
     {% endwith %}
 {% endif %}
 
-
-
 <script type="text/javascript">
     $(window).load(function() {
         if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
-            $('#cover_image img').click(function(e){
+            var $cover_image = $('#cover_image');
+            $('img', $cover_image).click(function(e) {
                 $('body').toggleClass('gallery');
-                slider.slide($(this).index(), 0);
+                slider.slide(0, 0); // open the first (0th) image in the gallery immediately (after 0 miliseconds)
             });
-            $('#cover_image .fullscreen').click(function(e){
+            $('.fullscreen', $cover_image).click(function(e) {
                 $('body').toggleClass('gallery');
-                slider.slide($(this).index(), 0);
+                slider.slide(0, 0); // open the first (0th) image in the gallery immediately (after 0 miliseconds)
             });
         }
     });

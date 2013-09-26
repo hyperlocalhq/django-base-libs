@@ -2,30 +2,30 @@
 
 <div id="gallery" {% if object.mediafile_set.count == 1 %}class="only_one"{% endif %}>
     <div id="slider" class="swipe">
-      <ul>
-        {% for mf in object.mediafile_set.all %}
-        <li style="display:{% if forloop.first %}block{% else %}none{% endif %}">
-            &nbsp;
-            {% with mf.path|file_description as file_desc %}
-                <div class="img" style="background-image: url({{ MEDIA_URL }}{{ mf.path|modified_path:"max" }})" title="{{ file_desc.description|remove_newlines|escape }}"> </div>
-                <div class="info">
-                    {% if file_desc.title %}
-                        <span class="title">{{ file_desc.title }}</span>
-                    {% endif %}
-                    {% comment %}<!--
-                    {% if file_desc.description %}
-                        <span class="description">{{ file_desc.description }}</span>
-                    {% endif %}
-                    -->{% endcomment %}
-                    {% if file_desc.author %}
-                        <span class="author">{{ file_desc.author }}</span>
-                    {% endif %}
-                </div>
-            {% endwith %}
-        </li>
-        {% endfor %}
-        {% if object.mediafile_set.count == 1 %}<li></li>{% endif %}
-      </ul>
+        <ul>
+            {% for mf in object.mediafile_set.all %}
+            <li style="display:{% if forloop.first %}block{% else %}none{% endif %}">
+                &nbsp;
+                {% with mf.path|file_description as file_desc %}
+                    <div class="img" style="background-image: url({{ MEDIA_URL }}{{ mf.path|modified_path:"max" }})" title="{{ file_desc.description|remove_newlines|escape }}"> </div>
+                    <div class="info">
+                        {% if file_desc.title %}
+                            <span class="title">{{ file_desc.title }}</span>
+                        {% endif %}
+                        {% comment %}<!--
+                        {% if file_desc.description %}
+                            <span class="description">{{ file_desc.description }}</span>
+                        {% endif %}
+                        -->{% endcomment %}
+                        {% if file_desc.author %}
+                            <span class="author">{{ file_desc.author }}</span>
+                        {% endif %}
+                    </div>
+                {% endwith %}
+            </li>
+            {% endfor %}
+            {% if object.mediafile_set.count == 1 %}<li></li>{% endif %}
+        </ul>
     </div>
     
     <span class="prev" onclick="slider.prev();return false;"></span>

@@ -4,16 +4,17 @@
     var slider = new Swipe(document.getElementById('slider'));
 
     $(window).load(function() {
-        $('#gallery .cancel').click(function(e){
+        var $gallery = $('#gallery');
+        $('.cancel', $gallery).click(function(e){
             $('body').toggleClass('gallery');
         });
 
-        $('#gallery .info').click(function(e){
+        $('.info', $gallery).click(function(e){
             $('#gallery').toggleClass('info');
         });
 
-        // if($('#gallery ul li').length == 1){
-        //   $("#gallery").addClass('only_one');
+        // if($('ul li', $gallery).length == 1){
+        //     $gallery.addClass('only_one');
         // }
     });
 </script>
