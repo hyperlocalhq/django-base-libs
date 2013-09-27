@@ -136,14 +136,14 @@
           <!-- ======= Marginal Collumn ======= -->
 
           <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="panel-group" id="accordion2">
+                <div class="panel-group" id="details">
 
                   <!-- ======= Location ======= -->
 
                   {% if workshop.street_address or workshop.museum.street_address or workshop.organizing_museum or workshop.organizer_title or workshop.exhibition %}
                       <div class="panel panel-default">
                           <div class="panel-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#details" href="#collapse-location">
                               {% trans "Venue" %}
                             </a>
                           </div>
@@ -260,7 +260,7 @@
                   {% if workshop.get_upcoming_workshop_times.count %}
                     <div class="panel panel-default">
                       <div class="panel-heading">
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-dates">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-dates">
                           {% trans "Date and Time" %}
                         </a>
                       </div>
@@ -295,7 +295,7 @@
                   {% if workshop.free_admission or workshop.admission_price or workshop.admission_price_info or workshop.reduced_price or workshop.reduced_price_info or workshop.booking_info %}
                     <div class="panel panel-default">
                       <div class="panel-heading">
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-prices">
                           {% trans "Prices" %}
                         </a>
                       </div>
@@ -349,7 +349,7 @@
                   <!-- {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups.all or workshop.get_languages %}
                       <div class="panel panel-default">
                           <div class="panel-heading">
-                              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">
+                              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-other-info">
                                   {% trans "Other Information" %}
                               </a>
                           </h4>

@@ -25,7 +25,7 @@ $(document).ready(function(){
 });
 </script>
 
-<script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>    
+<script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
 {% endblock %}
 
 {% block map %}
@@ -56,13 +56,13 @@ $(document).ready(function(){
     </div>
 
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-      <div class="panel-group" id="accordion2"> 
-        <div class="panel panel-default">  
-          <div class="panel-heading">  
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location"> {% trans "Location" %}</a>
-          </div>  
+      <div class="panel-group" id="details">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#details" href="#collapse-location"> {% trans "Location" %}</a>
+          </div>
 
-          <div id="collapse-location" class="panel-collapse collapse in">  
+          <div id="collapse-location" class="panel-collapse collapse in">
             <div class="panel-body">
               {% if museum.parent %}
               <dl>
@@ -98,26 +98,26 @@ $(document).ready(function(){
                 <dt>{% trans "Service Telephone" %}
                   <span class="right">+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</span>
                 </dt>
-                {% endif %} 
+                {% endif %}
 
                 {% if museum.phone_number %}
                 <dt>{% trans "Telephone" %}
                   <span class="right">+{{ museum.phone_country }} ({{ museum.phone_area }}) {{ museum.phone_number }}</span>
                 </dt>
-                {% endif %} 
+                {% endif %}
 
                 {% if museum.group_bookings_phone_number %}
                 <dt>{% trans "Booking Telephone" %}
                   <span class="right">+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</span>
                 </dt>
-                {% endif %} 
+                {% endif %}
 
 
                 {% if museum.fax_number %}
                 <dt>{% trans "Fax" %}
                   <span class="right">+{{ museum.fax_country }} ({{ museum.fax_area }}) {{ museum.fax_number }}</span>
                 </dt>
-                {% endif %} 
+                {% endif %}
 
                 {% if museum.website %}
                 <dt>{% trans "Website" %}
@@ -146,7 +146,7 @@ $(document).ready(function(){
               </dl>
               {% endif %}
             </div>
-          </div>  
+          </div>
         </div>
 
         {% with museum as list_item %}
@@ -156,12 +156,12 @@ $(document).ready(function(){
         <!-- ======= Opening hours ======= -->
 
         {% if museum.season_set.count or museum.specialopeningtime_set.count %}
-        <div class="panel panel-default">  
-          <div class="panel-heading">  
-            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-opening-times">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-opening-times">
               {% trans "Opening hours" %}
-            </a>  
-          </div>  
+            </a>
+          </div>
 
           <div id="collapse-opening-times" class="panel-collapse collapse in">
             <div class="panel-body">
@@ -194,13 +194,13 @@ $(document).ready(function(){
                           {% endif %}
                           {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
                         </span>
-                        {% else %}				 
+                        {% else %}
                         <span class="right">
                           {% trans "closed" %}
                         </span>
                         {% endif %}
                       </dt>
-                      {% endfor %}                                   
+                      {% endfor %}
                     </dl>
                     {% endif %}
                     {% if season.last_entry %}
@@ -251,13 +251,13 @@ $(document).ready(function(){
                                     {% endif %}
                                     {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
                                   </span>
-                                  {% else %}         
+                                  {% else %}
                                   <span class="right">
                                     {% trans "closed" %}
                                   </span>
                                   {% endif %}
                                 </dt>
-                                {% endfor %}                                   
+                                {% endfor %}
                               </dl>
                               {% endif %}
                               {% if season.last_entry %}
@@ -315,20 +315,20 @@ $(document).ready(function(){
                 </script>
               </div>
             {% endif %}
-          </div>  
+          </div>
         </div>
         {% endif %}
 
         <!-- ======= Tickets ======= -->
 
         {% if museum.free_entrance or museum.admission_price or museum.admission_price_info or museum.reduced_price or museum.reduced_price_info or museum.arrangements_for_children or museum.free_entrance_for or museum.family_ticket or museum.group_ticket or museum.free_entrance_times or museum.yearly_ticket or museum.other_tickets or museum.member_of_museumspass or museum.group_booking_phone_number or museum.service_phone_number %}
-        <div class="panel panel-default">  
-          <div class="panel-heading">  
-            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">  
-              {% trans "Tickets" %} 
-            </a>  
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-prices">
+              {% trans "Tickets" %}
+            </a>
           </div>
-          <div id="collapse-prices" class="panel-collapse collapse" style="height: 0px; ">  
+          <div id="collapse-prices" class="panel-collapse collapse" style="height: 0px; ">
             <div class="panel-body">
               {% if museum.free_entrance %}
               {% trans "Free entrance" %}
@@ -379,26 +379,26 @@ $(document).ready(function(){
               {% endif %}
             </div>
             {% if museum.group_bookings_phone_number %}
-            <div class="panel-body"> 
+            <div class="panel-body">
               <dl>
                 <dt>{% trans "Booking Telephone" %}</dt>
                 <dd>+{{ museum.group_bookings_phone_country }} ({{ museum.group_bookings_phone_area }}) {{ museum.group_bookings_phone_number }}</dd>
               </dl>
             </div>
-            {% endif %} 
-          </div>  
-        </div>  
-        {% endif %} 
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
 
         <!-- ======= Services ======= -->
 
         {% if museum.service_shop or museum.service_books or museum.service_restaurant or museum.service_cafe or museum.service_library or musuem.service_archive or musuem.service_studio or museum.service_online or museum.service_diaper_changing_table or musuem.service_birthdays or museum.service_rent or musuem.service_other %}
-        <div class="panel panel-default">  
-          <div class="panel-heading">  
-            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-services">  
-              {% trans "Services" %} 
-            </a>  
-          </div>  
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-services">
+              {% trans "Services" %}
+            </a>
+          </div>
           <div id="collapse-services" class="panel-collapse collapse" style="height: 0px; ">
             <div class="panel-body">
               <dl>
@@ -429,26 +429,26 @@ $(document).ready(function(){
               </div>
 
               {% if museum.service_phone_number %}
-              <div class="panel-body"> 
+              <div class="panel-body">
                 <dl>
                   <dt>{% trans "Service Telephone" %}</dt>
                   <dd>+{{ museum.service_phone_country }} ({{ museum.service_phone_area }}) {{ museum.service_phone_number }}</dd>
                 </dl>
               </div>
-              {% endif %} 
-            </div>  
-          </div>  
+              {% endif %}
+            </div>
+          </div>
           {% endif %}
 
           <!-- ======= Accessibility ======= -->
 
           {% if museum.accessibility_options.count or museum.accessibility or museum.mobidat %}
-          <div class="panel panel-default">  
-            <div class="panel-heading">  
-              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-accessibility">  
-                {% trans "Accessibility" %} 
-              </a>  
-            </div>  
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-accessibility">
+                {% trans "Accessibility" %}
+              </a>
+            </div>
             <div id="collapse-accessibility" class="panel-collapse collapse" style="height: 0px; ">
               {% if museum.accessibility_options.count %}
               {% for opt in museum.accessibility_options.all %}
@@ -460,31 +460,31 @@ $(document).ready(function(){
               {% endfor %}
               {% endif %}
               {% if museum.accessibility %}
-              <div class="panel-body"> 
+              <div class="panel-body">
                 <div class="accessibility">
                   {{ museum.get_rendered_accessibility }}
                 </div>
               </div>
               {% endif %}
               {% if museum.mobidat %}
-              <div class="panel-body"> 
+              <div class="panel-body">
                 <div class="accessibility">
                   {{ museum.get_rendered_mobidat }}
                 </div>
               </div>
               {% endif %}
-            </div>  
-          </div>  
-          {% endif %}  
+            </div>
+          </div>
+          {% endif %}
 
           <!-- ======= Audioguides ======= -->
 
           {% if museum.has_audioguide or museum.has_audioguide_for_children or museum.has_audioguide_for_learning_difficulties %}
-          <div class="panel panel-default">  
-            <div class="panel-heading">  
-              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-mediation-offer">   {% trans "Audioguides" %} 
-              </a>  
-            </div>  
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-mediation-offer">   {% trans "Audioguides" %}
+              </a>
+            </div>
             <div id="collapse-mediation-offer" class="panel-collapse collapse" style="height: 0px; ">
               {% if museum.has_audioguide %}
               <div class="panel-body">
@@ -514,9 +514,9 @@ $(document).ready(function(){
                 </dl>
               </div>
               {% endif %}
-            </div>  
-          </div>  
-          {% endif %}  
+            </div>
+          </div>
+          {% endif %}
 
           <!-- ======= hotelbooking ======= -->
 
@@ -533,7 +533,7 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
-</div>    
+</div>
 
   {% include "utils/images.html" %}
 
@@ -550,7 +550,7 @@ $(document).ready(function(){
   <div id="exhibitions" class="content">
     <div class="container">
       <h2>{% trans "Current Exhibitions" %}</h2>
-      <div class="list row"> 
+      <div class="list row">
         {% for exhibition in object.get_published_exhibitions %}
         <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
           {% comment %}<!--
@@ -584,7 +584,7 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
-{% endif %} 
+{% endif %}
 
 <!-- ======= Events ======= -->
 
@@ -592,7 +592,7 @@ $(document).ready(function(){
   <div id="events" class="content">
     <div class="container">
       <h2>{% trans "Current Events" %}</h2>
-      <div class="list row"> 
+      <div class="list row">
         {% for event in object.get_published_events %}
         <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <a href="{{ event.get_url_path }}">
@@ -614,12 +614,12 @@ $(document).ready(function(){
   <div id="workshops" class="content">
     <div class="container">
       <h2>{% trans "Current Guided Tours, Workshops and educational offers" %}</h2>
-      <div class="list row"> 
+      <div class="list row">
         {% for workshop in object.get_published_workshops %}
         <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <a href="{{ workshop.get_url_path }}">
             {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-            <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4> 
+            <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4>
             {% else %}
             <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
               {% with workshop.get_closest_workshop_time as workshop_time %}
@@ -663,7 +663,7 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
-</div>    
+</div>
 
 {% endblock %}
 

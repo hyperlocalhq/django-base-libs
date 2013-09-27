@@ -76,6 +76,19 @@
                   {% endif %}
                 {% endif %}
               </header>
+
+              <!-- ======= Tools ======= -->
+
+              <div class="tools">
+
+                {% if request.user.is_authenticated %}
+                  {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+                {% endif %}
+
+                <button class="btn btn-info share-twitter"  data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">Share on Twitter</button>
+                <button class="btn btn-info share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">Share on Facebook</button>
+              </div>
+
               {{ event.get_rendered_description }}
             </article>
 
@@ -85,10 +98,10 @@
 
           <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 
-            <div class="panel-group" id="accordion2">
+            <div class="panel-group" id="details">
               <div class="panel panel-default">
                   <div class="panel-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-location">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#details" href="#collapse-location">
                       {% trans "Venue" %}
                     </a>
                   </div>
@@ -96,32 +109,30 @@
                     <div class="panel-body">
                       {% if event.museum %}
                         {% with event.museum as museum %}
-                          <dl class="address">
-                            <dt>{% trans "Address" %}</dt>
-                            <dd><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></dd>
-                            <dd>{{ museum.street_address }}</dd>
-                            {% if museum.street_address2 %}<dd>{{ museum.street_address2 }}</dd>{% endif %}
-                            <dd>{{ museum.postal_code }} {{ museum.city }}</dd>
+                          <p class="address">
+                            <b><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></b><br/>
+                            {{ museum.street_address }}<br/>
+                            {% if museum.street_address2 %}{{ museum.street_address2 }}<br/>{% endif %}
+                            {{ museum.postal_code }} {{ museum.city }}<br/>
+                          </p>
 
                             {% with event as list_item %}
-                              <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
-                              {% include "utils/geo_position.html" %}</dd>
+                              <a href="#" class="btn btn-info location">{% trans "Show location on map" %}</a>
+                              {% include "utils/geo_position.html" %}
                             {% endwith %}
-                          </dl>
                         {% endwith %}
                       {% else %}
-                        <dl class="address">
-                          <dt>{% trans "Address" %}</dt>
-                          <dd>{{ event.location_name }}</dd>
-                          <dd>{{ event.street_address }}</dd>
-                          {% if event.street_address2 %}<dd>{{ event.street_address2 }}</dd>{% endif %}
-                          <dd>{{ event.postal_code }} {{ event.city }}</dd>
+                        <p class="address">
+                          <b>{{ event.location_name }}</b><br/>
+                          {{ event.street_address }}<br/>
+                          {% if event.street_address2 %}{{ event.street_address2 }}<br/>{% endif %}
+                          {{ event.postal_code }} {{ event.city }}
+                        </p>
 
                           {% with event as list_item %}
-                            <dd><a href="#" class="location">{% trans "Show location on map" %}</a>
-                            {% include "utils/geo_position.html" %}</dd>
+                            <a href="#" class="btn btn-info location">{% trans "Show location on map" %}</a>
+                            {% include "utils/geo_position.html" %}
                           {% endwith %}
-                        </dl>
                       {% endif %}
 
                       {% if event.exhibition %}
@@ -131,37 +142,40 @@
                         </dl>
                       {% endif %}
 
-                      <dl>
-                        {% if event.museum.service_phone_number %}
-                          <dt>{% trans "Service Telephone" %}
-                            <span class="right">+{{ event.museum.service_phone_country }} ({{ event.museum.service_phone_area }}) {{ event.museum.service_phone_number }}</span>
-                          </dt>
-                        {% endif %}
+                      {% if event.museum.service_phone_number %}
+                        <dl>
+                          <dt>{% trans "Service Telephone" %}</dt>
+                          <dd>+{{ event.museum.service_phone_country }} ({{ event.museum.service_phone_area }}) {{ event.museum.service_phone_number }}</dd>
+                        </dl>
+                      {% endif %}
 
-                        {% if event.museum.phone_number %}
-                          <dt>{% trans "Telephone" %}
-                            <span class="right">+{{ event.museum.phone_country }} ({{ event.museum.phone_area }}) {{ event.museum.phone_number }}</span>
-                          </dt>
-                        {% endif %}
+                      {% if event.museum.phone_number %}
+                        <dl>
+                          <dt>{% trans "Telephone" %}</dt>
+                          <dd>+{{ event.museum.phone_country }} ({{ event.museum.phone_area }}) {{ event.museum.phone_number }}</dd>
+                        </dl>
+                      {% endif %}
 
-                        {% if event.museum.group_bookings_phone_number %}
-                          <dt>{% trans "Booking Telephone" %}
-                            <span class="right">+{{ event.museum.group_bookings_phone_country }} ({{ event.museum.group_bookings_phone_area }}) {{ event.museum.group_bookings_phone_number }}</span>
-                          </dt>
-                        {% endif %}
+                      {% if event.museum.group_bookings_phone_number %}
+                        <dl>
+                          <dt>{% trans "Booking Telephone" %}</dt>
+                          <dd>+{{ event.museum.group_bookings_phone_country }} ({{ event.museum.group_bookings_phone_area }}) {{ event.museum.group_bookings_phone_number }}</dd>
+                        </dl>
+                      {% endif %}
 
-                        {% if event.museum.fax_number %}
-                          <dt>{% trans "Fax" %}
-                            <span class="right">+{{ event.museum.fax_country }} ({{ event.museum.fax_area }}) {{ event.museum.fax_number }}</span>
-                          </dt>
-                        {% endif %}
+                      {% if event.museum.fax_number %}
+                        <dl>
+                          <dt>{% trans "Fax" %}</dt>
+                          <dd>+{{ event.museum.fax_country }} ({{ event.museum.fax_area }}) {{ event.museum.fax_number }}</dd>
+                        </dl>
+                      {% endif %}
 
-                        {% if event.website %}
-                          <dt>{% trans "Website" %}
-                            <span class="right"><a class="crop" href="{{ event.website }}">{{ event.website|humanize_url:"25" }}</a></span>
-                          </dt>
-                        {% endif %}
-                      </dl>
+                      {% if event.website %}
+                        <dl>
+                          <dt>{% trans "Website" %}</dt>
+                          <dd><a class="crop" href="{{ event.website }}">{{ event.website|humanize_url:"25" }}</a></dd>
+                        </dl>
+                      {% endif %}
 
                       {% if event.organizer_set.count %}
                         <dl>
@@ -200,7 +214,7 @@
                 {% if event.get_upcoming_event_times.count %}
                   <div class="panel panel-default">
                     <div class="panel-heading">
-                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-times">
+                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-times">
                         {% trans "Date and Time" %}
                       </a>
                     </div>
@@ -210,7 +224,7 @@
                           <dl>
                             <dt>
                             {{ event_time.event_date|date:"j. F Y" }}
-                             <span class="right">{{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
+                             <dd>{{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
                             </dt>
                           </dl>
                         </div>
@@ -224,33 +238,39 @@
                 {% if event.free_admission or event.admission_price or event.admission_price_info or event.reduced_price or event.reduced_price_info or event.booking_info %}
                   <div class="panel panel-default">
                     <div class="panel-heading">
-                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-prices">
+                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-prices">
                         {% trans "Prices" %}
                       </a>
                     </div>
                     <div id="collapse-prices" class="panel-collapse collapse">
                       <div class="panel-body">
-                        <dl>
                         {% if event.free_admission %}
-                          <dt>{% trans "Free entrance" %}</dt>
+                          <dl>
+                            <dt>{% trans "Free entrance" %}</dt>
+                          </dl>
                         {% else %}
                           {% if event.admission_price %}
-                            <dt>{% trans "Admission price" %}: {{ event.admission_price|currencyfmt:"EUR" }}</dt>
+                            <dl>
+                              <dt>{% trans "Admission price" %}</dt>
+                              <dd>{{ event.admission_price|currencyfmt:"EUR" }}</dd>
+                            </dl>
                           {% endif %}
 
                           {% if event.admission_price_info %}
-                            <dd class="admission_price_info">{{ event.get_rendered_admission_price_info }}</dd>
+                            <p class="admission_price_info">{{ event.get_rendered_admission_price_info }}</p>
                           {% endif %}
 
                           {% if event.reduced_price %}
-                            <dt>{% trans "Reduced price" %}: {{ event.reduced_price|currencyfmt:"EUR" }}</dt>
+                            <dl>
+                              <dt>{% trans "Reduced price" %}</dt>
+                              <dd>{{ event.reduced_price|currencyfmt:"EUR" }}</dd>
+                            </dl>
                           {% endif %}
 
                           {% if event.reduced_price_info %}
-                            <dd class="reduced_price_info">{{ event.get_rendered_reduced_price_info }}</dd>
+                            <p class="reduced_price_info">{{ event.get_rendered_reduced_price_info }}</p>
                           {% endif %}
                         {% endif %}
-                        </dl>
                       </div>
                       {% if event.booking_info %}
                       <div class="panel-body">
@@ -269,7 +289,7 @@
                 {% if event.meeting_place or event.get_languages %}
                   <div class="panel panel-default">
                     <div class="panel-heading">
-                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse-other-info">
+                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-other-info">
                         {% trans "Other info" %}
                       </a>
                     </div>
@@ -292,12 +312,6 @@
                   </div>
                 {% endif %}
             </div>
-
-            {% if request.user.is_authenticated %}
-              <div class="tools">
-                {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
-              </div>
-            {% endif %}
           </div> <!-- ======= End Marginal Collumn ======= -->
         </div>
       </div>

@@ -164,13 +164,13 @@
 
     &:hover { opacity: 0.9;
       .img img {
-          -webkit-filter: grayscale(0%); /* New WebKit */
-          -moz-filter: grayscale(0%);
-          -ms-filter: grayscale(0%);
-          -o-filter: grayscale(0%); /* Not yet supported in Gecko, Opera or IE */
-          filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
-          filter: none ; /* IE */
-          filter: grayscale(0%); /* Current draft standard */
+          // -webkit-filter: grayscale(0%); /* New WebKit */
+          // -moz-filter: grayscale(0%);
+          // -ms-filter: grayscale(0%);
+          // -o-filter: grayscale(0%); /* Not yet supported in Gecko, Opera or IE */
+          // filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+          // filter: none ; /* IE */
+          // filter: grayscale(0%); /* Current draft standard */
       }
     }
 
@@ -182,13 +182,13 @@
         width: 100%;
         display: block !important;
 
-        -webkit-filter: grayscale(100%); /* New WebKit */
-        -moz-filter: grayscale(100%);
-        -ms-filter: grayscale(100%);
-        -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */
-        filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
-        filter: gray; /* IE */
-        filter: grayscale(100%); /* Current draft standard */
+        // -webkit-filter: grayscale(100%); /* New WebKit */
+        // -moz-filter: grayscale(100%);
+        // -ms-filter: grayscale(100%);
+        // -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */
+        // filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+        // filter: gray; /* IE */
+        // filter: grayscale(100%); /* Current draft standard */
       }
     }
 
@@ -318,6 +318,7 @@
         background: none !important;
         width: 100%;
         display: block !important;
+
         h3,
         h4,
         h5 {
@@ -328,7 +329,6 @@
         p {
           font-size: 13px !important;
           line-height: 18px !important;
-
           margin-top: 8px;
           display: block;
         }
