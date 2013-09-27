@@ -2164,7 +2164,10 @@ z-index: 10000;
 dl {
   padding-bottom: 10px;
   position: relative;
-  .right { position: absolute; right: 0px; font-weight: 300; }
+  .right {
+    //position: absolute; right: 0px; font-weight: 300;
+    float: right; font-weight: 300;
+  }
 
   a.crop {
     display: inline-block;
