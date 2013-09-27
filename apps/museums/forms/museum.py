@@ -1350,7 +1350,8 @@ def save_data(form_steps, form_step_data, instance=None):
     for f in fields:
         setattr(instance, f, form_step_data['mediation'][f])
 
-    instance.status = "published"
+    if not instance.status:
+        instance.status = "published"
     instance.save()
     
     if is_new:

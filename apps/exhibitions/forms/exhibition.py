@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from distutils.command.install import install
 
 import os
 import shutil
@@ -1241,8 +1242,9 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.suitable_for_disabled = form_step_data['accessibility']['suitable_for_disabled']
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'suitable_for_disabled_info_%s' % lang_code, form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code])
-    
-    instance.status = "published"
+
+    if not instance.status:
+        instance.status = "published"
     instance.save()
     
     if is_new:
