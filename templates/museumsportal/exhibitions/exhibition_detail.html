@@ -17,6 +17,7 @@
 {% endblock %}
 
 {% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/mpb.share.js" defer="defer"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
   <script type="text/javascript">
     var aGeopositions = [];
@@ -170,11 +171,6 @@
                           {% endif %}
                           {{ museum.postal_code }} {{ museum.city }}
                         </p>
-
-                          {% with exhibition as list_item %}
-                            <a href="#" class="btn btn-info location">{% trans "Show location on map" %}</a>
-                            {% include "utils/geo_position.html" %}
-                          {% endwith %}
                       {% endwith %}
                     {% else %}
                       <p class="address">
@@ -185,11 +181,6 @@
                         {% endif %}
                         {{ exhibition.postal_code }} {{ exhibition.city }}<br/>
                       </p>
-
-                      {% with exhibition as list_item %}
-                        <a href="#" class="btn btn-info location">{% trans "Show location on map" %}</a>
-                        {% include "utils/geo_position.html" %}
-                      {% endwith %}
                     {% endif %}
 
                     {% if exhibition.organizer_set.count %}

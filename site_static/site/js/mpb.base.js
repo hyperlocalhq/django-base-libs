@@ -1,4 +1,8 @@
 
+var django = {
+  jQuery: jQuery
+};
+
 $(function() {
   $("a[href^='http://']").attr("target","_blank");
 
@@ -9,7 +13,8 @@ $(function() {
   }
 
 	if ($("[data-toggle=tooltip]").length) {
-    $("[data-toggle=tooltip]").tooltip({});
+    $("[data-toggle=tooltip]").tooltip({
+    });
   }
 
   $('#to-top').click(function(e){
@@ -25,16 +30,7 @@ $(function() {
     }
   });
 
+  $("select").selectbox();
 
-	$(document).ready(function(){
-	  $("select").selectbox()
-	});
-});
-
-var django = {
-  jQuery: jQuery
-};
-
-$(window).load(function() {
-  $('.panel-collapse').collapse('show');
+  // $('.panel-collapse').collapse('show');
 });

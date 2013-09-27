@@ -35,7 +35,7 @@ window.onresize = function(event) {
       item.find(".description").css({left: -left, width: width});
     }
   });
-});
+}
 
 $(document).ready(function(){
 // $(window).load(function() {

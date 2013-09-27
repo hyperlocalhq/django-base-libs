@@ -3,7 +3,21 @@
 {% block title %}{% trans "Guided Tour" %} – {{ object.title }}{% endblock %}
 {% block bodyclass %}workshop-detail{% endblock %}
 
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:type" content="article" />
+    {% if object.image %}
+      <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+    {% else %}
+      <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/museumsportal_opengraph.png" />
+    {% endif %}
+    <meta property="og:url" content="{{ object.get_url }}" />
+    <meta property="og:site_name" content="Museumsportal Berlin" />
+    <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
 {% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/mpb.share.js" defer="defer"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
   <script type="text/javascript">
     var aGeopositions = [];
@@ -113,6 +127,33 @@
                   </div>
                 {% endif %}
               </header>
+
+              <!-- ======= Tools ======= -->
+
+              <div class="tools">
+                {% with workshop as list_item %}
+                  <button class="btn btn-default location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
+                    <span class="icon icon-location"></span>
+                    <span class="sr-only">{% trans "Show location on map" %}</span>
+                  </button>
+                  {% include "utils/geo_position.html" %}
+                {% endwith %}
+
+                {% if request.user.is_authenticated %}
+                  {% adding2favorites for workshop using "favorites/includes/favorite_detail.html" %}
+                {% endif %}
+
+                <button class="btn btn-default share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+                  <span class="icon icon-social-twitter"></span>
+                  <span class="sr-only">{% trans "Share on Twitter" %}</span>
+                </button>
+
+                <button class="btn btn-default share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+                  <span class="icon icon-social-facebook"></span>
+                  <span class="sr-only">{% trans "Share on Facebook" %}</span>
+                </button>
+              </div>
+
               {{ workshop.get_rendered_description }}
 
               {% comment %}
@@ -156,11 +197,6 @@
                                   {{ museum.street_address }}<br/>
                                   {% if museum.street_address2 %}{{ museum.street_address2 }}<br/>{% endif %}
                                   {{ museum.postal_code }} {{ museum.city }}<br/>
-
-                                  {% with workshop as list_item %}
-                                    <a href="#" class="location">{% trans "Show location on map" %}</a>
-                                    {% include "utils/geo_position.html" %}
-                                  {% endwith %}
                                 </p>
                               {% endwith %}
                             {% else %}
@@ -303,43 +339,39 @@
                       <div id="collapse-prices" class="panel-collapse collapse">
                         <div class="panel-body">
                           {% if workshop.free_admission %}
-                            <dl>
-                              <dt>{% trans "Free offer" %}</dt>
-                            </dl>
+                            <b>{% trans "Free offer" %}</b>
                           {% else %}
                             {% if workshop.admission_price or workshop.admission_price_info%}
-                              <dl>
                               {% if workshop.admission_price %}
-                                <dt>{% trans "Price" %}: {{ workshop.admission_price|currencyfmt:"EUR" }}</dt>
+                                <dl>
+                                  <dt>{% trans "Price" %}</dt>
+                                  <dd>{{ workshop.admission_price|currencyfmt:"EUR" }}</dd>
+                                </dl>
                               {% endif %}
 
                               {% if workshop.admission_price_info %}
-                                <dd class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</dd>
+                                <p class="admission_price_info">{{ workshop.get_rendered_admission_price_info }}</p>
                               {% endif %}
-                              </dl>
                             {% endif %}
 
                             {% if workshop.reduced_price or workshop.reduced_price_info%}
-                              <dl>
                               {% if workshop.reduced_price %}
-                                <dt>{% trans "Reduced price" %}: {{ workshop.reduced_price|currencyfmt:"EUR" }}</dt>
+                                <dl>
+                                  <dt>{% trans "Reduced price" %}</dt>
+                                  <dd>{{ workshop.reduced_price|currencyfmt:"EUR" }}</dd>
+                                </dl>
                               {% endif %}
 
                               {% if workshop.reduced_price_info %}
-                                <dd class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</dd>
+                                <p class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</p>
                               {% endif %}
-                              </dl>
                             {% endif %}
                           {% endif %}
-                        </div>
                           {% if workshop.booking_info %}
-                            <div class="panel-body">
-                              <dl>
-                                <dt>{% trans "Booking info" %}</dt>
-                                <dd class="booking_info">{{ workshop.get_rendered_booking_info }}</dd>
-                              </dl>
-                            </div>
+                            <b>{% trans "Booking info" %}</b>
+                            {{ workshop.get_rendered_booking_info }}
                           {% endif %}
+                        </div>
                       </div>
                     </div>
                   {% endif %}
@@ -392,12 +424,6 @@
                   {% endif %} -->
                   {% endcomment %}
               </div>
-
-            {% if request.user.is_authenticated %}
-                <div class="tools">
-                {% adding2favorites for workshop using "favorites/includes/favorite_detail.html" %}
-                </div>
-            {% endif %}
           </div>
         </div>
       </div>
