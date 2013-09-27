@@ -936,6 +936,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.longitude = form_step_data['basic']['longitude']
         instance.vernissage = form_step_data['basic']['vernissage']
         instance.finissage = form_step_data['basic']['finissage']
+        if form_step_data['basic']['tags'] and not form_step_data['basic']['tags'].endswith(","):
+            form_step_data['basic']['tags'] = form_step_data['basic']['tags'] + ","
         instance.tags = form_step_data['basic']['tags']
         instance.is_for_children = form_step_data['basic']['is_for_children']
         if not instance.status:
@@ -1218,6 +1220,8 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.longitude = form_step_data['basic']['longitude']
     instance.vernissage = form_step_data['basic']['vernissage']
     instance.finissage = form_step_data['basic']['finissage']
+    if form_step_data['basic']['tags'] and not form_step_data['basic']['tags'].endswith(","):
+        form_step_data['basic']['tags'] = form_step_data['basic']['tags'] + ","
     instance.tags = form_step_data['basic']['tags']
     instance.is_for_children = form_step_data['basic']['is_for_children']
 

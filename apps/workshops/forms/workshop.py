@@ -832,6 +832,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
         instance.exhibition = form_step_data['basic']['exhibition']
+        if form_step_data['basic']['tags'] and not form_step_data['basic']['tags'].endswith(","):
+            form_step_data['basic']['tags'] = form_step_data['basic']['tags'] + ","
         instance.tags = form_step_data['basic']['tags']
         for f in [
             'is_for_preschool',
@@ -999,6 +1001,8 @@ def save_data(form_steps, form_step_data, instance=None):
         'is_for_learning_difficulties',
     ]:
         setattr(instance, f, form_step_data['basic'][f])
+    if form_step_data['basic']['tags'] and not form_step_data['basic']['tags'].endswith(","):
+        form_step_data['basic']['tags'] = form_step_data['basic']['tags'] + ","
     instance.tags = form_step_data['basic']['tags']
 
     instance.has_group_offer = form_step_data['times']['has_group_offer']
