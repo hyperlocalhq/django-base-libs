@@ -1,29 +1,29 @@
 @charset "UTF-8";
-@import '../mbp/ding';
-@import 'mbp/variables';
-@import 'mbp/header';
+@import 'ding';
+@import 'variables';
+@import 'header';
 // @import 'form';
-@import 'mbp/isotope';
-@import 'mbp/tooltip';
-@import 'mbp/maps';
-@import 'mbp/gallery';
-@import 'mbp/row';
-@import 'mbp/list';
-@import 'mbp/actions';
-@import 'mbp/picker';
-@import 'mbp/notices';
-@import 'mbp/filters';
-@import 'mbp/pagecontrols';
-@import 'mbp/center';
-@import 'mbp/panel';
-@import 'mbp/cms-intro';
-@import 'mbp/cms-richtext';
-@import 'mbp/detail-pages';
-@import 'mbp/media';
-@import 'mbp/dashboard';
-@import 'mbp/sbholder';
-@import 'mbp/slideshow';
-@import 'mbp/footer';
+@import 'isotope';
+@import 'tooltip';
+@import 'maps';
+@import 'gallery';
+@import 'row';
+@import 'list';
+@import 'actions';
+@import 'picker';
+@import 'notices';
+@import 'filters';
+@import 'pagecontrols';
+@import 'center';
+@import 'panel';
+@import 'cms-intro';
+@import 'cms-richtext';
+@import 'detail-pages';
+@import 'media';
+@import 'dashboard';
+@import 'sbholder';
+@import 'slideshow';
+@import 'footer';
 
 body {
   position: relative;
@@ -49,8 +49,8 @@ body {
 }
 
 .content {
-  padding: 50px 0px;
-  border-top: 1px solid #f2f2f2;
+  padding: 35px 0px;
+  border-bottom: 1px solid #f9f9f9;
 }
 
 h1,

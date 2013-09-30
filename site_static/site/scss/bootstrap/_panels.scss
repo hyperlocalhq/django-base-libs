@@ -7,15 +7,16 @@
 .panel {
   margin-bottom: $line-height-computed;
   background-color: $panel-bg;
-  border: 1px solid transparent;
+  // border: 1px solid transparent;
   border-radius: $panel-border-radius;
-  @include box-shadow(0 1px 1px rgba(0,0,0,.05));
+  // @include box-shadow(0 1px 1px rgba(0,0,0,.05));
 }
 
 // Panel contents
 .panel-body {
   padding: 15px;
   @include clearfix();
+  border: none !important;
 }
 
 
@@ -60,7 +61,7 @@
     margin-bottom: 0;
   }
   > .panel-body + .table {
-    border-top: 1px solid $table-border-color;
+    // border-top: 1px solid $table-border-color;
   }
 }
 
@@ -68,7 +69,7 @@
 // Optional heading
 .panel-heading {
   padding: 10px 15px;
-  border-bottom: 1px solid transparent;
+  // border-bottom: 1px solid transparent;
   @include border-top-radius($panel-border-radius - 1);
 }
 
@@ -86,7 +87,7 @@
 .panel-footer {
   padding: 10px 15px;
   background-color: $panel-footer-bg;
-  border-top: 1px solid $panel-inner-border;
+  // border-top: 1px solid $panel-inner-border;
   @include border-bottom-radius($panel-border-radius - 1);
 }
 
@@ -110,13 +111,13 @@
   .panel-heading {
     border-bottom: 0;
     + .panel-collapse .panel-body {
-      border-top: 1px solid $panel-inner-border;
+      // border-top: 1px solid $panel-inner-border;
     }
   }
   .panel-footer {
     border-top: 0;
     + .panel-collapse .panel-body {
-      border-bottom: 1px solid $panel-inner-border;
+      // border-bottom: 1px solid $panel-inner-border;
     }
   }
 

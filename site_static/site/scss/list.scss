@@ -2,28 +2,28 @@
   margin-top: 30px;
 }
 
-@-webkit-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-   @-moz-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-    @-ms-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-     @-o-keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
+@-webkit-keyframes fadein { 0% { opacity: 0; } 100% { opacity: 1; } }
+   @-moz-keyframes fadein { 0% { opacity: 0; } 100% { opacity: 1; } }
+    @-ms-keyframes fadein { 0% { opacity: 0; } 100% { opacity: 1; } }
+     @-o-keyframes fadein { 0% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes fadein { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-.fade {
-  -webkit-backface-visibility: hidden;
-     -moz-backface-visibility: hidden;
-      -ms-backface-visibility: hidden;
-       -o-backface-visibility: hidden;
+// .fade {
+  // -webkit-backface-visibility: hidden;
+  //    -moz-backface-visibility: hidden;
+  //     -ms-backface-visibility: hidden;
+  //      -o-backface-visibility: hidden;
 
-  opacity: 0;
+  // opacity: 0;
 
-  -webkit-transition: opacity 0.125s ease-in-out !important;
-     -moz-transition: opacity 0.125s ease-in-out !important;
-      -ms-transition: opacity 0.125s ease-in-out !important;
-       -o-transition: opacity 0.125s ease-in-out !important;
-          transition: opacity 0.125s ease-in-out !important;
+  // -webkit-transition: opacity 0.25s ease-in-out !important;
+  //    -moz-transition: opacity 0.25s ease-in-out !important;
+  //     -ms-transition: opacity 0.25s ease-in-out !important;
+  //      -o-transition: opacity 0.25s ease-in-out !important;
+  //         transition: opacity 0.25s ease-in-out !important;
 
-  &.in {
-    opacity: 1;
+  // &.in {
+    // opacity: 1;
     // -webkit-animation: fadein 0.125s ease-out;
     //    -moz-animation: fadein 0.125s ease-out;
     //     -ms-animation: fadein 0.125s ease-out;
@@ -35,6 +35,21 @@
     //       -ms-animation-fill-mode: both;
     //        -o-animation-fill-mode: both;
     //           animation-fill-mode: both;
+//   }
+// }
+
+.tools {
+  .btn {
+    min-width: 30px !important;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0px;
+    border-radius: 100%;
+    .icon {
+      line-height: 17px;
+      font-size: 11px;
+    }
   }
 }
 
@@ -50,13 +65,7 @@
     position: absolute;
     top: 0px;
     z-index: 10;
-    display: none;
     font-size: 0px;
-    padding: 10px;
-    .btn {
-      border-radius: 100% !important;
-      margin-left: 5px !important;
-    }
   }
 }
 
@@ -116,6 +125,13 @@
     //      -o-transition: -o-transform 0.125s ease-in-out !important;
     //         transition: transform 0.125s ease-in-out !important;
 
+
+    -webkit-transition: none !important;
+       -moz-transition: none !important;
+        -ms-transition: none !important;
+         -o-transition: none !important;
+            transition: none !important;
+
     .description {
       padding-left: 10px;
       padding-right: 10px;
@@ -136,7 +152,7 @@
         h4 { font-weight: 300;}
         h5 { font-weight: 300; opacity: 0.5; }
         h3, h4 , h5 {
-          font-size: 21px;
+          font-size: 22px;
           line-height: 140%;
           &:empty{ display: none;}
         }
@@ -162,15 +178,15 @@
       }
     }
 
-    &:hover { opacity: 0.9;
+    &:hover {
       .img img {
-          // -webkit-filter: grayscale(0%); /* New WebKit */
-          // -moz-filter: grayscale(0%);
-          // -ms-filter: grayscale(0%);
-          // -o-filter: grayscale(0%); /* Not yet supported in Gecko, Opera or IE */
-          // filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
-          // filter: none ; /* IE */
-          // filter: grayscale(0%); /* Current draft standard */
+          -webkit-filter: grayscale(0%); /* New WebKit */
+          -moz-filter: grayscale(0%);
+          -ms-filter: grayscale(0%);
+          -o-filter: grayscale(0%); /* Not yet supported in Gecko, Opera or IE */
+          filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+          filter: none ; /* IE */
+          filter: grayscale(0%); /* Current draft standard */
       }
     }
 
@@ -182,13 +198,13 @@
         width: 100%;
         display: block !important;
 
-        // -webkit-filter: grayscale(100%); /* New WebKit */
-        // -moz-filter: grayscale(100%);
-        // -ms-filter: grayscale(100%);
-        // -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */
-        // filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
-        // filter: gray; /* IE */
-        // filter: grayscale(100%); /* Current draft standard */
+        -webkit-filter: grayscale(100%); /* New WebKit */
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */
+        filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+        filter: gray; /* IE */
+        filter: grayscale(100%); /* Current draft standard */
       }
     }
 

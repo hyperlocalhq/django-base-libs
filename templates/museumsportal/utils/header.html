@@ -38,6 +38,7 @@
       {% block edit_item %}
       {% endblock %}
 
+      {% comment %}
       {% if request.user.is_authenticated %}
         <div>
           <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
@@ -49,18 +50,20 @@
 
       <div>
         <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Print" %}" onclick="window.print();return false" href="#">
+        <span class="icon icon-printer"></span>
         <span class="sr-only">{% trans "Print" %}</span></a>
       </div>
+      {% endcomment %}
 
       <div>
         <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="Twitter" href="https://twitter.com/museumsportal" target="_blank">
-        <span class="icon icon-twitter"></span>
+        <span class="icon icon-social-twitter"></span>
         <span class="sr-only">Twitter</span></a>
       </div>
 
       <div>
         <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="Facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">
-        <span class="icon icon-facebook"></span>
+        <span class="icon icon-social-facebook"></span>
         <span class="sr-only">Facebook</span></a>
       </div>
       {% block language_chooser %}
