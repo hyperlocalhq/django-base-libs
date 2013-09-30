@@ -26,6 +26,7 @@ class Command(NoArgsCommand):
         from datetime import datetime
         from datetime import timedelta
         from dateutil.parser import parse as parse_datetime
+        from decimal import Decimal
         
         from django.db import models
         from django.template.defaultfilters import slugify
@@ -98,6 +99,7 @@ class Command(NoArgsCommand):
         stats = {
             'added': 0,
             'updated': 0,
+            'updatable': 0,
             'skipped': 0,
         }
         for external_id, exhibition_dict in list_data_dict.items():
@@ -120,6 +122,9 @@ class Command(NoArgsCommand):
                     # if exhibition was deleted after import,
                     # don't import it again
                     stats['skipped'] += 1
+                    continue
+                else:
+                    stats['updatable'] += 1
                     continue
 
             museum = None
@@ -172,18 +177,15 @@ class Command(NoArgsCommand):
                 exhibition.location_name = data_dict['location']['name']
                 
             exhibition.museum_opening_hours = data_dict['opening_from_museum']
-            
-            # exhibition.free_entrance = bool(data_dict['generell_frei'])
-            # if data_dict['preis_voll']:
-            #     exhibition.admission_price = int(data_dict['preis_voll'])
-            # if exhibition_dict['preis_erm']:
-            #     exhibition.reduced_price = int(data_dict['preis_erm'])
 
-            # exhibition.admission_price_info_de = """<p><a href="%s">Weitere Preisinformationen</a></p>""" % exhibition.website_de
-            # exhibition.admission_price_info_de_markup_type = "hw"
-            # exhibition.admission_price_info_en = """<p><a href="%s">More price information</a></p>""" % exhibition.website_en
-            # exhibition.admission_price_info_en_markup_type = "hw"
-            
+            prices = data_dict.get('tarife', {}).values()
+            if prices:
+                # exhibition.free_entrance = bool(data_dict['generell_frei'])
+                if prices[0]['preis_voll']:
+                    exhibition.admission_price = Decimal(prices[0]['preis_voll'].replace(",", ".").replace("-", "00"))
+                if prices[0]['preis_erm']:
+                    exhibition.reduced_price = Decimal(prices[0]['preis_erm'].replace(",", ".").replace("-", "00"))
+
             exhibition.status = "import"
             exhibition.save()
             
@@ -242,7 +244,6 @@ class Command(NoArgsCommand):
                     file_description.save()
                     time.sleep(1)
 
-            
             if not mapper:
                 mapper = ObjectMapper(
                     service=s_exhibitions,
@@ -257,6 +258,7 @@ class Command(NoArgsCommand):
         if verbosity > 1:
             print u"Exibitions added: %d" % stats['added']
             print u"Exibitions updated: %d" % stats['updated']
+            print u"Exibitions updatable: %d" % stats['updatable']  # if there was modification date defined
             print u"Exibitions skipped: %d" % stats['skipped']
             print
         
@@ -281,11 +283,13 @@ class Command(NoArgsCommand):
         event_stats = {
             'added': 0,
             'updated': 0,
+            'updatable': 0,
             'skipped': 0,
         }
         workshop_stats = {
             'added': 0,
             'updated': 0,
+            'updatable': 0,
             'skipped': 0,
         }
 
@@ -312,6 +316,10 @@ class Command(NoArgsCommand):
                         # don't import it again
                         workshop_stats['skipped'] += 1
                         continue
+                    else:
+                        workshop_stats['updatable'] += 1
+                        continue
+
 
                 museum = None
                 museum_guid = int(event_dict['location']['SMart_id'])
@@ -482,6 +490,9 @@ class Command(NoArgsCommand):
                         # don't import it again
                         event_stats['skipped'] += 1
                         continue
+                    else:
+                        event_stats['updatable'] += 1
+                        continue
 
                 museum = None
                 museum_guid = int(event_dict['location']['SMart_id'])
@@ -634,10 +645,12 @@ class Command(NoArgsCommand):
         if verbosity > 1:
             print u"Events added: %d" % event_stats['added']
             print u"Events updated: %d" % event_stats['updated']
+            print u"Events updatable: %d" % event_stats['updatable']  # if there was modification date defined
             print u"Events skipped: %d" % event_stats['skipped']
             print
             print u"Workshops added: %d" % workshop_stats['added']
             print u"Workshops updated: %d" % workshop_stats['updated']
+            print u"Workshops updatable: %d" % workshop_stats['updatable']  # if there was modification date defined
             print u"Workshops skipped: %d" % workshop_stats['skipped']
             print
 
