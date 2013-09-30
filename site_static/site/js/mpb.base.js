@@ -3,7 +3,15 @@ var django = {
   jQuery: jQuery
 };
 
-$(function() {
+
+
+$(window).bind('scrollstop', function(e){
+  $(".img img:in-viewport").lazyload().addClass("in");
+});
+
+$(document).ready(function(){
+  $(".img img:in-viewport").lazyload().addClass("in");
+
   $("a[href^='http://']").attr("target","_blank");
 
   if ($('#cms_toolbar').length) { // cms toolbar fix
@@ -31,6 +39,5 @@ $(function() {
   });
 
   $("select").selectbox();
-
   // $('.panel-collapse').collapse('show');
 });

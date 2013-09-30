@@ -6,9 +6,9 @@
     <div class="row grid">
       {% for mf in object.mediafile_set.all %}
         {% with mf.path|file_description as file_desc %}
-          <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-4">
+          <div class="item col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <div class="img">
-              <img src="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="" title="{{ file_desc.description|remove_newlines|escape }}" />
+              <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="" title="{{ file_desc.description|remove_newlines|escape }}" />
             </div>
             <p>
               <small>
@@ -29,17 +29,17 @@
               {% endif %}
             </div> -->
             <nav class="actions">
-              <button  class="btn btn-default fullscreen" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}">
+              <!--  <button  class="btn btn-default btn-round fullscreen" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}">
                 <span class="icon icon-resize-full"></span>
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
-              </button>
+              </button> -->
 
-              <button class="btn btn-default share-image-twitter"  data-url="http://www.museumsportal-berlin.de{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" data-text="{{ file_desc.title }}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}">
+              <button class="btn btn-default btn-round share-twitter"  data-url="http://www.museumsportal-berlin.de{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" data-text="{{ file_desc.title }}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}">
                 <span class="icon icon-social-twitter"></span>
                 <span class="sr-only">{% trans "Share on Twitter" %}</span>
               </button>
 
-              <button class="btn btn-default share-image-facebook" data-url="http://www.museumsportal-berlin.de{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" data-text="{{ file_desc.title }}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}">
+              <button class="btn btn-default btn-round share-facebook" data-url="http://www.museumsportal-berlin.de{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" data-text="{{ file_desc.title }}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}">
                 <span class="icon icon-social-facebook"></span>
                 <span class="sr-only">{% trans "Share on Facebook" %}</span>
               </button>
@@ -58,7 +58,7 @@
       layoutMode : 'masonry',
     });
     if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
-      $('#images .grid .item').click(function(e){
+      $('#images .grid .item .img img').click(function(e){
         $('body').toggleClass('gallery');
         slider.slide($(this).index(), 0);
       });
