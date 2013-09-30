@@ -361,9 +361,9 @@ class Command(NoArgsCommand):
                 workshop.press_text_de_markup_type = "hw"
                 workshop.press_text_en = data_dict['description_en']
                 workshop.press_text_en_markup_type = "hw"
-                workshop.admission_price_info_de = data_dict['kosten_de']
+                workshop.admission_price_info_de = data_dict['admission_de']
                 workshop.admission_price_info_de_markup_type = "hw"
-                workshop.admission_price_info_en = data_dict['kosten_en']
+                workshop.admission_price_info_en = data_dict['admission_en']
                 workshop.admission_price_info_en_markup_type = "hw"
                 workshop.meeting_place_de = data_dict['treffpunkt_de']
                 workshop.meeting_place_en = data_dict['treffpunkt_en']
@@ -534,9 +534,9 @@ class Command(NoArgsCommand):
                 event.press_text_de_markup_type = "hw"
                 event.press_text_en = data_dict['description_en']
                 event.press_text_en_markup_type = "hw"
-                event.admission_price_info_de = data_dict['kosten_de']
+                event.admission_price_info_de = data_dict['admission_de']
                 event.admission_price_info_de_markup_type = "hw"
-                event.admission_price_info_en = data_dict['kosten_en']
+                event.admission_price_info_en = data_dict['admission_en']
                 event.admission_price_info_en_markup_type = "hw"
                 event.meeting_place_de = data_dict['treffpunkt_de']
                 event.meeting_place_en = data_dict['treffpunkt_en']
