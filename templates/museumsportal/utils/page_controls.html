@@ -20,20 +20,20 @@
         switch(e.which) {
             case 37: // left
                 document.location.href="{{ prev_item.get_url_path }}";
-            break;
+                break;
 
             case 38: // up
-                document.location.href="/de/museen/";
-            break;
+                break;
 
             case 39: // right
                 document.location.href="{{ next_item.get_url_path }}";
-            break;
+                break;
 
             case 40: // down
-            break;
+                break;
 
-            default: return; // exit this handler for other keys
+            default:
+                return; // exit this handler for other keys
         }
         e.preventDefault();
     });

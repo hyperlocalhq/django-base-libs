@@ -120,6 +120,72 @@ def exhibition_list(request):
         context_processors=(prev_next_processor,),
         )
 
+def exhibition_list_map(request):
+    qs = Exhibition.objects.filter(status="published")
+
+    #if not request.REQUEST.keys():
+    #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
+
+    form = ExhibitionSearchForm(data=request.REQUEST)
+
+    facets = {
+        'selected': {},
+        'categories': {
+            'categories': get_related_queryset(Exhibition, "categories").all().order_by("title_%s" % request.LANGUAGE_CODE),
+            'statuses': STATUS_CHOICES,
+            },
+        }
+
+    status = None
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            facets['selected']['category'] = cat
+            qs = qs.filter(
+                categories=cat,
+                ).distinct()
+        status = form.cleaned_data['status']
+        if status:
+            facets['selected']['status'] = status
+            today = date.today()
+            two_weeks = timedelta(days=14)
+            if status == "newly_opened":
+                # today - 2 weeks < EXHIBITION START <= today
+                qs = qs.filter(
+                    start__gt=today-two_weeks,
+                    start__lte=today,
+                    )
+            elif status == "closing_soon":
+                # today <= EXHIBITION END < today + two weeks
+                qs = qs.filter(
+                    end__gte=today,
+                    end__lt=today+two_weeks,
+                    )
+    if status == "closing_soon":
+        qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
+    else:
+        qs = qs.order_by("-start", "title_%s" % request.LANGUAGE_CODE)
+
+    abc_filter = request.GET.get('by-abc', None)
+    abc_list = get_abc_list(qs, "title", abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title", abc_filter)
+
+    extra_context = {}
+    extra_context['form'] = form
+    extra_context['abc_list'] = abc_list
+    extra_context['facets'] = facets
+
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="exhibitions/exhibition_list_map.html",
+        paginate_by=200,
+        extra_context=extra_context,
+        httpstate_prefix="exhibition_list",
+        context_processors=(prev_next_processor,),
+        )
+
 def exhibition_detail(request, slug):
     if "preview" in request.REQUEST:
         qs = Exhibition.objects.all()
@@ -136,6 +202,41 @@ def exhibition_detail(request, slug):
         template_name="exhibitions/exhibition_detail.html",
         context_processors=(prev_next_processor,),
         )
+
+def exhibition_detail_ajax(request, slug):
+    if "preview" in request.REQUEST:
+        qs = Exhibition.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("exhibitions.change_exhibition", obj):
+            return access_denied(request)
+    else:
+        qs = Exhibition.objects.filter(status="published")
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name="exhibitions/exhibition_detail_ajax.html",
+        context_processors=(prev_next_processor,),
+        )
+
+def exhibition_detail_slideshow(request, slug):
+    if "preview" in request.REQUEST:
+        qs = Exhibition.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("exhibitions.change_exhibition", obj):
+            return access_denied(request)
+    else:
+        qs = Exhibition.objects.filter(status="published")
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name="exhibitions/exhibition_detail_slideshow.html",
+        context_processors=(prev_next_processor,),
+        )
+
 
 def export_json_exhibitions(request):
     #create queryset
