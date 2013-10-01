@@ -5,7 +5,7 @@
       {% with object.cover_image|file_description as fd %}
         <div>
           <div class="img">
-            <img class="fade" src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" />
+            <img class="fade" src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
           </div>
 
           {% if museum == object %}
@@ -16,7 +16,7 @@
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% end_if_has_perm %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
                 <span class="icon icon-resize-full"></span>
               </button>
@@ -31,7 +31,7 @@
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% end_if_has_perm %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
                 <span class="icon icon-resize-full"></span>
               </button>
@@ -46,7 +46,7 @@
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% end_if_has_perm %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
                 <span class="icon icon-resize-full"></span>
               </button>
@@ -61,7 +61,7 @@
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% end_if_has_perm %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
                 <span class="icon icon-resize-full"></span>
               </button>
@@ -72,16 +72,17 @@
   </div>
 {% endif %}
 
-<script type="text/javascript">
+<script>
   $(window).load(function() {
     if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
-      $('#cover_image img').click(function(e){
-        $('body').toggleClass('gallery');
-        slider.slide($(this).index(), 0);
+      var $cover_image = $('#cover-image');
+      $('.img img', $cover_image).click(function(e){
+        location.href = $(this).data('href');
+        return false;
       });
-      $('#cover_image .fullscreen').click(function(e){
-        $('body').toggleClass('gallery');
-        slider.slide($(this).index(), 0);
+      $('.fullscreen', $cover_image).click(function(e){
+        location.href = $(this).data('href');
+        return false;
       });
     }
   });
