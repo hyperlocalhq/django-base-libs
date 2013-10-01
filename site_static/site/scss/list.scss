@@ -42,17 +42,6 @@
 
 .item {
   list-style: none;
-  &:hover {
-    .actions {
-      display: block;
-    }
-  }
-  .actions {
-    position: absolute;
-    padding: 10px;
-    top: 0px;
-    z-index: 10;
-  }
 }
 
 .btn-round {

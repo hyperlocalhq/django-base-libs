@@ -2798,53 +2798,44 @@ h6 + .row:not(.grid),
 /* line 43, ../scss/list.scss */
 .item {
   list-style: none; }
-  /* line 46, ../scss/list.scss */
-  .item:hover .actions {
-    display: block; }
-  /* line 50, ../scss/list.scss */
-  .item .actions {
-    position: absolute;
-    padding: 10px;
-    top: 0px;
-    z-index: 10; }
 
-/* line 58, ../scss/list.scss */
+/* line 47, ../scss/list.scss */
 .btn-round {
   border-radius: 100% !important; }
-  /* line 60, ../scss/list.scss */
+  /* line 49, ../scss/list.scss */
   .btn-round.pull-right {
     margin-left: 5px !important; }
-  /* line 61, ../scss/list.scss */
+  /* line 50, ../scss/list.scss */
   .btn-round.pull-left {
     margin-right: 5px !important; }
 
-/* line 65, ../scss/list.scss */
+/* line 54, ../scss/list.scss */
 .list .item {
   margin-top: 0px;
   margin-bottom: 10px; }
-  /* line 68, ../scss/list.scss */
+  /* line 57, ../scss/list.scss */
   .list .item.delete {
     display: none; }
-  /* line 70, ../scss/list.scss */
+  /* line 59, ../scss/list.scss */
   .list .item:hover a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 74, ../scss/list.scss */
+  /* line 63, ../scss/list.scss */
   .list .item > a {
     background-color: #f2f2f2;
     color: black;
     padding: 20px 25px;
     display: block; }
-    /* line 80, ../scss/list.scss */
+    /* line 69, ../scss/list.scss */
     .list .item > a h3 {
       font-weight: 300; }
-    /* line 81, ../scss/list.scss */
+    /* line 70, ../scss/list.scss */
     .list .item > a h4 {
       font-weight: 300; }
-    /* line 82, ../scss/list.scss */
+    /* line 71, ../scss/list.scss */
     .list .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 83, ../scss/list.scss */
+    /* line 72, ../scss/list.scss */
     .list .item > a h3, .list .item > a h4, .list .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2854,23 +2845,23 @@ h6 + .row:not(.grid),
       width: 100%;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 94, ../scss/list.scss */
+      /* line 83, ../scss/list.scss */
       .list .item > a h3:empty, .list .item > a h4:empty, .list .item > a h5:empty {
         display: none; }
-    /* line 97, ../scss/list.scss */
+    /* line 86, ../scss/list.scss */
     .list .item > a h3 {
       font-size: 25px;
       line-height: 40px;
       white-space: nowrap !important; }
 
-/* line 107, ../scss/list.scss */
+/* line 96, ../scss/list.scss */
 .grid .item {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important; }
-  /* line 121, ../scss/list.scss */
+  /* line 110, ../scss/list.scss */
   .grid .item .description {
     padding-left: 10px;
     padding-right: 10px;
@@ -2883,66 +2874,66 @@ h6 + .row:not(.grid),
     -ms-transition: opacity 0.125s ease-in-out !important;
     -o-transition: opacity 0.125s ease-in-out !important;
     transition: opacity 0.125s ease-in-out !important; }
-    /* line 133, ../scss/list.scss */
+    /* line 122, ../scss/list.scss */
     .grid .item .description p.lead {
       margin-right: 40px; }
-    /* line 137, ../scss/list.scss */
+    /* line 126, ../scss/list.scss */
     .grid .item .description header h3 {
       font-weight: 700; }
-    /* line 138, ../scss/list.scss */
+    /* line 127, ../scss/list.scss */
     .grid .item .description header h4 {
       font-weight: 300; }
-    /* line 139, ../scss/list.scss */
+    /* line 128, ../scss/list.scss */
     .grid .item .description header h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 140, ../scss/list.scss */
+    /* line 129, ../scss/list.scss */
     .grid .item .description header h3, .grid .item .description header h4, .grid .item .description header h5 {
       font-size: 22px;
       line-height: 140%; }
-      /* line 143, ../scss/list.scss */
+      /* line 132, ../scss/list.scss */
       .grid .item .description header h3:empty, .grid .item .description header h4:empty, .grid .item .description header h5:empty {
         display: none; }
-  /* line 148, ../scss/list.scss */
+  /* line 137, ../scss/list.scss */
   .grid .item#item-preview {
     padding-bottom: 450px; }
-    /* line 151, ../scss/list.scss */
+    /* line 140, ../scss/list.scss */
     .grid .item#item-preview .description {
       display: block;
       opacity: 1;
       height: auto; }
-  /* line 180, ../scss/list.scss */
+  /* line 169, ../scss/list.scss */
   .grid .item .img-detail,
   .grid .item .img {
     background-color: black;
     display: block;
     margin-bottom: 10px; }
-    /* line 184, ../scss/list.scss */
+    /* line 173, ../scss/list.scss */
     .grid .item .img-detail img,
     .grid .item .img img {
       width: 100%;
       height: auto;
       display: block !important;
       opacity: 0.95; }
-  /* line 200, ../scss/list.scss */
+  /* line 189, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 40px; }
-    /* line 205, ../scss/list.scss */
+    /* line 194, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 207, ../scss/list.scss */
+    /* line 196, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 208, ../scss/list.scss */
+    /* line 197, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 209, ../scss/list.scss */
+    /* line 198, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 210, ../scss/list.scss */
+    /* line 199, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2953,16 +2944,16 @@ h6 + .row:not(.grid),
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 222, ../scss/list.scss */
+      /* line 211, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 228, ../scss/list.scss */
+/* line 217, ../scss/list.scss */
 .compact {
   padding: 0px !important;
   margin: 0px !important;
   margin-bottom: 40px !important; }
-  /* line 233, ../scss/list.scss */
+  /* line 222, ../scss/list.scss */
   .compact .item {
     margin-bottom: 10px;
     font-size: 15px;
@@ -2973,16 +2964,16 @@ h6 + .row:not(.grid),
     position: relative;
     overflow: hidden;
     background-color: #f2f2f2; }
-    /* line 244, ../scss/list.scss */
+    /* line 233, ../scss/list.scss */
     .compact .item:hover {
       background-color: rgba(0, 0, 0, 0.075); }
-    /* line 245, ../scss/list.scss */
+    /* line 234, ../scss/list.scss */
     .compact .item.title {
       background: none; }
-      /* line 247, ../scss/list.scss */
+      /* line 236, ../scss/list.scss */
       .compact .item.title:hover {
         background: none; }
-      /* line 249, ../scss/list.scss */
+      /* line 238, ../scss/list.scss */
       .compact .item.title h3 {
         font-weight: 700;
         margin-bottom: 5px !important;
@@ -2991,7 +2982,7 @@ h6 + .row:not(.grid),
         text-transform: uppercase;
         font-size: 16px;
         line-height: 20px; }
-    /* line 260, ../scss/list.scss */
+    /* line 249, ../scss/list.scss */
     .compact .item .img {
       background-color: #f2f2f2;
       width: 80px;
@@ -3007,7 +2998,7 @@ h6 + .row:not(.grid),
       left: 0;
       top: 0;
       padding: 0px; }
-    /* line 277, ../scss/list.scss */
+    /* line 266, ../scss/list.scss */
     .compact .item a.txt {
       float: left;
       padding: 10px;
@@ -3019,20 +3010,20 @@ h6 + .row:not(.grid),
       height: 90px;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important; }
-      /* line 289, ../scss/list.scss */
+      /* line 278, ../scss/list.scss */
       .compact .item a.txt:hover * {
         color: black; }
-      /* line 291, ../scss/list.scss */
+      /* line 280, ../scss/list.scss */
       .compact .item a.txt h3 {
         font-weight: 700; }
-      /* line 292, ../scss/list.scss */
+      /* line 281, ../scss/list.scss */
       .compact .item a.txt h4 {
         font-weight: 300; }
-      /* line 293, ../scss/list.scss */
+      /* line 282, ../scss/list.scss */
       .compact .item a.txt h5 {
         font-weight: 300;
         opacity: 0.5; }
-      /* line 296, ../scss/list.scss */
+      /* line 285, ../scss/list.scss */
       .compact .item a.txt h3,
       .compact .item a.txt h4,
       .compact .item a.txt h5 {
@@ -3044,38 +3035,38 @@ h6 + .row:not(.grid),
         -moz-box-sizing: border-box !important;
         margin: 0px !important;
         display: block !important; }
-        /* line 309, ../scss/list.scss */
+        /* line 298, ../scss/list.scss */
         .compact .item a.txt h3:empty,
         .compact .item a.txt h4:empty,
         .compact .item a.txt h5:empty {
           display: none !important; }
-      /* line 312, ../scss/list.scss */
+      /* line 301, ../scss/list.scss */
       .compact .item a.txt p {
         display: none; }
-    /* line 316, ../scss/list.scss */
+    /* line 305, ../scss/list.scss */
     .compact .item:nth-child(1) {
       background: none !important;
       padding-bottom: 80px;
       height: 380px; }
-      /* line 320, ../scss/list.scss */
+      /* line 309, ../scss/list.scss */
       .compact .item:nth-child(1) .txt {
         padding: 0px;
         background: none !important;
         width: 100%;
         display: block !important; }
-        /* line 328, ../scss/list.scss */
+        /* line 317, ../scss/list.scss */
         .compact .item:nth-child(1) .txt h3,
         .compact .item:nth-child(1) .txt h4,
         .compact .item:nth-child(1) .txt h5 {
           font-size: 14px !important;
           line-height: 20px !important; }
-        /* line 333, ../scss/list.scss */
+        /* line 322, ../scss/list.scss */
         .compact .item:nth-child(1) .txt p {
           font-size: 13px !important;
           line-height: 18px !important;
           margin-top: 8px;
           display: block; }
-      /* line 341, ../scss/list.scss */
+      /* line 330, ../scss/list.scss */
       .compact .item:nth-child(1) .img {
         width: 100% !important;
         height: 200px;
@@ -3085,8 +3076,10 @@ h6 + .row:not(.grid),
 .actions {
   position: absolute;
   right: 0px;
-  top: 0px; }
-  /* line 6, ../scss/actions.scss */
+  top: 0px;
+  z-index: 10;
+  padding: 9px 10px; }
+  /* line 7, ../scss/actions.scss */
   .actions.bottom {
     top: auto;
     bottom: 0px; }
