@@ -105,6 +105,63 @@ def museum_list(request):
         context_processors=(prev_next_processor,),
         )
 
+
+def museum_list_map(request):
+    qs = Museum.objects.filter(status="published")
+
+    form = MuseumSearchForm(data=request.REQUEST)
+
+    facets = {
+        'selected': {},
+        'categories': {
+            'categories': MuseumCategory.objects.all().order_by("title_%s" % request.LANGUAGE_CODE),
+            'open_on_mondays': _("Open on Mondays"),
+            'free_entrance': _("Free entrance"),
+            },
+        }
+
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            facets['selected']['category'] = cat
+            qs = qs.filter(
+                categories=cat,
+                ).distinct()
+        open_on_mondays = form.cleaned_data['open_on_mondays']
+        if open_on_mondays:
+            facets['selected']['open_on_mondays'] = True
+            qs = qs.filter(
+                open_on_mondays=True,
+                )
+        free_entrance = form.cleaned_data['free_entrance']
+        if free_entrance:
+            facets['selected']['free_entrance'] = True
+            qs = qs.filter(
+                free_entrance=True,
+                )
+
+    abc_filter = request.GET.get('by-abc', None)
+    abc_list = get_abc_list(qs, "title", abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title", abc_filter)
+
+
+    extra_context = {}
+    extra_context['form'] = form
+    extra_context['abc_list'] = abc_list
+    extra_context['facets'] = facets
+
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="museums/museum_list_map.html",
+        paginate_by=200,
+        extra_context=extra_context,
+        httpstate_prefix="museum_list",
+        context_processors=(prev_next_processor,),
+        )
+
+
 def museum_detail(request, slug):
     if "preview" in request.REQUEST:
         qs = Museum.objects.all()
@@ -122,7 +179,43 @@ def museum_detail(request, slug):
         context_processors=(prev_next_processor,),
         )
 
-def export_json_museums(request):    
+
+def museum_detail_ajax(request, slug):
+    if "preview" in request.REQUEST:
+        qs = Museum.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("museums.change_museum", obj):
+            return access_denied(request)
+    else:
+        qs = Museum.objects.filter(status="published")
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name="museums/museum_detail_ajax.html",
+        context_processors=(prev_next_processor,),
+        )
+
+
+def museum_detail_slideshow(request, slug):
+    if "preview" in request.REQUEST:
+        qs = Museum.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("museums.change_museum", obj):
+            return access_denied(request)
+    else:
+        qs = Museum.objects.filter(status="published")
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name="museums/museum_detail_slideshow.html",
+        context_processors=(prev_next_processor,),
+        )
+
+def export_json_museums(request):
     #create queryset
     qs = Museum.objects.filter(status="published")
    
