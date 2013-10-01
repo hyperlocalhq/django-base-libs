@@ -1,6 +1,7 @@
 $(function() {
   $('.grid .item .cancel').click(function(){
-    $('#item-preview').attr("id","")
+    $('#item-preview').attr("id","");
+    $('#container').isotope();
   });
 
   $('.grid .item > a').click(function(){

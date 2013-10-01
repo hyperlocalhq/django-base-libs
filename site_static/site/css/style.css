@@ -2911,74 +2911,38 @@ h6 + .row:not(.grid),
       display: block;
       opacity: 1;
       height: auto; }
-    /* line 156, ../scss/list.scss */
-    .grid .item#item-preview .img img {
-      -webkit-filter: grayscale(0%);
-      /* New WebKit */
-      -moz-filter: grayscale(0%);
-      -ms-filter: grayscale(0%);
-      -o-filter: grayscale(0%);
-      /* Not yet supported in Gecko, Opera or IE */
-      filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale");
-      /* Firefox 3.5+ */
-      filter: none;
-      /* IE */
-      filter: grayscale(0%);
-      /* Current draft standard */ }
-  /* line 168, ../scss/list.scss */
-  .grid .item:hover .img img {
-    -webkit-filter: grayscale(0%);
-    /* New WebKit */
-    -moz-filter: grayscale(0%);
-    -ms-filter: grayscale(0%);
-    -o-filter: grayscale(0%);
-    /* Not yet supported in Gecko, Opera or IE */
-    filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale");
-    /* Firefox 3.5+ */
-    filter: none;
-    /* IE */
-    filter: grayscale(0%);
-    /* Current draft standard */ }
-  /* line 179, ../scss/list.scss */
+  /* line 180, ../scss/list.scss */
+  .grid .item .img-detail,
   .grid .item .img {
-    background-color: #f2f2f2;
+    background-color: black;
     display: block;
     margin-bottom: 10px; }
-    /* line 183, ../scss/list.scss */
+    /* line 184, ../scss/list.scss */
+    .grid .item .img-detail img,
     .grid .item .img img {
       width: 100%;
+      height: auto;
       display: block !important;
-      -webkit-filter: grayscale(100%);
-      /* New WebKit */
-      -moz-filter: grayscale(100%);
-      -ms-filter: grayscale(100%);
-      -o-filter: grayscale(100%);
-      /* Not yet supported in Gecko, Opera or IE */
-      filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale");
-      /* Firefox 3.5+ */
-      filter: gray;
-      /* IE */
-      filter: grayscale(100%);
-      /* Current draft standard */ }
-  /* line 197, ../scss/list.scss */
+      opacity: 0.95; }
+  /* line 200, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 40px; }
-    /* line 202, ../scss/list.scss */
+    /* line 205, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 204, ../scss/list.scss */
+    /* line 207, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 205, ../scss/list.scss */
+    /* line 208, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 206, ../scss/list.scss */
+    /* line 209, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 207, ../scss/list.scss */
+    /* line 210, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2989,16 +2953,16 @@ h6 + .row:not(.grid),
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 219, ../scss/list.scss */
+      /* line 222, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 225, ../scss/list.scss */
+/* line 228, ../scss/list.scss */
 .compact {
   padding: 0px !important;
   margin: 0px !important;
   margin-bottom: 40px !important; }
-  /* line 230, ../scss/list.scss */
+  /* line 233, ../scss/list.scss */
   .compact .item {
     margin-bottom: 10px;
     font-size: 15px;
@@ -3009,16 +2973,16 @@ h6 + .row:not(.grid),
     position: relative;
     overflow: hidden;
     background-color: #f2f2f2; }
-    /* line 241, ../scss/list.scss */
+    /* line 244, ../scss/list.scss */
     .compact .item:hover {
       background-color: rgba(0, 0, 0, 0.075); }
-    /* line 242, ../scss/list.scss */
+    /* line 245, ../scss/list.scss */
     .compact .item.title {
       background: none; }
-      /* line 244, ../scss/list.scss */
+      /* line 247, ../scss/list.scss */
       .compact .item.title:hover {
         background: none; }
-      /* line 246, ../scss/list.scss */
+      /* line 249, ../scss/list.scss */
       .compact .item.title h3 {
         font-weight: 700;
         margin-bottom: 5px !important;
@@ -3027,7 +2991,7 @@ h6 + .row:not(.grid),
         text-transform: uppercase;
         font-size: 16px;
         line-height: 20px; }
-    /* line 257, ../scss/list.scss */
+    /* line 260, ../scss/list.scss */
     .compact .item .img {
       background-color: #f2f2f2;
       width: 80px;
@@ -3043,7 +3007,7 @@ h6 + .row:not(.grid),
       left: 0;
       top: 0;
       padding: 0px; }
-    /* line 274, ../scss/list.scss */
+    /* line 277, ../scss/list.scss */
     .compact .item a.txt {
       float: left;
       padding: 10px;
@@ -3055,20 +3019,20 @@ h6 + .row:not(.grid),
       height: 90px;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important; }
-      /* line 286, ../scss/list.scss */
+      /* line 289, ../scss/list.scss */
       .compact .item a.txt:hover * {
         color: black; }
-      /* line 288, ../scss/list.scss */
+      /* line 291, ../scss/list.scss */
       .compact .item a.txt h3 {
         font-weight: 700; }
-      /* line 289, ../scss/list.scss */
+      /* line 292, ../scss/list.scss */
       .compact .item a.txt h4 {
         font-weight: 300; }
-      /* line 290, ../scss/list.scss */
+      /* line 293, ../scss/list.scss */
       .compact .item a.txt h5 {
         font-weight: 300;
         opacity: 0.5; }
-      /* line 293, ../scss/list.scss */
+      /* line 296, ../scss/list.scss */
       .compact .item a.txt h3,
       .compact .item a.txt h4,
       .compact .item a.txt h5 {
@@ -3080,38 +3044,38 @@ h6 + .row:not(.grid),
         -moz-box-sizing: border-box !important;
         margin: 0px !important;
         display: block !important; }
-        /* line 306, ../scss/list.scss */
+        /* line 309, ../scss/list.scss */
         .compact .item a.txt h3:empty,
         .compact .item a.txt h4:empty,
         .compact .item a.txt h5:empty {
           display: none !important; }
-      /* line 309, ../scss/list.scss */
+      /* line 312, ../scss/list.scss */
       .compact .item a.txt p {
         display: none; }
-    /* line 313, ../scss/list.scss */
+    /* line 316, ../scss/list.scss */
     .compact .item:nth-child(1) {
       background: none !important;
       padding-bottom: 80px;
       height: 380px; }
-      /* line 317, ../scss/list.scss */
+      /* line 320, ../scss/list.scss */
       .compact .item:nth-child(1) .txt {
         padding: 0px;
         background: none !important;
         width: 100%;
         display: block !important; }
-        /* line 325, ../scss/list.scss */
+        /* line 328, ../scss/list.scss */
         .compact .item:nth-child(1) .txt h3,
         .compact .item:nth-child(1) .txt h4,
         .compact .item:nth-child(1) .txt h5 {
           font-size: 14px !important;
           line-height: 20px !important; }
-        /* line 330, ../scss/list.scss */
+        /* line 333, ../scss/list.scss */
         .compact .item:nth-child(1) .txt p {
           font-size: 13px !important;
           line-height: 18px !important;
           margin-top: 8px;
           display: block; }
-      /* line 338, ../scss/list.scss */
+      /* line 341, ../scss/list.scss */
       .compact .item:nth-child(1) .img {
         width: 100% !important;
         height: 200px;
@@ -4140,142 +4104,38 @@ dl {
   .cms-plugin-richtext:after {
     clear: both; }
 
-/* line 4, ../scss/detail-pages.scss */
-#cover-image img {
+/* line 3, ../scss/detail-pages.scss */
+#cover-image {
+  background-color: black; }
+  /* line 4, ../scss/detail-pages.scss */
+  #cover-image img {
+    margin: -35px 0px;
+    width: 100%;
+    opacity: 0.95; }
+
+/* line 13, ../scss/detail-pages.scss */
+#slideshow #carousel {
   margin: -35px 0px;
-  width: 100%; }
+  background-color: black; }
 
-/* line 10, ../scss/detail-pages.scss */
-#slideshow {
-  background-color: #f8f8f8; }
-  /* line 12, ../scss/detail-pages.scss */
-  #slideshow #carousel {
-    margin: -35px 0px; }
-
-/* line 17, ../scss/detail-pages.scss */
+/* line 19, ../scss/detail-pages.scss */
 .tools {
   margin-bottom: 30px; }
 
-/* line 24, ../scss/detail-pages.scss */
+/* line 26, ../scss/detail-pages.scss */
 .museum-detail article,
 .exhibition-detail article,
 .event-detail article,
 .workshop-detail article {
   position: relative; }
-  /* line 26, ../scss/detail-pages.scss */
+  /* line 28, ../scss/detail-pages.scss */
   .museum-detail article iframe,
   .exhibition-detail article iframe,
   .event-detail article iframe,
   .workshop-detail article iframe {
     width: 620px;
     margin-top: 30px; }
-  /* line 29, ../scss/detail-pages.scss */
-  .museum-detail article.with_sidebar,
-  .exhibition-detail article.with_sidebar,
-  .event-detail article.with_sidebar,
-  .workshop-detail article.with_sidebar {
-    width: 620px;
-    float: left; }
-  /* line 30, ../scss/detail-pages.scss */
-  .museum-detail article#images,
-  .exhibition-detail article#images,
-  .event-detail article#images,
-  .workshop-detail article#images {
-    margin-top: 10px; }
-    /* line 33, ../scss/detail-pages.scss */
-    .museum-detail article#images ul,
-    .exhibition-detail article#images ul,
-    .event-detail article#images ul,
-    .workshop-detail article#images ul {
-      margin-right: -60px; }
-      /* line 35, ../scss/detail-pages.scss */
-      .museum-detail article#images ul li,
-      .exhibition-detail article#images ul li,
-      .event-detail article#images ul li,
-      .workshop-detail article#images ul li {
-        cursor: pointer;
-        float: left;
-        position: relative;
-        width: 320px;
-        display: block;
-        min-height: 50px;
-        margin-right: 20px;
-        margin-bottom: 20px; }
-        /* line 45, ../scss/detail-pages.scss */
-        .museum-detail article#images ul li .actions,
-        .exhibition-detail article#images ul li .actions,
-        .event-detail article#images ul li .actions,
-        .workshop-detail article#images ul li .actions {
-          opacity: 0; }
-        /* line 46, ../scss/detail-pages.scss */
-        .museum-detail article#images ul li .inner,
-        .exhibition-detail article#images ul li .inner,
-        .event-detail article#images ul li .inner,
-        .workshop-detail article#images ul li .inner {
-          overflow: hidden;
-          position: relative; }
-        /* line 51, ../scss/detail-pages.scss */
-        .museum-detail article#images ul li img,
-        .exhibition-detail article#images ul li img,
-        .event-detail article#images ul li img,
-        .workshop-detail article#images ul li img {
-          display: block;
-          width: 100%; }
-        /* line 55, ../scss/detail-pages.scss */
-        .museum-detail article#images ul li:hover .info,
-        .exhibition-detail article#images ul li:hover .info,
-        .event-detail article#images ul li:hover .info,
-        .workshop-detail article#images ul li:hover .info {
-          -webkit-transform: translate3d(0px, 0, 0) !important;
-          -moz-transform: translate3d(0px, 0, 0) !important;
-          -o-transform: translate3d(0px, 0, 0) !important;
-          transform: translate3d(0px, 0, 0) !important;
-          opacity: 1; }
-        /* line 62, ../scss/detail-pages.scss */
-        .museum-detail article#images ul li:hover img,
-        .exhibition-detail article#images ul li:hover img,
-        .event-detail article#images ul li:hover img,
-        .workshop-detail article#images ul li:hover img {
-          opacity: 0.9; }
-        /* line 63, ../scss/detail-pages.scss */
-        .museum-detail article#images ul li:hover .actions,
-        .exhibition-detail article#images ul li:hover .actions,
-        .event-detail article#images ul li:hover .actions,
-        .workshop-detail article#images ul li:hover .actions {
-          opacity: 1; }
-        /* line 66, ../scss/detail-pages.scss */
-        .museum-detail article#images ul li .info,
-        .exhibition-detail article#images ul li .info,
-        .event-detail article#images ul li .info,
-        .workshop-detail article#images ul li .info {
-          background-color: white;
-          color: white;
-          margin: 0px;
-          box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          bottom: 0;
-          position: absolute;
-          width: 100%;
-          text-shadow: 0 0 0 transparent;
-          -webkit-transform: translate3d(0px, 100%, 0) !important;
-          -moz-transform: translate3d(0px, 100%, 0) !important;
-          -o-transform: translate3d(0px, 100%, 0) !important;
-          transform: translate3d(0px, 100%, 0) !important;
-          display: none;
-          -webkit-transition-property: all;
-          -webkit-transition-duration: 0.25s;
-          -webkit-transition-timing: ease-in-out;
-          padding-top: 10px;
-          color: rgba(0, 0, 0, 0.75);
-          font-size: 13px;
-          line-height: 18px; }
-          /* line 88, ../scss/detail-pages.scss */
-          .museum-detail article#images ul li .info .title,
-          .exhibition-detail article#images ul li .info .title,
-          .event-detail article#images ul li .info .title,
-          .workshop-detail article#images ul li .info .title {
-            font-weight: 700; }
-  /* line 99, ../scss/detail-pages.scss */
+  /* line 32, ../scss/detail-pages.scss */
   .museum-detail article .tools,
   .exhibition-detail article .tools,
   .event-detail article .tools,
@@ -4283,20 +4143,20 @@ dl {
     position: absolute;
     top: 0px;
     right: 0px; }
-  /* line 104, ../scss/detail-pages.scss */
+  /* line 37, ../scss/detail-pages.scss */
   .museum-detail article #cover-image,
   .exhibition-detail article #cover-image,
   .event-detail article #cover-image,
   .workshop-detail article #cover-image {
     margin-bottom: 30px; }
-  /* line 107, ../scss/detail-pages.scss */
+  /* line 40, ../scss/detail-pages.scss */
   .museum-detail article header,
   .exhibition-detail article header,
   .event-detail article header,
   .workshop-detail article header {
     margin-bottom: 30px;
     position: relative; }
-    /* line 112, ../scss/detail-pages.scss */
+    /* line 45, ../scss/detail-pages.scss */
     .museum-detail article header h1,
     .museum-detail article header h2,
     .exhibition-detail article header h1,
@@ -4309,19 +4169,19 @@ dl {
       line-height: 140%;
       display: block;
       margin: 0px; }
-    /* line 119, ../scss/detail-pages.scss */
+    /* line 52, ../scss/detail-pages.scss */
     .museum-detail article header h1,
     .exhibition-detail article header h1,
     .event-detail article header h1,
     .workshop-detail article header h1 {
       font-weight: 700; }
-    /* line 120, ../scss/detail-pages.scss */
+    /* line 53, ../scss/detail-pages.scss */
     .museum-detail article header h2,
     .exhibition-detail article header h2,
     .event-detail article header h2,
     .workshop-detail article header h2 {
       font-weight: 300; }
-    /* line 122, ../scss/detail-pages.scss */
+    /* line 55, ../scss/detail-pages.scss */
     .museum-detail article header h3,
     .exhibition-detail article header h3,
     .event-detail article header h3,
@@ -4331,7 +4191,7 @@ dl {
       line-height: 160%;
       font-weight: 600;
       margin-top: 15px !important; }
-    /* line 130, ../scss/detail-pages.scss */
+    /* line 63, ../scss/detail-pages.scss */
     .museum-detail article header h4,
     .exhibition-detail article header h4,
     .event-detail article header h4,
@@ -4341,13 +4201,13 @@ dl {
       margin: 0px;
       padding: 0px;
       font-weight: 300; }
-    /* line 137, ../scss/detail-pages.scss */
+    /* line 70, ../scss/detail-pages.scss */
     .museum-detail article header .extras,
     .exhibition-detail article header .extras,
     .event-detail article header .extras,
     .workshop-detail article header .extras {
       margin-top: 25px; }
-      /* line 139, ../scss/detail-pages.scss */
+      /* line 72, ../scss/detail-pages.scss */
       .museum-detail article header .extras dd, .museum-detail article header .extras dt,
       .exhibition-detail article header .extras dd,
       .exhibition-detail article header .extras dt,
@@ -4357,7 +4217,7 @@ dl {
       .workshop-detail article header .extras dt {
         font-size: 20px;
         line-height: 32px; }
-  /* line 147, ../scss/detail-pages.scss */
+  /* line 80, ../scss/detail-pages.scss */
   .museum-detail article blockquote,
   .exhibition-detail article blockquote,
   .event-detail article blockquote,
@@ -4372,19 +4232,19 @@ dl {
     border-bottom: 1px solid #f2f2f2 !important;
     border-top: 1px solid #f2f2f2 !important;
     color: rgba(0, 0, 0, 0.5); }
-    /* line 162, ../scss/detail-pages.scss */
+    /* line 95, ../scss/detail-pages.scss */
     .museum-detail article blockquote:before,
     .exhibition-detail article blockquote:before,
     .event-detail article blockquote:before,
     .workshop-detail article blockquote:before {
       content: "Â«"; }
-    /* line 163, ../scss/detail-pages.scss */
+    /* line 96, ../scss/detail-pages.scss */
     .museum-detail article blockquote:after,
     .exhibition-detail article blockquote:after,
     .event-detail article blockquote:after,
     .workshop-detail article blockquote:after {
       content: "Â»"; }
-    /* line 164, ../scss/detail-pages.scss */
+    /* line 97, ../scss/detail-pages.scss */
     .museum-detail article blockquote:last-child,
     .exhibition-detail article blockquote:last-child,
     .event-detail article blockquote:last-child,

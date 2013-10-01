@@ -4,13 +4,15 @@
   img {
     margin: -35px 0px;
     width: 100%;
+    opacity: 0.95;
   }
+  background-color: black;
 }
 
 #slideshow {
-  background-color: #f8f8f8;
   #carousel {
     margin: -35px 0px;
+    background-color: black;
   }
 }
 
@@ -26,76 +28,7 @@
   iframe {width: 620px; margin-top: 30px;}
 
   position: relative;
-  &.with_sidebar { width: 620px; float: left;}
-  &#images {
-    margin-top: 10px;
 
-    ul {
-      margin-right: -60px;
-      li {
-        cursor: pointer;
-        float: left;
-        position: relative;
-        width: 320px;
-        display: block;
-        min-height: 50px;
-        margin-right: 20px;
-        margin-bottom: 20px;
-
-        .actions { opacity: 0; }
-        .inner {
-          overflow: hidden;
-          position: relative;
-        }
-
-        img { display: block; width: 100%; }
-        // &:first-child { width: 660px;}
-
-        &:hover {
-          .info {
-            -webkit-transform: translate3d(0px, 0, 0) !important;
-            -moz-transform: translate3d(0px, 0, 0) !important;
-            -o-transform: translate3d(0px, 0, 0) !important;
-            transform: translate3d(0px, 0, 0) !important;
-            opacity: 1;
-          }
-          img { opacity: 0.9;}
-          .actions { opacity: 1;}
-        }
-
-        .info {
-          background-color: white;
-          color: white;
-          margin: 0px;
-          box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          bottom: 0;
-          position: absolute;
-          width: 100%;
-          text-shadow: 0 0 0 transparent;
-
-          -webkit-transform: translate3d(0px, 100%, 0) !important;
-          -moz-transform: translate3d(0px, 100%, 0) !important;
-          -o-transform: translate3d(0px, 100%, 0) !important;
-          transform: translate3d(0px, 100%, 0) !important;
-          display: none;
-
-          -webkit-transition-property: all;
-          -webkit-transition-duration: 0.25s;
-          -webkit-transition-timing: ease-in-out;
-            padding-top: 10px;
-
-          .title {
-            font-weight: 700;
-          }
-
-          color: rgba(0,0,0,0.75);
-          font-size: 13px;
-          line-height: 18px;
-        }
-      }
-    }
-  }
   .tools {
     position: absolute;
     top: 0px;

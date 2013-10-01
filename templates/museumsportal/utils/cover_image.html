@@ -11,12 +11,12 @@
           {% if museum == object %}
             <nav class="actions">
               {% if_has_perm "museums.change_museum" museum %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default crop" onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round crop" onclick="location.href='{% cropping_url museum.cover_image "cover" request request.path %}';">
                 <span class="sr-only">{% trans "Crop Image" %}</span>
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% end_if_has_perm %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default btn-round  fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
                 <span class="icon icon-resize-full"></span>
               </button>
@@ -26,12 +26,12 @@
           {% if exhibition == object %}
             <nav class="actions">
               {% if_has_perm "exhibitions.change_exhibition" exhibition %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default crop" onclick="location.href='{% cropping_url exhibition.cover_image "cover" request request.path %}';">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round  crop" onclick="location.href='{% cropping_url exhibition.cover_image "cover" request request.path %}';">
                 <span class="sr-only">{% trans "Crop Image" %}</span>
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% end_if_has_perm %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default btn-round  fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
                 <span class="icon icon-resize-full"></span>
               </button>
@@ -41,12 +41,12 @@
           {% if workshop == object %}
             <nav class="actions">
               {% if_has_perm "workshops.change_workshop" workshop %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default crop" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round  crop" onclick="location.href='{% cropping_url workshop.cover_image "cover" request request.path %}';">
                 <span class="sr-only">{% trans "Crop Image" %}</span>
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% end_if_has_perm %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default btn-round  fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
                 <span class="icon icon-resize-full"></span>
               </button>
@@ -56,12 +56,12 @@
           {% if event == object %}
             <nav class="actions">
               {% if_has_perm "events.change_event" event %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default crop" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round  crop" onclick="location.href='{% cropping_url event.cover_image "cover" request request.path %}';">
                 <span class="sr-only">{% trans "Crop Image" %}</span>
                 <span class="icon icon-tool-crop"></span>
               </button>
               {% end_if_has_perm %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Fullscreen" %}" class="btn btn-default btn-round  fullscreen" data-href="{{ object.get_url_path }}slideshow/#0">
                 <span class="sr-only">{% trans "Fullscreen" %}</span>
                 <span class="icon icon-resize-full"></span>
               </button>

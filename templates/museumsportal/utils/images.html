@@ -7,9 +7,10 @@
       {% for mf in object.mediafile_set.all %}
         {% with mf.path|file_description as file_desc %}
           <div class="item col-xs-12 col-sm-12 col-md-4 col-lg-4" data-href="{{ object.get_url_path }}slideshow/#{{ forloop.counter0 }}">
-            <div class="img">
+            <div class="img-detail">
               <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="" title="{{ file_desc.description|remove_newlines|escape }}" />
             </div>
+            <!--
             <p>
               <small>
               <span class="title">{{ file_desc.title }}</span>
@@ -17,7 +18,7 @@
               <span class="author">{{ file_desc.author }}</span>
               </small>
             </p>
-            <!--  <div class="info">
+             <div class="info">
               {% if file_desc.title %}
               <p><small class="title">{{ file_desc.title }}</small></p>
               {% endif %}
@@ -59,7 +60,7 @@
       layoutMode : 'masonry',
     });
     if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
-      $('.grid .item .img img', $images).click(function(e){
+      $('.grid .item .img-detail img', $images).click(function(e){
         location.href = $(this).closest('.item').data('href');
         return false;
       });
