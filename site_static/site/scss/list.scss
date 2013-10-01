@@ -38,20 +38,6 @@
 //   }
 // }
 
-.tools {
-  .btn {
-    min-width: 30px !important;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    padding: 0px;
-    border-radius: 100%;
-    .icon {
-      line-height: 17px;
-      font-size: 11px;
-    }
-  }
-}
 
 
 .item {
@@ -63,9 +49,9 @@
   }
   .actions {
     position: absolute;
+    padding: 10px;
     top: 0px;
     z-index: 10;
-    font-size: 0px;
   }
 }
 
@@ -239,7 +225,6 @@
 .compact {
   padding: 0px !important;
   margin: 0px !important;
-  margin-right: 20px !important;
   margin-bottom: 40px !important;
 
   .item {

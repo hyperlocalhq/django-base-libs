@@ -9,6 +9,9 @@
 p {
   margin: 0 0 ($line-height-computed / 2);
 }
+.lead p,
+.lead ul,
+.lead ol,
 .lead {
   margin-bottom: $line-height-computed;
   font-size: 18px;

@@ -2,10 +2,11 @@
 
 {% if object.cover_image %}
   <div id="cover-image" class="content">
-    <div class="container">
       {% with object.cover_image|file_description as fd %}
         <div>
-          <img src="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="{{ fd.description|remove_newlines|escape }}" title="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
+          <div class="img">
+            <img class="fade" src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
+          </div>
 
           {% if museum == object %}
             <nav class="actions">
@@ -68,7 +69,6 @@
           {% endif %}
         </div>
       {% endwith %}
-    </div>
   </div>
 {% endif %}
 
@@ -76,7 +76,7 @@
   $(window).load(function() {
     if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
       var $cover_image = $('#cover-image');
-      $('img', $cover_image).click(function(e){
+      $('.img img', $cover_image).click(function(e){
         location.href = $(this).data('href');
         return false;
       });

@@ -38,7 +38,6 @@ window.onresize = function(event) {
 }
 
 $(document).ready(function(){
-  $(".img img:in-viewport").lazyload().addClass("in");
 // $(window).load(function() {
   var $container = $('#container'),
   filters = {};
@@ -131,7 +130,6 @@ $(document).ready(function(){
         var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
         $('#filter_summary').append($li);
       }
-      $(".img img:in-viewport").lazyload().addClass("in");
     }
 
   // convert object into array
@@ -144,7 +142,6 @@ $(document).ready(function(){
   $.bbq.pushState({filter: selector});
 
   $container.isotope({filter: selector});
-  $(".img img:in-viewport").lazyload().addClass("in");
 
   $container.trigger("map_filter", { filter: isoFilters});
   $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
@@ -183,9 +180,4 @@ if (window.location.hash) {
       $('#filters a[data-filter-value=".' + this + '"]').click();
     });
   }
-});
-
-
-$(window).bind('scrollstop', function(e){
-  $(".img img:in-viewport").lazyload().addClass("in");
 });
