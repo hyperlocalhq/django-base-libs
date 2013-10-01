@@ -23,11 +23,11 @@
   <div class="container">
     <nav id="controls" class="pull-right">
       {% if request.user.is_authenticated %}
-      <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
+      <a class="btn btn-default btn-round" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
         <span class="sr-only">{% trans "Favorites" %}</span>
         <span class="icon icon-star"></span></a>
       {% endif %}
-      <button id="gmap_toggle" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
+      <button id="gmap_toggle" class="btn btn-default btn-round">
         <span class="sr-only">{% trans "Show map" %}</span>
         <span class="icon icon-location"></span>
       </button>
@@ -184,12 +184,12 @@
                 {% if request.user.is_authenticated %}
                   {% adding2favorites for museum %}
                 {% endif %}
-                <button class="location btn btn-default">
+                <button class="location btn btn-default btn-round">
                   <span class="icon icon-location"></span>
                   <span class="sr-only">{% trans "Show location on map" %}</span>
                 </button>
                 {% if_has_perm "museums.change_museum" museum %}
-                  <button class="crop btn btn-default" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';">
+                  <button class="crop btn btn-default btn-round" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';">
                     <span class="icon icon-tool-crop"></span>
                     <span class="sr-only">{% trans "Crop Image" %}</span>
                   </button>
