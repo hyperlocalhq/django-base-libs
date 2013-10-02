@@ -152,7 +152,7 @@
     <div id="container" class="row row-narrow grid">
       {% for exhibition in object_list %}
         {% tags_for_object exhibition as tags %}
-        <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3 {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }}{% for cat in exhibition.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if exhibition.is_newly_open %} is_newly_open{% endif %}{% if exhibition.is_closing_soon %} is_closing_soon{% endif %}{% if exhibition.is_actual %} is_actual{% endif %}{% if exhibition.is_upcoming %} is_upcoming{% endif %}{% if exhibition.free_entrance %} is_free_entrance{% endif %}{% if exhibition.show_family_ticket %} is_family_ticket{% endif %}{% if exhibition.show_group_ticket %} is_group_ticket{% endif %}{% if exhibition.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if exhibition.member_of_museumspass %} is_museumspass{% endif %}{% if exhibition.suitable_for_disabled %} is_for_disabled{% endif %}{% if exhibition.is_for_children %} is_for_children{% endif %}{% if exhibition.is_today %} is_today{% endif %}{% if exhibition.is_tomorrow %} is_tomorrow{% endif %}{% if exhibition.is_within_7_days %} is_within_7_days{% endif %}{% if exhibition.is_within_30_days %} is_within_30_days{% endif %}" style="cursor: pointer">
+        <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3 initial_{{ exhibition.title|slugify|slice:"0:1" }}{% for cat in exhibition.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if exhibition.is_newly_open %} is_newly_open{% endif %}{% if exhibition.is_closing_soon %} is_closing_soon{% endif %}{% if exhibition.is_actual %} is_actual{% endif %}{% if exhibition.is_upcoming %} is_upcoming{% endif %}{% if exhibition.free_entrance %} is_free_entrance{% endif %}{% if exhibition.show_family_ticket %} is_family_ticket{% endif %}{% if exhibition.show_group_ticket %} is_group_ticket{% endif %}{% if exhibition.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if exhibition.member_of_museumspass %} is_museumspass{% endif %}{% if exhibition.suitable_for_disabled %} is_for_disabled{% endif %}{% if exhibition.is_for_children %} is_for_children{% endif %}{% if exhibition.is_today %} is_today{% endif %}{% if exhibition.is_tomorrow %} is_tomorrow{% endif %}{% if exhibition.is_within_7_days %} is_within_7_days{% endif %}{% if exhibition.is_within_30_days %} is_within_30_days{% endif %}" style="cursor: pointer" data-description-src="{{ exhibition.get_url_path }}ajax/">
 
           <a href="{{ exhibition.get_url_path }}">
             <span class="img">
@@ -174,6 +174,7 @@
           </a>
 
           <div class="description">
+            {% comment %}
             <div class="row row-narrow">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <header>
@@ -213,7 +214,7 @@
               <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
                 <p class="lead">{{ exhibition.get_rendered_description|striptags|truncatewords:"65"|urlize }}</p>
                 <a class="btn btn-default" href="{{ exhibition.get_url_path }}">{% trans "More" %}</a>
-                <button class="btn btn-info cancel">{% trans "Close" %}</a>
+                <button class="btn btn-info cancel">{% trans "Close" %}</button>
               </div>
 
               <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
@@ -289,6 +290,7 @@
                 {% endwith %}
               </div>
             </div>
+            {% endcomment %}
           </div>
 
           {% with exhibition as list_item %}
