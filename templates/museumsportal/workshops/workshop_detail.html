@@ -51,7 +51,6 @@
 
 {% block content %}
   {% with object as workshop %}
-    {% include "utils/cover_image.html" %}
 
     <div id="exhibition" class="content">
       <div class="container">
@@ -92,47 +91,14 @@
                   {% endif %}
                 {% endif %}
 
-                {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups or workshop.get_languages %}
-                    <div class="extras">{% if workshop.get_particularities %}
-                      <dl>
-                        <dt>{% trans "Particularities" %}</dt>
-                        <dd class="meeting_place">{{ workshop.get_particularities|join:'<br />' }}</dd>
-                      </dl>
-                    {% endif %}
 
-                    {% if workshop.meeting_place %}
-                      <dl>
-                        <dt>{% trans "Meeting point" %}</dt>
-                        <dd class="meeting_place">{{ workshop.meeting_place }}</dd>
-                      </dl>
-                    {% endif %}
-
-                    {% if workshop.age_groups %}
-                      <dt>{% trans "Age groups" %}</dt>
-                      <dd class="meeting_place">
-                        {% for cat in workshop.age_groups.all %}
-                          {{ cat.title }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                      </dd>
-                    {% endif %}
-
-                    {% if workshop.get_languages %}
-                      <dl>
-                        <dt>{% trans "Languages" %}</dt>
-                        {% for language in workshop.get_languages %}
-                          <dd class="languages">{{ language }}</dd>
-                        {% endfor %}
-                      </dl>
-                    {% endif %}
-                  </div>
-                {% endif %}
               </header>
 
               <!-- ======= Tools ======= -->
 
               <div class="tools">
                 {% with workshop as list_item %}
-                  <button class="btn btn-default location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
+                  <button class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
                     <span class="icon icon-location"></span>
                     <span class="sr-only">{% trans "Show location on map" %}</span>
                   </button>
@@ -143,19 +109,58 @@
                   {% adding2favorites for workshop using "favorites/includes/favorite_detail.html" %}
                 {% endif %}
 
-                <button class="btn btn-default share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+                <button class="btn btn-default btn-round share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
                   <span class="icon icon-social-twitter"></span>
                   <span class="sr-only">{% trans "Share on Twitter" %}</span>
                 </button>
 
-                <button class="btn btn-default share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+                <button class="btn btn-default btn-round share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
                   <span class="icon icon-social-facebook"></span>
                   <span class="sr-only">{% trans "Share on Facebook" %}</span>
                 </button>
               </div>
 
-              {{ workshop.get_rendered_description }}
+              {% include "utils/cover_image.html" %}
 
+              <div class="lead">
+                {{ workshop.get_rendered_description }}
+              </div>
+
+              {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups or workshop.get_languages %}
+                <div class="extras">
+                  {% if workshop.get_particularities %}
+                    <b>{% trans "Particularities" %}</b>
+                    <p class="meeting_place">
+                      {{ workshop.get_particularities|join:'<br />' }}
+                    </p>
+                  {% endif %}
+
+                  {% if workshop.meeting_place %}
+                    <b>{% trans "Meeting point" %}</b>
+                    <p class="meeting_place">
+                      {{ workshop.meeting_place }}
+                    </p>
+                  {% endif %}
+
+                  {% if workshop.age_groups %}
+                    <p class="meeting_place">
+                    <b>{% trans "Age groups" %}</b>
+                      {% for cat in workshop.age_groups.all %}
+                        {{ cat.title }}{% if not forloop.last %}, {% endif %}
+                      {% endfor %}
+                    </p>
+                  {% endif %}
+
+                  {% if workshop.get_languages %}
+                    <b>{% trans "Languages" %}</b>
+                    <p>
+                    {% for language in workshop.get_languages %}
+                      <span>{{ language }}{% if not forloop.last %}, {% endif %}</span>
+                    {% endfor %}
+                    </p>
+                  {% endif %}
+                </div>
+              {% endif %}
               {% comment %}
               <!-- <ul class="tags">
                   {% if workshop.categories.count %}
@@ -214,12 +219,20 @@
                             {% endif %}
 
                             {% if workshop.exhibition %}
-                              <dl>
-                                <dt>{% trans "Related exhibition" %}</dt>
-                                <dd><a href="{{ workshop.exhibition.get_url_path }}">{{ workshop.exhibition.title }}</a><br />
-                                  {% trans "Duration" %}: <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span> {% if workshop.exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if workshop.exhibition.end %}{% trans "till" %} {{ workshop.exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
-                                </dd>
-                              </dl>
+                              <p>
+                                <b>{% trans "Related exhibition" %}</b><br />
+                                <a href="{{ workshop.exhibition.get_url_path }}">
+                                  {{ workshop.exhibition.title }}<br />
+                                  {% trans "Duration" %}: <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span>
+                                  {% if workshop.exhibition.permanent %}
+                                    {% trans "until further notice" %}
+                                  {% else %}
+                                    {% if workshop.exhibition.end %}
+                                      {% trans "till" %} {{ workshop.exhibition.end|date:"d.m.Y" }}
+                                    {% endif %}
+                                  {% endif %}
+                                </a>
+                              </p>
                             {% endif %}
 
                               {% if workshop.museum.service_phone_number %}

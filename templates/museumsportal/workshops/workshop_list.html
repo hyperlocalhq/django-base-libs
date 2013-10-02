@@ -24,13 +24,14 @@ var settings = {
 <div class="container">
   <nav id="controls" class="pull-right">
     {% if request.user.is_authenticated %}
-    <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
+    <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
       <span class="sr-only">{% trans "Favorites" %}</span>
       <span class="icon icon-star"></span>
     </a>
     {% endif %}
-    <button id="gmap_toggle" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
+    <button id="gmap_toggle" class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
       <span class="icon icon-location"></span>
+      <span class="sr-only">{% trans "Show location on map" %}</span>
     </button>
   </nav>
 
@@ -38,14 +39,14 @@ var settings = {
 
   <div id="filters">
     <div class="btn-group" id="filter-toggle" data-toggle="buttons">
-      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists"> 
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
         <input type="radio" name="options" id="filter-toggle-smartlists">
-        {% trans "Smart lists" %} 
+        {% trans "Smart lists" %}
       </label>
 
-      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">   
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">
         <input type="radio" name="options" id="filter-toggle-calendar">
-        {% trans "Calendar" %}    
+        {% trans "Calendar" %}
       </label>
     </div>
 
@@ -112,35 +113,35 @@ var settings = {
         {% endif %}
         {% if_has_perm "workshops.change_workshop" workshop %}
         {% if workshop.cover_image %}
-        <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';">
+        <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default btn-round" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';">
           <span class="icon icon-tool-crop"></span>
           <span class="sr-only">{% trans "Crop Image" %}</span>
         </button>
         {% else %}{% if workshop.museum.cover_image %}
-        <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';">
+        <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default btn-round" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';">
           <span class="icon icon-tool-crop"></span>
           <span class="sr-only">{% trans "Crop Image" %}</span>
         </button>
         {% endif %}{% endif %}
         {% end_if_has_perm %}
-        <button href="#" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location btn btn-default">
+        <button href="#" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location btn btn-info btn-round">
           <span class="icon icon-location"></span>
           <span class="sr-only">{% trans "Show location on map" %}</span>
         </button>
       </div>
-      
+
       <a href="{{ workshop.get_url_path }}">
         <!-- <h4>{{ workshop.workshop_type }} {% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|time:"H:i" }}{% endwith %}</h4> -->
 
         {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-        <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} {% trans "Bookable Offer" %}. {{ workshop.get_particularities|join:'. ' }}</h4> 
+        <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} {% trans "Bookable Offer" %}. {{ workshop.get_particularities|join:'. ' }}</h4>
         {% else %}
-        <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} 
+        <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
           {% with workshop.get_closest_workshop_time as workshop_time %}
           {{ workshop_time.workshop_date|date:"j. F Y" }}
           {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
           {% endwith %}
-          {{ workshop.get_particularities|join:'. ' }}                            
+          {{ workshop.get_particularities|join:'. ' }}
         </h4>
         {% endif %}
 
@@ -167,7 +168,7 @@ var settings = {
 </div>
 
 {% include "utils/gmap_scripts.html" %}
-<script>var str_filter_selection = "{% trans "Filter selection" %}";</script> 
+<script>var str_filter_selection = "{% trans "Filter selection" %}";</script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/sticky.js"></script>
 
 {% endblock %}

@@ -22,16 +22,16 @@ var settings = {
 <div class="container">
   <nav id="controls" class="pull-right">
     {% if request.user.is_authenticated %}
-    <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
+    <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
       <span class="sr-only">{% trans "Favorites" %}</span>
       <span class="icon icon-star"></span>
     </a>
     {% endif %}
-    <button id="gmap_toggle" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
+    <button id="gmap_toggle" class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
       <span class="icon icon-location"></span>
       <span class="sr-only">{% trans "Show location on map" %}</span>
     </button>
-    <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">
+    <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">
       <span class="icon icon-signal"></span>
       <span class="sr-only">{% trans "RSS Feed" %}</span>
     </a>
@@ -134,25 +134,25 @@ var settings = {
       {% for event in object_list %}
       {% tags_for_object event as tags %}
       <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}">
-        <div class="actions btn-group">
+        <div class="actions">
           {% if request.user.is_authenticated %}
             {% adding2favorites for event %}
           {% endif %}
           {% if_has_perm "events.change_event" event %}
             {% if event.cover_image %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default" onclick="location.href='{% cropping_url event.cover_image "event_list" request request.path %}';">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.cover_image "event_list" request request.path %}';">
                 <span class="icon icon-tool-crop"></span>
                 <span class="sr-only">{% trans "Crop Image" %}</span>
               </button>
             {% else %}{% if event.museum.cover_image %}
-              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default" onclick="location.href='{% cropping_url event.museum.cover_image "event_list" request request.path %}';">
+              <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.museum.cover_image "event_list" request request.path %}';">
                 <span class="icon icon-tool-crop"></span>
                 <span class="sr-only">{% trans "Crop Image" %}</span>
               </button>
             {% endif %}
           {% endif %}
           {% end_if_has_perm %}
-          <button href="#" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="btn btn-default location">
+          <button href="#" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="btn btn-default btn-round location">
             <span class="icon icon-location"></span>
             <span class="sr-only">{% trans "Show location on map" %}</span>
           </button>

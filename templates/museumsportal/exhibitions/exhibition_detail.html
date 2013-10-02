@@ -108,7 +108,7 @@
                 {% if exhibition.museum %}
                   {% with exhibition.museum as museum %}
                     {% with exhibition as list_item %}
-                      <button class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
+                      <button class="btn btn-default btn-round location" >
                         <span class="icon icon-location"></span>
                         <span class="sr-only">{% trans "Show location on map" %}</span>
                       </button>
@@ -118,7 +118,7 @@
                 {% else %}
 
                   {% with exhibition as list_item %}
-                    <button class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
+                    <button class="btn btn-default btn-round location" >
                       <span class="icon icon-location"></span>
                       <span class="sr-only">{% trans "Show location on map" %}</span>
                     </button>
@@ -137,8 +137,9 @@
               </div>
 
               {% include "utils/cover_image.html" %}
+
               <div class="lead">
-              {{ exhibition.get_rendered_description }}
+                {{ exhibition.get_rendered_description }}
               </div>
 
               {% comment %}

@@ -12,7 +12,9 @@
 #slideshow {
   #carousel {
     margin: -35px 0px;
-    background-color: black;
+    .carousel-inner {
+      background-color: black;
+    }
   }
 }
 

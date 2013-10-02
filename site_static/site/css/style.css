@@ -2799,52 +2799,56 @@ h6 + .row:not(.grid),
 .item {
   list-style: none; }
   /* line 46, ../scss/list.scss */
-  .item:hover .actions {
-    display: block; }
-  /* line 50, ../scss/list.scss */
-  .item .actions {
-    position: absolute;
-    padding: 10px;
-    top: 0px;
-    z-index: 10; }
+  .item .img-detail,
+  .item .img {
+    background-color: black;
+    display: block;
+    margin-bottom: 10px; }
+    /* line 50, ../scss/list.scss */
+    .item .img-detail img,
+    .item .img img {
+      width: 100%;
+      height: auto;
+      display: block !important;
+      opacity: 0.95; }
 
-/* line 58, ../scss/list.scss */
+/* line 67, ../scss/list.scss */
 .btn-round {
   border-radius: 100% !important; }
-  /* line 60, ../scss/list.scss */
+  /* line 69, ../scss/list.scss */
   .btn-round.pull-right {
     margin-left: 5px !important; }
-  /* line 61, ../scss/list.scss */
+  /* line 70, ../scss/list.scss */
   .btn-round.pull-left {
     margin-right: 5px !important; }
 
-/* line 65, ../scss/list.scss */
+/* line 74, ../scss/list.scss */
 .list .item {
   margin-top: 0px;
   margin-bottom: 10px; }
-  /* line 68, ../scss/list.scss */
+  /* line 77, ../scss/list.scss */
   .list .item.delete {
     display: none; }
-  /* line 70, ../scss/list.scss */
+  /* line 79, ../scss/list.scss */
   .list .item:hover a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 74, ../scss/list.scss */
+  /* line 83, ../scss/list.scss */
   .list .item > a {
     background-color: #f2f2f2;
     color: black;
     padding: 20px 25px;
     display: block; }
-    /* line 80, ../scss/list.scss */
+    /* line 89, ../scss/list.scss */
     .list .item > a h3 {
       font-weight: 300; }
-    /* line 81, ../scss/list.scss */
+    /* line 90, ../scss/list.scss */
     .list .item > a h4 {
       font-weight: 300; }
-    /* line 82, ../scss/list.scss */
+    /* line 91, ../scss/list.scss */
     .list .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 83, ../scss/list.scss */
+    /* line 92, ../scss/list.scss */
     .list .item > a h3, .list .item > a h4, .list .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2854,23 +2858,23 @@ h6 + .row:not(.grid),
       width: 100%;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 94, ../scss/list.scss */
+      /* line 103, ../scss/list.scss */
       .list .item > a h3:empty, .list .item > a h4:empty, .list .item > a h5:empty {
         display: none; }
-    /* line 97, ../scss/list.scss */
+    /* line 106, ../scss/list.scss */
     .list .item > a h3 {
       font-size: 25px;
       line-height: 40px;
       white-space: nowrap !important; }
 
-/* line 107, ../scss/list.scss */
+/* line 116, ../scss/list.scss */
 .grid .item {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important; }
-  /* line 121, ../scss/list.scss */
+  /* line 130, ../scss/list.scss */
   .grid .item .description {
     padding-left: 10px;
     padding-right: 10px;
@@ -2883,66 +2887,53 @@ h6 + .row:not(.grid),
     -ms-transition: opacity 0.125s ease-in-out !important;
     -o-transition: opacity 0.125s ease-in-out !important;
     transition: opacity 0.125s ease-in-out !important; }
-    /* line 133, ../scss/list.scss */
+    /* line 142, ../scss/list.scss */
     .grid .item .description p.lead {
       margin-right: 40px; }
-    /* line 137, ../scss/list.scss */
+    /* line 146, ../scss/list.scss */
     .grid .item .description header h3 {
       font-weight: 700; }
-    /* line 138, ../scss/list.scss */
+    /* line 147, ../scss/list.scss */
     .grid .item .description header h4 {
       font-weight: 300; }
-    /* line 139, ../scss/list.scss */
+    /* line 148, ../scss/list.scss */
     .grid .item .description header h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 140, ../scss/list.scss */
+    /* line 149, ../scss/list.scss */
     .grid .item .description header h3, .grid .item .description header h4, .grid .item .description header h5 {
       font-size: 22px;
       line-height: 140%; }
-      /* line 143, ../scss/list.scss */
+      /* line 152, ../scss/list.scss */
       .grid .item .description header h3:empty, .grid .item .description header h4:empty, .grid .item .description header h5:empty {
         display: none; }
-  /* line 148, ../scss/list.scss */
+  /* line 157, ../scss/list.scss */
   .grid .item#item-preview {
     padding-bottom: 450px; }
-    /* line 151, ../scss/list.scss */
+    /* line 160, ../scss/list.scss */
     .grid .item#item-preview .description {
       display: block;
       opacity: 1;
       height: auto; }
-  /* line 180, ../scss/list.scss */
-  .grid .item .img-detail,
-  .grid .item .img {
-    background-color: black;
-    display: block;
-    margin-bottom: 10px; }
-    /* line 184, ../scss/list.scss */
-    .grid .item .img-detail img,
-    .grid .item .img img {
-      width: 100%;
-      height: auto;
-      display: block !important;
-      opacity: 0.95; }
-  /* line 200, ../scss/list.scss */
+  /* line 190, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 40px; }
-    /* line 205, ../scss/list.scss */
+    /* line 195, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 207, ../scss/list.scss */
+    /* line 197, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 208, ../scss/list.scss */
+    /* line 198, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 209, ../scss/list.scss */
+    /* line 199, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 210, ../scss/list.scss */
+    /* line 200, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2953,16 +2944,16 @@ h6 + .row:not(.grid),
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 222, ../scss/list.scss */
+      /* line 212, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 228, ../scss/list.scss */
+/* line 218, ../scss/list.scss */
 .compact {
   padding: 0px !important;
   margin: 0px !important;
   margin-bottom: 40px !important; }
-  /* line 233, ../scss/list.scss */
+  /* line 223, ../scss/list.scss */
   .compact .item {
     margin-bottom: 10px;
     font-size: 15px;
@@ -2973,16 +2964,16 @@ h6 + .row:not(.grid),
     position: relative;
     overflow: hidden;
     background-color: #f2f2f2; }
-    /* line 244, ../scss/list.scss */
+    /* line 234, ../scss/list.scss */
     .compact .item:hover {
       background-color: rgba(0, 0, 0, 0.075); }
-    /* line 245, ../scss/list.scss */
+    /* line 235, ../scss/list.scss */
     .compact .item.title {
       background: none; }
-      /* line 247, ../scss/list.scss */
+      /* line 237, ../scss/list.scss */
       .compact .item.title:hover {
         background: none; }
-      /* line 249, ../scss/list.scss */
+      /* line 239, ../scss/list.scss */
       .compact .item.title h3 {
         font-weight: 700;
         margin-bottom: 5px !important;
@@ -2991,7 +2982,7 @@ h6 + .row:not(.grid),
         text-transform: uppercase;
         font-size: 16px;
         line-height: 20px; }
-    /* line 260, ../scss/list.scss */
+    /* line 250, ../scss/list.scss */
     .compact .item .img {
       background-color: #f2f2f2;
       width: 80px;
@@ -3007,7 +2998,7 @@ h6 + .row:not(.grid),
       left: 0;
       top: 0;
       padding: 0px; }
-    /* line 277, ../scss/list.scss */
+    /* line 267, ../scss/list.scss */
     .compact .item a.txt {
       float: left;
       padding: 10px;
@@ -3019,20 +3010,20 @@ h6 + .row:not(.grid),
       height: 90px;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important; }
-      /* line 289, ../scss/list.scss */
+      /* line 279, ../scss/list.scss */
       .compact .item a.txt:hover * {
         color: black; }
-      /* line 291, ../scss/list.scss */
+      /* line 281, ../scss/list.scss */
       .compact .item a.txt h3 {
         font-weight: 700; }
-      /* line 292, ../scss/list.scss */
+      /* line 282, ../scss/list.scss */
       .compact .item a.txt h4 {
         font-weight: 300; }
-      /* line 293, ../scss/list.scss */
+      /* line 283, ../scss/list.scss */
       .compact .item a.txt h5 {
         font-weight: 300;
         opacity: 0.5; }
-      /* line 296, ../scss/list.scss */
+      /* line 286, ../scss/list.scss */
       .compact .item a.txt h3,
       .compact .item a.txt h4,
       .compact .item a.txt h5 {
@@ -3044,38 +3035,38 @@ h6 + .row:not(.grid),
         -moz-box-sizing: border-box !important;
         margin: 0px !important;
         display: block !important; }
-        /* line 309, ../scss/list.scss */
+        /* line 299, ../scss/list.scss */
         .compact .item a.txt h3:empty,
         .compact .item a.txt h4:empty,
         .compact .item a.txt h5:empty {
           display: none !important; }
-      /* line 312, ../scss/list.scss */
+      /* line 302, ../scss/list.scss */
       .compact .item a.txt p {
         display: none; }
-    /* line 316, ../scss/list.scss */
+    /* line 306, ../scss/list.scss */
     .compact .item:nth-child(1) {
       background: none !important;
       padding-bottom: 80px;
       height: 380px; }
-      /* line 320, ../scss/list.scss */
+      /* line 310, ../scss/list.scss */
       .compact .item:nth-child(1) .txt {
         padding: 0px;
         background: none !important;
         width: 100%;
         display: block !important; }
-        /* line 328, ../scss/list.scss */
+        /* line 318, ../scss/list.scss */
         .compact .item:nth-child(1) .txt h3,
         .compact .item:nth-child(1) .txt h4,
         .compact .item:nth-child(1) .txt h5 {
           font-size: 14px !important;
           line-height: 20px !important; }
-        /* line 333, ../scss/list.scss */
+        /* line 323, ../scss/list.scss */
         .compact .item:nth-child(1) .txt p {
           font-size: 13px !important;
           line-height: 18px !important;
           margin-top: 8px;
           display: block; }
-      /* line 341, ../scss/list.scss */
+      /* line 331, ../scss/list.scss */
       .compact .item:nth-child(1) .img {
         width: 100% !important;
         height: 200px;
@@ -3085,8 +3076,10 @@ h6 + .row:not(.grid),
 .actions {
   position: absolute;
   right: 0px;
-  top: 0px; }
-  /* line 6, ../scss/actions.scss */
+  top: 0px;
+  z-index: 10;
+  padding: 9px 10px; }
+  /* line 7, ../scss/actions.scss */
   .actions.bottom {
     top: auto;
     bottom: 0px; }
@@ -3989,17 +3982,18 @@ dl {
   .img_block img {
     display: block;
     margin-bottom: 10px;
-    width: 100%; }
+    width: 100%;
+    height: auto; }
 
-/* line 22, ../scss/cms-richtext.scss */
+/* line 23, ../scss/cms-richtext.scss */
 .cms-plugin-richtext {
   padding-bottom: 40px; }
-  /* line 25, ../scss/cms-richtext.scss */
+  /* line 26, ../scss/cms-richtext.scss */
   .cms-plugin-richtext:not(:last-of-type) {
     border-bottom: 1px solid #f2f2f2;
     padding-bottom: 40px;
     margin-bottom: 40px; }
-  /* line 31, ../scss/cms-richtext.scss */
+  /* line 32, ../scss/cms-richtext.scss */
   .cms-plugin-richtext h2 {
     top: 5px;
     position: relative;
@@ -4008,10 +4002,10 @@ dl {
     margin: 0px;
     position: relative;
     font-weight: 300; }
-    /* line 39, ../scss/cms-richtext.scss */
+    /* line 40, ../scss/cms-richtext.scss */
     .cms-plugin-richtext h2:not(:first-of-type) {
       margin-top: 40px; }
-  /* line 42, ../scss/cms-richtext.scss */
+  /* line 43, ../scss/cms-richtext.scss */
   .cms-plugin-richtext h3 {
     top: 5px;
     position: relative;
@@ -4021,7 +4015,7 @@ dl {
     font-weight: 300;
     position: relative;
     margin-top: 40px; }
-  /* line 53, ../scss/cms-richtext.scss */
+  /* line 54, ../scss/cms-richtext.scss */
   .cms-plugin-richtext h4 {
     top: 5px;
     position: relative;
@@ -4030,18 +4024,18 @@ dl {
     margin: 0px;
     font-weight: 700;
     position: relative; }
-  /* line 63, ../scss/cms-richtext.scss */
+  /* line 64, ../scss/cms-richtext.scss */
   .cms-plugin-richtext h2 {
     margin-bottom: 10px;
     font-weight: 700; }
-  /* line 64, ../scss/cms-richtext.scss */
+  /* line 65, ../scss/cms-richtext.scss */
   .cms-plugin-richtext h3 {
     margin-bottom: 10px; }
-  /* line 67, ../scss/cms-richtext.scss */
+  /* line 68, ../scss/cms-richtext.scss */
   .cms-plugin-richtext ol,
   .cms-plugin-richtext ul {
     margin-top: 10px; }
-  /* line 69, ../scss/cms-richtext.scss */
+  /* line 70, ../scss/cms-richtext.scss */
   .cms-plugin-richtext li {
     font-size: 16px;
     line-height: 20px;
@@ -4052,24 +4046,24 @@ dl {
     padding-right: 25px;
     padding-top: 15px;
     padding-bottom: 15px; }
-    /* line 81, ../scss/cms-richtext.scss */
+    /* line 82, ../scss/cms-richtext.scss */
     .cms-plugin-richtext li:last-child {
       border: none !important; }
-  /* line 85, ../scss/cms-richtext.scss */
+  /* line 86, ../scss/cms-richtext.scss */
   .cms-plugin-richtext ul,
   .cms-plugin-richtext p {
     font-size: 20px;
     line-height: 32px;
     padding-bottom: 20px; }
-    /* line 89, ../scss/cms-richtext.scss */
+    /* line 90, ../scss/cms-richtext.scss */
     .cms-plugin-richtext ul strong,
     .cms-plugin-richtext p strong {
       font-weight: 700; }
-    /* line 93, ../scss/cms-richtext.scss */
+    /* line 94, ../scss/cms-richtext.scss */
     .cms-plugin-richtext ul:last-child,
     .cms-plugin-richtext p:last-child {
       padding: 0px !important; }
-    /* line 95, ../scss/cms-richtext.scss */
+    /* line 96, ../scss/cms-richtext.scss */
     .cms-plugin-richtext ul.img_block,
     .cms-plugin-richtext p.img_block {
       margin-right: 40px;
@@ -4080,27 +4074,32 @@ dl {
       padding-bottom: 0px !important;
       margin-bottom: 30px !important;
       margin-top: 10px !important; }
-      /* line 104, ../scss/cms-richtext.scss */
+      /* line 105, ../scss/cms-richtext.scss */
       .cms-plugin-richtext ul.img_block br,
       .cms-plugin-richtext p.img_block br {
         display: none; }
-      /* line 105, ../scss/cms-richtext.scss */
+      /* line 106, ../scss/cms-richtext.scss */
       .cms-plugin-richtext ul.img_block img,
       .cms-plugin-richtext p.img_block img {
         display: block;
         margin-bottom: 10px;
         width: 100% !important; }
   /* line 117, ../scss/cms-richtext.scss */
-  .cms-plugin-richtext:nth-child(1n) .img_block,
-  .cms-plugin-richtext:nth-child(1n) .img_left {
-    float: left; }
-  /* line 124, ../scss/cms-richtext.scss */
+  .cms-plugin-richtext .img_block,
+  .cms-plugin-richtext .img_left {
+    font-size: 12px;
+    line-height: 160%; }
+    /* line 118, ../scss/cms-richtext.scss */
+    .cms-plugin-richtext .img_block img,
+    .cms-plugin-richtext .img_left img {
+      display: block; }
+  /* line 129, ../scss/cms-richtext.scss */
   .cms-plugin-richtext:before, .cms-plugin-richtext:after {
     content: "\0020";
     display: block;
     height: 0;
     visibility: hidden; }
-  /* line 131, ../scss/cms-richtext.scss */
+  /* line 136, ../scss/cms-richtext.scss */
   .cms-plugin-richtext:after {
     clear: both; }
 
@@ -4115,27 +4114,29 @@ dl {
 
 /* line 13, ../scss/detail-pages.scss */
 #slideshow #carousel {
-  margin: -35px 0px;
-  background-color: black; }
+  margin: -35px 0px; }
+  /* line 15, ../scss/detail-pages.scss */
+  #slideshow #carousel .carousel-inner {
+    background-color: black; }
 
-/* line 19, ../scss/detail-pages.scss */
+/* line 21, ../scss/detail-pages.scss */
 .tools {
   margin-bottom: 30px; }
 
-/* line 26, ../scss/detail-pages.scss */
+/* line 28, ../scss/detail-pages.scss */
 .museum-detail article,
 .exhibition-detail article,
 .event-detail article,
 .workshop-detail article {
   position: relative; }
-  /* line 28, ../scss/detail-pages.scss */
+  /* line 30, ../scss/detail-pages.scss */
   .museum-detail article iframe,
   .exhibition-detail article iframe,
   .event-detail article iframe,
   .workshop-detail article iframe {
     width: 620px;
     margin-top: 30px; }
-  /* line 32, ../scss/detail-pages.scss */
+  /* line 34, ../scss/detail-pages.scss */
   .museum-detail article .tools,
   .exhibition-detail article .tools,
   .event-detail article .tools,
@@ -4143,20 +4144,20 @@ dl {
     position: absolute;
     top: 0px;
     right: 0px; }
-  /* line 37, ../scss/detail-pages.scss */
+  /* line 39, ../scss/detail-pages.scss */
   .museum-detail article #cover-image,
   .exhibition-detail article #cover-image,
   .event-detail article #cover-image,
   .workshop-detail article #cover-image {
     margin-bottom: 30px; }
-  /* line 40, ../scss/detail-pages.scss */
+  /* line 42, ../scss/detail-pages.scss */
   .museum-detail article header,
   .exhibition-detail article header,
   .event-detail article header,
   .workshop-detail article header {
     margin-bottom: 30px;
     position: relative; }
-    /* line 45, ../scss/detail-pages.scss */
+    /* line 47, ../scss/detail-pages.scss */
     .museum-detail article header h1,
     .museum-detail article header h2,
     .exhibition-detail article header h1,
@@ -4169,19 +4170,19 @@ dl {
       line-height: 140%;
       display: block;
       margin: 0px; }
-    /* line 52, ../scss/detail-pages.scss */
+    /* line 54, ../scss/detail-pages.scss */
     .museum-detail article header h1,
     .exhibition-detail article header h1,
     .event-detail article header h1,
     .workshop-detail article header h1 {
       font-weight: 700; }
-    /* line 53, ../scss/detail-pages.scss */
+    /* line 55, ../scss/detail-pages.scss */
     .museum-detail article header h2,
     .exhibition-detail article header h2,
     .event-detail article header h2,
     .workshop-detail article header h2 {
       font-weight: 300; }
-    /* line 55, ../scss/detail-pages.scss */
+    /* line 57, ../scss/detail-pages.scss */
     .museum-detail article header h3,
     .exhibition-detail article header h3,
     .event-detail article header h3,
@@ -4191,7 +4192,7 @@ dl {
       line-height: 160%;
       font-weight: 600;
       margin-top: 15px !important; }
-    /* line 63, ../scss/detail-pages.scss */
+    /* line 65, ../scss/detail-pages.scss */
     .museum-detail article header h4,
     .exhibition-detail article header h4,
     .event-detail article header h4,
@@ -4201,13 +4202,13 @@ dl {
       margin: 0px;
       padding: 0px;
       font-weight: 300; }
-    /* line 70, ../scss/detail-pages.scss */
+    /* line 72, ../scss/detail-pages.scss */
     .museum-detail article header .extras,
     .exhibition-detail article header .extras,
     .event-detail article header .extras,
     .workshop-detail article header .extras {
       margin-top: 25px; }
-      /* line 72, ../scss/detail-pages.scss */
+      /* line 74, ../scss/detail-pages.scss */
       .museum-detail article header .extras dd, .museum-detail article header .extras dt,
       .exhibition-detail article header .extras dd,
       .exhibition-detail article header .extras dt,
@@ -4217,7 +4218,7 @@ dl {
       .workshop-detail article header .extras dt {
         font-size: 20px;
         line-height: 32px; }
-  /* line 80, ../scss/detail-pages.scss */
+  /* line 82, ../scss/detail-pages.scss */
   .museum-detail article blockquote,
   .exhibition-detail article blockquote,
   .event-detail article blockquote,
@@ -4232,19 +4233,19 @@ dl {
     border-bottom: 1px solid #f2f2f2 !important;
     border-top: 1px solid #f2f2f2 !important;
     color: rgba(0, 0, 0, 0.5); }
-    /* line 95, ../scss/detail-pages.scss */
+    /* line 97, ../scss/detail-pages.scss */
     .museum-detail article blockquote:before,
     .exhibition-detail article blockquote:before,
     .event-detail article blockquote:before,
     .workshop-detail article blockquote:before {
       content: "Â«"; }
-    /* line 96, ../scss/detail-pages.scss */
+    /* line 98, ../scss/detail-pages.scss */
     .museum-detail article blockquote:after,
     .exhibition-detail article blockquote:after,
     .event-detail article blockquote:after,
     .workshop-detail article blockquote:after {
       content: "Â»"; }
-    /* line 97, ../scss/detail-pages.scss */
+    /* line 99, ../scss/detail-pages.scss */
     .museum-detail article blockquote:last-child,
     .exhibition-detail article blockquote:last-child,
     .event-detail article blockquote:last-child,
@@ -4258,17 +4259,18 @@ dl {
 
   /* line 9, ../scss/media.scss */
   .nav > li > a {
-    font-size: 14px; } }
+    font-size: 14px;
+    margin-right: 16px; } }
 @media (min-width: 992px) {
-  /* line 15, ../scss/media.scss */
+  /* line 16, ../scss/media.scss */
   .nav > li > a {
     font-size: 18px; } }
 @media (min-width: 1200px) {
-  /* line 22, ../scss/media.scss */
+  /* line 23, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 25, ../scss/media.scss */
+  /* line 26, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 2, ../scss/dashboard.scss */

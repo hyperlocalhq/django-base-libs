@@ -51,7 +51,6 @@
 
 {% block content %}
 {% with object as event %}
-    {% include "utils/cover_image.html" %}
 
     <div id="exhibition" class="content">
       <div class="container">
@@ -117,7 +116,11 @@
                 </button>
               </div>
 
-              {{ event.get_rendered_description }}
+              {% include "utils/cover_image.html" %}
+
+              <div class="lead">
+                {{ event.get_rendered_description }}
+              </div>
             </article>
 
           </div> <!-- ======= End Main Collumn ======= -->
