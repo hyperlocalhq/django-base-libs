@@ -11,10 +11,40 @@ class Command(NoArgsCommand):
             help='Tells Django to NOT download images.'),
     )
     help = """Imports exhibitions, events, and workshops from Staatliche Museen zu Berlin"""
-    
+
+    MUSEUM_MAPPER = {
+        43009: 62,
+        43010: 129,
+        43011: 130,
+        31: 150,
+        35: 77,
+        37: 105,
+        39: 107,
+        40: 103,
+        24: 9,
+        25: 152,
+        27: 157,
+        28: 35,
+        29: 8,
+        32: 67,
+        26: 177,
+        30: 84,
+        43: 79,
+        48: 0,  # Institut für Museumsforschung
+        2433: 0,  # Rathgen-Forschungslabor
+        27774: 0,  # Zentralarchiv
+        37096: 0,  # Archäologisches Zentrum
+        43007: 0,  # Humboldt-Forum
+        43008: 0,  # Generaldirektion
+        45: 166,
+        2976: 124,
+        6124: 131,
+    }
+
     def handle_noargs(self, **options):
         self.import_exhibitions(**options)
-        
+        self.import_events_and_workshops(**options)
+
     def import_exhibitions(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
         skip_images = options.get('skip_images')
@@ -41,45 +71,9 @@ class Command(NoArgsCommand):
         Organizer = models.get_model("exhibitions", "Organizer")
         MediaFile = models.get_model("exhibitions", "MediaFile")
         Season = models.get_model("exhibitions", "Season")
-        Event = models.get_model("events", "Event")
-        EventTime = models.get_model("events", "EventTime")
-        Workshop = models.get_model("workshops", "Workshop")
-        WorkshopTime = models.get_model("workshops", "WorkshopTime")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         Service = models.get_model("external_services", "Service")
         
-        def parse_unix_timestamp(timestamp):
-            return datetime.fromtimestamp(int(timestamp))
-
-        MUSEUM_MAPPER = {
-            43009: 62,
-            43010: 129,
-            43011: 130,
-            31: 150,
-            35: 77,
-            37: 105,
-            39: 107,
-            40: 103,
-            24: 9,
-            25: 152,
-            27: 157,
-            28: 35,
-            29: 8,
-            32: 67,
-            26: 177,
-            30: 84,
-            43: 79,
-            48: 0,  # Institut für Museumsforschung
-            2433: 0,  # Rathgen-Forschungslabor
-            27774: 0,  # Zentralarchiv
-            37096: 0,  # Archäologisches Zentrum
-            43007: 0,  # Humboldt-Forum
-            43008: 0,  # Generaldirektion
-            45: 166,
-            2976: 124,
-            6124: 131,
-        }
-
         ### IMPORT EXHIBITIONS ###
         if verbosity > 1:
             print u"### IMPORTING EXHIBITIONS ###"
@@ -130,7 +124,7 @@ class Command(NoArgsCommand):
             museum = None
             museum_guid = int(exhibition_dict['location']['SMart_id'])
             try:
-                museum = Museum.objects.get(pk=MUSEUM_MAPPER[museum_guid])
+                museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
             except:
                 pass
 
@@ -261,11 +255,48 @@ class Command(NoArgsCommand):
             print u"Exibitions updatable: %d" % stats['updatable']  # if there was modification date defined
             print u"Exibitions skipped: %d" % stats['skipped']
             print
-        
+
+    def import_events_and_workshops(self, **options):
+        verbosity = int(options.get('verbosity', NORMAL))
+        skip_images = options.get('skip_images')
+
+        weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+
+        import time
+        import urllib2
+        from datetime import datetime
+        from datetime import timedelta
+        from dateutil.parser import parse as parse_datetime
+        from decimal import Decimal
+
+        from django.db import models
+        from django.template.defaultfilters import slugify
+        from django.conf import settings
+        import json
+
+        from filebrowser.models import FileDescription
+
+        image_mods = models.get_app("image_mods")
+        Museum = models.get_model("museums", "Museum")
+        Event = models.get_model("events", "Event")
+        EventTime = models.get_model("events", "EventTime")
+        Workshop = models.get_model("workshops", "Workshop")
+        WorkshopTime = models.get_model("workshops", "WorkshopTime")
+        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        Service = models.get_model("external_services", "Service")
+
         ### IMPORT EVENTS ###
         if verbosity > 1:
             print u"### IMPORTING EVENTS AND WORKSHOPS ###"
-        
+
+        s_exhibitions, created = Service.objects.get_or_create(
+            sysname="smb_exhibitions_smart",
+            defaults={
+                'url': "http://www.smb.museum/smb/export/getExhibitionListFromSMart.php?format=json",
+                'title': "SMB - Exhibitions SMart",
+            },
+        )
+
         s_events, created = Service.objects.get_or_create(
             sysname="smb_events_smart",
             defaults={
@@ -273,7 +304,7 @@ class Command(NoArgsCommand):
                 'title': "SMB - Events SMart",
             },
         )
-        
+
         response = urllib2.urlopen(s_events.url)
         data = response.read()
         response.close()
@@ -324,7 +355,7 @@ class Command(NoArgsCommand):
                 museum = None
                 museum_guid = int(event_dict['location']['SMart_id'])
                 try:
-                    museum = Museum.objects.get(pk=MUSEUM_MAPPER[museum_guid])
+                    museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
                 except:
                     pass
 
@@ -497,7 +528,7 @@ class Command(NoArgsCommand):
                 museum = None
                 museum_guid = int(event_dict['location']['SMart_id'])
                 try:
-                    museum = Museum.objects.get(pk=MUSEUM_MAPPER[museum_guid])
+                    museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
                 except:
                     pass
 
