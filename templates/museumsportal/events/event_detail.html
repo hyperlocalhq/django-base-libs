@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites %}
+{% extends "base.html" %} {% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites %}
 {% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}event-detail{% endblock %}
 
@@ -94,7 +93,7 @@
 
               <div class="tools">
                 {% with event as list_item %}
-                  <button class="btn btn-default location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
+                  <button class="btn btn-default btn-round location">
                     <span class="icon icon-location"></span>
                     <span class="sr-only">{% trans "Show location on map" %}</span>
                   </button>
@@ -105,12 +104,12 @@
                   {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
                 {% endif %}
 
-                <button class="btn btn-default share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+                <button class="btn btn-default btn-round  share-twitter" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
                   <span class="icon icon-social-twitter"></span>
                   <span class="sr-only">{% trans "Share on Twitter" %}</span>
                 </button>
 
-                <button class="btn btn-default share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+                <button class="btn btn-default btn-round  share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
                   <span class="icon icon-social-facebook"></span>
                   <span class="sr-only">{% trans "Share on Facebook" %}</span>
                 </button>

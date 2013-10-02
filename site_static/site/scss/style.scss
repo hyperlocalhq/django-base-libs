@@ -25,7 +25,11 @@
 @import 'slideshow';
 @import 'footer';
 
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   position: relative;
   background-color: white;
   color: black;

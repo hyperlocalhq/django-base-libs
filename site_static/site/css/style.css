@@ -4136,14 +4136,6 @@ dl {
   .workshop-detail article iframe {
     width: 620px;
     margin-top: 30px; }
-  /* line 34, ../scss/detail-pages.scss */
-  .museum-detail article .tools,
-  .exhibition-detail article .tools,
-  .event-detail article .tools,
-  .workshop-detail article .tools {
-    position: absolute;
-    top: 0px;
-    right: 0px; }
   /* line 39, ../scss/detail-pages.scss */
   .museum-detail article #cover-image,
   .exhibition-detail article #cover-image,
@@ -4809,7 +4801,12 @@ dl {
         display: none; }
 
 /* line 28, ../scss/style.scss */
+html {
+  height: 100%; }
+
+/* line 31, ../scss/style.scss */
 body {
+  height: 100%;
   position: relative;
   background-color: white;
   color: black;
@@ -4824,27 +4821,27 @@ body {
   -webkit-text-stroke: 1px transparent;
   margin: 0 !important; }
 
-/* line 44, ../scss/style.scss */
+/* line 48, ../scss/style.scss */
 ::selection {
   background: #ffb7b7;
   /* Safari */ }
 
-/* line 45, ../scss/style.scss */
+/* line 49, ../scss/style.scss */
 ::-moz-selection {
   background: #ffb7b7;
   /* Firefox */ }
 
-/* line 47, ../scss/style.scss */
+/* line 51, ../scss/style.scss */
 #cms_toolbar {
   height: 42px; }
 
-/* line 51, ../scss/style.scss */
+/* line 55, ../scss/style.scss */
 .content {
   padding: 35px 0px;
   border-bottom: 1px solid #f9f9f9;
   position: relative; }
 
-/* line 68, ../scss/style.scss */
+/* line 72, ../scss/style.scss */
 h1,
 h2,
 h3,
@@ -4862,7 +4859,7 @@ h6,
   font-weight: 400;
   line-height: 1.1; }
 
-/* line 87, ../scss/style.scss */
+/* line 91, ../scss/style.scss */
 header h1,
 header h2,
 header h3,
@@ -4878,7 +4875,7 @@ header .h6 {
   margin: 0px !important;
   line-height: 160%; }
 
-/* line 93, ../scss/style.scss */
+/* line 97, ../scss/style.scss */
 h1 {
   font-weight: 400;
   font-size: 30px;
@@ -4886,123 +4883,123 @@ h1 {
   margin-bottom: 30px;
   margin-top: 30px !important; }
 
-/* line 101, ../scss/style.scss */
+/* line 105, ../scss/style.scss */
 h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block; }
-  /* line 106, ../scss/style.scss */
+  /* line 110, ../scss/style.scss */
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 
-/* line 109, ../scss/style.scss */
+/* line 113, ../scss/style.scss */
 p, dl, ul, ol {
   margin-left: 0px;
   padding-left: 0px; }
-  /* line 112, ../scss/style.scss */
+  /* line 116, ../scss/style.scss */
   p:last-child, dl:last-child, ul:last-child, ol:last-child {
     margin-bottom: 0px; }
 
-/* line 117, ../scss/style.scss */
+/* line 121, ../scss/style.scss */
 dl {
   margin-bottom: 0px;
   padding: 0px; }
-  /* line 120, ../scss/style.scss */
+  /* line 124, ../scss/style.scss */
   dl dt {
     float: left; }
-  /* line 121, ../scss/style.scss */
+  /* line 125, ../scss/style.scss */
   dl dd {
     float: right; }
-  /* line 123, ../scss/style.scss */
+  /* line 127, ../scss/style.scss */
   dl:before, dl:after {
     content: " ";
     display: table; }
-  /* line 127, ../scss/style.scss */
+  /* line 131, ../scss/style.scss */
   dl:after {
     clear: both; }
 
-/* line 132, ../scss/style.scss */
+/* line 136, ../scss/style.scss */
 dl + p {
   margin-bottom: 10px; }
 
-/* line 133, ../scss/style.scss */
+/* line 137, ../scss/style.scss */
 p + dl {
   margin-top: 10px; }
 
-/* line 135, ../scss/style.scss */
+/* line 139, ../scss/style.scss */
 small {
   display: inline-block;
   line-height: 160%;
   color: inherit; }
 
-/* line 141, ../scss/style.scss */
+/* line 145, ../scss/style.scss */
 a {
   color: inherit; }
 
-/* line 142, ../scss/style.scss */
+/* line 146, ../scss/style.scss */
 a:link {
   text-decoration: none; }
 
-/* line 143, ../scss/style.scss */
+/* line 147, ../scss/style.scss */
 a:hover {
   text-decoration: none; }
 
-/* line 144, ../scss/style.scss */
+/* line 148, ../scss/style.scss */
 a:visited {
   text-decoration: none; }
 
-/* line 145, ../scss/style.scss */
+/* line 149, ../scss/style.scss */
 a:active {
   outline: none !important; }
 
-/* line 146, ../scss/style.scss */
+/* line 150, ../scss/style.scss */
 a:focus {
   outline: none !important; }
 
-/* line 148, ../scss/style.scss */
+/* line 152, ../scss/style.scss */
 em {
   color: black;
   font-style: italic; }
 
-/* line 149, ../scss/style.scss */
+/* line 153, ../scss/style.scss */
 p a {
   font-weight: 700; }
 
-/* line 151, ../scss/style.scss */
+/* line 155, ../scss/style.scss */
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important; }
-  /* line 154, ../scss/style.scss */
+  /* line 158, ../scss/style.scss */
   .navbar-form .input-group {
     width: 1px; }
 
-/* line 160, ../scss/style.scss */
+/* line 164, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 165, ../scss/style.scss */
+/* line 169, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 170, ../scss/style.scss */
+/* line 174, ../scss/style.scss */
 .form-control:-moz-placeholder {
   color: #999999; }
 
-/* line 173, ../scss/style.scss */
+/* line 177, ../scss/style.scss */
 .form-control::-moz-placeholder {
   color: #999999; }
 
-/* line 176, ../scss/style.scss */
+/* line 180, ../scss/style.scss */
 .form-control:-ms-input-placeholder {
   color: #999999; }
 
-/* line 179, ../scss/style.scss */
+/* line 183, ../scss/style.scss */
 .form-control::-webkit-input-placeholder {
   color: #999999; }
 
-/* line 182, ../scss/style.scss */
+/* line 186, ../scss/style.scss */
 .form-control {
   display: block;
   width: 100%;
@@ -5022,7 +5019,7 @@ p a {
   resize: none;
   background-image: url("../img/transparent-1.png"); }
 
-/* line 201, ../scss/style.scss */
+/* line 205, ../scss/style.scss */
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;

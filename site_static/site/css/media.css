@@ -3,10 +3,15 @@
     display: none; }
 
   .nav > li > a {
-    font-size: 14px; } }
+    font-size: 14px;
+  }
+}
 @media (min-width: 992px) {
   .nav > li > a {
-    font-size: 18px; } }
+    font-size: 18px;
+    margin-right: 20px;
+  }
+}
 @media (min-width: 1200px) {
   .navbar-form .input-group {
     width: 200px !important; }
