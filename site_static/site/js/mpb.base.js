@@ -9,7 +9,6 @@ $(window).bind('scrollstop load', function(e){
         $('.grid').isotope();
     }
   }).addClass("in");
-  console.log(1);
 });
 
 $(window).bind('load', function(e){
@@ -18,12 +17,10 @@ $(window).bind('load', function(e){
 
 $(window).bind('smartresize', function(e){
   $('.grid').isotope();
-  console.log("window resize");
 });
 
 $(window).bind('scrollstop', function(e){
   $(".img img:in-viewport").lazyload().addClass("in");
-  console.log(3);
 });
 
 $(document).ready(function(){
