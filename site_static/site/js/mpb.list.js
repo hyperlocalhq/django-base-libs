@@ -1,30 +1,37 @@
 $(function() {
-  $('.grid .item .cancel').click(function(){
-    $('#item-preview').attr("id","");
-    $('#container').isotope();
-  });
+    $('.grid .item > a').click(function() {
+        var $current_item = $(this).closest('.item');
 
-  $('.grid .item > a').click(function(){
-    if($(this).parents('.item').attr("id")) {
-      $('#item-preview').attr("id","");
-    } else {
-      $('#item-preview').attr("id","");
-      $(this).parents('.item').attr("id","item-preview");
-    }
+        if ($current_item.attr('id')) { // if clicked again, close the preview
+            $('#item-preview').attr("id", "");
+            $('#container').isotope();
+            return false;
+        }
 
-    item = $(this).parents('.item')
-    var left = item.position().left;
-    var width = ($("#container").width());
+        $('#item-preview').attr("id", ""); // close the previous preview
 
-    // var test = item.css('-webkit-transform').match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))\))/)
-    // console.log(test)
-    // console.log(left, width);
+        $current_item.attr("id","item-preview"); // open the new preview
 
-    item.find(".description").css({left: -left, width: width});
+        var $description = $current_item.find(".description");
 
-    $('#container').isotope();
-    return false
-  });
+        // if description doesn't exist yet, load it
+        if (!$.trim($description.text())) {
+            $description.load($current_item.data('description-src'), function() {
+                $('.grid .item .cancel').click(function(){
+                    $('#item-preview').attr("id","");
+                    $('#container').isotope();
+                });
+            });
+        }
+
+        // define position for the description
+        var left = $current_item.position().left;
+        var width = $("#container").width();
+        $description.css({left: -left, width: width});
+
+        $('#container').isotope();
+        return false;
+    });
 });
 
 window.onresize = function(event) {
