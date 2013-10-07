@@ -53,14 +53,11 @@ class Command(NoArgsCommand):
 
         import time
         import urllib2
-        from datetime import datetime
-        from datetime import timedelta
         from dateutil.parser import parse as parse_datetime
         from decimal import Decimal
         
         from django.db import models
         from django.template.defaultfilters import slugify
-        from django.conf import settings
         import json
 
         from filebrowser.models import FileDescription
@@ -68,6 +65,7 @@ class Command(NoArgsCommand):
         image_mods = models.get_app("image_mods")
         Museum = models.get_model("museums", "Museum")
         Exhibition = models.get_model("exhibitions", "Exhibition")
+        ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
         Organizer = models.get_model("exhibitions", "Organizer")
         MediaFile = models.get_model("exhibitions", "MediaFile")
         Season = models.get_model("exhibitions", "Season")
@@ -148,8 +146,8 @@ class Command(NoArgsCommand):
             else:
                 if data_dict['end_date'] != "unlimited":
                     exhibition.end = parse_datetime(data_dict['end_date'])
-            # exhibition.website_de = data_dict['web_link_de'].replace('&amp;', '&')
-            # exhibition.website_en = data_dict['web_link_en'].replace('&amp;', '&')
+            exhibition.website_de = data_dict['link'].replace('&amp;', '&')
+            exhibition.website_en = data_dict['link'].replace('&amp;', '&')
             exhibition.description_de = data_dict['description_de']
             exhibition.description_de_markup_type = "hw"
             exhibition.description_en = data_dict['description_en']
@@ -182,24 +180,43 @@ class Command(NoArgsCommand):
 
             exhibition.status = "import"
             exhibition.save()
-            
-            # if exhibition_dict['organizers']:
-            #     for organizer_id, organizer_title in exhibition_dict['organizers'].items():
-            #         try:
-            #             # get museum by title
-            #             organizing_museum = Museum.objects.get(
-            #                 title_de=organizer_title,
-            #             )
-            #         except:
-            #             # save non-existing museum title as organizer title
-            #             o = Organizer(exhibition=exhibition, organizer_title=organizer_title)
-            #             o.save()
-            #         else:
-            #             if exhibition.museum != organizing_museum:
-            #                 # save organizing museum for museum by title
-            #                 o = Organizer(exhibition=exhibition, organizing_museum=organizing_museum)
-            #                 o.save()
-            
+
+            exhibition.organizer_set.all().delete()
+            linked_institutions = data_dict.get('linked_institutions', {})
+            if linked_institutions:
+                for linked_inst_title in linked_institutions.values():
+                    try:
+                        organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                    except:
+                        Organizer(
+                            exhibition=exhibition,
+                            organizer_title=linked_inst_title,
+                        ).save()
+                    else:
+                        Organizer(
+                            exhibition=exhibition,
+                            organizing_museum=organizing_museum,
+                        ).save()
+
+            # set exhibition categories based on museum and organizing museums
+            exhibition.categories.clear()
+            if museum:
+                for museum_cat in museum.categories.all():
+                    try:
+                        exhibition_cat = ExhibitionCategory.objects.get(title_de=museum_cat.title_de)
+                    except:
+                        continue
+                    else:
+                        exhibition.categories.add(exhibition_cat)
+            for organizer in exhibition.organizer_set.exclude(organizing_museum=None):
+                for museum_cat in organizer.organizing_museum.categories.all():
+                    try:
+                        exhibition_cat = ExhibitionCategory.objects.get(title_de=museum_cat.title_de)
+                    except:
+                        continue
+                    else:
+                        exhibition.categories.add(exhibition_cat)
+
             if data_dict['opening_times']:
                 season = Season(exhibition=exhibition)
                 for day_index, times in data_dict['opening_times'].items():
@@ -256,15 +273,21 @@ class Command(NoArgsCommand):
             print u"Exibitions skipped: %d" % stats['skipped']
             print
 
+    @staticmethod
+    def parse_title_and_subtitle(text):
+        lines = [line.strip() for line in text.split("<br />") if line.strip()]
+        if not lines:
+            return u"", u""
+        # if there is just one line, the subtitle will be empty
+        # if there are more than 2 lines, the 2nd line will be connected to the rest for the subtitle
+        return lines[0], u" ".join(lines[1:])
+
     def import_events_and_workshops(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
         skip_images = options.get('skip_images')
 
-        weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-
         import time
         import urllib2
-        from datetime import datetime
         from datetime import timedelta
         from dateutil.parser import parse as parse_datetime
         from decimal import Decimal
@@ -328,6 +351,8 @@ class Command(NoArgsCommand):
 
             if event_dict['event_type_en'] == "guided tour":
 
+                Organizer = models.get_model("workshops", "Organizer")
+
                 # get or create event
                 mapper = None
                 try:
@@ -378,12 +403,12 @@ class Command(NoArgsCommand):
                     workshop_stats['skipped'] += 1
                     continue
 
-                workshop.title_de = data_dict['title_de']
-                workshop.title_en = data_dict['title_en']
+                workshop.title_de, workshop.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
+                workshop.title_en, workshop.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
                 workshop.slug = slugify(data_dict['title_de'])
 
-                # event.website_de = data_dict['web_link_de'].replace('&amp;', '&')
-                # event.website_en = data_dict['web_link_en'].replace('&amp;', '&')
+                workshop.website_de = data_dict['link'].replace('&amp;', '&')
+                workshop.website_en = data_dict['link'].replace('&amp;', '&')
                 workshop.description_de = data_dict['description_de']
                 workshop.description_de_markup_type = "hw"
                 workshop.description_en = data_dict['description_en']
@@ -455,6 +480,23 @@ class Command(NoArgsCommand):
                             file_description.save()
                             time.sleep(1)
 
+                workshop.organizer_set.all().delete()
+                linked_institutions = data_dict.get('linked_institutions', {})
+                if linked_institutions:
+                    for linked_inst_title in linked_institutions.values():
+                        try:
+                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                        except:
+                            Organizer(
+                                workshop=workshop,
+                                organizer_title=linked_inst_title,
+                            ).save()
+                        else:
+                            Organizer(
+                                workshop=workshop,
+                                organizing_museum=organizing_museum,
+                            ).save()
+
                 workshop.workshoptime_set.all().delete()
 
                 start = parse_datetime(data_dict['start'], ignoretz=True)
@@ -501,6 +543,8 @@ class Command(NoArgsCommand):
                     if verbosity > 1:
                         workshop_stats['updated'] += 1
             else:
+
+                Organizer = models.get_model("events", "Organizer")
 
                 # get or create event
                 mapper = None
@@ -551,12 +595,12 @@ class Command(NoArgsCommand):
                     event_stats['skipped'] += 1
                     continue
 
-                event.title_de = data_dict['title_de']
-                event.title_en = data_dict['title_en']
+                event.title_de, event.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
+                event.title_en, event.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
                 event.slug = slugify(data_dict['title_de'])
 
-                # event.website_de = data_dict['web_link_de'].replace('&amp;', '&')
-                # event.website_en = data_dict['web_link_en'].replace('&amp;', '&')
+                event.website_de = data_dict['link'].replace('&amp;', '&')
+                event.website_en = data_dict['link'].replace('&amp;', '&')
                 event.description_de = data_dict['description_de']
                 event.description_de_markup_type = "hw"
                 event.description_en = data_dict['description_en']
@@ -594,6 +638,23 @@ class Command(NoArgsCommand):
 
                 event.status = "import"
                 event.save()
+
+                event.organizer_set.all().delete()
+                linked_institutions = data_dict.get('linked_institutions', {})
+                if linked_institutions:
+                    for linked_inst_title in linked_institutions.values():
+                        try:
+                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                        except:
+                            Organizer(
+                                event=event,
+                                organizer_title=linked_inst_title,
+                            ).save()
+                        else:
+                            Organizer(
+                                event=event,
+                                organizing_museum=organizing_museum,
+                            ).save()
 
                 if event.exhibition and not event.mediafile_set.count():
                     MediaFile = models.get_model("events", "MediaFile")
