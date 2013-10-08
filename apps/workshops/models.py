@@ -144,7 +144,8 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     is_for_deaf = models.BooleanField(_("Special for deaf people"), blank=True)
     is_for_blind = models.BooleanField(_("Special for blind people"), blank=True)
     is_for_learning_difficulties = models.BooleanField(_("Special for people with learning difficulties"), blank=True)
-    
+    is_for_dementia_sufferers = models.BooleanField(_("Special for sufferers of dementia"), blank=True)
+
     museum = models.ForeignKey(Museum, verbose_name=_("Museum"), blank=True, null=True)
     location_name = models.CharField(_("Location name"), max_length=255, blank=True)
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
@@ -324,6 +325,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
             "is_for_deaf",
             "is_for_blind",
             "is_for_learning_difficulties",
+            "is_for_dementia_sufferers",
         ]:
             if getattr(self, f):
                 particularities.append(unicode(self._meta.get_field(f).verbose_name))

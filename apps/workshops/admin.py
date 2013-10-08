@@ -51,7 +51,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
     list_display_links = ('title', )
-    list_filter = ('creation_date', 'types', 'status', 'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_wheelchaired', 'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties')
+    list_filter = ('creation_date', 'types', 'status', 'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_wheelchaired', 'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties', 'is_for_dementia_sufferers')
     search_fields = ('title', 'subtitle', 'workshop_type', 'slug')
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'workshop_type', 'description', 'press_text', 'website', ])
@@ -59,7 +59,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
     fieldsets += [(_("Categories"), {'fields': ('tags', 'languages', 'other_languages',
         'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_wheelchaired',
-        'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties',
+        'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties', 'is_for_dementia_sufferers',
     )}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'country','latitude','longitude', 'exhibition')}),]
     fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]

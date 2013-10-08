@@ -103,6 +103,7 @@ class BasicInfoForm(ModelForm):
             'is_for_deaf',
             'is_for_blind',
             'is_for_learning_difficulties',
+            'is_for_dementia_sufferers',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
             'city', 'latitude', 'longitude', 'exhibition',
         ]
@@ -307,6 +308,7 @@ class BasicInfoForm(ModelForm):
                 'is_for_deaf',
                 'is_for_blind',
                 'is_for_learning_difficulties',
+                'is_for_dementia_sufferers',
                 css_class="inline",
             ),
                 
@@ -775,6 +777,7 @@ def load_data(instance=None):
             'is_for_deaf',
             'is_for_blind',
             'is_for_learning_difficulties',
+            'is_for_dementia_sufferers',
         ]:
             form_step_data['basic'][f] = getattr(instance, f)
 
@@ -844,6 +847,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             'is_for_deaf',
             'is_for_blind',
             'is_for_learning_difficulties',
+            'is_for_dementia_sufferers',
         ]:
             setattr(instance, f, form_step_data['basic'][f])
             
@@ -999,6 +1003,7 @@ def save_data(form_steps, form_step_data, instance=None):
         'is_for_deaf',
         'is_for_blind',
         'is_for_learning_difficulties',
+        'is_for_dementia_sufferers',
     ]:
         setattr(instance, f, form_step_data['basic'][f])
     if form_step_data['basic']['tags'] and not form_step_data['basic']['tags'].endswith(","):
