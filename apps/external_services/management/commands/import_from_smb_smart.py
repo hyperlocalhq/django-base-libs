@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from optparse import make_option
+from apps.workshops.forms import workshop
 from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -302,13 +303,15 @@ class Command(NoArgsCommand):
         image_mods = models.get_app("image_mods")
         Museum = models.get_model("museums", "Museum")
         Event = models.get_model("events", "Event")
+        EventCategory = models.get_model("events", "EventCategory")
         EventTime = models.get_model("events", "EventTime")
         Workshop = models.get_model("workshops", "Workshop")
+        WorkshopType = models.get_model("workshops", "WorkshopType")
         WorkshopTime = models.get_model("workshops", "WorkshopTime")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         Service = models.get_model("external_services", "Service")
 
-        ### IMPORT EVENTS ###
+        ### IMPORT EVENTS AND WORKSHOPS ###
         if verbosity > 1:
             print u"### IMPORTING EVENTS AND WORKSHOPS ###"
 
@@ -349,7 +352,9 @@ class Command(NoArgsCommand):
 
         for external_id, event_dict in list_data_dict.items():
 
-            if event_dict['event_type_en'] == "guided tour":
+            # based on http://www.smb.museum/smb/export/getEventTypeListFromSMart.php?format=json
+            event_type_ids = (event_dict.get('event_types_detail', {}) or {}).keys()
+            if event_type_ids and int(event_type_ids[0]) in (45, 215, 216, 217, 218, 219, 137):
 
                 Organizer = models.get_model("workshops", "Organizer")
 
@@ -428,6 +433,27 @@ class Command(NoArgsCommand):
                 workshop.booking_info_en = data_dict['registration_en']
                 workshop.booking_info_en_markup_type = "hw"
 
+                # based on http://www.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
+                for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
+                    target_group_id = int(target_group_id)
+                    if target_group_id == 191:
+                        workshop.is_for_preschool = True
+                        workshop.is_for_primary_school = True
+                    elif target_group_id == 193:
+                        workshop.is_for_primary_school = True
+                    elif target_group_id in (195, 196):
+                        workshop.is_for_youth = True
+                    elif target_group_id == 212:
+                        workshop.is_for_families = True
+                    elif target_group_id == 204:
+                        workshop.is_for_deaf = True
+                    elif target_group_id == 205:
+                        workshop.is_for_blind = True
+                    elif target_group_id == 206:
+                        workshop.is_for_wheelchaired = True
+                    elif target_group_id == 207:
+                        workshop.is_for_dementia_sufferers = True
+
                 workshop.museum = museum
 
                 exhibition_ids = data_dict.get('linked_exhibitions', {}).keys()
@@ -446,6 +472,12 @@ class Command(NoArgsCommand):
 
                 workshop.status = "import"
                 workshop.save()
+
+                workshop.types.clear()
+                if int(event_dict['event_types_detail'].keys()[0]) == 137:
+                    workshop.types.add(WorkshopType.objects.get(slug="workshop"))
+                else:
+                    workshop.types.add(WorkshopType.objects.get(slug="guided-tour"))
 
                 if workshop.exhibition and not workshop.mediafile_set.count():
                     MediaFile = models.get_model("workshops", "MediaFile")
@@ -620,6 +652,11 @@ class Command(NoArgsCommand):
                 event.booking_info_en = data_dict['registration_en']
                 event.booking_info_en_markup_type = "hw"
 
+                # based on http://www.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
+                for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
+                    if target_group_id in (191, 193, 195, 196):
+                        event.suitable_for_children = True
+
                 event.museum = museum
 
                 exhibition_ids = data_dict.get('linked_exhibitions', {}).keys()
@@ -638,6 +675,24 @@ class Command(NoArgsCommand):
 
                 event.status = "import"
                 event.save()
+
+                event.categories.clear()
+                for event_cat_id in (event_dict.get('event_types_detail', {}) or {}).keys():
+                    event_cat_id = int(event_cat_id)
+                    if event_cat_id in (189, 220):
+                        event.categories.add(EventCategory.objects.get(slug="fest-markt"))
+                    elif event_cat_id == 47:
+                        event.categories.add(EventCategory.objects.get(slug="film"))
+                    elif event_cat_id == 111:
+                        event.categories.add(EventCategory.objects.get(slug="konzert"))
+                    elif event_cat_id in (48, 201, 223):
+                        event.categories.add(EventCategory.objects.get(slug="tagung"))
+                    elif event_cat_id in (138, 139, 221):
+                        event.categories.add(EventCategory.objects.get(slug="theaterperformance"))
+                    elif event_cat_id in (49, 169, 213):
+                        event.categories.add(EventCategory.objects.get(slug="vortraglesunggesprach"))
+                    elif event_cat_id in (110, 214, 222):
+                        event.categories.add(EventCategory.objects.get(slug="sonstiges"))
 
                 event.organizer_set.all().delete()
                 linked_institutions = data_dict.get('linked_institutions', {})
