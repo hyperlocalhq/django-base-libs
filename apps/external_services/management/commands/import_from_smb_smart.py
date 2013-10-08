@@ -11,10 +11,40 @@ class Command(NoArgsCommand):
             help='Tells Django to NOT download images.'),
     )
     help = """Imports exhibitions, events, and workshops from Staatliche Museen zu Berlin"""
-    
+
+    MUSEUM_MAPPER = {
+        43009: 62,
+        43010: 129,
+        43011: 130,
+        31: 150,
+        35: 77,
+        37: 105,
+        39: 107,
+        40: 103,
+        24: 9,
+        25: 152,
+        27: 157,
+        28: 35,
+        29: 8,
+        32: 67,
+        26: 177,
+        30: 84,
+        43: 79,
+        48: 0,  # Institut für Museumsforschung
+        2433: 0,  # Rathgen-Forschungslabor
+        27774: 0,  # Zentralarchiv
+        37096: 0,  # Archäologisches Zentrum
+        43007: 0,  # Humboldt-Forum
+        43008: 0,  # Generaldirektion
+        45: 166,
+        2976: 124,
+        6124: 131,
+    }
+
     def handle_noargs(self, **options):
         self.import_exhibitions(**options)
-        
+        self.import_events_and_workshops(**options)
+
     def import_exhibitions(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
         skip_images = options.get('skip_images')
@@ -23,13 +53,11 @@ class Command(NoArgsCommand):
 
         import time
         import urllib2
-        from datetime import datetime
-        from datetime import timedelta
         from dateutil.parser import parse as parse_datetime
+        from decimal import Decimal
         
         from django.db import models
         from django.template.defaultfilters import slugify
-        from django.conf import settings
         import json
 
         from filebrowser.models import FileDescription
@@ -37,48 +65,13 @@ class Command(NoArgsCommand):
         image_mods = models.get_app("image_mods")
         Museum = models.get_model("museums", "Museum")
         Exhibition = models.get_model("exhibitions", "Exhibition")
+        ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
         Organizer = models.get_model("exhibitions", "Organizer")
         MediaFile = models.get_model("exhibitions", "MediaFile")
         Season = models.get_model("exhibitions", "Season")
-        Event = models.get_model("events", "Event")
-        EventTime = models.get_model("events", "EventTime")
-        Workshop = models.get_model("workshops", "Workshop")
-        WorkshopTime = models.get_model("workshops", "WorkshopTime")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         Service = models.get_model("external_services", "Service")
         
-        def parse_unix_timestamp(timestamp):
-            return datetime.fromtimestamp(int(timestamp))
-
-        MUSEUM_MAPPER = {
-            43009: 62,
-            43010: 129,
-            43011: 130,
-            31: 150,
-            35: 77,
-            37: 105,
-            39: 107,
-            40: 103,
-            24: 9,
-            25: 152,
-            27: 157,
-            28: 35,
-            29: 8,
-            32: 67,
-            26: 177,
-            30: 84,
-            43: 79,
-            48: 0,  # Institut für Museumsforschung
-            2433: 0,  # Rathgen-Forschungslabor
-            27774: 0,  # Zentralarchiv
-            37096: 0,  # Archäologisches Zentrum
-            43007: 0,  # Humboldt-Forum
-            43008: 0,  # Generaldirektion
-            45: 166,
-            2976: 124,
-            6124: 131,
-        }
-
         ### IMPORT EXHIBITIONS ###
         if verbosity > 1:
             print u"### IMPORTING EXHIBITIONS ###"
@@ -98,6 +91,7 @@ class Command(NoArgsCommand):
         stats = {
             'added': 0,
             'updated': 0,
+            'updatable': 0,
             'skipped': 0,
         }
         for external_id, exhibition_dict in list_data_dict.items():
@@ -121,11 +115,14 @@ class Command(NoArgsCommand):
                     # don't import it again
                     stats['skipped'] += 1
                     continue
+                else:
+                    stats['updatable'] += 1
+                    continue
 
             museum = None
             museum_guid = int(exhibition_dict['location']['SMart_id'])
             try:
-                museum = Museum.objects.get(pk=MUSEUM_MAPPER[museum_guid])
+                museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
             except:
                 pass
 
@@ -149,8 +146,8 @@ class Command(NoArgsCommand):
             else:
                 if data_dict['end_date'] != "unlimited":
                     exhibition.end = parse_datetime(data_dict['end_date'])
-            # exhibition.website_de = data_dict['web_link_de'].replace('&amp;', '&')
-            # exhibition.website_en = data_dict['web_link_en'].replace('&amp;', '&')
+            exhibition.website_de = data_dict['link'].replace('&amp;', '&')
+            exhibition.website_en = data_dict['link'].replace('&amp;', '&')
             exhibition.description_de = data_dict['description_de']
             exhibition.description_de_markup_type = "hw"
             exhibition.description_en = data_dict['description_en']
@@ -172,38 +169,54 @@ class Command(NoArgsCommand):
                 exhibition.location_name = data_dict['location']['name']
                 
             exhibition.museum_opening_hours = data_dict['opening_from_museum']
-            
-            # exhibition.free_entrance = bool(data_dict['generell_frei'])
-            # if data_dict['preis_voll']:
-            #     exhibition.admission_price = int(data_dict['preis_voll'])
-            # if exhibition_dict['preis_erm']:
-            #     exhibition.reduced_price = int(data_dict['preis_erm'])
 
-            # exhibition.admission_price_info_de = """<p><a href="%s">Weitere Preisinformationen</a></p>""" % exhibition.website_de
-            # exhibition.admission_price_info_de_markup_type = "hw"
-            # exhibition.admission_price_info_en = """<p><a href="%s">More price information</a></p>""" % exhibition.website_en
-            # exhibition.admission_price_info_en_markup_type = "hw"
-            
+            prices = data_dict.get('tarife', {}).values()
+            if prices:
+                # exhibition.free_entrance = bool(data_dict['generell_frei'])
+                if prices[0]['preis_voll']:
+                    exhibition.admission_price = Decimal(prices[0]['preis_voll'].replace(",", ".").replace("-", "00"))
+                if prices[0]['preis_erm']:
+                    exhibition.reduced_price = Decimal(prices[0]['preis_erm'].replace(",", ".").replace("-", "00"))
+
             exhibition.status = "import"
             exhibition.save()
-            
-            # if exhibition_dict['organizers']:
-            #     for organizer_id, organizer_title in exhibition_dict['organizers'].items():
-            #         try:
-            #             # get museum by title
-            #             organizing_museum = Museum.objects.get(
-            #                 title_de=organizer_title,
-            #             )
-            #         except:
-            #             # save non-existing museum title as organizer title
-            #             o = Organizer(exhibition=exhibition, organizer_title=organizer_title)
-            #             o.save()
-            #         else:
-            #             if exhibition.museum != organizing_museum:
-            #                 # save organizing museum for museum by title
-            #                 o = Organizer(exhibition=exhibition, organizing_museum=organizing_museum)
-            #                 o.save()
-            
+
+            exhibition.organizer_set.all().delete()
+            linked_institutions = data_dict.get('linked_institutions', {})
+            if linked_institutions:
+                for linked_inst_title in linked_institutions.values():
+                    try:
+                        organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                    except:
+                        Organizer(
+                            exhibition=exhibition,
+                            organizer_title=linked_inst_title,
+                        ).save()
+                    else:
+                        Organizer(
+                            exhibition=exhibition,
+                            organizing_museum=organizing_museum,
+                        ).save()
+
+            # set exhibition categories based on museum and organizing museums
+            exhibition.categories.clear()
+            if museum:
+                for museum_cat in museum.categories.all():
+                    try:
+                        exhibition_cat = ExhibitionCategory.objects.get(title_de=museum_cat.title_de)
+                    except:
+                        continue
+                    else:
+                        exhibition.categories.add(exhibition_cat)
+            for organizer in exhibition.organizer_set.exclude(organizing_museum=None):
+                for museum_cat in organizer.organizing_museum.categories.all():
+                    try:
+                        exhibition_cat = ExhibitionCategory.objects.get(title_de=museum_cat.title_de)
+                    except:
+                        continue
+                    else:
+                        exhibition.categories.add(exhibition_cat)
+
             if data_dict['opening_times']:
                 season = Season(exhibition=exhibition)
                 for day_index, times in data_dict['opening_times'].items():
@@ -242,7 +255,6 @@ class Command(NoArgsCommand):
                     file_description.save()
                     time.sleep(1)
 
-            
             if not mapper:
                 mapper = ObjectMapper(
                     service=s_exhibitions,
@@ -257,13 +269,57 @@ class Command(NoArgsCommand):
         if verbosity > 1:
             print u"Exibitions added: %d" % stats['added']
             print u"Exibitions updated: %d" % stats['updated']
+            print u"Exibitions updatable: %d" % stats['updatable']  # if there was modification date defined
             print u"Exibitions skipped: %d" % stats['skipped']
             print
-        
+
+    @staticmethod
+    def parse_title_and_subtitle(text):
+        lines = [line.strip() for line in text.split("<br />") if line.strip()]
+        if not lines:
+            return u"", u""
+        # if there is just one line, the subtitle will be empty
+        # if there are more than 2 lines, the 2nd line will be connected to the rest for the subtitle
+        return lines[0], u" ".join(lines[1:])
+
+    def import_events_and_workshops(self, **options):
+        verbosity = int(options.get('verbosity', NORMAL))
+        skip_images = options.get('skip_images')
+
+        import time
+        import urllib2
+        from datetime import timedelta
+        from dateutil.parser import parse as parse_datetime
+        from decimal import Decimal
+
+        from django.db import models
+        from django.template.defaultfilters import slugify
+        from django.conf import settings
+        import json
+
+        from filebrowser.models import FileDescription
+
+        image_mods = models.get_app("image_mods")
+        Museum = models.get_model("museums", "Museum")
+        Event = models.get_model("events", "Event")
+        EventTime = models.get_model("events", "EventTime")
+        Workshop = models.get_model("workshops", "Workshop")
+        WorkshopTime = models.get_model("workshops", "WorkshopTime")
+        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        Service = models.get_model("external_services", "Service")
+
         ### IMPORT EVENTS ###
         if verbosity > 1:
             print u"### IMPORTING EVENTS AND WORKSHOPS ###"
-        
+
+        s_exhibitions, created = Service.objects.get_or_create(
+            sysname="smb_exhibitions_smart",
+            defaults={
+                'url': "http://www.smb.museum/smb/export/getExhibitionListFromSMart.php?format=json",
+                'title': "SMB - Exhibitions SMart",
+            },
+        )
+
         s_events, created = Service.objects.get_or_create(
             sysname="smb_events_smart",
             defaults={
@@ -271,7 +327,7 @@ class Command(NoArgsCommand):
                 'title': "SMB - Events SMart",
             },
         )
-        
+
         response = urllib2.urlopen(s_events.url)
         data = response.read()
         response.close()
@@ -281,17 +337,21 @@ class Command(NoArgsCommand):
         event_stats = {
             'added': 0,
             'updated': 0,
+            'updatable': 0,
             'skipped': 0,
         }
         workshop_stats = {
             'added': 0,
             'updated': 0,
+            'updatable': 0,
             'skipped': 0,
         }
 
         for external_id, event_dict in list_data_dict.items():
 
             if event_dict['event_type_en'] == "guided tour":
+
+                Organizer = models.get_model("workshops", "Organizer")
 
                 # get or create event
                 mapper = None
@@ -312,11 +372,15 @@ class Command(NoArgsCommand):
                         # don't import it again
                         workshop_stats['skipped'] += 1
                         continue
+                    else:
+                        workshop_stats['updatable'] += 1
+                        continue
+
 
                 museum = None
                 museum_guid = int(event_dict['location']['SMart_id'])
                 try:
-                    museum = Museum.objects.get(pk=MUSEUM_MAPPER[museum_guid])
+                    museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
                 except:
                     pass
 
@@ -339,12 +403,12 @@ class Command(NoArgsCommand):
                     workshop_stats['skipped'] += 1
                     continue
 
-                workshop.title_de = data_dict['title_de']
-                workshop.title_en = data_dict['title_en']
+                workshop.title_de, workshop.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
+                workshop.title_en, workshop.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
                 workshop.slug = slugify(data_dict['title_de'])
 
-                # event.website_de = data_dict['web_link_de'].replace('&amp;', '&')
-                # event.website_en = data_dict['web_link_en'].replace('&amp;', '&')
+                workshop.website_de = data_dict['link'].replace('&amp;', '&')
+                workshop.website_en = data_dict['link'].replace('&amp;', '&')
                 workshop.description_de = data_dict['description_de']
                 workshop.description_de_markup_type = "hw"
                 workshop.description_en = data_dict['description_en']
@@ -353,9 +417,9 @@ class Command(NoArgsCommand):
                 workshop.press_text_de_markup_type = "hw"
                 workshop.press_text_en = data_dict['description_en']
                 workshop.press_text_en_markup_type = "hw"
-                workshop.admission_price_info_de = data_dict['kosten_de']
+                workshop.admission_price_info_de = data_dict.get('admission_de', "")
                 workshop.admission_price_info_de_markup_type = "hw"
-                workshop.admission_price_info_en = data_dict['kosten_en']
+                workshop.admission_price_info_en = data_dict.get('admission_en', "")
                 workshop.admission_price_info_en_markup_type = "hw"
                 workshop.meeting_place_de = data_dict['treffpunkt_de']
                 workshop.meeting_place_en = data_dict['treffpunkt_en']
@@ -416,6 +480,23 @@ class Command(NoArgsCommand):
                             file_description.save()
                             time.sleep(1)
 
+                workshop.organizer_set.all().delete()
+                linked_institutions = data_dict.get('linked_institutions', {})
+                if linked_institutions:
+                    for linked_inst_title in linked_institutions.values():
+                        try:
+                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                        except:
+                            Organizer(
+                                workshop=workshop,
+                                organizer_title=linked_inst_title,
+                            ).save()
+                        else:
+                            Organizer(
+                                workshop=workshop,
+                                organizing_museum=organizing_museum,
+                            ).save()
+
                 workshop.workshoptime_set.all().delete()
 
                 start = parse_datetime(data_dict['start'], ignoretz=True)
@@ -463,6 +544,8 @@ class Command(NoArgsCommand):
                         workshop_stats['updated'] += 1
             else:
 
+                Organizer = models.get_model("events", "Organizer")
+
                 # get or create event
                 mapper = None
                 try:
@@ -482,11 +565,14 @@ class Command(NoArgsCommand):
                         # don't import it again
                         event_stats['skipped'] += 1
                         continue
+                    else:
+                        event_stats['updatable'] += 1
+                        continue
 
                 museum = None
                 museum_guid = int(event_dict['location']['SMart_id'])
                 try:
-                    museum = Museum.objects.get(pk=MUSEUM_MAPPER[museum_guid])
+                    museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
                 except:
                     pass
 
@@ -509,12 +595,12 @@ class Command(NoArgsCommand):
                     event_stats['skipped'] += 1
                     continue
 
-                event.title_de = data_dict['title_de']
-                event.title_en = data_dict['title_en']
+                event.title_de, event.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
+                event.title_en, event.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
                 event.slug = slugify(data_dict['title_de'])
 
-                # event.website_de = data_dict['web_link_de'].replace('&amp;', '&')
-                # event.website_en = data_dict['web_link_en'].replace('&amp;', '&')
+                event.website_de = data_dict['link'].replace('&amp;', '&')
+                event.website_en = data_dict['link'].replace('&amp;', '&')
                 event.description_de = data_dict['description_de']
                 event.description_de_markup_type = "hw"
                 event.description_en = data_dict['description_en']
@@ -523,9 +609,9 @@ class Command(NoArgsCommand):
                 event.press_text_de_markup_type = "hw"
                 event.press_text_en = data_dict['description_en']
                 event.press_text_en_markup_type = "hw"
-                event.admission_price_info_de = data_dict['kosten_de']
+                event.admission_price_info_de = data_dict.get('admission_de', "")
                 event.admission_price_info_de_markup_type = "hw"
-                event.admission_price_info_en = data_dict['kosten_en']
+                event.admission_price_info_en = data_dict.get('admission_en', "")
                 event.admission_price_info_en_markup_type = "hw"
                 event.meeting_place_de = data_dict['treffpunkt_de']
                 event.meeting_place_en = data_dict['treffpunkt_en']
@@ -552,6 +638,23 @@ class Command(NoArgsCommand):
 
                 event.status = "import"
                 event.save()
+
+                event.organizer_set.all().delete()
+                linked_institutions = data_dict.get('linked_institutions', {})
+                if linked_institutions:
+                    for linked_inst_title in linked_institutions.values():
+                        try:
+                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                        except:
+                            Organizer(
+                                event=event,
+                                organizer_title=linked_inst_title,
+                            ).save()
+                        else:
+                            Organizer(
+                                event=event,
+                                organizing_museum=organizing_museum,
+                            ).save()
 
                 if event.exhibition and not event.mediafile_set.count():
                     MediaFile = models.get_model("events", "MediaFile")
@@ -634,10 +737,12 @@ class Command(NoArgsCommand):
         if verbosity > 1:
             print u"Events added: %d" % event_stats['added']
             print u"Events updated: %d" % event_stats['updated']
+            print u"Events updatable: %d" % event_stats['updatable']  # if there was modification date defined
             print u"Events skipped: %d" % event_stats['skipped']
             print
             print u"Workshops added: %d" % workshop_stats['added']
             print u"Workshops updated: %d" % workshop_stats['updated']
+            print u"Workshops updatable: %d" % workshop_stats['updatable']  # if there was modification date defined
             print u"Workshops skipped: %d" % workshop_stats['skipped']
             print
 
