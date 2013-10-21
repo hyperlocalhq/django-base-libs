@@ -689,6 +689,7 @@ def load_data(instance=None):
             'prices': {'_filled': True},
             'gallery': {'_filled': True},
             '_pk': instance.pk,
+            '_is_new': False,
         }
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data['basic']['title_%s' % lang_code] = getattr(instance, 'title_%s' % lang_code)
@@ -745,6 +746,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance = Event.objects.get(pk=form_step_data['_pk'])
         else:
             instance = Event()
+            form_step_data['_is_new'] = True
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
@@ -886,7 +888,7 @@ def set_extra_context(current_step, form_steps, form_step_data, instance=None):
 
 
 def save_data(form_steps, form_step_data, instance=None):
-    is_new = not instance
+    is_new = form_step_data['_is_new']
     
     if not instance:
         if '_pk' in form_step_data:
@@ -931,13 +933,13 @@ def save_data(form_steps, form_step_data, instance=None):
     for f in fields:
         setattr(instance, f, form_step_data['prices'][f])
 
-    if not instance.status:
+    if not instance.status or is_new:
         instance.status = "published"
     instance.save()
     
-    if is_new:
-        user = get_current_user()
-        instance.set_owner(user)    
+    #if is_new:
+    #    user = get_current_user()
+    #    instance.set_owner(user)
     
     instance.categories.clear()
     for cat in form_step_data['basic']['categories']:
