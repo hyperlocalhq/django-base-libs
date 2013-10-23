@@ -137,7 +137,7 @@ class Command(NoArgsCommand):
                 continue
 
             exhibition.title_de = data_dict['title_de']
-            exhibition.title_en = data_dict['title_en']
+            exhibition.title_en = data_dict['title_en'] or data_dict['title_de']
             exhibition.subtitle_de = data_dict['subtitle_de']
             exhibition.subtitle_en = data_dict['subtitle_en']
             exhibition.slug = slugify(data_dict['title_de'])
@@ -147,8 +147,8 @@ class Command(NoArgsCommand):
             else:
                 if data_dict['end_date'] != "unlimited":
                     exhibition.end = parse_datetime(data_dict['end_date'])
-            exhibition.website_de = data_dict['link'].replace('&amp;', '&')
-            exhibition.website_en = data_dict['link'].replace('&amp;', '&')
+            exhibition.website_de = data_dict['link_de'].replace('&amp;', '&')
+            exhibition.website_en = data_dict['link_en'].replace('&amp;', '&')
             exhibition.description_de = data_dict['description_de']
             exhibition.description_de_markup_type = "hw"
             exhibition.description_en = data_dict['description_en']
@@ -410,10 +410,12 @@ class Command(NoArgsCommand):
 
                 workshop.title_de, workshop.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
                 workshop.title_en, workshop.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
+                if not workshop.title_en:
+                    workshop.title_de = workshop.title_en
                 workshop.slug = slugify(data_dict['title_de'])
 
-                workshop.website_de = data_dict['link'].replace('&amp;', '&')
-                workshop.website_en = data_dict['link'].replace('&amp;', '&')
+                workshop.website_de = data_dict['link_de'].replace('&amp;', '&')
+                workshop.website_en = data_dict['link_en'].replace('&amp;', '&')
                 workshop.description_de = data_dict['description_de']
                 workshop.description_de_markup_type = "hw"
                 workshop.description_en = data_dict['description_en']
@@ -422,6 +424,7 @@ class Command(NoArgsCommand):
                 workshop.press_text_de_markup_type = "hw"
                 workshop.press_text_en = data_dict['description_en']
                 workshop.press_text_en_markup_type = "hw"
+                workshop.admission_price = Decimal(data_dict['kosten_de'].replace(",", ".").replace("-", "00").replace(" EUR", ""))
                 workshop.admission_price_info_de = data_dict.get('admission_de', "")
                 workshop.admission_price_info_de_markup_type = "hw"
                 workshop.admission_price_info_en = data_dict.get('admission_en', "")
@@ -458,10 +461,17 @@ class Command(NoArgsCommand):
 
                 exhibition_ids = data_dict.get('linked_exhibitions', {}).keys()
                 if exhibition_ids:
+                    # correct exhibition to link is the first one being not permanent or any first otherwise
+                    correct_exhibition_id = exhibition_ids[0]
+                    for e_id in exhibition_ids:
+                        if data_dict['linked_exhibitions'][e_id]['perma_exhibition'] == "0":
+                            correct_exhibition_id = e_id
+                            break
+
                     try:
                         # get exhibition from saved mapper
                         exh_mapper = s_exhibitions.objectmapper_set.get(
-                            external_id=exhibition_ids[0],
+                            external_id=correct_exhibition_id,
                             content_type__app_label="exhibitions",
                             content_type__model="exhibition",
                         )
@@ -629,10 +639,12 @@ class Command(NoArgsCommand):
 
                 event.title_de, event.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
                 event.title_en, event.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
+                if not event.title_en:
+                    event.title_en = event.title_de
                 event.slug = slugify(data_dict['title_de'])
 
-                event.website_de = data_dict['link'].replace('&amp;', '&')
-                event.website_en = data_dict['link'].replace('&amp;', '&')
+                event.website_de = data_dict['link_de'].replace('&amp;', '&')
+                event.website_en = data_dict['link_en'].replace('&amp;', '&')
                 event.description_de = data_dict['description_de']
                 event.description_de_markup_type = "hw"
                 event.description_en = data_dict['description_en']
@@ -641,6 +653,7 @@ class Command(NoArgsCommand):
                 event.press_text_de_markup_type = "hw"
                 event.press_text_en = data_dict['description_en']
                 event.press_text_en_markup_type = "hw"
+                event.admission_price = Decimal(data_dict['kosten_de'].replace(",", ".").replace("-", "00").replace(" EUR", ""))
                 event.admission_price_info_de = data_dict.get('admission_de', "")
                 event.admission_price_info_de_markup_type = "hw"
                 event.admission_price_info_en = data_dict.get('admission_en', "")
@@ -661,10 +674,16 @@ class Command(NoArgsCommand):
 
                 exhibition_ids = data_dict.get('linked_exhibitions', {}).keys()
                 if exhibition_ids:
+                    # correct exhibition to link is the first one being not permanent or any first otherwise
+                    correct_exhibition_id = exhibition_ids[0]
+                    for e_id in exhibition_ids:
+                        if data_dict['linked_exhibitions'][e_id]['perma_exhibition'] == "0":
+                            correct_exhibition_id = e_id
+                            break
                     try:
                         # get exhibition from saved mapper
                         exh_mapper = s_exhibitions.objectmapper_set.get(
-                            external_id=exhibition_ids[0],
+                            external_id=correct_exhibition_id,
                             content_type__app_label="exhibitions",
                             content_type__model="exhibition",
                         )
