@@ -118,6 +118,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'sekizai.context_processors.sekizai',
     "jetson.apps.utils.context_processors.general",
     "jetson.apps.configuration.context_processors.configuration",
+    "jetson.apps.advertising.context_processors.source_features",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -195,7 +196,8 @@ INSTALLED_APPS = (
     "jetson.apps.media_gallery",
     "jetson.apps.configuration",
     "jetson.apps.favorites",
-    
+    "jetson.apps.advertising",
+
     ### museumsportal apps ###
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",
@@ -216,103 +218,102 @@ INSTALLED_APPS = (
 
 ADMIN_APP_INDEX = (
     {
-        'title':gettext('Content'),
-        'apps':(
+        'title': gettext('Content'),
+        'apps': (
             ('cms', {                
-                    'models': ('Page',),
+                'models': ('Page',),
             }),            
             ('blocks', {                
-                    'models': ('InfoBlock',),
+                'models': ('InfoBlock',),
             }),
             ('museums', {
                 'models': ('MuseumCategory','MuseumService','AccessibilityOption', 'Museum',),
-                }),            
+            }),
             ('exhibitions', {
                 'models': ('ExhibitionCategory','Exhibition',),
-                }),
+            }),
             ('events', {
                 'models': ('EventCategory','Event',),
-                }),
+            }),
             ('workshops', {
                 'models': ('WorkshopType', 'Workshop',),
-                }),
+            }),
             ('slideshows', {
                 'models': ('Slideshow',),
-                }),     
+            }),
             ('articles', {
                 'models': ('ArticleCategory','Article',),
-                }),
-         )
+            }),
+        )
     },
     {
-        'title':gettext('Community'),
-        'apps':(
-            
-             ('auth', {
+        'title': gettext('Community'),
+        'apps': (
+            ('auth', {
                 'verbose_name': gettext("Authentication"),
                 'models':("Group", "User",),
                 'icon': 'key',
-             }),
-             ('permissions', {
+            }),
+            ('permissions', {
                 'models': ('PerObjectGroup','RowLevelPermission',),
-              }),
-             ('institutions', {
+            }),
+            ('institutions', {
                 'models':("Institution",),                
-                }),
-             ('twitterwall', {
+            }),
+            ('twitterwall', {
                 'verbose_name': gettext("Twitter Wall"),
                 'models':("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),                
-                }),
+            }),
         )
     },
     {
-        'title':gettext('Campaign'),
-        'apps':(         
+        'title': gettext('Campaign'),
+        'apps': (
             ('mailing', {
-                'models':("EmailMessage", "EmailTemplate", "EmailTemplatePlaceholder",),
+                'models': ("EmailMessage", "EmailTemplate", "EmailTemplatePlaceholder",),
                 'icon': 'email',             
-             }),
+            }),
             ('mailchimp', {
-                'models':("Settings", "MList", "Subscription", "Campaign"),
+                'models': ("Settings", "MList", "Subscription", "Campaign"),
                 'icon': 'email',             
-             }),
-            ('lottery', {
-                'models':("LotteryEntry", ),
-             }),
+            }),
+            ('advertising', {
+                'models': ("Advertiser", "AdCategory", "AdZone", "BannerAd", "AdImpression", "AdClick"),
+            }),
         )
     },
     {
-        'title':gettext('Configure'),
-        'apps':(
+        'title': gettext('Configure'),
+        'apps': (
             ('structure', {
-                'models':("Vocabulary", "Term", "ContextCategory"),
-                }),
-             ('image_mods', {
+                'models': ("Vocabulary", "Term", "ContextCategory"),
+            }),
+            ('image_mods', {
                 'verbose_name': gettext("Media"),
-                'models':("ImageModificationGroup","ImageModification","ImageCropping",),
-                }),
-             ('sites', {
+                'models': ("ImageModificationGroup","ImageModification","ImageCropping",),
+            }),
+            ('sites', {
                 'verbose_name': gettext('Sites'),
                 'models': ('Site',)
-                }),
-             ('i18n', {
-                'models':("Country", "Area", "Language", "CountryLanguage", "Phone", "Nationality", "TimeZone"),
-                }),
-             ('tagging', {
-                'models':("TaggedItem", "Tag",),
-                }),
-             ('external_services', {
-                'models':("Service", "ObjectMapper",),
-                }),
-             ('tagging', {
-                'models':("Tag", "TaggedItem",),
-                }),
-             ('tastypie', {
-                'models':("ApiKey",),
-                }),
-             ('configuration', {
-                'models':("SiteSettings",),
-                }),
+            }),
+            ('i18n', {
+                'models': ("Country", "Area", "Language", "CountryLanguage", "Phone", "Nationality", "TimeZone"),
+            }),
+            ('tagging', {
+                'models': ("TaggedItem", "Tag",),
+            }),
+            ('external_services', {
+                'models': ("Service", "ObjectMapper",),
+            }),
+            ('tagging', {
+                'models': ("Tag", "TaggedItem",),
+            }),
+            ('tastypie', {
+                'models': ("ApiKey",),
+            }),
+            ('configuration', {
+                'models': ("SiteSettings",),
+            }),
         )
     }
  

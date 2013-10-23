@@ -3,6 +3,9 @@
 <header> {% slideshow "start_slideshow_de" %} </header>
 
 <article>
+    {% load advertising_tags %}
+    {% random_zone_ad 'start_page' %}
+
     <div class="clearfix">
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Newly Opened" %}</h3></li>
