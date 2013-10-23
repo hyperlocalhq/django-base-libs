@@ -157,6 +157,7 @@ class Command(NoArgsCommand):
             exhibition.press_text_de_markup_type = "hw"
             exhibition.press_text_en = data_dict['description_en']
             exhibition.press_text_en_markup_type = "hw"
+            exhibition.permanent = bool(data_dict.get('perma_exhibition', False))
             if museum:
                 exhibition.museum = museum
                 exhibition.street_address = museum.street_address
@@ -250,9 +251,9 @@ class Command(NoArgsCommand):
                     except:
                         file_description = FileDescription(file_path=mf.path)
                     
-                    file_description.description_de = image_dict['description_de']
-                    file_description.description_en = image_dict['description_en']
-                    file_description.copyright_limitations = image_dict['copyright_de']
+                    file_description.title_de = image_dict['description_de']
+                    file_description.title_en = image_dict['description_en']
+                    file_description.author = image_dict['copyright_de']
                     file_description.save()
                     time.sleep(1)
 
@@ -424,7 +425,12 @@ class Command(NoArgsCommand):
                 workshop.press_text_de_markup_type = "hw"
                 workshop.press_text_en = data_dict['description_en']
                 workshop.press_text_en_markup_type = "hw"
-                workshop.admission_price = Decimal(data_dict['kosten_de'].replace(",", ".").replace("-", "00").replace(" EUR", ""))
+                price_str = data_dict['kosten_de'].replace(",", ".").replace("-", "00").split(" ")[0]
+                if price_str:
+                    try:
+                        workshop.admission_price = Decimal(price_str)
+                    except:
+                        pass
                 workshop.admission_price_info_de = data_dict.get('admission_de', "")
                 workshop.admission_price_info_de_markup_type = "hw"
                 workshop.admission_price_info_en = data_dict.get('admission_en', "")
@@ -495,7 +501,10 @@ class Command(NoArgsCommand):
                     for exh_mf in workshop.exhibition.mediafile_set.all():
                         mf = MediaFile(workshop=workshop)
                         filename = exh_mf.path.filename
-                        image_data = open(settings.MEDIA_ROOT + "/" + exh_mf.path.path, "rb")
+                        try:
+                            image_data = open(settings.MEDIA_ROOT + "/" + exh_mf.path.path, "rb")
+                        except IOError:
+                            continue
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -516,9 +525,9 @@ class Command(NoArgsCommand):
                             except:
                                 file_description = FileDescription(file_path=mf.path)
 
-                            file_description.description_de = exh_file_descriptions[0].description_de
-                            file_description.description_en = exh_file_descriptions[0].description_en
-                            file_description.copyright_limitations = exh_file_descriptions[0].copyright_limitations
+                            file_description.title_de = exh_file_descriptions[0].title_de
+                            file_description.title_en = exh_file_descriptions[0].title_en
+                            file_description.author = exh_file_descriptions[0].author
                             file_description.save()
                             time.sleep(1)
 
@@ -653,7 +662,12 @@ class Command(NoArgsCommand):
                 event.press_text_de_markup_type = "hw"
                 event.press_text_en = data_dict['description_en']
                 event.press_text_en_markup_type = "hw"
-                event.admission_price = Decimal(data_dict['kosten_de'].replace(",", ".").replace("-", "00").replace(" EUR", ""))
+                price_str = data_dict['kosten_de'].replace(",", ".").replace("-", "00").split(" ")[0]
+                if price_str:
+                    try:
+                        event.admission_price = Decimal(price_str)
+                    except:
+                        pass
                 event.admission_price_info_de = data_dict.get('admission_de', "")
                 event.admission_price_info_de_markup_type = "hw"
                 event.admission_price_info_en = data_dict.get('admission_en', "")
@@ -736,7 +750,10 @@ class Command(NoArgsCommand):
                     for exh_mf in event.exhibition.mediafile_set.all():
                         mf = MediaFile(event=event)
                         filename = exh_mf.path.filename
-                        image_data = open(settings.MEDIA_ROOT + "/" + exh_mf.path.path, "rb")
+                        try:
+                            image_data = open(settings.MEDIA_ROOT + "/" + exh_mf.path.path, "rb")
+                        except IOError:
+                            continue
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -757,9 +774,9 @@ class Command(NoArgsCommand):
                             except:
                                 file_description = FileDescription(file_path=mf.path)
 
-                            file_description.description_de = exh_file_descriptions[0].description_de
-                            file_description.description_en = exh_file_descriptions[0].description_en
-                            file_description.copyright_limitations = exh_file_descriptions[0].copyright_limitations
+                            file_description.title_de = exh_file_descriptions[0].title_de
+                            file_description.title_en = exh_file_descriptions[0].title_en
+                            file_description.author = exh_file_descriptions[0].author
                             file_description.save()
                             time.sleep(1)
 
