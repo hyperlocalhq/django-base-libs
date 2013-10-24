@@ -142,11 +142,11 @@ class Command(NoArgsCommand):
             exhibition.subtitle_en = data_dict['subtitle_en']
             exhibition.slug = slugify(data_dict['title_de'])
             exhibition.start = parse_datetime(data_dict['start_date'])
-            if data_dict['perma_exhibition']:
+            if data_dict['perma_exhibition'] == 1 or data_dict['end_date'] == "unlimited":
                 exhibition.permanent = True
+                exhibition.museum_prices = True
             else:
-                if data_dict['end_date'] != "unlimited":
-                    exhibition.end = parse_datetime(data_dict['end_date'])
+                exhibition.end = parse_datetime(data_dict['end_date'])
             exhibition.website_de = data_dict['link_de'].replace('&amp;', '&')
             exhibition.website_en = data_dict['link_en'].replace('&amp;', '&')
             exhibition.description_de = data_dict['description_de']
@@ -157,7 +157,6 @@ class Command(NoArgsCommand):
             exhibition.press_text_de_markup_type = "hw"
             exhibition.press_text_en = data_dict['description_en']
             exhibition.press_text_en_markup_type = "hw"
-            exhibition.permanent = bool(data_dict.get('perma_exhibition', False))
             if museum:
                 exhibition.museum = museum
                 exhibition.street_address = museum.street_address
@@ -412,7 +411,7 @@ class Command(NoArgsCommand):
                 workshop.title_de, workshop.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
                 workshop.title_en, workshop.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
                 if not workshop.title_en:
-                    workshop.title_de = workshop.title_en
+                    workshop.title_en = workshop.title_de
                 workshop.slug = slugify(data_dict['title_de'])
 
                 workshop.website_de = data_dict['link_de'].replace('&amp;', '&')
