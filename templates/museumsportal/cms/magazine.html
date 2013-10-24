@@ -12,6 +12,8 @@
     <section class="clearfix marginal"> 
       <ul id="sub_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
       {% comment %} <!-- <ul id="sub_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul> --> {% endcomment %}
+      {% load advertising_tags %}
+      {% random_zone_ad 'magazine' %}
     </section>
   </div>
 </div>

@@ -93,6 +93,8 @@
          
             <ul id="filter_summary"></ul>
         </div>
+        {% load advertising_tags %}
+        {% random_zone_ad 'events' %}
         <ul id="container" class="list rows clearfix">
             {% for event in object_list %}
                 {% tags_for_object event as tags %}

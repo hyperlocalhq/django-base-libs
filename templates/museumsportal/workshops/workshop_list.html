@@ -81,6 +81,9 @@
             <ul id="filter_summary"></ul>
         </div>
 
+        {% load advertising_tags %}
+        {% random_zone_ad 'workshops' %}
+
         <ul id="container" class="list rows collapsed clearfix">
             {% for workshop in object_list %}
                 {% tags_for_object workshop as tags %}
