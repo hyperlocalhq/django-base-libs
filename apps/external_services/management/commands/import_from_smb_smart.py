@@ -171,9 +171,8 @@ class Command(NoArgsCommand):
                 
             exhibition.museum_opening_hours = data_dict['opening_from_museum']
 
-            prices = data_dict.get('tarife', {}).values()
+            prices = data_dict.get('tarife', [])
             if prices:
-                # exhibition.free_entrance = bool(data_dict['generell_frei'])
                 if prices[0]['preis_voll']:
                     exhibition.admission_price = Decimal(prices[0]['preis_voll'].replace(",", ".").replace("-", "00"))
                 if prices[0]['preis_erm']:
