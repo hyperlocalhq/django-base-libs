@@ -177,6 +177,10 @@ class Command(NoArgsCommand):
                     exhibition.admission_price = Decimal(prices[0]['preis_voll'].replace(",", ".").replace("-", "00"))
                 if prices[0]['preis_erm']:
                     exhibition.reduced_price = Decimal(prices[0]['preis_erm'].replace(",", ".").replace("-", "00"))
+                exhibition.admission_price_info_de = u". ".join((prices[0]['label_de'], prices[0]['description_de']))
+                exhibition.admission_price_info_de_markup_type = "pt"
+                exhibition.admission_price_info_en = u". ".join((prices[0]['label_en'], prices[0]['description_en']))
+                exhibition.admission_price_info_en_markup_type = "pt"
 
             exhibition.status = "import"
             exhibition.save()
@@ -398,7 +402,7 @@ class Command(NoArgsCommand):
                     workshop.latitude = museum.latitude
                     workshop.longitude = museum.longitude
 
-                response = urllib2.urlopen("http://www.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id=%s" % event_dict['dates'].keys()[0])
+                response = urllib2.urlopen("http://www.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id=%s" % min(event_dict['dates'].keys()))
                 data = response.read()
                 response.close()
                 data_dict = json.loads(data)
@@ -430,15 +434,15 @@ class Command(NoArgsCommand):
                     except:
                         pass
                 workshop.admission_price_info_de = data_dict.get('admission_de', "")
-                workshop.admission_price_info_de_markup_type = "hw"
+                workshop.admission_price_info_de_markup_type = "pt"
                 workshop.admission_price_info_en = data_dict.get('admission_en', "")
-                workshop.admission_price_info_en_markup_type = "hw"
+                workshop.admission_price_info_en_markup_type = "pt"
                 workshop.meeting_place_de = data_dict['treffpunkt_de']
                 workshop.meeting_place_en = data_dict['treffpunkt_en']
                 workshop.booking_info_de = data_dict['registration_de']
-                workshop.booking_info_de_markup_type = "hw"
+                workshop.booking_info_de_markup_type = "pt"
                 workshop.booking_info_en = data_dict['registration_en']
-                workshop.booking_info_en_markup_type = "hw"
+                workshop.booking_info_en_markup_type = "pt"
 
                 # based on http://www.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
                 for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
@@ -529,22 +533,22 @@ class Command(NoArgsCommand):
                             file_description.save()
                             time.sleep(1)
 
-                workshop.organizer_set.all().delete()
-                linked_institutions = data_dict.get('linked_institutions', {})
-                if linked_institutions:
-                    for linked_inst_title in linked_institutions.values():
-                        try:
-                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
-                        except:
-                            Organizer(
-                                workshop=workshop,
-                                organizer_title=linked_inst_title,
-                            ).save()
-                        else:
-                            Organizer(
-                                workshop=workshop,
-                                organizing_museum=organizing_museum,
-                            ).save()
+                #workshop.organizer_set.all().delete()
+                #linked_institutions = data_dict.get('linked_institutions', {})
+                #if linked_institutions:
+                #    for linked_inst_title in linked_institutions.values():
+                #        try:
+                #            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                #        except:
+                #            Organizer(
+                #                workshop=workshop,
+                #                organizer_title=linked_inst_title,
+                #            ).save()
+                #        else:
+                #            Organizer(
+                #                workshop=workshop,
+                #                organizing_museum=organizing_museum,
+                #            ).save()
 
                 workshop.workshoptime_set.all().delete()
 
@@ -635,7 +639,7 @@ class Command(NoArgsCommand):
                     event.latitude = museum.latitude
                     event.longitude = museum.longitude
 
-                response = urllib2.urlopen("http://www.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id=%s" % event_dict['dates'].keys()[0])
+                response = urllib2.urlopen("http://www.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id=%s" % min(event_dict['dates'].keys()))
                 data = response.read()
                 response.close()
                 data_dict = json.loads(data)
@@ -667,15 +671,15 @@ class Command(NoArgsCommand):
                     except:
                         pass
                 event.admission_price_info_de = data_dict.get('admission_de', "")
-                event.admission_price_info_de_markup_type = "hw"
+                event.admission_price_info_de_markup_type = "pt"
                 event.admission_price_info_en = data_dict.get('admission_en', "")
-                event.admission_price_info_en_markup_type = "hw"
+                event.admission_price_info_en_markup_type = "pt"
                 event.meeting_place_de = data_dict['treffpunkt_de']
                 event.meeting_place_en = data_dict['treffpunkt_en']
                 event.booking_info_de = data_dict['registration_de']
-                event.booking_info_de_markup_type = "hw"
+                event.booking_info_de_markup_type = "pt"
                 event.booking_info_en = data_dict['registration_en']
-                event.booking_info_en_markup_type = "hw"
+                event.booking_info_en_markup_type = "pt"
 
                 # based on http://www.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
                 for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
@@ -725,22 +729,22 @@ class Command(NoArgsCommand):
                     elif event_cat_id in (110, 214, 222):
                         event.categories.add(EventCategory.objects.get(slug="sonstiges"))
 
-                event.organizer_set.all().delete()
-                linked_institutions = data_dict.get('linked_institutions', {})
-                if linked_institutions:
-                    for linked_inst_title in linked_institutions.values():
-                        try:
-                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
-                        except:
-                            Organizer(
-                                event=event,
-                                organizer_title=linked_inst_title,
-                            ).save()
-                        else:
-                            Organizer(
-                                event=event,
-                                organizing_museum=organizing_museum,
-                            ).save()
+                #event.organizer_set.all().delete()
+                #linked_institutions = data_dict.get('linked_institutions', {})
+                #if linked_institutions:
+                #    for linked_inst_title in linked_institutions.values():
+                #        try:
+                #            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                #        except:
+                #            Organizer(
+                #                event=event,
+                #                organizer_title=linked_inst_title,
+                #            ).save()
+                #        else:
+                #            Organizer(
+                #                event=event,
+                #                organizing_museum=organizing_museum,
+                #            ).save()
 
                 if event.exhibition and not event.mediafile_set.count():
                     MediaFile = models.get_model("events", "MediaFile")

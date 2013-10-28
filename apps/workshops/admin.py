@@ -53,7 +53,8 @@ class WorkshopAdmin(ExtendedModelAdmin):
     list_display_links = ('title', )
     list_filter = ('creation_date', 'types', 'status', 'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_wheelchaired', 'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties', 'is_for_dementia_sufferers')
     search_fields = ('title', 'subtitle', 'workshop_type', 'slug')
-    
+    list_editable = ('status',)
+
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'workshop_type', 'description', 'press_text', 'website', ])
     fieldsets += [(None, {'fields': ('slug', 'types', 'description_locked')}),]
     fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
