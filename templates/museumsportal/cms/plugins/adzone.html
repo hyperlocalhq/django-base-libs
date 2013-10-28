@@ -1,6 +1,9 @@
-{% load advertising_tags %}
-{% if object.category %}
-    {% random_category_ad object.zone object.category %}
-{% else %}
-    {% random_zone_ad object.zone %}
-{% endif %}
+<div class="editorial-content">
+    {% load advertising_tags %}
+    <!-- {{ object.zone }} -->
+    {% if object.category %}
+        {% random_category_ad object.zone.sysname object.category.sysname %}
+    {% else %}
+        {% random_zone_ad object.zone.sysname %}
+    {% endif %}
+</div>
