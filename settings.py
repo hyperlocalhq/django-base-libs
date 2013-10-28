@@ -197,6 +197,7 @@ INSTALLED_APPS = (
     "jetson.apps.configuration",
     "jetson.apps.favorites",
     "jetson.apps.advertising",
+    "jetson.apps.advertising.plugins.cms_ads",
 
     ### museumsportal apps ###
     "museumsportal.apps.museums",
@@ -367,7 +368,7 @@ CMS_PLACEHOLDER_CONF = {
     },
 
     'top_image': {
-        'plugins': ("FilebrowserImagePlugin"),
+        'plugins': ("FilebrowserImagePlugin",),
         'name': _("Top Image")
     },
 
@@ -387,27 +388,32 @@ CMS_PLACEHOLDER_CONF = {
     },
 
     'editorial_notices': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin",),
         'name': _("editorial notices")
     },
 
+    'plan_organize_first': {
+        'plugins': ("EditorialContentPlugin", "AdZonePlugin"),
+        'name': _("Plan & Organize - First"),
+    },
+
     'series_items_featured': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin", "AdZonePlugin"),
         'name': _("Series Items Featured")
     },
     
     'series_items': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin",),
         'name': _("Series Items")
     },
     
     'jewish_museum': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin",),
         'name': _("Jewish Museum")
     },
     
     'series_exhibitions': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin",),
         'name': _("Series Exhibitions")
     },
     
@@ -417,7 +423,7 @@ CMS_PLACEHOLDER_CONF = {
     },
 
     'start_page_content': {
-        'plugins': ("EditorialContentPlugin"),
+        'plugins': ("EditorialContentPlugin",),
         'name': _("Start Page Content")
     },
 

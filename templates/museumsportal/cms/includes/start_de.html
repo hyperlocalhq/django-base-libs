@@ -3,9 +3,6 @@
 <header> {% slideshow "start_slideshow_de" %} </header>
 
 <article>
-    {% load advertising_tags %}
-    {% random_zone_ad 'start_page' %}
-
     <div class="clearfix">
         <ul class="list compact clearfix">
             <li class="title"><h3>{% trans "Newly Opened" %}</h3></li>
@@ -22,6 +19,9 @@
             {% placeholder "start_page_right" %}
         </ul>
     </div>
+
+    {% load advertising_tags %}
+    {% random_zone_ad 'start_page' %}
 
     <div class="twitter_frontpage">
         <h3>{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h3>
