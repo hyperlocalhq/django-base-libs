@@ -1189,7 +1189,7 @@ def set_extra_context(current_step, form_steps, form_step_data, instance=None):
 
 
 def save_data(form_steps, form_step_data, instance=None):
-    is_new = form_step_data['_is_new']
+    is_new = form_step_data.get('_is_new', False)
 
     if not instance:
         if '_pk' in form_step_data:
