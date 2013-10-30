@@ -357,7 +357,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return []
         if self.permanent:
             return self.museum.season_set.all()
-        return self.museum.season_set.filter(
+        seasons = self.museum.season_set.filter(
             # Get seasons which start date is within the exhibition duration
             # -----[------exhibition------]----- time ->
             #                [-season-]
@@ -373,6 +373,28 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             #   [-season-]
             models.Q(end__gte=self.start, end__lte=self.end)
         )
+        if not seasons:
+            # if there are no current seasons for exhibition timeframe,
+            # try the seasons of the year before
+            start = date(self.start.year - 1, self.start.month, self.start.day)
+            end = date(self.end.year - 1, self.end.month, self.end.day)
+            seasons = self.museum.season_set.filter(
+                # Get seasons which start date is within the exhibition duration
+                # -----[------exhibition------]----- time ->
+                #                [-season-]
+                #                       [-season-]
+                models.Q(start__gte=start, start__lte=end) |
+                # .. which started before and will end after the exhibition duration
+                # -----[----exhibition----]----- time ->
+                #    [--------season--------]
+                models.Q(start__lte=start, end__gte=end) |
+                # .. or which end date is within the exhibition duration
+                # -----[------exhibition------]----- time ->
+                #         [-season-]
+                #   [-season-]
+                models.Q(end__gte=start, end__lte=end)
+            )
+        return seasons
 
     def get_museums_special_opening_times(self):
         """
