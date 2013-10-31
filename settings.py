@@ -198,6 +198,8 @@ INSTALLED_APPS = (
     "jetson.apps.favorites",
     "jetson.apps.advertising",
     "jetson.apps.advertising.plugins.cms_ads",
+    "jetson.apps.blog",
+    "jetson.apps.comments",
 
     ### museumsportal apps ###
     "museumsportal.apps.museums",
@@ -244,6 +246,9 @@ ADMIN_APP_INDEX = (
             }),
             ('articles', {
                 'models': ('ArticleCategory','Article',),
+            }),
+            ('blog', {
+                'models': ('Blog','Post',),
             }),
         )
     },
@@ -357,7 +362,7 @@ CMS_LANGUAGES = (
     )
 
 CMS_SITE_LANGUAGES = {
-    1:['en','de'],
+    1: ['en','de'],
 }
 
 # Customized placeholders

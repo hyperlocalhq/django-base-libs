@@ -279,6 +279,10 @@
         var $container = $('#container'),
             filters = {};
 
+        if (!$container.length) {
+            return;
+        }
+
         $container.isotope({
             itemSelector : '.item',
             layoutMode : 'fitRows' 
