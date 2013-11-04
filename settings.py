@@ -15,7 +15,7 @@ ADMINS = (
      ('Museumsportal Berlin Webmaster', 'bendoraitis@studio38.de'),
 )
 
-MANAGERS = ( 
+MANAGERS = (
      ('Museumsportal Berlin Webmaster', 'museumsportal@kulturprojekte-berlin.de'),
 )
 
@@ -127,7 +127,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    "base_libs.middleware.threading.ThreadLocalsMiddleware",    
+    "base_libs.middleware.threading.ThreadLocalsMiddleware",
     #"cms.middleware.multilingual.MultilingualURLMiddleware",
     "jetson.apps.cms_extensions.middleware.MultilingualURLMiddleware",
     'cms.middleware.page.CurrentPageMiddleware',
@@ -141,17 +141,17 @@ INSTALLED_APPS = (
     ### third-party apps ###
     "grappelli",
     "filebrowser",
-    
+
     ### django core apps ###
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
+    'django.contrib.staticfiles',
     'django.contrib.admin',
-        
-    ### more third-party apps ###    
+
+    ### more third-party apps ###
     "pipeline",
     "uni_form",
     "tastypie",
@@ -162,7 +162,7 @@ INSTALLED_APPS = (
     "babeldjango",
     "haystack",
     "ajaxuploader",
-    
+
     ### Required CMS Django 2.2 apps ###
     "cms",
     "mptt",
@@ -171,7 +171,7 @@ INSTALLED_APPS = (
     "sekizai",
     "cms_search",
     "cms_search.search_helpers",
-    
+
     ### CMS plugins ###
     "cms.plugins.*",
 
@@ -182,7 +182,7 @@ INSTALLED_APPS = (
     "jetson.apps.cms_extensions.plugins.filebrowser_image",
     "jetson.apps.cms_extensions.plugins.gmap",
     "jetson.apps.cms_extensions.plugins.headline",
-    "jetson.apps.image_mods", 
+    "jetson.apps.image_mods",
     "jetson.apps.httpstate",
     "jetson.apps.history",
     "jetson.apps.utils",
@@ -195,7 +195,9 @@ INSTALLED_APPS = (
     "jetson.apps.media_gallery",
     "jetson.apps.configuration",
     "jetson.apps.favorites",
-    
+    "jetson.apps.blog",
+    "jetson.apps.comments",
+
     ### museumsportal apps ###
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",
@@ -218,15 +220,15 @@ ADMIN_APP_INDEX = (
     {
         'title':gettext('Content'),
         'apps':(
-            ('cms', {                
+            ('cms', {
                     'models': ('Page',),
-            }),            
-            ('blocks', {                
+            }),
+            ('blocks', {
                     'models': ('InfoBlock',),
             }),
             ('museums', {
                 'models': ('MuseumCategory','MuseumService','AccessibilityOption', 'Museum',),
-                }),            
+                }),
             ('exhibitions', {
                 'models': ('ExhibitionCategory','Exhibition',),
                 }),
@@ -238,7 +240,7 @@ ADMIN_APP_INDEX = (
                 }),
             ('slideshows', {
                 'models': ('Slideshow',),
-                }),     
+                }),
             ('articles', {
                 'models': ('ArticleCategory','Article',),
                 }),
@@ -247,7 +249,7 @@ ADMIN_APP_INDEX = (
     {
         'title':gettext('Community'),
         'apps':(
-            
+
              ('auth', {
                 'verbose_name': gettext("Authentication"),
                 'models':("Group", "User",),
@@ -257,24 +259,24 @@ ADMIN_APP_INDEX = (
                 'models': ('PerObjectGroup','RowLevelPermission',),
               }),
              ('institutions', {
-                'models':("Institution",),                
+                'models':("Institution",),
                 }),
              ('twitterwall', {
                 'verbose_name': gettext("Twitter Wall"),
-                'models':("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),                
+                'models':("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),
                 }),
         )
     },
     {
         'title':gettext('Campaign'),
-        'apps':(         
+        'apps':(
             ('mailing', {
                 'models':("EmailMessage", "EmailTemplate", "EmailTemplatePlaceholder",),
-                'icon': 'email',             
+                'icon': 'email',
              }),
             ('mailchimp', {
                 'models':("Settings", "MList", "Subscription", "Campaign"),
-                'icon': 'email',             
+                'icon': 'email',
              }),
             ('lottery', {
                 'models':("LotteryEntry", ),
@@ -315,7 +317,7 @@ ADMIN_APP_INDEX = (
                 }),
         )
     }
- 
+
 )
 
 PREPEND_WWW = False
@@ -394,22 +396,22 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("EditorialContentPlugin"),
         'name': _("Series Items Featured")
     },
-    
+
     'series_items': {
         'plugins': ("EditorialContentPlugin"),
         'name': _("Series Items")
     },
-    
+
     'jewish_museum': {
         'plugins': ("EditorialContentPlugin"),
         'name': _("Jewish Museum")
     },
-    
+
     'series_exhibitions': {
         'plugins': ("EditorialContentPlugin"),
         'name': _("Series Exhibitions")
     },
-    
+
     'series_images': {
         'plugins': ("RichTextPlugin",),
         'name': _("Series Images")
@@ -456,7 +458,7 @@ CMS_PLACEHOLDER_CONF = {
 
 CMS_TEMPLATES = [
     ('cms/default.html', gettext('Default')),
-    ('cms/start.html', gettext('Homepage')),   
+    ('cms/start.html', gettext('Homepage')),
 
     ('cms/plan_organize_first.html', gettext(u'Plan & Organize – First')),
     ('cms/plan_organize_second.html', gettext(u'Plan & Organize - Second')),              # previous: visitor_info.html
@@ -478,8 +480,8 @@ CMS_APPHOOKS = (
 CMS_REDIRECTS = True
 CMS_MENU_TITLE_OVERWRITE = True
 
-CMS_LANGUAGE_CONF = { 
-    'de':['en'], 
+CMS_LANGUAGE_CONF = {
+    'de':['en'],
 }
 CMS_FRONTEND_LANGUAGES = ("en", "de")
 CMS_LANGUAGE_FALLBACK = "de"
