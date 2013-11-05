@@ -214,6 +214,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.site_specific",
     "museumsportal.apps.search",
     "museumsportal.apps.external_services",
+    "museumsportal.apps.internal_links",
 )
 
 
@@ -243,6 +244,9 @@ ADMIN_APP_INDEX = (
             }),
             ('slideshows', {
                 'models': ('Slideshow',),
+            }),
+            ('internal_links', {
+                'models': ('LinkGroup',),
             }),
             ('articles', {
                 'models': ('ArticleCategory','Article',),
