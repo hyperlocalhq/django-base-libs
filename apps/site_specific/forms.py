@@ -12,19 +12,21 @@ from crispy_forms import layout, bootstrap
 User = models.get_model("auth", "User")
 Museum = models.get_model("museums", "Museum")
 
+
 class EmailOrUsernameAuthentication(AuthenticationForm):
     login_as = forms.CharField(
         label=_("Email or Username"),
         max_length=75,
         widget=forms.HiddenInput(),
         required=False,
-        )    
+    )
+
     def __init__(self, *args, **kwargs):
         super(EmailOrUsernameAuthentication, self).__init__(*args, **kwargs)
         self.fields['email_or_username'] = forms.CharField(
             label=_("Email or Username"),
             max_length=75,
-            )
+        )
         del self.fields['username']
         # self.fields['password'].help_text = """<a href="/password_reset/">%s</a>""" % _("Forgot password?")
         
@@ -34,14 +36,14 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-            "", # no legend
-            layout.Field("email_or_username", autocomplete="off"),
-            "password",
+                "", # no legend
+                layout.Field("email_or_username", autocomplete="off"),
+                "password",
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Login')),
-                )
             )
+        )
         
     def clean(self):
         email_or_username = self.cleaned_data.get('email_or_username')
@@ -59,11 +61,12 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
         return self.cleaned_data
 
+
 class ClaimingInvitationForm(forms.Form):
     museum = forms.ModelChoiceField(
         label=_("Museum"),
         queryset=Museum.objects.all(),
-        )
+    )
     email = forms.EmailField(label=_("Owner's email"))
     
     def __init__(self, *args, **kwargs):
@@ -75,25 +78,26 @@ class ClaimingInvitationForm(forms.Form):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-            "", # no legend
-            "museum",
-            "email",
+                "", # no legend
+                "museum",
+                "email",
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Send invitation')),
-                )
             )
+        )
+
 
 class ClaimingRegisterForm(forms.Form):
     email = forms.EmailField(label=_("Email"))
     password = forms.CharField(
         label=_("Password"),
         widget=forms.PasswordInput,
-        )
+    )
     confirm_password = forms.CharField(
         label=_("Confirm password"),
         widget=forms.PasswordInput,
-        )
+    )
     
     def __init__(self, user, *args, **kwargs):
         super(ClaimingRegisterForm, self).__init__(*args, **kwargs)
@@ -106,15 +110,15 @@ class ClaimingRegisterForm(forms.Form):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-            "", # no legend
-            layout.Field("email", autocomplete="off"),
-            "password", 
-            "confirm_password",
+                "", # no legend
+                layout.Field("email", autocomplete="off"),
+                "password",
+                "confirm_password",
             ),
             bootstrap.FormActions(
                 layout.Submit('register', _('Signup')),
-                )
             )
+        )
 
     def clean_confirm_password(self):
         password = self.cleaned_data.get("password", "")
@@ -123,18 +127,20 @@ class ClaimingRegisterForm(forms.Form):
             raise forms.ValidationError(_("The two password fields didn't match."))
         return confirm_password
 
+
 class ClaimingLoginForm(forms.Form):
     email_or_username = forms.CharField(
         label=_("Email or Username"),
         max_length=75,
         required=True,
-        )
+    )
     password = forms.CharField(
         label=_("Password"),
         max_length=75,
         required=True,
         widget=forms.PasswordInput(),
-        )
+    )
+
     def __init__(self, user, *args, **kwargs):
         super(ClaimingLoginForm, self).__init__(*args, **kwargs)
         self.user = user
@@ -145,14 +151,14 @@ class ClaimingLoginForm(forms.Form):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-            "", # no legend
-            "email_or_username",
-            "password", 
+                "", # no legend
+                "email_or_username",
+                "password",
             ),
             bootstrap.FormActions(
                 layout.Submit('login', _('Login')),
-                )
             )
+        )
 
     def clean(self):
         email_or_username = self.cleaned_data.get('email_or_username')
@@ -186,8 +192,9 @@ class ClaimingConfirmForm(forms.Form):
         self.helper.layout = layout.Layout(
             bootstrap.FormActions(
                 layout.Submit('confirm', _('Confirm')),
-                )
             )
+        )
+
 
 class RegistrationForm(forms.Form):
     
@@ -211,11 +218,11 @@ class RegistrationForm(forms.Form):
     password = forms.CharField(
         label=_("Password"),
         widget=forms.PasswordInput,
-        )
+    )
     confirm_password = forms.CharField(
         label=_("Confirm password"),
         widget=forms.PasswordInput,
-        )
+    )
     
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -226,21 +233,21 @@ class RegistrationForm(forms.Form):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-            "", # no legend
+                "", # no legend
 
-            # "username", 
-            # "first_name", 
-            # "last_name",
-            
-            layout.Field("email", autocomplete="off"),
-            
-            "password", 
-            "confirm_password",
+                # "username",
+                # "first_name",
+                # "last_name",
+
+                layout.Field("email", autocomplete="off"),
+
+                "password",
+                "confirm_password",
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Signup')),
-                )
             )
+        )
 
     def clean_username(self):
         username = self.cleaned_data.get("username", "")
@@ -262,42 +269,113 @@ password_change_form_helper.form_action = ""
 password_change_form_helper.form_method = "POST"
 password_change_form_helper.layout = layout.Layout(
     layout.Fieldset(
-    "", # no legend
-    "old_password",
-    layout.Row("new_password1", "new_password2"),
+        "", # no legend
+        "old_password",
+        layout.Row("new_password1", "new_password2"),
     ),
     bootstrap.FormActions(
         layout.Submit('submit', _('Confirm')),
-        )
     )
+)
 
 password_reset_form_helper = FormHelper()
 password_reset_form_helper.form_action = ""
 password_reset_form_helper.form_method = "POST"
 password_reset_form_helper.layout = layout.Layout(
     layout.Fieldset(
-    "", # no legend
-    "email",
+        "", # no legend
+        "email",
     ),
     bootstrap.FormActions(
         layout.Submit('submit', _('Reset password')),
-        )
     )
+)
 
 password_reset_change_form_helper = FormHelper()
 password_reset_change_form_helper.form_action = ""
 password_reset_change_form_helper.form_method = "POST"
 password_reset_change_form_helper.layout = layout.Layout(
     layout.Fieldset(
-    "", # no legend
-    layout.HTML("""{% load i18n %}
-        <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
-    """),
-    layout.Row("new_password1", "new_password2"),
+        "", # no legend
+        layout.HTML("""{% load i18n %}
+            <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
+        """),
+        layout.Row("new_password1", "new_password2"),
     ),
     bootstrap.FormActions(
         layout.Submit('submit', _('Change my password')),
-        )
+    )
+)
+
+
+class ExhibitionFilterForm(forms.Form):
+    status = forms.ChoiceField(
+        label=_("Status"),
+        choices=(
+            ('published', _("Published")),
+            ('draft', _("Draft")),
+            ('expired', _("Expired")),
+        ),
+        required=False,
+        initial="published",
     )
 
+    def __init__(self, *args, **kwargs):
+        super(ExhibitionFilterForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.layout = layout.Layout(
+            "status",
+            layout.Submit('submit', _('Filter')),
+        )
+
+
+class EventFilterForm(forms.Form):
+    status = forms.ChoiceField(
+        label=_("Status"),
+        choices=(
+            ('published', _("Published")),
+            ('draft', _("Draft")),
+            ('expired', _("Expired")),
+        ),
+        required=False,
+        initial="published",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(EventFilterForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.layout = layout.Layout(
+            "status",
+            layout.Submit('submit', _('Filter')),
+        )
+
+
+class WorkshopFilterForm(forms.Form):
+    status = forms.ChoiceField(
+        label=_("Status"),
+        choices=(
+            ('published', _("Published")),
+            ('draft', _("Draft")),
+            ('expired', _("Expired")),
+        ),
+        required=False,
+        initial="published",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(WorkshopFilterForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.layout = layout.Layout(
+            "status",
+            layout.Submit('submit', _('Filter')),
+        )
 

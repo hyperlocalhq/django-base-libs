@@ -49,11 +49,7 @@ var oMap;
                 'map_filter',
                 map_filter
             );
-            if (!location.hash) {
-                $oList.trigger('after_list_load');
-            } else {
-                $oList.trigger('before_list_load');
-            }
+            $oList.trigger('after_list_load');
         }
     });
 
@@ -176,9 +172,9 @@ var oMap;
             var oMarker = this;
             var bVisible = true;
             var iLen = categories.length;
-            var oRe, sCat;
+            var i, oRe, sCat;
             for(i=0; i<iLen; i++) {
-                sCat = categories[i].replace(/\./, "");
+                sCat = categories[i];
                 oRe = new RegExp("\\b" + sCat + "\\b");
                 if (!oMarker.categories.match(oRe)) {
                     bVisible = false;

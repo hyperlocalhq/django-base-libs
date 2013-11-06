@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load cms_tags menu_tags i18n %}
+{% block bodyclass %}magazine{% endblock %}
+
+{% block content %}
+<<<<<<< HEAD
+  <div class="content">
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            {% placeholder "intro" %}
+            {% placeholder "main_content" %}
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            {% placeholder "marginal_content" %}
+            <ul id="sub_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="content">
+    <div class="container">
+        <div class="row featured">
+          {% placeholder "series_items_featured" inherit %}
+        </div>
+      </div>
+    </div>
+=======
+<div class="content clearfix">
+  <div class="inner clearfix">
+    <article class="clearfix with_sidebar"> 
+      {% placeholder "intro" %}
+      {% placeholder "main_content" %} 
+    </article>
+    <section class="clearfix marginal"> 
+      <ul id="sub_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
+      {% comment %} <!-- <ul id="sub_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul> --> {% endcomment %}
+      {% load advertising_tags %}
+      {% random_zone_ad 'magazine' %}
+    </section>
+>>>>>>> origin/develop
+  </div>
+{% endblock %}

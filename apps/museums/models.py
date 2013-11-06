@@ -398,10 +398,11 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         return self.get_events().filter(status="published")
 
     def get_workshops(self):
+        language = get_current_language()
         Workshop = models.get_model("workshops", "Workshop")
         return Workshop.objects.filter(
             models.Q(museum=self) | models.Q(organizer__organizing_museum=self)
-        ).distinct().order_by('closest_workshop_date', 'closest_workshop_time')
+        ).distinct().order_by('closest_workshop_date', 'closest_workshop_time', 'title_%s' % language)
             
     def get_published_workshops(self):
         return self.get_workshops().filter(status="published")

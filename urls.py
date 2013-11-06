@@ -103,6 +103,8 @@ urlpatterns += patterns('',
     url(r'^gmap/$', 'django.views.generic.simple.direct_to_template', {'template': 'gmap/index.html'}),
     url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template', {'template': 'settings.js'}, name="jssettings"),
     
+    url(r'^ads/', include('jetson.apps.advertising.urls')),
+
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
 

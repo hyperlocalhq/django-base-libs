@@ -58,6 +58,7 @@ class EventAdmin(ExtendedModelAdmin):
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'categories',)
     search_fields = ('title', 'subtitle', 'event_type', 'slug')
+    list_editable = ('status',)
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'event_type', 'description', 'press_text', 'website'])
     fieldsets += [(None, {'fields': ('slug', 'description_locked', )}),]

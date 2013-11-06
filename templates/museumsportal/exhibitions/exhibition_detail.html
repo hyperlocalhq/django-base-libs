@@ -43,11 +43,9 @@
 {% endblock %}
 
 {% block content %}
-  {% with object as exhibition %}
-
+{% with object as exhibition %}
     <div id="exhibition" class="content">
       <div class="container">
-
         <div class="row">
 
           <!-- ======= Main Collumn ======= -->
@@ -547,7 +545,6 @@
                             </div>
                           {% endfor %}
                         {% endif %}
-
                         {% if exhibition.get_museums_special_opening_times %}
                           <div class="panel-body">
                             <dl id="special_openings">

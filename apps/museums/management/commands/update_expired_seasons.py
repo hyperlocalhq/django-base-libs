@@ -7,6 +7,7 @@ from optparse import make_option
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
+
 class Command(BaseCommand):
     help = "updates expired seasons"
     
@@ -32,18 +33,19 @@ class Command(BaseCommand):
                 s.end = date(s.end.year + 1, s.end.month, s.end.day)
                 s.save()
                 updated_museums_urls.append(m.get_url())
-                
-        # send an email
-        sender_name, sender_email = settings.MANAGERS[0]
-        send_email_using_template(
-            recipients_list=[Recipient(email=settings.NOTIFY_ABOUT_SEASONS_TO_EMAIL)],
-            email_template_slug="seasons_updated",
-            obj_placeholders={
-                'object_description': "<br />\n".join(updated_museums_urls),
-            },
-            sender_name = sender_name,
-            sender_email = sender_email,
-            delete_after_sending = False,
+
+        if updated_museums_urls:
+            # send an email
+            sender_name, sender_email = settings.MANAGERS[0]
+            send_email_using_template(
+                recipients_list=[Recipient(email=settings.NOTIFY_ABOUT_SEASONS_TO_EMAIL)],
+                email_template_slug="seasons_updated",
+                obj_placeholders={
+                    'object_description': "<br />\n".join(updated_museums_urls),
+                },
+                sender_name=sender_name,
+                sender_email=sender_email,
+                delete_after_sending=False,
             )
         
     def delete_expired_special_opening_days(self, *args, **options):

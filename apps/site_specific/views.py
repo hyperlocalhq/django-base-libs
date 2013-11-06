@@ -36,6 +36,9 @@ Exhibition = models.get_model("exhibitions", "Exhibition")
 Event = models.get_model("events", "Event")
 Workshop = models.get_model("workshops", "Workshop")
 
+from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm
+
+
 @never_cache
 def login(request, template_name='registration/login.html', redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME), redirect_to=""):
     "Displays the login form and handles the login action."
@@ -53,11 +56,11 @@ def login(request, template_name='registration/login.html', redirect_field_name=
                 if "@" in login_as:
                     login_as_user = User.objects.get(
                         email=login_as,
-                        )
+                    )
                 else:
                     login_as_user = User.objects.get(
                         username=login_as,
-                        )
+                    )
                 login_as_user.backend = user.backend
                 user = login_as_user
             login(request, user)
@@ -72,7 +75,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
         data = {
             'email_or_username': request.GET.get('login_as', ''),
             'login_as': request.GET.get('login_as', ''),
-            }
+        }
         form = EmailOrUsernameAuthentication(request, initial=data)
     if Site._meta.installed:
         current_site = Site.objects.get_current()
@@ -82,64 +85,97 @@ def login(request, template_name='registration/login.html', redirect_field_name=
         'form': form,
         redirect_field_name: redirect_to,
         'site_name': current_site.name,
-        }
+    }
     if request.is_ajax():
         context['base_template'] = "base_ajax.html"
     return render(
         request,
         template_name,
         context,
-        )
+    )
+
 
 @never_cache
 @login_required
 def dashboard(request):
     owned_museums = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
-    owned_exhibitions = Exhibition.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
-    owned_events = Event.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
-    owned_workshops = Workshop.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
+    owned_exhibitions = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+    owned_events = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+    owned_workshops = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
     context = {
         'owned_museums': owned_museums,
         'owned_exhibitions': owned_exhibitions,
         'owned_events': owned_events,
         'owned_workshops': owned_workshops,
-        }
+    }
     return render(request, "accounts/dashboard.html", context)
+
 
 @never_cache
 @login_required
 def dashboard_museums(request):
     owned_museums = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+
     context = {
         'owned_museums': owned_museums,
-        }
+    }
     return render(request, "accounts/dashboard_museums.html", context)
-    
+
+
 @never_cache
 @login_required
 def dashboard_exhibitions(request):
-    owned_exhibitions = Exhibition.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    owned_exhibitions = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
+
+    status = None
+    form = ExhibitionFilterForm(request.REQUEST)
+    if form.is_valid():
+        status = form.cleaned_data['status'] or "published"
+        owned_exhibitions = owned_exhibitions.filter(status=status)
+
     context = {
+        'form': form,
+        'status': status,
         'owned_exhibitions': owned_exhibitions,
         }
     return render(request, "accounts/dashboard_exhibitions.html", context)
-    
+
+
 @never_cache
 @login_required
 def dashboard_events(request):
-    owned_events = Event.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    owned_events = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
+
+    status = None
+    form = EventFilterForm(request.REQUEST)
+    if form.is_valid():
+        status = form.cleaned_data['status'] or "published"
+        owned_events = owned_events.filter(status=status)
+
     context = {
+        'form': form,
+        'status': status,
         'owned_events': owned_events,
-        }
+    }
     return render(request, "accounts/dashboard_events.html", context)
-    
+
+
 @never_cache
 @login_required
 def dashboard_workshops(request):
-    owned_workshops = Workshop.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    owned_workshops = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
+
+    status = None
+    form = WorkshopFilterForm(request.REQUEST)
+    if form.is_valid():
+        status = form.cleaned_data['status'] or "published"
+        owned_workshops = owned_workshops.filter(status=status)
+
     context = {
+        'form': form,
+        'status': status,
         'owned_workshops': owned_workshops,
-        }
+    }
     return render(request, "accounts/dashboard_workshops.html", context)
     
 
@@ -150,7 +186,6 @@ def invite_to_claim_museum(request):
         form = ClaimingInvitationForm(request.POST)
         if form.is_valid():
             cleaned = form.cleaned_data
-            print cleaned
             invitation_code = cryptString(cleaned['email'] + "|" + str(cleaned['museum'].pk))
             # setting default values
             sender_name, sender_email = settings.MANAGERS[0]
@@ -162,10 +197,10 @@ def invite_to_claim_museum(request):
                     'object_link': cleaned['museum'].get_url(),
                     'object_title': cleaned['museum'].title,
                 },
-                sender_name = sender_name,
-                sender_email = sender_email,
-                delete_after_sending = False,
-                )
+                sender_name=sender_name,
+                sender_email=sender_email,
+                delete_after_sending=False,
+            )
             
             return redirect("invite_to_claim_museum_done")
     else:
@@ -177,9 +212,10 @@ def invite_to_claim_museum(request):
         form = ClaimingInvitationForm(initial={'museum': museum})
     context = {
         'form': form,
-        }
+    }
     return render(request, "site_specific/claiming_invitation.html", context)
-    
+
+
 @never_cache
 def register_and_claim_museum(request, invitation_code):
     try:
@@ -264,12 +300,13 @@ def register_and_claim_museum(request, invitation_code):
         'login_form': login_form,
         'museum': museum,
         'user': u,
-        }
+    }
     if u:
         confirm_form = ClaimingConfirmForm(u, prefix="confirm")
         context['confirm_form'] = confirm_form
     return render(request, "site_specific/claiming_confirmation.html", context)
-    
+
+
 @never_cache
 def register(request):
     
@@ -298,21 +335,22 @@ def register(request):
                 obj_placeholders={
                     'encrypted_email': encrypted_email,
                     'site_name': current_site.name,
-                    },
+                },
                 delete_after_sending=False,
                 sender_name=sender_name,
                 sender_email=sender_email,
                 send_immediately=True,
-                )
+            )
             
             return redirect('/signup/almost-done/')
     else:
         form = RegistrationForm()
     context = {
         'form': form,
-        }
+    }
     return render(request, "accounts/register.html", context)
-    
+
+
 def confirm_registration(request, encrypted_email):
     "Displays the registration form and handles the registration action"
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
@@ -336,12 +374,12 @@ def confirm_registration(request, encrypted_email):
         "account_created",
         obj_placeholders={
             'site_name': current_site.name,
-            },
+        },
         delete_after_sending=True,
         sender_name=sender_name,
         sender_email=sender_email,
         send_immediately=True,
-        )
+    )
     return redirect('/signup/welcome/')
 
 uploader = AjaxFileUploader()

@@ -49,8 +49,7 @@
 {% endblock %}
 
 {% block content %}
-{% with object as event %}
-
+  {% with object as event %}
     <div id="exhibition" class="content">
       <div class="container">
 
@@ -239,17 +238,35 @@
                       </a>
                     </div>
                     <div id="collapse-times" class="panel-collapse collapse">
-                      {% for event_time in event.get_upcoming_event_times %}
-                        <div class="panel-body">
-                          <dl>
-                            <dt>
-                            {{ event_time.event_date|date:"j. F Y" }}
-                             <dd>{{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
-                            </dt>
-                          </dl>
-                        </div>
-                      {% endfor %}
+                      <div class="panel-body">
+                        {% for event_time in event.get_upcoming_event_times %}
+                            <dl class="{% if forloop.counter > 10 %} hidable{% endif %}">
+                              <dt>
+                              {{ event_time.event_date|date:"j. F Y" }}
+                               <dd>{{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
+                              </dt>
+                            </dl>
+                        {% endfor %}
+                      </div>
                     </div>
+                    <script>
+                        $(function() {
+                            var $dates = $('#collapse-times');
+                            var $hidden_times = $('.hidable', $dates).hide();
+                            if ($hidden_times.length) {
+                                $('<a class="btn btn-sm btn-default" href="" data-action="expand">{% trans "more" %}...</a>').click(function() {
+                                    if ($(this).data('action') == 'expand') {
+                                        $hidden_times.show();
+                                        $(this).data('action', 'collapse').html('{% trans "less" %}...');
+                                    } else {
+                                        $hidden_times.hide();
+                                        $(this).data('action', 'expand').html('{% trans "more" %}...');
+                                    }
+                                    return false;
+                                }).appendTo('<div class="panel-body"></div>').parent().appendTo($dates);
+                            }
+                        });
+                    </script>
                   </div>
                 {% endif %}
 
@@ -337,37 +354,37 @@
       </div>
     </div>
 
-<!-- ======= Other Events ======= -->
+    <!-- ======= Other Events ======= -->
 
-{% if object.get_other_events %}
-  <div id="events" class="content">
-    <div class="container">
-      <h2>{% trans "More Events" %}</h2>
-      <div class="list">
-        {% for event in object.get_other_events %}
-          <div class="item">
-            <a href="{{ event.get_url_path }}">
-              {% with event.get_closest_event_time as event_time %}
-                <h4>
-                  {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
-                  {% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}
-                </h4>
-              {% endwith %}
-              <h3>{{ event.title }}</h3>
-              <h4>{{ event.subtitle }}</h4>
-            </a>
-            {% with event as list_item %}
-                {% include "utils/geo_position.html" %}
-            {% endwith %}
+    {% if object.get_other_events %}
+      <div id="events" class="content">
+        <div class="container">
+          <h2>{% trans "More Events" %}</h2>
+          <div class="list">
+            {% for event in object.get_other_events %}
+              <div class="item">
+                <a href="{{ event.get_url_path }}">
+                  {% with event.get_closest_event_time as event_time %}
+                    <h4>
+                      {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
+                      {% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}
+                    </h4>
+                  {% endwith %}
+                  <h3>{{ event.title }}</h3>
+                  <h4>{{ event.subtitle }}</h4>
+                </a>
+                {% with event as list_item %}
+                    {% include "utils/geo_position.html" %}
+                {% endwith %}
+              </div>
+            {% endfor %}
           </div>
-        {% endfor %}
+        </div>
       </div>
-    </div>
-  </div>
-{% endif %}
+    {% endif %}
 
-{% endwith %}
+  {% endwith %}
 
-{% include "utils/page_controls.html" %}
-{% include "utils/gmap_scripts.html" %}
+  {% include "utils/page_controls.html" %}
+  {% include "utils/gmap_scripts.html" %}
 {% endblock %}
