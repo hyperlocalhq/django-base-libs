@@ -557,6 +557,10 @@ NOTIFY_ABOUT_SEASONS_TO_EMAIL = "j.boehmler@kulturprojekte-berlin.de"
 
 CRISPY_TEMPLATE_PACK = "bootstrap"
 
+EDITORIAL_CONTENT_CSS_CLASSES = (
+    # ('item', 'item'),
+)
+
 ### LOCAL SETTINGS ###
 
 try:
