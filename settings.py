@@ -214,6 +214,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.site_specific",
     "museumsportal.apps.search",
     "museumsportal.apps.external_services",
+    "museumsportal.apps.internal_links",
 )
 
 
@@ -243,6 +244,9 @@ ADMIN_APP_INDEX = (
             }),
             ('slideshows', {
                 'models': ('Slideshow',),
+            }),
+            ('internal_links', {
+                'models': ('LinkGroup',),
             }),
             ('articles', {
                 'models': ('ArticleCategory','Article',),
@@ -552,6 +556,10 @@ GALLERY_IMAGE_MIN_DIMENSIONS = (100, 100)
 NOTIFY_ABOUT_SEASONS_TO_EMAIL = "j.boehmler@kulturprojekte-berlin.de"
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
+
+EDITORIAL_CONTENT_CSS_CLASSES = (
+    # ('item', 'item'),
+)
 
 ### LOCAL SETTINGS ###
 

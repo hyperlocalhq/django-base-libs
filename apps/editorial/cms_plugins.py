@@ -13,6 +13,7 @@ from models import TeaserBlock
 from models import Footnote
 from models import FrontpageTeaser
 
+
 class EditorialContentPlugin(CMSPluginBase):
     model = EditorialContent
     name = _("Editorial Content")
@@ -34,6 +35,7 @@ class EditorialContentPlugin(CMSPluginBase):
         return context
 
 plugin_pool.register_plugin(EditorialContentPlugin)
+
 
 class TeaserBlockPlugin(CMSPluginBase):
     model = TeaserBlock
@@ -57,6 +59,7 @@ class TeaserBlockPlugin(CMSPluginBase):
 
 plugin_pool.register_plugin(TeaserBlockPlugin)
 
+
 class FootnotePlugin(CMSPluginBase):
     model = Footnote
     name = _("Footnote")
@@ -79,6 +82,7 @@ class FootnotePlugin(CMSPluginBase):
 
 plugin_pool.register_plugin(FootnotePlugin)
 
+
 class IntroPlugin(CMSPluginBase):
     model = Intro
     name = _("Intro")
@@ -100,6 +104,7 @@ class IntroPlugin(CMSPluginBase):
         return context
 
 plugin_pool.register_plugin(IntroPlugin)
+
 
 class FrontpageTeaserPlugin(CMSPluginBase):
     model = FrontpageTeaser

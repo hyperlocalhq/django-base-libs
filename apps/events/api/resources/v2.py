@@ -108,6 +108,7 @@ class MediaFileResource(ModelResource):
                 bundle.data['description_de'] = file_description.description_de
                 bundle.data['description_en'] = file_description.description_en
                 bundle.data['author'] = file_description.author
+                bundle.data['copyright_limitations'] = file_description.copyright_limitations
         return bundle
 
 
