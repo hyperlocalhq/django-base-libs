@@ -6,14 +6,14 @@
 {% if ad.textad %}
     <!-- Text ads are commented out on Museumsportal for now -->
     <div class="ad_text zone_{{ ad.zone.sysname }} clearfix">
-        <div class="ad_label pull-right">{% trans "Advertisement" %}</div>
+        <h3><small>{% trans "Advertisement" %}</small></h3>
         <p><a target="_blank" href="{{ ad.get_url_path }}">{{ ad.textad.content }}</a></p>
     </div>
 {% endif %}
 
 {% if ad.bannerad %}
     <div class="ad_banner zone_{{ ad.zone.sysname }} clearfix">
-        <div class="ad_label pull-right hide">{% trans "Advertisement" %}</div>
+        <h3><small>{% trans "Advertisement" %}</small></h3>
         <a target="_blank" href="{{ ad.get_url_path }}"><img src="{{ ad.bannerad.content.url }}" alt="{{ ad.title }}" /></a>
     </div>
 {% endif %}
