@@ -565,7 +565,7 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ('image_and_text', _("Image and text")),
     ('text', _("Text only")),
     ('exhibitions', _("Exhibitions")),
-    ('workshops', _("Workshops")),
+    ('events', _("Events")),
 )
 
 ### LOCAL SETTINGS ###
