@@ -2,7 +2,7 @@
 
 # Django settings for museumsportal project.
 import os
-gettext = lambda s: s
+_ = gettext = lambda s: s
 
 ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -559,6 +559,13 @@ CRISPY_TEMPLATE_PACK = "bootstrap"
 
 EDITORIAL_CONTENT_CSS_CLASSES = (
     # ('item', 'item'),
+)
+
+MAILING_CONTENT_TYPE_CHOICES = (
+    ('image_and_text', _("Image and text")),
+    ('text', _("Text only")),
+    ('exhibitions', _("Exhibitions")),
+    ('workshops', _("Workshops")),
 )
 
 ### LOCAL SETTINGS ###
