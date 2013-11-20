@@ -1,25 +1,31 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Facebook sharing information tags -->
-    <meta property="og:title" content="*|MC:SUBJECT|*">
-    <title>*|MC:SUBJECT|*</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" /><!-- Facebook sharing information tags -->
+  <meta content="*|MC:SUBJECT|*" />
 
-    <style type="text/css">
+  <title>*|MC:SUBJECT|*</title>
+  <style type="text/css">
+/*<![CDATA[*/
     body {
         background-color: white;
         font-family: Helvetica, Arial;
         font-size: 12px;
-        line-height: 18px;
+        line-height: 20px;
     }
+
+    table{
+        font-family: Helvetica, Arial;
+        font-size: 12px;
+        line-height: 20px;
+    }
+
     #templateContainer {
         padding-bottom: 0;
         overflow: hidden;
     }
+
     .background-blue { background-color: #ff0358; }
     .background-red  { background-color: #ff0358; }
-
     div a:link,
     div a:visited,
     /* Yahoo! Mail Override */
@@ -29,48 +35,53 @@
         font-weight: normal;
         text-decoration: none;
     }
-
     a:link,
     a:visited,
     /* Yahoo! Mail Override */
     a .yshortcuts
     /* Yahoo! Mail Override */ {
-        color: #0095d7;
+        color: #0088cc;
         font-weight: normal;
         text-decoration: none;
     }
-
-    .highlight {
+    .event {
         display: block;
-        margin-top: 10px;
+        margin-bottom: 10px;
     }
-
-    .highlight div {
+    .event div {
         margin: 15px 20px;
     }
-
-
     .exhibition {
-        margin-top: 20px;
+        margin-bottom: 35px;
     }
-
     .block {
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 35px;
     }
-
+    #logo {
+        margin-bottom: 40px;
+    }
+    .modul {
+        border-bottom: 1px solid #f2f2f2;
+        margin-bottom: 30px;
+    }
+    .intro {
+        margin-bottom: 25px;
+    }
+    .link-block {
+        display: block;
+        margin-bottom: 30px;
+    }
     #article .text {
         font-size: 12px;
         line-height: 18px;
         margin-bottom: 10px;
     }
-
     #article .image img {
         height: auto;
         line-height: 100%;
         outline: none;
     }
-
     #article td div.image {
         margin-bottom: 15px;
     }
@@ -84,14 +95,13 @@
         line-height: 13px;
         text-align: left;
     }
-
     h1, .h1 {
         color: black;
         display: block;
         font-family: helvetica, arial;
         font-size: 40px;
         line-height: 35px;
-        font-weight: bold;
+        font-weight: normal;
         letter-spacing: -3px;
         text-align: left;
         margin: 0;
@@ -102,33 +112,58 @@
         color: black;
         display: block;
         font-family: helvetica, arial;
-        font-size: 20px;
-        line-height: 20px;
-        font-weight: bold;
+        font-size: 22px;
+        line-height: 22px;
+        font-weight: normal;
+        letter-spacing: 1px;
         text-align: left;
         margin: 0;
         padding: 0;
-        margin-top: 80px;
+        margin-bottom: 15px;
     }
-
     .image {
         margin-bottom: 10px;
     }
-
     h3, .h3,
     h4, .h4,
     h5, .h5 {
         display: block;
         font-family: helvetica, arial;
         font-size: 12px;
-        line-height: 18px;
+        line-height: 20px;
         font-weight: bold;
         text-align: left;
         margin: 0;
         padding: 0;
         font-weight: normal;
     }
-
+    h4 a:link,
+    h4 a:visited,
+    h4 a .yshortcuts {
+        display: block;
+        font-family: helvetica, arial;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: bold;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        color: black;
+    }
+    h3 a:link,
+    h3 a:visited,
+    h3 a .yshortcuts {
+        display: block;
+        font-family: helvetica, arial;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: bold;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        color: black;
+    }
     h3, .h3 {
         font-weight: bold;
         color: black;
@@ -136,22 +171,20 @@
     h4, .h4 {
         color: black;
     }
-
     h5, .h5 {
         color: #7f7f7f;
     }
     .description {
-        margin: 0px;
+        margin: 15px 0px;
         padding: 0px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        font-family: Helvetica, Arial;
+        font-size: 12px;
+        line-height: 20px;
     }
-
-
     .btn {
         background-color: black;
+        background-color: #f2f2f2;
     }
-
     .btn a:link,
     .btn a:visited,
     /* Yahoo! Mail Override */
@@ -160,15 +193,15 @@
         margin-left: 5px;
         margin-right: 5px;
         color: white;
+        color: black;
         font-weight: bold;
+        font-weight: normal;
+        font-size: 10px;
     }
-
     .btn-big {
-        background-color: #f2f2f2;
+        background-color: black;
         font-size: 14px;
-        margin-top: 5px;
     }
-
     .btn-big a:link,
     .btn-big a:visited,
     /* Yahoo! Mail Override */
@@ -176,374 +209,452 @@
     /* Yahoo! Mail Override */ {
         margin-left: 3px;
         margin-right: 3px;
-        color: black;
+        color: white;
         font-weight: normal;
     }
-</style>
+  /*]]>*/
+  </style>
 </head>
-<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
-    <!--100% body table-->
-    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable" style="">
-        <tr align="center" valign="top">
+
+<body>
+  <!--100% body table-->
+
+  <table border="0" cellpadding="0" cellspacing="0" id="backgroundTable" style="" width="100%">
+    <tr align="center" valign="top">
+      <td>
+        <!--email container-->
+
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+          <tr>
             <td>
-                <!--email container-->
-                <table cellspacing="0" border="0" align="center" cellpadding="0" width="600">
-                    <tr>
-                        <td>
-                            <!-- // Begin Template Preheader \\ -->
-                            <table border="0" cellpadding="0" cellspacing="0" width="600" height="90" id="templatePreheader">
-                                <tr>
-                                    <td valign="top" class="preheaderContent">
-                                        <!-- // Begin Module: Standard Preheader \ -->
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size: 12px">
-                                            <tr>
-                                                <td valign="center" align="left" width="550">
-                                                    <div mc:edit="std_preheader_content">
-                                                        <br>
-                                                        <a href="http://www.museumsportal-berlin.de/">www.museumsportal-berlin.de</a><br>
-                                                        Alle Berliner Museen, Ausstellungshäuser, Gedenkstätten und Schlösser im Überblick
-                                                    </div>
-                                                    <div mc:edit="std_preheader_links">
-                                                       <small>Wird diese Email nicht korrekt dargestellt? <a href="*|ARCHIVE|*" target="_blank">Im Browser ansehen.</a>.</small>
-                                                   </div>
-                                               </td>
-                                               <td valign="center" align="right" width="50">
-                                                <div mc:edit="">
-                                                    <img height="72" width="90" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_logo.jpg" style="" id="bmw_logo">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // End Module: Standard Preheader \ -->
-                                </td>
-                            </tr>
-                        </table>
-                        <!-- // End Template Preheader \\ -->
-                        <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
-                            <tr>
-                                <td align="center" valign="top">
-                                    <!-- // Begin Template Header \\ -->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
-                                        <tr>
-                                            <td>
-                                                <p>Liebe Leserin, lieber Leser, </p>
-                                                <p>hier erwartet Sie ein kurzer Einleitungstext, welcher sie auf die wichtigs- ten Ereignisse des kommenden Monats aus der Museumslandschaft Ber- lins hinweist. Z.B. Ankündigungen zur Berlin Art Week, Lange Nacht der Museen, Gallery Weekend, neu eröffnete Museen, etc. Auch Neuigkeiten rund um das Museumsportal können hier beschrieben bzw. verlinkt wer- den. Etwa 500 Zeichen. </p>
-                                                <p>Ihre Redaktion </p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // End Template Header \\ -->
+              <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" width="600">
+                <tr>
+                  <td align="center" valign="top">
+                    <div class="modul">
+                      <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                        <tr>
+                          <td align="center" valign="middle" width="550">
+                            <div>
+                              <small>Wird diese Email nicht korrekt dargestellt? <a href="*|ARCHIVE|*" target="_blank">Im Browser ansehen.</a>.</small>
+                            </div>
 
-                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
-                                        <tr>
-                                            <td valign="top">
-                                                <!-- // Begin Template Exhibitions \\ -->
-                                                <div class="block">
-                                                    <h2 class="h2" mc:edit="section_exhibitions">Neu eröffnete Ausstellungen</h2>
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="600">
-                                                        <tr mc:repeatable="">
-                                                            <td align="left" valign="top" width="290px">
-                                                                <div class="exhibition">
-                                                                    <div class="image">
-                                                                        <img height="164px" width="290px" src="http://www.museumsportal-berlin.de/media/exhibitions/japanische-keramik-von-jan-kollwitz/_cache/20130821171733.JPG_exhibition_list.jpg" style="max-width:290px" mc:label="image" mc:edit="tiwc300_image00">
-                                                                    </div>
-                                                                    <div class="text">
-                                                                        <h5 class="h5 time" mc:edit="exhibition_1_time">13.09.2013 bis 12.01.2014</h5>
-                                                                        <h3 class="h3 title" mc:edit="exhibition_1_title">Auf den Spuren der Irokesen</h3>
-                                                                        <h4 class="h4 subtitle" mc:edit="exhibition_1_subtitle">Die Entwicklung der irokesischen Kultur</h4>
-                                                                        <h5 class="h5 location" mc:edit="exhibition_1_location">Martin-Gropius-Bau</h5>
-
-                                                                        <p class="description" mc:edit="exhibition_1_description">
-                                                                            Kaum eine Kultur der indigenen Völker Nordamerikas übte eine solche Faszination auf die europäische Vorstellung aus wie die der Irokesen. Die Ausstellung im Martin-Gropius-Bau zeichnet ihre Entwicklung und ihre wechselvolle Geschichte nach.
-                                                                        </p>
-                                                                    </div>
-                                                                    <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
-                                                                        <tr>
-                                                                            <td align="center" valign="middle" style="">
-                                                                                <a mc:edit="exhibition_1_link" class="btn-content" href="#" target="_blank">Mehr</a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-
-                                                            <td valign="top" width="20px"> <img height="20px" width="20px" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_30px.gif" style="max-width:30px"> </td>
-
-                                                            <td align="left" valign="top" width="290px">
-                                                                <div class="exhibition">
-                                                                    <div class="image">
-                                                                        <img height="164px" width="290px" src="http://www.museumsportal-berlin.de/media/exhibitions/licht-und-schatten/_cache/20131004131457.jpg_exhibition_list.jpg" style="max-width:290px" mc:label="image" mc:edit="tiwc300_image00">
-                                                                    </div>
-                                                                    <div class="text">
-                                                                        <h5 class="h5 time" mc:edit="exhibition_1_time">13.09.2013 bis 12.01.2014</h5>
-                                                                        <h3 class="h3 title" mc:edit="exhibition_1_title">Auf den Spuren der Irokesen</h3>
-                                                                        <h4 class="h4 subtitle" mc:edit="exhibition_1_subtitle">Die Entwicklung der irokesischen Kultur</h4>
-                                                                        <h5 class="h5 location" mc:edit="exhibition_1_location">Martin-Gropius-Bau</h5>
-
-                                                                        <p class="description" mc:edit="exhibition_1_description">
-                                                                            Am 30. Januar 1933, vor 80 Jahren, begann mit der Ernennung Hitlers zum Reichskanzler die Zerstörung der Demokratie – Anlass für ein Berliner Themenjahr, das bis in den Herbst hinein die verschiedensten Aspekte dieses Prozesses beleuchtet.
-                                                                        </p>
-                                                                    </div>
-                                                                    <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
-                                                                        <tr>
-                                                                            <td align="center" valign="middle" style="">
-                                                                                <a mc:edit="exhibition_1_link" class="btn-content" href="#" target="_blank">Mehr</a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr mc:repeatable="">
-                                                            <td align="left" valign="top" width="290px">
-                                                                <div class="exhibition">
-                                                                    <div class="image">
-                                                                        <img height="164px" width="290px" src="http://www.museumsportal-berlin.de/media/exhibitions/renee-sintenis-188-1965/_cache/20130906173339.jpg_exhibition_list.jpg" style="max-width:290px" mc:label="image" mc:edit="tiwc300_image00">
-                                                                    </div>
-                                                                    <div class="text">
-                                                                        <h5 class="h5 time" mc:edit="exhibition_1_time">13.09.2013 bis 12.01.2014</h5>
-                                                                        <h3 class="h3 title" mc:edit="exhibition_1_title">Auf den Spuren der Irokesen</h3>
-                                                                        <h4 class="h4 subtitle" mc:edit="exhibition_1_subtitle">Die Entwicklung der irokesischen Kultur</h4>
-                                                                        <h5 class="h5 location" mc:edit="exhibition_1_location">Martin-Gropius-Bau</h5>
-
-                                                                        <p class="description" mc:edit="exhibition_1_description">
-                                                                            Zeitgenossen sagten über Anton Graff, er könne “bis in das Innere der Seele“ schauen. Davon kann man sich nun selbst überzeugen: Anlässlich seines 200. Todestages widmet die Alte Nationalgalerie dem bedeutendsten Porträtisten der deutschen Aufklärung eine große Retrospektive.
-                                                                        </p>
-                                                                    </div>
-                                                                    <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
-                                                                        <tr>
-                                                                            <td align="center" valign="middle" style="">
-                                                                                <a mc:edit="exhibition_1_link" class="btn-content" href="#" target="_blank">Mehr</a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-
-                                                            <td valign="top" width="20px"> <img height="20px" width="20px" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_30px.gif" style="max-width:30px"> </td>
-
-                                                            <td align="left" valign="top" width="290px">
-                                                                <div class="exhibition">
-                                                                    <div class="image">
-                                                                        <img height="164px" width="290px" src="http://www.museumsportal-berlin.de/media/exhibitions/best-communication-design-red-dot-winners-selection-2013/_cache/20131024094743.jpg_exhibition_list.jpg" style="max-width:290px" mc:label="image" mc:edit="tiwc300_image00">
-                                                                    </div>
-                                                                    <div class="text">
-                                                                        <h5 class="h5 time" mc:edit="exhibition_1_time">13.09.2013 bis 12.01.2014</h5>
-                                                                        <h3 class="h3 title" mc:edit="exhibition_1_title">Auf den Spuren der Irokesen</h3>
-                                                                        <h4 class="h4 subtitle" mc:edit="exhibition_1_subtitle">Die Entwicklung der irokesischen Kultur</h4>
-                                                                        <h5 class="h5 location" mc:edit="exhibition_1_location">Martin-Gropius-Bau</h5>
-
-                                                                        <p class="description" mc:edit="exhibition_1_description">
-                                                                            Kaum eine Kultur der indigenen Völker Nordamerikas übte eine solche Faszination auf die europäische Vorstellung aus wie die der Irokesen. Die Ausstellung im Martin-Gropius-Bau zeichnet ihre Entwicklung und ihre wechselvolle Geschichte nach.
-                                                                        </p>
-                                                                    </div>
-                                                                    <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
-                                                                        <tr>
-                                                                            <td align="center" valign="middle" style="">
-                                                                                <a mc:edit="exhibition_1_link" class="btn-content" href="#" target="_blank">Mehr</a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="block">
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
-                                                        <tr>
-                                                            <td align="left" valign="top">
-                                                                <table border="0" cellpadding="10" cellspacing="0" class="btn-big" style="">
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" style="">
-                                                                            <a mc:edit="exhibition_1_link" class="btn-content" href="#" target="_blank">Alle Aktuellen und Kommenden Ausstellungen…</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top">
-                                                                <table border="0" cellpadding="10" cellspacing="0" class="btn-big" style="">
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" style="">
-                                                                            <a mc:edit="exhibition_1_link" class="btn-content" href="#" target="_blank">Nur noch Kurze Zeit…</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <!-- // End Module: Exhibitions \\ -->
-
-
-
-                                                <!-- // Begin Module: Magazin \\ -->
-                                                <div class="block">
-                                                    <h2 class="h2">Magazin</h2>
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="600">
-                                                        <tr>
-                                                            <td valign="top" align="left">
-                                                                <table mc:repeatable="" class="highlight" border="0" cellpadding="0" cellspacing="0" width="600">
-                                                                    <tr>
-                                                                        <td valign="top" align="left" width="600" style="background-color: #f2f2f2;">
-                                                                            <div>
-                                                                                <a mc:edit="highlight" target="_blank" href="/de/veranstaltungen/das-anthropozan-observatorium-2-imperium-der-berechnung-finissage/">
-                                                                                    <h4> Vortrag, Lesung, Gespräch: 28. Oktober 2013 17:00 Uhr </h4>
-                                                                                    <h3>Das Anthropozän-Observatorium #2: Imperium der Berechnung | Finissage</h3>
-                                                                                    <h4>Dokumentation, Ausstellung, Diskussion</h4>
-                                                                                    <h5>Haus der Kulturen der Welt</h5>
-                                                                                </a>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                                <table mc:repeatable="" class="highlight" border="0" cellpadding="0" cellspacing="0" width="600">
-                                                                    <tr>
-                                                                        <td valign="top" align="left" width="600" style="background-color: #f2f2f2;">
-                                                                            <div>
-                                                                                <a mc:edit="highlight" target="_blank" href="/de/veranstaltungen/das-anthropozan-observatorium-2-imperium-der-berechnung-finissage/">
-                                                                                    <h4> Vortrag, Lesung, Gespräch: 28. Oktober 2013 17:00 Uhr </h4>
-                                                                                    <h3>Das Anthropozän-Observatorium #2: Imperium der Berechnung | Finissage</h3>
-                                                                                    <h4>Dokumentation, Ausstellung, Diskussion</h4>
-                                                                                    <h5>Haus der Kulturen der Welt</h5>
-                                                                                </a>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                                <table mc:repeatable="" class="highlight" border="0" cellpadding="0" cellspacing="0" width="600">
-                                                                    <tr>
-                                                                        <td valign="top" align="left" width="600" style="background-color: #f2f2f2;">
-                                                                            <div>
-                                                                                <a mc:edit="highlight" target="_blank" href="/de/veranstaltungen/das-anthropozan-observatorium-2-imperium-der-berechnung-finissage/">
-                                                                                    <h4> Vortrag, Lesung, Gespräch: 28. Oktober 2013 17:00 Uhr </h4>
-                                                                                    <h3>Das Anthropozän-Observatorium #2: Imperium der Berechnung | Finissage</h3>
-                                                                                    <h4>Dokumentation, Ausstellung, Diskussion</h4>
-                                                                                    <h5>Haus der Kulturen der Welt</h5>
-                                                                                </a>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="block">
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
-                                                        <tr>
-                                                            <td align="left" valign="top">
-                                                                <table border="0" cellpadding="10" cellspacing="0" class="btn-big" style="">
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" style="">
-                                                                            <a mc:edit="exhibition_1_link" class="btn-content" href="#" target="_blank">Alle Aktuellen Veranstaltungen…</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="top">
-                                                                <table border="0" cellpadding="10" cellspacing="0" class="btn-big" style="">
-                                                                    <tr>
-                                                                        <td align="center" valign="middle" style="">
-                                                                            <a mc:edit="exhibition_1_link" class="btn-content" href="#" target="_blank">Führungen und Workshops…</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <!-- // End Module: Magazin \\ -->
-
-
-
-                                                <!-- // Begin Module: Social \\ -->
-                                                <div class="block">
-                                                    <h2 class="h2">Social</h2>
-                                                    <table id="social" align="center" border="0" cellpadding="0" cellspacing="0" width="600">
-                                                        <tr>
-                                                            <td valign="top" width="290px">
-                                                                <div>
-                                                                    <a style="width: 290px; background-color: #00abf0" href="https://twitter.com/#!/BERLINMUSICWEEK">
-                                                                        Folgen Sie uns Auf Twitter
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                            <td valign="top" width="290px">
-                                                                <div>
-                                                                    <a style="width: 290px; background-color: #3c599f" href="http://www.facebook.com/berlinmusicweek">
-                                                                            Folgen Sie uns Auf Facebook
-                                                                     </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <!-- // End Module: Social \\ -->
-
-
-
-
-                                                <!-- // Begin Module: Sponsors \\ -->
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="600">
-                                                        <tr>
-                                                            <td valign="top" width="600px">
-                                                                <div class="block" id="sponsors">
-                                                                    <h2 class="h2">Sponsoren & Partner</h2>
-                                                                    <img style="margin-top:10px; margin-bottom: 20px;" width="600px" height="250px" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_partners_mailing_2.png" mc:edit="partner_logos" mc:label="image">
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                <!-- // End Module: Social \\ -->
-
-
-
-
-                                                <!-- // Begin Module: author \\ -->
-                                                <table id="author" border="0" cellpadding="0" cellspacing="0" width="600">
-                                                    <tr>
-                                                        <td valign="top" width="600">
-                                                            <div class="block">
-                                                                <p mc:edit="author_1">Berlin Music Week wird organisiert, veranstaltet und vermarktet von<br>
-                                                                Kulturprojekte Berlin GmbH, Klosterstra&szlig;e 68, 10179 Berlin, <a href="http://www.kulturprojekte-berlin.de">www.kulturprojekte-berlin.de</a>
-                                                                </p>
-                                                                <p mc:edit="author_2">
-                                                                Gesch&auml;ftsf&uuml;hrer: Moritz van D&uuml;lmen / Aufsichtsratsvorsitzender: Andr&eacute; Schmitz<br>
-                                                                Amtsgericht Berlin, Charlottenburg, HRB 41312 B / <a href="http://www.berlin-music-week.de">www.berlin-music-week.de</a> / <a href="mailto:press@berlin-music-week.de">press@berlin-music-week.de</a></p><br>
-                                                                <a href="http://www.kulturprojekte-berlin.de/"><img width="102px" height="44px" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_kulturprojekte_logo.png" mc:label="image"></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <!-- // End Module: author \\ -->
-                                                <table align="center" border="0" cellpadding="0" cellspacing="30" width="600px" margin="auto">
-                                                    <tr id="utility">
-                                                        <td>
-                                                            <div>
-                                                                <a href="*|UNSUB|*">Newsletter abbestellen</a> &#149; <a href="*|UPDATE_PROFILE|*">Abonnementeinstellungen aktualisieren</a>&nbsp;
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                <!-- // End Template Body \\ -->
-                            </td>
+                            <div>
+                              <small><b>Museumsportal Berlin</b> - Alle Berliner Museen, Ausstellungshäuser, Gedenkstätten und Schlösser im Überblick</small>
+                            </div>
+                          </td>
                         </tr>
-                    </table>
-                </td>
-            </tr>
+                      </table>
+                    </div><!-- // Begin Template Header \\ -->
+
+                    <div class="modul">
+                      <table border="0" cellpadding="0" cellspacing="0" id="templateHeader" width="600">
+                        <tr>
+                          <td align="center" valign="middle" width="600">
+                            <table border="0" cellpadding="50" cellspacing="0" width="600">
+                              <tr>
+                                <td align="center" valign="middle" width="600">
+                                  <a href="http://www.museumsportal-berlin.de/"><img alt="" height="57" id="logo" src=
+                                  "http://www.museumsportal-berlin.de/static/20131120143654/site/img/logo_img_newsletter.png" style="" width="301" /></a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <div class="intro">
+                              <h2>Liebe Leserin, lieber Leser,</h2>
+
+                              <p>hier erwartet Sie ein kurzer Einleitungstext, welcher sie auf die wichtigs- ten Ereignisse des kommenden Monats aus der Museumslandschaft Ber- lins hinweist. Z.B.
+                              Ankündigungen zur Berlin Art Week, Lange Nacht der Museen, Gallery Weekend, neu eröffnete Museen, etc. Auch Neuigkeiten rund um das Museumsportal können hier
+                              beschrieben bzw. verlinkt wer- den. Etwa 500 Zeichen.</p>
+
+                              <em>Ihre Museumsportal Redaktion</em>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div><!-- // End Template Header \\ -->
+                    <!-- // Begin Template Exhibitions \\ -->
+
+                    <div class="modul">
+                      <table border="0" cellpadding="0" cellspacing="0" width="600">
+                        <tr>
+                          <td valign="top">
+                            <h2 class="h2">Neu eröffnete Ausstellungen</h2>
+                          </td>
+
+                          <td align="right" valign="top">
+                            <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                              <tr>
+                                <td align="center" style="" valign="middle">
+                                  <a class="btn-content" href="#" target="_blank">Mehr</a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td align="center" colspan="2" valign="top">
+                            <div class="exhibitions">
+                              <table border="0" cellpadding="0" cellspacing="0" width="600">
+                                <tr>
+                                  <td align="left" valign="top" width="290px">
+                                    <div class="exhibition">
+                                      <div class="image">
+                                        <a href="#" target="_blank"><img alt="" height="164px" src=
+                                        "http://www.museumsportal-berlin.de/media/exhibitions/japanische-keramik-von-jan-kollwitz/_cache/20130821171733.JPG_exhibition_list.jpg" style=
+                                        "max-width:290px" width="290px" /></a>
+                                      </div>
+
+                                      <div class="text">
+                                        <h4 class="h4 time"><a href="#" target="_blank">13.09.2013 bis 12.01.2014</a></h4>
+
+                                        <h3 class="h3 title"><a href="#" target="_blank">Auf den Spuren der Irokesen</a></h3>
+
+                                        <h4 class="h4 subtitle"><a href="#" target="_blank">Die Entwicklung der irokesischen Kultur</a></h4>
+
+                                        <h5 class="h5 location">Martin-Gropius-Bau</h5>
+
+                                        <p class="description">Kaum eine Kultur der indigenen Völker Nordamerikas übte eine solche Faszination auf die europäische Vorstellung aus wie die der
+                                        Irokesen. Die Ausstellung im Martin-Gropius-Bau zeichnet ihre Entwicklung und ihre wechselvolle Geschichte nach.</p>
+                                      </div>
+
+                                      <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                        <tr>
+                                          <td align="center" style="" valign="middle">
+                                            <a class="btn-content" href="#" target="_blank">Mehr</a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </td>
+
+                                  <td valign="top" width="20px"><img alt="" height="20px" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_30px.gif" style="max-width:30px"
+                                  width="20px" /></td>
+
+                                  <td align="left" valign="top" width="290px">
+                                    <div class="exhibition">
+                                      <div class="image">
+                                        <a href="#" target="_blank"><img alt="" height="164px" src=
+                                        "http://www.museumsportal-berlin.de/media/exhibitions/licht-und-schatten/_cache/20131004131457.jpg_exhibition_list.jpg" style="max-width:290px" width=
+                                        "290px" /></a>
+                                      </div>
+
+                                      <div class="text">
+                                        <h4 class="h4 time"><a href="#" target="_blank">13.09.2013 bis 12.01.2014</a></h4>
+
+                                        <h3 class="h3 title"><a href="#" target="_blank">Auf den Spuren der Irokesen</a></h3>
+
+                                        <h4 class="h4 subtitle"><a href="#" target="_blank">Die Entwicklung der irokesischen Kultur</a></h4>
+
+                                        <h5 class="h5 location">Martin-Gropius-Bau</h5>
+
+                                        <p class="description">Am 30. Januar 1933, vor 80 Jahren, begann mit der Ernennung Hitlers zum Reichskanzler die Zerstörung der Demokratie – Anlass für ein
+                                        Berliner Themenjahr, das bis in den Herbst hinein die verschiedensten Aspekte dieses Prozesses beleuchtet.</p>
+                                      </div>
+
+                                      <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                        <tr>
+                                          <td align="center" style="" valign="middle">
+                                            <a class="btn-content" href="#" target="_blank">Mehr</a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td align="left" valign="top" width="290px">
+                                    <div class="exhibition">
+                                      <div class="image">
+                                        <a href="#" target="_blank"><img alt="" height="164px" src=
+                                        "http://www.museumsportal-berlin.de/media/exhibitions/wien-berlin-kunst-zweier-metropolen/_cache/20130812102627.tif_max.jpg" style="max-width:290px" width=
+                                        "290px" /></a>
+                                      </div>
+
+                                      <div class="text">
+                                        <h4 class="h4 time"><a href="#" target="_blank">13.09.2013 bis 12.01.2014</a></h4>
+
+                                        <h3 class="h3 title"><a href="#" target="_blank">Auf den Spuren der Irokesen</a></h3>
+
+                                        <h4 class="h4 subtitle"><a href="#" target="_blank">Die Entwicklung der irokesischen Kultur</a></h4>
+
+                                        <h5 class="h5 location">Martin-Gropius-Bau</h5>
+
+                                        <p class="description">Zeitgenossen sagten über Anton Graff, er könne “bis in das Innere der Seele“ schauen. Davon kann man sich nun selbst überzeugen:
+                                        Anlässlich seines 200. Todestages widmet die Alte Nationalgalerie dem bedeutendsten Porträtisten der deutschen Aufklärung eine große Retrospektive.</p>
+                                      </div>
+
+                                      <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                        <tr>
+                                          <td align="center" style="" valign="middle">
+                                            <a class="btn-content" href="#" target="_blank">Mehr</a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </td>
+
+                                  <td valign="top" width="20px"><img alt="" height="20px" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_30px.gif" style="max-width:30px"
+                                  width="20px" /></td>
+
+                                  <td align="left" valign="top" width="290px">
+                                    <div class="exhibition">
+                                      <div class="image">
+                                        <a href="#" target="_blank"><img alt="" height="164px" src=
+                                        "http://www.museumsportal-berlin.de/media/exhibitions/best-communication-design-red-dot-winners-selection-2013/_cache/20131024094743.jpg_exhibition_list.jpg"
+                                        style="max-width:290px" width="290px" /></a>
+                                      </div>
+
+                                      <div class="text">
+                                        <h4 class="h4 time"><a href="#" target="_blank">13.09.2013 bis 12.01.2014</a></h4>
+
+                                        <h3 class="h3 title"><a href="#" target="_blank">Auf den Spuren der Irokesen</a></h3>
+
+                                        <h4 class="h4 subtitle"><a href="#" target="_blank">Die Entwicklung der irokesischen Kultur</a></h4>
+
+                                        <h5 class="h5 location">Martin-Gropius-Bau</h5>
+
+                                        <p class="description">Kaum eine Kultur der indigenen Völker Nordamerikas übte eine solche Faszination auf die europäische Vorstellung aus wie die der
+                                        Irokesen. Die Ausstellung im Martin-Gropius-Bau zeichnet ihre Entwicklung und ihre wechselvolle Geschichte nach.</p>
+                                      </div>
+
+                                      <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                        <tr>
+                                          <td align="center" style="" valign="middle">
+                                            <a class="btn-content" href="#" target="_blank">Mehr</a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+
+                            <div class="link-block">
+                              <a class="btn-content" href="#" target="_blank">Alle Aktuellen und Kommenden Ausstellungen</a> · <a class="btn-content" href="#" target="_blank">Nur noch Kurze Zeit</a>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div><!-- // End Module: Exhibitions \\ -->
+                    <!-- // Begin Module: Magazin \\ -->
+
+                    <div class="modul">
+                      <table border="0" cellpadding="0" cellspacing="0" width="600">
+                        <tr>
+                          <td valign="top">
+                            <h2 class="h2">Magazin</h2>
+                          </td>
+
+                          <td align="right" valign="top">
+                            <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                              <tr>
+                                <td align="center" style="" valign="middle">
+                                  <a class="btn-content" href="#" target="_blank">Mehr</a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td align="center" colspan="2" valign="top">
+                            <div class="block">
+                              <table border="0" cellpadding="0" cellspacing="0" width="600">
+                                <tr>
+                                  <td align="left" valign="top" width="290px">
+                                    <div>
+                                      <div class="image">
+                                        <a href="#" target="_blank"><img alt="" height="210px" src=
+                                        "http://www.museumsportal-berlin.de/media/exhibitions/wien-berlin-kunst-zweier-metropolen/_cache/20130812103322.jpg_cover.jpg?now=20131120152750" style=
+                                        "max-width:600px" width="600px" /></a>
+                                      </div>
+
+                                      <div class="text">
+                                        <h3 class="h3 title"><a href="#" target="_blank">Auf den Spuren der Irokesen</a></h3>
+
+                                        <p class="description">Kaum eine Kultur der indigenen Völker Nordamerikas übte eine solche Faszination auf die europäische Vorstellung aus wie die der
+                                        Irokesen. Die Ausstellung im Martin-Gropius-Bau zeichnet ihre Entwicklung und ihre wechselvolle Geschichte nach.</p>
+                                      </div>
+
+                                      <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                        <tr>
+                                          <td align="center" style="" valign="middle">
+                                            <a class="btn-content" href="#" target="_blank">Mehr</a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+
+                            <div class="link-block">
+                              <a class="btn-content" href="#" target="_blank">Weitere Magazin Beiträge</a>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div><!-- // End Module: Magazin \\ -->
+                    <!-- // Begin Module: Veranstaltungstipps \\ -->
+
+                    <div class="modul">
+                      <table border="0" cellpadding="0" cellspacing="0" width="600">
+                        <tr>
+                          <td valign="top">
+                            <h2 class="h2">Veranstaltungstipps</h2>
+                          </td>
+
+                          <td align="right" valign="top">
+                            <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                              <tr>
+                                <td align="center" style="" valign="middle">
+                                  <a class="btn-content" href="#" target="_blank">Mehr</a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td align="center" colspan="2">
+                            <div class="block">
+                              <table border="0" cellpadding="0" cellspacing="0" width="600">
+                                <tr>
+                                  <td align="left" valign="top">
+                                    <table border="0" cellpadding="0" cellspacing="0" class="event" width="600">
+                                      <tr>
+                                        <td align="left" style="background-color: #f2f2f2;" valign="top" width="600">
+                                          <div>
+                                            <h4><a href="#" target="_blank">Vortrag, Lesung, Gespräch: 28. Oktober 2013 17:00 Uhr</a></h4>
+
+                                            <h3><a href="#" target="_blank">Das Anthropozän-Observatorium #2: Imperium der Berechnung | Finissage</a></h3>
+
+                                            <h4><a href="#" target="_blank">Dokumentation, Ausstellung, Diskussion</a></h4>
+
+                                            <h5>Haus der Kulturen der Welt</h5>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </table>
+
+                                    <table border="0" cellpadding="0" cellspacing="0" class="event" width="600">
+                                      <tr>
+                                        <td align="left" style="background-color: #f2f2f2;" valign="top" width="600">
+                                          <div>
+                                            <h4><a href="#" target="_blank">Vortrag, Lesung, Gespräch: 28. Oktober 2013 17:00 Uhr</a></h4>
+
+                                            <h3><a href="#" target="_blank">Das Anthropozän-Observatorium #2: Imperium der Berechnung | Finissage</a></h3>
+
+                                            <h4><a href="#" target="_blank">Dokumentation, Ausstellung, Diskussion</a></h4>
+
+                                            <h5>Haus der Kulturen der Welt</h5>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </table>
+
+                                    <table border="0" cellpadding="0" cellspacing="0" class="event" width="600">
+                                      <tr>
+                                        <td align="left" style="background-color: #f2f2f2;" valign="top" width="600">
+                                          <div>
+                                            <h4><a href="#" target="_blank">Vortrag, Lesung, Gespräch: 28. Oktober 2013 17:00 Uhr</a></h4>
+
+                                            <h3><a href="#" target="_blank">Das Anthropozän-Observatorium #2: Imperium der Berechnung | Finissage</a></h3>
+
+                                            <h4><a href="#" target="_blank">Dokumentation, Ausstellung, Diskussion</a></h4>
+
+                                            <h5>Haus der Kulturen der Welt</h5>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+
+                            <div class="link-block">
+                              <a class="btn-content" href="#" target="_blank">Alle Aktuellen Veranstaltungen</a> · <a class="btn-content" href="#" target="_blank">Führungen und Workshops</a>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div><!-- // End Module: Veranstaltungstipps \\ -->
+                    <!-- // Begin Module: Social \\ -->
+
+                    <div class="modul">
+                      <table border="0" cellpadding="0" cellspacing="0" width="600">
+                        <tr>
+                          <td>
+                            <div class="block">
+                              <table align="center" border="0" cellpadding="0" cellspacing="0" id="social" width="600">
+                                <tr>
+                                  <td valign="top" width="290px">
+                                    <table border="0" cellpadding="20" cellspacing="0" class="btn-big" style="width: 290px; background-color: #00abf0" width="290">
+                                      <tr>
+                                        <td align="center" style="" valign="middle">
+                                          <a class="btn-content" href="#" target="_blank">Folgen Sie uns Auf Twitter</a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+
+                                  <td valign="top" width="290px">
+                                    <table border="0" cellpadding="20" cellspacing="0" class="btn-big" style="width: 290px; background-color: #3c599f" width="290">
+                                      <tr>
+                                        <td align="center" style="" valign="middle">
+                                          <a class="btn-content" href="#" target="_blank">Folgen Sie uns Auf Facebook</a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div><!-- // End Module: Social \\ -->
+                    <!-- // Begin Module: Author \\ -->
+
+                    <div class="footer">
+                      <table border="0" cellpadding="0" cellspacing="0" width="600">
+                        <tr>
+                          <td>
+                            <p>Berlin Music Week wird organisiert, veranstaltet und vermarktet von<br />
+                            Kulturprojekte Berlin GmbH, Klosterstraße 68, 10179 Berlin, <a href="http://www.kulturprojekte-berlin.de">www.kulturprojekte-berlin.de</a></p>
+
+                            <p>Geschäftsführer: Moritz van Dülmen / Aufsichtsratsvorsitzender: André Schmitz<br />
+                            Amtsgericht Berlin, Charlottenburg, HRB 41312 B / <a href="http://www.berlin-music-week.de">www.berlin-music-week.de</a> / <a href=
+                            "mailto:press@berlin-music-week.de">press@berlin-music-week.de</a></p><br />
+                            <a href="http://www.kulturprojekte-berlin.de/"><img alt="" height="44px" src=
+                            "http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_kulturprojekte_logo.png" width="102px" /></a>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td align="center">
+                            <a href="*|UNSUB|*">Newsletter abbestellen</a> · <a href="*|UPDATE_PROFILE|*">Abonnementeinstellungen aktualisieren</a>&nbsp;
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
         </table>
-        <!--/email container-->
-    </td>
-</tr>
-</table>
-<!--/100% body table-->
+      </td>
+    </tr>
+  </table>
 </body>
 </html>

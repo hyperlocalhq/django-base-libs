@@ -224,10 +224,10 @@ ADMIN_APP_INDEX = (
     {
         'title': gettext('Content'),
         'apps': (
-            ('cms', {                
+            ('cms', {
                 'models': ('Page',),
-            }),            
-            ('blocks', {                
+            }),
+            ('blocks', {
                 'models': ('InfoBlock',),
             }),
             ('museums', {
@@ -268,11 +268,11 @@ ADMIN_APP_INDEX = (
                 'models': ('PerObjectGroup','RowLevelPermission',),
             }),
             ('institutions', {
-                'models':("Institution",),                
+                'models':("Institution",),
             }),
             ('twitterwall', {
                 'verbose_name': gettext("Twitter Wall"),
-                'models':("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),                
+                'models':("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),
             }),
         )
     },
@@ -281,11 +281,11 @@ ADMIN_APP_INDEX = (
         'apps': (
             ('mailing', {
                 'models': ("EmailMessage", "EmailTemplate", "EmailTemplatePlaceholder",),
-                'icon': 'email',             
+                'icon': 'email',
             }),
             ('mailchimp', {
                 'models': ("Settings", "MList", "Subscription", "Campaign"),
-                'icon': 'email',             
+                'icon': 'email',
             }),
             ('advertising', {
                 'models': ("Advertiser", "AdCategory", "AdZone", "BannerAd", "AdImpression", "AdClick"),
@@ -558,7 +558,57 @@ NOTIFY_ABOUT_SEASONS_TO_EMAIL = "j.boehmler@kulturprojekte-berlin.de"
 CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 EDITORIAL_CONTENT_CSS_CLASSES = (
-    # ('item', 'item'),
+    # ('col-xs-1', 'item'),
+    # ('col-xs-2', 'item'),
+    # ('col-xs-3', 'item'),
+    # ('col-xs-4', 'item'),
+    # ('col-xs-5', 'item'),
+    # ('col-xs-6', 'item'),
+    # ('col-xs-7', 'item'),
+    # ('col-xs-8', 'item'),
+    # ('col-xs-9', 'item'),
+    # ('col-xs-10', 'item'),
+    # ('col-xs-11', 'item'),
+    # ('col-xs-12', 'item'),
+
+    # ('col-sm-1', 'item'),
+    # ('col-sm-2', 'item'),
+    # ('col-sm-3', 'item'),
+    # ('col-sm-4', 'item'),
+    # ('col-sm-5', 'item'),
+    # ('col-sm-6', 'item'),
+    # ('col-sm-7', 'item'),
+    # ('col-sm-8', 'item'),
+    # ('col-sm-9', 'item'),
+    # ('col-sm-10', 'item'),
+    # ('col-sm-11', 'item'),
+    # ('col-sm-12', 'item'),
+
+    # ('col-md-1', 'item'),
+    # ('col-md-2', 'item'),
+    # ('col-md-3', 'item'),
+    # ('col-md-4', 'item'),
+    # ('col-md-5', 'item'),
+    # ('col-md-6', 'item'),
+    # ('col-md-7', 'item'),
+    # ('col-md-8', 'item'),
+    # ('col-md-9', 'item'),
+    # ('col-md-10', 'item'),
+    # ('col-md-11', 'item'),
+    # ('col-md-12', 'item'),
+
+    # ('col-lg-1', 'item'),
+    # ('col-lg-2', 'item'),
+    # ('col-lg-3', 'item'),
+    # ('col-lg-4', 'item'),
+    # ('col-lg-5', 'item'),
+    # ('col-lg-6', 'item'),
+    # ('col-lg-7', 'item'),
+    # ('col-lg-8', 'item'),
+    # ('col-lg-9', 'item'),
+    # ('col-lg-10', 'item'),
+    # ('col-lg-11', 'item'),
+    # ('col-lg-12', 'item'),
 )
 
 ### LOCAL SETTINGS ###
