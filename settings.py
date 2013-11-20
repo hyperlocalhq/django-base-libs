@@ -513,6 +513,18 @@ CMS_PAGE_CHOICES_CACHE_KEY = 'CMS:page_choices'
 
 execfile(os.path.join(ROOT_PATH, "jetson/settings/filebrowser.py"), globals(), locals())
 
+FILEBROWSER_EXTENSIONS = {
+    'Folder': [''],
+    'Image': ['.jpg','.jpeg','.gif','.png','.tif','.tiff'],
+    'Video': ['.mov','.wmv','.mpeg','.mpg','.avi','.rm','.swf','.flv','.f4v'],
+    'Document': ['.pdf','.doc','.docx','.rtf','.txt',
+        '.xls','.xlsx','.csv','.ppt','.pptx',
+        ],
+    'Audio': ['.mp3','.mp4','.wav','.aiff','.midi','.m4p'],
+    'Code': ['.html','.py','.js','.css'],
+    'Archive': ['.zip','.rar','.tar','.gz'],
+}
+
 FILEBROWSER_VERSIONS = {
     'fb_thumb': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop upscale'},
 }
