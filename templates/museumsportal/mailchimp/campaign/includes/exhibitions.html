@@ -29,6 +29,8 @@
                     <div class="image">
                       {% if exhibition.cover_image %}
                         <a href="{{ exhibition.get_url }}" target="_blank"><img alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ exhibition.cover_image|modified_path:"exhibition_newsletter" }}" style="max-width:290px" width="290" /></a>
+                      {% else %}
+                        <a href="{{ exhibition.get_url }}" target="_blank"><img alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ exhibition.museum.cover_image|modified_path:"exhibition_newsletter" }}" style="max-width:290px" width="290" /></a>
                       {% endif %}
                     </div>
 
@@ -70,6 +72,8 @@
                     <div class="image">
                       {% if exhibition.cover_image %}
                         <a href="{{ exhibition.get_url }}" target="_blank"><img alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ exhibition.cover_image|modified_path:"exhibition_newsletter" }}" style="max-width:290px" width="290" /></a>
+                      {% else %}
+                        <a href="{{ exhibition.get_url }}" target="_blank"><img alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ exhibition.museum.cover_image|modified_path:"exhibition_newsletter" }}" style="max-width:290px" width="290" /></a>
                       {% endif %}
                     </div>
 
@@ -110,6 +114,8 @@
                     <div class="image">
                       {% if exhibition.cover_image %}
                         <a href="{{ exhibition.get_url }}" target="_blank"><img alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ exhibition.cover_image|modified_path:"exhibition_newsletter" }}" style="max-width:290px" width="290" /></a>
+                      {% else %}
+                        <a href="{{ exhibition.get_url }}" target="_blank"><img alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ exhibition.museum.cover_image|modified_path:"exhibition_newsletter" }}" style="max-width:290px" width="290" /></a>
                       {% endif %}
                     </div>
 
@@ -151,6 +157,8 @@
                     <div class="image">
                       {% if exhibition.cover_image %}
                         <a href="{{ exhibition.get_url }}" target="_blank"><img alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ exhibition.cover_image|modified_path:"exhibition_newsletter" }}" style="max-width:290px" width="290" /></a>
+                      {% else %}
+                        <a href="{{ exhibition.get_url }}" target="_blank"><img alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ exhibition.museum.cover_image|modified_path:"exhibition_newsletter" }}" style="max-width:290px" width="290" /></a>
                       {% endif %}
                     </div>
 
