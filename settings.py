@@ -574,10 +574,13 @@ EDITORIAL_CONTENT_CSS_CLASSES = (
 )
 
 MAILING_CONTENT_TYPE_CHOICES = (
-    ('image_and_text', _("Image and text")),
-    ('text', _("Text only")),
     ('exhibitions', _("Exhibitions")),
+    ('magazine', _("Magazine")),
     ('events', _("Events")),
+    ('social', _("Social")),
+    ('authorship', _("Image authorship")),
+    #('image_and_text', _("Image and text")),
+    #('text', _("Text only")),
 )
 
 ### LOCAL SETTINGS ###

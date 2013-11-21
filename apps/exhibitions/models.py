@@ -75,8 +75,14 @@ class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
 
 class ExhibitionManager(models.Manager):
     def newly_opened(self):
+        today = date.today()
+        two_weeks = timedelta(days=14)
         lang_code = get_current_language()
-        return self.filter(newly_opened=True, status="published").order_by("-featured", "-start", "title_%s" % lang_code)
+        return self.filter(
+            start__gt=today-two_weeks,
+            start__lte=today,
+            status="published",
+        ).order_by("-featured", "-start", "title_%s" % lang_code)
         
     def featured(self):
         return self.filter(featured=True, status="published")
