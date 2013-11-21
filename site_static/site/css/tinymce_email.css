@@ -1,7 +1,6 @@
 /* overriding grappelli's style back, because it doesn't work with email layouts */
 body#tinymce table.mceitemtable td + td {
     padding-left: 0 !important;
-    background: red;
 }
 
 body {
