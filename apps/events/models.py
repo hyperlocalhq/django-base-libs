@@ -135,7 +135,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     pdf_document_en = FileBrowseField(_('PDF Document in English'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
-    featured = models.BooleanField(_("Featured"))
+    featured = models.BooleanField(_("Featured in Newsletter"))
 
     categories = TreeManyToManyField(EventCategory, verbose_name=_("Categories"))
     tags = TagAutocompleteField(verbose_name=_("tags"))

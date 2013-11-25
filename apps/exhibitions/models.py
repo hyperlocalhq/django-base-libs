@@ -168,7 +168,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     other_locations = MultilingualTextField(_("Other exhibition locations"), blank=True)
 
     newly_opened = models.BooleanField(_("Newly opened"))
-    featured = models.BooleanField(_("Featured"))
+    featured = models.BooleanField(_("Featured in Newsletter"))
     featured_in_magazine = models.BooleanField(_("Featured in Magazine"))
     closing_soon = models.BooleanField(_("Closing soon"))
     
