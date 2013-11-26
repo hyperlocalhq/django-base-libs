@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-26 19:07+0100\n"
+"POT-Creation-Date: 2013-11-26 19:33+0100\n"
 "PO-Revision-Date: 2013-11-04 12:41\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1112,8 +1112,8 @@ msgstr "Bild bearbeiten"
 #: templates/museumsportal/utils/cover_image.html:20
 #: templates/museumsportal/utils/cover_image.html:29
 #: templates/museumsportal/utils/cover_image.html:38
-#: templates/museumsportal/workshops/workshop_list.html:98
-#: templates/museumsportal/workshops/workshop_list.html:100
+#: templates/museumsportal/workshops/workshop_list.html:111
+#: templates/museumsportal/workshops/workshop_list.html:113
 #: templates/museumsportal/workshops/gallery/overview.html:31
 msgid "Crop image"
 msgstr "Bildausschnitt wählen"
@@ -2398,52 +2398,52 @@ msgid "Types"
 msgstr "Art"
 
 #: apps/workshops/models.py:138
-#: templates/museumsportal/workshops/workshop_list.html:49
+#: templates/museumsportal/workshops/workshop_list.html:51
 msgid "Has bookable group offer"
 msgstr "Buchbares Gruppenangebot"
 
 #: apps/workshops/models.py:139
-#: templates/museumsportal/workshops/workshop_list.html:50
+#: templates/museumsportal/workshops/workshop_list.html:73
 msgid "Special for preschool children (up to 5 years)"
 msgstr "Geeignet für Vorschulkinder (bis 5 Jahre)"
 
 #: apps/workshops/models.py:140
-#: templates/museumsportal/workshops/workshop_list.html:51
+#: templates/museumsportal/workshops/workshop_list.html:74
 msgid "Special for children of primary school age (6-12 years)"
 msgstr "Geeignet für Grundschulkinder (6-12 Jahre)"
 
 #: apps/workshops/models.py:141
-#: templates/museumsportal/workshops/workshop_list.html:52
+#: templates/museumsportal/workshops/workshop_list.html:75
 msgid "Special for youth (aged 13 years)"
 msgstr "Geeignet für Jugendliche (ab 13 Jahre)"
 
 #: apps/workshops/models.py:142
-#: templates/museumsportal/workshops/workshop_list.html:53
+#: templates/museumsportal/workshops/workshop_list.html:76
 msgid "Special for families"
 msgstr "Speziell geeignet für Familien"
 
 #: apps/workshops/models.py:143
-#: templates/museumsportal/workshops/workshop_list.html:54
+#: templates/museumsportal/workshops/workshop_list.html:60
 msgid "Special for people in wheelchairs"
 msgstr "Speziell geeignet für Rollstuhlfahrer"
 
 #: apps/workshops/models.py:144
-#: templates/museumsportal/workshops/workshop_list.html:55
+#: templates/museumsportal/workshops/workshop_list.html:61
 msgid "Special for deaf people"
 msgstr "Speziell geeignet für gehörlose Menschen"
 
 #: apps/workshops/models.py:145
-#: templates/museumsportal/workshops/workshop_list.html:56
+#: templates/museumsportal/workshops/workshop_list.html:62
 msgid "Special for blind people"
 msgstr "Speziell geeignet für Blinde"
 
 #: apps/workshops/models.py:146
-#: templates/museumsportal/workshops/workshop_list.html:57
+#: templates/museumsportal/workshops/workshop_list.html:63
 msgid "Special for people with learning difficulties"
 msgstr "Speziell geeignet für Menschen mit Lernschwäche"
 
 #: apps/workshops/models.py:147
-#: templates/museumsportal/workshops/workshop_list.html:58
+#: templates/museumsportal/workshops/workshop_list.html:64
 msgid "Special for sufferers of dementia"
 msgstr "Speziell geeignet für Demenzkranke"
 
@@ -3177,7 +3177,7 @@ msgstr "Veranstaltungsort"
 #: templates/museumsportal/museums/museum_list.html:167
 #: templates/museumsportal/workshops/workshop_detail.html:61
 #: templates/museumsportal/workshops/workshop_detail.html:75
-#: templates/museumsportal/workshops/workshop_list.html:103
+#: templates/museumsportal/workshops/workshop_list.html:116
 msgid "Show location on map"
 msgstr "Auf der Karte anzeigen"
 
@@ -3225,8 +3225,8 @@ msgstr "Buchungstelefon"
 #: templates/museumsportal/workshops/workshop_detail.html:170
 #: templates/museumsportal/workshops/workshop_detail.html:315
 #: templates/museumsportal/workshops/workshop_detail.html:407
-#: templates/museumsportal/workshops/workshop_list.html:115
-#: templates/museumsportal/workshops/workshop_list.html:125
+#: templates/museumsportal/workshops/workshop_list.html:128
+#: templates/museumsportal/workshops/workshop_list.html:138
 msgid "till"
 msgstr "bis"
 
@@ -3287,44 +3287,44 @@ msgstr "Alphabetisch"
 #: templates/museumsportal/events/event_list.html:39
 #: templates/museumsportal/exhibitions/exhibition_list.html:37
 #: templates/museumsportal/museums/museum_list.html:36
-#: templates/museumsportal/workshops/workshop_list.html:38
+#: templates/museumsportal/workshops/workshop_list.html:40
 msgid "Smart lists"
 msgstr "Schlaue Liste"
 
 #: templates/museumsportal/events/event_list.html:40
 #: templates/museumsportal/exhibitions/exhibition_list.html:38
-#: templates/museumsportal/workshops/workshop_list.html:39
+#: templates/museumsportal/workshops/workshop_list.html:41
 msgid "Calendar"
 msgstr "Kalender"
 
 #: templates/museumsportal/events/event_list.html:43
 #: templates/museumsportal/exhibitions/exhibition_list.html:45
 #: templates/museumsportal/museums/museum_list.html:45
-#: templates/museumsportal/workshops/workshop_list.html:42
+#: templates/museumsportal/workshops/workshop_list.html:44
 msgid "Reset all filters"
 msgstr "Alle Filter zurücksetzen"
 
 #: templates/museumsportal/events/event_list.html:84
 #: templates/museumsportal/exhibitions/exhibition_list.html:118
-#: templates/museumsportal/workshops/workshop_list.html:72
+#: templates/museumsportal/workshops/workshop_list.html:85
 msgid "Today"
 msgstr "Heute"
 
 #: templates/museumsportal/events/event_list.html:85
 #: templates/museumsportal/exhibitions/exhibition_list.html:119
-#: templates/museumsportal/workshops/workshop_list.html:73
+#: templates/museumsportal/workshops/workshop_list.html:86
 msgid "Tomorrow"
 msgstr "Morgen"
 
 #: templates/museumsportal/events/event_list.html:86
 #: templates/museumsportal/exhibitions/exhibition_list.html:120
-#: templates/museumsportal/workshops/workshop_list.html:74
+#: templates/museumsportal/workshops/workshop_list.html:87
 msgid "7 Days"
 msgstr "Die nächsten 7 Tage"
 
 #: templates/museumsportal/events/event_list.html:87
 #: templates/museumsportal/exhibitions/exhibition_list.html:121
-#: templates/museumsportal/workshops/workshop_list.html:75
+#: templates/museumsportal/workshops/workshop_list.html:88
 msgid "30 Days"
 msgstr "Die nächsten 30 Tage"
 
@@ -3579,7 +3579,7 @@ msgstr "Speziell geeignet für Menschen mit Behinderung"
 #: templates/museumsportal/mailchimp/campaign/includes/exhibitions.html:166
 #: templates/museumsportal/museums/museum_detail.html:602
 #: templates/museumsportal/workshops/workshop_detail.html:85
-#: templates/museumsportal/workshops/workshop_list.html:125
+#: templates/museumsportal/workshops/workshop_list.html:138
 msgid "until further notice"
 msgstr "bis auf Weiteres"
 
@@ -3587,7 +3587,7 @@ msgstr "bis auf Weiteres"
 #: templates/museumsportal/museums/museum_detail.html:648
 #: templates/museumsportal/workshops/workshop_detail.html:310
 #: templates/museumsportal/workshops/workshop_detail.html:402
-#: templates/museumsportal/workshops/workshop_list.html:110
+#: templates/museumsportal/workshops/workshop_list.html:123
 msgid "Bookable Offer"
 msgstr "Buchbares Angebot"
 
@@ -3912,7 +3912,15 @@ msgstr "Altersgruppen"
 msgid "Other Guided Tours, Workshops and educational offers"
 msgstr "Führungen und Workshops "
 
-#: templates/museumsportal/workshops/workshop_list.html:124
+#: templates/museumsportal/workshops/workshop_list.html:38
+msgid "Bookable group offer"
+msgstr "Buchbares Gruppenangebot"
+
+#: templates/museumsportal/workshops/workshop_list.html:39
+msgid "Barrier-free guided tours"
+msgstr "Barrierefreihe Angebote"
+
+#: templates/museumsportal/workshops/workshop_list.html:137
 #, python-format
 msgid "Accompanying program for exhibition \"%(exhibition_title)s\""
 msgstr "Begleitprogramm zur Ausstellung \"%(exhibition_title)s\""
@@ -3974,9 +3982,6 @@ msgstr "Terminserie anlegen"
 
 #~ msgid "Group booking"
 #~ msgstr "Gruppenbuchungen"
-
-#~ msgid "Free guided tour"
-#~ msgstr "Kostenlose Führung"
 
 #~ msgid "Reduced Price"
 #~ msgstr "Preis ermäßigt"
