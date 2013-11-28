@@ -89,7 +89,7 @@ class EventCategory(MPTTModel, SlugMixin()):
 
 class EventManager(models.Manager):
     def nearest_published_featured(self):
-        return self.get_query_set().filter(featured=True, status="published")
+        return self.get_query_set().filter(featured=True, status="published").order_by("closest_event_date", "closest_event_time")
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup

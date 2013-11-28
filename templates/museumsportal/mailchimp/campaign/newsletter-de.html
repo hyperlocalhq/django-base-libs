@@ -44,8 +44,9 @@
         color: #0088cc;
         font-weight: normal;
         text-decoration: none;
+        border: none;
     }
-    .event {
+    .event-wrapper {
         display: block;
         margin-bottom: 10px;
     }
@@ -59,8 +60,7 @@
         display: block;
         margin-bottom: 35px;
     }
-    #logo,
-    #logos {
+    #logo {
         margin-bottom: 40px;
     }
     .module {
@@ -77,19 +77,12 @@
         display: block;
         margin-bottom: 30px;
     }
-    #article .text {
-        font-size: 12px;
-        line-height: 18px;
-        margin-bottom: 10px;
+
+    .black-link,
+    .text a {
+      color: black;
     }
-    #article .image img {
-        height: auto;
-        line-height: 100%;
-        outline: none;
-    }
-    #article td div.image {
-        margin-bottom: 15px;
-    }
+
     #preHeader,
     #social,
     #author,
@@ -99,6 +92,9 @@
         font-size: 10px;
         line-height: 13px;
         text-align: left;
+    }
+    .img {
+        border: none;
     }
     h1, .h1 {
         color: black;
@@ -203,9 +199,15 @@
         font-weight: normal;
         font-size: 10px;
     }
+
+    .btn .btn-content {
+      color: black;
+    }
+
     .btn-big {
         background-color: black;
         font-size: 14px;
+        text-transform: uppercase;
     }
     .btn-big a:link,
     .btn-big a:visited,
@@ -216,6 +218,9 @@
         margin-right: 3px;
         color: white;
         font-weight: normal;
+    }
+    .btn-big .btn-content {
+      color: white;
     }
   /*]]>*/
   </style>
@@ -259,7 +264,7 @@
                             <table border="0" cellpadding="50" cellspacing="0" width="600">
                               <tr>
                                 <td align="center" valign="middle" width="600">
-                                  <a href="http://www.museumsportal-berlin.de/"><img alt="" height="57" id="logo" src="http://www.museumsportal-berlin.de/static/20131120143654/site/img/logo_img_newsletter.png" style="" width="301" /></a>
+                                  <a href="http://www.museumsportal-berlin.de/"><img border="0" class="img" alt="" height="57" id="logo" src="http://www.museumsportal-berlin.de/static/20131120143654/site/img/logo_img_newsletter.png" width="301" /></a>
                                 </td>
                               </tr>
                             </table>
@@ -285,7 +290,7 @@
                       <table border="0" cellpadding="0" cellspacing="0" width="600">
                         <tr>
                           <td>
-                            <img alt="" id="logos" src="http://www.museumsportal-berlin.de/static/20131120143654/site/img/logos_img_newsletter.png" style="" width="600" height="83"/>
+                            <img border="0" class="img" alt="" id="logos" src="http://www.museumsportal-berlin.de/static/20131120143654/site/img/logos_img_newsletter.png" width="600" height="83"/>
                           </td>
                         </tr>
 
