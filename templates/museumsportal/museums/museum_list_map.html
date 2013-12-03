@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block map %}
-  {# {% include "utils/gmap.html" %} #}
+  {% include "utils/gmap.html" %}
 {% endblock %}
 
 {% block content %}
@@ -158,124 +158,31 @@
       <ul id="filter_summary"></ul>
     </div>
 
-    <div id="container" class="row row-narrow grid">
+    <div id="container" style="display: none">
+      <!-- These items will be included into #item_description, when a marker is selected -->
+      {% comment %}
+        TODO: integrate filters
+      {% endcomment %}
       {% for museum in object_list %}
-      {% tags_for_object museum as tags %}
-      <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3 initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}">
-        <a href="{{ museum.get_url_path }}">
-          {% if museum.cover_image %}
-            <span class="img">
-              <img class="fade" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
-            </span>
-          {% endif %}
-          <h3>{{ museum.title }}</h3>
-          <h4>{{ museum.subtitle }}&nbsp;</h4>
-        </a>
-        <div class="description">
-          <div class="row row-narrow">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <header>
-                <h3>{{ museum.title }}</h3>
-                {% if museum.subtitle %}
-                <h4>{{ museum.subtitle }}</h4>
-                {% endif %}
-              </header>
-              <div class="actions btn-group">
-                {% if request.user.is_authenticated %}
-                  {% adding2favorites for museum %}
-                {% endif %}
-                <button class="location btn btn-default btn-round">
-                  <span class="icon icon-location"></span>
-                  <span class="sr-only">{% trans "Show location on map" %}</span>
-                </button>
-                {% if_has_perm "museums.change_museum" museum %}
-                  <button class="crop btn btn-default btn-round" onclick="location.href='{% cropping_url museum.cover_image "museum_list" request request.path %}';">
-                    <span class="icon icon-tool-crop"></span>
-                    <span class="sr-only">{% trans "Crop Image" %}</span>
-                  </button>
-                {% end_if_has_perm %}
-              </div>
+        {% if museum.latitude and museum.longitude %}
+          {% tags_for_object museum as tags %}
+          <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3 initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}" data-description-src="{{ museum.get_url_path }}ajax/" data-latitude="{{ museum.latitude }}" data-longitude="{{ museum.longitude }}">
+            <a href="{{ museum.get_url_path }}">
+              {% if museum.cover_image %}
+                <span class="img">
+                  <img class="fade" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                </span>
+              {% endif %}
+              <h3>{{ museum.title }}</h3>
+              <h4>{{ museum.subtitle }}&nbsp;</h4>
+            </a>
+            <div class="description">
             </div>
           </div>
-
-          <div class="row row-narrow">
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
-              <p class="lead">{{ museum.get_rendered_description|striptags|truncatewords:"65"|urlize }}</p>
-              <a class="btn btn-default" href="{{ museum.get_url_path }}">{% trans "More" %}</a>
-              <button class="btn btn-info cancel">{% trans "Close" %}</a>
-            </div>
-
-            <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
-              {% with museum.get_current_season as season %}
-                {% if season %}
-                  {% if season.is_appointment_based %}
-                  <dl>
-                    <dt>{% trans "Based on appointment" %}</dt>
-                  </dl>
-                  {% else %}
-                  {% regroup season.get_opening_hours by times as opening_hours %}
-                    {% for same_hours in opening_hours %}
-                      <dl>
-                        <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %} </dt>
-                        {% if same_hours.list.0.open %}
-                          <dd>
-                            {{ same_hours.list.0.open|time:"H:i" }}
-                            {% if same_hours.list.0.break_close %}
-                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                            / {{ same_hours.list.0.break_open|time:"H:i" }}
-                            - {{ same_hours.list.0.close|time:"H:i" }}
-                            {% else %}
-                            - {{ same_hours.list.0.close|time:"H:i" }}
-                            {% endif %}
-                            {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                          </dd>
-                        {% else %}
-                          <dd>{% trans "closed" %}</dd>
-                        {% endif %}
-                      </dl>
-                    {% endfor %}
-                  {% endif %}
-                  {% if season.last_entry %}
-                  <dl>
-                    <dt>{% trans "Last entry" %}</dt>
-                    <dd>{{ season.last_entry }}</dd>
-                  </dl>
-                  {% endif %}
-                  {% if season.exceptions %}
-                  <p><small>{{ season.get_rendered_exceptions|striptags|truncatewords:"35"|urlize }}</small></p>
-                  {% endif %}
-                {% endif %}
-              {% endwith %}
-
-              <p>
-                <small>
-                {% if museum.parent %}
-                  {{ museum.parent.street_address }},
-                  {% if museum.parent.street_address2 %}{{ museum.parent.street_address2 }},{% endif %}
-                  {{ museum.parent.postal_code }} {{ museum.parent.city }}
-                {% else %}
-                  {{ museum.street_address }},
-                  {% if museum.street_address2 %}
-                    {{ museum.street_address2 }},
-                  {% endif %}
-                  {{ museum.postal_code }} {{ museum.city }}
-                {% endif %}
-                </small>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {% comment %}
-        {% with museum as list_item %}
-          {% include "utils/geo_position.html" %}
-        {% endwith %}
-        {% endcomment %}
-
-      </div>
-    {% endfor %}
-   </div>
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
-  {# {% include "utils/gmap_scripts.html" %} #}
+  {% include "utils/gmap_scripts.html" %}
 
 {% endblock %}

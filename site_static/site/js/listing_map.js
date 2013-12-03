@@ -65,7 +65,6 @@ var oMap;
     }
 
     function after_list_load() {
-        var aPos = self.aGeopositions || [];
         /* the center of the map should be (x, y), where
         x = avg(min(xx), max(xx))
         y = avg(min(yy), max(yy))
@@ -75,22 +74,14 @@ var oMap;
         var lat_min = long_min = 500;
         var lat_max = long_max = -500;
         var aPoints = [];
-        var sMarkerImg;
-        for (i=0, iLen=aPos.length; i<iLen; i++) {
-            // DEFINE IMAGE
-            if (i < 10) {
-                sMarkerImg = window.settings.STATIC_URL + "site/img/gmap/markers_1-10.png"
-                iMarkerImgY = (-34 * i);
-            } else if (i < 26) {
-                sMarkerImg = window.settings.STATIC_URL + "site/img/gmap/markers_11-26.png"
-                iMarkerImgY = (-34 * (i - 10));
-            } else {
-                sMarkerImg = window.settings.STATIC_URL + "site/img/gmap/markers_1-10.png"
-                iMarkerImgY = (-340);
-            }
+        var sMarkerImgDefault = "http://maps.google.com/mapfiles/marker_black.png";
+        var sMarkerImgSelected = "http://maps.google.com/mapfiles/marker_orange.png";
+        var oActiveMarker = null;
 
-            iLat = aPos[i]['latitude'];
-            iLong = aPos[i]['longitude'];
+        $('.item').each(function(i) {
+            // DEFINE IMAGE
+            var iLat = parseFloat($(this).data('latitude'));
+            var iLong = parseFloat($(this).data('longitude'));
             if (lat_max < iLat)
                 lat_max = iLat;
             if (iLat < lat_min)
@@ -102,45 +93,27 @@ var oMap;
             var oPoint = new google.maps.LatLng(iLat, iLong);
 
             // DRAW MARKER
-            var oImage = new google.maps.MarkerImage(
-                sMarkerImg,
-                // This marker is 20 pixels wide by 32 pixels tall.
-                new google.maps.Size(20, 34),
-                // The origin for this image is 0,0.
-                new google.maps.Point(0, -iMarkerImgY),
-                // The anchor for this image is the base of the flagpole at 0,32.
-                new google.maps.Point(10, 34)
-            );
-            var oShadow = new google.maps.MarkerImage(
-                window.settings.STATIC_URL + "site/img/gmap/marker_shadow.png",
-                // The shadow image is larger in the horizontal dimension
-                // while the position and offset are the same as for the main image.
-                new google.maps.Size(37, 34),
-                new google.maps.Point(0, 0),
-                new google.maps.Point(8, 25)
-            );
+            var oImage = new google.maps.MarkerImage(sMarkerImgDefault);
 
             var oMarker = new google.maps.Marker({
                 position: oPoint,
                 map: oMap,
-                shadow: oShadow,
                 icon: oImage
             });
+
             oMarker.list_index = i;
 
-            if (aPos[i]['content']) {
-                (function(oMarker, sContent) {
-                    google.maps.event.addListener(oMarker, 'click', function() {
-                        oInfobox = new StyledInfoWindow({
-                            position: oMarker.getPosition(),
-                            map: oMap,
-                            content: sContent
-                        });
-                    });
-                }(oMarker, aPos[i]['content']));
-            }
+            var $item = $(this);
+            google.maps.event.addListener(oMarker, 'click', function() {
+                if (oActiveMarker) {
+                    oActiveMarker.setIcon(sMarkerImgDefault);
+                }
+                $('#item_description').html($item.html()).find('.description').load($item.data('description-src'));
+                oMarker.setIcon(sMarkerImgSelected);
+                oActiveMarker = oMarker;
+            });
 
-            oMarker.categories = aPos[i]['categories'];
+            //oMarker.categories = aPos[i]['categories'];
             aMarkers.push(oMarker);
             aPoints.push(oPoint);
 
@@ -158,6 +131,26 @@ var oMap;
                 }, 600);
                 return false;
             });
+        });
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition  (
+                function(position)  {
+                    var oImage = new google.maps.MarkerImage("http://maps.google.com/mapfiles/arrow.png");
+                    var oMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                        map: oMap,
+                        icon: oImage
+                    });
+                    oMarker.setZIndex(999);
+                    google.maps.event.addListener(oMarker, 'click', function() {
+                        $('#item_description').html("You are here!");
+                    });
+                },
+                function(){
+                    // alert('Unable to get location');
+                },
+                { enableHighAccuracy: true }
+            );
         }
         // FIT MAP
         if (document.location.search) {
