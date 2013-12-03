@@ -103,7 +103,6 @@ var settings = {
             </div>
           </div>
         </div>
-<<<<<<< HEAD
         <div class="panel panel-default">
           <div id="filter-calendar" class="panel-collapse collapse">
             <div class="panel-body">
@@ -132,6 +131,8 @@ var settings = {
     </div>
 
     <div id="container" class="row row-narrow list">
+      {% load advertising_tags %}
+      {% random_zone_ad 'events' %}
       {% for event in object_list %}
       {% tags_for_object event as tags %}
       <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}">
@@ -179,49 +180,6 @@ var settings = {
 
       </div>
       {% endfor %}
-=======
-        {% load advertising_tags %}
-        {% random_zone_ad 'events' %}
-        <ul id="container" class="list rows clearfix">
-            {% for event in object_list %}
-                {% tags_for_object event as tags %}
-                <li class="item" data-filter-categories="initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}">
-                    <nav class="actions">
-                        {% if request.user.is_authenticated %}
-                            {% adding2favorites for event %}
-                        {% endif %}
-                        {% if_has_perm "events.change_event" event %}
-                            {% if event.cover_image %}
-                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-white icon-crop" onclick="location.href='{% cropping_url event.cover_image "event_list" request request.path %}';"></button>
-                            {% else %}{% if event.museum.cover_image %}
-                                <button rel="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="icon icon-white icon-crop" onclick="location.href='{% cropping_url event.museum.cover_image "event_list" request request.path %}';"></button>
-                            {% endif %}{% endif %}
-                        {% end_if_has_perm %}
-                        <button href="#" rel="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
-                    </nav>
-        
-                    <a href="{{ event.get_url_path }}">
-                        <h4>
-                            {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
-                            {% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}
-                        </h4>
-                        <h3>{{ event.title }}</h3>
-                        <h4>{{ event.subtitle }}</h4>
-                        {% if event.location_name %}
-                            <h5>{{ event.location_name }}</h5>
-                        {% else %}
-                            <h5>{{ event.museum.title }}</h5>
-                        {% endif %}
-                    </a>
-        
-                    {% with event as list_item %}
-                        {% include "utils/geo_position.html" %}
-                    {% endwith %}
-                    
-                </li>
-            {% endfor %}
-        </ul>
->>>>>>> origin/develop
     </div>
   </div>
 </div>
