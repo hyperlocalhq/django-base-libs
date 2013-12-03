@@ -53,19 +53,17 @@
         </a>
       </div>
     {% else %}
-      <div class="editorial-content">
-        <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})">
-          {% if object.image %}<img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />{% endif %}
-          {% if object.image_caption %}<p class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %}
+      <div class="item {% if object.css_class %} {{ object.css_class }}{% else %} col-xs-12 col-sm-6 col-md-4 col-lg-3{% endif %}">
+        <a href="{{ object.website }}">
+          <span class="img">
+            {% if object.image %}<img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" width="100%"/>{% endif %}
+            {% if object.image_caption %}<p class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %}
+          </span>
+          <h4>{{ object.title }}</h4>
+          <h4>{{ object.subtitle }}</h4>
+          <p>{{ object.get_rendered_description|removetags:"p" }}</p>
         </a>
 
-        <a class="title" href="{{ object.website }}">
-          <h4>{{ object.title }}</h3>
-          <h5>{{ object.subtitle }}</h4>
-        </a>
-
-        <p class="description">{{ object.get_rendered_description|removetags:"p" }}</p>
-        <a class="btn btn-sm btn-default" href="{{ object.website }}">{% trans "more" %}…</a>
       </div>
     {% endif %}
   {% endif %}

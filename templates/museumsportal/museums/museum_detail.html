@@ -565,10 +565,13 @@
   {% include "utils/images.html" %}
 
   {% if museum.get_twitter_username %}
-    <article class="clearfix">
-      <h2>{% trans "Current Tweets" %}</h2>
-      <ul id="tweets" data-twitter-username="{{ museum.get_twitter_username }}"></ul>
-    </article>
+
+    <div id="museums-twitterfeed" class="content">
+      <div class="container">
+        <h2>{% trans "Current Tweets" %}</h2>
+        <div id="tweets" class="row" data-twitter-username="{{ museum.get_twitter_username }}"></div>
+      </div>
+    </div>
   {% endif %}
 
   <!-- ======= Exhibitions ======= -->

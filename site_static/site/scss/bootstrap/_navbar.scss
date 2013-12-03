@@ -35,7 +35,7 @@
   @include clearfix();
 
   @media (min-width: $grid-float-breakpoint) {
-    float: left;
+    // float: left;
   }
 }
 
@@ -51,7 +51,7 @@
 // content for the user's viewport.
 
 .navbar-collapse {
-  max-height: 340px;
+  // max-height: 340px;
   overflow-x: visible;
   // padding-right: $navbar-padding-horizontal;
   // padding-left:  $navbar-padding-horizontal;
@@ -150,8 +150,8 @@
 // Brand/project name
 
 .navbar-brand {
-  float: left;
-  padding: $navbar-padding-vertical $navbar-padding-horizontal;
+  // float: left;
+  padding: 18px;
   font-size: $font-size-large;
   line-height: $line-height-computed;
   &:hover,
@@ -175,19 +175,18 @@
 .navbar-toggle {
   position: relative;
   float: right;
-  margin-right: $navbar-padding-horizontal;
-  padding: 9px 10px;
-  @include navbar-vertical-align(34px);
+  padding: 25px;
   background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: $border-radius-base;
+  // border: 1px solid transparent;
+  border: none;
+  border-radius: 0px;
 
   // Bars
   .icon-bar {
     display: block;
     width: 22px;
-    height: 2px;
-    border-radius: 1px;
+    height: 3px;
+    // border-radius: 1px;
   }
   .icon-bar + .icon-bar {
     margin-top: 4px;
@@ -205,20 +204,17 @@
 // the nav the full height of the horizontal nav (above 768px).
 
 .navbar-nav {
-  margin: ($navbar-padding-vertical / 2) (-$navbar-padding-horizontal);
+  // margin: ($navbar-padding-vertical / 2) (-$navbar-padding-horizontal);
 
   > li > a {
-    padding: 0px;
-    // padding-top:    10px;
-    // padding-bottom: 10px;
-    padding: 0px;
-    margin-right: 24px;
-    // line-height: $line-height-computed;
+    padding-left: 10px;
+    padding-right: 10px;
     height: 50px;
     line-height: 50px;
   }
 
   @media (max-width: $screen-xs-max) {
+
     // Dropdowns get custom display when collapsed
     .open .dropdown-menu {
       position: static;

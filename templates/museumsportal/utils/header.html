@@ -1,10 +1,7 @@
 {% load menu_tags i18n base_tags %}
 
-<header id="header" class="clearfix">
+<header id="header" class="hidden-xs clearfix">
   <div class="container">
-    <a class="logo" href="/">
-        <span class="img">Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
-    </a>
     <div id="meta" class="pull-right clearfix">
       {% if request.user.is_authenticated %}
       <div>
@@ -32,7 +29,7 @@
             <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
         {% endcomment %}
 
-        <div><a class="btn btn-info" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login for Museums" %}</a></div>
+        <div><a class="btn btn-info" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></div>
       {% endif %}
 
       {% block edit_item %}
@@ -55,6 +52,7 @@
       </div>
       {% endcomment %}
 
+      {% comment %}
       <div>
         <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="Twitter" href="https://twitter.com/museumsportal" target="_blank">
         <span class="icon icon-social-twitter"></span>
@@ -66,6 +64,8 @@
         <span class="icon icon-social-facebook"></span>
         <span class="sr-only">Facebook</span></a>
       </div>
+      {% endcomment %}
+
       {% block language_chooser %}
           {% language_chooser %}
       {% endblock %}

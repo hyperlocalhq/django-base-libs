@@ -6,16 +6,15 @@
 
 <div id="teaser" class="content">
   <div class="container">
-    <div class="inner">
-      <header class="intro clearfix">{% placeholder "intro" %}</header>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 intro">
+        {% placeholder "intro" %}
+      </div>
     </div>
-    <article>
-      <section class="clearfix featured">
-        <div class="row">
-        {% placeholder "plan_organize_first" %}
-        </div>
-      </section>
-    </article>
+
+    <div class="row row-narrow grid featured">
+    {% placeholder "plan_organize_first" %}
+    </div>
   </div>
 </div>
 {% endblock %}
