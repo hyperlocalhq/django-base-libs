@@ -30,5 +30,32 @@
     
     <span class="prev" onclick="slider.prev();return false;"></span>
     <span class="next" onclick="slider.next();return false;"></span>
-    <nav><button class="cancel icon icon-white icon-cancel"></button></nav>
+    <nav><button class="cancel icon icon-white icon-cancel" data-href="{{ object.get_url_path }}"></button></nav>
 </div>
+
+<script src="{{ STATIC_URL }}site/js/swipe.js"></script>
+<script>
+    $(window).load(function() {
+        var $gallery = $('#gallery');
+        var slider = new Swipe(document.getElementById('slider'));
+
+        $('.prev', $gallery).click(function() {
+            slider.prev();
+            return false;
+        });
+        $('.next', $gallery).click(function() {
+            slider.next();
+            return false;
+        });
+        $('.cancel', $gallery).click(function() {
+            location.href = $(this).data('href');
+            return false;
+        });
+
+        $('body').addClass('gallery');
+        if (location.hash) {
+            var slide_index = parseInt(location.hash.replace(/#/, ''));
+            slider.slide(slide_index, 0);
+        }
+    });
+</script>
