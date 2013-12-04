@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
 {% block title %}{% trans "Museums" %} – {% endblock %}
 {% block bodyclass %}museum-list{% endblock %}
@@ -16,9 +17,6 @@
   </script>
 {% endblock %}
 
-{% block map %}
-{% endblock %}
-
 {% block content %}
   <div class="container">
     <nav id="controls" class="pull-right">
@@ -27,7 +25,7 @@
         <span class="sr-only">{% trans "Favorites" %}</span>
         <span class="icon icon-star"></span></a>
       {% endif %}
-      <a class="btn btn-default btn-round" href="map/">
+      <a class="btn btn-default btn-round" href="{% url "museum_list_map" %}">
         <span class="sr-only">{% trans "Show map" %}</span>
         <span class="icon icon-location"></span>
       </a>

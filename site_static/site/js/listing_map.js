@@ -113,13 +113,13 @@ var oMap;
 
             var $item = $(this);
             google.maps.event.addListener(oMarker, 'click', function() {
-                if (oActiveMarker) {
+                if (oActiveMarker && oActiveMarker != oMarker) {
                     oActiveMarker.setIcon(sMarkerImgDefault);
                 }
-                $('#item_description').load(el.html_src);
                 oMarker.setIcon(sMarkerImgSelected);
-                $.bbq.pushState({object_id: oMarker.object_id});
                 oActiveMarker = oMarker;
+                $.bbq.pushState({object_id: oMarker.object_id});
+                $('#item_description').load(el.html_src);
             });
             oMarker.categories = el.categories;
             oMarker.object_id = el.object_id;
