@@ -54,19 +54,19 @@ class EventAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set')
+    list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'featured', 'is_geoposition_set')
     list_display_links = ('title', )
-    list_filter = ('creation_date', 'status', 'categories',)
+    list_filter = ('creation_date', 'status', 'categories', 'featured')
     search_fields = ('title', 'subtitle', 'event_type', 'slug')
-    list_editable = ('status',)
+    list_editable = ('status', 'featured')
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'event_type', 'description', 'press_text', 'website'])
     fieldsets += [(None, {'fields': ('slug', 'description_locked', )}),]
     fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
-    fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'languages', 'other_languages', 'suitable_for_children')}),]
+    fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'languages', 'other_languages', 'suitable_for_children', 'featured')}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'country','latitude','longitude', 'exhibition')}),]
     fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]
-    fieldsets += [(_("Status"), {'fields': ('status',)}),]
+    fieldsets += [(_("Status"), {'fields': ('status', )}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     filter_horizontal = ("categories", "languages")

@@ -63,6 +63,9 @@ $(window).load(function() {
         layoutMode : 'fitRows'
     });
 
+    var $filters = $('#filters');
+    var $filter_summary = $('#filter_summary');
+
     // filter buttons
     $('.filter a').click(function(e){
         e.preventDefault();
@@ -99,9 +102,9 @@ $(window).load(function() {
                     return v != value;
                 });
                 // remove the corresponding item from filter summary
-                $('#filter_summary li[data-filter-group="' + group + '"][data-filter-value="' + value + '"]').remove();
-                if ($('#filter_summary').children().length == 1) {
-                    $('#filter_summary').empty();
+                $('li[data-filter-group="' + group + '"][data-filter-value="' + value + '"]', $filter_summary).remove();
+                if ($filter_summary.children().length == 1) {
+                    $filter_summary.empty();
                 }
             } else {
                 if (hierarchical) {
@@ -139,50 +142,57 @@ $(window).load(function() {
                 if ($children) {
                     $children.find(target_child).addClass('in');
                 }
-                if ($('#filter_summary').text() == "") {
-                    var $li = $('<li><b>{% trans "Filter selection" %}:</b></li>');
-                    $('#filter_summary').append($li);
+                if ($filter_summary.text() == "") {
+                    var $li = $('<li><b>' + str_filter_selection + ':</b></li>');
+                    $filter_summary.append($li);
                 }
                 var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
-                $('#filter_summary').append($li);
+                $filter_summary.append($li);
             }
         }
 
         // convert object into array
         var isoFilters = [];
+        var http_state_filters = [];
+        var map_filters = [];
         for (var prop in filters) {
-            isoFilters.push(filters[prop].join(''));
+            http_state_filters.push(filters[prop].join(''));
+            for (var i=0; i<filters[prop].length; i++) {
+                var cat = filters[prop][i].replace(/\./, '');
+                map_filters.push(cat);
+                isoFilters.push('[data-filter-categories~="' + cat + '"]');
+            }
         }
         var selector = isoFilters.join('');
 
-        $.bbq.pushState({filter: selector});
+        $.bbq.pushState({filter: http_state_filters.join('')});
 
-        $container.isotope({filter: selector});
+        $container.isotope({filter: '.item' + selector});
         $(".list img:in-viewport").lazyload();
-        $container.trigger("map_filter", { filter: isoFilters});
+        $container.trigger("map_filter", { filter: map_filters});
         $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
 
         return false;
     });
 
-    $('#filter_summary a').live('click', function(e) {
+    $('a', $filter_summary).live('click', function(e) {
         e.preventDefault();
         var $this = $(this).closest('li');
         var group = $this.attr('data-filter-group');
         var value = $this.attr('data-filter-value');
         if (!group && !value) {
             // trigger the clicks on all selected filters
-            $('#filters a.selected').click();
+            $('a.selected', $filters).click();
         } else {
             // trigger the click on corresponding filter
             $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();
         }
-    })
+    });
 
     $('#filter_reset').live('click', function(e) {
         e.preventDefault();
-        $('#filters a.selected').click();
-    })
+        $('a.selected', $filters).click();
+    });
 
     if (window.location.hash) {
         // get options object from hash
@@ -192,38 +202,7 @@ $(window).load(function() {
             if (!this) {
                 return;
             }
-            $('#filters a[data-filter-value=".' + this + '"]').click();
-        })
+            $('a[data-filter-value=".' + this + '"]', $filters).click();
+        });
     }
 });
-
-$('#filter_summary a').live('click', function(e) {
-  e.preventDefault();
-  var $this = $(this).closest('li');
-  var group = $this.attr('data-filter-group');
-  var value = $this.attr('data-filter-value');
-  if (!group && !value) {
-    // trigger the clicks on all selected filters
-    $('#filters a.selected').click();
-  } else {
-    // trigger the click on corresponding filter
-    $('.filter[data-filter-group="' + group + '"] a[data-filter-value="' + value + '"]').click();
-  }
-});
-
-$('#filter_reset').live('click', function(e) {
-  e.preventDefault();
-  $('#filters a.selected').click();
-});
-
-if (window.location.hash) {
-    // get options object from hash
-    var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
-    // apply options from hash
-    $(options.filter.split('.')).each(function() {
-      if (!this) {
-        return;
-      }
-      $('#filters a[data-filter-value=".' + this + '"]').click();
-    });
-}

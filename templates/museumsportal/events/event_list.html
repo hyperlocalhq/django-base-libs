@@ -5,17 +5,18 @@
 
 {% block js %}
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/mpb.list.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 <script type="text/javascript">
 var aGeopositions = [];
 var settings = {
   STATIC_URL: "{{ STATIC_URL }}"
 }
+var str_filter_selection = "{% trans "Filter selection" %}";
 </script>
 {% endblock %}
 
 {% block map %}
-<!-- {% include "utils/gmap.html" %} -->
 {% endblock %}
 
 {% block content %}
@@ -135,7 +136,7 @@ var settings = {
       {% random_zone_ad 'events' %}
       {% for event in object_list %}
       {% tags_for_object event as tags %}
-      <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}">
+      <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12" data-filter-categories="initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}">
         <div class="actions">
           {% if request.user.is_authenticated %}
             {% adding2favorites for event %}
@@ -174,17 +175,12 @@ var settings = {
           {% endif %}
         </a>
 
-        {% with event as list_item %}
-        {% include "utils/geo_position.html" %}
-        {% endwith %}
-
       </div>
       {% endfor %}
     </div>
   </div>
 </div>
 
-{% include "utils/gmap_scripts.html" %}
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/sticky.js"></script>
 
 {% endblock %}
