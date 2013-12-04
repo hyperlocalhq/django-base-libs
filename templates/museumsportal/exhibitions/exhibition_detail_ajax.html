@@ -15,23 +15,22 @@
       <div class="actions btn-group">
         {% if request.user.is_authenticated %}
           {% adding2favorites for exhibition %}
-          {% endif %}
+        {% endif %}
 
-          {% if_has_perm "exhibitions.change_exhibition" exhibition %}
-            {% if exhibition.cover_image %}
-              <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';">
-                <span class="icon icon-tool-crop"></span>
-              </button>
-              {% else %}{% if exhibition.museum.cover_image %}
-              <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';">
-                <span class="icon icon-tool-crop"></span>
-              </button>
-            {% endif %}
-          {% endif %}
+        {% if_has_perm "exhibitions.change_exhibition" exhibition %}
+          {% if exhibition.cover_image %}
+            <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';">
+              <span class="icon icon-tool-crop"></span>
+            </button>
+          {% else %}{% if exhibition.museum.cover_image %}
+            <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';">
+              <span class="icon icon-tool-crop"></span>
+            </button>
+          {% endif %}{% endif %}
         {% end_if_has_perm %}
-        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location">
+        <a class="btn btn-default location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" href="map/#object_id={{ exhibition.pk }}">
           <span class="icon icon-location"></span>
-        </button>
+        </a>
       </div>
     </div>
   </div>

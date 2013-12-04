@@ -78,12 +78,14 @@ def exhibition_list(request):
 
     status = None
     if form.is_valid():
+
         cat = form.cleaned_data['category']
         if cat:
             facets['selected']['category'] = cat
             qs = qs.filter(
                 categories=cat,
             ).distinct()
+
         status = form.cleaned_data['status']
         if status:
             facets['selected']['status'] = status
@@ -101,6 +103,7 @@ def exhibition_list(request):
                     end__gte=today,
                     end__lt=today+two_weeks,
                 )
+
         suitable_for_disabled = form.cleaned_data['suitable_for_disabled']
         if suitable_for_disabled:
             facets['selected']['suitable_for_disabled'] = True
@@ -140,24 +143,27 @@ def exhibition_list_map(request):
     #if not request.REQUEST.keys():
     #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
 
-    form = ExhibitionSearchForm(data=request.REQUEST)
+    form = ExhibitionFilterForm(data=request.REQUEST)
 
     facets = {
         'selected': {},
         'categories': {
             'categories': get_related_queryset(Exhibition, "categories").all().order_by("title_%s" % request.LANGUAGE_CODE),
             'statuses': STATUS_CHOICES,
-            },
-        }
+            'suitable_for_disabled': _("Exhibition especially suitable for people with disabilities"),
+        },
+    }
 
     status = None
     if form.is_valid():
+
         cat = form.cleaned_data['category']
         if cat:
             facets['selected']['category'] = cat
             qs = qs.filter(
                 categories=cat,
-                ).distinct()
+            ).distinct()
+
         status = form.cleaned_data['status']
         if status:
             facets['selected']['status'] = status
@@ -168,13 +174,21 @@ def exhibition_list_map(request):
                 qs = qs.filter(
                     start__gt=today-two_weeks,
                     start__lte=today,
-                    )
+                )
             elif status == "closing_soon":
                 # today <= EXHIBITION END < today + two weeks
                 qs = qs.filter(
                     end__gte=today,
                     end__lt=today+two_weeks,
-                    )
+                )
+
+        suitable_for_disabled = form.cleaned_data['suitable_for_disabled']
+        if suitable_for_disabled:
+            facets['selected']['suitable_for_disabled'] = True
+            qs = qs.filter(
+                suitable_for_disabled=True,
+            )
+
     if status == "closing_soon":
         qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
     else:
@@ -218,7 +232,7 @@ def exhibition_detail(request, slug):
     )
 
 
-def exhibition_detail_ajax(request, slug):
+def exhibition_detail_ajax(request, slug, template_name="exhibitions/exhibition_detail_ajax.html"):
     if "preview" in request.REQUEST:
         qs = Exhibition.objects.all()
         obj = get_object_or_404(qs, slug=slug)
@@ -231,9 +245,10 @@ def exhibition_detail_ajax(request, slug):
         queryset=qs,
         slug=slug,
         slug_field="slug",
-        template_name="exhibitions/exhibition_detail_ajax.html",
+        template_name=template_name,
         context_processors=(prev_next_processor,),
-        )
+    )
+
 
 def exhibition_detail_slideshow(request, slug):
     if "preview" in request.REQUEST:
@@ -250,7 +265,7 @@ def exhibition_detail_slideshow(request, slug):
         slug_field="slug",
         template_name="exhibitions/exhibition_detail_slideshow.html",
         context_processors=(prev_next_processor,),
-        )
+    )
 
 
 def export_json_exhibitions(request):
