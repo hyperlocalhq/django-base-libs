@@ -78,10 +78,18 @@ var oMap;
         var sMarkerImgSelected = "http://maps.google.com/mapfiles/marker_orange.png";
         var oActiveMarker = null;
 
-        $('.item').each(function(i) {
+        var active_object_id = '';
+        if (window.location.hash) {
+            // get options object from hash
+            var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
+            // apply options from hash
+            active_object_id = options.object_id;
+        }
+
+        $(self.aGeopositions).each(function(i, el) {
             // DEFINE IMAGE
-            var iLat = parseFloat($(this).data('latitude'));
-            var iLong = parseFloat($(this).data('longitude'));
+            var iLat = el.latitude;
+            var iLong = el.longitude;
             if (lat_max < iLat)
                 lat_max = iLat;
             if (iLat < lat_min)
@@ -108,30 +116,25 @@ var oMap;
                 if (oActiveMarker) {
                     oActiveMarker.setIcon(sMarkerImgDefault);
                 }
-                $('#item_description').html($item.html()).find('.description').load($item.data('description-src'));
+                $('#item_description').load(el.html_src);
                 oMarker.setIcon(sMarkerImgSelected);
+                $.bbq.pushState({object_id: oMarker.object_id});
                 oActiveMarker = oMarker;
             });
-
-            //oMarker.categories = aPos[i]['categories'];
+            oMarker.categories = el.categories;
+            oMarker.object_id = el.object_id;
             aMarkers.push(oMarker);
             aPoints.push(oPoint);
 
-            // DRAW MARKER LINK
-            $('.location:eq(' + i + ')').data('marker_obj', oMarker).click(function() {
-                oMap.setCenter($(this).data('marker_obj').getPosition());
-                google.maps.event.trigger($(this).data('marker_obj'), "click");
-                //oMap.setCenter($(this).data('marker_obj').getPosition());
-                //oMap.setZoom(16);
-                //$("#museum_list_map").autoscroll();
-                // $('html, body').animate({scrollTop:0}, 'slow');
-                $('body').addClass('map_visible');
-                setTimeout(function() {
-                    google.maps.event.trigger(oMap, 'resize');
-                }, 600);
-                return false;
-            });
+            if (el.object_id == active_object_id) {
+                oActiveMarker = oMarker;
+                console.log(oMarker);
+            }
         });
+        if (oActiveMarker) {
+            google.maps.event.trigger(oActiveMarker, 'click');
+        }
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition  (
                 function(position)  {
