@@ -1705,164 +1705,24 @@
 .tooltip.left {
   margin-left: -5px; }
 
-#gmap-wrapper {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  z-index: 2000;
-  height: 100%;
-  width: 0%;
-  overflow: hidden; }
-  #gmap-wrapper #gmap {
-    width: auto;
-    height: 100%;
-    width: 100%;
-    min-height: 350px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute; }
-    #gmap-wrapper #gmap * {
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none; }
-
-.map_visible {
-  margin-left: 25% !important; }
-  .map_visible .affix {
-    width: 75%; }
-  .map_visible #gmap-wrapper {
-    width: 25%; }
-  .map_visible.map_fullscreen #gmap-wrapper {
-    width: 100%; }
-
-#dyn_set_map {
-  border-right: 0px solid white;
-  position: relative; }
-  #dyn_set_map .form-actions {
-    position: absolute;
-    z-index: 1000;
-    bottom: 20px;
-    width: 490px;
-    padding: 14px; }
-  #dyn_set_map #gmap-wrapper {
-    position: relative;
-    background-color: #f2f2f2; }
-    #dyn_set_map #gmap-wrapper.museum_map {
-      height: 380px !important; }
-    #dyn_set_map #gmap-wrapper.exhibition_map {
-      height: 460px !important; }
-    #dyn_set_map #gmap-wrapper.event_map {
-      height: 550px !important; }
-    #dyn_set_map #gmap-wrapper.workshop_map {
-      height: 466px !important; }
-    #dyn_set_map #gmap-wrapper #gmap {
-      height: 100% !important; }
-
-#gmap_locations {
+#gmap {
+  display: block;
   position: absolute;
   top: 0px;
+  bottom: 0px;
   left: 0px;
-  bottom: 0;
-  right: 0;
-  height: auto;
+  right: 0px;
   width: auto;
-  overflow-x: hidden;
-  overflow-y: auto;
-  z-index: 1500; }
-  #gmap_locations::-webkit-scrollbar-corner, #gmap_locations::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-    background-color: #646464; }
-  #gmap_locations li {
-    display: block; }
-    #gmap_locations li a {
-      background-color: #00aefd;
-      color: white;
-      padding-left: 13px;
-      font-size: 14px;
-      line-height: 35px;
-      height: 35px;
-      display: block;
-      font-weight: 500;
-      border-bottom: 1px solid #f2f2f2;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      width: 100%;
-      overflow: hidden;
-      box-sizing: border-box;
-      -moz-box-sizing: border-box; }
-      #gmap_locations li a:hover {
-        color: white;
-        background-color: black; }
+  height: auto; }
 
-.location .wrapper {
-  text-align: center;
-  height: 0; }
-  .location .wrapper .close {
-    top: 0px;
-    right: 0px;
-    position: absolute;
-    width: 32px;
-    height: auto;
-    display: none; }
-  .location .wrapper .inner {
-    text-align: left;
-    display: table;
-    background-color: black;
-    color: white;
-    box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.5) !important;
-    padding: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    height: 90px;
-    width: 180px;
-    bottom: 63px !important;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    position: relative;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500; }
-    .location .wrapper .inner > span {
-      display: table-cell;
-      vertical-align: middle;
-      text-align: center; }
-      .location .wrapper .inner > span a {
-        font-weight: 700;
-        color: inherit;
-        text-align: center;
-        display: inline-block;
-        word-break: keep-all; }
-        .location .wrapper .inner > span a span {
-          opacity: 0.5;
-          font-size: 10px;
-          display: none; }
-    .location .wrapper .inner:hover {
-      background-color: white;
-      box-shadow: 0px 0px 3px 2px #ebebeb !important; }
-      .location .wrapper .inner:hover a {
-        color: black; }
-      .location .wrapper .inner:hover:after {
-        border-top-color: white; }
-    .location .wrapper .inner:after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-color: transparent;
-      border-style: solid;
-      bottom: 0;
-      left: 50%;
-      display: block;
-      margin-left: -3px;
-      margin-bottom: -8px;
-      border-top-color: black;
-      border-width: 8px 8px 0; }
+#item_description {
+  background-color: white;
+  position: absolute;
+  top: 122px;
+  bottom: 0px;
+  right: 0px;
+  padding: 30px;
+  overflow: scroll; }
 
 .gallery #gallery {
   -webkit-transition-duration: 0s, 0.25s;

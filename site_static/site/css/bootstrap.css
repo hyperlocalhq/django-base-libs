@@ -2968,7 +2968,8 @@ input[type="button"].btn-block {
   border-top-left-radius: 0; }
 
 .navbar-wrapper {
-  height: 122px; }
+  height: 122px;
+  z-index: 100; }
 
 @media (min-width: 768px) {
   .navbar.affix {
