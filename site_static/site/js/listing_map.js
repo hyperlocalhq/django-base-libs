@@ -128,12 +128,8 @@ var oMap;
 
             if (el.object_id == active_object_id) {
                 oActiveMarker = oMarker;
-                console.log(oMarker);
             }
         });
-        if (oActiveMarker) {
-            google.maps.event.trigger(oActiveMarker, 'click');
-        }
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition  (
@@ -159,7 +155,10 @@ var oMap;
         if (document.location.search) {
             fit_map(oMap, aPoints);
         }
-
+        if (oActiveMarker) {
+            oMap.setCenter(oActiveMarker.getPosition());
+            google.maps.event.trigger(oActiveMarker, 'click');
+        }
     }
 
     function map_filter(event, param) {
