@@ -123,11 +123,10 @@ def museum_list(request):
     )
 
 
-
 def museum_list_map(request):
     qs = Museum.objects.filter(status="published")
 
-    form = MuseumSearchForm(data=request.REQUEST)
+    form = MuseumFilterForm(data=request.REQUEST)
 
     facets = {
         'selected': {},
@@ -135,28 +134,39 @@ def museum_list_map(request):
             'categories': MuseumCategory.objects.all().order_by("title_%s" % request.LANGUAGE_CODE),
             'open_on_mondays': _("Open on Mondays"),
             'free_entrance': _("Free entrance"),
+            'accessibility_options': AccessibilityOption.objects.all()
             },
         }
 
     if form.is_valid():
+
         cat = form.cleaned_data['category']
         if cat:
             facets['selected']['category'] = cat
             qs = qs.filter(
                 categories=cat,
-                ).distinct()
+            ).distinct()
+
+        cat = form.cleaned_data['accessibility_option']
+        if cat:
+            facets['selected']['accessibility_option'] = cat
+            qs = qs.filter(
+                accessibility_options=cat,
+            ).distinct()
+
         open_on_mondays = form.cleaned_data['open_on_mondays']
         if open_on_mondays:
             facets['selected']['open_on_mondays'] = True
             qs = qs.filter(
                 open_on_mondays=True,
-                )
+            )
+
         free_entrance = form.cleaned_data['free_entrance']
         if free_entrance:
             facets['selected']['free_entrance'] = True
             qs = qs.filter(
                 free_entrance=True,
-                )
+            )
 
     abc_filter = request.GET.get('by-abc', None)
     abc_list = get_abc_list(qs, "title", abc_filter)
