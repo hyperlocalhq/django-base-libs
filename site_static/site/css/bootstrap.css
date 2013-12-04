@@ -2968,7 +2968,10 @@ input[type="button"].btn-block {
   border-top-left-radius: 0; }
 
 .navbar-wrapper {
-  height: 50px; }
+  height: 122px; }
+
+.navbar.affix {
+  margin-top: -71px; }
 
 .navbar {
   position: relative;
@@ -3087,9 +3090,11 @@ input[type="button"].btn-block {
       display: none; } }
 
 .navbar-nav > li > a {
+  padding: 0px;
   padding-left: 10px;
   padding-right: 10px;
   height: 50px;
+  font-size: 14px;
   line-height: 50px; }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {

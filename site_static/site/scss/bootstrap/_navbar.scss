@@ -8,9 +8,15 @@
 // Provide a static navbar from which we expand to create full-width, fixed, and
 // other navbar variations.
 .navbar-wrapper {
-  height: 50px;
+  height: 122px;
 }
+
+.navbar.affix {
+  margin-top: -71px;
+}
+
 .navbar {
+
   position: relative;
   z-index: $zindex-navbar;
   min-height: $navbar-height; // Ensure a navbar always shows (e.g., without a .navbar-brand in collapsed mode)
@@ -207,9 +213,11 @@
   // margin: ($navbar-padding-vertical / 2) (-$navbar-padding-horizontal);
 
   > li > a {
+    padding: 0px;
     padding-left: 10px;
     padding-right: 10px;
     height: 50px;
+    font-size: 14px;
     line-height: 50px;
   }
 

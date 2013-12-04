@@ -47,8 +47,11 @@ $(document).ready(function(){
   $(window).scroll(function() {
     if ($('body').offset().top < $(window).scrollTop()) {
       $('#to-top').addClass('on');
+      $('.navbar-wrapper').addClass('on');
+
     } else {
       $('#to-top').removeClass('on');
+      $('.navbar-wrapper').removeClass('on');
     }
   });
 
