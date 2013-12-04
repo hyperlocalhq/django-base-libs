@@ -65,7 +65,7 @@ def event_list(request):
     facets = {
         'selected': {},
         'categories': {
-            'categories': get_related_queryset(Event, "categories").order_by("title_%s" % request.LANGUAGE_CODE),
+            'categories': get_related_queryset(Event, "categories"),
             'statuses': STATUS_CHOICES,
             },
         }

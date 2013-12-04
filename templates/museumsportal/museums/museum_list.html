@@ -12,11 +12,11 @@
     var settings = {
       STATIC_URL: "{{ STATIC_URL }}"
     }
+    var str_filter_selection = "{% trans "Filter selection" %}";
   </script>
 {% endblock %}
 
 {% block map %}
-  {# {% include "utils/gmap.html" %} #}
 {% endblock %}
 
 {% block content %}
@@ -36,8 +36,6 @@
     <h1>{% trans "Museums, Palaces, and Memorials" %}</h1>
 
     <div id="filters">
-      <script>var str_filter_selection = "{% trans "Filter selection" %}";</script>
-
       <div class="btn-group" id="filter-toggle" data-toggle="buttons">
         <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
           <input type="radio" name="options" id="filter-toggle-categories">
@@ -57,6 +55,11 @@
         <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-open-late">
           <input type="radio" name="options" id="filter-toggle-open-late">
           {% trans "Open late" %}
+        </label>
+
+        <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-accessibility">
+          <input type="radio" name="options" id="filter-toggle-accessibility">
+          {% trans "Accessibility" %}
         </label>
       </div>
 
@@ -108,10 +111,9 @@
         <div class="panel panel-default">
           <div id="filter-smartlists" class="panel-collapse collapse">
             <div class="panel-body">
-             <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+              <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
                 <li><a href="" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
                 <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
-
                 {% comment %}
                 <!-- <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
                 <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
@@ -154,14 +156,24 @@
             </div>
           </div>
         </div>
+        <div class="panel panel-default">
+          <div id="filter-accessibility" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul class="filter option-set clearfix" id="accessibility" data-filter-group="accessibility">
+                {% for cat in facets.categories.accessibility_options %}
+                  <li><a href="" data-filter-value=".access_{{ cat.slug }}">{{ cat.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
       <ul id="filter_summary"></ul>
     </div>
-
     <div id="container" class="row row-narrow grid">
       {% for museum in object_list %}
       {% tags_for_object museum as tags %}
-      <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3 initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}" data-description-src="{{ museum.get_url_path }}ajax/">
+      <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3" data-filter-categories="initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% for cat in museum.accessibility_options.all %} access_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}" data-description-src="{{ museum.get_url_path }}ajax/">
         <a href="{{ museum.get_url_path }}">
           {% if museum.cover_image %}
             <span class="img">
@@ -267,16 +279,8 @@
           </div>
           {% endcomment %}
         </div>
-
-        {% comment %}
-        {% with museum as list_item %}
-          {% include "utils/geo_position.html" %}
-        {% endwith %}
-        {% endcomment %}
       </div>
     {% endfor %}
    </div>
   </div>
-  {# {% include "utils/gmap_scripts.html" %} #}
-
 {% endblock %}

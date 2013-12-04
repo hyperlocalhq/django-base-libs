@@ -79,7 +79,7 @@ class Command(NoArgsCommand):
         s_exhibitions, created = Service.objects.get_or_create(
             sysname="smb_exhibitions_smart",
             defaults={
-                'url': "http://www.smb.museum/smb/export/getExhibitionListFromSMart.php?format=json",
+                'url': "http://ww2.smb.museum/smb/export/getExhibitionListFromSMart.php?format=json",
                 'title': "SMB - Exhibitions SMart",
             },
         )
@@ -127,7 +127,7 @@ class Command(NoArgsCommand):
             except:
                 pass
 
-            response = urllib2.urlopen("http://www.smb.museum/smb/export/getExhibitionFromSMart.php?format=json&SMart_id=%s" % external_id)
+            response = urllib2.urlopen("http://ww2.smb.museum/smb/export/getExhibitionFromSMart.php?format=json&SMart_id=%s" % external_id)
             data = response.read()
             response.close()
             data_dict = json.loads(data)
@@ -321,7 +321,7 @@ class Command(NoArgsCommand):
         s_exhibitions, created = Service.objects.get_or_create(
             sysname="smb_exhibitions_smart",
             defaults={
-                'url': "http://www.smb.museum/smb/export/getExhibitionListFromSMart.php?format=json",
+                'url': "http://ww2.smb.museum/smb/export/getExhibitionListFromSMart.php?format=json",
                 'title': "SMB - Exhibitions SMart",
             },
         )
@@ -329,7 +329,7 @@ class Command(NoArgsCommand):
         s_events, created = Service.objects.get_or_create(
             sysname="smb_events_smart",
             defaults={
-                'url': "http://www.smb.museum/smb/export/getEventListFromSMart.php?format=json",
+                'url': "http://ww2.smb.museum/smb/export/getEventListFromSMart.php?format=json",
                 'title': "SMB - Events SMart",
             },
         )
@@ -355,7 +355,7 @@ class Command(NoArgsCommand):
 
         for external_id, event_dict in list_data_dict.items():
 
-            # based on http://www.smb.museum/smb/export/getEventTypeListFromSMart.php?format=json
+            # based on http://ww2.smb.museum/smb/export/getEventTypeListFromSMart.php?format=json
             event_type_ids = (event_dict.get('event_types_detail', {}) or {}).keys()
             if event_type_ids and int(event_type_ids[0]) in (45, 215, 216, 217, 218, 219, 137):
 
@@ -402,7 +402,7 @@ class Command(NoArgsCommand):
                     workshop.latitude = museum.latitude
                     workshop.longitude = museum.longitude
 
-                response = urllib2.urlopen("http://www.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id=%s" % min(event_dict['dates'].keys()))
+                response = urllib2.urlopen("http://ww2.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id=%s" % min(event_dict['dates'].keys()))
                 data = response.read()
                 response.close()
                 data_dict = json.loads(data)
@@ -444,7 +444,7 @@ class Command(NoArgsCommand):
                 workshop.booking_info_en = data_dict['registration_en']
                 workshop.booking_info_en_markup_type = "pt"
 
-                # based on http://www.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
+                # based on http://ww2.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
                 for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
                     target_group_id = int(target_group_id)
                     if target_group_id == 191:
@@ -639,7 +639,7 @@ class Command(NoArgsCommand):
                     event.latitude = museum.latitude
                     event.longitude = museum.longitude
 
-                response = urllib2.urlopen("http://www.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id=%s" % min(event_dict['dates'].keys()))
+                response = urllib2.urlopen("http://ww2.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id=%s" % min(event_dict['dates'].keys()))
                 data = response.read()
                 response.close()
                 data_dict = json.loads(data)
@@ -681,7 +681,7 @@ class Command(NoArgsCommand):
                 event.booking_info_en = data_dict['registration_en']
                 event.booking_info_en_markup_type = "pt"
 
-                # based on http://www.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
+                # based on http://ww2.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
                 for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
                     if target_group_id in (191, 193, 195, 196):
                         event.suitable_for_children = True
