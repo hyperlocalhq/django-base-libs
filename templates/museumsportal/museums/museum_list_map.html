@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_map.html" %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
 {% block title %}{% trans "Museums" %} – {% endblock %}
 {% block bodyclass %}museum-list{% endblock %}
@@ -14,13 +14,11 @@
     }
   </script>
 {% endblock %}
-
-{% block map %}
-  {% include "utils/gmap.html" %}
-{% endblock %}
-
 {% block content %}
-  <div class="container">
+
+  {% include "utils/gmap.html" %}
+
+  <div class="container" style="display: none;">
     <nav id="controls" class="pull-right">
       {% if request.user.is_authenticated %}
       <a class="btn btn-default btn-round" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
@@ -32,10 +30,9 @@
         <span class="icon icon-location"></span>
       </button>
     </nav>
-
     <h1>{% trans "Museums, Palaces, and Memorials" %}</h1>
 
-    <div id="filters">
+    <div id="filters" style="display: none;">
       <script>var str_filter_selection = "{% trans "Filter selection" %}";</script>
 
       <div class="btn-group" id="filter-toggle" data-toggle="buttons">
@@ -157,8 +154,10 @@
       </div>
       <ul id="filter_summary"></ul>
     </div>
+  </div>
 
     <div id="container" style="display: none">
+
       <!-- These items will be included into #item_description, when a marker is selected -->
       {% comment %}
         TODO: integrate filters
@@ -182,7 +181,6 @@
         {% endif %}
       {% endfor %}
     </div>
-  </div>
   {% include "utils/gmap_scripts.html" %}
-
 {% endblock %}
+

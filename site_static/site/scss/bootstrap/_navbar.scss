@@ -9,10 +9,13 @@
 // other navbar variations.
 .navbar-wrapper {
   height: 122px;
+  z-index: 100;
 }
 
 .navbar.affix {
-  margin-top: -71px;
+  @media (min-width: 768px) {
+    margin-top: -71px;
+  }
 }
 
 .navbar {

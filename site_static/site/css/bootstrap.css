@@ -337,7 +337,7 @@ p {
 .lead ol,
 .lead {
   margin-bottom: 15px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 200;
   line-height: 170%; }
   @media (min-width: 768px) {
@@ -345,7 +345,7 @@ p {
     .lead ul,
     .lead ol,
     .lead {
-      font-size: 18px; } }
+      font-size: 20px; } }
 
 small {
   font-size: 85%; }
@@ -2968,10 +2968,12 @@ input[type="button"].btn-block {
   border-top-left-radius: 0; }
 
 .navbar-wrapper {
-  height: 122px; }
+  height: 122px;
+  z-index: 100; }
 
-.navbar.affix {
-  margin-top: -71px; }
+@media (min-width: 768px) {
+  .navbar.affix {
+    margin-top: -71px; } }
 
 .navbar {
   position: relative;
