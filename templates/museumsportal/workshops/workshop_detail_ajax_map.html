@@ -1,0 +1,53 @@
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites %}
+{% with object as workshop %}
+  {% tags_for_object workshop as tags %}
+  <div>
+    <div class="actions btn-group">
+      {% if request.user.is_authenticated %}
+        {% adding2favorites for workshop %}
+      {% endif %}
+      {% if_has_perm "workshops.change_workshop" workshop %}
+        {% if workshop.cover_image %}
+          <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default btn-round" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';">
+            <span class="icon icon-tool-crop"></span>
+            <span class="sr-only">{% trans "Crop Image" %}</span>
+          </button>
+        {% else %}{% if workshop.museum.cover_image %}
+          <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default btn-round" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';">
+            <span class="icon icon-tool-crop"></span>
+            <span class="sr-only">{% trans "Crop Image" %}</span>
+          </button>
+        {% endif %}{% endif %}
+      {% end_if_has_perm %}
+    </div>
+
+    <a href="{{ workshop.get_url_path }}">
+      <!-- <h4>{{ workshop.workshop_type }} {% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|time:"H:i" }}{% endwith %}</h4> -->
+
+      {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+      <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} {% trans "Bookable Offer" %}. {{ workshop.get_particularities|join:'. ' }}</h4>
+      {% else %}
+      <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
+        {% with workshop.get_closest_workshop_time as workshop_time %}
+        {{ workshop_time.workshop_date|date:"j. F Y" }}
+        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
+        {% endwith %}
+        {{ workshop.get_particularities|join:'. ' }}
+      </h4>
+      {% endif %}
+
+      <h3>{{ workshop.title }}</h3>
+      <h4>{{ workshop.subtitle }}</h4>
+      {% if workshop.exhibition %}
+      <h5>{% blocktrans with workshop.exhibition.title as exhibition_title %}Accompanying program for exhibition "{{ exhibition_title }}"{% endblocktrans %}:
+        <span class="from_date">{{ workshop.exhibition.start|date:"d.m.Y" }}</span> {% if workshop.exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if workshop.exhibition.end %}{% trans "till" %} {{ workshop.exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
+      </h5>
+      {% endif %}
+      {% if workshop.location_name %}
+      <h5>{{ workshop.location_name }}</h5>
+      {% else %}
+      <h5>{{ workshop.museum.title }}</h5>
+      {% endif %}
+    </a>
+  </div>
+{% endwith %}

@@ -42,13 +42,15 @@ from filebrowser.models import FileDescription
 STATUS_CHOICES = (
     ("newly_opened", _("Newly opened")),
     ("closing_soon", _("Closing soon")),
-    )
+)
 
-class WorkshopSearchForm(dynamicforms.Form):
+
+class WorkshopFilterForm(dynamicforms.Form):
     status = forms.ChoiceField(
         choices=STATUS_CHOICES,
         required=False,
-        )
+    )
+
 
 def workshop_list(request):
     qs = Workshop.objects.filter(status="published")
@@ -56,14 +58,14 @@ def workshop_list(request):
     #if not request.REQUEST.keys():
     #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
     
-    form = WorkshopSearchForm(data=request.REQUEST)
+    form = WorkshopFilterForm(data=request.REQUEST)
     
     facets = {
         'selected': {},
         'categories': {
             'statuses': STATUS_CHOICES,
-            },
-        }
+        },
+    }
 
     status = None
     if form.is_valid():
@@ -77,13 +79,13 @@ def workshop_list(request):
                 qs = qs.filter(
                     workshoptime__workshop_date__gt=today-two_weeks,
                     workshoptime__workshop_date__lte=today,
-                    )
+                )
             elif status == "closing_soon":
                 # today <= WORKSHOP END < today + two weeks
                 qs = qs.filter(
                     workshoptime__workshop_date__gte=today,
                     workshoptime__workshop_date__lt=today+two_weeks,
-                    )
+                )
     #if status == "closing_soon":
     #    qs = qs.order_by("workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
     #else:
@@ -111,7 +113,7 @@ def workshop_list(request):
         extra_context=extra_context,
         httpstate_prefix="workshop_list",
         context_processors=(prev_next_processor,),
-        )
+    )
 
 
 def workshop_list_map(request):
@@ -120,14 +122,14 @@ def workshop_list_map(request):
     #if not request.REQUEST.keys():
     #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
 
-    form = WorkshopSearchForm(data=request.REQUEST)
+    form = WorkshopFilterForm(data=request.REQUEST)
 
     facets = {
         'selected': {},
         'categories': {
             'statuses': STATUS_CHOICES,
-            },
-        }
+        },
+    }
 
     status = None
     if form.is_valid():
@@ -141,13 +143,13 @@ def workshop_list_map(request):
                 qs = qs.filter(
                     workshoptime__workshop_date__gt=today-two_weeks,
                     workshoptime__workshop_date__lte=today,
-                    )
+                )
             elif status == "closing_soon":
                 # today <= WORKSHOP END < today + two weeks
                 qs = qs.filter(
                     workshoptime__workshop_date__gte=today,
                     workshoptime__workshop_date__lt=today+two_weeks,
-                    )
+                )
     #if status == "closing_soon":
     #    qs = qs.order_by("workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
     #else:
@@ -175,7 +177,8 @@ def workshop_list_map(request):
         extra_context=extra_context,
         httpstate_prefix="workshop_list",
         context_processors=(prev_next_processor,),
-        )
+    )
+
 
 def workshop_detail(request, slug):
     if "preview" in request.REQUEST:
@@ -192,9 +195,10 @@ def workshop_detail(request, slug):
         slug_field="slug",
         template_name="workshops/workshop_detail.html",
         context_processors=(prev_next_processor,),
-        )
+    )
 
-def workshop_detail_ajax(request, slug):
+
+def workshop_detail_ajax(request, slug, template_name="workshops/workshop_detail_ajax.html"):
     if "preview" in request.REQUEST:
         qs = Workshop.objects.all()
         obj = get_object_or_404(qs, slug=slug)
@@ -207,9 +211,9 @@ def workshop_detail_ajax(request, slug):
         queryset=qs,
         slug=slug,
         slug_field="slug",
-        template_name="workshops/workshop_detail_ajax.html",
+        template_name=template_name,
         context_processors=(prev_next_processor,),
-        )
+    )
 
 
 def workshop_detail_slideshow(request, slug):
@@ -227,7 +231,8 @@ def workshop_detail_slideshow(request, slug):
         slug_field="slug",
         template_name="workshops/workshop_detail_slideshow.html",
         context_processors=(prev_next_processor,),
-        )
+    )
+
 
 @never_cache
 @login_required
@@ -235,7 +240,8 @@ def add_workshop(request):
     if not request.user.has_perm("workshops.add_workshop"):
         return access_denied(request)
     return show_form_step(request, WORKSHOP_FORM_STEPS, extra_context={});
-    
+
+
 @never_cache
 @login_required
 def change_workshop(request, slug):
@@ -243,6 +249,7 @@ def change_workshop(request, slug):
     if not request.user.has_perm("workshops.change_workshop", instance):
         return access_denied(request)
     return show_form_step(request, WORKSHOP_FORM_STEPS, extra_context={'workshop': instance}, instance=instance);
+
 
 @never_cache
 @login_required
@@ -255,6 +262,7 @@ def delete_workshop(request, slug):
         instance.save()
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
+
 
 @never_cache
 @login_required
@@ -281,11 +289,11 @@ def batch_workshop_times(request, slug):
                 if instance.museum:
                     is_closing_day = bool(instance.museum.specialopeningtime_set.filter(
                         models.Q(yyyy__isnull=True) | models.Q(yyyy=d.year), mm=d.month, dd=d.day, is_closed=True
-                        ))
+                    ))
                     try:
                         is_closing_day = is_closing_day or not getattr(instance.museum.season_set.filter(
                             start__lte=d, end__gte=d
-                            )[0], '%s_open' % weekdays[wd])
+                        )[0], '%s_open' % weekdays[wd])
                     except:
                         pass
                 
@@ -303,12 +311,13 @@ def batch_workshop_times(request, slug):
                             'workshop_date': d.strftime("%d.%m.%Y"),
                             'start': start_time,
                             'end': end_time,
-                            })
+                        })
                 if wd == 6:
                     week_count += 1
             return HttpResponse(simplejson.dumps(workshop_times))
         return HttpResponse(simplejson.dumps([]))
     return redirect(instance.get_url_path())
+
 
 @never_cache
 @login_required
@@ -322,7 +331,9 @@ def change_workshop_status(request, slug):
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
 
+
 ### MEDIA FILE MANAGEMENT ###
+
 
 def update_mediafile_ordering(tokens, workshop):
     # tokens is in this format:
@@ -341,6 +352,7 @@ def update_mediafile_ordering(tokens, workshop):
         mediafile.save()
         sort_order += 1
 
+
 @never_cache
 @login_required
 def gallery_overview(request, slug):
@@ -354,7 +366,8 @@ def gallery_overview(request, slug):
         return HttpResponse("OK")
 
     return render(request, "workshops/gallery/overview.html", {'workshop': instance})
-    
+
+
 @never_cache
 @login_required
 def create_update_mediafile(request, slug, mediafile_token="", media_file_type="", **kwargs):
@@ -377,7 +390,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             MediaFile,
             workshop=instance,
             pk=MediaFile.token_to_pk(mediafile_token),
-            )
+        )
     else:
         media_file_obj = None
     
@@ -406,7 +419,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             if not media_file_obj:
                 media_file_obj = MediaFile(
                     workshop=instance
-                    )
+                )
                     
             media_file_path = ""
             if cleaned.get("media_file_path", None):
@@ -430,7 +443,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=FileObject(media_file_path or path),
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 file_description = FileDescription(file_path=media_file_path or path)
             
@@ -445,7 +458,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             if not media_file_obj.pk:
                 media_file_obj.sort_order = MediaFile.objects.filter(
                     workshop=instance,
-                    ).count()
+                ).count()
             else:
                 # trick not to reorder media files on save
                 media_file_obj.sort_order = media_file_obj.sort_order
@@ -456,7 +469,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                     request,
                     "workshops/gallery/success.html",
                     {},
-                    )
+                )
             else:
                 if cleaned['goto_next']:
                     return redirect(cleaned['goto_next'])
@@ -468,7 +481,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=media_file_obj.path,
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 file_description = FileDescription(file_path=media_file_obj.path)
             initial = {}
@@ -491,13 +504,14 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         'media_file_type': media_file_type,
         'form': form,
         'workshop': instance,
-        }
+    }
     
     return render(
         request,
         "workshops/gallery/create_update_mediafile.html",
         context_dict,
-        )
+    )
+
 
 @never_cache
 @login_required
@@ -508,7 +522,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
     
     filters = {
         'id': MediaFile.token_to_pk(mediafile_token),
-        }
+    }
     if instance:
         filters['workshop'] = instance
     try:
@@ -526,7 +540,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
                     pass
                 FileDescription.objects.filter(
                     file_path=media_file_obj.path,
-                    ).delete()
+                ).delete()
             media_file_obj.delete()
             return HttpResponse("OK")
     else:
@@ -538,11 +552,10 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
         'media_file': media_file_obj,
         'form': form,
         'workshop': instance,
-        }
+    }
     
     return render(
         request,
         "workshops/gallery/delete_mediafile.html",
         context_dict,
-        )
-
+    )

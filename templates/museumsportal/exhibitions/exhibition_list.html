@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
 {% block title %}{% trans "Exhibitions" %} – {% endblock %}
 {% block bodyclass %}exhibition-list{% endblock %}
@@ -14,9 +15,6 @@
   </script>
 {% endblock %}
 
-{% block map %}
-{% endblock %}
-
 {% block content %}
   <div class="container">
     <nav id="controls" class="pull-right">
@@ -26,9 +24,9 @@
         <span class="icon icon-star"></span>
       </a>
       {% endif %}
-      <button id="gmap_toggle" class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
+      <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}" href="{% url "exhibition_list_map" %}">
         <span class="icon icon-location"></span>
-      </button>
+      </a>
       <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">
         <span class="icon icon-signal"></span>
         <span class="sr-only">{% trans "RSS Feed" %}</span>

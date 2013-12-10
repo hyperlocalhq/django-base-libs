@@ -198,11 +198,13 @@ $(window).load(function() {
         // get options object from hash
         var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
         // apply options from hash
-        $(options.filter.split('.')).each(function() {
-            if (!this) {
-                return;
-            }
-            $('a[data-filter-value=".' + this + '"]', $filters).click();
-        });
+        if (options.filter) {
+            $(options.filter.split('.')).each(function() {
+                if (!this) {
+                    return;
+                }
+                $('a[data-filter-value=".' + this + '"]', $filters).click();
+            });
+        }
     }
 });

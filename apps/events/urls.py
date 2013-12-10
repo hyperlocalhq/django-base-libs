@@ -6,11 +6,12 @@ from feeds import EventRssFeed
 
 urlpatterns = patterns('museumsportal.apps.events.views',
     url(r'^$', 'event_list', name='event_list'),
-    url(r'^$', 'event_list_map', name='event_list_map'),
+    url(r'^map/$', 'event_list_map', name='event_list_map'),
     url(r'^add/$', 'add_event', name='add_event'),
     url(r'^rss/$', EventRssFeed()),
     url(r'^(?P<slug>[^/]+)/$', 'event_detail', name='event_detail'),
     url(r'^(?P<slug>[^/]+)/ajax/$', 'event_detail_ajax', name='event_detail_ajax'),
+    url(r'^(?P<slug>[^/]+)/ajax/map/$', 'event_detail_ajax', {'template_name': 'events/event_detail_ajax_map.html'}, name='event_detail_ajax_map'),
     url(r'^(?P<slug>[^/]+)/slideshow/$', 'event_detail_slideshow', name='event_detail_slideshow'),
     url(r'^(?P<slug>[^/]+)/change/$', 'change_event', name='change_event'),
     url(r'^(?P<slug>[^/]+)/delete/$', 'delete_event', name='delete_event'),    

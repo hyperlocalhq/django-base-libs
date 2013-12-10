@@ -135,8 +135,8 @@ def museum_list_map(request):
             'open_on_mondays': _("Open on Mondays"),
             'free_entrance': _("Free entrance"),
             'accessibility_options': AccessibilityOption.objects.all()
-            },
-        }
+        },
+    }
 
     if form.is_valid():
 
@@ -208,8 +208,7 @@ def museum_detail(request, slug):
     )
 
 
-
-def museum_detail_ajax(request, slug):
+def museum_detail_ajax(request, slug, template_name="museums/museum_detail_ajax.html"):
     if "preview" in request.REQUEST:
         qs = Museum.objects.all()
         obj = get_object_or_404(qs, slug=slug)
@@ -222,9 +221,9 @@ def museum_detail_ajax(request, slug):
         queryset=qs,
         slug=slug,
         slug_field="slug",
-        template_name="museums/museum_detail_ajax.html",
+        template_name=template_name,
         context_processors=(prev_next_processor,),
-        )
+    )
 
 
 def museum_detail_slideshow(request, slug):
@@ -242,7 +241,8 @@ def museum_detail_slideshow(request, slug):
         slug_field="slug",
         template_name="museums/museum_detail_slideshow.html",
         context_processors=(prev_next_processor,),
-        )
+    )
+
 
 def export_json_museums(request):
     #create queryset
