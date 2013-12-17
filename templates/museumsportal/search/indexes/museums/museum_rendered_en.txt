@@ -2,8 +2,10 @@
 {% with object as museum %}
     <li class="item">
         <a href="/en/museums/{{ museum.slug }}/">
-            <h4>Museum</h4>
             <h3>{{ museum.title_en|default:museum.title_de|safe }}</h3>
+            {% if museum.subtitle_en %}
+                <h4>{{ museum.subtitle_en|safe }}</h4>
+            {% endif %}
             <h4>{{ museum.get_address|safe }}</h4>
         </a>
     </li>
