@@ -583,6 +583,8 @@ MAILING_CONTENT_TYPE_CHOICES = (
     #('text', _("Text only")),
 )
 
+ROSETTA_STORAGE_CLASS = "rosetta.storage.SessionRosettaStorage"  # for the future (rosetta v0.7.2)
+
 ### LOCAL SETTINGS ###
 
 try:
