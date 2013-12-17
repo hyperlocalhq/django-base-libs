@@ -1,3 +1,74 @@
+.dashboard-table {
+  width: 100%;
+  margin-bottom: 10px;
+  tr {
+    td , th {
+      padding: 5px 0px;
+      &:first-child   { padding-left: 10px;}
+      &:last-child    { padding-right: 10px; text-align: right;}
+    }
+    th small{
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: normal;
+      color: rgba(0,0,0,0.75) !important;
+    }
+    td {
+      &:nth-child(2n) { width: 120px;}
+      &:nth-child(3n) { width: 120px;}
+      &:nth-child(4n) { width: 130px;}
+      border-bottom: 2px solid white;
+      vertical-align: middle;
+      background-color: #f2f2f2;
+      color: rgba(0,0,0,0.75) !important;
+
+      .status { 
+        height: 24px;
+        width: 115px;
+        display: inline-block;
+        .sbToggle {
+          height: 24px;
+          width: 100%;
+          background-color: rgba(0,0,0,0);
+          opacity: 0.25;
+          &.sbToggleOpen{
+            opacity: 0.5;
+            background-color: rgba(0,0,0,0.15);
+          }
+        }
+        .sbHolder{
+          background-color: rgba(0,0,0,0.025);
+          border: none;
+          font-family: inherit;
+          font-weight: 300 !important;
+          color: rgba(0,0,0,0.75) !important;
+          display: inline-block;
+          height: 24px;
+          position: relative;
+          width: 100%;
+
+          font-size: 13px !important;
+          line-height: 24px !important;
+
+          &:hover {background-color: rgba(0,0,0,0); }
+        }
+
+        .sbOptions a{
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+        .sbSelector{
+          font-size: 13px !important;
+          line-height: 24px !important;
+          width: 100%; 
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+        }
+      }
+    }
+  }
+}
+
 #dashboard {
   fieldset { margin-top: 60px; position: relative; }
   legend {font-size: 28px; padding-bottom: 10px; border: none !important; margin: 0px;

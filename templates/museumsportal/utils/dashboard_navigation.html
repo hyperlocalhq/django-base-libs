@@ -23,6 +23,7 @@
           <li><a href="/{{ LANGUAGE_CODE }}/dashboard/contact/">{% trans "Contact" %}</a></li>
         </ul>
 
+        {% comment %}
         <form class="navbar-form navbar-right" role="search" action="/search/" method="get">
           <div class="input-group">
             <div class="form-group">
@@ -36,6 +37,8 @@
             </span>
           </div>
         </form>
+        {% endcomment %}
+        
       </div>
     </div><!-- /.navbar-collapse -->
   </nav>

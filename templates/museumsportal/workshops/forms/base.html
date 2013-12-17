@@ -38,7 +38,7 @@
 
 {% block form_steps %}
     {% if workshop %}
-        <div class="status">
+        <div id="pub-status" class="status">
             <select class="status-switch" data-url="{{ workshop.get_url_path }}status/">
                 <option value="draft"{% if workshop.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
                 <option value="published"{% if workshop.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
