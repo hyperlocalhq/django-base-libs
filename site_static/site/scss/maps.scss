@@ -94,7 +94,9 @@
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out;
-
+  img {
+    max-width: none;
+  }
   #gmap  {
     width: auto; 
     height: 100%;
