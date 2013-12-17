@@ -143,7 +143,8 @@ urlpatterns += patterns('',
     
     url(r'^rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^search/', SearchView(), name='haystack_search'),
+    # url(r'^search/', SearchView(), name='haystack_search'),
+    url(r'^search/', include("museumsportal.apps.search.urls")),
     url(r'^', include('cms.urls')),
     
     

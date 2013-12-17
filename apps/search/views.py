@@ -1,47 +1,55 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
-from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.http import Http404
+from django.core.paginator import Paginator
 
-from haystack.views import SearchView as SearchViewBase
-from crispy_forms.helper import FormHelper
-from crispy_forms import layout, bootstrap
+import haystack.views as haystack_views
+from museumsportal.apps.search.forms import model_choices, ModelSearchForm, get_dictionaries
 
-class SearchView(SearchViewBase):
-    def extra_context(self):
-        context = {}
-        
-        form_helper = FormHelper()
-        form_helper.form_action = ""
-        form_helper.form_method = "GET"
-        layout_blocks = []
-        layout_blocks.append(layout.Fieldset(
-            "",
 
-            layout.Div(
-                'models',
-                css_class="inline",
-                ),
+class SearchView(haystack_views.SearchView):
+    def __init__(self, template=None, load_all=True, form_class=ModelSearchForm, searchqueryset=None, context_class=RequestContext, results_per_page=None, limit=None):
+        super(SearchView, self).__init__(template, load_all, form_class, searchqueryset, context_class, results_per_page)
+        self.limit = limit
 
-            layout.Div(
-                
-                layout.Div(
-                    layout.Div(layout.Field("q", css_class="form-control"), css_class="max"),
-                    css_class="form-group",
-                ),
-                
-                layout.Div(
-                    layout.Div(layout.Submit('submit', _('Search')),),
-                    css_class="input-group-btn",
-                ),
+    def create_response(self):
+        """
+        Generates the actual HttpResponse to send back to the user.
+        """
+        # sort by default order
+        app_models, indexes = get_dictionaries()
 
-            css_class="input-group",
-            ),
-            
-            css_id="search_form",
-            ))
+        result_groups = []
+        for short_name, verbose_name in model_choices():
+            app_model = indexes[short_name]
+            #results = self.results.models(models.get_model(*app_model.split(".")))
+            results = self.results.filter(django_ct=app_model)
+            length = results.count()
+            if length:
+                d = {
+                    'short_name': short_name,
+                    'verbose_name': verbose_name,
+                    'count': length,
+                    'results': results[:self.limit] if self.limit else results,
+                }
+                if self.limit is None and self.request.GET.get('t', "") == short_name:
+                    paginator = Paginator(results, self.results_per_page)
+                    try:
+                        page = paginator.page(self.request.GET.get('page', 1))
+                    except:
+                        raise Http404
+                    d['paginator'] = paginator
+                    d['page'] = page
+                result_groups.append(d)
 
-        form_helper.layout = layout.Layout(
-            *layout_blocks
-            )        
-        context['form_helper'] = form_helper
-        return context
+        context = {
+            'query': self.query,
+            'form': self.form,
+            'full': self.limit is None,
+            'result_groups': result_groups
+        }
+        context.update(self.extra_context())
+
+        return render_to_response(self.template, context, context_instance=self.context_class(self.request))
