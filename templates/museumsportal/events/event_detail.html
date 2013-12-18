@@ -20,10 +20,6 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
     <script type="text/javascript">
         var aGeopositions = [];
-        var settings = {
-            STATIC_URL: "{{ STATIC_URL }}"
-        }
-
         $(document).ready(function(){
             $(".toggle_bvg").click(function () {
                 $("#bvg_widget").toggleClass("on");
