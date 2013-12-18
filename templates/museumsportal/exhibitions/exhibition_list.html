@@ -6,8 +6,8 @@
 
 {% block js %}
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/mpb.list.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/mpb.share.js" defer="defer"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/project.list.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/project.share.js" defer="defer"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 {% endblock %}
 
@@ -29,7 +29,7 @@
       </a>
     </nav>
 
-    <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
+    <h1 class="sr-only">{% trans "Exhibitions in the Museums of Berlin" %}</h1>
 
     <div id="filters">
       <script>var str_filter_selection = "{% trans "Filter selection" %}";</script>

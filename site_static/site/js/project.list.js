@@ -42,7 +42,7 @@ $(function() {
     });
 });
 
-window.onresize = function(event) {
+window.onresize = function() {
   $('#container').isotope({
     onLayout: function() {
       var $item = $('#item-preview');
@@ -111,7 +111,7 @@ $(window).load(function() {
                 });
                 // remove the corresponding item from filter summary
                 $('li[data-filter-group="' + group + '"][data-filter-value="' + value + '"]', $filter_summary).remove();
-                if ($filter_summary.children().length == 1) {
+                if ($filter_summary.children().length === 1) {
                     $filter_summary.empty();
                 }
             } else {
@@ -119,7 +119,7 @@ $(window).load(function() {
                     if (single_selection) {
                         // unselect previously selected
                         // and collect filters
-                        if (level == 0) {
+                        if (level === 0) {
                             $optionSet.find('a.selected').click();
                             if ($children) {
                                 $children.find('ul.in').removeClass('in');
@@ -150,11 +150,12 @@ $(window).load(function() {
                 if ($children) {
                     $children.find(target_child).addClass('in');
                 }
+                
                 if ($filter_summary.text() === "") {
-                    var $li = $('<li><b>' + str_filter_selection + ':</b></li>');
+                    $li = $('<li><b>' + window.str_filter_selection + ':</b></li>');
                     $filter_summary.append($li);
                 }
-                var $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
+                $li = $('<li data-filter-group="' + group + '" data-filter-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
                 $filter_summary.append($li);
             }
         }
