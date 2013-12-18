@@ -1,6 +1,5 @@
-
 $(document).ready(function(){
-  $(".img img:in-viewport").lazyload().addClass("in")
+  $(".img img:in-viewport").lazyload().addClass("in");
 });
 
 $(function() {
@@ -26,6 +25,10 @@ $(function() {
                     $('#item-preview').attr("id","");
                     $('#container').isotope();
                 });
+
+                if (window.init_share) {
+                    window.init_share();
+                }
             });
         }
 
@@ -42,7 +45,7 @@ $(function() {
 window.onresize = function(event) {
   $('#container').isotope({
     onLayout: function() {
-      var $item = $('#item-preview')
+      var $item = $('#item-preview');
 
       if (!$item.length) {
         return;
@@ -53,7 +56,7 @@ window.onresize = function(event) {
       $item.find(".description").css({left: -left, width: width});
     }
   });
-}
+};
 
 $(window).load(function() {
     var $container = $('#container'),
@@ -91,7 +94,7 @@ $(window).load(function() {
         var $children;
         if (children_selector) {
             $children = $(children_selector);
-        } else if (level == 1) {
+        } else if (level === 1) {
             $children = $this.closest('.level-1-container');
         }
 
@@ -99,12 +102,12 @@ $(window).load(function() {
             if ($this.hasClass('selected')) {
                 $this.removeClass('selected');
                 $li.removeClass('selected');
-                if ($children && level == 0) {
+                if ($children && level === 0) {
                     $children.find('a.selected').click();
                     $children.find('ul.in').removeClass('in');
                 }
                 filters[group] = jQuery.grep(filters[group], function(v) {
-                    return v != value;
+                    return v !== value;
                 });
                 // remove the corresponding item from filter summary
                 $('li[data-filter-group="' + group + '"][data-filter-value="' + value + '"]', $filter_summary).remove();
@@ -147,7 +150,7 @@ $(window).load(function() {
                 if ($children) {
                     $children.find(target_child).addClass('in');
                 }
-                if ($filter_summary.text() == "") {
+                if ($filter_summary.text() === "") {
                     var $li = $('<li><b>' + str_filter_selection + ':</b></li>');
                     $filter_summary.append($li);
                 }
@@ -173,7 +176,7 @@ $(window).load(function() {
         $.bbq.pushState({filter: http_state_filters.join('')});
 
         $container.isotope({filter: '.item' + selector});
-        $(".img img:in-viewport").lazyload().addClass("in")
+        $(".img img:in-viewport").lazyload().addClass("in");
 
         $container.trigger("map_filter", { filter: map_filters});
         $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");

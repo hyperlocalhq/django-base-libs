@@ -1,4 +1,4 @@
-$(document).ready(function(){
+function init_share(){
   $('.share-twitter').sharrre({
     share: {
       twitter: true
@@ -25,4 +25,6 @@ $(document).ready(function(){
       api.openPopup('facebook');
     }
   });
-});
+}
+
+$(document).ready(init_share);

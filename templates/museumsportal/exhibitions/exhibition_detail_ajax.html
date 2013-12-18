@@ -13,35 +13,22 @@
           <h4> {{ exhibition.subtitle }} </h4>
         {% endif %}
       </header>
-      
+
       <div class="actions">
         {% if request.user.is_authenticated %}
           {% adding2favorites for exhibition using "favorites/includes/favorite_detail.html" %}
         {% endif %}
 
-        {% if exhibition.museum %}
-          {% with exhibition.museum as museum %}
-            {% with exhibition as list_item %}
-              <button class="btn btn-default btn-round location" >
-                <span class="icon icon-location"></span>
-                <span class="sr-only">{% trans "Show location on map" %}</span>
-              </button>
-            {% endwith %}
-          {% endwith %}
-        {% else %}
-
-          {% with exhibition as list_item %}
-            <button class="btn btn-default btn-round location" >
-              <span class="icon icon-location"></span>
-              <span class="sr-only">{% trans "Show location on map" %}</span>
-            </button>
-          {% endwith %}
-        {% endif %}
+        <a class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" href="{% url "exhibition_list_map" %}#object_id={{ exhibition.pk }}">
+          <span class="icon icon-location"></span>
+          <span class="sr-only">{% trans "Show location on map" %}</span>
+        </a>
 
         <button class="btn btn-default btn-round share-twitter"  data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
           <span class="icon icon-social-twitter"></span>
           <span class="sr-only">{% trans "Share on Twitter" %}</span>
         </button>
+        
         <button class="btn btn-default btn-round share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
           <span class="icon icon-social-facebook"></span>
           <span class="sr-only">{% trans "Share on Facebook" %}</span>
