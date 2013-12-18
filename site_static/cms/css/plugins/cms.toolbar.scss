@@ -303,19 +303,21 @@
 
 .cms_toolbar-item_switcher-link {
   float: left;
-  width: 80px;
   height: 24px;
-  text-indent: -1000px;
-  overflow: hidden;
 
   span {
     float: left;
-    width: 80px;
     height: 24px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background: url('../../images/toolbar/sprite_toolbar.png') no-repeat left -198px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #e3004b;
+    color: white;
+    padding: 3px 10px;
+    &.on {
+      background-color: #50e300;
+    }
+
   }
 }
 

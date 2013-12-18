@@ -241,7 +241,7 @@ CMS.$(document).ready(function ($) {
 
 			// initial setup
 			if(obj.state) {
-				btn.data('state', true).css('backgroundPosition', '0px -198px');
+				btn.data('state', true).css('backgroundPosition', '0px -198px').addClass("on");
 			} else {
 				btn.data('state', false).css('backgroundPosition', '-40px -198px');
 			}
@@ -252,7 +252,7 @@ CMS.$(document).ready(function ($) {
 
 				// animate toggle effect and trigger handler
 				if(btn.data('state')) {
-					btn.stop().animate({'backgroundPosition': '-40px -198px'}, function () {
+					btn.stop().toggleClass("on").animate({'backgroundPosition': '-40px -198px'}, function () {
 						// disable link
 						document.location = that.setUrl(document.location, {
 							'addParam': obj.removeParameter,
@@ -260,7 +260,7 @@ CMS.$(document).ready(function ($) {
 						});
 					});
 				} else {
-					btn.stop().animate({'backgroundPosition': '0px -198px'}, function () {
+					btn.stop().toggleClass("on").animate({'backgroundPosition': '0px -198px'}, function () {
 						// enable link
 						document.location = that.setUrl(document.location, {
 							'addParam': obj.addParameter,

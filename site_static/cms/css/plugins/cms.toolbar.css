@@ -237,18 +237,18 @@
 
 .cms_toolbar-item_switcher-link {
   float: left;
-  width: 80px;
-  height: 24px;
-  text-indent: -1000px;
-  overflow: hidden; }
+  height: 24px; }
   .cms_toolbar-item_switcher-link span {
     float: left;
-    width: 80px;
     height: 24px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background: url("../../images/toolbar/sprite_toolbar.png") no-repeat left -198px; }
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #e3004b;
+    color: white;
+    padding: 3px 10px; }
+    .cms_toolbar-item_switcher-link span.on {
+      background-color: #50e300; }
 
 /* #TOOLBAR/items/custom# */
 /*.cms_toolbar-item_page .cms_toolbar-item_list li { min-width:300px; }*/
