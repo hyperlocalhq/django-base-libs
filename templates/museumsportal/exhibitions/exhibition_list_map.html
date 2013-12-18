@@ -5,7 +5,7 @@
 
 {% block js %}
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/mpb.list.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/project.list.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
   <script type="text/javascript">
     var str_filter_selection = "{% trans "Filter selection" %}";
@@ -13,8 +13,8 @@
 {% endblock %}
 
 {% block content %}
-  {% include "utils/gmap.html" %}
   <div class="container">
+  {% include "utils/gmap.html" %}
     <nav id="controls" class="pull-right">
       {% if request.user.is_authenticated %}
       <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
@@ -145,7 +145,7 @@
     </div>
   </div>
 
-  <div id="container" class="hide"></div><!-- for the mpb.list.js script to work -->
+  <div id="container" class="hide"></div><!-- for the project.list.min.js script to work -->
   <script>
     var aGeopositions = [];
     {% for exhibition in object_list %}

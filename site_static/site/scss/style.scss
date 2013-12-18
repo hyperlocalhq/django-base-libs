@@ -31,6 +31,7 @@
 html {
   height: 100%;
 }
+
 body {
   height: 100%;
   position: relative;
@@ -46,6 +47,10 @@ body {
   text-shadow: 0 1px 0 rgba(0,0,0,0.01);
   -webkit-text-stroke: 1px transparent;
   margin: 0 !important;
+}
+
+.relative {
+  position: relative;
 }
 
 ::selection {background: #ffb7b7; /* Safari */ }
@@ -161,6 +166,10 @@ p a{font-weight: 700; }
   .input-group {
     width: 1px;
   }
+}
+
+#user-menu {
+  margin-top: 10px;
 }
 
 .input-group {

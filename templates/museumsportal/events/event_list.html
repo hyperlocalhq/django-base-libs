@@ -6,7 +6,7 @@
 
 {% block js %}
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/mpb.list.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/project.list.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 <script type="text/javascript">
 var aGeopositions = [];
@@ -33,8 +33,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
     </a>
   </nav>
 
-  <div class="inner">
-    <h1>{% trans "Events in the Museums of Berlin" %}</h1>
+  <h1 class="sr-only">{% trans "Events in the Museums of Berlin" %}</h1>
 
   <div id="filters">
     <div class="btn-group" id="filter-toggle" data-toggle="buttons">
@@ -136,6 +135,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
           {% if request.user.is_authenticated %}
             {% adding2favorites for event %}
           {% endif %}
+        {% comment %} <!--
           {% if_has_perm "events.change_event" event %}
             {% if event.cover_image %}
               <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.cover_image "event_list" request request.path %}';">
@@ -154,6 +154,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
             <span class="icon icon-location"></span>
             <span class="sr-only">{% trans "Show location on map" %}</span>
           </a>
+           --> {% endcomment %}
         </div>
 
         <a href="{{ event.get_url_path }}">

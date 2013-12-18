@@ -3,15 +3,14 @@
 }
 
 @media (min-width: 768px) {
-  #search {
-    display: none;
-  }
+ 	#search {display: none; }
+	.navbar-nav > li > a { font-size: 11px; }
+	.navbar-nav > li:not(:last-child) > a { margin-right: 13px; }
 }
 
-@media (min-width: 992px) {
-  .nav > li > a {
-		font-size: 18px;
-	}
+@media (min-width: 992px) {	
+	.navbar-nav > li > a { font-size: 14px; }
+	.navbar-nav > li:not(:last-child) > a { margin-right: 20px; }
 }
 
 @media (min-width: 1200px) {

@@ -11,9 +11,11 @@
 #item_description {
   background-color: white;
   position: absolute;
-  top: 122px;
+  top: 140px;
+  max-height: 500px;
   bottom: 0px;
-  right: 0px;
+  // right: 0px;
   padding: 30px;
   overflow-y: scroll;
+  z-index: 10000;
 }
