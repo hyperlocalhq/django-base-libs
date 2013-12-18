@@ -30,10 +30,6 @@
   </script>
 {% endblock %}
 
-{% block map %}
-  {% include "utils/gmap.html" %}
-{% endblock %}
-
 {% block edit_item %}
   {% if_has_perm "workshops.change_workshop" object %}
     <div>

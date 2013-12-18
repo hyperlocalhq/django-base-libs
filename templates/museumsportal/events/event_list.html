@@ -136,6 +136,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
           {% if request.user.is_authenticated %}
             {% adding2favorites for event %}
           {% endif %}
+        {% comment %} <!--
           {% if_has_perm "events.change_event" event %}
             {% if event.cover_image %}
               <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.cover_image "event_list" request request.path %}';">
@@ -154,6 +155,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
             <span class="icon icon-location"></span>
             <span class="sr-only">{% trans "Show location on map" %}</span>
           </a>
+           --> {% endcomment %}
         </div>
 
         <a href="{{ event.get_url_path }}">

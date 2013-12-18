@@ -29,7 +29,7 @@ $(document).ready(function(){
   $("a[href^='http://']").attr("target","_blank");
 
   if ($('#cms_toolbar').length) { // cms toolbar fix
-    if ($('body').css('margin-top') == "-43px") {
+    if ($('body').css('margin-top') == "-42px") {
       $('body').css('margin-top', 0);
     }
   }

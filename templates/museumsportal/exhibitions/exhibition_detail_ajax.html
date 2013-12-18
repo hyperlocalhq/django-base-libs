@@ -13,23 +13,23 @@
           <h4> {{ exhibition.subtitle }} </h4>
         {% endif %}
       </header>
-      <div class="actions btn-group">
+      <div class="actions">
         {% if request.user.is_authenticated %}
           {% adding2favorites for exhibition %}
         {% endif %}
 
         {% if_has_perm "exhibitions.change_exhibition" exhibition %}
           {% if exhibition.cover_image %}
-            <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';">
+            <button class="btn btn-default btn-round" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}';">
               <span class="icon icon-tool-crop"></span>
             </button>
           {% else %}{% if exhibition.museum.cover_image %}
-            <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';">
+            <button class="btn btn-default btn-round" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" onclick="location.href='{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}';">
               <span class="icon icon-tool-crop"></span>
             </button>
           {% endif %}{% endif %}
         {% end_if_has_perm %}
-        <a class="btn btn-default location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" href="{% url "exhibition_list_map" %}#object_id={{ exhibition.pk }}">
+        <a class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" href="{% url "exhibition_list_map" %}#object_id={{ exhibition.pk }}">
           <span class="icon icon-location"></span>
         </a>
       </div>

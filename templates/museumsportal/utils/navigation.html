@@ -1,8 +1,39 @@
-{% load menu_tags i18n  %}
+{% load menu_tags i18n base_tags %}
 
 <div class="navbar-wrapper">
   <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="71">
     <div class="container">
+
+      {% if request.user.is_authenticated %}
+        <div id="user-menu" class="pull-right">
+          <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              {% blocktrans with first_name=request.user.first_name|default:request.user.username %}{{ first_name }}{% endblocktrans %} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+              {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Input Mask" %}</a></li>
+                <li class="divider"></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+                <li class="divider"></li>
+              {% endif %}
+              <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
+            </ul>
+          </div>
+        </div>
+      {% else %}
+        {% comment %}
+            <!-- <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
+            <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
+        {% endcomment %}
+        <div id="user-menu" class="pull-right">
+          <a class="btn btn-info" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a>
+        </div>
+      {% endif %}
+
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
           <span class="sr-only">Toggle navigation</span>
@@ -18,10 +49,12 @@
         </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
+
       <div id="top_nav" class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-          {% show_menu_below_id "start_page" 0 2 2 2 %}
+          {% show_menu_below_id "start_page" 0 2 2 2 "menu/top_menu.html" %}
         </ul>
+
         <ul class="nav navbar-nav navbar-right">
           <li>
             <a href="/search" class="btn btn-link btn-lg">
@@ -45,9 +78,9 @@
             </span>
           </div>
         </form>
-        {% endcomment %}
         <div id="mega_drop_down_menu" style="position: fixed; z-index: 20; width: 970px; margin-left: -15px; background: #eee; top: 50px;"></div>
         <script src="{{ STATIC_URL }}site/js/mega_drop_down_menu.js"></script>
+        {% endcomment %}
       </div>
     </div><!-- /.navbar-collapse -->
   </nav>

@@ -33,14 +33,14 @@
           <textarea class="form-control" name="to" id="wdgt_to" >{{ list_item.street_address }}, {% if list_item.street_address2 %}{{ list_item.street_address2 }}, {% endif %}&#10;{{ list_item.postal_code }} {{ list_item.city }}</textarea>
         </div>
 
-        <div class="row row-narrow grid">
-          <div class="item col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="row row-narrow">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="form-group">
               <label for="wdgt_date">{% trans "Date" %} </label>
               <input class="form-control" type="text" name="date" id="wdgt_date" value="{% now "d.m.Y" %}">
             </div>
           </div>
-          <div class="item col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="form-group">
               <label for="wdgt_time">{% trans "Time" %}</label>
               <input class="form-control" type="text" name="time" id="wdgt_time" value="{% now "H:i" %}">

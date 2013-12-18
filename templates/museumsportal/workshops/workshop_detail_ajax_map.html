@@ -2,7 +2,7 @@
 {% with object as workshop %}
   {% tags_for_object workshop as tags %}
   <div>
-    <div class="actions btn-group">
+    <div class="actions">
       {% if request.user.is_authenticated %}
         {% adding2favorites for workshop %}
       {% endif %}

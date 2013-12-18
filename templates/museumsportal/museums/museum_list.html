@@ -188,7 +188,7 @@
                 <h4>{{ museum.subtitle }}</h4>
                 {% endif %}
               </header>
-              <div class="actions btn-group">
+              <div class="actions">
                 {% if request.user.is_authenticated %}
                   {% adding2favorites for museum %}
                 {% endif %}
