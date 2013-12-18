@@ -1,3 +1,8 @@
+
+$(document).ready(function(){
+  $(".img img:in-viewport").lazyload().addClass("in")
+});
+
 $(function() {
     $('.grid .item > a').click(function() {
         var $current_item = $(this).closest('.item');
@@ -168,7 +173,8 @@ $(window).load(function() {
         $.bbq.pushState({filter: http_state_filters.join('')});
 
         $container.isotope({filter: '.item' + selector});
-        $(".list img:in-viewport").lazyload();
+        $(".img img:in-viewport").lazyload().addClass("in")
+
         $container.trigger("map_filter", { filter: map_filters});
         $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
 
