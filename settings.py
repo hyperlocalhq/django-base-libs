@@ -80,10 +80,6 @@ TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
     os.path.join(ROOT_PATH, "museumsportal", "templates", "admin"),
     ] + TEMPLATE_DIRS
 
-TEMPLATE_CONTEXT_PROCESSORS.append(
-    "django.contrib.messages.context_processors.messages"
-    )
-
 PATH_TMP = os.path.join(ROOT_PATH, "museumsportal", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
@@ -119,6 +115,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "jetson.apps.utils.context_processors.general",
     "jetson.apps.configuration.context_processors.configuration",
     "jetson.apps.advertising.context_processors.source_features",
+    "django.contrib.messages.context_processors.messages",
+    "museumsportal.apps.site_specific.context_processors.languages",
 )
 
 MIDDLEWARE_CLASSES = (
