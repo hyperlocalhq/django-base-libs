@@ -31,8 +31,8 @@ var oMap;
                 mapTypeControlOptions: {
                     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
                 },
-                navigationControlOptions: {
-                    style: google.maps.NavigationControlStyle.SMALL
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL
                 }
             };
             var oNode = document.getElementById("gmap");
