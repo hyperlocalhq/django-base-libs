@@ -3258,6 +3258,10 @@ dl {
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px; }
+  .dashboard-table .item a {
+    display: block; }
+  .dashboard-table tr:hover td {
+    background-color: #f0f0f0; }
   .dashboard-table tr td, .dashboard-table tr th {
     padding: 5px 0px; }
     .dashboard-table tr td:first-child, .dashboard-table tr th:first-child {
@@ -3273,8 +3277,8 @@ dl {
   .dashboard-table tr td {
     border-bottom: 2px solid white;
     vertical-align: middle;
-    background-color: #f2f2f2;
-    color: rgba(0, 0, 0, 0.75) !important; }
+    color: rgba(0, 0, 0, 0.75) !important;
+    background-color: #f2f2f2; }
     .dashboard-table tr td:nth-child(2n) {
       width: 120px; }
     .dashboard-table tr td:nth-child(3n) {
@@ -3282,9 +3286,10 @@ dl {
     .dashboard-table tr td:nth-child(4n) {
       width: 130px; }
     .dashboard-table tr td .status {
+      margin-bottom: -2px;
       height: 24px;
       width: 115px;
-      display: inline-block; }
+      display: block; }
       .dashboard-table tr td .status .sbToggle {
         height: 24px;
         width: 100%;
