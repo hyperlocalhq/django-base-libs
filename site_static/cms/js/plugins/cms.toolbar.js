@@ -103,6 +103,7 @@ CMS.$(document).ready(function ($) {
 			// var padding = parseInt($(document.body).css('margin-top'));
 				// $(document.body).css('margin-top', (padding+43)); // 43 = height of toolbar
 			// show toolbar
+			$("body").addClass('cms_visible');
 			this.toolbar.show();
 			// change data information
 			this.toolbar.data('collapsed', false);
@@ -120,6 +121,7 @@ CMS.$(document).ready(function ($) {
 			// var padding = parseInt($(document.body).css('margin-top'));
 				// $(document.body).css('margin-top', (padding-this.toolbar.height()-1)); // substract 1 cause of the border
 			// hide toolbar
+			$("body").removeClass('cms_visible');
 			this.toolbar.hide();
 			// change data information
 			this.toolbar.data('collapsed', true);

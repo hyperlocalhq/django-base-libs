@@ -6,12 +6,18 @@
 
 /*##################################################|*/
 /* #TOOLBAR# */
+.cms_visible {
+  padding-top: 42px;
+}
+
 #cms_toolbar {
   position: absolute;
   left: 0;
   top: 0;
   z-index: 99999;
   width: 100%;
+  height: 0px;
+  display: block !important;
 }
 
 /* needs ie fix for pos fixed */
@@ -33,8 +39,7 @@
   left: 0;
   top: 0;
   z-index: 999999;
-  background-color: #fefefe;
-  background-color: rgba(255,255,255,0.9);
+  background-color: #5e5e5e;
   border: none;
 }
 
@@ -52,7 +57,7 @@
 .cms_reset {
   div, p {
     font: normal 13px / 1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #666;
+    color: black;
     font-weight: normal;
     text-decoration: none;
     text-align: left;
@@ -63,7 +68,7 @@
   }
   a {
     font: normal 13px / 1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #666;
+    color: black;
     font-weight: normal;
     text-decoration: none;
     text-align: left;
@@ -85,7 +90,7 @@
   }
   form, fieldset, label, input, textarea, select, ul, li {
     font: normal 13px / 1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #666;
+    color: black;
     font-weight: normal;
     text-decoration: none;
     text-align: left;
@@ -118,21 +123,27 @@
 
 .cms_toolbar-btn_left {
   float: left;
-  color: #5b80b2;
+  color: #ccc;
   float: left;
   height: 26px;
   overflow: hidden;
   line-height: 1.2 !important;
-  background: url('../../images/toolbar/sprite_toolbar.png') no-repeat left -42px;
+  background-color: #444;
+  border-radius: 3px;
+  border: none;
 }
 
 .cms_toolbar-btn_right {
   float: left;
-  color: #5b80b2 !important;
+  color: #ccc;
   cursor: pointer;
   padding: 5px 8px 5px !important;
   margin-right: 0 !important;
-  background: url('../../images/toolbar/sprite_toolbar.png') no-repeat right -68px;
+  background-color: #444;
+  border-radius: 3px;
+  border: none;
+
+  // background: url('../../images/toolbar/sprite_toolbar.png') no-repeat right -68px;
 }
 
 .cms_toolbar-btn_left:hover, .cms_toolbar-btn-active {
@@ -140,7 +151,7 @@
 }
 
 .cms_toolbar-btn_left:hover .cms_toolbar-btn_right, .cms_toolbar-btn-active .cms_toolbar-btn_right {
-  color: #385e92 !important;
+  color: white;
   background-position: right -120px !important;
 }
 
@@ -201,7 +212,9 @@
 }
 
 /* #TOOLBAR/buttons/logout# */
-
+.cms_toolbar-item_logo {
+  display: none !important;
+}
 .cms_toolbar-item_logout .cms_toolbar_icon {
   width: 16px;
   background: url('../../images/toolbar/icons/icon_lock.png') no-repeat left center;
@@ -294,6 +307,7 @@
   height: 24px;
   text-indent: -1000px;
   overflow: hidden;
+
   span {
     float: left;
     width: 80px;
@@ -332,10 +346,11 @@
   min-width: 300px;
   overflow: hidden;
   position: absolute;
-  top: 35px;
+  top: 42px;
   z-index: 1000;
   zoom: 1;
   background: #fff !important;
+  background: #000 !important;
   li {
     padding: 0;
     zoom: 1;
@@ -344,13 +359,14 @@
       padding: 10px 15px !important;
       zoom: 1;
       white-space: nowrap;
+        color: #fff !important;
       &:hover {
         color: #fff !important;
-        background: #5b80b2 !important;
+        background-color: #3b3b3b;
       }
     }
     &.active a {
-      background: #ddd;
+      background-color: #3b3b3b;
     }
   }
   .cms_toolbar-item_admin {
