@@ -18,11 +18,11 @@
         </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <div id="top_nav" class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
           {% show_menu_below_id "start_page" 0 2 2 2 %}
         </ul>
-         <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right">
           <li>
             <a href="/search" class="btn btn-link btn-lg">
               <span class="icon icon-zoom"></span>
@@ -46,6 +46,8 @@
           </div>
         </form>
         {% endcomment %}
+        <div id="mega_drop_down_menu" style="position: fixed; z-index: 20; width: 970px; margin-left: -15px; background: #eee; top: 50px;"></div>
+        <script src="{{ STATIC_URL }}site/js/mega_drop_down_menu.js"></script>
       </div>
     </div><!-- /.navbar-collapse -->
   </nav>
