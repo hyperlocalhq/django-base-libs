@@ -3263,11 +3263,8 @@ dl {
   .dashboard-table tr:hover td {
     background-color: #f0f0f0; }
   .dashboard-table tr td, .dashboard-table tr th {
-    padding: 5px 0px; }
-    .dashboard-table tr td:first-child, .dashboard-table tr th:first-child {
-      padding-left: 10px; }
+    padding: 5px 10px; }
     .dashboard-table tr td:last-child, .dashboard-table tr th:last-child {
-      padding-right: 10px;
       text-align: right; }
   .dashboard-table tr th small {
     font-size: 10px;
@@ -3279,12 +3276,9 @@ dl {
     vertical-align: middle;
     color: rgba(0, 0, 0, 0.75) !important;
     background-color: #f2f2f2; }
-    .dashboard-table tr td:nth-child(2n) {
-      width: 120px; }
-    .dashboard-table tr td:nth-child(3n) {
-      width: 120px; }
-    .dashboard-table tr td:nth-child(4n) {
-      width: 130px; }
+    .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
+      width: 1%;
+      white-space: nowrap; }
     .dashboard-table tr td .status {
       margin-bottom: -2px;
       height: 24px;

@@ -9,9 +9,8 @@
         background-color: #f0f0f0;
       }
     td , th {
-      padding: 5px 0px;
-      &:first-child   { padding-left: 10px;}
-      &:last-child    { padding-right: 10px; text-align: right;}
+      padding: 5px 10px;
+      &:last-child    { text-align: right;}
     }
     th small{
       font-size: 10px;
@@ -20,9 +19,12 @@
       color: rgba(0,0,0,0.75) !important;
     }
     td {
-      &:nth-child(2n) { width: 120px;}
-      &:nth-child(3n) { width: 120px;}
-      &:nth-child(4n) { width: 130px;}
+      &:nth-child(2n),
+      &:nth-child(3n),
+      &:nth-child(4n) { 
+        width: 1%;
+        white-space: nowrap;
+      }
       border-bottom: 2px solid white;
       vertical-align: middle;
       color: rgba(0,0,0,0.75) !important;
