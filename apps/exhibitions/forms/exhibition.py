@@ -179,33 +179,48 @@ class BasicInfoForm(ModelForm):
         
         layout_blocks = []
 
+        fieldset_content = []  # collect multilingual divs into one list...
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('title_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('subtitle_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('press_text_%s' % lang_code, css_class="tinymce"),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('website_%s' % lang_code, placeholder="http://"),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('catalog_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('catalog_ordering_%s' % lang_code, placeholder="http://"),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
-            layout.Row(
-                css_class="div-title cols-2",
-                *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-subtitle cols-2",
-                *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-press_text cols-2",
-                *(layout.Field('press_text_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-website cols-2",
-                *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-catalog cols-2",
-                *('catalog_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-catalog cols-2",
-                *(layout.Field('catalog_ordering_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
             css_class="fieldset-basic-info",
+            *fieldset_content  # ... then pass them to a fieldset
         ))
 
         layout_blocks.append(layout.Fieldset(
