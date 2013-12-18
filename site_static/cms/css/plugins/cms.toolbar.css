@@ -5,7 +5,7 @@
 /*##################################################|*/
 /* #TOOLBAR# */
 .cms_visible {
-  padding-top: 42px; }
+  margin-top: 42px; }
 
 #cms_toolbar {
   position: absolute;
@@ -45,7 +45,7 @@
 /* #TOOLBAR/reset# */
 .cms_reset div, .cms_reset p {
   font: normal 13px / 1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: black;
+  color: white;
   font-weight: normal;
   text-decoration: none;
   text-align: left;
@@ -275,7 +275,8 @@
   z-index: 1000;
   zoom: 1;
   background: #fff !important;
-  background: #000 !important; }
+  background: #000 !important;
+  background: rgba(0, 0, 0, 0.85) !important; }
   .cms_toolbar-item_list li {
     padding: 0;
     zoom: 1; }
