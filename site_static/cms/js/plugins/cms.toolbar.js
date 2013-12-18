@@ -100,8 +100,8 @@ CMS.$(document).ready(function ($) {
 		// sets collapsed data to false
 		_showToolbar: function () {
 			// add toolbar padding
-			var padding = parseInt($(document.body).css('margin-top'));
-				$(document.body).css('margin-top', (padding+43)); // 43 = height of toolbar
+			// var padding = parseInt($(document.body).css('margin-top'));
+				// $(document.body).css('margin-top', (padding+43)); // 43 = height of toolbar
 			// show toolbar
 			this.toolbar.show();
 			// change data information
@@ -117,8 +117,8 @@ CMS.$(document).ready(function ($) {
 		// sets collapsed data to true
 		_hideToolbar: function () {
 			// remove toolbar padding
-			var padding = parseInt($(document.body).css('margin-top'));
-				$(document.body).css('margin-top', (padding-this.toolbar.height()-1)); // substract 1 cause of the border
+			// var padding = parseInt($(document.body).css('margin-top'));
+				// $(document.body).css('margin-top', (padding-this.toolbar.height()-1)); // substract 1 cause of the border
 			// hide toolbar
 			this.toolbar.hide();
 			// change data information
