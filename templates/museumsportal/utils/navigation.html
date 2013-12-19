@@ -5,7 +5,7 @@
     <div class="container">
 
       {% if request.user.is_authenticated %}
-        <div id="user-menu" class="pull-right">
+        <div id="user-menu" class="pull-right hidden-xs">
           <div class="btn-group">
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
               {% blocktrans with first_name=request.user.first_name|default:request.user.username %}{{ first_name }}{% endblocktrans %} <span class="caret"></span>
