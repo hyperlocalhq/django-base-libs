@@ -2316,7 +2316,7 @@
     display: none; }
   /* line 59, ../scss/gallery.scss */
   #gallery > span {
-    width: 40px;
+    width: 60px;
     height: 120px;
     line-height: 95px;
     text-align: center;
@@ -2357,7 +2357,7 @@
       text-align: right;
       margin-left: -30px;
       background-image: url("../img/icons/inv/left.png");
-      background-position: center left; }
+      background-position: center; }
       /* line 103, ../scss/gallery.scss */
       #gallery > span.prev > span {
         right: 0; }
@@ -2371,7 +2371,7 @@
       text-align: left;
       margin-right: -30px;
       background-image: url("../img/icons/inv/right.png");
-      background-position: center right; }
+      background-position: center; }
       /* line 115, ../scss/gallery.scss */
       #gallery > span.next > span {
         left: 0; }
@@ -2470,26 +2470,27 @@
       height: 60px !important;
       margin: 0px !important;
       display: block;
+      border: 0px;
       background-color: black;
       background-position: center;
       background-repeat: no-repeat;
       background-size: 40px; }
-      /* line 251, ../scss/gallery.scss */
+      /* line 252, ../scss/gallery.scss */
       #gallery nav button:hover {
         opacity: 0.8; }
-      /* line 252, ../scss/gallery.scss */
+      /* line 253, ../scss/gallery.scss */
       #gallery nav button.prev {
         background-image: url("../img/icons/inv/left.png"); }
-      /* line 253, ../scss/gallery.scss */
+      /* line 254, ../scss/gallery.scss */
       #gallery nav button.next {
         background-image: url("../img/icons/inv/right.png"); }
-      /* line 254, ../scss/gallery.scss */
+      /* line 255, ../scss/gallery.scss */
       #gallery nav button.info {
         background-image: url("../img/icons/inv/info.png"); }
-      /* line 255, ../scss/gallery.scss */
+      /* line 256, ../scss/gallery.scss */
       #gallery nav button.cancel {
         background-image: url("../img/icons/inv/cancel_light_2.png"); }
-  /* line 259, ../scss/gallery.scss */
+  /* line 260, ../scss/gallery.scss */
   #gallery .pagination {
     width: 100%;
     text-align: center;
@@ -2498,10 +2499,10 @@
     position: absolute;
     top: 0px;
     z-index: 10000; }
-    /* line 268, ../scss/gallery.scss */
+    /* line 269, ../scss/gallery.scss */
     #gallery .pagination li {
       display: inline-block; }
-      /* line 270, ../scss/gallery.scss */
+      /* line 271, ../scss/gallery.scss */
       #gallery .pagination li a {
         display: inline-block;
         background-color: #ebebeb;
@@ -2516,7 +2517,7 @@
         border-radius: 10px;
         margin-left: 2px;
         margin-right: 2px; }
-      /* line 287, ../scss/gallery.scss */
+      /* line 288, ../scss/gallery.scss */
       #gallery .pagination li.activeSlide a, #gallery .pagination li:hover a {
         background-color: black;
         color: white; }

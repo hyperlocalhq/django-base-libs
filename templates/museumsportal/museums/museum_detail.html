@@ -60,6 +60,16 @@
                 {% if museum.subtitle %}
                 <h2>{{ museum.subtitle }}</h2>
                 {% endif %}
+
+                {% comment %}
+                <a href="{{ exhibition.museum.get_url_path }}"><h3>
+                  {% if museum.parent %}
+                    {{ museum.parent.street_address }}
+                  {% else %} 
+                    {{ museum.street_address }}
+                  {% endif %}
+                </h3></a>
+                {% endcomment %}
               </header>
 
               <!-- ======= Tools ======= -->
