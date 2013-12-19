@@ -278,12 +278,13 @@
   cursor: pointer;
   padding: 4px 10px 0 0;
   width: auto;
+  color: #ccc;
 }
-/* line 268, cms.toolbar.scss */
+/* line 269, cms.toolbar.scss */
 #cms_toolbar-item_login div {
   float: left;
 }
-/* line 270, cms.toolbar.scss */
+/* line 271, cms.toolbar.scss */
 #cms_toolbar-item_login div input {
   color: #000;
   width: 150px;
@@ -295,35 +296,35 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 280, cms.toolbar.scss */
+/* line 281, cms.toolbar.scss */
 #cms_toolbar-item_login div input:hover {
   border: 1px solid #999;
 }
 
-/* line 288, cms.toolbar.scss */
+/* line 289, cms.toolbar.scss */
 .cms_toolbar_error input[type=text], .cms_toolbar_error input[type=password] {
   border: 1px solid #f99 !important;
 }
 
 /* #TOOLBAR/items/switcher# */
-/* line 295, cms.toolbar.scss */
+/* line 296, cms.toolbar.scss */
 .cms_toolbar-item_switcher {
   padding-top: 9px !important;
 }
 
-/* line 299, cms.toolbar.scss */
+/* line 300, cms.toolbar.scss */
 .cms_toolbar-item_switcher-label {
   float: left;
   padding-top: 3px;
   padding-right: 10px;
 }
 
-/* line 305, cms.toolbar.scss */
+/* line 306, cms.toolbar.scss */
 .cms_toolbar-item_switcher-link {
   float: left;
   height: 24px;
 }
-/* line 309, cms.toolbar.scss */
+/* line 310, cms.toolbar.scss */
 .cms_toolbar-item_switcher-link span {
   float: left;
   height: 24px;
@@ -334,33 +335,33 @@
   color: white;
   padding: 3px 10px;
 }
-/* line 318, cms.toolbar.scss */
+/* line 319, cms.toolbar.scss */
 .cms_toolbar-item_switcher-link span.on {
   background-color: #50e300;
 }
 
 /* #TOOLBAR/items/custom# */
 /*.cms_toolbar-item_page .cms_toolbar-item_list li { min-width:300px; }*/
-/* line 328, cms.toolbar.scss */
+/* line 329, cms.toolbar.scss */
 .cms_toolbar-item_moderator {
   padding-top: 8px !important;
 }
-/* line 330, cms.toolbar.scss */
+/* line 331, cms.toolbar.scss */
 .cms_toolbar-item_moderator a {
   background-position: left -225px;
 }
-/* line 332, cms.toolbar.scss */
+/* line 333, cms.toolbar.scss */
 .cms_toolbar-item_moderator a span {
   background-position: right -251px;
   color: #eee;
 }
-/* line 336, cms.toolbar.scss */
+/* line 337, cms.toolbar.scss */
 .cms_toolbar-item_moderator a:hover span {
   color: #385e92;
 }
 
 /* #TOOLBAR/list# */
-/* line 344, cms.toolbar.scss */
+/* line 345, cms.toolbar.scss */
 .cms_toolbar-item_list {
   display: none;
   list-style: none;
@@ -376,12 +377,12 @@
   background: #000 !important;
   background: rgba(0, 0, 0, 0.85) !important;
 }
-/* line 358, cms.toolbar.scss */
+/* line 359, cms.toolbar.scss */
 .cms_toolbar-item_list li {
   padding: 0;
   zoom: 1;
 }
-/* line 361, cms.toolbar.scss */
+/* line 362, cms.toolbar.scss */
 .cms_toolbar-item_list li a {
   display: block;
   padding: 10px 15px !important;
@@ -389,32 +390,32 @@
   white-space: nowrap;
   color: #fff !important;
 }
-/* line 367, cms.toolbar.scss */
+/* line 368, cms.toolbar.scss */
 .cms_toolbar-item_list li a:hover {
   color: #fff !important;
   background-color: #3b3b3b;
 }
-/* line 372, cms.toolbar.scss */
+/* line 373, cms.toolbar.scss */
 .cms_toolbar-item_list li.active a {
   background-color: #3b3b3b;
 }
-/* line 376, cms.toolbar.scss */
+/* line 377, cms.toolbar.scss */
 .cms_toolbar-item_list .cms_toolbar-item_admin {
   padding-top: 0 !important;
 }
-/* line 379, cms.toolbar.scss */
+/* line 380, cms.toolbar.scss */
 .cms_toolbar-item_list .cms_toolbar_icon {
   width: 18px;
   margin-right: 4px;
   background-position: left 1px;
 }
 
-/* line 386, cms.toolbar.scss */
+/* line 387, cms.toolbar.scss */
 .cms_toolbar-left .cms_toolbar-item_list {
   left: 0;
 }
 
-/* line 390, cms.toolbar.scss */
+/* line 391, cms.toolbar.scss */
 .cms_toolbar-right .cms_toolbar-item_list {
   right: 0;
 }
@@ -422,11 +423,11 @@
 /*.cms_toolbar-item_list li a span { float:left; text-indent:-1000px; overflow:hidden; }*/
 /* #TOOLBAR/list/icons# */
 /* #TOOLBAR/status# */
-/* line 399, cms.toolbar.scss */
+/* line 400, cms.toolbar.scss */
 .cms_toolbar-item_status {
   padding-top: 8px !important;
 }
-/* line 401, cms.toolbar.scss */
+/* line 402, cms.toolbar.scss */
 .cms_toolbar-item_status p {
   color: #5b80b2 !important;
   margin: 0;
@@ -437,7 +438,7 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 411, cms.toolbar.scss */
+/* line 412, cms.toolbar.scss */
 .cms_toolbar-item_status em {
   color: #000;
 }
