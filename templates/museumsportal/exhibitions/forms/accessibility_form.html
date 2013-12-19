@@ -2,5 +2,6 @@
 {% load crispy_forms_tags %}
 
 {% block multistep_form %}
-{% crispy form %}
+    {% include "utils/form_language_switcher.html" %}
+    {% crispy form %}
 {% endblock %}

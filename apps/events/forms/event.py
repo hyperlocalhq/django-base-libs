@@ -149,25 +149,36 @@ class BasicInfoForm(ModelForm):
         
         layout_blocks = []
 
+        fieldset_content = []  # collect multilingual divs into one list...
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('title_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('subtitle_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('press_text_%s' % lang_code, css_class="tinymce"),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('website_%s' % lang_code, placeholder="http://"),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
-            layout.Row(
-                css_class="div-title cols-2",
-                *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-subtitle cols-2",
-                *('subtitle_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-press_text cols-2",
-                *(layout.Field('press_text_%s' % lang_code, css_class="tinymce") for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-website cols-2",
-                *(layout.Field('website_%s' % lang_code, placeholder="http://") for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
             css_class="fieldset-basic-info",
+            *fieldset_content
         ))
 
         layout_blocks.append(layout.Fieldset(
@@ -407,34 +418,49 @@ class PricesForm(ModelForm):
         self.helper.form_method = "POST"
         
         layout_blocks = []
-        layout_blocks.append(layout.Fieldset(
-            _("Prices"),
-            layout.Row('free_admission', css_class="inline"),
+
+        fieldset_content = []  # collect multilingual divs into one list...
+        fieldset_content.append(
+            layout.Row('free_admission', css_class="inline")
+        )
+        fieldset_content.append(
             layout.Row(
                 layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
                 layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
                 css_class="cols-2",
-            ),
-            layout.Row(
-                css_class="div-admission_price_info-details cols-2",
-                *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
+            )
+        )
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('admission_price_info_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+
+        layout_blocks.append(layout.Fieldset(
+            _("Prices"),
             css_class="fieldset-prices",
+            *fieldset_content
         ))
+
+        fieldset_content = []  # collect multilingual divs into one list...
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('meeting_place_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('booking_info_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
 
         layout_blocks.append(layout.Fieldset(
             _("Details"),
-            layout.Row(
-                css_class="div-meeting_place-details cols-2",
-                *('meeting_place_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-
-            layout.Row(
-                css_class="div-booking_info-details cols-2",
-                *('booking_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-
             css_class="fieldset-details",
+            *fieldset_content
         ))
 
         if self.instance and self.instance.pk:

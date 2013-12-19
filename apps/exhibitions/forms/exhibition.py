@@ -533,6 +533,21 @@ class SeasonForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
+
+        fieldset_content = []  # collect multilingual divs into one list...
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('last_entry_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('exceptions_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+
         layout_blocks.append(layout.Fieldset(
             _("Individual Opening Time of the Exhibition"),
             layout.Div(
@@ -645,15 +660,8 @@ class SeasonForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Additional info"),
-            layout.Row(
-                css_class="div-accessibility-details cols-2",
-                *('last_entry_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Row(
-                css_class="div-accessibility-details cols-2",
-                *('exceptions_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
             css_class="fieldset-additional-info",
+            *fieldset_content
         ))
 
         self.helper.layout = layout.Layout(
@@ -701,20 +709,34 @@ class PricesForm(ModelForm):
         self.helper.form_method = "POST"
         
         layout_blocks = []
+
+        fieldset_content = []  # collect multilingual divs into one list...
+        fieldset_content.append(
+            layout.Div('museum_prices', 'free_entrance', css_class="inline")
+        )
+        fieldset_content.append(
+            layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00"))
+        )
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('admission_price_info_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        fieldset_content.append(
+            layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00"))
+        )
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('reduced_price_info_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
-            layout.Div('museum_prices', 'free_entrance', css_class="inline"), 
-            layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
-            layout.Row(
-                css_class="cols-2",
-                *('admission_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
-            layout.Row(
-                css_class="cols-2",
-                *('reduced_price_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
             css_class="fieldset-prices",
+            *fieldset_content
         ))
 
         if self.instance and self.instance.pk:
@@ -742,6 +764,7 @@ class AccessibilityForm(ModelForm):
             fields += [
                 'suitable_for_disabled_info_%s' % lang_code,
             ]
+
     def __init__(self, *args, **kwargs):
         super(AccessibilityForm, self).__init__(*args, **kwargs)
 
@@ -757,16 +780,21 @@ class AccessibilityForm(ModelForm):
         
         layout_blocks = []
 
+        fieldset_content = []  # collect multilingual divs into one list...
+        fieldset_content.append(
+            'suitable_for_disabled'
+        )
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('suitable_for_disabled_info_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+
         layout_blocks.append(layout.Fieldset(
             _("Accessibility"),
-            'suitable_for_disabled',
-
-            layout.Row(
-                css_class="div-accessibility-details cols-2",
-                *('suitable_for_disabled_info_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-            ),
-            
             css_class="fieldset-accessibility",
+            *fieldset_content
         ))
 
         if self.instance and self.instance.pk:

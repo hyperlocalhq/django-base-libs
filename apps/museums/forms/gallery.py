@@ -27,32 +27,33 @@ _("No, Thanks")
 _("Are you sure you want to delete this photo?")
 _(u"Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min).")
 
+
 class ImageFileForm(forms.Form):
     goto_next = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
-        )
+    )
     #media_file = ImageField(
     #    label= _("Image File"),
     #    help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
     #    required=False,
     #    min_dimensions=IMAGE_MIN_DIMENSIONS,
-    #    )
+    #)
     media_file_path = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
-        )
+    )
     author = forms.CharField(
         label=_('Copyright / Photographer'),
         required=False,
         max_length=255,
-        )
+    )
     copyright_limitations = forms.CharField(
         label=_('Details of any restrictions on use (time limit) for the disclosure to third parties (Cinemarketing, Berlin online, etc.)'),
         help_text=_('If this field does not contain precise restrictions or if no restrictions are set, the rights of use are granted non-exclusively, and unrestricted in terms of time, place and content.'),
         required=False,
         max_length=255,
-        )
+    )
 
     def __init__(self, media_file_obj=None, *args, **kwargs):
         self.media_file_obj = media_file_obj
@@ -62,26 +63,20 @@ class ImageFileForm(forms.Form):
                 label=_('Caption <span class="lang">%s</span>') % lang_code.upper(),
                 required=False,
                 max_length=255,
-                )
+            )
             self.fields['description_%s' % lang_code] = forms.CharField(
                 label= _('Description (will be used as alt attribute) <span class="lang">%s</span>') % lang_code.upper(),
                 required=False,
                 widget=forms.Textarea(),
-                )
+            )
 
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         layout_blocks = []
 
-        layout_blocks.append(layout.Fieldset(
-            """{% load i18n %}
-            {% if media_file %}
-                {% trans "Edit Image" %}
-            {% else %}
-                {% trans "Add Image" %}
-            {% endif %}
-            """,
+        fieldset_content = []  # collect multilingual divs into one list...
+        fieldset_content.append(
             layout.HTML(u"""{% load i18n image_modifications %}
                 <div id="image_preview">
                     {% if media_file.path %}
@@ -97,21 +92,43 @@ class ImageFileForm(forms.Form):
                     <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
                 {% endif %}
             """),
-            "media_file_path",
+        )
+        fieldset_content.append(
+            "media_file_path"
+        )
+        fieldset_content.append(
             "goto_next",
-            layout.Row(
-                css_class="div-title cols-2",
-                *('title_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            layout.Row(
-                css_class="div-description cols-2w1",
-                *('description_%s' % lang_code for lang_code, lang_name in FRONTEND_LANGUAGES)
-                ),
-            "author",
-            "copyright_limitations",
+        )
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('title_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fieldset_content.append(layout.Div(
+                layout.Field('description_%s' % lang_code),
+                css_class="multilingual lang-%s" % lang_code,
+                data_lang=lang_code,
+            ))
+        fieldset_content.append(
+            "author"
+        )
+        fieldset_content.append(
+            "copyright_limitations"
+        )
 
-                css_class="fieldset-media-file",
-                ))
+        layout_blocks.append(layout.Fieldset(
+            """{% load i18n %}
+            {% if media_file %}
+                {% trans "Edit Image" %}
+            {% else %}
+                {% trans "Add Image" %}
+            {% endif %}
+            """,
+            css_class="fieldset-media-file",
+            *fieldset_content
+        ))
 
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Save file')),
@@ -139,10 +156,10 @@ class ImageFileForm(forms.Form):
                     </div>    
                 {% endif %}
             """),
-            ))
+        ))
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
+        )
         
     def clean(self):
         cleaned = self.cleaned_data
@@ -150,11 +167,13 @@ class ImageFileForm(forms.Form):
             raise forms.ValidationError(_("You need to upload a valid file."))
         return cleaned
 
+
 class ImageDeletionForm(forms.Form):
     goto_next = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
-        )
+    )
+
     def __init__(self, *args, **kwargs):
         super(ImageDeletionForm, self).__init__(*args, **kwargs)
 
@@ -174,13 +193,12 @@ class ImageDeletionForm(forms.Form):
             "goto_next",
 
             css_class="fieldset-media-file",
-            ))
+        ))
 
         layout_blocks.append(bootstrap.FormActions(
             layout.Submit('submit', _('Delete')),
             layout.Button('cancel', _('Cancel')),
-            ))
+        ))
         self.helper.layout = layout.Layout(
             *layout_blocks
-            )
-
+        )

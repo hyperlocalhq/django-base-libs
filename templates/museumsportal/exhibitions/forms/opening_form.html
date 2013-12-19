@@ -16,8 +16,8 @@
 {% endblock %}
 
 {% block multistep_form %}
-
-{% crispy form %}
+    {% include "utils/form_language_switcher.html" %}
+    {% crispy form %}
 
 <script type="text/javascript">
 var error_messages = {

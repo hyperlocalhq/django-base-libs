@@ -1,0 +1,7 @@
+{% load i18n %}
+<ul id="form_language" class="nav nav-pills">
+  {% for lang_code, lang_name in FRONTEND_LANGUAGES %}
+    <li{% if lang_code == LANGUAGE_CODE %} class="active"{% endif %} data-lang="{{ lang_code }}"><a href="#">{% trans lang_name %}</a></li>
+  {% endfor %}
+</ul>
+<script src="{{ STATIC_URL }}site/js/multilingual-form.js"></script>
