@@ -23,17 +23,17 @@
     {% render_block "css" %}
     <script type="text/javascript">
       <!--//--><![CDATA[//><!--
-        var images = new Array()
+        var images = [];
         function preload() {
           for (i = 0; i < preload.arguments.length; i++) {
-            images[i] = new Image()
-            images[i].src = preload.arguments[i]
+            images[i] = new Image();
+            images[i].src = preload.arguments[i];
           }
         }
         preload(
           "{{ STATIC_URL }}site/img/placeholder_list.gif",
           "{{ STATIC_URL }}site/img/placeholder_cover.gif"
-        )
+        );
       //--><!]]>
     </script>
     <script type="text/javascript">
@@ -51,7 +51,8 @@
     <![endif]-->
     <script type="text/javascript" src="/jssettings/"></script>
     <script type="text/javascript" src="/jsi18n/"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery-1.8.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.min.js"></script>
