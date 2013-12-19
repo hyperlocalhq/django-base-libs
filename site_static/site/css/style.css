@@ -2569,12 +2569,29 @@ h6 + .row:not(.grid),
     /* line 47, ../scss/row.scss */
     .row.row-narrow .item .actions {
       right: 10px; }
+  /* line 50, ../scss/row.scss */
+  .row.row-extra-narrow {
+    margin-right: -2px;
+    margin-left: -2px;
+    margin-top: -2px; }
+    /* line 57, ../scss/row.scss */
+    .row.row-extra-narrow .col-xs-1, .row.row-extra-narrow .col-xs-2, .row.row-extra-narrow .col-xs-3, .row.row-extra-narrow .col-xs-4, .row.row-extra-narrow .col-xs-5, .row.row-extra-narrow .col-xs-6, .row.row-extra-narrow .col-xs-7, .row.row-extra-narrow .col-xs-8, .row.row-extra-narrow .col-xs-9, .row.row-extra-narrow .col-xs-10, .row.row-extra-narrow .col-xs-11, .row.row-extra-narrow .col-xs-12,
+    .row.row-extra-narrow .col-sm-1, .row.row-extra-narrow .col-sm-2, .row.row-extra-narrow .col-sm-3, .row.row-extra-narrow .col-sm-4, .row.row-extra-narrow .col-sm-5, .row.row-extra-narrow .col-sm-6, .row.row-extra-narrow .col-sm-7, .row.row-extra-narrow .col-sm-8, .row.row-extra-narrow .col-sm-9, .row.row-extra-narrow .col-sm-10, .row.row-extra-narrow .col-sm-11, .row.row-extra-narrow .col-sm-12,
+    .row.row-extra-narrow .col-md-1, .row.row-extra-narrow .col-md-2, .row.row-extra-narrow .col-md-3, .row.row-extra-narrow .col-md-4, .row.row-extra-narrow .col-md-5, .row.row-extra-narrow .col-md-6, .row.row-extra-narrow .col-md-7, .row.row-extra-narrow .col-md-8, .row.row-extra-narrow .col-md-9, .row.row-extra-narrow .col-md-10, .row.row-extra-narrow .col-md-11, .row.row-extra-narrow .col-md-12,
+    .row.row-extra-narrow .col-lg-1, .row.row-extra-narrow .col-lg-2, .row.row-extra-narrow .col-lg-3, .row.row-extra-narrow .col-lg-4, .row.row-extra-narrow .col-lg-5, .row.row-extra-narrow .col-lg-6, .row.row-extra-narrow .col-lg-7, .row.row-extra-narrow .col-lg-8, .row.row-extra-narrow .col-lg-9, .row.row-extra-narrow .col-lg-10, .row.row-extra-narrow .col-lg-11, .row.row-extra-narrow .col-lg-12 {
+      padding-right: 2px;
+      padding-left: 2px;
+      margin-right: -1px;
+      margin-top: -8px; }
+    /* line 63, ../scss/row.scss */
+    .row.row-extra-narrow .item .actions {
+      right: 10px; }
 
-/* line 51, ../scss/row.scss */
+/* line 67, ../scss/row.scss */
 .row + .row {
   margin-top: 20px; }
 
-/* line 52, ../scss/row.scss */
+/* line 68, ../scss/row.scss */
 .row-narrow + .row-narrow {
   margin-top: 20px; }
 
