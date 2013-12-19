@@ -1,11 +1,15 @@
 @media (max-width: 768px) {
-
+  .navbar-nav > li > a { 
+    margin: 0px; 
+    padding: 15px 15px;
+    font-size: 18px;
+  }
 }
 
 @media (min-width: 768px) {
  	#search {display: none; }
 	.navbar-nav > li > a { font-size: 11px; }
-	.navbar-nav > li:not(:last-child) > a { margin-right: 13px; }
+	.navbar-nav > li:not(:last-child) > a { margin-right: 12px; }
 }
 
 @media (min-width: 992px) {	

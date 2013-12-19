@@ -3,10 +3,10 @@
 <div id="images" class="content">
   <div class="container">
     <h2>{% trans "Images" %}</h2>
-    <div class="row grid">
+    <div class="row row-narrow grid">
       {% for mf in object.mediafile_set.all %}
         {% with mf.path|file_description as file_desc %}
-          <div class="item col-xs-12 col-sm-12 col-md-4 col-lg-4" data-href="{{ object.get_url_path }}slideshow/#{{ forloop.counter0 }}">
+          <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-6" data-href="{{ object.get_url_path }}slideshow/#{{ forloop.counter0 }}">
             <div class="img-detail">
               <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="" title="{{ file_desc.description|remove_newlines|escape }}" />
             </div>
