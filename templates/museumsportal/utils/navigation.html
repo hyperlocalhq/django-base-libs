@@ -53,6 +53,15 @@
       <div id="top_nav" class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
           {% show_menu_below_id "start_page" 0 2 2 2 "menu/top_menu.html" %}
+
+            {% if LANGUAGE_CODE == "de" %}
+              <li class="visible-xs"><a href="/de/impressum/">Impressum</a></li>
+            {% else %}
+              <li class="visible-xs"><a href="/en/imprint/">Imprint</a></li>
+            {% endif %}
+
+            <li class="visible-xs"><a href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
+            <li class="visible-xs"><a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
