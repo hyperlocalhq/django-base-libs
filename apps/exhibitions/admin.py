@@ -100,8 +100,8 @@ class ExhibitionAdmin(ExtendedModelAdmin):
         )
 
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon')
-    list_editable = ('status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon')
+    list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
+    list_editable = ('status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon')
     search_fields = ('title_de','title_en', 'subtitle_de','subtitle_en', 'slug', 'museum__title_de', 'museum__title_en',)
@@ -116,7 +116,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
         'reduced_price', get_admin_lang_section(_("Price info"), ['reduced_price_info']),
     )}),]
     fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
-    fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon', 'is_for_children',)}),]
+    fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon', 'is_for_children', 'special')}),]
     fieldsets += [(_("Suitability"), {'fields': ('suitable_for_disabled', get_admin_lang_section(_("Description"), ['suitable_for_disabled_info', ]))}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
