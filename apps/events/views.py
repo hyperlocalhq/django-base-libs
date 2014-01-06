@@ -57,8 +57,14 @@ class EventFilterForm(dynamicforms.Form):
 
 
 def event_list(request):
-    qs = Event.objects.filter(status="published")
-    
+    # qs = Event.objects.filter(status="published").extra(
+    #     select={'no_closest_event_date': 'closest_event_date IS NULL'},
+    #     order_by=["no_closest_event_date", "closest_event_date", "closest_event_time", "title_%s" % request.LANGUAGE_CODE],
+    # )
+    qs = Event.objects.filter(status="published").annotate(
+        null_date=models.Count("closest_event_date")
+    ).order_by("-null_date", "closest_event_date", "closest_event_time", "title_%s" % request.LANGUAGE_CODE)
+
     #if not request.REQUEST.keys():
     #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
     
@@ -72,7 +78,7 @@ def event_list(request):
         },
     }
 
-    status = None
+    # status = None
     if form.is_valid():
         cat = form.cleaned_data['category']
         if cat:
@@ -101,10 +107,8 @@ def event_list(request):
     #    qs = qs.order_by("eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
     #else:
     #    qs = qs.order_by("-eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
-    qs = qs.order_by("closest_event_date", "closest_event_time", "title_%s" % request.LANGUAGE_CODE)        
-
     qs = qs.distinct()
-    
+
     abc_filter = request.GET.get('by-abc', None)
     abc_list = get_abc_list(qs, "title", abc_filter)
     if abc_filter:
