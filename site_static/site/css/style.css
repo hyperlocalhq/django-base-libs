@@ -2548,17 +2548,17 @@ h6 + .row:not(.grid),
   .row .col-lg-1, .row .col-lg-2, .row .col-lg-3, .row .col-lg-4, .row .col-lg-5, .row .col-lg-6, .row .col-lg-7, .row .col-lg-8, .row .col-lg-9, .row .col-lg-10, .row .col-lg-11, .row .col-lg-12 {
     padding-right: 25px;
     padding-left: 25px;
-    margin-top: 25px;
+    margin-top: 0px;
     margin-right: -1px; }
-  /* line 32, ../scss/row.scss */
+  /* line 33, ../scss/row.scss */
   .row .item .actions {
     right: 25px; }
-  /* line 34, ../scss/row.scss */
+  /* line 35, ../scss/row.scss */
   .row.row-narrow {
     margin-right: -10px;
     margin-left: -10px;
     margin-top: -10px; }
-    /* line 41, ../scss/row.scss */
+    /* line 42, ../scss/row.scss */
     .row.row-narrow .col-xs-1, .row.row-narrow .col-xs-2, .row.row-narrow .col-xs-3, .row.row-narrow .col-xs-4, .row.row-narrow .col-xs-5, .row.row-narrow .col-xs-6, .row.row-narrow .col-xs-7, .row.row-narrow .col-xs-8, .row.row-narrow .col-xs-9, .row.row-narrow .col-xs-10, .row.row-narrow .col-xs-11, .row.row-narrow .col-xs-12,
     .row.row-narrow .col-sm-1, .row.row-narrow .col-sm-2, .row.row-narrow .col-sm-3, .row.row-narrow .col-sm-4, .row.row-narrow .col-sm-5, .row.row-narrow .col-sm-6, .row.row-narrow .col-sm-7, .row.row-narrow .col-sm-8, .row.row-narrow .col-sm-9, .row.row-narrow .col-sm-10, .row.row-narrow .col-sm-11, .row.row-narrow .col-sm-12,
     .row.row-narrow .col-md-1, .row.row-narrow .col-md-2, .row.row-narrow .col-md-3, .row.row-narrow .col-md-4, .row.row-narrow .col-md-5, .row.row-narrow .col-md-6, .row.row-narrow .col-md-7, .row.row-narrow .col-md-8, .row.row-narrow .col-md-9, .row.row-narrow .col-md-10, .row.row-narrow .col-md-11, .row.row-narrow .col-md-12,
@@ -2566,16 +2566,16 @@ h6 + .row:not(.grid),
       padding-right: 10px;
       padding-left: 10px;
       margin-right: -1px;
-      margin-top: 10px; }
-    /* line 47, ../scss/row.scss */
+      margin-top: 0px; }
+    /* line 49, ../scss/row.scss */
     .row.row-narrow .item .actions {
       right: 10px; }
-  /* line 50, ../scss/row.scss */
+  /* line 52, ../scss/row.scss */
   .row.row-extra-narrow {
     margin-right: -2px;
     margin-left: -2px;
     margin-top: -2px; }
-    /* line 57, ../scss/row.scss */
+    /* line 59, ../scss/row.scss */
     .row.row-extra-narrow .col-xs-1, .row.row-extra-narrow .col-xs-2, .row.row-extra-narrow .col-xs-3, .row.row-extra-narrow .col-xs-4, .row.row-extra-narrow .col-xs-5, .row.row-extra-narrow .col-xs-6, .row.row-extra-narrow .col-xs-7, .row.row-extra-narrow .col-xs-8, .row.row-extra-narrow .col-xs-9, .row.row-extra-narrow .col-xs-10, .row.row-extra-narrow .col-xs-11, .row.row-extra-narrow .col-xs-12,
     .row.row-extra-narrow .col-sm-1, .row.row-extra-narrow .col-sm-2, .row.row-extra-narrow .col-sm-3, .row.row-extra-narrow .col-sm-4, .row.row-extra-narrow .col-sm-5, .row.row-extra-narrow .col-sm-6, .row.row-extra-narrow .col-sm-7, .row.row-extra-narrow .col-sm-8, .row.row-extra-narrow .col-sm-9, .row.row-extra-narrow .col-sm-10, .row.row-extra-narrow .col-sm-11, .row.row-extra-narrow .col-sm-12,
     .row.row-extra-narrow .col-md-1, .row.row-extra-narrow .col-md-2, .row.row-extra-narrow .col-md-3, .row.row-extra-narrow .col-md-4, .row.row-extra-narrow .col-md-5, .row.row-extra-narrow .col-md-6, .row.row-extra-narrow .col-md-7, .row.row-extra-narrow .col-md-8, .row.row-extra-narrow .col-md-9, .row.row-extra-narrow .col-md-10, .row.row-extra-narrow .col-md-11, .row.row-extra-narrow .col-md-12,
@@ -2584,15 +2584,15 @@ h6 + .row:not(.grid),
       padding-left: 2px;
       margin-right: -1px;
       margin-top: -8px; }
-    /* line 63, ../scss/row.scss */
+    /* line 65, ../scss/row.scss */
     .row.row-extra-narrow .item .actions {
       right: 10px; }
 
-/* line 67, ../scss/row.scss */
+/* line 69, ../scss/row.scss */
 .row + .row {
   margin-top: 20px; }
 
-/* line 68, ../scss/row.scss */
+/* line 70, ../scss/row.scss */
 .row-narrow + .row-narrow {
   margin-top: 20px; }
 
@@ -5049,3 +5049,41 @@ p a {
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
+
+/* line 225, ../scss/style.scss */
+.linear-list {
+  display: block; }
+  /* line 227, ../scss/style.scss */
+  .linear-list > li {
+    float: left;
+    display: inline-block;
+    height: inherit; }
+    /* line 231, ../scss/style.scss */
+    .linear-list > li > a {
+      display: inline-block; }
+    /* line 235, ../scss/style.scss */
+    .linear-list > li:first-child {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: 0; }
+    /* line 236, ../scss/style.scss */
+    .linear-list > li:first-child:before {
+      content: ""; }
+  /* line 239, ../scss/style.scss */
+  .linear-list.dots > li {
+    padding-right: 15px;
+    position: relative;
+    display: inline-block; }
+    /* line 243, ../scss/style.scss */
+    .linear-list.dots > li:after {
+      content: "•";
+      position: absolute;
+      top: 0;
+      right: 6px;
+      font-size: 10px; }
+    /* line 244, ../scss/style.scss */
+    .linear-list.dots > li:last-child {
+      padding-right: 0; }
+    /* line 245, ../scss/style.scss */
+    .linear-list.dots > li:last-child:after {
+      content: ""; }
