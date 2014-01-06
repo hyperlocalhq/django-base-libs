@@ -3,18 +3,12 @@
 {% block bodyclass %}magazine_overview{% endblock %}
 
 {% block content %}
-	<div class="content intro">
+	<div class="content">
 		<div class="container">
-			{% placeholder "intro" %}
-		</div>
-		<div class="container">
+			<!-- {% placeholder "intro" %} -->
 	        <div class="row">
-	          	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-	          		{% placeholder "main_content" %}
-			  	</div>
-	          	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			      	{% placeholder "marginal_content" %}
-			  	</div>
+          		{% placeholder "main_content" %}
+		      	{% placeholder "marginal_content" %}
 		  	</div>
 		</div>
   </div>

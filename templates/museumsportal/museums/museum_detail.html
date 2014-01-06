@@ -72,6 +72,23 @@
                 {% endcomment %}
               </header>
 
+              <ul class="linear-list dots clearfix">
+                {% if object.mediafile_set.count > 1 %}
+                  <li><a href="#images">{% trans "Images" %}</a></li>
+                {% endif %}
+                {% if museum.get_twitter_username %}
+                  <li><a href="#tweets">{% trans "Tweets" %}</a></li>
+                {% endif %}
+                {% if object.get_published_exhibitions %}
+                  <li><a href="#exhibitions">{% trans "Exhibitions" %}</a></li>
+                {% endif %}
+                {% if object.get_published_events %}
+                  <li><a href="#events">{% trans "Events" %}</a></li>
+                {% endif %}
+                {% if object.get_published_workshops %}
+                  <li><a href="#workshops">{% trans "Workshops" %}</a></li>
+                {% endif %}
+              </ul>
               <!-- ======= Tools ======= -->
 
               <div class="tools">
@@ -100,6 +117,7 @@
               </div>
 
               {% include "utils/cover_image.html" %}
+
 
               <div class="lead">
                 {{ museum.get_rendered_description }}
