@@ -57,4 +57,31 @@ $(document).ready(function(){
 
   $("select").selectbox();
   // $('.panel-collapse').collapse('show');
+
+
+  $(function(){
+        var lastScrollTop = 0, delta = 15;
+        $(window).scroll(function(event){
+           var st = $(this).scrollTop();
+
+           if(Math.abs(lastScrollTop - st) <= delta)
+              return;
+
+           if (st > lastScrollTop){
+               // Scroll Down
+                $(".navbar-wrapper").delay(10).queue(function() {
+                    $(this).removeClass("nav-visible").addClass("nav-hidden");
+                    $(this).dequeue();
+                });
+
+           } else {
+              // Scroll Up
+                $('.navbar-wrapper').delay(10).queue(function() {
+                    $(this).removeClass("nav-hidden").addClass("nav-visible");
+                    $(this).dequeue();
+                });
+           }
+           lastScrollTop = st;
+        });
+    });
 });
