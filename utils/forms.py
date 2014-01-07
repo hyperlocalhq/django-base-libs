@@ -11,8 +11,11 @@ from django.utils.html import conditional_escape
 
 from crispy_forms import layout
 
+class PrimarySubmit(layout.Submit):
+    field_classes = "btn btn-lg btn-primary"
+
 class SecondarySubmit(layout.Submit):
-    field_classes = "btn"
+    field_classes = "btn btn-lg btn-default"
 
 class InlineFormSet(BaseInlineFormSet):
     """ Inline formset which accepts initial values for unsaved models """

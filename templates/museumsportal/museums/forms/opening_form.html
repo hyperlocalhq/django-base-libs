@@ -21,15 +21,15 @@
     <form>
         <fieldset>
             <legend>{% trans "Opening Hours" %}</legend>
-            <a class="add" id="add_season" href="#">{% trans "Add opening hours" %}</a>
-            <ul id="season_list">
+            <a class="add btn btn-primary" id="add_season" href="#">{% trans "Add opening hours" %}</a>
+            <ul id="season_list" class="list-unstyled">
                 <li> </li>
             </ul>
         </fieldset>
         <fieldset>
             <legend>{% trans "Closing times / Holidays" %}</legend>
-            <a class="add" id="add_special_opening" href="#">{% trans "Add Closing time / Holiday" %}</a>
-            <ul id="special_opening_list">
+            <a class="add btn btn-primary" id="add_special_opening" href="#">{% trans "Add Closing time / Holiday" %}</a>
+            <ul id="special_opening_list" class="list-unstyled">
                 <li> </li>
             </ul>
         </fieldset>
@@ -154,8 +154,8 @@ var error_messages = {
             var $season = $(this);
             var $inlineControls = $(
                 '<div class="form-actions">'
-                + '<input type="button" class="save-link btn btn-primary" value="{% trans "Okay" %}" />&nbsp;'
-                + '<input name="cancel" type="button" class="delete btn" value="{% trans "Delete" %}" />&nbsp;'
+                + '<input type="button" class="save-link btn btn-lg btn-primary" value="{% trans "Okay" %}" />&nbsp;'
+                + '<input name="cancel" type="button" class="delete btn btn-lg btn-default" value="{% trans "Delete" %}" />&nbsp;'
                 + '</div>'
             );
             $season.append($inlineControls);

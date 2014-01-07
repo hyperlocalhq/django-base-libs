@@ -34,6 +34,7 @@ Organizer = models.get_model("exhibitions", "Organizer")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
 
+from museumsportal.utils.forms import PrimarySubmit
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import InlineFormSet
 from museumsportal.utils.forms import SplitDateTimeWidget
@@ -348,13 +349,13 @@ class BasicInfoForm(ModelForm):
         ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         
@@ -477,13 +478,13 @@ class OpeningForm(ModelForm):
         """))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         self.helper.layout = layout.Layout(
@@ -741,13 +742,13 @@ class PricesForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         
@@ -799,13 +800,13 @@ class AccessibilityForm(ModelForm):
 
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
+                PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         
@@ -827,12 +828,12 @@ class GalleryForm(ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('save_and_close', _('Close')),
+                PrimarySubmit('save_and_close', _('Close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
             layout_blocks.append(bootstrap.FormActions(
-                layout.Submit('submit', _('Save')),
+                PrimarySubmit('submit', _('Save')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         self.helper.layout = layout.Layout(

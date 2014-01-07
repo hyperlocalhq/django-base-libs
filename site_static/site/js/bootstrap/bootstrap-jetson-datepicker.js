@@ -429,7 +429,8 @@
                 }
                 
                 $(this).parent().addClass('input-append');
-                $('<button class="btn pick-date" type="button">Select</button>').insertAfter(this).click(function() {
+                
+                $('<span class="input-group-btn"><button class="btn btn-lg btn-icon btn-info pick-date input-group-addon" type="button"><span class="icon icon-calendar"></span></button></span>').insertAfter(this).click(function() {
                     $('body').append(template);
                     $("#popup").delay(100).queue(function () {
                         $(this).addClass("on");

@@ -2022,6 +2022,10 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     text-align: right; } }
 
 /* line 10, ../scss/bootstrap/_buttons.scss */
+.btn-icon {
+  padding: 0px !important; }
+
+/* line 13, ../scss/bootstrap/_buttons.scss */
 .btn {
   display: inline-block;
   padding: 0 10px;
@@ -2042,36 +2046,36 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none; }
-  /* line 31, ../scss/bootstrap/_buttons.scss */
+  /* line 34, ../scss/bootstrap/_buttons.scss */
   .btn:focus {
     outline: thin dotted #333;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
-  /* line 36, ../scss/bootstrap/_buttons.scss */
+  /* line 39, ../scss/bootstrap/_buttons.scss */
   .btn:hover, .btn:focus {
     color: white;
     text-decoration: none; }
-  /* line 42, ../scss/bootstrap/_buttons.scss */
+  /* line 45, ../scss/bootstrap/_buttons.scss */
   .btn:active, .btn.active {
     outline: 0;
     background-image: none; }
-  /* line 50, ../scss/bootstrap/_buttons.scss */
+  /* line 53, ../scss/bootstrap/_buttons.scss */
   .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.65;
     filter: alpha(opacity=65); }
 
-/* line 59, ../scss/bootstrap/_buttons.scss */
+/* line 62, ../scss/bootstrap/_buttons.scss */
 .btn-round {
   padding: 0px;
   border-radius: 100%; }
-  /* line 62, ../scss/bootstrap/_buttons.scss */
+  /* line 65, ../scss/bootstrap/_buttons.scss */
   .btn-round .icon {
     line-height: 17px;
     font-size: 10px; }
 
-/* line 77, ../scss/bootstrap/_buttons.scss */
+/* line 80, ../scss/bootstrap/_buttons.scss */
 .btn-default {
   color: white;
   background-color: black;
@@ -2097,7 +2101,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: black;
     border-color: #cccccc; }
 
-/* line 80, ../scss/bootstrap/_buttons.scss */
+/* line 83, ../scss/bootstrap/_buttons.scss */
 .btn-primary {
   color: white;
   background-color: #00aefd;
@@ -2123,7 +2127,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #00aefd;
     border-color: #009ce4; }
 
-/* line 84, ../scss/bootstrap/_buttons.scss */
+/* line 87, ../scss/bootstrap/_buttons.scss */
 .btn-warning {
   color: white;
   background-color: #ffe345;
@@ -2149,7 +2153,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #ffe345;
     border-color: #ffdf2b; }
 
-/* line 88, ../scss/bootstrap/_buttons.scss */
+/* line 91, ../scss/bootstrap/_buttons.scss */
 .btn-danger {
   color: white;
   background-color: #ff4582;
@@ -2175,7 +2179,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #ff4582;
     border-color: #ff2b71; }
 
-/* line 92, ../scss/bootstrap/_buttons.scss */
+/* line 95, ../scss/bootstrap/_buttons.scss */
 .btn-success {
   color: white;
   background-color: #1edc80;
@@ -2201,7 +2205,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #1edc80;
     border-color: #1bc673; }
 
-/* line 96, ../scss/bootstrap/_buttons.scss */
+/* line 99, ../scss/bootstrap/_buttons.scss */
 .btn-info {
   color: black;
   background-color: #f2f2f2;
@@ -2227,61 +2231,64 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #f2f2f2;
     border-color: #e5e5e5; }
 
-/* line 105, ../scss/bootstrap/_buttons.scss */
+/* line 108, ../scss/bootstrap/_buttons.scss */
 .btn-link {
   color: #00aefd;
   color: black;
   font-weight: normal;
   cursor: pointer;
   border-radius: 0; }
-  /* line 115, ../scss/bootstrap/_buttons.scss */
+  /* line 118, ../scss/bootstrap/_buttons.scss */
   .btn-link, .btn-link:active, .btn-link[disabled], fieldset[disabled] .btn-link {
     background-color: transparent;
     -webkit-box-shadow: none;
     box-shadow: none; }
-  /* line 122, ../scss/bootstrap/_buttons.scss */
+  /* line 125, ../scss/bootstrap/_buttons.scss */
   .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
     border-color: transparent; }
-  /* line 126, ../scss/bootstrap/_buttons.scss */
+  /* line 129, ../scss/bootstrap/_buttons.scss */
   .btn-link:hover, .btn-link:focus {
     color: #0079b1;
     text-decoration: underline;
     background-color: transparent; }
-  /* line 134, ../scss/bootstrap/_buttons.scss */
+  /* line 137, ../scss/bootstrap/_buttons.scss */
   .btn-link[disabled]:hover, .btn-link[disabled]:focus, fieldset[disabled] .btn-link:hover, fieldset[disabled] .btn-link:focus {
     color: #999999;
     text-decoration: none; }
 
-/* line 145, ../scss/bootstrap/_buttons.scss */
+/* line 148, ../scss/bootstrap/_buttons.scss */
 .btn-lg, .btn-group-lg > .btn {
   height: 50px;
   line-height: 50px;
-  min-width: 50px; }
+  min-width: 50px;
+  padding: 0px 15px;
+  text-transform: none;
+  font-size: 18px; }
 
-/* line 152, ../scss/bootstrap/_buttons.scss */
+/* line 158, ../scss/bootstrap/_buttons.scss */
 .btn-sm, .btn-group-sm > .btn {
   height: 25px;
   line-height: 25px;
   padding: 0 8px;
   font-size: 14px; }
 
-/* line 160, ../scss/bootstrap/_buttons.scss */
+/* line 166, ../scss/bootstrap/_buttons.scss */
 .btn-xs, .btn-group-xs > .btn {
   height: 15px;
   line-height: 15px; }
 
-/* line 170, ../scss/bootstrap/_buttons.scss */
+/* line 176, ../scss/bootstrap/_buttons.scss */
 .btn-block {
   display: block;
   width: 100%;
   padding-left: 0;
   padding-right: 0; }
 
-/* line 178, ../scss/bootstrap/_buttons.scss */
+/* line 184, ../scss/bootstrap/_buttons.scss */
 .btn-block + .btn-block {
   margin-top: 5px; }
 
-/* line 186, ../scss/bootstrap/_buttons.scss */
+/* line 192, ../scss/bootstrap/_buttons.scss */
 input[type="submit"].btn-block,
 input[type="reset"].btn-block,
 input[type="button"].btn-block {
@@ -3506,9 +3513,7 @@ input[type="button"].btn-block {
   font-weight: normal;
   line-height: 1;
   text-align: center;
-  background-color: #eeeeee;
-  border: 1px solid #cccccc;
-  border-radius: 4px; }
+  background-color: #eeeeee; }
   /* line 70, ../scss/bootstrap/_input-groups.scss */
   .input-group-addon.input-sm,
   .input-group-sm > .input-group-addon,

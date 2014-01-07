@@ -7,6 +7,9 @@
 // --------------------------------------------------
 
 // Core styles
+.btn-icon {
+  padding: 0px !important;
+}
 .btn {
   display: inline-block;
   padding: 0 10px;
@@ -147,6 +150,9 @@
   height: 50px;
   line-height: 50px;
   min-width: 50px;
+  padding: 0px 15px;
+  text-transform: none;
+  font-size: 18px;
   // @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
 }
 .btn-sm{
