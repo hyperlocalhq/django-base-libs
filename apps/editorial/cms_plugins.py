@@ -3,6 +3,7 @@
 import re
 
 from django.utils.translation import ugettext as _
+from django.template.loader import select_template
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
@@ -20,6 +21,7 @@ class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
     model = EditorialContent
     name = _("Editorial Content")
     render_template = "cms/plugins/editorial_content.html"
+
     change_form_template = "cms/plugins/editorial_content_plugin_change_form.html"
 
     fieldsets = (
@@ -36,10 +38,21 @@ class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
         return field
     
     def render(self, context, instance, placeholder):
+        # choose the first available template from the list:
+        #   "editorial_content_for_<placeholder>_in_<page_id>.html"
+        #   "editorial_content_for_<placeholder>.html"
+        #   "editorial_content.html"
+        template_name_list = [
+            "cms/plugins/editorial_content_for_%s.html" % placeholder,
+            "cms/plugins/editorial_content.html",
+        ]
+        if context['request'].current_page.reverse_id:
+            template_name_list.insert(0, "cms/plugins/editorial_content_for_%s_in_%s.html" % (placeholder, context['request'].current_page.reverse_id))
+        self.render_template = select_template(template_name_list)
         context.update({
-            'object':instance,
-            'placeholder':placeholder
-            })
+            'object': instance,
+            'placeholder': placeholder,
+        })
         return context
 
 plugin_pool.register_plugin(EditorialContentPlugin)
