@@ -3,13 +3,13 @@
 
 {% block stylesheet %}
     {{ block.super }}
-    <link href="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
 {% endblock %}
 
 {% block js %}
     {{ block.super }}
-    <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
-    <script src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
 {% endblock %}
 

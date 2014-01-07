@@ -1,7 +1,7 @@
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
 
 {% with object as museum %}
-  <div class="row row-narrow">
+  <div class="row row-md">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <header>
         <h3>{{ museum.title }} </h3>
@@ -11,7 +11,7 @@
       </header>
     </div>
   </div>
-  <div class="row row-narrow">
+  <div class="row row-md">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
       <p class="lead">{{ museum.get_rendered_description|striptags|truncatewords:"65"|urlize }}</p>
       <a class="btn btn-default" href="{{ museum.get_url_path }}">{% trans "more" %}</a>

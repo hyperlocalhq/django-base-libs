@@ -686,111 +686,123 @@ class AddressForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            layout.Div(
+            layout.Row(
                 layout.Div(
                     'parent',
                     'street_address',
                     'street_address2',
                     'postal_code',
                     'city',
-                    ),
-                layout.HTML("""{% load i18n %}
-                    <div id="dyn_set_map">
-                        <label>{% trans "Location" %}</label>
-                        <div class="museum_map" id="gmap-wrapper">
-                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    layout.HTML("""{% load i18n %}
+                        <div id="dyn_set_map">
+                            <label>{% trans "Location" %}</label>
+                            <div class="museum_map" id="gmap-wrapper">
+                                <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                            </div>
+                            <div class="form-actions">
+                                <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            </div>
                         </div>
-                        <div class="form-actions">
-                            <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
-                            <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
-                        </div>
-                    </div>
-                """),
-                'latitude',
-                'longitude',
-                css_class="cols-2",
+                    """),
+                    'latitude',
+                    'longitude',
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-md"
             ),
-            css_class="fieldset-location",
+            css_class="fieldset-location"
         ))
 
         layout_blocks.append(layout.Fieldset(
             _("Contact"),
 
-            layout.Div(
-                'email', layout.Field('website', placeholder="http://"),
-                css_class="fieldset-location cols-2",
+            layout.Row(
+                layout.Div(
+                    'email', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    layout.Field('website', placeholder="http://"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-md"
             ),
 
-            layout.Div(
+            layout.Row(
                 layout.Div(
                     layout.HTML('{% load i18n %}<div><label class="with">{% trans "Phone" %}</label></div>'),
                     layout.Row(
                         layout.Div(
-                            'phone_country', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
                         ),
                         layout.Div(
-                            'phone_area',  css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'phone_area',  css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
                         ),
                         layout.Div(
-                            'phone_number', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'phone_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                         ),
-                        css_class="row-extra-narrow"
+                        css_class="row-xs"
                     ),
+                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
                 layout.Div(
                     layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
                     layout.Row(
                         layout.Div(
-                            'fax_country', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'fax_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
                         ),
                         layout.Div(
-                            'fax_area', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'fax_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
                         ),
                         layout.Div(
-                            'fax_number', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'fax_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                         ),
-                        css_class="row-extra-narrow"
+                        css_class="row-xs"
                     ),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
-                css_class="fieldset-location cols-2",
+                css_class="row-md"
             ),
 
-            layout.Div(
+            layout.Row(
                 layout.Div(
                     layout.HTML('{% load i18n %}<div><label>{% trans "Booking Phone" %}</label></div>'),
                     layout.Row(
                         layout.Div(
-                            'group_bookings_phone_country', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'group_bookings_phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
                         ),
                         layout.Div(
-                            'group_bookings_phone_area', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'group_bookings_phone_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
                         ),
                         layout.Div(
-                            'group_bookings_phone_number', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'group_bookings_phone_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                         ),
-                        css_class="row-extra-narrow"
+                        css_class="row-xs"
                     ),
-
+                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
                 layout.Div(
                     layout.HTML('{% load i18n %}<div><label>{% trans "Service Telephone" %}</label></div>'),
                     layout.Row(
                         layout.Div(
-                            'service_phone_country', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'service_phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
                         ),
                         layout.Div(
-                            'service_phone_area', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'service_phone_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
                         ),
                         layout.Div(
-                            'service_phone_number', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            'service_phone_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                         ),
-                        css_class="row-extra-narrow"
+                        css_class="row-xs"
                     ),
+                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
-                css_class="fieldset-location cols-2",
+                css_class="row-md"
             ),
 
-            css_class="fieldset-other-contact-info",
+            css_class="fieldset-other-contact-info"
         ))
         layout_blocks.append(layout.Fieldset(
             _("Social media"),
@@ -843,10 +855,14 @@ class SocialMediaChannelForm(ModelForm):
         layout_blocks = []
 
         layout_blocks.append(
-            layout.Div(
-                "channel_type",
-                layout.Div(layout.Field("url", placeholder="http://"), css_class="max",),
-                css_class="flex",
+            layout.Row(
+                layout.Div(
+                    "channel_type", css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    layout.Field("url", placeholder="http://"), css_class="col-xs-12 col-sm-8 col-md-8 col-lg-8"
+                ),
+                css_class="row-sm"
             )
         )
 

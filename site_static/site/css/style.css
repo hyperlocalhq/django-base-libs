@@ -2559,47 +2559,56 @@ h6 + .row:not(.grid),
   .row .item .actions {
     right: 25px; }
   /* line 33, ../scss/row.scss */
-  .row.row-narrow {
+  .row.row-md {
     margin-right: -10px;
     margin-left: -10px;
     margin-top: -10px; }
     /* line 40, ../scss/row.scss */
-    .row.row-narrow .col-xs-1, .row.row-narrow .col-xs-2, .row.row-narrow .col-xs-3, .row.row-narrow .col-xs-4, .row.row-narrow .col-xs-5, .row.row-narrow .col-xs-6, .row.row-narrow .col-xs-7, .row.row-narrow .col-xs-8, .row.row-narrow .col-xs-9, .row.row-narrow .col-xs-10, .row.row-narrow .col-xs-11, .row.row-narrow .col-xs-12,
-    .row.row-narrow .col-sm-1, .row.row-narrow .col-sm-2, .row.row-narrow .col-sm-3, .row.row-narrow .col-sm-4, .row.row-narrow .col-sm-5, .row.row-narrow .col-sm-6, .row.row-narrow .col-sm-7, .row.row-narrow .col-sm-8, .row.row-narrow .col-sm-9, .row.row-narrow .col-sm-10, .row.row-narrow .col-sm-11, .row.row-narrow .col-sm-12,
-    .row.row-narrow .col-md-1, .row.row-narrow .col-md-2, .row.row-narrow .col-md-3, .row.row-narrow .col-md-4, .row.row-narrow .col-md-5, .row.row-narrow .col-md-6, .row.row-narrow .col-md-7, .row.row-narrow .col-md-8, .row.row-narrow .col-md-9, .row.row-narrow .col-md-10, .row.row-narrow .col-md-11, .row.row-narrow .col-md-12,
-    .row.row-narrow .col-lg-1, .row.row-narrow .col-lg-2, .row.row-narrow .col-lg-3, .row.row-narrow .col-lg-4, .row.row-narrow .col-lg-5, .row.row-narrow .col-lg-6, .row.row-narrow .col-lg-7, .row.row-narrow .col-lg-8, .row.row-narrow .col-lg-9, .row.row-narrow .col-lg-10, .row.row-narrow .col-lg-11, .row.row-narrow .col-lg-12 {
+    .row.row-md .col-xs-1, .row.row-md .col-xs-2, .row.row-md .col-xs-3, .row.row-md .col-xs-4, .row.row-md .col-xs-5, .row.row-md .col-xs-6, .row.row-md .col-xs-7, .row.row-md .col-xs-8, .row.row-md .col-xs-9, .row.row-md .col-xs-10, .row.row-md .col-xs-11, .row.row-md .col-xs-12,
+    .row.row-md .col-sm-1, .row.row-md .col-sm-2, .row.row-md .col-sm-3, .row.row-md .col-sm-4, .row.row-md .col-sm-5, .row.row-md .col-sm-6, .row.row-md .col-sm-7, .row.row-md .col-sm-8, .row.row-md .col-sm-9, .row.row-md .col-sm-10, .row.row-md .col-sm-11, .row.row-md .col-sm-12,
+    .row.row-md .col-md-1, .row.row-md .col-md-2, .row.row-md .col-md-3, .row.row-md .col-md-4, .row.row-md .col-md-5, .row.row-md .col-md-6, .row.row-md .col-md-7, .row.row-md .col-md-8, .row.row-md .col-md-9, .row.row-md .col-md-10, .row.row-md .col-md-11, .row.row-md .col-md-12,
+    .row.row-md .col-lg-1, .row.row-md .col-lg-2, .row.row-md .col-lg-3, .row.row-md .col-lg-4, .row.row-md .col-lg-5, .row.row-md .col-lg-6, .row.row-md .col-lg-7, .row.row-md .col-lg-8, .row.row-md .col-lg-9, .row.row-md .col-lg-10, .row.row-md .col-lg-11, .row.row-md .col-lg-12 {
       padding-right: 10px;
       padding-left: 10px;
       margin-top: 10px;
       margin-right: -1px; }
     /* line 46, ../scss/row.scss */
-    .row.row-narrow .item .actions {
+    .row.row-md .item .actions {
       right: 10px; }
   /* line 49, ../scss/row.scss */
-  .row.row-extra-narrow {
+  .row.row-sm {
     margin-right: -5px;
     margin-left: -5px;
     margin-top: -5px; }
     /* line 56, ../scss/row.scss */
-    .row.row-extra-narrow .col-xs-1, .row.row-extra-narrow .col-xs-2, .row.row-extra-narrow .col-xs-3, .row.row-extra-narrow .col-xs-4, .row.row-extra-narrow .col-xs-5, .row.row-extra-narrow .col-xs-6, .row.row-extra-narrow .col-xs-7, .row.row-extra-narrow .col-xs-8, .row.row-extra-narrow .col-xs-9, .row.row-extra-narrow .col-xs-10, .row.row-extra-narrow .col-xs-11, .row.row-extra-narrow .col-xs-12,
-    .row.row-extra-narrow .col-sm-1, .row.row-extra-narrow .col-sm-2, .row.row-extra-narrow .col-sm-3, .row.row-extra-narrow .col-sm-4, .row.row-extra-narrow .col-sm-5, .row.row-extra-narrow .col-sm-6, .row.row-extra-narrow .col-sm-7, .row.row-extra-narrow .col-sm-8, .row.row-extra-narrow .col-sm-9, .row.row-extra-narrow .col-sm-10, .row.row-extra-narrow .col-sm-11, .row.row-extra-narrow .col-sm-12,
-    .row.row-extra-narrow .col-md-1, .row.row-extra-narrow .col-md-2, .row.row-extra-narrow .col-md-3, .row.row-extra-narrow .col-md-4, .row.row-extra-narrow .col-md-5, .row.row-extra-narrow .col-md-6, .row.row-extra-narrow .col-md-7, .row.row-extra-narrow .col-md-8, .row.row-extra-narrow .col-md-9, .row.row-extra-narrow .col-md-10, .row.row-extra-narrow .col-md-11, .row.row-extra-narrow .col-md-12,
-    .row.row-extra-narrow .col-lg-1, .row.row-extra-narrow .col-lg-2, .row.row-extra-narrow .col-lg-3, .row.row-extra-narrow .col-lg-4, .row.row-extra-narrow .col-lg-5, .row.row-extra-narrow .col-lg-6, .row.row-extra-narrow .col-lg-7, .row.row-extra-narrow .col-lg-8, .row.row-extra-narrow .col-lg-9, .row.row-extra-narrow .col-lg-10, .row.row-extra-narrow .col-lg-11, .row.row-extra-narrow .col-lg-12 {
+    .row.row-sm .col-xs-1, .row.row-sm .col-xs-2, .row.row-sm .col-xs-3, .row.row-sm .col-xs-4, .row.row-sm .col-xs-5, .row.row-sm .col-xs-6, .row.row-sm .col-xs-7, .row.row-sm .col-xs-8, .row.row-sm .col-xs-9, .row.row-sm .col-xs-10, .row.row-sm .col-xs-11, .row.row-sm .col-xs-12,
+    .row.row-sm .col-sm-1, .row.row-sm .col-sm-2, .row.row-sm .col-sm-3, .row.row-sm .col-sm-4, .row.row-sm .col-sm-5, .row.row-sm .col-sm-6, .row.row-sm .col-sm-7, .row.row-sm .col-sm-8, .row.row-sm .col-sm-9, .row.row-sm .col-sm-10, .row.row-sm .col-sm-11, .row.row-sm .col-sm-12,
+    .row.row-sm .col-md-1, .row.row-sm .col-md-2, .row.row-sm .col-md-3, .row.row-sm .col-md-4, .row.row-sm .col-md-5, .row.row-sm .col-md-6, .row.row-sm .col-md-7, .row.row-sm .col-md-8, .row.row-sm .col-md-9, .row.row-sm .col-md-10, .row.row-sm .col-md-11, .row.row-sm .col-md-12,
+    .row.row-sm .col-lg-1, .row.row-sm .col-lg-2, .row.row-sm .col-lg-3, .row.row-sm .col-lg-4, .row.row-sm .col-lg-5, .row.row-sm .col-lg-6, .row.row-sm .col-lg-7, .row.row-sm .col-lg-8, .row.row-sm .col-lg-9, .row.row-sm .col-lg-10, .row.row-sm .col-lg-11, .row.row-sm .col-lg-12 {
       padding-right: 5px;
       padding-left: 5px;
       margin-top: 5px;
       margin-right: -1px; }
     /* line 62, ../scss/row.scss */
-    .row.row-extra-narrow .item .actions {
+    .row.row-sm .item .actions {
       right: 10px; }
-
-/* line 66, ../scss/row.scss */
-.row + .row {
-  margin-top: 20px; }
-
-/* line 67, ../scss/row.scss */
-.row-narrow + .row-narrow {
-  margin-top: 20px; }
+  /* line 65, ../scss/row.scss */
+  .row.row-xs {
+    margin-right: -2px;
+    margin-left: -2px;
+    margin-top: -2px; }
+    /* line 72, ../scss/row.scss */
+    .row.row-xs .col-xs-1, .row.row-xs .col-xs-2, .row.row-xs .col-xs-3, .row.row-xs .col-xs-4, .row.row-xs .col-xs-5, .row.row-xs .col-xs-6, .row.row-xs .col-xs-7, .row.row-xs .col-xs-8, .row.row-xs .col-xs-9, .row.row-xs .col-xs-10, .row.row-xs .col-xs-11, .row.row-xs .col-xs-12,
+    .row.row-xs .col-sm-1, .row.row-xs .col-sm-2, .row.row-xs .col-sm-3, .row.row-xs .col-sm-4, .row.row-xs .col-sm-5, .row.row-xs .col-sm-6, .row.row-xs .col-sm-7, .row.row-xs .col-sm-8, .row.row-xs .col-sm-9, .row.row-xs .col-sm-10, .row.row-xs .col-sm-11, .row.row-xs .col-sm-12,
+    .row.row-xs .col-md-1, .row.row-xs .col-md-2, .row.row-xs .col-md-3, .row.row-xs .col-md-4, .row.row-xs .col-md-5, .row.row-xs .col-md-6, .row.row-xs .col-md-7, .row.row-xs .col-md-8, .row.row-xs .col-md-9, .row.row-xs .col-md-10, .row.row-xs .col-md-11, .row.row-xs .col-md-12,
+    .row.row-xs .col-lg-1, .row.row-xs .col-lg-2, .row.row-xs .col-lg-3, .row.row-xs .col-lg-4, .row.row-xs .col-lg-5, .row.row-xs .col-lg-6, .row.row-xs .col-lg-7, .row.row-xs .col-lg-8, .row.row-xs .col-lg-9, .row.row-xs .col-lg-10, .row.row-xs .col-lg-11, .row.row-xs .col-lg-12 {
+      padding-right: 2px;
+      padding-left: 2px;
+      margin-top: 2px;
+      margin-right: -1px; }
+    /* line 78, ../scss/row.scss */
+    .row.row-xs .item .actions {
+      right: 10px; }
 
 /* line 1, ../scss/list.scss */
 #controls {
@@ -4151,79 +4160,83 @@ dl {
   /* line 25, ../scss/media.scss */
   #search {
     display: inline-block; } }
-/* line 1, ../scss/dashboard.scss */
+/* line 4, ../scss/dashboard.scss */
 #form_language {
   position: fixed;
   bottom: 5px;
   left: 5px; }
 
-/* line 7, ../scss/dashboard.scss */
+/* line 10, ../scss/dashboard.scss */
 #pub-status {
   position: absolute;
   right: 15px;
   top: 10px;
   width: 150px; }
 
-/* line 14, ../scss/dashboard.scss */
-.dashboard-content {
-  padding: 35px 25px !important;
+/* line 21, ../scss/dashboard.scss */
+.dashboard-content fieldset {
+  padding-top: 75px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 25px;
+  margin-bottom: 10px;
   background-color: #f5f5f5; }
 
-/* line 19, ../scss/dashboard.scss */
+/* line 30, ../scss/dashboard.scss */
 .dashboard .container {
   max-width: 940px;
   min-width: 940px;
   width: 940px; }
 
-/* line 24, ../scss/dashboard.scss */
+/* line 35, ../scss/dashboard.scss */
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px; }
-  /* line 27, ../scss/dashboard.scss */
+  /* line 38, ../scss/dashboard.scss */
   .dashboard-table .item a {
     display: block; }
-  /* line 31, ../scss/dashboard.scss */
+  /* line 42, ../scss/dashboard.scss */
   .dashboard-table tr:hover td {
     background-color: #f0f0f0; }
-  /* line 34, ../scss/dashboard.scss */
+  /* line 45, ../scss/dashboard.scss */
   .dashboard-table tr td, .dashboard-table tr th {
     padding: 5px 10px; }
-    /* line 36, ../scss/dashboard.scss */
+    /* line 47, ../scss/dashboard.scss */
     .dashboard-table tr td:last-child, .dashboard-table tr th:last-child {
       text-align: right; }
-  /* line 38, ../scss/dashboard.scss */
+  /* line 49, ../scss/dashboard.scss */
   .dashboard-table tr th small {
     font-size: 10px;
     text-transform: uppercase;
     font-weight: normal;
     color: rgba(0, 0, 0, 0.75) !important; }
-  /* line 44, ../scss/dashboard.scss */
+  /* line 55, ../scss/dashboard.scss */
   .dashboard-table tr td {
     border-bottom: 2px solid white;
     vertical-align: middle;
     color: rgba(0, 0, 0, 0.75) !important;
     background-color: #f2f2f2; }
-    /* line 47, ../scss/dashboard.scss */
+    /* line 58, ../scss/dashboard.scss */
     .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
       width: 1%;
       white-space: nowrap; }
-    /* line 56, ../scss/dashboard.scss */
+    /* line 67, ../scss/dashboard.scss */
     .dashboard-table tr td .status {
       margin-bottom: -2px;
       height: 24px;
       width: 115px;
       display: block; }
-      /* line 61, ../scss/dashboard.scss */
+      /* line 72, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbToggle {
         height: 24px;
         width: 24px;
         background-color: rgba(0, 0, 0, 0);
         opacity: 0.25; }
-        /* line 66, ../scss/dashboard.scss */
+        /* line 77, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbToggle.sbToggleOpen {
           opacity: 0.5;
           background-color: rgba(0, 0, 0, 0.15); }
-      /* line 71, ../scss/dashboard.scss */
+      /* line 82, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbHolder {
         background-color: rgba(0, 0, 0, 0.025);
         border: none;
@@ -4236,14 +4249,14 @@ dl {
         width: 100%;
         font-size: 13px !important;
         line-height: 24px !important; }
-        /* line 85, ../scss/dashboard.scss */
+        /* line 96, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbHolder:hover {
           background-color: rgba(0, 0, 0, 0); }
-      /* line 88, ../scss/dashboard.scss */
+      /* line 99, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbOptions a {
         padding-top: 5px;
         padding-bottom: 5px; }
-      /* line 92, ../scss/dashboard.scss */
+      /* line 103, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbSelector {
         font-size: 13px !important;
         line-height: 24px !important;
@@ -4251,28 +4264,28 @@ dl {
         box-sizing: border-box;
         -moz-box-sizing: border-box; }
 
-/* line 105, ../scss/dashboard.scss */
+/* line 116, ../scss/dashboard.scss */
 #dashboard fieldset {
   margin-top: 60px;
   position: relative; }
-/* line 106, ../scss/dashboard.scss */
+/* line 117, ../scss/dashboard.scss */
 #dashboard legend {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important;
   margin: 0px; }
-  /* line 107, ../scss/dashboard.scss */
+  /* line 118, ../scss/dashboard.scss */
   #dashboard legend a {
     color: black; }
-/* line 111, ../scss/dashboard.scss */
+/* line 122, ../scss/dashboard.scss */
 #dashboard .all {
   color: #00aefd !important;
   font-size: 13px !important;
   line-height: 24px !important; }
-  /* line 112, ../scss/dashboard.scss */
+  /* line 123, ../scss/dashboard.scss */
   #dashboard .all:hover {
     color: black !important; }
-/* line 115, ../scss/dashboard.scss */
+/* line 126, ../scss/dashboard.scss */
 #dashboard .icon-last-edited {
   background-size: cover;
   background-position: center;
@@ -4286,7 +4299,7 @@ dl {
   background-image: url("../img/icons/edit.png");
   opacity: 0.35;
   margin-top: 0px; }
-/* line 129, ../scss/dashboard.scss */
+/* line 140, ../scss/dashboard.scss */
 #dashboard .add {
   position: absolute;
   right: 0px;
@@ -4307,41 +4320,41 @@ dl {
   color: white;
   font-weight: 300;
   white-space: nowrap; }
-  /* line 149, ../scss/dashboard.scss */
+  /* line 160, ../scss/dashboard.scss */
   #dashboard .add:hover {
     background-color: black; }
-/* line 158, ../scss/dashboard.scss */
+/* line 169, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums li:hover .actions, #dashboard fieldset > ul.exhibitions li:hover .actions, #dashboard fieldset > ul.events li:hover .actions, #dashboard fieldset > ul.workshops li:hover .actions {
   opacity: 1; }
-/* line 159, ../scss/dashboard.scss */
+/* line 170, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums .actions, #dashboard fieldset > ul.exhibitions .actions, #dashboard fieldset > ul.events .actions, #dashboard fieldset > ul.workshops .actions {
   opacity: 0.25; }
-/* line 163, ../scss/dashboard.scss */
+/* line 174, ../scss/dashboard.scss */
 #dashboard fieldset > ul > li {
   position: relative; }
-  /* line 167, ../scss/dashboard.scss */
+  /* line 178, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover .status {
     opacity: 1; }
-    /* line 169, ../scss/dashboard.scss */
+    /* line 180, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbToggle {
       background-color: rgba(0, 0, 0, 0.15);
       opacity: 0.5; }
-    /* line 173, ../scss/dashboard.scss */
+    /* line 184, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbHolder {
       background-color: rgba(0, 0, 0, 0); }
-  /* line 178, ../scss/dashboard.scss */
+  /* line 189, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li .status {
     position: absolute;
     top: 8px;
     right: 80px;
     width: 115px; }
-    /* line 183, ../scss/dashboard.scss */
+    /* line 194, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbToggle {
       height: 24px;
       width: 100%;
       background-color: rgba(0, 0, 0, 0);
       opacity: 0.25; }
-    /* line 189, ../scss/dashboard.scss */
+    /* line 200, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbHolder {
       background-color: #ebebeb !important;
       border: none;
@@ -4354,21 +4367,21 @@ dl {
       width: 100%;
       font-size: 13px !important;
       line-height: 24px !important; }
-    /* line 203, ../scss/dashboard.scss */
+    /* line 214, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbOptions a {
       padding-top: 5px;
       padding-bottom: 5px; }
-    /* line 207, ../scss/dashboard.scss */
+    /* line 218, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbSelector {
       font-size: 13px !important;
       line-height: 24px !important;
       width: 100%;
       box-sizing: border-box;
       -moz-box-sizing: border-box; }
-  /* line 217, ../scss/dashboard.scss */
+  /* line 228, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 222, ../scss/dashboard.scss */
+  /* line 233, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li > h3,
   #dashboard fieldset > ul > li > span,
   #dashboard fieldset > ul > li > a {
@@ -4382,12 +4395,12 @@ dl {
     -moz-box-sizing: border-box;
     margin-bottom: 2px;
     white-space: nowrap; }
-    /* line 236, ../scss/dashboard.scss */
+    /* line 247, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 .title,
     #dashboard fieldset > ul > li > span .title,
     #dashboard fieldset > ul > li > a .title {
       font-weight: 700; }
-    /* line 239, ../scss/dashboard.scss */
+    /* line 250, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3:hover h3, #dashboard fieldset > ul > li > h3:hover h4, #dashboard fieldset > ul > li > h3:hover h5,
     #dashboard fieldset > ul > li > span:hover h3,
     #dashboard fieldset > ul > li > span:hover h4,
@@ -4396,13 +4409,13 @@ dl {
     #dashboard fieldset > ul > li > a:hover h4,
     #dashboard fieldset > ul > li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
-    /* line 241, ../scss/dashboard.scss */
+    /* line 252, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > a h3 {
       overflow: hidden;
       max-width: 700px; }
-    /* line 247, ../scss/dashboard.scss */
+    /* line 258, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3, #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > span h5,
@@ -4410,7 +4423,7 @@ dl {
     #dashboard fieldset > ul > li > a h5 {
       display: inline-block;
       font-size: 16px !important; }
-    /* line 248, ../scss/dashboard.scss */
+    /* line 259, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h5,
     #dashboard fieldset > ul > li > a h5 {
@@ -4420,7 +4433,7 @@ dl {
       top: -2px;
       font-size: 13px !important; }
 
-/* line 262, ../scss/dashboard.scss */
+/* line 273, ../scss/dashboard.scss */
 .inline > div {
   display: inline-block;
   white-space: nowrap;
@@ -4430,7 +4443,7 @@ dl {
   padding: 0px;
   margin-right: 5px;
   position: relative; }
-  /* line 272, ../scss/dashboard.scss */
+  /* line 283, ../scss/dashboard.scss */
   .inline > div label {
     position: relative;
     padding-right: 10px !important;
@@ -4441,14 +4454,14 @@ dl {
     min-height: auto;
     box-sizing: border-box !important;
     -moz-box-sizing: border-box !important; }
-    /* line 283, ../scss/dashboard.scss */
+    /* line 294, ../scss/dashboard.scss */
     .inline > div label:hover {
       background-color: rgba(0, 0, 0, 0.075);
       cursor: pointer; }
-    /* line 286, ../scss/dashboard.scss */
+    /* line 297, ../scss/dashboard.scss */
     .inline > div label.checkbox, .inline > div label.radio {
       padding-left: 30px !important; }
-    /* line 288, ../scss/dashboard.scss */
+    /* line 299, ../scss/dashboard.scss */
     .inline > div label.radio input[type="radio"], .inline > div label.checkbox input[type="checkbox"] {
       margin: 0px !important;
       display: inline-block;

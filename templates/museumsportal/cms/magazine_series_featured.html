@@ -40,7 +40,7 @@
 <div class="container">
   <article class="clearfix">
     <h2>{% trans "New exhibitions opened under the theme year" %}</h2>
-    <div class="row row-narrow list">
+    <div class="row row-md list">
       {% for exhibition in featured_exhibitions %}
       <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12  ">
         <a href="{{ exhibition.get_url_path }}">

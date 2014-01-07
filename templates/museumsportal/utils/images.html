@@ -3,7 +3,7 @@
 <div id="images" class="content">
   <div class="container">
     <!-- <h2>{% trans "Images" %}</h2> -->
-    <div class="row row-narrow grid">
+    <div class="row row-md grid">
       {% for mf in object.mediafile_set.all %}
         {% with mf.path|file_description as file_desc %}
           <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-6" data-href="{{ object.get_url_path }}slideshow/#{{ forloop.counter0 }}">

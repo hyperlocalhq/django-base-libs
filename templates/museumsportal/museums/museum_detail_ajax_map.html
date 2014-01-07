@@ -13,7 +13,7 @@
     </a>
     <div class="description">
 
-  <div class="row row-narrow">
+  <div class="row row-md">
     <div class="">
       <p class="lead">{{ museum.get_rendered_description|striptags|truncatewords:"65"|urlize }}</p>
       <a class="btn btn-default" href="{{ museum.get_url_path }}">{% trans "More" %}</a>
