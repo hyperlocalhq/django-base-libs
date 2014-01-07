@@ -197,7 +197,7 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            layout.Row(
+            layout.Div(
                 layout.Div(
                     layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
                     layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
@@ -251,7 +251,7 @@ class BasicInfoForm(ModelForm):
         ))
         layout_blocks.append(layout.Fieldset(
             _("PDF Documents"),
-            layout.Row(
+            layout.Div(
                 layout.HTML(u"""{% load i18n image_modifications %}
                     <div class="pdf_upload" id="pdf_document_de_upload">
                         <div class="pdf_uploader">
@@ -297,7 +297,7 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
 
-            layout.Row(
+            layout.Div(
                 layout.Div("languages", css_class="min"),
                 layout.Div("other_languages", css_class="max"),
                 css_class="flex merge",
@@ -381,11 +381,11 @@ class OrganizerForm(ModelForm):
 
         layout_blocks.append(
             layout.Div(
-                layout.Row(
+                layout.Div(
                     layout.Div("organizing_museum", css_class="max"), 
                     css_class="flex",
                 ),
-                layout.Row(
+                layout.Div(
                     layout.Div("organizer_title"),
                     layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="max"),
                     css_class="flex",
@@ -446,10 +446,10 @@ class PricesForm(ModelForm):
 
         fieldset_content = []  # collect multilingual divs into one list...
         fieldset_content.append(
-            layout.Row('free_admission', css_class="inline")
+            layout.Div('free_admission', css_class="inline")
         )
         fieldset_content.append(
-            layout.Row(
+            layout.Div(
                 layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00")),
                 layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00")),
                 css_class="cols-2",
@@ -522,7 +522,7 @@ class TimesForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Booking"),
-            layout.Row(
+            layout.Div(
                 'has_group_offer',
                 css_class="inline",
             ),
@@ -581,7 +581,7 @@ class WorkshopTimeForm(ModelForm):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(
-            layout.Row(
+            layout.Div(
                 layout.Field("workshop_date", placeholder="dd.mm.yyyy", autocomplete="off"),
                 layout.Field("start", placeholder="00:00"),
                 layout.Field("end", placeholder="00:00"),
@@ -697,13 +697,13 @@ class BatchWorkshopTimeForm(forms.Form):
         layout_blocks.append(layout.Fieldset(
             _("Batch workshop time creation"),
             
-            layout.Row(
+            layout.Div(
                 layout.Field("range_start", placeholder="dd.mm.yyyy"),
                 layout.Field("range_end", placeholder="dd.mm.yyyy"),
                 css_class="cols-2",
             ),
             "repeat",
-            layout.Row(
+            layout.Div(
                 layout.Field("mon_start", placeholder="00:00"),
                 layout.Field("tue_start", placeholder="00:00"),
                 layout.Field("wed_start", placeholder="00:00"),
@@ -713,7 +713,7 @@ class BatchWorkshopTimeForm(forms.Form):
                 layout.Field("sun_start", placeholder="00:00"),
                 css_class="cols-7",
             ),
-            layout.Row(
+            layout.Div(
                 layout.Field("mon_end", placeholder="00:00"),
                 layout.Field("tue_end", placeholder="00:00"),
                 layout.Field("wed_end", placeholder="00:00"),

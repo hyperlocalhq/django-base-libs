@@ -225,12 +225,12 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Duration"),
-            layout.Row(
+            layout.Div(
                 "permanent",
                 "exhibition_extended",
                 css_class="cols-2",
             ),
-            layout.Row(
+            layout.Div(
                 layout.Field("start", placeholder="dd.mm.yyyy", autocomplete="off"),
                 layout.Field("end", placeholder="dd.mm.yyyy", autocomplete="off"),
                 css_class="cols-2",
@@ -241,7 +241,7 @@ class BasicInfoForm(ModelForm):
         ))
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            layout.Row(
+            layout.Div(
                 layout.Div(
                     layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
                     layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
@@ -290,7 +290,7 @@ class BasicInfoForm(ModelForm):
         ))
         layout_blocks.append(layout.Fieldset(
             _("PDF Documents"),
-            layout.Row(
+            layout.Div(
                 layout.HTML(u"""{% load i18n image_modifications %}
                     <div class="pdf_upload" id="pdf_document_de_upload">
                         <div class="pdf_uploader">
@@ -410,11 +410,11 @@ class OrganizerForm(ModelForm):
 
         layout_blocks.append(
             layout.Div(
-                layout.Row(
+                layout.Div(
                     layout.Div("organizing_museum", css_class="max"), 
                     css_class="flex",
                 ),
-                layout.Row(
+                layout.Div(
                     layout.Div("organizer_title"),
                     layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="max"),
                     css_class="flex",

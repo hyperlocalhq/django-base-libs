@@ -301,7 +301,7 @@ class SeasonForm(ModelForm):
                 data_lang=lang_code,
             ))
         fieldset_content += [
-            layout.Row(
+            layout.Div(
                 layout.Field("start", placeholder="dd.mm.yyyy", autocomplete="off"),
                 layout.Field("end", placeholder="dd.mm.yyyy", autocomplete="off"),
                 css_class="cols-2",
@@ -485,7 +485,7 @@ class SpecialOpeningTimeForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Special date"),
 
-            layout.Row("yyyy", "mm", "dd", css_class="cols-3"),
+            layout.Div("yyyy", "mm", "dd", css_class="cols-3"),
 
             css_class="fieldset-special-date",
         ))
@@ -494,7 +494,7 @@ class SpecialOpeningTimeForm(ModelForm):
             _("Opening hours"),
             "is_closed",
             "is_regular",
-            layout.Row(
+            layout.Div(
                 layout.Field("opening", placeholder="00:00", autocomplete="off"),
                 layout.Field("break_close", placeholder="00:00", autocomplete="off"),
                 layout.Field("break_open", placeholder="00:00", autocomplete="off"),
@@ -686,7 +686,7 @@ class AddressForm(ModelForm):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            layout.Row(
+            layout.Div(
                 layout.Div(
                     'parent',
                     'street_address',
@@ -716,36 +716,76 @@ class AddressForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Contact"),
 
-            layout.Row(
+            layout.Div(
                 'email', layout.Field('website', placeholder="http://"),
                 css_class="fieldset-location cols-2",
             ),
 
-            layout.Row(
+            layout.Div(
                 layout.Div(
-                    layout.Row(
                     layout.HTML('{% load i18n %}<div><label class="with">{% trans "Phone" %}</label></div>'),
-                    'phone_country', 'phone_area', 'phone_number'),
+                    layout.Row(
+                        layout.Div(
+                            'phone_country', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        layout.Div(
+                            'phone_area',  css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        layout.Div(
+                            'phone_number', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        css_class="row-extra-narrow"
+                    ),
                 ),
                 layout.Div(
-                    layout.Row(
                     layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
-                    'fax_country', 'fax_area', 'fax_number'),
+                    layout.Row(
+                        layout.Div(
+                            'fax_country', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        layout.Div(
+                            'fax_area', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        layout.Div(
+                            'fax_number', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        css_class="row-extra-narrow"
+                    ),
                 ),
                 css_class="fieldset-location cols-2",
             ),
 
-            layout.Row(
+            layout.Div(
                 layout.Div(
-                    layout.Row(
                     layout.HTML('{% load i18n %}<div><label>{% trans "Booking Phone" %}</label></div>'),
-                    'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number'),
+                    layout.Row(
+                        layout.Div(
+                            'group_bookings_phone_country', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        layout.Div(
+                            'group_bookings_phone_area', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        layout.Div(
+                            'group_bookings_phone_number', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        css_class="row-extra-narrow"
+                    ),
 
                 ),
                 layout.Div(
-                    layout.Row(
                     layout.HTML('{% load i18n %}<div><label>{% trans "Service Telephone" %}</label></div>'),
-                     'service_phone_country', 'service_phone_area', 'service_phone_number'),
+                    layout.Row(
+                        layout.Div(
+                            'service_phone_country', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        layout.Div(
+                            'service_phone_area', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        layout.Div(
+                            'service_phone_number', css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                        ),
+                        css_class="row-extra-narrow"
+                    ),
                 ),
                 css_class="fieldset-location cols-2",
             ),
@@ -803,7 +843,7 @@ class SocialMediaChannelForm(ModelForm):
         layout_blocks = []
 
         layout_blocks.append(
-            layout.Row(
+            layout.Div(
                 "channel_type",
                 layout.Div(layout.Field("url", placeholder="http://"), css_class="max",),
                 css_class="flex",
@@ -960,7 +1000,7 @@ class MediationForm(ModelForm):
             layout.Div(
                 layout.HTML("""{% load i18n %} <label>{% trans "Available Audioguides" %}</label> """),
                 'has_audioguide',
-                layout.Row(
+                layout.Div(
                     layout.Div(
                         layout.HTML("""{% load i18n %} <label>{% trans "Languages" %}</label> """),
                         'has_audioguide_de',
