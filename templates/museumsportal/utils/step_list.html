@@ -1,6 +1,5 @@
 {% load i18n %}
 {% if steps %}
-<div class="container">
     <ul class="nav nav-tabs form-steps">
     {% for step in steps %}
         <li{% if step.current %} class="active"{% endif %}>
@@ -12,5 +11,4 @@
         </li>
     {% endfor %}
     </ul>
-</div>
 {% endif %}

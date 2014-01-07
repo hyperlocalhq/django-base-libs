@@ -1678,33 +1678,35 @@ table th[class*="col-"] {
 fieldset {
   padding: 0;
   margin: 0;
-  border: 0; }
+  border: 0;
+  margin-bottom: 20px; }
 
-/* line 16, ../scss/bootstrap/_forms.scss */
+/* line 17, ../scss/bootstrap/_forms.scss */
 legend {
   display: block;
   width: 100%;
   padding: 0;
+  padding-top: 20px;
   margin-bottom: 22px;
   font-size: 24px;
   line-height: inherit;
   color: #333333;
   border: 0;
-  border-bottom: 1px solid #e5e5e5; }
+  border-top: 1px solid #e5e5e5; }
 
-/* line 28, ../scss/bootstrap/_forms.scss */
+/* line 30, ../scss/bootstrap/_forms.scss */
 label {
   display: inline-block;
   margin-bottom: 5px;
   font-weight: bold; }
 
-/* line 38, ../scss/bootstrap/_forms.scss */
+/* line 40, ../scss/bootstrap/_forms.scss */
 input[type="search"] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 44, ../scss/bootstrap/_forms.scss */
+/* line 46, ../scss/bootstrap/_forms.scss */
 input[type="radio"],
 input[type="checkbox"] {
   margin: 4px 0 0;
@@ -1712,22 +1714,22 @@ input[type="checkbox"] {
   /* IE8-9 */
   line-height: normal; }
 
-/* line 51, ../scss/bootstrap/_forms.scss */
+/* line 53, ../scss/bootstrap/_forms.scss */
 input[type="file"] {
   display: block; }
 
-/* line 57, ../scss/bootstrap/_forms.scss */
+/* line 59, ../scss/bootstrap/_forms.scss */
 select[multiple],
 select[size] {
   height: auto; }
 
-/* line 62, ../scss/bootstrap/_forms.scss */
+/* line 64, ../scss/bootstrap/_forms.scss */
 select optgroup {
   font-size: inherit;
   font-style: inherit;
   font-family: inherit; }
 
-/* line 71, ../scss/bootstrap/_forms.scss */
+/* line 73, ../scss/bootstrap/_forms.scss */
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
@@ -1735,7 +1737,7 @@ input[type="checkbox"]:focus {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px; }
 
-/* line 80, ../scss/bootstrap/_forms.scss */
+/* line 82, ../scss/bootstrap/_forms.scss */
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
   height: auto; }
 
@@ -1752,7 +1754,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 .form-control::-webkit-input-placeholder {
   color: #999999; }
 
-/* line 117, ../scss/bootstrap/_forms.scss */
+/* line 119, ../scss/bootstrap/_forms.scss */
 .form-control {
   display: block;
   width: 100%;
@@ -1775,20 +1777,20 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
-  /* line 141, ../scss/bootstrap/_forms.scss */
+  /* line 143, ../scss/bootstrap/_forms.scss */
   .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     cursor: not-allowed;
     background-color: #eeeeee; }
 
-/* line 148, ../scss/bootstrap/_forms.scss */
+/* line 150, ../scss/bootstrap/_forms.scss */
 textarea.form-control {
   height: auto; }
 
-/* line 158, ../scss/bootstrap/_forms.scss */
+/* line 160, ../scss/bootstrap/_forms.scss */
 .form-group {
   margin-bottom: 15px; }
 
-/* line 168, ../scss/bootstrap/_forms.scss */
+/* line 170, ../scss/bootstrap/_forms.scss */
 .radio,
 .checkbox {
   display: block;
@@ -1797,7 +1799,7 @@ textarea.form-control {
   margin-bottom: 10px;
   padding-left: 20px;
   vertical-align: middle; }
-  /* line 175, ../scss/bootstrap/_forms.scss */
+  /* line 177, ../scss/bootstrap/_forms.scss */
   .radio label,
   .checkbox label {
     display: inline;
@@ -1805,7 +1807,7 @@ textarea.form-control {
     font-weight: normal;
     cursor: pointer; }
 
-/* line 185, ../scss/bootstrap/_forms.scss */
+/* line 187, ../scss/bootstrap/_forms.scss */
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
 .checkbox input[type="checkbox"],
@@ -1813,12 +1815,12 @@ textarea.form-control {
   float: left;
   margin-left: -20px; }
 
-/* line 190, ../scss/bootstrap/_forms.scss */
+/* line 192, ../scss/bootstrap/_forms.scss */
 .radio + .radio,
 .checkbox + .checkbox {
   margin-top: -5px; }
 
-/* line 196, ../scss/bootstrap/_forms.scss */
+/* line 198, ../scss/bootstrap/_forms.scss */
 .radio-inline,
 .checkbox-inline {
   display: inline-block;
@@ -1828,13 +1830,13 @@ textarea.form-control {
   font-weight: normal;
   cursor: pointer; }
 
-/* line 205, ../scss/bootstrap/_forms.scss */
+/* line 207, ../scss/bootstrap/_forms.scss */
 .radio-inline + .radio-inline,
 .checkbox-inline + .checkbox-inline {
   margin-top: 0;
   margin-left: 10px; }
 
-/* line 220, ../scss/bootstrap/_forms.scss */
+/* line 222, ../scss/bootstrap/_forms.scss */
 input[type="radio"][disabled], fieldset[disabled] input[type="radio"],
 input[type="checkbox"][disabled], fieldset[disabled]
 input[type="checkbox"],
@@ -1954,12 +1956,12 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   border-color: #468847;
   background-color: #dff0d8; }
 
-/* line 255, ../scss/bootstrap/_forms.scss */
+/* line 257, ../scss/bootstrap/_forms.scss */
 .form-control-static {
   margin-bottom: 0;
   padding-top: 7px; }
 
-/* line 266, ../scss/bootstrap/_forms.scss */
+/* line 268, ../scss/bootstrap/_forms.scss */
 .help-block {
   display: block;
   margin-top: 5px;
@@ -1967,15 +1969,15 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   color: #737373; }
 
 @media (min-width: 768px) {
-  /* line 291, ../scss/bootstrap/_forms.scss */
+  /* line 293, ../scss/bootstrap/_forms.scss */
   .form-inline .form-group, .navbar-form .form-group {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle; }
-  /* line 298, ../scss/bootstrap/_forms.scss */
+  /* line 300, ../scss/bootstrap/_forms.scss */
   .form-inline .form-control, .navbar-form .form-control {
     display: inline-block; }
-  /* line 306, ../scss/bootstrap/_forms.scss */
+  /* line 308, ../scss/bootstrap/_forms.scss */
   .form-inline .radio, .navbar-form .radio,
   .form-inline .checkbox,
   .navbar-form .checkbox {
@@ -1983,14 +1985,14 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     margin-top: 0;
     margin-bottom: 0;
     padding-left: 0; }
-  /* line 313, ../scss/bootstrap/_forms.scss */
+  /* line 315, ../scss/bootstrap/_forms.scss */
   .form-inline .radio input[type="radio"], .navbar-form .radio input[type="radio"],
   .form-inline .checkbox input[type="checkbox"],
   .navbar-form .checkbox input[type="checkbox"] {
     float: none;
     margin-left: 0; } }
 
-/* line 333, ../scss/bootstrap/_forms.scss */
+/* line 335, ../scss/bootstrap/_forms.scss */
 .form-horizontal .control-label,
 .form-horizontal .radio,
 .form-horizontal .checkbox,
@@ -1999,7 +2001,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 7px; }
-/* line 340, ../scss/bootstrap/_forms.scss */
+/* line 342, ../scss/bootstrap/_forms.scss */
 .form-horizontal .form-group {
   margin-left: -15px;
   margin-right: -15px; }
@@ -2013,7 +2015,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   .form-horizontal .form-group:after {
     clear: both; }
 @media (min-width: 768px) {
-  /* line 346, ../scss/bootstrap/_forms.scss */
+  /* line 348, ../scss/bootstrap/_forms.scss */
   .form-horizontal .control-label {
     text-align: right; } }
 
@@ -3627,58 +3629,56 @@ input[type="button"].btn-block {
       margin-right: 2px;
       line-height: 1.42857;
       border: 1px solid transparent;
-      border-radius: 4px 4px 0 0; }
-      /* line 85, ../scss/bootstrap/_navs.scss */
-      .nav-tabs > li > a:hover {
-        border-color: #eeeeee #eeeeee #dddddd; }
-    /* line 94, ../scss/bootstrap/_navs.scss */
+      border-radius: 4px 4px 0 0;
+      padding: 10px 10px; }
+    /* line 92, ../scss/bootstrap/_navs.scss */
     .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
       color: #555555;
       background-color: white;
       cursor: default;
       background-color: #f5f5f5; }
 
-/* line 116, ../scss/bootstrap/_navs.scss */
+/* line 114, ../scss/bootstrap/_navs.scss */
 .nav-pills > li {
   float: left; }
-  /* line 120, ../scss/bootstrap/_navs.scss */
+  /* line 118, ../scss/bootstrap/_navs.scss */
   .nav-pills > li > a {
     border-radius: 5px; }
-  /* line 123, ../scss/bootstrap/_navs.scss */
+  /* line 121, ../scss/bootstrap/_navs.scss */
   .nav-pills > li + li {
     margin-left: 2px; }
-  /* line 131, ../scss/bootstrap/_navs.scss */
+  /* line 129, ../scss/bootstrap/_navs.scss */
   .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     color: white;
     background-color: #00aefd; }
 
-/* line 142, ../scss/bootstrap/_navs.scss */
+/* line 140, ../scss/bootstrap/_navs.scss */
 .nav-stacked > li {
   float: none; }
-  /* line 144, ../scss/bootstrap/_navs.scss */
+  /* line 142, ../scss/bootstrap/_navs.scss */
   .nav-stacked > li + li {
     margin-top: 2px;
     margin-left: 0; }
 
-/* line 158, ../scss/bootstrap/_navs.scss */
+/* line 156, ../scss/bootstrap/_navs.scss */
 .nav-justified, .nav-tabs.nav-justified {
   width: 100%; }
-  /* line 161, ../scss/bootstrap/_navs.scss */
+  /* line 159, ../scss/bootstrap/_navs.scss */
   .nav-justified > li, .nav-tabs.nav-justified > li {
     float: none; }
-    /* line 163, ../scss/bootstrap/_navs.scss */
+    /* line 161, ../scss/bootstrap/_navs.scss */
     .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
       text-align: center; }
   @media (min-width: 768px) {
-    /* line 169, ../scss/bootstrap/_navs.scss */
+    /* line 167, ../scss/bootstrap/_navs.scss */
     .nav-justified > li, .nav-tabs.nav-justified > li {
       display: table-cell;
       width: 1%; } }
 
-/* line 177, ../scss/bootstrap/_navs.scss */
+/* line 175, ../scss/bootstrap/_navs.scss */
 .nav-tabs-justified, .nav-tabs.nav-justified {
   border-bottom: 0; }
-  /* line 179, ../scss/bootstrap/_navs.scss */
+  /* line 177, ../scss/bootstrap/_navs.scss */
   .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
     margin-right: 0; }
 
@@ -3692,27 +3692,27 @@ input[type="button"].btn-block {
 .tabbable:after {
   clear: both; }
 
-/* line 201, ../scss/bootstrap/_navs.scss */
+/* line 199, ../scss/bootstrap/_navs.scss */
 .tab-content > .tab-pane,
 .pill-content > .pill-pane {
   display: none; }
 
-/* line 206, ../scss/bootstrap/_navs.scss */
+/* line 204, ../scss/bootstrap/_navs.scss */
 .tab-content > .active,
 .pill-content > .active {
   display: block; }
 
-/* line 217, ../scss/bootstrap/_navs.scss */
+/* line 215, ../scss/bootstrap/_navs.scss */
 .nav .caret {
   border-top-color: #00aefd;
   border-bottom-color: #00aefd; }
 
-/* line 221, ../scss/bootstrap/_navs.scss */
+/* line 219, ../scss/bootstrap/_navs.scss */
 .nav a:hover .caret {
   border-top-color: #0079b1;
   border-bottom-color: #0079b1; }
 
-/* line 227, ../scss/bootstrap/_navs.scss */
+/* line 225, ../scss/bootstrap/_navs.scss */
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-right-radius: 0;

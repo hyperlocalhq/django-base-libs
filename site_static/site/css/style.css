@@ -4146,55 +4146,71 @@ dl {
   /* line 25, ../scss/media.scss */
   #search {
     display: inline-block; } }
-/* line 1, ../scss/dashboard.scss */
+/* line 2, ../scss/dashboard.scss */
+#pub-status {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  width: 150px; }
+
+/* line 9, ../scss/dashboard.scss */
+.dashboard-content {
+  padding: 35px 25px !important;
+  background-color: #f5f5f5; }
+
+/* line 14, ../scss/dashboard.scss */
+.dashboard .container {
+  max-width: 940px; }
+
+/* line 17, ../scss/dashboard.scss */
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px; }
-  /* line 4, ../scss/dashboard.scss */
+  /* line 20, ../scss/dashboard.scss */
   .dashboard-table .item a {
     display: block; }
-  /* line 8, ../scss/dashboard.scss */
+  /* line 24, ../scss/dashboard.scss */
   .dashboard-table tr:hover td {
     background-color: #f0f0f0; }
-  /* line 11, ../scss/dashboard.scss */
+  /* line 27, ../scss/dashboard.scss */
   .dashboard-table tr td, .dashboard-table tr th {
     padding: 5px 10px; }
-    /* line 13, ../scss/dashboard.scss */
+    /* line 29, ../scss/dashboard.scss */
     .dashboard-table tr td:last-child, .dashboard-table tr th:last-child {
       text-align: right; }
-  /* line 15, ../scss/dashboard.scss */
+  /* line 31, ../scss/dashboard.scss */
   .dashboard-table tr th small {
     font-size: 10px;
     text-transform: uppercase;
     font-weight: normal;
     color: rgba(0, 0, 0, 0.75) !important; }
-  /* line 21, ../scss/dashboard.scss */
+  /* line 37, ../scss/dashboard.scss */
   .dashboard-table tr td {
     border-bottom: 2px solid white;
     vertical-align: middle;
     color: rgba(0, 0, 0, 0.75) !important;
     background-color: #f2f2f2; }
-    /* line 24, ../scss/dashboard.scss */
+    /* line 40, ../scss/dashboard.scss */
     .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
       width: 1%;
       white-space: nowrap; }
-    /* line 33, ../scss/dashboard.scss */
+    /* line 49, ../scss/dashboard.scss */
     .dashboard-table tr td .status {
       margin-bottom: -2px;
       height: 24px;
       width: 115px;
       display: block; }
-      /* line 38, ../scss/dashboard.scss */
+      /* line 54, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbToggle {
         height: 24px;
         width: 100%;
         background-color: rgba(0, 0, 0, 0);
         opacity: 0.25; }
-        /* line 43, ../scss/dashboard.scss */
+        /* line 59, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbToggle.sbToggleOpen {
           opacity: 0.5;
           background-color: rgba(0, 0, 0, 0.15); }
-      /* line 48, ../scss/dashboard.scss */
+      /* line 64, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbHolder {
         background-color: rgba(0, 0, 0, 0.025);
         border: none;
@@ -4207,14 +4223,14 @@ dl {
         width: 100%;
         font-size: 13px !important;
         line-height: 24px !important; }
-        /* line 62, ../scss/dashboard.scss */
+        /* line 78, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbHolder:hover {
           background-color: rgba(0, 0, 0, 0); }
-      /* line 65, ../scss/dashboard.scss */
+      /* line 81, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbOptions a {
         padding-top: 5px;
         padding-bottom: 5px; }
-      /* line 69, ../scss/dashboard.scss */
+      /* line 85, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbSelector {
         font-size: 13px !important;
         line-height: 24px !important;
@@ -4222,28 +4238,28 @@ dl {
         box-sizing: border-box;
         -moz-box-sizing: border-box; }
 
-/* line 82, ../scss/dashboard.scss */
+/* line 98, ../scss/dashboard.scss */
 #dashboard fieldset {
   margin-top: 60px;
   position: relative; }
-/* line 83, ../scss/dashboard.scss */
+/* line 99, ../scss/dashboard.scss */
 #dashboard legend {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important;
   margin: 0px; }
-  /* line 84, ../scss/dashboard.scss */
+  /* line 100, ../scss/dashboard.scss */
   #dashboard legend a {
     color: black; }
-/* line 88, ../scss/dashboard.scss */
+/* line 104, ../scss/dashboard.scss */
 #dashboard .all {
   color: #00aefd !important;
   font-size: 13px !important;
   line-height: 24px !important; }
-  /* line 89, ../scss/dashboard.scss */
+  /* line 105, ../scss/dashboard.scss */
   #dashboard .all:hover {
     color: black !important; }
-/* line 92, ../scss/dashboard.scss */
+/* line 108, ../scss/dashboard.scss */
 #dashboard .icon-last-edited {
   background-size: cover;
   background-position: center;
@@ -4257,7 +4273,7 @@ dl {
   background-image: url("../img/icons/edit.png");
   opacity: 0.35;
   margin-top: 0px; }
-/* line 106, ../scss/dashboard.scss */
+/* line 122, ../scss/dashboard.scss */
 #dashboard .add {
   position: absolute;
   right: 0px;
@@ -4278,45 +4294,45 @@ dl {
   color: white;
   font-weight: 300;
   white-space: nowrap; }
-  /* line 126, ../scss/dashboard.scss */
+  /* line 142, ../scss/dashboard.scss */
   #dashboard .add:hover {
     background-color: black; }
-/* line 135, ../scss/dashboard.scss */
+/* line 151, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums li:hover .actions, #dashboard fieldset > ul.exhibitions li:hover .actions, #dashboard fieldset > ul.events li:hover .actions, #dashboard fieldset > ul.workshops li:hover .actions {
   opacity: 1; }
-/* line 136, ../scss/dashboard.scss */
+/* line 152, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums .actions, #dashboard fieldset > ul.exhibitions .actions, #dashboard fieldset > ul.events .actions, #dashboard fieldset > ul.workshops .actions {
   opacity: 0.25; }
-/* line 140, ../scss/dashboard.scss */
+/* line 156, ../scss/dashboard.scss */
 #dashboard fieldset > ul > li {
   position: relative; }
-  /* line 144, ../scss/dashboard.scss */
+  /* line 160, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover .status {
     opacity: 1; }
-    /* line 146, ../scss/dashboard.scss */
+    /* line 162, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbToggle {
       background-color: rgba(0, 0, 0, 0.15);
       opacity: 0.5; }
-    /* line 150, ../scss/dashboard.scss */
+    /* line 166, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbHolder {
       background-color: rgba(0, 0, 0, 0); }
-  /* line 155, ../scss/dashboard.scss */
+  /* line 171, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li .status {
     position: absolute;
     top: 8px;
     right: 80px;
     width: 115px; }
-    /* line 160, ../scss/dashboard.scss */
+    /* line 176, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbToggle {
       height: 24px;
       width: 100%;
       background-color: rgba(0, 0, 0, 0);
       opacity: 0.25; }
-      /* line 165, ../scss/dashboard.scss */
+      /* line 181, ../scss/dashboard.scss */
       #dashboard fieldset > ul > li .status .sbToggle.sbToggleOpen {
         opacity: 0.5;
         background-color: rgba(0, 0, 0, 0.15); }
-    /* line 170, ../scss/dashboard.scss */
+    /* line 186, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbHolder {
       background-color: rgba(0, 0, 0, 0.025);
       border: none;
@@ -4329,24 +4345,24 @@ dl {
       width: 100%;
       font-size: 13px !important;
       line-height: 24px !important; }
-      /* line 184, ../scss/dashboard.scss */
+      /* line 200, ../scss/dashboard.scss */
       #dashboard fieldset > ul > li .status .sbHolder:hover {
         background-color: rgba(0, 0, 0, 0); }
-    /* line 187, ../scss/dashboard.scss */
+    /* line 203, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbOptions a {
       padding-top: 5px;
       padding-bottom: 5px; }
-    /* line 191, ../scss/dashboard.scss */
+    /* line 207, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbSelector {
       font-size: 13px !important;
       line-height: 24px !important;
       width: 100%;
       box-sizing: border-box;
       -moz-box-sizing: border-box; }
-  /* line 201, ../scss/dashboard.scss */
+  /* line 217, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 206, ../scss/dashboard.scss */
+  /* line 222, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li > h3,
   #dashboard fieldset > ul > li > span,
   #dashboard fieldset > ul > li > a {
@@ -4360,12 +4376,12 @@ dl {
     -moz-box-sizing: border-box;
     margin-bottom: 2px;
     white-space: nowrap; }
-    /* line 220, ../scss/dashboard.scss */
+    /* line 236, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 .title,
     #dashboard fieldset > ul > li > span .title,
     #dashboard fieldset > ul > li > a .title {
       font-weight: 700; }
-    /* line 223, ../scss/dashboard.scss */
+    /* line 239, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3:hover h3, #dashboard fieldset > ul > li > h3:hover h4, #dashboard fieldset > ul > li > h3:hover h5,
     #dashboard fieldset > ul > li > span:hover h3,
     #dashboard fieldset > ul > li > span:hover h4,
@@ -4374,13 +4390,13 @@ dl {
     #dashboard fieldset > ul > li > a:hover h4,
     #dashboard fieldset > ul > li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
-    /* line 225, ../scss/dashboard.scss */
+    /* line 241, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > a h3 {
       overflow: hidden;
       max-width: 700px; }
-    /* line 231, ../scss/dashboard.scss */
+    /* line 247, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3, #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > span h5,
@@ -4388,7 +4404,7 @@ dl {
     #dashboard fieldset > ul > li > a h5 {
       display: inline-block;
       font-size: 16px !important; }
-    /* line 232, ../scss/dashboard.scss */
+    /* line 248, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h5,
     #dashboard fieldset > ul > li > a h5 {
@@ -4398,7 +4414,7 @@ dl {
       top: -2px;
       font-size: 13px !important; }
 
-/* line 246, ../scss/dashboard.scss */
+/* line 262, ../scss/dashboard.scss */
 .inline > div {
   display: inline-block;
   white-space: nowrap;
@@ -4408,7 +4424,7 @@ dl {
   padding: 0px;
   margin-right: 5px;
   position: relative; }
-  /* line 256, ../scss/dashboard.scss */
+  /* line 272, ../scss/dashboard.scss */
   .inline > div label {
     position: relative;
     padding-right: 10px !important;
@@ -4419,14 +4435,14 @@ dl {
     min-height: auto;
     box-sizing: border-box !important;
     -moz-box-sizing: border-box !important; }
-    /* line 267, ../scss/dashboard.scss */
+    /* line 283, ../scss/dashboard.scss */
     .inline > div label:hover {
       background-color: rgba(0, 0, 0, 0.075);
       cursor: pointer; }
-    /* line 270, ../scss/dashboard.scss */
+    /* line 286, ../scss/dashboard.scss */
     .inline > div label.checkbox, .inline > div label.radio {
       padding-left: 30px !important; }
-    /* line 272, ../scss/dashboard.scss */
+    /* line 288, ../scss/dashboard.scss */
     .inline > div label.radio input[type="radio"], .inline > div label.checkbox input[type="checkbox"] {
       margin: 0px !important;
       display: inline-block;
@@ -4860,11 +4876,7 @@ body {
   border-bottom: 1px solid #f9f9f9;
   position: relative; }
 
-/* line 69, ../scss/style.scss */
-.dashboard-content {
-  background-color: #f5f5f5; }
-
-/* line 84, ../scss/style.scss */
+/* line 80, ../scss/style.scss */
 h1,
 h2,
 h3,
@@ -4882,7 +4894,7 @@ h6,
   font-weight: 400;
   line-height: 1.1; }
 
-/* line 103, ../scss/style.scss */
+/* line 99, ../scss/style.scss */
 header h1,
 header h2,
 header h3,
@@ -4898,138 +4910,138 @@ header .h6 {
   margin: 0px !important;
   line-height: 160%; }
 
-/* line 109, ../scss/style.scss */
+/* line 105, ../scss/style.scss */
 h1 {
   font-weight: 400;
   font-size: 30px;
   line-height: 30px;
   margin-bottom: 30px; }
 
-/* line 116, ../scss/style.scss */
+/* line 112, ../scss/style.scss */
 h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block; }
-  /* line 121, ../scss/style.scss */
+  /* line 117, ../scss/style.scss */
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 
-/* line 124, ../scss/style.scss */
+/* line 120, ../scss/style.scss */
 p, dl, ul, ol {
   margin-left: 0px;
   padding-left: 0px; }
-  /* line 127, ../scss/style.scss */
+  /* line 123, ../scss/style.scss */
   p:last-child, dl:last-child, ul:last-child, ol:last-child {
     margin-bottom: 0px; }
 
-/* line 132, ../scss/style.scss */
+/* line 128, ../scss/style.scss */
 dl {
   margin-bottom: 0px;
   padding: 0px; }
-  /* line 135, ../scss/style.scss */
+  /* line 131, ../scss/style.scss */
   dl dt {
     float: left; }
-  /* line 136, ../scss/style.scss */
+  /* line 132, ../scss/style.scss */
   dl dd {
     float: right; }
-  /* line 138, ../scss/style.scss */
+  /* line 134, ../scss/style.scss */
   dl:before, dl:after {
     content: " ";
     display: table; }
-  /* line 142, ../scss/style.scss */
+  /* line 138, ../scss/style.scss */
   dl:after {
     clear: both; }
 
-/* line 147, ../scss/style.scss */
+/* line 143, ../scss/style.scss */
 dl + p {
   margin-top: 10px; }
 
-/* line 148, ../scss/style.scss */
+/* line 144, ../scss/style.scss */
 dl + p {
   margin-bottom: 10px; }
 
-/* line 149, ../scss/style.scss */
+/* line 145, ../scss/style.scss */
 p + dl {
   margin-top: 10px; }
 
-/* line 151, ../scss/style.scss */
+/* line 147, ../scss/style.scss */
 small {
   display: inline-block;
   line-height: 160%;
   color: inherit; }
 
-/* line 157, ../scss/style.scss */
+/* line 153, ../scss/style.scss */
 a {
   color: inherit; }
 
-/* line 158, ../scss/style.scss */
+/* line 154, ../scss/style.scss */
 a:link {
   text-decoration: none; }
 
-/* line 159, ../scss/style.scss */
+/* line 155, ../scss/style.scss */
 a:hover {
   text-decoration: none; }
 
-/* line 160, ../scss/style.scss */
+/* line 156, ../scss/style.scss */
 a:visited {
   text-decoration: none; }
 
-/* line 161, ../scss/style.scss */
+/* line 157, ../scss/style.scss */
 a:active {
   outline: none !important; }
 
-/* line 162, ../scss/style.scss */
+/* line 158, ../scss/style.scss */
 a:focus {
   outline: none !important; }
 
-/* line 164, ../scss/style.scss */
+/* line 160, ../scss/style.scss */
 em {
   color: black;
   font-style: italic; }
 
-/* line 165, ../scss/style.scss */
+/* line 161, ../scss/style.scss */
 p a {
   font-weight: 700; }
 
-/* line 167, ../scss/style.scss */
+/* line 163, ../scss/style.scss */
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important; }
-  /* line 170, ../scss/style.scss */
+  /* line 166, ../scss/style.scss */
   .navbar-form .input-group {
     width: 1px; }
 
-/* line 175, ../scss/style.scss */
+/* line 171, ../scss/style.scss */
 #user-menu {
   margin-top: 10px; }
 
-/* line 180, ../scss/style.scss */
+/* line 176, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 185, ../scss/style.scss */
+/* line 181, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 190, ../scss/style.scss */
+/* line 186, ../scss/style.scss */
 .form-control:-moz-placeholder {
   color: #999999; }
 
-/* line 193, ../scss/style.scss */
+/* line 189, ../scss/style.scss */
 .form-control::-moz-placeholder {
   color: #999999; }
 
-/* line 196, ../scss/style.scss */
+/* line 192, ../scss/style.scss */
 .form-control:-ms-input-placeholder {
   color: #999999; }
 
-/* line 199, ../scss/style.scss */
+/* line 195, ../scss/style.scss */
 .form-control::-webkit-input-placeholder {
   color: #999999; }
 
-/* line 202, ../scss/style.scss */
+/* line 198, ../scss/style.scss */
 .form-control {
   display: block;
   width: 100%;
@@ -5049,47 +5061,47 @@ p a {
   resize: none;
   background-image: url("../img/transparent-1.png"); }
 
-/* line 221, ../scss/style.scss */
+/* line 217, ../scss/style.scss */
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
 
-/* line 228, ../scss/style.scss */
+/* line 224, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 230, ../scss/style.scss */
+  /* line 226, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 234, ../scss/style.scss */
+    /* line 230, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 238, ../scss/style.scss */
+    /* line 234, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 239, ../scss/style.scss */
+    /* line 235, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 242, ../scss/style.scss */
+  /* line 238, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 246, ../scss/style.scss */
+    /* line 242, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 247, ../scss/style.scss */
+    /* line 243, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 248, ../scss/style.scss */
+    /* line 244, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }

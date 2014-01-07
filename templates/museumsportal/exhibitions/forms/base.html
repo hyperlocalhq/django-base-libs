@@ -1,4 +1,5 @@
 {% extends "accounts/dashboard.html" %}
+{% block bodyclass %}dashboard{% endblock %}
 {% load i18n %}
 
 {% block title %}
@@ -37,34 +38,36 @@
 {% endblock %}
 
 {% block form_steps %}
-    {% if exhibition %}
-        <div id="pub-status" class="status">
-            <select class="status-switch" data-url="{{ exhibition.get_url_path }}status/">
-                <option value="draft"{% if exhibition.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
-                <option value="published"{% if exhibition.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
-                <option value="expired"{% if exhibition.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
-            </select>
-        </div>
-        <script>
-            $(function() {
-                $('.status').hover(function() {
-                    $(this).addClass('hover');
-                }, function() {
-                    $(this).removeClass('hover');
-                }).mouseleave();
-                $('.status-switch').change(function() {
-                    var $this = $(this);
-                    $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+    <div class="container relative">
+        {% if exhibition %}
+            <div id="pub-status" class="status">
+                <select class="status-switch" data-url="{{ exhibition.get_url_path }}status/">
+                    <option value="draft"{% if exhibition.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                    <option value="published"{% if exhibition.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
+                    <option value="expired"{% if exhibition.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
+                </select>
+            </div>
+            <script>
+                $(function() {
+                    $('.status').hover(function() {
+                        $(this).addClass('hover');
+                    }, function() {
+                        $(this).removeClass('hover');
+                    }).mouseleave();
+                    $('.status-switch').change(function() {
+                        var $this = $(this);
+                        $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+                    });
                 });
-            });
-        </script>
-    {% endif %}
-    {% include "utils/step_list.html" %}
+            </script>
+        {% endif %}
+        {% include "utils/step_list.html" %}
+    </div>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="inner">
+    <div class="dashboard-content">
         {% if messages %}
             <div class="messages">
                 {% for message in messages %}
