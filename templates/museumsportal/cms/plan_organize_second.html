@@ -5,17 +5,16 @@
 {% block content %}
 <div id="plan_organize" class="content">
   <div class="container">
-    <div class="row row-narrow">
+    <div class="row">
 
-      <div class="col-xs-12 col-sm-4 col-md-8 col-lg-8">
-
-        <article class="clearfix with_sidebar">
-          <header class="intro clearfix">{% placeholder "intro" %}</header>
-          {% placeholder "plan_organize_second" %}
-          {% placeholder "main_content" %}
-        </article>
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+          {% placeholder "intro" %}
+          <div class="content"> 
+            {% placeholder "plan_organize_second" %}
+            {% placeholder "main_content" %}
+          </div>
       </div>
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <section class="clearfix marginal">
 
           {% if LANGUAGE_CODE == "de" %}

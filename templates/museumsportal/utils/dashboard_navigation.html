@@ -1,7 +1,36 @@
 {% load menu_tags i18n  %}
-
-  <nav class="navbar navbar-default" role="navigation">
+<div class="navbar-wrapper">
+  <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="71">
     <div class="container">
+      {% if request.user.is_authenticated %}
+        <div id="user-menu" class="pull-right hidden-xs">
+          <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              {% blocktrans with first_name=request.user.first_name|default:request.user.username %}{{ first_name }}{% endblocktrans %} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Input Mask" %}</a></li>
+                <li class="divider"></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+                <li class="divider"></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
+            </ul>
+          </div>
+        </div>
+      {% else %}
+        {% comment %}
+            <!-- <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
+            <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
+        {% endcomment %}
+        <div id="user-menu" class="pull-right">
+          <a class="btn btn-info" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a>
+        </div>
+      {% endif %}
+
+
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
           <span class="sr-only">Toggle navigation</span>
@@ -9,7 +38,13 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <!-- <a class="navbar-brand" href="#">Brand</a> -->
+
+        <a class="navbar-brand hidden-xs" href="/{{ LANGUAGE_CODE }}/dashboard/">
+          <img src="{{ STATIC_URL }}site/img/logo/logo.png" alt="Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten" />
+        </a>
+        <a class="navbar-brand visible-xs" href="/{{ LANGUAGE_CODE }}/dashboard/">
+          <img src="{{ STATIC_URL }}site/img/logo/logo_xs.png" alt="Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten" />
+        </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -19,7 +54,7 @@
           <li{% if request.path == "/dashboard/events/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
           <li{% if request.path == "/dashboard/guided-tours/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
           <li{% if request.path == "/dashboard/museums/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
-          <li{% if request.path == "/dashboard/contact/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/contact/">{% trans "Contact" %}</a></li>
+          <li{% if request.path == "/dashboard/contact/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/contact/">{% trans "Help" %}</a></li>
         </ul>
 
         {% comment %}
@@ -41,3 +76,4 @@
       </div>
     </div><!-- /.navbar-collapse -->
   </nav>
+</div>

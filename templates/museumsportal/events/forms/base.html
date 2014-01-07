@@ -1,4 +1,5 @@
 {% extends "accounts/dashboard.html" %}
+{% block bodyclass %}dashboard{% endblock %}
 {% load i18n %}
 
 {% block title %}
@@ -37,6 +38,7 @@
 {% endblock %}
 
 {% block form_steps %}
+<div class="container">
     {% if event %}
         <div id="pub-status" class="status">
             <select class="status-switch" data-url="{{ event.get_url_path }}status/">
@@ -60,11 +62,12 @@
         </script>
     {% endif %}
     {% include "utils/step_list.html" %}
+</div>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="inner">
+    <div class="dashboard-content">
         {% if messages %}
             <div class="messages">
                 {% for message in messages %}

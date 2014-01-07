@@ -338,6 +338,7 @@
                     {% if museum.specialopeningtime_set.count %}
                       <div id="special_openings">
                         {% trans "Special Opening Hours" %}
+                        
                         {% for special_opening in museum.specialopeningtime_set.all %}
                           <dl>
                             <dt{% if forloop.counter > 5 %} class="hidden"{% endif %}>
