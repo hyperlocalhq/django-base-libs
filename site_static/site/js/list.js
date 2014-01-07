@@ -36,14 +36,18 @@ $(function() {
         var left = $current_item.position().left;
         var width = $("#container").width();
         $description.css({left: -left, width: width});
-
-        $('#container').isotope();
+        var $container = $('#container');
+        $('#container').isotope({
+            resizable: false, // disable normal resizing
+            masonry: { columnWidth: $container.width() / 12 }
+        });
         return false;
     });
 });
 
 window.onresize = function() {
   $('#container').isotope({
+
     onLayout: function() {
       var $item = $('#item-preview');
 

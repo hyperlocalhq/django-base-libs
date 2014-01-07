@@ -3,18 +3,22 @@
 {% block bodyclass %}plan_organize thirdlevel{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="inner">
-        <article class="clearfix with_sidebar"> 
-            <header class="intro clearfix">{% placeholder "intro" %}</header>
-            {% placeholder "main_content" %}
-        </article>
-        <section class="clearfix marginal">
-      
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="intro clearfix">{% placeholder "intro" %}</div>
+
+                <div class="content"> 
+                    {% placeholder "main_content" %}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                
             {% if LANGUAGE_CODE == "de" %}
-                <ul id="sub_nav">{% show_menu_below_id "planen_organisieren" 0 100 0 100 "menu/side_menu.html" %}</ul>
+                <ul id="side_nav">{% show_menu_below_id "planen_organisieren" 0 100 0 100 "menu/side_menu.html" %}</ul>
             {% else %}
-                <ul id="sub_nav">{% show_menu_below_id "plan_organize" 0 100 0 100 "menu/side_menu.html" %}</ul>
+                <ul id="side_nav">{% show_menu_below_id "plan_organize" 0 100 0 100 "menu/side_menu.html" %}</ul>
             {% endif %}
 
             {% comment %}
@@ -23,8 +27,8 @@
             {% endcomment %}
             {% load advertising_tags %}
             {% random_zone_ad 'plan_organize_second' %}
-
-        </section>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

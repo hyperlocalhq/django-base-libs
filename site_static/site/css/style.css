@@ -2540,7 +2540,8 @@ h6 + .row:not(.grid),
 /* line 19, ../scss/row.scss */
 .row {
   margin-right: -25px;
-  margin-left: -25px; }
+  margin-left: -25px;
+  margin-top: -25px; }
   /* line 26, ../scss/row.scss */
   .row .col-xs-1, .row .col-xs-2, .row .col-xs-3, .row .col-xs-4, .row .col-xs-5, .row .col-xs-6, .row .col-xs-7, .row .col-xs-8, .row .col-xs-9, .row .col-xs-10, .row .col-xs-11, .row .col-xs-12,
   .row .col-sm-1, .row .col-sm-2, .row .col-sm-3, .row .col-sm-4, .row .col-sm-5, .row .col-sm-6, .row .col-sm-7, .row .col-sm-8, .row .col-sm-9, .row .col-sm-10, .row .col-sm-11, .row .col-sm-12,
@@ -2548,51 +2549,50 @@ h6 + .row:not(.grid),
   .row .col-lg-1, .row .col-lg-2, .row .col-lg-3, .row .col-lg-4, .row .col-lg-5, .row .col-lg-6, .row .col-lg-7, .row .col-lg-8, .row .col-lg-9, .row .col-lg-10, .row .col-lg-11, .row .col-lg-12 {
     padding-right: 25px;
     padding-left: 25px;
-    margin-top: 0px;
-    margin-right: -1px; }
-  /* line 33, ../scss/row.scss */
+    margin-top: 25px; }
+  /* line 31, ../scss/row.scss */
   .row .item .actions {
     right: 25px; }
-  /* line 35, ../scss/row.scss */
+  /* line 33, ../scss/row.scss */
   .row.row-narrow {
     margin-right: -10px;
     margin-left: -10px;
     margin-top: -10px; }
-    /* line 42, ../scss/row.scss */
+    /* line 40, ../scss/row.scss */
     .row.row-narrow .col-xs-1, .row.row-narrow .col-xs-2, .row.row-narrow .col-xs-3, .row.row-narrow .col-xs-4, .row.row-narrow .col-xs-5, .row.row-narrow .col-xs-6, .row.row-narrow .col-xs-7, .row.row-narrow .col-xs-8, .row.row-narrow .col-xs-9, .row.row-narrow .col-xs-10, .row.row-narrow .col-xs-11, .row.row-narrow .col-xs-12,
     .row.row-narrow .col-sm-1, .row.row-narrow .col-sm-2, .row.row-narrow .col-sm-3, .row.row-narrow .col-sm-4, .row.row-narrow .col-sm-5, .row.row-narrow .col-sm-6, .row.row-narrow .col-sm-7, .row.row-narrow .col-sm-8, .row.row-narrow .col-sm-9, .row.row-narrow .col-sm-10, .row.row-narrow .col-sm-11, .row.row-narrow .col-sm-12,
     .row.row-narrow .col-md-1, .row.row-narrow .col-md-2, .row.row-narrow .col-md-3, .row.row-narrow .col-md-4, .row.row-narrow .col-md-5, .row.row-narrow .col-md-6, .row.row-narrow .col-md-7, .row.row-narrow .col-md-8, .row.row-narrow .col-md-9, .row.row-narrow .col-md-10, .row.row-narrow .col-md-11, .row.row-narrow .col-md-12,
     .row.row-narrow .col-lg-1, .row.row-narrow .col-lg-2, .row.row-narrow .col-lg-3, .row.row-narrow .col-lg-4, .row.row-narrow .col-lg-5, .row.row-narrow .col-lg-6, .row.row-narrow .col-lg-7, .row.row-narrow .col-lg-8, .row.row-narrow .col-lg-9, .row.row-narrow .col-lg-10, .row.row-narrow .col-lg-11, .row.row-narrow .col-lg-12 {
       padding-right: 10px;
       padding-left: 10px;
-      margin-right: -1px;
-      margin-top: 0px; }
-    /* line 49, ../scss/row.scss */
+      margin-top: 10px;
+      margin-right: -1px; }
+    /* line 46, ../scss/row.scss */
     .row.row-narrow .item .actions {
       right: 10px; }
-  /* line 52, ../scss/row.scss */
+  /* line 49, ../scss/row.scss */
   .row.row-extra-narrow {
-    margin-right: -2px;
-    margin-left: -2px;
-    margin-top: -2px; }
-    /* line 59, ../scss/row.scss */
+    margin-right: -5px;
+    margin-left: -5px;
+    margin-top: -5px; }
+    /* line 56, ../scss/row.scss */
     .row.row-extra-narrow .col-xs-1, .row.row-extra-narrow .col-xs-2, .row.row-extra-narrow .col-xs-3, .row.row-extra-narrow .col-xs-4, .row.row-extra-narrow .col-xs-5, .row.row-extra-narrow .col-xs-6, .row.row-extra-narrow .col-xs-7, .row.row-extra-narrow .col-xs-8, .row.row-extra-narrow .col-xs-9, .row.row-extra-narrow .col-xs-10, .row.row-extra-narrow .col-xs-11, .row.row-extra-narrow .col-xs-12,
     .row.row-extra-narrow .col-sm-1, .row.row-extra-narrow .col-sm-2, .row.row-extra-narrow .col-sm-3, .row.row-extra-narrow .col-sm-4, .row.row-extra-narrow .col-sm-5, .row.row-extra-narrow .col-sm-6, .row.row-extra-narrow .col-sm-7, .row.row-extra-narrow .col-sm-8, .row.row-extra-narrow .col-sm-9, .row.row-extra-narrow .col-sm-10, .row.row-extra-narrow .col-sm-11, .row.row-extra-narrow .col-sm-12,
     .row.row-extra-narrow .col-md-1, .row.row-extra-narrow .col-md-2, .row.row-extra-narrow .col-md-3, .row.row-extra-narrow .col-md-4, .row.row-extra-narrow .col-md-5, .row.row-extra-narrow .col-md-6, .row.row-extra-narrow .col-md-7, .row.row-extra-narrow .col-md-8, .row.row-extra-narrow .col-md-9, .row.row-extra-narrow .col-md-10, .row.row-extra-narrow .col-md-11, .row.row-extra-narrow .col-md-12,
     .row.row-extra-narrow .col-lg-1, .row.row-extra-narrow .col-lg-2, .row.row-extra-narrow .col-lg-3, .row.row-extra-narrow .col-lg-4, .row.row-extra-narrow .col-lg-5, .row.row-extra-narrow .col-lg-6, .row.row-extra-narrow .col-lg-7, .row.row-extra-narrow .col-lg-8, .row.row-extra-narrow .col-lg-9, .row.row-extra-narrow .col-lg-10, .row.row-extra-narrow .col-lg-11, .row.row-extra-narrow .col-lg-12 {
-      padding-right: 2px;
-      padding-left: 2px;
-      margin-right: -1px;
-      margin-top: -8px; }
-    /* line 65, ../scss/row.scss */
+      padding-right: 5px;
+      padding-left: 5px;
+      margin-top: 5px;
+      margin-right: -1px; }
+    /* line 62, ../scss/row.scss */
     .row.row-extra-narrow .item .actions {
       right: 10px; }
 
-/* line 69, ../scss/row.scss */
+/* line 66, ../scss/row.scss */
 .row + .row {
   margin-top: 20px; }
 
-/* line 70, ../scss/row.scss */
+/* line 67, ../scss/row.scss */
 .row-narrow + .row-narrow {
   margin-top: 20px; }
 
@@ -3756,7 +3756,7 @@ dl {
   .cms-plugin-intro h1 {
     font-weight: 700;
     font-size: 30px;
-    line-height: 30px;
+    line-height: 42px;
     margin-bottom: 0px;
     display: block; }
     /* line 13, ../scss/cms-intro.scss */
@@ -4129,7 +4129,7 @@ dl {
 
   /* line 12, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
-    margin-right: 12px; } }
+    margin-right: 11px; } }
 @media (min-width: 992px) {
   /* line 16, ../scss/media.scss */
   .navbar-nav > li > a {
@@ -4717,13 +4717,16 @@ dl {
 #side_nav li.selected > a {
   background-color: #f2f2f2 !important;
   color: black !important; }
-/* line 21, ../scss/sidenav.scss */
+/* line 20, ../scss/sidenav.scss */
+#side_nav li {
+  list-style: none !important; }
+/* line 24, ../scss/sidenav.scss */
 #side_nav > li {
   border: none;
-  border-bottom: 10px solid white;
+  border-bottom: 5px solid white;
   margin-bottom: 0px;
   background-color: #f2f2f2; }
-  /* line 27, ../scss/sidenav.scss */
+  /* line 30, ../scss/sidenav.scss */
   #side_nav > li > a {
     font-weight: 700;
     text-transform: uppercase;
@@ -4733,20 +4736,20 @@ dl {
     padding-bottom: 13px;
     padding-top: 16px;
     padding-left: 25px; }
-    /* line 37, ../scss/sidenav.scss */
+    /* line 40, ../scss/sidenav.scss */
     #side_nav > li > a:hover {
       color: black;
       background-color: #f2f2f2; }
-  /* line 43, ../scss/sidenav.scss */
+  /* line 46, ../scss/sidenav.scss */
   #side_nav > li ul {
     border-top: 1px solid #f2f2f2; }
-    /* line 46, ../scss/sidenav.scss */
+    /* line 49, ../scss/sidenav.scss */
     #side_nav > li ul li:first-child > a {
       padding-top: 12px; }
-    /* line 47, ../scss/sidenav.scss */
+    /* line 50, ../scss/sidenav.scss */
     #side_nav > li ul li:last-child > a {
       padding-bottom: 12px; }
-    /* line 48, ../scss/sidenav.scss */
+    /* line 51, ../scss/sidenav.scss */
     #side_nav > li ul li a {
       display: inline-block;
       margin-left: 0;
@@ -4756,7 +4759,7 @@ dl {
       overflow: hidden;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important; }
-    /* line 60, ../scss/sidenav.scss */
+    /* line 63, ../scss/sidenav.scss */
     #side_nav > li ul a:hover {
       color: black;
       background-color: #f2f2f2; }
@@ -4896,134 +4899,133 @@ h1 {
   font-weight: 400;
   font-size: 30px;
   line-height: 30px;
-  margin-bottom: 30px;
-  margin-top: 30px !important; }
+  margin-bottom: 30px; }
 
-/* line 113, ../scss/style.scss */
+/* line 112, ../scss/style.scss */
 h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block; }
-  /* line 118, ../scss/style.scss */
+  /* line 117, ../scss/style.scss */
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 
-/* line 121, ../scss/style.scss */
+/* line 120, ../scss/style.scss */
 p, dl, ul, ol {
   margin-left: 0px;
   padding-left: 0px; }
-  /* line 124, ../scss/style.scss */
+  /* line 123, ../scss/style.scss */
   p:last-child, dl:last-child, ul:last-child, ol:last-child {
     margin-bottom: 0px; }
 
-/* line 129, ../scss/style.scss */
+/* line 128, ../scss/style.scss */
 dl {
   margin-bottom: 0px;
   padding: 0px; }
-  /* line 132, ../scss/style.scss */
+  /* line 131, ../scss/style.scss */
   dl dt {
     float: left; }
-  /* line 133, ../scss/style.scss */
+  /* line 132, ../scss/style.scss */
   dl dd {
     float: right; }
-  /* line 135, ../scss/style.scss */
+  /* line 134, ../scss/style.scss */
   dl:before, dl:after {
     content: " ";
     display: table; }
-  /* line 139, ../scss/style.scss */
+  /* line 138, ../scss/style.scss */
   dl:after {
     clear: both; }
 
-/* line 144, ../scss/style.scss */
+/* line 143, ../scss/style.scss */
 dl + p {
   margin-top: 10px; }
 
-/* line 145, ../scss/style.scss */
+/* line 144, ../scss/style.scss */
 dl + p {
   margin-bottom: 10px; }
 
-/* line 146, ../scss/style.scss */
+/* line 145, ../scss/style.scss */
 p + dl {
   margin-top: 10px; }
 
-/* line 148, ../scss/style.scss */
+/* line 147, ../scss/style.scss */
 small {
   display: inline-block;
   line-height: 160%;
   color: inherit; }
 
-/* line 154, ../scss/style.scss */
+/* line 153, ../scss/style.scss */
 a {
   color: inherit; }
 
-/* line 155, ../scss/style.scss */
+/* line 154, ../scss/style.scss */
 a:link {
   text-decoration: none; }
 
-/* line 156, ../scss/style.scss */
+/* line 155, ../scss/style.scss */
 a:hover {
   text-decoration: none; }
 
-/* line 157, ../scss/style.scss */
+/* line 156, ../scss/style.scss */
 a:visited {
   text-decoration: none; }
 
-/* line 158, ../scss/style.scss */
+/* line 157, ../scss/style.scss */
 a:active {
   outline: none !important; }
 
-/* line 159, ../scss/style.scss */
+/* line 158, ../scss/style.scss */
 a:focus {
   outline: none !important; }
 
-/* line 161, ../scss/style.scss */
+/* line 160, ../scss/style.scss */
 em {
   color: black;
   font-style: italic; }
 
-/* line 162, ../scss/style.scss */
+/* line 161, ../scss/style.scss */
 p a {
   font-weight: 700; }
 
-/* line 164, ../scss/style.scss */
+/* line 163, ../scss/style.scss */
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important; }
-  /* line 167, ../scss/style.scss */
+  /* line 166, ../scss/style.scss */
   .navbar-form .input-group {
     width: 1px; }
 
-/* line 172, ../scss/style.scss */
+/* line 171, ../scss/style.scss */
 #user-menu {
   margin-top: 10px; }
 
-/* line 177, ../scss/style.scss */
+/* line 176, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 182, ../scss/style.scss */
+/* line 181, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 187, ../scss/style.scss */
+/* line 186, ../scss/style.scss */
 .form-control:-moz-placeholder {
   color: #999999; }
 
-/* line 190, ../scss/style.scss */
+/* line 189, ../scss/style.scss */
 .form-control::-moz-placeholder {
   color: #999999; }
 
-/* line 193, ../scss/style.scss */
+/* line 192, ../scss/style.scss */
 .form-control:-ms-input-placeholder {
   color: #999999; }
 
-/* line 196, ../scss/style.scss */
+/* line 195, ../scss/style.scss */
 .form-control::-webkit-input-placeholder {
   color: #999999; }
 
-/* line 199, ../scss/style.scss */
+/* line 198, ../scss/style.scss */
 .form-control {
   display: block;
   width: 100%;
@@ -5043,47 +5045,47 @@ p a {
   resize: none;
   background-image: url("../img/transparent-1.png"); }
 
-/* line 218, ../scss/style.scss */
+/* line 217, ../scss/style.scss */
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
 
-/* line 225, ../scss/style.scss */
+/* line 224, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 227, ../scss/style.scss */
+  /* line 226, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 231, ../scss/style.scss */
+    /* line 230, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 235, ../scss/style.scss */
+    /* line 234, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 236, ../scss/style.scss */
+    /* line 235, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 239, ../scss/style.scss */
+  /* line 238, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 243, ../scss/style.scss */
+    /* line 242, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 244, ../scss/style.scss */
+    /* line 243, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 245, ../scss/style.scss */
+    /* line 244, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }
