@@ -15,16 +15,21 @@
 }
 
 .dashboard-content {
-  // padding: 35px 25px !important;
-  // background-color: #f5f5f5;
-}
-.dashboard-content fieldset {
-  padding-top: 75px;
-  padding-left: 35px;
-  padding-right: 35px;
-  padding-bottom: 25px;
-  margin-bottom: 10px;
-  background-color: #f5f5f5;
+  fieldset {
+    padding-top: 75px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 25px;
+    margin-bottom: 2px;
+    background-color: #f5f5f5;
+    // border-bottom: 4px solid #ebebeb;
+    &:first-child {
+      border: none !important;
+    }
+  }
+  .form-actions {
+    padding-top: 25px;
+  }
 }
 
 .dashboard .container {
