@@ -1,19 +1,9 @@
-{% extends "base.html" %}
+{% extends "accounts/dashboard.html" %}
 {% load cms_tags %}
-{% block bodyclass %}default{% endblock %}
+{% block bodyclass %}dashboard{% endblock %}
 
 {% block content %}
-	<div class="content intro">
-		<div class="container">
-		  	{% placeholder "intro" %}
-		</div>
-	</div>
-
-	<div class="content">
-		<div class="container">
-			<div class="row row-narrow grid">
-			  {% placeholder "main_content" %}
-			</div>
-		</div>
+	<div class="container">
+		{% placeholder "main_content" %}
 	</div>
 {% endblock %}

@@ -480,6 +480,8 @@ CMS_TEMPLATES = [
     ('cms/magazine_series.html', gettext(u'Magazine – Second')),                   # previous: series.html
     ('cms/magazine_series_featured.html', gettext(u'Magazine – Second - Featured')), # previous: series_with_featured.html
     ('cms/magazine.html', gettext(u'Magazine - Third')),
+
+    ('cms/dashboard_default.html', gettext('Dashboard Default')),
 ]
 
 # UPDATE cms_page SET template = REPLACE(template,'cms/visitor_info.html','cms/plan_organize.html');
