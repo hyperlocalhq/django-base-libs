@@ -696,7 +696,7 @@ class AddressForm(ModelForm):
             "minChars": 1,
             "max": 20,
             "mustMatch": 1,
-            "highlight" : False,
+            "highlight": False,
             "multipleSeparator": ",,, ",
         },
     )
