@@ -38,12 +38,14 @@
 {% endblock %}
 
 {% block form_steps %}
+<div class="container">
     {% include "utils/step_list.html" %}
+</div>
 {% endblock %}
 
 {% block content %}
-<div class="dashboard-content">
-    <div class="container">
+<div class="container">
+    <div class="dashboard-content">
         {% if messages %}
             <div class="messages">
                 {% for message in messages %}

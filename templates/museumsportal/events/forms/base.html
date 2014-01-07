@@ -38,6 +38,7 @@
 {% endblock %}
 
 {% block form_steps %}
+<div class="container">
     {% if event %}
         <div id="pub-status" class="status">
             <select class="status-switch" data-url="{{ event.get_url_path }}status/">
@@ -61,11 +62,12 @@
         </script>
     {% endif %}
     {% include "utils/step_list.html" %}
+</div>
 {% endblock %}
 
 {% block content %}
-<div class="dashboard-content">
-    <div class="container">
+<div class="container">
+    <div class="dashboard-content">
         {% if messages %}
             <div class="messages">
                 {% for message in messages %}
