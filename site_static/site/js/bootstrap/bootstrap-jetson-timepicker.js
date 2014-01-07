@@ -119,7 +119,7 @@
                     return;
                 }
                 $(this).parent().addClass('input-append');
-                $('<span class="input-group-btn"><button class="btn btn-lg btn-icon btn-info pick-time" type="button"><span class="icon icon-clock"></span></button></span>').insertAfter(this).click(function() {
+                $('<span class="input-group-btn"><button class="btn btn-lg btn-icon btn-info pick-time" type="button"><span class="icon icon-clock"></span></button></span>').insertAfter(this).find('button').click(function() {
                     $('body').append(get_template(settings));
                     $("#popup").delay(100).queue(function () {
                         $(this).addClass("on");
