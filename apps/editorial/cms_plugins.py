@@ -13,12 +13,20 @@ from models import TeaserBlock
 from models import Footnote
 from models import FrontpageTeaser
 
+from base_libs.admin import ExtendedModelAdmin
 
-class EditorialContentPlugin(CMSPluginBase):
+
+class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
     model = EditorialContent
     name = _("Editorial Content")
     render_template = "cms/plugins/editorial_content.html"
     change_form_template = "cms/plugins/editorial_content_plugin_change_form.html"
+
+    fieldsets = (
+        (_("Main Content"), {'fields': ('title', 'subtitle', 'description', 'website'), 'classes': ['collapse open']}),
+        (_("Image"), {'fields': ('image', 'image_caption'), 'classes': ['collapse open']}),
+        (_("Presentation"), {'fields': ('col_xs_width', 'col_sm_width', 'col_md_width', 'col_lg_width', 'css_class'), 'classes': ['collapse closed']}),
+    )
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         # add .markupType to body_markup_type
