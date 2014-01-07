@@ -1,6 +1,6 @@
 {% load menu_tags i18n  %}
 <div class="navbar-wrapper">
-  <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="71">
     <div class="container">
       {% if request.user.is_authenticated %}
         <div id="user-menu" class="pull-right hidden-xs">
@@ -38,11 +38,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        
-        <a class="navbar-brand hidden-xs" href="/">
+
+        <a class="navbar-brand hidden-xs" href="/{{ LANGUAGE_CODE }}/dashboard/">
           <img src="{{ STATIC_URL }}site/img/logo/logo.png" alt="Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten" />
         </a>
-        <a class="navbar-brand visible-xs" href="/">
+        <a class="navbar-brand visible-xs" href="/{{ LANGUAGE_CODE }}/dashboard/">
           <img src="{{ STATIC_URL }}site/img/logo/logo_xs.png" alt="Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten" />
         </a>
       </div>

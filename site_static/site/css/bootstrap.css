@@ -3617,75 +3617,70 @@ input[type="button"].btn-block {
 
 /* line 71, ../scss/bootstrap/_navs.scss */
 .nav-tabs {
-  border-bottom: 1px solid #dddddd; }
-  /* line 73, ../scss/bootstrap/_navs.scss */
+  margin-top: 20px; }
+  /* line 74, ../scss/bootstrap/_navs.scss */
   .nav-tabs > li {
     float: left;
     margin-bottom: -1px; }
-    /* line 79, ../scss/bootstrap/_navs.scss */
+    /* line 80, ../scss/bootstrap/_navs.scss */
     .nav-tabs > li > a {
       margin-right: 2px;
       line-height: 1.42857;
       border: 1px solid transparent;
       border-radius: 4px 4px 0 0; }
-      /* line 84, ../scss/bootstrap/_navs.scss */
+      /* line 85, ../scss/bootstrap/_navs.scss */
       .nav-tabs > li > a:hover {
         border-color: #eeeeee #eeeeee #dddddd; }
-    /* line 93, ../scss/bootstrap/_navs.scss */
+    /* line 94, ../scss/bootstrap/_navs.scss */
     .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
       color: #555555;
       background-color: white;
-      border: 1px solid #dddddd;
-      border-bottom-color: transparent;
-      cursor: default; }
+      cursor: default;
+      background-color: #f5f5f5; }
 
-/* line 113, ../scss/bootstrap/_navs.scss */
+/* line 116, ../scss/bootstrap/_navs.scss */
 .nav-pills > li {
   float: left; }
-  /* line 117, ../scss/bootstrap/_navs.scss */
+  /* line 120, ../scss/bootstrap/_navs.scss */
   .nav-pills > li > a {
     border-radius: 5px; }
-  /* line 120, ../scss/bootstrap/_navs.scss */
+  /* line 123, ../scss/bootstrap/_navs.scss */
   .nav-pills > li + li {
     margin-left: 2px; }
-  /* line 128, ../scss/bootstrap/_navs.scss */
+  /* line 131, ../scss/bootstrap/_navs.scss */
   .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     color: white;
     background-color: #00aefd; }
 
-/* line 139, ../scss/bootstrap/_navs.scss */
+/* line 142, ../scss/bootstrap/_navs.scss */
 .nav-stacked > li {
   float: none; }
-  /* line 141, ../scss/bootstrap/_navs.scss */
+  /* line 144, ../scss/bootstrap/_navs.scss */
   .nav-stacked > li + li {
     margin-top: 2px;
     margin-left: 0; }
 
-/* line 155, ../scss/bootstrap/_navs.scss */
+/* line 158, ../scss/bootstrap/_navs.scss */
 .nav-justified, .nav-tabs.nav-justified {
   width: 100%; }
-  /* line 158, ../scss/bootstrap/_navs.scss */
+  /* line 161, ../scss/bootstrap/_navs.scss */
   .nav-justified > li, .nav-tabs.nav-justified > li {
     float: none; }
-    /* line 160, ../scss/bootstrap/_navs.scss */
+    /* line 163, ../scss/bootstrap/_navs.scss */
     .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
       text-align: center; }
   @media (min-width: 768px) {
-    /* line 166, ../scss/bootstrap/_navs.scss */
+    /* line 169, ../scss/bootstrap/_navs.scss */
     .nav-justified > li, .nav-tabs.nav-justified > li {
       display: table-cell;
       width: 1%; } }
 
-/* line 174, ../scss/bootstrap/_navs.scss */
+/* line 177, ../scss/bootstrap/_navs.scss */
 .nav-tabs-justified, .nav-tabs.nav-justified {
   border-bottom: 0; }
-  /* line 176, ../scss/bootstrap/_navs.scss */
+  /* line 179, ../scss/bootstrap/_navs.scss */
   .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
-    border-bottom: 1px solid #dddddd;
     margin-right: 0; }
-  /* line 182, ../scss/bootstrap/_navs.scss */
-  .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a {
-    border-bottom-color: white; }
 
 /* line 21, ../scss/bootstrap/_mixins.scss */
 .tabbable:before, .tabbable:after {
@@ -3697,27 +3692,27 @@ input[type="button"].btn-block {
 .tabbable:after {
   clear: both; }
 
-/* line 198, ../scss/bootstrap/_navs.scss */
+/* line 201, ../scss/bootstrap/_navs.scss */
 .tab-content > .tab-pane,
 .pill-content > .pill-pane {
   display: none; }
 
-/* line 203, ../scss/bootstrap/_navs.scss */
+/* line 206, ../scss/bootstrap/_navs.scss */
 .tab-content > .active,
 .pill-content > .active {
   display: block; }
 
-/* line 214, ../scss/bootstrap/_navs.scss */
+/* line 217, ../scss/bootstrap/_navs.scss */
 .nav .caret {
   border-top-color: #00aefd;
   border-bottom-color: #00aefd; }
 
-/* line 218, ../scss/bootstrap/_navs.scss */
+/* line 221, ../scss/bootstrap/_navs.scss */
 .nav a:hover .caret {
   border-top-color: #0079b1;
   border-bottom-color: #0079b1; }
 
-/* line 224, ../scss/bootstrap/_navs.scss */
+/* line 227, ../scss/bootstrap/_navs.scss */
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-right-radius: 0;
