@@ -62,13 +62,16 @@
   font-size: 20px;
   font-weight: normal;
   line-height: 1;
-  text-align: left;
+  text-align: center;
   // background-color: $input-group-addon-bg;
-  min-width: 40px;
+  min-width: 50px;
   // border: 1px solid $input-group-addon-border-color;
   // border-radius: $border-radius-base;
 
   // Sizing
+  &:first-child {
+    text-align: left;
+  }
   &.input-sm {
     padding: $padding-small-vertical $padding-small-horizontal;
     font-size: $font-size-small;
