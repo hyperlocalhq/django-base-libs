@@ -38,16 +38,8 @@
 }
 
 #meta {
-  position: relative;
-  z-index: 1001;
-  font-size: 0px;
-  white-space: nowrap;
-  > div {float: left; margin-left: 2px;}
-  #lang {
-    li { display: none; float: none; }
-    &:hover li { display: block; }
-    li.current { display: block; position: absolute; top: 0px;}
-  }
+  margin-top: 20px;
+  > div {margin-left: 2px; }
 }
 
 #header {
