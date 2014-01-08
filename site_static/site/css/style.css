@@ -4203,7 +4203,7 @@ dl {
 .checkbox-group {
   margin-bottom: 15px; }
   /* line 47, ../scss/dashboard.scss */
-  .checkbox-group .form-group {
+  .checkbox-group > .form-group {
     margin-bottom: 2px; }
 
 /* line 52, ../scss/dashboard.scss */
@@ -5056,7 +5056,7 @@ p a {
   display: block;
   width: 100%;
   min-height: 50px;
-  padding: 0px 12px;
+  padding: 10px 12px;
   font-size: 18px;
   line-height: 30px;
   color: black;
@@ -5069,50 +5069,53 @@ p a {
   box-shadow: none;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  resize: none;
   background-image: url("../img/transparent-1.png"); }
 
-/* line 218, ../scss/style.scss */
+/* line 217, ../scss/style.scss */
+textarea.form-control {
+  resize: vertical; }
+
+/* line 219, ../scss/style.scss */
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
 
-/* line 225, ../scss/style.scss */
+/* line 226, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 227, ../scss/style.scss */
+  /* line 228, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 231, ../scss/style.scss */
+    /* line 232, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 235, ../scss/style.scss */
+    /* line 236, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 236, ../scss/style.scss */
+    /* line 237, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 239, ../scss/style.scss */
+  /* line 240, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 243, ../scss/style.scss */
+    /* line 244, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 244, ../scss/style.scss */
+    /* line 245, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 245, ../scss/style.scss */
+    /* line 246, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }

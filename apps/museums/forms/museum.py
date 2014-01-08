@@ -1067,7 +1067,7 @@ class MediationForm(ModelForm):
                         'has_audioguide_tr',
                         css_class="checkbox-inline-group"
                     ),
-                    layout.Div("audioguide_other_languages", css_class="max"),
+                    layout.Div("audioguide_other_languages", css_class="form-group"),
                     css_id="div_audioguide_languages",
                 ),
                 'has_audioguide_for_children',

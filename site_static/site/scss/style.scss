@@ -199,7 +199,7 @@ p a{font-weight: 700; }
   display: block;
   width: 100%;
   min-height: 50px;
-  padding: 0px 12px;
+  padding: 10px 12px;
   font-size: 18px;
   line-height: 30px;
   color: black;
@@ -212,9 +212,10 @@ p a{font-weight: 700; }
   box-shadow: none;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  resize: none;
   background-image: url("../img/transparent-1.png");
 }
+textarea.form-control {resize: vertical; }
+
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;

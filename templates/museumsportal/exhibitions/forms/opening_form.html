@@ -93,8 +93,8 @@ var error_messages = {
             var $season = $(this);
             var $inlineControls = $(
                 '<div class="form-actions">'
-                + '<input type="button" class="save-link btn btn-primary" value="{% trans "Okay" %}" />&nbsp;'
-                + '<input name="cancel" type="button" class="delete btn" value="{% trans "Delete" %}" />&nbsp;'
+                + '<input type="button" class="save-link btn btn-lg btn-primary" value="{% trans "Okay" %}" />&nbsp;'
+                + '<input name="cancel" type="button" class="delete btn btn-lg btn-default" value="{% trans "Delete" %}" />&nbsp;'
                 + '</div>'
             );
             $season.append($inlineControls);
@@ -136,7 +136,7 @@ var error_messages = {
             var html = '<ul class="actions">'
                 + '<li><button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="transparent edit icon icon-white icon-edit"></button></li>'
                 + '</ul>'
-                + '<a class="edit" href="#"><span class="title">{% trans "Individual Opening Time of the Exhibition" %}</span></a>';
+                + '<a class="edit btn btn-primary" href="#"><span class="title">{% trans "Individual Opening Time of the Exhibition" %}</span></a>';
             if (!$season.data('mirror')) {
                 var $mirror = $('<li class="item">' + html + '</li>');
                 $('#season_list li:last').before($mirror);

@@ -9,7 +9,7 @@ from django import forms
 from django.forms.models import ModelForm
 from django.forms.models import inlineformset_factory
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
@@ -452,7 +452,7 @@ class OpeningForm(ModelForm):
                 <fieldset>
                     <a class="add" id="add_season" href="#">{% trans "Add Individual Opening Hours" %}</a>
                     <legend>{% trans "Opening Hours" %}</legend>
-                    <ul id="season_list">
+                    <ul id="season_list" class="list-unstyled">
                         <li> </li>
                     </ul>
                 </fieldset>
@@ -554,108 +554,106 @@ class SeasonForm(ModelForm):
             layout.Div(
                 "is_appointment_based", 
                 "is_open_24_7",
-                css_class="inline",
+                css_class="checkbox-group"
             ),
-            layout.HTML(
-                """{% load i18n %}
-                <div class="row cols-2">
-                    <div>
+            layout.HTML("""{% load i18n %}
+                <div class="row row-md">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <fieldset>
                             <legend>{% trans "Opening Hours" %}</legend>
-                            <div class="row cols-2">
-                                <div><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
-                                <div><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
                             </div>
-                             <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("mon_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div class="closed">"""), "mon_is_closed", layout.HTML("""</div>
-                            </div>
-                            {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Tu" %}</label>"""), layout.Field("tue_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("tue_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div class="closed">"""), "tue_is_closed", layout.HTML("""</div>
+                             <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("mon_open", ugettext('Mo'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("mon_close", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed hide">"""), "mon_is_closed", layout.HTML("""</div>
                             </div>
                             {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "We" %}</label>"""), layout.Field("wed_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("wed_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div class="closed">"""), "wed_is_closed", layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("tue_open", ugettext('Tu'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("tue_close", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed hide">"""), "tue_is_closed", layout.HTML("""</div>
                             </div>
                             {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Th" %}</label>"""), layout.Field("thu_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("thu_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div class="closed">"""), "thu_is_closed", layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("wed_open", ugettext('We'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("wed_close", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed hide">"""), "wed_is_closed", layout.HTML("""</div>
                             </div>
                             {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Fr" %}</label>"""), layout.Field("fri_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("fri_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div class="closed">"""), "fri_is_closed", layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("thu_open", ugettext('Th'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("thu_close", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed hide">"""), "thu_is_closed", layout.HTML("""</div>
                             </div>
                             {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Sa" %}</label>"""), layout.Field("sat_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("sat_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div class="closed">"""), "sat_is_closed", layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("fri_open", ugettext('Fr'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("fri_close", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed hide">"""), "fri_is_closed", layout.HTML("""</div>
                             </div>
                             {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Su" %}</label>"""), layout.Field("sun_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("sun_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div class="closed">"""), "sun_is_closed", layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("sat_open", ugettext('Sa'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("sat_close", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed hide">"""), "sat_is_closed", layout.HTML("""</div>
+                            </div>
+                            {% load i18n %}
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("sun_open", ugettext('Su'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("sun_close", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="closed hide">"""), "sun_is_closed", layout.HTML("""</div>
                             </div>
                         </fieldset>
                     </div>
                     {% load i18n %}
-                    <div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <fieldset>
                             <legend>{% trans "Breaks" %}</legend>
-                            <div class="row cols-2">
-                                <div><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
-                                <div><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><label>{% blocktrans with time="" %}From {{ time }}{% endblocktrans %}</label></div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><label>{% blocktrans with time="" %}To {{ time }}{% endblocktrans %}</label></div>
                             </div>
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Mo" %}</label>"""), layout.Field("mon_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("mon_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                            </div>
-                                {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Tu" %}</label>"""), layout.Field("tue_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("tue_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("mon_break_close", ugettext('Mo'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("mon_break_open", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
                             </div>
                                 {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "We" %}</label>"""), layout.Field("wed_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("wed_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("tue_break_close", ugettext('Tu'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("tue_break_open", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
                             </div>
                                 {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Th" %}</label>"""), layout.Field("thu_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("thu_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("wed_break_close", ugettext('We'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("wed_break_open", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
                             </div>
                                 {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Fr" %}</label>"""), layout.Field("fri_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("fri_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("thu_break_close", ugettext('Th'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("thu_break_open", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
                             </div>
                                 {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Sa" %}</label>"""), layout.Field("sat_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("sat_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("fri_break_close", ugettext('Fr'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("fri_break_open", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
                             </div>
                                 {% load i18n %}
-                            <div class="row cols-2">
-                                <div class="has_weekday"><label class="weekday">{% trans "Su" %}</label>"""), layout.Field("sun_break_close", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
-                                <div>"""), layout.Field("sun_break_open", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("sat_break_close", ugettext('Sa'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("sat_break_open", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                            </div>
+                                {% load i18n %}
+                            <div class="row row-sm">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("sun_break_close", ugettext('Su'), placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">"""), bootstrap.PrependedText("sun_break_open", "", placeholder="00:00", autocomplete="off"), layout.HTML("""</div>
                             </div>
                         </fieldset>
                     </div>
                 </div>
-                """
-            ),
+            """),
             css_class="fieldset-season",
         ))
 
