@@ -6,7 +6,7 @@
   </button>
   <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
 	{% for language in languages %}
-	    <li><a class="{% ifequal current_language language.0 %} active{% endifequal %}" href="/{{ language.0 }}/">{{ language.1 }}</a></li>
+	    <li class="{% if current_language == language.0 %}active{% endif %}"><a href="/{{ language.0 }}/">{{ language.1 }}</a></li>
 	{% endfor %}
   </ul>
 </div>
