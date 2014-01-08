@@ -155,7 +155,7 @@ input[type="number"] {
 
 // Reset height for `textarea`s
 textarea.form-control {
-  height: auto;
+  // height: auto;
 }
 
 
@@ -177,10 +177,12 @@ textarea.form-control {
 .checkbox {
   display: block;
   min-height: $line-height-computed; // clear the floating input if there is no label text
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 15px;
   vertical-align: middle;
+  background-image: url("../img/transparent-1.png");
   label {
     display: inline;
     margin-bottom: 0;
@@ -193,7 +195,7 @@ textarea.form-control {
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
   float: left;
-  margin-left: -20px;
+  margin-left: -24px;
 }
 .radio + .radio,
 .checkbox + .checkbox {

@@ -651,6 +651,7 @@ class PricesForm(ModelForm):
                 'show_family_ticket',
                 'show_yearly_ticket',
                 'show_group_ticket',
+                css_class="checkbox-group"
             )
         )
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -935,6 +936,7 @@ class ServicesForm(ModelForm):
                 'service_library',
                 'service_archive',
                 'service_diaper_changing_table',
+                css_class="checkbox-group"
             ),
             css_class="fieldset-services",
         ))
@@ -1063,14 +1065,14 @@ class MediationForm(ModelForm):
                         'has_audioguide_sp',
                         'has_audioguide_pl',
                         'has_audioguide_tr',
-                        css_class="inline min",
+                        css_class="checkbox-inline-group"
                     ),
                     layout.Div("audioguide_other_languages", css_class="max"),
                     css_id="div_audioguide_languages",
-                    css_class="flex merge",
                 ),
                 'has_audioguide_for_children',
                 'has_audioguide_for_learning_difficulties',
+                css_class="checkbox-group"
             ),
         ))
 
