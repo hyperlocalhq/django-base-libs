@@ -1,11 +1,11 @@
-$(window).load(function() {
-    function activate(language) {
-        $('.multilingual').addClass('hide');
-        $('.lang-' + language).removeClass('hide');
-    }
+function activate_form_language(language) {
+    $('.multilingual').addClass('hide');
+    $('.lang-' + language).removeClass('hide');
+}
 
+$(window).load(function() {
     /* show the language-specific fields only for the current language */
-    activate(window.settings.lang);
+    activate_form_language(window.settings.lang);
 
     var $form_language = $('#form_language');
 
@@ -25,7 +25,6 @@ $(window).load(function() {
     //    return false;
     //});
     $form_language.change(function() {
-        var language = $(this).val();
-        activate(language);
+        activate_form_language($(this).val());
     })
 });
