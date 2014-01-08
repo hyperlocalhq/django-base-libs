@@ -8,10 +8,11 @@
     float: left;
     margin-left: 4px;
   }
-  #preview_page {
+  .btn {
     text-transform: none;
     height: 40px;
     line-height: 40px;
+    padding: 0 13px;
     font-size: 14px;
   }
   #form_languages {
@@ -133,7 +134,9 @@ textarea.form-control {resize: vertical; }
 }
 
 
-
+select {
+  visibility: hidden;
+}
 .dashboard .container {
   max-width: 940px;
   min-width: 940px;

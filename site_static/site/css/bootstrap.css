@@ -2208,7 +2208,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   background-color: #f2f2f2;
   border-color: #e5e5e5;
   background-color: transparent;
-  background-image: url("../img/transparent-1.png");
+  background-image: url("../img/transparent-1.png") !important;
   color: #404040; }
   /* line 414, ../scss/bootstrap/_mixins.scss */
   .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active {
