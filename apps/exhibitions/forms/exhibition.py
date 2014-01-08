@@ -458,7 +458,7 @@ class OpeningForm(ModelForm):
         layout_blocks.append(layout.HTML("""{% load i18n crispy_forms_tags %}
             <div id="item_container">
                 <fieldset>
-                    <a class="add" id="add_season" href="#">{% trans "Add Individual Opening Hours" %}</a>
+                    <a class="btn btn-primary add" id="add_season" href="#">{% trans "Add Individual Opening Hours" %}</a>
                     <legend>{% trans "Opening Hours" %}</legend>
                     <ul id="season_list" class="list-unstyled">
                         <li> </li>
