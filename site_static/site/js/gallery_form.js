@@ -7,7 +7,7 @@
                     placeholder: "ui-state-highlight",
                     update: function(event, ui) {
                         var tokens = []
-                        $('.item', '#photos').each(function() {
+                        $('.photo', '#photos').each(function() {
                             if ($(this).data('token')) {
                                 tokens[tokens.length] = $(this).data('token');
                             }
@@ -29,18 +29,20 @@
                     $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
                     $('#photos').parents('fieldset:first').hide();
                     $('.form-actions:last').hide();
+                    $('textarea').autosize();
+                    return false;
+                });
+                $('#add_photo').click(function() {
+                    $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
+                    $('#photos').parents('fieldset:first').hide();
+                    $('.form-actions:last').hide();
+                    $('textarea').autosize();
                     return false;
                 });
                 $('#photos').find('.crop').each(function() {
                     if ($(this).attr('href')) {
                         $(this).attr('href', $(this).attr('href').replace(/goto_next=.+$/gim, "goto_next=" + location.href));
                     }
-                });
-                $('#add_photo').click(function() {
-                    $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
-                    $('#photos').parents('fieldset:first').hide();
-                    $('.form-actions:last').hide();
-                    return false;
                 });
                 $(window).trigger('scrollstop');
             });

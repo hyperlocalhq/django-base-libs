@@ -5,8 +5,8 @@
 <div class="container">
     <div id="photos" class="">
         {% for media_file in museum.mediafile_set.all %}
-            <div class="" data-token="{{ media_file.get_token }}">
-                <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" class="reorder img" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}">
+            <div class="photo" data-token="{{ media_file.get_token }}">
+                <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" class="edit reorder img" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}">
                     <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"small" }}?now={% now "YmdHis" %}" alt="" />
                 </a>
                 {% with media_file.path|file_description as file_desc %}
@@ -21,7 +21,6 @@
                 {% endwith %}
 
                 <nav class="actions hide">
-                    <a href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="edit icon icon-white icon-edit"></a>
                     <a href="{% cropping_url media_file.path "cover" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop"></a>
                 </nav>
             </div>
