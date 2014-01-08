@@ -26,13 +26,13 @@
                     }                    
                 })
                 $('#photos').disableSelection().find('.edit').click(function() {
-                    $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
+                    $('#edit_photo').load($(this).attr('href') + ' #edit_photo form', edit_photo_loaded);
                     $('#photos').parents('fieldset:first').hide();
                     $('.form-actions:last').hide();
                     return false;
                 });
                 $('#add_photo').click(function() {
-                    $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
+                    $('#edit_photo').load($(this).attr('href') + ' #edit_photo form', edit_photo_loaded);
                     $('#photos').parents('fieldset:first').hide();
                     $('.form-actions:last').hide();
                     return false;
