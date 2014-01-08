@@ -53,5 +53,11 @@ $(document).ready(function(){
   });
 
   $("select").selectbox();
+  $(".navbar-wrapper").headroom({
+    // vertical offset in px before element is first unpinned
+    offset : 170,
+    // scroll tolerance in px before state changes
+    tolerance : 0
+  });
   // $('.panel-collapse').collapse('show');
 });

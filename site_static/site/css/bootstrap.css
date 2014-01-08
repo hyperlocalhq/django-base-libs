@@ -2946,14 +2946,14 @@ input[type="button"].btn-block {
     margin-top: -71px; } }
 
 /* line 28, ../scss/bootstrap/_navbar.scss */
-.nav-hidden .navbar.affix {
+.headroom--unpinned .navbar.affix {
   -webkit-transform: translateY(-50px);
   -moz-transform: translateY(-50px);
   -o-transform: translateY(-50px);
   transform: translateY(-50px); }
 
 /* line 35, ../scss/bootstrap/_navbar.scss */
-.nav-visible .navbar.affix {
+.headroom--pinned .navbar.affix {
   -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);
   -o-transform: translateY(0px);
