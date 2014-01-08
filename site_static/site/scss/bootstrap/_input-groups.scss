@@ -57,12 +57,14 @@
 // Text input groups
 // -------------------------
 .input-group-addon {
-  padding: $padding-base-vertical $padding-base-horizontal;
-  font-size: $font-size-base;
+  padding: 0px;
+  // font-size: $font-size-base;
+  font-size: 20px;
   font-weight: normal;
   line-height: 1;
-  text-align: center;
-  background-color: $input-group-addon-bg;
+  text-align: left;
+  // background-color: $input-group-addon-bg;
+  min-width: 40px;
   // border: 1px solid $input-group-addon-border-color;
   // border-radius: $border-radius-base;
 

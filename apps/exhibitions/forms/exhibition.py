@@ -231,13 +231,17 @@ class BasicInfoForm(ModelForm):
                 "exhibition_extended",
                 css_class="cols-2",
             ),
-            layout.Div(
-                layout.Field("start", placeholder="dd.mm.yyyy", autocomplete="off"),
-                layout.Field("end", placeholder="dd.mm.yyyy", autocomplete="off"),
-                css_class="cols-2",
+            layout.Row(
+                layout.Div(
+                    bootstrap.PrependedText("start", "", placeholder="dd.mm.yyyy", autocomplete="off"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    bootstrap.PrependedText("end", "", placeholder="dd.mm.yyyy", autocomplete="off"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-sm",
             ),
-            layout.Field("vernissage", autocomplete="off"),
-            layout.Field("finissage", autocomplete="off"),
+            bootstrap.PrependedText("vernissage", "", autocomplete="off"),
+            bootstrap.PrependedText("finissage", "", autocomplete="off"),
             css_class="fieldset-when",
         ))
         layout_blocks.append(layout.Fieldset(

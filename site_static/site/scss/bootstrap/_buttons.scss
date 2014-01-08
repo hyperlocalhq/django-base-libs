@@ -98,6 +98,8 @@
 // Info appears as blue-green
 .btn-info {
   @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+  background-color: transparent;
+  background-image: url("../img/transparent-1.png");
 }
 
 
