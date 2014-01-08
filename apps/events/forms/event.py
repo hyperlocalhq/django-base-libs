@@ -196,7 +196,7 @@ class BasicInfoForm(ModelForm):
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
-                        <div class="event_map" id="gmap_wrapper">
+                        <div class="event_map" id="gmap-wrapper">
                             <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                         </div>
                         <div class="form-actions">
