@@ -8,13 +8,7 @@
     float: left;
     margin-left: 4px;
   }
-  .btn {
-    text-transform: none;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 13px;
-    font-size: 14px;
-  }
+
   #form_languages {
     width: 150px;
   }
@@ -145,6 +139,8 @@ select {
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px;
+  margin-top: -20px;
+  
   .item a{
     display: block;
   }
