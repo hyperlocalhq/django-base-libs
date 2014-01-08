@@ -56,17 +56,17 @@ class InlineFormSet(BaseInlineFormSet):
 class SplitDateTimeWidget(forms.SplitDateTimeWidget):
     def format_output(self, rendered_widgets):
         return """
-            <div class="row cols-2">
-                <div>
-                    <div class="clearfix control-group">
+            <div class="row row-sm">
+                <div class="form-group">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <label>%s</label>
-                        <div class="controls">%s</div>
+                        <div class="input-group">%s</div>
                     </div>
                 </div>
-                <div>
-                    <div class="clearfix control-group">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group">
                         <label>%s</label>
-                        <div class="controls">%s</div>
+                        <div class="input-group">%s</div>
                     </div>
                 </div>
             </div>""" % (

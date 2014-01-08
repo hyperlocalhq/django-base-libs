@@ -246,30 +246,34 @@ class BasicInfoForm(ModelForm):
         ))
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            layout.Div(
+            layout.Row(
                 layout.Div(
-                    layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
-                    layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
+                    layout.Field("museum", template="bootstrap3/field_marked_as_required.html"),
+                    layout.Field("location_name", template="bootstrap3/field_marked_as_required.html"),
                     "street_address",
                     "street_address2",
                     "postal_code",
                     "city",
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
-                layout.HTML("""{% load i18n %}
-                    <div id="dyn_set_map">
-                        <label>{% trans "Location" %}</label>
-                        <div class="exhibition_map" id="gmap_wrapper">
-                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                layout.Div(
+                    layout.HTML("""{% load i18n %}
+                        <div id="dyn_set_map">
+                            <label>{% trans "Location" %}</label>
+                            <div class="exhibition_map" id="gmap_wrapper">
+                                <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                            </div>
+                            <div class="form-actions">
+                                <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            </div>
                         </div>
-                        <div class="form-actions">
-                            <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
-                            <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
-                        </div>
-                    </div>
-                """),
-                "latitude",
-                "longitude",
-                css_class="cols-2",
+                    """),
+                    "latitude",
+                    "longitude",
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-md",
             ),
             css_class="fieldset-where",
         ))
