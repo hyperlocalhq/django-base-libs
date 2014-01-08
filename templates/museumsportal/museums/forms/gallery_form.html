@@ -13,12 +13,15 @@
 {% endblock %}
 
 {% block multistep_form %}
-    <form>
+    <form class="relative">
         <fieldset class="fieldset-imagegallery">
             <legend>{% trans "Image Gallery" %}</legend>
-            <ul id="photos" class="list" data-load-url="{{ museum.get_url_path }}gallery/">
-            </ul>
-            <a id="add_photo" class="add btn btn-small btn-primary" href="{{ museum.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
+            <div class="fieldset-meta">
+                <a class="btn btn-info" href="#">{% trans "Crop List Image" %}</a>
+                <a class="btn btn-info" href="#">{% trans "Crop Cover Image" %}</a>
+                <a class="btn btn-primary add" id="add_photo" href="{{ museum.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
+            </div>
+            <div id="photos" class="" data-load-url="{{ museum.get_url_path }}gallery/"></div>
         </fieldset>
     </form>
     <div id="edit_photo"></div>

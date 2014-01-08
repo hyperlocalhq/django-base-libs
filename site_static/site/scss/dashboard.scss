@@ -1,9 +1,28 @@
-.row {
+
+#photos {
+  margin-left: -5px;
+  margin-right: -5px;
+  > div {
+    width: 20%;
+    float: left;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
+
 .tagsinput {
   .btn {
     margin-right: 2px;
     margin-bottom: 2px;
+  }
+}
+.fieldset-meta {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  > * {
+    float: left;
+    margin-left: 4px;
   }
 }
 
@@ -49,6 +68,7 @@
     border-bottom: 4px solid #fff;
     *{margin: 0px; }
   }
+
   fieldset {
     padding-top: 75px;
     padding-left: 35px;
@@ -65,10 +85,8 @@
     fieldset {
       padding: 0px !important;
       padding-top: 75px !important;
+      padding-bottom: 25px !important;
       margin: 0px !important;
-      border: none !important;
-    }
-    &:first-child {
       border: none !important;
     }
   }

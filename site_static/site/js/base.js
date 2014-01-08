@@ -5,7 +5,7 @@ var django = {
 $(window).bind('scrollstop load', function(){
   $(".img-detail img:in-viewport").lazyload({
     load : function(element, el_left, settings){
-        $('.grid').isotope();
+        $('#container').isotope();
     }
   }).addClass("in");
 });
@@ -15,7 +15,7 @@ $(window).bind('load', function(){
 });
 
 $(window).bind('smartresize', function(){
-  $('.grid').isotope();
+  $('#container').isotope();
 });
 
 $(window).bind('scrollstop', function(){
@@ -23,8 +23,6 @@ $(window).bind('scrollstop', function(){
 });
 
 $(document).ready(function(){
-  // $(".img img:in-viewport").lazyload().addClass("in");
-
   $("a[href^='http://']").attr("target","_blank");
 
   if ($('#cms_toolbar').length) { // cms toolbar fix
@@ -55,7 +53,7 @@ $(document).ready(function(){
   $("select").selectbox();
   $(".navbar-wrapper").headroom({
     // vertical offset in px before element is first unpinned
-    offset : 170,
+    offset : 300,
     // scroll tolerance in px before state changes
     tolerance : 0
   });
