@@ -29,14 +29,12 @@
                     $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
                     $('#photos').parents('fieldset:first').hide();
                     $('.form-actions:last').hide();
-                    $('textarea').autosize();
                     return false;
                 });
                 $('#add_photo').click(function() {
                     $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
                     $('#photos').parents('fieldset:first').hide();
                     $('.form-actions:last').hide();
-                    $('textarea').autosize();
                     return false;
                 });
                 $('#photos').find('.crop').each(function() {
@@ -52,6 +50,9 @@
         
     }
     function edit_photo_loaded() {
+        $('textarea').autosize();
+        activate_form_language(window.settings.lang);
+
         $('#button-id-cancel').click(function() {
             $('#edit_photo').html("");
             reinit();
