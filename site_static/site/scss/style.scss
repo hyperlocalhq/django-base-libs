@@ -178,47 +178,6 @@ p a{font-weight: 700; }
   pointer-events: none;
 }
 
-
-.form-control:-moz-placeholder {
-  color: #999999;
-}
-.form-control::-moz-placeholder {
-  color: #999999;
-}
-.form-control:-ms-input-placeholder {
-  color: #999999;
-}
-.form-control::-webkit-input-placeholder {
-  color: #999999;
-}
-.form-control {
-  display: block;
-  width: 100%;
-  min-height: 50px;
-  padding: 10px 12px;
-  font-size: 18px;
-  line-height: 30px;
-  color: black;
-  vertical-align: middle;
-  background-color: transparent;
-  border-radius: 0px;
-  border: 2px solid #f5f5f5;
-  border: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  background-image: url("../img/transparent-1.png");
-}
-textarea.form-control {resize: vertical; }
-
-.form-control:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
-
 .linear-list{
   display:block;
   > li {

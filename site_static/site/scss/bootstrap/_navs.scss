@@ -24,6 +24,7 @@
       &:focus {
         text-decoration: none;
         background-color: $nav-link-hover-bg;
+        color: inherit;
       }
     }
 
@@ -81,7 +82,7 @@
       margin-right: 2px;
       line-height: $line-height-base;
       border: 1px solid transparent;
-      border-radius: $border-radius-base $border-radius-base 0 0;
+      // border-radius: $border-radius-base $border-radius-base 0 0;
       padding: 10px 10px;
     }
 

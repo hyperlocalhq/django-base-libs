@@ -2038,7 +2038,6 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   cursor: pointer;
   border: none;
   white-space: nowrap;
-  text-transform: uppercase;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -2363,37 +2362,43 @@ input[type="button"].btn-block {
   /* line 59, ../scss/bootstrap/_dropdowns.scss */
   .dropdown-menu .divider {
     height: 1px;
-    margin: 10px 0;
-    overflow: hidden;
-    background-color: #e5e5e5; }
-  /* line 64, ../scss/bootstrap/_dropdowns.scss */
+    background-color: transparent;
+    background-image: url("../img/transparent-1.png");
+    margin: 5px 0; }
+  /* line 68, ../scss/bootstrap/_dropdowns.scss */
+  .dropdown-menu > li {
+    margin-top: -5px;
+    margin-bottom: -5px; }
+  /* line 72, ../scss/bootstrap/_dropdowns.scss */
   .dropdown-menu > li > a {
     display: block;
-    padding: 3px 15px;
+    padding: 8px 16px;
     clear: both;
     font-weight: normal;
     line-height: 1.42857;
     color: #333333;
+    text-transform: uppercase;
+    font-size: 11px;
     white-space: nowrap; }
 
-/* line 79, ../scss/bootstrap/_dropdowns.scss */
+/* line 89, ../scss/bootstrap/_dropdowns.scss */
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
   text-decoration: none;
   color: white;
   background-color: #00aefd; }
 
-/* line 90, ../scss/bootstrap/_dropdowns.scss */
+/* line 100, ../scss/bootstrap/_dropdowns.scss */
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
   color: white;
   text-decoration: none;
   outline: 0;
   background-color: #00aefd; }
 
-/* line 105, ../scss/bootstrap/_dropdowns.scss */
+/* line 115, ../scss/bootstrap/_dropdowns.scss */
 .dropdown-menu > .disabled > a, .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
   color: #999999; }
 
-/* line 112, ../scss/bootstrap/_dropdowns.scss */
+/* line 122, ../scss/bootstrap/_dropdowns.scss */
 .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
   text-decoration: none;
   background-color: transparent;
@@ -2401,14 +2406,14 @@ input[type="button"].btn-block {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   cursor: not-allowed; }
 
-/* line 124, ../scss/bootstrap/_dropdowns.scss */
+/* line 134, ../scss/bootstrap/_dropdowns.scss */
 .open > .dropdown-menu {
   display: block; }
-/* line 129, ../scss/bootstrap/_dropdowns.scss */
+/* line 139, ../scss/bootstrap/_dropdowns.scss */
 .open > a {
   outline: 0; }
 
-/* line 135, ../scss/bootstrap/_dropdowns.scss */
+/* line 145, ../scss/bootstrap/_dropdowns.scss */
 .dropdown-header {
   display: block;
   padding: 3px 20px;
@@ -2416,7 +2421,7 @@ input[type="button"].btn-block {
   line-height: 1.42857;
   color: #999999; }
 
-/* line 144, ../scss/bootstrap/_dropdowns.scss */
+/* line 154, ../scss/bootstrap/_dropdowns.scss */
 .dropdown-backdrop {
   position: fixed;
   left: 0;
@@ -2425,18 +2430,18 @@ input[type="button"].btn-block {
   top: 0;
   z-index: 990; }
 
-/* line 154, ../scss/bootstrap/_dropdowns.scss */
+/* line 164, ../scss/bootstrap/_dropdowns.scss */
 .pull-right > .dropdown-menu {
   right: 0;
   left: auto; }
 
-/* line 167, ../scss/bootstrap/_dropdowns.scss */
+/* line 177, ../scss/bootstrap/_dropdowns.scss */
 .dropup .caret,
 .navbar-fixed-bottom .dropdown .caret {
   border-top: 0 dotted;
   border-bottom: 4px solid black;
   content: ""; }
-/* line 175, ../scss/bootstrap/_dropdowns.scss */
+/* line 185, ../scss/bootstrap/_dropdowns.scss */
 .dropup .dropdown-menu,
 .navbar-fixed-bottom .dropdown .dropdown-menu {
   top: auto;
@@ -2444,7 +2449,7 @@ input[type="button"].btn-block {
   margin-bottom: 1px; }
 
 @media (min-width: 768px) {
-  /* line 189, ../scss/bootstrap/_dropdowns.scss */
+  /* line 199, ../scss/bootstrap/_dropdowns.scss */
   .navbar-right .dropdown-menu {
     right: 0;
     left: auto; } }
@@ -2788,92 +2793,92 @@ input[type="button"].btn-block {
       /* line 24, ../scss/bootstrap/_navs.scss */
       .nav > li > a:hover, .nav > li > a:focus {
         text-decoration: none;
-        background-color: #eeeeee; }
-    /* line 31, ../scss/bootstrap/_navs.scss */
+        background-color: #eeeeee;
+        color: inherit; }
+    /* line 32, ../scss/bootstrap/_navs.scss */
     .nav > li.disabled > a {
       color: #999999; }
-      /* line 35, ../scss/bootstrap/_navs.scss */
+      /* line 36, ../scss/bootstrap/_navs.scss */
       .nav > li.disabled > a:hover, .nav > li.disabled > a:focus {
         color: #999999;
         text-decoration: none;
         background-color: transparent;
         cursor: not-allowed; }
-  /* line 48, ../scss/bootstrap/_navs.scss */
+  /* line 49, ../scss/bootstrap/_navs.scss */
   .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background-color: #eeeeee;
     border-color: #00aefd; }
-  /* line 55, ../scss/bootstrap/_navs.scss */
+  /* line 56, ../scss/bootstrap/_navs.scss */
   .nav .nav-divider {
     height: 1px;
     margin: 10px 0;
     overflow: hidden;
     background-color: #e5e5e5; }
-  /* line 61, ../scss/bootstrap/_navs.scss */
+  /* line 62, ../scss/bootstrap/_navs.scss */
   .nav > li > a > img {
     max-width: none; }
 
-/* line 71, ../scss/bootstrap/_navs.scss */
+/* line 72, ../scss/bootstrap/_navs.scss */
 .nav-tabs {
   margin-top: 20px; }
-  /* line 74, ../scss/bootstrap/_navs.scss */
+  /* line 75, ../scss/bootstrap/_navs.scss */
   .nav-tabs > li {
     float: left;
     margin-bottom: -1px; }
-    /* line 80, ../scss/bootstrap/_navs.scss */
+    /* line 81, ../scss/bootstrap/_navs.scss */
     .nav-tabs > li > a {
       margin-right: 2px;
       line-height: 1.42857;
       border: 1px solid transparent;
-      border-radius: 4px 4px 0 0;
       padding: 10px 10px; }
-    /* line 92, ../scss/bootstrap/_navs.scss */
+    /* line 93, ../scss/bootstrap/_navs.scss */
     .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
       color: #555555;
       background-color: white;
       cursor: default;
       background-color: #f5f5f5; }
 
-/* line 114, ../scss/bootstrap/_navs.scss */
+/* line 115, ../scss/bootstrap/_navs.scss */
 .nav-pills > li {
   float: left; }
-  /* line 118, ../scss/bootstrap/_navs.scss */
+  /* line 119, ../scss/bootstrap/_navs.scss */
   .nav-pills > li > a {
     border-radius: 5px; }
-  /* line 121, ../scss/bootstrap/_navs.scss */
+  /* line 122, ../scss/bootstrap/_navs.scss */
   .nav-pills > li + li {
     margin-left: 2px; }
-  /* line 129, ../scss/bootstrap/_navs.scss */
+  /* line 130, ../scss/bootstrap/_navs.scss */
   .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     color: white;
     background-color: #00aefd; }
 
-/* line 140, ../scss/bootstrap/_navs.scss */
+/* line 141, ../scss/bootstrap/_navs.scss */
 .nav-stacked > li {
   float: none; }
-  /* line 142, ../scss/bootstrap/_navs.scss */
+  /* line 143, ../scss/bootstrap/_navs.scss */
   .nav-stacked > li + li {
     margin-top: 2px;
     margin-left: 0; }
 
-/* line 156, ../scss/bootstrap/_navs.scss */
+/* line 157, ../scss/bootstrap/_navs.scss */
 .nav-justified, .nav-tabs.nav-justified {
   width: 100%; }
-  /* line 159, ../scss/bootstrap/_navs.scss */
+  /* line 160, ../scss/bootstrap/_navs.scss */
   .nav-justified > li, .nav-tabs.nav-justified > li {
     float: none; }
-    /* line 161, ../scss/bootstrap/_navs.scss */
+    /* line 162, ../scss/bootstrap/_navs.scss */
     .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
       text-align: center; }
   @media (min-width: 768px) {
-    /* line 167, ../scss/bootstrap/_navs.scss */
+    /* line 168, ../scss/bootstrap/_navs.scss */
     .nav-justified > li, .nav-tabs.nav-justified > li {
       display: table-cell;
       width: 1%; } }
 
-/* line 175, ../scss/bootstrap/_navs.scss */
+/* line 176, ../scss/bootstrap/_navs.scss */
 .nav-tabs-justified, .nav-tabs.nav-justified {
   border-bottom: 0; }
-  /* line 177, ../scss/bootstrap/_navs.scss */
+  /* line 178, ../scss/bootstrap/_navs.scss */
   .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
     margin-right: 0; }
 
@@ -2887,27 +2892,27 @@ input[type="button"].btn-block {
 .tabbable:after {
   clear: both; }
 
-/* line 199, ../scss/bootstrap/_navs.scss */
+/* line 200, ../scss/bootstrap/_navs.scss */
 .tab-content > .tab-pane,
 .pill-content > .pill-pane {
   display: none; }
 
-/* line 204, ../scss/bootstrap/_navs.scss */
+/* line 205, ../scss/bootstrap/_navs.scss */
 .tab-content > .active,
 .pill-content > .active {
   display: block; }
 
-/* line 215, ../scss/bootstrap/_navs.scss */
+/* line 216, ../scss/bootstrap/_navs.scss */
 .nav .caret {
   border-top-color: #00aefd;
   border-bottom-color: #00aefd; }
 
-/* line 219, ../scss/bootstrap/_navs.scss */
+/* line 220, ../scss/bootstrap/_navs.scss */
 .nav a:hover .caret {
   border-top-color: #0079b1;
   border-bottom-color: #0079b1; }
 
-/* line 225, ../scss/bootstrap/_navs.scss */
+/* line 226, ../scss/bootstrap/_navs.scss */
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-right-radius: 0;
