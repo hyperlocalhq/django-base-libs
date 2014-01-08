@@ -39,28 +39,35 @@
                 <h4>{% trans "Add new exhibition" %}</h4>
             {% endif %}
         {% endblock %}
-        {% if exhibition %}
-            <div id="pub-status" class="status">
-                <select class="status-switch" data-url="{{ exhibition.get_url_path }}status/">
-                    <option value="draft"{% if exhibition.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
-                    <option value="published"{% if exhibition.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
-                    <option value="expired"{% if exhibition.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
-                </select>
-            </div>
-            <script>
-                $(function() {
-                    $('.status').hover(function() {
-                        $(this).addClass('hover');
-                    }, function() {
-                        $(this).removeClass('hover');
-                    }).mouseleave();
-                    $('.status-switch').change(function() {
-                        var $this = $(this);
-                        $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+        <div id="form-meta">
+            {% block form_language_switcher %} {% endblock %}
+
+            {% if exhibition %}
+                <div id="pub-status" class="status">
+                    <select class="status-switch" data-url="{{ exhibition.get_url_path }}status/">
+                        <option value="draft"{% if exhibition.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                        <option value="published"{% if exhibition.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
+                        <option value="expired"{% if exhibition.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
+                    </select>
+                </div>
+                <script>
+                    $(function() {
+                        $('.status').hover(function() {
+                            $(this).addClass('hover');
+                        }, function() {
+                            $(this).removeClass('hover');
+                        }).mouseleave();
+                        $('.status-switch').change(function() {
+                            var $this = $(this);
+                            $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+                        });
                     });
-                });
-            </script>
-        {% endif %}
+                </script>
+            {% endif %}
+            
+            <a class="btn btn-info" id="preview_page" href="{{ exhibition.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
+        </div>
+
         {% include "utils/step_list.html" %}
     </div>
 {% endblock %}
@@ -88,7 +95,6 @@
         {% endblock %}
     </div>
 </div>
-<a id="preview_page" href="{{ exhibition.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
 {% endblock %}
 
 {% block footer %}

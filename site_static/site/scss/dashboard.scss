@@ -1,19 +1,29 @@
 .row {
 }
-
-#form_languages {
+#form-meta {
   position: absolute;
-  top: 40px;
-  right: 170px;
-  width: 150px;
-}
-
-#pub-status {
-  position: absolute;
+  top: 30px;
   right: 15px;
-  top: 40px;
-  width: 150px;
+  > * {
+    float: left;
+    margin-left: 4px;
+  }
+  #preview_page {
+    text-transform: none;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #404040;
+  }
+  #form_languages {
+    width: 150px;
+  }
+
+  #pub-status {
+    width: 150px;
+  }
 }
+
 .fieldset-season-opening-hours {
   .form-group {
     margin-bottom: -2px;

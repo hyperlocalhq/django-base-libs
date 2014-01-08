@@ -39,32 +39,34 @@
             {% trans "Add new Guided Tour" %}
         {% endif %}
     {% endblock %}
-    
-    {% block form_language_switcher %} {% endblock %}
+        <div id="form-meta">
+            {% block form_language_switcher %} {% endblock %}
 
-    {% if workshop %}
-        <div id="pub-status" class="status">
-            <select class="status-switch" data-url="{{ workshop.get_url_path }}status/">
-                <option value="draft"{% if workshop.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
-                <option value="published"{% if workshop.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
-                <option value="expired"{% if workshop.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
-            </select>
+            {% if workshop %}
+                <div id="pub-status" class="status">
+                    <select class="status-switch" data-url="{{ workshop.get_url_path }}status/">
+                        <option value="draft"{% if workshop.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                        <option value="published"{% if workshop.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
+                        <option value="expired"{% if workshop.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
+                    </select>
+                </div>
+                <script>
+                    $(function() {
+                        $('.status').hover(function() {
+                            $(this).addClass('hover');
+                        }, function() {
+                            $(this).removeClass('hover');
+                        }).mouseleave();
+                        $('.status-switch').change(function() {
+                            var $this = $(this);
+                            $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+                        });
+                    });
+                </script>
+            {% endif %}
+            <a id="preview_page" class="btn btn-info" href="{{ workshop.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
         </div>
-        <script>
-            $(function() {
-                $('.status').hover(function() {
-                    $(this).addClass('hover');
-                }, function() {
-                    $(this).removeClass('hover');
-                }).mouseleave();
-                $('.status-switch').change(function() {
-                    var $this = $(this);
-                    $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
-                });
-            });
-        </script>
-    {% endif %}
-    {% include "utils/step_list.html" %}
+        {% include "utils/step_list.html" %}
     </div>
 {% endblock %}
 
@@ -92,7 +94,6 @@
         {% endblock %}
     </div>
 </div>
-<a id="preview_page" href="{{ workshop.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
 {% endblock %}
 
 {% block footer %}
