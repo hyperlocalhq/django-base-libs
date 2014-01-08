@@ -32,9 +32,17 @@
           </div>
         {% endif %}
         <div id="language-menu" class="pull-left">
-          {% block language_chooser %}
-              {% language_chooser %}
-          {% endblock %}
+          <div class="dropdown">
+            <!-- Link or button to toggle dropdown -->
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              {{ LANGUAGE_CODE|upper }}
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+              {% for language in LANGUAGES %}
+                <li class="{% if LANGUAGE_CODE == language.0 %}active{% endif %}"><a href="/{{ language.0 }}/dashboard/">{{ language.1 }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
 

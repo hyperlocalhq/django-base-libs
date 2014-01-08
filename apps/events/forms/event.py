@@ -186,8 +186,8 @@ class BasicInfoForm(ModelForm):
             _("Location"),
             layout.Div(
                 layout.Div(
-                    layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
-                    layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
+                    layout.Field("museum", template="bootstrap3/field_marked_as_required.html"),
+                    layout.Field("location_name", template="bootstrap3/field_marked_as_required.html"),
                     "street_address",
                     "street_address2",
                     "postal_code",
@@ -196,7 +196,7 @@ class BasicInfoForm(ModelForm):
                 layout.HTML("""{% load i18n %}
                     <div id="dyn_set_map">
                         <label>{% trans "Location" %}</label>
-                        <div class="event_map" id="gmap_wrapper">
+                        <div class="event_map" id="gmap-wrapper">
                             <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                         </div>
                         <div class="form-actions">
