@@ -54,7 +54,12 @@
     }
   }
   .form-actions {
+    padding: 25px 35px;
+  }
+
+  .form-actions:last-child {
     background-color: white;
+    padding: 0px;
     padding-top: 25px;
     .btn-primary {
       float: right;
