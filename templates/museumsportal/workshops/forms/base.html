@@ -29,16 +29,17 @@
     <li><a class="preview icon icon-white icon-view" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Preview" %}" href="{{ workshop.get_url_path }}?preview">&nbsp;<span>{% trans "Preview" %}</span></a></li>
 {% endblock %}
 
-{% block dashboard_title %}
-    {% if workshop %}
-        <span>{% trans "Guided Tours, Workshops and educational offers" %}</span> {{ workshop.title }}
-    {% else %}
-        {% trans "Add new Guided Tour" %}
-    {% endif %}
-{% endblock %}
-
 {% block form_steps %}
-<div class="container">
+    <div class="dashboard-header container relative">
+    {% block dashboard_title %}
+        {% if workshop %}
+            <!-- <span>{% trans "Guided Tours, Workshops and educational offers" %}</span>  -->
+            <h4>{{ workshop.title }}</h4>
+        {% else %}
+            {% trans "Add new Guided Tour" %}
+        {% endif %}
+    {% endblock %}
+
     {% if workshop %}
         <div id="pub-status" class="status">
             <select class="status-switch" data-url="{{ workshop.get_url_path }}status/">
@@ -62,10 +63,11 @@
         </script>
     {% endif %}
     {% include "utils/step_list.html" %}
-</div>
+    </div>
 {% endblock %}
 
 {% block content %}
+
 <div class="container">
     <div class="dashboard-content">
         {% if messages %}

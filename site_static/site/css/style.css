@@ -4170,7 +4170,7 @@ dl {
 #pub-status {
   position: absolute;
   right: 15px;
-  top: 10px;
+  top: 40px;
   width: 150px; }
 
 /* line 17, ../scss/dashboard.scss */
@@ -4178,19 +4178,23 @@ dl {
   margin-bottom: -2px; }
 
 /* line 21, ../scss/dashboard.scss */
+.dashboard-header {
+  padding-top: 35px; }
+
+/* line 22, ../scss/dashboard.scss */
 .dashboard-content {
   background-color: #f5f5f5; }
-  /* line 23, ../scss/dashboard.scss */
+  /* line 24, ../scss/dashboard.scss */
   .dashboard-content .messages {
     padding-top: 25px;
     padding-left: 35px;
     padding-right: 35px;
     padding-bottom: 25px;
     border-bottom: 4px solid #fff; }
-    /* line 29, ../scss/dashboard.scss */
+    /* line 30, ../scss/dashboard.scss */
     .dashboard-content .messages * {
       margin: 0px; }
-  /* line 31, ../scss/dashboard.scss */
+  /* line 32, ../scss/dashboard.scss */
   .dashboard-content fieldset {
     padding-top: 75px;
     padding-left: 35px;
@@ -4199,98 +4203,98 @@ dl {
     margin: 0px;
     background-color: #f5f5f5;
     border-bottom: 4px solid #fff; }
-    /* line 39, ../scss/dashboard.scss */
+    /* line 40, ../scss/dashboard.scss */
     .dashboard-content fieldset.no-legend {
       padding-top: 0px;
       margin-top: 12px; }
-    /* line 44, ../scss/dashboard.scss */
+    /* line 45, ../scss/dashboard.scss */
     .dashboard-content fieldset fieldset {
       padding: 0px !important;
       padding-top: 75px !important;
       margin: 0px !important;
       border: none !important; }
-    /* line 50, ../scss/dashboard.scss */
+    /* line 51, ../scss/dashboard.scss */
     .dashboard-content fieldset:first-child {
       border: none !important; }
-  /* line 54, ../scss/dashboard.scss */
+  /* line 55, ../scss/dashboard.scss */
   .dashboard-content .form-actions {
     background-color: white;
     padding-top: 25px; }
-    /* line 57, ../scss/dashboard.scss */
+    /* line 58, ../scss/dashboard.scss */
     .dashboard-content .form-actions .btn-primary {
       float: right; }
 
-/* line 62, ../scss/dashboard.scss */
+/* line 63, ../scss/dashboard.scss */
 .checkbox-group {
   margin-bottom: 15px; }
-  /* line 64, ../scss/dashboard.scss */
+  /* line 65, ../scss/dashboard.scss */
   .checkbox-group > .form-group {
     margin-bottom: 2px; }
 
-/* line 69, ../scss/dashboard.scss */
+/* line 70, ../scss/dashboard.scss */
 .checkbox-inline-group > label {
   display: block;
   margin-top: 15px; }
-/* line 73, ../scss/dashboard.scss */
+/* line 74, ../scss/dashboard.scss */
 .checkbox-inline-group .form-group {
   display: inline-block;
   margin-right: 2px; }
 
-/* line 78, ../scss/dashboard.scss */
+/* line 79, ../scss/dashboard.scss */
 .dashboard .container {
   max-width: 940px;
   min-width: 940px;
   width: 940px; }
 
-/* line 83, ../scss/dashboard.scss */
+/* line 84, ../scss/dashboard.scss */
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px; }
-  /* line 86, ../scss/dashboard.scss */
+  /* line 87, ../scss/dashboard.scss */
   .dashboard-table .item a {
     display: block; }
-  /* line 90, ../scss/dashboard.scss */
+  /* line 91, ../scss/dashboard.scss */
   .dashboard-table tr:hover td {
     background-color: #f0f0f0; }
-  /* line 93, ../scss/dashboard.scss */
+  /* line 94, ../scss/dashboard.scss */
   .dashboard-table tr td, .dashboard-table tr th {
     padding: 5px 10px; }
-    /* line 95, ../scss/dashboard.scss */
+    /* line 96, ../scss/dashboard.scss */
     .dashboard-table tr td:last-child, .dashboard-table tr th:last-child {
       text-align: right; }
-  /* line 97, ../scss/dashboard.scss */
+  /* line 98, ../scss/dashboard.scss */
   .dashboard-table tr th small {
     font-size: 10px;
     text-transform: uppercase;
     font-weight: normal;
     color: rgba(0, 0, 0, 0.75) !important; }
-  /* line 103, ../scss/dashboard.scss */
+  /* line 104, ../scss/dashboard.scss */
   .dashboard-table tr td {
     border-bottom: 2px solid white;
     vertical-align: middle;
     color: rgba(0, 0, 0, 0.75) !important;
     background-color: #f2f2f2; }
-    /* line 106, ../scss/dashboard.scss */
+    /* line 107, ../scss/dashboard.scss */
     .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
       width: 1%;
       white-space: nowrap; }
-    /* line 115, ../scss/dashboard.scss */
+    /* line 116, ../scss/dashboard.scss */
     .dashboard-table tr td .status {
       margin-bottom: -2px;
       height: 24px;
       width: 115px;
       display: block; }
-      /* line 120, ../scss/dashboard.scss */
+      /* line 121, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbToggle {
         height: 24px;
         width: 24px;
         background-color: rgba(0, 0, 0, 0);
         opacity: 0.25; }
-        /* line 125, ../scss/dashboard.scss */
+        /* line 126, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbToggle.sbToggleOpen {
           opacity: 0.5;
           background-color: rgba(0, 0, 0, 0.15); }
-      /* line 130, ../scss/dashboard.scss */
+      /* line 131, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbHolder {
         background-color: rgba(0, 0, 0, 0.025);
         border: none;
@@ -4303,14 +4307,14 @@ dl {
         width: 100%;
         font-size: 13px !important;
         line-height: 24px !important; }
-        /* line 144, ../scss/dashboard.scss */
+        /* line 145, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbHolder:hover {
           background-color: rgba(0, 0, 0, 0); }
-      /* line 147, ../scss/dashboard.scss */
+      /* line 148, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbOptions a {
         padding-top: 5px;
         padding-bottom: 5px; }
-      /* line 151, ../scss/dashboard.scss */
+      /* line 152, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbSelector {
         font-size: 13px !important;
         line-height: 24px !important;
@@ -4318,28 +4322,28 @@ dl {
         box-sizing: border-box;
         -moz-box-sizing: border-box; }
 
-/* line 164, ../scss/dashboard.scss */
+/* line 165, ../scss/dashboard.scss */
 #dashboard fieldset {
   margin-top: 60px;
   position: relative; }
-/* line 165, ../scss/dashboard.scss */
+/* line 166, ../scss/dashboard.scss */
 #dashboard legend {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important;
   margin: 0px; }
-  /* line 166, ../scss/dashboard.scss */
+  /* line 167, ../scss/dashboard.scss */
   #dashboard legend a {
     color: black; }
-/* line 170, ../scss/dashboard.scss */
+/* line 171, ../scss/dashboard.scss */
 #dashboard .all {
   color: #00aefd !important;
   font-size: 13px !important;
   line-height: 24px !important; }
-  /* line 171, ../scss/dashboard.scss */
+  /* line 172, ../scss/dashboard.scss */
   #dashboard .all:hover {
     color: black !important; }
-/* line 174, ../scss/dashboard.scss */
+/* line 175, ../scss/dashboard.scss */
 #dashboard .icon-last-edited {
   background-size: cover;
   background-position: center;
@@ -4353,7 +4357,7 @@ dl {
   background-image: url("../img/icons/edit.png");
   opacity: 0.35;
   margin-top: 0px; }
-/* line 188, ../scss/dashboard.scss */
+/* line 189, ../scss/dashboard.scss */
 #dashboard .add {
   position: absolute;
   right: 0px;
@@ -4374,41 +4378,41 @@ dl {
   color: white;
   font-weight: 300;
   white-space: nowrap; }
-  /* line 208, ../scss/dashboard.scss */
+  /* line 209, ../scss/dashboard.scss */
   #dashboard .add:hover {
     background-color: black; }
-/* line 217, ../scss/dashboard.scss */
+/* line 218, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums li:hover .actions, #dashboard fieldset > ul.exhibitions li:hover .actions, #dashboard fieldset > ul.events li:hover .actions, #dashboard fieldset > ul.workshops li:hover .actions {
   opacity: 1; }
-/* line 218, ../scss/dashboard.scss */
+/* line 219, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums .actions, #dashboard fieldset > ul.exhibitions .actions, #dashboard fieldset > ul.events .actions, #dashboard fieldset > ul.workshops .actions {
   opacity: 0.25; }
-/* line 222, ../scss/dashboard.scss */
+/* line 223, ../scss/dashboard.scss */
 #dashboard fieldset > ul > li {
   position: relative; }
-  /* line 226, ../scss/dashboard.scss */
+  /* line 227, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover .status {
     opacity: 1; }
-    /* line 228, ../scss/dashboard.scss */
+    /* line 229, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbToggle {
       background-color: rgba(0, 0, 0, 0.15);
       opacity: 0.5; }
-    /* line 232, ../scss/dashboard.scss */
+    /* line 233, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbHolder {
       background-color: rgba(0, 0, 0, 0); }
-  /* line 237, ../scss/dashboard.scss */
+  /* line 238, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li .status {
     position: absolute;
     top: 8px;
     right: 80px;
     width: 115px; }
-    /* line 242, ../scss/dashboard.scss */
+    /* line 243, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbToggle {
       height: 24px;
       width: 100%;
       background-color: rgba(0, 0, 0, 0);
       opacity: 0.25; }
-    /* line 248, ../scss/dashboard.scss */
+    /* line 249, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbHolder {
       background-color: #ebebeb !important;
       border: none;
@@ -4421,21 +4425,21 @@ dl {
       width: 100%;
       font-size: 13px !important;
       line-height: 24px !important; }
-    /* line 262, ../scss/dashboard.scss */
+    /* line 263, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbOptions a {
       padding-top: 5px;
       padding-bottom: 5px; }
-    /* line 266, ../scss/dashboard.scss */
+    /* line 267, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbSelector {
       font-size: 13px !important;
       line-height: 24px !important;
       width: 100%;
       box-sizing: border-box;
       -moz-box-sizing: border-box; }
-  /* line 276, ../scss/dashboard.scss */
+  /* line 277, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 281, ../scss/dashboard.scss */
+  /* line 282, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li > h3,
   #dashboard fieldset > ul > li > span,
   #dashboard fieldset > ul > li > a {
@@ -4449,12 +4453,12 @@ dl {
     -moz-box-sizing: border-box;
     margin-bottom: 2px;
     white-space: nowrap; }
-    /* line 295, ../scss/dashboard.scss */
+    /* line 296, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 .title,
     #dashboard fieldset > ul > li > span .title,
     #dashboard fieldset > ul > li > a .title {
       font-weight: 700; }
-    /* line 298, ../scss/dashboard.scss */
+    /* line 299, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3:hover h3, #dashboard fieldset > ul > li > h3:hover h4, #dashboard fieldset > ul > li > h3:hover h5,
     #dashboard fieldset > ul > li > span:hover h3,
     #dashboard fieldset > ul > li > span:hover h4,
@@ -4463,13 +4467,13 @@ dl {
     #dashboard fieldset > ul > li > a:hover h4,
     #dashboard fieldset > ul > li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
-    /* line 300, ../scss/dashboard.scss */
+    /* line 301, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > a h3 {
       overflow: hidden;
       max-width: 700px; }
-    /* line 306, ../scss/dashboard.scss */
+    /* line 307, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3, #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > span h5,
@@ -4477,7 +4481,7 @@ dl {
     #dashboard fieldset > ul > li > a h5 {
       display: inline-block;
       font-size: 16px !important; }
-    /* line 307, ../scss/dashboard.scss */
+    /* line 308, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h5,
     #dashboard fieldset > ul > li > a h5 {
