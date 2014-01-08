@@ -186,8 +186,8 @@ class BasicInfoForm(ModelForm):
             _("Location"),
             layout.Div(
                 layout.Div(
-                    layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
-                    layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
+                    layout.Field("museum", template="bootstrap3/field_marked_as_required.html"),
+                    layout.Field("location_name", template="bootstrap3/field_marked_as_required.html"),
                     "street_address",
                     "street_address2",
                     "postal_code",
