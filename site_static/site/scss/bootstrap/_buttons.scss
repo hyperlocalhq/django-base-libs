@@ -10,6 +10,12 @@
 .btn-icon {
   padding: 0px !important;
 }
+.btn-icon {
+  padding: 0px !important;
+  &.btn-xs {}
+  &.btn-sm { min-width: 25px; .icon { line-height: 1.4;}}
+  &.btn-lg {}
+}
 .btn {
   display: inline-block;
   padding: 0 13px;

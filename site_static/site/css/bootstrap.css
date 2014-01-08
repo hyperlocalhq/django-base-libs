@@ -2024,6 +2024,16 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   padding: 0px !important; }
 
 /* line 13, ../scss/bootstrap/_buttons.scss */
+.btn-icon {
+  padding: 0px !important; }
+  /* line 16, ../scss/bootstrap/_buttons.scss */
+  .btn-icon.btn-sm, .btn-group-sm > .btn-icon.btn {
+    min-width: 25px; }
+    /* line 16, ../scss/bootstrap/_buttons.scss */
+    .btn-icon.btn-sm .icon, .btn-group-sm > .btn-icon.btn .icon {
+      line-height: 1.4; }
+
+/* line 19, ../scss/bootstrap/_buttons.scss */
 .btn {
   display: inline-block;
   padding: 0 13px;
@@ -2043,36 +2053,36 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none; }
-  /* line 34, ../scss/bootstrap/_buttons.scss */
+  /* line 40, ../scss/bootstrap/_buttons.scss */
   .btn:focus {
     outline: thin dotted #333;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
-  /* line 39, ../scss/bootstrap/_buttons.scss */
+  /* line 45, ../scss/bootstrap/_buttons.scss */
   .btn:hover, .btn:focus {
     color: white;
     text-decoration: none; }
-  /* line 45, ../scss/bootstrap/_buttons.scss */
+  /* line 51, ../scss/bootstrap/_buttons.scss */
   .btn:active, .btn.active {
     outline: 0;
     background-image: none; }
-  /* line 53, ../scss/bootstrap/_buttons.scss */
+  /* line 59, ../scss/bootstrap/_buttons.scss */
   .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.65;
     filter: alpha(opacity=65); }
 
-/* line 62, ../scss/bootstrap/_buttons.scss */
+/* line 68, ../scss/bootstrap/_buttons.scss */
 .btn-round {
   padding: 0px;
   border-radius: 100%; }
-  /* line 65, ../scss/bootstrap/_buttons.scss */
+  /* line 71, ../scss/bootstrap/_buttons.scss */
   .btn-round .icon {
     line-height: 17px;
     font-size: 10px; }
 
-/* line 80, ../scss/bootstrap/_buttons.scss */
+/* line 86, ../scss/bootstrap/_buttons.scss */
 .btn-default {
   color: white;
   background-color: black;
@@ -2098,7 +2108,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: black;
     border-color: #cccccc; }
 
-/* line 83, ../scss/bootstrap/_buttons.scss */
+/* line 89, ../scss/bootstrap/_buttons.scss */
 .btn-primary {
   color: white;
   background-color: #00aefd;
@@ -2124,7 +2134,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #00aefd;
     border-color: #009ce4; }
 
-/* line 87, ../scss/bootstrap/_buttons.scss */
+/* line 93, ../scss/bootstrap/_buttons.scss */
 .btn-warning {
   color: white;
   background-color: #ffe345;
@@ -2150,7 +2160,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #ffe345;
     border-color: #ffdf2b; }
 
-/* line 91, ../scss/bootstrap/_buttons.scss */
+/* line 97, ../scss/bootstrap/_buttons.scss */
 .btn-danger {
   color: white;
   background-color: #ff4582;
@@ -2176,7 +2186,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #ff4582;
     border-color: #ff2b71; }
 
-/* line 95, ../scss/bootstrap/_buttons.scss */
+/* line 101, ../scss/bootstrap/_buttons.scss */
 .btn-success {
   color: white;
   background-color: #1edc80;
@@ -2202,7 +2212,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #1edc80;
     border-color: #1bc673; }
 
-/* line 99, ../scss/bootstrap/_buttons.scss */
+/* line 105, ../scss/bootstrap/_buttons.scss */
 .btn-info {
   color: black;
   background-color: #f2f2f2;
@@ -2231,32 +2241,32 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     background-color: #f2f2f2;
     border-color: #e5e5e5; }
 
-/* line 111, ../scss/bootstrap/_buttons.scss */
+/* line 117, ../scss/bootstrap/_buttons.scss */
 .btn-link {
   color: #00aefd;
   color: black;
   font-weight: normal;
   cursor: pointer;
   border-radius: 0; }
-  /* line 121, ../scss/bootstrap/_buttons.scss */
+  /* line 127, ../scss/bootstrap/_buttons.scss */
   .btn-link, .btn-link:active, .btn-link[disabled], fieldset[disabled] .btn-link {
     background-color: transparent;
     -webkit-box-shadow: none;
     box-shadow: none; }
-  /* line 128, ../scss/bootstrap/_buttons.scss */
+  /* line 134, ../scss/bootstrap/_buttons.scss */
   .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
     border-color: transparent; }
-  /* line 132, ../scss/bootstrap/_buttons.scss */
+  /* line 138, ../scss/bootstrap/_buttons.scss */
   .btn-link:hover, .btn-link:focus {
     color: #0079b1;
     text-decoration: underline;
     background-color: transparent; }
-  /* line 140, ../scss/bootstrap/_buttons.scss */
+  /* line 146, ../scss/bootstrap/_buttons.scss */
   .btn-link[disabled]:hover, .btn-link[disabled]:focus, fieldset[disabled] .btn-link:hover, fieldset[disabled] .btn-link:focus {
     color: #999999;
     text-decoration: none; }
 
-/* line 151, ../scss/bootstrap/_buttons.scss */
+/* line 157, ../scss/bootstrap/_buttons.scss */
 .btn-lg, .btn-group-lg > .btn {
   height: 50px;
   line-height: 50px;
@@ -2265,30 +2275,30 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   text-transform: none;
   font-size: 18px; }
 
-/* line 161, ../scss/bootstrap/_buttons.scss */
+/* line 167, ../scss/bootstrap/_buttons.scss */
 .btn-sm, .btn-group-sm > .btn {
   height: 25px;
   line-height: 25px;
   padding: 0 8px;
   font-size: 14px; }
 
-/* line 169, ../scss/bootstrap/_buttons.scss */
+/* line 175, ../scss/bootstrap/_buttons.scss */
 .btn-xs, .btn-group-xs > .btn {
   height: 15px;
   line-height: 15px; }
 
-/* line 179, ../scss/bootstrap/_buttons.scss */
+/* line 185, ../scss/bootstrap/_buttons.scss */
 .btn-block {
   display: block;
   width: 100%;
   padding-left: 0;
   padding-right: 0; }
 
-/* line 187, ../scss/bootstrap/_buttons.scss */
+/* line 193, ../scss/bootstrap/_buttons.scss */
 .btn-block + .btn-block {
   margin-top: 5px; }
 
-/* line 195, ../scss/bootstrap/_buttons.scss */
+/* line 201, ../scss/bootstrap/_buttons.scss */
 input[type="submit"].btn-block,
 input[type="reset"].btn-block,
 input[type="button"].btn-block {
