@@ -10,7 +10,7 @@
                     <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"small" }}?now={% now "YmdHis" %}" alt="" />
                 </a>
                 {% with media_file.path|file_description as file_desc %}
-                <div class="info">
+                <div class="info hide">
                 {% if file_desc.title %}
                     <small class="title">{{ file_desc.title }}</small>
                 {% endif %}
