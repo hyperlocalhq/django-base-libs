@@ -1,8 +1,11 @@
 {% extends "events/forms/base.html" %}
 {% load crispy_forms_tags %}
 
-{% block multistep_form %}
+{% block form_language_switcher %}
     {% include "utils/form_language_switcher.html" %}
+{% endblock %}
+
+{% block multistep_form %}
     {% crispy form %}
     <script>
     $(function() {
