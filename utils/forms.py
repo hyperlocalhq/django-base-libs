@@ -15,7 +15,10 @@ class PrimarySubmit(layout.Submit):
     field_classes = "btn btn-lg btn-primary"
 
 class SecondarySubmit(layout.Submit):
-    field_classes = "btn btn-lg btn-default"
+    field_classes = "btn btn-lg btn-info"
+
+class SecondaryButton(layout.Button):
+    field_classes = "btn btn-lg btn-info"
 
 class InlineFormSet(BaseInlineFormSet):
     """ Inline formset which accepts initial values for unsaved models """

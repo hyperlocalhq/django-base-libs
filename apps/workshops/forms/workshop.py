@@ -34,6 +34,7 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from museumsportal.utils.forms import PrimarySubmit
 from museumsportal.utils.forms import SecondarySubmit
+from museumsportal.utils.forms import SecondaryButton
 from museumsportal.utils.forms import InlineFormSet
 
 
@@ -200,8 +201,8 @@ class BasicInfoForm(ModelForm):
             _("Location"),
             layout.Div(
                 layout.Div(
-                    layout.Field("museum", template="bootstrap/field_marked_as_required.html"),
-                    layout.Field("location_name", template="bootstrap/field_marked_as_required.html"),
+                    layout.Field("museum", template="bootstrap3/field_marked_as_required.html"),
+                    layout.Field("location_name", template="bootstrap3/field_marked_as_required.html"),
                     "street_address",
                     "street_address2",
                     "postal_code",
@@ -613,72 +614,72 @@ class BatchWorkshopTimeForm(forms.Form):
         choices=((1, _("Every week")), (2, _("Every second week"))),
     )
     mon_start = forms.TimeField(
-        label=_("Starts on Monday"),
+        label=_("From"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     mon_end = forms.TimeField(
-        label=_("Ends on Monday"),
+        label=_("till"),
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     tue_start = forms.TimeField(
-        label=_("Starts on Tuesday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     tue_end = forms.TimeField(
-        label=_("Ends on Tuesday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     wed_start = forms.TimeField(
-        label=_("Starts on Wednesday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     wed_end = forms.TimeField(
-        label=_("Ends on Wednesday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     thu_start = forms.TimeField(
-        label=_("Starts on Thursday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     thu_end = forms.TimeField(
-        label=_("Ends on Thursday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     fri_start = forms.TimeField(
-        label=_("Starts on Friday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     fri_end = forms.TimeField(
-        label=_("Ends on Friday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     sat_start = forms.TimeField(
-        label=_("Starts on Saturday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     sat_end = forms.TimeField(
-        label=_("Ends on Saturday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     sun_start = forms.TimeField(
-        label=_("Starts on Sunday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
     sun_end = forms.TimeField(
-        label=_("Ends on Sunday"),
+        label="",
         required=False,
         widget=forms.TimeInput(format='%H:%M'),
     )
@@ -708,75 +709,81 @@ class BatchWorkshopTimeForm(forms.Form):
                 ),
                 css_class="row-md",
             ),
+
             "repeat",
-            layout.Row(
-                layout.Div(
-                    bootstrap.PrependedText("mon_start", ugettext('Mo'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+
+            layout.Div(
+                layout.Row(
+                    layout.Div(
+                        bootstrap.PrependedText("mon_start", ugettext('Mo'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    layout.Div(
+                        bootstrap.PrependedText("mon_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    css_class="row-xs"
                 ),
-                layout.Div(
-                    bootstrap.PrependedText("mon_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                layout.Row(
+                    layout.Div(
+                        bootstrap.PrependedText("tue_start", ugettext('Tu'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    layout.Div(
+                        bootstrap.PrependedText("tue_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    css_class="row-xs"
                 ),
-                css_class="row-xs"
+                layout.Row(
+                    layout.Div(
+                        bootstrap.PrependedText("wed_start", ugettext('We'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    layout.Div(
+                        bootstrap.PrependedText("wed_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    css_class="row-xs"
+                ),
+                layout.Row(
+                    layout.Div(
+                        bootstrap.PrependedText("thu_start", ugettext('Th'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    layout.Div(
+                        bootstrap.PrependedText("thu_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    css_class="row-xs"
+                ),
+                layout.Row(
+                    layout.Div(
+                        bootstrap.PrependedText("fri_start", ugettext('Fr'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    layout.Div(
+                        bootstrap.PrependedText("fri_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    css_class="row-xs"
+                ),
+                layout.Row(
+                    layout.Div(
+                        bootstrap.PrependedText("sat_start", ugettext('Sa'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    layout.Div(
+                        bootstrap.PrependedText("sat_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    css_class="row-xs"
+                ),
+                layout.Row(
+                    layout.Div(
+                        bootstrap.PrependedText("sun_start", ugettext('Su'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    layout.Div(
+                        bootstrap.PrependedText("sun_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                    ),
+                    css_class="row-xs"
+                ),
+                css_class="opening-hours"
             ),
-            layout.Row(
-                layout.Div(
-                    bootstrap.PrependedText("tue_start", ugettext('Tu'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    bootstrap.PrependedText("tue_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-xs"
-            ),
-            layout.Row(
-                layout.Div(
-                    bootstrap.PrependedText("wed_start", ugettext('We'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    bootstrap.PrependedText("wed_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-xs"
-            ),
-            layout.Row(
-                layout.Div(
-                    bootstrap.PrependedText("thu_start", ugettext('Th'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    bootstrap.PrependedText("thu_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-xs"
-            ),
-            layout.Row(
-                layout.Div(
-                    bootstrap.PrependedText("fri_start", ugettext('Fr'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    bootstrap.PrependedText("fri_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-xs"
-            ),
-            layout.Row(
-                layout.Div(
-                    bootstrap.PrependedText("sat_start", ugettext('Sa'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    bootstrap.PrependedText("sat_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-xs"
-            ),
-            layout.Row(
-                layout.Div(
-                    bootstrap.PrependedText("sun_start", ugettext('Su'), placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    bootstrap.PrependedText("sun_end", "", placeholder="00:00"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                css_class="row-xs"
-            ),
+
         ))
         
         layout_blocks.append(bootstrap.FormActions(
             PrimarySubmit('submit', _('Create workshop times')),
-            layout.Button('go_back', _('Go back')),
+            SecondaryButton('go_back', _('Go back')),
         ))
 
         self.helper.layout = layout.Layout(

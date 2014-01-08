@@ -96,12 +96,12 @@
 				}
 				
 				if (value !='' && skipTag != true) { 
-                    $('<span>').addClass('tag').append(
+                    $('<span>').addClass('btn btn-primary tag').append(
                         $('<span>').text(value).append('&nbsp;&nbsp;'),
                         $('<a>', {
                             href  : '#',
                             title : 'Removing tag',
-                            text  : 'x'
+                            text  : '×'
                         }).click(function () {
                             return $('#' + id).removeTag(escape(value));
                         })
@@ -221,7 +221,7 @@
 			var markup = '<div id="'+id+'_tagsinput" class="tagsinput"><div id="'+id+'_addTag">';
 			
 			if (settings.interactive) {
-				markup = markup + '<input type="text" id="'+id+'_tag" value="" data-default="'+settings.defaultText+'" />';
+				markup = markup + '<input class="form-control" type="text" id="'+id+'_tag" value="" data-default="'+settings.defaultText+'" />';
 			}
 			
 			markup = markup + '</div><div class="tags_clear"></div></div>';

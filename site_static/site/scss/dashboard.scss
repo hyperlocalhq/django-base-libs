@@ -1,5 +1,12 @@
 .row {
 }
+.tagsinput {
+  .btn {
+    margin-right: 2px;
+    margin-bottom: 2px;
+  }
+}
+
 #form-meta {
   position: absolute;
   top: 30px;
@@ -18,11 +25,19 @@
   }
 }
 
+.opening-hours {
+  margin-bottom: 15px;
+  .form-group {
+    margin-bottom: 1px;
+  }
+}
+
 .fieldset-season-opening-hours {
   .form-group {
     margin-bottom: -2px;
   }
 }
+
 .dashboard-header { padding-top: 35px;}
 .dashboard-content {
   background-color: #f5f5f5;
@@ -70,12 +85,14 @@
     }
   }
 }
+
 .checkbox-group {
   margin-bottom: 15px;
   > .form-group {
     margin-bottom: 2px;
   }
 }
+
 .checkbox-inline-group {
   > label {
     display: block;

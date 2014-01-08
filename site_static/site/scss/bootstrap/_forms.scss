@@ -183,11 +183,17 @@ textarea.form-control {
   padding-right: 15px;
   vertical-align: middle;
   background-image: url("../img/transparent-1.png");
+  position: relative;
   label {
     display: inline;
     margin-bottom: 0;
     font-weight: normal;
     cursor: pointer;
+  }
+  img {
+    position: absolute;
+    right: 4px;
+    top: 4px;
   }
 }
 .radio input[type="radio"],
