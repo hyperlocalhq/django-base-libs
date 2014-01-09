@@ -199,7 +199,7 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            layout.Div(
+            layout.Row(
                 layout.Div(
                     layout.Field("museum", template="bootstrap3/field_marked_as_required.html"),
                     layout.Field("location_name", template="bootstrap3/field_marked_as_required.html"),
@@ -207,22 +207,27 @@ class BasicInfoForm(ModelForm):
                     "street_address2",
                     "postal_code",
                     "city",
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
-                layout.HTML("""{% load i18n %}
-                    <div id="dyn_set_map">
-                        <label>{% trans "Location" %}</label>
-                        <div class="workshop_map" id="gmap-wrapper">
-                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                layout.Div(
+                    layout.HTML("""{% load i18n %}
+                        <div id="dyn_set_map">
+                            <label>{% trans "Location" %}</label>
+                            <div class="workshop_map" id="gmap-wrapper">
+                                <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                            </div>
+                            <div class="form-actions">
+                                <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            </div>
                         </div>
-                        <div class="form-actions">
-                            <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
-                            <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
-                        </div>
-                    </div>
-                """),
-                "latitude",
-                "longitude",
-                css_class="cols-2",
+                    """),
+                    "latitude",
+                    "longitude",
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+
+                ),
+                css_class="row-md",
             ),
             css_class="fieldset-where",
         ))
@@ -584,11 +589,25 @@ class WorkshopTimeForm(ModelForm):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(
-            layout.Div(
-                layout.Field("workshop_date", placeholder="dd.mm.yyyy", autocomplete="off"),
-                layout.Field("start", placeholder="00:00"),
-                layout.Field("end", placeholder="00:00"),
-                css_class="flex",
+            layout.Row(
+                layout.Div(
+                    bootstrap.PrependedText("workshop_date", "", placeholder="dd.mm.yyyy", autocomplete="off"),
+                    css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    bootstrap.PrependedText("start", "", placeholder="00:00"),
+                    css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    bootstrap.PrependedText("end", "", placeholder="00:00"),
+                    css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    "DELETE",
+                    css_class="hide"
+                ),
+
+                css_class="row-xs",
             ),
         )
 
@@ -776,9 +795,8 @@ class BatchWorkshopTimeForm(forms.Form):
                     ),
                     css_class="row-xs"
                 ),
-                css_class="opening-hours"
             ),
-
+            css_class="no-legend"
         ))
         
         layout_blocks.append(bootstrap.FormActions(

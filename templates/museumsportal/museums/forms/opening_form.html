@@ -93,6 +93,10 @@ var error_messages = {
             str_close: '{% trans "Close" %}'
         });
         $("select").not('[name*="__prefix__"]').not('[sb]').selectbox();
+        
+        $('textarea').each(function() {
+          $(this).autosize();
+        });
     }
 
     function set_index_for_fields($formset_form, index) {

@@ -564,6 +564,10 @@ class SeasonForm(ModelForm):
                 "is_open_24_7",
                 css_class="checkbox-group"
             ),
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            "",
             layout.HTML("""{% load i18n %}
                 <div class="row row-md">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -662,7 +666,7 @@ class SeasonForm(ModelForm):
                     </div>
                 </div>
             """),
-            css_class="fieldset-season",
+            css_class="fieldset-season no-legend",
         ))
 
         layout_blocks.append(layout.Fieldset(

@@ -4209,34 +4209,30 @@ dl {
     width: 150px; }
 
 /* line 55, ../scss/dashboard.scss */
-.opening-hours {
+.no-legend {
   margin-bottom: 15px; }
   /* line 57, ../scss/dashboard.scss */
-  .opening-hours .form-group {
+  .no-legend .form-group {
     margin-bottom: 1px; }
 
-/* line 63, ../scss/dashboard.scss */
-.fieldset-season-opening-hours .form-group {
-  margin-bottom: -2px; }
-
-/* line 68, ../scss/dashboard.scss */
+/* line 62, ../scss/dashboard.scss */
 .dashboard-header {
   padding-top: 35px; }
 
-/* line 69, ../scss/dashboard.scss */
+/* line 63, ../scss/dashboard.scss */
 .dashboard-content {
   background-color: #f5f5f5; }
-  /* line 71, ../scss/dashboard.scss */
+  /* line 65, ../scss/dashboard.scss */
   .dashboard-content > .messages {
     padding-top: 25px;
     padding-left: 35px;
     padding-right: 35px;
     padding-bottom: 25px;
     border-bottom: 4px solid #fff; }
-    /* line 77, ../scss/dashboard.scss */
+    /* line 71, ../scss/dashboard.scss */
     .dashboard-content > .messages * {
       margin: 0px; }
-  /* line 80, ../scss/dashboard.scss */
+  /* line 74, ../scss/dashboard.scss */
   .dashboard-content fieldset {
     padding-top: 75px;
     padding-left: 35px;
@@ -4245,62 +4241,62 @@ dl {
     margin: 0px;
     background-color: #f5f5f5;
     border-bottom: 4px solid #fff; }
-    /* line 88, ../scss/dashboard.scss */
+    /* line 82, ../scss/dashboard.scss */
     .dashboard-content fieldset.no-legend {
       padding-top: 0px;
       margin-top: 12px; }
-    /* line 93, ../scss/dashboard.scss */
+    /* line 87, ../scss/dashboard.scss */
     .dashboard-content fieldset fieldset {
       padding: 0px !important;
       padding-top: 75px !important;
       padding-bottom: 25px !important;
       margin: 0px !important;
       border: none !important; }
-  /* line 101, ../scss/dashboard.scss */
+  /* line 95, ../scss/dashboard.scss */
   .dashboard-content .form-actions {
     padding: 25px 35px; }
-  /* line 105, ../scss/dashboard.scss */
+  /* line 99, ../scss/dashboard.scss */
   .dashboard-content .form-actions:last-child {
     background-color: white;
     padding: 0px;
     padding-top: 25px; }
-    /* line 109, ../scss/dashboard.scss */
+    /* line 103, ../scss/dashboard.scss */
     .dashboard-content .form-actions:last-child .btn-primary {
       float: right; }
 
-/* line 115, ../scss/dashboard.scss */
+/* line 109, ../scss/dashboard.scss */
 .checkbox-group {
   margin-bottom: 15px; }
-  /* line 117, ../scss/dashboard.scss */
+  /* line 111, ../scss/dashboard.scss */
   .checkbox-group > .form-group {
     margin-bottom: 2px; }
 
-/* line 123, ../scss/dashboard.scss */
+/* line 117, ../scss/dashboard.scss */
 .checkbox-inline-group > label {
   display: block;
   margin-top: 15px; }
-/* line 127, ../scss/dashboard.scss */
+/* line 121, ../scss/dashboard.scss */
 .checkbox-inline-group .form-group {
   display: inline-block;
   margin-right: 2px; }
 
-/* line 133, ../scss/dashboard.scss */
+/* line 127, ../scss/dashboard.scss */
 .form-control:-moz-placeholder {
   color: #999999; }
 
-/* line 136, ../scss/dashboard.scss */
+/* line 130, ../scss/dashboard.scss */
 .form-control::-moz-placeholder {
   color: #999999; }
 
-/* line 139, ../scss/dashboard.scss */
+/* line 133, ../scss/dashboard.scss */
 .form-control:-ms-input-placeholder {
   color: #999999; }
 
-/* line 142, ../scss/dashboard.scss */
+/* line 136, ../scss/dashboard.scss */
 .form-control::-webkit-input-placeholder {
   color: #999999; }
 
-/* line 145, ../scss/dashboard.scss */
+/* line 139, ../scss/dashboard.scss */
 .form-control {
   display: block;
   width: 100%;
@@ -4320,50 +4316,50 @@ dl {
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   background-image: url("../img/transparent-1.png"); }
 
-/* line 164, ../scss/dashboard.scss */
+/* line 158, ../scss/dashboard.scss */
 textarea.form-control {
   resize: vertical; }
 
-/* line 166, ../scss/dashboard.scss */
+/* line 160, ../scss/dashboard.scss */
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
 
-/* line 174, ../scss/dashboard.scss */
+/* line 168, ../scss/dashboard.scss */
 select {
   visibility: hidden; }
 
-/* line 177, ../scss/dashboard.scss */
+/* line 171, ../scss/dashboard.scss */
 .dashboard .container {
   max-width: 940px;
   min-width: 940px;
   width: 940px; }
 
-/* line 182, ../scss/dashboard.scss */
+/* line 176, ../scss/dashboard.scss */
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px; }
-  /* line 187, ../scss/dashboard.scss */
+  /* line 181, ../scss/dashboard.scss */
   .dashboard-table .item a {
     display: block; }
-  /* line 191, ../scss/dashboard.scss */
+  /* line 185, ../scss/dashboard.scss */
   .dashboard-table tr:hover td {
     background-color: #f0f0f0; }
-  /* line 194, ../scss/dashboard.scss */
+  /* line 188, ../scss/dashboard.scss */
   .dashboard-table tr td, .dashboard-table tr th {
     padding: 5px 10px; }
-    /* line 196, ../scss/dashboard.scss */
+    /* line 190, ../scss/dashboard.scss */
     .dashboard-table tr td:last-child, .dashboard-table tr th:last-child {
       text-align: right; }
-  /* line 198, ../scss/dashboard.scss */
+  /* line 192, ../scss/dashboard.scss */
   .dashboard-table tr th small {
     font-size: 10px;
     text-transform: uppercase;
     font-weight: normal;
     color: rgba(0, 0, 0, 0.75) !important; }
-  /* line 204, ../scss/dashboard.scss */
+  /* line 198, ../scss/dashboard.scss */
   .dashboard-table tr td {
     border-bottom: 2px solid transparent;
     vertical-align: middle;
@@ -4375,27 +4371,27 @@ select {
     background-clip: padding-box;
     /* Firefox 4, Safari 5, Opera 10, IE 9 */
     background-image: url("../img/transparent-1.png"); }
-    /* line 207, ../scss/dashboard.scss */
+    /* line 201, ../scss/dashboard.scss */
     .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
       width: 1%;
       white-space: nowrap; }
-    /* line 221, ../scss/dashboard.scss */
+    /* line 215, ../scss/dashboard.scss */
     .dashboard-table tr td .status {
       margin-bottom: -2px;
       height: 24px;
       width: 115px;
       display: block; }
-      /* line 226, ../scss/dashboard.scss */
+      /* line 220, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbToggle {
         height: 24px;
         width: 24px;
         background-color: rgba(0, 0, 0, 0);
         opacity: 0.25; }
-        /* line 231, ../scss/dashboard.scss */
+        /* line 225, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbToggle.sbToggleOpen {
           opacity: 0.5;
           background-color: rgba(0, 0, 0, 0.15); }
-      /* line 236, ../scss/dashboard.scss */
+      /* line 230, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbHolder {
         background-color: rgba(0, 0, 0, 0.025);
         border: none;
@@ -4408,14 +4404,14 @@ select {
         width: 100%;
         font-size: 13px !important;
         line-height: 24px !important; }
-        /* line 250, ../scss/dashboard.scss */
+        /* line 244, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbHolder:hover {
           background-color: rgba(0, 0, 0, 0); }
-      /* line 253, ../scss/dashboard.scss */
+      /* line 247, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbOptions a {
         padding-top: 5px;
         padding-bottom: 5px; }
-      /* line 257, ../scss/dashboard.scss */
+      /* line 251, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbSelector {
         font-size: 13px !important;
         line-height: 24px !important;
@@ -4423,28 +4419,28 @@ select {
         box-sizing: border-box;
         -moz-box-sizing: border-box; }
 
-/* line 270, ../scss/dashboard.scss */
+/* line 264, ../scss/dashboard.scss */
 #dashboard fieldset {
   margin-top: 60px;
   position: relative; }
-/* line 271, ../scss/dashboard.scss */
+/* line 265, ../scss/dashboard.scss */
 #dashboard legend {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important;
   margin: 0px; }
-  /* line 272, ../scss/dashboard.scss */
+  /* line 266, ../scss/dashboard.scss */
   #dashboard legend a {
     color: black; }
-/* line 276, ../scss/dashboard.scss */
+/* line 270, ../scss/dashboard.scss */
 #dashboard .all {
   color: #00aefd !important;
   font-size: 13px !important;
   line-height: 24px !important; }
-  /* line 277, ../scss/dashboard.scss */
+  /* line 271, ../scss/dashboard.scss */
   #dashboard .all:hover {
     color: black !important; }
-/* line 280, ../scss/dashboard.scss */
+/* line 274, ../scss/dashboard.scss */
 #dashboard .icon-last-edited {
   background-size: cover;
   background-position: center;
@@ -4458,7 +4454,7 @@ select {
   background-image: url("../img/icons/edit.png");
   opacity: 0.35;
   margin-top: 0px; }
-/* line 294, ../scss/dashboard.scss */
+/* line 288, ../scss/dashboard.scss */
 #dashboard .add {
   position: absolute;
   right: 0px;
@@ -4479,41 +4475,41 @@ select {
   color: white;
   font-weight: 300;
   white-space: nowrap; }
-  /* line 314, ../scss/dashboard.scss */
+  /* line 308, ../scss/dashboard.scss */
   #dashboard .add:hover {
     background-color: black; }
-/* line 323, ../scss/dashboard.scss */
+/* line 317, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums li:hover .actions, #dashboard fieldset > ul.exhibitions li:hover .actions, #dashboard fieldset > ul.events li:hover .actions, #dashboard fieldset > ul.workshops li:hover .actions {
   opacity: 1; }
-/* line 324, ../scss/dashboard.scss */
+/* line 318, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums .actions, #dashboard fieldset > ul.exhibitions .actions, #dashboard fieldset > ul.events .actions, #dashboard fieldset > ul.workshops .actions {
   opacity: 0.25; }
-/* line 328, ../scss/dashboard.scss */
+/* line 322, ../scss/dashboard.scss */
 #dashboard fieldset > ul > li {
   position: relative; }
-  /* line 332, ../scss/dashboard.scss */
+  /* line 326, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover .status {
     opacity: 1; }
-    /* line 334, ../scss/dashboard.scss */
+    /* line 328, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbToggle {
       background-color: rgba(0, 0, 0, 0.15);
       opacity: 0.5; }
-    /* line 338, ../scss/dashboard.scss */
+    /* line 332, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbHolder {
       background-color: rgba(0, 0, 0, 0); }
-  /* line 343, ../scss/dashboard.scss */
+  /* line 337, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li .status {
     position: absolute;
     top: 8px;
     right: 80px;
     width: 115px; }
-    /* line 348, ../scss/dashboard.scss */
+    /* line 342, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbToggle {
       height: 24px;
       width: 100%;
       background-color: rgba(0, 0, 0, 0);
       opacity: 0.25; }
-    /* line 354, ../scss/dashboard.scss */
+    /* line 348, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbHolder {
       background-color: #ebebeb !important;
       border: none;
@@ -4526,21 +4522,21 @@ select {
       width: 100%;
       font-size: 13px !important;
       line-height: 24px !important; }
-    /* line 368, ../scss/dashboard.scss */
+    /* line 362, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbOptions a {
       padding-top: 5px;
       padding-bottom: 5px; }
-    /* line 372, ../scss/dashboard.scss */
+    /* line 366, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbSelector {
       font-size: 13px !important;
       line-height: 24px !important;
       width: 100%;
       box-sizing: border-box;
       -moz-box-sizing: border-box; }
-  /* line 382, ../scss/dashboard.scss */
+  /* line 376, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 387, ../scss/dashboard.scss */
+  /* line 381, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li > h3,
   #dashboard fieldset > ul > li > span,
   #dashboard fieldset > ul > li > a {
@@ -4554,12 +4550,12 @@ select {
     -moz-box-sizing: border-box;
     margin-bottom: 2px;
     white-space: nowrap; }
-    /* line 401, ../scss/dashboard.scss */
+    /* line 395, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 .title,
     #dashboard fieldset > ul > li > span .title,
     #dashboard fieldset > ul > li > a .title {
       font-weight: 700; }
-    /* line 404, ../scss/dashboard.scss */
+    /* line 398, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3:hover h3, #dashboard fieldset > ul > li > h3:hover h4, #dashboard fieldset > ul > li > h3:hover h5,
     #dashboard fieldset > ul > li > span:hover h3,
     #dashboard fieldset > ul > li > span:hover h4,
@@ -4568,13 +4564,13 @@ select {
     #dashboard fieldset > ul > li > a:hover h4,
     #dashboard fieldset > ul > li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
-    /* line 406, ../scss/dashboard.scss */
+    /* line 400, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > a h3 {
       overflow: hidden;
       max-width: 700px; }
-    /* line 412, ../scss/dashboard.scss */
+    /* line 406, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3, #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > span h5,
@@ -4582,7 +4578,7 @@ select {
     #dashboard fieldset > ul > li > a h5 {
       display: inline-block;
       font-size: 16px !important; }
-    /* line 413, ../scss/dashboard.scss */
+    /* line 407, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h5,
     #dashboard fieldset > ul > li > a h5 {
