@@ -8,7 +8,7 @@ $(function() {
 
         if ($current_item.attr('id')) { // if clicked again, close the preview
             $('#item-preview').attr("id", "");
-            $('#container').isotope();
+            $('.isotope').isotope();
             return false;
         }
 
@@ -23,7 +23,7 @@ $(function() {
             $description.load($current_item.data('description-src'), function() {
                 $('.grid .item .cancel').click(function(){
                     $('#item-preview').attr("id","");
-                    $('#container').isotope();
+                    $('.isotope').isotope();
                 });
 
                 if (window.init_share) {
@@ -37,7 +37,7 @@ $(function() {
         var width = $("#container").width();
         $description.css({left: -left, width: width});
         var $container = $('#container');
-        $('#container').isotope({
+        $('.isotope').isotope({
             resizable: false, // disable normal resizing
             masonry: { columnWidth: $container.width() / 12 }
         });
@@ -46,7 +46,7 @@ $(function() {
 });
 
 window.onresize = function() {
-  $('#container').isotope({
+  $('.isotope').isotope({
 
     onLayout: function() {
       var $item = $('#item-preview');

@@ -63,12 +63,12 @@ class ImageFileForm(forms.Form):
                 label=_('Caption <span class="lang">%s</span>') % lang_code.upper(),
                 required=False,
                 max_length=255,
-                )
+            )
             self.fields['description_%s' % lang_code] = forms.CharField(
                 label= _('Description (will be used as alt attribute) <span class="lang">%s</span>') % lang_code.upper(),
                 required=False,
                 widget=forms.Textarea(),
-                )
+            )
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -76,23 +76,7 @@ class ImageFileForm(forms.Form):
         layout_blocks = []
 
         fieldset_content = []  # collect multilingual divs into one list...
-        fieldset_content.append(
-            layout.HTML(u"""{% load i18n image_modifications %}
-                <div id="image_preview">
-                    {% if media_file.path %}
-                        <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"one_column" }}?now={% now "YmdHis" %}" alt="" />
-                    {% endif %}
-                </div>
-                {% if not media_file.path %}
-                    <div id="image_uploader">
-                        <noscript>
-                            <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
-                        </noscript>
-                    </div>
-                    <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
-                {% endif %}
-            """),
-        )
+
         fieldset_content.append(
             "media_file_path"
         )
@@ -126,8 +110,32 @@ class ImageFileForm(forms.Form):
                 {% trans "Add Image" %}
             {% endif %}
             """,
-            css_class="fieldset-media-file",
-            *fieldset_content
+            layout.Row(
+                layout.Div(
+                    layout.HTML(u"""{% load i18n image_modifications %}
+                    <div id="image_preview">
+                        {% if media_file.path %}
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"one_column" }}?now={% now "YmdHis" %}" alt="" />
+                        {% endif %}
+                    </div>
+                    {% if not media_file.path %}
+                        <div id="image_uploader">
+                            <noscript>
+                                <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                            </noscript>
+                        </div>
+                        <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
+                    {% endif %}
+                    """),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    *fieldset_content
+                ),
+                css_class="row-md",
+            ),
+            css_class="fieldset-media-file"
         ))
 
         layout_blocks.append(bootstrap.FormActions(

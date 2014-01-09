@@ -1,7 +1,7 @@
 $(window).bind('scrollstop load', function(){
     $(".img-detail img:in-viewport").lazyload({
         load : function(element, el_left, settings){
-            $('#container').isotope();
+            $('.isotope').isotope();
         }
     }).addClass("in");
 });
@@ -11,7 +11,7 @@ $(window).bind('load', function(){
 });
 
 $(window).bind('smartresize', function(){
-    $('#container').isotope();
+    $('.isotope').isotope();
 });
 
 $(window).bind('scrollstop', function(){
