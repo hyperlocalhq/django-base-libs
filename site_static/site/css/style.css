@@ -4356,7 +4356,7 @@ select {
   .dashboard-table tr td, .dashboard-table tr th {
     padding: 5px 10px; }
     /* line 196, ../scss/dashboard.scss */
-    .dashboard-table tr td:last-child, .dashboard-table tr th:last-child {
+    .dashboard-table tr td:nth-child(4n), .dashboard-table tr th:nth-child(4n) {
       text-align: right; }
   /* line 198, ../scss/dashboard.scss */
   .dashboard-table tr th small {

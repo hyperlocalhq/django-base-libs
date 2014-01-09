@@ -193,7 +193,7 @@ select {
       }
     td , th {
       padding: 5px 10px;
-      &:last-child    { text-align: right;}
+      &:nth-child(4n)    { text-align: right;}
     }
     th small{
       font-size: 10px;
