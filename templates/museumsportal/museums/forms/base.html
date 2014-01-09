@@ -72,12 +72,3 @@
     </div>
 </div>
 {% endblock %}
-
-{% block footer %}
-    {{ block.super }}
-    <script>
-        $(function() {
-            $("select").not('[name*="__prefix__"]').selectbox();
-        });
-    </script>
-{% endblock %}
