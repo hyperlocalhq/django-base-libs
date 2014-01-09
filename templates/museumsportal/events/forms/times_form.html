@@ -87,7 +87,7 @@
         
     $(function() {
         $(
-            '<a class="add btn btn-small btn-primary" id="add_event_time" href="#">{% trans "Add event time" %}</a>'
+            '<a class="add btn btn-primary" id="add_event_time" href="#">{% trans "Add event time" %}</a>'
         ).insertAfter('#event_times').click(function() {
             var $total_forms = $('#id_event_times-TOTAL_FORMS');
             var $new_form = $('#event_times_empty_form').clone(true).attr("id", null).show();
@@ -98,7 +98,7 @@
             return false;
         });
         $(
-            '<div class="form-actions"><a class="add btn btn-small btn-primary" id="add_batch_event_times" href="#">{% trans "Add batch event times" %}</a></div>'
+            '<div class="form-actions"><a class="add btn btn-primary" id="add_batch_event_times" href="#">{% trans "Add batch event times" %}</a></div>'
         ).insertAfter('#event_times_fieldset');
         
         $('#add_batch_event_times').click(function() {

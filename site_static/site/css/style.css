@@ -2237,7 +2237,20 @@
   width: auto;
   height: auto; }
 
-/* line 11, ../scss/gmap.scss */
+/* line 12, ../scss/gmap.scss */
+.dashboard #gmap-wrapper {
+  height: 402px;
+  position: relative; }
+
+/* line 17, ../scss/gmap.scss */
+#dyn_set_map .form-actions {
+  position: absolute;
+  bottom: 0px;
+  padding: 10px;
+  background-color: transparent;
+  height: 60px; }
+
+/* line 26, ../scss/gmap.scss */
 #item_description {
   background-color: white;
   position: absolute;
@@ -2247,11 +2260,6 @@
   padding: 30px;
   overflow-y: scroll;
   z-index: 10000; }
-
-/* line 23, ../scss/gmap.scss */
-.dashboard-content #gmap-wrapper {
-  position: relative;
-  height: 300px; }
 
 /* line 5, ../scss/gallery.scss */
 .gallery #gallery {
