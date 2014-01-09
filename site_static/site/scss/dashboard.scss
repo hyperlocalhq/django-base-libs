@@ -182,7 +182,7 @@ select {
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px;
-  margin-top: -20px;
+  // margin-top: -20px;
   
   .item a{
     display: block;
@@ -193,7 +193,7 @@ select {
       }
     td , th {
       padding: 5px 10px;
-      &:nth-child(4n)    { text-align: right;}
+      &:last-child    { text-align: right;}
     }
     th small{
       font-size: 10px;
@@ -208,10 +208,15 @@ select {
         width: 1%;
         white-space: nowrap;
       }
-      border-bottom: 2px solid white;
+      border-bottom: 2px solid transparent;
       vertical-align: middle;
       color: rgba(0,0,0,0.75) !important;
-      background-color: #f2f2f2;
+      // background-color: #f2f2f2;
+
+      -moz-background-clip: padding;     /* Firefox 3.6 */
+      -webkit-background-clip: padding;  /* Safari 4? Chrome 6? */
+      background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
+      background-image: url("../img/transparent-1.png");
 
       .status { 
         margin-bottom: -2px;
