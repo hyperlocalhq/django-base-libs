@@ -12,14 +12,14 @@
             <legend>{% trans "Opening Hours" %}</legend>
             <a class="add btn btn-primary" id="add_season" href="#">{% trans "Add opening hours" %}</a>
             <ul id="season_list" class="list-unstyled">
-                <li> </li>
+                <li class="hide"></li>
             </ul>
         </fieldset>
         <fieldset>
             <legend>{% trans "Closing times / Holidays" %}</legend>
             <a class="add btn btn-primary" id="add_special_opening" href="#">{% trans "Add Closing time / Holiday" %}</a>
             <ul id="special_opening_list" class="list-unstyled">
-                <li> </li>
+                <li class="hide"></li>
             </ul>
         </fieldset>
     </form>
@@ -280,7 +280,7 @@ var error_messages = {
         var weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
         $('[id^="id_seasons"][id$="mon_open"]').live('keyup change', function(event) {
             var $mon = $(this);
-            var $table = $(this).parents('table:first');
+            var $table = $(this).closest('table');
             $(weekdays).each(function() {
                 if (this == 'mon') {
                     return;
@@ -293,7 +293,7 @@ var error_messages = {
         });
         $('[id^="id_seasons"][id$="mon_break_close"]').live('keyup change', function(event) {
             var $mon = $(this);
-            var $table = $(this).parents('table:first');
+            var $table = $(this).closest('table');
             $(weekdays).each(function() {
                 if (this == 'mon') {
                     return;
@@ -306,7 +306,7 @@ var error_messages = {
         });
         $('[id^="id_seasons"][id$="mon_break_open"]').live('keyup change', function(event) {
             var $mon = $(this);
-            var $table = $(this).parents('table:first');
+            var $table = $(this).closest('table');
             $(weekdays).each(function() {
                 if (this == 'mon') {
                     return;
@@ -319,7 +319,7 @@ var error_messages = {
         });
         $('[id^="id_seasons"][id$="mon_close"]').live('keyup change', function(event) {
             var $mon = $(this);
-            var $table = $(this).parents('table:first');
+            var $table = $(this).closest('table');
             $(weekdays).each(function() {
                 if (this == 'mon') {
                     return;
