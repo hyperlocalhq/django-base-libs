@@ -4373,8 +4373,9 @@ select {
     color: rgba(0, 0, 0, 0.75) !important; }
   /* line 201, ../scss/dashboard.scss */
   .dashboard-table tr td {
+    border: none;
     border-bottom: 2px solid transparent;
-    vertical-align: middle;
+    vertical-align: top;
     color: rgba(0, 0, 0, 0.75) !important;
     -moz-background-clip: padding;
     /* Firefox 3.6 */
@@ -4387,23 +4388,23 @@ select {
     .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
       width: 1%;
       white-space: nowrap; }
-    /* line 218, ../scss/dashboard.scss */
+    /* line 219, ../scss/dashboard.scss */
     .dashboard-table tr td .status {
       margin-bottom: -2px;
       height: 24px;
       width: 115px;
       display: block; }
-      /* line 223, ../scss/dashboard.scss */
+      /* line 224, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbToggle {
         height: 24px;
         width: 24px;
         background-color: rgba(0, 0, 0, 0);
         opacity: 0.25; }
-        /* line 228, ../scss/dashboard.scss */
+        /* line 229, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbToggle.sbToggleOpen {
           opacity: 0.5;
           background-color: rgba(0, 0, 0, 0.15); }
-      /* line 233, ../scss/dashboard.scss */
+      /* line 234, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbHolder {
         background-color: rgba(0, 0, 0, 0.025);
         border: none;
@@ -4416,14 +4417,14 @@ select {
         width: 100%;
         font-size: 13px !important;
         line-height: 24px !important; }
-        /* line 247, ../scss/dashboard.scss */
+        /* line 248, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbHolder:hover {
           background-color: rgba(0, 0, 0, 0); }
-      /* line 250, ../scss/dashboard.scss */
+      /* line 251, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbOptions a {
         padding-top: 5px;
         padding-bottom: 5px; }
-      /* line 254, ../scss/dashboard.scss */
+      /* line 255, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbSelector {
         font-size: 13px !important;
         line-height: 24px !important;
@@ -4431,28 +4432,28 @@ select {
         box-sizing: border-box;
         -moz-box-sizing: border-box; }
 
-/* line 267, ../scss/dashboard.scss */
+/* line 268, ../scss/dashboard.scss */
 #dashboard fieldset {
   margin-top: 60px;
   position: relative; }
-/* line 268, ../scss/dashboard.scss */
+/* line 269, ../scss/dashboard.scss */
 #dashboard legend {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important;
   margin: 0px; }
-  /* line 269, ../scss/dashboard.scss */
+  /* line 270, ../scss/dashboard.scss */
   #dashboard legend a {
     color: black; }
-/* line 273, ../scss/dashboard.scss */
+/* line 274, ../scss/dashboard.scss */
 #dashboard .all {
   color: #00aefd !important;
   font-size: 13px !important;
   line-height: 24px !important; }
-  /* line 274, ../scss/dashboard.scss */
+  /* line 275, ../scss/dashboard.scss */
   #dashboard .all:hover {
     color: black !important; }
-/* line 277, ../scss/dashboard.scss */
+/* line 278, ../scss/dashboard.scss */
 #dashboard .icon-last-edited {
   background-size: cover;
   background-position: center;
@@ -4466,7 +4467,7 @@ select {
   background-image: url("../img/icons/edit.png");
   opacity: 0.35;
   margin-top: 0px; }
-/* line 291, ../scss/dashboard.scss */
+/* line 292, ../scss/dashboard.scss */
 #dashboard .add {
   position: absolute;
   right: 0px;
@@ -4487,41 +4488,41 @@ select {
   color: white;
   font-weight: 300;
   white-space: nowrap; }
-  /* line 311, ../scss/dashboard.scss */
+  /* line 312, ../scss/dashboard.scss */
   #dashboard .add:hover {
     background-color: black; }
-/* line 320, ../scss/dashboard.scss */
+/* line 321, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums li:hover .actions, #dashboard fieldset > ul.exhibitions li:hover .actions, #dashboard fieldset > ul.events li:hover .actions, #dashboard fieldset > ul.workshops li:hover .actions {
   opacity: 1; }
-/* line 321, ../scss/dashboard.scss */
+/* line 322, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums .actions, #dashboard fieldset > ul.exhibitions .actions, #dashboard fieldset > ul.events .actions, #dashboard fieldset > ul.workshops .actions {
   opacity: 0.25; }
-/* line 325, ../scss/dashboard.scss */
+/* line 326, ../scss/dashboard.scss */
 #dashboard fieldset > ul > li {
   position: relative; }
-  /* line 329, ../scss/dashboard.scss */
+  /* line 330, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover .status {
     opacity: 1; }
-    /* line 331, ../scss/dashboard.scss */
+    /* line 332, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbToggle {
       background-color: rgba(0, 0, 0, 0.15);
       opacity: 0.5; }
-    /* line 335, ../scss/dashboard.scss */
+    /* line 336, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbHolder {
       background-color: rgba(0, 0, 0, 0); }
-  /* line 340, ../scss/dashboard.scss */
+  /* line 341, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li .status {
     position: absolute;
     top: 8px;
     right: 80px;
     width: 115px; }
-    /* line 345, ../scss/dashboard.scss */
+    /* line 346, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbToggle {
       height: 24px;
       width: 100%;
       background-color: rgba(0, 0, 0, 0);
       opacity: 0.25; }
-    /* line 351, ../scss/dashboard.scss */
+    /* line 352, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbHolder {
       background-color: #ebebeb !important;
       border: none;
@@ -4534,21 +4535,21 @@ select {
       width: 100%;
       font-size: 13px !important;
       line-height: 24px !important; }
-    /* line 365, ../scss/dashboard.scss */
+    /* line 366, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbOptions a {
       padding-top: 5px;
       padding-bottom: 5px; }
-    /* line 369, ../scss/dashboard.scss */
+    /* line 370, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbSelector {
       font-size: 13px !important;
       line-height: 24px !important;
       width: 100%;
       box-sizing: border-box;
       -moz-box-sizing: border-box; }
-  /* line 379, ../scss/dashboard.scss */
+  /* line 380, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 384, ../scss/dashboard.scss */
+  /* line 385, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li > h3,
   #dashboard fieldset > ul > li > span,
   #dashboard fieldset > ul > li > a {
@@ -4562,12 +4563,12 @@ select {
     -moz-box-sizing: border-box;
     margin-bottom: 2px;
     white-space: nowrap; }
-    /* line 398, ../scss/dashboard.scss */
+    /* line 399, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 .title,
     #dashboard fieldset > ul > li > span .title,
     #dashboard fieldset > ul > li > a .title {
       font-weight: 700; }
-    /* line 401, ../scss/dashboard.scss */
+    /* line 402, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3:hover h3, #dashboard fieldset > ul > li > h3:hover h4, #dashboard fieldset > ul > li > h3:hover h5,
     #dashboard fieldset > ul > li > span:hover h3,
     #dashboard fieldset > ul > li > span:hover h4,
@@ -4576,13 +4577,13 @@ select {
     #dashboard fieldset > ul > li > a:hover h4,
     #dashboard fieldset > ul > li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
-    /* line 403, ../scss/dashboard.scss */
+    /* line 404, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > a h3 {
       overflow: hidden;
       max-width: 700px; }
-    /* line 409, ../scss/dashboard.scss */
+    /* line 410, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3, #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > span h5,
@@ -4590,7 +4591,7 @@ select {
     #dashboard fieldset > ul > li > a h5 {
       display: inline-block;
       font-size: 16px !important; }
-    /* line 410, ../scss/dashboard.scss */
+    /* line 411, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h5,
     #dashboard fieldset > ul > li > a h5 {
