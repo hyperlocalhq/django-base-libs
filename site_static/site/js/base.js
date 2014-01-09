@@ -49,7 +49,7 @@ $(document).ready(function(){
 
     $(".navbar-wrapper").headroom({
         // vertical offset in px before element is first unpinned
-        offset : 300,
+        offset : 400,
         // scroll tolerance in px before state changes
         tolerance : 0
     });

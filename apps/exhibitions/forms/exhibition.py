@@ -419,10 +419,13 @@ class OrganizerForm(ModelForm):
 
         layout_blocks.append(
             layout.Div(
-                layout.Div("organizing_museum", css_class="toggle-option"), 
+                layout.Div(
+                    bootstrap.PrependedText("organizing_museum", ""), 
+                    css_class="toggle-option"
+                ),
                 layout.Row(
                     layout.Div("organizer_title", css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
-                    layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
+                    layout.Div(bootstrap.PrependedText("organizer_url_link", "", placeholder="http://"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
                     css_class="row-xs toggle-option"
                 ),
                 layout.Div(
