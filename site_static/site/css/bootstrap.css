@@ -4230,8 +4230,9 @@ body.modal-open {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1040; }
-  /* line 40, ../scss/bootstrap/_modals.scss */
+  z-index: 1040;
+  color: white; }
+  /* line 41, ../scss/bootstrap/_modals.scss */
   .modal.fade .modal-dialog {
     -webkit-transform: translate(0, -25%);
     -ms-transform: translate(0, -25%);
@@ -4240,13 +4241,13 @@ body.modal-open {
     -moz-transition: -moz-transform 0.3s ease-out;
     -o-transition: -o-transform 0.3s ease-out;
     transition: transform 0.3s ease-out; }
-  /* line 44, ../scss/bootstrap/_modals.scss */
+  /* line 45, ../scss/bootstrap/_modals.scss */
   .modal.in .modal-dialog {
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     transform: translate(0, 0); }
 
-/* line 48, ../scss/bootstrap/_modals.scss */
+/* line 49, ../scss/bootstrap/_modals.scss */
 .modal-dialog {
   margin-left: auto;
   margin-right: auto;
@@ -4254,7 +4255,7 @@ body.modal-open {
   padding: 10px;
   z-index: 1050; }
 
-/* line 57, ../scss/bootstrap/_modals.scss */
+/* line 58, ../scss/bootstrap/_modals.scss */
 .modal-content {
   position: relative;
   background-color: white;
@@ -4266,7 +4267,7 @@ body.modal-open {
   background-clip: padding-box;
   outline: none; }
 
-/* line 70, ../scss/bootstrap/_modals.scss */
+/* line 71, ../scss/bootstrap/_modals.scss */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -4275,41 +4276,46 @@ body.modal-open {
   left: 0;
   z-index: 1030;
   background-color: black; }
-  /* line 79, ../scss/bootstrap/_modals.scss */
+  /* line 80, ../scss/bootstrap/_modals.scss */
   .modal-backdrop.fade {
     opacity: 0;
     filter: alpha(opacity=0); }
-  /* line 80, ../scss/bootstrap/_modals.scss */
+  /* line 81, ../scss/bootstrap/_modals.scss */
   .modal-backdrop.in {
     opacity: 0.5;
     filter: alpha(opacity=50); }
 
-/* line 85, ../scss/bootstrap/_modals.scss */
+/* line 86, ../scss/bootstrap/_modals.scss */
 .modal-header {
-  padding: 15px;
-  border-bottom: 1px solid #e5e5e5;
-  min-height: 16.42857px; }
+  min-height: 16.42857px;
+  background-color: black;
+  opacity: 0.75;
+  padding-top: 25px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 25px; }
 
-/* line 91, ../scss/bootstrap/_modals.scss */
+/* line 99, ../scss/bootstrap/_modals.scss */
 .modal-header .close {
   margin-top: -2px; }
 
-/* line 96, ../scss/bootstrap/_modals.scss */
+/* line 104, ../scss/bootstrap/_modals.scss */
 .modal-title {
   margin: 0;
   line-height: 1.42857; }
 
-/* line 103, ../scss/bootstrap/_modals.scss */
+/* line 111, ../scss/bootstrap/_modals.scss */
 .modal-body {
   position: relative;
-  padding: 20px; }
+  background-color: black;
+  padding-top: 25px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 25px; }
 
-/* line 109, ../scss/bootstrap/_modals.scss */
+/* line 123, ../scss/bootstrap/_modals.scss */
 .modal-footer {
-  margin-top: 15px;
-  padding: 19px 20px 20px;
-  text-align: right;
-  border-top: 1px solid #e5e5e5; }
+  padding-top: 25px; }
   /* line 21, ../scss/bootstrap/_mixins.scss */
   .modal-footer:before, .modal-footer:after {
     content: " ";
@@ -4319,19 +4325,19 @@ body.modal-open {
   /* line 25, ../scss/bootstrap/_mixins.scss */
   .modal-footer:after {
     clear: both; }
-  /* line 117, ../scss/bootstrap/_modals.scss */
+  /* line 132, ../scss/bootstrap/_modals.scss */
   .modal-footer .btn + .btn {
     margin-left: 5px;
     margin-bottom: 0; }
-  /* line 122, ../scss/bootstrap/_modals.scss */
+  /* line 137, ../scss/bootstrap/_modals.scss */
   .modal-footer .btn-group .btn + .btn {
     margin-left: -1px; }
-  /* line 126, ../scss/bootstrap/_modals.scss */
+  /* line 141, ../scss/bootstrap/_modals.scss */
   .modal-footer .btn-block + .btn-block {
     margin-left: 0; }
 
 @media screen and (min-width: 768px) {
-  /* line 134, ../scss/bootstrap/_modals.scss */
+  /* line 149, ../scss/bootstrap/_modals.scss */
   .modal-dialog {
     left: 50%;
     right: auto;
@@ -4339,7 +4345,7 @@ body.modal-open {
     padding-top: 30px;
     padding-bottom: 30px; }
 
-  /* line 141, ../scss/bootstrap/_modals.scss */
+  /* line 156, ../scss/bootstrap/_modals.scss */
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); } }

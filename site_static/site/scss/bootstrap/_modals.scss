@@ -35,6 +35,7 @@ body.modal-open {
   bottom: 0;
   left: 0;
   z-index: $zindex-modal-background;
+  color: white;
 
   // When fading in the modal, animate it to slide down
   &.fade .modal-dialog {
@@ -83,9 +84,16 @@ body.modal-open {
 // Modal header
 // Top section of the modal w/ title and dismiss
 .modal-header {
-  padding: $modal-title-padding;
-  border-bottom: 1px solid $modal-header-border-color;
+  // padding: $modal-title-padding;
+  // border-bottom: 1px solid $modal-header-border-color;
   min-height: ($modal-title-padding + $modal-title-line-height);
+  background-color: black;
+  opacity: 0.75;
+
+  padding-top: 25px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 25px;
 }
 // Close icon
 .modal-header .close {
@@ -102,16 +110,23 @@ body.modal-open {
 // Where all modal content resides (sibling of .modal-header and .modal-footer)
 .modal-body {
   position: relative;
-  padding: $modal-inner-padding;
+  background-color: black;
+
+  padding-top: 25px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 25px;
+  // padding: $modal-inner-padding;
 }
 
 // Footer (for actions)
 .modal-footer {
-  margin-top: 15px;
-  padding: ($modal-inner-padding - 1) $modal-inner-padding $modal-inner-padding;
-  text-align: right; // right align buttons
-  border-top: 1px solid $modal-footer-border-color;
+  // margin-top: 15px;
+  // padding: ($modal-inner-padding - 1) $modal-inner-padding $modal-inner-padding;
+  // text-align: right; // right align buttons
+  // border-top: 1px solid $modal-footer-border-color;
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
+  padding-top: 25px;
 
   // Properly space out buttons
   .btn + .btn {

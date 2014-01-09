@@ -1,5 +1,5 @@
 
-.table {
+.modal .table {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -15,8 +15,16 @@
     .inner {
       display: inline-block;
       text-align: left;
-      width: 320px;
+      max-width: 320px;
+      max-width: 520px;
       margin-bottom: 25px;
+      .modal-header,
+      .modal-body {
+        background-color: black;
+      }
+      .modal-footer {
+        margin: 0px;
+      }
       
       .alert {
         padding: 24px !important;

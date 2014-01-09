@@ -8,12 +8,15 @@
                     {% trans "Do you really want to delete this item?" %}
                 </div>
                 <div class="modal-body">
-                    <small class="object-type"></small><br/>
-                    <b class="object-title"></b>
+                    
+                    <p class="lead"> 
+                        <small class="object-type"></small><br/>
+                        <b class="object-title"></b>
+                    </p>
                 </div>
                 <div class="modal-footer">
-                    <button id="button-id-confirm-deletion" class="btn btn-primary">{% trans "Yes, Please" %}</button>
-                    <button name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">{% trans "No, Thanks" %}</button>
+                    <button id="button-id-confirm-deletion" class="btn btn-lg btn-primary">{% trans "Yes, Please" %}</button>
+                    <button name="cancel" class="btn btn-lg btn-default" data-dismiss="modal" aria-hidden="true">{% trans "No, Thanks" %}</button>
                 </div>
             </div>
         </div>
