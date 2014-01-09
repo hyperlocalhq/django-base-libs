@@ -10,6 +10,9 @@ from crispy_forms import layout, bootstrap
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 
+from museumsportal.utils.forms import PrimarySubmit
+from museumsportal.utils.forms import SecondaryButton
+
 IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (100,100))
 STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 
@@ -112,10 +115,12 @@ class ImageFileForm(forms.Form):
             """,
             layout.Row(
                 layout.Div(
-                    layout.HTML(u"""{% load i18n image_modifications %}
+                    layout.HTML(u"""{% load i18n base_tags image_modifications %}
                     <div id="image_preview">
                         {% if media_file.path %}
-                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"one_column" }}?now={% now "YmdHis" %}" alt="" />
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"medium" }}?now={% now "YmdHis" %}" alt="" />
+                            {% parse "{{ workshop.get_url_path }}change/" as goto_next %}
+                            <input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
                         {% endif %}
                     </div>
                     {% if not media_file.path %}
@@ -139,13 +144,12 @@ class ImageFileForm(forms.Form):
         ))
 
         layout_blocks.append(bootstrap.FormActions(
-            layout.Submit('submit', _('Save file')),
-            layout.Button('cancel', _('Cancel')),
+            PrimarySubmit('submit', _('Save file')),
+            SecondaryButton('cancel', _('Cancel')),
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
                     {% parse "{{ workshop.get_url_path }}change/" as goto_next %}
-                    <input type="button" id="button-id-crop-photo" class="crop btn" data-href="{% cropping_url media_file.path "cover" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
-                    <input type="button" id="button-id-delete-photo" class="delete_photo btn" data-href="{{ workshop.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+                    <input type="button" id="button-id-delete-photo" class="delete_photo btn btn btn-lg btn-info" data-href="{{ workshop.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
                         <div class="table">
@@ -155,8 +159,8 @@ class ImageFileForm(forms.Form):
                                         <p>{% trans "Do you really want to delete this image?" %}</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button id="button-id-confirm-deletion" class="btn btn-primary">{% trans "Yes, Please" %}</button>
-                                        <button name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">{% trans "No, Thanks" %}</button>
+                                        <button class="btn btn btn-lg btn-primary" id="button-id-confirm-deletion">{% trans "Yes, Please" %}</button>
+                                        <button class="btn btn-lg btn-primary" name="cancel" data-dismiss="modal" aria-hidden="true">{% trans "No, Thanks" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +198,7 @@ class ImageDeletionForm(forms.Form):
             _("Delete Photo?"),
             layout.HTML("""{% load image_modifications %}
                 {% if media_file.path %}
-                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}" alt="" />
+                    <img src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"small" }}?now={% now "YmdHis" %}" alt="" />
                     <p>Are you sure you want to delete this photo?</p>
                 {% endif %}
             """),

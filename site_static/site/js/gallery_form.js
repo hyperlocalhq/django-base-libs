@@ -96,7 +96,7 @@
                     // load the modified version for the preview
                     $.post('/helper/modified-path/', {
                         file_path: 'uploads/' + fileName,
-                        mod_sysname: 'one_column'
+                        mod_sysname: 'medium'
                     }, function(data, textStatus, jqXHR) {
                         $('#image_preview').html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
                         $('#image_uploader').hide();

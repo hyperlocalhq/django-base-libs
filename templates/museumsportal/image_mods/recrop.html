@@ -148,29 +148,32 @@
 {% block title %}{% trans "Adjust Image" %}{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="inner">
-            <form action="" method="post">{% csrf_token %}
-                <fieldset>
-                <legend>{% trans "Crop Image" %}</legend>
-                <div class="image-version">
-                    <img id="cropbox" src="{% url image_mods_cropping_preview bgcolor=form.bgcolor.data|slice:"1:" %}?orig_path={{ orig_path }}&amp;sysname={{ mod.sysname }}" alt="" />
-                </div>
-                <p>{% trans "Press ESC to switch to the default selection area and default canvas color." %}</p>
-                <div class="form_field">
-                    <label for="id_bgcolor">{% trans "Canvas color" %}</label>
-                    {{ form.bgcolor }}
-                    {{ form.bgcolor.errors }}
-                    <div id="colorSelector"><div style="background-color: {{ form.bgcolor.data }};"></div></div>
-                </div>
-                <div class="buttons">
+    <div class="content dash">
+        <div class="container">
+            <div class="dashboard-content">
+                <form action="" method="post">{% csrf_token %}
+                    <fieldset>
+                    <legend>{% trans "Crop Image" %}</legend>
+                    <div class="image-version">
+                        <img id="cropbox" src="{% url image_mods_cropping_preview bgcolor=form.bgcolor.data|slice:"1:" %}?orig_path={{ orig_path }}&amp;sysname={{ mod.sysname }}" alt="" />
+                    </div>
+                    <p>{% trans "Press ESC to switch to the default selection area and default canvas color." %}</p>
+                    <div class="form_field">
+                        <label for="id_bgcolor">{% trans "Canvas color" %}</label>
+                        {{ form.bgcolor }}
+                        {{ form.bgcolor.errors }}
+                        <div id="colorSelector"><div style="background-color: {{ form.bgcolor.data }};"></div></div>
+                    </div>
+                </fieldset>
+            
+                <div class="form-actions">
                     {{ form.x1 }}{{ form.y1 }}{{ form.x2 }}{{ form.y2 }}
-                    <input type="submit" value="{% trans "Save" %}" class="default btn btn-primary" />
-                    <input type="reset" name="cancel" value="{% trans "Cancel" %}" onclick="history.go(-1)">
+                    <input class="default btn btn-lg btn-primary pull-right" type="submit" value="{% trans "Save" %}" />
+                    <input class="default btn btn-lg btn-info" type="reset" name="cancel" value="{% trans "Cancel" %}" onclick="history.go(-1)">
                     <input type="hidden" name="post" value="yes" />
                 </div>
-            </fieldset>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
