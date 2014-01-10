@@ -111,7 +111,7 @@
                     'csrf_xname': 'X-CSRFToken'
                 },
                 showMessage: function(message) {
-                    $('.messages', $pdf_document_de_upload).html('<div class="alert alert-error">' + message + '</div>');
+                    $('.messages', $pdf_document_de_upload).html('<div class="alert alert-danger">' + message + '</div>');
                 }
             });
             var pdf_uploader_de = new qq.FileUploader(options_de);
@@ -154,7 +154,7 @@
                     'csrf_xname': 'X-CSRFToken'
                 },
                 showMessage: function(message) {
-                    $('.messages', $pdf_document_en_upload).html('<div class="alert alert-error">' + message + '</div>');
+                    $('.messages', $pdf_document_en_upload).html('<div class="alert alert-danger">' + message + '</div>');
                 }
             });
             var pdf_uploader_en = new qq.FileUploader(options_en);

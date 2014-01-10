@@ -119,7 +119,7 @@
                 'csrf_xname': 'X-CSRFToken'
             }, 
             showMessage: function(message) {
-                $('.messages').html('<div class="alert alert-error">' + message + '</div>');
+                $('.messages').html('<div class="alert alert-danger">' + message + '</div>');
             }
         });
         var uploader = new qq.FileUploader(options);
