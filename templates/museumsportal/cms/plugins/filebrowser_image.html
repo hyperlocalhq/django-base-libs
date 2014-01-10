@@ -2,9 +2,9 @@
 
 <p class="img_block">
     {% if object.mod %}
-        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:object.mod.sysname }}" alt="{{ object.alt|escape }}"{% if object.css_class %} class="{{ object.css_class }}"{% endif %} />
+        <img class="img-responsive{% if object.css_class %} {{ object.css_class }}{% endif %}" src="{{ UPLOADS_URL }}{{ object.image|modified_path:object.mod.sysname }}" alt="{{ object.alt|escape }}" />
     {% else %}
-        <img src="{{ UPLOADS_URL }}{{ object.image.path|escape }}" alt="{{ object.alt|escape }}"{% if object.css_class %} class="{{ object.css_class }}"{% endif %} />
+        <img class="img-responsive{% if object.css_class %} {{ object.css_class }}{% endif %}" src="{{ UPLOADS_URL }}{{ object.image.path|escape }}" alt="{{ object.alt|escape }}" />
     {% endif %}
 
     {% with object.image|file_description as file_desc %}

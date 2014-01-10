@@ -146,7 +146,7 @@ class ImageFileForm(forms.Form):
 
         layout_blocks.append(bootstrap.FormActions(
             PrimarySubmit('submit', _('Save file')),
-            SecondarySubmit('cancel', _('Cancel')),
+            SecondaryButton('cancel', _('Cancel')),
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
                     {% parse "{{ museum.get_url_path }}change/" as goto_next %}

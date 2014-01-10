@@ -2942,10 +2942,10 @@ input[type="button"].btn-block {
 
 /* line 14, ../scss/bootstrap/_navbar.scss */
 .navbar {
-  -webkit-transition: -webkit-transform 0.35s;
-  -moz-transition: -moz-transform 0.35s;
-  -o-transition: -o-transform 0.35s;
-  transition: transform 0.35s; }
+  -webkit-transition: -webkit-transform 0.45s;
+  -moz-transition: -moz-transform 0.45s;
+  -o-transition: -o-transform 0.45s;
+  transition: transform 0.45s; }
 
 @media (min-width: 768px) {
   /* line 21, ../scss/bootstrap/_navbar.scss */
@@ -3991,8 +3991,7 @@ a.list-group-item {
 /* line 7, ../scss/bootstrap/_panels.scss */
 .panel {
   margin-bottom: 22px;
-  background-color: white;
-  border-radius: 4px; }
+  background-color: white; }
 
 /* line 16, ../scss/bootstrap/_panels.scss */
 .panel-body {
@@ -4014,10 +4013,6 @@ a.list-group-item {
   /* line 32, ../scss/bootstrap/_panels.scss */
   .panel > .list-group .list-group-item {
     border-width: 1px 0; }
-    /* line 36, ../scss/bootstrap/_panels.scss */
-    .panel > .list-group .list-group-item:first-child {
-      border-top-right-radius: 0;
-      border-top-left-radius: 0; }
     /* line 40, ../scss/bootstrap/_panels.scss */
     .panel > .list-group .list-group-item:last-child {
       border-bottom: 0; }
@@ -4032,9 +4027,7 @@ a.list-group-item {
 
 /* line 70, ../scss/bootstrap/_panels.scss */
 .panel-heading {
-  padding: 10px 15px;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px; }
+  padding: 10px 15px; }
 
 /* line 77, ../scss/bootstrap/_panels.scss */
 .panel-title {
@@ -4048,14 +4041,11 @@ a.list-group-item {
 /* line 87, ../scss/bootstrap/_panels.scss */
 .panel-footer {
   padding: 10px 15px;
-  background-color: whitesmoke;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px; }
+  background-color: whitesmoke; }
 
 /* line 102, ../scss/bootstrap/_panels.scss */
 .panel-group .panel {
   margin-bottom: 0;
-  border-radius: 4px;
   overflow: hidden; }
   /* line 106, ../scss/bootstrap/_panels.scss */
   .panel-group .panel + .panel {
