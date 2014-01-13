@@ -4,6 +4,11 @@
 {% block stylesheet %}
     {{ block.super }}
     <link href="{{ STATIC_URL }}site/css/jquery.tagsinput.css" rel="stylesheet" />
+    <style>
+      .textarea {
+        height: auto !important;
+      }
+    </style>
 {% endblock %}
 
 {% block js %}
@@ -11,6 +16,10 @@
     <!--
     <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.js"></script>
     -->
+{% endblock %}
+
+{% block form_language_switcher %}
+    {% include "utils/form_language_switcher.html" %}
 {% endblock %}
 
 {% block multistep_form %}
