@@ -11,6 +11,7 @@ from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 
 from museumsportal.utils.forms import PrimarySubmit
+from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import SecondaryButton
 
 IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (100,100))
