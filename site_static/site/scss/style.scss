@@ -42,6 +42,14 @@ body {
   -webkit-text-stroke: 1px transparent;
 }
 
+.caption {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 10px !important;
+  line-height: 140% !important;
+  opacity: 0.75;
+}
+
 ::selection {background: #ffb7b7; /* Safari */ }
 ::-moz-selection {background: #ffb7b7; /* Firefox */ }
 
