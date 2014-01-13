@@ -724,8 +724,8 @@ class AddressForm(ModelForm):
                                 <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                             </div>
                             <div class="form-actions">
-                                <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
-                                <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                                <input id="dyn_locate_geo" type="button" class="btn btn-primary" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input id="dyn_remove_geo" type="button" class="btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;-->
                             </div>
                         </div>
                     """),

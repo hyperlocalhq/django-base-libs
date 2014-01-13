@@ -1,13 +1,21 @@
-
+#button-id-crop-photo{
+  margin-top: 15px;
+}
 #photos {
   margin-left: -5px;
   margin-right: -5px;
   overflow: auto;
+
   > div {
-    width: 25%;
+    width: 20%;
     float: left;
     padding-left: 5px;
     padding-right: 5px;
+    a {
+      img {
+        width: 100%;
+      }
+    }
   }
   .ui-state-highlight {
     width: 25%;
@@ -53,16 +61,10 @@
   }
 }
 
-.opening-hours {
+.no-legend {
   margin-bottom: 15px;
   .form-group {
     margin-bottom: 1px;
-  }
-}
-
-.fieldset-season-opening-hours {
-  .form-group {
-    margin-bottom: -2px;
   }
 }
 
@@ -183,7 +185,7 @@ select {
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px;
-  margin-top: -20px;
+  // margin-top: -20px;
   
   .item a{
     display: block;
@@ -209,10 +211,16 @@ select {
         width: 1%;
         white-space: nowrap;
       }
-      border-bottom: 2px solid white;
-      vertical-align: middle;
+      border: none;
+      border-bottom: 2px solid transparent;
+      vertical-align: top;
       color: rgba(0,0,0,0.75) !important;
-      background-color: #f2f2f2;
+      // background-color: #f2f2f2;
+
+      -moz-background-clip: padding;     /* Firefox 3.6 */
+      -webkit-background-clip: padding;  /* Safari 4? Chrome 6? */
+      background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
+      background-image: url("../img/transparent-1.png");
 
       .status { 
         margin-bottom: -2px;

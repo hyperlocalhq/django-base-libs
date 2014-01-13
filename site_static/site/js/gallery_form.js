@@ -96,7 +96,7 @@
                     // load the modified version for the preview
                     $.post('/helper/modified-path/', {
                         file_path: 'uploads/' + fileName,
-                        mod_sysname: 'one_column'
+                        mod_sysname: 'medium'
                     }, function(data, textStatus, jqXHR) {
                         $('#image_preview').html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
                         $('#image_uploader').hide();
@@ -119,7 +119,7 @@
                 'csrf_xname': 'X-CSRFToken'
             }, 
             showMessage: function(message) {
-                $('.messages').html('<div class="alert alert-error">' + message + '</div>');
+                $('.messages').html('<div class="alert alert-danger">' + message + '</div>');
             }
         });
         var uploader = new qq.FileUploader(options);

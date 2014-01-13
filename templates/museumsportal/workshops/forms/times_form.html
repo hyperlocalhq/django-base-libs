@@ -71,7 +71,7 @@
         }).change();
     
         $(
-            '<a id="add_workshop_time" class="add btn btn-small btn-primary" href="#">{% trans "Add another workshop time" %}</a>'
+            '<a id="add_workshop_time" class="add btn btn-primary" href="#">{% trans "Add another workshop time" %}</a>'
         ).insertAfter('#workshop_times').click(function() {
             var $total_forms = $('#id_workshop_times-TOTAL_FORMS');
             var $new_form = $('#workshop_times_empty_form').clone(true).attr("id", null).show();
@@ -83,7 +83,7 @@
         });
         
         $(
-            '<div class="form-actions"><a class="add btn btn-small btn-primary" id="add_batch_workshop_times" href="#">{% trans "Add batch workshop times" %}</a></div>'
+            '<div class="form-actions"><a class="add btn btn-primary" id="add_batch_workshop_times" href="#">{% trans "Add batch workshop times" %}</a></div>'
         ).insertAfter('#workshop_times_fieldset');
         
         $('#add_batch_workshop_times').click(function() {
@@ -115,10 +115,10 @@
             $season.find('input:checkbox[id$=DELETE]').each(function() {
                 var $checkbox = $(this);
                 var $deleteLink = $(
-                    '<div class"min"><button class="delete icon icon-black icon-delete" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
+                    '<span class="input-group-btn"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
                 );
-                $checkbox.parents('.formset-form').find(".row").append($deleteLink);
-                $checkbox.parent().hide();
+                $checkbox.closest('.formset-form').find(".input-group:last").append($deleteLink);
+                $checkbox.closest('.form-group').hide();
             });
         });
         $('.delete').live("click", function() {

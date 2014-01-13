@@ -264,8 +264,8 @@ class BasicInfoForm(ModelForm):
                                 <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
                             </div>
                             <div class="form-actions">
-                                <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
-                                <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                                <input id="dyn_locate_geo" type="button" class="btn btn-primary" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input id="dyn_remove_geo" type="button" class="btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;-->
                             </div>
                         </div>
                     """),
@@ -311,7 +311,7 @@ class BasicInfoForm(ModelForm):
                         <div class="pdf_link">
                             <p class="lead">
                             {% if exhibition.pdf_document_de %}
-                                <a class="btn btn-small" href="{{ MEDIA_URL }}{{ exhibition.pdf_document_de.path }}" target="_blank">{{ exhibition.pdf_document_de.filename }} ({% trans "Preview" %})</a>
+                                <a class="btn btn-primary" href="{{ MEDIA_URL }}{{ exhibition.pdf_document_de.path }}" target="_blank">{{ exhibition.pdf_document_de.filename }} ({% trans "Preview" %})</a>
                             {% endif %}
                             </p>
                         </div>
@@ -328,7 +328,7 @@ class BasicInfoForm(ModelForm):
                         <div class="pdf_link">
                             <p class="lead">
                             {% if exhibition.pdf_document_en %}
-                                <a class="btn btn-small" href="{{ MEDIA_URL }}{{ exhibition.pdf_document_en.path }}" target="_blank">{{ exhibition.pdf_document_en.filename }} ({% trans "Preview" %})</a>
+                                <a class="btn btn-primary" href="{{ MEDIA_URL }}{{ exhibition.pdf_document_en.path }}" target="_blank">{{ exhibition.pdf_document_en.filename }} ({% trans "Preview" %})</a>
                             {% endif %}
                             </p>
                         </div>
@@ -420,13 +420,17 @@ class OrganizerForm(ModelForm):
         layout_blocks.append(
             layout.Div(
                 layout.Div(
-                    layout.Div("organizing_museum", css_class="max"), 
-                    css_class="flex",
+                    bootstrap.PrependedText("organizing_museum", ""), 
+                    css_class="toggle-option"
+                ),
+                layout.Row(
+                    layout.Div("organizer_title", css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
+                    layout.Div(bootstrap.PrependedText("organizer_url_link", "", placeholder="http://"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
+                    css_class="row-xs toggle-option"
                 ),
                 layout.Div(
-                    layout.Div("organizer_title"),
-                    layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="max"),
-                    css_class="flex",
+                    "DELETE",
+                    css_class="hide"
                 ),
                 css_class="div_organizer"
             )
@@ -564,6 +568,10 @@ class SeasonForm(ModelForm):
                 "is_open_24_7",
                 css_class="checkbox-group"
             ),
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            "",
             layout.HTML("""{% load i18n %}
                 <div class="row row-md">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -662,7 +670,7 @@ class SeasonForm(ModelForm):
                     </div>
                 </div>
             """),
-            css_class="fieldset-season",
+            css_class="fieldset-season no-legend",
         ))
 
         layout_blocks.append(layout.Fieldset(

@@ -184,7 +184,7 @@ class BasicInfoForm(ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _("Location"),
-            layout.Div(
+            layout.Row(
                 layout.Div(
                     layout.Field("museum", template="bootstrap3/field_marked_as_required.html"),
                     layout.Field("location_name", template="bootstrap3/field_marked_as_required.html"),
@@ -192,24 +192,30 @@ class BasicInfoForm(ModelForm):
                     "street_address2",
                     "postal_code",
                     "city",
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
-                layout.HTML("""{% load i18n %}
-                    <div id="dyn_set_map">
-                        <label>{% trans "Location" %}</label>
-                        <div class="event_map" id="gmap-wrapper">
-                            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                layout.Div(
+                    layout.HTML("""{% load i18n %}
+                        <div id="dyn_set_map">
+                            <label>{% trans "Location" %}</label>
+                            <div class="event_map" id="gmap-wrapper">
+                                <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                            </div>
+                            <div class="form-actions">
+                                <input id="dyn_locate_geo" type="button" class="btn btn-primary" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input id="dyn_remove_geo" type="button" class="btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            </div>
                         </div>
-                        <div class="form-actions">
-                            <input id="dyn_locate_geo" type="button" class="btn btn-small" value="{% trans "Relocate on map" %}" />&zwnj;
-                            <!--<input id="dyn_remove_geo" type="button" class="btn btn-small" value="{% trans "Remove from map" %}"/>&zwnj;-->
-                        </div>
-                    </div>
-                """),
-                "latitude",
-                "longitude",
-                css_class="cols-2",
+                    """),
+                    "latitude",
+                    "longitude",
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+
+                ),
+
+                css_class="row-md",
             ),
-            css_class="fieldset-where cols-2",
+            css_class="fieldset-where",
         ))
         layout_blocks.append(layout.Fieldset(
             _("Organizers (when differ from location)"),
@@ -250,7 +256,7 @@ class BasicInfoForm(ModelForm):
                         <div class="pdf_link">
                             <p class="lead">
                             {% if event.pdf_document_de %}
-                                <a class="btn btn-small" href="{{ MEDIA_URL }}{{ event.pdf_document_de.path }}" target="_blank">{{ event.pdf_document_de.filename }} ({% trans "Preview" %})</a>
+                                <a class="btn btn-primary" href="{{ MEDIA_URL }}{{ event.pdf_document_de.path }}" target="_blank">{{ event.pdf_document_de.filename }} ({% trans "Preview" %})</a>
                             {% endif %}
                             </p>
                         </div>
@@ -267,7 +273,7 @@ class BasicInfoForm(ModelForm):
                         <div class="pdf_link">
                             <p class="lead">
                             {% if event.pdf_document_en %}
-                                <a class="btn btn-small" href="{{ MEDIA_URL }}{{ event.pdf_document_en.path }}" target="_blank">{{ event.pdf_document_en.filename }} ({% trans "Preview" %})</a>
+                                <a class="btn btn-primary" href="{{ MEDIA_URL }}{{ event.pdf_document_en.path }}" target="_blank">{{ event.pdf_document_en.filename }} ({% trans "Preview" %})</a>
                             {% endif %}
                             </p>
                         </div>
@@ -360,13 +366,17 @@ class OrganizerForm(ModelForm):
         layout_blocks.append(
             layout.Div(
                 layout.Div(
-                    layout.Div("organizing_museum", css_class="max"), 
-                    css_class="flex",
+                    bootstrap.PrependedText("organizing_museum", ""), 
+                    css_class="toggle-option"
+                ),
+                layout.Row(
+                    layout.Div("organizer_title", css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
+                    layout.Div(bootstrap.PrependedText("organizer_url_link", "", placeholder="http://"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"),
+                    css_class="row-xs toggle-option"
                 ),
                 layout.Div(
-                    layout.Div("organizer_title"),
-                    layout.Div(layout.Field("organizer_url_link", placeholder="http://"), css_class="max"),
-                    css_class="flex",
+                    "DELETE",
+                    css_class="hide"
                 ),
                 css_class="div_organizer"
             )

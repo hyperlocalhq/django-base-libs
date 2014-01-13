@@ -125,7 +125,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
       </div>
     </div>
 
-    <div id="container" class="row row-md list">
+    <div id="container" class="row row-md list isotope">
       {% load advertising_tags %}
       {% random_zone_ad 'events' %}
       {% for event in object_list %}

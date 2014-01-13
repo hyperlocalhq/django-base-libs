@@ -1,7 +1,7 @@
 $(window).bind('scrollstop load', function(){
     $(".img-detail img:in-viewport").lazyload({
         load : function(element, el_left, settings){
-            $('#container').isotope();
+            $('.isotope').isotope();
         }
     }).addClass("in");
 });
@@ -11,7 +11,7 @@ $(window).bind('load', function(){
 });
 
 $(window).bind('smartresize', function(){
-    $('#container').isotope();
+    $('.isotope').isotope();
 });
 
 $(window).bind('scrollstop', function(){
@@ -49,7 +49,7 @@ $(document).ready(function(){
 
     $(".navbar-wrapper").headroom({
         // vertical offset in px before element is first unpinned
-        offset : 300,
+        offset : 400,
         // scroll tolerance in px before state changes
         tolerance : 0
     });
