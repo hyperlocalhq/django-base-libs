@@ -35,6 +35,8 @@
         <h1>{% trans "Guided Tours, Workshops and educational offers" %}</h1>
         <div id="filters">
             <div class="btn-group" id="filter-toggle" data-toggle="buttons-radio">
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-bookablegroup">{% trans "Bookable group offer" %}</button>
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-accessibility">{% trans "Barrier-free guided tours" %}</button>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-smartlists">{% trans "Smart lists" %}</button>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#filter-options" data-target="#filter-calendar">{% trans "Calendar" %}</button>
             </div>
@@ -43,23 +45,35 @@
 
             <div class="accordion" id="filter-options">
                 <div class="accordion-group">
-                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;">
+                    <div id="filter-bookablegroup" class="accordion-body collapse" style="height: 0px;">
                         <div class="accordion-inner">
-                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+                            <ul class="filter option-set clearfix" id="bookablegroup" data-filter-group="bookablegroup" data-single-selection="1">
                                 <li><a href="" data-filter-value=".has_group_offer">{% trans "Has bookable group offer" %}</a></li>
-                                <li><a href="" data-filter-value=".is_for_preschool">{% trans "Special for preschool children (up to 5 years)" %}</a></li>
-                                <li><a href="" data-filter-value=".is_for_primary_school">{% trans "Special for children of primary school age (6-12 years)" %}</a></li>
-                                <li><a href="" data-filter-value=".is_for_youth">{% trans "Special for youth (aged 13 years)" %}</a></li>
-                                <li><a href="" data-filter-value=".is_for_families">{% trans "Special for families" %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-group">
+                    <div id="filter-accessibility" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <ul class="filter option-set clearfix" id="accessibility" data-filter-group="accessibility">
                                 <li><a href="" data-filter-value=".is_for_wheelchaired">{% trans "Special for people in wheelchairs" %}</a></li>
                                 <li><a href="" data-filter-value=".is_for_deaf">{% trans "Special for deaf people" %}</a></li>
                                 <li><a href="" data-filter-value=".is_for_blind">{% trans "Special for blind people" %}</a></li>
                                 <li><a href="" data-filter-value=".is_for_learning_difficulties">{% trans "Special for people with learning difficulties" %}</a></li>
                                 <li><a href="" data-filter-value=".is_for_dementia_sufferers">{% trans "Special for sufferers of dementia" %}</a></li>
-
-                                {% comment %}
-                                <!-- <li><a href="" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a></li> -->
-                                {% endcomment %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-group">
+                    <div id="filter-smartlists" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+                                <li><a href="" data-filter-value=".is_for_preschool">{% trans "Special for preschool children (up to 5 years)" %}</a></li>
+                                <li><a href="" data-filter-value=".is_for_primary_school">{% trans "Special for children of primary school age (6-12 years)" %}</a></li>
+                                <li><a href="" data-filter-value=".is_for_youth">{% trans "Special for youth (aged 13 years)" %}</a></li>
+                                <li><a href="" data-filter-value=".is_for_families">{% trans "Special for families" %}</a></li>
                             </ul>
                         </div>
                     </div>

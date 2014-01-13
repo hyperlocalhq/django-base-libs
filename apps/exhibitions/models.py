@@ -75,11 +75,17 @@ class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
 
 class ExhibitionManager(models.Manager):
     def newly_opened(self):
+        today = date.today()
+        two_weeks = timedelta(days=14)
         lang_code = get_current_language()
-        return self.filter(newly_opened=True, status="published").order_by("-featured", "-start", "title_%s" % lang_code)
+        return self.filter(
+            start__gt=today-two_weeks,
+            start__lte=today,
+            status="published",
+        ).order_by("-featured", "-start", "title_%s" % lang_code)
         
     def featured(self):
-        return self.filter(featured=True, status="published")
+        return self.filter(featured=True, status="published").order_by('-start')
         
     def featured_in_magazine(self):
         return self.filter(featured_in_magazine=True, status="published")
@@ -144,7 +150,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     finissage = models.DateTimeField(u"Finissage", blank=True, null=True)
     exhibition_extended = models.BooleanField(_("Exhibition extended"))
     permanent = models.BooleanField(_("Permanent exhibition"))
-    
+    special = models.BooleanField(_("Special exhibition"))
+
     image = FileBrowseField(_('Image'), max_length=255, directory="exhibitions/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True, editable=False)
 
@@ -162,7 +169,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     other_locations = MultilingualTextField(_("Other exhibition locations"), blank=True)
 
     newly_opened = models.BooleanField(_("Newly opened"))
-    featured = models.BooleanField(_("Featured"))
+    featured = models.BooleanField(_("Featured in Newsletter"))
     featured_in_magazine = models.BooleanField(_("Featured in Magazine"))
     closing_soon = models.BooleanField(_("Closing soon"))
     
@@ -357,6 +364,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return []
         if self.permanent:
             return self.museum.season_set.all()
+        if not self.start or not self.end:
+            return []
         seasons = self.museum.season_set.filter(
             # Get seasons which start date is within the exhibition duration
             # -----[------exhibition------]----- time ->

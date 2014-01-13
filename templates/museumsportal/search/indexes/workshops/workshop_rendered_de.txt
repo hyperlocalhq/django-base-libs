@@ -2,8 +2,8 @@
 {% with object as workshop %}
     <li class="item">
         <a href="/de/fuehrungen/{{ workshop.slug }}/">
-            <h4>Führung: 
-            <span>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.get_humanized_date_de }} {{ workshop_time.start|time:"H:i" }}{% endwith %}</span>
+            <h4>
+                <span>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.get_humanized_date_de }} {{ workshop_time.start|time:"H:i" }}{% endwith %}</span>
             </h4>
             <h3>{{ workshop.title_de }}</h3>
             <h4>{{ workshop.subtitle_de }}</h4>

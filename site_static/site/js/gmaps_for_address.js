@@ -37,12 +37,15 @@
                 $("#dyn_remove_geo").click(oSelf.removeGeoPos);
                 var $oGmap = $('<div id="gmap">').prependTo($oDynMapContainer);
                 var oOptions = {
+                    mapTypeControl: false,
+                    zoomControl: true,
+                    streetViewControl: true,
                     scrollwheel: false,
                     zoom: 15,
                     center: new google.maps.LatLng(52.523781, 13.411895),
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    mapTypeControlOptions: {
-                        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                    zoomControlOptions: {
+                        style: google.maps.ZoomControlStyle.SMALL
                     },
                     disableDoubleClickZoom: true
                 };

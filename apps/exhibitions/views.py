@@ -42,9 +42,10 @@ from filebrowser.models import FileDescription
 STATUS_CHOICES = (
     ("newly_opened", _("Newly opened")),
     ("closing_soon", _("Closing soon")),
-    )
+)
 
-class ExhibitionSearchForm(dynamicforms.Form):
+
+class ExhibitionFilterForm(dynamicforms.Form):
     category = forms.ModelChoiceField(
         required=False,
         queryset=get_related_queryset(Exhibition, "categories"),
@@ -53,6 +54,10 @@ class ExhibitionSearchForm(dynamicforms.Form):
         choices=STATUS_CHOICES,
         required=False,
         )
+    suitable_for_disabled = forms.BooleanField(
+        required=False,
+    )
+
 
 def exhibition_list(request):
     qs = Exhibition.objects.filter(status="published")
@@ -60,15 +65,16 @@ def exhibition_list(request):
     #if not request.REQUEST.keys():
     #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
     
-    form = ExhibitionSearchForm(data=request.REQUEST)
+    form = ExhibitionFilterForm(data=request.REQUEST)
     
     facets = {
         'selected': {},
         'categories': {
             'categories': get_related_queryset(Exhibition, "categories").all().order_by("title_%s" % request.LANGUAGE_CODE),
             'statuses': STATUS_CHOICES,
-            },
-        }
+            'suitable_for_disabled': _("Exhibition especially suitable for people with disabilities"),
+        },
+    }
 
     status = None
     if form.is_valid():
@@ -77,7 +83,7 @@ def exhibition_list(request):
             facets['selected']['category'] = cat
             qs = qs.filter(
                 categories=cat,
-                ).distinct()
+            ).distinct()
         status = form.cleaned_data['status']
         if status:
             facets['selected']['status'] = status
@@ -88,13 +94,20 @@ def exhibition_list(request):
                 qs = qs.filter(
                     start__gt=today-two_weeks,
                     start__lte=today,
-                    )
+                )
             elif status == "closing_soon":
                 # today <= EXHIBITION END < today + two weeks
                 qs = qs.filter(
                     end__gte=today,
                     end__lt=today+two_weeks,
-                    )
+                )
+        suitable_for_disabled = form.cleaned_data['suitable_for_disabled']
+        if suitable_for_disabled:
+            facets['selected']['suitable_for_disabled'] = True
+            qs = qs.filter(
+                suitable_for_disabled=True,
+            )
+
     if status == "closing_soon":
         qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
     else:
@@ -118,7 +131,8 @@ def exhibition_list(request):
         extra_context=extra_context,
         httpstate_prefix="exhibition_list",
         context_processors=(prev_next_processor,),
-        )
+    )
+
 
 def exhibition_detail(request, slug):
     if "preview" in request.REQUEST:
@@ -135,7 +149,8 @@ def exhibition_detail(request, slug):
         slug_field="slug",
         template_name="exhibitions/exhibition_detail.html",
         context_processors=(prev_next_processor,),
-        )
+    )
+
 
 def export_json_exhibitions(request):
     #create queryset
@@ -143,7 +158,7 @@ def export_json_exhibitions(request):
     
     exhibitions = []
     for ex in qs:
-        data ={
+        data = {
             'museum': ex.museum,
             'title': ex.title,
             'subtitle': ex.subtitle,
@@ -161,7 +176,7 @@ def export_json_exhibitions(request):
         #datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
         ensure_ascii=False,
         cls=ExtendedJSONEncoder
-        )
+    )
     return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
     
 
@@ -171,7 +186,8 @@ def add_exhibition(request):
     if not request.user.has_perm("exhibitions.add_exhibition"):
         return access_denied(request)
     return show_form_step(request, EXHIBITION_FORM_STEPS, extra_context={});
-    
+
+
 @never_cache
 @login_required
 def change_exhibition(request, slug):
@@ -179,6 +195,7 @@ def change_exhibition(request, slug):
     if not request.user.has_perm("exhibitions.change_exhibition", instance):
         return access_denied(request)
     return show_form_step(request, EXHIBITION_FORM_STEPS, extra_context={'exhibition': instance}, instance=instance);
+
 
 @never_cache
 @login_required
@@ -191,7 +208,8 @@ def delete_exhibition(request, slug):
         instance.save()
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
-    
+
+
 @never_cache
 @login_required
 def change_exhibition_status(request, slug):
@@ -207,6 +225,7 @@ def change_exhibition_status(request, slug):
 
 ### MEDIA FILE MANAGEMENT ###
 
+
 def update_mediafile_ordering(tokens, exhibition):
     # tokens is in this format:
     # "<mediafile1_token>,<mediafile2_token>,<mediafile3_token>"
@@ -216,13 +235,14 @@ def update_mediafile_ordering(tokens, exhibition):
             MediaFile,
             exhibition=exhibition,
             pk=MediaFile.token_to_pk(mediafile_token)
-            )
+        )
         mediafiles.append(mediafile)
     sort_order = 0
     for mediafile in mediafiles:
         mediafile.sort_order = sort_order
         mediafile.save()
         sort_order += 1
+
 
 @never_cache
 @login_required
@@ -237,7 +257,8 @@ def gallery_overview(request, slug):
         return HttpResponse("OK")
 
     return render(request, "exhibitions/gallery/overview.html", {'exhibition': instance})
-    
+
+
 @never_cache
 @login_required
 def create_update_mediafile(request, slug, mediafile_token="", media_file_type="", **kwargs):
@@ -260,7 +281,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             MediaFile,
             exhibition=instance,
             pk=MediaFile.token_to_pk(mediafile_token),
-            )
+        )
     else:
         media_file_obj = None
     
@@ -289,7 +310,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             if not media_file_obj:
                 media_file_obj = MediaFile(
                     exhibition=instance
-                    )
+                )
                     
             media_file_path = ""
             if cleaned.get("media_file_path", None):
@@ -314,7 +335,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=FileObject(media_file_path or path),
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 file_description = FileDescription(file_path=media_file_path or path)
             
@@ -329,7 +350,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             if not media_file_obj.pk:
                 media_file_obj.sort_order = MediaFile.objects.filter(
                     exhibition=instance,
-                    ).count()
+                ).count()
             else:
                 # trick not to reorder media files on save
                 media_file_obj.sort_order = media_file_obj.sort_order
@@ -340,7 +361,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                     request,
                     "exhibitions/gallery/success.html",
                     {},
-                    )
+                )
             else:
                 if cleaned['goto_next']:
                     return redirect(cleaned['goto_next'])
@@ -352,7 +373,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=media_file_obj.path,
-                    ).order_by("pk")[0]
+                ).order_by("pk")[0]
             except:
                 file_description = FileDescription(file_path=media_file_obj.path)
             initial = {}
@@ -375,13 +396,14 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         'media_file_type': media_file_type,
         'form': form,
         'exhibition': instance,
-        }
+    }
     
     return render(
         request,
         "exhibitions/gallery/create_update_mediafile.html",
         context_dict,
-        )
+    )
+
 
 @never_cache
 @login_required
@@ -392,7 +414,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
     
     filters = {
         'id': MediaFile.token_to_pk(mediafile_token),
-        }
+    }
     if instance:
         filters['exhibition'] = instance
     try:
@@ -410,7 +432,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
                     pass
                 FileDescription.objects.filter(
                     file_path=media_file_obj.path,
-                    ).delete()
+                ).delete()
             media_file_obj.delete()
             
             return HttpResponse("OK")
@@ -423,13 +445,13 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
         'media_file': media_file_obj,
         'form': form,
         'exhibition': instance,
-        }
+    }
     
     return render(
         request,
         "exhibitions/gallery/delete_mediafile.html",
         context_dict,
-        )
+    )
 
 
 ### VERNISSAGES
@@ -446,8 +468,8 @@ def vernissage_list(request):
         'categories': {
             'categories': get_related_queryset(Exhibition, "categories").order_by("title_%s" % request.LANGUAGE_CODE),
             'statuses': STATUS_CHOICES,
-            },
-        }
+        },
+    }
 
     status = None
     if form.is_valid():
@@ -456,7 +478,7 @@ def vernissage_list(request):
             facets['selected']['category'] = cat
             qs = qs.filter(
                 categories=cat,
-                ).distinct()
+            ).distinct()
         status = form.cleaned_data['status']
         if status:
             facets['selected']['status'] = status
@@ -467,13 +489,13 @@ def vernissage_list(request):
                 qs = qs.filter(
                     start__gt=today-two_weeks,
                     start__lte=today,
-                    )
+                )
             elif status == "closing_soon":
                 # today <= EXHIBITION END < today + two weeks
                 qs = qs.filter(
                     end__gte=today,
                     end__lt=today+two_weeks,
-                    )
+                )
     if status == "closing_soon":
         qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
     else:
@@ -491,5 +513,4 @@ def vernissage_list(request):
         extra_context=extra_context,
         httpstate_prefix="vernissage_list",
         context_processors=(prev_next_processor,),
-        )
-
+    )

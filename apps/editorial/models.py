@@ -10,7 +10,14 @@ from cms.models import CMSPlugin
 
 from filebrowser.fields import FileBrowseField
 
-CSS_CLASSES = getattr(settings, "EDITORIAL_CONTENT_CSS_CLASSES", ())
+COLUMN_WIDTHS = (
+    (3, _('25% of the full width')),
+    (4, _('33.3% of the full width')),
+    (6, _('50% of the full width')),
+    (8, _('66.6% of the full width')),
+    (9, _('75% of the full width')),
+    (12, _('Full width')),
+)
 
 
 class EditorialContent(CMSPlugin):
@@ -22,7 +29,11 @@ class EditorialContent(CMSPlugin):
     image = FileBrowseField(_('Image'), max_length=255, extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
     image_caption = ExtendedTextField(_("Image Caption"), max_length=255, blank=True)
 
-    css_class = models.CharField(_("CSS Class"), max_length=255, blank=True, choices=CSS_CLASSES)
+    col_xs_width = models.PositiveIntegerField(_("Column width for phones"), blank=True, null=True, choices=COLUMN_WIDTHS)
+    col_sm_width = models.PositiveIntegerField(_("Column width for tablets"), blank=True, null=True, choices=COLUMN_WIDTHS)
+    col_md_width = models.PositiveIntegerField(_("Column width for small desktops"), blank=True, null=True, choices=COLUMN_WIDTHS)
+    col_lg_width = models.PositiveIntegerField(_("Column width for large desktops"), blank=True, null=True, choices=COLUMN_WIDTHS)
+    css_class = models.CharField(_("CSS Class"), max_length=255, blank=True)
 
     def __unicode__(self):
         return self.title

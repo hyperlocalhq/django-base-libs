@@ -2,8 +2,8 @@
 {% with object as event %}
     <li class="item">
         <a href="/de/veranstaltungen/{{ event.slug }}/">
-            <h4>Veranstaltung: 
-            <span>{% with event.get_closest_event_time as event_time %}{{ event_time.get_humanized_date_de }} {{ event_time.start|time:"H:i" }}{% endwith %}</span>
+            <h4>
+                <span>{% with event.get_closest_event_time as event_time %}{{ event_time.get_humanized_date_de }} {{ event_time.start|time:"H:i" }}{% endwith %}</span>
             </h4>
             <h3>{{ event.title_de }}</h3>
             <h4>{{ event.subtitle_de }}</h4>

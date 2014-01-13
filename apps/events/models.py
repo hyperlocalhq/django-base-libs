@@ -88,6 +88,9 @@ class EventCategory(MPTTModel, SlugMixin()):
 
 
 class EventManager(models.Manager):
+    def nearest_published_featured(self):
+        return self.get_query_set().filter(featured=True, status="published").order_by("closest_event_date", "closest_event_time")
+
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("events.change_event"):
@@ -132,6 +135,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     pdf_document_en = FileBrowseField(_('PDF Document in English'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
+    featured = models.BooleanField(_("Featured in Newsletter"))
 
     categories = TreeManyToManyField(EventCategory, verbose_name=_("Categories"))
     tags = TagAutocompleteField(verbose_name=_("tags"))

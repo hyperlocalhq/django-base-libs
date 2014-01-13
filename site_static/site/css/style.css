@@ -1478,7 +1478,10 @@ div.tagsinput {
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out; }
-  /* line 98, ../scss/maps.scss */
+  /* line 97, ../scss/maps.scss */
+  #gmap_wrapper img {
+    max-width: none; }
+  /* line 100, ../scss/maps.scss */
   #gmap_wrapper #gmap {
     width: auto;
     height: 100%;
@@ -1489,7 +1492,7 @@ div.tagsinput {
     left: 0;
     right: 0;
     position: absolute; }
-    /* line 108, ../scss/maps.scss */
+    /* line 110, ../scss/maps.scss */
     #gmap_wrapper #gmap * {
       -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -1498,7 +1501,7 @@ div.tagsinput {
       -ms-user-select: none;
       user-select: none; }
 
-/* line 119, ../scss/maps.scss */
+/* line 121, ../scss/maps.scss */
 #gmap_locations {
   position: absolute;
   top: 0px;
@@ -1510,15 +1513,15 @@ div.tagsinput {
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 1500; }
-  /* line 133, ../scss/maps.scss */
+  /* line 135, ../scss/maps.scss */
   #gmap_locations::-webkit-scrollbar-corner, #gmap_locations::-webkit-scrollbar {
     width: 10px;
     height: 10px;
     background-color: #646464; }
-  /* line 139, ../scss/maps.scss */
+  /* line 141, ../scss/maps.scss */
   #gmap_locations li {
     display: block; }
-    /* line 142, ../scss/maps.scss */
+    /* line 144, ../scss/maps.scss */
     #gmap_locations li a {
       background-color: #00aefd;
       color: white;
@@ -1535,16 +1538,16 @@ div.tagsinput {
       overflow: hidden;
       box-sizing: border-box;
       -moz-box-sizing: border-box; }
-      /* line 160, ../scss/maps.scss */
+      /* line 162, ../scss/maps.scss */
       #gmap_locations li a:hover {
         color: white;
         background-color: black; }
 
-/* line 169, ../scss/maps.scss */
+/* line 171, ../scss/maps.scss */
 .location .wrapper {
   text-align: center;
   height: 0; }
-  /* line 173, ../scss/maps.scss */
+  /* line 175, ../scss/maps.scss */
   .location .wrapper .close {
     top: 0px;
     right: 0px;
@@ -1552,7 +1555,7 @@ div.tagsinput {
     width: 32px;
     height: auto;
     display: none; }
-  /* line 182, ../scss/maps.scss */
+  /* line 184, ../scss/maps.scss */
   .location .wrapper .inner {
     text-align: left;
     display: table;
@@ -1571,34 +1574,34 @@ div.tagsinput {
     font-size: 14px;
     line-height: 20px;
     font-weight: 500; }
-    /* line 201, ../scss/maps.scss */
+    /* line 203, ../scss/maps.scss */
     .location .wrapper .inner > span {
       display: table-cell;
       vertical-align: middle;
       text-align: center; }
-      /* line 205, ../scss/maps.scss */
+      /* line 207, ../scss/maps.scss */
       .location .wrapper .inner > span a {
         font-weight: 700;
         color: inherit;
         text-align: center;
         display: inline-block;
         word-break: keep-all; }
-        /* line 213, ../scss/maps.scss */
+        /* line 215, ../scss/maps.scss */
         .location .wrapper .inner > span a span {
           opacity: 0.5;
           font-size: 10px;
           display: none; }
-    /* line 217, ../scss/maps.scss */
+    /* line 219, ../scss/maps.scss */
     .location .wrapper .inner:hover {
       background-color: white;
       box-shadow: 0px 0px 3px 2px #ebebeb !important; }
-      /* line 220, ../scss/maps.scss */
+      /* line 222, ../scss/maps.scss */
       .location .wrapper .inner:hover a {
         color: black; }
-      /* line 222, ../scss/maps.scss */
+      /* line 224, ../scss/maps.scss */
       .location .wrapper .inner:hover:after {
         border-top-color: white; }
-    /* line 226, ../scss/maps.scss */
+    /* line 228, ../scss/maps.scss */
     .location .wrapper .inner:after {
       content: "";
       position: absolute;
