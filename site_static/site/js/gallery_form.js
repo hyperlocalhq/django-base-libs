@@ -1,3 +1,9 @@
+/* jshint unused:false, eqnull:false */
+/* global self: false */
+/* global jQuery: false */
+/* global qq: false */
+/* global translatable_file_uploader_options: false */
+/* global activate_form_language: false */
 (function($, undefined) {
     function reinit() {
         $('#photos').each(function() {
@@ -6,7 +12,7 @@
                 $('#photos').sortable({
                     placeholder: "ui-state-highlight",
                     update: function(event, ui) {
-                        var tokens = []
+                        var tokens = [];
                         $('.photo', '#photos').each(function() {
                             if ($(this).data('token')) {
                                 tokens[tokens.length] = $(this).data('token');
@@ -15,16 +21,16 @@
                         $.post(load_url, {ordering: tokens.join(',')});
                     },
                     forcePlaceholderSize: true,
-                    create: function(){
+                    create: function() {
                         var list = this;
-                        resize = function(){
+                        var resize = function(){
                             $(list).css("height","auto");
                             //$(list).height($(list).height());
                         };
                         // $(list).height($(list).height());
                         $(list).find('img').load(resize).error(resize);
-                    }                    
-                })
+                    }
+                });
                 $('#photos').disableSelection().find('.edit').click(function() {
                     $('#edit_photo').load($(this).attr('href') + ' #edit_photo form', edit_photo_loaded);
                     $('#photos').parents('fieldset:first').hide();
@@ -47,8 +53,15 @@
         });
         $('#photos').parents('fieldset:first').show();
         $('.form-actions:last').show();
-        
     }
+    $(document).on('click', '#crop_list_image', function() {
+        location.href = $('#photos').find('.crop_list_image:first').attr('href').replace(/goto_next=.+$/, 'goto_next=' + location.href);
+        return false;
+    });
+    $(document).on('click', '#crop_cover_image', function() {
+        location.href = $('#photos').find('.crop_cover_image:first').attr('href').replace(/goto_next=.+$/, 'goto_next=' + location.href);
+        return false;
+    });
     function edit_photo_loaded() {
         $('textarea').autosize();
         activate_form_language(window.settings.lang);
@@ -65,10 +78,10 @@
             $('#deleteConfirmation').modal('show');
             $('#button-id-confirm-deletion').click(function() {
                 $.post(delete_url, {}, function() {
-                    $('#deleteConfirmation').modal('hide')
+                    $('#deleteConfirmation').modal('hide');
                     $('#edit_photo').html("");
                     reinit();
-                })
+                });
                 return false;
             });
         });
@@ -82,9 +95,9 @@
                 $('#edit_photo').html('');
                 reinit();
             }
-        }
+        };
         var options = $.extend(translatable_file_uploader_options, {
-            allowedExtensions: ['gif', 'jpg', 'png', 'tif', 'bmp'],               
+            allowedExtensions: ['gif', 'jpg', 'png', 'tif', 'bmp'],
             action: "/helper/ajax-upload/",
             element: $('#image_uploader')[0],
             multiple: false,
@@ -117,13 +130,13 @@
                 'csrf_token': $('input[name="csrfmiddlewaretoken"]').val(),
                 'csrf_name': 'csrfmiddlewaretoken',
                 'csrf_xname': 'X-CSRFToken'
-            }, 
+            },
             showMessage: function(message) {
                 $('.messages').html('<div class="alert alert-danger">' + message + '</div>');
             }
         });
         var uploader = new qq.FileUploader(options);
-    }    
+    }
     $(function() {
         reinit();
     });

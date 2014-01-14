@@ -21,7 +21,8 @@
                 {% endwith %}
 
                 <nav class="actions hide">
-                    <a href="{% cropping_url media_file.path "cover" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop icon icon-white icon-tool-crop"></a>
+                    <a href="{% cropping_url media_file.path "exhibition_list" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop list image" %}" class="crop icon icon-white icon-tool-crop crop_list_image"></a>
+                    <a href="{% cropping_url media_file.path "cover" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop cover image" %}" class="crop icon icon-white icon-tool-crop crop_cover_image"></a>
                 </nav>
             </div>        
         {% endfor %}

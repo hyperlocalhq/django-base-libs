@@ -81,66 +81,54 @@ class BasicInfoForm(ModelForm):
             _("Basic Info"),
 
             layout.HTML("""{% load i18n %}
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div id="div_id_title_de" class="clearfix control-group">
-                            <label for="id_title_de" class="control-label requiredField">
-                            {% trans "Name" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
-                            <div class="controls">
-                                <input disabled="disabled" name="title_de" maxlength="255" type="text" class="form-control textinput textInput form_text" value="{{ museum.title_de|escape }}" id="id_title_de">
-                            </div>
+                <div class="multilingual lang-de" data-lang="de">
+                    <div id="div_id_title_de" class="form-group">
+                        <label for="id_title_de" class="control-label requiredField">{% trans "Name" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
+                        <div class="controls">
+                            <input disabled="disabled" name="title_de" value="{{ museum.title_de|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_title_de">
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div id="div_id_title_en" class="clearfix control-group">
-                            <label for="id_title_en" class="control-label ">
-                            {% trans "Name" %} <span class="lang">EN</span></label>
-                            <div class="controls">
-                                <input disabled="disabled" name="title_en" maxlength="255" type="text" class="form-control textinput textInput form_text" value="{{ museum.title_en|escape }}" id="id_title_en">
+                </div>
+                <div class="multilingual lang-en" data-lang="en">
+                    <div id="div_id_title_en" class="form-group">
+                        <label for="id_title_de" class="control-label requiredField">{% trans "Name" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
+                        <div class="controls">
+                            <input disabled="disabled" name="title_en" value="{{ museum.title_en|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_title_en">
+                        </div>
+                    </div>
+                </div>
+                <div class="multilingual lang-de" data-lang="de">
+                    <div id="div_id_subtitle_de" class="form-group">
+                        <label for="id_subtitle_de" class="control-label requiredField">{% trans "Subtitle" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
+                        <div class="controls">
+                            <input disabled="disabled" name="subtitle_de" value="{{ museum.subtitle_de|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_subtitle_de">
+                        </div>
+                    </div>
+                </div>
+                <div class="multilingual lang-en" data-lang="en">
+                    <div id="div_id_subtitle_en" class="form-group">
+                        <label for="id_subtitle_en" class="control-label requiredField">{% trans "Subtitle" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
+                        <div class="controls">
+                            <input disabled="disabled" name="subtitle_en" value="{{ museum.subtitle_en|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_subtitle_en">
+                        </div>
+                    </div>
+                </div>
+                <div class="multilingual lang-de" data-lang="de">
+                    <div id="div_id_description_de" class="form-group">
+                        <label for="id_description_de" class="control-label requiredField">{% trans "Description" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
+                        <div class="controls">
+                            <div id="id_description_de" name="description_de" class="form-control textarea" aria-hidden="true">
+                                {{ museum.description_de|safe }}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div id="div_id_subtitle_de" class="clearfix control-group">
-                            <label for="id_subtitle_de" class="control-label ">
-                            {% trans "Subtitle" %} <span class="lang">DE</span></label>
-                            <div class="controls">
-                                <input disabled="disabled" name="subtitle_de" maxlength="255" type="text" class="form-control textinput textInput form_text" id="id_subtitle_de" value="{{ museum.subtitle_de|escape }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div id="div_id_subtitle_en" class="clearfix control-group">
-                            <label for="id_subtitle_en" class="control-label ">
-                            {% trans "Subtitle" %} <span class="lang">EN</span></label>
-                            <div class="controls">
-                                <input disabled="disabled" name="subtitle_en" maxlength="255" type="text" class="form-control textinput textInput form_text" id="id_subtitle_en" value="{{ museum.subtitle_en|escape }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div id="div_id_description_de" class="clearfix control-group">
-                            <label for="id_description_de" class="control-label ">
-                            {% trans "Description" %} <span class="lang">DE</span></label>
-                            <div class="controls">
-                                <div id="id_description_de" rows="10" cols="40" name="description_de" class="form-control textarea" aria-hidden="true">
-                                    {{ museum.description_de|safe }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div id="div_id_description_en" class="clearfix control-group">
-                            <label for="id_description_en" class="control-label ">
-                            {% trans "Description" %} <span class="lang">EN</span></label>
-                            <div class="controls">
-                                <div id="id_description_en" rows="10" cols="40" name="description_en" class="form-control textarea" aria-hidden="true">
-                                    {{ museum.description_en|safe }}
-                                </div>
+                <div class="multilingual lang-en" data-lang="en">
+                    <div id="div_id_description_en" class="form-group">
+                        <label for="id_description_en" class="control-label requiredField">{% trans "Description" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
+                        <div class="controls">
+                            <div id="id_description_en" name="description_en" class="form-control textarea" aria-hidden="true">
+                                {{ museum.description_en|safe }}
                             </div>
                         </div>
                     </div>
@@ -153,42 +141,37 @@ class BasicInfoForm(ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
             layout.HTML("""{% load i18n base_tags %}
-                <div id="div_id_categories" class="clearfix control-group">
-                    <label for="id_categories_0" class="control-label requiredField">
-                    {% trans "Categories" %}<span class="asteriskField">*</span></label>
-                    <div class="controls inline">
+                <div id="div_id_categories" class="clearfix form-group">
+                    <label for="id_categories_0" class="control-label requiredField">{% trans "Categories" %}<span class="asteriskField">*</span></label>
+                    <div class="checkbox-group">
                         {% get_objects all museums.MuseumCategory as museum_categories %}
                         {% for cat in museum_categories %}
-                            <div class="control-group">
-                                <div class="controls">
-                                    <label class="checkbox"><input type="checkbox" name="categories" id="id_categories_{{ forloop.counter }}" value="{{ cat.id }}" disabled="disabled"{% if cat in museum.categories.all %} checked="checked"{% endif %}> {{ cat.title }}</label>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="categories" id="id_categories_{{ forloop.counter }}" value="{{ cat.id }}" disabled="disabled"{% if cat in museum.categories.all %} checked="checked"{% endif %}> {{ cat.title }}</label>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                 </div>
                 {% if museum.get_tags %}
-                    <div id="div_id_tags" class="clearfix control-group">
-                        <label for="id_tags" class="control-label ">
-                        {% trans "Tags" %} </label>
-
-                        <div class="controls">
+                    <div id="div_id_tags" class="clearfix form-group">
+                        <label for="id_tags" class="control-label">{% trans "Tags" %} </label>
+                        <div class="checkbox-group">
                             <div id="id_tags_tagsinput" class="tagsinput">
                                 {% for tag in museum.get_tags %}
-                                    <span class="tag"><span>{{ tag.name }}</span></span>
+                                    <span class="btn btn-primary tag"><span>{{ tag.name }}</span></span>
                                 {% endfor %}
-                                <div class="tags_clear">
-                                </div>
+                                <div class="tags_clear"></div>
                             </div>
                         </div>
-
                     </div>
                 {% endif %}
 
                 <div class="inline">
                     <div id="div_id_is_for_children" class="clearfix control-group">
                         <div class="controls">
-                            <label for="id_is_for_children" class="checkbox ">
+                            <label for="id_is_for_children" class="checkbox">
                                 <input id="id_is_for_children"{% if museum.is_for_children %} checked="checked"{% endif %} type="checkbox" class="checkboxinput form_checkbox" name="is_for_children" disabled="disabled" />
                                 {% trans "Special for children" %}
                             </label>
