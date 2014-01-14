@@ -1,0 +1,34 @@
+{% load i18n image_modifications %}
+
+<div class="editorial item col-xs-{{ object.col_xs_width|default:"12" }} col-sm-{{ object.col_sm_width|default:"12" }} col-md-{{ object.col_md_width|default:"12" }} col-lg-{{ object.col_lg_width|default:"12" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
+  <div class="content">
+    {% if object.image %}
+      <div class="row row-md">
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4">
+          <a href="{{ object.website }}">
+            <span class="img" style="margin-top: 8px;">
+              {% if object.image %}<img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" width="100%"/>{% endif %}
+              {% if object.image_caption %}<p class="caption">{{ object.get_rendered_image_caption|safe|removetags:"p" }}</p> {% endif %}
+            </span>
+          </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
+          <a href="{{ object.website }}">
+            <h3>{{ object.title }}</h3>
+            <h4>{{ object.subtitle }}</h4>
+          </a>
+          <p class="lead">{{ object.get_rendered_description|removetags:"p"|safe }}</p>
+          <a class="btn btn-default btn-sm" href="{{ object.website }}">{% trans "more" %}</a>
+        </div>
+      </div>
+    {% else %}
+      <a href="{{ object.website }}">
+        <h3>{{ object.title }}</h3>
+        <h4>{{ object.subtitle }}</h4>
+      </a>
+      <p class="lead">{{ object.get_rendered_description|removetags:"p" }}</p>
+      <a class="btn btn-default btn-sm" href="{{ object.website }}">{% trans "more" %}</a>
+    {% endif %}
+  </div>
+</div>

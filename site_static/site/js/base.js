@@ -1,24 +1,34 @@
-$(window).bind('scrollstop load', function(){
-    $(".img-detail img:in-viewport").lazyload({
+function isotope_clear() {
+    $('.isotope-clear').each(function(){
+        var $container = $(this);
+        $container.isotope({
+
+            resizable: false, // disable normal resizing
+            layoutMode: 'fitRows',
+            fitRows: { columnWidth: $container.width() / 12 }
+        });
+    }); 
+}
+
+$(window).bind('scrollstop load', function() {
+    $("img:in-viewport").lazyload({
         load : function(element, el_left, settings){
             $('.isotope').isotope();
+            isotope_clear();
         }
     }).addClass("in");
+    isotope_clear();
 });
 
-$(window).bind('load', function(){
-    $(".img img:in-viewport").lazyload().addClass("in");
-});
+// $(window).bind('scrollstop load', function(){
+//     $(".img img:in-viewport").lazyload().addClass("in");
+// });
 
-$(window).bind('smartresize', function(){
+$(window).bind('smartresize', function() {
     $('.isotope').isotope();
 });
 
-$(window).bind('scrollstop', function(){
-    $(".img img:in-viewport").lazyload().addClass("in");
-});
-
-$(document).ready(function(){
+$(document).ready(function() {
     $("a[href^='http://']").attr("target","_blank");
 
     if ($('#cms_toolbar').length) { // cms toolbar fix
@@ -32,7 +42,7 @@ $(document).ready(function(){
         });
     }
 
-    $('#to-top').click(function(){
+    $('#to-top').click(function() {
         $('html, body').animate({scrollTop:0}, 'slow');
         return false;
     });
