@@ -5,14 +5,14 @@
 {% block content %}
   <div class="content">
     <div class="container">
+            {% placeholder "intro" %}
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            {% placeholder "intro" %}
             {% placeholder "main_content" %}
           </div>
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
             {% placeholder "marginal_content" %}
-            <ul id="sub_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
+            <ul id="side_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
           </div>
         </div>
       </div>
