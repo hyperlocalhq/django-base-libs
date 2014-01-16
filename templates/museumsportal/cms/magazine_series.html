@@ -5,7 +5,15 @@
 {% block content %}
 <div class="content">
 	<div class="container">
-		<header class="intro clearfix">{% placeholder "intro" %}</header>
+		<div class="row"> 
+			<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
+				{% placeholder "intro" %}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="content">
+	<div class="container">
 		<div class="row row-md isotope-clear featured"> 
 			{% with "cms/plugins/editorial_content/ec_magazine_secondlevel_featured_item.html" as editorial_content_template %}
 				{% placeholder "series_items_featured" %}

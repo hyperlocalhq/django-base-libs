@@ -5,21 +5,31 @@
 {% block content %}
   <div class="content">
     <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            {% placeholder "intro" %}
-            <div class="row">
-              {% placeholder "main_content" %}
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            {% placeholder "marginal_content" %}
-            <ul id="side_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
-          </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+          {% placeholder "intro" %}
         </div>
       </div>
     </div>
   </div>
+
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+          <div class="row"> {% placeholder "main_content" %} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+          
+          {% comment %}
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            {% placeholder "marginal_content" %}
+            <ul id="side_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
+          </div>
+          {% endcomment %}
+
   {% with "cms/plugins/editorial_content/ec_magazine_secondlevel_item.html" as editorial_content_template %}
     <div class="content">
       <div class="container">
