@@ -4,11 +4,22 @@
 
 {% block content %}
 
-<div id="teaser" class="content">
+<div class="content">
+	<div class="container">
+		<div class="row"> 
+			<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
+				{% placeholder "intro" %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="content">
   <div class="container">
-    {% placeholder "intro" %}
     <div class="grid row row-md isotope-clear">
-      {% placeholder "plan_organize_first" %}
+		{% with "cms/plugins/editorial_content/ec_planorg_firstlevel_item.html" as editorial_content_template %}
+			{% placeholder "plan_organize_first" %}
+		{% endwith %}
     </div>
   </div>
 </div>
