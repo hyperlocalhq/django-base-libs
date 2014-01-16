@@ -154,7 +154,7 @@ class ImageFileForm(forms.Form):
                     <input type="button" id="button-id-delete-photo" class="delete_photo btn btn btn-lg btn-info" data-href="{{ museum.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
-                        <div class="table">
+                        <div class="modal-centered">
                             <div class="cell">
                                 <div class="inner">
                                     <div class="modal-body">

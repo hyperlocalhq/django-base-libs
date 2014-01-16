@@ -1,5 +1,5 @@
 
-.modal .table {
+.modal-centered {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -15,8 +15,7 @@
     .inner {
       display: inline-block;
       text-align: left;
-      max-width: 320px;
-      max-width: 520px;
+      width: 320px;
       margin-bottom: 25px;
       .modal-header,
       .modal-body {

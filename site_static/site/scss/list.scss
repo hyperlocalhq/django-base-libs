@@ -40,6 +40,34 @@
 
 
 
+.img-full{
+  width: 100%;
+}
+
+.item-inner{
+  background-color: transparent;
+  background-image: url("../img/transparent-1.png") !important;
+}
+
+#teaser .item {
+  h3 { font-weight: 700;}
+  h4 { font-weight: 300;}
+  h5 { font-weight: 300; opacity: 0.5; }
+  h3, h4 , h5 {
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+
+    margin: 0px !important;
+
+    &:empty{ display: none;}
+  }
+}
+
 .item {
   list-style: none;
   .img-detail,
@@ -216,22 +244,23 @@
 }
 
 .compact {
-  padding: 0px !important;
-  margin: 0px !important;
-  margin-bottom: 40px !important;
+  // padding: 0px !important;
+  // margin: 0px !important;
+  // margin-bottom: 40px !important;
+  margin-top: -25px !important;
+  margin-bottom: 15px !important;
 
   .item {
-    margin-bottom: 10px;
-    font-size: 15px;
-    line-height: 21px;
-    width: 100%;
-    height: auto;
-    float: left;
-    position: relative;
-    overflow: hidden;
-    background-color: #f2f2f2;
+    margin-bottom: -14px !important;
+    .inner {
+      font-size: 15px;
+      line-height: 21px;
+      overflow: hidden;
+      background-color: #f2f2f2;
+      position: relative;
+    }
 
-    &:hover { background-color: rgba(0,0,0,0.075); }
+    &:hover .inner { background-color: rgba(0,0,0,0.075); }
     &.title {
       background: none;
       &:hover {background: none; }
@@ -304,9 +333,12 @@
     }
 
     &:nth-child(1) {
-      background: none !important;
-      padding-bottom: 80px;
-      height: 380px;
+      margin-bottom: 0px !important;
+      .inner {
+        background: none !important;
+        padding-bottom: 80px;
+      }
+
       .txt {
         padding: 0px;
         background: none !important;
@@ -330,7 +362,6 @@
 
       .img {
         width: 100% !important;
-        height: 200px;
         position: relative;
       }
     }

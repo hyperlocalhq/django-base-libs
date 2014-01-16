@@ -127,7 +127,9 @@ var str_filter_selection = "{% trans "Filter selection" %}";
 
     <div id="container" class="row row-md list isotope">
       {% load advertising_tags %}
-      {% random_zone_ad 'events' %}
+      <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {% random_zone_ad 'events' %}
+      </div>
       {% for event in object_list %}
       {% tags_for_object event as tags %}
       <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12" data-filter-categories="initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}">

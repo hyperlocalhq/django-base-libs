@@ -69,6 +69,10 @@ body {
   padding: 0px;
   padding-bottom: 35px;
 }
+.tweet {
+  background-image: url("../img/transparent-1.png") !important;
+  padding: 23px 25px;
+}
 
 h1,
 h2,
@@ -113,12 +117,29 @@ h1 {
   margin-bottom: 30px;
 }
 
+.list-lines {
+  margin: 0px;
+  padding: 0px;
+  li {
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 4px;
+    background-image: url("../img/transparent-1.png") !important;
+    // background-position: bottom;
+    // background-repeat: repeat-x;
+  }
+}
 h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block;
   &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+}
+
+h5.caps {
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 p, dl, ul,ol {
@@ -143,8 +164,15 @@ dl {
     clear: both;
   }
 }
+.isotope-clear .item {
+  margin-right: -1px;
+}
 
-dl + p { margin-top: 10px; }
+#special_openings {
+  margin-top: 15px;
+}
+
+// dl + p { margin-top: 10px; }
 dl + p { margin-bottom: 10px; }
 p + dl { margin-top: 10px; }
 

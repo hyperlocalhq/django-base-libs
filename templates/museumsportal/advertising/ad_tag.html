@@ -6,14 +6,14 @@
 {% if ad.textad %}
     <!-- Text ads are commented out on Museumsportal for now -->
     <div class="ad_text zone_{{ ad.zone.sysname }} clearfix">
-        <h3 {% if ad.zone.sysname == "museums" or ad.zone.sysname == "exhibitions" or ad.zone.sysname == "plan_organize_first" %}style="margin-top: -19px;"{% endif %}><small>{% trans "Advertisement" %}</small></h3>
+        <h6 {% if ad.zone.sysname == "museums" or ad.zone.sysname == "exhibitions" or ad.zone.sysname == "plan_organize_first" %}style="margin-top: -20px !important; margin-bottom: 2px !important;"{% endif %}><small>{% trans "Advertisement" %}</small></h6>
         <p><a target="_blank" href="{{ ad.get_url_path }}">{{ ad.textad.content }}</a></p>
     </div>
 {% endif %}
 
 {% if ad.bannerad %}
     <div class="ad_banner zone_{{ ad.zone.sysname }} clearfix">
-        <h3 {% if ad.zone.sysname == "museums" or ad.zone.sysname == "exhibitions" or ad.zone.sysname == "plan_organize_first" %}style="margin-top: -19px;"{% endif %}><small>{% trans "Advertisement" %}</small></h3>
-        <a target="_blank" href="{{ ad.get_url_path }}"><img src="{{ ad.bannerad.content.url }}" alt="{{ ad.title }}" /></a>
+        <h6 {% if ad.zone.sysname == "museums" or ad.zone.sysname == "exhibitions" or ad.zone.sysname == "plan_organize_first" %}style="margin-top: -20px !important; margin-bottom: 2px !important;"{% endif %}><small>{% trans "Advertisement" %}</small></h6>
+        <a target="_blank" href="{{ ad.get_url_path }}"><img class="img-responsive img-full" src="{{ ad.bannerad.content.url }}" alt="{{ ad.title }}" /></a>
     </div>
 {% endif %}

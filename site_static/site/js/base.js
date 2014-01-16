@@ -5,7 +5,7 @@ function isotope_clear() {
 
             resizable: false, // disable normal resizing
             layoutMode: 'fitRows',
-            fitRows: { columnWidth: $container.width() / 12 }
+            fitRows: { columnWidth: Math.floor($container.width() / 12) }
         });
     }); 
 }

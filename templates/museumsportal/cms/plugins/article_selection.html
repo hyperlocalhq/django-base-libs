@@ -1,5 +1,5 @@
 {% if object.article.is_published %}
-    <div class="cms-plugin-article_selection cms-plugin-richtext">
+	<div class="cms-plugin-richtext col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h2>{{ object.article.title }}</h2>
         {% if object.article.subtitle %}<h3>{{ object.article.subtitle }}</h3>{% endif %}
         {{ object.article.get_rendered_description }}

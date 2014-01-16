@@ -2540,10 +2540,10 @@ h6 + .row:not(.grid),
   margin-left: -25px;
   margin-top: -25px; }
   /* line 26, ../scss/row.scss */
-  .row .col-xs-1, .row .col-xs-2, .row .col-xs-3, .row .col-xs-4, .row .col-xs-5, .row .col-xs-6, .row .col-xs-7, .row .col-xs-8, .row .col-xs-9, .row .col-xs-10, .row .col-xs-11, .row .col-xs-12,
-  .row .col-sm-1, .row .col-sm-2, .row .col-sm-3, .row .col-sm-4, .row .col-sm-5, .row .col-sm-6, .row .col-sm-7, .row .col-sm-8, .row .col-sm-9, .row .col-sm-10, .row .col-sm-11, .row .col-sm-12,
-  .row .col-md-1, .row .col-md-2, .row .col-md-3, .row .col-md-4, .row .col-md-5, .row .col-md-6, .row .col-md-7, .row .col-md-8, .row .col-md-9, .row .col-md-10, .row .col-md-11, .row .col-md-12,
-  .row .col-lg-1, .row .col-lg-2, .row .col-lg-3, .row .col-lg-4, .row .col-lg-5, .row .col-lg-6, .row .col-lg-7, .row .col-lg-8, .row .col-lg-9, .row .col-lg-10, .row .col-lg-11, .row .col-lg-12 {
+  .row > .col-xs-1, .row > .col-xs-2, .row > .col-xs-3, .row > .col-xs-4, .row > .col-xs-5, .row > .col-xs-6, .row > .col-xs-7, .row > .col-xs-8, .row > .col-xs-9, .row > .col-xs-10, .row > .col-xs-11, .row > .col-xs-12,
+  .row > .col-sm-1, .row > .col-sm-2, .row > .col-sm-3, .row > .col-sm-4, .row > .col-sm-5, .row > .col-sm-6, .row > .col-sm-7, .row > .col-sm-8, .row > .col-sm-9, .row > .col-sm-10, .row > .col-sm-11, .row > .col-sm-12,
+  .row > .col-md-1, .row > .col-md-2, .row > .col-md-3, .row > .col-md-4, .row > .col-md-5, .row > .col-md-6, .row > .col-md-7, .row > .col-md-8, .row > .col-md-9, .row > .col-md-10, .row > .col-md-11, .row > .col-md-12,
+  .row > .col-lg-1, .row > .col-lg-2, .row > .col-lg-3, .row > .col-lg-4, .row > .col-lg-5, .row > .col-lg-6, .row > .col-lg-7, .row > .col-lg-8, .row > .col-lg-9, .row > .col-lg-10, .row > .col-lg-11, .row > .col-lg-12 {
     padding-right: 25px;
     padding-left: 25px;
     margin-top: 25px; }
@@ -2556,10 +2556,10 @@ h6 + .row:not(.grid),
     margin-left: -10px;
     margin-top: -10px; }
     /* line 40, ../scss/row.scss */
-    .row.row-md .col-xs-1, .row.row-md .col-xs-2, .row.row-md .col-xs-3, .row.row-md .col-xs-4, .row.row-md .col-xs-5, .row.row-md .col-xs-6, .row.row-md .col-xs-7, .row.row-md .col-xs-8, .row.row-md .col-xs-9, .row.row-md .col-xs-10, .row.row-md .col-xs-11, .row.row-md .col-xs-12,
-    .row.row-md .col-sm-1, .row.row-md .col-sm-2, .row.row-md .col-sm-3, .row.row-md .col-sm-4, .row.row-md .col-sm-5, .row.row-md .col-sm-6, .row.row-md .col-sm-7, .row.row-md .col-sm-8, .row.row-md .col-sm-9, .row.row-md .col-sm-10, .row.row-md .col-sm-11, .row.row-md .col-sm-12,
-    .row.row-md .col-md-1, .row.row-md .col-md-2, .row.row-md .col-md-3, .row.row-md .col-md-4, .row.row-md .col-md-5, .row.row-md .col-md-6, .row.row-md .col-md-7, .row.row-md .col-md-8, .row.row-md .col-md-9, .row.row-md .col-md-10, .row.row-md .col-md-11, .row.row-md .col-md-12,
-    .row.row-md .col-lg-1, .row.row-md .col-lg-2, .row.row-md .col-lg-3, .row.row-md .col-lg-4, .row.row-md .col-lg-5, .row.row-md .col-lg-6, .row.row-md .col-lg-7, .row.row-md .col-lg-8, .row.row-md .col-lg-9, .row.row-md .col-lg-10, .row.row-md .col-lg-11, .row.row-md .col-lg-12 {
+    .row.row-md > .col-xs-1, .row.row-md > .col-xs-2, .row.row-md > .col-xs-3, .row.row-md > .col-xs-4, .row.row-md > .col-xs-5, .row.row-md > .col-xs-6, .row.row-md > .col-xs-7, .row.row-md > .col-xs-8, .row.row-md > .col-xs-9, .row.row-md > .col-xs-10, .row.row-md > .col-xs-11, .row.row-md > .col-xs-12,
+    .row.row-md > .col-sm-1, .row.row-md > .col-sm-2, .row.row-md > .col-sm-3, .row.row-md > .col-sm-4, .row.row-md > .col-sm-5, .row.row-md > .col-sm-6, .row.row-md > .col-sm-7, .row.row-md > .col-sm-8, .row.row-md > .col-sm-9, .row.row-md > .col-sm-10, .row.row-md > .col-sm-11, .row.row-md > .col-sm-12,
+    .row.row-md > .col-md-1, .row.row-md > .col-md-2, .row.row-md > .col-md-3, .row.row-md > .col-md-4, .row.row-md > .col-md-5, .row.row-md > .col-md-6, .row.row-md > .col-md-7, .row.row-md > .col-md-8, .row.row-md > .col-md-9, .row.row-md > .col-md-10, .row.row-md > .col-md-11, .row.row-md > .col-md-12,
+    .row.row-md > .col-lg-1, .row.row-md > .col-lg-2, .row.row-md > .col-lg-3, .row.row-md > .col-lg-4, .row.row-md > .col-lg-5, .row.row-md > .col-lg-6, .row.row-md > .col-lg-7, .row.row-md > .col-lg-8, .row.row-md > .col-lg-9, .row.row-md > .col-lg-10, .row.row-md > .col-lg-11, .row.row-md > .col-lg-12 {
       padding-right: 10px;
       padding-left: 10px;
       margin-top: 10px;
@@ -2573,10 +2573,10 @@ h6 + .row:not(.grid),
     margin-left: -5px;
     margin-top: -5px; }
     /* line 56, ../scss/row.scss */
-    .row.row-sm .col-xs-1, .row.row-sm .col-xs-2, .row.row-sm .col-xs-3, .row.row-sm .col-xs-4, .row.row-sm .col-xs-5, .row.row-sm .col-xs-6, .row.row-sm .col-xs-7, .row.row-sm .col-xs-8, .row.row-sm .col-xs-9, .row.row-sm .col-xs-10, .row.row-sm .col-xs-11, .row.row-sm .col-xs-12,
-    .row.row-sm .col-sm-1, .row.row-sm .col-sm-2, .row.row-sm .col-sm-3, .row.row-sm .col-sm-4, .row.row-sm .col-sm-5, .row.row-sm .col-sm-6, .row.row-sm .col-sm-7, .row.row-sm .col-sm-8, .row.row-sm .col-sm-9, .row.row-sm .col-sm-10, .row.row-sm .col-sm-11, .row.row-sm .col-sm-12,
-    .row.row-sm .col-md-1, .row.row-sm .col-md-2, .row.row-sm .col-md-3, .row.row-sm .col-md-4, .row.row-sm .col-md-5, .row.row-sm .col-md-6, .row.row-sm .col-md-7, .row.row-sm .col-md-8, .row.row-sm .col-md-9, .row.row-sm .col-md-10, .row.row-sm .col-md-11, .row.row-sm .col-md-12,
-    .row.row-sm .col-lg-1, .row.row-sm .col-lg-2, .row.row-sm .col-lg-3, .row.row-sm .col-lg-4, .row.row-sm .col-lg-5, .row.row-sm .col-lg-6, .row.row-sm .col-lg-7, .row.row-sm .col-lg-8, .row.row-sm .col-lg-9, .row.row-sm .col-lg-10, .row.row-sm .col-lg-11, .row.row-sm .col-lg-12 {
+    .row.row-sm > .col-xs-1, .row.row-sm > .col-xs-2, .row.row-sm > .col-xs-3, .row.row-sm > .col-xs-4, .row.row-sm > .col-xs-5, .row.row-sm > .col-xs-6, .row.row-sm > .col-xs-7, .row.row-sm > .col-xs-8, .row.row-sm > .col-xs-9, .row.row-sm > .col-xs-10, .row.row-sm > .col-xs-11, .row.row-sm > .col-xs-12,
+    .row.row-sm > .col-sm-1, .row.row-sm > .col-sm-2, .row.row-sm > .col-sm-3, .row.row-sm > .col-sm-4, .row.row-sm > .col-sm-5, .row.row-sm > .col-sm-6, .row.row-sm > .col-sm-7, .row.row-sm > .col-sm-8, .row.row-sm > .col-sm-9, .row.row-sm > .col-sm-10, .row.row-sm > .col-sm-11, .row.row-sm > .col-sm-12,
+    .row.row-sm > .col-md-1, .row.row-sm > .col-md-2, .row.row-sm > .col-md-3, .row.row-sm > .col-md-4, .row.row-sm > .col-md-5, .row.row-sm > .col-md-6, .row.row-sm > .col-md-7, .row.row-sm > .col-md-8, .row.row-sm > .col-md-9, .row.row-sm > .col-md-10, .row.row-sm > .col-md-11, .row.row-sm > .col-md-12,
+    .row.row-sm > .col-lg-1, .row.row-sm > .col-lg-2, .row.row-sm > .col-lg-3, .row.row-sm > .col-lg-4, .row.row-sm > .col-lg-5, .row.row-sm > .col-lg-6, .row.row-sm > .col-lg-7, .row.row-sm > .col-lg-8, .row.row-sm > .col-lg-9, .row.row-sm > .col-lg-10, .row.row-sm > .col-lg-11, .row.row-sm > .col-lg-12 {
       padding-right: 5px;
       padding-left: 5px;
       margin-top: 5px;
@@ -2590,10 +2590,10 @@ h6 + .row:not(.grid),
     margin-left: -2px;
     margin-top: -2px; }
     /* line 72, ../scss/row.scss */
-    .row.row-xs .col-xs-1, .row.row-xs .col-xs-2, .row.row-xs .col-xs-3, .row.row-xs .col-xs-4, .row.row-xs .col-xs-5, .row.row-xs .col-xs-6, .row.row-xs .col-xs-7, .row.row-xs .col-xs-8, .row.row-xs .col-xs-9, .row.row-xs .col-xs-10, .row.row-xs .col-xs-11, .row.row-xs .col-xs-12,
-    .row.row-xs .col-sm-1, .row.row-xs .col-sm-2, .row.row-xs .col-sm-3, .row.row-xs .col-sm-4, .row.row-xs .col-sm-5, .row.row-xs .col-sm-6, .row.row-xs .col-sm-7, .row.row-xs .col-sm-8, .row.row-xs .col-sm-9, .row.row-xs .col-sm-10, .row.row-xs .col-sm-11, .row.row-xs .col-sm-12,
-    .row.row-xs .col-md-1, .row.row-xs .col-md-2, .row.row-xs .col-md-3, .row.row-xs .col-md-4, .row.row-xs .col-md-5, .row.row-xs .col-md-6, .row.row-xs .col-md-7, .row.row-xs .col-md-8, .row.row-xs .col-md-9, .row.row-xs .col-md-10, .row.row-xs .col-md-11, .row.row-xs .col-md-12,
-    .row.row-xs .col-lg-1, .row.row-xs .col-lg-2, .row.row-xs .col-lg-3, .row.row-xs .col-lg-4, .row.row-xs .col-lg-5, .row.row-xs .col-lg-6, .row.row-xs .col-lg-7, .row.row-xs .col-lg-8, .row.row-xs .col-lg-9, .row.row-xs .col-lg-10, .row.row-xs .col-lg-11, .row.row-xs .col-lg-12 {
+    .row.row-xs > .col-xs-1, .row.row-xs > .col-xs-2, .row.row-xs > .col-xs-3, .row.row-xs > .col-xs-4, .row.row-xs > .col-xs-5, .row.row-xs > .col-xs-6, .row.row-xs > .col-xs-7, .row.row-xs > .col-xs-8, .row.row-xs > .col-xs-9, .row.row-xs > .col-xs-10, .row.row-xs > .col-xs-11, .row.row-xs > .col-xs-12,
+    .row.row-xs > .col-sm-1, .row.row-xs > .col-sm-2, .row.row-xs > .col-sm-3, .row.row-xs > .col-sm-4, .row.row-xs > .col-sm-5, .row.row-xs > .col-sm-6, .row.row-xs > .col-sm-7, .row.row-xs > .col-sm-8, .row.row-xs > .col-sm-9, .row.row-xs > .col-sm-10, .row.row-xs > .col-sm-11, .row.row-xs > .col-sm-12,
+    .row.row-xs > .col-md-1, .row.row-xs > .col-md-2, .row.row-xs > .col-md-3, .row.row-xs > .col-md-4, .row.row-xs > .col-md-5, .row.row-xs > .col-md-6, .row.row-xs > .col-md-7, .row.row-xs > .col-md-8, .row.row-xs > .col-md-9, .row.row-xs > .col-md-10, .row.row-xs > .col-md-11, .row.row-xs > .col-md-12,
+    .row.row-xs > .col-lg-1, .row.row-xs > .col-lg-2, .row.row-xs > .col-lg-3, .row.row-xs > .col-lg-4, .row.row-xs > .col-lg-5, .row.row-xs > .col-lg-6, .row.row-xs > .col-lg-7, .row.row-xs > .col-lg-8, .row.row-xs > .col-lg-9, .row.row-xs > .col-lg-10, .row.row-xs > .col-lg-11, .row.row-xs > .col-lg-12 {
       padding-right: 2px;
       padding-left: 2px;
       margin-top: 2px;
@@ -2652,15 +2652,48 @@ h6 + .row:not(.grid),
     opacity: 1; } }
 
 /* line 43, ../scss/list.scss */
+.img-full {
+  width: 100%; }
+
+/* line 47, ../scss/list.scss */
+.item-inner {
+  background-color: transparent;
+  background-image: url("../img/transparent-1.png") !important; }
+
+/* line 53, ../scss/list.scss */
+#teaser .item h3 {
+  font-weight: 700; }
+/* line 54, ../scss/list.scss */
+#teaser .item h4 {
+  font-weight: 300; }
+/* line 55, ../scss/list.scss */
+#teaser .item h5 {
+  font-weight: 300;
+  opacity: 0.5; }
+/* line 56, ../scss/list.scss */
+#teaser .item h3, #teaser .item h4, #teaser .item h5 {
+  font-size: 14px;
+  line-height: 20px;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+  margin: 0px !important; }
+  /* line 67, ../scss/list.scss */
+  #teaser .item h3:empty, #teaser .item h4:empty, #teaser .item h5:empty {
+    display: none; }
+
+/* line 71, ../scss/list.scss */
 .item {
   list-style: none; }
-  /* line 46, ../scss/list.scss */
+  /* line 74, ../scss/list.scss */
   .item .img-detail,
   .item .img {
     background-color: #f2f2f2;
     display: block;
     margin-bottom: 10px; }
-    /* line 50, ../scss/list.scss */
+    /* line 78, ../scss/list.scss */
     .item .img-detail img,
     .item .img img {
       width: 100%;
@@ -2668,43 +2701,43 @@ h6 + .row:not(.grid),
       display: block !important;
       opacity: 0.95; }
 
-/* line 67, ../scss/list.scss */
+/* line 95, ../scss/list.scss */
 .btn-round {
   border-radius: 100% !important; }
-  /* line 69, ../scss/list.scss */
+  /* line 97, ../scss/list.scss */
   .btn-round.pull-right {
     margin-left: 5px !important; }
-  /* line 70, ../scss/list.scss */
+  /* line 98, ../scss/list.scss */
   .btn-round.pull-left {
     margin-right: 5px !important; }
 
-/* line 74, ../scss/list.scss */
+/* line 102, ../scss/list.scss */
 .list .item {
   margin-top: 0px;
   margin-bottom: 10px; }
-  /* line 77, ../scss/list.scss */
+  /* line 105, ../scss/list.scss */
   .list .item.delete {
     display: none; }
-  /* line 79, ../scss/list.scss */
+  /* line 107, ../scss/list.scss */
   .list .item:hover a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 83, ../scss/list.scss */
+  /* line 111, ../scss/list.scss */
   .list .item > a {
     background-color: #f2f2f2;
     color: black;
     padding: 20px 25px;
     display: block; }
-    /* line 89, ../scss/list.scss */
+    /* line 117, ../scss/list.scss */
     .list .item > a h3 {
       font-weight: 300; }
-    /* line 90, ../scss/list.scss */
+    /* line 118, ../scss/list.scss */
     .list .item > a h4 {
       font-weight: 300; }
-    /* line 91, ../scss/list.scss */
+    /* line 119, ../scss/list.scss */
     .list .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 92, ../scss/list.scss */
+    /* line 120, ../scss/list.scss */
     .list .item > a h3, .list .item > a h4, .list .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2714,23 +2747,23 @@ h6 + .row:not(.grid),
       width: 100%;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 103, ../scss/list.scss */
+      /* line 131, ../scss/list.scss */
       .list .item > a h3:empty, .list .item > a h4:empty, .list .item > a h5:empty {
         display: none; }
-    /* line 106, ../scss/list.scss */
+    /* line 134, ../scss/list.scss */
     .list .item > a h3 {
       font-size: 25px;
       line-height: 40px;
       white-space: nowrap !important; }
 
-/* line 116, ../scss/list.scss */
+/* line 144, ../scss/list.scss */
 .grid .item {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important; }
-  /* line 130, ../scss/list.scss */
+  /* line 158, ../scss/list.scss */
   .grid .item .description {
     padding-left: 10px;
     padding-right: 10px;
@@ -2743,53 +2776,53 @@ h6 + .row:not(.grid),
     -ms-transition: opacity 0.125s ease-in-out !important;
     -o-transition: opacity 0.125s ease-in-out !important;
     transition: opacity 0.125s ease-in-out !important; }
-    /* line 142, ../scss/list.scss */
+    /* line 170, ../scss/list.scss */
     .grid .item .description p.lead {
       margin-right: 40px; }
-    /* line 146, ../scss/list.scss */
+    /* line 174, ../scss/list.scss */
     .grid .item .description header h3 {
       font-weight: 700; }
-    /* line 147, ../scss/list.scss */
+    /* line 175, ../scss/list.scss */
     .grid .item .description header h4 {
       font-weight: 300; }
-    /* line 148, ../scss/list.scss */
+    /* line 176, ../scss/list.scss */
     .grid .item .description header h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 149, ../scss/list.scss */
+    /* line 177, ../scss/list.scss */
     .grid .item .description header h3, .grid .item .description header h4, .grid .item .description header h5 {
       font-size: 22px;
       line-height: 140%; }
-      /* line 152, ../scss/list.scss */
+      /* line 180, ../scss/list.scss */
       .grid .item .description header h3:empty, .grid .item .description header h4:empty, .grid .item .description header h5:empty {
         display: none; }
-  /* line 157, ../scss/list.scss */
+  /* line 185, ../scss/list.scss */
   .grid .item#item-preview {
     padding-bottom: 450px; }
-    /* line 160, ../scss/list.scss */
+    /* line 188, ../scss/list.scss */
     .grid .item#item-preview .description {
       display: block;
       opacity: 1;
       height: auto; }
-  /* line 190, ../scss/list.scss */
+  /* line 218, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 40px; }
-    /* line 195, ../scss/list.scss */
+    /* line 223, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 197, ../scss/list.scss */
+    /* line 225, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 198, ../scss/list.scss */
+    /* line 226, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 199, ../scss/list.scss */
+    /* line 227, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 200, ../scss/list.scss */
+    /* line 228, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2800,36 +2833,34 @@ h6 + .row:not(.grid),
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 212, ../scss/list.scss */
+      /* line 240, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 218, ../scss/list.scss */
+/* line 246, ../scss/list.scss */
 .compact {
-  padding: 0px !important;
-  margin: 0px !important;
-  margin-bottom: 40px !important; }
-  /* line 223, ../scss/list.scss */
+  margin-top: -25px !important;
+  margin-bottom: 15px !important; }
+  /* line 253, ../scss/list.scss */
   .compact .item {
-    margin-bottom: 10px;
-    font-size: 15px;
-    line-height: 21px;
-    width: 100%;
-    height: auto;
-    float: left;
-    position: relative;
-    overflow: hidden;
-    background-color: #f2f2f2; }
-    /* line 234, ../scss/list.scss */
-    .compact .item:hover {
+    margin-bottom: -14px !important; }
+    /* line 255, ../scss/list.scss */
+    .compact .item .inner {
+      font-size: 15px;
+      line-height: 21px;
+      overflow: hidden;
+      background-color: #f2f2f2;
+      position: relative; }
+    /* line 263, ../scss/list.scss */
+    .compact .item:hover .inner {
       background-color: rgba(0, 0, 0, 0.075); }
-    /* line 235, ../scss/list.scss */
+    /* line 264, ../scss/list.scss */
     .compact .item.title {
       background: none; }
-      /* line 237, ../scss/list.scss */
+      /* line 266, ../scss/list.scss */
       .compact .item.title:hover {
         background: none; }
-      /* line 239, ../scss/list.scss */
+      /* line 268, ../scss/list.scss */
       .compact .item.title h3 {
         font-weight: 700;
         margin-bottom: 5px !important;
@@ -2838,7 +2869,7 @@ h6 + .row:not(.grid),
         text-transform: uppercase;
         font-size: 16px;
         line-height: 20px; }
-    /* line 250, ../scss/list.scss */
+    /* line 279, ../scss/list.scss */
     .compact .item .img {
       background-color: #f2f2f2;
       width: 80px;
@@ -2854,7 +2885,7 @@ h6 + .row:not(.grid),
       left: 0;
       top: 0;
       padding: 0px; }
-    /* line 267, ../scss/list.scss */
+    /* line 296, ../scss/list.scss */
     .compact .item a.txt {
       float: left;
       padding: 10px;
@@ -2866,20 +2897,20 @@ h6 + .row:not(.grid),
       height: 90px;
       box-sizing: border-box !important;
       -moz-box-sizing: border-box !important; }
-      /* line 279, ../scss/list.scss */
+      /* line 308, ../scss/list.scss */
       .compact .item a.txt:hover * {
         color: black; }
-      /* line 281, ../scss/list.scss */
+      /* line 310, ../scss/list.scss */
       .compact .item a.txt h3 {
         font-weight: 700; }
-      /* line 282, ../scss/list.scss */
+      /* line 311, ../scss/list.scss */
       .compact .item a.txt h4 {
         font-weight: 300; }
-      /* line 283, ../scss/list.scss */
+      /* line 312, ../scss/list.scss */
       .compact .item a.txt h5 {
         font-weight: 300;
         opacity: 0.5; }
-      /* line 286, ../scss/list.scss */
+      /* line 315, ../scss/list.scss */
       .compact .item a.txt h3,
       .compact .item a.txt h4,
       .compact .item a.txt h5 {
@@ -2891,41 +2922,42 @@ h6 + .row:not(.grid),
         -moz-box-sizing: border-box !important;
         margin: 0px !important;
         display: block !important; }
-        /* line 299, ../scss/list.scss */
+        /* line 328, ../scss/list.scss */
         .compact .item a.txt h3:empty,
         .compact .item a.txt h4:empty,
         .compact .item a.txt h5:empty {
           display: none !important; }
-      /* line 302, ../scss/list.scss */
+      /* line 331, ../scss/list.scss */
       .compact .item a.txt p {
         display: none; }
-    /* line 306, ../scss/list.scss */
+    /* line 335, ../scss/list.scss */
     .compact .item:nth-child(1) {
-      background: none !important;
-      padding-bottom: 80px;
-      height: 380px; }
-      /* line 310, ../scss/list.scss */
+      margin-bottom: 0px !important; }
+      /* line 337, ../scss/list.scss */
+      .compact .item:nth-child(1) .inner {
+        background: none !important;
+        padding-bottom: 80px; }
+      /* line 342, ../scss/list.scss */
       .compact .item:nth-child(1) .txt {
         padding: 0px;
         background: none !important;
         width: 100%;
         display: block !important; }
-        /* line 318, ../scss/list.scss */
+        /* line 350, ../scss/list.scss */
         .compact .item:nth-child(1) .txt h3,
         .compact .item:nth-child(1) .txt h4,
         .compact .item:nth-child(1) .txt h5 {
           font-size: 14px !important;
           line-height: 20px !important; }
-        /* line 323, ../scss/list.scss */
+        /* line 355, ../scss/list.scss */
         .compact .item:nth-child(1) .txt p {
           font-size: 13px !important;
           line-height: 18px !important;
           margin-top: 8px;
           display: block; }
-      /* line 331, ../scss/list.scss */
+      /* line 363, ../scss/list.scss */
       .compact .item:nth-child(1) .img {
         width: 100% !important;
-        height: 200px;
         position: relative; }
 
 /* line 1, ../scss/actions.scss */
@@ -3505,39 +3537,38 @@ h6 + .row:not(.grid),
         margin-right: 0px; }
 
 /* line 2, ../scss/center.scss */
-.modal .table {
+.modal-centered {
   position: absolute;
   height: 100%;
   width: 100%;
   display: table;
   table-layout: fixed; }
   /* line 10, ../scss/center.scss */
-  .modal .table > div,
-  .modal .table .cell {
+  .modal-centered > div,
+  .modal-centered .cell {
     display: table-cell;
     text-align: center;
     vertical-align: middle; }
     /* line 15, ../scss/center.scss */
-    .modal .table > div .inner,
-    .modal .table .cell .inner {
+    .modal-centered > div .inner,
+    .modal-centered .cell .inner {
       display: inline-block;
       text-align: left;
-      max-width: 320px;
-      max-width: 520px;
+      width: 320px;
       margin-bottom: 25px; }
-      /* line 22, ../scss/center.scss */
-      .modal .table > div .inner .modal-header,
-      .modal .table > div .inner .modal-body,
-      .modal .table .cell .inner .modal-header,
-      .modal .table .cell .inner .modal-body {
+      /* line 21, ../scss/center.scss */
+      .modal-centered > div .inner .modal-header,
+      .modal-centered > div .inner .modal-body,
+      .modal-centered .cell .inner .modal-header,
+      .modal-centered .cell .inner .modal-body {
         background-color: black; }
-      /* line 25, ../scss/center.scss */
-      .modal .table > div .inner .modal-footer,
-      .modal .table .cell .inner .modal-footer {
+      /* line 24, ../scss/center.scss */
+      .modal-centered > div .inner .modal-footer,
+      .modal-centered .cell .inner .modal-footer {
         margin: 0px; }
-      /* line 29, ../scss/center.scss */
-      .modal .table > div .inner .alert,
-      .modal .table .cell .inner .alert {
+      /* line 28, ../scss/center.scss */
+      .modal-centered > div .inner .alert,
+      .modal-centered .cell .inner .alert {
         padding: 24px !important;
         margin-bottom: 20px;
         color: white;
@@ -3545,56 +3576,56 @@ h6 + .row:not(.grid),
         background-color: #ff4582;
         border: none;
         border-radius: 0px; }
-        /* line 37, ../scss/center.scss */
-        .modal .table > div .inner .alert li,
-        .modal .table .cell .inner .alert li {
+        /* line 36, ../scss/center.scss */
+        .modal-centered > div .inner .alert li,
+        .modal-centered .cell .inner .alert li {
           line-height: 23px !important; }
-      /* line 39, ../scss/center.scss */
-      .modal .table > div .inner fieldset,
-      .modal .table .cell .inner fieldset {
+      /* line 38, ../scss/center.scss */
+      .modal-centered > div .inner fieldset,
+      .modal-centered .cell .inner fieldset {
         border: none;
         padding: 0px; }
-        /* line 42, ../scss/center.scss */
-        .modal .table > div .inner fieldset legend,
-        .modal .table .cell .inner fieldset legend {
+        /* line 41, ../scss/center.scss */
+        .modal-centered > div .inner fieldset legend,
+        .modal-centered .cell .inner fieldset legend {
           font-weight: 700;
           font-size: 16px;
           line-height: 20px;
           padding: 0px !important;
           height: auto !important;
           margin-bottom: 20px; }
-      /* line 51, ../scss/center.scss */
-      .modal .table > div .inner .form-actions,
-      .modal .table .cell .inner .form-actions {
+      /* line 50, ../scss/center.scss */
+      .modal-centered > div .inner .form-actions,
+      .modal-centered .cell .inner .form-actions {
         float: none;
         padding-bottom: 0px; }
-        /* line 54, ../scss/center.scss */
-        .modal .table > div .inner .form-actions .btn-primary,
-        .modal .table .cell .inner .form-actions .btn-primary {
+        /* line 53, ../scss/center.scss */
+        .modal-centered > div .inner .form-actions .btn-primary,
+        .modal-centered .cell .inner .form-actions .btn-primary {
           height: 80px;
           white-space: nowrap;
           font-size: 28px;
           width: 100%;
           padding: 0px !important;
           line-height: 80px !important; }
-      /* line 66, ../scss/center.scss */
-      .modal .table > div .inner header,
-      .modal .table > div .inner footer,
-      .modal .table .cell .inner header,
-      .modal .table .cell .inner footer {
+      /* line 65, ../scss/center.scss */
+      .modal-centered > div .inner header,
+      .modal-centered > div .inner footer,
+      .modal-centered .cell .inner header,
+      .modal-centered .cell .inner footer {
         font-size: 14px;
         line-height: 22px; }
-      /* line 70, ../scss/center.scss */
-      .modal .table > div .inner h2,
-      .modal .table .cell .inner h2 {
+      /* line 69, ../scss/center.scss */
+      .modal-centered > div .inner h2,
+      .modal-centered .cell .inner h2 {
         margin-bottom: 10px; }
-      /* line 71, ../scss/center.scss */
-      .modal .table > div .inner header,
-      .modal .table .cell .inner header {
+      /* line 70, ../scss/center.scss */
+      .modal-centered > div .inner header,
+      .modal-centered .cell .inner header {
         padding-bottom: 20px !important; }
-      /* line 72, ../scss/center.scss */
-      .modal .table > div .inner footer,
-      .modal .table .cell .inner footer {
+      /* line 71, ../scss/center.scss */
+      .modal-centered > div .inner footer,
+      .modal-centered .cell .inner footer {
         padding-top: 20px !important; }
 
 /* line 2, ../scss/panel.scss */
@@ -5033,7 +5064,12 @@ body {
   padding: 0px;
   padding-bottom: 35px; }
 
-/* line 84, ../scss/style.scss */
+/* line 72, ../scss/style.scss */
+.tweet {
+  background-image: url("../img/transparent-1.png") !important;
+  padding: 23px 25px; }
+
+/* line 88, ../scss/style.scss */
 h1,
 h2,
 h3,
@@ -5051,7 +5087,7 @@ h6,
   font-weight: 400;
   line-height: 1.3; }
 
-/* line 103, ../scss/style.scss */
+/* line 107, ../scss/style.scss */
 header h1,
 header h2,
 header h3,
@@ -5067,151 +5103,171 @@ header .h6 {
   margin: 0px !important;
   line-height: 160%; }
 
-/* line 109, ../scss/style.scss */
+/* line 113, ../scss/style.scss */
 h1 {
   font-weight: 400;
   font-size: 30px;
   line-height: 30px;
   margin-bottom: 30px; }
 
-/* line 116, ../scss/style.scss */
+/* line 120, ../scss/style.scss */
+.list-lines {
+  margin: 0px;
+  padding: 0px; }
+  /* line 123, ../scss/style.scss */
+  .list-lines li {
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 4px;
+    background-image: url("../img/transparent-1.png") !important; }
+
+/* line 132, ../scss/style.scss */
 h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block; }
-  /* line 121, ../scss/style.scss */
+  /* line 137, ../scss/style.scss */
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 
-/* line 124, ../scss/style.scss */
+/* line 140, ../scss/style.scss */
+h5.caps {
+  text-transform: uppercase;
+  font-weight: 700; }
+
+/* line 145, ../scss/style.scss */
 p, dl, ul, ol {
   margin-left: 0px;
   padding-left: 0px; }
-  /* line 127, ../scss/style.scss */
+  /* line 148, ../scss/style.scss */
   p:last-child, dl:last-child, ul:last-child, ol:last-child {
     margin-bottom: 0px; }
 
-/* line 132, ../scss/style.scss */
+/* line 153, ../scss/style.scss */
 dl {
   margin-bottom: 0px;
   padding: 0px; }
-  /* line 135, ../scss/style.scss */
+  /* line 156, ../scss/style.scss */
   dl dt {
     float: left; }
-  /* line 136, ../scss/style.scss */
+  /* line 157, ../scss/style.scss */
   dl dd {
     float: right; }
-  /* line 138, ../scss/style.scss */
+  /* line 159, ../scss/style.scss */
   dl:before, dl:after {
     content: " ";
     display: table; }
-  /* line 142, ../scss/style.scss */
+  /* line 163, ../scss/style.scss */
   dl:after {
     clear: both; }
 
-/* line 147, ../scss/style.scss */
-dl + p {
-  margin-top: 10px; }
+/* line 167, ../scss/style.scss */
+.isotope-clear .item {
+  margin-right: -1px; }
 
-/* line 148, ../scss/style.scss */
+/* line 171, ../scss/style.scss */
+#special_openings {
+  margin-top: 15px; }
+
+/* line 176, ../scss/style.scss */
 dl + p {
   margin-bottom: 10px; }
 
-/* line 149, ../scss/style.scss */
+/* line 177, ../scss/style.scss */
 p + dl {
   margin-top: 10px; }
 
-/* line 151, ../scss/style.scss */
+/* line 179, ../scss/style.scss */
 small {
   display: inline-block;
   line-height: 160%;
   color: inherit; }
 
-/* line 157, ../scss/style.scss */
+/* line 185, ../scss/style.scss */
 a {
   color: inherit; }
 
-/* line 158, ../scss/style.scss */
+/* line 186, ../scss/style.scss */
 a:link {
   text-decoration: none; }
 
-/* line 159, ../scss/style.scss */
+/* line 187, ../scss/style.scss */
 a:hover {
   text-decoration: none; }
 
-/* line 160, ../scss/style.scss */
+/* line 188, ../scss/style.scss */
 a:visited {
   text-decoration: none; }
 
-/* line 161, ../scss/style.scss */
+/* line 189, ../scss/style.scss */
 a:active {
   outline: none !important; }
 
-/* line 162, ../scss/style.scss */
+/* line 190, ../scss/style.scss */
 a:focus {
   outline: none !important; }
 
-/* line 164, ../scss/style.scss */
+/* line 192, ../scss/style.scss */
 em {
   color: black;
   font-style: italic; }
 
-/* line 165, ../scss/style.scss */
+/* line 193, ../scss/style.scss */
 p a {
   font-weight: 700; }
 
-/* line 167, ../scss/style.scss */
+/* line 195, ../scss/style.scss */
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important; }
-  /* line 170, ../scss/style.scss */
+  /* line 198, ../scss/style.scss */
   .navbar-form .input-group {
     width: 1px; }
 
-/* line 176, ../scss/style.scss */
+/* line 204, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 181, ../scss/style.scss */
+/* line 209, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 185, ../scss/style.scss */
+/* line 213, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 187, ../scss/style.scss */
+  /* line 215, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 191, ../scss/style.scss */
+    /* line 219, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 195, ../scss/style.scss */
+    /* line 223, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 196, ../scss/style.scss */
+    /* line 224, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 199, ../scss/style.scss */
+  /* line 227, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 203, ../scss/style.scss */
+    /* line 231, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 204, ../scss/style.scss */
+    /* line 232, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 205, ../scss/style.scss */
+    /* line 233, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }

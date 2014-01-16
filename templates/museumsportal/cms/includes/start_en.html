@@ -2,45 +2,52 @@
 
 {% slideshow "start_slideshow_en" %}
 
-<div id="teaser" class="content">
-
-  <div class="container">
-    <div class="row row-md">
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-        <h3>{% trans "Featured Museums" %}</h3>
-        <div class="compact">
-          {% placeholder "start_page_left" %}
+{% with "cms/plugins/editorial_content/ec_start_page.html" as editorial_content_template %}
+  <div id="teaser" class="content">
+    <div class="container">
+      <div class="row row-md">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <h5 class="caps">{% trans "Featured Museums" %}</h5>
+          <div class="compact row">
+            {% placeholder "start_page_left" %}
+          </div>
         </div>
-      </div>
 
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-        <h3>{% trans "Good to Know" %}</h3>
-        <div class="compact">
-          {% placeholder "start_page_center" %}
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <h5 class="caps">{% trans "Good to Know" %}</h5>
+          <div class="compact row">
+            {% placeholder "start_page_center" %}
+          </div>
         </div>
-      </div>
 
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-        <h3>{% trans "Featured Exhibitions" %}</h3>
-        <div class="compact">
-          {% placeholder "start_page_right" %}
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <h5 class="caps">{% trans "Featured Exhibitions" %}</h5>
+          <div class="compact row">
+            {% placeholder "start_page_right" %}
+          </div>
         </div>
       </div>
     </div>
+  </div>
+{% endwith %}
 
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {% load advertising_tags %}
+        {% random_zone_ad 'start_page' %}
+      </div>
+    </div>
   </div>
 </div>
-
-{% load advertising_tags %}
-{% random_zone_ad 'start_page' %}
 
 <div id="twitter" class="content">
   <div class="container">
-    <h3>{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h3>
+    <h5 class="caps">{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h5>
     <div class="row row-md" id="tweets" data-twitter-username="museumsportal"> </div>
   </div>
 </div>
-
 
 {% comment %}<!--
 <div class="marginal">
