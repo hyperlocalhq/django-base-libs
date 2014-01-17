@@ -2546,50 +2546,51 @@ h6 + .row:not(.grid),
   .row > .col-lg-1, .row > .col-lg-2, .row > .col-lg-3, .row > .col-lg-4, .row > .col-lg-5, .row > .col-lg-6, .row > .col-lg-7, .row > .col-lg-8, .row > .col-lg-9, .row > .col-lg-10, .row > .col-lg-11, .row > .col-lg-12 {
     padding-right: 25px;
     padding-left: 25px;
-    margin-top: 25px; }
-  /* line 31, ../scss/row.scss */
+    margin-top: 0;
+    margin-bottom: 0; }
+  /* line 32, ../scss/row.scss */
   .row .item .actions {
     right: 25px; }
-  /* line 33, ../scss/row.scss */
+  /* line 34, ../scss/row.scss */
   .row.row-md {
     margin-right: -10px;
     margin-left: -10px;
-    margin-top: -10px; }
-    /* line 40, ../scss/row.scss */
+    margin-top: 0px; }
+    /* line 41, ../scss/row.scss */
     .row.row-md > .col-xs-1, .row.row-md > .col-xs-2, .row.row-md > .col-xs-3, .row.row-md > .col-xs-4, .row.row-md > .col-xs-5, .row.row-md > .col-xs-6, .row.row-md > .col-xs-7, .row.row-md > .col-xs-8, .row.row-md > .col-xs-9, .row.row-md > .col-xs-10, .row.row-md > .col-xs-11, .row.row-md > .col-xs-12,
     .row.row-md > .col-sm-1, .row.row-md > .col-sm-2, .row.row-md > .col-sm-3, .row.row-md > .col-sm-4, .row.row-md > .col-sm-5, .row.row-md > .col-sm-6, .row.row-md > .col-sm-7, .row.row-md > .col-sm-8, .row.row-md > .col-sm-9, .row.row-md > .col-sm-10, .row.row-md > .col-sm-11, .row.row-md > .col-sm-12,
     .row.row-md > .col-md-1, .row.row-md > .col-md-2, .row.row-md > .col-md-3, .row.row-md > .col-md-4, .row.row-md > .col-md-5, .row.row-md > .col-md-6, .row.row-md > .col-md-7, .row.row-md > .col-md-8, .row.row-md > .col-md-9, .row.row-md > .col-md-10, .row.row-md > .col-md-11, .row.row-md > .col-md-12,
     .row.row-md > .col-lg-1, .row.row-md > .col-lg-2, .row.row-md > .col-lg-3, .row.row-md > .col-lg-4, .row.row-md > .col-lg-5, .row.row-md > .col-lg-6, .row.row-md > .col-lg-7, .row.row-md > .col-lg-8, .row.row-md > .col-lg-9, .row.row-md > .col-lg-10, .row.row-md > .col-lg-11, .row.row-md > .col-lg-12 {
       padding-right: 10px;
       padding-left: 10px;
-      margin-top: 10px;
+      margin-top: 0px;
       margin-right: -1px; }
-    /* line 46, ../scss/row.scss */
+    /* line 47, ../scss/row.scss */
     .row.row-md .item .actions {
       right: 10px; }
-  /* line 49, ../scss/row.scss */
+  /* line 50, ../scss/row.scss */
   .row.row-sm {
     margin-right: -5px;
     margin-left: -5px;
-    margin-top: -5px; }
-    /* line 56, ../scss/row.scss */
+    margin-top: 0px; }
+    /* line 57, ../scss/row.scss */
     .row.row-sm > .col-xs-1, .row.row-sm > .col-xs-2, .row.row-sm > .col-xs-3, .row.row-sm > .col-xs-4, .row.row-sm > .col-xs-5, .row.row-sm > .col-xs-6, .row.row-sm > .col-xs-7, .row.row-sm > .col-xs-8, .row.row-sm > .col-xs-9, .row.row-sm > .col-xs-10, .row.row-sm > .col-xs-11, .row.row-sm > .col-xs-12,
     .row.row-sm > .col-sm-1, .row.row-sm > .col-sm-2, .row.row-sm > .col-sm-3, .row.row-sm > .col-sm-4, .row.row-sm > .col-sm-5, .row.row-sm > .col-sm-6, .row.row-sm > .col-sm-7, .row.row-sm > .col-sm-8, .row.row-sm > .col-sm-9, .row.row-sm > .col-sm-10, .row.row-sm > .col-sm-11, .row.row-sm > .col-sm-12,
     .row.row-sm > .col-md-1, .row.row-sm > .col-md-2, .row.row-sm > .col-md-3, .row.row-sm > .col-md-4, .row.row-sm > .col-md-5, .row.row-sm > .col-md-6, .row.row-sm > .col-md-7, .row.row-sm > .col-md-8, .row.row-sm > .col-md-9, .row.row-sm > .col-md-10, .row.row-sm > .col-md-11, .row.row-sm > .col-md-12,
     .row.row-sm > .col-lg-1, .row.row-sm > .col-lg-2, .row.row-sm > .col-lg-3, .row.row-sm > .col-lg-4, .row.row-sm > .col-lg-5, .row.row-sm > .col-lg-6, .row.row-sm > .col-lg-7, .row.row-sm > .col-lg-8, .row.row-sm > .col-lg-9, .row.row-sm > .col-lg-10, .row.row-sm > .col-lg-11, .row.row-sm > .col-lg-12 {
       padding-right: 5px;
       padding-left: 5px;
-      margin-top: 5px;
+      margin-top: 0px;
       margin-right: -1px; }
-    /* line 62, ../scss/row.scss */
+    /* line 63, ../scss/row.scss */
     .row.row-sm .item .actions {
       right: 10px; }
-  /* line 65, ../scss/row.scss */
+  /* line 66, ../scss/row.scss */
   .row.row-xs {
     margin-right: -2px;
     margin-left: -2px;
     margin-top: -2px; }
-    /* line 72, ../scss/row.scss */
+    /* line 73, ../scss/row.scss */
     .row.row-xs > .col-xs-1, .row.row-xs > .col-xs-2, .row.row-xs > .col-xs-3, .row.row-xs > .col-xs-4, .row.row-xs > .col-xs-5, .row.row-xs > .col-xs-6, .row.row-xs > .col-xs-7, .row.row-xs > .col-xs-8, .row.row-xs > .col-xs-9, .row.row-xs > .col-xs-10, .row.row-xs > .col-xs-11, .row.row-xs > .col-xs-12,
     .row.row-xs > .col-sm-1, .row.row-xs > .col-sm-2, .row.row-xs > .col-sm-3, .row.row-xs > .col-sm-4, .row.row-xs > .col-sm-5, .row.row-xs > .col-sm-6, .row.row-xs > .col-sm-7, .row.row-xs > .col-sm-8, .row.row-xs > .col-sm-9, .row.row-xs > .col-sm-10, .row.row-xs > .col-sm-11, .row.row-xs > .col-sm-12,
     .row.row-xs > .col-md-1, .row.row-xs > .col-md-2, .row.row-xs > .col-md-3, .row.row-xs > .col-md-4, .row.row-xs > .col-md-5, .row.row-xs > .col-md-6, .row.row-xs > .col-md-7, .row.row-xs > .col-md-8, .row.row-xs > .col-md-9, .row.row-xs > .col-md-10, .row.row-xs > .col-md-11, .row.row-xs > .col-md-12,
@@ -2598,7 +2599,7 @@ h6 + .row:not(.grid),
       padding-left: 2px;
       margin-top: 2px;
       margin-right: -1px; }
-    /* line 78, ../scss/row.scss */
+    /* line 79, ../scss/row.scss */
     .row.row-xs .item .actions {
       right: 10px; }
 
@@ -3182,7 +3183,7 @@ h6 + .row:not(.grid),
 
 /* line 2, ../scss/notices.scss */
 #notices {
-  margin-bottom: 20px; }
+  margin-bottom: 10px; }
   /* line 5, ../scss/notices.scss */
   #notices h3 {
     font-size: 13px;
@@ -3317,7 +3318,7 @@ h6 + .row:not(.grid),
   /* line 108, ../scss/filters.scss */
   .tags li,
   .filter li {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 10px;
     display: inline-block;
     color: black;
@@ -5180,107 +5181,113 @@ dl {
 .isotope-clear .item {
   margin-right: -1px; }
 
-/* line 174, ../scss/style.scss */
+/* line 173, ../scss/style.scss */
+.block-label {
+  opacity: 0.6;
+  font-size: 12px;
+  margin-bottom: 4px; }
+
+/* line 179, ../scss/style.scss */
 #special_openings {
   margin-top: 15px; }
 
-/* line 179, ../scss/style.scss */
+/* line 184, ../scss/style.scss */
 dl + p {
   margin-bottom: 10px; }
 
-/* line 180, ../scss/style.scss */
+/* line 185, ../scss/style.scss */
 p + dl {
   margin-top: 10px; }
 
-/* line 182, ../scss/style.scss */
+/* line 187, ../scss/style.scss */
 small {
   display: inline-block;
   line-height: 160%;
   color: inherit; }
 
-/* line 188, ../scss/style.scss */
+/* line 193, ../scss/style.scss */
 a {
   color: inherit; }
 
-/* line 189, ../scss/style.scss */
+/* line 194, ../scss/style.scss */
 a:link {
   text-decoration: none; }
 
-/* line 190, ../scss/style.scss */
+/* line 195, ../scss/style.scss */
 a:hover {
   text-decoration: none; }
 
-/* line 191, ../scss/style.scss */
+/* line 196, ../scss/style.scss */
 a:visited {
   text-decoration: none; }
 
-/* line 192, ../scss/style.scss */
+/* line 197, ../scss/style.scss */
 a:active {
   outline: none !important; }
 
-/* line 193, ../scss/style.scss */
+/* line 198, ../scss/style.scss */
 a:focus {
   outline: none !important; }
 
-/* line 195, ../scss/style.scss */
+/* line 200, ../scss/style.scss */
 em {
   color: black;
   font-style: italic; }
 
-/* line 196, ../scss/style.scss */
+/* line 201, ../scss/style.scss */
 p a {
   font-weight: 700; }
 
-/* line 198, ../scss/style.scss */
+/* line 203, ../scss/style.scss */
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important; }
-  /* line 201, ../scss/style.scss */
+  /* line 206, ../scss/style.scss */
   .navbar-form .input-group {
     width: 1px; }
 
-/* line 207, ../scss/style.scss */
+/* line 212, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 212, ../scss/style.scss */
+/* line 217, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 216, ../scss/style.scss */
+/* line 221, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 218, ../scss/style.scss */
+  /* line 223, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 222, ../scss/style.scss */
+    /* line 227, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 226, ../scss/style.scss */
+    /* line 231, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 227, ../scss/style.scss */
+    /* line 232, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 230, ../scss/style.scss */
+  /* line 235, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 234, ../scss/style.scss */
+    /* line 239, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 235, ../scss/style.scss */
+    /* line 240, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 236, ../scss/style.scss */
+    /* line 241, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }

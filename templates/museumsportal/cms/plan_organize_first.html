@@ -1,26 +1,25 @@
 {% extends "base.html" %}
 {% load cms_tags %}
-{% block bodyclass %}plan_organize firstlevel{% endblock %}
+{% block bodyclass %}plan_organize_firstlevel{% endblock %}
 
 {% block content %}
+  <div class="content">
+  	<div class="container">
+  		<div class="row"> 
+  			<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
+  				{% placeholder "intro" %}
+  			</div>
+  		</div>
+  	</div>
+  </div>
 
-<div class="content">
-	<div class="container">
-		<div class="row"> 
-			<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
-				{% placeholder "intro" %}
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="content">
-  <div class="container">
-    <div class="grid row row-md isotope-clear">
-		{% with "cms/plugins/editorial_content/ec_planorg_firstlevel_item.html" as editorial_content_template %}
-			{% placeholder "plan_organize_first" %}
-		{% endwith %}
+  <div class="content">
+    <div class="container">
+      <div class="grid row row-md isotope-clear">
+  		{% with "cms/plugins/editorial_content/ec_planorg_firstlevel_item.html" as editorial_content_template %}
+  			{% placeholder "plan_organize_first" %}
+  		{% endwith %}
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}

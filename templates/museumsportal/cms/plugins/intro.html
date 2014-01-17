@@ -7,5 +7,5 @@
 {% endif %}
 
 {% if object.subdescription %}
-  <div class="small">{{ object.get_rendered_subdescription }}</div>
+  <p>{{ object.get_rendered_subdescription|removetags:"p" }}</p>
 {% endif %}
