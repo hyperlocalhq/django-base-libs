@@ -87,17 +87,6 @@
 
 
   <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
-    {% block map %}{% endblock %}
-    {% block toolbar %}{% cms_toolbar %}{% endblock %}
-
-    <!-- Header ================================================== -->
-
-    {% block header %}
-      {# {% include "utils/header.html" %} #}
-      {% include "utils/navigation.html" %}
-    {% endblock %}
-
-    <!-- Content ================================================== -->
 
     {% block content %}
     {% endblock %}

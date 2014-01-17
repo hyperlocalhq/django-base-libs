@@ -2238,11 +2238,19 @@
   height: auto; }
 
 /* line 12, ../scss/gmap.scss */
+#map-return {
+  display: block;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000; }
+
+/* line 20, ../scss/gmap.scss */
 .dashboard #gmap-wrapper {
   height: 402px;
   position: relative; }
 
-/* line 17, ../scss/gmap.scss */
+/* line 25, ../scss/gmap.scss */
 #dyn_set_map .form-actions {
   position: absolute;
   bottom: 0px;
@@ -2250,13 +2258,14 @@
   background-color: transparent;
   height: 60px; }
 
-/* line 26, ../scss/gmap.scss */
+/* line 34, ../scss/gmap.scss */
 #item_description {
   background-color: white;
   position: absolute;
-  top: 140px;
-  max-height: 500px;
+  top: 0px;
   bottom: 0px;
+  right: 0px;
+  width: 25%;
   padding: 30px;
   overflow-y: scroll;
   z-index: 10000; }

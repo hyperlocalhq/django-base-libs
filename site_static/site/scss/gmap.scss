@@ -9,6 +9,14 @@
   height: auto;
 }
 
+#map-return {
+  display: block;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
 .dashboard #gmap-wrapper {
   height: 402px;
   position: relative;
@@ -26,9 +34,10 @@
 #item_description {
   background-color: white;
   position: absolute;
-  top: 140px;
-  max-height: 500px;
+  top: 0px;
   bottom: 0px;
+  right: 0px;
+  width: 25%;
   // right: 0px;
   padding: 30px;
   overflow-y: scroll;
