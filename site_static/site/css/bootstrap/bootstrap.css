@@ -1651,10 +1651,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 
 .btn-icon {
   padding: 0px !important; }
-  .btn-icon.btn-sm, .btn-group-sm > .btn-icon.btn {
-    min-width: 25px; }
-    .btn-icon.btn-sm .icon, .btn-group-sm > .btn-icon.btn .icon {
-      line-height: 1.4; }
+  .btn-icon.btn-sm .icon, .btn-group-sm > .btn-icon.btn .icon {
+    line-height: 1.4; }
 
 .btn {
   display: inline-block;
@@ -1850,8 +1848,9 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   font-size: 18px; }
 
 .btn-sm, .btn-group-sm > .btn {
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  min-width: 30px;
+  line-height: 30px;
   padding: 0 8px;
   font-size: 14px; }
 

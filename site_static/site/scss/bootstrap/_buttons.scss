@@ -13,7 +13,7 @@
 .btn-icon {
   padding: 0px !important;
   &.btn-xs {}
-  &.btn-sm { min-width: 25px; .icon { line-height: 1.4;}}
+  &.btn-sm { .icon { line-height: 1.4;}}
   &.btn-lg {}
 }
 .btn {
@@ -167,8 +167,9 @@
 .btn-sm{
   // line-height: ensure proper height of button next to small input
   // @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $border-radius-small);
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  min-width: 30px;
+  line-height: 30px;
   padding: 0 8px;
   font-size: 14px;
 }
