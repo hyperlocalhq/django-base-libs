@@ -173,7 +173,7 @@
           <a href="{{ museum.get_url_path }}">
             {% if museum.cover_image %}
               <span class="img">
-                <img class="fade" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
               </span>
             {% endif %}
             <h3>{{ museum.title }}</h3>

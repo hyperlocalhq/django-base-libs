@@ -12,11 +12,12 @@ function isotope_clear() {
 
 $(window).bind('scrollstop load', function() {
     $("img:in-viewport").lazyload({
+        effect : "fadeIn",
         load : function(element, el_left, settings){
             $('.isotope').isotope();
             isotope_clear();
         }
-    }).addClass("in");
+    }).parent().addClass("loaded");
     isotope_clear();
 });
 
