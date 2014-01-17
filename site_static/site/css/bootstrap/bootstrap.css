@@ -2381,6 +2381,8 @@ input[type="button"].btn-block {
   z-index: 100; }
 
 .navbar {
+  z-index: 1000;
+  position: relative;
   -webkit-transition: -webkit-transform 0.45s;
   -moz-transition: -moz-transform 0.45s;
   -o-transition: -o-transform 0.45s;
