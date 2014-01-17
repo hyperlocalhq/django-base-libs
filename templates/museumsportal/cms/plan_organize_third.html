@@ -4,34 +4,54 @@
 
 {% block content %}
 <div class="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                <div class="intro">{% placeholder "intro" %}</div>
-
-                <div class="row">
-                     {% placeholder "plan_organize_third" %}
-                </div>
-                <div class="row"> 
-                    {% placeholder "main_content" %}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                
-            {% if LANGUAGE_CODE == "de" %}
-                <ul id="side_nav">{% show_menu_below_id "planen_organisieren" 0 100 0 100 "menu/side_menu.html" %}</ul>
-            {% else %}
-                <ul id="side_nav">{% show_menu_below_id "plan_organize" 0 100 0 100 "menu/side_menu.html" %}</ul>
-            {% endif %}
-
-            {% comment %}
-            <!--  <div class="second">{% placeholder "plan_organize_second" inherit %}</div>
-            <div class="first">{% placeholder "plan_organize_first" inherit %}</div> -->
-            {% endcomment %}
-            {% load advertising_tags %}
-            {% random_zone_ad 'plan_organize_second' %}
-            </div>
-        </div>
+  <div class="container">
+    <div class="row"> 
+      <div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
+        {% placeholder "intro" %}
+      </div>
     </div>
+  </div>
 </div>
+
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
+        <div class="row">
+          {% with "cms/plugins/editorial_content/ec_planorg_thirdlevel_item.html" as editorial_content_template %}
+          {% placeholder "plan_organize_third" %}
+          {% placeholder "main_content" %}
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  {% comment %}
+<!--  <div class="second">{% placeholder "plan_organize_second" inherit %}</div>
+  <div class="first">{% placeholder "plan_organize_first" inherit %}</div> -->
+  {% endcomment %}
+  {% load advertising_tags %}
+  {% random_zone_ad 'plan_organize_second' %}
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <h2>{% trans "Additional Contents" %}</h2>
+
+    {% if LANGUAGE_CODE == "de" %}
+    <ul id="side_nav">{% show_menu_below_id "planen_organisieren" 0 100 0 100 "menu/side_menu.html" %}</ul>
+    {% else %}
+    <ul id="side_nav">{% show_menu_below_id "plan_organize" 0 100 0 100 "menu/side_menu.html" %}</ul>
+    {% endif %}
+
+    {% comment %}
+    <!-- <div class="first">{% placeholder "plan_organize_first" inherit %}</div> -->
+    {% endcomment %}
+  </div>
+</div>
+
 {% endblock %}

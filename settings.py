@@ -476,17 +476,20 @@ CMS_TEMPLATES = [
     ('cms/plan_organize_second.html', gettext(u'Plan & Organize - Second')),              # previous: visitor_info.html
     ('cms/plan_organize_third.html', gettext(u'Plan & Organize - Third')),              # previous: visitor_info.html
 
-    ('cms/magazine_overview.html', gettext(u'Magazine – First')),
-    ('cms/magazine_series.html', gettext(u'Magazine – Second')),                   # previous: series.html
-    ('cms/magazine_series_featured.html', gettext(u'Magazine – Second - Featured')), # previous: series_with_featured.html
-    ('cms/magazine.html', gettext(u'Magazine - Third')),
+    ('cms/magazine_first.html', gettext(u'Magazine – First')),
+    ('cms/magazine_second.html', gettext(u'Magazine – Second')),                   # previous: series.html
+    ('cms/magazine_second_featured.html', gettext(u'Magazine – Second - Featured')), # previous: series_with_featured.html
+    ('cms/magazine_third.html', gettext(u'Magazine - Third')),
+    
+    ('cms/shop_first.html', gettext(u'Shop – First')),
 
     ('cms/dashboard_default.html', gettext('Dashboard Default')),
 ]
 
-# UPDATE cms_page SET template = REPLACE(template,'cms/visitor_info.html','cms/plan_organize.html');
-# UPDATE cms_page SET template = REPLACE(template,'cms/series.html','cms/magazine_series.html');
-# UPDATE cms_page SET template = REPLACE(template,'cms/series_with_featured.html','cms/magazine_series_featured.html');
+# UPDATE cms_page SET template = REPLACE(template,'cms/magazine_overview.html','cms/magazine_first.html');
+# UPDATE cms_page SET template = REPLACE(template,'cms/magazine_series.html','cms/magazine_second.html');
+# UPDATE cms_page SET template = REPLACE(template,'cms/magazine_series_featured.html','cms/magazine_second_featured.html');
+# UPDATE cms_page SET template = REPLACE(template,'cms/magazine.html','cms/magazine_third.html');
 
 CMS_APPHOOKS = (
     )

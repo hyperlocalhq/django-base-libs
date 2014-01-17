@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load cms_tags menu_tags i18n %}
-{% block bodyclass %}magazine{% endblock %}
+{% block bodyclass %}magazine-thirdlevel{% endblock %}
 
 {% block content %}
   <div class="content">
     <div class="container">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+        <div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
           {% placeholder "intro" %}
         </div>
       </div>
@@ -16,26 +16,27 @@
   <div class="content">
     <div class="container">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+        <div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
           <div class="row"> {% placeholder "main_content" %} </div>
+            
+          <a class="btn btn-info btn-lg" href='..'>{% trans "To the Series" %}</a>
+          <a class="btn btn-info btn-lg" href='../..'>{% trans "To the Magazin" %}</a>
         </div>
       </div>
     </div>
   </div>
           
-          {% comment %}
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            {% placeholder "marginal_content" %}
-            <ul id="side_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
-          </div>
-          {% endcomment %}
+  {% comment %}
+  {% placeholder "marginal_content" %}
+  <ul id="side_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
+  {% endcomment %}
 
-  {% with "cms/plugins/editorial_content/ec_magazine_secondlevel_item.html" as editorial_content_template %}
+  {% with "cms/plugins/editorial_content/ec_magazine_thirdlevel_item.html" as editorial_content_template %}
     <div class="content">
       <div class="container">
         <h2>{% trans "Additional Contents" %}</h2>
 
-        <div class="row row-md isotope-clear"> 
+        <div class="row row-sm isotope-clear"> 
           {% placeholder "series_items_featured" inherit %}
           {% placeholder "series_items" inherit %} 
         </div>

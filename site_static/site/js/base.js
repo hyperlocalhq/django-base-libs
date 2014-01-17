@@ -57,12 +57,12 @@ $(document).ready(function() {
 
     $("select").not('[name*="__prefix__"]').not('[sb]').selectbox();
 
-    $(".navbar-wrapper").headroom({
+    // $(".navbar-wrapper").headroom({
         // vertical offset in px before element is first unpinned
-        offset : 400,
+        // offset : 400,
         // scroll tolerance in px before state changes
-        tolerance : 0
-    });
+        // tolerance : 0
+    // });
     // $('.panel-collapse').collapse('show');
 });
 
