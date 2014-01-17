@@ -1,13 +1,13 @@
 {% load base_tags image_modifications fb_tags auth_extended i18n favorites %}
 
 {% if object.cover_image %}
-  <div id="cover-image" class="content">
+  <div id="cover_img">
       {% with object.cover_image|file_description as fd %}
-        <div>
           <div class="img">
             <img src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
           </div>
 
+          {% comment %}
           {% if museum == object %}
             <nav class="actions">
               {% if_has_perm "museums.change_museum" museum %}
@@ -67,7 +67,7 @@
               </button>
             </nav>
           {% endif %}
-        </div>
+          {% endcomment %}
       {% endwith %}
   </div>
 {% endif %}
