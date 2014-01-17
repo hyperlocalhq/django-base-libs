@@ -609,7 +609,7 @@
     <div id="exhibitions" class="content">
       <div class="container">
         <h2 class="section-head" id="section-exhibitions">{% trans "Current Exhibitions" %}</h2>
-        <div class="list row">
+        <div class="list row row-md">
           {% for exhibition in object.get_published_exhibitions %}
           <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
             {% comment %}<!--
@@ -651,7 +651,7 @@
     <div id="events" class="content">
       <div class="container">
         <h2 class="section-head" id="section-events">{% trans "Current Events" %}</h2>
-        <div class="list row">
+        <div class="list row row-md">
           {% for event in object.get_published_events %}
           <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <a href="{{ event.get_url_path }}">
@@ -673,7 +673,7 @@
     <div id="workshops" class="content">
       <div class="container">
         <h2 class="section-head" id="section-workshops">{% trans "Current Guided Tours, Workshops and educational offers" %}</h2>
-        <div class="list row">
+        <div class="list row row-md">
           {% for workshop in object.get_published_workshops %}
           <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <a href="{{ workshop.get_url_path }}">
