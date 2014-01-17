@@ -8,12 +8,18 @@
   width: auto;
   height: auto;
 }
-
+#map-toggle {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
 #map-return {
   display: block;
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  top: 20px;
+  right: 20px;
   z-index: 1000;
 }
 
@@ -21,6 +27,7 @@
   height: 402px;
   position: relative;
 }
+
 #dyn_set_map {
   .form-actions {
     position: absolute;
@@ -31,12 +38,74 @@
   }
 }
 
-#item_description {
-  background-color: white;
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  padding: 30px;
-  overflow-y: scroll;
-  z-index: 10000;
+.row-map {
+  width: 100%;
+  overflow: hidden;
 }
+
+
+#map-sidebar,
+#map-wrapper {
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.75s;
+  -webkit-transition-timing: ease-in-out;
+
+  -moz-transition-property: all;
+  -moz-transition-duration: 0.75s;
+  -moz-transition-timing: ease-in-out;
+
+  -o-transition-property: all;
+  -o-transition-duration: 0.75s;
+  -o-transition-timing: ease-in-out;
+
+  transition-property: all;
+  transition-duration: 0.75s;
+  transition-timing: ease-in-out;
+}
+
+#map-wrapper {
+  position: relative;
+  z-index: 1050;
+}
+
+.map-only {
+  #map-wrapper {
+    width: 100%;
+  }
+  #map-sidebar {
+    margin-left: 100% !important;
+  }
+}
+
+#map-sidebar-wrapper {
+  position: absolute;
+  right: 0px;
+  z-index: 900;
+
+  #map-sidebar {
+    height: 100%;
+    width: 100%;
+    margin-left: 0%;
+    position: relative;
+  }
+
+  #map-sidebar-content {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    padding: 30px;
+    overflow-y: scroll;
+    z-index: 1100;
+  }
+
+  #cancel-map-sidebar {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 1150;
+  }
+}
+
