@@ -437,7 +437,7 @@
     {% if object.get_other_workshops %}
       <div id="workshops" class="content">
         <div class="container">
-          <h2>{% trans "Other Guided Tours, Workshops and educational offers" %}</h2>
+          <h2 class="section-head" id="section-workshops">{% trans "Other Guided Tours, Workshops and educational offers" %}</h2>
           <div class="list">
             {% for workshop in object.get_other_workshops %}
               <div class="item">

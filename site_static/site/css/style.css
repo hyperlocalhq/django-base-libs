@@ -5211,169 +5211,181 @@ h1 {
     margin-bottom: 0px; }
 
 /* line 134, ../scss/style.scss */
+.section-head {
+  position: relative; }
+
+/* line 135, ../scss/style.scss */
+.section-head:before {
+  display: block;
+  content: " ";
+  margin-top: -85px;
+  height: 85px;
+  visibility: hidden; }
+
+/* line 143, ../scss/style.scss */
 .list-lines {
   margin: 0px;
   padding: 0px; }
-  /* line 137, ../scss/style.scss */
+  /* line 146, ../scss/style.scss */
   .list-lines li {
     list-style: none;
     padding: 10px;
     margin-bottom: 4px;
     background-image: url("../img/transparent-1.png") !important; }
 
-/* line 146, ../scss/style.scss */
+/* line 155, ../scss/style.scss */
 h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block; }
-  /* line 151, ../scss/style.scss */
+  /* line 160, ../scss/style.scss */
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 
-/* line 154, ../scss/style.scss */
+/* line 163, ../scss/style.scss */
 h5.caps {
   text-transform: uppercase;
   font-weight: 700; }
 
-/* line 159, ../scss/style.scss */
+/* line 168, ../scss/style.scss */
 p, dl, ul, ol {
   margin-left: 0px;
   padding-left: 0px; }
-  /* line 162, ../scss/style.scss */
+  /* line 171, ../scss/style.scss */
   p:last-child, dl:last-child, ul:last-child, ol:last-child {
     margin-bottom: 0px; }
 
-/* line 167, ../scss/style.scss */
+/* line 176, ../scss/style.scss */
 dl {
   margin-bottom: 0px;
   padding: 0px; }
-  /* line 170, ../scss/style.scss */
+  /* line 179, ../scss/style.scss */
   dl dt {
     float: left; }
-  /* line 171, ../scss/style.scss */
+  /* line 180, ../scss/style.scss */
   dl dd {
     float: right; }
-  /* line 173, ../scss/style.scss */
+  /* line 182, ../scss/style.scss */
   dl:before, dl:after {
     content: " ";
     display: table; }
-  /* line 177, ../scss/style.scss */
+  /* line 186, ../scss/style.scss */
   dl:after {
     clear: both; }
 
-/* line 181, ../scss/style.scss */
+/* line 190, ../scss/style.scss */
 .isotope-clear .item {
   margin-right: -1px; }
 
-/* line 184, ../scss/style.scss */
+/* line 193, ../scss/style.scss */
 .block-label {
   opacity: 0.6;
   font-size: 12px;
   margin-bottom: 4px; }
 
-/* line 190, ../scss/style.scss */
+/* line 199, ../scss/style.scss */
 #special_openings {
   margin-top: 15px; }
 
-/* line 195, ../scss/style.scss */
+/* line 204, ../scss/style.scss */
 dl + p {
   margin-bottom: 10px; }
 
-/* line 196, ../scss/style.scss */
+/* line 205, ../scss/style.scss */
 p + dl {
   margin-top: 10px; }
 
-/* line 198, ../scss/style.scss */
+/* line 207, ../scss/style.scss */
 small {
   display: inline-block;
   line-height: 160%;
   color: inherit; }
 
-/* line 204, ../scss/style.scss */
+/* line 213, ../scss/style.scss */
 a {
   color: inherit; }
 
-/* line 205, ../scss/style.scss */
+/* line 214, ../scss/style.scss */
 a:link {
   text-decoration: none; }
 
-/* line 206, ../scss/style.scss */
+/* line 215, ../scss/style.scss */
 a:hover {
   text-decoration: none; }
 
-/* line 207, ../scss/style.scss */
+/* line 216, ../scss/style.scss */
 a:visited {
   text-decoration: none; }
 
-/* line 208, ../scss/style.scss */
+/* line 217, ../scss/style.scss */
 a:active {
   outline: none !important; }
 
-/* line 209, ../scss/style.scss */
+/* line 218, ../scss/style.scss */
 a:focus {
   outline: none !important; }
 
-/* line 211, ../scss/style.scss */
+/* line 220, ../scss/style.scss */
 em {
   color: black;
   font-style: italic; }
 
-/* line 212, ../scss/style.scss */
+/* line 221, ../scss/style.scss */
 p a {
   font-weight: 700; }
 
-/* line 214, ../scss/style.scss */
+/* line 223, ../scss/style.scss */
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important; }
-  /* line 217, ../scss/style.scss */
+  /* line 226, ../scss/style.scss */
   .navbar-form .input-group {
     width: 1px; }
 
-/* line 223, ../scss/style.scss */
+/* line 232, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 228, ../scss/style.scss */
+/* line 237, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 232, ../scss/style.scss */
+/* line 241, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 234, ../scss/style.scss */
+  /* line 243, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 238, ../scss/style.scss */
+    /* line 247, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 242, ../scss/style.scss */
+    /* line 251, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 243, ../scss/style.scss */
+    /* line 252, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 246, ../scss/style.scss */
+  /* line 255, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 250, ../scss/style.scss */
+    /* line 259, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 251, ../scss/style.scss */
+    /* line 260, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 252, ../scss/style.scss */
+    /* line 261, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }

@@ -109,6 +109,24 @@
                 </button>
               </div>
 
+              <ul class="linear-list dots clearfix">
+                {% if object.mediafile_set.count > 1 %}
+                  <li><a href="#section-images">{% trans "Images" %}</a></li>
+                {% endif %}
+                {% if museum.get_twitter_username %}
+                  <li><a href="#section-tweets">{% trans "Tweets" %}</a></li>
+                {% endif %}
+                {% if object.get_other_exhibitions %}
+                  <li><a href="#section-exhibitions">{% trans "More Exhibitions" %}</a></li>
+                {% endif %}
+                {% if object.get_related_published_events %}
+                  <li><a href="#section-events">{% trans "Events" %}</a></li>
+                {% endif %}
+                {% if object.get_related_published_workshops %}
+                  <li><a href="#section-workshops">{% trans "Guided Tours, Workshops and educational offers" %}</a></li>
+                {% endif %}
+              </ul>
+
               {% include "utils/cover_image.html" %}
 
               <div class="lead">
@@ -899,7 +917,7 @@
     {% if object.get_related_published_workshops.count %}
       <div id="workshops" class="content">
         <div class="container">
-          <h2>{% trans "Guided Tours, Workshops and educational offers" %}</h2>
+          <h2 class="section-head" id="section-workshops">{% trans "Guided Tours, Workshops and educational offers" %}</h2>
           <div class="list">
             {% for workshop in object.get_related_published_workshops %}
               <div class="item">
@@ -931,7 +949,7 @@
     {% if object.get_related_published_events.count %}
       <div id="events" class="content">
         <div class="container">
-          <h2>{% trans "Events" %}</h2>
+          <h2 class="section-head" id="section-events">{% trans "Events" %}</h2>
           <div class="list">
             {% for event in object.get_related_published_events %}
               <div class="item">
@@ -953,7 +971,7 @@
     {% if object.get_other_exhibitions %}
       <div id="exhibitions" class="content">
         <div class="container">
-          <h2>{% trans "More Exhibitions" %}</h2>
+          <h2 class="section-head" id="section-exhibitions">{% trans "More Exhibitions" %}</h2>
           <div class="list">
             {% for exhibition in object.get_other_exhibitions %}
               <div class="item">
