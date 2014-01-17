@@ -5064,31 +5064,35 @@ body {
 #cms_toolbar {
   height: 42px; }
 
-/* line 64, ../scss/style.scss */
+/* line 63, ../scss/style.scss */
+#wrapper {
+  overflow: hidden; }
+
+/* line 66, ../scss/style.scss */
 .start-content {
   padding: 35px 0px;
   border-top: 1px solid #f9f9f9;
   margin-top: -1px;
   position: relative; }
 
-/* line 71, ../scss/style.scss */
+/* line 73, ../scss/style.scss */
 .content {
   padding: 35px 0px;
   border-bottom: 1px solid #f9f9f9;
   position: relative; }
 
-/* line 76, ../scss/style.scss */
+/* line 78, ../scss/style.scss */
 .editorial .content {
   padding: 0px;
   padding-bottom: 35px; }
 
-/* line 80, ../scss/style.scss */
+/* line 82, ../scss/style.scss */
 .tweet {
   background-image: url("../img/transparent-1.png") !important;
   padding: 23px 25px;
   margin-bottom: 10px; }
 
-/* line 97, ../scss/style.scss */
+/* line 99, ../scss/style.scss */
 h1,
 h2,
 h3,
@@ -5106,7 +5110,7 @@ h6,
   font-weight: 400;
   line-height: 1.3; }
 
-/* line 116, ../scss/style.scss */
+/* line 118, ../scss/style.scss */
 header h1,
 header h2,
 header h3,
@@ -5122,180 +5126,180 @@ header .h6 {
   margin: 0px !important;
   line-height: 160%; }
 
-/* line 122, ../scss/style.scss */
+/* line 124, ../scss/style.scss */
 h1 {
   font-weight: 400;
   font-size: 30px;
   line-height: 1.4;
   margin-bottom: 30px; }
-  /* line 127, ../scss/style.scss */
+  /* line 129, ../scss/style.scss */
   h1:last-child {
     margin-bottom: 0px; }
 
-/* line 132, ../scss/style.scss */
+/* line 134, ../scss/style.scss */
 .list-lines {
   margin: 0px;
   padding: 0px; }
-  /* line 135, ../scss/style.scss */
+  /* line 137, ../scss/style.scss */
   .list-lines li {
     list-style: none;
     padding: 10px;
     margin-bottom: 4px;
     background-image: url("../img/transparent-1.png") !important; }
 
-/* line 144, ../scss/style.scss */
+/* line 146, ../scss/style.scss */
 h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block; }
-  /* line 149, ../scss/style.scss */
+  /* line 151, ../scss/style.scss */
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 
-/* line 152, ../scss/style.scss */
+/* line 154, ../scss/style.scss */
 h5.caps {
   text-transform: uppercase;
   font-weight: 700; }
 
-/* line 157, ../scss/style.scss */
+/* line 159, ../scss/style.scss */
 p, dl, ul, ol {
   margin-left: 0px;
   padding-left: 0px; }
-  /* line 160, ../scss/style.scss */
+  /* line 162, ../scss/style.scss */
   p:last-child, dl:last-child, ul:last-child, ol:last-child {
     margin-bottom: 0px; }
 
-/* line 165, ../scss/style.scss */
+/* line 167, ../scss/style.scss */
 dl {
   margin-bottom: 0px;
   padding: 0px; }
-  /* line 168, ../scss/style.scss */
+  /* line 170, ../scss/style.scss */
   dl dt {
     float: left; }
-  /* line 169, ../scss/style.scss */
+  /* line 171, ../scss/style.scss */
   dl dd {
     float: right; }
-  /* line 171, ../scss/style.scss */
+  /* line 173, ../scss/style.scss */
   dl:before, dl:after {
     content: " ";
     display: table; }
-  /* line 175, ../scss/style.scss */
+  /* line 177, ../scss/style.scss */
   dl:after {
     clear: both; }
 
-/* line 179, ../scss/style.scss */
+/* line 181, ../scss/style.scss */
 .isotope-clear .item {
   margin-right: -1px; }
 
-/* line 182, ../scss/style.scss */
+/* line 184, ../scss/style.scss */
 .block-label {
   opacity: 0.6;
   font-size: 12px;
   margin-bottom: 4px; }
 
-/* line 188, ../scss/style.scss */
+/* line 190, ../scss/style.scss */
 #special_openings {
   margin-top: 15px; }
 
-/* line 193, ../scss/style.scss */
+/* line 195, ../scss/style.scss */
 dl + p {
   margin-bottom: 10px; }
 
-/* line 194, ../scss/style.scss */
+/* line 196, ../scss/style.scss */
 p + dl {
   margin-top: 10px; }
 
-/* line 196, ../scss/style.scss */
+/* line 198, ../scss/style.scss */
 small {
   display: inline-block;
   line-height: 160%;
   color: inherit; }
 
-/* line 202, ../scss/style.scss */
+/* line 204, ../scss/style.scss */
 a {
   color: inherit; }
 
-/* line 203, ../scss/style.scss */
+/* line 205, ../scss/style.scss */
 a:link {
   text-decoration: none; }
 
-/* line 204, ../scss/style.scss */
+/* line 206, ../scss/style.scss */
 a:hover {
   text-decoration: none; }
 
-/* line 205, ../scss/style.scss */
+/* line 207, ../scss/style.scss */
 a:visited {
   text-decoration: none; }
 
-/* line 206, ../scss/style.scss */
+/* line 208, ../scss/style.scss */
 a:active {
   outline: none !important; }
 
-/* line 207, ../scss/style.scss */
+/* line 209, ../scss/style.scss */
 a:focus {
   outline: none !important; }
 
-/* line 209, ../scss/style.scss */
+/* line 211, ../scss/style.scss */
 em {
   color: black;
   font-style: italic; }
 
-/* line 210, ../scss/style.scss */
+/* line 212, ../scss/style.scss */
 p a {
   font-weight: 700; }
 
-/* line 212, ../scss/style.scss */
+/* line 214, ../scss/style.scss */
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important; }
-  /* line 215, ../scss/style.scss */
+  /* line 217, ../scss/style.scss */
   .navbar-form .input-group {
     width: 1px; }
 
-/* line 221, ../scss/style.scss */
+/* line 223, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 226, ../scss/style.scss */
+/* line 228, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 230, ../scss/style.scss */
+/* line 232, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 232, ../scss/style.scss */
+  /* line 234, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 236, ../scss/style.scss */
+    /* line 238, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 240, ../scss/style.scss */
+    /* line 242, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 241, ../scss/style.scss */
+    /* line 243, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 244, ../scss/style.scss */
+  /* line 246, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 248, ../scss/style.scss */
+    /* line 250, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 249, ../scss/style.scss */
+    /* line 251, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 250, ../scss/style.scss */
+    /* line 252, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }
