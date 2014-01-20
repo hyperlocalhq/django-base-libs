@@ -9,10 +9,10 @@ function isotope_clear() {
     }); 
 }
 
-$(window).bind('scrollstop load ready', function() {
+$(window).bind('scrollstop load', function() {
     $(".img img:in-viewport").lazyload({
         load : function(element, el_left, settings){
-            $('.isotope').isotope('reLayout');
+            $('.isotope').isotope();
             $(this).closest('.img').addClass('loaded');
             isotope_clear();
         }
@@ -20,12 +20,8 @@ $(window).bind('scrollstop load ready', function() {
     isotope_clear();
 });
 
-$(window).bind('scrollstop load', function(){
-    $(".img img:in-viewport").lazyload().addClass("in");
-});
-
 $(window).bind('smartresize', function() {
-    $('.isotope').isotope('reLayout');
+    $('.isotope').isotope();
 });
 
 $(document).ready(function() {

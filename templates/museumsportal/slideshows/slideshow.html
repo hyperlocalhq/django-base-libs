@@ -1,7 +1,7 @@
 {% load i18n image_modifications %}
 <div id="carousel-startpage">
   <div class="container">
-    <div id="carousel" class="carousel slide">
+    <div id="carousel" class="carousel carousel-fade">
       <!-- Indicators -->
       <ol class="carousel-indicators">
         {% for slide in slides %}
@@ -36,11 +36,12 @@
   </div>
 </div>
 
-
-
 <script type="text/javascript">
   $(window).load(function() {
-    $('.carousel').carousel()
+    $(".carousel .active img").lazyload().closest('.img').addClass('loaded'); 
+    $('.carousel').carousel({interval: 2000 }).on('slid.bs.carousel', function () {
+      $(".carousel .active img").lazyload().closest('.img').addClass('loaded'); 
+    });
   });
 </script>
 

@@ -35,6 +35,7 @@
   // border-radius: $border-radius-base;
   white-space: nowrap;
   // text-transform: uppercase;
+  text-transform: capitalize;
 
   @include user-select(none);
 

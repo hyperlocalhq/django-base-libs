@@ -2621,9 +2621,6 @@ h6 + .row:not(.grid),
     .row > .col-md-1:last-child, .row > .col-md-2:last-child, .row > .col-md-3:last-child, .row > .col-md-4:last-child, .row > .col-md-5:last-child, .row > .col-md-6:last-child, .row > .col-md-7:last-child, .row > .col-md-8:last-child, .row > .col-md-9:last-child, .row > .col-md-10:last-child, .row > .col-md-11:last-child, .row > .col-md-12:last-child,
     .row > .col-lg-1:last-child, .row > .col-lg-2:last-child, .row > .col-lg-3:last-child, .row > .col-lg-4:last-child, .row > .col-lg-5:last-child, .row > .col-lg-6:last-child, .row > .col-lg-7:last-child, .row > .col-lg-8:last-child, .row > .col-lg-9:last-child, .row > .col-lg-10:last-child, .row > .col-lg-11:last-child, .row > .col-lg-12:last-child {
       padding-bottom: 0px !important; }
-  /* line 35, ../scss/row.scss */
-  .row .item .actions {
-    right: 25px; }
   /* line 36, ../scss/row.scss */
   .row.row-map {
     margin: 0px;
@@ -2653,9 +2650,6 @@ h6 + .row:not(.grid),
     .row.row-md > .col-lg-1, .row.row-md > .col-lg-2, .row.row-md > .col-lg-3, .row.row-md > .col-lg-4, .row.row-md > .col-lg-5, .row.row-md > .col-lg-6, .row.row-md > .col-lg-7, .row.row-md > .col-lg-8, .row.row-md > .col-lg-9, .row.row-md > .col-lg-10, .row.row-md > .col-lg-11, .row.row-md > .col-lg-12 {
       padding: 10px;
       margin-right: -1px; }
-    /* line 65, ../scss/row.scss */
-    .row.row-md .item .actions {
-      right: 10px; }
   /* line 68, ../scss/row.scss */
   .row.row-sm {
     margin-right: -5px;
@@ -2667,9 +2661,6 @@ h6 + .row:not(.grid),
     .row.row-sm > .col-lg-1, .row.row-sm > .col-lg-2, .row.row-sm > .col-lg-3, .row.row-sm > .col-lg-4, .row.row-sm > .col-lg-5, .row.row-sm > .col-lg-6, .row.row-sm > .col-lg-7, .row.row-sm > .col-lg-8, .row.row-sm > .col-lg-9, .row.row-sm > .col-lg-10, .row.row-sm > .col-lg-11, .row.row-sm > .col-lg-12 {
       padding: 5px;
       margin-right: -1px; }
-    /* line 78, ../scss/row.scss */
-    .row.row-sm .item .actions {
-      right: 10px; }
   /* line 81, ../scss/row.scss */
   .row.row-xs {
     margin-right: -2px;
@@ -2681,9 +2672,6 @@ h6 + .row:not(.grid),
     .row.row-xs > .col-lg-1, .row.row-xs > .col-lg-2, .row.row-xs > .col-lg-3, .row.row-xs > .col-lg-4, .row.row-xs > .col-lg-5, .row.row-xs > .col-lg-6, .row.row-xs > .col-lg-7, .row.row-xs > .col-lg-8, .row.row-xs > .col-lg-9, .row.row-xs > .col-lg-10, .row.row-xs > .col-lg-11, .row.row-xs > .col-lg-12 {
       padding: 2px;
       margin-right: -1px; }
-    /* line 91, ../scss/row.scss */
-    .row.row-xs .item .actions {
-      right: 10px; }
 
 /* line 1, ../scss/list.scss */
 #controls {
@@ -2911,25 +2899,28 @@ h6 + .row:not(.grid),
       display: block;
       opacity: 1;
       height: auto; }
-  /* line 239, ../scss/list.scss */
+      /* line 213, ../scss/list.scss */
+      .grid .item#item-preview .description header {
+        margin-bottom: 20px; }
+  /* line 242, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 40px; }
-    /* line 244, ../scss/list.scss */
+    /* line 247, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 246, ../scss/list.scss */
+    /* line 249, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 247, ../scss/list.scss */
+    /* line 250, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 248, ../scss/list.scss */
+    /* line 251, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 249, ../scss/list.scss */
+    /* line 252, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2940,27 +2931,27 @@ h6 + .row:not(.grid),
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 261, ../scss/list.scss */
+      /* line 264, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 269, ../scss/list.scss */
+/* line 272, ../scss/list.scss */
 .compact .item .inner {
   font-size: 15px;
   line-height: 21px;
   overflow: hidden;
   background-color: #f2f2f2;
   position: relative; }
-/* line 277, ../scss/list.scss */
+/* line 280, ../scss/list.scss */
 .compact .item:hover .inner {
   background-color: rgba(0, 0, 0, 0.075); }
-/* line 278, ../scss/list.scss */
+/* line 281, ../scss/list.scss */
 .compact .item.title {
   background: none; }
-  /* line 280, ../scss/list.scss */
+  /* line 283, ../scss/list.scss */
   .compact .item.title:hover {
     background: none; }
-  /* line 282, ../scss/list.scss */
+  /* line 285, ../scss/list.scss */
   .compact .item.title h3 {
     font-weight: 700;
     margin-bottom: 5px !important;
@@ -2969,7 +2960,7 @@ h6 + .row:not(.grid),
     text-transform: uppercase;
     font-size: 16px;
     line-height: 20px; }
-/* line 293, ../scss/list.scss */
+/* line 296, ../scss/list.scss */
 .compact .item .img {
   background-color: #f2f2f2;
   width: 80px;
@@ -2982,7 +2973,7 @@ h6 + .row:not(.grid),
   left: 0;
   top: 0;
   padding: 0px; }
-/* line 307, ../scss/list.scss */
+/* line 310, ../scss/list.scss */
 .compact .item a.txt {
   float: left;
   padding: 10px;
@@ -2994,20 +2985,20 @@ h6 + .row:not(.grid),
   height: 90px;
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important; }
-  /* line 319, ../scss/list.scss */
+  /* line 322, ../scss/list.scss */
   .compact .item a.txt:hover * {
     color: black; }
-  /* line 321, ../scss/list.scss */
+  /* line 324, ../scss/list.scss */
   .compact .item a.txt h3 {
     font-weight: 700; }
-  /* line 322, ../scss/list.scss */
+  /* line 325, ../scss/list.scss */
   .compact .item a.txt h4 {
     font-weight: 300; }
-  /* line 323, ../scss/list.scss */
+  /* line 326, ../scss/list.scss */
   .compact .item a.txt h5 {
     font-weight: 300;
     opacity: 0.5; }
-  /* line 326, ../scss/list.scss */
+  /* line 329, ../scss/list.scss */
   .compact .item a.txt h3,
   .compact .item a.txt h4,
   .compact .item a.txt h5 {
@@ -3019,40 +3010,40 @@ h6 + .row:not(.grid),
     -moz-box-sizing: border-box !important;
     margin: 0px !important;
     display: block !important; }
-    /* line 339, ../scss/list.scss */
+    /* line 342, ../scss/list.scss */
     .compact .item a.txt h3:empty,
     .compact .item a.txt h4:empty,
     .compact .item a.txt h5:empty {
       display: none !important; }
-  /* line 342, ../scss/list.scss */
+  /* line 345, ../scss/list.scss */
   .compact .item a.txt p {
     display: none; }
-/* line 346, ../scss/list.scss */
+/* line 349, ../scss/list.scss */
 .compact .item:nth-child(1) {
   margin-bottom: 0px !important; }
-  /* line 348, ../scss/list.scss */
+  /* line 351, ../scss/list.scss */
   .compact .item:nth-child(1) .inner {
     background: none !important;
     padding-bottom: 80px; }
-  /* line 353, ../scss/list.scss */
+  /* line 356, ../scss/list.scss */
   .compact .item:nth-child(1) .txt {
     padding: 0px;
     background: none !important;
     width: 100%;
     display: block !important; }
-    /* line 361, ../scss/list.scss */
+    /* line 364, ../scss/list.scss */
     .compact .item:nth-child(1) .txt h3,
     .compact .item:nth-child(1) .txt h4,
     .compact .item:nth-child(1) .txt h5 {
       font-size: 14px !important;
       line-height: 20px !important; }
-    /* line 366, ../scss/list.scss */
+    /* line 369, ../scss/list.scss */
     .compact .item:nth-child(1) .txt p {
       font-size: 13px !important;
       line-height: 18px !important;
       margin-top: 8px;
       display: block; }
-  /* line 374, ../scss/list.scss */
+  /* line 377, ../scss/list.scss */
   .compact .item:nth-child(1) .img {
     width: 100% !important;
     position: relative; }

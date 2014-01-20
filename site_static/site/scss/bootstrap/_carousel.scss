@@ -201,3 +201,34 @@
 
   // Show and left align the captions
 }
+
+
+.carousel-fade  {
+
+  .item {
+    opacity: 0;
+    -webkit-transition: opacity 2s ease-in-out;
+    -moz-transition: opacity 2s ease-in-out;
+    -ms-transition: opacity 2s ease-in-out;
+    -o-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out;
+    left: 0 !important;
+  }
+
+  .active {
+    opacity: 1 !important;
+  }
+
+  .left {
+    opacity: 0 !important;
+    -webkit-transition: opacity 0.5s ease-in-out !important;
+    -moz-transition: opacity 0.5s ease-in-out !important;
+    -ms-transition: opacity 0.5s ease-in-out !important;
+    -o-transition: opacity 0.5s ease-in-out !important;
+    transition: opacity 0.5s ease-in-out !important;
+  }
+
+  .carousel-control {
+    opacity: 1 !important;
+  }
+}

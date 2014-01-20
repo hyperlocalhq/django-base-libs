@@ -6,7 +6,7 @@
       <a class="img_left" href="{{ object.website }}">
         <span class="img" style="margin-top: 8px;">
           {% if object.image %}
-          <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" />
+          <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" />
         {% endif %}
           {% if object.image_caption %}<p class="sr-only caption">{{ object.get_rendered_image_caption|removetags:"p"|safe }}</p> {% endif %}
         </span>

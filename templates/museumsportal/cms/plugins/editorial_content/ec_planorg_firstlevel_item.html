@@ -4,7 +4,7 @@
   <!-- editorial content for plan organize placeholders -->
     <a href="{{ object.website }}" class="img">
       {% if object.image %}
-          <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" />
+          <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" />
         {% endif %}
       {% if object.image_caption %}<span class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</span> {% endif %}
     </a>

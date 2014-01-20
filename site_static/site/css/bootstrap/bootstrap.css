@@ -1454,7 +1454,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
   padding-left: 40px;
   padding-right: 15px;
   vertical-align: middle;
-  background-image: url("../img/transparent-1.png");
+  background-image: url("../../img/transparent-1.png");
   position: relative; }
   .radio label,
   .checkbox label {
@@ -1670,6 +1670,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   cursor: pointer;
   border: none;
   white-space: nowrap;
+  text-transform: capitalize;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1932,7 +1933,7 @@ input[type="button"].btn-block {
   .dropdown-menu .divider {
     height: 1px;
     background-color: transparent;
-    background-image: url("../img/transparent-1.png");
+    background-image: url("../../img/transparent-1.png");
     margin: 5px 0; }
   .dropdown-menu > li {
     margin-top: -5px;
@@ -2758,7 +2759,7 @@ input[type="button"].btn-block {
       line-height: 1.42857;
       text-decoration: none;
       background-color: transparent;
-      background-image: url("../img/transparent-1.png") !important;
+      background-image: url("../../img/transparent-1.png") !important;
       border: 1px solid #dddddd;
       margin-left: -1px; }
     .pagination > li:first-child > a,
@@ -2788,7 +2789,7 @@ input[type="button"].btn-block {
   .pagination > .disabled > a:hover,
   .pagination > .disabled > a:focus {
     color: #999999;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../../img/transparent-1.png") !important;
     border-color: #dddddd;
     cursor: not-allowed; }
 
@@ -3215,11 +3216,9 @@ a.list-group-item {
 
 .panel {
   margin-bottom: 22px;
-  background-color: transparent;
-  background-image: url("../img/transparent-1.png") !important; }
+  background-color: transparent; }
 
 .panel-body {
-  background-image: url("../img/transparent-1.png") !important;
   background-position: top;
   background-repeat: repeat-x;
   padding: 15px;
@@ -3818,6 +3817,26 @@ body.modal-open {
     background-image: url("../../img/transparent-1.png") !important; }
   .carousel-caption .btn {
     text-shadow: none; }
+
+.carousel-fade .item {
+  opacity: 0;
+  -webkit-transition: opacity 2s ease-in-out;
+  -moz-transition: opacity 2s ease-in-out;
+  -ms-transition: opacity 2s ease-in-out;
+  -o-transition: opacity 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
+  left: 0 !important; }
+.carousel-fade .active {
+  opacity: 1 !important; }
+.carousel-fade .left {
+  opacity: 0 !important;
+  -webkit-transition: opacity 0.5s ease-in-out !important;
+  -moz-transition: opacity 0.5s ease-in-out !important;
+  -ms-transition: opacity 0.5s ease-in-out !important;
+  -o-transition: opacity 0.5s ease-in-out !important;
+  transition: opacity 0.5s ease-in-out !important; }
+.carousel-fade .carousel-control {
+  opacity: 1 !important; }
 
 .clearfix:before, .clearfix:after {
   content: " ";
