@@ -73,7 +73,6 @@
   left: 0;
   bottom: 0;
   width: $carousel-control-width;
-  @include opacity($carousel-control-opacity);
   font-size: $carousel-control-font-size;
   color: $carousel-control-color;
   text-align: center;
@@ -107,27 +106,28 @@
   .glyphicon-chevron-right {
     position: absolute;
     top: 50%;
-    left: 50%;
     z-index: 5;
     display: inline-block;
   }
   .icon-prev,
   .icon-next {
-    width:  20px;
+    width:  40px;
     height: 80px;
+    line-height: 80px;
     margin-top: -40px;
-    margin-left: -10px;
     font-family: serif;
     background-color: black;
     display: block;
   }
 
   .icon-prev {
+    left: 0px;
     &:before {
       content: '\2039';// SINGLE LEFT-POINTING ANGLE QUOTATION MARK (U+2039)
     }
   }
   .icon-next {
+    right: 0px;
     &:before {
       content: '\203a';// SINGLE RIGHT-POINTING ANGLE QUOTATION MARK (U+203A)
     }
@@ -191,11 +191,6 @@
   // Scale up the controls a smidge
   .carousel-control .icon-prev,
   .carousel-control .icon-next {
-    width: 30px;
-    height: 30px;
-    margin-top: -15px;
-    margin-left: -15px;
-    font-size: 30px;
   }
 
   // Show and left align the captions

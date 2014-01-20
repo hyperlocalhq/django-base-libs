@@ -3738,8 +3738,6 @@ body.modal-open {
   left: 0;
   bottom: 0;
   width: 15%;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
   font-size: 20px;
   color: white;
   text-align: center;
@@ -3758,22 +3756,25 @@ body.modal-open {
   .carousel-control .glyphicon-chevron-right {
     position: absolute;
     top: 50%;
-    left: 50%;
     z-index: 5;
     display: inline-block; }
   .carousel-control .icon-prev,
   .carousel-control .icon-next {
-    width: 20px;
+    width: 40px;
     height: 80px;
+    line-height: 80px;
     margin-top: -40px;
-    margin-left: -10px;
     font-family: serif;
     background-color: black;
     display: block; }
-  .carousel-control .icon-prev:before {
-    content: '\2039'; }
-  .carousel-control .icon-next:before {
-    content: '\203a'; }
+  .carousel-control .icon-prev {
+    left: 0px; }
+    .carousel-control .icon-prev:before {
+      content: '\2039'; }
+  .carousel-control .icon-next {
+    right: 0px; }
+    .carousel-control .icon-next:before {
+      content: '\203a'; }
 
 .carousel-indicators {
   position: absolute;
@@ -3811,14 +3812,6 @@ body.modal-open {
   .carousel-caption .btn {
     text-shadow: none; }
 
-@media screen and (min-width: 768px) {
-  .carousel-control .icon-prev,
-  .carousel-control .icon-next {
-    width: 30px;
-    height: 30px;
-    margin-top: -15px;
-    margin-left: -15px;
-    font-size: 30px; } }
 .clearfix:before, .clearfix:after {
   content: " ";
   /* 1 */
