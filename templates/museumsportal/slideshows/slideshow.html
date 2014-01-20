@@ -1,7 +1,7 @@
 {% load i18n image_modifications %}
 <div id="slideshow" class="content">
-  <div id="carousel" class="carousel slide">
-    <div class="container">
+  <div class="container">
+    <div id="carousel" class="carousel slide">
       <!-- Indicators -->
       <ol class="carousel-indicators">
         {% for slide in slides %}
@@ -15,7 +15,7 @@
         {% for slide in slides %}
             <div class="item {% if forloop.first %}active{% endif %}">
                 <a class="img" href="{{ slide.link }}">
-                    <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" />
+                    <img src="{{ STATIC_URL }}site/img/placeholder_slideshow.gif" data-original="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" />
                      <div class="carousel-caption">
                         <span class="overlay" href="{{ slide.link }}">
                             <h2>{{ slide.title|striptags }}</h2>

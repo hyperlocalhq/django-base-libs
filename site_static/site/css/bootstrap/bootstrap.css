@@ -3700,13 +3700,15 @@ body.modal-open {
     position: relative;
     -webkit-transition: 0.6s ease-in-out left;
     transition: 0.6s ease-in-out left; }
+    .carousel-inner > .item > .img,
     .carousel-inner > .item > img,
     .carousel-inner > .item > a > img {
       display: block;
       max-width: 100%;
       height: auto;
       line-height: 1;
-      width: 100%; }
+      width: 100%;
+      margin: 0px !important; }
   .carousel-inner > .active,
   .carousel-inner > .next,
   .carousel-inner > .prev {
@@ -3742,22 +3744,9 @@ body.modal-open {
   color: white;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); }
-  .carousel-control.left {
-    background-image: -webkit-gradient(linear, 0% top, 100% top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.0001)));
-    background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.5) 0%), color-stop(rgba(0, 0, 0, 0.0001) 100%));
-    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1); }
   .carousel-control.right {
     left: auto;
-    right: 0;
-    background-image: -webkit-gradient(linear, 0% top, 100% top, from(rgba(0, 0, 0, 0.0001)), to(rgba(0, 0, 0, 0.5)));
-    background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.0001) 0%), color-stop(rgba(0, 0, 0, 0.5) 100%));
-    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1); }
+    right: 0; }
   .carousel-control:hover, .carousel-control:focus {
     color: white;
     text-decoration: none;
@@ -3775,10 +3764,12 @@ body.modal-open {
   .carousel-control .icon-prev,
   .carousel-control .icon-next {
     width: 20px;
-    height: 20px;
-    margin-top: -10px;
+    height: 80px;
+    margin-top: -40px;
     margin-left: -10px;
-    font-family: serif; }
+    font-family: serif;
+    background-color: black;
+    display: block; }
   .carousel-control .icon-prev:before {
     content: '\2039'; }
   .carousel-control .icon-next:before {
@@ -3786,7 +3777,7 @@ body.modal-open {
 
 .carousel-indicators {
   position: absolute;
-  bottom: 10px;
+  bottom: -35px;
   left: 50%;
   z-index: 15;
   width: 60%;
@@ -3796,27 +3787,24 @@ body.modal-open {
   text-align: center; }
   .carousel-indicators li {
     display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 5px;
+    height: 5px;
     margin: 1px;
     text-indent: -999px;
-    border: 1px solid white;
+    background-color: black;
     border-radius: 10px;
-    cursor: pointer; }
+    cursor: pointer;
+    opacity: 0.125; }
   .carousel-indicators .active {
-    margin: 0;
-    width: 12px;
-    height: 12px;
-    background-color: white; }
+    opacity: 1; }
 
 .carousel-caption {
   position: absolute;
-  left: 15%;
-  right: 15%;
-  bottom: 20px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
   z-index: 10;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
   color: white;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); }
@@ -3830,15 +3818,7 @@ body.modal-open {
     height: 30px;
     margin-top: -15px;
     margin-left: -15px;
-    font-size: 30px; }
-
-  .carousel-caption {
-    left: 20%;
-    right: 20%;
-    padding-bottom: 30px; }
-
-  .carousel-indicators {
-    bottom: 20px; } }
+    font-size: 30px; } }
 .clearfix:before, .clearfix:after {
   content: " ";
   /* 1 */

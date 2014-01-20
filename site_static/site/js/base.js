@@ -10,8 +10,8 @@ function isotope_clear() {
 }
 
 $(window).bind('scrollstop load ready', function() {
-    $(".img img:in-viewport").lazyload({
-        threshold       : 400,
+    $(".img img").lazyload({
+        threshold       : 200,
         load : function(element, el_left, settings){
             $('.isotope').isotope();
             $(this).closest('.img').addClass('loaded');
