@@ -3,7 +3,10 @@
   <div class="item col-xs-{{ object.col_xs_width|default:"12" }} col-sm-{{ object.col_sm_width|default:"6" }} col-md-{{ object.col_md_width|default:"4" }} col-lg-{{ object.col_lg_width|default:"4" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
     <a href="{{ object.website }}">
       <span class="img">
-        {% if object.image %}<img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" width="100%"/>{% endif %}
+        {% if object.image %}
+          <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" />
+        {% endif %}
+        
         {% if object.image_caption %}<p class="sr-only caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %}
       </span>
     </a>

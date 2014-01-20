@@ -7,7 +7,9 @@
     <!-- editorial content for non-specific placeholders -->
     <a href="{{ object.website }}">
       <span class="img">
-        {% if object.image %}<img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" width="100%"/>{% endif %}
+        {% if object.image %}
+          <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" />
+        {% endif %}
         {% if object.image_caption %}<p class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %}
       </span>
       <h4>{{ object.title }}</h4>

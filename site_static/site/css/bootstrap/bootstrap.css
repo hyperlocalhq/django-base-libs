@@ -3803,16 +3803,17 @@ body.modal-open {
   position: absolute;
   left: 0px;
   bottom: 0px;
-  top: 0px;
-  right: 0px;
-  z-index: 10;
-  padding: 35px;
-  background-image: url("../../img/transparent-1.png") !important;
+  z-index: 3;
+  width: 100%;
   color: white; }
   .carousel-caption h2 {
     position: absolute;
-    bottom: 35px;
-    left: 35px; }
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 35px !important;
+    padding-bottom: 35px !important;
+    background-image: url("../../img/transparent-1.png") !important; }
   .carousel-caption .btn {
     text-shadow: none; }
 
