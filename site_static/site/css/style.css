@@ -4268,33 +4268,37 @@ dl {
   .navbar-nav > li > a {
     margin: 0px;
     padding: 15px 15px;
-    font-size: 18px; } }
+    font-size: 18px; }
+
+  /* line 7, ../scss/media.scss */
+  .navbar-wrapper {
+    height: 68px; } }
 @media (min-width: 768px) {
-  /* line 10, ../scss/media.scss */
+  /* line 11, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 11, ../scss/media.scss */
+  /* line 12, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 12, ../scss/media.scss */
+  /* line 13, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 11px; } }
 @media (min-width: 992px) {
-  /* line 16, ../scss/media.scss */
+  /* line 17, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 17, ../scss/media.scss */
+  /* line 18, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 22, ../scss/media.scss */
+  /* line 23, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 25, ../scss/media.scss */
+  /* line 26, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */

@@ -4,8 +4,17 @@
 
 {% with "cms/plugins/editorial_content/ec_start_page.html" as editorial_content_template %}
     <div class="container">
-      <div class="row row-md">
+      <div id="notices" class="visible-xs">
+        <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
+        <div class="row row-sm">
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_1" %}</div>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_2" %}</div>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-xs">{% infoblock "workshop_notice_3" %}</div>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-sm hidden-xs">{% infoblock "workshop_notice_4" %}</div>
+        </div>
+      </div>
 
+      <div class="row row-md">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
           <div class="start-content">
             <h5 class="caps">{% trans "Newly Opened" %}</h5>
@@ -37,7 +46,7 @@
     </div>
 {% endwith %}
 
-<div class="content">
+<div class="content hidden-xs">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -48,7 +57,7 @@
   </div>
 </div>
 
-<div id="twitter" class="content">
+<div id="twitter" class="content hidden-xs">
   <div class="container">
     <h5 class="caps">{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h5>
     <div class="row row-md" id="tweets" data-twitter-username="museumsportal"> </div>

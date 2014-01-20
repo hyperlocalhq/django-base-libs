@@ -184,8 +184,11 @@
 .navbar-brand {
   // float: left;
   padding: 18px;
+  padding-left: 0px;
   font-size: $font-size-large;
   line-height: $line-height-computed;
+  position: absolute;
+  left: 40px;
   &:hover,
   &:focus {
     text-decoration: none;

@@ -53,7 +53,7 @@
       {% if exhibition.museum %}
         {% with exhibition.museum as museum %}
           {% with exhibition as list_item %}
-            <button class="btn btn-icon btn-sm btn-default btn-round location" >
+            <button class="btn btn-icon btn-default btn-round location" >
               <span class="icon icon-location"></span>
               <span class="sr-only">{% trans "Show location on map" %}</span>
             </button>
@@ -63,7 +63,7 @@
       {% else %}
 
         {% with exhibition as list_item %}
-          <button class="btn btn-icon btn-sm btn-default btn-round location" >
+          <button class="btn btn-icon btn-default btn-round location" >
             <span class="icon icon-location"></span>
             <span class="sr-only">{% trans "Show location on map" %}</span>
           </button>
@@ -71,11 +71,11 @@
         {% endwith %}
       {% endif %}
 
-      <button class="btn btn-icon btn-sm btn-default btn-round share-twitter"  data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+      <button class="btn btn-icon btn-default btn-round share-twitter"  data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
         <span class="icon icon-social-twitter"></span>
         <span class="sr-only">{% trans "Share on Twitter" %}</span>
       </button>
-      <button class="btn btn-icon btn-sm btn-default btn-round share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+      <button class="btn btn-icon btn-default btn-round share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
         <span class="icon icon-social-facebook"></span>
         <span class="sr-only">{% trans "Share on Facebook" %}</span>
       </button>
