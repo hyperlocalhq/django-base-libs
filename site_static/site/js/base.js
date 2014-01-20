@@ -12,7 +12,7 @@ function isotope_clear() {
 $(window).bind('scrollstop load ready', function() {
     $(".img img:in-viewport").lazyload({
         load : function(element, el_left, settings){
-            $('.isotope').isotope();
+            $('.isotope').isotope('reLayout');
             $(this).closest('.img').addClass('loaded');
             isotope_clear();
         }
@@ -25,11 +25,7 @@ $(window).bind('scrollstop load', function(){
 });
 
 $(window).bind('smartresize', function() {
-    $('.isotope').isotope({
-        resizable: false, // disable normal resizing
-        layoutMode: 'fitRows',
-        fitRows: { columnWidth: Math.floor($container.width() / 12) }
-    });
+    $('.isotope').isotope('reLayout');
 });
 
 $(document).ready(function() {
