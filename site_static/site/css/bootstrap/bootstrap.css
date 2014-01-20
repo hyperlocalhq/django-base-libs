@@ -2393,7 +2393,7 @@ input[type="button"].btn-block {
 
 @media (min-width: 768px) {
   .navbar.affix {
-    margin-top: -71px; } }
+    margin-top: -61px; } }
 
 .headroom--unpinned .navbar.affix {
   -webkit-transform: translateY(-50px);
@@ -2455,8 +2455,6 @@ input[type="button"].btn-block {
         overflow-y: visible; }
       .navbar-collapse .navbar-nav.navbar-left:first-child {
         margin-left: -30px; }
-      .navbar-collapse .navbar-nav.navbar-right:last-child {
-        margin-right: -30px; }
       .navbar-collapse .navbar-text:last-child {
         margin-right: 0; } }
 
@@ -2497,15 +2495,13 @@ input[type="button"].btn-block {
 
 .navbar-brand {
   padding: 18px;
+  padding-left: 0px;
   font-size: 20px;
   line-height: 22px;
   position: absolute;
-  left: 40px; }
+  left: 30px; }
   .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none; }
-  @media (min-width: 768px) {
-    .navbar > .container .navbar-brand {
-      margin-left: -30px; } }
 
 .navbar-toggle {
   position: relative;
@@ -2528,7 +2524,7 @@ input[type="button"].btn-block {
   margin: 0px !important; }
 .navbar-nav > li > a {
   padding: 0px;
-  height: 50px;
+  min-height: 50px;
   font-size: 14px;
   line-height: 50px;
   text-transform: uppercase; }

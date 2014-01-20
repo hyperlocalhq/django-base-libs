@@ -42,7 +42,7 @@
   <div class="row row-md">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
       <p class="lead">{{ exhibition.get_rendered_description|striptags|truncatewords:"65"|urlize }}</p>
-      <a class="btn btn-default" href="{{ exhibition.get_url_path }}">{% trans "More" %}</a>
+      <a class="btn btn-default" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
       <button class="btn btn-info cancel">{% trans "Close" %}</button>
     </div>
 

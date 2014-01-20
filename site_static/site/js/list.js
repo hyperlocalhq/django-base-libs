@@ -1,6 +1,6 @@
 
 $(function() {
-    $('.grid .item > a').click(function() {
+    $('#container .item > a').click(function() {
         var $current_item = $(this).closest('.item');
 
         if ($current_item.attr('id')) { // if clicked again, close the preview
@@ -18,7 +18,7 @@ $(function() {
         // if description doesn't exist yet, load it
         if (!$.trim($description.text())) {
             $description.load($current_item.data('description-src'), function() {
-                $('.grid .item .cancel').click(function(){
+                $('#container .item .cancel').click(function(){
                     $('#item-preview').attr("id","");
                     $('.isotope').isotope();
                 });

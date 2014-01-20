@@ -4,13 +4,15 @@
 
 {% with "cms/plugins/editorial_content/ec_start_page.html" as editorial_content_template %}
     <div class="container">
-      <div id="notices" class="visible-xs">
-        <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
+      <div id="notices" class="content visible-xs">
+        <h6 class="block-label">{% trans "First things first" %}</h6>
         <div class="row row-sm">
-          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_1" %}</div>
-          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_2" %}</div>
-          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-xs">{% infoblock "workshop_notice_3" %}</div>
-          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-sm hidden-xs">{% infoblock "workshop_notice_4" %}</div>
+          <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <p> <a href="/de/search/?q=Irokesen&amp;submit=Suche">Museen</a> </p>
+          </div>
+          <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <p> <a href="/de/search/?q=Irokesen&amp;submit=Suche">Ausstellungen</a> </p>
+          </div>
         </div>
       </div>
 

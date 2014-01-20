@@ -20,16 +20,29 @@
         {% placeholder "plan_organize_second" %}
         {% placeholder "main_content" %}
       {% endwith %}
-
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          {% load advertising_tags %}
-          {% random_zone_ad 'plan_organize_second' %}
-      </div>
-
     </div>
   </div>
 </div>
+
+<div class="container hidden">
+  {% load advertising_tags %}
+  {% random_zone_ad 'plan_organize_second' %}
+</div>
+
 <div class="content">
+  <div class="container">
+    <h2>{% trans "Additional Contents of Plan and Organize" %}</h2>
+    <div class="row row-sm isotope-clear">
+      {% with 1 as hide_ads %}
+        {% with "cms/plugins/editorial_content/ec_planorg_firstlevel_inherited_item.html" as editorial_content_template %}
+          {% placeholder "plan_organize_first" inherit %}
+        {% endwith %}
+      {% endwith %}
+    </div>
+  </div>
+</div>
+
+<div class="content hidden">
   <div class="container">
     <h2>{% trans "Additional Contents" %}</h2>
 

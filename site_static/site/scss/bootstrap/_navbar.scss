@@ -22,7 +22,7 @@
 }
 .navbar.affix {
   @media (min-width: 768px) {
-    margin-top: -71px;
+    margin-top: -61px;
   }
 }
 
@@ -117,7 +117,7 @@
       margin-left: -$navbar-padding-horizontal;
     }
     .navbar-nav.navbar-right:last-child {
-      margin-right: -$navbar-padding-horizontal;
+      // margin-right: -$navbar-padding-horizontal;
     }
     .navbar-text:last-child {
       margin-right: 0;
@@ -188,7 +188,7 @@
   font-size: $font-size-large;
   line-height: $line-height-computed;
   position: absolute;
-  left: 40px;
+  left: 30px;
   &:hover,
   &:focus {
     text-decoration: none;
@@ -196,7 +196,7 @@
 
   @media (min-width: $grid-float-breakpoint) {
     .navbar > .container & {
-      margin-left: -$navbar-padding-horizontal;
+      // margin-left: -$navbar-padding-horizontal;
     }
   }
 }
@@ -247,7 +247,7 @@
 
   > li > a {
     padding: 0px;
-    height: 50px;
+    min-height: 50px;
     font-size: 14px;
     line-height: 50px;
     text-transform: uppercase;

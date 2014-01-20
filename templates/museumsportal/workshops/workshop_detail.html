@@ -82,8 +82,6 @@
                       <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
                   {% endif %}
                 {% endif %}
-
-
               </header>
 
               <!-- ======= Tools ======= -->
@@ -111,6 +109,12 @@
                   <span class="sr-only">{% trans "Share on Facebook" %}</span>
                 </button>
               </div>
+
+              <ul class="linear-list dots clearfix">
+                {% if object.get_other_workshops %}
+                  <li><a href="#section-workshops">{% trans "Other Guided Tours, Workshops and educational offers" %}</a></li>
+                {% endif %}
+              </ul>
 
               {% include "utils/cover_image.html" %}
 

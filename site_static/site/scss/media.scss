@@ -1,8 +1,21 @@
 @media (max-width: 768px) {
-  .navbar-nav > li > a { 
-    margin: 0px; 
-    padding: 15px 15px;
-    font-size: 18px;
+  .navbar-collapse {
+  }
+
+  .navbar-nav {
+    > li > a { 
+      margin: 0px; 
+      padding: 10px 35px;
+      font-size: 22px;
+      border-top: 1px solid #f9f9f9;
+      text-transform: none;
+      background-color: white;
+      &:hover,
+      &:focus {
+        background-color: #00aefd !important;
+        color: white !important;
+      }
+    }
   }
   .navbar-wrapper {height: 68px; }
 }
