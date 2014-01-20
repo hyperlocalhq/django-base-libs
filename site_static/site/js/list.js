@@ -36,7 +36,8 @@ $(function() {
         var $container = $('#container');
         $('.isotope').isotope({
             resizable: false, // disable normal resizing
-            masonry: { columnWidth: $container.width() / 12 }
+            layoutMode: 'fitRows',
+            fitRows: { columnWidth: Math.floor($container.width() / 12) }
         });
         return false;
     });
@@ -69,7 +70,8 @@ $(window).load(function() {
 
     $container.isotope({
         itemSelector : '.item',
-        layoutMode : 'fitRows'
+        layoutMode: 'fitRows',
+        fitRows: { columnWidth: Math.floor($container.width() / 12) }
     });
 
     var $filters = $('#filters');

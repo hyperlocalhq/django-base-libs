@@ -2775,11 +2775,15 @@ h6 + .row:not(.grid),
   background-position: center;
   background-color: #f2f2f2;
   display: block; }
-  /* line 79, ../scss/list.scss */
-  .img.loaded img,
-  .img-detail.loaded img {
-    opacity: 1; }
-  /* line 84, ../scss/list.scss */
+  /* line 78, ../scss/list.scss */
+  .img.loaded,
+  .img-detail.loaded {
+    background-image: none; }
+    /* line 79, ../scss/list.scss */
+    .img.loaded img,
+    .img-detail.loaded img {
+      opacity: 1; }
+  /* line 85, ../scss/list.scss */
   .img img,
   .img-detail img {
     width: 100%;
@@ -2792,55 +2796,55 @@ h6 + .row:not(.grid),
     -o-transition: opacity 0.125s ease-in-out !important;
     transition: opacity 0.125s ease-in-out !important; }
 
-/* line 104, ../scss/list.scss */
+/* line 105, ../scss/list.scss */
 .img {
   margin-bottom: 10px; }
 
-/* line 107, ../scss/list.scss */
+/* line 108, ../scss/list.scss */
 .img-detail {
   margin-bottom: 10px; }
 
-/* line 111, ../scss/list.scss */
+/* line 112, ../scss/list.scss */
 .item {
   list-style: none; }
 
-/* line 115, ../scss/list.scss */
+/* line 116, ../scss/list.scss */
 .btn-round {
   border-radius: 100% !important; }
-  /* line 117, ../scss/list.scss */
+  /* line 118, ../scss/list.scss */
   .btn-round.pull-right {
     margin-left: 5px !important; }
-  /* line 118, ../scss/list.scss */
+  /* line 119, ../scss/list.scss */
   .btn-round.pull-left {
     margin-right: 5px !important; }
 
-/* line 122, ../scss/list.scss */
+/* line 123, ../scss/list.scss */
 .list .item {
   margin-top: 0px;
   margin-bottom: 10px; }
-  /* line 125, ../scss/list.scss */
+  /* line 126, ../scss/list.scss */
   .list .item.delete {
     display: none; }
-  /* line 127, ../scss/list.scss */
+  /* line 128, ../scss/list.scss */
   .list .item:hover a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 131, ../scss/list.scss */
+  /* line 132, ../scss/list.scss */
   .list .item > a {
     background-color: #f2f2f2;
     color: black;
     padding: 20px 25px;
     display: block; }
-    /* line 137, ../scss/list.scss */
+    /* line 138, ../scss/list.scss */
     .list .item > a h3 {
       font-weight: 300; }
-    /* line 138, ../scss/list.scss */
+    /* line 139, ../scss/list.scss */
     .list .item > a h4 {
       font-weight: 300; }
-    /* line 139, ../scss/list.scss */
+    /* line 140, ../scss/list.scss */
     .list .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 140, ../scss/list.scss */
+    /* line 141, ../scss/list.scss */
     .list .item > a h3, .list .item > a h4, .list .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2850,23 +2854,23 @@ h6 + .row:not(.grid),
       width: 100%;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 151, ../scss/list.scss */
+      /* line 152, ../scss/list.scss */
       .list .item > a h3:empty, .list .item > a h4:empty, .list .item > a h5:empty {
         display: none; }
-    /* line 154, ../scss/list.scss */
+    /* line 155, ../scss/list.scss */
     .list .item > a h3 {
       font-size: 25px;
       line-height: 40px;
       white-space: nowrap !important; }
 
-/* line 164, ../scss/list.scss */
+/* line 165, ../scss/list.scss */
 .grid .item {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important; }
-  /* line 178, ../scss/list.scss */
+  /* line 179, ../scss/list.scss */
   .grid .item .description {
     padding-left: 10px;
     padding-right: 10px;
@@ -2879,53 +2883,53 @@ h6 + .row:not(.grid),
     -ms-transition: opacity 0.125s ease-in-out !important;
     -o-transition: opacity 0.125s ease-in-out !important;
     transition: opacity 0.125s ease-in-out !important; }
-    /* line 190, ../scss/list.scss */
+    /* line 191, ../scss/list.scss */
     .grid .item .description p.lead {
       margin-right: 40px; }
-    /* line 194, ../scss/list.scss */
+    /* line 195, ../scss/list.scss */
     .grid .item .description header h3 {
       font-weight: 700; }
-    /* line 195, ../scss/list.scss */
+    /* line 196, ../scss/list.scss */
     .grid .item .description header h4 {
       font-weight: 300; }
-    /* line 196, ../scss/list.scss */
+    /* line 197, ../scss/list.scss */
     .grid .item .description header h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 197, ../scss/list.scss */
+    /* line 198, ../scss/list.scss */
     .grid .item .description header h3, .grid .item .description header h4, .grid .item .description header h5 {
       font-size: 22px;
       line-height: 140%; }
-      /* line 200, ../scss/list.scss */
+      /* line 201, ../scss/list.scss */
       .grid .item .description header h3:empty, .grid .item .description header h4:empty, .grid .item .description header h5:empty {
         display: none; }
-  /* line 205, ../scss/list.scss */
+  /* line 206, ../scss/list.scss */
   .grid .item#item-preview {
     padding-bottom: 450px; }
-    /* line 208, ../scss/list.scss */
+    /* line 209, ../scss/list.scss */
     .grid .item#item-preview .description {
       display: block;
       opacity: 1;
       height: auto; }
-  /* line 238, ../scss/list.scss */
+  /* line 239, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 40px; }
-    /* line 243, ../scss/list.scss */
+    /* line 244, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 245, ../scss/list.scss */
+    /* line 246, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 246, ../scss/list.scss */
+    /* line 247, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 247, ../scss/list.scss */
+    /* line 248, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 248, ../scss/list.scss */
+    /* line 249, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2936,27 +2940,27 @@ h6 + .row:not(.grid),
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 260, ../scss/list.scss */
+      /* line 261, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 268, ../scss/list.scss */
+/* line 269, ../scss/list.scss */
 .compact .item .inner {
   font-size: 15px;
   line-height: 21px;
   overflow: hidden;
   background-color: #f2f2f2;
   position: relative; }
-/* line 276, ../scss/list.scss */
+/* line 277, ../scss/list.scss */
 .compact .item:hover .inner {
   background-color: rgba(0, 0, 0, 0.075); }
-/* line 277, ../scss/list.scss */
+/* line 278, ../scss/list.scss */
 .compact .item.title {
   background: none; }
-  /* line 279, ../scss/list.scss */
+  /* line 280, ../scss/list.scss */
   .compact .item.title:hover {
     background: none; }
-  /* line 281, ../scss/list.scss */
+  /* line 282, ../scss/list.scss */
   .compact .item.title h3 {
     font-weight: 700;
     margin-bottom: 5px !important;
@@ -2965,7 +2969,7 @@ h6 + .row:not(.grid),
     text-transform: uppercase;
     font-size: 16px;
     line-height: 20px; }
-/* line 292, ../scss/list.scss */
+/* line 293, ../scss/list.scss */
 .compact .item .img {
   background-color: #f2f2f2;
   width: 80px;
@@ -2978,7 +2982,7 @@ h6 + .row:not(.grid),
   left: 0;
   top: 0;
   padding: 0px; }
-/* line 306, ../scss/list.scss */
+/* line 307, ../scss/list.scss */
 .compact .item a.txt {
   float: left;
   padding: 10px;
@@ -2990,20 +2994,20 @@ h6 + .row:not(.grid),
   height: 90px;
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important; }
-  /* line 318, ../scss/list.scss */
+  /* line 319, ../scss/list.scss */
   .compact .item a.txt:hover * {
     color: black; }
-  /* line 320, ../scss/list.scss */
+  /* line 321, ../scss/list.scss */
   .compact .item a.txt h3 {
     font-weight: 700; }
-  /* line 321, ../scss/list.scss */
+  /* line 322, ../scss/list.scss */
   .compact .item a.txt h4 {
     font-weight: 300; }
-  /* line 322, ../scss/list.scss */
+  /* line 323, ../scss/list.scss */
   .compact .item a.txt h5 {
     font-weight: 300;
     opacity: 0.5; }
-  /* line 325, ../scss/list.scss */
+  /* line 326, ../scss/list.scss */
   .compact .item a.txt h3,
   .compact .item a.txt h4,
   .compact .item a.txt h5 {
@@ -3015,40 +3019,40 @@ h6 + .row:not(.grid),
     -moz-box-sizing: border-box !important;
     margin: 0px !important;
     display: block !important; }
-    /* line 338, ../scss/list.scss */
+    /* line 339, ../scss/list.scss */
     .compact .item a.txt h3:empty,
     .compact .item a.txt h4:empty,
     .compact .item a.txt h5:empty {
       display: none !important; }
-  /* line 341, ../scss/list.scss */
+  /* line 342, ../scss/list.scss */
   .compact .item a.txt p {
     display: none; }
-/* line 345, ../scss/list.scss */
+/* line 346, ../scss/list.scss */
 .compact .item:nth-child(1) {
   margin-bottom: 0px !important; }
-  /* line 347, ../scss/list.scss */
+  /* line 348, ../scss/list.scss */
   .compact .item:nth-child(1) .inner {
     background: none !important;
     padding-bottom: 80px; }
-  /* line 352, ../scss/list.scss */
+  /* line 353, ../scss/list.scss */
   .compact .item:nth-child(1) .txt {
     padding: 0px;
     background: none !important;
     width: 100%;
     display: block !important; }
-    /* line 360, ../scss/list.scss */
+    /* line 361, ../scss/list.scss */
     .compact .item:nth-child(1) .txt h3,
     .compact .item:nth-child(1) .txt h4,
     .compact .item:nth-child(1) .txt h5 {
       font-size: 14px !important;
       line-height: 20px !important; }
-    /* line 365, ../scss/list.scss */
+    /* line 366, ../scss/list.scss */
     .compact .item:nth-child(1) .txt p {
       font-size: 13px !important;
       line-height: 18px !important;
       margin-top: 8px;
       display: block; }
-  /* line 373, ../scss/list.scss */
+  /* line 374, ../scss/list.scss */
   .compact .item:nth-child(1) .img {
     width: 100% !important;
     position: relative; }

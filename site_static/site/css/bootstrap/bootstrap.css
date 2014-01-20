@@ -853,7 +853,7 @@ pre {
     margin-left: 91.66667%; } }
 @media (min-width: 992px) {
   .container {
-    max-width: 990px; }
+    max-width: 1000px; }
 
   .col-md-1,
   .col-md-2,
@@ -1651,6 +1651,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 
 .btn-icon {
   padding: 0px !important; }
+  .btn-icon .icon {
+    line-height: 2.4; }
   .btn-icon.btn-sm .icon, .btn-group-sm > .btn-icon.btn .icon {
     line-height: 1.4; }
 

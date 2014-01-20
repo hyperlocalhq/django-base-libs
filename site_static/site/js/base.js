@@ -10,8 +10,7 @@ function isotope_clear() {
 }
 
 $(window).bind('scrollstop load ready', function() {
-    $(".img img").lazyload({
-        threshold       : 200,
+    $(".img img:in-viewport").lazyload({
         load : function(element, el_left, settings){
             $('.isotope').isotope();
             $(this).closest('.img').addClass('loaded');
@@ -21,12 +20,16 @@ $(window).bind('scrollstop load ready', function() {
     isotope_clear();
 });
 
-// $(window).bind('scrollstop load', function(){
-//     $(".img img:in-viewport").lazyload().addClass("in");
-// });
+$(window).bind('scrollstop load', function(){
+    $(".img img:in-viewport").lazyload().addClass("in");
+});
 
 $(window).bind('smartresize', function() {
-    $('.isotope').isotope();
+    $('.isotope').isotope({
+        resizable: false, // disable normal resizing
+        layoutMode: 'fitRows',
+        fitRows: { columnWidth: Math.floor($container.width() / 12) }
+    });
 });
 
 $(document).ready(function() {
