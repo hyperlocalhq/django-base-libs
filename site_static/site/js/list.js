@@ -2,6 +2,23 @@
 /* global self: false */
 /* global jQuery: false */
 /* global lazyload_images: false */
+/* global isotope_list: false */
+
+function redo_description() {
+    var $container = $('#container');
+    var $current_item = $('#item-preview');
+    if (!$current_item.length) { return; }
+    var $description = $current_item.find(".description");
+
+    // define position for the description
+    var left = $current_item.position().left;
+    var width = $container.width();
+    var offset_left = parseInt($container.css('margin-left'), 10);
+    var offset_right = parseInt($container.css('margin-right'), 10);
+
+    $description.css({left: -left, width: width + offset_left + offset_right});
+    isotope_list();
+}
 
 $(function() {
     $('#container .item > a').click(function() {
@@ -9,11 +26,11 @@ $(function() {
 
         if ($current_item.attr('id')) { // if clicked again, close the preview
             $('#item-preview').attr("id", "");
-            $('.isotope').isotope();
+            isotope_list();
+            lazyload_images();
             return false;
         }
 
-        // $('#item-preview').css('padding-bottom','inherit');
         $('#item-preview').attr("id", ""); // close the previous preview
         $current_item.attr("id","item-preview"); // open the new preview
 
@@ -24,49 +41,40 @@ $(function() {
             $description.load($current_item.data('description-src'), function() {
                 $('#container .item .cancel').click(function(){
                     $('#item-preview').attr("id","");
-                    $('.isotope').isotope();
+                    isotope_list();
+                    lazyload_images();
                 });
+                
+                redo_description();
 
                 if (window.init_share) {
                     window.init_share();
                 }
             });
+        } else {
+            isotope_list();
         }
-
-        // define position for the description
-        var left = $current_item.position().left;
-        var width = $("#container").width();
-        $description.css({left: -left, width: width});
-        
-        // get height and apply space for the description
-        // $current_item.css('padding-bottom', $description.height() + 'px');
-
-        var $container = $('#container');
-        $('.isotope').isotope({
-            resizable: false, // disable normal resizing
-            layoutMode: 'fitRows',
-            fitRows: { columnWidth: Math.floor($container.width() / 12) }
-        });
         return false;
     });
 });
 
-window.onresize = function() {
-  $('.isotope').isotope({
+$(window).bind('smartresize', redo_description);
 
-    onLayout: function() {
-      var $item = $('#item-preview');
+// window.onresize = function() {
 
-      if (!$item.length) {
-        return;
-      }
+//     var $item = $('#item-preview');
 
-      var left = $item.position().left;
-      var width = $("#container").width();
-      $item.find(".description").css({left: -left, width: width});
-    }
-  });
-};
+//     if (!$item.length) {
+//         return;
+//     }
+
+//     var left = $item.position().left;
+//     var width = $("#container").width();
+//     var offset_left = parseInt($('#container').css('margin-left'), 10);
+//     var offset_right = parseInt($('#container').css('margin-right'), 10);
+
+//     $item.find(".description").css({left: -left, width: width + offset_left + offset_right});
+// };
 
 $(window).load(function() {
     var $container = $('#container'),
