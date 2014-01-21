@@ -60,21 +60,6 @@ $(function() {
 
 $(window).bind('smartresize', redo_description);
 
-// window.onresize = function() {
-
-//     var $item = $('#item-preview');
-
-//     if (!$item.length) {
-//         return;
-//     }
-
-//     var left = $item.position().left;
-//     var width = $("#container").width();
-//     var offset_left = parseInt($('#container').css('margin-left'), 10);
-//     var offset_right = parseInt($('#container').css('margin-right'), 10);
-
-//     $item.find(".description").css({left: -left, width: width + offset_left + offset_right});
-// };
 
 $(window).load(function() {
     var $container = $('#container'),
@@ -83,12 +68,6 @@ $(window).load(function() {
     if (!$container.length) {
         return;
     }
-
-    $container.isotope({
-        itemSelector : '.item',
-        layoutMode: 'fitRows',
-        fitRows: { columnWidth: Math.floor($container.width() / 12) }
-    });
 
     var $filters = $('#filters');
     var $filter_summary = $('#filter_summary');
