@@ -1,28 +1,29 @@
-function isotope_clear() {
-    $('.isotope-clear').each(function(){
+/* jshint unused:false, eqnull:false */
+/* global self: false */
+/* global jQuery: false */
+
+function isotope_list() {
+    $('.isotope').each(function(){
         var $container = $(this);
         $container.isotope({
             resizable: false, // disable normal resizing
             layoutMode: 'fitRows',
             fitRows: { columnWidth: Math.floor($container.width() / 12) }
         });
-    }); 
+    });
 }
 
-$(window).bind('scrollstop load', function() {
+function lazyload_images() {
     $(".img img:in-viewport").lazyload({
         load : function(element, el_left, settings){
-            $('.isotope').isotope();
             $(this).closest('.img').addClass('loaded');
-            isotope_clear();
         }
     });
-    isotope_clear();
-});
+}
 
-$(window).bind('smartresize', function() {
-    $('.isotope').isotope();
-});
+$(window).bind('scrollstop smartresize', lazyload_images);
+$(window).bind('load smartresize', isotope_list);
+$(document).ready(lazyload_images);
 
 $(document).ready(function() {
     $("a[href^='http://']").attr("target","_blank");
@@ -52,14 +53,6 @@ $(document).ready(function() {
     });
 
     $("select").not('[name*="__prefix__"]').not('[sb]').selectbox();
-
-    // $(".navbar-wrapper").headroom({
-        // vertical offset in px before element is first unpinned
-        // offset : 400,
-        // scroll tolerance in px before state changes
-        // tolerance : 0
-    // });
-    // $('.panel-collapse').collapse('show');
 });
 
 // ADD crsftoken TO AJAX CALLS

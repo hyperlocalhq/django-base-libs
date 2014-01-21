@@ -15,7 +15,7 @@
 
 <div class="content">
   <div class="container">
-    <div class="row isotope-clear">
+    <div class="row isotope">
       {% with "cms/plugins/editorial_content/ec_planorg_secondlevel_item.html" as editorial_content_template %}
         {% placeholder "plan_organize_second" %}
         {% placeholder "main_content" %}
@@ -31,8 +31,8 @@
 
 <div class="content">
   <div class="container">
-    <h2>{% trans "Additional Contents of Plan and Organize" %}</h2>
-    <div class="row row-sm isotope-clear">
+    <h2>{% trans "Additional Contents" %}</h2>
+    <div class="row row-sm isotope">
       {% with 1 as hide_ads %}
         {% with "cms/plugins/editorial_content/ec_planorg_firstlevel_inherited_item.html" as editorial_content_template %}
           {% placeholder "plan_organize_first" inherit %}

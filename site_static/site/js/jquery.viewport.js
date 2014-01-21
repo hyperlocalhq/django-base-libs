@@ -50,7 +50,7 @@
             return $.rightofscreen(a, {threshold : 0});
         },
         "in-viewport": function(a, i, m) {
-            return $.inviewport(a, {threshold : 500});
+            return $.inviewport(a, {threshold : 0});
         }
     });
 

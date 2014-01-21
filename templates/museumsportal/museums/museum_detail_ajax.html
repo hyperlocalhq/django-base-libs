@@ -2,7 +2,7 @@
 
 {% with object as museum %}
   <div class="row row-md">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
       <header>
         <h3>{{ museum.title }} </h3>
         {% if museum.subtitle %}
@@ -10,7 +10,33 @@
         {% endif %}
       </header>
     </div>
+    <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
+      <div class="actions">
+        {% if request.user.is_authenticated %}
+          {% adding2favorites for museum using "favorites/includes/favorite_detail.html" %}
+        {% endif %}
+
+        {% with museum as list_item %}
+          <button class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
+            <span class="icon icon-location"></span>
+            <span class="sr-only">{% trans "Show location on map" %}</span>
+          </button>
+          {% include "utils/geo_position.html" %}
+        {% endwith %}
+
+        <button class="btn btn-default btn-round share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}"  data-url="{{ object.get_url }}" data-text="{{ museum.title }}">
+          <span class="icon icon-social-twitter"></span>
+          <span class="sr-only">{% trans "Share on Twitter" %}</span>
+        </button>
+
+        <button class="btn btn-default btn-round share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{{ museum.title }}">
+          <span class="icon icon-social-facebook"></span>
+          <span class="sr-only">{% trans "Share on Facebook" %}</span>
+        </button>
+      </div>
+    </div>
   </div>
+
   <div class="row row-md">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
       <p class="lead">{{ museum.get_rendered_description|striptags|truncatewords:"65"|urlize }}</p>

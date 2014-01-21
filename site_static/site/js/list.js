@@ -1,3 +1,7 @@
+/* jshint unused:false, eqnull:false */
+/* global self: false */
+/* global jQuery: false */
+/* global lazyload_images: false */
 
 $(function() {
     $('#container .item > a').click(function() {
@@ -9,8 +13,8 @@ $(function() {
             return false;
         }
 
+        // $('#item-preview').css('padding-bottom','inherit');
         $('#item-preview').attr("id", ""); // close the previous preview
-
         $current_item.attr("id","item-preview"); // open the new preview
 
         var $description = $current_item.find(".description");
@@ -33,6 +37,10 @@ $(function() {
         var left = $current_item.position().left;
         var width = $("#container").width();
         $description.css({left: -left, width: width});
+        
+        // get height and apply space for the description
+        // $current_item.css('padding-bottom', $description.height() + 'px');
+
         var $container = $('#container');
         $('.isotope').isotope({
             resizable: false, // disable normal resizing
@@ -180,7 +188,8 @@ $(window).load(function() {
         $.bbq.pushState({filter: http_state_filters.join('')});
 
         $container.isotope({filter: '.item' + selector});
-        $(".img img:in-viewport").lazyload().closest('.img').addClass('loaded');
+
+        lazyload_images();
 
         $container.trigger("map_filter", { filter: map_filters});
         $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
