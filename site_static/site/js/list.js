@@ -4,6 +4,7 @@
 /* global lazyload_images: false */
 /* global isotope_list: false */
 
+
 function redo_description() {
     var $container = $('#container');
     var $current_item = $('#item-preview');
@@ -21,6 +22,12 @@ function redo_description() {
 }
 
 $(function() {
+
+    $('#map-list-link').click(function() {
+        location.href = $(this).attr('href') + location.hash;
+        return false;
+    });
+
     $('#container .item > a').click(function() {
         var $current_item = $(this).closest('.item');
 

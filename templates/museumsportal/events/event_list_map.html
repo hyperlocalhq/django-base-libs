@@ -8,114 +8,92 @@
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
   <script type="text/javascript">
-    var aGeopositions = [];
     var str_filter_selection = "{% trans "Filter selection" %}";
   </script>
 {% endblock %}
 
-{% block content %}
-  {% include "utils/gmap.html" %}
-  <div class="container">
-    <nav id="controls" class="pull-right">
-      {% if request.user.is_authenticated %}
-      <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
-        <span class="sr-only">{% trans "Favorites" %}</span>
-        <span class="icon icon-star"></span>
-      </a>
-      {% endif %}
-      <button id="gmap_toggle" class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
-        <span class="icon icon-location"></span>
-        <span class="sr-only">{% trans "Show location on map" %}</span>
-      </button>
-      <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">
-        <span class="icon icon-signal"></span>
-        <span class="sr-only">{% trans "RSS Feed" %}</span>
-      </a>
-    </nav>
+{% block map-filters %}
+  <div id="filters">
+    <div class="btn-group" id="filter-toggle" data-toggle="buttons">
+      <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
+        <input type="radio" name="options" id="filter-toggle-categories">
+        {% trans "Categories" %}
+      </label>
 
-    <h1>{% trans "Events in the Museums of Berlin" %}</h1>
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
+        <input type="radio" name="options" id="filter-toggle-alphabetic">
+        {% trans "Alphabet" %}
+      </label>
 
-    <div id="filters">
-      <div class="btn-group" id="filter-toggle" data-toggle="buttons">
-        <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
-          <input type="radio" name="options" id="filter-toggle-categories">
-          {% trans "Categories" %}
-        </label>
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
+        <input type="radio" name="options" id="filter-toggle-smartlists">
+        {% trans "Smart lists" %}
+      </label>
 
-        <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
-          <input type="radio" name="options" id="filter-toggle-alphabetic">
-          {% trans "Alphabet" %}
-        </label>
+      <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">
+        <input type="radio" name="options" id="filter-toggle-calendar">
+        {% trans "Calendar" %}
+      </label>
+    </div>
 
-        <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
-          <input type="radio" name="options" id="filter-toggle-smartlists">
-          {% trans "Smart lists" %}
-        </label>
+    <button id="filter_reset" type="button" class="btn btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
+      <span class="icon icon-remove"></span>
+      <span class="sr-only">{% trans "Reset all filters" %}</span>
+    </button>
 
-        <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">
-          <input type="radio" name="options" id="filter-toggle-calendar">
-          {% trans "Calendar" %}
-        </label>
-      </div>
-
-      <button id="filter_reset" type="button" class="btn btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
-        <span class="icon icon-remove"></span>
-        <span class="sr-only">{% trans "Reset all filters" %}</span>
-      </button>
-
-        <div class="panel-group" id="filter-options">
-          <div class="panel panel-default">
-            <div id="filter-categories" class="panel-collapse collapse in">
-              <div class="panel-body">
-                <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
-                  {% for cat in facets.categories.categories %}
-                  <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div id="filter-alphabetic" class="panel-collapse collapse">
-              <div class="panel-body">
-                <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
-                  {% for item in abc_list %}
-                  {% if not forloop.first %}
-                  <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
-                  {% endif %}
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div id="filter-smartlists" class="panel-collapse collapse">
-              <div class="panel-body">
-                <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
-                  <li><a href="" data-filter-value=".is_for_children">{% trans "Also suitable for children" %}</a></li>
-                  <li><a href="" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div id="filter-calendar" class="panel-collapse collapse">
-              <div class="panel-body">
-                <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
-                  <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
-                  <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
-                  <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>
-                  <li><a href="" data-filter-value=".is_within_30_days">{% trans "30 Days" %}</a></li>
-                </ul>
-              </div>
+      <div class="panel-group" id="filter-options">
+        <div class="panel panel-default">
+          <div id="filter-categories" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
+                {% for cat in facets.categories.categories %}
+                <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
         </div>
-
-        <ul id="filter_summary"></ul>
+        <div class="panel panel-default">
+          <div id="filter-alphabetic" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
+                {% for item in abc_list %}
+                {% if not forloop.first %}
+                <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div id="filter-smartlists" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
+                <li><a href="" data-filter-value=".is_for_children">{% trans "Also suitable for children" %}</a></li>
+                <li><a href="" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div id="filter-calendar" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+                <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
+                <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
+                <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>
+                <li><a href="" data-filter-value=".is_within_30_days">{% trans "30 Days" %}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
+      <ul id="filter_summary"></ul>
+    </div>
+{% endblock %}
 
+{% block map-sidebar %}
   <div id="container" class="hide"></div><!-- for the project.list.min.js script to work -->
   <script>
     var aGeopositions = [];

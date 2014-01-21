@@ -2271,22 +2271,6 @@
   width: 100%;
   overflow: hidden; }
 
-/* line 48, ../scss/gmap.scss */
-#map-sidebar,
-#map-wrapper {
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 0.75s;
-  -webkit-transition-timing: ease-in-out;
-  -moz-transition-property: all;
-  -moz-transition-duration: 0.75s;
-  -moz-transition-timing: ease-in-out;
-  -o-transition-property: all;
-  -o-transition-duration: 0.75s;
-  -o-transition-timing: ease-in-out;
-  transition-property: all;
-  transition-duration: 0.75s;
-  transition-timing: ease-in-out; }
-
 /* line 66, ../scss/gmap.scss */
 #map-wrapper {
   position: relative;
@@ -2310,18 +2294,21 @@
     width: 100%;
     margin-left: 0%;
     position: relative; }
-  /* line 92, ../scss/gmap.scss */
-  #map-sidebar-wrapper #map-sidebar-content {
-    background-color: white;
-    position: absolute;
-    width: 100%;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    padding: 30px;
-    overflow-y: scroll;
-    z-index: 1100; }
-  /* line 104, ../scss/gmap.scss */
+    /* line 90, ../scss/gmap.scss */
+    #map-sidebar-wrapper #map-sidebar > div {
+      background-color: white;
+      position: absolute;
+      width: 100%;
+      top: 0px;
+      bottom: 0px;
+      right: 0px;
+      padding: 30px;
+      overflow-y: scroll;
+      z-index: 1000; }
+    /* line 101, ../scss/gmap.scss */
+    #map-sidebar-wrapper #map-sidebar #map-filters {
+      z-index: 1050; }
+  /* line 106, ../scss/gmap.scss */
   #map-sidebar-wrapper #cancel-map-sidebar {
     position: absolute;
     top: 0px;

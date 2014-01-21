@@ -74,8 +74,8 @@ var oMap;
         var lat_min = long_min = 500;
         var lat_max = long_max = -500;
         var aPoints = [];
-        var sMarkerImgDefault = "http://maps.google.com/mapfiles/marker_black.png";
-        var sMarkerImgSelected = "http://maps.google.com/mapfiles/marker_orange.png";
+        var sMarkerImgDefault = self.settings.STATIC_URL + 'site/img/marker_default.png';
+        var sMarkerImgSelected = self.settings.STATIC_URL + 'site/img/marker_selected.png';
         var oActiveMarker = null;
 
         var active_object_id = '';
@@ -119,7 +119,10 @@ var oMap;
                 oMarker.setIcon(sMarkerImgSelected);
                 oActiveMarker = oMarker;
                 $.bbq.pushState({object_id: oMarker.object_id});
-                $('#map-sidebar-content').load(el.html_src);
+                $('#map-description').load(el.html_src,function(){
+                    $(".row-map").removeClass( "map-only" );
+                    google.maps.event.trigger(oMap, "resize");
+                });
             });
             oMarker.categories = el.categories;
             oMarker.object_id = el.object_id;
@@ -134,7 +137,8 @@ var oMap;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition  (
                 function(position)  {
-                    var oImage = new google.maps.MarkerImage("http://maps.google.com/mapfiles/arrow.png");
+                    var oImage = self.settings.STATIC_URL + 'site/img/marker_current.png';
+
                     var oMarker = new google.maps.Marker({
                         position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                         map: oMap,
@@ -142,7 +146,7 @@ var oMap;
                     });
                     oMarker.setZIndex(999);
                     google.maps.event.addListener(oMarker, 'click', function() {
-                        $('#map-sidebar-content').html("You are here!");
+                        $('#map-description').html("You are here!");
                     });
                 },
                 function(){
@@ -203,13 +207,14 @@ var oMap;
 $(document).ready(function() {
     $( "#map-toggle" ).click(function() {
         $(".row-map").toggleClass( "map-only" );
-        google.maps.event.trigger(map, "resize");
-        return False
+        google.maps.event.trigger(oMap, "resize");
+        return false;
     });
+
     $( "#cancel-map-sidebar" ).click(function() {
-        $(".row-map").toggleClass( "map-only" );
-        google.maps.event.trigger(map, "resize");
-        return False
+        $(".row-map").addClass( "map-only" );
+        google.maps.event.trigger(oMap, "resize");
+        return false;
     });
 });
 

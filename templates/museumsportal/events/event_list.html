@@ -24,7 +24,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
           <span class="icon icon-star"></span>
         </a>
         {% endif %}
-        <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}" href="{% url "event_list_map" %}">
+        <a id="map-list-link" class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}" href="{% url "event_list_map" %}">
           <span class="icon icon-location"></span>
           <span class="sr-only">{% trans "Show location on map" %}</span>
         </a>

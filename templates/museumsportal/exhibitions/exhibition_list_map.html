@@ -12,142 +12,123 @@
   </script>
 {% endblock %}
 
-{% block content %}
-  {% include "utils/gmap.html" %}
-  
-  <div class="container hidden">
-      <nav id="controls" class="pull-right">
-        {% if request.user.is_authenticated %}
-        <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
-          <span class="sr-only">{% trans "Favorites" %}</span>
-          <span class="icon icon-star"></span>
-        </a>
-        {% endif %}
-        <button id="gmap_toggle" class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}">
-          <span class="icon icon-location"></span>
-        </button>
-        <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">
-          <span class="icon icon-signal"></span>
-          <span class="sr-only">{% trans "RSS Feed" %}</span>
-        </a>
-      </nav>
+{% block map-filters %}
+<div id="filters">
+  <script>var str_filter_selection = "{% trans "Filter selection" %}";</script>
+  <div class="btn-group" id="filter-toggle" data-toggle="buttons">
+    <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
+      <input type="radio" name="options" id="filter-toggle-categories">
+      {% trans "Categories" %}
+    </label>
 
-      <h1>{% trans "Exhibitions in the Museums of Berlin" %}</h1>
+    <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
+      <input type="radio" name="options" id="filter-toggle-alphabetic">
+      {% trans "Alphabet" %}
+    </label>
 
-      <div id="filters">
-        <script>var str_filter_selection = "{% trans "Filter selection" %}";</script>
-        <div class="btn-group" id="filter-toggle" data-toggle="buttons">
-          <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
-            <input type="radio" name="options" id="filter-toggle-categories">
-            {% trans "Categories" %}
-          </label>
+    <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
+      <input type="radio" name="options" id="filter-toggle-smartlists">
+      {% trans "Smart lists" %}
+    </label>
 
-          <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
-            <input type="radio" name="options" id="filter-toggle-alphabetic">
-            {% trans "Alphabet" %}
-          </label>
+    <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">
+      <input type="radio" name="options" id="filter-toggle-calendar">
+      {% trans "Calendar" %}
+    </label>
+  </div>
 
-          <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
-            <input type="radio" name="options" id="filter-toggle-smartlists">
-            {% trans "Smart lists" %}
-          </label>
+  <button id="filter_reset" type="button" class="btn btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
+    <span class="icon icon-remove"></span>
+    <span class="sr-only">{% trans "Reset all filters" %}</span>
+  </button>
 
-          <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">
-            <input type="radio" name="options" id="filter-toggle-calendar">
-            {% trans "Calendar" %}
-          </label>
+  <div class="panel-group" id="filter-options">
+    <div class="panel panel-default">
+      <div id="filter-categories" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+            <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+              {% for cat in facets.categories.categories %}
+                {% if cat.is_root_node %}
+                  <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}"{% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a></li>
+                {% endif %}
+              {% endfor %}
+              <li class="level-0" data-level="0"><a data-filter-value=".is_for_children" href="#filter=.is_for_children">{% trans "Special for children / families / youth" %}</a></li>
+            </ul>
+            <div id="level-1-cat-container" class="level-1-container">
+              {% for cat in facets.categories.categories %}
+                {% if cat.is_root_node %}
+                  {% if cat.get_children %}
+                    <ul id="cat_{{ cat.slug }}" class="filter option-set clearfix collapse" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+                      {% for child in cat.get_children %}
+                        <li class="x-level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </ul>
         </div>
-
-        <button id="filter_reset" type="button" class="btn btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
-          <span class="icon icon-remove"></span>
-          <span class="sr-only">{% trans "Reset all filters" %}</span>
-        </button>
-
-        <div class="panel-group" id="filter-options">
-          <div class="panel panel-default">
-            <div id="filter-categories" class="panel-collapse collapse in">
-              <div class="panel-body">
-                <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
-                  <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
-                    {% for cat in facets.categories.categories %}
-                      {% if cat.is_root_node %}
-                        <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}"{% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a></li>
-                      {% endif %}
-                    {% endfor %}
-                    <li class="level-0" data-level="0"><a data-filter-value=".is_for_children" href="#filter=.is_for_children">{% trans "Special for children / families / youth" %}</a></li>
-                  </ul>
-                  <div id="level-1-cat-container" class="level-1-container">
-                    {% for cat in facets.categories.categories %}
-                      {% if cat.is_root_node %}
-                        {% if cat.get_children %}
-                          <ul id="cat_{{ cat.slug }}" class="filter option-set clearfix collapse" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
-                            {% for child in cat.get_children %}
-                              <li class="x-level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a></li>
-                            {% endfor %}
-                          </ul>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                  </div>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div id="filter-alphabetic" class="panel-collapse collapse">
-              <div class="panel-body">
-                <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
-                  {% for item in abc_list %}
-                    {% if not forloop.first %}
-                      <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
-                    {% endif %}
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div id="filter-smartlists" class="panel-collapse collapse">
-              <div class="panel-body">
-                <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
-                  <li><a href="" data-filter-value=".is_actual">{% trans "Current" %}</a></li>
-                  <li><a href="" data-filter-value=".is_newly_open">{% trans "Newly open" %}</a></li>
-                  <li><a href="" data-filter-value=".is_closing_soon">{% trans "Closing soon" %}</a></li>
-                  <li><a href="" data-filter-value=".is_upcoming">{% trans "Upcoming" %}</a></li>
-                  <li><a href="" data-filter-value=".is_special">{% trans "Special Exhibitions" %}</a></li>
-                  <li><a href="" data-filter-value=".is_permanent">{% trans "Permanent Exhibitions" %}</a></li>
-                  <li><a href="" data-filter-value=".is_suitable_for_disabled">{{ facets.categories.suitable_for_disabled }}</a></li>
-                  {% comment %}
-                  <!--
-                  <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
-                  <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
-                  <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
-                  <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
-                  <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
-                  <li><a href="" data-filter-value=".is_for_disabled">{% trans "Suitable for people with disabilities" %}</a></li>
-                  <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children / families / youth" %}</a></li> -->
-                  {% endcomment %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div id="filter-calendar" class="panel-collapse collapse">
-              <div class="panel-body">
-                <ul class="filter option-set clearfix" id="calendar" data-filter-group="calendar" data-single-selection="1">
-                  <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
-                  <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
-                  <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>
-                  <li><a href="" data-filter-value=".is_within_30_days">{% trans "30 Days" %}</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <ul id="filter_summary"></ul>
       </div>
     </div>
+    <div class="panel panel-default">
+      <div id="filter-alphabetic" class="panel-collapse collapse">
+        <div class="panel-body">
+          <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
+            {% for item in abc_list %}
+              {% if not forloop.first %}
+                <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-smartlists" class="panel-collapse collapse">
+        <div class="panel-body">
+          <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+            <li><a href="" data-filter-value=".is_actual">{% trans "Current" %}</a></li>
+            <li><a href="" data-filter-value=".is_newly_open">{% trans "Newly open" %}</a></li>
+            <li><a href="" data-filter-value=".is_closing_soon">{% trans "Closing soon" %}</a></li>
+            <li><a href="" data-filter-value=".is_upcoming">{% trans "Upcoming" %}</a></li>
+            <li><a href="" data-filter-value=".is_special">{% trans "Special Exhibitions" %}</a></li>
+            <li><a href="" data-filter-value=".is_permanent">{% trans "Permanent Exhibitions" %}</a></li>
+            <li><a href="" data-filter-value=".is_suitable_for_disabled">{{ facets.categories.suitable_for_disabled }}</a></li>
+            {% comment %}
+            <!--
+            <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
+            <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
+            <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
+            <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
+            <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
+            <li><a href="" data-filter-value=".is_for_disabled">{% trans "Suitable for people with disabilities" %}</a></li>
+            <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children / families / youth" %}</a></li> -->
+            {% endcomment %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-calendar" class="panel-collapse collapse">
+        <div class="panel-body">
+          <ul class="filter option-set clearfix" id="calendar" data-filter-group="calendar" data-single-selection="1">
+            <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
+            <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
+            <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>
+            <li><a href="" data-filter-value=".is_within_30_days">{% trans "30 Days" %}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul id="filter_summary"></ul>
+</div>
+{% endblock %}
 
+
+{% block map-sidebar %}
   <div id="container" class="hide"></div><!-- for the project.list.min.js script to work -->
   <script>
     var aGeopositions = [];

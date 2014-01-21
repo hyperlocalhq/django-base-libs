@@ -1,5 +1,4 @@
 {% extends "base_map.html" %}
-{% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended infoblocks %}
 {% block title %}{% trans "Guided Tours, Workshops and educational offers" %} – {% endblock %}
 {% block bodyclass %}workshop-list{% endblock %}
@@ -13,24 +12,7 @@
   </script>
 {% endblock %}
 
-{% block content %}
-  {% include "utils/gmap.html" %}
-  <div class="container hidden">
-    <nav id="controls" class="pull-right">
-      {% if request.user.is_authenticated %}
-      <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
-        <span class="sr-only">{% trans "Favorites" %}</span>
-        <span class="icon icon-star"></span>
-      </a>
-      {% endif %}
-      <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}" href="{% url "workshop_list_map" %}">
-        <span class="icon icon-location"></span>
-        <span class="sr-only">{% trans "Show location on map" %}</span>
-      </a>
-    </nav>
-
-    <h1>{% trans "Guided Tours, Workshops and educational offers" %}</h1>
-
+{% block map-filters %}
     <div id="filters">
       <div class="btn-group" id="filter-toggle" data-toggle="buttons">
         <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-bookablegroup">
@@ -111,8 +93,9 @@
       </div>
       <ul id="filter_summary"></ul>
     </div>
-  </div>
+{% endblock %}
 
+{% block map-sidebar %}
   <div id="container" class="hide"></div><!-- for the project.list.min.js script to work -->
   <script>
     var aGeopositions = [];
