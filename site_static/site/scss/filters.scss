@@ -9,10 +9,16 @@
   }
   .container {
     padding: 20px 30px;
+    .cancel  {
+      position: absolute;
+      right: 30px;
+      top: 0px;
+      z-index: 1000;
+    }
+
     .panel-group {margin-top: 15px; }
   }
 }
-
 #filters {
 padding: 0px;
 margin: 0px;

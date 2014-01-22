@@ -3469,74 +3469,80 @@ a.img-detail.loaded:hover img {
 #list-filter .container {
   padding: 20px 30px; }
   /* line 12, ../scss/filters.scss */
+  #list-filter .container .cancel {
+    position: absolute;
+    right: 30px;
+    top: 0px;
+    z-index: 1000; }
+  /* line 19, ../scss/filters.scss */
   #list-filter .container .panel-group {
     margin-top: 15px; }
 
-/* line 16, ../scss/filters.scss */
+/* line 22, ../scss/filters.scss */
 #filters {
   padding: 0px;
   margin: 0px; }
-  /* line 19, ../scss/filters.scss */
+  /* line 25, ../scss/filters.scss */
   #filters .panel + .panel {
     margin-top: 0px; }
-  /* line 23, ../scss/filters.scss */
+  /* line 29, ../scss/filters.scss */
   #filters .panel-collapse,
   #filters .panel {
     background-color: transparent; }
-    /* line 25, ../scss/filters.scss */
+    /* line 31, ../scss/filters.scss */
     #filters .panel-collapse .panel-body,
     #filters .panel .panel-body {
       border: none;
       margin: 0px;
       padding: 0px; }
-      /* line 29, ../scss/filters.scss */
+      /* line 35, ../scss/filters.scss */
       #filters .panel-collapse .panel-body ul,
       #filters .panel .panel-body ul {
         margin: 0px; }
 
-/* line 36, ../scss/filters.scss */
+/* line 42, ../scss/filters.scss */
 #filter-toggle {
   display: inline-block; }
 
-/* line 40, ../scss/filters.scss */
+/* line 46, ../scss/filters.scss */
 #filters .btn {
   margin-bottom: 5px;
   margin-right: 5px; }
-  /* line 43, ../scss/filters.scss */
+  /* line 49, ../scss/filters.scss */
   #filters .btn.active {
     background-color: #00aefd !important;
     color: white !important; }
-    /* line 46, ../scss/filters.scss */
+    /* line 52, ../scss/filters.scss */
     #filters .btn.active.collapsed {
       background-color: #f2f2f2 !important;
       color: black !important; }
 
-/* line 53, ../scss/filters.scss */
+/* line 59, ../scss/filters.scss */
 #filter-summary {
   font-size: 11px;
   line-height: 140%; }
-  /* line 56, ../scss/filters.scss */
+  /* line 62, ../scss/filters.scss */
   #filter-summary:empty {
     display: none !important; }
-  /* line 57, ../scss/filters.scss */
+  /* line 63, ../scss/filters.scss */
   #filter-summary li {
     display: inline-block;
     margin-right: 5px; }
-    /* line 60, ../scss/filters.scss */
+    /* line 66, ../scss/filters.scss */
     #filter-summary li:first-child {
       display: block; }
-    /* line 64, ../scss/filters.scss */
+    /* line 70, ../scss/filters.scss */
     #filter-summary li a:hover {
       color: #ff4582; }
-    /* line 87, ../scss/filters.scss */
+    /* line 93, ../scss/filters.scss */
     #filter-summary li:after {
       content: " / ";
       opacity: 0.25; }
-    /* line 93, ../scss/filters.scss */
+    /* line 99, ../scss/filters.scss */
     #filter-summary li:first-child:after, #filter-summary li:last-child:after {
       content: "" !important; }
 
-/* line 101, ../scss/filters.scss */
+/* line 107, ../scss/filters.scss */
 .tags,
 .filter {
   font-size: 0px;
@@ -3546,13 +3552,13 @@ a.img-detail.loaded:hover img {
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out; }
-  /* line 109, ../scss/filters.scss */
+  /* line 115, ../scss/filters.scss */
   .tags .title,
   .filter .title {
     display: block;
     padding-bottom: 10px;
     font-weight: 700; }
-  /* line 115, ../scss/filters.scss */
+  /* line 121, ../scss/filters.scss */
   .tags li,
   .filter li {
     font-size: 14px;
@@ -3561,31 +3567,31 @@ a.img-detail.loaded:hover img {
     color: black;
     margin-bottom: 5px;
     margin-right: 5px; }
-    /* line 123, ../scss/filters.scss */
+    /* line 129, ../scss/filters.scss */
     .tags li.x-level-1 a,
     .filter li.x-level-1 a {
       background-color: rgba(0, 0, 0, 0.025); }
-    /* line 125, ../scss/filters.scss */
+    /* line 131, ../scss/filters.scss */
     .tags li.x-level-1 .selected, .tags li.x-level-1.active,
     .filter li.x-level-1 .selected,
     .filter li.x-level-1.active {
       background-color: #00aefd;
       color: white; }
-    /* line 132, ../scss/filters.scss */
+    /* line 138, ../scss/filters.scss */
     .tags li .selected, .tags li.active,
     .filter li .selected,
     .filter li.active {
       background-color: #00aefd;
       color: white; }
-    /* line 137, ../scss/filters.scss */
+    /* line 143, ../scss/filters.scss */
     .tags li:hover,
     .filter li:hover {
       background-color: #f2f2f2; }
-      /* line 139, ../scss/filters.scss */
+      /* line 145, ../scss/filters.scss */
       .tags li:hover a,
       .filter li:hover a {
         opacity: 0.8; }
-    /* line 144, ../scss/filters.scss */
+    /* line 150, ../scss/filters.scss */
     .tags li a,
     .filter li a {
       display: inline-block;
@@ -3597,7 +3603,7 @@ a.img-detail.loaded:hover img {
       background-image: url("../img/transparent-1.png") !important;
       color: #404040;
       text-align: center; }
-    /* line 156, ../scss/filters.scss */
+    /* line 162, ../scss/filters.scss */
     .tags li span,
     .filter li span {
       background-color: #f2f2f2;
@@ -3608,27 +3614,27 @@ a.img-detail.loaded:hover img {
       line-height: 10px;
       padding: 10px; }
 
-/* line 169, ../scss/filters.scss */
+/* line 175, ../scss/filters.scss */
 .level-1-container li {
   background-color: #00aefd; }
-  /* line 171, ../scss/filters.scss */
+  /* line 177, ../scss/filters.scss */
   .level-1-container li a {
     color: white !important;
     background-color: transparent; }
-  /* line 175, ../scss/filters.scss */
+  /* line 181, ../scss/filters.scss */
   .level-1-container li:hover {
     background-color: black !important; }
-    /* line 177, ../scss/filters.scss */
+    /* line 183, ../scss/filters.scss */
     .level-1-container li:hover a {
       opacity: 1 !important; }
-  /* line 182, ../scss/filters.scss */
+  /* line 188, ../scss/filters.scss */
   .level-1-container li.selected, .level-1-container li.active {
     background-color: black !important; }
-    /* line 184, ../scss/filters.scss */
+    /* line 190, ../scss/filters.scss */
     .level-1-container li.selected a, .level-1-container li.active a {
       background-color: black !important;
       color: white !important; }
-    /* line 189, ../scss/filters.scss */
+    /* line 195, ../scss/filters.scss */
     .level-1-container li.selected:hover, .level-1-container li.active:hover {
       background-color: black !important; }
 
