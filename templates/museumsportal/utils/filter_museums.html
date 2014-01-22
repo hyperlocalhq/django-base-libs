@@ -1,6 +1,6 @@
 {% load i18n %}
 <div id="filters">
-
+  <button id="filter_reset" type="button" class="btn btn-info btn-xs pull-right">{% trans "Reset" %}</button>
   <h4>{% trans "Filters" %}</h4>
 
   <div class="btn-group" id="filter-toggle" data-toggle="buttons">
@@ -11,7 +11,7 @@
 
     <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
       <input type="radio" name="options" id="filter-toggle-alphabetic">
-      {% trans "Alphabet" %}
+      {% trans "A - Z" %}
     </label>
 
     <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
@@ -29,10 +29,6 @@
       {% trans "Accessibility" %}
     </label>
   </div>
-
-  <button id="filter_reset" type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset" %}">
-    {% trans "Reset" %}
-  </button>
 
   <div class="panel-group" id="filter-options">
     <div class="panel panel-default">
