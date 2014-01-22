@@ -101,58 +101,58 @@
 
       {% if exhibition.cover_image %}
         <div id="cover_img">
-          <span class="img">
+          <a class="img" href="{{ exhibition.get_url_path }}">
             <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
-          </span>
+          </a>
         </div>
       {% endif %}
 
-    <div class="opening-hours">
-      {% with exhibition.museum.get_current_season as season %}
-        {% if season %}
-          {% if season.is_appointment_based %}
-          <dl>
-            <dt><small>{% trans "Based on appointment" %}</small></dt>
-          </dl>
-          {% else %}
-          {% regroup season.get_opening_hours by times as opening_hours %}
-            {% for same_hours in opening_hours %}
-              <dl>
-                <dt><small>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</small>
-                </dt>
-                  {% if same_hours.list.0.open %}
-                    <dd><small>
-                      {{ same_hours.list.0.open|time:"H:i" }}
-                      {% if same_hours.list.0.break_close %}
-                      - {{ same_hours.list.0.break_close|time:"H:i" }}
-                      / {{ same_hours.list.0.break_open|time:"H:i" }}
-                      - {{ same_hours.list.0.close|time:"H:i" }}
-                      {% else %}
-                      - {{ same_hours.list.0.close|time:"H:i" }}
-                      {% endif %}
-                      {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</small>
-                    </dd>
-                  {% else %}
-                    <dd><small>
-                      {% trans "closed" %}</small>
-                    </dd>
-                  {% endif %}
-              </dl>
-            {% endfor %}
+      <div class="opening-hours">
+        {% with exhibition.museum.get_current_season as season %}
+          {% if season %}
+            {% if season.is_appointment_based %}
+            <dl>
+              <dt><small>{% trans "Based on appointment" %}</small></dt>
+            </dl>
+            {% else %}
+            {% regroup season.get_opening_hours by times as opening_hours %}
+              {% for same_hours in opening_hours %}
+                <dl>
+                  <dt><small>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</small>
+                  </dt>
+                    {% if same_hours.list.0.open %}
+                      <dd><small>
+                        {{ same_hours.list.0.open|time:"H:i" }}
+                        {% if same_hours.list.0.break_close %}
+                        - {{ same_hours.list.0.break_close|time:"H:i" }}
+                        / {{ same_hours.list.0.break_open|time:"H:i" }}
+                        - {{ same_hours.list.0.close|time:"H:i" }}
+                        {% else %}
+                        - {{ same_hours.list.0.close|time:"H:i" }}
+                        {% endif %}
+                        {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</small>
+                      </dd>
+                    {% else %}
+                      <dd><small>
+                        {% trans "closed" %}</small>
+                      </dd>
+                    {% endif %}
+                </dl>
+              {% endfor %}
+            {% endif %}
+            {% if season.last_entry %}
+            <dl>
+              <dt><small>{% trans "Last entry" %}</small></dt>
+              <dd><small>{{ season.last_entry }}</small></dd>
+            </dl>
+            {% endif %}
+            {% if season.exceptions %}
+            <p><small>{{ season.get_rendered_exceptions|striptags|truncatewords:"35"|urlize }}</small></p>
+            {% endif %}
           {% endif %}
-          {% if season.last_entry %}
-          <dl>
-            <dt><small>{% trans "Last entry" %}</small></dt>
-            <dd><small>{{ season.last_entry }}</small></dd>
-          </dl>
-          {% endif %}
-          {% if season.exceptions %}
-          <p><small>{{ season.get_rendered_exceptions|striptags|truncatewords:"35"|urlize }}</small></p>
-          {% endif %}
-        {% endif %}
-      {% endwith %}
-    </div>
-      <p>{{ exhibition.get_rendered_description|striptags|truncatewords:"45"|urlize }}</p>
+        {% endwith %}
+      </div>
+      <p>{{ exhibition.get_rendered_description|striptags|truncatewords:"35"|urlize }}</p>
       <a class="btn btn-default" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
     </article>
   </div>
