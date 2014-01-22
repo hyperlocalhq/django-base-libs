@@ -1202,7 +1202,7 @@ def load_data(instance=None):
         for f in fields:
             form_step_data['prices'][f] = getattr(instance, f)
 
-        fields = ['parent', 'street_address', 'street_address2', 'postal_code',
+        fields = ['street_address', 'street_address2', 'postal_code',
             'city', 'latitude', 'longitude',
             'phone_country', 'phone_area', 'phone_number',
             'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
@@ -1212,6 +1212,9 @@ def load_data(instance=None):
         ]
         for f in fields:
             form_step_data['address'][f] = getattr(instance, f)
+        if instance.parent:
+            form_step_data['address']['parent'] = instance.parent.pk
+
         for social_media_channel in instance.socialmediachannel_set.all():
             social_media_channel_dict = {}
             social_media_channel_dict['channel_type'] = social_media_channel.channel_type
@@ -1262,7 +1265,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if "_pk" in form_step_data:
             instance = Museum.objects.get(pk=form_step_data['_pk'])
             fields = [
-                'parent', 'street_address', 'street_address2', 'postal_code',
+                'street_address', 'street_address2', 'postal_code',
                 'city', 'latitude', 'longitude',
                 'phone_country', 'phone_area', 'phone_number',
                 'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
@@ -1272,6 +1275,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             ]
             for f in fields:
                 setattr(instance, f, form_step_data['address'][f])
+            if form_step_data['address']['parent']:
+                try:
+                    instance.parent = Museum.objects.get(pk=form_step_data['address']['parent'])
+                except:
+                    pass
             instance.save()
             instance.socialmediachannel_set.all().delete()
             for social_dict in form_step_data['address']['sets']['social']:
@@ -1467,7 +1475,7 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(instance, f + "_markup_type", MARKUP_PLAIN_TEXT)
 
     fields = [
-        'parent', 'street_address', 'street_address2', 'postal_code',
+        'street_address', 'street_address2', 'postal_code',
         'city', 'latitude', 'longitude',
         'phone_country', 'phone_area', 'phone_number',
         'group_bookings_phone_country', 'group_bookings_phone_area', 'group_bookings_phone_number',
@@ -1477,6 +1485,11 @@ def save_data(form_steps, form_step_data, instance=None):
     ]
     for f in fields:
         setattr(instance, f, form_step_data['address'][f])
+    if form_step_data['address']['parent']:
+        try:
+            instance.parent = Museum.objects.get(pk=form_step_data['address']['parent'])
+        except:
+            pass
 
     instance.service_shop = form_step_data['services']['service_shop']
     instance.service_restaurant = form_step_data['services']['service_restaurant']

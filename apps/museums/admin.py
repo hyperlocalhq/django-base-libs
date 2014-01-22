@@ -114,10 +114,8 @@ class MuseumAdmin(ExtendedModelAdmin):
     inlines = [SeasonInline, SpecialOpeningTimeInline, SocialMediaChannelInline, MediaFileInline]
     
     def is_geoposition_set(self, obj):
-        if obj.latitude:
-            return '<img alt="True" src="%sgrappelli/img/admin/icon-yes.gif" />' % settings.STATIC_URL
-        return '<img alt="False" src="%sgrappelli/img/admin/icon-no.gif">' % settings.STATIC_URL
-    is_geoposition_set.allow_tags = True
+        return bool(obj.latitude)
+    is_geoposition_set.boolean = True
     is_geoposition_set.short_description = _("Geoposition?")
         
         

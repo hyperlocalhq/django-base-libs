@@ -739,7 +739,8 @@ def load_data(instance=None):
         form_step_data['basic']['languages'] = instance.languages.all()
         form_step_data['basic']['other_languages'] = instance.other_languages
         form_step_data['basic']['suitable_for_children'] = instance.suitable_for_children
-        form_step_data['basic']['museum'] = instance.museum
+        if instance.museum:
+            form_step_data['basic']['museum'] = instance.museum.pk
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
         form_step_data['basic']['street_address2'] = instance.street_address2
@@ -747,11 +748,13 @@ def load_data(instance=None):
         form_step_data['basic']['city'] = instance.city
         form_step_data['basic']['latitude'] = instance.latitude
         form_step_data['basic']['longitude'] = instance.longitude
-        form_step_data['basic']['exhibition'] = instance.exhibition
+        if instance.exhibition:
+            form_step_data['basic']['exhibition'] = instance.exhibition.pk
     
         for organizer in instance.organizer_set.all():
             organizer_dict = {}
-            organizer_dict['organizing_museum'] = organizer.organizing_museum
+            if organizer.organizing_museum:
+                organizer_dict['organizing_museum'] = organizer.organizing_museum.pk
             organizer_dict['organizer_title'] = organizer.organizer_title
             organizer_dict['organizer_url_link'] = organizer.organizer_url_link
             form_step_data['basic']['sets']['organizers'].append(organizer_dict)
@@ -795,7 +798,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
                 setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         instance.other_languages = form_step_data['basic']['other_languages']
-        instance.museum = form_step_data['basic']['museum']
+        if form_step_data['basic']['museum']:
+            try:
+                instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
+            except:
+                pass
         instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
         instance.street_address2 = form_step_data['basic']['street_address2'] 
@@ -803,7 +810,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
-        instance.exhibition = form_step_data['basic']['exhibition']
+        if form_step_data['basic']['exhibition']:
+            try:
+                instance.exhibition = Exhibition.objects.get(pk=form_step_data['basic']['exhibition'])
+            except:
+                pass
         if form_step_data['basic']['tags'] and not form_step_data['basic']['tags'].endswith(","):
             form_step_data['basic']['tags'] = form_step_data['basic']['tags'] + ","
         instance.tags = form_step_data['basic']['tags']
@@ -872,7 +883,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.organizer_set.all().delete()
         for organizer_dict in form_step_data['basic']['sets']['organizers']:
             organizer = Organizer(event=instance)
-            organizer.organizing_museum = organizer_dict['organizing_museum'] 
+            if organizer_dict['organizing_museum']:
+                try:
+                    organizer.organizing_museum = Museum.objects.get(pk=organizer_dict['organizing_museum'])
+                except:
+                    pass
             organizer.organizer_title = organizer_dict['organizer_title']
             organizer.organizer_url_link = organizer_dict['organizer_url_link']
             organizer.save()
@@ -942,7 +957,11 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.other_languages = form_step_data['basic']['other_languages']
-    instance.museum = form_step_data['basic']['museum']
+    if form_step_data['basic']['museum']:
+        try:
+            instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
+        except:
+            pass
     instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']
     instance.street_address2 = form_step_data['basic']['street_address2'] 
@@ -950,7 +969,11 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
     instance.longitude = form_step_data['basic']['longitude']
-    instance.exhibition = form_step_data['basic']['exhibition']
+    if form_step_data['basic']['exhibition']:
+        try:
+            instance.exhibition = Exhibition.objects.get(pk=form_step_data['basic']['exhibition'])
+        except:
+            pass
     if form_step_data['basic']['tags'] and not form_step_data['basic']['tags'].endswith(","):
         form_step_data['basic']['tags'] = form_step_data['basic']['tags'] + ","
     instance.tags = form_step_data['basic']['tags']
@@ -989,7 +1012,11 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.organizer_set.all().delete()
     for organizer_dict in form_step_data['basic']['sets']['organizers']:
         organizer = Organizer(event=instance)
-        organizer.organizing_museum = organizer_dict['organizing_museum'] 
+        if organizer_dict['organizing_museum']:
+            try:
+                organizer.organizing_museum = Museum.objects.get(pk=organizer_dict['organizing_museum'])
+            except:
+                pass
         organizer.organizer_title = organizer_dict['organizer_title']
         organizer.organizer_url_link = organizer_dict['organizer_url_link']
         organizer.save()
