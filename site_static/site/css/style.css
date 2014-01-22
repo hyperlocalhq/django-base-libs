@@ -2306,25 +2306,31 @@
 
 /* line 87, ../scss/gmap.scss */
 .map-filter #map-filters {
-  right: 0px !important;
-  opacity: 1 !important; }
-/* line 91, ../scss/gmap.scss */
-.map-filter #map-description {
-  right: -100% !important;
-  opacity: 0 !important; }
+  right: 100% !important; }
 
-/* line 97, ../scss/gmap.scss */
+/* line 95, ../scss/gmap.scss */
 #map-sidebar-wrapper {
   position: absolute;
   right: 0px;
   z-index: 1050; }
-  /* line 102, ../scss/gmap.scss */
+  /* line 100, ../scss/gmap.scss */
   #map-sidebar-wrapper #map-sidebar {
     height: 100%;
     width: 100%;
     margin-left: 0%;
     position: relative; }
-    /* line 108, ../scss/gmap.scss */
+    /* line 105, ../scss/gmap.scss */
+    #map-sidebar-wrapper #map-sidebar #map-list {
+      background-color: white;
+      position: absolute;
+      width: 100%;
+      top: 0px;
+      bottom: 0px;
+      right: 0px;
+      overflow-y: scroll;
+      z-index: 1100;
+      display: none; }
+    /* line 118, ../scss/gmap.scss */
     #map-sidebar-wrapper #map-sidebar #map-filters,
     #map-sidebar-wrapper #map-sidebar #map-description {
       background-color: white;
@@ -2333,85 +2339,93 @@
       top: 0px;
       bottom: 0px;
       right: 0px;
-      padding: 20px 30px;
+      padding: 25px 30px;
       overflow-y: scroll;
-      z-index: 1000; }
-    /* line 119, ../scss/gmap.scss */
-    #map-sidebar-wrapper #map-sidebar #map-filters {
       z-index: 1050;
+      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); }
+    /* line 132, ../scss/gmap.scss */
+    #map-sidebar-wrapper #map-sidebar #map-filters {
+      z-index: 1040;
       right: -100%;
-      opacity: 0; }
-      /* line 123, ../scss/gmap.scss */
+      background-image: url("../img/transparent-1.png") !important; }
+      /* line 136, ../scss/gmap.scss */
       #map-sidebar-wrapper #map-sidebar #map-filters .panel-group {
         margin-top: 15px;
-        border-top: 2px solid #f9f9f9; }
-      /* line 129, ../scss/gmap.scss */
+        margin-bottom: 15px;
+        background-image: url("../img/transparent-1.png") !important;
+        background-position: top;
+        background-repeat: repeat-x; }
+      /* line 145, ../scss/gmap.scss */
       #map-sidebar-wrapper #map-sidebar #map-filters .panel-body {
-        padding-top: 15px;
-        font-size: 0px; }
-        /* line 134, ../scss/gmap.scss */
-        #map-sidebar-wrapper #map-sidebar #map-filters .panel-body li {
-          display: inline-block; }
-  /* line 138, ../scss/gmap.scss */
+        padding-top: 15px; }
+        /* line 147, ../scss/gmap.scss */
+        #map-sidebar-wrapper #map-sidebar #map-filters .panel-body ul {
+          font-size: 0px; }
+          /* line 149, ../scss/gmap.scss */
+          #map-sidebar-wrapper #map-sidebar #map-filters .panel-body ul li {
+            display: inline-block; }
+  /* line 155, ../scss/gmap.scss */
   #map-sidebar-wrapper #map-controls {
     position: absolute;
     top: 0px;
     right: 0%;
     z-index: 1150; }
-    /* line 143, ../scss/gmap.scss */
+    /* line 160, ../scss/gmap.scss */
     #map-sidebar-wrapper #map-controls > * {
       display: block; }
 
-/* line 151, ../scss/gmap.scss */
+/* line 168, ../scss/gmap.scss */
 .map-ajax-detail article .opening-hours {
   margin-bottom: 20px; }
-/* line 154, ../scss/gmap.scss */
+/* line 171, ../scss/gmap.scss */
 .map-ajax-detail article #cover_img {
   padding: 0px;
   margin: 0 -30px;
   margin-bottom: 20px; }
-  /* line 158, ../scss/gmap.scss */
+  /* line 175, ../scss/gmap.scss */
   .map-ajax-detail article #cover_img .img {
     margin: 0px; }
-/* line 160, ../scss/gmap.scss */
+/* line 177, ../scss/gmap.scss */
 .map-ajax-detail article .tools {
   display: none; }
-/* line 163, ../scss/gmap.scss */
+/* line 180, ../scss/gmap.scss */
 .map-ajax-detail article header {
   margin-top: -10px;
   margin-bottom: 20px;
   position: relative; }
-  /* line 169, ../scss/gmap.scss */
+  /* line 186, ../scss/gmap.scss */
   .map-ajax-detail article header h1,
   .map-ajax-detail article header h2 {
     font-size: 20px;
     line-height: 140%;
     display: block;
     margin: 0px; }
-  /* line 176, ../scss/gmap.scss */
+  /* line 193, ../scss/gmap.scss */
   .map-ajax-detail article header h1 {
     font-weight: 700; }
-  /* line 177, ../scss/gmap.scss */
+  /* line 194, ../scss/gmap.scss */
   .map-ajax-detail article header h2 {
     font-weight: 300; }
-  /* line 179, ../scss/gmap.scss */
+  /* line 196, ../scss/gmap.scss */
   .map-ajax-detail article header h3 {
     text-transform: uppercase;
     font-size: 12px;
     line-height: 160%;
     font-weight: 600;
     margin-top: 15px !important; }
-  /* line 187, ../scss/gmap.scss */
+  /* line 204, ../scss/gmap.scss */
   .map-ajax-detail article header h4 {
     font-size: 12px;
     line-height: 140%;
     margin: 0px;
     padding: 0px;
     font-weight: 300; }
-  /* line 194, ../scss/gmap.scss */
+  /* line 211, ../scss/gmap.scss */
   .map-ajax-detail article header .extras {
     margin-top: 25px; }
-    /* line 196, ../scss/gmap.scss */
+    /* line 213, ../scss/gmap.scss */
     .map-ajax-detail article header .extras dd, .map-ajax-detail article header .extras dt {
       font-size: 20px;
       line-height: 32px; }

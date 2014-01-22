@@ -1,0 +1,148 @@
+{% load i18n %}
+<div id="filters">
+
+  <h4>{% trans "Filters" %}</h4>
+
+  <div class="btn-group" id="filter-toggle" data-toggle="buttons">
+    <label type="button" class="btn btn-info btn-sm active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
+      <input type="radio" name="options" id="filter-toggle-categories">
+      {% trans "Categories" %}
+    </label>
+
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
+      <input type="radio" name="options" id="filter-toggle-alphabetic">
+      {% trans "Alphabet" %}
+    </label>
+
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
+      <input type="radio" name="options" id="filter-toggle-smartlists">
+      {% trans "Smart lists" %}
+    </label>
+
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-open-late">
+      <input type="radio" name="options" id="filter-toggle-open-late">
+      {% trans "Open late" %}
+    </label>
+
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-accessibility">
+      <input type="radio" name="options" id="filter-toggle-accessibility">
+      {% trans "Accessibility" %}
+    </label>
+  </div>
+
+  <button id="filter_reset" type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset" %}">
+    {% trans "Reset" %}
+  </button>
+
+  <div class="panel-group" id="filter-options">
+    <div class="panel panel-default">
+      <div id="filter-categories" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <h4>{% trans "Categories" %}</h4>
+
+          <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+            {% for cat in facets.categories.categories %}
+            {% if cat.is_root_node %}
+            <li class="level-{{ cat.level }}" data-level="{{ cat.level }}"><a data-filter-value=".cat_{{ cat.slug }}" href="#filter=.cat_{{ cat.slug }}"{% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          <div id="level-1-cat-container" class="level-1-container">
+            {% for cat in facets.categories.categories %}
+            {% if cat.is_root_node %}
+            {% if cat.get_children %}
+            <ul id="cat_{{ cat.slug }}" class="filter option-set clearfix collapse" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+              {% for child in cat.get_children %}
+              <li class="x-level-{{ child.level }}" data-level="{{ child.level }}"><a data-filter-value=".cat_{{ child.slug }}" href="#filter=.cat_{{ child.slug }}" >{{ child.title }}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-alphabetic" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Alphabet" %}</h4>
+
+          <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
+            {% for item in abc_list %}
+            {% if not forloop.first %}
+            <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-smartlists" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Smart lists" %}</h4>
+
+          <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+            <li><a href="" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
+            <li><a href="" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
+            {% comment %}
+            <!-- <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
+            <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
+            <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
+            <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
+            <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
+            <li><a href="" data-filter-value=".has_service_shop">{% trans "Museum Shop" %}</a></li>
+            <li><a href="" data-filter-value=".has_service_restaurant">{% trans "Restaurant" %}</a></li>
+            <li><a href="" data-filter-value=".has_service_cafe">{% trans "Cafe" %}</a></li>
+            <li><a href="" data-filter-value=".has_service_library">{% trans "Library" %}</a></li>
+            <li><a href="" data-filter-value=".has_service_archive">{% trans "Archive" %}</a></li>
+            <li><a href="" data-filter-value=".has_service_diaper_changing">{% trans "Diaper changing table" %}</a></li>
+            <li><a href="" data-filter-value=".has_audioguide">{% trans "Audioguide" %}</a></li>
+            <li><a href="" data-filter-value=".has_audioguide_for_children">{% trans "Audioguide for children" %}</a></li>
+            <li><a href="" data-filter-value=".has_audioguide_for_learning_difficulties">{% trans "Audioguide for people with learning difficulties" %}</a></li> -->
+            {% endcomment %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-open-late" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Open late" %}</h4>
+
+          <ul class="filter option-set clearfix" id="open_late" data-filter-group="open_late" data-single-selection="1">
+            <li><a href="" data-filter-value=".is_open_on_mon_till_20">{% trans "Mo" %} / {% trans "8pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_mon_till_22">{% trans "Mo" %} / {% trans "10pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_tue_till_20">{% trans "Tue" %} / {% trans "8pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_tue_till_22">{% trans "Tue" %} / {% trans "10pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_wed_till_20">{% trans "Wed" %} / {% trans "8pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_wed_till_22">{% trans "Wed" %} / {% trans "10pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_thu_till_20">{% trans "Thu" %} / {% trans "8pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_thu_till_22">{% trans "Thu" %} / {% trans "10pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_fri_till_20">{% trans "Fri" %} / {% trans "8pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_fri_till_22">{% trans "Fri" %} / {% trans "10pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_sat_till_20">{% trans "Sat" %} / {% trans "8pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_sat_till_22">{% trans "Sat" %} / {% trans "10pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_sun_till_20">{% trans "Sun" %} / {% trans "8pm" %}</a></li>
+            <li><a href="" data-filter-value=".is_open_on_sun_till_22">{% trans "Sun" %} / {% trans "10pm" %}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-accessibility" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Accessibility" %}</h4>
+
+          <ul class="filter option-set clearfix" id="accessibility" data-filter-group="accessibility">
+            {% for cat in facets.categories.accessibility_options %}
+              <li><a href="" data-filter-value=".access_{{ cat.slug }}">{{ cat.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul id="filter_summary"></ul>
+</div>

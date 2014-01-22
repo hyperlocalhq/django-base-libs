@@ -19,10 +19,10 @@ var str_filter_selection = "{% trans "Filter selection" %}";
     <div class="container">
       <nav id="controls" class="pull-right">
         {% if request.user.is_authenticated %}
-        <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
-          <span class="sr-only">{% trans "Favorites" %}</span>
-          <span class="icon icon-star"></span>
-        </a>
+          <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
+            <span class="sr-only">{% trans "Favorites" %}</span>
+            <span class="icon icon-star"></span>
+          </a>
         {% endif %}
         <a id="map-list-link" class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}" href="{% url "event_list_map" %}">
           <span class="icon icon-location"></span>
@@ -35,149 +35,71 @@ var str_filter_selection = "{% trans "Filter selection" %}";
       </nav>
 
       <h1 class="sr-only">{% trans "Events in the Museums of Berlin" %}</h1>
+      
+      {% include "utils/filter_events.html" %}
 
-      <div id="filters">
-        <div class="btn-group" id="filter-toggle" data-toggle="buttons">
-          <label type="button" class="btn btn-info active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
-            <input type="radio" name="options" id="filter-toggle-categories">
-            {% trans "Categories" %}
-          </label>
-
-          <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
-            <input type="radio" name="options" id="filter-toggle-alphabetic">
-            {% trans "Alphabet" %}
-          </label>
-
-          <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
-            <input type="radio" name="options" id="filter-toggle-smartlists">
-            {% trans "Smart lists" %}
-          </label>
-
-          <label type="button" class="btn btn-info" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">
-            <input type="radio" name="options" id="filter-toggle-calendar">
-            {% trans "Calendar" %}
-          </label>
+      <div id="notices">
+        <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
+        <div class="row row-sm">
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_1" %}</div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_2" %}</div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_3" %}</div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_4" %}</div>
         </div>
+      </div>
 
-        <button id="filter_reset" type="button" class="btn btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset all filters" %}">
-          <span class="icon icon-remove"></span>
-          <span class="sr-only">{% trans "Reset all filters" %}</span>
-        </button>
-
-          <div class="panel-group" id="filter-options">
-            <div class="panel panel-default">
-              <div id="filter-categories" class="panel-collapse collapse in">
-                <div class="panel-body">
-                  <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
-                    {% for cat in facets.categories.categories %}
-                    <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div id="filter-alphabetic" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
-                    {% for item in abc_list %}
-                    {% if not forloop.first %}
-                    <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div id="filter-smartlists" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
-                    <li><a href="" data-filter-value=".is_for_children">{% trans "Also suitable for children" %}</a></li>
-                    <li><a href="" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div id="filter-calendar" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
-                    <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
-                    <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
-                    <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>
-                    <li><a href="" data-filter-value=".is_within_30_days">{% trans "30 Days" %}</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <ul id="filter_summary"></ul>
+      <div id="container" class="row row-md list isotope">
+        {% load advertising_tags %}
+        <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          {% random_zone_ad 'events' %}
         </div>
-
-        <div id="notices">
-          <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
-          <div class="row row-sm">
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_1" %}</div>
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_2" %}</div>
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_3" %}</div>
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_4" %}</div>
-          </div>
-        </div>
-
-        <div id="container" class="row row-md list isotope">
-          {% load advertising_tags %}
-          <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {% random_zone_ad 'events' %}
-          </div>
-          {% for event in object_list %}
-          {% tags_for_object event as tags %}
-          <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12" data-filter-categories="initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}" data-description-src="{{ event.get_url_path }}ajax/">
-            <div class="actions">
-              {% if request.user.is_authenticated %}
-                {% adding2favorites for event %}
+        {% for event in object_list %}
+        {% tags_for_object event as tags %}
+        <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12" data-filter-categories="initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}" data-description-src="{{ event.get_url_path }}ajax/">
+          <div class="actions">
+            {% if request.user.is_authenticated %}
+              {% adding2favorites for event %}
+            {% endif %}
+          {% comment %} <!--
+            {% if_has_perm "events.change_event" event %}
+              {% if event.cover_image %}
+                <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.cover_image "event_list" request request.path %}';">
+                  <span class="icon icon-tool-crop"></span>
+                  <span class="sr-only">{% trans "Crop Image" %}</span>
+                </button>
+              {% else %}{% if event.museum.cover_image %}
+                <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.museum.cover_image "event_list" request request.path %}';">
+                  <span class="icon icon-tool-crop"></span>
+                  <span class="sr-only">{% trans "Crop Image" %}</span>
+                </button>
               {% endif %}
-            {% comment %} <!--
-              {% if_has_perm "events.change_event" event %}
-                {% if event.cover_image %}
-                  <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.cover_image "event_list" request request.path %}';">
-                    <span class="icon icon-tool-crop"></span>
-                    <span class="sr-only">{% trans "Crop Image" %}</span>
-                  </button>
-                {% else %}{% if event.museum.cover_image %}
-                  <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.museum.cover_image "event_list" request request.path %}';">
-                    <span class="icon icon-tool-crop"></span>
-                    <span class="sr-only">{% trans "Crop Image" %}</span>
-                  </button>
-                {% endif %}
-              {% endif %}
-              {% end_if_has_perm %}
-              <a href="{% url "event_list_map" %}#object_id={{ event.pk }}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="btn btn-default btn-round location">
-                <span class="icon icon-location"></span>
-                <span class="sr-only">{% trans "Show location on map" %}</span>
-              </a>
-               --> {% endcomment %}
-            </div>
-
-            <a href="{{ event.get_url_path }}">
-              <h4>
-                {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
-                {% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}
-              </h4>
-              <h3>{{ event.title }}</h3>
-              <h4>{{ event.subtitle }}</h4>
-              {% if event.location_name %}
-              <h5>{{ event.location_name }}</h5>
-              {% else %}
-              <h5>{{ event.museum.title }}</h5>
-              {% endif %}
+            {% endif %}
+            {% end_if_has_perm %}
+            <a href="{% url "event_list_map" %}#object_id={{ event.pk }}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="btn btn-default btn-round location">
+              <span class="icon icon-location"></span>
+              <span class="sr-only">{% trans "Show location on map" %}</span>
             </a>
-            <div class="description"></div>
+             --> {% endcomment %}
           </div>
-          {% endfor %}
+
+          <a href="{{ event.get_url_path }}">
+            <h4>
+              {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
+              {% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}
+            </h4>
+            <h3>{{ event.title }}</h3>
+            <h4>{{ event.subtitle }}</h4>
+            {% if event.location_name %}
+            <h5>{{ event.location_name }}</h5>
+            {% else %}
+            <h5>{{ event.museum.title }}</h5>
+            {% endif %}
+          </a>
+          <div class="description"></div>
         </div>
+        {% endfor %}
       </div>
     </div>
   </div>
+</div>
 {% endblock %}

@@ -27,7 +27,6 @@ var oMap;
 				zoomControl: true,
 				streetViewControl: true,
                 center: new google.maps.LatLng(52.515306, 13.363863),
-                styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.business","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]}],
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControlOptions: {
                     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
@@ -78,8 +77,8 @@ var oMap;
         var sMarkerImgDefault = self.settings.STATIC_URL + 'site/img/marker_default.png';
         var sMarkerImgSelected = self.settings.STATIC_URL + 'site/img/marker_selected.png';
 
-        var oMarkerImgDefault = new google.maps.MarkerImage(sMarkerImgDefault, null, null, null, new google.maps.Size(20,30));
-        var oMarkerImgSelected = new google.maps.MarkerImage(sMarkerImgSelected, null, null, null, new google.maps.Size(20,30));
+        var oMarkerImgDefault = new google.maps.MarkerImage(sMarkerImgDefault, null, null, null, new google.maps.Size(25,35));
+        var oMarkerImgSelected = new google.maps.MarkerImage(sMarkerImgSelected, null, null, null, new google.maps.Size(25,35));
 
         var oActiveMarker = null;
 
@@ -106,7 +105,7 @@ var oMap;
             var oPoint = new google.maps.LatLng(iLat, iLong);
 
             // DRAW MARKER
-            // var oImage = new google.maps.MarkerImage(sMarkerImgDefault, null, null, null, new google.maps.Size(20,30));
+            // var oImage = new google.maps.MarkerImage(sMarkerImgDefault, null, null, null, new google.maps.Size(25,35));
 
             var oMarker = new google.maps.Marker({
 
@@ -147,7 +146,7 @@ var oMap;
             navigator.geolocation.getCurrentPosition  (
                 function(position)  {
                     // var oImage = self.settings.STATIC_URL + 'site/img/marker_current.png';
-                    var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.png", null, null, null, new google.maps.Size(20,30));
+                    var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.png", null, null, null, new google.maps.Size(25,35));
 
                     var oMarker = new google.maps.Marker({
                         position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),

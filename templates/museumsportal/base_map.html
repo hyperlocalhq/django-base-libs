@@ -90,25 +90,21 @@
   <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
 
     <div class="row row-map map-filter"> 
-      <div id="map-wrapper" class="col-xs-0 col-sm-7 col-md-8 col-lg-9">
+      <div id="map-wrapper" class="col-xs-1 col-sm-7 col-md-8 col-lg-9">
         <div id="gmap">&nbsp;</div> 
         <!-- <a id="map-return" class="btn btn-default" href='..'>{% trans "Return to the List" %}</a> -->
       </div>
-      <div id="map-sidebar-wrapper" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+      <div id="map-sidebar-wrapper" class="col-xs-11 col-sm-5 col-md-4 col-lg-3">
         <div id="map-sidebar"> 
           <div id="map-filters"> 
-            <h4>{% trans "Filters" %}
-              <button id="filter_reset" type="button" class="btn btn-info btn-sm pull-right" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset" %}">
-                {% trans "Reset" %}
-              </button>
-            </h4>
-
             {% block map-filters %}
             {% endblock %}
           </div>
-          <div id="map-description"> 
+          <div id="map-list"> 
             {% block map-sidebar %}
             {% endblock %}
+          </div>
+          <div id="map-description"> 
           </div>
           <div id="map-controls"> 
             <a id="toggle-map-sidebar" class="btn btn-info btn-lg" href='#'>

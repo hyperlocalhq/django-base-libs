@@ -1858,8 +1858,11 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   font-size: 14px; }
 
 .btn-xs, .btn-group-xs > .btn {
-  height: 15px;
-  line-height: 15px; }
+  min-height: 20px;
+  min-width: 20px;
+  padding: 5px 8px;
+  line-height: 10px;
+  font-size: 10px; }
 
 .btn-block {
   display: block;

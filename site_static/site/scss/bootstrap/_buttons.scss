@@ -178,8 +178,12 @@
   font-size: 14px;
 }
 .btn-xs {
-  height: 15px;
-  line-height: 15px;
+  min-height: 20px;
+  min-width: 20px;
+  padding: 5px 8px;
+
+  line-height: 10px;
+  font-size: 10px;
   // padding: 1px 5px;
 }
 

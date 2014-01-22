@@ -4,7 +4,6 @@
   <div class="map-ajax-detail">
     <article>
       <header>
-      <h3></h3>
         <h2>
           {% with event.get_closest_event_time as event_time %}
             {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}<br/>
