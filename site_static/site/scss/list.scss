@@ -68,6 +68,17 @@
   }
 }
 
+
+a.img,
+a.img-detail {
+  &.loaded:hover {
+    img {
+      opacity: 0.8 !important;
+    }
+  }
+}
+
+
 .img,
 .img-detail {
   background-image: url("../img/spinner.gif");
@@ -81,7 +92,6 @@
     }
      background-image: none;
   }
-  
   img {
     width: 100%;
     height: auto;

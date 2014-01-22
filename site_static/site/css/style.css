@@ -2333,7 +2333,7 @@
       top: 0px;
       bottom: 0px;
       right: 0px;
-      padding: 30px;
+      padding: 20px 30px;
       overflow-y: scroll;
       z-index: 1000; }
     /* line 119, ../scss/gmap.scss */
@@ -2361,6 +2361,60 @@
     /* line 143, ../scss/gmap.scss */
     #map-sidebar-wrapper #map-controls > * {
       display: block; }
+
+/* line 151, ../scss/gmap.scss */
+.map-ajax-detail article .opening-hours {
+  margin-bottom: 20px; }
+/* line 154, ../scss/gmap.scss */
+.map-ajax-detail article #cover_img {
+  padding: 0px;
+  margin: 0 -30px;
+  margin-bottom: 20px; }
+  /* line 158, ../scss/gmap.scss */
+  .map-ajax-detail article #cover_img .img {
+    margin: 0px; }
+/* line 160, ../scss/gmap.scss */
+.map-ajax-detail article .tools {
+  display: none; }
+/* line 163, ../scss/gmap.scss */
+.map-ajax-detail article header {
+  margin-top: -10px;
+  margin-bottom: 20px;
+  position: relative; }
+  /* line 169, ../scss/gmap.scss */
+  .map-ajax-detail article header h1,
+  .map-ajax-detail article header h2 {
+    font-size: 20px;
+    line-height: 140%;
+    display: block;
+    margin: 0px; }
+  /* line 176, ../scss/gmap.scss */
+  .map-ajax-detail article header h1 {
+    font-weight: 700; }
+  /* line 177, ../scss/gmap.scss */
+  .map-ajax-detail article header h2 {
+    font-weight: 300; }
+  /* line 179, ../scss/gmap.scss */
+  .map-ajax-detail article header h3 {
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 160%;
+    font-weight: 600;
+    margin-top: 15px !important; }
+  /* line 187, ../scss/gmap.scss */
+  .map-ajax-detail article header h4 {
+    font-size: 12px;
+    line-height: 140%;
+    margin: 0px;
+    padding: 0px;
+    font-weight: 300; }
+  /* line 194, ../scss/gmap.scss */
+  .map-ajax-detail article header .extras {
+    margin-top: 25px; }
+    /* line 196, ../scss/gmap.scss */
+    .map-ajax-detail article header .extras dd, .map-ajax-detail article header .extras dt {
+      font-size: 20px;
+      line-height: 32px; }
 
 /* line 5, ../scss/gallery.scss */
 .gallery #gallery {
@@ -2789,7 +2843,12 @@ h6 + .row:not(.grid),
   #teaser .item h3:empty, #teaser .item h4:empty, #teaser .item h5:empty {
     display: none; }
 
-/* line 72, ../scss/list.scss */
+/* line 75, ../scss/list.scss */
+a.img.loaded:hover img,
+a.img-detail.loaded:hover img {
+  opacity: 0.8 !important; }
+
+/* line 83, ../scss/list.scss */
 .img,
 .img-detail {
   background-image: url("../img/spinner.gif");
@@ -2797,15 +2856,15 @@ h6 + .row:not(.grid),
   background-position: center;
   background-color: #f2f2f2;
   display: block; }
-  /* line 78, ../scss/list.scss */
+  /* line 89, ../scss/list.scss */
   .img.loaded,
   .img-detail.loaded {
     background-image: none; }
-    /* line 79, ../scss/list.scss */
+    /* line 90, ../scss/list.scss */
     .img.loaded img,
     .img-detail.loaded img {
       opacity: 1; }
-  /* line 85, ../scss/list.scss */
+  /* line 95, ../scss/list.scss */
   .img img,
   .img-detail img {
     width: 100%;
@@ -2818,55 +2877,55 @@ h6 + .row:not(.grid),
     -o-transition: opacity 0.125s ease-in-out !important;
     transition: opacity 0.125s ease-in-out !important; }
 
-/* line 105, ../scss/list.scss */
+/* line 115, ../scss/list.scss */
 .img {
   margin-bottom: 10px; }
 
-/* line 109, ../scss/list.scss */
+/* line 119, ../scss/list.scss */
 .img-detail {
   margin-bottom: 10px; }
 
-/* line 113, ../scss/list.scss */
+/* line 123, ../scss/list.scss */
 .item {
   list-style: none; }
 
-/* line 117, ../scss/list.scss */
+/* line 127, ../scss/list.scss */
 .btn-round {
   border-radius: 100% !important; }
-  /* line 119, ../scss/list.scss */
+  /* line 129, ../scss/list.scss */
   .btn-round.pull-right {
     margin-left: 5px !important; }
-  /* line 120, ../scss/list.scss */
+  /* line 130, ../scss/list.scss */
   .btn-round.pull-left {
     margin-right: 5px !important; }
 
-/* line 124, ../scss/list.scss */
+/* line 134, ../scss/list.scss */
 .list .item {
   margin-top: 0px;
   margin-bottom: 10px; }
-  /* line 127, ../scss/list.scss */
+  /* line 137, ../scss/list.scss */
   .list .item.delete {
     display: none; }
-  /* line 129, ../scss/list.scss */
+  /* line 139, ../scss/list.scss */
   .list .item:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 133, ../scss/list.scss */
+  /* line 143, ../scss/list.scss */
   .list .item > a {
     background-color: #f2f2f2;
     color: black;
     padding: 20px 25px;
     display: block; }
-    /* line 139, ../scss/list.scss */
+    /* line 149, ../scss/list.scss */
     .list .item > a h3 {
       font-weight: 300; }
-    /* line 140, ../scss/list.scss */
+    /* line 150, ../scss/list.scss */
     .list .item > a h4 {
       font-weight: 300; }
-    /* line 141, ../scss/list.scss */
+    /* line 151, ../scss/list.scss */
     .list .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 142, ../scss/list.scss */
+    /* line 152, ../scss/list.scss */
     .list .item > a h3, .list .item > a h4, .list .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2876,29 +2935,29 @@ h6 + .row:not(.grid),
       width: 100%;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 153, ../scss/list.scss */
+      /* line 163, ../scss/list.scss */
       .list .item > a h3:empty, .list .item > a h4:empty, .list .item > a h5:empty {
         display: none; }
-    /* line 156, ../scss/list.scss */
+    /* line 166, ../scss/list.scss */
     .list .item > a h3 {
       font-size: 25px;
       line-height: 40px;
       white-space: nowrap !important; }
 
-/* line 166, ../scss/list.scss */
+/* line 176, ../scss/list.scss */
 .list .item#item-preview > a {
   display: none !important; }
 
-/* line 171, ../scss/list.scss */
+/* line 181, ../scss/list.scss */
 .item#item-preview .description {
   padding: 30px 0;
   display: block;
   opacity: 1;
   height: auto; }
-  /* line 176, ../scss/list.scss */
+  /* line 186, ../scss/list.scss */
   .item#item-preview .description header {
     margin-bottom: 20px; }
-/* line 191, ../scss/list.scss */
+/* line 201, ../scss/list.scss */
 .item .description {
   position: relative;
   height: 0px;
@@ -2909,53 +2968,53 @@ h6 + .row:not(.grid),
   -ms-transition: opacity 0.125s ease-in-out !important;
   -o-transition: opacity 0.125s ease-in-out !important;
   transition: opacity 0.125s ease-in-out !important; }
-  /* line 201, ../scss/list.scss */
+  /* line 211, ../scss/list.scss */
   .item .description p.lead {
     margin-right: 40px; }
-  /* line 205, ../scss/list.scss */
+  /* line 215, ../scss/list.scss */
   .item .description header h3 {
     font-weight: 700; }
-  /* line 206, ../scss/list.scss */
+  /* line 216, ../scss/list.scss */
   .item .description header h4 {
     font-weight: 300; }
-  /* line 207, ../scss/list.scss */
+  /* line 217, ../scss/list.scss */
   .item .description header h5 {
     font-weight: 300;
     opacity: 0.5; }
-  /* line 208, ../scss/list.scss */
+  /* line 218, ../scss/list.scss */
   .item .description header h3, .item .description header h4, .item .description header h5 {
     font-size: 22px;
     line-height: 140%; }
-    /* line 211, ../scss/list.scss */
+    /* line 221, ../scss/list.scss */
     .item .description header h3:empty, .item .description header h4:empty, .item .description header h5:empty {
       display: none; }
 
-/* line 218, ../scss/list.scss */
+/* line 228, ../scss/list.scss */
 .grid .item {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important; }
-  /* line 244, ../scss/list.scss */
+  /* line 254, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 40px; }
-    /* line 249, ../scss/list.scss */
+    /* line 259, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 251, ../scss/list.scss */
+    /* line 261, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 252, ../scss/list.scss */
+    /* line 262, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 253, ../scss/list.scss */
+    /* line 263, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 254, ../scss/list.scss */
+    /* line 264, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2966,27 +3025,27 @@ h6 + .row:not(.grid),
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 266, ../scss/list.scss */
+      /* line 276, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 274, ../scss/list.scss */
+/* line 284, ../scss/list.scss */
 .compact .item .inner {
   font-size: 15px;
   line-height: 21px;
   overflow: hidden;
   background-color: #f2f2f2;
   position: relative; }
-/* line 282, ../scss/list.scss */
+/* line 292, ../scss/list.scss */
 .compact .item:hover .inner {
   background-color: rgba(0, 0, 0, 0.075); }
-/* line 283, ../scss/list.scss */
+/* line 293, ../scss/list.scss */
 .compact .item.title {
   background: none; }
-  /* line 285, ../scss/list.scss */
+  /* line 295, ../scss/list.scss */
   .compact .item.title:hover {
     background: none; }
-  /* line 287, ../scss/list.scss */
+  /* line 297, ../scss/list.scss */
   .compact .item.title h3 {
     font-weight: 700;
     margin-bottom: 5px !important;
@@ -2995,7 +3054,7 @@ h6 + .row:not(.grid),
     text-transform: uppercase;
     font-size: 16px;
     line-height: 20px; }
-/* line 298, ../scss/list.scss */
+/* line 308, ../scss/list.scss */
 .compact .item .img {
   background-color: #f2f2f2;
   width: 80px;
@@ -3008,7 +3067,7 @@ h6 + .row:not(.grid),
   left: 0;
   top: 0;
   padding: 0px; }
-/* line 312, ../scss/list.scss */
+/* line 322, ../scss/list.scss */
 .compact .item a.txt {
   float: left;
   padding: 10px;
@@ -3020,20 +3079,20 @@ h6 + .row:not(.grid),
   height: 90px;
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important; }
-  /* line 324, ../scss/list.scss */
+  /* line 334, ../scss/list.scss */
   .compact .item a.txt:hover * {
     color: black; }
-  /* line 326, ../scss/list.scss */
+  /* line 336, ../scss/list.scss */
   .compact .item a.txt h3 {
     font-weight: 700; }
-  /* line 327, ../scss/list.scss */
+  /* line 337, ../scss/list.scss */
   .compact .item a.txt h4 {
     font-weight: 300; }
-  /* line 328, ../scss/list.scss */
+  /* line 338, ../scss/list.scss */
   .compact .item a.txt h5 {
     font-weight: 300;
     opacity: 0.5; }
-  /* line 331, ../scss/list.scss */
+  /* line 341, ../scss/list.scss */
   .compact .item a.txt h3,
   .compact .item a.txt h4,
   .compact .item a.txt h5 {
@@ -3045,40 +3104,40 @@ h6 + .row:not(.grid),
     -moz-box-sizing: border-box !important;
     margin: 0px !important;
     display: block !important; }
-    /* line 344, ../scss/list.scss */
+    /* line 354, ../scss/list.scss */
     .compact .item a.txt h3:empty,
     .compact .item a.txt h4:empty,
     .compact .item a.txt h5:empty {
       display: none !important; }
-  /* line 347, ../scss/list.scss */
+  /* line 357, ../scss/list.scss */
   .compact .item a.txt p {
     display: none; }
-/* line 351, ../scss/list.scss */
+/* line 361, ../scss/list.scss */
 .compact .item:nth-child(1) {
   margin-bottom: 0px !important; }
-  /* line 353, ../scss/list.scss */
+  /* line 363, ../scss/list.scss */
   .compact .item:nth-child(1) .inner {
     background: none !important;
     padding-bottom: 80px; }
-  /* line 358, ../scss/list.scss */
+  /* line 368, ../scss/list.scss */
   .compact .item:nth-child(1) .txt {
     padding: 0px;
     background: none !important;
     width: 100%;
     display: block !important; }
-    /* line 366, ../scss/list.scss */
+    /* line 376, ../scss/list.scss */
     .compact .item:nth-child(1) .txt h3,
     .compact .item:nth-child(1) .txt h4,
     .compact .item:nth-child(1) .txt h5 {
       font-size: 14px !important;
       line-height: 20px !important; }
-    /* line 371, ../scss/list.scss */
+    /* line 381, ../scss/list.scss */
     .compact .item:nth-child(1) .txt p {
       font-size: 13px !important;
       line-height: 18px !important;
       margin-top: 8px;
       display: block; }
-  /* line 379, ../scss/list.scss */
+  /* line 389, ../scss/list.scss */
   .compact .item:nth-child(1) .img {
     width: 100% !important;
     position: relative; }
@@ -4126,87 +4185,33 @@ dl {
 .tools {
   margin-bottom: 30px; }
 
-/* line 18, ../scss/detail-pages.scss */
-.map-ajax-detail article .opening-hours {
-  margin-bottom: 20px; }
-/* line 21, ../scss/detail-pages.scss */
-.map-ajax-detail article #cover_img {
-  padding: 0px;
-  margin: 0 -30px;
-  margin-bottom: 30px; }
-  /* line 25, ../scss/detail-pages.scss */
-  .map-ajax-detail article #cover_img .img {
-    margin: 0px; }
-/* line 27, ../scss/detail-pages.scss */
-.map-ajax-detail article .tools {
-  display: none; }
-/* line 30, ../scss/detail-pages.scss */
-.map-ajax-detail article header {
-  margin-top: -10px;
-  margin-bottom: 30px;
-  position: relative; }
-  /* line 36, ../scss/detail-pages.scss */
-  .map-ajax-detail article header h1,
-  .map-ajax-detail article header h2 {
-    font-size: 20px;
-    line-height: 140%;
-    display: block;
-    margin: 0px; }
-  /* line 43, ../scss/detail-pages.scss */
-  .map-ajax-detail article header h1 {
-    font-weight: 700; }
-  /* line 44, ../scss/detail-pages.scss */
-  .map-ajax-detail article header h2 {
-    font-weight: 300; }
-  /* line 46, ../scss/detail-pages.scss */
-  .map-ajax-detail article header h3 {
-    text-transform: uppercase;
-    font-size: 12px;
-    line-height: 160%;
-    font-weight: 600;
-    margin-top: 15px !important; }
-  /* line 54, ../scss/detail-pages.scss */
-  .map-ajax-detail article header h4 {
-    font-size: 12px;
-    line-height: 140%;
-    margin: 0px;
-    padding: 0px;
-    font-weight: 300; }
-  /* line 61, ../scss/detail-pages.scss */
-  .map-ajax-detail article header .extras {
-    margin-top: 25px; }
-    /* line 63, ../scss/detail-pages.scss */
-    .map-ajax-detail article header .extras dd, .map-ajax-detail article header .extras dt {
-      font-size: 20px;
-      line-height: 32px; }
-
-/* line 76, ../scss/detail-pages.scss */
+/* line 20, ../scss/detail-pages.scss */
 .museum-detail article,
 .exhibition-detail article,
 .event-detail article,
 .workshop-detail article {
   position: relative; }
-  /* line 78, ../scss/detail-pages.scss */
+  /* line 22, ../scss/detail-pages.scss */
   .museum-detail article iframe,
   .exhibition-detail article iframe,
   .event-detail article iframe,
   .workshop-detail article iframe {
     width: 620px;
     margin-top: 30px; }
-  /* line 88, ../scss/detail-pages.scss */
+  /* line 32, ../scss/detail-pages.scss */
   .museum-detail article #cover_img,
   .exhibition-detail article #cover_img,
   .event-detail article #cover_img,
   .workshop-detail article #cover_img {
     padding: 0px;
     margin-bottom: 30px; }
-    /* line 91, ../scss/detail-pages.scss */
+    /* line 35, ../scss/detail-pages.scss */
     .museum-detail article #cover_img .img,
     .exhibition-detail article #cover_img .img,
     .event-detail article #cover_img .img,
     .workshop-detail article #cover_img .img {
       margin: 0px; }
-  /* line 94, ../scss/detail-pages.scss */
+  /* line 38, ../scss/detail-pages.scss */
   .museum-detail article header,
   .exhibition-detail article header,
   .event-detail article header,
@@ -4214,7 +4219,7 @@ dl {
     margin-top: -10px;
     margin-bottom: 30px;
     position: relative; }
-    /* line 100, ../scss/detail-pages.scss */
+    /* line 44, ../scss/detail-pages.scss */
     .museum-detail article header h1,
     .museum-detail article header h2,
     .exhibition-detail article header h1,
@@ -4227,19 +4232,19 @@ dl {
       line-height: 140%;
       display: block;
       margin: 0px; }
-    /* line 107, ../scss/detail-pages.scss */
+    /* line 51, ../scss/detail-pages.scss */
     .museum-detail article header h1,
     .exhibition-detail article header h1,
     .event-detail article header h1,
     .workshop-detail article header h1 {
       font-weight: 700; }
-    /* line 108, ../scss/detail-pages.scss */
+    /* line 52, ../scss/detail-pages.scss */
     .museum-detail article header h2,
     .exhibition-detail article header h2,
     .event-detail article header h2,
     .workshop-detail article header h2 {
       font-weight: 300; }
-    /* line 110, ../scss/detail-pages.scss */
+    /* line 54, ../scss/detail-pages.scss */
     .museum-detail article header h3,
     .exhibition-detail article header h3,
     .event-detail article header h3,
@@ -4249,7 +4254,7 @@ dl {
       line-height: 160%;
       font-weight: 600;
       margin-top: 15px !important; }
-    /* line 118, ../scss/detail-pages.scss */
+    /* line 62, ../scss/detail-pages.scss */
     .museum-detail article header h4,
     .exhibition-detail article header h4,
     .event-detail article header h4,
@@ -4259,13 +4264,13 @@ dl {
       margin: 0px;
       padding: 0px;
       font-weight: 300; }
-    /* line 125, ../scss/detail-pages.scss */
+    /* line 69, ../scss/detail-pages.scss */
     .museum-detail article header .extras,
     .exhibition-detail article header .extras,
     .event-detail article header .extras,
     .workshop-detail article header .extras {
       margin-top: 25px; }
-      /* line 127, ../scss/detail-pages.scss */
+      /* line 71, ../scss/detail-pages.scss */
       .museum-detail article header .extras dd, .museum-detail article header .extras dt,
       .exhibition-detail article header .extras dd,
       .exhibition-detail article header .extras dt,
@@ -4275,7 +4280,7 @@ dl {
       .workshop-detail article header .extras dt {
         font-size: 20px;
         line-height: 32px; }
-  /* line 135, ../scss/detail-pages.scss */
+  /* line 79, ../scss/detail-pages.scss */
   .museum-detail article blockquote,
   .exhibition-detail article blockquote,
   .event-detail article blockquote,
@@ -4290,19 +4295,19 @@ dl {
     border-bottom: 1px solid #f2f2f2 !important;
     border-top: 1px solid #f2f2f2 !important;
     color: rgba(0, 0, 0, 0.5); }
-    /* line 150, ../scss/detail-pages.scss */
+    /* line 94, ../scss/detail-pages.scss */
     .museum-detail article blockquote:before,
     .exhibition-detail article blockquote:before,
     .event-detail article blockquote:before,
     .workshop-detail article blockquote:before {
       content: "Â«"; }
-    /* line 151, ../scss/detail-pages.scss */
+    /* line 95, ../scss/detail-pages.scss */
     .museum-detail article blockquote:after,
     .exhibition-detail article blockquote:after,
     .event-detail article blockquote:after,
     .workshop-detail article blockquote:after {
       content: "Â»"; }
-    /* line 152, ../scss/detail-pages.scss */
+    /* line 96, ../scss/detail-pages.scss */
     .museum-detail article blockquote:last-child,
     .exhibition-detail article blockquote:last-child,
     .event-detail article blockquote:last-child,

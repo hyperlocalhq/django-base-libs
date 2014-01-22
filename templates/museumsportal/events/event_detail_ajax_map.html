@@ -4,11 +4,13 @@
   <div class="map-ajax-detail">
     <article>
       <header>
+      <h3></h3>
         <h2>
           {% with event.get_closest_event_time as event_time %}
+            {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}<br/>
+              
             <time datetime="{{ event_time.event_date|date:"Y-m-d" }}">
-              {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
-              {{ event_time.event_date|date:"j. F Y" }}
+              <nobr>{{ event_time.event_date|date:"j. F Y" }}</nobr>
               {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %}&nbsp;Uhr{% endif %}
               </br>
             </time>
