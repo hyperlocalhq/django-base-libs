@@ -2,6 +2,7 @@
 {% with object as workshop %}
   {% tags_for_object workshop as tags %}
   <div class="map-ajax-detail">
+    <article>
     <header>
       <h2>
         <time>
@@ -11,7 +12,7 @@
           {% else %}
             {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
             {% with workshop.get_closest_workshop_time as workshop_time %}
-              <nobr>{{ workshop_time.workshop_date|date:"j. F Y" }}
+              <nobr>{{ workshop_time.workshop_date|date:"j. F Y" }}</nobr><nobr>
               {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</nobr>
             {% endwith %}
           {% endif %}
@@ -31,6 +32,15 @@
             <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
         {% endif %}
       {% endif %}
+
+
+        <p>
+          <small>
+          {{ workshop.street_address }}, 
+          {% if workshop.street_address2 %}{{ workshop.street_address2 }},{% endif %}
+          {{ workshop.postal_code }} {{ workshop.city }}
+          </small>
+        </p>
 
 
     </header>
@@ -54,7 +64,16 @@
       {% end_if_has_perm %}
     </div>
 
+    {% if workshop.cover_image %}
+      <div id="cover_img">
+        <a class="img" href="{{ workshop.get_url_path }}">
+          <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% if_has_perm "workshops.change_workshop" workshop %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+        </a>
+      </div>
+    {% endif %}
+
     <p>{{ workshop.get_rendered_description|striptags|truncatewords:"45"|urlize }}</p>
-    <a class="btn btn-info" href="{{ workshop.get_url_path }}">{% trans "more" %}</a>
+    <a class="btn btn-default" href="{{ workshop.get_url_path }}">{% trans "more" %}</a>
+    </article>
   </div>
 {% endwith %}
