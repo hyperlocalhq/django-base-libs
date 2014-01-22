@@ -4,7 +4,7 @@
 
   <script>var str_filter_selection = "{% trans "Filter selection" %}";</script>
   <div class="btn-group" id="filter-toggle" data-toggle="buttons">
-    <label type="button" class="btn btn-info btn-sm active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
       <input type="radio" name="options" id="filter-toggle-categories">
       {% trans "Categories" %}
     </label>
@@ -29,7 +29,7 @@
 
   <div class="panel-group" id="filter-options">
     <div class="panel panel-default">
-      <div id="filter-categories" class="panel-collapse collapse in">
+      <div id="filter-categories" class="panel-collapse collapse">
         <div class="panel-body">
           <h4>{% trans "Categories" %}</h4>
 

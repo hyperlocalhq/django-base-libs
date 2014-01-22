@@ -3,10 +3,12 @@
 // ================= TAGS AND FILTERS =================
 
 #list-filter {
-  background-image: url("../img/transparent-1.png") !important;
+  > div {
+    background-image: url("../img/transparent-1.png") !important;
+    border-top: 30px solid white;
+  }
   .container {
     padding: 20px 30px;
-    margin-bottom: 30px;
     .panel-group {margin-top: 15px; }
   }
 }

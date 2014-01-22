@@ -17,28 +17,32 @@ var str_filter_selection = "{% trans "Filter selection" %}";
 {% block content %}
   <div class="content">
     <div class="container">
-      <nav id="controls" class="pull-right">
-        {% if request.user.is_authenticated %}
-          <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
-            <span class="sr-only">{% trans "Favorites" %}</span>
-            <span class="icon icon-star"></span>
-          </a>
-        {% endif %}
-        <a id="map-list-link" class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Show map" %}" href="{% url "event_list_map" %}">
-          <span class="icon icon-location"></span>
-          <span class="sr-only">{% trans "Show location on map" %}</span>
-        </a>
-        <a class="btn btn-default btn-round" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "RSS Feed" %}" href="rss">
-          <span class="icon icon-signal"></span>
-          <span class="sr-only">{% trans "RSS Feed" %}</span>
-        </a>
-      </nav>
+      <header class="list-header clearfix">
+        <h4 class="sr-only">{% trans "Events in the Museums of Berlin" %}</h4>
 
-      <h1 class="sr-only">{% trans "Events in the Museums of Berlin" %}</h1>
-      
-      {% include "utils/filter_events.html" %}
-      {% include "utils/container_empty.html" %}
+        <div class="list-controls">
+          <div class="btn-group pull-left" style="margin-right: 15px;">
+            <button id="toggle-list-filter" class="btn btn-info"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}</button>
+            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+          </div>
+          <ul id="filter-summary" class="pull-left"></ul>
 
+          <a class="btn btn-info pull-right" href="{% url "event_list_map" %}">{% trans "Show map" %}</a>
+        </div>
+      </header>
+    </div>
+
+    <div id="list-filter" class="collapse">
+      <div>
+        <div class="container">
+          {% include "utils/filter_events.html" %}
+        </div>
+      </div>
+    </div>
+    
+    <div id="list">
+      <div class="container">
+    
       <div id="notices">
         <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
         <div class="row row-sm">
@@ -49,6 +53,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
         </div>
       </div>
 
+      {% include "utils/container_empty.html" %}
       <div id="container" class="row row-md list isotope">
         {% load advertising_tags %}
         <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">

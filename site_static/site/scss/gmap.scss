@@ -116,8 +116,10 @@
 .map-description #map-description,
 .map-filter #map-filter { right: 0% !important; }
 
+#list {
+  margin-top: 30px;
+}
 .list-header {
-  margin-bottom: 20px;
   h4 {
     margin-bottom: 15px;
   }
@@ -174,11 +176,6 @@
   }
 }
 
-#list-filter {
-  background-image: url("../img/transparent-1.png") !important;
-  .container {
-  }
-}
 
 #map-filter {
   background-image: url("../img/transparent-1.png") !important;
