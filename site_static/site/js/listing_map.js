@@ -232,6 +232,12 @@ $(document).ready(function() {
         return false;
     });
 
+    $(document).on("click", "#cancel-filter", function() {
+        $("#map-sidebar").removeClass( "map-filter" );
+        $("#map-sidebar").addClass( "map-list" );
+        return false;
+    });
+
     $(document).on("click", "#cancel-list", function() {
         $("#map-sidebar").removeClass( "map-list" );
         $("body").toggleClass( "map-only" );
@@ -240,6 +246,7 @@ $(document).ready(function() {
 
     $( "#toggle-map-filter" ).click(function() {
         $("#map-sidebar").toggleClass( "map-filter" );
+        $("#map-sidebar").removeClass( "map-list" );
         google.maps.event.trigger(oMap, "resize");
         return false;
     });
