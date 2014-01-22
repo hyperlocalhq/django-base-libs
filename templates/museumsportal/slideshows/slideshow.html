@@ -26,12 +26,12 @@
       </div>
 
       <!-- Controls -->
-      <a class="left carousel-control" href="#carousel-startpage" data-slide="prev">
+      <!-- <a class="left carousel-control" href="#carousel-startpage" data-slide="prev">
         <span class="icon-prev"></span>
       </a>
       <a class="right carousel-control" href="#carousel-startpage" data-slide="next">
         <span class="icon-next"></span>
-      </a>
+      </a> -->
     </div>
   </div>
 </div>
@@ -39,7 +39,7 @@
 <script type="text/javascript">
   $(window).load(function() {
     $(".carousel .active img").lazyload().closest('.img').addClass('loaded'); 
-    $('.carousel').carousel({interval: 2000 }).on('slid.bs.carousel', function () {
+    $('.carousel').carousel({interval: 5000 }).on('slid.bs.carousel', function () {
       $(".carousel .active img").lazyload().closest('.img').addClass('loaded'); 
     });
   });

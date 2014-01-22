@@ -44,7 +44,7 @@
 }
 
 #map-list,
-#map-filters,
+#map-filter,
 #map-description,
 #map-sidebar,
 #map-wrapper {
@@ -91,7 +91,7 @@
 
 #map-list,
 #map-description,
-#map-filters {
+#map-filter {
   background-color: white;
   position: absolute;
   width: 100%;
@@ -114,7 +114,7 @@
 
 .map-list #map-list,
 .map-description #map-description,
-.map-filter #map-filters { right: 0% !important; }
+.map-filter #map-filter { right: 0% !important; }
 
 #map-list {
   .btn-group {
@@ -174,7 +174,7 @@
   }
 }
 
-#map-filters {
+#map-filter {
   background-image: url("../img/transparent-1.png") !important;
   .panel-group {
     margin: 15px 0;

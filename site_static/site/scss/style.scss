@@ -44,7 +44,7 @@ body {
   overflow-x: hidden;
   font-weight: 300;
   background-color: #ffffff;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.01);
+  // text-shadow: 0 1px 0 rgba(0,0,0,0.01);
   -webkit-text-stroke: 1px transparent;
   margin: 0 !important;
 }
@@ -76,9 +76,6 @@ body {
   height: 42px;
 }
 
-#body {
-  overflow: hidden;
-}
 .start-content {
   padding: 35px 0px;
   border-top: 1px solid #f9f9f9;

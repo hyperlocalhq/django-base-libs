@@ -10,12 +10,27 @@
 .btn-icon {
   padding: 0px !important;
 }
+
 .btn-icon {
   padding: 0px !important;
-  .icon { line-height: 2.4;}
-  &.btn-xs {}
-  &.btn-sm { .icon { line-height: 1.4;}}
-  &.btn-lg {}
+  text-align: center;
+
+  .icon {
+    display: inline-block;
+    font-family: 'DingRegular';
+    font-style: normal;
+    font-weight: normal;
+    text-align: center;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    line-height: 40px;
+    height: 40px;
+    width: 40px;
+  }
+
+  &.btn-xs { .icon { height: 20px; width: 20px; line-height: 20px;}}
+  &.btn-sm { .icon { height: 30px; width: 30px; line-height: 30px;}}
+  &.btn-lg { .icon { height: 50px; width: 50px; line-height: 46px;}}
 }
 .btn {
   display: inline-block;

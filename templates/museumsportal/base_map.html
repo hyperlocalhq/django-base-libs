@@ -96,13 +96,13 @@
       </div>
       <div id="map-sidebar-wrapper" class="col-xs-11 col-sm-5 col-md-4 col-lg-3">
         <div id="map-sidebar" class="map-list"> 
-          <div id="map-filters"> 
+          <div id="map-filter"> 
             <button id="cancel-filter" class="cancel btn btn-info btn-lg" data-spy="affix" data-offset-top="1">
               <span class="icon icon-remove"></span>
               <span class="sr-only">{% trans "close" %}</span>
             </button>
 
-            {% block map-filters %}
+            {% block filters %}
             {% endblock %}
           </div>
           <div id="map-list">
@@ -111,7 +111,7 @@
               <span class="sr-only">{% trans "close" %}</span>
             </button>
             <header>
-              <h4>{% block map-list-title %}{% endblock %}</h4>
+              <h4>{% block list-title %}{% endblock %}</h4>
               <div class="btn-group">
                 <button id="toggle-map-filter" class="btn btn-info">{% trans "filter" %}</button>
                 <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>

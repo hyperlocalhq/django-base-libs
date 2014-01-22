@@ -121,13 +121,13 @@
   }
 
   .icon-prev {
-    left: 0px;
+    left: -40px;
     &:before {
       content: '\2039';// SINGLE LEFT-POINTING ANGLE QUOTATION MARK (U+2039)
     }
   }
   .icon-next {
-    right: 0px;
+    right: -40px;
     &:before {
       content: '\203a';// SINGLE RIGHT-POINTING ANGLE QUOTATION MARK (U+203A)
     }
