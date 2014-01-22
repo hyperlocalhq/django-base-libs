@@ -101,7 +101,10 @@
             {% endblock %}
           </div>
           <div id="map-list"> 
-            {% block map-sidebar %}
+            <header>
+              <h4>{% block map-list-title %}{% endblock %}</h4>
+            </header>
+            {% block map-list %}
             {% endblock %}
           </div>
           <div id="map-description"> 

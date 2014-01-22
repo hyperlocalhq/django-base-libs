@@ -336,7 +336,7 @@
     visibleStyle: { opacity: 1, scale: 1 },
     containerStyle: {
       position: 'relative',
-      overflow: 'visible'
+      overflow: 'hidden'
     },
     animationEngine: 'best-available',
     animationOptions: {
