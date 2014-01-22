@@ -4394,32 +4394,36 @@ dl {
     .workshop-detail article blockquote:last-child {
       padding: 0px !important; }
 
+@media (max-width: 768px) {
+  /* line 2, ../scss/media.scss */
+  .navbar-wrapper {
+    height: 72px; } }
 @media (min-width: 768px) {
-  /* line 3, ../scss/media.scss */
+  /* line 8, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 4, ../scss/media.scss */
+  /* line 9, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 5, ../scss/media.scss */
+  /* line 10, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 7px; } }
 @media (min-width: 992px) {
-  /* line 9, ../scss/media.scss */
+  /* line 14, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 10, ../scss/media.scss */
+  /* line 15, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 15, ../scss/media.scss */
+  /* line 20, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 18, ../scss/media.scss */
+  /* line 23, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */
