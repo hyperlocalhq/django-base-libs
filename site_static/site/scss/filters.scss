@@ -2,13 +2,18 @@
 
 // ================= TAGS AND FILTERS =================
 
+#list-filter {
+  background-image: url("../img/transparent-1.png") !important;
+  .container {
+    padding: 30px;
+    margin-bottom: 30px;
+    .panel-group {margin-top: 15px; }
+  }
+}
+
 #filters {
 padding: 0px;
 margin: 0px;
-margin-bottom: 30px !important;
-z-index: 10000;
- // &:hover .tab-content {display: block; }
- // .tab-content {display: none; }
  .panel + .panel {
   margin-top: 0px;
  }
@@ -31,8 +36,6 @@ z-index: 10000;
 }
 
 #filters .btn {
-  margin-right: 5px;
-  margin-bottom: 5px;
   &.active {
     background-color: $blue !important;
     color: white !important;

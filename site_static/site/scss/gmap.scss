@@ -116,19 +116,19 @@
 .map-description #map-description,
 .map-filter #map-filter { right: 0% !important; }
 
+.list-header {
+  margin-bottom: 20px;
+  h4 {
+    margin-bottom: 15px;
+  }
+  .list-controls {
+    margin-bottom: 15px;
+  }
+}
 #map-list {
-  .btn-group {
-    margin-top: 15px;
-  }
-  #filter-summary {
-    padding-top: 15px;
-  }
   #container {
     margin-left: -30px;
     margin-right: -30px;
-  }
-  header {
-    margin-bottom: 20px;
   }
   .item {
     padding: 0px;
@@ -171,6 +171,12 @@
         &:empty{ display: none;}
       }
     }
+  }
+}
+
+#list-filter {
+  background-image: url("../img/transparent-1.png") !important;
+  .container {
   }
 }
 

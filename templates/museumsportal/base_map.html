@@ -110,11 +110,13 @@
               <span class="icon icon-remove"></span>
               <span class="sr-only">{% trans "close" %}</span>
             </button>
-            <header>
+            <header class="list-header">
               <h4>{% block list-title %}{% endblock %}</h4>
-              <div class="btn-group">
-                <button id="toggle-map-filter" class="btn btn-info">{% trans "filter" %}</button>
-                <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+              <div class="list-controls">
+                <div class="btn-group">
+                  <button id="toggle-map-filter" class="btn btn-info">{% trans "filter" %}</button>
+                  <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+                </div>
               </div>
               <ul id="filter-summary"></ul>
             </header>

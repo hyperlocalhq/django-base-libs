@@ -23,6 +23,10 @@
 .navbar.affix {
   width: 100%;
   
+  -moz-box-shadow:    0 0 10px rgba(0,0,0,0.05);
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  box-shadow:         0 0 10px rgba(0,0,0,0.05);
+  
   @media (min-width: 768px) {
     margin-top: -80px;
   }

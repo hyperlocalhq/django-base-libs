@@ -1649,9 +1649,12 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 .btn-icon {
   padding: 0px !important; }
 
+.btn-round,
 .btn-icon {
   padding: 0px !important;
-  text-align: center; }
+  text-align: center;
+  max-height: 40px; }
+  .btn-round .icon,
   .btn-icon .icon {
     display: inline-block;
     font-family: 'DingRegular';
@@ -1660,21 +1663,42 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     text-align: center;
     font-size: 14px;
     -webkit-font-smoothing: antialiased;
-    line-height: 40px;
+    line-height: 37px;
     height: 40px;
     width: 40px; }
-  .btn-icon.btn-xs .icon, .btn-group-xs > .btn-icon.btn .icon {
-    height: 20px;
-    width: 20px;
-    line-height: 20px; }
-  .btn-icon.btn-sm .icon, .btn-group-sm > .btn-icon.btn .icon {
-    height: 30px;
-    width: 30px;
-    line-height: 30px; }
-  .btn-icon.btn-lg .icon, .btn-group-lg > .btn-icon.btn .icon {
-    height: 50px;
-    width: 50px;
-    line-height: 46px; }
+  .btn-round.btn-xs, .btn-group-xs > .btn-round.btn,
+  .btn-icon.btn-xs,
+  .btn-group-xs > .btn-icon.btn {
+    max-height: 20px; }
+    .btn-round.btn-xs .icon, .btn-group-xs > .btn-round.btn .icon,
+    .btn-icon.btn-xs .icon,
+    .btn-group-xs > .btn-icon.btn .icon {
+      font-size: 14px;
+      height: 20px;
+      width: 20px;
+      line-height: 15px; }
+  .btn-round.btn-sm, .btn-group-sm > .btn-round.btn,
+  .btn-icon.btn-sm,
+  .btn-group-sm > .btn-icon.btn {
+    max-height: 30px; }
+    .btn-round.btn-sm .icon, .btn-group-sm > .btn-round.btn .icon,
+    .btn-icon.btn-sm .icon,
+    .btn-group-sm > .btn-icon.btn .icon {
+      font-size: 10px;
+      height: 30px;
+      width: 30px;
+      line-height: 28px; }
+  .btn-round.btn-lg, .btn-group-lg > .btn-round.btn,
+  .btn-icon.btn-lg,
+  .btn-group-lg > .btn-icon.btn {
+    max-height: 50px; }
+    .btn-round.btn-lg .icon, .btn-group-lg > .btn-round.btn .icon,
+    .btn-icon.btn-lg .icon,
+    .btn-group-lg > .btn-icon.btn .icon {
+      font-size: 14px;
+      height: 50px;
+      width: 50px;
+      line-height: 46px; }
 
 .btn {
   display: inline-block;
@@ -1715,9 +1739,6 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 .btn-round {
   padding: 0px;
   border-radius: 100%; }
-  .btn-round .icon {
-    line-height: 17px;
-    font-size: 10px; }
 
 .btn-default {
   color: white;
@@ -2416,7 +2437,10 @@ input[type="button"].btn-block {
   transition: transform 0.45s; }
 
 .navbar.affix {
-  width: 100%; }
+  width: 100%;
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); }
   @media (min-width: 768px) {
     .navbar.affix {
       margin-top: -80px; } }
