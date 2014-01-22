@@ -34,7 +34,9 @@
         {% endif %}
 
         {% if exhibition.location_name %}
+        
           <h3>{{ exhibition.location_name }}</h3>
+        
         {% else %}
 
           {% if exhibition.museum %}
@@ -42,6 +44,22 @@
           {% endif %}
 
         {% endif %}
+
+          <p>
+            <small>
+              {% if exhibition.museum %}
+                {% with exhibition.museum as museum %}
+                  {{ museum.street_address }},
+                  {% if museum.street_address2 %},{{ museum.street_address2 }},{% endif %}
+                  {{ museum.postal_code }} {{ museum.city }}
+                {% endwith %}
+              {% else %}
+                  {{ exhibition.street_address }},
+                  {% if exhibition.street_address2 %}, {{ exhibition.street_address2 }},{% endif %}
+                  {{ exhibition.postal_code }} {{ exhibition.city }}
+              {% endif %}
+            </small>
+          </p>
 
       </header>
 
@@ -89,50 +107,21 @@
         </div>
       {% endif %}
 
-      <p>{{ exhibition.get_rendered_description|striptags|truncatewords:"45"|urlize }}</p>
-      <a class="btn btn-default" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
-    </article>
-    <div class="content">
-      <p>
-        <small>
-          <b>
-          {% if exhibition.location_name %}
-            {{ exhibition.location_name }}
-          {% else %}
-            {{ exhibition.museum.title }}
-            {% if exhibition.museum.subtitle %}
-              <br/>{{ exhibition.museum.subtitle }}
-            {% endif %}
-          {% endif %}
-          </b><br/>
-          {% if exhibition.museum %}
-            {% with exhibition.museum as museum %}
-              {{ museum.street_address }},
-              {% if museum.street_address2 %},{{ museum.street_address2 }},{% endif %}
-              {{ museum.postal_code }} {{ museum.city }}
-            {% endwith %}
-          {% else %}
-              {{ exhibition.street_address }},
-              {% if exhibition.street_address2 %}, {{ exhibition.street_address2 }},{% endif %}
-              {{ exhibition.postal_code }} {{ exhibition.city }}
-          {% endif %}
-        </small>
-      </p>
-
+    <div class="opening-hours">
       {% with exhibition.museum.get_current_season as season %}
         {% if season %}
           {% if season.is_appointment_based %}
           <dl>
-            <dt>{% trans "Based on appointment" %}</dt>
+            <dt><small>{% trans "Based on appointment" %}</small></dt>
           </dl>
           {% else %}
           {% regroup season.get_opening_hours by times as opening_hours %}
             {% for same_hours in opening_hours %}
               <dl>
-                <dt>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
+                <dt><small>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</small>
                 </dt>
                   {% if same_hours.list.0.open %}
-                    <dd>
+                    <dd><small>
                       {{ same_hours.list.0.open|time:"H:i" }}
                       {% if same_hours.list.0.break_close %}
                       - {{ same_hours.list.0.break_close|time:"H:i" }}
@@ -141,11 +130,11 @@
                       {% else %}
                       - {{ same_hours.list.0.close|time:"H:i" }}
                       {% endif %}
-                      {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                      {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</small>
                     </dd>
                   {% else %}
-                    <dd>
-                      {% trans "closed" %}
+                    <dd><small>
+                      {% trans "closed" %}</small>
                     </dd>
                   {% endif %}
               </dl>
@@ -153,8 +142,8 @@
           {% endif %}
           {% if season.last_entry %}
           <dl>
-            <dt>{% trans "Last entry" %} </dt>
-            <dd>{{ season.last_entry }}</dd>
+            <dt><small>{% trans "Last entry" %}</small></dt>
+            <dd><small>{{ season.last_entry }}</small></dd>
           </dl>
           {% endif %}
           {% if season.exceptions %}
@@ -163,5 +152,8 @@
         {% endif %}
       {% endwith %}
     </div>
+      <p>{{ exhibition.get_rendered_description|striptags|truncatewords:"45"|urlize }}</p>
+      <a class="btn btn-default" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
+    </article>
   </div>
 {% endwith %}

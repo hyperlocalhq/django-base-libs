@@ -4126,84 +4126,87 @@ dl {
 .tools {
   margin-bottom: 30px; }
 
-/* line 19, ../scss/detail-pages.scss */
+/* line 18, ../scss/detail-pages.scss */
+.map-ajax-detail article .opening-hours {
+  margin-bottom: 20px; }
+/* line 21, ../scss/detail-pages.scss */
 .map-ajax-detail article #cover_img {
   padding: 0px;
   margin: 0 -30px;
   margin-bottom: 30px; }
-  /* line 23, ../scss/detail-pages.scss */
+  /* line 25, ../scss/detail-pages.scss */
   .map-ajax-detail article #cover_img .img {
     margin: 0px; }
-/* line 25, ../scss/detail-pages.scss */
+/* line 27, ../scss/detail-pages.scss */
 .map-ajax-detail article .tools {
   display: none; }
-/* line 28, ../scss/detail-pages.scss */
+/* line 30, ../scss/detail-pages.scss */
 .map-ajax-detail article header {
   margin-top: -10px;
   margin-bottom: 30px;
   position: relative; }
-  /* line 34, ../scss/detail-pages.scss */
+  /* line 36, ../scss/detail-pages.scss */
   .map-ajax-detail article header h1,
   .map-ajax-detail article header h2 {
     font-size: 20px;
     line-height: 140%;
     display: block;
     margin: 0px; }
-  /* line 41, ../scss/detail-pages.scss */
+  /* line 43, ../scss/detail-pages.scss */
   .map-ajax-detail article header h1 {
     font-weight: 700; }
-  /* line 42, ../scss/detail-pages.scss */
+  /* line 44, ../scss/detail-pages.scss */
   .map-ajax-detail article header h2 {
     font-weight: 300; }
-  /* line 44, ../scss/detail-pages.scss */
+  /* line 46, ../scss/detail-pages.scss */
   .map-ajax-detail article header h3 {
     text-transform: uppercase;
     font-size: 12px;
     line-height: 160%;
     font-weight: 600;
     margin-top: 15px !important; }
-  /* line 52, ../scss/detail-pages.scss */
+  /* line 54, ../scss/detail-pages.scss */
   .map-ajax-detail article header h4 {
     font-size: 12px;
     line-height: 140%;
     margin: 0px;
     padding: 0px;
     font-weight: 300; }
-  /* line 59, ../scss/detail-pages.scss */
+  /* line 61, ../scss/detail-pages.scss */
   .map-ajax-detail article header .extras {
     margin-top: 25px; }
-    /* line 61, ../scss/detail-pages.scss */
+    /* line 63, ../scss/detail-pages.scss */
     .map-ajax-detail article header .extras dd, .map-ajax-detail article header .extras dt {
       font-size: 20px;
       line-height: 32px; }
 
-/* line 74, ../scss/detail-pages.scss */
+/* line 76, ../scss/detail-pages.scss */
 .museum-detail article,
 .exhibition-detail article,
 .event-detail article,
 .workshop-detail article {
   position: relative; }
-  /* line 76, ../scss/detail-pages.scss */
+  /* line 78, ../scss/detail-pages.scss */
   .museum-detail article iframe,
   .exhibition-detail article iframe,
   .event-detail article iframe,
   .workshop-detail article iframe {
     width: 620px;
     margin-top: 30px; }
-  /* line 86, ../scss/detail-pages.scss */
+  /* line 88, ../scss/detail-pages.scss */
   .museum-detail article #cover_img,
   .exhibition-detail article #cover_img,
   .event-detail article #cover_img,
   .workshop-detail article #cover_img {
     padding: 0px;
     margin-bottom: 30px; }
-    /* line 89, ../scss/detail-pages.scss */
+    /* line 91, ../scss/detail-pages.scss */
     .museum-detail article #cover_img .img,
     .exhibition-detail article #cover_img .img,
     .event-detail article #cover_img .img,
     .workshop-detail article #cover_img .img {
       margin: 0px; }
-  /* line 92, ../scss/detail-pages.scss */
+  /* line 94, ../scss/detail-pages.scss */
   .museum-detail article header,
   .exhibition-detail article header,
   .event-detail article header,
@@ -4211,7 +4214,7 @@ dl {
     margin-top: -10px;
     margin-bottom: 30px;
     position: relative; }
-    /* line 98, ../scss/detail-pages.scss */
+    /* line 100, ../scss/detail-pages.scss */
     .museum-detail article header h1,
     .museum-detail article header h2,
     .exhibition-detail article header h1,
@@ -4224,19 +4227,19 @@ dl {
       line-height: 140%;
       display: block;
       margin: 0px; }
-    /* line 105, ../scss/detail-pages.scss */
+    /* line 107, ../scss/detail-pages.scss */
     .museum-detail article header h1,
     .exhibition-detail article header h1,
     .event-detail article header h1,
     .workshop-detail article header h1 {
       font-weight: 700; }
-    /* line 106, ../scss/detail-pages.scss */
+    /* line 108, ../scss/detail-pages.scss */
     .museum-detail article header h2,
     .exhibition-detail article header h2,
     .event-detail article header h2,
     .workshop-detail article header h2 {
       font-weight: 300; }
-    /* line 108, ../scss/detail-pages.scss */
+    /* line 110, ../scss/detail-pages.scss */
     .museum-detail article header h3,
     .exhibition-detail article header h3,
     .event-detail article header h3,
@@ -4246,7 +4249,7 @@ dl {
       line-height: 160%;
       font-weight: 600;
       margin-top: 15px !important; }
-    /* line 116, ../scss/detail-pages.scss */
+    /* line 118, ../scss/detail-pages.scss */
     .museum-detail article header h4,
     .exhibition-detail article header h4,
     .event-detail article header h4,
@@ -4256,13 +4259,13 @@ dl {
       margin: 0px;
       padding: 0px;
       font-weight: 300; }
-    /* line 123, ../scss/detail-pages.scss */
+    /* line 125, ../scss/detail-pages.scss */
     .museum-detail article header .extras,
     .exhibition-detail article header .extras,
     .event-detail article header .extras,
     .workshop-detail article header .extras {
       margin-top: 25px; }
-      /* line 125, ../scss/detail-pages.scss */
+      /* line 127, ../scss/detail-pages.scss */
       .museum-detail article header .extras dd, .museum-detail article header .extras dt,
       .exhibition-detail article header .extras dd,
       .exhibition-detail article header .extras dt,
@@ -4272,7 +4275,7 @@ dl {
       .workshop-detail article header .extras dt {
         font-size: 20px;
         line-height: 32px; }
-  /* line 133, ../scss/detail-pages.scss */
+  /* line 135, ../scss/detail-pages.scss */
   .museum-detail article blockquote,
   .exhibition-detail article blockquote,
   .event-detail article blockquote,
@@ -4287,19 +4290,19 @@ dl {
     border-bottom: 1px solid #f2f2f2 !important;
     border-top: 1px solid #f2f2f2 !important;
     color: rgba(0, 0, 0, 0.5); }
-    /* line 148, ../scss/detail-pages.scss */
+    /* line 150, ../scss/detail-pages.scss */
     .museum-detail article blockquote:before,
     .exhibition-detail article blockquote:before,
     .event-detail article blockquote:before,
     .workshop-detail article blockquote:before {
       content: "Â«"; }
-    /* line 149, ../scss/detail-pages.scss */
+    /* line 151, ../scss/detail-pages.scss */
     .museum-detail article blockquote:after,
     .exhibition-detail article blockquote:after,
     .event-detail article blockquote:after,
     .workshop-detail article blockquote:after {
       content: "Â»"; }
-    /* line 150, ../scss/detail-pages.scss */
+    /* line 152, ../scss/detail-pages.scss */
     .museum-detail article blockquote:last-child,
     .exhibition-detail article blockquote:last-child,
     .event-detail article blockquote:last-child,
