@@ -44,28 +44,30 @@
 }
 
 
+#map-filters,
+#map-description,
 #map-sidebar,
 #map-wrapper {
-  // -webkit-transition-property: all;
-  // -webkit-transition-duration: 0.75s;
-  // -webkit-transition-timing: ease-in-out;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-timing: ease-in-out;
 
-  // -moz-transition-property: all;
-  // -moz-transition-duration: 0.75s;
-  // -moz-transition-timing: ease-in-out;
+  -moz-transition-property: all;
+  -moz-transition-duration: 0.5s;
+  -moz-transition-timing: ease-in-out;
 
-  // -o-transition-property: all;
-  // -o-transition-duration: 0.75s;
-  // -o-transition-timing: ease-in-out;
+  -o-transition-property: all;
+  -o-transition-duration: 0.5s;
+  -o-transition-timing: ease-in-out;
 
-  // transition-property: all;
-  // transition-duration: 0.75s;
-  // transition-timing: ease-in-out;
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing: ease-in-out;
 }
 
 #map-wrapper {
   position: relative;
-  z-index: 1050;
+  z-index: 1000;
 }
 
 .map-only {
@@ -75,19 +77,35 @@
   #map-sidebar {
     margin-left: 100% !important;
   }
+
+  #map-controls {
+    right: 100% !important;
+  }
+}
+
+.map-filter {
+  #map-filters {
+    right: 0px !important;
+    opacity: 1 !important;
+  }
+  #map-description {
+    right: -100% !important;
+    opacity: 0 !important;
+  }
 }
 
 #map-sidebar-wrapper {
   position: absolute;
   right: 0px;
-  z-index: 900;
+  z-index: 1050;
 
   #map-sidebar {
     height: 100%;
     width: 100%;
     margin-left: 0%;
     position: relative;
-    > div {
+    #map-filters,
+    #map-description {
       background-color: white;
       position: absolute;
       width: 100%;
@@ -99,15 +117,32 @@
       z-index: 1000;
     }
     #map-filters {
-      z-index: 1050
+      z-index: 1050;
+      right: -100%;
+      opacity: 0;
+      .panel-group {
+        margin-top: 15px;
+        border-top: 2px solid #f9f9f9;
+      }
+      .panel {
+      }
+      .panel-body{
+        padding-top: 15px;
+
+        font-size: 0px;
+
+        li {display: inline-block; }
+      } 
     }
   }
-
-  #cancel-map-sidebar {
+  #map-controls {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 0%;
     z-index: 1150;
+    > * {
+      display: block;
+    }
   }
 }
 

@@ -190,110 +190,105 @@
                     {% endif %}
 
                     {% if exhibition.organizer_set.count %}
-                        {% for organizer in exhibition.organizer_set.all %}
+                      {% for organizer in exhibition.organizer_set.all %}
+                        {% if organizer.organizing_museum %}
+                          <div class="organizer">
+                            <b>{% trans "Organizer" %}</b>
+                            <p><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></p>
 
-                          {% if organizer.organizing_museum %}
+                          {% if organizer.organizing_museum.service_phone_number %}
                             <dl>
-                              <dt>{% trans "Organizer" %}</dt>
-                              <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
+                              <dt>{% trans "Service Telephone" %} </dt>
+                              <dd class="pull-right">+{{ organizer.organizing_museum.service_phone_country }} ({{ organizer.organizing_museum.service_phone_area }}) {{ organizer.organizing_museum.service_phone_number }}</dd>
                             </dl>
-
-                            {% if organizer.organizing_museum.service_phone_number %}
-                              <dl>
-                                <dt>{% trans "Service Telephone" %} </dt>
-                                <dd class="pull-right">+{{ organizer.organizing_museum.service_phone_country }} ({{ organizer.organizing_museum.service_phone_area }}) {{ organizer.organizing_museum.service_phone_number }}</dd>
-                              </dl>
-                            {% endif %}
-
-                            {% if organizer.organizing_museum.phone_number %}
-                              <dl>
-                                <dt>{% trans "Telephone" %} </dt>
-                                <dd>+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</dd>
-                              </dl>
-                            {% endif %}
-
-                            {% if organizer.organizing_museum.group_bookings_phone_number %}
-                              <dl>
-                                <dt>{% trans "Booking Telephone" %} </dt>
-                                <dd>+{{ organizer.organizing_museum.group_bookings_phone_country }} ({{ organizer.organizing_museum.group_bookings_phone_area }}) {{ organizer.organizing_museum.group_bookings_phone_number }}</dd>
-                              </dl>
-                            {% endif %}
-
-                            {% if organizer.organizing_museum.fax_number %}
-                              <dl>
-                                <dt>{% trans "Fax" %} </dt>
-                                <dd>+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ organizer.organizing_museum.fax_number }}</dd>
-                              </dl>
-                            {% endif %}
-
-                            {% if organizer.organizing_museum.website %}
-                              <dl>
-                                <dt>{% trans "Website" %} </dt>
-                                <dd><a class="crop" href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"25" }}</a></dd>
-                              </dl>
-                            {% endif %}
-
-                            {% if organizer.organizing_museum.email %}
-                              {% load site_specific_tags %}
-                              <dl>
-                                <dt>{% trans "Email" %} </dt>
-                                <dd>{% encrypt_email organizer.organizing_museum.email 30 %}</dd>
-                              </dl>
-                            {% endif %}
-
                           {% endif %}
 
-                          {% if organizer.organizer_title %}
-                            {% if organizer.organizer_url_link %}
-                              <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
-                            {% else %}
-                              <dd>{{ organizer.organizer_title }}</dd>
-                            {% endif %}
+                          {% if organizer.organizing_museum.phone_number %}
+                            <dl>
+                              <dt>{% trans "Telephone" %} </dt>
+                              <dd>+{{ organizer.organizing_museum.phone_country }} ({{ organizer.organizing_museum.phone_area }}) {{ organizer.organizing_museum.phone_number }}</dd>
+                            </dl>
                           {% endif %}
 
-                        {% endfor %}
+                          {% if organizer.organizing_museum.group_bookings_phone_number %}
+                            <dl>
+                              <dt>{% trans "Booking Telephone" %} </dt>
+                              <dd>+{{ organizer.organizing_museum.group_bookings_phone_country }} ({{ organizer.organizing_museum.group_bookings_phone_area }}) {{ organizer.organizing_museum.group_bookings_phone_number }}</dd>
+                            </dl>
+                          {% endif %}
 
-                        {% if exhibition.website %}
-                          <dl class="oneline">
-                            <dt class="pull-left">{% trans "Website" %} </dt>
-                            <dd class="pull-right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></dd>
-                          </dl>
+                          {% if organizer.organizing_museum.fax_number %}
+                            <dl>
+                              <dt>{% trans "Fax" %} </dt>
+                              <dd>+{{ organizer.organizing_museum.fax_country }} ({{ organizer.organizing_museum.fax_area }}) {{ organizer.organizing_museum.fax_number }}</dd>
+                            </dl>
+                          {% endif %}
+
+                          {% if organizer.organizing_museum.website %}
+                            <dl>
+                              <dt>{% trans "Website" %} </dt>
+                              <dd><a href="{{ exhibition.website }}">{{ organizer.organizing_museum.website|humanize_url:"20" }}</a></dd>
+                            </dl>
+                          {% endif %}
+
+                          {% if organizer.organizing_museum.email %}
+                            {% load site_specific_tags %}
+                            <dl>
+                              <dt>{% trans "Email" %} </dt>
+                              <dd>{% encrypt_email organizer.organizing_museum.email 30 %}</dd>
+                            </dl>
+                          {% endif %}
+                          </div>
                         {% endif %}
+
+                        {% if organizer.organizer_title %}
+                          <div class="organizer">
+                            <b>{% trans "Organizer" %}</b>
+                          {% if organizer.organizer_url_link %}
+                            <p><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></p>
+                          {% else %}
+                            <p>{{ organizer.organizer_title }}</p>
+                          {% endif %}
+                          </div>
+                        {% endif %}
+
+                      {% endfor %}
                     {% else %}
-                        {% if exhibition.museum.service_phone_number %}
-                          <dl class="oneline">
-                            <dt class="pull-left">{% trans "Service Telephone" %}</dt>
-                            <dd class="pull-right">+{{ exhibition.museum.service_phone_country }} ({{ exhibition.museum.service_phone_area }}) {{ exhibition.museum.service_phone_number }}</dd>
-                          </dl>
-                        {% endif %}
 
-                        {% if exhibition.museum.phone_number %}
-                          <dl class="oneline">
-                            <dt class="pull-left">{% trans "Telephone" %}</dt>
-                            <dd class="pull-right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</dd>
-                          </dl>
-                        {% endif %}
+                      {% if exhibition.museum.service_phone_number %}
+                        <dl class="oneline">
+                          <dt class="pull-left">{% trans "Service Telephone" %}</dt>
+                          <dd class="pull-right">+{{ exhibition.museum.service_phone_country }} ({{ exhibition.museum.service_phone_area }}) {{ exhibition.museum.service_phone_number }}</dd>
+                        </dl>
+                      {% endif %}
 
-                        {% if exhibition.museum.group_bookings_phone_number %}
-                          <dl class="oneline">
-                            <dt class="pull-left">{% trans "Booking Telephone" %} </dt>
-                            <dd class="pull-right">+{{ exhibition.museum.group_bookings_phone_country }} ({{ exhibition.museum.group_bookings_phone_area }}) {{ exhibition.museum.group_bookings_phone_number }}</dd>
-                          </dl>
-                        {% endif %}
+                      {% if exhibition.museum.phone_number %}
+                        <dl class="oneline">
+                          <dt class="pull-left">{% trans "Telephone" %}</dt>
+                          <dd class="pull-right">+{{ exhibition.museum.phone_country }} ({{ exhibition.museum.phone_area }}) {{ exhibition.museum.phone_number }}</dd>
+                        </dl>
+                      {% endif %}
 
-                        {% if exhibition.museum.fax_number %}
-                          <dl class="oneline">
-                            <dt class="pull-left">{% trans "Fax" %} </dt>
-                            <dd class="pull-right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</dd>
-                          </dl>
-                        {% endif %}
+                      {% if exhibition.museum.group_bookings_phone_number %}
+                        <dl class="oneline">
+                          <dt class="pull-left">{% trans "Booking Telephone" %} </dt>
+                          <dd class="pull-right">+{{ exhibition.museum.group_bookings_phone_country }} ({{ exhibition.museum.group_bookings_phone_area }}) {{ exhibition.museum.group_bookings_phone_number }}</dd>
+                        </dl>
+                      {% endif %}
 
-                        {% if exhibition.website %}
-                          <dl class="oneline">
-                            <dt class="pull-left">{% trans "Website" %} </dt>
-                            <dd class="pull-right"><a class="crop" href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"25" }}</a></dd>
-                          </dl>
-                        {% endif %}
+                      {% if exhibition.museum.fax_number %}
+                        <dl class="oneline">
+                          <dt class="pull-left">{% trans "Fax" %} </dt>
+                          <dd class="pull-right">+{{ exhibition.museum.fax_country }} ({{ exhibition.museum.fax_area }}) {{ exhibition.museum.fax_number }}</dd>
+                        </dl>
+                      {% endif %}
+
+                      {% if exhibition.website %}
+                        <dl class="oneline">
+                          <dt class="pull-left">{% trans "Website" %} </dt>
+                          <dd class="pull-right"><a href="{{ exhibition.website }}">{{ exhibition.website|humanize_url:"20" }}</a></dd>
+                        </dl>
+                      {% endif %}
                     {% endif %}
                   </div>
                 </div>
@@ -416,9 +411,10 @@
                         </a>
                       </div>
                       <div id="collapse-opening-times" class="panel-collapse collapse in">
+                        <div class="panel-body">
                         {% if exhibition.get_actual_seasons.count == 1 %}
                           {% with exhibition.get_actual_seasons.0 as season %}
-                            <div class="panel-body">
+                            <div class="season-set">
                               {% if season.is_appointment_based %}
                                 <dl>
                                   <dt>{% trans "Based on appointment" %}</dt>
@@ -478,11 +474,9 @@
                           {% endwith %}
                         {% else %}
                           {% for season in exhibition.get_actual_seasons %}
-                            <div class="panel-body">
-                              <dl>
-                                <dt>{{ season.title }}</dt>
-                                <dd>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</dd>
-                              </dl>
+                            <div class="season">
+                              <b>{{ season.title }}</b>
+                              <p>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</p>
                               {% if season.is_appointment_based %}
                                 <p>{% trans "Based on appointment" %}</p>
                               {% else %}
@@ -532,17 +526,16 @@
                               {% endif %}
 
                               {% if season.exceptions %}
-                                <dd>{{ season.get_rendered_exceptions }}</dd>
+                                <p>{{ season.get_rendered_exceptions|striptags }}</p>
                               {% endif %}
-
                             </div>
                           {% endfor %}
                         {% endif %}
                         {% if exhibition.get_museums_special_opening_times %}
-                          <div class="panel-body">
-                            <dl id="special_openings">
-                              {% for special_opening in exhibition.get_museums_special_opening_times %}
-                                <dt{% if forloop.counter > 5 %} class="hidden"{% endif %}>
+                          <div id="special_openings">
+                            {% for special_opening in exhibition.get_museums_special_opening_times %}
+                              <dl{% comment %}{% if forloop.counter > 5 %} class="hidden"{% endif %}{% endcomment %}>
+                                <dt>
                                   {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
 
                                   {% if special_opening.is_closed %}
@@ -561,8 +554,8 @@
 
                                   {% endif %}
                                 </dt>
-                              {% endfor %}
-                            </dl>
+                              </dl>
+                            {% endfor %}
                             <script>
                               $(function() {
                                 var $special_openings = $('#special_openings');
@@ -578,6 +571,7 @@
                             </script>
                           </div>
                         {% endif %}
+                        </div>
                       </div>
                     </div>
                   {% endif %}
@@ -653,9 +647,7 @@
                             {% endif %}
 
                             {% if season.exceptions %}
-                              <dl>
-                                <dd>{{ season.get_rendered_exceptions }}</dd>
-                              </dl>
+                              <p>{{ season.get_rendered_exceptions }}</p>
                             {% endif %}
                           </div>
                         {% endwith %}
@@ -663,7 +655,7 @@
                       {% else %}
 
                         {% for season in exhibition.season_set.all %}
-                          <div class="panel-body">
+                          <div class="season-set">
                             {% if season.is_appointment_based %}
                               <dl>
                                 <dd>{% trans "Based on appointment" %}</dd>

@@ -1662,20 +1662,20 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
-  height: 40px;
+  min-height: 40px;
   line-height: 40px;
   min-width: 40px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   border: none;
-  white-space: nowrap;
-  text-transform: capitalize;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none; }
+  .btn:first-letter {
+    text-transform: uppercase; }
   .btn:focus {
     outline: thin dotted #333;
     outline: 5px auto -webkit-focus-ring-color;
@@ -1844,17 +1844,17 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 
 .btn-lg, .btn-group-lg > .btn {
   height: 50px;
-  line-height: 50px;
+  line-height: 30px;
   min-width: 50px;
-  padding: 0px 15px;
+  padding: 10px 15px;
   text-transform: none;
   font-size: 18px; }
 
 .btn-sm, .btn-group-sm > .btn {
-  height: 30px;
+  min-height: 30px;
   min-width: 30px;
-  line-height: 30px;
-  padding: 0 8px;
+  line-height: 20px;
+  padding: 5px 8px;
   font-size: 14px; }
 
 .btn-xs, .btn-group-xs > .btn {
@@ -1865,7 +1865,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   display: block;
   width: 100%;
   padding-left: 0;
-  padding-right: 0; }
+  padding-right: 0;
+  text-align: center; }
 
 .btn-block + .btn-block {
   margin-top: 5px; }

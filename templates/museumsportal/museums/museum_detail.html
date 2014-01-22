@@ -280,6 +280,7 @@
                       {% else %}
                         <div id="seasons">
                           {% for season in museum.season_set.all %}
+                            <div class="season">
                               <b>{{ season.title }}</b>
                               <p>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</p>
                               {% if season.is_appointment_based %}
@@ -322,7 +323,7 @@
                               {% if season.exceptions %}
                               <dd>{{ season.get_rendered_exceptions }}</dd>
                             {% endif %}
-                          <hr/>
+                          </div>
                         {% endfor %}
                       </div>
                     {% endif %}

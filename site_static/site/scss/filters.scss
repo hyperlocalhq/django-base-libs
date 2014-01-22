@@ -3,11 +3,9 @@
 // ================= TAGS AND FILTERS =================
 
 #filters {
-max-width: 1200px;
 padding: 0px;
 margin: 0px;
 margin-bottom: 30px !important;
-background-color: white;
 z-index: 10000;
  // &:hover .tab-content {display: block; }
  // .tab-content {display: none; }
@@ -50,29 +48,32 @@ z-index: 10000;
   li {
     display: inline-block; 
     margin-right: 5px;
+    &:first-child {
+      display: block;
+    }
 
     a:hover{
       color: $red;
-      &:after {
-        font-size: 15px;
-        top: 2px;
-        position: relative;
-        margin-left: 5px;
-        content: " ";
-        color: white !important;
-        font-weight: 900 !important;
-        background-color: $red;
-        border-radius: 20px;
-        display: inline-block;
-        height: 14px;
-        width: 14px;
-        text-align: center;
-        line-height: 13px;
-        background-image: url("../img/icons/inv/cancel.png");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
+      // &:after {
+      //   font-size: 15px;
+      //   top: 2px;
+      //   position: relative;
+      //   margin-left: 5px;
+      //   content: " ";
+      //   color: white !important;
+      //   font-weight: 900 !important;
+      //   background-color: $red;
+      //   border-radius: 20px;
+      //   display: inline-block;
+      //   height: 14px;
+      //   width: 14px;
+      //   text-align: center;
+      //   line-height: 13px;
+      //   background-image: url("../img/icons/inv/cancel.png");
+      //   background-position: center;
+      //   background-size: cover;
+      //   background-repeat: no-repeat;
+      // }
     }
     &:after {
         content: " / ";
@@ -88,6 +89,7 @@ z-index: 10000;
   &:empty{ display: none !important;}
 }
 
+
 .tags,
 .filter {
   font-size: 0px;
@@ -102,8 +104,6 @@ z-index: 10000;
     padding-bottom: 10px;
     font-weight: 700;
   }
-
-  // .level-1 { display: none; }
 
   li { 
     font-size: 14px;
@@ -135,24 +135,15 @@ z-index: 10000;
     }
 
     a { 
-      color: inherit;
-      background-color: #f2f2f2;
       display: inline-block;
-      line-height: 10px;
-      white-space: nowrap;
-      padding: 10px;
-
-      box-sizing: border-box !important;
-      -moz-box-sizing: border-box !important;
-
-      -webkit-background-clip: padding-box;
-      -moz-background-clip: padding;
-      background-clip: padding-box;
-
-      -webkit-transform: translate3d(0px, 0, 0) !important;
-      -moz-transform: translate3d(0px, 0, 0) !important;
-      -o-transform: translate3d(0px, 0, 0) !important;
-      transform: translate3d(0px, 0, 0) !important;
+      min-height: 30px;
+      min-width: 30px;
+      line-height: 20px;
+      padding: 5px 8px;
+      font-size: 14px;
+      background-image: url("../img/transparent-1.png") !important;
+      color: #404040;
+      text-align: center;
     }
 
     span { 

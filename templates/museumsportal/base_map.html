@@ -49,6 +49,7 @@
     <!--[if lt IE 9]>
     <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
     <![endif]-->
+
     <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
     <script type="text/javascript" src="/jsi18n/"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery-1.8.3.min.js"></script>
@@ -88,15 +89,20 @@
 
   <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
 
-    <div class="row row-map map-only"> 
-      <div id="map-wrapper" class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
+    <div class="row row-map map-filter"> 
+      <div id="map-wrapper" class="col-xs-0 col-sm-7 col-md-8 col-lg-9">
         <div id="gmap">&nbsp;</div> 
-        <a id="map-return" class="btn btn-default" href='..'>{% trans "Return to the List" %}</a>
-        <a id="map-toggle" class="btn btn-default" href='#'>{% trans "toggle map" %}</a>
+        <!-- <a id="map-return" class="btn btn-default" href='..'>{% trans "Return to the List" %}</a> -->
       </div>
-      <div id="map-sidebar-wrapper" class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+      <div id="map-sidebar-wrapper" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
         <div id="map-sidebar"> 
           <div id="map-filters"> 
+            <h4>{% trans "Filters" %}
+              <button id="filter_reset" type="button" class="btn btn-info btn-sm pull-right" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Reset" %}">
+                {% trans "Reset" %}
+              </button>
+            </h4>
+
             {% block map-filters %}
             {% endblock %}
           </div>
@@ -104,10 +110,16 @@
             {% block map-sidebar %}
             {% endblock %}
           </div>
-          <a id="cancel-map-sidebar" class="btn btn-info btn-lg" href='#'>
-            <span class="icon icon-remove"></span>
-            <span class="sr-only">{% trans "close" %}</span>
-          </a>
+          <div id="map-controls"> 
+            <a id="toggle-map-sidebar" class="btn btn-info btn-lg" href='#'>
+              <span class="icon icon-remove"></span>
+              <span class="sr-only">{% trans "close" %}</span>
+            </a>
+            <a id="toggle-map-filter" class="btn btn-info btn-lg" href='#'>
+              <span class="icon icon-filter"></span>
+              <span class="sr-only">{% trans "filter" %}</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -75,6 +75,20 @@ body {
   border-bottom: 1px solid #f9f9f9;
   position: relative;
 }
+.organizer,
+.season {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  background-image: url("../img/transparent-1.png");
+  background-position: bottom;
+  background-repeat: repeat-x;
+  &:last-child {
+    background-image: none;
+    padding: 0px;
+    margin: 0px;
+  }
+}
+
 .editorial .content {
   padding: 0px;
   padding-bottom: 35px;
@@ -203,11 +217,6 @@ dl {
   margin-top: 15px;
 }
 
-#cover_img {
-  padding:0px;
-  margin-bottom: 35px;
-  .img {margin: 0px; }
-}
 // dl + p { margin-top: 10px; }
 dl + p { margin-bottom: 10px; }
 p + dl { margin-top: 10px; }
