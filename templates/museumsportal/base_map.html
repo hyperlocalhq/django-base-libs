@@ -101,6 +101,7 @@
               <span class="icon icon-remove"></span>
               <span class="sr-only">{% trans "close" %}</span>
             </button>
+
             {% block map-filters %}
             {% endblock %}
           </div>
@@ -111,8 +112,14 @@
             </button>
             <header>
               <h4>{% block map-list-title %}{% endblock %}</h4>
-              <button id="toggle-map-filter" class="btn btn-info">{% trans "filter" %}</button>
+              <div class="btn-group">
+                <button id="toggle-map-filter" class="btn btn-info">{% trans "filter" %}</button>
+                <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+              </div>
+              <ul id="filter-summary"></ul>
             </header>
+            {% include "utils/container_empty.html" %}
+
             {% block map-list %}
             {% endblock %}
           </div>

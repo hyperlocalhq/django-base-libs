@@ -6,6 +6,7 @@ function isotope_list() {
     $('.isotope').each(function(){
         var $container = $(this);
         $container.isotope({
+            itemSelector : '.item',
             resizable: false, // disable normal resizing
             layoutMode: 'fitRows',
             fitRows: { columnWidth: Math.floor($container.width() / 12) }

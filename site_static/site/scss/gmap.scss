@@ -117,6 +117,12 @@
 .map-filter #map-filters { right: 0% !important; }
 
 #map-list {
+  .btn-group {
+    margin-top: 15px;
+  }
+  #filter-summary {
+    padding-top: 15px;
+  }
   #container {
     margin-left: -30px;
     margin-right: -30px;

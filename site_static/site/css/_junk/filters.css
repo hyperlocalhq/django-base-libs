@@ -32,14 +32,14 @@
       background-color: #f2f2f2 !important;
       color: black !important; }
 
-#filter_summary {
+#filter-summary {
   padding-bottom: 15px; }
-  #filter_summary li {
+  #filter-summary li {
     display: inline-block;
     margin-right: 5px; }
-    #filter_summary li a:hover {
+    #filter-summary li a:hover {
       color: #ff4582; }
-      #filter_summary li a:hover:after {
+      #filter-summary li a:hover:after {
         font-size: 15px;
         top: 2px;
         position: relative;
@@ -58,12 +58,12 @@
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat; }
-    #filter_summary li:after {
+    #filter-summary li:after {
       content: " / ";
       opacity: 0.25; }
-    #filter_summary li:first-child:after, #filter_summary li:last-child:after {
+    #filter-summary li:first-child:after, #filter-summary li:last-child:after {
       content: "" !important; }
-  #filter_summary:empty {
+  #filter-summary:empty {
     display: none !important; }
 
 .tags,

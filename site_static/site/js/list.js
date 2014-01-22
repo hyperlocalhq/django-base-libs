@@ -77,7 +77,7 @@ $(window).load(function() {
     }
 
     var $filters = $('#filters');
-    var $filter_summary = $('#filter_summary');
+    var $filter_summary = $('#filter-summary');
 
     // filter buttons
     $('.filter a').click(function(e){
@@ -183,6 +183,14 @@ $(window).load(function() {
 
         $container.isotope({filter: '.item' + selector});
 
+        if ( !$container.data('isotope').$filteredAtoms.length ) {
+            $container.addClass('empty');
+            $("#empty-container").addClass("on");
+        } else {
+            $container.removeClass('empty');
+            $("#empty-container").removeClass("on");
+        }
+
         lazyload_images();
 
         $container.trigger("map_filter", { filter: map_filters});
@@ -205,7 +213,7 @@ $(window).load(function() {
         }
     });
 
-    $('#filter_reset').live('click', function(e) {
+    $('#filter-reset').live('click', function(e) {
         e.preventDefault();
         $('a.selected', $filters).click();
     });

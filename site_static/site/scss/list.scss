@@ -120,6 +120,20 @@ a.img-detail {
   margin-bottom: 10px;
 }
 
+#empty-container {
+  display: none;
+  text-align: center;
+  h4 {
+      font-size: 14px;
+      line-height: 20px;
+      display: block;
+    }
+
+  &.on {
+    display: block;
+  }
+}
+
 .item {
   list-style: none;
 }

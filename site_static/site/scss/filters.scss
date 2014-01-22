@@ -43,9 +43,10 @@ z-index: 10000;
   }
 }
 
-#filter_summary {
+#filter-summary {
   font-size: 11px;
   line-height: 140%;
+  &:empty{ display: none !important;}
   li {
     display: inline-block; 
     margin-right: 5px;
@@ -86,8 +87,6 @@ z-index: 10000;
       content: "" !important;
     }
   }
-  padding-bottom: 15px;
-  &:empty{ display: none !important;}
 }
 
 
