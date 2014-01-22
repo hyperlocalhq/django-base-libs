@@ -95,23 +95,25 @@
     
     <div id="footer">
       {% block footer %}
-        <div class="content hidden-xs">
-          <div class="container">
-            <ul class="navigation">
-              {% show_menu_below_id "start_page" 0 0 1 1 %}
+        {% comment %}
+          <div class="content hidden-xs">
+            <div class="container">
+              <ul class="navigation">
+                {% show_menu_below_id "start_page" 0 0 1 1 %}
 
-              {% if LANGUAGE_CODE == "de" %}
-                <li><a href="/de/impressum/">Impressum</a></li>
-              {% else %}
-                <li><a href="/en/imprint/">Imprint</a></li>
-              {% endif %}
+                {% if LANGUAGE_CODE == "de" %}
+                  <li><a href="/de/impressum/">Impressum</a></li>
+                {% else %}
+                  <li><a href="/en/imprint/">Imprint</a></li>
+                {% endif %}
 
-              <li><a href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
-              <li><a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
-              <li><a href="/logodownload/">Logodownload</a></li>
-            </ul>
+                <li><a href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
+                <li><a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
+                <li><a href="/logodownload/">Logodownload</a></li>
+              </ul>
+            </div>
           </div>
-        </div>
+        {% endcomment %}
 
         <!-- Sponsors ================================================== -->
 

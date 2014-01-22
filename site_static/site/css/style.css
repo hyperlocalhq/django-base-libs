@@ -3469,7 +3469,7 @@ a.img-detail.loaded:hover img {
   background-image: url("../img/transparent-1.png") !important; }
   /* line 7, ../scss/filters.scss */
   #list-filter .container {
-    padding: 30px;
+    padding: 20px 30px;
     margin-bottom: 30px; }
     /* line 10, ../scss/filters.scss */
     #list-filter .container .panel-group {
@@ -3501,41 +3501,45 @@ a.img-detail.loaded:hover img {
 #filter-toggle {
   display: inline-block; }
 
-/* line 39, ../scss/filters.scss */
-#filters .btn.active {
-  background-color: #00aefd !important;
-  color: white !important; }
-  /* line 42, ../scss/filters.scss */
-  #filters .btn.active.collapsed {
-    background-color: #f2f2f2 !important;
-    color: black !important; }
+/* line 38, ../scss/filters.scss */
+#filters .btn {
+  margin-bottom: 5px;
+  margin-right: 5px; }
+  /* line 41, ../scss/filters.scss */
+  #filters .btn.active {
+    background-color: #00aefd !important;
+    color: white !important; }
+    /* line 44, ../scss/filters.scss */
+    #filters .btn.active.collapsed {
+      background-color: #f2f2f2 !important;
+      color: black !important; }
 
-/* line 49, ../scss/filters.scss */
+/* line 51, ../scss/filters.scss */
 #filter-summary {
   font-size: 11px;
   line-height: 140%; }
-  /* line 52, ../scss/filters.scss */
+  /* line 54, ../scss/filters.scss */
   #filter-summary:empty {
     display: none !important; }
-  /* line 53, ../scss/filters.scss */
+  /* line 55, ../scss/filters.scss */
   #filter-summary li {
     display: inline-block;
     margin-right: 5px; }
-    /* line 56, ../scss/filters.scss */
+    /* line 58, ../scss/filters.scss */
     #filter-summary li:first-child {
       display: block; }
-    /* line 60, ../scss/filters.scss */
+    /* line 62, ../scss/filters.scss */
     #filter-summary li a:hover {
       color: #ff4582; }
-    /* line 83, ../scss/filters.scss */
+    /* line 85, ../scss/filters.scss */
     #filter-summary li:after {
       content: " / ";
       opacity: 0.25; }
-    /* line 89, ../scss/filters.scss */
+    /* line 91, ../scss/filters.scss */
     #filter-summary li:first-child:after, #filter-summary li:last-child:after {
       content: "" !important; }
 
-/* line 97, ../scss/filters.scss */
+/* line 99, ../scss/filters.scss */
 .tags,
 .filter {
   font-size: 0px;
@@ -3545,13 +3549,13 @@ a.img-detail.loaded:hover img {
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out; }
-  /* line 105, ../scss/filters.scss */
+  /* line 107, ../scss/filters.scss */
   .tags .title,
   .filter .title {
     display: block;
     padding-bottom: 10px;
     font-weight: 700; }
-  /* line 111, ../scss/filters.scss */
+  /* line 113, ../scss/filters.scss */
   .tags li,
   .filter li {
     font-size: 14px;
@@ -3560,31 +3564,31 @@ a.img-detail.loaded:hover img {
     color: black;
     margin-bottom: 5px;
     margin-right: 5px; }
-    /* line 119, ../scss/filters.scss */
+    /* line 121, ../scss/filters.scss */
     .tags li.x-level-1 a,
     .filter li.x-level-1 a {
       background-color: rgba(0, 0, 0, 0.025); }
-    /* line 121, ../scss/filters.scss */
+    /* line 123, ../scss/filters.scss */
     .tags li.x-level-1 .selected, .tags li.x-level-1.active,
     .filter li.x-level-1 .selected,
     .filter li.x-level-1.active {
       background-color: #00aefd;
       color: white; }
-    /* line 128, ../scss/filters.scss */
+    /* line 130, ../scss/filters.scss */
     .tags li .selected, .tags li.active,
     .filter li .selected,
     .filter li.active {
       background-color: #00aefd;
       color: white; }
-    /* line 133, ../scss/filters.scss */
+    /* line 135, ../scss/filters.scss */
     .tags li:hover,
     .filter li:hover {
       background-color: #f2f2f2; }
-      /* line 135, ../scss/filters.scss */
+      /* line 137, ../scss/filters.scss */
       .tags li:hover a,
       .filter li:hover a {
         opacity: 0.8; }
-    /* line 140, ../scss/filters.scss */
+    /* line 142, ../scss/filters.scss */
     .tags li a,
     .filter li a {
       display: inline-block;
@@ -3596,7 +3600,7 @@ a.img-detail.loaded:hover img {
       background-image: url("../img/transparent-1.png") !important;
       color: #404040;
       text-align: center; }
-    /* line 152, ../scss/filters.scss */
+    /* line 154, ../scss/filters.scss */
     .tags li span,
     .filter li span {
       background-color: #f2f2f2;
@@ -3607,27 +3611,27 @@ a.img-detail.loaded:hover img {
       line-height: 10px;
       padding: 10px; }
 
-/* line 165, ../scss/filters.scss */
+/* line 167, ../scss/filters.scss */
 .level-1-container li {
   background-color: #00aefd; }
-  /* line 167, ../scss/filters.scss */
+  /* line 169, ../scss/filters.scss */
   .level-1-container li a {
     color: white !important;
     background-color: transparent; }
-  /* line 171, ../scss/filters.scss */
+  /* line 173, ../scss/filters.scss */
   .level-1-container li:hover {
     background-color: black !important; }
-    /* line 173, ../scss/filters.scss */
+    /* line 175, ../scss/filters.scss */
     .level-1-container li:hover a {
       opacity: 1 !important; }
-  /* line 178, ../scss/filters.scss */
+  /* line 180, ../scss/filters.scss */
   .level-1-container li.selected, .level-1-container li.active {
     background-color: black !important; }
-    /* line 180, ../scss/filters.scss */
+    /* line 182, ../scss/filters.scss */
     .level-1-container li.selected a, .level-1-container li.active a {
       background-color: black !important;
       color: white !important; }
-    /* line 185, ../scss/filters.scss */
+    /* line 187, ../scss/filters.scss */
     .level-1-container li.selected:hover, .level-1-container li.active:hover {
       background-color: black !important; }
 
@@ -4387,49 +4391,32 @@ dl {
     .workshop-detail article blockquote:last-child {
       padding: 0px !important; }
 
-@media (max-width: 768px) {
-  /* line 6, ../scss/media.scss */
-  .navbar-nav > li > a {
-    margin: 0px;
-    padding: 10px 35px;
-    font-size: 22px;
-    border-top: 1px solid #f9f9f9;
-    text-transform: none;
-    background-color: white; }
-    /* line 14, ../scss/media.scss */
-    .navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
-      background-color: #00aefd !important;
-      color: white !important; }
-
-  /* line 20, ../scss/media.scss */
-  .navbar-wrapper {
-    height: 68px; } }
 @media (min-width: 768px) {
-  /* line 24, ../scss/media.scss */
+  /* line 3, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 25, ../scss/media.scss */
+  /* line 4, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 26, ../scss/media.scss */
+  /* line 5, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 7px; } }
 @media (min-width: 992px) {
-  /* line 30, ../scss/media.scss */
+  /* line 9, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 31, ../scss/media.scss */
+  /* line 10, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 36, ../scss/media.scss */
+  /* line 15, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 39, ../scss/media.scss */
+  /* line 18, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */
@@ -5268,8 +5255,8 @@ h1 {
 
 /* line 185, ../scss/style.scss */
 h2 {
-  font-size: 30px;
-  line-height: 36px;
+  font-size: 24px;
+  line-height: 140%;
   margin-bottom: 20px;
   display: block; }
   /* line 190, ../scss/style.scss */
