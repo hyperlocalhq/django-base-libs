@@ -1,6 +1,11 @@
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
 
 {% with object as museum %}
+  <button id="cancel-description" class="cancel btn btn-info btn-lg" data-spy="affix" data-offset-top="0">
+    <span class="icon icon-remove"></span>
+    <span class="sr-only">{% trans "close" %}</span>
+  </button>
+
   <div class="map-ajax-detail">
     <article>
       <header>

@@ -38,7 +38,6 @@
 // -------------------------
 
 .affix {
-  position: fixed;
-  width: 100%;
+  position: fixed !important;
   top: 0px;
 }

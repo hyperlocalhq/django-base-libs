@@ -126,8 +126,10 @@ var oMap;
                 oActiveMarker = oMarker;
                 $.bbq.pushState({object_id: oMarker.object_id});
                 $('#map-description').load(el.html_src,function(){
-                    $(".row-map").removeClass( "map-only" );
-                    $(".row-map").removeClass( "map-filter" );
+                    $("body").removeClass( "map-only" );
+                    $("#map-sidebar").removeClass( "map-list" );
+                    $("#map-sidebar").removeClass( "map-filter" );
+                    $("#map-sidebar").addClass( "map-description" );
                     google.maps.event.trigger(oMap, "resize");
                     lazyload_images();
                 });
@@ -213,16 +215,31 @@ var oMap;
     }
 }(jQuery));
 
-$(document).ready(function() {
 
-    $( "#toggle-map-sidebar" ).click(function() {
-        $(".row-map").toggleClass( "map-only" );
-        google.maps.event.trigger(oMap, "resize");
+$(document).ready(function() {
+    $('#container .item a').click(function() {
+        $('#map-description').load($(this).closest('.item').data('description-src'), function(){
+            $("#map-sidebar").removeClass( "map-list" );
+            $("#map-sidebar").addClass( "map-description" ); 
+            lazyload_images();
+        });
+        return false;
+    });
+
+    $(document).on("click", "#cancel-description", function() {
+        $("#map-sidebar").removeClass( "map-description" );
+        $("#map-sidebar").addClass( "map-list" );
+        return false;
+    });
+
+    $(document).on("click", "#cancel-list", function() {
+        $("#map-sidebar").removeClass( "map-list" );
+        $("body").toggleClass( "map-only" );
         return false;
     });
 
     $( "#toggle-map-filter" ).click(function() {
-        $(".row-map").toggleClass( "map-filter" );
+        $("#map-sidebar").toggleClass( "map-filter" );
         google.maps.event.trigger(oMap, "resize");
         return false;
     });

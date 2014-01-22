@@ -2395,9 +2395,11 @@ input[type="button"].btn-block {
   -o-transition: -o-transform 0.45s;
   transition: transform 0.45s; }
 
-@media (min-width: 768px) {
-  .navbar.affix {
-    margin-top: -61px; } }
+.navbar.affix {
+  width: 100%; }
+  @media (min-width: 768px) {
+    .navbar.affix {
+      margin-top: -61px; } }
 
 .headroom--unpinned .navbar.affix {
   -webkit-transform: translateY(-50px);
@@ -3871,8 +3873,7 @@ body.modal-open {
   border: 0; }
 
 .affix {
-  position: fixed;
-  width: 100%;
+  position: fixed !important;
   top: 0px; }
 
 @-ms-viewport {

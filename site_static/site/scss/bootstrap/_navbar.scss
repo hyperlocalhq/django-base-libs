@@ -21,6 +21,8 @@
           transition: transform 0.45s;
 }
 .navbar.affix {
+  width: 100%;
+  
   @media (min-width: 768px) {
     margin-top: -61px;
   }

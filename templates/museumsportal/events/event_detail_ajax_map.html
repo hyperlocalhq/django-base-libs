@@ -1,6 +1,11 @@
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended infoblocks %}
 
 {% with object as event %}
+  <button id="cancel-description" class="cancel btn btn-info btn-lg" data-spy="affix" data-offset-top="0">
+    <span class="icon icon-remove"></span>
+    <span class="sr-only">{% trans "close" %}</span>
+  </button>
+  
   <div class="map-ajax-detail">
     <article>
       <header>
