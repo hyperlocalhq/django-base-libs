@@ -218,10 +218,10 @@ a:active {
 a:focus {
   outline: none !important; }
 
-#wrapper {
+#body {
   height: 100%;
   width: 100%; }
-  #wrapper > * > .inner {
+  #body > * > .inner {
     width: 1000px;
     margin: auto;
     position: relative;
@@ -229,9 +229,9 @@ a:focus {
     border-right: 12px solid transparent;
     padding-top: 40px;
     padding-bottom: 40px; }
-    #wrapper > * > .inner:empty {
+    #body > * > .inner:empty {
       display: none; }
-    #wrapper > * > .inner.notices {
+    #body > * > .inner.notices {
       padding-top: 20px;
       padding-bottom: 20px; }
 

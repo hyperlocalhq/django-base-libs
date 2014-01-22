@@ -5126,42 +5126,61 @@ body {
   -webkit-text-stroke: 1px transparent;
   margin: 0 !important; }
 
-/* line 52, ../scss/style.scss */
+/* line 53, ../scss/style.scss */
+#wrapper {
+  min-height: 100%;
+  position: relative; }
+  /* line 57, ../scss/style.scss */
+  #wrapper #body {
+    padding-bottom: 120px;
+    /* Height of the footer */ }
+  /* line 60, ../scss/style.scss */
+  #wrapper #footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    /* Height of the footer */ }
+
+/* line 68, ../scss/style.scss */
 .relative {
   position: relative; }
 
-/* line 56, ../scss/style.scss */
+/* line 72, ../scss/style.scss */
 ::selection {
   background: #ffb7b7;
   /* Safari */ }
 
-/* line 57, ../scss/style.scss */
+/* line 73, ../scss/style.scss */
 ::-moz-selection {
   background: #ffb7b7;
   /* Firefox */ }
 
-/* line 59, ../scss/style.scss */
+/* line 75, ../scss/style.scss */
 #cms_toolbar {
   height: 42px; }
 
-/* line 63, ../scss/style.scss */
-#wrapper {
+/* line 79, ../scss/style.scss */
+#body {
   overflow: hidden; }
 
-/* line 66, ../scss/style.scss */
+/* line 82, ../scss/style.scss */
 .start-content {
   padding: 35px 0px;
   border-top: 1px solid #f9f9f9;
   margin-top: -1px;
   position: relative; }
 
-/* line 73, ../scss/style.scss */
+/* line 89, ../scss/style.scss */
 .content {
   padding: 35px 0px;
   border-bottom: 1px solid #f9f9f9;
   position: relative; }
+  /* line 93, ../scss/style.scss */
+  .content:last-child {
+    border: none; }
 
-/* line 79, ../scss/style.scss */
+/* line 98, ../scss/style.scss */
 .organizer,
 .season {
   padding-bottom: 15px;
@@ -5169,25 +5188,25 @@ body {
   background-image: url("../img/transparent-1.png");
   background-position: bottom;
   background-repeat: repeat-x; }
-  /* line 85, ../scss/style.scss */
+  /* line 104, ../scss/style.scss */
   .organizer:last-child,
   .season:last-child {
     background-image: none;
     padding: 0px;
     margin: 0px; }
 
-/* line 92, ../scss/style.scss */
+/* line 111, ../scss/style.scss */
 .editorial .content {
   padding: 0px;
   padding-bottom: 35px; }
 
-/* line 96, ../scss/style.scss */
+/* line 115, ../scss/style.scss */
 .tweet {
   background-image: url("../img/transparent-1.png") !important;
   padding: 23px 25px;
   margin-bottom: 10px; }
 
-/* line 113, ../scss/style.scss */
+/* line 132, ../scss/style.scss */
 h1,
 h2,
 h3,
@@ -5205,7 +5224,7 @@ h6,
   font-weight: 400;
   line-height: 1.3; }
 
-/* line 132, ../scss/style.scss */
+/* line 151, ../scss/style.scss */
 header h1,
 header h2,
 header h3,
@@ -5221,21 +5240,21 @@ header .h6 {
   margin: 0px !important;
   line-height: 160%; }
 
-/* line 138, ../scss/style.scss */
+/* line 157, ../scss/style.scss */
 h1 {
   font-weight: 400;
   font-size: 30px;
   line-height: 1.4;
   margin-bottom: 30px; }
-  /* line 143, ../scss/style.scss */
+  /* line 162, ../scss/style.scss */
   h1:last-child {
     margin-bottom: 0px; }
 
-/* line 148, ../scss/style.scss */
+/* line 167, ../scss/style.scss */
 .section-head {
   position: relative; }
 
-/* line 149, ../scss/style.scss */
+/* line 168, ../scss/style.scss */
 .section-head:before {
   display: block;
   content: " ";
@@ -5243,171 +5262,171 @@ h1 {
   height: 85px;
   visibility: hidden; }
 
-/* line 157, ../scss/style.scss */
+/* line 176, ../scss/style.scss */
 .list-lines {
   margin: 0px;
   padding: 0px; }
-  /* line 160, ../scss/style.scss */
+  /* line 179, ../scss/style.scss */
   .list-lines li {
     list-style: none;
     padding: 10px;
     margin-bottom: 4px;
     background-image: url("../img/transparent-1.png") !important; }
 
-/* line 169, ../scss/style.scss */
+/* line 188, ../scss/style.scss */
 h2 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 20px;
   display: block; }
-  /* line 174, ../scss/style.scss */
+  /* line 193, ../scss/style.scss */
   h2:last-child {
     margin-bottom: 0px;
     padding-bottom: 0px; }
 
-/* line 177, ../scss/style.scss */
+/* line 196, ../scss/style.scss */
 h5.caps {
   text-transform: uppercase;
   font-weight: 700; }
 
-/* line 182, ../scss/style.scss */
+/* line 201, ../scss/style.scss */
 p, dl, ul, ol {
   margin-left: 0px;
   padding-left: 0px; }
-  /* line 185, ../scss/style.scss */
+  /* line 204, ../scss/style.scss */
   p:last-child, dl:last-child, ul:last-child, ol:last-child {
     margin-bottom: 0px; }
 
-/* line 190, ../scss/style.scss */
+/* line 209, ../scss/style.scss */
 dl {
   margin-bottom: 0px;
   padding: 0px; }
-  /* line 193, ../scss/style.scss */
+  /* line 212, ../scss/style.scss */
   dl dt {
     float: left; }
-  /* line 194, ../scss/style.scss */
+  /* line 213, ../scss/style.scss */
   dl dd {
     float: right; }
-  /* line 196, ../scss/style.scss */
+  /* line 215, ../scss/style.scss */
   dl:before, dl:after {
     content: " ";
     display: table; }
-  /* line 200, ../scss/style.scss */
+  /* line 219, ../scss/style.scss */
   dl:after {
     clear: both; }
 
-/* line 205, ../scss/style.scss */
+/* line 224, ../scss/style.scss */
 .isotope-static .item {
   margin-right: -1px;
   margin-bottom: 30px !important; }
 
-/* line 210, ../scss/style.scss */
+/* line 229, ../scss/style.scss */
 .block-label {
   opacity: 0.6;
   font-size: 12px;
   margin-bottom: 4px; }
 
-/* line 216, ../scss/style.scss */
+/* line 235, ../scss/style.scss */
 #special_openings {
   margin-top: 15px; }
 
-/* line 221, ../scss/style.scss */
+/* line 240, ../scss/style.scss */
 dl + p {
   margin-bottom: 10px; }
 
-/* line 222, ../scss/style.scss */
+/* line 241, ../scss/style.scss */
 p + dl {
   margin-top: 10px; }
 
-/* line 224, ../scss/style.scss */
+/* line 243, ../scss/style.scss */
 small {
   display: inline-block;
   line-height: 160%;
   color: inherit; }
 
-/* line 230, ../scss/style.scss */
+/* line 249, ../scss/style.scss */
 a {
   color: inherit; }
 
-/* line 231, ../scss/style.scss */
+/* line 250, ../scss/style.scss */
 a:link {
   text-decoration: none; }
 
-/* line 232, ../scss/style.scss */
+/* line 251, ../scss/style.scss */
 a:hover {
   text-decoration: none; }
 
-/* line 233, ../scss/style.scss */
+/* line 252, ../scss/style.scss */
 a:visited {
   text-decoration: none; }
 
-/* line 234, ../scss/style.scss */
+/* line 253, ../scss/style.scss */
 a:active {
   outline: none !important; }
 
-/* line 235, ../scss/style.scss */
+/* line 254, ../scss/style.scss */
 a:focus {
   outline: none !important; }
 
-/* line 237, ../scss/style.scss */
+/* line 256, ../scss/style.scss */
 em {
   color: black;
   font-style: italic; }
 
-/* line 238, ../scss/style.scss */
+/* line 257, ../scss/style.scss */
 p a {
   font-weight: 700; }
 
-/* line 240, ../scss/style.scss */
+/* line 259, ../scss/style.scss */
 .navbar-form {
   padding: 0px !important;
   margin: 0px !important; }
-  /* line 243, ../scss/style.scss */
+  /* line 262, ../scss/style.scss */
   .navbar-form .input-group {
     width: 1px; }
 
-/* line 249, ../scss/style.scss */
+/* line 268, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 254, ../scss/style.scss */
+/* line 273, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 258, ../scss/style.scss */
+/* line 277, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 260, ../scss/style.scss */
+  /* line 279, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 264, ../scss/style.scss */
+    /* line 283, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 268, ../scss/style.scss */
+    /* line 287, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 269, ../scss/style.scss */
+    /* line 288, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 272, ../scss/style.scss */
+  /* line 291, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 276, ../scss/style.scss */
+    /* line 295, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 277, ../scss/style.scss */
+    /* line 296, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 278, ../scss/style.scss */
+    /* line 297, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }

@@ -33,6 +33,7 @@
       <h1 class="sr-only">{% trans "Exhibitions in the Museums of Berlin" %}</h1>
 
       {% include "utils/filter_exhibitions.html" %}
+      {% include "utils/container_empty.html" %}
 
       <div id="container" class="row row-md grid isotope">
         {% for exhibition in object_list %}
