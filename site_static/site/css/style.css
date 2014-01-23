@@ -2330,65 +2330,69 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   z-index: 1000; }
 
-/* line 108, ../scss/gmap.scss */
-.cancel {
+/* line 114, ../scss/gmap.scss */
+#map-wrapper .cancel,
+#list-filter .cancel,
+#map-list .cancel,
+#map-description .cancel,
+#map-filter .cancel {
   position: absolute;
   right: 0px;
   top: 0px; }
 
-/* line 116, ../scss/gmap.scss */
+/* line 123, ../scss/gmap.scss */
 .map-list #map-list,
 .map-description #map-description,
 .map-filter #map-filter {
   right: 0% !important; }
 
-/* line 118, ../scss/gmap.scss */
+/* line 125, ../scss/gmap.scss */
 #list {
   margin-top: 30px; }
 
-/* line 122, ../scss/gmap.scss */
+/* line 129, ../scss/gmap.scss */
 .list-header h4 {
   margin-bottom: 15px !important; }
-/* line 125, ../scss/gmap.scss */
+/* line 132, ../scss/gmap.scss */
 .list-header .list-controls {
   margin-bottom: 15px; }
 
-/* line 130, ../scss/gmap.scss */
+/* line 137, ../scss/gmap.scss */
 #map-list #container {
   margin-left: -30px;
   margin-right: -30px; }
-/* line 134, ../scss/gmap.scss */
+/* line 141, ../scss/gmap.scss */
 #map-list .item {
   padding: 0px;
   width: 100%; }
-  /* line 137, ../scss/gmap.scss */
+  /* line 144, ../scss/gmap.scss */
   #map-list .item a {
     padding: 15px 30px !important;
     display: block;
     color: black;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x; }
-    /* line 146, ../scss/gmap.scss */
+    /* line 153, ../scss/gmap.scss */
     #map-list .item a:hover {
       color: black;
       background-repeat: repeat; }
-    /* line 151, ../scss/gmap.scss */
+    /* line 158, ../scss/gmap.scss */
     #map-list .item a:active {
       color: white;
       background-repeat: repeat-x;
       background-color: #00aefd; }
-    /* line 157, ../scss/gmap.scss */
+    /* line 164, ../scss/gmap.scss */
     #map-list .item a h3 {
       font-weight: 700; }
-    /* line 158, ../scss/gmap.scss */
+    /* line 165, ../scss/gmap.scss */
     #map-list .item a h4 {
       font-weight: 300; }
-    /* line 159, ../scss/gmap.scss */
+    /* line 166, ../scss/gmap.scss */
     #map-list .item a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 160, ../scss/gmap.scss */
+    /* line 167, ../scss/gmap.scss */
     #map-list .item a h3, #map-list .item a h4, #map-list .item a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2399,80 +2403,80 @@
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 172, ../scss/gmap.scss */
+      /* line 179, ../scss/gmap.scss */
       #map-list .item a h3:empty, #map-list .item a h4:empty, #map-list .item a h5:empty {
         display: none; }
 
-/* line 179, ../scss/gmap.scss */
+/* line 186, ../scss/gmap.scss */
 #map-filter {
-  background-image: url("../img/transparent-1.png") !important; }
-  /* line 181, ../scss/gmap.scss */
+  background-image: url("../img/trns-1.png") !important; }
+  /* line 188, ../scss/gmap.scss */
   #map-filter .panel-group {
     margin: 15px 0;
     padding: 15px 0px;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x; }
-  /* line 188, ../scss/gmap.scss */
+  /* line 195, ../scss/gmap.scss */
   #map-filter .panel-body {
     padding-top: 15px; }
-    /* line 190, ../scss/gmap.scss */
+    /* line 197, ../scss/gmap.scss */
     #map-filter .panel-body ul {
       font-size: 0px; }
-      /* line 192, ../scss/gmap.scss */
+      /* line 199, ../scss/gmap.scss */
       #map-filter .panel-body ul li {
         display: inline-block; }
 
-/* line 198, ../scss/gmap.scss */
+/* line 205, ../scss/gmap.scss */
 #map-description .opening-hours {
   margin-bottom: 20px; }
-/* line 201, ../scss/gmap.scss */
+/* line 208, ../scss/gmap.scss */
 #map-description #cover_img {
   padding: 0px;
   margin: 0 -30px;
   margin-bottom: 20px; }
-  /* line 205, ../scss/gmap.scss */
+  /* line 212, ../scss/gmap.scss */
   #map-description #cover_img .img {
     margin: 0px; }
-/* line 207, ../scss/gmap.scss */
+/* line 214, ../scss/gmap.scss */
 #map-description .tools {
   display: none; }
-/* line 210, ../scss/gmap.scss */
+/* line 217, ../scss/gmap.scss */
 #map-description header {
   margin-top: -10px;
   margin-bottom: 20px;
   position: relative; }
-  /* line 216, ../scss/gmap.scss */
+  /* line 223, ../scss/gmap.scss */
   #map-description header h1,
   #map-description header h2 {
     font-size: 20px;
     line-height: 140%;
     display: block;
     margin: 0px; }
-  /* line 223, ../scss/gmap.scss */
+  /* line 230, ../scss/gmap.scss */
   #map-description header h1 {
     font-weight: 700; }
-  /* line 224, ../scss/gmap.scss */
+  /* line 231, ../scss/gmap.scss */
   #map-description header h2 {
     font-weight: 300; }
-  /* line 226, ../scss/gmap.scss */
+  /* line 233, ../scss/gmap.scss */
   #map-description header h3 {
     text-transform: uppercase;
     font-size: 12px;
     line-height: 160%;
     font-weight: 600;
     margin-top: 15px !important; }
-  /* line 234, ../scss/gmap.scss */
+  /* line 241, ../scss/gmap.scss */
   #map-description header h4 {
     font-size: 12px;
     line-height: 140%;
     margin: 0px;
     padding: 0px;
     font-weight: 300; }
-  /* line 241, ../scss/gmap.scss */
+  /* line 248, ../scss/gmap.scss */
   #map-description header .extras {
     margin-top: 25px; }
-    /* line 243, ../scss/gmap.scss */
+    /* line 250, ../scss/gmap.scss */
     #map-description header .extras dd, #map-description header .extras dt {
       font-size: 20px;
       line-height: 32px; }
@@ -2878,7 +2882,7 @@ h6 + .row:not(.grid),
 /* line 44, ../scss/list.scss */
 .item-inner {
   background-color: transparent;
-  background-image: url("../img/transparent-1.png") !important; }
+  background-image: url("../img/trns-1.png") !important; }
 
 /* line 50, ../scss/list.scss */
 #teaser .item h3 {
@@ -3462,7 +3466,7 @@ a.img-detail.loaded:hover img {
 
 /* line 6, ../scss/filters.scss */
 #list-filter > div {
-  background-image: url("../img/transparent-1.png") !important;
+  background-image: url("../img/trns-1.png") !important;
   border-top: 30px solid white; }
 /* line 10, ../scss/filters.scss */
 #list-filter .container {
@@ -3599,7 +3603,7 @@ a.img-detail.loaded:hover img {
       line-height: 20px;
       padding: 5px 8px;
       font-size: 14px;
-      background-image: url("../img/transparent-1.png") !important;
+      background-image: url("../img/trns-1.png") !important;
       color: #404040;
       text-align: center; }
     /* line 162, ../scss/filters.scss */
@@ -4445,7 +4449,7 @@ dl {
   /* line 19, ../scss/dashboard.scss */
   #photos .ui-state-highlight {
     width: 20%;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../img/trns-1.png") !important;
     -moz-background-clip: content;
     /* Firefox 3.6 */
     -webkit-background-clip: content;
@@ -4590,7 +4594,7 @@ dl {
   box-shadow: none;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  background-image: url("../img/transparent-1.png"); }
+  background-image: url("../img/trns-1.png"); }
 
 /* line 166, ../scss/dashboard.scss */
 textarea.form-control {
@@ -4647,7 +4651,7 @@ select {
     /* Safari 4? Chrome 6? */
     background-clip: padding-box;
     /* Firefox 4, Safari 5, Opera 10, IE 9 */
-    background-image: url("../img/transparent-1.png"); }
+    background-image: url("../img/trns-1.png"); }
     /* line 209, ../scss/dashboard.scss */
     .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
       width: 1%;
@@ -4867,7 +4871,7 @@ select {
 
 /* line 3, ../scss/sbholder.scss */
 .sbHolder {
-  background-image: url("../img/transparent-1.png");
+  background-image: url("../img/trns-1.png");
   border: none;
   font-family: inherit;
   font-weight: 300 !important;
@@ -5181,7 +5185,7 @@ body {
 .season {
   padding-bottom: 15px;
   margin-bottom: 15px;
-  background-image: url("../img/transparent-1.png");
+  background-image: url("../img/trns-1.png");
   background-position: bottom;
   background-repeat: repeat-x; }
   /* line 109, ../scss/style.scss */
@@ -5198,7 +5202,7 @@ body {
 
 /* line 120, ../scss/style.scss */
 .tweet {
-  background-image: url("../img/transparent-1.png") !important;
+  background-image: url("../img/trns-1.png") !important;
   padding: 23px 25px;
   margin-bottom: 10px; }
 
@@ -5267,7 +5271,7 @@ h1 {
     list-style: none;
     padding: 10px;
     margin-bottom: 4px;
-    background-image: url("../img/transparent-1.png") !important; }
+    background-image: url("../img/trns-1.png") !important; }
 
 /* line 193, ../scss/style.scss */
 h2 {

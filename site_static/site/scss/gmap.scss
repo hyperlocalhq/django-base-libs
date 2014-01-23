@@ -105,10 +105,17 @@
   box-shadow:         0 0 10px rgba(0,0,0,0.05);
   z-index: 1000;
 }
-.cancel  {
-  position: absolute;
-  right: 0px;
-  top: 0px;
+
+#map-wrapper,
+#list-filter,
+#map-list,
+#map-description,
+#map-filter {
+  .cancel  {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
 }
 
 .map-list #map-list,
@@ -139,7 +146,7 @@
       display: block;
       color: black;
 
-      background-image: url("../img/transparent-1.png") !important;
+      background-image: url("../img/trns-1.png") !important;
       background-position: top;
       background-repeat: repeat-x;
 
@@ -177,11 +184,11 @@
 
 
 #map-filter {
-  background-image: url("../img/transparent-1.png") !important;
+  background-image: url("../img/trns-1.png") !important;
   .panel-group {
     margin: 15px 0;
     padding: 15px 0px;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x;
   }
