@@ -23,7 +23,7 @@ var oCurrentLocationMarker;
         var $oList = $('body');
         if ($oList.length) {
             var oOptions = {
-                zoom: 32,
+                zoom: 14,
                 panControl: false,
                 zoomControl: false,
                 mapTypeControl: false,
@@ -227,7 +227,7 @@ var oCurrentLocationMarker;
 $(window).load(function() {
     setTimeout(function() {
         $('body').removeClass('no-transition');
-    }, 500);
+    }, 100);
 });
 
 $(document).ready(function() {
@@ -268,6 +268,12 @@ $(document).ready(function() {
         return false;
     });
 
+    $( "#toggle-sidebar" ).click(function() {
+        $("body").toggleClass( "map-only" );
+        setTimeout(function() {
+            google.maps.event.trigger(oMap, "resize");
+        }, 500);
+    });
 
     $( "#show-current-location" ).click(function() {
         oMap.setCenter(oCurrentLocationMarker.getPosition());
