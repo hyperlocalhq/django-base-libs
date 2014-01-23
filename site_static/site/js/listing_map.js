@@ -250,6 +250,12 @@ $(document).ready(function() {
         google.maps.event.trigger(oMap, "resize");
         return false;
     });
+    
+    var previous_page = document.referrer;
+    $('#cancel-map').click(function() {
+        document.href = previous_page;
+        return false;
+    });
 });
 
 
