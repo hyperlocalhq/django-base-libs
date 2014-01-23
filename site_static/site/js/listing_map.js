@@ -1,3 +1,13 @@
+/* jshint unused:false, eqnull:false */
+
+/* global self: false */
+/* global jQuery: false */
+/* global google: false */
+/* global lazyload_images: false */
+
+/* global oMap: true */
+/* global oCurrentLocationMarker: true */
+
 (function($){
     $.fn.autoscroll = function() {
         $('html,body').animate(
@@ -25,7 +35,7 @@ var oCurrentLocationMarker;
             var oOptions = {
                 zoom: 32,
                 panControl: false,
-                zoomControl: false,
+                zoomControl: true,
                 mapTypeControl: false,
                 scaleControl: false,
                 streetViewControl: false,
@@ -77,8 +87,8 @@ var oCurrentLocationMarker;
         xx is the array of latitudes
         yy is the array of longitudes
         */
-        var lat_min = long_min = 500;
-        var lat_max = long_max = -500;
+        var lat_min = 500, long_min = 500;
+        var lat_max = -500, long_max = -500;
         var aPoints = [];
         var sMarkerImgDefault = self.settings.STATIC_URL + 'site/img/marker_default.png';
         var sMarkerImgSelected = self.settings.STATIC_URL + 'site/img/marker_selected.png';
@@ -100,14 +110,18 @@ var oCurrentLocationMarker;
             // DEFINE IMAGE
             var iLat = el.latitude;
             var iLong = el.longitude;
-            if (lat_max < iLat)
+            if (lat_max < iLat) {
                 lat_max = iLat;
-            if (iLat < lat_min)
+            }
+            if (iLat < lat_min) {
                 lat_min = iLat;
-            if (long_max < iLong)
+            }
+            if (long_max < iLong) {
                 long_max = iLong;
-            if (iLong < long_min)
+            }
+            if (iLong < long_min) {
                 long_min = iLong;
+            }
             var oPoint = new google.maps.LatLng(iLat, iLong);
 
             // DRAW MARKER
@@ -125,17 +139,15 @@ var oCurrentLocationMarker;
 
             var $item = $(this);
             google.maps.event.addListener(oMarker, 'click', function() {
-                if (oActiveMarker && oActiveMarker != oMarker) {
+                if (oActiveMarker && oActiveMarker !== oMarker) {
                     oActiveMarker.setIcon(oMarkerImgDefault);
                 }
                 oMarker.setIcon(oMarkerImgSelected);
                 oActiveMarker = oMarker;
                 $.bbq.pushState({object_id: oMarker.object_id});
                 $('#map-description').load(el.html_src,function(){
-                    $("body").removeClass( "map-only" );
-                    $("#map-sidebar").removeClass( "map-list" );
-                    $("#map-sidebar").removeClass( "map-filter" );
-                    $("#map-sidebar").addClass( "map-description" );
+                    $("body").removeClass("map-only");
+                    $("#map-sidebar").removeClass("map-list").removeClass("map-filter").addClass("map-description");
                     google.maps.event.trigger(oMap, "resize");
                     lazyload_images();
                 });
@@ -145,7 +157,7 @@ var oCurrentLocationMarker;
             aMarkers.push(oMarker);
             aPoints.push(oPoint);
 
-            if (el.object_id == active_object_id) {
+            if (el.object_id === active_object_id) {
                 oActiveMarker = oMarker;
             }
         });
@@ -210,14 +222,14 @@ var oCurrentLocationMarker;
         }
         var oNEPoint = oBounds.getNorthEast();
         oBounds.extend(new google.maps.LatLng(
-            oNEPoint.lat() - .005,
-            oNEPoint.lng() - .005
+            oNEPoint.lat() - 0.005,
+            oNEPoint.lng() - 0.005
         ));
 
         var oSWPoint = oBounds.getNorthEast();
         oBounds.extend(new google.maps.LatLng(
-            oSWPoint.lat() + .005,
-            oSWPoint.lng() + .005
+            oSWPoint.lat() + 0.005,
+            oSWPoint.lng() + 0.005
         ));
         oMap.fitBounds(oBounds);
     }
@@ -233,28 +245,25 @@ $(window).load(function() {
 $(document).ready(function() {
     $('#container .item a').click(function() {
         $('#map-description').load($(this).closest('.item').data('description-src'), function(){
-            $("#map-sidebar").removeClass( "map-list" );
-            $("#map-sidebar").addClass( "map-description" ); 
+            $("#map-sidebar").removeClass("map-list").addClass( "map-description");
             lazyload_images();
         });
         return false;
     });
 
     $(document).on("click", "#cancel-description", function() {
-        $("#map-sidebar").removeClass( "map-description" );
-        $("#map-sidebar").addClass( "map-list" );
+        $("#map-sidebar").removeClass("map-description").addClass("map-list");
         return false;
     });
 
     $(document).on("click", "#cancel-filter", function() {
-        $("#map-sidebar").removeClass( "map-filter" );
-        $("#map-sidebar").addClass( "map-list" );
+        $("#map-sidebar").removeClass("map-filter").addClass("map-list");
         return false;
     });
 
     $(document).on("click", "#cancel-list", function() {
-        $("#map-sidebar").removeClass( "map-list" );
-        $("body").toggleClass( "map-only" );
+        $("#map-sidebar").removeClass("map-list");
+        $("body").toggleClass("map-only");
         setTimeout(function() {
             google.maps.event.trigger(oMap, "resize");
         }, 500);
@@ -262,12 +271,10 @@ $(document).ready(function() {
     });
 
     $( "#toggle-map-filter" ).click(function() {
-        $("#map-sidebar").toggleClass( "map-filter" );
-        $("#map-sidebar").removeClass( "map-list" );
+        $("#map-sidebar").toggleClass("map-filter").removeClass("map-list");
         google.maps.event.trigger(oMap, "resize");
         return false;
     });
-
 
     $( "#show-current-location" ).click(function() {
         oMap.setCenter(oCurrentLocationMarker.getPosition());
@@ -283,5 +290,3 @@ $(document).ready(function() {
         return false;
     });
 });
-
-
