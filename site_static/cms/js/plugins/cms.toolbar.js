@@ -100,11 +100,12 @@ CMS.$(document).ready(function ($) {
 		// sets collapsed data to false
 		_showToolbar: function () {
 			// add toolbar padding
-			// var padding = parseInt($(document.body).css('margin-top'));
-				// $(document.body).css('margin-top', (padding+43)); // 43 = height of toolbar
+			var padding = parseInt($(document.body).css('margin-top'), 10);
+				$(document.body).css('margin-top', (padding+43)); // 43 = height of toolbar
 			// show toolbar
-			$("body").addClass('cms_visible');
 			this.toolbar.show();
+			// adds class to allow css to prepare page for edits
+			$('html').toggleClass('cms_toolbar-toolbar', true);
 			// change data information
 			this.toolbar.data('collapsed', false);
 			// add class to trigger
@@ -118,11 +119,12 @@ CMS.$(document).ready(function ($) {
 		// sets collapsed data to true
 		_hideToolbar: function () {
 			// remove toolbar padding
-			// var padding = parseInt($(document.body).css('margin-top'));
-				// $(document.body).css('margin-top', (padding-this.toolbar.height()-1)); // substract 1 cause of the border
+			var padding = parseInt($(document.body).css('margin-top'), 10);
+				$(document.body).css('margin-top', (padding-this.toolbar.height()-1)); // substract 1 cause of the border
 			// hide toolbar
-			$("body").removeClass('cms_visible');
 			this.toolbar.hide();
+			// remove class
+			$('html').toggleClass('cms_toolbar-toolbar', false);
 			// change data information
 			this.toolbar.data('collapsed', true);
 			// remove class from trigger
@@ -241,10 +243,12 @@ CMS.$(document).ready(function ($) {
 
 			// initial setup
 			if(obj.state) {
-				btn.data('state', true).css('backgroundPosition', '0px -198px').addClass("on");
+				btn.data('state', true).css('backgroundPosition', '0px -198px');
 			} else {
 				btn.data('state', false).css('backgroundPosition', '-40px -198px');
 			}
+
+			$('html').toggleClass('cms_toolbar-switcher', obj.state);
 
 			// add events
 			template.find('.cms_toolbar-item_switcher-link').bind('click', function (e) {
@@ -252,7 +256,7 @@ CMS.$(document).ready(function ($) {
 
 				// animate toggle effect and trigger handler
 				if(btn.data('state')) {
-					btn.stop().toggleClass("on").animate({'backgroundPosition': '-40px -198px'}, function () {
+					btn.stop().animate({'backgroundPosition': '-40px -198px'}, function () {
 						// disable link
 						document.location = that.setUrl(document.location, {
 							'addParam': obj.removeParameter,
@@ -260,7 +264,7 @@ CMS.$(document).ready(function ($) {
 						});
 					});
 				} else {
-					btn.stop().toggleClass("on").animate({'backgroundPosition': '0px -198px'}, function () {
+					btn.stop().animate({'backgroundPosition': '0px -198px'}, function () {
 						// enable link
 						document.location = that.setUrl(document.location, {
 							'addParam': obj.addParameter,

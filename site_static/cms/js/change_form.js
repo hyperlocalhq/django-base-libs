@@ -57,13 +57,17 @@
 		$("#id_title").keyup(function() {
 			var e = $("#id_slug")[0];
 			if (!e._changed && new_slug) {
-				e.value = URLify(this.value, 64);
+				var value = this.value;
+				if (window.UNIHANDECODER){
+					value = UNIHANDECODER.decode(value);
+				}
+				e.value = URLify(value, 64);
 			}
 		});
 		// saveform event handler
 		$('#page_form').submit(function(){
 			if($('iframe').length){
-				var question = gettext("Not all plugins are saved. Are you sure you want to save the page?\nAll unsaved plugin content will tried to save.");
+				var question = gettext("Not all plugins are saved. Are you sure you want to save the page?\nYou may lose your changes. To prevent that, press 'Cancel' and save every unsaved plugin first.");
 				var answer = confirm(question, true);
 				if (answer){
 					$('iframe').contents().find('#content-main>form').each(function(){
