@@ -49,7 +49,12 @@ body {
   margin: 0 !important;
 }
 
-
+.favorite {
+  &.active{
+    background-color: white;
+    .icon { color: black; }
+  }
+}
 #wrapper {
   min-height:100%;
   position:relative;

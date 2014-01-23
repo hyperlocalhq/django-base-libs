@@ -51,10 +51,10 @@ var str_filter_selection = "{% trans "Filter selection" %}";
       <div id="notices">
         <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
         <div class="row row-sm">
-          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_1" %}</div>
-          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_2" %}</div>
-          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_3" %}</div>
-          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">{% infoblock "event_notice_4" %}</div>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "event_notice_1" %}</div>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "event_notice_2" %}</div>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-xs">{% infoblock "event_notice_3" %}</div>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 hidden-sm hidden-xs">{% infoblock "event_notice_4" %}</div>
         </div>
       </div>
 
@@ -67,32 +67,6 @@ var str_filter_selection = "{% trans "Filter selection" %}";
         {% for event in object_list %}
         {% tags_for_object event as tags %}
         <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12" data-filter-categories="initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}" data-description-src="{{ event.get_url_path }}ajax/">
-          <div class="actions">
-            {% if request.user.is_authenticated %}
-              {% adding2favorites for event %}
-            {% endif %}
-          {% comment %} <!--
-            {% if_has_perm "events.change_event" event %}
-              {% if event.cover_image %}
-                <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.cover_image "event_list" request request.path %}';">
-                  <span class="icon icon-tool-crop"></span>
-                  <span class="sr-only">{% trans "Crop Image" %}</span>
-                </button>
-              {% else %}{% if event.museum.cover_image %}
-                <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="btn btn-default btn-round" onclick="location.href='{% cropping_url event.museum.cover_image "event_list" request request.path %}';">
-                  <span class="icon icon-tool-crop"></span>
-                  <span class="sr-only">{% trans "Crop Image" %}</span>
-                </button>
-              {% endif %}
-            {% endif %}
-            {% end_if_has_perm %}
-            <a href="{% url "event_list_map" %}#object_id={{ event.pk }}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="btn btn-default btn-round location">
-              <span class="icon icon-location"></span>
-              <span class="sr-only">{% trans "Show location on map" %}</span>
-            </a>
-             --> {% endcomment %}
-          </div>
-
           <a href="{{ event.get_url_path }}">
             <h4>
               {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
