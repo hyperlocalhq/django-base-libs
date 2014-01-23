@@ -92,12 +92,15 @@
     <div class="row row-map"> 
       <div id="map-wrapper" class="col-xs-1 col-sm-7 col-md-8 col-lg-9">
         <div id="gmap">&nbsp;</div> 
-        <!-- <a id="map-return" class="btn btn-default" href='..'>{% trans "Return to the List" %}</a> -->
+        <a href=".." id="cancel-map" class="cancel btn btn-info btn-lg">
+          <span class="icon icon-remove"></span>
+          <span class="sr-only">{% trans "close" %}</span>
+        </a>
       </div>
       <div id="map-sidebar-wrapper" class="col-xs-11 col-sm-5 col-md-4 col-lg-3">
         <div id="map-sidebar" class="map-list"> 
           <div id="map-filter"> 
-            <button id="cancel-filter" class="cancel btn btn-info btn-lg" data-spy="affix" data-offset-top="1">
+            <button id="cancel-filter" class="cancel btn btn-info btn-lg">
               <span class="icon icon-remove"></span>
               <span class="sr-only">{% trans "close" %}</span>
             </button>
@@ -106,7 +109,7 @@
             {% endblock %}
           </div>
           <div id="map-list">
-            <button id="cancel-list" class="cancel btn btn-info btn-lg" data-spy="affix" data-offset-top="1">
+            <button id="cancel-list" class="cancel btn btn-info btn-lg">
               <span class="icon icon-remove"></span>
               <span class="sr-only">{% trans "close" %}</span>
             </button>

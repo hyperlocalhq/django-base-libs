@@ -104,12 +104,11 @@
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.05);
   box-shadow:         0 0 10px rgba(0,0,0,0.05);
   z-index: 1000;
-  .cancel  {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    z-index: 1000;
-  }
+}
+.cancel  {
+  position: absolute;
+  right: 0px;
+  top: 0px;
 }
 
 .map-list #map-list,
@@ -121,7 +120,7 @@
 }
 .list-header {
   h4 {
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
   }
   .list-controls {
     margin-bottom: 15px;

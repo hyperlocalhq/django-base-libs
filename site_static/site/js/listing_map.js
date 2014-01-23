@@ -148,7 +148,7 @@ var oMap;
             navigator.geolocation.getCurrentPosition  (
                 function(position)  {
                     // var oImage = self.settings.STATIC_URL + 'site/img/marker_current.png';
-                    var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.png", null, null, null, new google.maps.Size(25,35));
+                    var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.png", null, null, null, new google.maps.Size(16,16));
 
                     var oMarker = new google.maps.Marker({
                         position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
