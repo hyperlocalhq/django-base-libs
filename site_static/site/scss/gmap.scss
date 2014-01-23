@@ -44,10 +44,8 @@
 }
 
 .no-transition {
-  #map-list,
-  #map-filter,
-  #map-description,
   #map-sidebar,
+  #map-sidebar > *,
   #map-wrapper {
     -webkit-transition-duration: 0s;
     -moz-transition-duration: 0s;
@@ -56,10 +54,8 @@
   }
 }
 
-#map-list,
-#map-filter,
-#map-description,
 #map-sidebar,
+#map-sidebar > *,
 #map-wrapper {
   -webkit-transition-property: all;
   -webkit-transition-duration: 0.5s;
@@ -130,6 +126,12 @@
     top: 0px;
     z-index: 50;
   }
+}
+#show-current-location {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  z-index: 50;
 }
 
 .map-list #map-list,
