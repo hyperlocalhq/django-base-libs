@@ -4,7 +4,8 @@ from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
+from django.conf.urls.i18n import i18n_patterns
 
 from filebrowser.sites import site
 
@@ -29,10 +30,10 @@ from museumsportal.apps.search.views import SearchView
 
 admin.autodiscover()
 
-from cms.models import monkeypatch_reverse
+# from cms.models import monkeypatch_reverse
 import haystack
 
-monkeypatch_reverse()
+# monkeypatch_reverse()
 haystack.autodiscover()
 
 handler404 = "jetson.apps.error_handler.views.page_not_found"
@@ -67,14 +68,14 @@ v2_api.register(workshops_api_v2.WorkshopTimeResource())
 v2_api.register(workshops_api_v2.MediaFileResource())
 v2_api.register(workshops_api_v2.WorkshopResource())
 
-urlpatterns = patterns(path_in_installed_app('image_mods.views'),
+urlpatterns = i18n_patterns(path_in_installed_app('image_mods.views'),
     url(r'^admin/filebrowser/versions/$', 'versions', name="fb_versions"),
     url(r'^filebrowser/get-version/$', 'get_or_create_modified_path', name="fb_get_version"),
     url(r'^admin/filebrowser/adjust-version/$', 'adjust_version', name="fb_adjust_version"),
     url(r'^admin/filebrowser/delete-version/$', 'delete_version', name="fb_delete_version"),
-    )
+)
 
-urlpatterns += patterns('',
+urlpatterns += i18n_patterns('',
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^recrop/', include('jetson.apps.image_mods.urls')),
 )
@@ -86,7 +87,7 @@ urlpatterns = patterns('',
     url(r'^jetson-media/\d+/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.JETSON_MEDIA_ROOT}, name="jetson_media_url"),
 ) + urlpatterns
 
-urlpatterns += patterns('',
+urlpatterns += i18n_patterns('',
     url(r'^api/', include(v1_api.urls)),
     url(r'^api/', include(v2_api.urls)),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
@@ -98,11 +99,11 @@ urlpatterns += patterns('',
     url(r'^helper/menu/$', 'museumsportal.apps.site_specific.views.mega_drop_down_menu', name="mega_drop_down_menu"),
 
     # i18n
-    (r'^i18n/', 'jetson.apps.utils.views.set_language'),
-    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': 'jetson.apps.utils'}),
+    url(r'^i18n/', 'jetson.apps.utils.views.set_language', name="set_language"),
+    url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': 'jetson.apps.utils'}),
     
-    url(r'^gmap/$', 'django.views.generic.simple.direct_to_template', {'template': 'gmap/index.html'}),
-    url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template', {'template': 'settings.js'}, name="jssettings"),
+    url(r'^gmap/$', TemplateView.as_view(template_name='gmap/index.html')),
+    url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template', {'template_name': 'settings.js'}, name="jssettings"),
     
     url(r'^ads/', include('jetson.apps.advertising.urls')),
 
@@ -123,8 +124,8 @@ urlpatterns += patterns('',
     url(r'^login/$', 'museumsportal.apps.site_specific.views.login', {'template_name': 'accounts/login.html', 'redirect_to': '/'}, name="login"),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}, name="logout"),
     url(r'^signup/$', 'museumsportal.apps.site_specific.views.register' ),
-    url(r'^signup/almost-done/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/register_verify_required.html'}),
-    url(r'^signup/welcome/$', login_required(direct_to_template), {'template': 'accounts/register_done.html'}),
+    url(r'^signup/almost-done/$', TemplateView.as_view(template_name='accounts/register_verify_required.html')),
+    url(r'^signup/welcome/$', login_required(TemplateView.as_view(template_name='accounts/register_done.html'))),
     url(r'^signup/(?P<encrypted_email>[a-zA-Z0-9\+\/_\-=]+)/$', 'museumsportal.apps.site_specific.views.confirm_registration'),
     url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', {'template_name': 'accounts/password_reset_form.html', 'email_template_name': 'accounts/password_reset_email.html', 'extra_context': {'form_helper': password_reset_form_helper}}),
     url(r'^password_reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', {'template_name': 'accounts/password_reset_confirm.html', 'extra_context': {'form_helper': password_reset_change_form_helper}}),
@@ -138,7 +139,7 @@ urlpatterns += patterns('',
     url(r'^dashboard/events/$', 'museumsportal.apps.site_specific.views.dashboard_events', name="dashboard_events"),
     url(r'^dashboard/guided-tours/$', 'museumsportal.apps.site_specific.views.dashboard_workshops', name="dashboard_workshops"),
     url(r'^claiming-invitation/$', 'museumsportal.apps.site_specific.views.invite_to_claim_museum', name="invite_to_claim_museum"),
-    url(r'^claiming-invitation/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'site_specific/claiming_invitation_done.html'}, name="invite_to_claim_museum_done"),
+    url(r'^claiming-invitation/done/$', TemplateView.as_view(template_name='site_specific/claiming_invitation_done.html'), name="invite_to_claim_museum_done"),
     url(r'^claiming-confirmation/(?P<invitation_code>[a-zA-Z0-9_\-=]+)/$', 'museumsportal.apps.site_specific.views.register_and_claim_museum', name="register_and_claim_museum"),
     url(r'^my-profile/favorites/$', 'jetson.apps.favorites.views.favorites', {'template_name': 'favorites/favorites.html'}),
     
@@ -147,7 +148,4 @@ urlpatterns += patterns('',
     # url(r'^search/', SearchView(), name='haystack_search'),
     url(r'^search/', include("museumsportal.apps.search.urls")),
     url(r'^', include('cms.urls')),
-    
-    
 )
-

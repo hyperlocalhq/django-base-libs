@@ -74,6 +74,7 @@
 </div>
 
 {% crispy form %}
+
 </form>
 <script type="text/javascript">
 var error_messages = {
@@ -171,8 +172,8 @@ var error_messages = {
             $season.find('input:checkbox[id$=DELETE]').parent().hide();
         });
         function remove_error_messages($form) {
-            $('.error', $form).removeClass("error").each(function() {
-                $(this).find('.help-inline').remove();
+            $('.has-error', $form).removeClass("has-error").each(function() {
+                $(this).find('.help-block').remove();
             });
         }
         function validate($form) {
@@ -182,10 +183,12 @@ var error_messages = {
             $('.requiredField', $form).each(function() {
                 var $control_group = $(this).closest('.form-group');
                 if (!$(':input', $control_group).val()) {
-                    $control_group.addClass("error");
+                    $control_group.addClass("has-error");
                     success = false;
-                    $control_group.find('.controls').append(
-                        '<span class="help-inline"><strong>' + error_messages['required'] + '</strong></span>'
+                    var $contols = $control_group.find('.controls');
+                    $contols.find('.help-block').remove();
+                    $contols.append(
+                        '<span class="help-block"><strong>' + error_messages['required'] + '</strong></span>'
                     );
                 }
             });
@@ -196,21 +199,29 @@ var error_messages = {
             return success;
         }
         // SEASONS
-        $('#seasons .save-link').live("click", function() {
+        $('#seasons .save-link').live("click", function(event, close_form_anyway) {
             var $season = $(this).closest('.formset-form');
-            if (!validate($season)) {
+            var valid = validate($season);
+            if (!close_form_anyway && !valid) {
                 return;
             }
             $season.hide();
-            var html = '<td><a class="edit" href="#"><span class="title">' + $season.find('[name$="-title_' + settings.lang + '"]').val() + '</span></a></td>'
-                +'<td><span class="date">' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</span></td>';
+            var html = '<td><a class="edit control-label" href="#"><span class="title">' + $season.find('[name$="-title_' + settings.lang + '"]').val() + '</span></a></td>'
+                +'<td><span class="date control-label">' + $season.find('[name$="-start"]').val() + ' - ' + $season.find('[name$="-end"]').val() + '</span></td>';
             if (!$season.data('mirror')) {
-                var $mirror = $('<tr class="item">' + html + '</tr>');
+                if (valid) {
+                    var $mirror = $('<tr class="item">' + html + '</tr>');
+                } else {
+                    var $mirror = $('<tr class="item has-error">' + html + '</tr>');
+                }
                 $('#season_list tr:last').before($mirror);
                 $mirror.data('origin', $season);
                 $season.data('mirror', $mirror);
             } else {
                 var $mirror = $season.data('mirror');
+                if (valid) {
+                    $mirror.removeClass('has-error');
+                }
                 $mirror.html(html);
             }
             $('#item_container').show();
@@ -231,29 +242,37 @@ var error_messages = {
             return false;
         });
         // SPECIAL OPENINGS
-        $('#special_openings .save-link').live("click", function() {
+        $('#special_openings .save-link').on("click", function(event, close_form_anyway) {
             var $season = $(this).closest('.formset-form');
-            if (!validate($season)) {
+            var valid = validate($season);
+            if (!close_form_anyway && !valid) {
                 return;
             }
             $season.hide();
-            var html = '<td><a class="edit" href="#"><span class="title">' + $season.find('[name$="-day_label_' + settings.lang + '"]').val() + '</span></a></td>'
-                + '<td><span class="date">' + $season.find('[name$="-yyyy"]').val() + ' ' + $season.find('[name$="-mm"] option:selected').text() + ' ' + $season.find('[name$="-dd"]').val() + '</span></td>'
+            var html = '<td><a class="edit control-label" href="#"><span class="title">' + $season.find('[name$="-day_label_' + settings.lang + '"]').val() + '</span></a></td>'
+                + '<td><span class="date control-label">' + $season.find('[name$="-yyyy"]').val() + ' ' + $season.find('[name$="-mm"] option:selected').text() + ' ' + $season.find('[name$="-dd"]').val() + '</span></td>'
             ;
             if (!$season.data('mirror')) {
-                var $mirror = $('<tr class="item">' + html + '</tr>');
+                if (valid) {
+                    var $mirror = $('<tr class="item">' + html + '</tr>');
+                } else {
+                    var $mirror = $('<tr class="item has-error">' + html + '</tr>');
+                }
                 $('#special_opening_list tr:last').before($mirror);
                 $mirror.data('origin', $season);
                 $season.data('mirror', $mirror);
             } else {
                 var $mirror = $season.data('mirror');
+                if (valid) {
+                    $mirror.removeClass('has-error');
+                }
                 $mirror.html(html);
             }
             $('#item_container').show();
             $('.form-actions:last').show();
             return false;
         });
-        $('#special_openings .delete').live("click", function() {
+        $('#special_openings .delete').on("click", function() {
             var $season = $(this).closest('.formset-form');
             var $checkbox = $season.find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");
@@ -287,10 +306,8 @@ var error_messages = {
                 $('#id_seasons-0-' + this + '_open').val("10:00");
                 $('#id_seasons-0-' + this + '_close').val("18:00");
             });
-            $(':input.save-link').click();
-        } else {
-            $(':input.save-link').click();
         }
+        $(':input.save-link').trigger("click", [true]);
         reinit_widgets();
         
         // Working hours management

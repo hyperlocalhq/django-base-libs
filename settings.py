@@ -4,9 +4,10 @@
 import os
 _ = gettext = lambda s: s
 
-ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+JETSON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/base.py"), globals(), locals())
+execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -43,7 +44,7 @@ USE_L10N = False # --> no commas in float values for latitude and longitude
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(ROOT_PATH, "museumsportal", "media")
+MEDIA_ROOT = os.path.join(PROJECT_PATH, "museumsportal", "media")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -54,7 +55,7 @@ MEDIA_URL = "/media/"
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(ROOT_PATH, "museumsportal", "static")
+STATIC_ROOT = os.path.join(PROJECT_PATH, "museumsportal", "static")
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -66,7 +67,7 @@ STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(STATIC_ROOT)
 ADMIN_MEDIA_PREFIX = '/static/%s/admin/' % get_git_changeset(STATIC_ROOT)
 
 # Additional locations of static files
-STATICFILES_DIRS = [os.path.join(ROOT_PATH, "museumsportal", "site_static")]
+STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "museumsportal", "site_static")]
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -76,11 +77,11 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 2 # 2 MB
 
 
 TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
-    os.path.join(ROOT_PATH, "museumsportal", "templates", "museumsportal"),
-    os.path.join(ROOT_PATH, "museumsportal", "templates", "admin"),
+    os.path.join(PROJECT_PATH, "museumsportal", "templates", "museumsportal"),
+    os.path.join(PROJECT_PATH, "museumsportal", "templates", "admin"),
     ] + TEMPLATE_DIRS
 
-PATH_TMP = os.path.join(ROOT_PATH, "museumsportal", "tmp")
+PATH_TMP = os.path.join(PROJECT_PATH, "museumsportal", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
 FILE_UPLOAD_TEMP_DIR = SESSION_FILE_PATH = PATH_TMP
@@ -123,12 +124,13 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "jetson.apps.httpstate.middleware.HttpStateMiddleware",
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    "base_libs.middleware.threading.ThreadLocalsMiddleware",
+    "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
     #"cms.middleware.multilingual.MultilingualURLMiddleware",
-    "jetson.apps.cms_extensions.middleware.MultilingualURLMiddleware",
+    #"jetson.apps.cms_extensions.middleware.MultilingualURLMiddleware",
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
@@ -172,7 +174,17 @@ INSTALLED_APPS = (
     "cms_search.search_helpers",
 
     ### CMS plugins ###
-    "cms.plugins.*",
+    "cms.plugins.inherit",
+    "cms.plugins.picture",
+    "cms.plugins.snippet",
+    "cms.plugins.teaser",
+    # "cms.plugins.file",
+    # "cms.plugins.flash",
+    # "cms.plugins.googlemap",
+    # "cms.plugins.link",
+    # "cms.plugins.text",
+    # "cms.plugins.twitter",
+    # "cms.plugins.video",
 
     ### jetson apps ###
     "jetson.apps.i18n",
@@ -356,15 +368,36 @@ ARTICLES_HAVE_TYPES = False
 
 ### CMS SETTINGS ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/cms.py"), globals(), locals())
+execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
 
-CMS_LANGUAGES = (
-    ('de', gettext('German')),
-    ('en', gettext('English')),
-    )
+# CMS_LANGUAGES = (
+#     ('de', 'Deutsch'),
+#     ('en', 'English'),
+# )
+# CMS_HIDE_UNTRANSLATED = True
+# CMS_LANGUAGE_FALLBACK = "de"
+# CMS_LANGUAGE_CONF = {
+#     'de':['en'],
+# }
+# CMS_FRONTEND_LANGUAGES = ("en", "de")
 
-CMS_SITE_LANGUAGES = {
-    1: ['en','de'],
+CMS_LANGUAGES = {
+    1: [
+        {
+            'code': 'de',
+            'hide_untranslated': True,
+            'name': 'Deutsch',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+        {
+            'code': 'en',
+            'hide_untranslated': True,
+            'name': 'English',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+    ]
 }
 
 # Customized placeholders
@@ -497,12 +530,6 @@ CMS_APPHOOKS = (
 CMS_REDIRECTS = True
 CMS_MENU_TITLE_OVERWRITE = True
 
-CMS_LANGUAGE_CONF = {
-    'de':['en'],
-}
-CMS_FRONTEND_LANGUAGES = ("en", "de")
-CMS_LANGUAGE_FALLBACK = "de"
-CMS_HIDE_UNTRANSLATED = True
 CMS_CACHE_DURATIONS = {
     'content': 60,
     'menus': 3600,
@@ -514,7 +541,7 @@ CMS_PAGE_CHOICES_CACHE_KEY = 'CMS:page_choices'
 
 ### FILEBROWSER ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/filebrowser.py"), globals(), locals())
+execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"), globals(), locals())
 
 FILEBROWSER_EXTENSIONS = {
     'Folder': [''],
@@ -536,7 +563,7 @@ FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
 
 ### GRAPPELLI ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/grappelli.py"))
+execfile(os.path.join(JETSON_PATH, "jetson/settings/grappelli.py"))
 GRAPPELLI_ADMIN_HEADLINE = "Museumsportal Berlin Admin"
 
 ### HAYSTACK ###

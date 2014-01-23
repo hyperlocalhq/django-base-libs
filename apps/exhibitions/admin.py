@@ -100,7 +100,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
         )
 
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
+    list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'is_geoposition_set', 'status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
     list_editable = ('status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon')
@@ -125,8 +125,15 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     
     inlines = [OrganizerInline, SeasonInline, MediaFileInline]
 
+    def is_geoposition_set(self, obj):
+        return bool(obj.latitude)
+    is_geoposition_set.boolean = True
+    is_geoposition_set.short_description = _("Geoposition?")
+
     def get_museum_display(self, obj):
-        return '<a href="/admin/museums/museum/%d/">%s</a>' % (obj.museum.id, obj.museum.title)
+        if obj.museum:
+            return u'<a href="/admin/museums/museum/%d/">%s</a>' % (obj.museum.id, obj.museum.title)
+        return u''
     get_museum_display.allow_tags = True
     get_museum_display.short_description = _("Museum")
 

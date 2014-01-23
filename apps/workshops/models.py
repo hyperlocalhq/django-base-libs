@@ -291,8 +291,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def get_url_path(self):
         try:
-            #path = u"/" + get_current_language() + reverse("%s:workshop_detail" % get_current_language(), kwargs={'slug': self.slug})
-            path = reverse("%s:workshop_detail" % get_current_language(), kwargs={'slug': self.slug})
+            path = reverse("workshop_detail", kwargs={'slug': self.slug})
         except:
             # the apphook is not attached yet
             return ""

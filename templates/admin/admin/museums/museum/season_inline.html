@@ -1,79 +1,79 @@
 {% load url from future %}
-{% load i18n adminmedia grp_tags %}
+{% load i18n grp_tags %}
 
 <!-- group -->
-<div class="group stacked {% if inline_admin_formset.opts.classes %} {{ inline_admin_formset.opts.classes|join:" " }}{% endif %}"
+<div class="grp-group grp-stacked {% if inline_admin_formset.opts.classes %} {{ inline_admin_formset.opts.classes|join:" " }}{% endif %}"
     id="{{ inline_admin_formset.formset.prefix }}-group">
-    <h2 class="collapse-handler">{% if inline_admin_formset.opts.title %}{{ inline_admin_formset.opts.title }}{% else %}{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}{% endif %}</h2>
-    <ul class="tools">
-        <li class="open-handler-container"><a href="javascript://" class="icon open-handler" title="{% trans 'Open All Items' %}"></a></li>
-        <li class="close-handler-container"><a href="javascript://" class="icon close-handler" title="{% trans 'Close All Items' %}"></a></li>
-        <li class="add-handler-container"><a href="javascript://" class="icon add-handler" title="{% trans 'Add Item' %}"> </a></li>
+    <h2 class="grp-collapse-handler">{% if inline_admin_formset.opts.title %}{{ inline_admin_formset.opts.title }}{% else %}{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}{% endif %}</h2>
+    <ul class="grp-tools">
+        <li><a href="javascript://" class="grp-icon grp-open-handler" title="{% trans 'Open All Items' %}"></a></li>
+        <li><a href="javascript://" class="grp-icon grp-close-handler" title="{% trans 'Close All Items' %}"></a></li>
+        <li><a href="javascript://" class="grp-icon grp-add-handler" title="{% trans 'Add Item' %}"> </a></li>
     </ul>
     {{ inline_admin_formset.formset.management_form }}
     {{ inline_admin_formset.formset.non_form_errors }}
     <!-- container -->
-    <div class="items">
+    <div class="grp-items">
         {% for form in inline_admin_formset.formset %}
             <!-- element -->
-            <div class="module {{ inline_admin_formset.opts.inline_classes|join:" "|default:"collapse closed" }}{% if form.instance or inline_admin_form.show_url %} has_original{% endif %}" id="{{ inline_admin_formset.formset.prefix }}{{ forloop.counter0 }}">
-                <h3 class="collapse-handler">{{ inline_admin_formset.opts.verbose_name|title }}&nbsp;&nbsp;{% if form.instance %}{{ form.instance }}{% endif %}</h3>
-                <ul class="tools">
+            <div class="grp-module {{ inline_admin_formset.opts.inline_classes|join:" "|default:"grp-collapse grp-closed" }}{% if form.instance or inline_admin_form.show_url %} has_original{% endif %}" id="{{ inline_admin_formset.formset.prefix }}{{ forloop.counter0 }}">
+                <h3 class="grp-collapse-handler">{{ inline_admin_formset.opts.verbose_name|title }}&nbsp;&nbsp;{% if form.instance %}{{ form.instance }}{% endif %}</h3>
+                <ul class="grp-tools">
                     {% if form.instance %}
-                        <li class="delete-handler-container"><input id="id_season_set-{{ forloop.counter0 }}-DELETE" type="checkbox" class="form_checkbox" name="season_set-{{ forloop.counter0 }}-DELETE" /><a href="javascript://" class="icon delete-handler" title="{% trans 'Delete Item' %}"></a></li>
+                        <li><input id="id_season_set-{{ forloop.counter0 }}-DELETE" type="checkbox" class="form_checkbox" name="season_set-{{ forloop.counter0 }}-DELETE" /><a href="javascript://" class="grp-icon grp-delete-handler" title="{% trans 'Delete Item' %}"></a></li>
                     {% else %}
-                        <li class="remove-handler-container"><input id="id_season_set-{{ forloop.counter0 }}-DELETE" type="checkbox" class="form_checkbox" name="season_set-{{ forloop.counter0 }}-DELETE" /><a href="javascript://" class="icon remove-handler" title="{% trans 'Delete Item' %}"></a></li>
+                        <li><input id="id_season_set-{{ forloop.counter0 }}-DELETE" type="checkbox" class="form_checkbox" name="season_set-{{ forloop.counter0 }}-DELETE" /><a href="javascript://" class="grp-icon grp-remove-handler" title="{% trans 'Delete Item' %}"></a></li>
                     {% endif %}
                 </ul>
                 {% if form.non_field_errors %}
-                    <ul class="errorlist">
+                    <ul class="grp-errorlist">
                         <li>{{ form.non_field_errors }}</li>
                     </ul>
                 {% endif %}
                 {% if form.title_en %}
-                    <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en">
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-en">
                         <h4 class="collapse-handler">{% trans "Title" %} (English)</h4>
-                        <div class="row{% if form.title_en.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
-                                <div class="column span-flexible">
+                        <div class="grp-row{% if form.title_en.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
                                     <p>{{ form.title_en }}</p>
-                                    {% if form.title_en.help_text %}<p class="help">{{ form.title_en.help_text|safe }}</p>{% endif %}
                                     {{ form.title_en.errors }}
+                                    {% if form.title_en.help_text %}<p class="grp-help">{{ form.title_en.help_text|safe }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                 {% endif %}
                 {% if form.title_de %}
-                    <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de">
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-de">
                         <h4 class="collapse-handler">{% trans "Title" %} (Deutsch)</h4>
-                        <div class="row{% if form.title_de.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
-                                <div class="column span-flexible">
+                        <div class="grp-row{% if form.title_de.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
                                     {{ form.title_de_markup_type }}
                                     <p>{{ form.title_de }}</p>
-                                    {% if form.title_de.help_text %}<p class="help">{{ form.title_de.help_text|safe }}</p>{% endif %}
                                     {{ form.title_de.errors }}
+                                    {% if form.title_de.help_text %}<p class="grp-help">{{ form.title_de.help_text|safe }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                 {% endif %}
-                <div class="row cells-1 field-status{% if form.start.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label class="required">Start :</label></div>
-                        <div class="column span-flexible">
+                <div class="grp-row grp-cells-1 field-status{% if form.start.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1"><label class="required">Start :</label></div>
+                        <div class="c-2">
                             {{ form.start }}
                             {{ form.start.errors }}
                         </div>
                     </div>
                 </div>                
-                <div class="row cells-1 field-status{% if form.end.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label class="required">End :</label></div>
-                        <div class="column span-flexible">
+                <div class="grp-row cells-1 field-status{% if form.end.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1"><label class="required">End :</label></div>
+                        <div class="c-2">
                             {{ form.end }}
                             {{ form.end.errors }}
                         </div>
@@ -88,25 +88,25 @@
         {% endfor %}
         {% with inline_admin_formset.formset.empty_form as form %}
             <!-- element -->
-            <div class="module collapse empty-form open" id="season_set-empty">
-                <h3 class="collapse-handler">{{ inline_admin_formset.opts.verbose_name|title }}</h3>
-                <ul class="tools">
+            <div class="grp-module grp-collapse grp-empty-form grp-open" id="season_set-empty">
+                <h3 class="grp-collapse-handler">{{ inline_admin_formset.opts.verbose_name|title }}</h3>
+                <ul class="grp-tools">
                     {% if inline_admin_formset.formset.can_delete %}
-                        <li class="remove-handler-container">{{ inline_admin_form.deletion_field.field }}<a href="javascript://" class="icon remove-handler" title="{% trans 'Delete Item' %}"></a></li>
+                        <li>{{ inline_admin_form.deletion_field.field }}<a href="javascript://" class="grp-icon grp-remove-handler" title="{% trans 'Delete Item' %}"></a></li>
                     {% endif %}
                 </ul>
                 {% if inline_admin_form.form.non_field_errors %}
-                    <ul class="errorlist">
+                    <ul class="grp-errorlist">
                         <li>{{ inline_admin_form.form.non_field_errors }}</li>
                     </ul>
                 {% endif %}
                 {% if form.title_en %}
-                    <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-en">
-                        <h4 class="collapse-handler">{% trans "Title" %} (English)</h4>
-                        <div class="row{% if form.title_en.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
-                                <div class="column span-flexible">
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-en">
+                        <h4 class="grp-collapse-handler">{% trans "Title" %} (English)</h4>
+                        <div class="grp-row{% if form.title_en.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_en"{% if form.title_en.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
                                     <p>{{ form.title_en }}</p>
                                     {% if form.title_en.help_text %}<p class="help">{{ form.title_en.help_text|safe }}</p>{% endif %}
                                     {{ form.title_en.errors }}
@@ -116,12 +116,12 @@
                     </fieldset>
                 {% endif %}
                 {% if form.title_de %}
-                    <fieldset class="module aligned collapse closed multilingual multilingual-set-1 multilingual-language-de">
-                        <h4 class="collapse-handler">{% trans "Title" %} (Deutsch)</h4>
-                        <div class="row{% if form.title_de.errors %} errors{% endif %}">
-                            <div>
-                                <div class="column span-4"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
-                                <div class="column span-flexible">
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-de">
+                        <h4 class="grp-collapse-handler">{% trans "Title" %} (Deutsch)</h4>
+                        <div class="grp-row{% if form.title_de.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
                                     {{ form.title_de_markup_type }}
                                     <p>{{ form.title_de }}</p>
                                     {% if form.title_de.help_text %}<p class="help">{{ form.title_de.help_text|safe }}</p>{% endif %}
@@ -131,19 +131,19 @@
                         </div>
                     </fieldset>
                 {% endif %}
-                <div class="row cells-1 field-status{% if form.start.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label class="required">Start :</label></div>
-                        <div class="column span-flexible">
+                <div class="grp-row grp-cells-1 field-status{% if form.start.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1"><label class="required">Start :</label></div>
+                        <div class="c-2">
                             {{ form.start }}
                             {{ form.start.errors }}
                         </div>
                     </div>
                 </div>                
-                <div class="row cells-1 field-status{% if form.end.errors %} errors{% endif %}">
-                    <div>
-                        <div class="column span-4"><label class="required">End :</label></div>
-                        <div class="column span-flexible">
+                <div class="grp-row grp-cells-1 field-status{% if form.end.errors %} errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1"><label class="required">End :</label></div>
+                        <div class="c-2">
                             {{ form.end }}
                             {{ form.end.errors }}
                         </div>
@@ -155,11 +155,13 @@
             </div>
         {% endwith %}
     </div>
-    <div class="module add-item">
-        <a href="javascript://" class="add-handler">{% blocktrans with inline_admin_formset.opts.verbose_name|title as verbose_name %}Add another {{ verbose_name }}{% endblocktrans %}</a>
-        <ul class="tools">
-            <li class="add-handler-container"><a href="javascript://" class="icon add-handler" title="{% trans 'Add Item' %}"> </a></li>
-        </ul><br clear="all" />
+    <div class="grp-module grp-transparent">
+        <div class="grp-row">
+            <a href="javascript://" class="grp-add-handler"><strong>{% blocktrans with inline_admin_formset.opts.verbose_name|title as verbose_name %}Add another {{ verbose_name }}{% endblocktrans %}</strong></a>
+            <ul class="grp-tools">
+                <li><a href="javascript://" class="grp-icon grp-add-handler" title="{% trans 'Add Item' %}"> </a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
