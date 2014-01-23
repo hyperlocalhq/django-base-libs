@@ -12,6 +12,7 @@
 })(jQuery);
 
 var oMap;
+var oCurrentLocationMarker;
 
 (function($, undefined) {
     var oInfobox;
@@ -22,10 +23,14 @@ var oMap;
         var $oList = $('body');
         if ($oList.length) {
             var oOptions = {
-                zoom: 13,
-				mapTypeControl: false,
-				zoomControl: true,
-				streetViewControl: true,
+                zoom: 32,
+                panControl: false,
+                zoomControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                overviewMapControl: false,
+
                 center: new google.maps.LatLng(52.515306, 13.363863),
 
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -151,16 +156,17 @@ var oMap;
                     // var oImage = self.settings.STATIC_URL + 'site/img/marker_current.png';
                     var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.gif", null, null, null, new google.maps.Size(16,16));
 
-                    var oMarker = new google.maps.Marker({
+                    oCurrentLocationMarker = new google.maps.Marker({
                         position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                         map: oMap,
                         icon: oImage,
                         optimized: false
                     });
-                    oMarker.setZIndex(999);
-                    google.maps.event.addListener(oMarker, 'click', function() {
-                        $('#map-description').html("You are here!");
-                    });
+                    oCurrentLocationMarker.setZIndex(999);
+                    // google.maps.event.addListener(oCurrentLocationMarker, 'click', function() {
+                    //     $('#map-description').html("You are here!");
+                    // });
+                    $( "#show-current-location" ).removeClass("hidden");
                 },
                 function(){
                     // alert('Unable to get location');
@@ -218,6 +224,12 @@ var oMap;
 }(jQuery));
 
 
+$(window).load(function() {
+    setTimeout(function() {
+        $('body').removeClass('no-transition');
+    }, 500);
+});
+
 $(document).ready(function() {
     $('#container .item a').click(function() {
         $('#map-description').load($(this).closest('.item').data('description-src'), function(){
@@ -243,6 +255,9 @@ $(document).ready(function() {
     $(document).on("click", "#cancel-list", function() {
         $("#map-sidebar").removeClass( "map-list" );
         $("body").toggleClass( "map-only" );
+        setTimeout(function() {
+            google.maps.event.trigger(oMap, "resize");
+        }, 500);
         return false;
     });
 
@@ -250,6 +265,12 @@ $(document).ready(function() {
         $("#map-sidebar").toggleClass( "map-filter" );
         $("#map-sidebar").removeClass( "map-list" );
         google.maps.event.trigger(oMap, "resize");
+        return false;
+    });
+
+
+    $( "#show-current-location" ).click(function() {
+        oMap.setCenter(oCurrentLocationMarker.getPosition());
         return false;
     });
 

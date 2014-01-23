@@ -5,7 +5,7 @@
   display: inline-block;
   padding-left: 0;
   margin: $line-height-computed 0;
-  border-radius: $border-radius-base;
+  // border-radius: $border-radius-base;
 
   > li {
     display: inline; // Remove list-style and block-level defaults
@@ -13,26 +13,31 @@
     > span {
       position: relative;
       float: left; // Collapse white-space
-      padding: $padding-base-vertical $padding-base-horizontal;
+      padding: 0 20px;
       line-height: $line-height-base;
       text-decoration: none;
       // background-color: $pagination-bg;
       background-color: transparent;
-      background-image: url("../../img/trns-1.png") !important;
-      border: 1px solid $pagination-border;
+      // background-image: url("../../img/trns-1.png") !important;
+      // border: 1px solid $pagination-border;
       margin-left: -1px;
+      height: 50px;
+      line-height: 48px;
+    }
+    > a {
+      background-image: url("../../img/trns-1.png") !important;
     }
     &:first-child {
       > a,
       > span {
         margin-left: 0;
-        @include border-left-radius($border-radius-base);
+        // @include border-left-radius($border-radius-base);
       }
     }
     &:last-child {
       > a,
       > span {
-        @include border-right-radius($border-radius-base);
+        // @include border-right-radius($border-radius-base);
       }
     }
   }

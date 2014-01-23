@@ -536,11 +536,25 @@ class EventTimeForm(ModelForm):
         self.helper.form_tag = False
         layout_blocks = []
         layout_blocks.append(
-            layout.Div(
-                layout.Field("event_date", placeholder="dd.mm.yyyy", autocomplete="off"),
-                layout.Field("start", placeholder="00:00"),
-                layout.Field("end", placeholder="00:00"),
-                css_class="flex",
+            layout.Row(
+                layout.Div(
+                    bootstrap.PrependedText("event_date", "", placeholder="dd.mm.yyyy", autocomplete="off"),
+                    css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    bootstrap.PrependedText("start", "", placeholder="00:00"),
+                    css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    bootstrap.PrependedText("end", "", placeholder="00:00"),
+                    css_class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    "DELETE",
+                    css_class="hide"
+                ),
+
+                css_class="row-xs",
             ),
         )
 
