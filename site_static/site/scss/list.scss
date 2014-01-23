@@ -35,7 +35,13 @@
 //   }
 // }
 
+#list {margin-top: 30px; }
 
+.list-header {
+  h4 {margin-bottom: 15px !important; }
+  #filter-summary {margin: 0px; }
+  .list-controls {margin-bottom: 15px; }
+}
 
 .img-full{
   width: 100%;

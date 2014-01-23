@@ -2346,26 +2346,15 @@
 .map-filter #map-filter {
   right: 0% !important; }
 
-/* line 125, ../scss/gmap.scss */
-#list {
-  margin-top: 30px; }
-
-/* line 129, ../scss/gmap.scss */
-.list-header h4 {
-  margin-bottom: 15px !important; }
-/* line 132, ../scss/gmap.scss */
-.list-header .list-controls {
-  margin-bottom: 15px; }
-
-/* line 137, ../scss/gmap.scss */
+/* line 126, ../scss/gmap.scss */
 #map-list #container {
   margin-left: -30px;
   margin-right: -30px; }
-/* line 141, ../scss/gmap.scss */
+/* line 130, ../scss/gmap.scss */
 #map-list .item {
   padding: 0px;
   width: 100%; }
-  /* line 144, ../scss/gmap.scss */
+  /* line 133, ../scss/gmap.scss */
   #map-list .item a {
     padding: 15px 30px !important;
     display: block;
@@ -2373,26 +2362,26 @@
     background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x; }
-    /* line 153, ../scss/gmap.scss */
+    /* line 142, ../scss/gmap.scss */
     #map-list .item a:hover {
       color: black;
       background-repeat: repeat; }
-    /* line 158, ../scss/gmap.scss */
+    /* line 147, ../scss/gmap.scss */
     #map-list .item a:active {
       color: white;
       background-repeat: repeat-x;
       background-color: #00aefd; }
-    /* line 164, ../scss/gmap.scss */
+    /* line 153, ../scss/gmap.scss */
     #map-list .item a h3 {
       font-weight: 700; }
-    /* line 165, ../scss/gmap.scss */
+    /* line 154, ../scss/gmap.scss */
     #map-list .item a h4 {
       font-weight: 300; }
-    /* line 166, ../scss/gmap.scss */
+    /* line 155, ../scss/gmap.scss */
     #map-list .item a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 167, ../scss/gmap.scss */
+    /* line 156, ../scss/gmap.scss */
     #map-list .item a h3, #map-list .item a h4, #map-list .item a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2403,80 +2392,80 @@
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 179, ../scss/gmap.scss */
+      /* line 168, ../scss/gmap.scss */
       #map-list .item a h3:empty, #map-list .item a h4:empty, #map-list .item a h5:empty {
         display: none; }
 
-/* line 186, ../scss/gmap.scss */
+/* line 175, ../scss/gmap.scss */
 #map-filter {
   background-image: url("../img/trns-1.png") !important; }
-  /* line 188, ../scss/gmap.scss */
+  /* line 177, ../scss/gmap.scss */
   #map-filter .panel-group {
     margin: 15px 0;
     padding: 15px 0px;
     background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x; }
-  /* line 195, ../scss/gmap.scss */
+  /* line 184, ../scss/gmap.scss */
   #map-filter .panel-body {
     padding-top: 15px; }
-    /* line 197, ../scss/gmap.scss */
+    /* line 186, ../scss/gmap.scss */
     #map-filter .panel-body ul {
       font-size: 0px; }
-      /* line 199, ../scss/gmap.scss */
+      /* line 188, ../scss/gmap.scss */
       #map-filter .panel-body ul li {
         display: inline-block; }
 
-/* line 205, ../scss/gmap.scss */
+/* line 194, ../scss/gmap.scss */
 #map-description .opening-hours {
   margin-bottom: 20px; }
-/* line 208, ../scss/gmap.scss */
+/* line 197, ../scss/gmap.scss */
 #map-description #cover_img {
   padding: 0px;
   margin: 0 -30px;
   margin-bottom: 20px; }
-  /* line 212, ../scss/gmap.scss */
+  /* line 201, ../scss/gmap.scss */
   #map-description #cover_img .img {
     margin: 0px; }
-/* line 214, ../scss/gmap.scss */
+/* line 203, ../scss/gmap.scss */
 #map-description .tools {
   display: none; }
-/* line 217, ../scss/gmap.scss */
+/* line 206, ../scss/gmap.scss */
 #map-description header {
   margin-top: -10px;
   margin-bottom: 20px;
   position: relative; }
-  /* line 223, ../scss/gmap.scss */
+  /* line 212, ../scss/gmap.scss */
   #map-description header h1,
   #map-description header h2 {
     font-size: 20px;
     line-height: 140%;
     display: block;
     margin: 0px; }
-  /* line 230, ../scss/gmap.scss */
+  /* line 219, ../scss/gmap.scss */
   #map-description header h1 {
     font-weight: 700; }
-  /* line 231, ../scss/gmap.scss */
+  /* line 220, ../scss/gmap.scss */
   #map-description header h2 {
     font-weight: 300; }
-  /* line 233, ../scss/gmap.scss */
+  /* line 222, ../scss/gmap.scss */
   #map-description header h3 {
     text-transform: uppercase;
     font-size: 12px;
     line-height: 160%;
     font-weight: 600;
     margin-top: 15px !important; }
-  /* line 241, ../scss/gmap.scss */
+  /* line 230, ../scss/gmap.scss */
   #map-description header h4 {
     font-size: 12px;
     line-height: 140%;
     margin: 0px;
     padding: 0px;
     font-weight: 300; }
-  /* line 248, ../scss/gmap.scss */
+  /* line 237, ../scss/gmap.scss */
   #map-description header .extras {
     margin-top: 25px; }
-    /* line 250, ../scss/gmap.scss */
+    /* line 239, ../scss/gmap.scss */
     #map-description header .extras dd, #map-description header .extras dt {
       font-size: 20px;
       line-height: 32px; }
@@ -2875,26 +2864,40 @@ h6 + .row:not(.grid),
   100% {
     opacity: 1; } }
 
-/* line 40, ../scss/list.scss */
+/* line 38, ../scss/list.scss */
+#list {
+  margin-top: 30px; }
+
+/* line 41, ../scss/list.scss */
+.list-header h4 {
+  margin-bottom: 15px !important; }
+/* line 42, ../scss/list.scss */
+.list-header #filter-summary {
+  margin: 0px; }
+/* line 43, ../scss/list.scss */
+.list-header .list-controls {
+  margin-bottom: 15px; }
+
+/* line 46, ../scss/list.scss */
 .img-full {
   width: 100%; }
 
-/* line 44, ../scss/list.scss */
+/* line 50, ../scss/list.scss */
 .item-inner {
   background-color: transparent;
   background-image: url("../img/trns-1.png") !important; }
 
-/* line 50, ../scss/list.scss */
+/* line 56, ../scss/list.scss */
 #teaser .item h3 {
   font-weight: 700; }
-/* line 51, ../scss/list.scss */
+/* line 57, ../scss/list.scss */
 #teaser .item h4 {
   font-weight: 300; }
-/* line 52, ../scss/list.scss */
+/* line 58, ../scss/list.scss */
 #teaser .item h5 {
   font-weight: 300;
   opacity: 0.5; }
-/* line 53, ../scss/list.scss */
+/* line 59, ../scss/list.scss */
 #teaser .item h3, #teaser .item h4, #teaser .item h5 {
   font-size: 14px;
   line-height: 20px;
@@ -2904,22 +2907,22 @@ h6 + .row:not(.grid),
   width: 100%;
   overflow: hidden;
   margin: 0px !important; }
-  /* line 64, ../scss/list.scss */
+  /* line 70, ../scss/list.scss */
   #teaser .item h3:empty, #teaser .item h4:empty, #teaser .item h5:empty {
     display: none; }
 
-/* line 72, ../scss/list.scss */
+/* line 78, ../scss/list.scss */
 a.img.loaded:hover img,
 a.img-detail.loaded:hover img {
   opacity: 0.8 !important; }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-  /* line 86, ../scss/list.scss */
+  /* line 92, ../scss/list.scss */
   .img,
   .img-detail {
     background-image: url("../img/spinner-retina.gif") !important;
     background-size: 32px; } }
-/* line 93, ../scss/list.scss */
+/* line 99, ../scss/list.scss */
 .img,
 .img-detail {
   background-image: url("../img/spinner.gif");
@@ -2927,15 +2930,15 @@ a.img-detail.loaded:hover img {
   background-position: center;
   background-color: #f2f2f2;
   display: block; }
-  /* line 99, ../scss/list.scss */
+  /* line 105, ../scss/list.scss */
   .img.loaded,
   .img-detail.loaded {
     background-image: none; }
-    /* line 100, ../scss/list.scss */
+    /* line 106, ../scss/list.scss */
     .img.loaded img,
     .img-detail.loaded img {
       opacity: 1; }
-  /* line 105, ../scss/list.scss */
+  /* line 111, ../scss/list.scss */
   .img img,
   .img-detail img {
     width: 100%;
@@ -2948,62 +2951,62 @@ a.img-detail.loaded:hover img {
     -o-transition: opacity 0.125s ease-in-out !important;
     transition: opacity 0.125s ease-in-out !important; }
 
-/* line 125, ../scss/list.scss */
+/* line 131, ../scss/list.scss */
 .img {
   margin-bottom: 10px; }
 
-/* line 129, ../scss/list.scss */
+/* line 135, ../scss/list.scss */
 .img-detail {
   margin-bottom: 10px; }
 
-/* line 133, ../scss/list.scss */
+/* line 139, ../scss/list.scss */
 #empty-container {
   display: none; }
-  /* line 135, ../scss/list.scss */
+  /* line 141, ../scss/list.scss */
   #empty-container.on {
     display: block; }
 
-/* line 140, ../scss/list.scss */
+/* line 146, ../scss/list.scss */
 .item {
   list-style: none; }
 
-/* line 144, ../scss/list.scss */
+/* line 150, ../scss/list.scss */
 .btn-round {
   border-radius: 100% !important; }
-  /* line 146, ../scss/list.scss */
+  /* line 152, ../scss/list.scss */
   .btn-round.pull-right {
     margin-left: 5px !important; }
-  /* line 147, ../scss/list.scss */
+  /* line 153, ../scss/list.scss */
   .btn-round.pull-left {
     margin-right: 5px !important; }
 
-/* line 151, ../scss/list.scss */
+/* line 157, ../scss/list.scss */
 .list .item {
   margin-top: 0px;
   margin-bottom: 10px; }
-  /* line 154, ../scss/list.scss */
+  /* line 160, ../scss/list.scss */
   .list .item.delete {
     display: none; }
-  /* line 156, ../scss/list.scss */
+  /* line 162, ../scss/list.scss */
   .list .item:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 160, ../scss/list.scss */
+  /* line 166, ../scss/list.scss */
   .list .item > a {
     background-color: #f2f2f2;
     color: black;
     padding: 20px 25px;
     display: block; }
-    /* line 166, ../scss/list.scss */
+    /* line 172, ../scss/list.scss */
     .list .item > a h3 {
       font-weight: 300; }
-    /* line 167, ../scss/list.scss */
+    /* line 173, ../scss/list.scss */
     .list .item > a h4 {
       font-weight: 300; }
-    /* line 168, ../scss/list.scss */
+    /* line 174, ../scss/list.scss */
     .list .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 169, ../scss/list.scss */
+    /* line 175, ../scss/list.scss */
     .list .item > a h3, .list .item > a h4, .list .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -3013,26 +3016,26 @@ a.img-detail.loaded:hover img {
       width: 100%;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 180, ../scss/list.scss */
+      /* line 186, ../scss/list.scss */
       .list .item > a h3:empty, .list .item > a h4:empty, .list .item > a h5:empty {
         display: none; }
-    /* line 183, ../scss/list.scss */
+    /* line 189, ../scss/list.scss */
     .list .item > a h3 {
       font-size: 25px;
       line-height: 40px;
       white-space: nowrap !important; }
 
-/* line 193, ../scss/list.scss */
+/* line 199, ../scss/list.scss */
 .list .item#item-preview > a {
   display: none !important; }
 
-/* line 198, ../scss/list.scss */
+/* line 204, ../scss/list.scss */
 .item#item-preview .description {
   padding: 30px 0;
   display: block;
   opacity: 1;
   height: auto; }
-/* line 215, ../scss/list.scss */
+/* line 221, ../scss/list.scss */
 .item .description {
   position: relative;
   height: 0px;
@@ -3043,58 +3046,58 @@ a.img-detail.loaded:hover img {
   -ms-transition: opacity 0.125s ease-in-out !important;
   -o-transition: opacity 0.125s ease-in-out !important;
   transition: opacity 0.125s ease-in-out !important; }
-  /* line 225, ../scss/list.scss */
+  /* line 231, ../scss/list.scss */
   .item .description p.lead {
     margin-right: 40px; }
-  /* line 228, ../scss/list.scss */
+  /* line 234, ../scss/list.scss */
   .item .description .actions {
     right: 10px;
     top: -15px;
     padding: 0px; }
-  /* line 234, ../scss/list.scss */
+  /* line 240, ../scss/list.scss */
   .item .description header h3 {
     font-weight: 700; }
-  /* line 235, ../scss/list.scss */
+  /* line 241, ../scss/list.scss */
   .item .description header h4 {
     font-weight: 300; }
-  /* line 236, ../scss/list.scss */
+  /* line 242, ../scss/list.scss */
   .item .description header h5 {
     font-weight: 300;
     opacity: 0.5; }
-  /* line 237, ../scss/list.scss */
+  /* line 243, ../scss/list.scss */
   .item .description header h3, .item .description header h4, .item .description header h5 {
     font-size: 22px;
     line-height: 140%; }
-    /* line 240, ../scss/list.scss */
+    /* line 246, ../scss/list.scss */
     .item .description header h3:empty, .item .description header h4:empty, .item .description header h5:empty {
       display: none; }
 
-/* line 247, ../scss/list.scss */
+/* line 253, ../scss/list.scss */
 .grid .item {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important; }
-  /* line 273, ../scss/list.scss */
+  /* line 279, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 20px; }
-    /* line 278, ../scss/list.scss */
+    /* line 284, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 280, ../scss/list.scss */
+    /* line 286, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 281, ../scss/list.scss */
+    /* line 287, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 282, ../scss/list.scss */
+    /* line 288, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 283, ../scss/list.scss */
+    /* line 289, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 13px;
       line-height: 140%;
@@ -3105,27 +3108,27 @@ a.img-detail.loaded:hover img {
       height: 20px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 295, ../scss/list.scss */
+      /* line 301, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 303, ../scss/list.scss */
+/* line 309, ../scss/list.scss */
 .compact .item .inner {
   font-size: 15px;
   line-height: 21px;
   overflow: hidden;
   background-color: #f2f2f2;
   position: relative; }
-/* line 311, ../scss/list.scss */
+/* line 317, ../scss/list.scss */
 .compact .item:hover .inner {
   background-color: rgba(0, 0, 0, 0.075); }
-/* line 312, ../scss/list.scss */
+/* line 318, ../scss/list.scss */
 .compact .item.title {
   background: none; }
-  /* line 314, ../scss/list.scss */
+  /* line 320, ../scss/list.scss */
   .compact .item.title:hover {
     background: none; }
-  /* line 316, ../scss/list.scss */
+  /* line 322, ../scss/list.scss */
   .compact .item.title h3 {
     font-weight: 700;
     margin-bottom: 5px !important;
@@ -3134,7 +3137,7 @@ a.img-detail.loaded:hover img {
     text-transform: uppercase;
     font-size: 16px;
     line-height: 20px; }
-/* line 327, ../scss/list.scss */
+/* line 333, ../scss/list.scss */
 .compact .item .img {
   background-color: #f2f2f2;
   width: 80px;
@@ -3147,7 +3150,7 @@ a.img-detail.loaded:hover img {
   left: 0;
   top: 0;
   padding: 0px; }
-/* line 341, ../scss/list.scss */
+/* line 347, ../scss/list.scss */
 .compact .item a.txt {
   float: left;
   padding: 10px;
@@ -3159,20 +3162,20 @@ a.img-detail.loaded:hover img {
   height: 90px;
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important; }
-  /* line 353, ../scss/list.scss */
+  /* line 359, ../scss/list.scss */
   .compact .item a.txt:hover * {
     color: black; }
-  /* line 355, ../scss/list.scss */
+  /* line 361, ../scss/list.scss */
   .compact .item a.txt h3 {
     font-weight: 700; }
-  /* line 356, ../scss/list.scss */
+  /* line 362, ../scss/list.scss */
   .compact .item a.txt h4 {
     font-weight: 300; }
-  /* line 357, ../scss/list.scss */
+  /* line 363, ../scss/list.scss */
   .compact .item a.txt h5 {
     font-weight: 300;
     opacity: 0.5; }
-  /* line 360, ../scss/list.scss */
+  /* line 366, ../scss/list.scss */
   .compact .item a.txt h3,
   .compact .item a.txt h4,
   .compact .item a.txt h5 {
@@ -3184,40 +3187,40 @@ a.img-detail.loaded:hover img {
     -moz-box-sizing: border-box !important;
     margin: 0px !important;
     display: block !important; }
-    /* line 373, ../scss/list.scss */
+    /* line 379, ../scss/list.scss */
     .compact .item a.txt h3:empty,
     .compact .item a.txt h4:empty,
     .compact .item a.txt h5:empty {
       display: none !important; }
-  /* line 376, ../scss/list.scss */
+  /* line 382, ../scss/list.scss */
   .compact .item a.txt p {
     display: none; }
-/* line 380, ../scss/list.scss */
+/* line 386, ../scss/list.scss */
 .compact .item:nth-child(1) {
   margin-bottom: 0px !important; }
-  /* line 382, ../scss/list.scss */
+  /* line 388, ../scss/list.scss */
   .compact .item:nth-child(1) .inner {
     background: none !important;
     padding-bottom: 80px; }
-  /* line 387, ../scss/list.scss */
+  /* line 393, ../scss/list.scss */
   .compact .item:nth-child(1) .txt {
     padding: 0px;
     background: none !important;
     width: 100%;
     display: block !important; }
-    /* line 395, ../scss/list.scss */
+    /* line 401, ../scss/list.scss */
     .compact .item:nth-child(1) .txt h3,
     .compact .item:nth-child(1) .txt h4,
     .compact .item:nth-child(1) .txt h5 {
       font-size: 14px !important;
       line-height: 20px !important; }
-    /* line 400, ../scss/list.scss */
+    /* line 406, ../scss/list.scss */
     .compact .item:nth-child(1) .txt p {
       font-size: 13px !important;
       line-height: 18px !important;
       margin-top: 8px;
       display: block; }
-  /* line 408, ../scss/list.scss */
+  /* line 414, ../scss/list.scss */
   .compact .item:nth-child(1) .img {
     width: 100% !important;
     position: relative; }
@@ -3537,15 +3540,15 @@ a.img-detail.loaded:hover img {
 
 /* line 59, ../scss/filters.scss */
 #filter-summary {
-  font-size: 11px;
-  line-height: 140%; }
+  font-size: 12px;
+  line-height: 150%; }
   /* line 62, ../scss/filters.scss */
   #filter-summary:empty {
     display: none !important; }
   /* line 63, ../scss/filters.scss */
   #filter-summary li {
     display: inline-block;
-    margin-right: 5px; }
+    margin-right: 3px; }
     /* line 66, ../scss/filters.scss */
     #filter-summary li:first-child {
       display: block; }
@@ -3554,8 +3557,8 @@ a.img-detail.loaded:hover img {
       color: #ff4582; }
     /* line 93, ../scss/filters.scss */
     #filter-summary li:after {
-      content: " / ";
-      opacity: 0.25; }
+      content: " · ";
+      opacity: 0.5; }
     /* line 99, ../scss/filters.scss */
     #filter-summary li:first-child:after, #filter-summary li:last-child:after {
       content: "" !important; }
@@ -4636,15 +4639,18 @@ select {
 .dashboard-table {
   width: 100%;
   margin-bottom: 10px; }
-  /* line 189, ../scss/dashboard.scss */
+  /* line 188, ../scss/dashboard.scss */
   .dashboard-table .item a {
     display: block; }
-  /* line 193, ../scss/dashboard.scss */
+  /* line 192, ../scss/dashboard.scss */
   .dashboard-table tr:hover td {
     background-color: #f0f0f0; }
-  /* line 196, ../scss/dashboard.scss */
+  /* line 195, ../scss/dashboard.scss */
   .dashboard-table tr td, .dashboard-table tr th {
-    padding: 5px 10px; }
+    padding: 5px; }
+    /* line 197, ../scss/dashboard.scss */
+    .dashboard-table tr td:first-child, .dashboard-table tr th:first-child {
+      padding-left: 10px; }
     /* line 198, ../scss/dashboard.scss */
     .dashboard-table tr td:last-child, .dashboard-table tr th:last-child {
       text-align: right; }
@@ -4659,6 +4665,7 @@ select {
     border: none;
     border-bottom: 2px solid transparent;
     vertical-align: top;
+    vertical-align: middle;
     color: rgba(0, 0, 0, 0.75) !important;
     -moz-background-clip: padding;
     /* Firefox 3.6 */
@@ -4671,23 +4678,23 @@ select {
     .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
       width: 1%;
       white-space: nowrap; }
-    /* line 224, ../scss/dashboard.scss */
+    /* line 226, ../scss/dashboard.scss */
     .dashboard-table tr td .status {
       margin-bottom: -2px;
       height: 24px;
       width: 115px;
       display: block; }
-      /* line 229, ../scss/dashboard.scss */
+      /* line 231, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbToggle {
         height: 24px;
         width: 24px;
         background-color: rgba(0, 0, 0, 0);
         opacity: 0.25; }
-        /* line 234, ../scss/dashboard.scss */
+        /* line 236, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbToggle.sbToggleOpen {
           opacity: 0.5;
           background-color: rgba(0, 0, 0, 0.15); }
-      /* line 239, ../scss/dashboard.scss */
+      /* line 241, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbHolder {
         background-color: rgba(0, 0, 0, 0.025);
         border: none;
@@ -4700,14 +4707,14 @@ select {
         width: 100%;
         font-size: 13px !important;
         line-height: 24px !important; }
-        /* line 253, ../scss/dashboard.scss */
+        /* line 255, ../scss/dashboard.scss */
         .dashboard-table tr td .status .sbHolder:hover {
           background-color: rgba(0, 0, 0, 0); }
-      /* line 256, ../scss/dashboard.scss */
+      /* line 258, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbOptions a {
         padding-top: 5px;
         padding-bottom: 5px; }
-      /* line 260, ../scss/dashboard.scss */
+      /* line 262, ../scss/dashboard.scss */
       .dashboard-table tr td .status .sbSelector {
         font-size: 13px !important;
         line-height: 24px !important;
@@ -4715,28 +4722,28 @@ select {
         box-sizing: border-box;
         -moz-box-sizing: border-box; }
 
-/* line 273, ../scss/dashboard.scss */
+/* line 275, ../scss/dashboard.scss */
 #dashboard fieldset {
   margin-top: 60px;
   position: relative; }
-/* line 274, ../scss/dashboard.scss */
+/* line 276, ../scss/dashboard.scss */
 #dashboard legend {
   font-size: 28px;
   padding-bottom: 10px;
   border: none !important;
   margin: 0px; }
-  /* line 275, ../scss/dashboard.scss */
+  /* line 277, ../scss/dashboard.scss */
   #dashboard legend a {
     color: black; }
-/* line 279, ../scss/dashboard.scss */
+/* line 281, ../scss/dashboard.scss */
 #dashboard .all {
   color: #00aefd !important;
   font-size: 13px !important;
   line-height: 24px !important; }
-  /* line 280, ../scss/dashboard.scss */
+  /* line 282, ../scss/dashboard.scss */
   #dashboard .all:hover {
     color: black !important; }
-/* line 283, ../scss/dashboard.scss */
+/* line 285, ../scss/dashboard.scss */
 #dashboard .icon-last-edited {
   background-size: cover;
   background-position: center;
@@ -4750,7 +4757,7 @@ select {
   background-image: url("../img/icons/edit.png");
   opacity: 0.35;
   margin-top: 0px; }
-/* line 297, ../scss/dashboard.scss */
+/* line 299, ../scss/dashboard.scss */
 #dashboard .add {
   position: absolute;
   right: 0px;
@@ -4771,41 +4778,41 @@ select {
   color: white;
   font-weight: 300;
   white-space: nowrap; }
-  /* line 317, ../scss/dashboard.scss */
+  /* line 319, ../scss/dashboard.scss */
   #dashboard .add:hover {
     background-color: black; }
-/* line 326, ../scss/dashboard.scss */
+/* line 328, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums li:hover .actions, #dashboard fieldset > ul.exhibitions li:hover .actions, #dashboard fieldset > ul.events li:hover .actions, #dashboard fieldset > ul.workshops li:hover .actions {
   opacity: 1; }
-/* line 327, ../scss/dashboard.scss */
+/* line 329, ../scss/dashboard.scss */
 #dashboard fieldset > ul.museums .actions, #dashboard fieldset > ul.exhibitions .actions, #dashboard fieldset > ul.events .actions, #dashboard fieldset > ul.workshops .actions {
   opacity: 0.25; }
-/* line 331, ../scss/dashboard.scss */
+/* line 333, ../scss/dashboard.scss */
 #dashboard fieldset > ul > li {
   position: relative; }
-  /* line 335, ../scss/dashboard.scss */
+  /* line 337, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover .status {
     opacity: 1; }
-    /* line 337, ../scss/dashboard.scss */
+    /* line 339, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbToggle {
       background-color: rgba(0, 0, 0, 0.15);
       opacity: 0.5; }
-    /* line 341, ../scss/dashboard.scss */
+    /* line 343, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li:hover .status .sbHolder {
       background-color: rgba(0, 0, 0, 0); }
-  /* line 346, ../scss/dashboard.scss */
+  /* line 348, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li .status {
     position: absolute;
     top: 8px;
     right: 80px;
     width: 115px; }
-    /* line 351, ../scss/dashboard.scss */
+    /* line 353, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbToggle {
       height: 24px;
       width: 100%;
       background-color: rgba(0, 0, 0, 0);
       opacity: 0.25; }
-    /* line 357, ../scss/dashboard.scss */
+    /* line 359, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbHolder {
       background-color: #ebebeb !important;
       border: none;
@@ -4818,21 +4825,21 @@ select {
       width: 100%;
       font-size: 13px !important;
       line-height: 24px !important; }
-    /* line 371, ../scss/dashboard.scss */
+    /* line 373, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbOptions a {
       padding-top: 5px;
       padding-bottom: 5px; }
-    /* line 375, ../scss/dashboard.scss */
+    /* line 377, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li .status .sbSelector {
       font-size: 13px !important;
       line-height: 24px !important;
       width: 100%;
       box-sizing: border-box;
       -moz-box-sizing: border-box; }
-  /* line 385, ../scss/dashboard.scss */
+  /* line 387, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li:hover > a {
     background-color: rgba(0, 0, 0, 0.075); }
-  /* line 390, ../scss/dashboard.scss */
+  /* line 392, ../scss/dashboard.scss */
   #dashboard fieldset > ul > li > h3,
   #dashboard fieldset > ul > li > span,
   #dashboard fieldset > ul > li > a {
@@ -4846,12 +4853,12 @@ select {
     -moz-box-sizing: border-box;
     margin-bottom: 2px;
     white-space: nowrap; }
-    /* line 404, ../scss/dashboard.scss */
+    /* line 406, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 .title,
     #dashboard fieldset > ul > li > span .title,
     #dashboard fieldset > ul > li > a .title {
       font-weight: 700; }
-    /* line 407, ../scss/dashboard.scss */
+    /* line 409, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3:hover h3, #dashboard fieldset > ul > li > h3:hover h4, #dashboard fieldset > ul > li > h3:hover h5,
     #dashboard fieldset > ul > li > span:hover h3,
     #dashboard fieldset > ul > li > span:hover h4,
@@ -4860,13 +4867,13 @@ select {
     #dashboard fieldset > ul > li > a:hover h4,
     #dashboard fieldset > ul > li > a:hover h5 {
       color: rgba(0, 0, 0, 0.5) !important; }
-    /* line 409, ../scss/dashboard.scss */
+    /* line 411, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > a h3 {
       overflow: hidden;
       max-width: 700px; }
-    /* line 415, ../scss/dashboard.scss */
+    /* line 417, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h3, #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h3,
     #dashboard fieldset > ul > li > span h5,
@@ -4874,7 +4881,7 @@ select {
     #dashboard fieldset > ul > li > a h5 {
       display: inline-block;
       font-size: 16px !important; }
-    /* line 416, ../scss/dashboard.scss */
+    /* line 418, ../scss/dashboard.scss */
     #dashboard fieldset > ul > li > h3 h5,
     #dashboard fieldset > ul > li > span h5,
     #dashboard fieldset > ul > li > a h5 {

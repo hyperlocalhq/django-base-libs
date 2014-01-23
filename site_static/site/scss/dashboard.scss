@@ -185,7 +185,6 @@ select {
   width: 100%;
   margin-bottom: 10px;
   // margin-top: -20px;
-  
   .item a{
     display: block;
   }
@@ -194,7 +193,8 @@ select {
         background-color: #f0f0f0;
       }
     td , th {
-      padding: 5px 10px;
+      padding: 5px;
+      &:first-child   { padding-left: 10px;}
       &:last-child    { text-align: right;}
     }
     th small{
@@ -213,6 +213,8 @@ select {
       border: none;
       border-bottom: 2px solid transparent;
       vertical-align: top;
+      vertical-align: middle;
+
       color: rgba(0,0,0,0.75) !important;
       // background-color: #f2f2f2;
 
