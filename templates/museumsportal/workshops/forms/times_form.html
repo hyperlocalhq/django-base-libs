@@ -71,7 +71,7 @@
         }).change();
     
         $(
-            '<a id="add_workshop_time" class="add btn btn-primary" href="#">{% trans "Add another workshop time" %}</a>'
+            '<a id="add_workshop_time" class="add btn btn-primary" href="#">{% trans "Add another date" %}</a>'
         ).insertAfter('#workshop_times').click(function() {
             var $total_forms = $('#id_workshop_times-TOTAL_FORMS');
             var $new_form = $('#workshop_times_empty_form').clone(true).attr("id", null).show();
@@ -107,6 +107,7 @@
             
             $('#batch_workshop_time_form').show();
             $('#workshop_times_form').hide();
+            $('body').scrollTop( 0 );
             return false;
         });
         

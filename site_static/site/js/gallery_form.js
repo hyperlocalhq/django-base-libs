@@ -4,8 +4,10 @@
 /* global qq: false */
 /* global translatable_file_uploader_options: false */
 /* global activate_form_language: false */
+/* global lazyload_images: false */
 (function($, undefined) {
     function reinit() {
+        lazyload_images();
         $('#photos').each(function() {
             var load_url = $(this).data("load-url");
             $(this).load(load_url + ' #photos>*', function() {

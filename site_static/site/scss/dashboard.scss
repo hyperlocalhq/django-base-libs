@@ -25,7 +25,19 @@
             
   }
 }
+#workshop_times {
+  .formset-form {
+    &:first-child {
+      label { display: block;}
+    }
+    label { display: none;}
+  } 
+}
 
+#workshop_times,
+#batch_workshop_time {
+  .form-group {margin-bottom: 0px; }
+}
 .tagsinput {
   .btn {
     margin-right: 2px;

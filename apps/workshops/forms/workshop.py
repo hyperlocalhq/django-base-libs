@@ -799,8 +799,8 @@ class BatchWorkshopTimeForm(forms.Form):
                     ),
                     css_class="row-xs"
                 ),
+                css_id="batch_workshop_time",
             ),
-            css_class="no-legend"
         ))
         
         layout_blocks.append(bootstrap.FormActions(

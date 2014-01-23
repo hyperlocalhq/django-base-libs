@@ -6,8 +6,8 @@
     <div id="photos">
         {% for media_file in exhibition.mediafile_set.all %}
             <div class="photo" data-token="{{ media_file.get_token }}">
-                <a href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/" class="edit reorder img" data-background="{{ MEDIA_URL }}{{ media_file.path|modified_path:"cover" }}?now={% now "YmdHis" %}">
-                    <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"thumb" }}?now={% now "YmdHis" %}" alt="" />
+                <a href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/" class="edit reorder img">
+                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ media_file.path|modified_path:"thumb" }}?now={% now "YmdHis" %}" alt="" />
                 </a>
                 {% with media_file.path|file_description as file_desc %}
                 <div class="info hide">
