@@ -3099,11 +3099,11 @@ a.img-detail.loaded:hover img {
 
 /* line 253, ../scss/list.scss */
 .grid .item {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -ms-transition: none !important;
-  -o-transition: none !important;
-  transition: none !important; }
+  -webkit-transition: -webkit-transform 0.25s ease-in-out !important;
+  -moz-transition: -moz-transform 0.25s ease-in-out !important;
+  -ms-transition: -ms-transform 0.25s ease-in-out !important;
+  -o-transition: -o-transform 0.25s ease-in-out !important;
+  transition: transform 0.25s ease-in-out !important; }
   /* line 279, ../scss/list.scss */
   .grid .item > a {
     display: block;
