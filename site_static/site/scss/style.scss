@@ -32,6 +32,10 @@ html {
   height: 100%;
 }
 
+.nobr {
+  display: inline-block;
+}
+
 body {
   height: 100%;
   position: relative;
@@ -43,7 +47,6 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
   font-weight: 300;
-  background-color: #ffffff;
   // text-shadow: 0 1px 0 rgba(0,0,0,0.01);
   -webkit-text-stroke: 1px transparent;
   margin: 0 !important;

@@ -34,7 +34,7 @@
         <div class="item col-xs-12 col-sm-7 col-md-12 col-lg-12">
           <div class="inner">
             <a class="img" href="{{ object.website }}">
-              <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"ed_small" }}" alt="" />
+              <img src="{{ STATIC_URL }}site/img/placeholder_editorial_small.gif" data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"ed_small" }}" alt="" />
             </a>
             <a class="txt" href="{{ object.website }}">
               <h3>{{ object.title }}</h3>
@@ -46,7 +46,7 @@
       {% endif %}
   {% else %}
     <div class="editorial-content">
-      <a class="img" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})">
+      <a class="img" href="{{ object.website }}">
         {% if object.image %}<img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />{% endif %} 
         {% if object.image_caption %}<p class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %} 
       </a>

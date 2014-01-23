@@ -80,13 +80,10 @@
                   {% adding2favorites for museum using "favorites/includes/favorite_detail.html" %}
                 {% endif %}
 
-                {% with museum as list_item %}
-                  <button class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
-                    <span class="icon icon-location"></span>
-                    <span class="sr-only">{% trans "Show location on map" %}</span>
-                  </button>
-                  {% include "utils/geo_position.html" %}
-                {% endwith %}
+                <a class="btn btn-default btn-round location" href="{% url "museum_list_map" %}#object_id={{ museum.pk }}">
+                  <span class="icon icon-location"></span>
+                  <span class="sr-only">{% trans "Show location on map" %}</span>
+                </a>
 
                 <button class="btn btn-default btn-round share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}"  data-url="{{ object.get_url }}" data-text="{{ museum.title }}">
                   <span class="icon icon-social-twitter"></span>
