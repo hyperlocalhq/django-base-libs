@@ -1,7 +1,7 @@
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
 
 {% with object as museum %}
-  <button id="cancel-description" class="cancel btn btn-info btn-lg" data-spy="affix" data-offset-top="0">
+  <button id="cancel-description" class="cancel btn btn-info btn-lg">
     <span class="icon icon-remove"></span>
     <span class="sr-only">{% trans "close" %}</span>
   </button>
@@ -42,33 +42,6 @@
           </small>
         </p>
       </header>
-      
-      <!-- ======= Tools ======= -->
-
-      <div class="tools">
-
-        {% if request.user.is_authenticated %}
-          {% adding2favorites for museum using "favorites/includes/favorite_detail.html" %}
-        {% endif %}
-
-        {% with museum as list_item %}
-          <button class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}">
-            <span class="icon icon-location"></span>
-            <span class="sr-only">{% trans "Show location on map" %}</span>
-          </button>
-          {% include "utils/geo_position.html" %}
-        {% endwith %}
-
-        <button class="btn btn-default btn-round share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}"  data-url="{{ object.get_url }}" data-text="{{ museum.title }}">
-          <span class="icon icon-social-twitter"></span>
-          <span class="sr-only">{% trans "Share on Twitter" %}</span>
-        </button>
-
-        <button class="btn btn-default btn-round share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{{ museum.title }}">
-          <span class="icon icon-social-facebook"></span>
-          <span class="sr-only">{% trans "Share on Facebook" %}</span>
-        </button>
-      </div>
 
       {% if museum.cover_image %}
         <div id="cover_img">

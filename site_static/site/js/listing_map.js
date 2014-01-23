@@ -27,6 +27,7 @@ var oMap;
 				zoomControl: true,
 				streetViewControl: true,
                 center: new google.maps.LatLng(52.515306, 13.363863),
+
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControlOptions: {
                     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
@@ -148,12 +149,13 @@ var oMap;
             navigator.geolocation.getCurrentPosition  (
                 function(position)  {
                     // var oImage = self.settings.STATIC_URL + 'site/img/marker_current.png';
-                    var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.png", null, null, null, new google.maps.Size(25,35));
+                    var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.gif", null, null, null, new google.maps.Size(16,16));
 
                     var oMarker = new google.maps.Marker({
                         position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                         map: oMap,
-                        icon: oImage
+                        icon: oImage,
+                        optimized: false
                     });
                     oMarker.setZIndex(999);
                     google.maps.event.addListener(oMarker, 'click', function() {
@@ -248,6 +250,15 @@ $(document).ready(function() {
         $("#map-sidebar").toggleClass( "map-filter" );
         $("#map-sidebar").removeClass( "map-list" );
         google.maps.event.trigger(oMap, "resize");
+        return false;
+    });
+
+    var previous_page = document.referrer;
+    $('#cancel-map').click(function() {
+        if (!previous_page) {
+            previous_page = "../";
+        }
+        location.href = previous_page;
         return false;
     });
 });

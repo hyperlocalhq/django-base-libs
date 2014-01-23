@@ -83,13 +83,10 @@
               <!-- ======= Tools ======= -->
 
               <div class="tools">
-                {% with event as list_item %}
-                  <button class="btn btn-default btn-round location">
-                    <span class="icon icon-location"></span>
-                    <span class="sr-only">{% trans "Show location on map" %}</span>
-                  </button>
-                  {% include "utils/geo_position.html" %}
-                {% endwith %}
+                <a class="btn btn-default btn-round location" href="{% url "event_list_map" %}#object_id={{ event.pk }}">
+                  <span class="icon icon-location"></span>
+                  <span class="sr-only">{% trans "Show location on map" %}</span>
+                </a>
 
                 {% if request.user.is_authenticated %}
                   {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}

@@ -2329,68 +2329,70 @@
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   z-index: 1000; }
-  /* line 107, ../scss/gmap.scss */
-  #map-list .cancel,
-  #map-description .cancel,
-  #map-filter .cancel {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    z-index: 1000; }
 
-/* line 117, ../scss/gmap.scss */
+/* line 114, ../scss/gmap.scss */
+#map-wrapper .cancel,
+#list-filter .cancel,
+#map-list .cancel,
+#map-description .cancel,
+#map-filter .cancel {
+  position: absolute;
+  right: 0px;
+  top: 0px; }
+
+/* line 123, ../scss/gmap.scss */
 .map-list #map-list,
 .map-description #map-description,
 .map-filter #map-filter {
   right: 0% !important; }
 
-/* line 119, ../scss/gmap.scss */
+/* line 125, ../scss/gmap.scss */
 #list {
   margin-top: 30px; }
 
-/* line 123, ../scss/gmap.scss */
+/* line 129, ../scss/gmap.scss */
 .list-header h4 {
-  margin-bottom: 15px; }
-/* line 126, ../scss/gmap.scss */
+  margin-bottom: 15px !important; }
+/* line 132, ../scss/gmap.scss */
 .list-header .list-controls {
   margin-bottom: 15px; }
 
-/* line 131, ../scss/gmap.scss */
+/* line 137, ../scss/gmap.scss */
 #map-list #container {
   margin-left: -30px;
   margin-right: -30px; }
-/* line 135, ../scss/gmap.scss */
+/* line 141, ../scss/gmap.scss */
 #map-list .item {
   padding: 0px;
   width: 100%; }
-  /* line 138, ../scss/gmap.scss */
+  /* line 144, ../scss/gmap.scss */
   #map-list .item a {
     padding: 15px 30px !important;
     display: block;
     color: black;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x; }
-    /* line 147, ../scss/gmap.scss */
+    /* line 153, ../scss/gmap.scss */
     #map-list .item a:hover {
       color: black;
       background-repeat: repeat; }
-    /* line 152, ../scss/gmap.scss */
+    /* line 158, ../scss/gmap.scss */
     #map-list .item a:active {
       color: white;
       background-repeat: repeat-x;
       background-color: #00aefd; }
-    /* line 158, ../scss/gmap.scss */
+    /* line 164, ../scss/gmap.scss */
     #map-list .item a h3 {
       font-weight: 700; }
-    /* line 159, ../scss/gmap.scss */
+    /* line 165, ../scss/gmap.scss */
     #map-list .item a h4 {
       font-weight: 300; }
-    /* line 160, ../scss/gmap.scss */
+    /* line 166, ../scss/gmap.scss */
     #map-list .item a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 161, ../scss/gmap.scss */
+    /* line 167, ../scss/gmap.scss */
     #map-list .item a h3, #map-list .item a h4, #map-list .item a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2401,80 +2403,80 @@
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 173, ../scss/gmap.scss */
+      /* line 179, ../scss/gmap.scss */
       #map-list .item a h3:empty, #map-list .item a h4:empty, #map-list .item a h5:empty {
         display: none; }
 
-/* line 180, ../scss/gmap.scss */
+/* line 186, ../scss/gmap.scss */
 #map-filter {
-  background-image: url("../img/transparent-1.png") !important; }
-  /* line 182, ../scss/gmap.scss */
+  background-image: url("../img/trns-1.png") !important; }
+  /* line 188, ../scss/gmap.scss */
   #map-filter .panel-group {
     margin: 15px 0;
     padding: 15px 0px;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x; }
-  /* line 189, ../scss/gmap.scss */
+  /* line 195, ../scss/gmap.scss */
   #map-filter .panel-body {
     padding-top: 15px; }
-    /* line 191, ../scss/gmap.scss */
+    /* line 197, ../scss/gmap.scss */
     #map-filter .panel-body ul {
       font-size: 0px; }
-      /* line 193, ../scss/gmap.scss */
+      /* line 199, ../scss/gmap.scss */
       #map-filter .panel-body ul li {
         display: inline-block; }
 
-/* line 199, ../scss/gmap.scss */
+/* line 205, ../scss/gmap.scss */
 #map-description .opening-hours {
   margin-bottom: 20px; }
-/* line 202, ../scss/gmap.scss */
+/* line 208, ../scss/gmap.scss */
 #map-description #cover_img {
   padding: 0px;
   margin: 0 -30px;
   margin-bottom: 20px; }
-  /* line 206, ../scss/gmap.scss */
+  /* line 212, ../scss/gmap.scss */
   #map-description #cover_img .img {
     margin: 0px; }
-/* line 208, ../scss/gmap.scss */
+/* line 214, ../scss/gmap.scss */
 #map-description .tools {
   display: none; }
-/* line 211, ../scss/gmap.scss */
+/* line 217, ../scss/gmap.scss */
 #map-description header {
   margin-top: -10px;
   margin-bottom: 20px;
   position: relative; }
-  /* line 217, ../scss/gmap.scss */
+  /* line 223, ../scss/gmap.scss */
   #map-description header h1,
   #map-description header h2 {
     font-size: 20px;
     line-height: 140%;
     display: block;
     margin: 0px; }
-  /* line 224, ../scss/gmap.scss */
+  /* line 230, ../scss/gmap.scss */
   #map-description header h1 {
     font-weight: 700; }
-  /* line 225, ../scss/gmap.scss */
+  /* line 231, ../scss/gmap.scss */
   #map-description header h2 {
     font-weight: 300; }
-  /* line 227, ../scss/gmap.scss */
+  /* line 233, ../scss/gmap.scss */
   #map-description header h3 {
     text-transform: uppercase;
     font-size: 12px;
     line-height: 160%;
     font-weight: 600;
     margin-top: 15px !important; }
-  /* line 235, ../scss/gmap.scss */
+  /* line 241, ../scss/gmap.scss */
   #map-description header h4 {
     font-size: 12px;
     line-height: 140%;
     margin: 0px;
     padding: 0px;
     font-weight: 300; }
-  /* line 242, ../scss/gmap.scss */
+  /* line 248, ../scss/gmap.scss */
   #map-description header .extras {
     margin-top: 25px; }
-    /* line 244, ../scss/gmap.scss */
+    /* line 250, ../scss/gmap.scss */
     #map-description header .extras dd, #map-description header .extras dt {
       font-size: 20px;
       line-height: 32px; }
@@ -2880,7 +2882,7 @@ h6 + .row:not(.grid),
 /* line 44, ../scss/list.scss */
 .item-inner {
   background-color: transparent;
-  background-image: url("../img/transparent-1.png") !important; }
+  background-image: url("../img/trns-1.png") !important; }
 
 /* line 50, ../scss/list.scss */
 #teaser .item h3 {
@@ -3024,10 +3026,7 @@ a.img-detail.loaded:hover img {
   display: block;
   opacity: 1;
   height: auto; }
-  /* line 190, ../scss/list.scss */
-  .item#item-preview .description header {
-    margin-bottom: 20px; }
-/* line 205, ../scss/list.scss */
+/* line 202, ../scss/list.scss */
 .item .description {
   position: relative;
   height: 0px;
@@ -3038,53 +3037,53 @@ a.img-detail.loaded:hover img {
   -ms-transition: opacity 0.125s ease-in-out !important;
   -o-transition: opacity 0.125s ease-in-out !important;
   transition: opacity 0.125s ease-in-out !important; }
-  /* line 215, ../scss/list.scss */
+  /* line 212, ../scss/list.scss */
   .item .description p.lead {
     margin-right: 40px; }
-  /* line 219, ../scss/list.scss */
+  /* line 216, ../scss/list.scss */
   .item .description header h3 {
     font-weight: 700; }
-  /* line 220, ../scss/list.scss */
+  /* line 217, ../scss/list.scss */
   .item .description header h4 {
     font-weight: 300; }
-  /* line 221, ../scss/list.scss */
+  /* line 218, ../scss/list.scss */
   .item .description header h5 {
     font-weight: 300;
     opacity: 0.5; }
-  /* line 222, ../scss/list.scss */
+  /* line 219, ../scss/list.scss */
   .item .description header h3, .item .description header h4, .item .description header h5 {
     font-size: 22px;
     line-height: 140%; }
-    /* line 225, ../scss/list.scss */
+    /* line 222, ../scss/list.scss */
     .item .description header h3:empty, .item .description header h4:empty, .item .description header h5:empty {
       display: none; }
 
-/* line 232, ../scss/list.scss */
+/* line 229, ../scss/list.scss */
 .grid .item {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
   -o-transition: none !important;
   transition: none !important; }
-  /* line 258, ../scss/list.scss */
+  /* line 255, ../scss/list.scss */
   .grid .item > a {
     display: block;
     color: black;
     margin-bottom: 20px; }
-    /* line 263, ../scss/list.scss */
+    /* line 260, ../scss/list.scss */
     .grid .item > a:hover {
       color: black; }
-    /* line 265, ../scss/list.scss */
+    /* line 262, ../scss/list.scss */
     .grid .item > a h3 {
       font-weight: 700; }
-    /* line 266, ../scss/list.scss */
+    /* line 263, ../scss/list.scss */
     .grid .item > a h4 {
       font-weight: 300; }
-    /* line 267, ../scss/list.scss */
+    /* line 264, ../scss/list.scss */
     .grid .item > a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 268, ../scss/list.scss */
+    /* line 265, ../scss/list.scss */
     .grid .item > a h3, .grid .item > a h4, .grid .item > a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -3095,27 +3094,27 @@ a.img-detail.loaded:hover img {
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 280, ../scss/list.scss */
+      /* line 277, ../scss/list.scss */
       .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
         display: none; }
 
-/* line 288, ../scss/list.scss */
+/* line 285, ../scss/list.scss */
 .compact .item .inner {
   font-size: 15px;
   line-height: 21px;
   overflow: hidden;
   background-color: #f2f2f2;
   position: relative; }
-/* line 296, ../scss/list.scss */
+/* line 293, ../scss/list.scss */
 .compact .item:hover .inner {
   background-color: rgba(0, 0, 0, 0.075); }
-/* line 297, ../scss/list.scss */
+/* line 294, ../scss/list.scss */
 .compact .item.title {
   background: none; }
-  /* line 299, ../scss/list.scss */
+  /* line 296, ../scss/list.scss */
   .compact .item.title:hover {
     background: none; }
-  /* line 301, ../scss/list.scss */
+  /* line 298, ../scss/list.scss */
   .compact .item.title h3 {
     font-weight: 700;
     margin-bottom: 5px !important;
@@ -3124,7 +3123,7 @@ a.img-detail.loaded:hover img {
     text-transform: uppercase;
     font-size: 16px;
     line-height: 20px; }
-/* line 312, ../scss/list.scss */
+/* line 309, ../scss/list.scss */
 .compact .item .img {
   background-color: #f2f2f2;
   width: 80px;
@@ -3137,7 +3136,7 @@ a.img-detail.loaded:hover img {
   left: 0;
   top: 0;
   padding: 0px; }
-/* line 326, ../scss/list.scss */
+/* line 323, ../scss/list.scss */
 .compact .item a.txt {
   float: left;
   padding: 10px;
@@ -3149,20 +3148,20 @@ a.img-detail.loaded:hover img {
   height: 90px;
   box-sizing: border-box !important;
   -moz-box-sizing: border-box !important; }
-  /* line 338, ../scss/list.scss */
+  /* line 335, ../scss/list.scss */
   .compact .item a.txt:hover * {
     color: black; }
-  /* line 340, ../scss/list.scss */
+  /* line 337, ../scss/list.scss */
   .compact .item a.txt h3 {
     font-weight: 700; }
-  /* line 341, ../scss/list.scss */
+  /* line 338, ../scss/list.scss */
   .compact .item a.txt h4 {
     font-weight: 300; }
-  /* line 342, ../scss/list.scss */
+  /* line 339, ../scss/list.scss */
   .compact .item a.txt h5 {
     font-weight: 300;
     opacity: 0.5; }
-  /* line 345, ../scss/list.scss */
+  /* line 342, ../scss/list.scss */
   .compact .item a.txt h3,
   .compact .item a.txt h4,
   .compact .item a.txt h5 {
@@ -3174,40 +3173,40 @@ a.img-detail.loaded:hover img {
     -moz-box-sizing: border-box !important;
     margin: 0px !important;
     display: block !important; }
-    /* line 358, ../scss/list.scss */
+    /* line 355, ../scss/list.scss */
     .compact .item a.txt h3:empty,
     .compact .item a.txt h4:empty,
     .compact .item a.txt h5:empty {
       display: none !important; }
-  /* line 361, ../scss/list.scss */
+  /* line 358, ../scss/list.scss */
   .compact .item a.txt p {
     display: none; }
-/* line 365, ../scss/list.scss */
+/* line 362, ../scss/list.scss */
 .compact .item:nth-child(1) {
   margin-bottom: 0px !important; }
-  /* line 367, ../scss/list.scss */
+  /* line 364, ../scss/list.scss */
   .compact .item:nth-child(1) .inner {
     background: none !important;
     padding-bottom: 80px; }
-  /* line 372, ../scss/list.scss */
+  /* line 369, ../scss/list.scss */
   .compact .item:nth-child(1) .txt {
     padding: 0px;
     background: none !important;
     width: 100%;
     display: block !important; }
-    /* line 380, ../scss/list.scss */
+    /* line 377, ../scss/list.scss */
     .compact .item:nth-child(1) .txt h3,
     .compact .item:nth-child(1) .txt h4,
     .compact .item:nth-child(1) .txt h5 {
       font-size: 14px !important;
       line-height: 20px !important; }
-    /* line 385, ../scss/list.scss */
+    /* line 382, ../scss/list.scss */
     .compact .item:nth-child(1) .txt p {
       font-size: 13px !important;
       line-height: 18px !important;
       margin-top: 8px;
       display: block; }
-  /* line 393, ../scss/list.scss */
+  /* line 390, ../scss/list.scss */
   .compact .item:nth-child(1) .img {
     width: 100% !important;
     position: relative; }
@@ -3467,7 +3466,7 @@ a.img-detail.loaded:hover img {
 
 /* line 6, ../scss/filters.scss */
 #list-filter > div {
-  background-image: url("../img/transparent-1.png") !important;
+  background-image: url("../img/trns-1.png") !important;
   border-top: 30px solid white; }
 /* line 10, ../scss/filters.scss */
 #list-filter .container {
@@ -3604,7 +3603,7 @@ a.img-detail.loaded:hover img {
       line-height: 20px;
       padding: 5px 8px;
       font-size: 14px;
-      background-image: url("../img/transparent-1.png") !important;
+      background-image: url("../img/trns-1.png") !important;
       color: #404040;
       text-align: center; }
     /* line 162, ../scss/filters.scss */
@@ -4450,7 +4449,7 @@ dl {
   /* line 19, ../scss/dashboard.scss */
   #photos .ui-state-highlight {
     width: 20%;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../img/trns-1.png") !important;
     -moz-background-clip: content;
     /* Firefox 3.6 */
     -webkit-background-clip: content;
@@ -4595,7 +4594,7 @@ dl {
   box-shadow: none;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  background-image: url("../img/transparent-1.png"); }
+  background-image: url("../img/trns-1.png"); }
 
 /* line 166, ../scss/dashboard.scss */
 textarea.form-control {
@@ -4652,7 +4651,7 @@ select {
     /* Safari 4? Chrome 6? */
     background-clip: padding-box;
     /* Firefox 4, Safari 5, Opera 10, IE 9 */
-    background-image: url("../img/transparent-1.png"); }
+    background-image: url("../img/trns-1.png"); }
     /* line 209, ../scss/dashboard.scss */
     .dashboard-table tr td:nth-child(2n), .dashboard-table tr td:nth-child(3n), .dashboard-table tr td:nth-child(4n) {
       width: 1%;
@@ -4872,7 +4871,7 @@ select {
 
 /* line 3, ../scss/sbholder.scss */
 .sbHolder {
-  background-image: url("../img/transparent-1.png");
+  background-image: url("../img/trns-1.png");
   border: none;
   font-family: inherit;
   font-weight: 300 !important;
@@ -5186,7 +5185,7 @@ body {
 .season {
   padding-bottom: 15px;
   margin-bottom: 15px;
-  background-image: url("../img/transparent-1.png");
+  background-image: url("../img/trns-1.png");
   background-position: bottom;
   background-repeat: repeat-x; }
   /* line 109, ../scss/style.scss */
@@ -5203,7 +5202,7 @@ body {
 
 /* line 120, ../scss/style.scss */
 .tweet {
-  background-image: url("../img/transparent-1.png") !important;
+  background-image: url("../img/trns-1.png") !important;
   padding: 23px 25px;
   margin-bottom: 10px; }
 
@@ -5272,7 +5271,7 @@ h1 {
     list-style: none;
     padding: 10px;
     margin-bottom: 4px;
-    background-image: url("../img/transparent-1.png") !important; }
+    background-image: url("../img/trns-1.png") !important; }
 
 /* line 193, ../scss/style.scss */
 h2 {

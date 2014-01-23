@@ -18,7 +18,7 @@
   }
   .ui-state-highlight {
     width: 20%;
-    background-image: url("../img/transparent-1.png") !important;
+    background-image: url("../img/trns-1.png") !important;
       -moz-background-clip: content;     /* Firefox 3.6 */
       -webkit-background-clip: content;  /* Safari 4? Chrome 6? */
       background-clip: content-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
@@ -161,7 +161,7 @@
   box-shadow: none;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  background-image: url("../img/transparent-1.png");
+  background-image: url("../img/trns-1.png");
 }
 textarea.form-control {resize: vertical; }
 
@@ -219,7 +219,7 @@ select {
       -moz-background-clip: padding;     /* Firefox 3.6 */
       -webkit-background-clip: padding;  /* Safari 4? Chrome 6? */
       background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
-      background-image: url("../img/transparent-1.png");
+      background-image: url("../img/trns-1.png");
 
       .status { 
         margin-bottom: -2px;
