@@ -73,13 +73,17 @@ STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "museumsportal", "site_static")]
     # Don't forget to use absolute paths, not relative paths.
 
 #Settings for uploaded images
-FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 2 # 2 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 2  # 2 MB
 
 
 TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
     os.path.join(PROJECT_PATH, "museumsportal", "templates", "museumsportal"),
     os.path.join(PROJECT_PATH, "museumsportal", "templates", "admin"),
-    ] + TEMPLATE_DIRS
+] + TEMPLATE_DIRS
+
+LOCALE_PATHS = (
+    os.path.join(PROJECT_PATH, "museumsportal", "locale"),
+)
 
 PATH_TMP = os.path.join(PROJECT_PATH, "museumsportal", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL

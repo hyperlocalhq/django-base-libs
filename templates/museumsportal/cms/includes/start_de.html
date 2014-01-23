@@ -3,49 +3,49 @@
 {% slideshow "start_slideshow_de" %}
 
 {% with "cms/plugins/editorial_content/ec_start_page.html" as editorial_content_template %}
-    <div class="container">
-      <div id="notices" class="content visible-xs">
-        <h6 class="block-label">{% trans "First things first" %}</h6>
-        <div class="row row-sm">
-          <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
-            <p> <a href="/de/search/?q=Irokesen&amp;submit=Suche">Museen</a> </p>
-          </div>
-          <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
-            <p> <a href="/de/search/?q=Irokesen&amp;submit=Suche">Ausstellungen</a> </p>
-          </div>
+  <div class="container">
+    <div id="notices" class="content visible-xs">
+      <h6 class="block-label">{% trans "First things first" %}</h6>
+      <div class="row row-sm">
+        <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
+          <p> <a href="/de/search/?q=Irokesen&amp;submit=Suche">Museen</a> </p>
         </div>
-      </div>
-
-      <div class="row row-md">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <div class="start-content">
-            <h5 class="caps">{% trans "Newly Opened" %}</h5>
-            <div class="compact row">
-              {% placeholder "start_page_left" %}
-            </div>
-          </div>
+        <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
+          <p> <a href="/de/search/?q=Irokesen&amp;submit=Suche">Ausstellungen</a> </p>
         </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <div class="start-content">
-            <h5 class="caps">{% trans "Must see" %}</h5>
-            <div class="compact row">
-              {% placeholder "start_page_center" %}
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <div class="start-content">
-            <h5 class="caps">{% trans "Magazin" %}</h5>
-            <div class="compact row">
-              {% placeholder "start_page_right" %}
-            </div>
-          </div>
-        </div>
-        
       </div>
     </div>
+
+    <div class="row row-md">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="start-content">
+          <h5 class="caps">{% trans "Newly Opened" %}</h5>
+          <div class="compact row">
+            {% placeholder "start_page_left" %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="start-content">
+          <h5 class="caps">{% trans "Must see" %}</h5>
+          <div class="compact row">
+            {% placeholder "start_page_center" %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="start-content">
+          <h5 class="caps">{% trans "Magazine" %}</h5>
+          <div class="compact row">
+            {% placeholder "start_page_right" %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 {% endwith %}
 
 <div class="content hidden-xs">
