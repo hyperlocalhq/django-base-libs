@@ -130,7 +130,13 @@
 #show-current-location {
   position: absolute;
   right: 0px;
-  bottom: 0px;
+  top: 100px;
+  z-index: 50;
+}
+#toggle-sidebar {
+  position: absolute;
+  right: 0px;
+  top: 50px;
   z-index: 50;
 }
 
