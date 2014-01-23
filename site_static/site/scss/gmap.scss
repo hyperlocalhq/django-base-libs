@@ -43,6 +43,19 @@
   overflow: hidden;
 }
 
+.no-transition {
+  #map-list,
+  #map-filter,
+  #map-description,
+  #map-sidebar,
+  #map-wrapper {
+    -webkit-transition-duration: 0s;
+    -moz-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
+  }
+}
+
 #map-list,
 #map-filter,
 #map-description,
@@ -78,8 +91,8 @@
 
 #map-sidebar-wrapper {
   position: absolute;
-  right: 0px;
-  z-index: 1050;
+  left: 100%;
+  z-index: 950;
 
   #map-sidebar {
     height: 100%;
@@ -97,7 +110,7 @@
   width: 100%;
   top: 0px;
   bottom: 0px;
-  right: -100%;
+  right: 0%;
   padding: 25px 30px;
   overflow-y: scroll;
   -moz-box-shadow:    0 0 10px rgba(0,0,0,0.05);
@@ -115,12 +128,13 @@
     position: absolute;
     right: 0px;
     top: 0px;
+    z-index: 50;
   }
 }
 
 .map-list #map-list,
 .map-description #map-description,
-.map-filter #map-filter { right: 0% !important; }
+.map-filter #map-filter { right: 100% !important; }
 
 #map-list {
   #container {

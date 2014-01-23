@@ -2270,7 +2270,18 @@
   width: 100%;
   overflow: hidden; }
 
-/* line 50, ../scss/gmap.scss */
+/* line 51, ../scss/gmap.scss */
+.no-transition #map-list,
+.no-transition #map-filter,
+.no-transition #map-description,
+.no-transition #map-sidebar,
+.no-transition #map-wrapper {
+  -webkit-transition-duration: 0s;
+  -moz-transition-duration: 0s;
+  -o-transition-duration: 0s;
+  transition-duration: 0s; }
+
+/* line 63, ../scss/gmap.scss */
 #map-list,
 #map-filter,
 #map-description,
@@ -2289,31 +2300,31 @@
   transition-duration: 0.5s;
   transition-timing: ease-in-out; }
 
-/* line 68, ../scss/gmap.scss */
+/* line 81, ../scss/gmap.scss */
 #map-wrapper {
   position: relative;
   z-index: 1000; }
 
-/* line 74, ../scss/gmap.scss */
+/* line 87, ../scss/gmap.scss */
 .map-only #map-wrapper {
   width: 100%; }
-/* line 75, ../scss/gmap.scss */
+/* line 88, ../scss/gmap.scss */
 .map-only #map-sidebar {
   margin-left: 100% !important; }
 
-/* line 79, ../scss/gmap.scss */
+/* line 92, ../scss/gmap.scss */
 #map-sidebar-wrapper {
   position: absolute;
-  right: 0px;
-  z-index: 1050; }
-  /* line 84, ../scss/gmap.scss */
+  left: 100%;
+  z-index: 950; }
+  /* line 97, ../scss/gmap.scss */
   #map-sidebar-wrapper #map-sidebar {
     height: 100%;
     width: 100%;
     margin-left: 0%;
     position: relative; }
 
-/* line 94, ../scss/gmap.scss */
+/* line 107, ../scss/gmap.scss */
 #map-list,
 #map-description,
 #map-filter {
@@ -2322,7 +2333,7 @@
   width: 100%;
   top: 0px;
   bottom: 0px;
-  right: -100%;
+  right: 0%;
   padding: 25px 30px;
   overflow-y: scroll;
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -2330,7 +2341,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   z-index: 1000; }
 
-/* line 114, ../scss/gmap.scss */
+/* line 127, ../scss/gmap.scss */
 #map-wrapper .cancel,
 #list-filter .cancel,
 #map-list .cancel,
@@ -2338,23 +2349,24 @@
 #map-filter .cancel {
   position: absolute;
   right: 0px;
-  top: 0px; }
+  top: 0px;
+  z-index: 50; }
 
-/* line 123, ../scss/gmap.scss */
+/* line 137, ../scss/gmap.scss */
 .map-list #map-list,
 .map-description #map-description,
 .map-filter #map-filter {
-  right: 0% !important; }
+  right: 100% !important; }
 
-/* line 126, ../scss/gmap.scss */
+/* line 140, ../scss/gmap.scss */
 #map-list #container {
   margin-left: -30px;
   margin-right: -30px; }
-/* line 130, ../scss/gmap.scss */
+/* line 144, ../scss/gmap.scss */
 #map-list .item {
   padding: 0px;
   width: 100%; }
-  /* line 133, ../scss/gmap.scss */
+  /* line 147, ../scss/gmap.scss */
   #map-list .item a {
     padding: 15px 30px !important;
     display: block;
@@ -2362,26 +2374,26 @@
     background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x; }
-    /* line 142, ../scss/gmap.scss */
+    /* line 156, ../scss/gmap.scss */
     #map-list .item a:hover {
       color: black;
       background-repeat: repeat; }
-    /* line 147, ../scss/gmap.scss */
+    /* line 161, ../scss/gmap.scss */
     #map-list .item a:active {
       color: white;
       background-repeat: repeat-x;
       background-color: #00aefd; }
-    /* line 153, ../scss/gmap.scss */
+    /* line 167, ../scss/gmap.scss */
     #map-list .item a h3 {
       font-weight: 700; }
-    /* line 154, ../scss/gmap.scss */
+    /* line 168, ../scss/gmap.scss */
     #map-list .item a h4 {
       font-weight: 300; }
-    /* line 155, ../scss/gmap.scss */
+    /* line 169, ../scss/gmap.scss */
     #map-list .item a h5 {
       font-weight: 300;
       opacity: 0.5; }
-    /* line 156, ../scss/gmap.scss */
+    /* line 170, ../scss/gmap.scss */
     #map-list .item a h3, #map-list .item a h4, #map-list .item a h5 {
       font-size: 14px;
       line-height: 20px;
@@ -2392,80 +2404,80 @@
       height: 22px !important;
       overflow: hidden;
       margin: 0px !important; }
-      /* line 168, ../scss/gmap.scss */
+      /* line 182, ../scss/gmap.scss */
       #map-list .item a h3:empty, #map-list .item a h4:empty, #map-list .item a h5:empty {
         display: none; }
 
-/* line 175, ../scss/gmap.scss */
+/* line 189, ../scss/gmap.scss */
 #map-filter {
   background-image: url("../img/trns-1.png") !important; }
-  /* line 177, ../scss/gmap.scss */
+  /* line 191, ../scss/gmap.scss */
   #map-filter .panel-group {
     margin: 15px 0;
     padding: 15px 0px;
     background-image: url("../img/trns-1.png") !important;
     background-position: top;
     background-repeat: repeat-x; }
-  /* line 184, ../scss/gmap.scss */
+  /* line 198, ../scss/gmap.scss */
   #map-filter .panel-body {
     padding-top: 15px; }
-    /* line 186, ../scss/gmap.scss */
+    /* line 200, ../scss/gmap.scss */
     #map-filter .panel-body ul {
       font-size: 0px; }
-      /* line 188, ../scss/gmap.scss */
+      /* line 202, ../scss/gmap.scss */
       #map-filter .panel-body ul li {
         display: inline-block; }
 
-/* line 194, ../scss/gmap.scss */
+/* line 208, ../scss/gmap.scss */
 #map-description .opening-hours {
   margin-bottom: 20px; }
-/* line 197, ../scss/gmap.scss */
+/* line 211, ../scss/gmap.scss */
 #map-description #cover_img {
   padding: 0px;
   margin: 0 -30px;
   margin-bottom: 20px; }
-  /* line 201, ../scss/gmap.scss */
+  /* line 215, ../scss/gmap.scss */
   #map-description #cover_img .img {
     margin: 0px; }
-/* line 203, ../scss/gmap.scss */
+/* line 217, ../scss/gmap.scss */
 #map-description .tools {
   display: none; }
-/* line 206, ../scss/gmap.scss */
+/* line 220, ../scss/gmap.scss */
 #map-description header {
   margin-top: -10px;
   margin-bottom: 20px;
   position: relative; }
-  /* line 212, ../scss/gmap.scss */
+  /* line 226, ../scss/gmap.scss */
   #map-description header h1,
   #map-description header h2 {
     font-size: 20px;
     line-height: 140%;
     display: block;
     margin: 0px; }
-  /* line 219, ../scss/gmap.scss */
+  /* line 233, ../scss/gmap.scss */
   #map-description header h1 {
     font-weight: 700; }
-  /* line 220, ../scss/gmap.scss */
+  /* line 234, ../scss/gmap.scss */
   #map-description header h2 {
     font-weight: 300; }
-  /* line 222, ../scss/gmap.scss */
+  /* line 236, ../scss/gmap.scss */
   #map-description header h3 {
     text-transform: uppercase;
     font-size: 12px;
     line-height: 160%;
     font-weight: 600;
     margin-top: 15px !important; }
-  /* line 230, ../scss/gmap.scss */
+  /* line 244, ../scss/gmap.scss */
   #map-description header h4 {
     font-size: 12px;
     line-height: 140%;
     margin: 0px;
     padding: 0px;
     font-weight: 300; }
-  /* line 237, ../scss/gmap.scss */
+  /* line 251, ../scss/gmap.scss */
   #map-description header .extras {
     margin-top: 25px; }
-    /* line 239, ../scss/gmap.scss */
+    /* line 253, ../scss/gmap.scss */
     #map-description header .extras dd, #map-description header .extras dt {
       font-size: 20px;
       line-height: 32px; }

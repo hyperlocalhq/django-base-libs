@@ -218,7 +218,15 @@ var oMap;
 }(jQuery));
 
 
+$(window).load(function() {
+    setTimeout(function() {
+        $('body').removeClass('no-transition');
+    }, 500);
+});
+
 $(document).ready(function() {
+
+
     $('#container .item a').click(function() {
         $('#map-description').load($(this).closest('.item').data('description-src'), function(){
             $("#map-sidebar").removeClass( "map-list" );
