@@ -1,6 +1,19 @@
-@media (max-width: 768px) {
-  .navbar-wrapper {
-    height: 72px;
+@media (max-width: 767px) {
+  .navbar-wrapper {height: 50px; }
+  .navbar-brand {padding: 11px; padding-left: 0px;}
+  .navbar-toggle {
+    position: absolute;
+    right: 0px;
+  }
+  .navbar-nav > li > a { padding: 0px 30px;}
+  .navbar-nav {
+    -moz-box-shadow:    inset 0 0 10px rgba(0,0,0,0.05);
+    -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    box-shadow:         inset 0 0 10px rgba(0,0,0,0.05);
+  }
+  .navbar {
+    position: fixed;
+    width: 100%;
   }
 }
 

@@ -297,7 +297,6 @@
               <!-- ======= Accompanying events ======= -->
 
               {% if exhibition.get_related_published_events.count %}
-
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-accompanying-events">
@@ -315,7 +314,7 @@
                           {{ event_time.event_date|date:"j. F Y" }}
                           {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
                         {% endwith %}<br/>
-                        <b>{{ event.title }}</b></br>
+                        <b>{{ event.title }}</b><br/>
                         {{ event.subtitle }}
                       </a>
                     {% endfor %}
@@ -709,9 +708,7 @@
                             {% endif %}
 
                             {% if season.exceptions %}
-                              <dl>
-                                <dd>{{ season.get_rendered_exceptions }}</dd>
-                              </dl>
+                              <p>{{ season.get_rendered_exceptions|striptags|urlize }}</p>
                             {% endif %}
                           </div>
                         {% endfor %}
@@ -898,6 +895,7 @@
               {% endif %}
             </div>
           </div> <!-- ======= End Marginal Collumn ======= -->
+
         </div>
       </div>
     </div>

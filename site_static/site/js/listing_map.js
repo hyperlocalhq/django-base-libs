@@ -144,7 +144,7 @@ var oCurrentLocationMarker;
                 oActiveMarker.old_z_index = oActiveMarker.getZIndex();
                 oActiveMarker.setZIndex(900);
                 $.bbq.pushState({object_id: oMarker.object_id});
-                $('#map-description').load(el.html_src,function(){
+                $('#map-description').load(el.html_src, function() {
                     $("body").removeClass("map-only");
                     $("#map-sidebar").removeClass("map-list").removeClass("map-filter").addClass("map-description");
                     google.maps.event.trigger(oMap, "resize");
@@ -162,7 +162,7 @@ var oCurrentLocationMarker;
         });
 
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition  (
+            navigator.geolocation.getCurrentPosition(
                 function(position)  {
                     // var oImage = self.settings.STATIC_URL + 'site/img/marker_current.png';
                     var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.gif", null, null, null, new google.maps.Size(16,16));
@@ -262,8 +262,7 @@ $(document).ready(function() {
     });
 
     $(document).on("click", "#cancel-list", function() {
-        $("#map-sidebar").removeClass("map-list");
-        $("body").toggleClass("map-only");
+        $("body").toggleClass( "map-only" );
         setTimeout(function() {
             google.maps.event.trigger(oMap, "resize");
         }, 500);

@@ -4440,36 +4440,61 @@ dl {
     .workshop-detail article blockquote:last-child {
       padding: 0px !important; }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   /* line 2, ../scss/media.scss */
   .navbar-wrapper {
-    height: 72px; } }
-@media (min-width: 768px) {
+    height: 50px; }
+
+  /* line 3, ../scss/media.scss */
+  .navbar-brand {
+    padding: 11px;
+    padding-left: 0px; }
+
+  /* line 4, ../scss/media.scss */
+  .navbar-toggle {
+    position: absolute;
+    right: 0px; }
+
   /* line 8, ../scss/media.scss */
+  .navbar-nav > li > a {
+    padding: 0px 30px; }
+
+  /* line 9, ../scss/media.scss */
+  .navbar-nav {
+    -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); }
+
+  /* line 14, ../scss/media.scss */
+  .navbar {
+    position: fixed;
+    width: 100%; } }
+@media (min-width: 768px) {
+  /* line 21, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 9, ../scss/media.scss */
+  /* line 22, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 10, ../scss/media.scss */
+  /* line 23, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 7px; } }
 @media (min-width: 992px) {
-  /* line 14, ../scss/media.scss */
+  /* line 27, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 15, ../scss/media.scss */
+  /* line 28, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 20, ../scss/media.scss */
+  /* line 33, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 23, ../scss/media.scss */
+  /* line 36, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */
