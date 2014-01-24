@@ -103,7 +103,7 @@ var oCurrentLocationMarker;
             // get options object from hash
             var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
             // apply options from hash
-            active_object_id = options.object_id;
+            active_object_id = "" + options.object_id;
         }
 
         $(self.aGeopositions).each(function(i, el) {
@@ -125,25 +125,24 @@ var oCurrentLocationMarker;
             var oPoint = new google.maps.LatLng(iLat, iLong);
 
             // DRAW MARKER
-            // var oImage = new google.maps.MarkerImage(sMarkerImgDefault, null, null, null, new google.maps.Size(25,35));
-
             var oMarker = new google.maps.Marker({
-
                 position: oPoint,
                 map: oMap,
                 icon: oMarkerImgDefault
             });
-
 
             oMarker.list_index = i;
 
             var $item = $(this);
             google.maps.event.addListener(oMarker, 'click', function() {
                 if (oActiveMarker && oActiveMarker !== oMarker) {
+                    oActiveMarker.setZIndex(oActiveMarker.old_z_index);
                     oActiveMarker.setIcon(oMarkerImgDefault);
                 }
                 oMarker.setIcon(oMarkerImgSelected);
                 oActiveMarker = oMarker;
+                oActiveMarker.old_z_index = oActiveMarker.getZIndex();
+                oActiveMarker.setZIndex(900);
                 $.bbq.pushState({object_id: oMarker.object_id});
                 $('#map-description').load(el.html_src,function(){
                     $("body").removeClass("map-only");
@@ -186,14 +185,15 @@ var oCurrentLocationMarker;
                 { enableHighAccuracy: true }
             );
         }
-        // FIT MAP
-        if (document.location.search) {
-            fit_map(oMap, aPoints);
-        }
         if (oActiveMarker) {
+            // CENTER CURRENT MARKER
             oMap.setCenter(oActiveMarker.getPosition());
             google.maps.event.trigger(oActiveMarker, 'click');
+        } else if (document.location.search) {
+            // FIT MAP
+            fit_map(oMap, aPoints);
         }
+
     }
 
     function map_filter(event, param) {
