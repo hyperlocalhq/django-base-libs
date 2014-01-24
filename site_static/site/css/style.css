@@ -3014,10 +3014,10 @@ a.img-detail.loaded:hover img {
     display: none; }
   /* line 162, ../scss/list.scss */
   .list .item:hover > a {
-    background-color: rgba(0, 0, 0, 0.075); }
+    background-image: url("../img/trns-2.png") !important; }
   /* line 166, ../scss/list.scss */
   .list .item > a {
-    background-color: #f2f2f2;
+    background-image: url("../img/trns-1.png") !important;
     color: black;
     padding: 20px 25px;
     display: block; }
@@ -4453,63 +4453,108 @@ dl {
 
 @media (max-width: 767px) {
   /* line 2, ../scss/media.scss */
+  .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important; }
+
+  /* line 7, ../scss/media.scss */
   .navbar-wrapper {
     height: 50px; }
 
-  /* line 3, ../scss/media.scss */
+  /* line 8, ../scss/media.scss */
   .navbar-brand {
     padding: 11px;
     padding-left: 0px; }
 
-  /* line 4, ../scss/media.scss */
+  /* line 9, ../scss/media.scss */
   .navbar-toggle {
     position: absolute;
     right: 0px; }
 
-  /* line 8, ../scss/media.scss */
+  /* line 15, ../scss/media.scss */
   .navbar-nav > li > a {
-    padding: 0px 30px; }
+    padding: 0px 20px;
+    font-size: 16px !important;
+    color: black !important;
+    border-bottom: 1px solid #f9f9f9; }
+    /* line 20, ../scss/media.scss */
+    .navbar-nav > li > a:after {
+      content: "Schöne dings dings dings";
+      display: block;
+      font-size: 12px !important;
+      text-transform: none !important;
+      margin-top: -30px;
+      opacity: 0.75; }
+  /* line 33, ../scss/media.scss */
+  .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: white !important;
+    background-color: #00aefd;
+    font-weight: 300; }
 
-  /* line 9, ../scss/media.scss */
-  .navbar-nav {
+  /* line 41, ../scss/media.scss */
+  .navbar-collapse {
     -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
     -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); }
 
-  /* line 14, ../scss/media.scss */
+  /* line 46, ../scss/media.scss */
   .navbar {
     position: fixed;
     width: 100%; }
 
-  /* line 18, ../scss/media.scss */
+  /* line 50, ../scss/media.scss */
   .planorg-firstlevel-item {
-    padding-bottom: 10px !important; } }
+    padding-bottom: 10px !important; }
+
+  /* line 53, ../scss/media.scss */
+  #container {
+    margin-left: -20px;
+    margin-right: -20px; }
+
+  /* line 58, ../scss/media.scss */
+  .list .item {
+    margin-bottom: 0px;
+    padding: 0px !important; }
+    /* line 62, ../scss/media.scss */
+    .list .item > a {
+      color: black;
+      padding: 20px 25px;
+      display: block;
+      background-position: top;
+      background-repeat: repeat-x; }
+      /* line 68, ../scss/media.scss */
+      .list .item > a h3, .list .item > a h4, .list .item > a h5 {
+        font-size: 14px !important;
+        line-height: 20px !important; }
+      /* line 72, ../scss/media.scss */
+      .list .item > a h4 {
+        font-weight: 700; } }
 @media (min-width: 768px) {
-  /* line 24, ../scss/media.scss */
+  /* line 79, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 25, ../scss/media.scss */
+  /* line 80, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 26, ../scss/media.scss */
+  /* line 81, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 7px; } }
 @media (min-width: 992px) {
-  /* line 30, ../scss/media.scss */
+  /* line 85, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 31, ../scss/media.scss */
+  /* line 86, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 36, ../scss/media.scss */
+  /* line 91, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 39, ../scss/media.scss */
+  /* line 94, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */
@@ -5478,54 +5523,52 @@ p a {
 
 /* line 264, ../scss/style.scss */
 .navbar-form {
-  padding: 0px !important;
+  background-image: url("../img/trns-1.png") !important;
+  padding: 18px !important;
   margin: 0px !important; }
-  /* line 267, ../scss/style.scss */
-  .navbar-form .input-group {
-    width: 1px; }
 
-/* line 273, ../scss/style.scss */
+/* line 271, ../scss/style.scss */
 .input-group .form-group {
   margin-bottom: 0px; }
 
-/* line 278, ../scss/style.scss */
+/* line 276, ../scss/style.scss */
 .tooltip {
   pointer-events: none; }
 
-/* line 282, ../scss/style.scss */
+/* line 280, ../scss/style.scss */
 .linear-list {
   display: block; }
-  /* line 284, ../scss/style.scss */
+  /* line 282, ../scss/style.scss */
   .linear-list > li {
     float: left;
     display: inline-block;
     height: inherit; }
-    /* line 288, ../scss/style.scss */
+    /* line 286, ../scss/style.scss */
     .linear-list > li > a {
       display: inline-block; }
-    /* line 292, ../scss/style.scss */
+    /* line 290, ../scss/style.scss */
     .linear-list > li:first-child {
       padding-left: 0;
       margin-left: 0;
       border-left: 0; }
-    /* line 293, ../scss/style.scss */
+    /* line 291, ../scss/style.scss */
     .linear-list > li:first-child:before {
       content: ""; }
-  /* line 296, ../scss/style.scss */
+  /* line 294, ../scss/style.scss */
   .linear-list.dots > li {
     padding-right: 15px;
     position: relative;
     display: inline-block; }
-    /* line 300, ../scss/style.scss */
+    /* line 298, ../scss/style.scss */
     .linear-list.dots > li:after {
       content: "•";
       position: absolute;
       top: 0;
       right: 6px;
       font-size: 10px; }
-    /* line 301, ../scss/style.scss */
+    /* line 299, ../scss/style.scss */
     .linear-list.dots > li:last-child {
       padding-right: 0; }
-    /* line 302, ../scss/style.scss */
+    /* line 300, ../scss/style.scss */
     .linear-list.dots > li:last-child:after {
       content: ""; }

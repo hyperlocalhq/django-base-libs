@@ -1,12 +1,44 @@
 @media (max-width: 767px) {
+  .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
   .navbar-wrapper {height: 50px; }
   .navbar-brand {padding: 11px; padding-left: 0px;}
   .navbar-toggle {
     position: absolute;
     right: 0px;
   }
-  .navbar-nav > li > a { padding: 0px 30px;}
+
   .navbar-nav {
+    > li > a { 
+      padding: 0px 20px;
+      font-size: 16px !important;
+      color: black !important;
+      border-bottom: 1px solid #f9f9f9;
+      &:after {
+        content: "Schöne dings dings dings";
+        display: block;
+        font-size: 12px !important;
+        text-transform: none !important;
+        margin-top: -30px;
+        opacity: 0.75;
+      }
+    }
+
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: white !important;
+        background-color: #00aefd;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .navbar-collapse {
     -moz-box-shadow:    inset 0 0 10px rgba(0,0,0,0.05);
     -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
     box-shadow:         inset 0 0 10px rgba(0,0,0,0.05);
@@ -17,6 +49,29 @@
   }
   .planorg-firstlevel-item {
     padding-bottom: 10px !important;
+  }
+  #container {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  .list {
+    .item {
+      margin-bottom: 0px;
+      padding: 0px !important;
+
+      > a {
+        color: black;
+        padding: 20px 25px;
+        display: block;
+        background-position: top;
+        background-repeat: repeat-x;
+        h3, h4 , h5 {
+          font-size: 14px !important;
+          line-height: 20px !important;
+        }
+        h4 { font-weight: 700;}
+      }
+    }
   }
 }
 

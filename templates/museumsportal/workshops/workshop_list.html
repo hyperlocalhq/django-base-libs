@@ -17,16 +17,16 @@
   <div class="content">
     <div class="container">
       <header class="list-header clearfix">
-        <h4 class="sr-only">{% trans "Guided Tours, Workshops and educational offers" %}</h4>
+        <h4 class="visible-xs">{% trans "Guided Tours, Workshops and educational offers" %}</h4>
 
         <div class="list-controls">
+          <a class="btn btn-info pull-right" href="{% url "workshop_list_map" %}">{% trans "Show map" %}</a>
           <div class="btn-group pull-left" style="margin-right: 15px;">
             <button id="toggle-list-filter" class="btn btn-info"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}</button>
             <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
           </div>
           <ul id="filter-summary" class="pull-left"></ul>
 
-          <a class="btn btn-info pull-right" href="{% url "workshop_list_map" %}">{% trans "Show map" %}</a>
         </div>
       </header>
     </div>
@@ -47,7 +47,7 @@
     <div id="list">
       <div class="container">
 
-        <div id="notices">
+        <div id="notices" class="hidden-xs">
           <h6 class="block-label">{% trans "Editors Recommendations" %}</h6>
           <div class="row row-sm">
             <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">{% infoblock "workshop_notice_1" %}</div>

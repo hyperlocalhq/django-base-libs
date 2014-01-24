@@ -160,11 +160,11 @@ only screen and (                min-resolution: 2dppx) {
     &.delete { display: none; }
 
     &:hover > a{
-      background-color: rgba(0,0,0,0.075);
+      background-image: url("../img/trns-2.png") !important;
     }
 
     > a {
-      background-color: #f2f2f2;
+      background-image: url("../img/trns-1.png") !important;
       color: black;
       padding: 20px 25px;
       display: block;
