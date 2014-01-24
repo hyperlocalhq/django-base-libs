@@ -62,7 +62,10 @@ margin: 0px;
   &:empty{ display: none !important;}
   li {
     display: inline-block; 
-    margin-right: 3px;
+    a {
+      display: inline-block; 
+      margin-right: 3px;
+    }
     &:first-child {
       display: block;
     }

@@ -249,6 +249,13 @@ only screen and (                min-resolution: 2dppx) {
   }
 }
 
+.no-transition .row .item{
+    -webkit-transition: none !important;
+       -moz-transition: none !important;
+        -ms-transition: none !important;
+         -o-transition: none !important;
+            transition: none !important;
+}
 .grid {
   .item {
     -webkit-transition: -webkit-transform 0.25s ease-in-out !important;
@@ -256,13 +263,6 @@ only screen and (                min-resolution: 2dppx) {
         -ms-transition: -ms-transform 0.25s ease-in-out !important;
          -o-transition: -o-transform 0.25s ease-in-out !important;
             transition: transform 0.25s ease-in-out !important;
-
-    // -webkit-transition: none !important;
-    //    -moz-transition: none !important;
-    //     -ms-transition: none !important;
-    //      -o-transition: none !important;
-    //         transition: none !important;
-
 
     &:hover {
       .img img {

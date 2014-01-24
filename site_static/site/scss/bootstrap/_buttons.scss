@@ -177,12 +177,13 @@
 
 .btn-lg {
   // line-height: ensure even-numbered height of button next to large input
-  height: 50px;
+  min-height: 50px;
   line-height: 30px;
   min-width: 50px;
   padding: 10px 15px;
   text-transform: none;
   font-size: 18px;
+  line-height: 30px;
   // @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
 }
 .btn-sm{

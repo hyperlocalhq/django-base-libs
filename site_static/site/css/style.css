@@ -3097,7 +3097,15 @@ a.img-detail.loaded:hover img {
     .item .description header h3:empty, .item .description header h4:empty, .item .description header h5:empty {
       display: none; }
 
-/* line 253, ../scss/list.scss */
+/* line 252, ../scss/list.scss */
+.no-transition .row .item {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important; }
+
+/* line 260, ../scss/list.scss */
 .grid .item {
   -webkit-transition: -webkit-transform 0.25s ease-in-out !important;
   -moz-transition: -moz-transform 0.25s ease-in-out !important;
@@ -3572,23 +3580,26 @@ a.img-detail.loaded:hover img {
     display: none !important; }
   /* line 63, ../scss/filters.scss */
   #filter-summary li {
-    display: inline-block;
-    margin-right: 3px; }
-    /* line 66, ../scss/filters.scss */
+    display: inline-block; }
+    /* line 65, ../scss/filters.scss */
+    #filter-summary li a {
+      display: inline-block;
+      margin-right: 3px; }
+    /* line 69, ../scss/filters.scss */
     #filter-summary li:first-child {
       display: block; }
-    /* line 70, ../scss/filters.scss */
+    /* line 73, ../scss/filters.scss */
     #filter-summary li a:hover {
       color: #ff4582; }
-    /* line 93, ../scss/filters.scss */
+    /* line 96, ../scss/filters.scss */
     #filter-summary li:after {
       content: " · ";
       opacity: 0.5; }
-    /* line 99, ../scss/filters.scss */
+    /* line 102, ../scss/filters.scss */
     #filter-summary li:first-child:after, #filter-summary li:last-child:after {
       content: "" !important; }
 
-/* line 107, ../scss/filters.scss */
+/* line 110, ../scss/filters.scss */
 .tags,
 .filter {
   font-size: 0px;
@@ -3598,13 +3609,13 @@ a.img-detail.loaded:hover img {
   -webkit-transition-duration: 0.5s;
   -webkit-transition-delay: 0s;
   -webkit-transition-timing: ease-in-out; }
-  /* line 115, ../scss/filters.scss */
+  /* line 118, ../scss/filters.scss */
   .tags .title,
   .filter .title {
     display: block;
     padding-bottom: 10px;
     font-weight: 700; }
-  /* line 121, ../scss/filters.scss */
+  /* line 124, ../scss/filters.scss */
   .tags li,
   .filter li {
     font-size: 14px;
@@ -3613,31 +3624,31 @@ a.img-detail.loaded:hover img {
     color: black;
     margin-bottom: 5px;
     margin-right: 5px; }
-    /* line 129, ../scss/filters.scss */
+    /* line 132, ../scss/filters.scss */
     .tags li.x-level-1 a,
     .filter li.x-level-1 a {
       background-color: rgba(0, 0, 0, 0.025); }
-    /* line 131, ../scss/filters.scss */
+    /* line 134, ../scss/filters.scss */
     .tags li.x-level-1 .selected, .tags li.x-level-1.active,
     .filter li.x-level-1 .selected,
     .filter li.x-level-1.active {
       background-color: #00aefd;
       color: white; }
-    /* line 138, ../scss/filters.scss */
+    /* line 141, ../scss/filters.scss */
     .tags li .selected, .tags li.active,
     .filter li .selected,
     .filter li.active {
       background-color: #00aefd;
       color: white; }
-    /* line 143, ../scss/filters.scss */
+    /* line 146, ../scss/filters.scss */
     .tags li:hover,
     .filter li:hover {
       background-color: #f2f2f2; }
-      /* line 145, ../scss/filters.scss */
+      /* line 148, ../scss/filters.scss */
       .tags li:hover a,
       .filter li:hover a {
         opacity: 0.8; }
-    /* line 150, ../scss/filters.scss */
+    /* line 153, ../scss/filters.scss */
     .tags li a,
     .filter li a {
       display: inline-block;
@@ -3649,7 +3660,7 @@ a.img-detail.loaded:hover img {
       background-image: url("../img/trns-1.png") !important;
       color: #404040;
       text-align: center; }
-    /* line 162, ../scss/filters.scss */
+    /* line 165, ../scss/filters.scss */
     .tags li span,
     .filter li span {
       background-color: #f2f2f2;
@@ -3660,27 +3671,27 @@ a.img-detail.loaded:hover img {
       line-height: 10px;
       padding: 10px; }
 
-/* line 175, ../scss/filters.scss */
+/* line 178, ../scss/filters.scss */
 .level-1-container li {
   background-color: #00aefd; }
-  /* line 177, ../scss/filters.scss */
+  /* line 180, ../scss/filters.scss */
   .level-1-container li a {
     color: white !important;
     background-color: transparent; }
-  /* line 181, ../scss/filters.scss */
+  /* line 184, ../scss/filters.scss */
   .level-1-container li:hover {
     background-color: black !important; }
-    /* line 183, ../scss/filters.scss */
+    /* line 186, ../scss/filters.scss */
     .level-1-container li:hover a {
       opacity: 1 !important; }
-  /* line 188, ../scss/filters.scss */
+  /* line 191, ../scss/filters.scss */
   .level-1-container li.selected, .level-1-container li.active {
     background-color: black !important; }
-    /* line 190, ../scss/filters.scss */
+    /* line 193, ../scss/filters.scss */
     .level-1-container li.selected a, .level-1-container li.active a {
       background-color: black !important;
       color: white !important; }
-    /* line 195, ../scss/filters.scss */
+    /* line 198, ../scss/filters.scss */
     .level-1-container li.selected:hover, .level-1-container li.active:hover {
       background-color: black !important; }
 
@@ -4468,33 +4479,37 @@ dl {
   /* line 14, ../scss/media.scss */
   .navbar {
     position: fixed;
-    width: 100%; } }
+    width: 100%; }
+
+  /* line 18, ../scss/media.scss */
+  .planorg-firstlevel-item {
+    padding-bottom: 10px !important; } }
 @media (min-width: 768px) {
-  /* line 21, ../scss/media.scss */
+  /* line 24, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 22, ../scss/media.scss */
+  /* line 25, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 23, ../scss/media.scss */
+  /* line 26, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 7px; } }
 @media (min-width: 992px) {
-  /* line 27, ../scss/media.scss */
+  /* line 30, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 28, ../scss/media.scss */
+  /* line 31, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 33, ../scss/media.scss */
+  /* line 36, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 36, ../scss/media.scss */
+  /* line 39, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */

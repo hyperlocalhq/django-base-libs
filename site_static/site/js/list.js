@@ -232,3 +232,10 @@ $(window).load(function() {
         }
     }
 });
+
+
+$(window).load(function() {
+    setTimeout(function() {
+        $('body').removeClass('no-transition');
+    }, 1000);
+});
