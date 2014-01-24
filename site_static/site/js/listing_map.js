@@ -148,8 +148,8 @@ var oMap;
                 $('#map-description').load(el.html_src, function() {
                     $("body").removeClass("map-only");
                     $("#map-sidebar").removeClass("map-list").removeClass("map-filter").addClass("map-description");
+                    setTimeout(lazyload_images, 500);
                     google.maps.event.trigger(oMap, "resize");
-                    lazyload_images();
                 });
             });
             oMarker.categories = el.categories;
