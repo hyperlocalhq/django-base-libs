@@ -4510,37 +4510,36 @@ dl {
   #list #container {
     margin-left: -20px;
     margin-right: -20px; }
-
-  /* line 60, ../scss/media.scss */
-  .grid .item,
-  .list .item {
-    margin-bottom: 0px;
-    padding: 0px !important; }
-    /* line 63, ../scss/media.scss */
-    .grid .item .img,
-    .list .item .img {
-      display: none; }
-    /* line 66, ../scss/media.scss */
-    .grid .item > a,
-    .list .item > a {
-      color: black;
-      padding: 20px 25px;
-      display: block;
-      background-image: url("../img/trns-1.png") !important;
-      background-position: top;
-      background-repeat: repeat-x;
-      margin-bottom: 0px !important; }
-      /* line 74, ../scss/media.scss */
-      .grid .item > a h3, .grid .item > a h4, .grid .item > a h5,
-      .list .item > a h3,
-      .list .item > a h4,
-      .list .item > a h5 {
-        font-size: 14px !important;
-        line-height: 20px !important; }
-      /* line 78, ../scss/media.scss */
-      .grid .item > a h3,
-      .list .item > a h3 {
-        font-weight: 700; } }
+    /* line 59, ../scss/media.scss */
+    #list #container .grid .item,
+    #list #container .list .item {
+      margin-bottom: 0px;
+      padding: 0px !important; }
+      /* line 62, ../scss/media.scss */
+      #list #container .grid .item .img,
+      #list #container .list .item .img {
+        display: none; }
+      /* line 65, ../scss/media.scss */
+      #list #container .grid .item > a,
+      #list #container .list .item > a {
+        color: black;
+        padding: 20px 25px;
+        display: block;
+        background-image: url("../img/trns-1.png") !important;
+        background-position: top;
+        background-repeat: repeat-x;
+        margin-bottom: 0px !important; }
+        /* line 73, ../scss/media.scss */
+        #list #container .grid .item > a h3, #list #container .grid .item > a h4, #list #container .grid .item > a h5,
+        #list #container .list .item > a h3,
+        #list #container .list .item > a h4,
+        #list #container .list .item > a h5 {
+          font-size: 14px !important;
+          line-height: 20px !important; }
+        /* line 77, ../scss/media.scss */
+        #list #container .grid .item > a h3,
+        #list #container .list .item > a h3 {
+          font-weight: 700; } }
 @media (min-width: 768px) {
   /* line 85, ../scss/media.scss */
   #search {
