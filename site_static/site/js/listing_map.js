@@ -22,12 +22,13 @@
 })(jQuery);
 
 var oMap;
-var oCurrentLocationMarker;
 
 (function($, undefined) {
     var oInfobox;
     var aMarkers = [];
     var oCurrentMarker = null;
+    var oGeo2MarkersMapper = {};
+    var oCurrentLocationMarker;
 
     $(document).ready(function() {
         var $oList = $('body');
@@ -103,58 +104,58 @@ var oCurrentLocationMarker;
             // get options object from hash
             var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
             // apply options from hash
-            active_object_id = options.object_id;
+            active_object_id = '' + options.object_id;  // object_id converted to a string
         }
 
         $(self.aGeopositions).each(function(i, el) {
             // DEFINE IMAGE
-            var iLat = el.latitude;
-            var iLong = el.longitude;
-            if (lat_max < iLat) {
-                lat_max = iLat;
+            var nLat = el.latitude;
+            var nLong = el.longitude;
+            if (lat_max < nLat) {
+                lat_max = nLat;
             }
-            if (iLat < lat_min) {
-                lat_min = iLat;
+            if (nLat < lat_min) {
+                lat_min = nLat;
             }
-            if (long_max < iLong) {
-                long_max = iLong;
+            if (long_max < nLong) {
+                long_max = nLong;
             }
-            if (iLong < long_min) {
-                long_min = iLong;
+            if (nLong < long_min) {
+                long_min = nLong;
             }
-            var oPoint = new google.maps.LatLng(iLat, iLong);
+            var oPoint = new google.maps.LatLng(nLat, nLong);
 
             // DRAW MARKER
-            // var oImage = new google.maps.MarkerImage(sMarkerImgDefault, null, null, null, new google.maps.Size(25,35));
-
             var oMarker = new google.maps.Marker({
-
                 position: oPoint,
                 map: oMap,
                 icon: oMarkerImgDefault
             });
-
 
             oMarker.list_index = i;
 
             var $item = $(this);
             google.maps.event.addListener(oMarker, 'click', function() {
                 if (oActiveMarker && oActiveMarker !== oMarker) {
+                    oActiveMarker.setZIndex(oActiveMarker.old_z_index);
                     oActiveMarker.setIcon(oMarkerImgDefault);
                 }
                 oMarker.setIcon(oMarkerImgSelected);
                 oActiveMarker = oMarker;
+                oActiveMarker.old_z_index = oActiveMarker.getZIndex();
+                oActiveMarker.setZIndex(900);
                 $.bbq.pushState({object_id: oMarker.object_id});
-                $('#map-description').load(el.html_src,function(){
+                $('#map-description').load(el.html_src, function() {
                     $("body").removeClass("map-only");
                     $("#map-sidebar").removeClass("map-list").removeClass("map-filter").addClass("map-description");
+                    setTimeout(lazyload_images, 500);
                     google.maps.event.trigger(oMap, "resize");
-                    lazyload_images();
                 });
             });
             oMarker.categories = el.categories;
             oMarker.object_id = el.object_id;
             aMarkers.push(oMarker);
+            oGeo2MarkersMapper[el.geo] = oMarker;
             aPoints.push(oPoint);
 
             if (el.object_id === active_object_id) {
@@ -163,7 +164,7 @@ var oCurrentLocationMarker;
         });
 
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition  (
+            navigator.geolocation.getCurrentPosition(
                 function(position)  {
                     // var oImage = self.settings.STATIC_URL + 'site/img/marker_current.png';
                     var oImage = new google.maps.MarkerImage(self.settings.STATIC_URL + "site/img/marker_current.gif", null, null, null, new google.maps.Size(16,16));
@@ -178,7 +179,7 @@ var oCurrentLocationMarker;
                     // google.maps.event.addListener(oCurrentLocationMarker, 'click', function() {
                     //     $('#map-description').html("You are here!");
                     // });
-                    $( "#show-current-location" ).removeClass("hidden");
+                    $("#show-current-location").removeClass("hidden");
                 },
                 function(){
                     // alert('Unable to get location');
@@ -186,14 +187,15 @@ var oCurrentLocationMarker;
                 { enableHighAccuracy: true }
             );
         }
-        // FIT MAP
-        if (document.location.search) {
-            fit_map(oMap, aPoints);
-        }
         if (oActiveMarker) {
+            // CENTER CURRENT MARKER
             oMap.setCenter(oActiveMarker.getPosition());
             google.maps.event.trigger(oActiveMarker, 'click');
+        } else if (document.location.search) {
+            // FIT MAP
+            fit_map(oMap, aPoints);
         }
+
     }
 
     function map_filter(event, param) {
@@ -233,66 +235,72 @@ var oCurrentLocationMarker;
         ));
         oMap.fitBounds(oBounds);
     }
-}(jQuery));
 
+    $(window).load(function() {
+        setTimeout(function() {
+            $('body').removeClass('no-transition');
+        }, 100);
+    });
 
-$(window).load(function() {
-    setTimeout(function() {
-        $('body').removeClass('no-transition');
-    }, 100);
-});
-
-$(document).ready(function() {
-    $('#container .item a').click(function() {
-        $('#map-description').load($(this).closest('.item').data('description-src'), function(){
-            $("#map-sidebar").removeClass("map-list").addClass( "map-description");
-            lazyload_images();
+    $(document).ready(function() {
+        $('#container .item a').click(function() {
+            var sGeo = $(this).closest('.item').data('geo');
+            var oMarker = oGeo2MarkersMapper[sGeo];
+            if (oMarker) {
+                google.maps.event.trigger(oMarker, 'click');
+                oMap.panTo(oMarker.getPosition());
+            }
+            // $('#map-description').load($(this).closest('.item').data('description-src'), function(){
+            //     $("#map-sidebar").removeClass("map-list").addClass( "map-description");
+            //     lazyload_images();
+            // });
+            return false;
         });
-        return false;
-    });
 
-    $(document).on("click", "#cancel-description", function() {
-        $("#map-sidebar").removeClass("map-description").addClass("map-list");
-        return false;
-    });
+        $(document).on("click", "#cancel-description", function() {
+            $("#map-sidebar").removeClass("map-description").addClass("map-list");
+            return false;
+        });
 
-    $(document).on("click", "#cancel-filter", function() {
-        $("#map-sidebar").removeClass("map-filter").addClass("map-list");
-        return false;
-    });
+        $(document).on("click", "#cancel-filter", function() {
+            $("#map-sidebar").removeClass("map-filter").addClass("map-list");
+            return false;
+        });
 
-    $(document).on("click", "#cancel-list", function() {
-        $("body").toggleClass( "map-only" );
-        setTimeout(function() {
+        $(document).on("click", "#cancel-list", function() {
+            $("body").toggleClass( "map-only" );
+            setTimeout(function() {
+                google.maps.event.trigger(oMap, "resize");
+            }, 500);
+            return false;
+        });
+
+        $("#toggle-map-filter").click(function() {
+            $("#map-sidebar").toggleClass("map-filter").removeClass("map-list");
             google.maps.event.trigger(oMap, "resize");
-        }, 500);
-        return false;
+            return false;
+        });
+
+        $("#toggle-sidebar").click(function() {
+            $("body").toggleClass("map-only");
+            setTimeout(function() {
+                google.maps.event.trigger(oMap, "resize");
+            }, 500);
+        });
+
+        $("#show-current-location").click(function() {
+            oMap.setCenter(oCurrentLocationMarker.getPosition());
+            return false;
+        });
+
+        var previous_page = document.referrer;
+        $('#cancel-map').click(function() {
+            if (!previous_page) {
+                previous_page = "../";
+            }
+            location.href = previous_page;
+            return false;
+        });
     });
 
-    $("#toggle-map-filter").click(function() {
-        $("#map-sidebar").toggleClass("map-filter").removeClass("map-list");
-        google.maps.event.trigger(oMap, "resize");
-        return false;
-    });
-
-    $("#toggle-sidebar").click(function() {
-        $("body").toggleClass("map-only");
-        setTimeout(function() {
-            google.maps.event.trigger(oMap, "resize");
-        }, 500);
-    });
-
-    $("#show-current-location").click(function() {
-        oMap.setCenter(oCurrentLocationMarker.getPosition());
-        return false;
-    });
-
-    var previous_page = document.referrer;
-    $('#cancel-map').click(function() {
-        if (!previous_page) {
-            previous_page = "../";
-        }
-        location.href = previous_page;
-        return false;
-    });
-});
+}(jQuery));
