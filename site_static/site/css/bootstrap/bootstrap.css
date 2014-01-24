@@ -706,8 +706,8 @@ pre {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 20px;
-  padding-right: 20px; }
+  padding-left: 30px;
+  padding-right: 30px; }
   /* line 21, ../../scss/bootstrap/_mixins.scss */
   .container:before, .container:after {
     content: " ";
@@ -720,8 +720,8 @@ pre {
 
 /* line 12, ../../scss/bootstrap/_grid.scss */
 .row {
-  margin-left: -20px;
-  margin-right: -20px; }
+  margin-left: -30px;
+  margin-right: -30px; }
   /* line 21, ../../scss/bootstrap/_mixins.scss */
   .row:before, .row:after {
     content: " ";
@@ -783,8 +783,8 @@ pre {
 .col-lg-12 {
   position: relative;
   min-height: 1px;
-  padding-left: 20px;
-  padding-right: 20px; }
+  padding-left: 30px;
+  padding-right: 30px; }
 
 /* line 92, ../../scss/bootstrap/_grid.scss */
 .col-xs-1,
@@ -851,7 +851,7 @@ pre {
 @media (min-width: 768px) {
   /* line 118, ../../scss/bootstrap/_grid.scss */
   .container {
-    max-width: 740px; }
+    max-width: 760px; }
 
   /* line 132, ../../scss/bootstrap/_grid.scss */
   .col-sm-1,
@@ -1049,7 +1049,7 @@ pre {
 @media (min-width: 992px) {
   /* line 196, ../../scss/bootstrap/_grid.scss */
   .container {
-    max-width: 1010px; }
+    max-width: 1030px; }
 
   /* line 209, ../../scss/bootstrap/_grid.scss */
   .col-md-1,
@@ -1259,7 +1259,7 @@ pre {
 @media (min-width: 1200px) {
   /* line 276, ../../scss/bootstrap/_grid.scss */
   .container {
-    max-width: 1080px; }
+    max-width: 1100px; }
 
   /* line 290, ../../scss/bootstrap/_grid.scss */
   .col-lg-1,
@@ -2010,8 +2010,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   padding-top: 7px; }
 /* line 357, ../../scss/bootstrap/_forms.scss */
 .form-horizontal .form-group {
-  margin-left: -20px;
-  margin-right: -20px; }
+  margin-left: -30px;
+  margin-right: -30px; }
   /* line 21, ../../scss/bootstrap/_mixins.scss */
   .form-horizontal .form-group:before, .form-horizontal .form-group:after {
     content: " ";
@@ -3105,7 +3105,7 @@ input[type="button"].btn-block {
         overflow-y: visible; }
       /* line 125, ../../scss/bootstrap/_navbar.scss */
       .navbar-collapse .navbar-nav.navbar-left:first-child {
-        margin-left: -20px; }
+        margin-left: -30px; }
       /* line 131, ../../scss/bootstrap/_navbar.scss */
       .navbar-collapse .navbar-text:last-child {
         margin-right: 0; } }
@@ -3113,8 +3113,8 @@ input[type="button"].btn-block {
 /* line 143, ../../scss/bootstrap/_navbar.scss */
 .container > .navbar-header,
 .container > .navbar-collapse {
-  margin-right: -20px;
-  margin-left: -20px; }
+  margin-right: -30px;
+  margin-left: -30px; }
   @media (min-width: 768px) {
     /* line 143, ../../scss/bootstrap/_navbar.scss */
     .container > .navbar-header,
@@ -3290,8 +3290,8 @@ input[type="button"].btn-block {
   @media (min-width: 768px) {
     /* line 401, ../../scss/bootstrap/_navbar.scss */
     .navbar-text {
-      margin-left: 20px;
-      margin-right: 20px; } }
+      margin-left: 30px;
+      margin-right: 30px; } }
 
 /* line 415, ../../scss/bootstrap/_navbar.scss */
 .navbar-default {

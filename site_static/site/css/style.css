@@ -4507,54 +4507,66 @@ dl {
     padding-bottom: 10px !important; }
 
   /* line 53, ../scss/media.scss */
-  #container {
+  #list #container {
     margin-left: -20px;
     margin-right: -20px; }
 
-  /* line 58, ../scss/media.scss */
+  /* line 60, ../scss/media.scss */
+  .grid .item,
   .list .item {
     margin-bottom: 0px;
     padding: 0px !important; }
-    /* line 62, ../scss/media.scss */
+    /* line 63, ../scss/media.scss */
+    .grid .item .img,
+    .list .item .img {
+      display: none; }
+    /* line 66, ../scss/media.scss */
+    .grid .item > a,
     .list .item > a {
       color: black;
       padding: 20px 25px;
       display: block;
+      background-image: url("../img/trns-1.png") !important;
       background-position: top;
-      background-repeat: repeat-x; }
-      /* line 68, ../scss/media.scss */
-      .list .item > a h3, .list .item > a h4, .list .item > a h5 {
+      background-repeat: repeat-x;
+      margin-bottom: 0px !important; }
+      /* line 74, ../scss/media.scss */
+      .grid .item > a h3, .grid .item > a h4, .grid .item > a h5,
+      .list .item > a h3,
+      .list .item > a h4,
+      .list .item > a h5 {
         font-size: 14px !important;
         line-height: 20px !important; }
-      /* line 72, ../scss/media.scss */
-      .list .item > a h4 {
+      /* line 78, ../scss/media.scss */
+      .grid .item > a h3,
+      .list .item > a h3 {
         font-weight: 700; } }
 @media (min-width: 768px) {
-  /* line 79, ../scss/media.scss */
+  /* line 85, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 80, ../scss/media.scss */
+  /* line 86, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 81, ../scss/media.scss */
+  /* line 87, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 7px; } }
 @media (min-width: 992px) {
-  /* line 85, ../scss/media.scss */
+  /* line 91, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 86, ../scss/media.scss */
+  /* line 92, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 91, ../scss/media.scss */
+  /* line 97, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 94, ../scss/media.scss */
+  /* line 100, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */

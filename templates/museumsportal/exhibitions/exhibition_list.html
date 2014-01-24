@@ -18,17 +18,17 @@
         <h4 class="sr-only">{% trans "Exhibitions in the Museums of Berlin" %}</h4>
 
         <div class="list-controls">
+          <div class="btn-group pull-right" >
+            <a class="btn btn-info" href="{% url "exhibition_list_map" %}">{% trans "Show map" %}</a>
+            <a class="btn btn-info hidden-xs" href="rss">
+              {% trans "RSS Feed" %}
+            </a>
+          </div>
           <div class="btn-group pull-left" style="margin-right: 15px;">
             <button id="toggle-list-filter" class="btn btn-info"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}</button>
             <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
           </div>
           <ul id="filter-summary" class="pull-left"></ul>
-          <div class="btn-group pull-right" >
-            <a class="btn btn-info" href="{% url "exhibition_list_map" %}">{% trans "Show map" %}</a>
-            <a class="btn btn-info" href="rss">
-              {% trans "RSS Feed" %}
-            </a>
-          </div>
         </div>
       </header>
     </div>
