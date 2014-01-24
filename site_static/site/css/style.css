@@ -3980,7 +3980,7 @@ a.img-detail.loaded:hover img {
       line-height: 20px;
       padding-bottom: 13px;
       padding-top: 16px;
-      padding-left: 25px;
+      padding-left: 20px;
       color: black;
       background-color: #e6e6e6; }
       /* line 61, ../scss/panel.scss */
@@ -4017,8 +4017,8 @@ a.img-detail.loaded:hover img {
     /* line 97, ../scss/panel.scss */
     .panel-group .panel-collapse .panel-body {
       display: block;
-      padding-left: 25px;
-      padding-right: 25px;
+      padding-left: 20px;
+      padding-right: 20px;
       padding-top: 12px;
       padding-bottom: 15px;
       border-top: 1px solid #f2f2f2; }
@@ -4460,22 +4460,30 @@ dl {
     padding-left: 20px !important;
     padding-right: 20px !important; }
 
-  /* line 7, ../scss/media.scss */
+  /* line 6, ../scss/media.scss */
+  #to-top {
+    display: none; }
+
+  /* line 9, ../scss/media.scss */
+  .content {
+    padding: 20px 0px !important; }
+
+  /* line 13, ../scss/media.scss */
   .navbar-wrapper {
     height: 50px; }
 
-  /* line 8, ../scss/media.scss */
+  /* line 14, ../scss/media.scss */
   .navbar-brand {
     padding: 11px;
     padding-left: 0px;
     left: 20px; }
 
-  /* line 9, ../scss/media.scss */
+  /* line 15, ../scss/media.scss */
   .navbar-toggle {
     position: absolute;
     right: 0px; }
 
-  /* line 13, ../scss/media.scss */
+  /* line 19, ../scss/media.scss */
   #list-filter {
     height: 0px;
     position: fixed;
@@ -4485,21 +4493,21 @@ dl {
     background-color: white;
     overflow-x: scroll;
     max-height: 100%; }
-    /* line 22, ../scss/media.scss */
+    /* line 28, ../scss/media.scss */
     #list-filter > div {
       border: none; }
-    /* line 26, ../scss/media.scss */
+    /* line 32, ../scss/media.scss */
     #list-filter .container .cancel {
       right: 0px; }
 
-  /* line 32, ../scss/media.scss */
+  /* line 38, ../scss/media.scss */
   .navbar-nav > li > a {
     padding: 0px 20px;
     font-size: 16px !important;
     color: black !important;
     border-bottom: 1px solid #f9f9f9;
     font-weight: 700; }
-    /* line 38, ../scss/media.scss */
+    /* line 44, ../scss/media.scss */
     .navbar-nav > li > a:after {
       font-weight: 300;
       content: "Lorem ipsum dolorgs";
@@ -4508,62 +4516,68 @@ dl {
       text-transform: none !important;
       margin-top: -30px;
       opacity: 0.75; }
-  /* line 52, ../scss/media.scss */
-  .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
-    color: white !important;
-    background-color: #00aefd;
-    font-weight: 300; }
 
-  /* line 60, ../scss/media.scss */
-  .navbar-collapse {
-    -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-    margin-left: -20px !important;
-    margin-right: -20px !important; }
+  /* line 56, ../scss/media.scss */
+  #details {
+    margin-left: -20px;
+    margin-right: -20px; }
 
-  /* line 67, ../scss/media.scss */
+  /* line 61, ../scss/media.scss */
   .navbar {
     position: fixed;
     width: 100%; }
 
-  /* line 72, ../scss/media.scss */
+  /* line 66, ../scss/media.scss */
+  #top_nav {
+    -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    overflow-x: scroll;
+    max-height: 100%; }
+
+  /* line 75, ../scss/media.scss */
+  .navbar-header,
+  .navbar-collapse {
+    margin-left: -20px !important;
+    margin-right: -20px !important; }
+
+  /* line 80, ../scss/media.scss */
   .planorg-firstlevel-item {
     padding-bottom: 10px !important; }
 
-  /* line 76, ../scss/media.scss */
+  /* line 84, ../scss/media.scss */
   .list-header #filter-summary {
     margin-top: 10px; }
 
-  /* line 81, ../scss/media.scss */
+  /* line 89, ../scss/media.scss */
   #list .grid,
   #list .list {
     margin-left: -20px;
     margin-right: -20px; }
-    /* line 84, ../scss/media.scss */
+    /* line 92, ../scss/media.scss */
     #list .grid #item-preview,
     #list .list #item-preview {
       background-image: url("../img/trns-1.png") !important; }
-      /* line 86, ../scss/media.scss */
+      /* line 94, ../scss/media.scss */
       #list .grid #item-preview .description,
       #list .list #item-preview .description {
         padding: 20px;
         padding-top: 0px;
         min-width: 100%; }
-        /* line 90, ../scss/media.scss */
+        /* line 98, ../scss/media.scss */
         #list .grid #item-preview .description p.lead,
         #list .list #item-preview .description p.lead {
           margin-right: 0px; }
-    /* line 95, ../scss/media.scss */
+    /* line 103, ../scss/media.scss */
     #list .grid .item,
     #list .list .item {
       margin-bottom: 0px;
       padding: 0px !important; }
-      /* line 98, ../scss/media.scss */
+      /* line 106, ../scss/media.scss */
       #list .grid .item .img,
       #list .list .item .img {
         display: none !important; }
-      /* line 101, ../scss/media.scss */
+      /* line 109, ../scss/media.scss */
       #list .grid .item > a,
       #list .list .item > a {
         color: black;
@@ -4573,43 +4587,43 @@ dl {
         background-position: top;
         background-repeat: repeat-x;
         margin-bottom: 0px !important; }
-        /* line 109, ../scss/media.scss */
+        /* line 117, ../scss/media.scss */
         #list .grid .item > a h3, #list .grid .item > a h4, #list .grid .item > a h5,
         #list .list .item > a h3,
         #list .list .item > a h4,
         #list .list .item > a h5 {
           font-size: 14px !important;
           line-height: 20px !important; }
-        /* line 113, ../scss/media.scss */
+        /* line 121, ../scss/media.scss */
         #list .grid .item > a h3,
         #list .list .item > a h3 {
           font-weight: 700; } }
 @media (min-width: 768px) {
-  /* line 121, ../scss/media.scss */
+  /* line 129, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 122, ../scss/media.scss */
+  /* line 130, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 123, ../scss/media.scss */
+  /* line 131, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 7px; } }
 @media (min-width: 992px) {
-  /* line 127, ../scss/media.scss */
+  /* line 135, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 128, ../scss/media.scss */
+  /* line 136, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 133, ../scss/media.scss */
+  /* line 141, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 136, ../scss/media.scss */
+  /* line 144, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */
