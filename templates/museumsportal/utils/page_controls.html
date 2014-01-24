@@ -1,4 +1,5 @@
-<div id="page-controls">
+{% load i18n %}
+<div id="page-controls" class="hidden-xs">
     {% if prev_item %}
         <a href="{{ prev_item.get_url_path }}" class="prev">
             <span>

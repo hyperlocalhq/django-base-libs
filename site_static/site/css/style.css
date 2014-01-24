@@ -3706,7 +3706,7 @@ a.img-detail.loaded:hover img {
   display: block;
   color: black;
   text-align: center;
-  z-index: 10000;
+  z-index: 950;
   overflow: hidden;
   height: 60px;
   width: 70px; }
@@ -3752,7 +3752,7 @@ a.img-detail.loaded:hover img {
 #page-controls {
   position: absolute;
   top: 0px;
-  z-index: 30000; }
+  z-index: 950; }
   /* line 69, ../scss/pagecontrols.scss */
   #page-controls a {
     width: 215px;
