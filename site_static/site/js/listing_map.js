@@ -253,7 +253,6 @@ $(document).ready(function() {
     });
 
     $(document).on("click", "#cancel-list", function() {
-        $("#map-sidebar").removeClass( "map-list" );
         $("body").toggleClass( "map-only" );
         setTimeout(function() {
             google.maps.event.trigger(oMap, "resize");

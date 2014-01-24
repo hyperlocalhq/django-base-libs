@@ -4,7 +4,7 @@
   <div id="cover_img">
       {% with object.cover_image|file_description as fd %}
           <div class="img">
-            <img src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
+            <img src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
           </div>
 
           {% comment %}
@@ -75,7 +75,7 @@
 <script>
   $(window).load(function() {
     if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
-      var $cover_image = $('#cover-image');
+      var $cover_image = $('#cover-image img');
       $('.img img', $cover_image).click(function(e){
         location.href = $(this).data('href');
         return false;
