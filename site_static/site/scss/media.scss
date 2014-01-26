@@ -14,6 +14,20 @@
     padding: 20px 0px !important;
   }
 
+  .museum-detail article,
+  .exhibition-detail article,
+  .event-detail article,
+  .workshop-detail article {
+
+    header {
+
+      h1,
+      h2  {
+        font-size: 20px;
+      }
+    }
+  }
+
   .navbar-wrapper {height: 50px; }
   .navbar-brand {padding: 11px; padding-left: 0px; left: 20px;}
   .navbar-toggle {
@@ -93,6 +107,7 @@
     > a { display: block !important; }
   }
 
+  #additional-contents,
   #list {
     .grid,
     .list {

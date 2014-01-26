@@ -4473,22 +4473,33 @@ dl {
   .content {
     padding: 20px 0px !important; }
 
-  /* line 17, ../scss/media.scss */
+  /* line 25, ../scss/media.scss */
+  .museum-detail article header h1,
+  .museum-detail article header h2,
+  .exhibition-detail article header h1,
+  .exhibition-detail article header h2,
+  .event-detail article header h1,
+  .event-detail article header h2,
+  .workshop-detail article header h1,
+  .workshop-detail article header h2 {
+    font-size: 20px; }
+
+  /* line 31, ../scss/media.scss */
   .navbar-wrapper {
     height: 50px; }
 
-  /* line 18, ../scss/media.scss */
+  /* line 32, ../scss/media.scss */
   .navbar-brand {
     padding: 11px;
     padding-left: 0px;
     left: 20px; }
 
-  /* line 19, ../scss/media.scss */
+  /* line 33, ../scss/media.scss */
   .navbar-toggle {
     position: absolute;
     right: 0px; }
 
-  /* line 23, ../scss/media.scss */
+  /* line 37, ../scss/media.scss */
   #list-filter {
     height: 0px;
     position: fixed;
@@ -4498,21 +4509,21 @@ dl {
     background-color: white;
     overflow-x: scroll;
     max-height: 100%; }
-    /* line 32, ../scss/media.scss */
+    /* line 46, ../scss/media.scss */
     #list-filter > div {
       border: none; }
-    /* line 36, ../scss/media.scss */
+    /* line 50, ../scss/media.scss */
     #list-filter .container .cancel {
       right: 0px; }
 
-  /* line 42, ../scss/media.scss */
+  /* line 56, ../scss/media.scss */
   .navbar-nav > li > a {
     padding: 0px 20px;
     font-size: 16px !important;
     color: black !important;
     border-bottom: 1px solid #f9f9f9;
     font-weight: 700; }
-    /* line 48, ../scss/media.scss */
+    /* line 62, ../scss/media.scss */
     .navbar-nav > li > a:after {
       font-weight: 300;
       content: "Lorem ipsum dolorgs";
@@ -4522,17 +4533,17 @@ dl {
       margin-top: -30px;
       opacity: 0.75; }
 
-  /* line 60, ../scss/media.scss */
+  /* line 74, ../scss/media.scss */
   #details {
     margin-left: -20px;
     margin-right: -20px; }
 
-  /* line 65, ../scss/media.scss */
+  /* line 79, ../scss/media.scss */
   .navbar {
     position: fixed;
     width: 100%; }
 
-  /* line 70, ../scss/media.scss */
+  /* line 84, ../scss/media.scss */
   #top_nav {
     -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
     -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
@@ -4540,59 +4551,75 @@ dl {
     overflow-x: scroll;
     max-height: 100%; }
 
-  /* line 79, ../scss/media.scss */
+  /* line 93, ../scss/media.scss */
   .navbar-header,
   .navbar-collapse {
     margin-left: -20px !important;
     margin-right: -20px !important; }
 
-  /* line 84, ../scss/media.scss */
+  /* line 98, ../scss/media.scss */
   .planorg-firstlevel-item {
     padding-bottom: 10px !important; }
 
-  /* line 88, ../scss/media.scss */
+  /* line 102, ../scss/media.scss */
   .list-header #filter-summary {
     margin-top: 10px; }
 
-  /* line 93, ../scss/media.scss */
+  /* line 107, ../scss/media.scss */
   .list .item#item-preview > a {
     display: block !important; }
 
-  /* line 98, ../scss/media.scss */
+  /* line 113, ../scss/media.scss */
+  #additional-contents .grid,
+  #additional-contents .list,
   #list .grid,
   #list .list {
     margin-left: -20px;
     margin-right: -20px; }
-    /* line 101, ../scss/media.scss */
+    /* line 116, ../scss/media.scss */
+    #additional-contents .grid #item-preview,
+    #additional-contents .list #item-preview,
     #list .grid #item-preview,
     #list .list #item-preview {
       background-image: url("../img/trns-1.png") !important; }
-      /* line 103, ../scss/media.scss */
+      /* line 118, ../scss/media.scss */
+      #additional-contents .grid #item-preview .description,
+      #additional-contents .list #item-preview .description,
       #list .grid #item-preview .description,
       #list .list #item-preview .description {
         padding: 20px;
         padding-top: 0px;
         min-width: 100%; }
-        /* line 107, ../scss/media.scss */
+        /* line 122, ../scss/media.scss */
+        #additional-contents .grid #item-preview .description p.lead,
+        #additional-contents .list #item-preview .description p.lead,
         #list .grid #item-preview .description p.lead,
         #list .list #item-preview .description p.lead {
           margin-right: 0px; }
-    /* line 112, ../scss/media.scss */
+    /* line 127, ../scss/media.scss */
+    #additional-contents .grid #cover_img .img,
+    #additional-contents .list #cover_img .img,
     #list .grid #cover_img .img,
     #list .list #cover_img .img {
       display: block !important;
       margin-left: -20px;
       margin-right: -20px; }
-    /* line 117, ../scss/media.scss */
+    /* line 132, ../scss/media.scss */
+    #additional-contents .grid .item,
+    #additional-contents .list .item,
     #list .grid .item,
     #list .list .item {
       margin-bottom: 0px;
       padding: 0px !important; }
-      /* line 120, ../scss/media.scss */
+      /* line 135, ../scss/media.scss */
+      #additional-contents .grid .item .img,
+      #additional-contents .list .item .img,
       #list .grid .item .img,
       #list .list .item .img {
         display: none !important; }
-      /* line 123, ../scss/media.scss */
+      /* line 138, ../scss/media.scss */
+      #additional-contents .grid .item > a,
+      #additional-contents .list .item > a,
       #list .grid .item > a,
       #list .list .item > a {
         color: black;
@@ -4602,43 +4629,51 @@ dl {
         background-position: top;
         background-repeat: repeat-x;
         margin-bottom: 0px !important; }
-        /* line 131, ../scss/media.scss */
-        #list .grid .item > a h3, #list .grid .item > a h4, #list .grid .item > a h5,
+        /* line 146, ../scss/media.scss */
+        #additional-contents .grid .item > a h3, #additional-contents .grid .item > a h4, #additional-contents .grid .item > a h5,
+        #additional-contents .list .item > a h3,
+        #additional-contents .list .item > a h4,
+        #additional-contents .list .item > a h5,
+        #list .grid .item > a h3,
+        #list .grid .item > a h4,
+        #list .grid .item > a h5,
         #list .list .item > a h3,
         #list .list .item > a h4,
         #list .list .item > a h5 {
           font-size: 14px !important;
           line-height: 20px !important; }
-        /* line 135, ../scss/media.scss */
+        /* line 150, ../scss/media.scss */
+        #additional-contents .grid .item > a h3,
+        #additional-contents .list .item > a h3,
         #list .grid .item > a h3,
         #list .list .item > a h3 {
           font-weight: 700; } }
 @media (min-width: 768px) {
-  /* line 143, ../scss/media.scss */
+  /* line 158, ../scss/media.scss */
   #search {
     display: none; }
 
-  /* line 144, ../scss/media.scss */
+  /* line 159, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 11px; }
 
-  /* line 145, ../scss/media.scss */
+  /* line 160, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 7px; } }
 @media (min-width: 992px) {
-  /* line 149, ../scss/media.scss */
+  /* line 164, ../scss/media.scss */
   .navbar-nav > li > a {
     font-size: 14px; }
 
-  /* line 150, ../scss/media.scss */
+  /* line 165, ../scss/media.scss */
   .navbar-nav > li:not(:last-child) > a {
     margin-right: 20px; } }
 @media (min-width: 1200px) {
-  /* line 155, ../scss/media.scss */
+  /* line 170, ../scss/media.scss */
   .navbar-form .input-group {
     width: 200px !important; }
 
-  /* line 158, ../scss/media.scss */
+  /* line 173, ../scss/media.scss */
   #search {
     display: inline-block; } }
 /* line 1, ../scss/dashboard.scss */

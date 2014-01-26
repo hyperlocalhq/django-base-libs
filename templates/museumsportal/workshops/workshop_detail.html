@@ -435,34 +435,36 @@
       </div>
     </div>
 
-    {% if object.get_other_workshops %}
-      <div id="workshops" class="content">
-        <div class="container">
-          <h2 class="section-head" id="section-workshops">{% trans "Other Guided Tours, Workshops and educational offers" %}</h2>
-          <div class="list">
-            {% for workshop in object.get_other_workshops %}
-              <div class="item">
-                <a href="{{ workshop.get_url_path }}">
-                  {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                    <h4>{% trans "Bookable Offer" %} {% if workshop.workshop_type %} : {{ workshop.workshop_type }} {% endif %}</h4>
-                  {% else %}
-                    <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
-                    {% with workshop.get_closest_workshop_time as workshop_time %}
-                        {{ workshop_time.workshop_date|date:"j. F Y" }}
-                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                    {% endwith %}</h4>
-                  {% endif %}
-                  <h3>{{ workshop.title }}</h3>
-                  {% if workshop.subtitle %}
-                    <h4>{{ workshop.subtitle }}</h4>
-                  {% endif %}
-                </a>
-              </div>
-            {% endfor %}
+    <div id="additional-contents">
+      {% if object.get_other_workshops %}
+        <div id="workshops" class="content">
+          <div class="container">
+            <h2 class="section-head" id="section-workshops">{% trans "Other Guided Tours, Workshops and educational offers" %}</h2>
+            <div class="list">
+              {% for workshop in object.get_other_workshops %}
+                <div class="item">
+                  <a href="{{ workshop.get_url_path }}">
+                    {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                      <h4>{% trans "Bookable Offer" %} {% if workshop.workshop_type %} : {{ workshop.workshop_type }} {% endif %}</h4>
+                    {% else %}
+                      <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
+                      {% with workshop.get_closest_workshop_time as workshop_time %}
+                          {{ workshop_time.workshop_date|date:"j. F Y" }}
+                          {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                      {% endwith %}</h4>
+                    {% endif %}
+                    <h3>{{ workshop.title }}</h3>
+                    {% if workshop.subtitle %}
+                      <h4>{{ workshop.subtitle }}</h4>
+                    {% endif %}
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
           </div>
         </div>
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
   {% endwith %}
 
   {% include "utils/page_controls.html" %}
