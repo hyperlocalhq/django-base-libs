@@ -109,23 +109,25 @@
                 </button>
               </div>
 
-              <ul class="linear-list dots clearfix">
+              {% if object.mediafile_set.count > 1 or get_twitter_username or get_other_exhibitions or get_related_published_events or get_related_published_workshops %}
+              <div class="btn-group" style="margin-bottom: 15px;">
                 {% if object.mediafile_set.count > 1 %}
-                  <li><a href="#section-images">{% trans "Images" %}</a></li>
+                  <a class="btn btn-info btn-sm" href="#section-images">{% trans "Images" %}</a>
                 {% endif %}
                 {% if museum.get_twitter_username %}
-                  <li><a href="#section-tweets">{% trans "Tweets" %}</a></li>
+                  <a class="btn btn-info btn-sm" href="#section-tweets">{% trans "Tweets" %}</a>
                 {% endif %}
                 {% if object.get_other_exhibitions %}
-                  <li><a href="#section-exhibitions">{% trans "More Exhibitions" %}</a></li>
+                  <a class="btn btn-info btn-sm" href="#section-exhibitions">{% trans "More Exhibitions" %}</a>
                 {% endif %}
                 {% if object.get_related_published_events %}
-                  <li><a href="#section-events">{% trans "Events" %}</a></li>
+                  <a class="btn btn-info btn-sm" href="#section-events">{% trans "Events" %}</a>
                 {% endif %}
                 {% if object.get_related_published_workshops %}
-                  <li><a href="#section-workshops">{% trans "Guided Tours, Workshops and educational offers" %}</a></li>
+                  <a class="btn btn-info btn-sm" href="#section-workshops">{% trans "Guided Tours, Workshops and educational offers" %}</a>
                 {% endif %}
-              </ul>
+              </div>
+              {% endif %}
 
               {% include "utils/cover_image.html" %}
 

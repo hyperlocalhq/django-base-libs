@@ -96,7 +96,7 @@ body {
   border-bottom: 1px solid #f9f9f9;
   position: relative;
   &:last-child {
-    border: none;
+    border: none !important;
   }
 }
 .organizer,

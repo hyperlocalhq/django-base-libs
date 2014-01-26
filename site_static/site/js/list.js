@@ -30,6 +30,7 @@ $(function() {
 
     $('#container .item > a').click(function() {
         var $current_item = $(this).closest('.item');
+        redo_description();
 
         if ($current_item.attr('id')) { // if clicked again, close the preview
             $('#item-preview').attr("id", "");

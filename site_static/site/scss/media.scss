@@ -1,4 +1,8 @@
 @media (max-width: 767px) {
+  #body {
+    padding-bottom:20px;   /* Height of the footer */
+  }
+
   .container {
     padding-left: 20px !important;
     padding-right: 20px !important;
@@ -84,6 +88,16 @@
   .list-header #filter-summary {
     margin-top: 10px;
   }
+
+  .list .item#item-preview {
+    > a { display: block !important; }
+  }
+  #search-form-wrapper {
+    background-image: url("../img/trns-1.png") !important;
+    -moz-box-shadow:    inset 0 0 10px rgba(0,0,0,0.05);
+    -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    box-shadow:         inset 0 0 10px rgba(0,0,0,0.05);
+  }
   #list {
     .grid,
     .list {
@@ -99,6 +113,11 @@
             margin-right: 0px;
           }
         }
+      }
+      #cover_img .img {
+        display: block !important;
+        margin-left: -20px;
+        margin-right: -20px;
       }
       .item {
         margin-bottom: 0px;

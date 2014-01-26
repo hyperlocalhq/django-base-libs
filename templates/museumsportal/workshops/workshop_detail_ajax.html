@@ -1,7 +1,7 @@
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites %}
 
 {% with object as workshop %}
-  <div class="row row-md">
+  <div class="row row-md hidden-xs">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
       <header>
         <h4>
@@ -27,7 +27,7 @@
           <h5>{{ workshop.location_name }}</h5>
         {% else %}
           {% if workshop.museum %}
-            <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
+            <h5>{{ workshop.museum.title }}</h5>
           {% endif %}
         {% endif %}
       </header>
