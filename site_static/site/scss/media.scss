@@ -1,6 +1,6 @@
 @media (max-width: 767px) {
   #body {
-    padding-bottom:20px;   /* Height of the footer */
+    padding-bottom: 0px !important;   /* Height of the footer */
   }
 
   .container {
@@ -92,12 +92,7 @@
   .list .item#item-preview {
     > a { display: block !important; }
   }
-  #search-form-wrapper {
-    background-image: url("../img/trns-1.png") !important;
-    -moz-box-shadow:    inset 0 0 10px rgba(0,0,0,0.05);
-    -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-    box-shadow:         inset 0 0 10px rgba(0,0,0,0.05);
-  }
+
   #list {
     .grid,
     .list {

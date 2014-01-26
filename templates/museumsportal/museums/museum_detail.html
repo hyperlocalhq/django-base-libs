@@ -604,6 +604,7 @@
   {% endif %}
 
   <!-- ======= Exhibitions ======= -->
+  <div id="list">
 
   {% if object.get_published_exhibitions %}
     <div id="exhibitions" class="content">
@@ -678,25 +679,28 @@
             <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <a href="{{ workshop.get_url_path }}">
                 {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4>
-                {% else %}
-                <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
-                  {% with workshop.get_closest_workshop_time as workshop_time %}
-                  {{ workshop_time.workshop_date|date:"j. F Y" }}
-                  {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
-                  {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                  {% endwith %}</h4>
-                  {% endif %}
-                  <h3>{{ workshop.title }}</h3>
-                  <h4>{{ workshop.subtitle }}</h4>
-                  <h5>{{ workshop.museum.title }}</h5>
-                </a>
-              </div>
-            {% endfor %}
-          </div>
+                  <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4>
+                  {% else %}
+                  <h4>
+                    {% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
+                    {% with workshop.get_closest_workshop_time as workshop_time %}
+                    {{ workshop_time.workshop_date|date:"j. F Y" }}
+                    {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                    {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                    {% endwith %}
+                  </h4>
+                {% endif %}
+                <h3>{{ workshop.title }}</h3>
+                <h4>{{ workshop.subtitle }}</h4>
+                <h5>{{ workshop.museum.title }}</h5>
+              </a>
+            </div>
+          {% endfor %}
         </div>
       </div>
+    </div>
   {% endif %}
+  </div>
 
   {% endwith %}
 

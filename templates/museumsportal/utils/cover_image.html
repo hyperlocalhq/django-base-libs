@@ -3,8 +3,11 @@
 {% if object.cover_image %}
   <div id="cover_img">
       {% with object.cover_image|file_description as fd %}
-          <div class="img">
+          <div class="img hidden-xs">
             <img src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
+          </div>
+          <div class="img visible-xs">
+            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"museum_list" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
           </div>
 
           {% comment %}
