@@ -37,11 +37,37 @@
 </div>
 
 <script type="text/javascript">
-  $(window).load(function() {
-    $(".carousel .active img").lazyload().closest('.img').addClass('loaded'); 
-    $('.carousel').carousel({interval: 5000 }).on('slid.bs.carousel', function () {
-      $(".carousel .active img").lazyload().closest('.img').addClass('loaded'); 
+    $(function() {
+        $('.carousel').each(function() {
+            var $carousel = $(this);
+            $('img', $carousel).on('dragstart', function(e) {
+                e.preventDefault();
+            });
+            $('.active img', $carousel).lazyload({
+                load : function(element, el_left, settings){
+                    $(this).closest('.img').addClass('loaded');
+                }
+            });
+            $carousel.carousel({interval: 5000}).on('slid.bs.carousel', function () {
+                $('.active img', $carousel).lazyload({
+                    load : function(element, el_left, settings){
+                        $(this).closest('.img').addClass('loaded');
+                    }
+                });
+            });
+            $('.carousel-inner', $carousel).swipe({
+                swipeLeft: function(e, direction, distance, duration, fingerCount) {
+                    $carousel.carousel('prev');
+                    e.preventDefault();
+                },
+                swipeRight: function(e, direction, distance, duration, fingerCount) {
+                    $carousel.carousel('next');
+                    e.preventDefault();
+                },
+                //Default is 75px, set to 0 for demo so any distance triggers swipe
+                threshold:0
+            });
+        });
     });
-  });
 </script>
 
