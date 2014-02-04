@@ -92,11 +92,9 @@ var oMap;
         var lat_min = 500, long_min = 500;
         var lat_max = -500, long_max = -500;
         var aPoints = [];
-        var sMarkerImgDefault = self.settings.STATIC_URL + 'site/img/marker_default.png';
-        var sMarkerImgSelected = self.settings.STATIC_URL + 'site/img/marker_selected.png';
 
-        var oMarkerImgDefault = new google.maps.MarkerImage(sMarkerImgDefault, null, null, null, new google.maps.Size(25,35));
-        var oMarkerImgSelected = new google.maps.MarkerImage(sMarkerImgSelected, null, null, null, new google.maps.Size(25,35));
+        var oMarkerImgDefault = new google.maps.MarkerImage(self.settings.STATIC_URL + 'site/img/marker_default.png', null, null, null, new google.maps.Size(25,35));
+        var oMarkerImgSelected = new google.maps.MarkerImage(self.settings.STATIC_URL + 'site/img/marker_selected.png', null, null, null, new google.maps.Size(25,35));
 
         var oActiveMarker = null;
 
@@ -130,21 +128,34 @@ var oMap;
             }
             var oPoint = new google.maps.LatLng(nLat, nLong);
 
-            // DRAW MARKER
-            // var oMarker = new google.maps.Marker({
-            //     position: oPoint,
-            //     map: oMap,
-            //     icon: oMarkerImgDefault
-            // });
-            var oMarker = new MarkerWithLabel({
-                position: oPoint,
-                map: oMap,
-                icon: oMarkerImgDefault,
-                labelContent: '',
-                labelAnchor: new google.maps.Point(0, 40),
-                labelClass: "marker_label_wrapper",
-                labelInBackground: false
-            });
+            var oMarker;
+            if (oGeo2MarkersMapper[el.geo]) {
+                // if marker for this geoposition already exists...
+                oMarker = oGeo2MarkersMapper[el.geo];
+                // add categories
+                oMarker.categories += ' ' + el.categories;
+                // add html_sources
+                oMarker.html_sources.push(el.html_src);
+                // modify label
+                setMarkerLabel(oMarker, '<span class="marker_label">' + oGeo2MarkersMapper[el.geo].html_sources.length + '</span>');
+            } else {
+                // if marker is new...
+                oMarker = new MarkerWithLabel({
+                    position: oPoint,
+                    map: oMap,
+                    icon: oMarkerImgDefault,
+                    labelContent: '',
+                    labelAnchor: new google.maps.Point(0, 40),
+                    labelClass: "marker_label_wrapper",
+                    labelInBackground: false
+                });
+                // define categories
+                oMarker.categories = el.categories;
+                // define html source
+                oMarker.html_sources = [el.html_src];
+                // save to existing markers
+                oGeo2MarkersMapper[el.geo] = oMarker;
+            }
 
             oMarker.list_index = i;
 
@@ -166,19 +177,9 @@ var oMap;
                     google.maps.event.trigger(oMap, "resize");
                 });
             });
-            oMarker.object_id = el.object_id;
+            oMarker.object_id = el.object_id; // TODO: decide what to do with object_id
+
             aMarkers.push(oMarker);
-            if (oGeo2MarkersMapper[el.geo]) {
-                oMarker.categories += ' ' + el.categories;
-                oGeo2MarkersMapper[el.geo].html_sources.push(el.html_src);
-                setMarkerLabel(oMarker, '<span class="marker_label">' + oGeo2MarkersMapper[el.geo].html_sources.length + '</span>');
-            } else {
-                oMarker.categories = el.categories;
-                oGeo2MarkersMapper[el.geo] = {
-                    marker: oMarker,
-                    html_sources: [el.html_src]
-                };
-            }
             aPoints.push(oPoint);
 
             if (el.object_id === active_object_id) {
@@ -268,7 +269,7 @@ var oMap;
     $(document).ready(function() {
         $('#container .item a').click(function() {
             var sGeo = $(this).closest('.item').data('geo');
-            var oMarker = oGeo2MarkersMapper[sGeo].marker;
+            var oMarker = oGeo2MarkersMapper[sGeo];
             if (oMarker) {
                 google.maps.event.trigger(oMarker, 'click');
                 oMap.panTo(oMarker.getPosition());
