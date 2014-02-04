@@ -108,6 +108,10 @@ var oMap;
             active_object_id = '' + options.object_id;  // object_id converted to a string
         }
 
+        function setMarkerLabel(oMarker, sHTML) {
+            oMarker.labelContent = sHTML;
+            oMarker.label.setContent();
+        }
         $(self.aGeopositions).each(function(i, el) {
             // DEFINE IMAGE
             var nLat = el.latitude;
@@ -136,9 +140,9 @@ var oMap;
                 position: oPoint,
                 map: oMap,
                 icon: oMarkerImgDefault,
-                labelContent: "42",
+                labelContent: '',
                 labelAnchor: new google.maps.Point(0, 40),
-                labelClass: "marker_label",
+                labelClass: "marker_label_wrapper",
                 labelInBackground: false
             });
 
@@ -162,10 +166,19 @@ var oMap;
                     google.maps.event.trigger(oMap, "resize");
                 });
             });
-            oMarker.categories = el.categories;
             oMarker.object_id = el.object_id;
             aMarkers.push(oMarker);
-            oGeo2MarkersMapper[el.geo] = oMarker;
+            if (oGeo2MarkersMapper[el.geo]) {
+                oMarker.categories += ' ' + el.categories;
+                oGeo2MarkersMapper[el.geo].html_sources.push(el.html_src);
+                setMarkerLabel(oMarker, '<span class="marker_label">' + oGeo2MarkersMapper[el.geo].html_sources.length + '</span>');
+            } else {
+                oMarker.categories = el.categories;
+                oGeo2MarkersMapper[el.geo] = {
+                    marker: oMarker,
+                    html_sources: [el.html_src]
+                };
+            }
             aPoints.push(oPoint);
 
             if (el.object_id === active_object_id) {
@@ -255,7 +268,7 @@ var oMap;
     $(document).ready(function() {
         $('#container .item a').click(function() {
             var sGeo = $(this).closest('.item').data('geo');
-            var oMarker = oGeo2MarkersMapper[sGeo];
+            var oMarker = oGeo2MarkersMapper[sGeo].marker;
             if (oMarker) {
                 google.maps.event.trigger(oMarker, 'click');
                 oMap.panTo(oMarker.getPosition());
@@ -299,7 +312,7 @@ var oMap;
         });
 
         $("#show-current-location").click(function() {
-            oMap.setCenter(oCurrentLocationMarker.getPosition());
+            oMap.panTo(oCurrentLocationMarker.getPosition());
             return false;
         });
 
