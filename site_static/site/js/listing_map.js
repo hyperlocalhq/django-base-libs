@@ -4,6 +4,7 @@
 /* global jQuery: false */
 /* global google: false */
 /* global lazyload_images: false */
+/* global MarkerWithLabel: false */
 
 /* global oMap: true */
 /* global oCurrentLocationMarker: true */
@@ -126,10 +127,19 @@ var oMap;
             var oPoint = new google.maps.LatLng(nLat, nLong);
 
             // DRAW MARKER
-            var oMarker = new google.maps.Marker({
+            // var oMarker = new google.maps.Marker({
+            //     position: oPoint,
+            //     map: oMap,
+            //     icon: oMarkerImgDefault
+            // });
+            var oMarker = new MarkerWithLabel({
                 position: oPoint,
                 map: oMap,
-                icon: oMarkerImgDefault
+                icon: oMarkerImgDefault,
+                labelContent: "42",
+                labelAnchor: new google.maps.Point(0, 40),
+                labelClass: "marker_label",
+                labelInBackground: false
             });
 
             oMarker.list_index = i;
