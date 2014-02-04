@@ -38,11 +38,11 @@
 
 <script type="text/javascript">
     $(function() {
+        $('body').on('dragstart', function(e) {
+            e.preventDefault();
+        });
         $('.carousel').each(function() {
             var $carousel = $(this);
-            $('img', $carousel).on('dragstart', function(e) {
-                e.preventDefault();
-            });
             $('.active img', $carousel).lazyload({
                 load : function(element, el_left, settings){
                     $(this).closest('.img').addClass('loaded');
@@ -55,17 +55,11 @@
                     }
                 });
             });
-            $('.carousel-inner', $carousel).swipe({
-                swipeLeft: function(e, direction, distance, duration, fingerCount) {
-                    $carousel.carousel('prev');
-                    e.preventDefault();
-                },
-                swipeRight: function(e, direction, distance, duration, fingerCount) {
-                    $carousel.carousel('next');
-                    e.preventDefault();
-                },
-                //Default is 75px, set to 0 for demo so any distance triggers swipe
-                threshold:0
+            $carousel.hammer().on('swipeleft', function() {
+                $carousel.carousel('next');
+            });
+            $carousel.hammer().on('swiperight', function() {
+                $carousel.carousel('prev');
             });
         });
     });
