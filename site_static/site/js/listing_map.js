@@ -30,6 +30,7 @@ var oMap;
     var oCurrentMarker = null;
     var oGeo2MarkersMapper = {};
     var oCurrentLocationMarker;
+    var active_object_id = '';
 
     $(document).ready(function() {
         var $oList = $('body');
@@ -98,7 +99,6 @@ var oMap;
 
         var oActiveMarker = null;
 
-        var active_object_id = '';
         if (window.location.hash) {
             // get options object from hash
             var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
@@ -134,8 +134,10 @@ var oMap;
                 oMarker = oGeo2MarkersMapper[el.geo];
                 // add categories
                 oMarker.categories += ' ' + el.categories;
-                // add html_sources
+                // add html_source
                 oMarker.html_sources.push(el.html_src);
+                // add marker
+                oMarker.object_ids.push(el.object_id);
                 // modify label
                 setMarkerLabel(oMarker, '<span class="marker_label">' + oGeo2MarkersMapper[el.geo].html_sources.length + '</span>');
             } else {
@@ -153,31 +155,50 @@ var oMap;
                 oMarker.categories = el.categories;
                 // define html source
                 oMarker.html_sources = [el.html_src];
+                // define object_ids
+                oMarker.object_ids = [el.object_id];
                 // save to existing markers
                 oGeo2MarkersMapper[el.geo] = oMarker;
+
+                // attach click event
+                google.maps.event.addListener(oMarker, 'click', function() {
+                    if (oActiveMarker && oActiveMarker !== oMarker) {
+                        oActiveMarker.setZIndex(oActiveMarker.old_z_index);
+                        oActiveMarker.setIcon(oMarkerImgDefault);
+                    }
+                    oMarker.setIcon(oMarkerImgSelected);
+                    oActiveMarker = oMarker;
+                    oActiveMarker.old_z_index = oActiveMarker.getZIndex();
+                    oActiveMarker.setZIndex(900);
+                    // active_object_id will be set if a list item is clicked
+                    if (!active_object_id) {
+                        // if the marker is clicked physically, active_object_id will be unset, so define it
+                        active_object_id = oMarker.object_ids[0];
+                    }
+                    $.bbq.pushState({object_id: active_object_id});
+                    $('#map-description').html('');
+                    var loaded_count = 0;
+                    $.each(oMarker.html_sources, function(j, src) {
+                        $.get(src, function(data) {
+                            loaded_count++;
+                            $('#map-description').append(data);
+                            if (loaded_count === oMarker.html_sources.length) {
+                                // when all sources loaded, show the sidebar
+                                $("body").removeClass("map-only");
+                                $("#map-sidebar").removeClass("map-list map-filter").addClass("map-description");
+                                setTimeout(lazyload_images, 500);
+                                google.maps.event.trigger(oMap, "resize");
+                            }
+                        }, 'html');
+                    });
+                    // cleanup active_object_id
+                    active_object_id = '';
+                });
             }
 
-            oMarker.list_index = i;
+            oMarker.list_index = i; // TODO: remove this if it is not used
 
             var $item = $(this);
-            google.maps.event.addListener(oMarker, 'click', function() {
-                if (oActiveMarker && oActiveMarker !== oMarker) {
-                    oActiveMarker.setZIndex(oActiveMarker.old_z_index);
-                    oActiveMarker.setIcon(oMarkerImgDefault);
-                }
-                oMarker.setIcon(oMarkerImgSelected);
-                oActiveMarker = oMarker;
-                oActiveMarker.old_z_index = oActiveMarker.getZIndex();
-                oActiveMarker.setZIndex(900);
-                $.bbq.pushState({object_id: oMarker.object_id});
-                $('#map-description').load(el.html_src, function() {
-                    $("body").removeClass("map-only");
-                    $("#map-sidebar").removeClass("map-list").removeClass("map-filter").addClass("map-description");
-                    setTimeout(lazyload_images, 500);
-                    google.maps.event.trigger(oMap, "resize");
-                });
-            });
-            oMarker.object_id = el.object_id; // TODO: decide what to do with object_id
 
             aMarkers.push(oMarker);
             aPoints.push(oPoint);
@@ -268,9 +289,11 @@ var oMap;
 
     $(document).ready(function() {
         $('#container .item a').click(function() {
-            var sGeo = $(this).closest('.item').data('geo');
+            var $item = $(this).closest('.item');
+            var sGeo = $item.data('geo');
             var oMarker = oGeo2MarkersMapper[sGeo];
             if (oMarker) {
+                active_object_id = $item.data('object_id');
                 google.maps.event.trigger(oMarker, 'click');
                 oMap.panTo(oMarker.getPosition());
             }
