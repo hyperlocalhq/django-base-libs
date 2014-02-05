@@ -166,14 +166,16 @@ var oMap;
                     if (loading) {
                         return;
                     }
+                    loading = true;
                     if (oActiveMarker && oActiveMarker !== oMarker) {
                         oActiveMarker.setZIndex(oActiveMarker.old_z_index);
                         oActiveMarker.setIcon(oMarkerImgDefault);
+
+                        oMarker.setIcon(oMarkerImgSelected);
+                        oActiveMarker = oMarker;
+                        oActiveMarker.old_z_index = oActiveMarker.getZIndex() || 5;
+                        oActiveMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1); // active marker always upper than others, but lower than current location
                     }
-                    oMarker.setIcon(oMarkerImgSelected);
-                    oActiveMarker = oMarker;
-                    oActiveMarker.old_z_index = oActiveMarker.getZIndex();
-                    oActiveMarker.setZIndex(900);
                     // active_object_id will be set if a list item is clicked
                     if (!active_object_id) {
                         // if the marker is clicked physically, active_object_id will be unset, so define it
@@ -182,7 +184,6 @@ var oMap;
                     $.bbq.pushState({object_id: active_object_id});
                     $('#map-description').html('');
                     var loaded_count = 0;
-                    loading = true;
                     $.each(oMarker.html_sources, function(j, src) {
                         $.get(src, function(data) {
                             loaded_count++;
@@ -202,9 +203,9 @@ var oMap;
                 });
             }
 
-            oMarker.list_index = i; // TODO: remove this if it is not used
-
-            var $item = $(this);
+            if (!oMarker.getZIndex()) {
+                oMarker.setZIndex(5);
+            }
 
             aMarkers.push(oMarker);
             aPoints.push(oPoint);
@@ -226,7 +227,7 @@ var oMap;
                         icon: oImage,
                         optimized: false
                     });
-                    oCurrentLocationMarker.setZIndex(999);
+                    oCurrentLocationMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 2); // always on top
                     // google.maps.event.addListener(oCurrentLocationMarker, 'click', function() {
                     //     $('#map-description').html("You are here!");
                     // });
