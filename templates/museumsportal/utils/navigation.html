@@ -64,7 +64,7 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <form class="navbar-form visible-xs" role="search" action="/search/" method="get">
+            <form class="navbar-form visible-xs" role="search" action="{% url "haystack_search" %}" method="get">
               <div class="input-group">
                 <div class="form-group">
                   <input id="search" type="text" class="form-control input-lg" name="q" placeholder="{% trans "Search" %}">
@@ -77,7 +77,7 @@
                 </span>
               </div>
             </form>
-            <a class="hidden-xs" href="/search" class="btn btn-link btn-icon btn-lg">
+            <a class="hidden-xs" href="{% url "haystack_search" %}" class="btn btn-link btn-icon btn-lg">
               <span class="icon icon-zoom"></span>
               <span class="sr-only">{% trans "Search" %}</span>
             </a>
