@@ -42,7 +42,7 @@ class SearchView(haystack_views.SearchView):
                         'count': length,
                         'results': results[:self.limit] if self.limit else results,
                     }
-                    if self.limit is None and self.form.cleaned_data[self.form.MODELS_PARAM_NAME] == short_name:
+                    if self.limit is None and short_name in self.form.cleaned_data[self.form.MODELS_PARAM_NAME]:
                         paginator = Paginator(results, self.results_per_page)
                         try:
                             page = paginator.page(int(self.request.GET.get('page', 1)))
