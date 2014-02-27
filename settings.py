@@ -174,8 +174,7 @@ INSTALLED_APPS = (
     "menus",
     "south",
     "sekizai",
-    "cms_search",
-    "cms_search.search_helpers",
+    "aldryn_search",
 
     ### CMS plugins ###
     "cms.plugins.inherit",
@@ -367,8 +366,6 @@ LOGGING = {
         },
     }
 }
-
-ARTICLES_HAVE_TYPES = False
 
 ### CMS SETTINGS ###
 
@@ -572,10 +569,39 @@ GRAPPELLI_ADMIN_HEADLINE = "Museumsportal Berlin Admin"
 
 ### HAYSTACK ###
 
-HAYSTACK_SITECONF = "museumsportal.search_sites_dummy"
-HAYSTACK_SEARCH_ENGINE = "whoosh"
-HAYSTACK_WHOOSH_PATH = os.path.join(PATH_TMP, "site_index")
-HAYSTACK_ENABLE_REGISTRATIONS = True
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PATH_TMP, "whoosh_index", "default"),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    },
+    'de': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PATH_TMP, "whoosh_index", "de"),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+        'URL': 'http://www.museumsportal-berlin.de/de/suche/',
+    },
+    'en': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PATH_TMP, "whoosh_index", "en"),
+        'STORAGE': 'file',
+        'POST_LIMIT': 128 * 1024 * 1024,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+        'URL': 'http://www.museumsportal-berlin.de/en/search/',
+    },
+}
+
+HAYSTACK_ROUTERS = ['museumsportal.apps.search.router.LanguageRouter']
+ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
+ALDRYN_SEARCH_INDEX_BASE_CLASS = "museumsportal.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
+ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
 
 ### OTHER SETTINGS ###
 
@@ -602,6 +628,8 @@ GALLERY_IMAGE_MIN_DIMENSIONS = (100, 100)
 NOTIFY_ABOUT_SEASONS_TO_EMAIL = "j.boehmler@kulturprojekte-berlin.de"
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
+
+ALLOWED_HOSTS = ['www.museumsportal-berlin.de', 'museumsportal-berlin.de']
 
 EDITORIAL_CONTENT_CSS_CLASSES = (
     # ('col-xs-1', 'item'),

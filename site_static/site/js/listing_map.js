@@ -4,6 +4,7 @@
 /* global jQuery: false */
 /* global google: false */
 /* global lazyload_images: false */
+/* global MarkerWithLabel: false */
 
 /* global oMap: true */
 /* global oCurrentLocationMarker: true */
@@ -29,6 +30,8 @@ var oMap;
     var oCurrentMarker = null;
     var oGeo2MarkersMapper = {};
     var oCurrentLocationMarker;
+    var active_object_id = '';
+    var loading = false;
 
     $(document).ready(function() {
         var $oList = $('body');
@@ -91,15 +94,12 @@ var oMap;
         var lat_min = 500, long_min = 500;
         var lat_max = -500, long_max = -500;
         var aPoints = [];
-        var sMarkerImgDefault = self.settings.STATIC_URL + 'site/img/marker_default.png';
-        var sMarkerImgSelected = self.settings.STATIC_URL + 'site/img/marker_selected.png';
 
-        var oMarkerImgDefault = new google.maps.MarkerImage(sMarkerImgDefault, null, null, null, new google.maps.Size(25,35));
-        var oMarkerImgSelected = new google.maps.MarkerImage(sMarkerImgSelected, null, null, null, new google.maps.Size(25,35));
+        var oMarkerImgDefault = new google.maps.MarkerImage(self.settings.STATIC_URL + 'site/img/marker_default.png', null, null, null, new google.maps.Size(25,35));
+        var oMarkerImgSelected = new google.maps.MarkerImage(self.settings.STATIC_URL + 'site/img/marker_selected.png', null, null, null, new google.maps.Size(25,35));
 
         var oActiveMarker = null;
 
-        var active_object_id = '';
         if (window.location.hash) {
             // get options object from hash
             var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
@@ -107,6 +107,10 @@ var oMap;
             active_object_id = '' + options.object_id;  // object_id converted to a string
         }
 
+        function setMarkerLabel(oMarker, sHTML) {
+            oMarker.labelContent = sHTML;
+            oMarker.label.setContent();
+        }
         $(self.aGeopositions).each(function(i, el) {
             // DEFINE IMAGE
             var nLat = el.latitude;
@@ -125,37 +129,85 @@ var oMap;
             }
             var oPoint = new google.maps.LatLng(nLat, nLong);
 
-            // DRAW MARKER
-            var oMarker = new google.maps.Marker({
-                position: oPoint,
-                map: oMap,
-                icon: oMarkerImgDefault
-            });
-
-            oMarker.list_index = i;
-
-            var $item = $(this);
-            google.maps.event.addListener(oMarker, 'click', function() {
-                if (oActiveMarker && oActiveMarker !== oMarker) {
-                    oActiveMarker.setZIndex(oActiveMarker.old_z_index);
-                    oActiveMarker.setIcon(oMarkerImgDefault);
-                }
-                oMarker.setIcon(oMarkerImgSelected);
-                oActiveMarker = oMarker;
-                oActiveMarker.old_z_index = oActiveMarker.getZIndex();
-                oActiveMarker.setZIndex(900);
-                $.bbq.pushState({object_id: oMarker.object_id});
-                $('#map-description').load(el.html_src, function() {
-                    $("body").removeClass("map-only");
-                    $("#map-sidebar").removeClass("map-list").removeClass("map-filter").addClass("map-description");
-                    setTimeout(lazyload_images, 500);
-                    google.maps.event.trigger(oMap, "resize");
+            var oMarker;
+            if (oGeo2MarkersMapper[el.geo]) {
+                // if marker for this geoposition already exists...
+                oMarker = oGeo2MarkersMapper[el.geo];
+                // add categories
+                oMarker.categories += ' ' + el.categories;
+                // add html_source
+                oMarker.html_sources.push(el.html_src);
+                // add marker
+                oMarker.object_ids.push(el.object_id);
+                // modify label
+                setMarkerLabel(oMarker, '<span class="marker_label">' + oGeo2MarkersMapper[el.geo].html_sources.length + '</span>');
+            } else {
+                // if marker is new...
+                oMarker = new MarkerWithLabel({
+                    position: oPoint,
+                    map: oMap,
+                    icon: oMarkerImgDefault,
+                    labelContent: '',
+                    labelAnchor: new google.maps.Point(0, 40),
+                    labelClass: "marker_label_wrapper",
+                    labelInBackground: false
                 });
-            });
-            oMarker.categories = el.categories;
-            oMarker.object_id = el.object_id;
+                // define categories
+                oMarker.categories = el.categories;
+                // define html source
+                oMarker.html_sources = [el.html_src];
+                // define object_ids
+                oMarker.object_ids = [el.object_id];
+                // save to existing markers
+                oGeo2MarkersMapper[el.geo] = oMarker;
+
+                // attach click event
+                google.maps.event.addListener(oMarker, 'click', function() {
+                    if (loading) {
+                        return;
+                    }
+                    loading = true;
+                    if (oActiveMarker && oActiveMarker !== oMarker) {
+                        oActiveMarker.setZIndex(oActiveMarker.old_z_index);
+                        oActiveMarker.setIcon(oMarkerImgDefault);
+
+                        oMarker.setIcon(oMarkerImgSelected);
+                        oActiveMarker = oMarker;
+                        oActiveMarker.old_z_index = oActiveMarker.getZIndex() || 5;
+                        oActiveMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1); // active marker always upper than others, but lower than current location
+                    }
+                    // active_object_id will be set if a list item is clicked
+                    if (!active_object_id) {
+                        // if the marker is clicked physically, active_object_id will be unset, so define it
+                        active_object_id = oMarker.object_ids[0];
+                    }
+                    $.bbq.pushState({object_id: active_object_id});
+                    $('#map-description').html('');
+                    var loaded_count = 0;
+                    $.each(oMarker.html_sources, function(j, src) {
+                        $.get(src, function(data) {
+                            loaded_count++;
+                            $('#map-description').append(data);
+                            if (loaded_count === oMarker.html_sources.length) {
+                                // when all sources loaded, show the sidebar
+                                $("body").removeClass("map-only");
+                                $("#map-sidebar").removeClass("map-list map-filter").addClass("map-description");
+                                setTimeout(lazyload_images, 500);
+                                google.maps.event.trigger(oMap, "resize");
+                                loading = false;
+                            }
+                        }, 'html');
+                    });
+                    // cleanup active_object_id
+                    active_object_id = '';
+                });
+            }
+
+            if (!oMarker.getZIndex()) {
+                oMarker.setZIndex(5);
+            }
+
             aMarkers.push(oMarker);
-            oGeo2MarkersMapper[el.geo] = oMarker;
             aPoints.push(oPoint);
 
             if (el.object_id === active_object_id) {
@@ -175,7 +227,7 @@ var oMap;
                         icon: oImage,
                         optimized: false
                     });
-                    oCurrentLocationMarker.setZIndex(999);
+                    oCurrentLocationMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 2); // always on top
                     // google.maps.event.addListener(oCurrentLocationMarker, 'click', function() {
                     //     $('#map-description').html("You are here!");
                     // });
@@ -243,17 +295,15 @@ var oMap;
     });
 
     $(document).ready(function() {
-        $('#container .item a').click(function() {
-            var sGeo = $(this).closest('.item').data('geo');
+        $('#container').find('.item a').click(function() {
+            var $item = $(this).closest('.item');
+            var sGeo = $item.data('geo');
             var oMarker = oGeo2MarkersMapper[sGeo];
             if (oMarker) {
+                active_object_id = $item.data('object_id');
                 google.maps.event.trigger(oMarker, 'click');
                 oMap.panTo(oMarker.getPosition());
             }
-            // $('#map-description').load($(this).closest('.item').data('description-src'), function(){
-            //     $("#map-sidebar").removeClass("map-list").addClass( "map-description");
-            //     lazyload_images();
-            // });
             return false;
         });
 
@@ -288,8 +338,15 @@ var oMap;
             }, 500);
         });
 
+        $("#map-sidebar").hammer().on('swiperight', function() {
+            $("body").addClass("map-only");
+            setTimeout(function() {
+                google.maps.event.trigger(oMap, "resize");
+            }, 500);
+        });
+
         $("#show-current-location").click(function() {
-            oMap.setCenter(oCurrentLocationMarker.getPosition());
+            oMap.panTo(oCurrentLocationMarker.getPosition());
             return false;
         });
 

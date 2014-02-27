@@ -30,12 +30,6 @@ from museumsportal.apps.search.views import SearchView
 
 admin.autodiscover()
 
-# from cms.models import monkeypatch_reverse
-import haystack
-
-# monkeypatch_reverse()
-haystack.autodiscover()
-
 handler404 = "jetson.apps.error_handler.views.page_not_found"
 handler500 = "jetson.apps.error_handler.views.server_error"
 
@@ -145,7 +139,6 @@ urlpatterns += i18n_patterns('',
     
     url(r'^rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^search/', SearchView(), name='haystack_search'),
-    url(r'^search/', include("museumsportal.apps.search.urls")),
+    # url(r'^search/', include("museumsportal.apps.search.urls")),
     url(r'^', include('cms.urls')),
 )

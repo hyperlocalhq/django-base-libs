@@ -43,11 +43,11 @@ class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
         #   "editorial_content_for_<placeholder>.html"
         #   "editorial_content.html"
         template_name_list = [
-            "cms/plugins/editorial_content_for_%s.html" % placeholder,
+            # "cms/plugins/editorial_content_for_%s.html" % placeholder,
             "cms/plugins/editorial_content.html",
         ]
-        if context['request'].current_page.reverse_id:
-            template_name_list.insert(0, "cms/plugins/editorial_content_for_%s_in_%s.html" % (placeholder, context['request'].current_page.reverse_id))
+        # if context['request'].current_page.reverse_id:
+        #     template_name_list.insert(0, "cms/plugins/editorial_content_for_%s_in_%s.html" % (placeholder, context['request'].current_page.reverse_id))
         self.render_template = select_template(template_name_list)
         context.update({
             'object': instance,

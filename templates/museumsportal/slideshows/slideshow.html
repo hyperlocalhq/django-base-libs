@@ -37,11 +37,31 @@
 </div>
 
 <script type="text/javascript">
-  $(window).load(function() {
-    $(".carousel .active img").lazyload().closest('.img').addClass('loaded'); 
-    $('.carousel').carousel({interval: 5000 }).on('slid.bs.carousel', function () {
-      $(".carousel .active img").lazyload().closest('.img').addClass('loaded'); 
+    $(function() {
+        $('body').on('dragstart', function(e) {
+            e.preventDefault();
+        });
+        $('.carousel').each(function() {
+            var $carousel = $(this);
+            $('.active img', $carousel).lazyload({
+                load : function(element, el_left, settings){
+                    $(this).closest('.img').addClass('loaded');
+                }
+            });
+            $carousel.carousel({interval: 5000}).on('slid.bs.carousel', function () {
+                $('.active img', $carousel).lazyload({
+                    load : function(element, el_left, settings){
+                        $(this).closest('.img').addClass('loaded');
+                    }
+                });
+            });
+            $carousel.hammer().on('swipeleft', function() {
+                $carousel.carousel('next');
+            });
+            $carousel.hammer().on('swiperight', function() {
+                $carousel.carousel('prev');
+            });
+        });
     });
-  });
 </script>
 

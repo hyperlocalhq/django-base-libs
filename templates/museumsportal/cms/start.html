@@ -1,20 +1,32 @@
 {% extends "cms/default.html" %}
 {% load base_tags cms_tags i18n image_modifications slideshows %}
 
+{% block stylesheet %}
+  {{ block.super }}
+  <style>
+  .carousel * {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+  }
+  </style>
+{% endblock %}
+
 {% block js %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
 {% endblock %}
 
 {% block museums_login %}
-<li><a href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login for Museums" %}</a></li>
+  <li><a href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login for Museums" %}</a></li>
 {% endblock %}
 
 {% block content %}
-    {% if LANGUAGE_CODE == "de" %}
-        {% include "cms/includes/start_de.html" %}
-    {% else %}
-        {% include "cms/includes/start_en.html" %}
-    {% endif %}
+  {% if LANGUAGE_CODE == "de" %}
+    {% include "cms/includes/start_de.html" %}
+  {% else %}
+    {% include "cms/includes/start_en.html" %}
+  {% endif %}
 {% endblock %}
-
