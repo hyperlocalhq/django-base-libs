@@ -3,7 +3,7 @@
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 <title>{% block title %}{% endblock %} Museumsportal Berlin</title>
 <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
@@ -93,10 +93,10 @@
       <span class="sr-only">{% trans "Back to top" %}</span>
     </a>
     
-    <div id="footer">
+    <div id="footer" class="hidden-xs">
       {% block footer %}
         {% comment %}
-          <div class="content hidden-xs">
+          <div class="content">
             <div class="container">
               <ul class="navigation">
                 {% show_menu_below_id "start_page" 0 0 1 1 %}
@@ -117,7 +117,7 @@
 
         <!-- Sponsors ================================================== -->
 
-        <div id="sponsors" class="content hidden-xs">
+        <div id="sponsors" class="content">
           <div class="container">
             <div>
               <h4 class="title">{% trans "Supported by" %}</h4>
