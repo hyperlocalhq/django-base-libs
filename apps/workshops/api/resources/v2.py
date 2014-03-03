@@ -129,6 +129,10 @@ class WorkshopResource(ModelResource):
             'modified_date': ALL,
             'status': ALL,
             'categories': ALL_WITH_RELATIONS,
+            'is_for_preschool': ALL,
+            'is_for_primary_school': ALL,
+            'is_for_youth': ALL,
+            'is_for_families': ALL,
         }
         authentication = ApiKeyAuthentication()
         authorization = ReadOnlyAuthorization()
@@ -173,7 +177,7 @@ class WorkshopResource(ModelResource):
             "/",
         ))
         bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_en()))
-        bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_de()))
+        bundle.data['press_text_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_de()))
 
         bundle.data['admission_price_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_en()))
         bundle.data['admission_price_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_de()))
@@ -215,4 +219,11 @@ class WorkshopResource(ModelResource):
                     models.Q(creation_date__gte=created_or_modified_since) |
                     models.Q(modified_date__gte=created_or_modified_since)
                 )
+        is_for_children = request.GET.get('is_for_children', None)
+        if is_for_children in ('1', 'True', 'true', 'on'):
+            base_object_list = base_object_list.filter(
+                models.Q(is_for_preschool=True) |
+                models.Q(is_for_primary_school=True) |
+                models.Q(is_for_youth=True)
+            )
         return base_object_list

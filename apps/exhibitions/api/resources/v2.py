@@ -22,6 +22,22 @@ Season = models.get_model("exhibitions", "Season")
 MediaFile = models.get_model("exhibitions", "MediaFile")
 
 
+def valid_XML_char_ordinal(i):
+    """
+    Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+    """
+    return ( # conditions ordered by presumed frequency
+        0x20 <= i <= 0xD7FF
+        or i in (0x9, 0xA, 0xD)
+        or 0xE000 <= i <= 0xFFFD
+        or 0x10000 <= i <= 0x10FFFF
+    )
+
+
+def strip_invalid_chars(text):
+    return u''.join(c for c in text if valid_XML_char_ordinal(ord(c)))
+
+
 class ExhibitionCategoryResource(ModelResource):
 
     class Meta:
@@ -138,7 +154,25 @@ class ExhibitionResource(ModelResource):
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'xml'])
         cache = SimpleCache(timeout=10)
-            
+
+    def dehydrate_title_en(self, bundle):
+        return strip_invalid_chars(bundle.data['title_en'])
+
+    def dehydrate_title_de(self, bundle):
+        return strip_invalid_chars(bundle.data['title_de'])
+
+    def dehydrate_subtitle_en(self, bundle):
+        return strip_invalid_chars(bundle.data['subtitle_en'])
+
+    def dehydrate_subtitle_de(self, bundle):
+        return strip_invalid_chars(bundle.data['subtitle_de'])
+
+    def dehydrate_catalog_ordering_en(self, bundle):
+        return strip_invalid_chars(bundle.data['catalog_ordering_en'])
+
+    def dehydrate_catalog_ordering_de(self, bundle):
+        return strip_invalid_chars(bundle.data['catalog_ordering_de'])
+
     def dehydrate(self, bundle):
         bundle.data['link_en'] = "".join((
             get_website_url(),
@@ -152,23 +186,23 @@ class ExhibitionResource(ModelResource):
             bundle.obj.slug,
             "/",
         ))
-        bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_press_text_en())
-        bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_press_text_de())
+        bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_en()))
+        bundle.data['press_text_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_de()))
         
-        bundle.data['catalog_en'] = strip_html(bundle.obj.get_rendered_catalog_en())
-        bundle.data['catalog_de'] = strip_html(bundle.obj.get_rendered_catalog_de())
+        bundle.data['catalog_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_catalog_en()))
+        bundle.data['catalog_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_catalog_de()))
         
-        bundle.data['other_locations_en'] = strip_html(bundle.obj.get_rendered_other_locations_en())
-        bundle.data['other_locations_de'] = strip_html(bundle.obj.get_rendered_other_locations_de())
+        bundle.data['other_locations_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_locations_en()))
+        bundle.data['other_locations_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_locations_de()))
         
-        bundle.data['admission_price_info_en'] = strip_html(bundle.obj.get_rendered_admission_price_info_en())
-        bundle.data['admission_price_info_de'] = strip_html(bundle.obj.get_rendered_admission_price_info_de())
+        bundle.data['admission_price_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_en()))
+        bundle.data['admission_price_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_de()))
         
-        bundle.data['reduced_price_info_en'] = strip_html(bundle.obj.get_rendered_reduced_price_info_en())
-        bundle.data['reduced_price_info_de'] = strip_html(bundle.obj.get_rendered_reduced_price_info_de())
+        bundle.data['reduced_price_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_reduced_price_info_en()))
+        bundle.data['reduced_price_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_reduced_price_info_de()))
         
-        bundle.data['suitable_for_disabled_info_en'] = strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_en())
-        bundle.data['suitable_for_disabled_info_de'] = strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_de())
+        bundle.data['suitable_for_disabled_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_en()))
+        bundle.data['suitable_for_disabled_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_de()))
         
         if bundle.obj.permanent:
             bundle.data['end'] = "2099-12-31"
