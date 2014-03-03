@@ -1,14 +1,11 @@
 # -*- coding: UTF-8 -*-
 
-from django.db import models
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404
 from django.core.paginator import Paginator
 
 import haystack.views as haystack_views
-from haystack import connections
-from haystack.exceptions import NotHandled
 
 from forms import ModelSearchForm
 from functions import model_choices, get_dictionaries
