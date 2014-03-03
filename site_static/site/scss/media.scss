@@ -107,6 +107,20 @@
     > a { display: block !important; }
   }
 
+
+
+  .grid,
+  .list {
+    .item {
+      -webkit-transition: none !important;
+         -moz-transition: none !important;
+          -ms-transition: none !important;
+           -o-transition: none !important;
+              transition: none !important;
+    }
+  }
+
+
   #additional-contents,
   #list {
     .grid,

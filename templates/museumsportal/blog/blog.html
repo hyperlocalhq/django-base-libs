@@ -22,11 +22,11 @@
 {% block details %}
 	{{ block.super }}
   <div class="content clearfix">
-    <div class="inner">
+    <div class="container">
       {% block breadcrumbs %}
         <div class="breadcrumbs">
           <div class="width">
-            <a {% ifequal post_filter "all" %}class="active_toplevel"{% endifequal %} href="{{ container.get_url_path }}">{% trans "All Posts" %}</a>
+            <a {% ifequal post_filter "all" %}class="btn btn-info pull-left active_toplevel"{% endifequal %} href="{{ container.get_url_path }}">{% trans "All Posts" %}</a>
 
             {% ifequal archive "details" %}
                 | <a href="{{ container.get_url_path }}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a>
@@ -72,12 +72,14 @@
               {% endfor %}
             {% endifequal %}
           </div>
-          <a class="rss" href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span>{% trans "RSS feed" %}</span></a>
+
+          <a class="btn btn-info" href="{{ container.get_url_path }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span>{% trans "RSS feed" %}</span></a>
         </div>
         {% if_has_perm "blog.change_blog_posts" blog %}
-          <div class="breadcrumbs_edit">
-            <a href="{{ container.get_url_path }}new/">{% trans "Add a new blog entry" %}</a>
-            <span> | </span><a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a>
+          <div class="btn-group pull-right breadcrumbs_edit">
+            <a class="btn btn-primary" href="{{ container.get_url_path }}new/">{% trans "Add a new blog entry" %}</a>
+
+            <a class="btn btn-primary" href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a>
           </div>
         {% end_if_has_perm %}
         {% if not object %}
@@ -91,7 +93,7 @@
   </div>
 
   <div class="content clearfix">
-    <div class="inner">
+    <div class="container">
       {% ifequal archive "details" %}
         {% include_selected "post_detail.html" for object under "blog" %}
       {% endifequal %}

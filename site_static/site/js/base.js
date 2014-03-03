@@ -26,7 +26,36 @@ $(window).bind('scrollstop smartresize', lazyload_images);
 $(window).bind('load smartresize', isotope_list);
 $(document).ready(lazyload_images);
 
+
+var currentScrollPosition = 0;
+
+$(document).scroll(function(){
+    currentScrollPosition = $(this).scrollTop();
+});
+
 $(document).ready(function() {
+    $("input").focus(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        setTimeout(function() {
+            $(document).scrollTop(currentScrollPosition);
+        }, 1);
+
+        setTimeout(function() {
+            $(document).scrollTop(currentScrollPosition);
+        }, 50);
+
+        setTimeout(function () {
+            $(document).scrollTop(currentScrollPosition);
+        }, 100);
+
+        setTimeout(function() {
+            $(document).scrollTop(currentScrollPosition);
+        }, 150);
+    });
+    currentScrollPosition = $(this).scrollTop();
+
     $("a[href^='http://']").attr("target","_blank");
 
     if ($('#cms_toolbar').length) { // cms toolbar fix

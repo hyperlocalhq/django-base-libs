@@ -13,6 +13,7 @@
   height: 132px;
   z-index: 100;
 }
+
 .navbar {
   z-index: 1000;
   position: relative;
@@ -22,6 +23,7 @@
        -o-transition: -o-transform 0.45s;
           transition: transform 0.45s;
 }
+
 .navbar.affix {
   width: 100%;
   
