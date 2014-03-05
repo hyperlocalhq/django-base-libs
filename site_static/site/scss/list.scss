@@ -261,11 +261,17 @@ only screen and (                min-resolution: 2dppx) {
 .grid,
 .list {
   .item {
-    -webkit-transition: -webkit-transform 0.25s ease-in-out !important;
-       -moz-transition: -moz-transform 0.25s ease-in-out !important;
-        -ms-transition: -ms-transform 0.25s ease-in-out !important;
-         -o-transition: -o-transform 0.25s ease-in-out !important;
-            transition: transform 0.25s ease-in-out !important;
+    // -webkit-transition: -webkit-transform 0.25s ease-in-out !important;
+    //    -moz-transition: -moz-transform 0.25s ease-in-out !important;
+    //     -ms-transition: -ms-transform 0.25s ease-in-out !important;
+    //      -o-transition: -o-transform 0.25s ease-in-out !important;
+    //         transition: transform 0.25s ease-in-out !important;
+
+    -webkit-transition: -webkit-transform 0s ease-in-out !important;
+       -moz-transition: -moz-transform 0s ease-in-out !important;
+        -ms-transition: -ms-transform 0s ease-in-out !important;
+         -o-transition: -o-transform 0s ease-in-out !important;
+            transition: transform 0s ease-in-out !important;
   }
 }
 
