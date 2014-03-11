@@ -4,7 +4,6 @@
 /* global lazyload_images: false */
 /* global isotope_list: false */
 
-
 function redo_description() {
     var $container = $('#container');
     var $current_item = $('#item-preview');
@@ -22,6 +21,23 @@ function redo_description() {
 }
 
 $(function() {
+
+    if (!navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|IEMobile|Opera Mini|webOS/i)) {
+        $('.pagination').removeClass('item');
+        $('#container').jscroll({
+            loadingHtml: '<small>Loading...</small>',
+            // padding: 30,
+            contentSelector: '#container .isotope',
+            nextSelector: '.next_page:last',
+            pagingSelector: '.pagination',
+            debug: true,
+            callback: function() {
+                $('.pagination').removeClass('item');
+                isotope_list();
+                lazyload_images();
+            }
+        });
+    }
 
     $('#map-list-link').click(function() {
         location.href = $(this).attr('href') + location.hash;
@@ -67,7 +83,6 @@ $(function() {
 });
 
 $(window).bind('smartresize', redo_description);
-
 
 $(window).load(function() {
     var $container = $('#container'),
@@ -233,7 +248,6 @@ $(window).load(function() {
         }
     }
 });
-
 
 $(window).load(function() {
     setTimeout(function() {
