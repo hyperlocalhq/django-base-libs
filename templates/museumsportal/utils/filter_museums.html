@@ -75,7 +75,7 @@
         <div class="panel-body">
           <h4>{% trans "Smart lists" %}</h4>
 
-          <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
+          <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
             <li{% if facets.selected.open_on_mondays %} class="active"{% endif %}><a href="{% append_to_get open_on_mondays=1 %}" data-param="open_on_mondays" data-value="1" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a></li>
             <li{% if facets.selected.free_entrance %} class="active"{% endif %}><a href="{% append_to_get free_entrance=1 %}" data-param="free_entrance" data-value="1" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a></li>
             {% comment %}
@@ -114,7 +114,7 @@
       <div id="filter-accessibility" class="panel-collapse collapse">
         <div class="panel-body">
           <h4>{% trans "Accessibility" %}</h4>
-          <ul class="filter option-set clearfix" id="accessibility" data-filter-group="accessibility">
+          <ul class="filter option-set clearfix" id="accessibility" data-filter-group="accessibility" data-single-selection="1">
             {% for cat in facets.categories.accessibility_options %}
               <li{% if facets.selected.accessibility_option == cat %} class="active"{% endif %}><a href="{% append_to_get accessibility_option=cat.slug %}" data-param="accessibility_option" data-value="{{ cat.slug }}" data-filter-value=".access_{{ cat.slug }}">{{ cat.title }}</a></li>
             {% endfor %}

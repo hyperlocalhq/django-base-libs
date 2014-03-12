@@ -29,15 +29,14 @@
           </div>
           <ul id="filter-summary" class="pull-left">
             {% if facets.selected.category or facets.selected.open_on_mondays or facets.selected.free_entrance or facets.selected.open_late or facets.selected.accessibility_option %}
-              <li><b>{% trans "Your actual filter choices" %}:</b></li>
+              <li><b>{% trans "Filter selection" %}:</b></li>
+              {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
+              {% if facets.selected.open_on_mondays %}<li data-param="open_on_mondays" data-value="1"><a href="{% append_to_get open_on_mondays="" %}">{% trans "Open on Mondays" %}</a></li>{% endif %}
+              {% if facets.selected.free_entrance %}<li data-param="free_entrance" data-value="1"><a href="{% append_to_get free_entrance="" %}">{% trans "Free entrance" %}</a></li>{% endif %}
+              {% if facets.selected.open_late %}<li data-param="open_late" data-value="{{ facets.selected.open_late }}"><a href="{% append_to_get open_late="" %}">{% trans "Open late" %}</a></li>{% endif %}
+              {% if facets.selected.accessibility_option %}<li data-param="accessibility_option" data-value="{{ facets.selected.accessibility_option.slug }}"><a href="{% append_to_get accessibility_option="" %}">{{ facets.selected.accessibility_option.title }}</a></li>{% endif %}
             {% endif %}
-            {% if facets.selected.category %}<li><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
-            {% if facets.selected.open_on_mondays %}<li><a href="{% append_to_get open_on_mondays="" %}">{% trans "Open on Mondays" %}</a></li>{% endif %}
-            {% if facets.selected.free_entrance %}<li><a href="{% append_to_get free_entrance="" %}">{% trans "Free entrance" %}</a></li>{% endif %}
-            {% if facets.selected.open_late %}<li><a href="{% append_to_get open_late="" %}">{% trans "Open late" %}</a></li>{% endif %}
-            {% if facets.selected.accessibility_option %}<li><a href="{% append_to_get accessibility_option="" %}">{{ facets.selected.accessibility_option.title }}</a></li>{% endif %}
           </ul>
-
         </div>
       </header>
     </div>
@@ -56,8 +55,6 @@
 
     <div id="list">
       <div class="container">
-        {% include "utils/container_empty.html" %}
-
         <div id="container">
           <div class="row row-md grid isotope">
             {% for museum in object_list %}
@@ -74,6 +71,8 @@
                 </a>
                 <div class="description"></div>
               </div>
+            {% empty %}
+              {% include "utils/container_empty.html" %}
             {% endfor %}
             {% include "utils/pagination.html" %}
           </div>
