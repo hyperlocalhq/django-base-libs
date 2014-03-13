@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime, time
 import json
 
 from django.db import models
@@ -128,11 +128,14 @@ def museum_list(request):
 
         cat = form.cleaned_data['open_late']
         if cat:
-            facets['selected']['open_late'] = cat
-            # TODO define filter for open_late
-            # qs = qs.filter(
-            #     accessibility_options=cat,
-            # ).distinct()
+            facets['selected']['open_late'] = (cat, dict(OPEN_LATE_CHOICES)[cat])
+            today = datetime.today().date()
+            weekday, _till, hours = cat.split('_')
+            qs = qs.filter(**{
+                'season__start__lte': today,
+                'season__end__gte': today,
+                'season__%s_close__gte' % weekday: time(int(hours), 0),
+            }).distinct()
 
         open_on_mondays = form.cleaned_data['open_on_mondays']
         if open_on_mondays:
@@ -149,6 +152,8 @@ def museum_list(request):
             )
     
     abc_filter = request.GET.get('abc', None)
+    if abc_filter:
+        facets['selected']['abc'] = abc_filter
     abc_list = get_abc_list(qs, "title", abc_filter)
     if abc_filter:
         qs = filter_abc(qs, "title", abc_filter)

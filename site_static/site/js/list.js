@@ -1,13 +1,14 @@
 /* jshint unused:false, eqnull:false, sub:true */
-/* global self: false */
-/* global jQuery: false */
-/* global lazyload_images: false */
-/* global isotope_list: false */
+/* global $:false */
+/* global lazyload_images:false */
+/* global isotope_list:false */
 
 function redo_description() {
     var $container = $('#container');
     var $current_item = $('#item-preview');
-    if (!$current_item.length) { return; }
+    if (!$current_item.length) {
+        return;
+    }
     var $description = $current_item.find(".description");
 
     // define position for the description
@@ -16,7 +17,10 @@ function redo_description() {
     var offset_left = parseInt($container.css('margin-left'), 10);
     var offset_right = parseInt($container.css('margin-right'), 10);
 
-    $description.css({left: -left, width: width + offset_left + offset_right});
+    $description.css({
+        left: -left,
+        width: width + offset_left + offset_right
+    });
     isotope_list();
 }
 
@@ -31,7 +35,6 @@ function reinit_infinite_scroll() {
                 contentSelector: '#container .isotope',
                 nextSelector: '.next_page:last',
                 pagingSelector: '.pagination',
-                debug: true,
                 callback: function() {
                     $('.pagination').removeClass('item').hide();
                     isotope_list();
@@ -105,7 +108,7 @@ $(window).load(function() {
     var url_filters = {};
 
     // filter buttons
-    $('.filter a').click(function(e){
+    $('.filter a').click(function(e, dont_load_data_yet){
         e.preventDefault();
         var $this = $(this);
         var $li = $this.closest('li');
@@ -127,43 +130,40 @@ $(window).load(function() {
         } else if (level === 1) {
             $children = $this.closest('.level-1-container');
         }
-        var param = $this.data('param');
-        var value = $this.data('value');
+        var param = $li.data('param');
+        var value = $li.data('value');
 
         if (filter_value) {
-            if ($this.hasClass('selected')) {
-                $this.removeClass('selected');
-                $li.removeClass('selected');
+            if ($li.hasClass('active')) {
+                //$this.removeClass('selected');
+                $li.removeClass('active');
                 if ($children && level === 0) {
-                    $children.find('a.selected').click();
-                    $children.find('ul.in').removeClass('in');
+                    $('li.active>a', $children).trigger('click', [true]);
+                    $('ul.in', $children).removeClass('in');
                 }
-                filters[group] = jQuery.grep(filters[group], function(v) {
+                filters[group] = $.grep(filters[group], function(v) {
                     return v !== filter_value;
                 });
                 // remove the corresponding item from filter summary
-                $('li[data-filter-group="' + group + '"][data-filter-value="' + filter_value + '"]', $filter_summary).remove();
+                $('li[data-param="' + param + '"]', $filter_summary).remove();
                 if ($filter_summary.children().length === 1) {
                     $filter_summary.empty();
                 }
                 url_filters[param] = false;
-                if (param === "category") {
-                    url_filters['subcategory'] = false;
-                }
             } else {
                 if (hierarchical) {
                     if (single_selection) {
                         // unselect previously selected
                         // and collect filters
                         if (level === 0) {
-                            $optionSet.find('a.selected').click();
+                            $('li.active>a', $optionSet).trigger('click', [true]);
                             if ($children) {
-                                $children.find('ul.in').removeClass('in');
+                                $('ul.in', $children).removeClass('in');
                             }
                             filters[group] = [filter_value];
                         } else {
                             if ($children) {
-                                $children.find('a.selected').click();
+                                $('li.active>a', $children).trigger('click', [true]);
                             }
                             filters[group].push(filter_value);
                         }
@@ -174,7 +174,7 @@ $(window).load(function() {
                     if (single_selection) {
                         // unselect previously selected
                         // and collect filters
-                        $optionSet.find('a.selected').click();
+                        $('li.active>a', $optionSet).trigger('click', [true]);
                         filters[group] = [filter_value];
                     } else {
                         filters[group].push(filter_value);
@@ -182,18 +182,17 @@ $(window).load(function() {
                 }
                 url_filters[param] = value;
                 // change selected class
-                $this.addClass('selected');
-                $li.addClass('selected');
+                $li.addClass('active');
                 if ($children) {
-                    $children.find(target_child).addClass('in');
+                    $(target_child, $children).addClass('in');
                 }
-                
-                if ($filter_summary.text() === "") {
-                    $li = $('<li><b>' + window.str_filter_selection + ':</b></li>');
-                    $filter_summary.append($li);
+                var $filter_summary_li;
+                if ($filter_summary.text().trim() === "") {
+                    $filter_summary_li = $('<li><b>' + window.str_filter_selection + ':</b></li>');
+                    $filter_summary.append($filter_summary_li);
                 }
-                $li = $('<li data-filter-group="' + group + '" data-filter-value="' + filter_value + '"><a href="">' + $this.text() + '</a></li>');
-                $filter_summary.append($li);
+                $filter_summary_li = $('<li data-filter-group="' + group + '" data-filter-value="' + filter_value + '" data-param="' + param + '" data-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
+                $filter_summary.append($filter_summary_li);
             }
         }
 
@@ -212,11 +211,14 @@ $(window).load(function() {
 
         var url = '?' + window.append_to_get(url_filters, true);
         window.history.pushState({}, document.title, url);
-        $('#container').load(url + ' #container>*', function() {
-            reinit_infinite_scroll();
-            isotope_list();
-            lazyload_images();
-        });
+        if (!dont_load_data_yet) {
+            $('#container').jscroll.destroy();
+            $('#container').load(url + ' #container>*', function() {
+                reinit_infinite_scroll();
+                isotope_list();
+                lazyload_images();
+            });
+        }
 //        var selector = isoFilters.join('');
 
 //        $.bbq.pushState({filter: http_state_filters.join('')});
@@ -240,21 +242,28 @@ $(window).load(function() {
     });
 
     $filter_summary.on('click', 'a', function() {
-        var $this = $(this).closest('li');
-        var param = $this.data('param');
-        var value = $this.data('value');
+        var $li = $(this).closest('li');
+        var param = $li.data('param');
+        var value = $li.data('value');
         if (!param) {
             // trigger the clicks on all selected filters
-            $('a.selected', $filters).click();
+            $('li.active>a', $filters).click();
         } else {
             // trigger the click on corresponding filter
-            $('a[data-param="' + param + '"][data-value="' + value + '"]', $filters).click();
+            $('li.active[data-param="' + param + '"][data-value="' + value + '"]>a', $filters).click();
         }
         return false;
     });
 
     $('#filter-reset').on('click', function() {
-        $('a.selected', $filters).click();
+        // for each active link from the last till the first, click to deactivate
+        $($('li.active>a', $filters).get().reverse()).trigger('click', [true]);
+        $('#container').jscroll.destroy();
+        $('#container').load('? #container>*', function() {
+            reinit_infinite_scroll();
+            isotope_list();
+            lazyload_images();
+        });
         return false;
     });
 
