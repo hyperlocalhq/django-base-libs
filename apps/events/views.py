@@ -39,9 +39,11 @@ from forms.gallery import ImageFileForm, ImageDeletionForm
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
-STATUS_CHOICES = (
-    ("newly_opened", _("Newly opened")),
-    ("closing_soon", _("Closing soon")),
+CALENDAR_CHOICES = (
+    ('today', _("Today")),
+    ('tomorrow', _("Tomorrow")),
+    ('within_7_days', _("7 Days")),
+    ('within_30_days', _("30 Days")),
 )
 
 
@@ -49,9 +51,16 @@ class EventFilterForm(dynamicforms.Form):
     category = forms.ModelChoiceField(
         required=False,
         queryset=get_related_queryset(Event, "categories"),
+        to_field_name="slug",
     )
-    status = forms.ChoiceField(
-        choices=STATUS_CHOICES,
+    suitable_for_children = forms.BooleanField(
+        required=False,
+    )
+    free_admission = forms.BooleanField(
+        required=False,
+    )
+    calendar = forms.ChoiceField(
+        choices=CALENDAR_CHOICES,
         required=False,
     )
 
@@ -74,7 +83,9 @@ def event_list(request):
         'selected': {},
         'categories': {
             'categories': get_related_queryset(Event, "categories"),
-            'statuses': STATUS_CHOICES,
+            'suitable_for_children': _("Also suitable for children"),
+            'free_admission': _("Free admission"),
+            'calendar': CALENDAR_CHOICES,
         },
     }
 
@@ -86,33 +97,54 @@ def event_list(request):
             qs = qs.filter(
                 categories=cat,
             ).distinct()
-        status = form.cleaned_data['status']
-        if status:
-            facets['selected']['status'] = status
+        suitable_for_children = form.cleaned_data['suitable_for_children']
+        if suitable_for_children:
+            facets['selected']['suitable_for_children'] = True
+            qs = qs.filter(
+                suitable_for_children=True,
+            )
+        free_admission = form.cleaned_data['free_admission']
+        if free_admission:
+            facets['selected']['free_admission'] = True
+            qs = qs.filter(
+                free_admission=True,
+            )
+        cat = form.cleaned_data['calendar']
+        if cat:
+            facets['selected']['calendar'] = (cat, dict(CALENDAR_CHOICES)[cat])
             today = date.today()
-            two_weeks = timedelta(days=14)
-            if status == "newly_opened":
-                # today - 2 weeks < EVENT START <= today
+            if cat == "today":
                 qs = qs.filter(
-                    eventtime__event_date__gt=today-two_weeks,
-                    eventtime__event_date__lte=today,
+                    eventtime__event_date=today,
                 )
-            elif status == "closing_soon":
-                # today <= EVENT END < today + two weeks
+            if cat == "tomorrow":
+                tomorrow = today + timedelta(days=1)
                 qs = qs.filter(
-                    eventtime__event_date__gte=today,
-                    eventtime__event_date__lt=today+two_weeks,
+                    eventtime__event_date=tomorrow,
                 )
-    #if status == "closing_soon":
-    #    qs = qs.order_by("eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
-    #else:
-    #    qs = qs.order_by("-eventtime__event_date", "title_%s" % request.LANGUAGE_CODE)
+            if cat == "within_7_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=7)
+                qs = qs.filter(
+                    eventtime__event_date__gte=selected_start,
+                    eventtime__event_date__lte=selected_end,
+                )
+            if cat == "within_30_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=30)
+                qs = qs.filter(
+                    eventtime__event_date__gte=selected_start,
+                    eventtime__event_date__lte=selected_end,
+                )
+
     qs = qs.distinct()
 
-    abc_filter = request.GET.get('by-abc', None)
+    abc_filter = request.GET.get('abc', None)
+    if abc_filter:
+        facets['selected']['abc'] = abc_filter
     abc_list = get_abc_list(qs, "title", abc_filter)
     if abc_filter:
-        qs = filter_abc(qs, "title", abc_filter)
+        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
         
     extra_context = {}
     extra_context['form'] = form
@@ -123,7 +155,7 @@ def event_list(request):
         request,
         queryset=qs,
         template_name="events/event_list.html",
-        paginate_by=200,
+        paginate_by=24,
         extra_context=extra_context,
         httpstate_prefix="event_list",
         context_processors=(prev_next_processor,),
@@ -142,7 +174,6 @@ def event_list_map(request):
         'selected': {},
         'categories': {
             'categories': get_related_queryset(Event, "categories").order_by("title_%s" % request.LANGUAGE_CODE),
-            'statuses': STATUS_CHOICES,
         },
     }
 
