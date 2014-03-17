@@ -28,7 +28,7 @@
             <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
           </div>
           <ul id="filter-summary" class="pull-left">
-            {% if facets.selected.abc or facets.selected.category  or facets.selected.subcategory or facets.selected.open_on_mondays or facets.selected.free_entrance or facets.selected.open_late or facets.selected.accessibility_option %}
+            {% if facets.selected.abc or facets.selected.category or facets.selected.subcategory or facets.selected.open_on_mondays or facets.selected.free_entrance or facets.selected.open_late or facets.selected.accessibility_option %}
               <li><b>{% trans "Filter selection" %}:</b></li>
               {% if facets.selected.abc %}<li data-param="abc" data-value="{{ facets.selected.abc }}"><a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a></li>{% endif %}
               {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}

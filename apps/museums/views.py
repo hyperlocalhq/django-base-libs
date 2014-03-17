@@ -156,7 +156,7 @@ def museum_list(request):
         facets['selected']['abc'] = abc_filter
     abc_list = get_abc_list(qs, "title", abc_filter)
     if abc_filter:
-        qs = filter_abc(qs, "title", abc_filter)
+        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
     
     extra_context = {}
     extra_context['form'] = form

@@ -60,7 +60,7 @@
             return false;
         });
 
-        $('#container').on(activation_event, '.item>a', function() {
+        $('#container').on('click', '.item>a', function() {
             var $current_item = $(this).closest('.item');
             redo_description();
 
@@ -79,7 +79,7 @@
             // if description doesn't exist yet, load it
             if (!$.trim($description.text())) {
                 $description.load($current_item.data('description-src'), function() {
-                    $('#container .item .cancel').on(activation_event, function(){
+                    $('#container .item .cancel').on('click', function(){
                         $('#item-preview').attr("id","");
                         isotope_list();
                         lazyload_images();
@@ -204,6 +204,7 @@
                     }
                     $filter_summary_li = $('<li data-filter-group="' + group + '" data-filter-value="' + filter_value + '" data-param="' + param + '" data-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
                     $filter_summary.append($filter_summary_li);
+                    $filter_summary.css('display', 'block');  // hack for Safari
                 }
             }
 
