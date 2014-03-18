@@ -157,7 +157,7 @@ def event_list(request):
         template_name="events/event_list.html",
         paginate_by=24,
         extra_context=extra_context,
-        httpstate_prefix="event_list",
+        httpstate_prefix="event_list_map",
         context_processors=(prev_next_processor,),
     )
 

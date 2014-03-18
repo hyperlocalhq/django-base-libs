@@ -245,7 +245,7 @@ def workshop_list_map(request):
         template_name="workshops/workshop_list_map.html",
         paginate_by=200,
         extra_context=extra_context,
-        httpstate_prefix="workshop_list",
+        httpstate_prefix="workshop_list_map",
         context_processors=(prev_next_processor,),
     )
 

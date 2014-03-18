@@ -327,7 +327,7 @@ def exhibition_list_map(request):
         template_name="exhibitions/exhibition_list_map.html",
         paginate_by=200,
         extra_context=extra_context,
-        httpstate_prefix="exhibition_list",
+        httpstate_prefix="exhibition_list_map",
         context_processors=(prev_next_processor,),
         )
 

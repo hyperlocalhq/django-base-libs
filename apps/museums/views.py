@@ -236,7 +236,7 @@ def museum_list_map(request):
         template_name="museums/museum_list_map.html",
         paginate_by=200,
         extra_context=extra_context,
-        httpstate_prefix="museum_list",
+        httpstate_prefix="museum_list_map",
         context_processors=(prev_next_processor,),
         )
 
