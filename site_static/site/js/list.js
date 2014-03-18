@@ -229,8 +229,10 @@
                 }
                 $('#container').load(url + ' #container>*', function() {
                     reinit_infinite_scroll();
-                    isotope_list();
-                    lazyload_images();
+                    setTimeout(function() { // waiting for the ad to load
+                        isotope_list();
+                        lazyload_images();
+                    }, 500);
                 });
             }
     //        var selector = isoFilters.join('');

@@ -142,7 +142,7 @@ def event_list(request):
     abc_filter = request.GET.get('abc', None)
     if abc_filter:
         facets['selected']['abc'] = abc_filter
-    abc_list = get_abc_list(qs, "title", abc_filter)
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
     if abc_filter:
         qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
         
