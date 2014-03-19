@@ -220,6 +220,16 @@ p, dl, ul,ol {
   }
 }
 
+.extras {
+  dl {
+    margin-bottom: 15px;
+    padding: 0px;
+
+    dt {float: none; }
+    dd {float: none; }
+  }
+}
+
 dl {
   margin-bottom: 0px;
   padding: 0px;

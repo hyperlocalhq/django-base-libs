@@ -103,6 +103,7 @@
                 </button>
               </div>
 
+              {% comment %}
               {% if object.mediafile_set.count > 1 or museum.get_twitter_username or object.get_published_exhibitions or object.get_other_events or object.get_published_workshops %}
               <div class="btn-group" style="margin-bottom: 15px;">
                 {% if object.mediafile_set.count > 1 %}
@@ -122,12 +123,30 @@
                 {% endif %}
               </div>
               {% endif %}
+              {% endcomment %}
 
               {% include "utils/cover_image.html" %}
 
               <div class="lead">
                 {{ event.get_rendered_description }}
               </div>
+
+              {% if event.meeting_place or event.get_languages %}
+              <div class="extras">
+                {% if event.meeting_place %}
+                  <dl>
+                    <dt>{% trans "Meeting point" %}</dt>
+                    <dd class="meeting_place">{{ event.meeting_place }}</dd>
+                  </dl>
+                {% endif %}
+                {% if event.get_languages %}
+                  <dl>
+                    <dt>{% trans "Languages" %}</dt>
+                    <dd class="languages">{{ event.get_languages|join:", " }}</dd>
+                  </dl>
+                {% endif %}
+              </div>
+              {% endif %}
             </article>
 
           </div> <!-- ======= End Main Collumn ======= -->
@@ -326,34 +345,6 @@
                         </dl>
                       </div>
                       {% endif %}
-                    </div>
-                  </div>
-                {% endif %}
-
-                <!-- ======= Other Information ======= -->
-
-                {% if event.meeting_place or event.get_languages %}
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-other-info">
-                        {% trans "Other info" %}
-                      </a>
-                    </div>
-                    <div id="collapse-other-info" class="panel-collapse collapse">
-                      <div class="panel-body">
-                        {% if event.meeting_place %}
-                          <dl>
-                            <dt>{% trans "Meeting point" %}</dt>
-                            <dd class="meeting_place">{{ event.meeting_place }}</dd>
-                          </dl>
-                        {% endif %}
-                        {% if event.get_languages %}
-                          <dl>
-                            <dt>{% trans "Languages" %}</dt>
-                            <dd class="languages">{{ event.get_languages|join:", " }}</dd>
-                          </dl>
-                        {% endif %}
-                      </div>
                     </div>
                   </div>
                 {% endif %}

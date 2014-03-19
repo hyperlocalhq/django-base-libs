@@ -98,7 +98,7 @@
 
 
               {% if object.mediafile_set.count > 1 or museum.get_twitter_username or object.get_published_exhibitions or object.get_published_events or object.get_published_workshops %}
-              <div class="btn-group" style="margin-bottom: 15px;">
+              <div class="btn-group hidden-xs" style="margin-bottom: 15px;">
                 {% if object.mediafile_set.count > 1 %}
                   <a class="btn btn-info btn-sm" href="#section-images">{% trans "Images" %}</a>
                 {% endif %}
