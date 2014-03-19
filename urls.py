@@ -99,7 +99,7 @@ urlpatterns += i18n_patterns('',
     url(r'^gmap/$', TemplateView.as_view(template_name='gmap/index.html')),
     url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template', {'template_name': 'settings.js'}, name="jssettings"),
     
-    url(r'^ads/', include('jetson.apps.advertising.urls')),
+    url(r'^ads/', include('museumsportal.apps.advertising.urls')),
 
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),

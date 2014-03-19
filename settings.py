@@ -27,13 +27,18 @@ TIME_ZONE = 'Europe/Berlin'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 
 LANGUAGES = (
-    ('de', gettext("German")),
-    ('en', gettext("English")),
+    ('de', u"Deutsch"),
+    ('en', u"English"),
+    ('fr', u"Français"),
+    ('pl', u"Polszczyzna"),
+    ('tr', u"Türkçe"),
+    ('es', u"Español"),
+    ('it', u"Italiano"),
 )
 
 FRONTEND_LANGUAGES = (
-    ('de', gettext("German")),
-    ('en', gettext("English")),
+    ('de', u"Deutsch"),
+    ('en', u"English"),
 )
 
 LANGUAGE_CODE = "de"
@@ -204,15 +209,8 @@ INSTALLED_APPS = (
     "jetson.apps.mailing",
     "jetson.apps.permissions",
     #"jetson.apps.external_services",
-    "jetson.apps.mailchimp",
-    "jetson.apps.blocks",
-    "jetson.apps.media_gallery",
-    "jetson.apps.configuration",
     "jetson.apps.favorites",
-    "jetson.apps.advertising",
-    "jetson.apps.advertising.plugins.cms_ads",
     "jetson.apps.blog",
-    "jetson.apps.comments",
 
     ### museumsportal apps ###
     "museumsportal.apps.museums",
@@ -228,6 +226,15 @@ INSTALLED_APPS = (
     "museumsportal.apps.search",
     "museumsportal.apps.external_services",
     "museumsportal.apps.internal_links",
+
+    # the following apps are copied and converted from jetson
+    "museumsportal.apps.mailchimp",
+    "museumsportal.apps.blocks",
+    "museumsportal.apps.media_gallery",
+    "museumsportal.apps.configuration",
+    "museumsportal.apps.advertising",
+    "museumsportal.apps.advertising.plugins.cms_ads",
+    "museumsportal.apps.comments",
 )
 
 
@@ -328,9 +335,6 @@ ADMIN_APP_INDEX = (
             ('external_services', {
                 'models': ("Service", "ObjectMapper",),
             }),
-            ('tagging', {
-                'models': ("Tag", "TaggedItem",),
-            }),
             ('tastypie', {
                 'models': ("ApiKey",),
             }),
@@ -387,14 +391,49 @@ CMS_LANGUAGES = {
         {
             'code': 'de',
             'hide_untranslated': True,
-            'name': 'Deutsch',
+            'name': u'Deutsch',
             'public': True,
             'redirect_on_fallback': False,
         },
         {
             'code': 'en',
             'hide_untranslated': True,
-            'name': 'English',
+            'name': u'English',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+        {
+            'code': 'fr',
+            'hide_untranslated': True,
+            'name': u'Français',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+        {
+            'code': 'pl',
+            'hide_untranslated': True,
+            'name': u'Polszczyzna',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+        {
+            'code': 'tr',
+            'hide_untranslated': True,
+            'name': u'Türkçe',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+        {
+            'code': 'es',
+            'hide_untranslated': True,
+            'name': u'Español',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+        {
+            'code': 'it',
+            'hide_untranslated': True,
+            'name': u'Italiano',
             'public': True,
             'redirect_on_fallback': False,
         },

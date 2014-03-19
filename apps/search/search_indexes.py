@@ -20,12 +20,22 @@ class CMSPageIndexBase(AldrynIndexBase):
     verbose_name = _("Editorial Content")
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
+    rendered_fr = indexes.CharField(use_template=True, indexed=False)
+    rendered_pl = indexes.CharField(use_template=True, indexed=False)
+    rendered_tr = indexes.CharField(use_template=True, indexed=False)
+    rendered_es = indexes.CharField(use_template=True, indexed=False)
+    rendered_it = indexes.CharField(use_template=True, indexed=False)
 
 
 class MuseumIndex(AldrynIndexBase, indexes.Indexable):
     INDEX_TITLE = True
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
+    rendered_fr = indexes.CharField(use_template=True, indexed=False)
+    rendered_pl = indexes.CharField(use_template=True, indexed=False)
+    rendered_tr = indexes.CharField(use_template=True, indexed=False)
+    rendered_es = indexes.CharField(use_template=True, indexed=False)
+    rendered_it = indexes.CharField(use_template=True, indexed=False)
 
     order = 1
     short_name = "museums"
@@ -75,6 +85,11 @@ class ExhibitionIndex(AldrynIndexBase, indexes.Indexable):
 
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
+    rendered_fr = indexes.CharField(use_template=True, indexed=False)
+    rendered_pl = indexes.CharField(use_template=True, indexed=False)
+    rendered_tr = indexes.CharField(use_template=True, indexed=False)
+    rendered_es = indexes.CharField(use_template=True, indexed=False)
+    rendered_it = indexes.CharField(use_template=True, indexed=False)
 
     order = 2
     short_name = "exhibitions"
@@ -129,6 +144,11 @@ class EventIndex(AldrynIndexBase, indexes.Indexable):
 
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
+    rendered_fr = indexes.CharField(use_template=True, indexed=False)
+    rendered_pl = indexes.CharField(use_template=True, indexed=False)
+    rendered_tr = indexes.CharField(use_template=True, indexed=False)
+    rendered_es = indexes.CharField(use_template=True, indexed=False)
+    rendered_it = indexes.CharField(use_template=True, indexed=False)
 
     order = 4
     short_name = "events"
@@ -183,6 +203,11 @@ class WorkshopIndex(AldrynIndexBase, indexes.Indexable):
 
     rendered_en = indexes.CharField(use_template=True, indexed=False)
     rendered_de = indexes.CharField(use_template=True, indexed=False)
+    rendered_fr = indexes.CharField(use_template=True, indexed=False)
+    rendered_pl = indexes.CharField(use_template=True, indexed=False)
+    rendered_tr = indexes.CharField(use_template=True, indexed=False)
+    rendered_es = indexes.CharField(use_template=True, indexed=False)
+    rendered_it = indexes.CharField(use_template=True, indexed=False)
 
     order = 5
     short_name = "workshops"

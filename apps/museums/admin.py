@@ -112,7 +112,7 @@ class MuseumAdmin(ExtendedModelAdmin):
     filter_horizontal = ("categories", "accessibility_options")
     
     inlines = [SeasonInline, SpecialOpeningTimeInline, SocialMediaChannelInline, MediaFileInline]
-    
+
     def is_geoposition_set(self, obj):
         return bool(obj.latitude)
     is_geoposition_set.boolean = True
