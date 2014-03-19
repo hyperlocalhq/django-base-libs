@@ -206,7 +206,7 @@
                     });
                 });
                 form.grp_collapsible();
-                form.find(".collapse").grp_collapsible();
+                form.find(".grp-collapse").grp_collapsible();
             }
         });
         
@@ -242,22 +242,22 @@
             aDays: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
             init: function() {
                 $('.apply-to-all').live("click", function() {
-                    OpeningHoursManager.applyTimesToAllDays($(this).parents('.module:first'));
+                    OpeningHoursManager.applyTimesToAllDays($(this).closest('.grp-module'));
                     return false;
                 });
                 $('.show_break_times').live("click", function() {
-                    OpeningHoursManager.modifyBreakTimes($(this).parents('.module:first'));
+                    OpeningHoursManager.modifyBreakTimes($(this).closest('.grp-module'));
                 });
                 function apply_closed_on(weekday) {
                     $('.closed_on_' + weekday).live("click", function() {
-                        OpeningHoursManager.modifyDay($(this).parents('.module:first'), weekday);
+                        OpeningHoursManager.modifyDay($(this).closest('.grp-module'), weekday);
                     });
                 }
                 $(OpeningHoursManager.aDays).each(function() {
                     apply_closed_on(this);
                 });
                 $('.working-hours').each(function() {
-                    var $module = $(this).parents('.module:first');
+                    var $module = $(this).closest('fieldset.grp-module');
                     var bExpanded = false;
                     var aDays = OpeningHoursManager.aDays;
                     var bModifyDefaults = false;
