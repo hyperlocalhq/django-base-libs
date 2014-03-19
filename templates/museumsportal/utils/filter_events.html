@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n base_tags %}
 <div id="filters">
   <h4>{% trans "Filters" %}</h4>
 
@@ -29,10 +29,11 @@
       <div id="filter-categories" class="panel-collapse collapse in">
         <div class="panel-body">
           <h4>{% trans "Categories" %}</h4>
-
           <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
             {% for cat in facets.categories.categories %}
-            <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+            <li{% if facets.selected.category == cat %} class="active"{% endif %} data-param="category" data-value="{{ cat.slug }}">
+              <a data-filter-value=".cat_{{ cat.title|slugify }}" href="{% append_to_get category=cat.slug %}" >{{ cat.title }}</a>
+            </li>
             {% endfor %}
           </ul>
         </div>
@@ -42,12 +43,13 @@
       <div id="filter-alphabetic" class="panel-collapse collapse">
         <div class="panel-body">
           <h4>{% trans "Alphabet" %}</h4>
-
           <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
             {% for item in abc_list %}
-            {% if not forloop.first %}
-            <li><a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>
-            {% endif %}
+              {% if not forloop.first %}
+                <li{% if item.3 %} class="active"{% endif %} data-param="abc" data-value="{{ item.0 }}">
+                  <a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}" href="">{{ item.1 }}</a>
+                </li>
+              {% endif %}
             {% endfor %}
           </ul>
         </div>
@@ -59,8 +61,12 @@
           <h4>{% trans "Smart lists" %}</h4>
 
           <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
-            <li><a href="" data-filter-value=".is_for_children">{% trans "Also suitable for children" %}</a></li>
-            <li><a href="" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a></li>
+            <li{% if facets.selected.suitable_for_children %} class="active"{% endif %} data-param="suitable_for_children" data-value="1">
+              <a href="{% append_to_get suitable_for_children=1 %}" data-filter-value=".is_for_children">{% trans "Also suitable for children" %}</a>
+            </li>
+            <li{% if facets.selected.free_admission %} class="active"{% endif %} data-param="free_admission" data-value="1">
+              <a href="{% append_to_get free_admission=1 %}" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -69,12 +75,12 @@
       <div id="filter-calendar" class="panel-collapse collapse">
         <div class="panel-body">
           <h4>{% trans "Calendar" %}</h4>
-
-          <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
-            <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
-            <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
-            <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>
-            <li><a href="" data-filter-value=".is_within_30_days">{% trans "30 Days" %}</a></li>
+          <ul class="filter option-set clearfix" id="calendar" data-filter-group="calendar" data-single-selection="1">
+            {% for cat in facets.categories.calendar %}
+              <li{% if cat.0 == facets.selected.calendar.0 %} class="active"{% endif %} data-param="calendar" data-value="{{ cat.0 }}">
+                <a href="{% append_to_get calendar=cat.0 %}" data-filter-value=".is_{{ cat.0 }}">{{ cat.1 }}</a>
+              </li>
+            {% endfor %}
           </ul>
         </div>
       </div>

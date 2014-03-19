@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime, time
+import json
 
 from django.db import models
 from django.http import HttpResponse
 from django import forms
-from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from django.http import Http404
+from django.utils.translation import string_concat
 
 from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
@@ -40,10 +41,34 @@ from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
 
+OPEN_LATE_CHOICES = (
+    ('mon_till_20', string_concat(_("Mon"), " / ", _("8pm"))),
+    ('mon_till_22', string_concat(_("Mon"), " / ", _("10pm"))),
+    ('tue_till_20', string_concat(_("Tue"), " / ", _("8pm"))),
+    ('tue_till_22', string_concat(_("Tue"), " / ", _("10pm"))),
+    ('wed_till_20', string_concat(_("Wed"), " / ", _("8pm"))),
+    ('wed_till_22', string_concat(_("Wed"), " / ", _("10pm"))),
+    ('thu_till_20', string_concat(_("Thu"), " / ", _("8pm"))),
+    ('thu_till_22', string_concat(_("Thu"), " / ", _("10pm"))),
+    ('fri_till_20', string_concat(_("Fri"), " / ", _("8pm"))),
+    ('fri_till_22', string_concat(_("Fri"), " / ", _("10pm"))),
+    ('sat_till_20', string_concat(_("Sat"), " / ", _("8pm"))),
+    ('sat_till_22', string_concat(_("Sat"), " / ", _("10pm"))),
+    ('sun_till_20', string_concat(_("Sun"), " / ", _("8pm"))),
+    ('sun_till_22', string_concat(_("Sun"), " / ", _("10pm"))),
+)
+
+
 class MuseumFilterForm(dynamicforms.Form):
     category = forms.ModelChoiceField(
         required=False,
-        queryset=get_related_queryset(Museum, "categories"),
+        queryset=get_related_queryset(Museum, "categories").filter(parent=None),
+        to_field_name="slug",
+    )
+    subcategory = forms.ModelChoiceField(
+        required=False,
+        queryset=get_related_queryset(Museum, "categories").exclude(parent=None),
+        to_field_name="slug",
     )
     open_on_mondays = forms.BooleanField(
         required=False,
@@ -51,9 +76,14 @@ class MuseumFilterForm(dynamicforms.Form):
     free_entrance = forms.BooleanField(
         required=False,
     )
+    open_late = forms.ChoiceField(
+        required=False,
+        choices=OPEN_LATE_CHOICES,
+    )
     accessibility_option = forms.ModelChoiceField(
         required=False,
         queryset=get_related_queryset(Museum, "accessibility_options"),
+        to_field_name="slug",
     )
 
 
@@ -65,9 +95,10 @@ def museum_list(request):
     facets = {
         'selected': {},
         'categories': {
-            'categories': MuseumCategory.objects.all().order_by("title_%s" % request.LANGUAGE_CODE),
+            'categories': MuseumCategory.objects.filter(parent=None).order_by("title_%s" % request.LANGUAGE_CODE),
             'open_on_mondays': _("Open on Mondays"),
             'free_entrance': _("Free entrance"),
+            'open_late': OPEN_LATE_CHOICES,
             'accessibility_options': AccessibilityOption.objects.all()
         },
     }
@@ -81,12 +112,30 @@ def museum_list(request):
                 categories=cat,
             ).distinct()
 
+        cat = form.cleaned_data['subcategory']
+        if cat:
+            facets['selected']['subcategory'] = cat
+            qs = qs.filter(
+                categories=cat,
+            ).distinct()
+
         cat = form.cleaned_data['accessibility_option']
         if cat:
             facets['selected']['accessibility_option'] = cat
             qs = qs.filter(
                 accessibility_options=cat,
             ).distinct()
+
+        cat = form.cleaned_data['open_late']
+        if cat:
+            facets['selected']['open_late'] = (cat, dict(OPEN_LATE_CHOICES)[cat])
+            today = datetime.today().date()
+            weekday, _till, hours = cat.split('_')
+            qs = qs.filter(**{
+                'season__start__lte': today,
+                'season__end__gte': today,
+                'season__%s_close__gte' % weekday: time(int(hours), 0),
+            }).distinct()
 
         open_on_mondays = form.cleaned_data['open_on_mondays']
         if open_on_mondays:
@@ -102,10 +151,12 @@ def museum_list(request):
                 free_entrance=True,
             )
     
-    abc_filter = request.GET.get('by-abc', None)
-    abc_list = get_abc_list(qs, "title", abc_filter)
+    abc_filter = request.GET.get('abc', None)
     if abc_filter:
-        qs = filter_abc(qs, "title", abc_filter)
+        facets['selected']['abc'] = abc_filter
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
     
     extra_context = {}
     extra_context['form'] = form
@@ -116,7 +167,7 @@ def museum_list(request):
         request,
         queryset=qs,
         template_name="museums/museum_list.html",
-        paginate_by=200,
+        paginate_by=24,
         extra_context=extra_context,
         httpstate_prefix="museum_list",
         context_processors=(prev_next_processor,),
@@ -185,7 +236,7 @@ def museum_list_map(request):
         template_name="museums/museum_list_map.html",
         paginate_by=200,
         extra_context=extra_context,
-        httpstate_prefix="museum_list",
+        httpstate_prefix="museum_list_map",
         context_processors=(prev_next_processor,),
         )
 
@@ -279,8 +330,8 @@ def export_json_museums(request):
         data['categories'] = categories
         museums.append(data)
     
-    json = simplejson.dumps(museums, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    json_str = json.dumps(museums, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
 
 
 @never_cache
@@ -534,7 +585,7 @@ def json_museum_attrs(request, museum_id):
     """
     Gets address attributes from a given museum
     """
-    json = "false"
+    json_str = "false"
     try:
         m = Museum.objects.get(pk=museum_id)
     except:
@@ -552,5 +603,5 @@ def json_museum_attrs(request, museum_id):
             'longitude': m.longitude,
             'status': m.status,
         }
-        json = simplejson.dumps(data, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+        json_str = json.dumps(data, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')

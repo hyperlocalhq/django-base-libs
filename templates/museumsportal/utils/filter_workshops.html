@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n base_tags %}
 <div id="filters">
   <h4>{% trans "Filters" %}</h4>
   
@@ -25,10 +25,18 @@
         <div class="panel-body">
           <h4>{% trans "Accessibility" %}</h4>
           <ul class="filter option-set clearfix" id="accessibility" data-filter-group="accessibility">
-            <li><a href="" data-filter-value=".is_for_wheelchaired">{% trans "For people in wheelchairs" %}</a></li>
-            <li><a href="" data-filter-value=".is_for_deaf">{% trans "For deaf people" %}</a></li>
-            <li><a href="" data-filter-value=".is_for_blind">{% trans "For blind people" %}</a></li>
-            <li><a href="" data-filter-value=".is_for_learning_difficulties">{% trans "For people with learning difficulties" %}</a></li>
+            <li{% if facets.selected.is_for_wheelchaired %} class="active"{% endif %} data-param="is_for_wheelchaired" data-value="1">
+              <a href="{% append_to_get is_for_wheelchaired=1 %}" data-filter-value=".is_for_wheelchaired">{% trans "For people in wheelchairs" %}</a>
+            </li>
+            <li{% if facets.selected.is_for_deaf %} class="active"{% endif %} data-param="is_for_deaf" data-value="1">
+              <a href="{% append_to_get is_for_deaf=1 %}" data-filter-value=".is_for_deaf">{% trans "For deaf people" %}</a>
+            </li>
+            <li{% if facets.selected.is_for_blind %} class="active"{% endif %} data-param="is_for_blind" data-value="1">
+              <a href="{% append_to_get is_for_blind=1 %}" data-filter-value=".is_for_blind">{% trans "For blind people" %}</a>
+            </li>
+            <li{% if facets.selected.is_for_learning_difficulties %} class="active"{% endif %} data-param="is_for_learning_difficulties" data-value="1">
+              <a href="{% append_to_get is_for_learning_difficulties=1 %}" data-filter-value=".is_for_learning_difficulties">{% trans "For people with learning difficulties" %}</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -37,16 +45,12 @@
       <div id="filter-smartlists" class="panel-collapse collapse">
         <div class="panel-body">
           <h4>{% trans "Smart lists" %}</h4>
-
           <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
-            <li><a href="" data-filter-value=".has_group_offer">{% trans "Has bookable group offer" %}</a></li>
-            <li><a href="" data-filter-value=".is_for_preschool">{% trans "For preschool children (up to 5 years)" %}</a></li>
-            <li><a href="" data-filter-value=".is_for_primary_school">{% trans "For children of primary school (6-12 years)" %}</a></li>
-            <li><a href="" data-filter-value=".is_for_youth">{% trans "For youth (13 years)" %}</a></li>
-            <li><a href="" data-filter-value=".is_for_families">{% trans "For families" %}</a></li>
-            {% comment %}
-            <!-- <li><a href="" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a></li> -->
-            {% endcomment %}
+            {% for cat in facets.categories.smart_list %}
+              <li{% if cat.0 == facets.selected.smart.0 %} class="active"{% endif %} data-param="smart" data-value="{{ cat.0 }}">
+                <a href="{% append_to_get smart=cat.0 %}" data-filter-value=".{{ cat.0 }}">{{ cat.1 }}</a>
+              </li>
+            {% endfor %}
           </ul>
         </div>
       </div>
@@ -55,12 +59,12 @@
       <div id="filter-calendar" class="panel-collapse collapse">
         <div class="panel-body">
           <h4>{% trans "Calendar" %}</h4>
-
           <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
-            <li><a href="" data-filter-value=".is_today">{% trans "Today" %}</a></li>
-            <li><a href="" data-filter-value=".is_tomorrow">{% trans "Tomorrow" %}</a></li>
-            <li><a href="" data-filter-value=".is_within_7_days">{% trans "7 Days" %}</a></li>
-            <li><a href="" data-filter-value=".is_within_30_days">{% trans "30 Days" %}</a></li>
+            {% for cat in facets.categories.calendar %}
+              <li{% if cat.0 == facets.selected.calendar.0 %} class="active"{% endif %} data-param="calendar" data-value="{{ cat.0 }}">
+                <a href="{% append_to_get calendar=cat.0 %}" data-filter-value=".is_{{ cat.0 }}">{{ cat.1 }}</a>
+              </li>
+            {% endfor %}
           </ul>
         </div>
       </div>

@@ -26,7 +26,6 @@ $(window).bind('scrollstop smartresize', lazyload_images);
 $(window).bind('load smartresize', isotope_list);
 $(document).ready(lazyload_images);
 
-
 var currentScrollPosition = 0;
 
 $(document).scroll(function(){
