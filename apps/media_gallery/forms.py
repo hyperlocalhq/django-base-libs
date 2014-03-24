@@ -109,7 +109,7 @@ class ImageFileForm(PortfolioFileForm):
                 css_class="tabbable",
             )
         ]
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
             layout_bits += [layout.Fieldset(
                 _("Description"),
                 layout.Field('title_%s' % lang_code, css_class="input-block-level"),
@@ -249,7 +249,7 @@ class VideoFileForm(PortfolioFileForm):
                 layout.Field("splash_image_file_path"),
             ),
         ]
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
             layout_bits += [layout.Fieldset(
                 _("Description"),
                 layout.Field('title_%s' % lang_code, css_class="input-block-level"),
@@ -389,7 +389,7 @@ class AudioFileForm(PortfolioFileForm):
                 layout.Field("splash_image_file_path"),
             ),
         ]
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
             layout_bits += [layout.Fieldset(
                 _("Description"),
                 layout.Field('title_%s' % lang_code, css_class="input-block-level"),

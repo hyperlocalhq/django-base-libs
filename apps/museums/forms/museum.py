@@ -237,7 +237,7 @@ class SeasonForm(ModelForm):
     class Meta:
         model = Season
         exclude = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
+        for lang_code, lang_name in settings.LANGUAGES:
             exclude.append("exceptions_%s_markup_type" % lang_code)
 
     def __init__(self, *args, **kwargs):
