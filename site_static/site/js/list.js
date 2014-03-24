@@ -2,6 +2,7 @@
 /* global $:false */
 /* global lazyload_images:false */
 /* global isotope_list:false */
+/* global console:false */
 
 (function($, undefined) {
     var activation_event = "click";
@@ -149,7 +150,7 @@
                     //$this.removeClass('selected');
                     $li.removeClass('active');
                     if ($children && level === 0) {
-                        $('li.active>a', $children).trigger('click', [true]);
+                        $('li.active>a', $children).trigger(activation_event, [true]);
                         $('ul.in', $children).removeClass('in');
                     }
                     filters[group] = $.grep(filters[group], function(v) {
@@ -167,14 +168,14 @@
                             // unselect previously selected
                             // and collect filters
                             if (level === 0) {
-                                $('li.active>a', $optionSet).trigger('click', [true]);
+                                $('li.active>a', $optionSet).trigger(activation_event, [true]);
                                 if ($children) {
                                     $('ul.in', $children).removeClass('in');
                                 }
                                 filters[group] = [filter_value];
                             } else {
                                 if ($children) {
-                                    $('li.active>a', $children).trigger('click', [true]);
+                                    $('li.active>a', $children).trigger(activation_event, [true]);
                                 }
                                 filters[group].push(filter_value);
                             }
@@ -185,7 +186,7 @@
                         if (single_selection) {
                             // unselect previously selected
                             // and collect filters
-                            $('li.active>a', $optionSet).trigger('click', [true]);
+                            $('li.active>a', $optionSet).trigger(activation_event, [true]);
                             filters[group] = [filter_value];
                         } else {
                             filters[group].push(filter_value);
@@ -221,6 +222,7 @@
                 }
             }
 
+            url_filters['page'] = ""; // reset pagination
             var url = '?' + window.append_to_get(url_filters, true);
             window.history.pushState({}, document.title, url);
             if (!dont_load_data_yet) {
@@ -232,8 +234,11 @@
                     setTimeout(function() { // waiting for the ad to load
                         isotope_list();
                         lazyload_images();
+                        filtering_busy = false;
                     }, 500);
                 });
+            } else {
+                filtering_busy = false;
             }
     //        var selector = isoFilters.join('');
 
@@ -253,28 +258,27 @@
     //        $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
 
             $container.trigger("map_filter", { filter: map_filters});
-
-            filtering_busy = false;
             return false;
         });
 
-        $filter_summary.on(activation_event, 'a', function() {
+        $filter_summary.on(activation_event, 'a', function(e) {
+            e.preventDefault();
             var $li = $(this).closest('li');
             var param = $li.data('param');
             var value = $li.data('value');
             if (!param) {
                 // trigger the clicks on all selected filters
-                $('li.active>a', $filters).click();
+                $('li.active>a', $filters).trigger(activation_event);
             } else {
                 // trigger the click on corresponding filter
-                $('li.active[data-param="' + param + '"][data-value="' + value + '"]>a', $filters).click();
+                $('li.active[data-param="' + param + '"][data-value="' + value + '"]>a', $filters).trigger(activation_event);
             }
-            return false;
         });
 
-        $('#filter-reset').on(activation_event, function() {
+        $('#filter-reset').on(activation_event, function(e) {
+            e.preventDefault();
             // for each active link from the last till the first, click to deactivate
-            $($('li.active>a', $filters).get().reverse()).trigger('click', [true]);
+            $($('li.active>a', $filters).get().reverse()).trigger(activation_event, [true]);
             if ($('#container').jscroll.destroy) {
                 $('#container').jscroll.destroy();
             }
@@ -283,7 +287,6 @@
                 isotope_list();
                 lazyload_images();
             });
-            return false;
         });
 
     //    if (window.location.hash) {
