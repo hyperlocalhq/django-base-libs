@@ -130,7 +130,16 @@
               {% endif %}
 
               {% include "utils/cover_image.html" %}
-
+              
+              {% if exhibition.vernissage %}
+              <div class="extras">
+                <dl>
+                  <dt>{% trans "Vernissage" %}</dt>
+                  <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
+                </dl>
+              </div>
+              {% endif %}
+              
               <div class="lead">
                 {{ exhibition.get_rendered_description }}
               </div>
@@ -336,6 +345,7 @@
                 {% endwith %}
               {% endif %}
 
+              {% comment %}
               <!-- ======= Vernissage ======= -->
 
               {% if exhibition.vernissage %}
@@ -355,6 +365,7 @@
                   </div>
                 </div>
               {% endif %}
+              {% endcomment %}
 
               <!-- ======= Finissage ======= -->
 

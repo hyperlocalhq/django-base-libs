@@ -90,6 +90,12 @@
 
   <body class="no-transition map-only {% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
 
+    <div id="wrapper">
+      {% block header %}
+        {# {% include "utils/header.html" %} #}
+        {% include "utils/navigation.html" %}
+      {% endblock %}
+    </div>
     <div class="row row-map"> 
       <div id="map-wrapper" class="col-xs-1 col-sm-7 col-md-8 col-lg-9">
         <div id="gmap">&nbsp;</div> 

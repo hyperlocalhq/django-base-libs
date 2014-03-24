@@ -1914,14 +1914,16 @@
       line-height: 32px; }
 
 .marker_label {
-  font-size: 11px;
+  border: 2px solid white;
+  height: 20px;
+  min-width: 20px;
+  font-size: 10px;
+  line-height: 16px;
+  padding: 0px;
   color: #fff;
   display: block;
-  background: #000;
-  padding: 0.3em;
-  line-height: 1em;
-  border-radius: 1em;
-  min-width: 1.5em;
+  background: #1edc80;
+  border-radius: 100%;
   text-align: center; }
 
 .gallery #gallery {
@@ -1929,7 +1931,7 @@
   -webkit-transition-delay: 0s, 0s;
   top: 0%;
   opacity: 1; }
-  .gallery #gallery .img {
+  .gallery #gallery .gallery-img {
     -webkit-transform: scale(1) !important; }
 
 #gallery.frontpage {
@@ -2052,7 +2054,7 @@
         float: left;
         box-sizing: border-box;
         -moz-box-sizing: border-box; }
-        #gallery #slider ul li .img {
+        #gallery #slider ul li .gallery-img {
           position: absolute;
           top: 6%;
           bottom: 10%;
@@ -4492,6 +4494,14 @@ p, dl, ul, ol {
   padding-left: 0px; }
   p:last-child, dl:last-child, ul:last-child, ol:last-child {
     margin-bottom: 0px; }
+
+.extras dl {
+  margin-bottom: 15px;
+  padding: 0px; }
+  .extras dl dt {
+    float: none; }
+  .extras dl dd {
+    float: none; }
 
 dl {
   margin-bottom: 0px;

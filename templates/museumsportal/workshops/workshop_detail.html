@@ -107,11 +107,13 @@
                 </button>
               </div>
 
-              {% if object.get_other_workshops %}
-              <div class="btn-group" style="margin-bottom: 15px;">
-                  <a class="btn btn-info btn-sm" href="#section-workshops">{% trans "Other Guided Tours, Workshops and educational offers" %}</a>
-              </div>
-              {% endif %}
+              {% comment %}
+                {% if object.get_other_workshops %}
+                <div class="btn-group" style="margin-bottom: 15px;">
+                    <a class="btn btn-info btn-sm" href="#section-workshops">{% trans "Other Guided Tours, Workshops and educational offers" %}</a>
+                </div>
+                {% endif %}
+              {% endcomment %}
 
               {% include "utils/cover_image.html" %}
 
@@ -122,38 +124,46 @@
               {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups or workshop.get_languages %}
                 <div class="extras">
                   {% if workshop.get_particularities %}
-                    <b>{% trans "Particularities" %}</b>
-                    <p class="meeting_place">
-                      {{ workshop.get_particularities|join:'<br />' }}
-                    </p>
+                    <dl>
+                      <dt>{% trans "Particularities" %}</dt>
+                      <dd class="meeting_place">
+                        {{ workshop.get_particularities|join:'<br />' }}
+                      </dd>
+                    </dl>
                   {% endif %}
 
                   {% if workshop.meeting_place %}
-                    <b>{% trans "Meeting point" %}</b>
-                    <p class="meeting_place">
-                      {{ workshop.meeting_place }}
-                    </p>
+                    <dl>
+                      <dt>{% trans "Meeting point" %}</dt>
+                      <dd class="meeting_place">
+                        {{ workshop.meeting_place }}
+                      </dd>
+                    </dl>
                   {% endif %}
 
                   {% if workshop.age_groups %}
-                    <p class="meeting_place">
-                    <b>{% trans "Age groups" %}</b>
-                      {% for cat in workshop.age_groups.all %}
-                        {{ cat.title }}{% if not forloop.last %}, {% endif %}
-                      {% endfor %}
-                    </p>
+                    <dl class="meeting_place">
+                      <dt>{% trans "Age groups" %}</dt>
+                        {% for cat in workshop.age_groups.all %}
+                          {{ cat.title }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                      </dd>
+                    </dl>
                   {% endif %}
 
                   {% if workshop.get_languages %}
-                    <b>{% trans "Languages" %}</b>
-                    <p>
-                    {% for language in workshop.get_languages %}
-                      <span>{{ language }}{% if not forloop.last %}, {% endif %}</span>
-                    {% endfor %}
-                    </p>
+                    <dl>
+                      <dt>{% trans "Languages" %}</dt>
+                      <dd>
+                      {% for language in workshop.get_languages %}
+                        <span>{{ language }}{% if not forloop.last %}, {% endif %}</span>
+                      {% endfor %}
+                      </dd>
+                    </dl>
                   {% endif %}
                 </div>
               {% endif %}
+
               {% comment %}
               <!-- <ul class="tags">
                   {% if workshop.categories.count %}

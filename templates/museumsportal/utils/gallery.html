@@ -7,7 +7,7 @@
             <li style="display:{% if forloop.first %}block{% else %}none{% endif %}">
                 &nbsp;
                 {% with mf.path|file_description as file_desc %}
-                    <div class="img" style="background-image: url({{ MEDIA_URL }}{{ mf.path|modified_path:"max" }})" title="{{ file_desc.description|remove_newlines|escape }}"> </div>
+                    <div class="gallery-img" style="background-image: url({{ MEDIA_URL }}{{ mf.path|modified_path:"max" }})" title="{{ file_desc.description|remove_newlines|escape }}"> </div>
                     <div class="info">
                         {% if file_desc.title %}
                             <span class="title">{{ file_desc.title }}</span>

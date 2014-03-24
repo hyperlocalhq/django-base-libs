@@ -3,12 +3,12 @@
 {% if object.cover_image %}
   <div id="cover_img">
       {% with object.cover_image|file_description as fd %}
-          <div class="img hidden-xs">
-            <img src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
-          </div>
-          <div class="img visible-xs">
-            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"museum_list" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" data-href="{{ object.get_url_path }}slideshow/#0" />
-          </div>
+          <a href="{{ object.get_url_path }}slideshow/#0" class="img hidden-xs">
+            <img src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" />
+          </a>
+          <a href="{{ object.get_url_path }}slideshow/#0" class="img visible-xs">
+            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"museum_list" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" />
+          </a>
 
           {% comment %}
           {% if museum == object %}
@@ -75,6 +75,7 @@
   </div>
 {% endif %}
 
+{% comment %}
 <script>
   $(window).load(function() {
     if (!$.browser.msie || parseInt($.browser.version.split(".")[0], 10) > 8) {
@@ -90,3 +91,4 @@
     }
   });
 </script>
+{% endcomment %}
