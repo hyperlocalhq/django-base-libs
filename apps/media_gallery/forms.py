@@ -18,7 +18,7 @@ STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 class PortfolioFileForm(dynamicforms.Form):
     def __init__(self, *args, **kwargs):
         super(PortfolioFileForm, self).__init__(*args, **kwargs)
-        for lang_code, lang_name in settings.LANGUAGES:
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
             self.fields['title_%s' % lang_code] = forms.CharField(
                 label=_("Title in %s") % lang_name,
                 required=False,
