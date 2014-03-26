@@ -183,14 +183,12 @@
                     {% endwith %}
                     
                 </li>
-                {% comment %}
                 {% if forloop.counter0 == 1 %}
                     <li class="item">
                         {% load advertising_tags %}
                         {% random_zone_ad 'museums' %}
                     </li>
                 {% endif %}
-                {% endcomment %}
             {% endfor %}
         </ul>
     </div>
