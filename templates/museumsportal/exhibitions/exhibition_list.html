@@ -191,7 +191,7 @@
                     {% endwith %}
                 </li>
                 {% if forloop.counter0 == 1 %}
-                    <li class="item">
+                    <li class="item" data-filter-categories="is_actual">
                         {% load advertising_tags %}
                         {% random_zone_ad 'exhibitions' %}
                     </li>
