@@ -24,9 +24,7 @@
 {% endblock %}
 
 {% block content %}
-  {% if LANGUAGE_CODE == "de" %}
-    {% include "cms/includes/start_de.html" %}
-  {% else %}
-    {% include "cms/includes/start_en.html" %}
-  {% endif %}
+  {% with "cms/includes/start_"|add:LANGUAGE_CODE|add:".html" as start_page_template_name %}
+    {% include start_page_template_name %}
+  {% endwith %}
 {% endblock %}
