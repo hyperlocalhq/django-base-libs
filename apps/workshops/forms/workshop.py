@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
+from django.utils.translation import string_concat
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -504,8 +505,8 @@ class TimesForm(ModelForm):
                 css_class="inline",
             ),
         ))
-        layout_blocks.append(layout.Fieldset(
-            _("Date and Time"),
+        layout_blocks.append(layout.Div(
+            layout.HTML(string_concat('<h3 class="legend">', _("Date and Time"), "</h3>")),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.workshop_times.management_form }}
             <div id="workshop_times">
@@ -523,6 +524,7 @@ class TimesForm(ModelForm):
             </div>
             """),
             css_id="workshop_times_fieldset",
+            css_class="fieldset",
         ))
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(

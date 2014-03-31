@@ -442,14 +442,16 @@ a
     padding: 0px;
   }
 
-  fieldset { 
+  fieldset,
+  .fieldset {
     border-bottom: 1px solid #f2f2f2; 
     padding-bottom: 30px;
     margin-bottom: 30px;
     display: block;
     position: relative;
     
-    fieldset { 
+    fieldset,
+    .fieldset {
       .row,
       .row > div > div,
       > div {

@@ -14,12 +14,12 @@
 
 {% block multistep_form %}
     <form>
-        <fieldset class="fieldset-imagegallery">
-            <legend>{% trans "Image Gallery" %}</legend>
+        <div class="fieldset fieldset-imagegallery">
+            <h3 class="legend">{% trans "Image Gallery" %}</h3>
             <ul id="photos" class="list" data-load-url="{{ museum.get_url_path }}gallery/">
             </ul>
             <a id="add_photo" class="add btn btn-small btn-primary" href="{{ museum.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
-        </fieldset>
+        </div>
     </form>
     <div id="edit_photo"></div>
     

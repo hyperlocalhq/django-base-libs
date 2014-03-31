@@ -27,7 +27,7 @@
                 })
                 $('#photos').disableSelection().find('.edit').click(function() {
                     $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
-                    $('#photos').parents('fieldset:first').hide();
+                    $('#photos').closest('.fieldset').hide();
                     $('.form-actions:last').hide();
                     return false;
                 });
@@ -38,14 +38,14 @@
                 });
                 $('#add_photo').click(function() {
                     $('#edit_photo').load($(this).attr('href') + ' .content form', edit_photo_loaded);
-                    $('#photos').parents('fieldset:first').hide();
+                    $('#photos').closest('.fieldset').hide();
                     $('.form-actions:last').hide();
                     return false;
                 });
                 $(window).trigger('scrollstop');
             });
         });
-        $('#photos').parents('fieldset:first').show();
+        $('#photos').closest('.fieldset').show();
         $('.form-actions:last').show();
         
     }

@@ -2332,8 +2332,10 @@ dl {
 #social_channels_fieldset,
 #item_container,
 #dashboard {
-  fieldset { margin-bottom: 60px; position: relative; }
-  legend {font-size: 28px; padding-bottom: 10px; border: none !important; }
+  fieldset,
+  .fieldset { margin-bottom: 60px; position: relative; }
+  legend,
+  h3.legend {font-size: 28px; padding-bottom: 10px; border: none !important; }
   .all {color: $blue !important; font-size: 13px !important; line-height: 24px !important;
   &:hover { color: black !important;}
    } 
@@ -2375,7 +2377,8 @@ dl {
     &:hover { background-color: black; }
   }
 
-  fieldset > ul {
+  fieldset > ul,
+  .fieldset > ul {
 
     
     &.museums,
@@ -2476,7 +2479,6 @@ dl {
         margin-bottom: 2px;
         white-space: nowrap;
 
-
         .title { font-weight: 700; }
 
         &:hover {
@@ -2493,7 +2495,9 @@ dl {
           opacity: 0.5; 
           position: relative;
           top: -2px;
-          font-size: 13px !important;}
+          font-size: 13px !important;
+          vertical-align: top;
+        }
       }
     }
   }

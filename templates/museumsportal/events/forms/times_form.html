@@ -5,8 +5,8 @@
 <form action="" method="post" id="event_times_form">
 {{ formsets.event_times.management_form }}
 
-<fieldset id="event_times_fieldset">
-    <legend>{% trans "Date and Time" %}</legend>
+<div class="fieldset" id="event_times_fieldset">
+    <h3 class="legend">{% trans "Date and Time" %}</h3>
     <div id="event_times">
         <!-- <div class="row flex">
             <div><label>{% trans "Date" %}</label></div>
@@ -20,7 +20,7 @@
             </div>
         {% endfor %}
     </div>
-</fieldset>
+</div>
 <!-- used by javascript -->
 <div id="event_times_empty_form" class="event_time formset-form tabular-inline" style="display: none">
     {% with formsets.event_times.empty_form as form %}
