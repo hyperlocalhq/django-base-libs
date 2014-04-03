@@ -78,6 +78,12 @@
 
 
 <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
+  <!--
+    {% if request.is_phone %}This is phone.{% endif %}
+    {% if request.is_tablet %}This is tablet.{% endif %}
+    {% if request.is_mobile %}This is a mobile device.{% endif %}
+    {% if not request.is_mobile %}This is a desktop.{% endif %}
+  -->
   {% block map %}{% endblock %}
   {% block toolbar %}{% cms_toolbar %}{% endblock %}
   <div id="wrapper">

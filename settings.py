@@ -132,17 +132,18 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "jetson.apps.httpstate.middleware.HttpStateMiddleware",
+    'jetson.apps.httpstate.middleware.HttpStateMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
+    'base_libs.middleware.threadlocals.ThreadLocalsMiddleware',
     #"cms.middleware.multilingual.MultilingualURLMiddleware",
     #"jetson.apps.cms_extensions.middleware.MultilingualURLMiddleware",
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
+    'jetson.apps.mobile_detection.middleware.MobileDetectionMiddleware',
 )
 
 ROOT_URLCONF = 'museumsportal.urls'
