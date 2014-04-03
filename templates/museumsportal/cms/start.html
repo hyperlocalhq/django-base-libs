@@ -24,7 +24,31 @@
 {% endblock %}
 
 {% block content %}
-  {% with "cms/includes/start_"|add:LANGUAGE_CODE|add:".html" as start_page_template_name %}
-    {% include start_page_template_name %}
-  {% endwith %}
+  {% comment %}
+    {# dynamical inclusion below doesn't work with cms and placeholders #}
+    {% with "cms/includes/start_"|add:LANGUAGE_CODE|add:".html" as start_page_template_name %}
+      {% include start_page_template_name %}
+    {% endwith %}
+  {% endcomment %}
+  {% if LANGUAGE_CODE == "de" %}
+    {% include "cms/includes/start_de.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "en" %}
+    {% include "cms/includes/start_en.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "fr" %}
+    {% include "cms/includes/start_fr.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "pl" %}
+    {% include "cms/includes/start_pl.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "tr" %}
+    {% include "cms/includes/start_tr.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "es" %}
+    {% include "cms/includes/start_es.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "it" %}
+    {% include "cms/includes/start_it.html" %}
+  {% endif %}
 {% endblock %}
