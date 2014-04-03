@@ -17,6 +17,7 @@ from base_libs.middleware import get_current_language
 
 from filebrowser.models import FileDescription
 
+WorkshopType = models.get_model("workshops", "WorkshopType")
 Workshop = models.get_model("workshops", "Workshop")
 WorkshopTime = models.get_model("workshops", "WorkshopTime")
 Organizer = models.get_model("workshops", "Organizer")
@@ -39,12 +40,26 @@ def strip_invalid_chars(text):
     return u''.join(c for c in text if valid_XML_char_ordinal(ord(c)))
 
 
+class WorkshopTypeResource(ModelResource):
+    class Meta:
+        queryset = WorkshopType.objects.all()
+        resource_name = 'workshop_type'
+        allowed_methods = ['get']
+        excludes = ['title', 'slug', 'sort_order']
+        authentication = ApiKeyAuthentication()
+        authorization = ReadOnlyAuthorization()
+        serializer = Serializer(formats=['json', 'xml'])
+        cache = SimpleCache(timeout=10)
+        filtering = {
+            "id": ALL,
+        }
+
 class OrganizerResource(ModelResource):
     organizing_museum = fields.ToOneField("museumsportal.apps.museums.api.resources.v2.MuseumResource", "organizing_museum", null=True)
 
     class Meta:
         queryset = Organizer.objects.all()
-        resource_name = 'workshop_category'
+        resource_name = 'workshop_organizer'
         allowed_methods = ['get']
         excludes = []
         authentication = ApiKeyAuthentication()
@@ -89,12 +104,12 @@ class MediaFileResource(ModelResource):
             except:
                 pass
             else:
-                bundle.data['title_de'] = file_description.title_de
-                bundle.data['title_en'] = file_description.title_en
-                bundle.data['description_de'] = file_description.description_de
-                bundle.data['description_en'] = file_description.description_en
-                bundle.data['author'] = file_description.author
-                bundle.data['copyright_limitations'] = file_description.copyright_limitations
+                bundle.data['title_de'] = strip_invalid_chars(file_description.title_de)
+                bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
+                bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
+                bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
+                bundle.data['author'] = strip_invalid_chars(file_description.author)
+                bundle.data['copyright_limitations'] = strip_invalid_chars(file_description.copyright_limitations)
 
         return bundle
 
@@ -105,6 +120,7 @@ class WorkshopResource(ModelResource):
     workshop_times = fields.ToManyField(WorkshopTimeResource, "workshoptime_set", full=True)
     organizers = fields.ToManyField(OrganizerResource, "organizer_set", full=True)
     media_files = fields.ToManyField(MediaFileResource, "mediafile_set", full=True)
+    types = fields.ToManyField(WorkshopTypeResource, "types", full=True, null=True)
     
     class Meta:
         queryset = Workshop.objects.all()
@@ -129,6 +145,7 @@ class WorkshopResource(ModelResource):
             'modified_date': ALL,
             'status': ALL,
             'categories': ALL_WITH_RELATIONS,
+            'types': ALL_WITH_RELATIONS,
             'is_for_preschool': ALL,
             'is_for_primary_school': ALL,
             'is_for_youth': ALL,

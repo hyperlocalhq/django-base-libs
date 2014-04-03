@@ -30,6 +30,22 @@
                         <li>{{ form.non_field_errors }}</li>
                     </ul>
                 {% endif %}
+                {% if form.title_de %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-de">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Deutsch)</h4>
+                        <div class="grp-row{% if form.title_de.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    {{ form.title_de_markup_type }}
+                                    <p>{{ form.title_de }}</p>
+                                    {{ form.title_de.errors }}
+                                    {% if form.title_de.help_text %}<p class="grp-help">{{ form.title_de.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
                 {% if form.title_en %}
                     <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-en">
                         <h4 class="collapse-handler">{% trans "Title" %} (English)</h4>
@@ -45,17 +61,76 @@
                         </div>
                     </fieldset>
                 {% endif %}
-                {% if form.title_de %}
-                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-de">
-                        <h4 class="collapse-handler">{% trans "Title" %} (Deutsch)</h4>
-                        <div class="grp-row{% if form.title_de.errors %} errors{% endif %}">
+                {% if form.title_fr %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-fr">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Français)</h4>
+                        <div class="grp-row{% if form.title_fr.errors %} errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
-                                <div class="c-1"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-1"><label for="id_title_fr"{% if form.title_fr.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
                                 <div class="c-2">
-                                    {{ form.title_de_markup_type }}
-                                    <p>{{ form.title_de }}</p>
-                                    {{ form.title_de.errors }}
-                                    {% if form.title_de.help_text %}<p class="grp-help">{{ form.title_de.help_text|safe }}</p>{% endif %}
+                                    <p>{{ form.title_fr }}</p>
+                                    {{ form.title_fr.errors }}
+                                    {% if form.title_fr.help_text %}<p class="grp-help">{{ form.title_fr.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_pl %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-pl">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Polszczyzna)</h4>
+                        <div class="grp-row{% if form.title_pl.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_pl"{% if form.title_pl.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    <p>{{ form.title_pl }}</p>
+                                    {{ form.title_pl.errors }}
+                                    {% if form.title_pl.help_text %}<p class="grp-help">{{ form.title_pl.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_tr %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-tr">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Türkçe)</h4>
+                        <div class="grp-row{% if form.title_tr.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_tr"{% if form.title_tr.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    <p>{{ form.title_tr }}</p>
+                                    {{ form.title_tr.errors }}
+                                    {% if form.title_tr.help_text %}<p class="grp-help">{{ form.title_tr.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_es %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-es">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Español)</h4>
+                        <div class="grp-row{% if form.title_es.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_es"{% if form.title_es.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    <p>{{ form.title_es }}</p>
+                                    {{ form.title_es.errors }}
+                                    {% if form.title_es.help_text %}<p class="grp-help">{{ form.title_es.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_it %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-it">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Italiano)</h4>
+                        <div class="grp-row{% if form.title_it.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_it"{% if form.title_it.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    <p>{{ form.title_it }}</p>
+                                    {{ form.title_it.errors }}
+                                    {% if form.title_it.help_text %}<p class="grp-help">{{ form.title_it.help_text|safe }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -100,6 +175,22 @@
                         <li>{{ inline_admin_form.form.non_field_errors }}</li>
                     </ul>
                 {% endif %}
+                {% if form.title_de %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-de">
+                        <h4 class="grp-collapse-handler">{% trans "Title" %} (Deutsch)</h4>
+                        <div class="grp-row{% if form.title_de.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    {{ form.title_de_markup_type }}
+                                    <p>{{ form.title_de }}</p>
+                                    {% if form.title_de.help_text %}<p class="help">{{ form.title_de.help_text|safe }}</p>{% endif %}
+                                    {{ form.title_de.errors }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
                 {% if form.title_en %}
                     <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-en">
                         <h4 class="grp-collapse-handler">{% trans "Title" %} (English)</h4>
@@ -115,17 +206,76 @@
                         </div>
                     </fieldset>
                 {% endif %}
-                {% if form.title_de %}
-                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-de">
-                        <h4 class="grp-collapse-handler">{% trans "Title" %} (Deutsch)</h4>
-                        <div class="grp-row{% if form.title_de.errors %} errors{% endif %}">
+                {% if form.title_fr %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-fr">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Français)</h4>
+                        <div class="grp-row{% if form.title_fr.errors %} errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
-                                <div class="c-1"><label for="id_title_de"{% if form.title_de.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-1"><label for="id_title_fr"{% if form.title_fr.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
                                 <div class="c-2">
-                                    {{ form.title_de_markup_type }}
-                                    <p>{{ form.title_de }}</p>
-                                    {% if form.title_de.help_text %}<p class="help">{{ form.title_de.help_text|safe }}</p>{% endif %}
-                                    {{ form.title_de.errors }}
+                                    <p>{{ form.title_fr }}</p>
+                                    {{ form.title_fr.errors }}
+                                    {% if form.title_fr.help_text %}<p class="grp-help">{{ form.title_fr.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_pl %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-pl">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Polszczyzna)</h4>
+                        <div class="grp-row{% if form.title_pl.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_pl"{% if form.title_pl.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    <p>{{ form.title_pl }}</p>
+                                    {{ form.title_pl.errors }}
+                                    {% if form.title_pl.help_text %}<p class="grp-help">{{ form.title_pl.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_tr %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-tr">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Türkçe)</h4>
+                        <div class="grp-row{% if form.title_tr.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_tr"{% if form.title_tr.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    <p>{{ form.title_tr }}</p>
+                                    {{ form.title_tr.errors }}
+                                    {% if form.title_tr.help_text %}<p class="grp-help">{{ form.title_tr.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_es %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-es">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Español)</h4>
+                        <div class="grp-row{% if form.title_es.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_es"{% if form.title_es.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    <p>{{ form.title_es }}</p>
+                                    {{ form.title_es.errors }}
+                                    {% if form.title_es.help_text %}<p class="grp-help">{{ form.title_es.help_text|safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endif %}
+                {% if form.title_it %}
+                    <fieldset class="grp-module grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-it">
+                        <h4 class="collapse-handler">{% trans "Title" %} (Italiano)</h4>
+                        <div class="grp-row{% if form.title_it.errors %} errors{% endif %}">
+                            <div class="l-2c-fluid l-d-4">
+                                <div class="c-1"><label for="id_title_it"{% if form.title_it.field.required %} class="required"{% endif %}>{% trans "Title" %}:</label></div>
+                                <div class="c-2">
+                                    <p>{{ form.title_it }}</p>
+                                    {{ form.title_it.errors }}
+                                    {% if form.title_it.help_text %}<p class="grp-help">{{ form.title_it.help_text|safe }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -304,7 +454,7 @@
                     });
                 });
                 form.grp_collapsible();
-                form.find(".collapse").grp_collapsible();
+                form.find(".grp-collapse").grp_collapsible();
             }
         });
         
@@ -340,22 +490,22 @@
             aDays: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
             init: function() {
                 $('.apply-to-all').live("click", function() {
-                    OpeningHoursManager.applyTimesToAllDays($(this).parents('.module:first'));
+                    OpeningHoursManager.applyTimesToAllDays($(this).closest('.grp-module'));
                     return false;
                 });
                 $('.show_break_times').live("click", function() {
-                    OpeningHoursManager.modifyBreakTimes($(this).parents('.module:first'));
+                    OpeningHoursManager.modifyBreakTimes($(this).closest('.grp-module'));
                 });
                 function apply_closed_on(weekday) {
                     $('.closed_on_' + weekday).live("click", function() {
-                        OpeningHoursManager.modifyDay($(this).parents('.module:first'), weekday);
+                        OpeningHoursManager.modifyDay($(this).closest('.grp-module'), weekday);
                     });
                 }
                 $(OpeningHoursManager.aDays).each(function() {
                     apply_closed_on(this);
                 });
                 $('.working-hours').each(function() {
-                    var $module = $(this).parents('.module:first');
+                    var $module = $(this).closest('fieldset.grp-module');
                     var bExpanded = false;
                     var aDays = OpeningHoursManager.aDays;
                     var bModifyDefaults = false;

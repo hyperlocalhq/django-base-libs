@@ -3,7 +3,6 @@
   font-family: 'DingRegular';
   src: url("../fonts/ding/ding-regular.eot");
   src: url("../fonts/ding/ding-regular.eot") format("embedded-opentype"), url("../fonts/ding/ding-regular.woff") format("woff"), url("../fonts/ding/ding-regular.ttf") format("truetype"), url("../fonts/ding/ding-regular.svg#DingRegular") format("svg"); }
-
 .icon {
   display: inline-block;
   font-family: 'DingRegular';
@@ -2240,35 +2239,30 @@ h6 + .row:not(.grid),
 
   100% {
     opacity: 1; } }
-
 @-moz-keyframes fadein {
   0% {
     opacity: 0; }
 
   100% {
     opacity: 1; } }
-
 @-ms-keyframes fadein {
   0% {
     opacity: 0; }
 
   100% {
     opacity: 1; } }
-
 @-o-keyframes fadein {
   0% {
     opacity: 0; }
 
   100% {
     opacity: 1; } }
-
 @keyframes fadein {
   0% {
     opacity: 0; }
 
   100% {
     opacity: 1; } }
-
 #list {
   margin-top: 30px; }
 
@@ -2567,6 +2561,9 @@ a.img-detail.loaded:hover img {
   .compact .item:nth-child(1) .img {
     width: 100% !important;
     position: relative; }
+
+.pagination {
+  width: 100%; }
 
 .actions {
   position: absolute;
@@ -2867,7 +2864,15 @@ a.img-detail.loaded:hover img {
     display: inline-block;
     color: black;
     margin-bottom: 5px;
-    margin-right: 5px; }
+    margin-right: 5px;
+    /*
+    &:hover {
+      background-color: #f2f2f2;
+      a {
+        opacity: 0.8;
+      }
+    }
+    */ }
     .tags li.x-level-1 a,
     .filter li.x-level-1 a {
       background-color: rgba(0, 0, 0, 0.025); }
@@ -2881,12 +2886,6 @@ a.img-detail.loaded:hover img {
     .filter li.active {
       background-color: #00aefd;
       color: white; }
-    .tags li:hover,
-    .filter li:hover {
-      background-color: #f2f2f2; }
-      .tags li:hover a,
-      .filter li:hover a {
-        opacity: 0.8; }
     .tags li a,
     .filter li a {
       display: inline-block;
@@ -3958,7 +3957,7 @@ select {
       .dashboard-table tr td .status .sbToggle {
         height: 24px;
         width: 24px;
-        background-color: rgba(0, 0, 0, 0);
+        background-color: transparent;
         opacity: 0.25; }
         .dashboard-table tr td .status .sbToggle.sbToggleOpen {
           opacity: 0.5;
@@ -3976,7 +3975,7 @@ select {
         font-size: 13px !important;
         line-height: 24px !important; }
         .dashboard-table tr td .status .sbHolder:hover {
-          background-color: rgba(0, 0, 0, 0); }
+          background-color: transparent; }
       .dashboard-table tr td .status .sbOptions a {
         padding-top: 5px;
         padding-bottom: 5px; }
@@ -4050,7 +4049,7 @@ select {
       background-color: rgba(0, 0, 0, 0.15);
       opacity: 0.5; }
     #dashboard fieldset > ul > li:hover .status .sbHolder {
-      background-color: rgba(0, 0, 0, 0); }
+      background-color: transparent; }
   #dashboard fieldset > ul > li .status {
     position: absolute;
     top: 8px;
@@ -4059,7 +4058,7 @@ select {
     #dashboard fieldset > ul > li .status .sbToggle {
       height: 24px;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0);
+      background-color: transparent;
       opacity: 0.25; }
     #dashboard fieldset > ul > li .status .sbHolder {
       background-color: #ebebeb !important;

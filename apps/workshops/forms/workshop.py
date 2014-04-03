@@ -31,6 +31,7 @@ WorkshopTime = models.get_model("workshops", "WorkshopTime")
 Organizer = models.get_model("workshops", "Organizer")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LANGUAGES).keys())
 
 from museumsportal.utils.forms import PrimarySubmit
 from museumsportal.utils.forms import SecondarySubmit

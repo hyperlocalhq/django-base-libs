@@ -33,6 +33,7 @@ Season = models.get_model("exhibitions", "Season")
 Organizer = models.get_model("exhibitions", "Organizer")
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LANGUAGES).keys())
 
 from museumsportal.utils.forms import PrimarySubmit
 from museumsportal.utils.forms import SecondarySubmit
@@ -516,9 +517,12 @@ class SeasonForm(ModelForm):
     class Meta:
         model = Season
         exclude = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
+        for lang_code, lang_name in settings.LANGUAGES:
             exclude.append("exceptions_%s_markup_type" % lang_code)
-        
+        for lang_code in EXCLUDED_LANGUAGES:
+            exclude.append("last_entry_%s" % lang_code)
+            exclude.append("exceptions_%s" % lang_code)
+
     def __init__(self, *args, **kwargs):
         super(SeasonForm, self).__init__(*args, **kwargs)
 

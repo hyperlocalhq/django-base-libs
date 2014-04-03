@@ -34,7 +34,7 @@
             {% for cat in facets.categories.categories %}
               {% if cat.is_root_node %}
                 <li class="level-{{ cat.level }}{% if facets.selected.category == cat %} active{% endif %}" data-level="{{ cat.level }}" data-param="category" data-value="{{ cat.slug }}">
-                  <a data-filter-value=".cat_{{ cat.slug }}" href="{% append_to_get category=cat.slug %}" {% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a>
+                  <a data-filter-value=".cat_{{ cat.slug }}" href="{% append_to_get category=cat.slug page="" %}" {% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a>
                 </li>
               {% endif %}
             {% endfor %}
@@ -45,7 +45,7 @@
                 <ul id="cat_{{ cat.slug }}" class="filter option-set clearfix collapse{% if facets.selected.category == cat %} in{% endif %}" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
                   {% for child in cat.get_children %}
                     <li class="x-level-{{ child.level }}{% if facets.selected.subcategory == child %} active{% endif %}" data-level="{{ child.level }}" data-param="subcategory" data-value="{{ child.slug }}">
-                      <a data-filter-value=".cat_{{ child.slug }}" href="{% append_to_get subcategory=child.slug %}" >{{ child.title }}</a>
+                      <a data-filter-value=".cat_{{ child.slug }}" href="{% append_to_get subcategory=child.slug page="" %}" >{{ child.title }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -78,7 +78,7 @@
           <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists" data-single-selection="1">
             {% for cat in facets.categories.smart_list %}
               <li{% if cat.0 == facets.selected.smart.0 %} class="active"{% endif %} data-param="smart" data-value="{{ cat.0 }}">
-                <a href="{% append_to_get smart=cat.0 %}" data-filter-value=".is_{{ cat.0 }}">{{ cat.1 }}</a>
+                <a href="{% append_to_get smart=cat.0 page="" %}" data-filter-value=".is_{{ cat.0 }}">{{ cat.1 }}</a>
               </li>
             {% endfor %}
           </ul>
@@ -92,7 +92,7 @@
           <ul class="filter option-set clearfix" id="calendar" data-filter-group="calendar" data-single-selection="1">
             {% for cat in facets.categories.calendar %}
               <li{% if cat.0 == facets.selected.calendar.0 %} class="active"{% endif %} data-param="calendar" data-value="{{ cat.0 }}">
-                <a href="{% append_to_get calendar=cat.0 %}" data-filter-value=".is_{{ cat.0 }}">{{ cat.1 }}</a>
+                <a href="{% append_to_get calendar=cat.0 page="" %}" data-filter-value=".is_{{ cat.0 }}">{{ cat.1 }}</a>
               </li>
             {% endfor %}
           </ul>
