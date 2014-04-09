@@ -611,10 +611,10 @@ $component-offset-horizontal: 180px !default;
 // --------------------------------------------------
 
 // Small screen / tablet
-$container-tablet:            ((700px + $grid-gutter-width)) !default;
+$container-tablet:            ((680px + $grid-gutter-width)) !default;
 
 // Medium screen / desktop
-$container-desktop:           ((970px + $grid-gutter-width)) !default;
+$container-desktop:           ((940px + $grid-gutter-width)) !default;
 
 // Large screen / wide desktop
-$container-lg-desktop:        ((1040px + $grid-gutter-width)) !default;
+$container-lg-desktop:        ((1000px + $grid-gutter-width)) !default;

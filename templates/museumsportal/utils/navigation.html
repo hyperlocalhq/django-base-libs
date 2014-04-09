@@ -64,20 +64,7 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <form class="navbar-form visible-xs" role="search" action="{% url "haystack_search" %}" method="get">
-              <div class="input-group">
-                <div class="form-group">
-                  <input id="search" type="text" class="form-control input-lg" name="q" placeholder="{% trans "Search" %}">
-                </div>
-                <span class="input-group-btn">
-                  <button type="submit" class="btn btn-info btn-lg">
-                    <span class="icon icon-zoom"></span>
-                    <span class="sr-only">{% trans "Search" %}</span>
-                  </button>
-                </span>
-              </div>
-            </form>
-            <a class="hidden-xs" href="{% url "haystack_search" %}" class="btn btn-link btn-icon btn-lg">
+            <a href="{% url "haystack_search" %}" class="btn btn-link btn-icon btn-lg">
               <span class="icon icon-zoom"></span>
               <span class="sr-only">{% trans "Search" %}</span>
             </a>
@@ -85,6 +72,12 @@
         </ul>
 
         <ul class="nav navbar-nav">
+
+          <li>
+            <div class="visible-xs">
+              {% language_chooser "menu/language_chooser_mobile.html" %}
+            </div>
+          </li>
           {% show_menu_below_id "start_page" 0 2 2 2 "menu/top_menu.html" %}
 
             {% if LANGUAGE_CODE == "de" %}
@@ -92,9 +85,11 @@
             {% else %}
               <li class="visible-xs"><a href="/en/imprint/">Imprint</a></li>
             {% endif %}
-
+    
+            {% comment %}
             <li class="visible-xs"><a href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
             <li class="visible-xs"><a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
+            {% endcomment %}
         </ul>
 
         {% comment %}

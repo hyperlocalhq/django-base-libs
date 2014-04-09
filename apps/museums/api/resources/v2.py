@@ -23,6 +23,23 @@ SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
 MediaFile = models.get_model("museums", "MediaFile")
 SocialMediaChannel = models.get_model("museums", "SocialMediaChannel")
 
+
+def valid_XML_char_ordinal(i):
+    """
+    Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+    """
+    return ( # conditions ordered by presumed frequency
+        0x20 <= i <= 0xD7FF
+        or i in (0x9, 0xA, 0xD)
+        or 0xE000 <= i <= 0xFFFD
+        or 0x10000 <= i <= 0x10FFFF
+    )
+
+
+def strip_invalid_chars(text):
+    return u''.join(c for c in text if valid_XML_char_ordinal(ord(c)))
+
+
 class MuseumCategoryResource(ModelResource):
     class Meta:
         queryset = MuseumCategory.objects.all()
@@ -102,12 +119,12 @@ class MediaFileResource(ModelResource):
             except:
                 pass
             else:
-                bundle.data['title_de'] = file_description.title_de
-                bundle.data['title_en'] = file_description.title_en
-                bundle.data['description_de'] = file_description.description_de
-                bundle.data['description_en'] = file_description.description_en
-                bundle.data['author'] = file_description.author
-                bundle.data['copyright_limitations'] = file_description.copyright_limitations
+                bundle.data['title_de'] = strip_invalid_chars(file_description.title_de)
+                bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
+                bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
+                bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
+                bundle.data['author'] = strip_invalid_chars(file_description.author)
+                bundle.data['copyright_limitations'] = strip_invalid_chars(file_description.copyright_limitations)
 
         return bundle
 
@@ -175,20 +192,20 @@ class MuseumResource(ModelResource):
         #bundle.data['press_text_en'] = strip_html(bundle.obj.get_rendered_description_en())
         #bundle.data['press_text_de'] = strip_html(bundle.obj.get_rendered_description_de())
         
-        bundle.data['admission_price_info_en'] = strip_html(bundle.obj.get_rendered_admission_price_info_en())
-        bundle.data['admission_price_info_de'] = strip_html(bundle.obj.get_rendered_admission_price_info_de())
+        bundle.data['admission_price_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_en()))
+        bundle.data['admission_price_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_admission_price_info_de()))
         
-        bundle.data['reduced_price_info_en'] = strip_html(bundle.obj.get_rendered_reduced_price_info_en())
-        bundle.data['reduced_price_info_de'] = strip_html(bundle.obj.get_rendered_reduced_price_info_de())
+        bundle.data['reduced_price_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_reduced_price_info_en()))
+        bundle.data['reduced_price_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_reduced_price_info_de()))
         
-        bundle.data['group_ticket_en'] = strip_html(bundle.obj.get_rendered_group_ticket_en())
-        bundle.data['group_ticket_de'] = strip_html(bundle.obj.get_rendered_group_ticket_de())
+        bundle.data['group_ticket_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_group_ticket_en()))
+        bundle.data['group_ticket_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_group_ticket_de()))
         
-        bundle.data['accessibility_en'] = strip_html(bundle.obj.get_rendered_accessibility_en())
-        bundle.data['accessibility_de'] = strip_html(bundle.obj.get_rendered_accessibility_de())
+        bundle.data['accessibility_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_accessibility_en()))
+        bundle.data['accessibility_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_accessibility_de()))
         
-        bundle.data['mobidat_en'] = strip_html(bundle.obj.get_rendered_mobidat_en())
-        bundle.data['mobidat_de'] = strip_html(bundle.obj.get_rendered_mobidat_de())
+        bundle.data['mobidat_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_mobidat_en()))
+        bundle.data['mobidat_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_mobidat_de()))
         
         if bundle.obj.phone_number:
             bundle.data['phone'] = [bundle.obj.phone_country, bundle.obj.phone_area, bundle.obj.phone_number]

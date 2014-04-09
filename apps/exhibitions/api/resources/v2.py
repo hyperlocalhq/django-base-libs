@@ -109,12 +109,12 @@ class MediaFileResource(ModelResource):
             except:
                 pass
             else:
-                bundle.data['title_de'] = file_description.title_de
-                bundle.data['title_en'] = file_description.title_en
-                bundle.data['description_de'] = file_description.description_de
-                bundle.data['description_en'] = file_description.description_en
-                bundle.data['author'] = file_description.author
-                bundle.data['copyright_limitations'] = file_description.copyright_limitations
+                bundle.data['title_de'] = strip_invalid_chars(file_description.title_de)
+                bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
+                bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
+                bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
+                bundle.data['author'] = strip_invalid_chars(file_description.author)
+                bundle.data['copyright_limitations'] = strip_invalid_chars(file_description.copyright_limitations)
         return bundle
 
 

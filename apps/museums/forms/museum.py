@@ -431,6 +431,9 @@ class SeasonForm(ModelForm):
                 css_class="multilingual lang-%s" % lang_code,
                 data_lang=lang_code,
             ))
+        fieldset_content.append(
+            layout.Field('id'),
+        )
 
         layout_blocks.append(layout.Fieldset(
             _("Additional info"),
@@ -449,7 +452,7 @@ class SpecialOpeningTimeForm(ModelForm):
     class Meta:
         model = SpecialOpeningTime
         exclude = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
+        for lang_code, lang_name in settings.LANGUAGES:
             exclude.append("exceptions_%s_markup_type" % lang_code)
         for lang_code in EXCLUDED_LANGUAGES:
             exclude.append("day_label_%s" % lang_code)
@@ -539,6 +542,9 @@ class SpecialOpeningTimeForm(ModelForm):
                 css_class="multilingual lang-%s" % lang_code,
                 data_lang=lang_code,
             ))
+        fieldset_content.append(
+            layout.Field('id'),
+        )
 
         layout_blocks.append(layout.Fieldset(
             _("Additional info"),
@@ -1133,6 +1139,7 @@ def load_data(instance=None):
 
         for season in instance.season_set.all():
             season_dict = {}
+            season_dict['id'] = season.pk
             season_dict['start'] = season.start
             season_dict['end'] = season.end
             season_dict['is_appointment_based'] = season.is_appointment_based
@@ -1179,6 +1186,7 @@ def load_data(instance=None):
 
         for special_opening in instance.specialopeningtime_set.all():
             special_opening_dict = {}
+            special_opening_dict['id'] = special_opening.pk
             special_opening_dict['yyyy'] = special_opening.yyyy
             special_opening_dict['get_yyyy_display'] = special_opening.get_yyyy_display()
             special_opening_dict['mm'] = special_opening.mm
@@ -1300,9 +1308,18 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if "_pk" in form_step_data:
             instance = Museum.objects.get(pk=form_step_data['_pk'])
 
-            instance.season_set.all().delete()
+            season_ids_to_keep = []
             for season_dict in form_step_data['opening']['sets']['seasons']:
-                season = Season(museum=instance)
+                if season_dict['id']:
+                    try:
+                        season = Season.objects.get(
+                            pk=season_dict['id'],
+                            museum=instance,
+                        )
+                    except models.ObjectDoesNotExist:
+                        continue
+                else:
+                    season = Season(museum=instance)
                 season.start = season_dict['start']
                 season.end = season_dict['end']
                 season.is_appointment_based = season_dict['is_appointment_based']
@@ -1347,10 +1364,21 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
                     setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
                 season.save()
+                season_ids_to_keep.append(season.pk)
+            instance.season_set.exclude(pk__in=season_ids_to_keep).delete()
 
-            instance.specialopeningtime_set.all().delete()
+            special_opening_ids_to_keep = []
             for special_opening_dict in form_step_data['opening']['sets']['special_openings']:
-                special_opening = SpecialOpeningTime(museum=instance)
+                if special_opening_dict['id']:
+                    try:
+                        special_opening = SpecialOpeningTime.objects.get(
+                            id=special_opening_dict['id'],
+                            museum=instance,
+                        )
+                    except models.ObjectDoesNotExist:
+                        continue
+                else:
+                    special_opening = SpecialOpeningTime(museum=instance)
                 special_opening.yyyy = special_opening_dict['yyyy']
                 special_opening.mm = special_opening_dict['mm']
                 special_opening.dd = special_opening_dict['dd']
@@ -1365,6 +1393,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 special_opening.break_open = special_opening_dict['break_open']
                 special_opening.closing = special_opening_dict['closing']
                 special_opening.save()
+                special_opening_ids_to_keep.append(special_opening.pk)
+            instance.specialopeningtime_set.exclude(pk__in=special_opening_ids_to_keep).delete()
 
     if current_step == "prices":
         if "_pk" in form_step_data:
@@ -1542,9 +1572,18 @@ def save_data(form_steps, form_step_data, instance=None):
     for cat in form_step_data['accessibility']['accessibility_options']:
         instance.accessibility_options.add(cat)
 
-    instance.season_set.all().delete()
+    season_ids_to_keep = []
     for season_dict in form_step_data['opening']['sets']['seasons']:
-        season = Season(museum=instance)
+        if season_dict['id']:
+            try:
+                season = Season.objects.get(
+                    pk=season_dict['id'],
+                    museum=instance,
+                )
+            except models.ObjectDoesNotExist:
+                continue
+        else:
+            season = Season(museum=instance)
         season.start = season_dict['start']
         season.end = season_dict['end']
         season.is_appointment_based = season_dict['is_appointment_based']
@@ -1589,10 +1628,20 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
             setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         season.save()
+    instance.season_set.exclude(pk__in=season_ids_to_keep).delete()
 
-    instance.specialopeningtime_set.all().delete()
+    special_opening_ids_to_keep = []
     for special_opening_dict in form_step_data['opening']['sets']['special_openings']:
-        special_opening = SpecialOpeningTime(museum=instance)
+        if special_opening_dict['id']:
+            try:
+                special_opening = SpecialOpeningTime.objects.get(
+                    id=special_opening_dict['id'],
+                    museum=instance,
+                )
+            except models.ObjectDoesNotExist:
+                continue
+        else:
+            special_opening = SpecialOpeningTime(museum=instance)
         special_opening.yyyy = special_opening_dict['yyyy']
         special_opening.mm = special_opening_dict['mm']
         special_opening.dd = special_opening_dict['dd']
@@ -1607,6 +1656,8 @@ def save_data(form_steps, form_step_data, instance=None):
         special_opening.break_open = special_opening_dict['break_open']
         special_opening.closing = special_opening_dict['closing']
         special_opening.save()
+        special_opening_ids_to_keep.append(special_opening.pk)
+    instance.specialopeningtime_set.exclude(pk__in=special_opening_ids_to_keep).delete()
 
     instance.socialmediachannel_set.all().delete()
     for social_dict in form_step_data['address']['sets']['social']:
