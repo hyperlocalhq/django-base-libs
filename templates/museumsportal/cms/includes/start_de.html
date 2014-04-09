@@ -8,10 +8,10 @@
       <h6 class="block-label">{% trans "First things first" %}</h6>
       <div class="row row-sm">
         <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
-          <p> <a href="/de/search/?q=Irokesen&amp;submit=Suche">Museen</a> </p>
+          <p> <a href="{% url "museum_list" %}">Museen</a> </p>
         </div>
         <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
-          <p> <a href="/de/search/?q=Irokesen&amp;submit=Suche">Ausstellungen</a> </p>
+          <p> <a href="{% url "exhibition_list" %}">Ausstellungen</a> </p>
         </div>
       </div>
     </div>
