@@ -26,7 +26,8 @@
               <h3>{{ object.title }}</h3>
               <h4>{{ object.title2 }}</h4>
               <h5>{{ object.title3 }}</h5>
-              <p>{{ object.get_rendered_description|removetags:"p"|truncatewords:38 }}</p>
+              {#<p>{{ object.get_rendered_description|removetags:"p"|truncatewords:38 }}</p>#}
+              <p>{{ object.get_rendered_description|removetags:"p" }}</p>
             </a>
           </div>
         </div>
