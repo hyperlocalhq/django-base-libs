@@ -676,7 +676,9 @@ class SeasonForm(ModelForm):
             """),
             css_class="fieldset-season no-legend",
         ))
-
+        fieldset_content.append(
+            layout.Field('id'),
+        )
         layout_blocks.append(layout.Fieldset(
             _("Additional info"),
             css_class="fieldset-additional-info",
@@ -909,6 +911,7 @@ def load_data(instance=None):
     
         for season in instance.season_set.all():
             season_dict = {}
+            season_dict['id'] = season.pk
             season_dict['is_appointment_based'] = season.is_appointment_based
             season_dict['is_open_24_7'] = season.is_open_24_7
             season_dict['mon_open'] = season.mon_open
@@ -1172,10 +1175,19 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance.museum_opening_hours = form_step_data['opening']['museum_opening_hours'] 
             instance.save()
 
-            instance.season_set.all().delete()
+            season_ids_to_keep = []
             for season_dict in form_step_data['opening']['sets']['seasons']:
-                season = Season(exhibition=instance)
-                season.is_appointment_based = season_dict['is_appointment_based'] 
+                if season_dict['id']:
+                    try:
+                        season = Season.objects.get(
+                            pk=season_dict['id'],
+                            exhibition=instance,
+                        )
+                    except models.ObjectDoesNotExist:
+                        continue
+                else:
+                    season = Season(exhibition=instance)
+                season.is_appointment_based = season_dict['is_appointment_based']
                 season.is_open_24_7 = season_dict['is_open_24_7'] 
                 #if not season_dict['mon_is_closed']:
                 season.mon_open = season_dict['mon_open'] 
@@ -1217,7 +1229,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
                     setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
                 season.save()
-                
+                season_ids_to_keep.append(season.pk)
+            instance.season_set.exclude(pk__in=season_ids_to_keep).delete()
+
     if current_step == "prices":
         if "_pk" in form_step_data:
             instance = Exhibition.objects.get(pk=form_step_data['_pk'])
@@ -1350,9 +1364,18 @@ def save_data(form_steps, form_step_data, instance=None):
         organizer.organizer_url_link = organizer_dict['organizer_url_link']
         organizer.save()
 
-    instance.season_set.all().delete()
+    season_ids_to_keep = []
     for season_dict in form_step_data['opening']['sets']['seasons']:
-        season = Season(exhibition=instance)
+        if season_dict['id']:
+            try:
+                season = Season.objects.get(
+                    pk=season_dict['id'],
+                    exhibition=instance,
+                )
+            except models.ObjectDoesNotExist:
+                continue
+        else:
+            season = Season(exhibition=instance)
         season.is_appointment_based = season_dict['is_appointment_based'] 
         season.is_open_24_7 = season_dict['is_open_24_7'] 
         #if not season_dict['mon_is_closed']:
@@ -1395,7 +1418,9 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
             setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         season.save()
-        
+        season_ids_to_keep.append(season.pk)
+    instance.season_set.exclude(pk__in=season_ids_to_keep).delete()
+
     form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
     
     return form_step_data
