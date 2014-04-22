@@ -82,11 +82,11 @@
                 </div>
                 {% if museums_ad_html %}
                   {% if forloop.counter == 2 %}
-                    <div class="item visible-sm col-sm-4" style="background: green; min-height: 249px; /* TODO: move to css files */">{{ museums_ad_html }}</div>
-                    <div class="item visible-md col-md-4" style="background: yellow; min-height: 249px; /* TODO: move to css files */">{{ museums_ad_html }}</div>
+                    <div class="item visible-sm col-sm-4" style="min-height: 249px; /* TODO: move to css files */">{{ museums_ad_html }}</div>
+                    <div class="item visible-md col-md-4" style="min-height: 249px; /* TODO: move to css files */">{{ museums_ad_html }}</div>
                   {% endif %}
                   {% if forloop.counter == 3 %}
-                    <div class="item visible-lg col-lg-3" style="background: blue; min-height: 249px; /* TODO: move to css files */">{{ museums_ad_html }}</div>
+                    <div class="item visible-lg col-lg-3" style="min-height: 249px; /* TODO: move to css files */">{{ museums_ad_html }}</div>
                   {% endif %}
                 {% endif %}
               {% endfor %}

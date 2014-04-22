@@ -19,7 +19,7 @@
         }
 
         if ($item_on_next_row) {
-            $item_on_next_row.css('clear', null).css('background', null);
+            $item_on_next_row.css('clear', 'none').css('background', '');
         }
 
         $item_on_next_row = $current_item.next();
