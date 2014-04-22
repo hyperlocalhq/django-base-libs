@@ -88,6 +88,7 @@ class MuseumFilterForm(dynamicforms.Form):
 
 
 def museum_list(request):
+    from museumsportal.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
     qs = Museum.objects.filter(status="published")
 
     form = MuseumFilterForm(data=request.REQUEST)
@@ -162,7 +163,11 @@ def museum_list(request):
     extra_context['form'] = form
     extra_context['abc_list'] = abc_list
     extra_context['facets'] = facets
-    
+
+    first_page_delta = 0
+    if not_empty_ad_zone('museums'):
+        first_page_delta = 1
+
     return object_list(
         request,
         queryset=qs,
@@ -171,6 +176,7 @@ def museum_list(request):
         extra_context=extra_context,
         httpstate_prefix="museum_list",
         context_processors=(prev_next_processor,),
+        first_page_delta=first_page_delta,
     )
 
 

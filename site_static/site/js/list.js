@@ -9,13 +9,25 @@
     if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|IEMobile|Opera Mini|webOS/i)) {
         activation_event = "touchstart";
     }
+    var $item_on_next_row;
 
     function redo_description() {
-        var $container = $('#container');
+        var $container = $('#container').css('position', 'relative');
         var $current_item = $('#item-preview');
         if (!$current_item.length) {
             return;
         }
+
+        if ($item_on_next_row) {
+            $item_on_next_row.css('clear', null).css('background', null);
+        }
+
+        $item_on_next_row = $current_item.next();
+        while ($item_on_next_row && $current_item.position().top >= $item_on_next_row.position().top) {
+            $item_on_next_row = $item_on_next_row.next();
+        }
+        $item_on_next_row.css('clear', 'left').css('background', 'red');
+
         var $description = $current_item.find(".description");
 
         // define position for the description
@@ -25,10 +37,10 @@
         var offset_right = parseInt($container.css('margin-right'), 10);
 
         $description.css({
-            left: -left,
+            left: -left - 10,
             width: width + offset_left + offset_right
         });
-        isotope_list();
+        //isotope_list();
     }
 
     function reinit_infinite_scroll() {
@@ -38,13 +50,13 @@
             if ($pagination.length) {
                 $container.jscroll({
                     loadingHtml: '<small>Loading...</small>',
-                    // padding: 30,
-                    contentSelector: '#container .isotope',
+                    padding: 100,
+                    contentSelector: '#container .grid',
                     nextSelector: '.next_page:last',
                     pagingSelector: '.pagination',
                     callback: function() {
                         $('.pagination').removeClass('item').hide();
-                        isotope_list();
+                        //isotope_list();
                         lazyload_images();
                     }
                 });
@@ -67,12 +79,20 @@
 
             if ($current_item.attr('id')) { // if clicked again, close the preview
                 $('#item-preview').attr("id", "");
-                isotope_list();
+                //isotope_list();
                 lazyload_images();
+                if ($item_on_next_row) {
+                    $item_on_next_row.css('clear', null);
+                    $item_on_next_row = null;
+                }
                 return false;
             }
 
             $('#item-preview').attr("id", ""); // close the previous preview
+            if ($item_on_next_row) {
+                $item_on_next_row.css('clear', null);
+                $item_on_next_row = null;
+            }
             $current_item.attr("id","item-preview"); // open the new preview
 
             var $description = $current_item.find(".description");
@@ -82,7 +102,7 @@
                 $description.load($current_item.data('description-src'), function() {
                     $('#container .item .cancel').on('click', function(){
                         $('#item-preview').attr("id","");
-                        isotope_list();
+                        //isotope_list();
                         lazyload_images();
                     });
 
@@ -93,7 +113,7 @@
                     }
                 });
             } else {
-                isotope_list();
+                //isotope_list();
             }
             return false;
         });
@@ -232,7 +252,7 @@
                 $('#container').load(url + ' #container>*', function() {
                     reinit_infinite_scroll();
                     setTimeout(function() { // waiting for the ad to load
-                        isotope_list();
+                        //isotope_list();
                         lazyload_images();
                         filtering_busy = false;
                     }, 500);
@@ -284,7 +304,7 @@
             }
             $('#container').load('? #container>*', function() {
                 reinit_infinite_scroll();
-                isotope_list();
+                //isotope_list();
                 lazyload_images();
             });
         });
