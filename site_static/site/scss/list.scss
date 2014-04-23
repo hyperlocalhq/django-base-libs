@@ -195,13 +195,13 @@ only screen and (                min-resolution: 2dppx) {
   }
 }
 
-.list .item#item-preview {
+.list .item.item-preview {
   > a { display: none !important; }
 }
 
 .item {
   background-color: white;
-  &#item-preview {
+  &.item-preview {
     .description {
       padding: 30px 0;
       display: block;
@@ -272,6 +272,9 @@ only screen and (                min-resolution: 2dppx) {
         -ms-transition: -ms-transform 0s ease-in-out !important;
          -o-transition: -o-transform 0s ease-in-out !important;
             transition: transform 0s ease-in-out !important;
+    &.first_item_on_next_row {
+      clear: left!important;
+    }
   }
 }
 

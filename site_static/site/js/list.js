@@ -1,7 +1,6 @@
 /* jshint unused:false, eqnull:false, sub:true */
 /* global $:false */
 /* global lazyload_images:false */
-/* global isotope_list:false */
 /* global console:false */
 
 (function($, undefined) {
@@ -9,24 +8,27 @@
     if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|IEMobile|Opera Mini|webOS/i)) {
         activation_event = "touchstart";
     }
+    var $current_item;
     var $item_on_next_row;
 
-    function redo_description() {
+    function layout_description() {
         var $container = $('#container').css('position', 'relative');
-        var $current_item = $('#item-preview');
         if (!$current_item.length) {
             return;
         }
+        $current_item.addClass('item-preview'); // open the new preview
 
         if ($item_on_next_row) {
-            $item_on_next_row.css('clear', 'none').css('background', '');
+            $item_on_next_row.removeClass('first_item_on_next_row');
         }
 
-        $item_on_next_row = $current_item.next();
+        $item_on_next_row = $current_item.nextAll('.item:visible:first');
         while ($item_on_next_row && $current_item.position().top >= $item_on_next_row.position().top) {
-            $item_on_next_row = $item_on_next_row.next();
+            $item_on_next_row = $item_on_next_row.nextAll('.item:visible:first');
         }
-        $item_on_next_row.css('clear', 'left').css('background', 'red');
+        if ($item_on_next_row.length) {
+            $item_on_next_row.addClass('first_item_on_next_row');
+        }
 
         var $description = $current_item.find(".description");
 
@@ -40,7 +42,21 @@
             left: -left - 10,
             width: width + offset_left + offset_right
         });
-        //isotope_list();
+    }
+
+    function close_description() {
+        if ($current_item) {
+            if ($current_item.hasClass('item-preview')) { // if clicked again, close the preview
+                $current_item.removeClass('item-preview');
+                if ($item_on_next_row) {
+                    $item_on_next_row.removeClass('first_item_on_next_row');
+                    $item_on_next_row = null;
+                }
+                $current_item = null;
+                lazyload_images();
+                return false;
+            }
+        }
     }
 
     function reinit_infinite_scroll() {
@@ -56,7 +72,6 @@
                     pagingSelector: '.pagination',
                     callback: function() {
                         $('.pagination').removeClass('item').hide();
-                        //isotope_list();
                         lazyload_images();
                     }
                 });
@@ -73,53 +88,45 @@
             return false;
         });
 
-        $('#container').on('click', '.item>a', function() {
-            var $current_item = $(this).closest('.item');
-            redo_description();
+        $('#container').on('click', '.item>a', function(e) {
+            e.preventDefault();
 
-            if ($current_item.attr('id')) { // if clicked again, close the preview
-                $('#item-preview').attr("id", "");
-                //isotope_list();
-                lazyload_images();
-                if ($item_on_next_row) {
-                    $item_on_next_row.css('clear', null);
-                    $item_on_next_row = null;
-                }
+            var $clicked_item = $(this).closest('.item');
+
+            // if the same item clicked, close it
+            if ($clicked_item.hasClass('item-preview')) {
+                close_description();
                 return false;
+            // if other item is opened, close it
+            } else if ($current_item) {
+                close_description();
             }
 
-            $('#item-preview').attr("id", ""); // close the previous preview
-            if ($item_on_next_row) {
-                $item_on_next_row.css('clear', null);
-                $item_on_next_row = null;
-            }
-            $current_item.attr("id","item-preview"); // open the new preview
+            // get new current item
+            $current_item = $clicked_item;
 
             var $description = $current_item.find(".description");
 
             // if description doesn't exist yet, load it
             if (!$.trim($description.text())) {
                 $description.load($current_item.data('description-src'), function() {
-                    $('#container .item .cancel').on('click', function(){
-                        $('#item-preview').attr("id","");
-                        //isotope_list();
-                        lazyload_images();
-                    });
-
-                    redo_description();
-
+                    layout_description();
                     if (window.init_share) {
                         window.init_share();
                     }
                 });
+            // if description already exists, just re-layout it
             } else {
-                //isotope_list();
+                layout_description();
             }
             return false;
+        }).on('click', '.item .cancel', function(e){
+            e.preventDefault();
+            close_description();
         });
     });
 
-    $(window).bind('smartresize', redo_description);
+    $(window).bind('smartresize', layout_description);
 
     $(window).load(function() {
         var $container = $('#container'),
@@ -230,7 +237,6 @@
             }
 
             // convert object into array
-            var isoFilters = [];
     //        var http_state_filters = [];
             var map_filters = [];
             for (var prop in filters) {
@@ -238,7 +244,6 @@
                 for (var i=0; i<filters[prop].length; i++) {
                     var cat = filters[prop][i].replace(/\./, '');
                     map_filters.push(cat);
-    //                isoFilters.push('[data-filter-categories~="' + cat + '"]');
                 }
             }
 
@@ -252,7 +257,6 @@
                 $('#container').load(url + ' #container>*', function() {
                     reinit_infinite_scroll();
                     setTimeout(function() { // waiting for the ad to load
-                        //isotope_list();
                         lazyload_images();
                         filtering_busy = false;
                     }, 500);
@@ -260,23 +264,6 @@
             } else {
                 filtering_busy = false;
             }
-    //        var selector = isoFilters.join('');
-
-    //        $.bbq.pushState({filter: http_state_filters.join('')});
-
-    //        $container.isotope({filter: '.item' + selector});
-
-    //        if ( !$container.data('isotope').$filteredAtoms.length ) {
-    //            $container.addClass('empty');
-    //            $("#empty-container").addClass("on");
-    //        } else {
-    //            $container.removeClass('empty');
-    //            $("#empty-container").removeClass("on");
-    //        }
-
-    //        lazyload_images();
-    //        $(".isotope-item:not(.isotope-hidden) .img", $container).trigger("appear");
-
             $container.trigger("map_filter", { filter: map_filters});
             return false;
         });
@@ -304,7 +291,6 @@
             }
             $('#container').load('? #container>*', function() {
                 reinit_infinite_scroll();
-                //isotope_list();
                 lazyload_images();
             });
         });
