@@ -167,6 +167,7 @@ def museum_list(request):
     first_page_delta = 0
     if not_empty_ad_zone('museums'):
         first_page_delta = 1
+        extra_context['show_ad'] = True
 
     return object_list(
         request,

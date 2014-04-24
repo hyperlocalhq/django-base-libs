@@ -23,7 +23,7 @@
         }
 
         $item_on_next_row = $current_item.nextAll('.item:visible:first');
-        while ($item_on_next_row && $current_item.position().top >= $item_on_next_row.position().top) {
+        while ($item_on_next_row.length && $current_item.position().top >= $item_on_next_row.position().top) {
             $item_on_next_row = $item_on_next_row.nextAll('.item:visible:first');
         }
         if ($item_on_next_row.length) {

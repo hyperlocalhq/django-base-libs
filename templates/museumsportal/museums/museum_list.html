@@ -61,7 +61,7 @@
           <div class="row row-md grid">
             {% if page == 1 %}
               {% load advertising_tags %}
-              {% if "museums"|not_empty_ad_zone %}
+              {% if show_ad %}
                 {% get_random_zone_ad "museums" as museums_ad_html %}
               {% endif %}
             {% endif %}

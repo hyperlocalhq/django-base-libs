@@ -80,6 +80,7 @@ class ExhibitionFilterForm(dynamicforms.Form):
 
 
 def exhibition_list(request):
+    from museumsportal.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
     qs = Exhibition.objects.filter(status="published")
     
     #if not request.REQUEST.keys():
@@ -244,6 +245,11 @@ def exhibition_list(request):
     extra_context['abc_list'] = abc_list
     extra_context['facets'] = facets
 
+    first_page_delta = 0
+    if not_empty_ad_zone('exhibitions'):
+        first_page_delta = 1
+        extra_context['show_ad'] = True
+
     return object_list(
         request,
         queryset=qs,
@@ -252,6 +258,7 @@ def exhibition_list(request):
         extra_context=extra_context,
         httpstate_prefix="exhibition_list",
         context_processors=(prev_next_processor,),
+        first_page_delta=first_page_delta,
     )
 
 
