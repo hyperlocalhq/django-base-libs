@@ -158,6 +158,8 @@ def museum_list(request):
     abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
     if abc_filter:
         qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+
+    qs = qs.order_by("title_%s" % request.LANGUAGE_CODE)
     
     extra_context = {}
     extra_context['form'] = form
