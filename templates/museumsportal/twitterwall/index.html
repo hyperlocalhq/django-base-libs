@@ -25,32 +25,45 @@
     </script>
 </head>
 <body>
-    <div id="title">
-        <h3>31. AUG 13</h3>
-        <h1>Berliner Twitternacht </h1>
-        <h2>Junge Wilde & alte Meister</h2>
+    <div id="frame">
+    </div>
+    <div id="header" class="clearfix">
+        <div id="logo">
+            <img src="{{ STATIC_URL }}site/img/twitterwall/logo_2014.png" alt="Lange Nacht der Museen" />
+        </div>
+        <div id="title">
+            <h1>17. Mai 2014</h1>
+            <h2>80 Museen &mdash; ein Ticket</h2>
+        </div>
     </div>
 
-    <div class="col" id="col-l">
-        {% for tweet in selected_user_tweets %}
-            {% include "twitterwall/tweet.html" %}
-        {% endfor %}
-    </div>
+    <div id="container" class="clearfix">
+        <div class="col" id="col-l">
+            {% for tweet in selected_user_tweets %}
+                {% include "twitterwall/tweet.html" %}
+            {% endfor %}
+        </div>
 
-    <div class="col" id="col-r">
-        {% for tweet in tweets_from_search %}
-            {% include "twitterwall/tweet.html" %}
-        {% endfor %}
-        <p class="lead">Mit Tweeten: #LNBerlin</p>
+        <div class="col" id="col-r">
+            {% for tweet in tweets_from_search %}
+                {% include "twitterwall/tweet.html" %}
+            {% endfor %}
+            <p class="lead">Mit Tweeten: #LNBerlin</p>
+        </div>
     </div>
 
     <div id="footer">
         <div class="wrapper">
             <a class="studio38" target="_blank" href="http://www.studio38.de/">Powered by Studio 38</a>
+            <a class="lindner" target="_blank" href="http://www.lindner-esskultur.de/"><img src="{{ STATIC_URL }}site/img/twitterwall/lindner.png" alt="Lindner" /></a>
+            {% comment %}
             <a class="back" target="_blank" href="http://www.museumsportal-berlin.de/">Zurück zum Portal</a>
+            {% endcomment %}
         </div>
     </div>
 
+    <div id="top_frame_border"></div>
+    <div id="bottom_frame_border"></div>
     <script type="text/javascript">
         (function($, undefined) {
             var timeout_user = null;
