@@ -2,7 +2,7 @@
     <div class="tweet-header clearfix">
         <a href="http://twitter.com/{{ tweet.user.screen_name }}/" title="{{ tweet.user.name }}">
             <img class="avatar" src="{{ tweet.user.profile_image_url }}" alt="{{ tweet.user.screen_name }}" />
-            <small class="time">{{ tweet.creation_date|date:"j.M Y H:i" }}</small>
+            <small class="time">{{ tweet.creation_date|date:"j.M Y H:i" }}</small> -
             <small class="fullname">
                 {{ tweet.user.name }} /
                 <span class="username">@{{ tweet.user.screen_name }}</span>
