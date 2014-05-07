@@ -11,8 +11,6 @@ class Command(BaseCommand):
     help = "imports tweets"
     def handle(self, *args, **options):
         print "This command is outdated. Use stream_tweets instead."
-        if True:
-            return
 
         from twython import Twython
         from dateutil.parser import parse as parse_datetime
@@ -31,22 +29,22 @@ class Command(BaseCommand):
                 html = html.replace(
                     "#%s" % hashtag_dict['text'],
                     '<span class="hashtag">#%s</span>' % hashtag_dict['text'],
-                    )
+                )
             for user_dict in entities.get('user_mentions', []):
                 html = html.replace(
                     "@%s" % user_dict['screen_name'],
                     '<a href="http://twitter.com/%(screen_name)s/" target="_blank" title="%(name)s" class="twitter_user">@%(screen_name)s</a>' % user_dict,
-                    )
+                )
             for media_dict in entities.get('media', []):
                 html = html.replace(
                     media_dict['url'],
                     '<a href="%(expanded_url)s" target="_blank" class="media">%(display_url)s</a>' % media_dict
-                    )
+                )
             for url_dict in entities.get('urls', []):
                 html = html.replace(
                     url_dict['url'],
                     '<a href="%(expanded_url)s" target="_blank">%(display_url)s</a>' % url_dict
-                    )
+                )
             return html
 
         twitter = Twython(
@@ -54,7 +52,7 @@ class Command(BaseCommand):
             settings.TWITTER_CONSUMER_SECRET,
             settings.TWITTER_ACCESS_TOKEN,
             settings.TWITTER_ACCESS_TOKEN_SECRET,
-            )
+        )
 
         ### import tweets by search ###
         last_tweets = Tweet.objects.filter(from_search=True).order_by('-id')
@@ -62,7 +60,7 @@ class Command(BaseCommand):
             'result_type': "recent",
             'count': 100,
             'include_entities': "true",
-            }
+        }
         if last_tweets:
             params['since_id'] = last_tweets[0].id
         
@@ -77,11 +75,11 @@ class Command(BaseCommand):
                     try:
                         twitter_user = TwitterUser.objects.get(
                             id=tweet_dict['user']['id_str'],
-                            )
+                        )
                     except:
                         twitter_user = TwitterUser(
                             id=tweet_dict['user']['id_str'],
-                            )
+                        )
                     twitter_user.id_str = tweet_dict['user']['id_str']
                     twitter_user.screen_name = tweet_dict['user']['screen_name']
                     twitter_user.name = tweet_dict['user']['name']
@@ -92,17 +90,17 @@ class Command(BaseCommand):
                     try:
                         tweet = Tweet.objects.get(
                             id=tweet_dict['id']
-                            )
+                        )
                     except:
                         tweet = Tweet(
                             id=tweet_dict['id']
-                            )
+                        )
                         tweet.id_str = tweet_dict['id_str']
                         tweet.user = twitter_user
                         tweet.creation_date = parse_datetime(
                             tweet_dict['created_at'],
                             ignoretz=True,
-                            )
+                        )
                         tweet.text = tweet_dict['text']
                         tweet.html = format_html(tweet.text, tweet_dict.get('entities', {}))
                         geo = tweet_dict.get('geo', None)
@@ -119,9 +117,7 @@ class Command(BaseCommand):
                         for media_dict in tweet_dict.get('entities', {}).get('media', []):
                             tweet.tweetmedia_set.create(
                                 media_url=media_dict['media_url'],
-                                )
-                        for site in ss.sites.all():
-                            tweet.sites.add(site)
+                            )
                     else:
                         tweet.from_search = True
                         tweet.save()
@@ -143,16 +139,14 @@ class Command(BaseCommand):
         params = {
             'count': 200,
             'include_entities': "true",
-            }
+        }
         if last_tweets:
             params['since_id'] = last_tweets[0].id
             
         for uts in UserTimelineSettings.objects.all():
             params['screen_name'] = uts.screen_name
-            if uts.include_rts:
-                params['include_rts'] = 'true'
-            if uts.exclude_replies:
-                params['exclude_replies'] = 'true'
+            params['include_rts'] = 'true'
+            params['exclude_replies'] = 'true'
 
             user_timeline = twitter.get_user_timeline(**params)
             # save search results
@@ -160,11 +154,11 @@ class Command(BaseCommand):
                 try:
                     twitter_user = TwitterUser.objects.get(
                         id=tweet_dict['user']['id'],
-                        )
+                    )
                 except:
                     twitter_user = TwitterUser(
                         id=tweet_dict['user']['id'],
-                        )
+                    )
                 twitter_user.id_str = tweet_dict['user']['id_str']
                 twitter_user.screen_name = tweet_dict['user']['screen_name']
                 twitter_user.name = tweet_dict['user']['name']
@@ -178,17 +172,17 @@ class Command(BaseCommand):
                 try:
                     tweet = Tweet.objects.get(
                         id=tweet_dict['id']
-                        )
+                    )
                 except:
                     tweet = Tweet(
                         id=tweet_dict['id']
-                        )
+                    )
                     tweet.id_str = tweet_dict['id_str']
                     tweet.user = twitter_user
                     tweet.creation_date = parse_datetime(
                         tweet_dict['created_at'],
                         ignoretz=True,
-                        )
+                    )
                     tweet.text = tweet_dict['text']
                     tweet.html = format_html(tweet.text, tweet_dict.get('entities', {}))
                     if tweet_dict.get('coordinates', None):
@@ -204,9 +198,7 @@ class Command(BaseCommand):
                     for media_dict in tweet_dict.get('entities', {}).get('media', []):
                         tweet.tweetmedia_set.create(
                             media_url=media_dict['media_url'],
-                            )
-                    for site in uts.sites.all():
-                        tweet.sites.add(site)
+                        )
                 else:
                     tweet.by_user = True
                     tweet.save()
