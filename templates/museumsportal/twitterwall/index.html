@@ -72,7 +72,7 @@
 
             function load_tweets_of_selected_users() {
                 var $selected_user_tweets = $('#col-l');
-                var url = "{% url load_tweets %}?by_user=1";
+                var url = "{% url "load_tweets" %}?by_user=1";
                 var since_id = $selected_user_tweets.find('.tweet:first').data("tweet-id");
                 if (since_id) {
                     since_id = since_id.replace(/t/, "");
@@ -86,7 +86,7 @@
 
             function load_tweets_from_search() {
                 var $tweets_from_search = $('#col-r');
-                var url = "{% url load_tweets %}?from_search=1";
+                var url = "{% url "load_tweets" %}?from_search=1";
                 var since_id = $tweets_from_search.find('.tweet:first').data("tweet-id");
                 if (since_id) {
                     since_id = since_id.replace(/t/, "");
