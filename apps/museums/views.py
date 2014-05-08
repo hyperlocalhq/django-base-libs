@@ -191,9 +191,10 @@ def museum_list_map(request):
     facets = {
         'selected': {},
         'categories': {
-            'categories': MuseumCategory.objects.all().order_by("title_%s" % request.LANGUAGE_CODE),
+            'categories': MuseumCategory.objects.filter(parent=None).order_by("title_%s" % request.LANGUAGE_CODE),
             'open_on_mondays': _("Open on Mondays"),
             'free_entrance': _("Free entrance"),
+            'open_late': OPEN_LATE_CHOICES,
             'accessibility_options': AccessibilityOption.objects.all()
         },
     }
@@ -207,12 +208,30 @@ def museum_list_map(request):
                 categories=cat,
             ).distinct()
 
+        cat = form.cleaned_data['subcategory']
+        if cat:
+            facets['selected']['subcategory'] = cat
+            qs = qs.filter(
+                categories=cat,
+            ).distinct()
+
         cat = form.cleaned_data['accessibility_option']
         if cat:
             facets['selected']['accessibility_option'] = cat
             qs = qs.filter(
                 accessibility_options=cat,
             ).distinct()
+
+        cat = form.cleaned_data['open_late']
+        if cat:
+            facets['selected']['open_late'] = (cat, dict(OPEN_LATE_CHOICES)[cat])
+            today = datetime.today().date()
+            weekday, _till, hours = cat.split('_')
+            qs = qs.filter(**{
+                'season__start__lte': today,
+                'season__end__gte': today,
+                'season__%s_close__gte' % weekday: time(int(hours), 0),
+            }).distinct()
 
         open_on_mondays = form.cleaned_data['open_on_mondays']
         if open_on_mondays:
@@ -243,7 +262,7 @@ def museum_list_map(request):
         request,
         queryset=qs,
         template_name="museums/museum_list_map.html",
-        paginate_by=24,
+        paginate_by=200,
         extra_context=extra_context,
         httpstate_prefix="museum_list_map",
         context_processors=(prev_next_processor,),
