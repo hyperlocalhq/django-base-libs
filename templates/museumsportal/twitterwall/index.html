@@ -98,6 +98,12 @@
                 }, "html");
             }
 
+            $(document).on('click', '.tweet', function(e) {
+                if (e.target.nodeName != 'A' && $(e.target).closest('a').length == 0) {
+                    window.open($(this).data('tweet-url'), '_blank');
+                }
+            });
+
             $(document).ready(function() {
                 timeout_user = setTimeout(load_tweets_of_selected_users, TIMEOUT_DELAY);
                 timeout_search = setTimeout(load_tweets_from_search, TIMEOUT_DELAY);
