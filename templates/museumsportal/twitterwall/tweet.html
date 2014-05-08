@@ -1,4 +1,4 @@
-<div class="tweet" data-tweet-id="t{{ tweet.id }}">
+<div class="tweet" data-tweet-id="t{{ tweet.id }}" data-tweet-url="http://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id_str }}">
     <div class="tweet-header clearfix">
         <a href="http://twitter.com/{{ tweet.user.screen_name }}/" title="{{ tweet.user.name }}" target="_blank">
             <img class="avatar" src="{{ tweet.user.profile_image_url }}" alt="{{ tweet.user.screen_name }}" />
