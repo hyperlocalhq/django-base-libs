@@ -247,7 +247,7 @@ def museum_list_map(request):
         extra_context=extra_context,
         httpstate_prefix="museum_list_map",
         context_processors=(prev_next_processor,),
-        )
+    )
 
 
 def museum_detail(request, slug):
