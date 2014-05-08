@@ -170,12 +170,12 @@ var oMap;
                     if (oActiveMarker && oActiveMarker !== oMarker) {
                         oActiveMarker.setZIndex(oActiveMarker.old_z_index);
                         oActiveMarker.setIcon(oMarkerImgDefault);
-
-                        oMarker.setIcon(oMarkerImgSelected);
-                        oActiveMarker = oMarker;
-                        oActiveMarker.old_z_index = oActiveMarker.getZIndex() || 5;
-                        oActiveMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1); // active marker always upper than others, but lower than current location
                     }
+                    oMarker.setIcon(oMarkerImgSelected);
+                    oActiveMarker = oMarker;
+                    oActiveMarker.old_z_index = oActiveMarker.getZIndex() || 5;
+                    oActiveMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1); // active marker always upper than others, but lower than current location
+
                     // active_object_id will be set if a list item is clicked
                     if (!active_object_id) {
                         // if the marker is clicked physically, active_object_id will be unset, so define it
@@ -306,18 +306,18 @@ var oMap;
             }
             return false;
         });
+        /*
+            $(document).on("click", "#cancel-description", function() {
+                $("#map-sidebar").removeClass("map-description").addClass("map-list");
+                return false;
+            });
 
+            $(document).on("click", "#cancel-filter", function() {
+                $("#map-sidebar").removeClass("map-filter").addClass("map-list");
+                return false;
+            });
+        */
         $(document).on("click", "#cancel-description", function() {
-            $("#map-sidebar").removeClass("map-description").addClass("map-list");
-            return false;
-        });
-
-        $(document).on("click", "#cancel-filter", function() {
-            $("#map-sidebar").removeClass("map-filter").addClass("map-list");
-            return false;
-        });
-
-        $(document).on("click", "#cancel-list", function() {
             $("body").toggleClass( "map-only" );
             setTimeout(function() {
                 google.maps.event.trigger(oMap, "resize");

@@ -243,7 +243,7 @@ def museum_list_map(request):
         request,
         queryset=qs,
         template_name="museums/museum_list_map.html",
-        paginate_by=200,
+        paginate_by=24,
         extra_context=extra_context,
         httpstate_prefix="museum_list_map",
         context_processors=(prev_next_processor,),

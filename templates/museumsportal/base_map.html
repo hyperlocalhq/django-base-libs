@@ -109,8 +109,9 @@
         </button>
       </div>
       <div id="map-sidebar-wrapper" class="col-xs-11 col-sm-5 col-md-4 col-lg-3">
-        <div id="map-sidebar" class="map-list"> 
-          <div id="map-filter"> 
+        <div id="map-sidebar" class="map-description">
+          {% comment %}
+          <div id="map-filter" class="hide">
             <button id="cancel-filter" class="cancel btn btn-info btn-lg btn-icon">
               <span class="icon icon-remove"></span>
               <span class="sr-only">{% trans "close" %}</span>
@@ -119,7 +120,9 @@
             {% block filters %}
             {% endblock %}
           </div>
-          <div id="map-list">
+          {% endcomment %}
+
+          <div id="map-list" class="hide">
             <button id="cancel-list" class="cancel btn btn-info btn-lg">
               <span class="icon icon-remove"></span>
               <span class="sr-only">{% trans "close" %}</span>
@@ -139,7 +142,13 @@
             {% block map-list %}
             {% endblock %}
           </div>
-          <div id="map-description"> 
+          <div id="map-description">
+              <button id="cancel-description" class="cancel btn btn-info btn-lg">
+                <span class="icon icon-remove"></span>
+                <span class="sr-only">{% trans "close" %}</span>
+              </button>
+              <h4>{% trans "Nothing is selected" %}</h4>
+              <p>{% trans "Please, select a location in the map!" %}</p>
           </div>
         </div>
       </div>

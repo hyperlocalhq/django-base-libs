@@ -107,7 +107,7 @@
   top: 0px;
   bottom: 0px;
   right: 0%;
-  padding: 25px 30px;
+  // padding: 25px 30px;
   overflow-y: scroll;
   -moz-box-shadow:    0 0 10px rgba(0,0,0,0.05);
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -278,4 +278,13 @@
   background: $green;
   border-radius: 100%;
   text-align: center;
+}
+
+.map-ajax-detail {
+  padding: 25px 30px;
+  border-bottom: 1px solid #f9f9f9;
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
 }

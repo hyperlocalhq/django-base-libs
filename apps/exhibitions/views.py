@@ -274,11 +274,12 @@ def exhibition_list_map(request):
         'selected': {},
         'categories': {
             'categories': get_related_queryset(Exhibition, "categories").all().order_by("title_%s" % request.LANGUAGE_CODE),
-            'suitable_for_disabled': _("Exhibition especially suitable for people with disabilities"),
+            'smart_list': SMART_LIST_CHOICES,
+            'calendar': CALENDAR_CHOICES,
         },
     }
 
-    status = None
+    closing_soon = False
     if form.is_valid():
 
         cat = form.cleaned_data['category']
@@ -288,40 +289,138 @@ def exhibition_list_map(request):
                 categories=cat,
             ).distinct()
 
-        status = form.cleaned_data['status']
-        if status:
-            facets['selected']['status'] = status
+        cat = form.cleaned_data['subcategory']
+        if cat:
+            facets['selected']['subcategory'] = cat
+            qs = qs.filter(
+                categories=cat,
+            ).distinct()
+
+        cat = form.cleaned_data['smart']
+        if cat:
+            facets['selected']['smart'] = (cat, dict(SMART_LIST_CHOICES)[cat])
             today = date.today()
             two_weeks = timedelta(days=14)
-            if status == "newly_opened":
+            if cat == "actual":
+                qs = qs.filter(
+                    start__lte=today,
+                    end__gte=today,
+                )
+            elif cat == "upcoming":
+                qs = qs.filter(
+                    start__gt=today,
+                )
+            elif cat == "newly_opened":
                 # today - 2 weeks < EXHIBITION START <= today
                 qs = qs.filter(
                     start__gt=today-two_weeks,
                     start__lte=today,
                 )
-            elif status == "closing_soon":
+            elif cat == "closing_soon":
                 # today <= EXHIBITION END < today + two weeks
                 qs = qs.filter(
                     end__gte=today,
                     end__lt=today+two_weeks,
                 )
+                closing_soon = True
+            elif cat == "special":
+                qs = qs.filter(
+                    special=True,
+                )
+            elif cat == "permanent":
+                qs = qs.filter(
+                    permanent=True,
+                )
+            elif cat == "suitable_for_disabled":
+                qs = qs.filter(
+                    suitable_for_disabled=True,
+                )
+            elif cat == "for_children":
+                qs = qs.filter(
+                    is_for_children=True,
+                )
+        cat = form.cleaned_data['calendar']
+        if cat:
+            facets['selected']['calendar'] = (cat, dict(CALENDAR_CHOICES)[cat])
+            today = date.today()
+            if cat == "today":
+                qs = qs.filter(
+                    start__lte=today,
+                    end__gte=today,
+                )
+            if cat == "tomorrow":
+                tomorrow = today + timedelta(days=1)
+                qs = qs.filter(
+                    start__lte=tomorrow,
+                    end__gte=tomorrow,
+                )
+            if cat == "within_7_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=7)
+                # Get events which start date is within the selected range
+                # -----[--selected range--]----- time ->
+                #            [-event-]
+                #                   [-event-]
+                conditions = models.Q(
+                    start__gte=selected_start,
+                    start__lte=selected_end,
+                )
+                # .. which started before and will end after the selected range
+                # -----[-selected range-]------- time ->
+                #    [------event---------]
+                conditions |= models.Q(
+                    start__lte=selected_start,
+                    end__gte=selected_end,
+                )
+                # .. or which end date is within the selected range
+                # -----[--selected range--]----- time ->
+                #          [-event-]
+                #   [-event-]
+                conditions |= models.Q(
+                    end__gte=selected_start,
+                    end__lte=selected_end,
+                )
+                qs = qs.filter(conditions)
+            if cat == "within_30_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=30)
+                # Get events which start date is within the selected range
+                # -----[--selected range--]----- time ->
+                #            [-event-]
+                #                   [-event-]
+                conditions = models.Q(
+                    start__gte=selected_start,
+                    start__lte=selected_end,
+                )
+                # .. which started before and will end after the selected range
+                # -----[-selected range-]------- time ->
+                #    [------event---------]
+                conditions |= models.Q(
+                    start__lte=selected_start,
+                    end__gte=selected_end,
+                )
+                # .. or which end date is within the selected range
+                # -----[--selected range--]----- time ->
+                #          [-event-]
+                #   [-event-]
+                conditions |= models.Q(
+                    end__gte=selected_start,
+                    end__lte=selected_end,
+                )
+                qs = qs.filter(conditions)
 
-        suitable_for_disabled = form.cleaned_data['suitable_for_disabled']
-        if suitable_for_disabled:
-            facets['selected']['suitable_for_disabled'] = True
-            qs = qs.filter(
-                suitable_for_disabled=True,
-            )
 
-    if status == "closing_soon":
+    if closing_soon:
         qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
     else:
         qs = qs.order_by("-start", "title_%s" % request.LANGUAGE_CODE)
 
-    abc_filter = request.GET.get('by-abc', None)
-    abc_list = get_abc_list(qs, "title", abc_filter)
+    abc_filter = request.GET.get('abc', None)
     if abc_filter:
-        qs = filter_abc(qs, "title", abc_filter)
+        facets['selected']['abc'] = abc_filter
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
 
     extra_context = {}
     extra_context['form'] = form
@@ -336,7 +435,8 @@ def exhibition_list_map(request):
         extra_context=extra_context,
         httpstate_prefix="exhibition_list_map",
         context_processors=(prev_next_processor,),
-        )
+    )
+
 
 def exhibition_detail(request, slug):
     if "preview" in request.REQUEST:
