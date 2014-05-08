@@ -358,6 +358,8 @@ var oMap;
             location.href = previous_page;
             return false;
         });
+
+        $('#map-description').bind('scrollstop', lazyload_images);
     });
 
 }(jQuery));
