@@ -13,7 +13,7 @@
 
     function layout_description() {
         var $container = $('#container').css('position', 'relative');
-        if (!$current_item.length) {
+        if (!$current_item || !$current_item.length) {
             return;
         }
         $current_item.addClass('item-preview'); // open the new preview

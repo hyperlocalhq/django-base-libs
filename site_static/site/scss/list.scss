@@ -439,3 +439,52 @@ only screen and (                min-resolution: 2dppx) {
 .pagination {
   width: 100%;
 }
+
+@media (max-width: 767px) {
+  .museum-list {
+    .item {
+      min-height: none;
+    }
+  }
+  .exhibition-list {
+    .item {
+      min-height: none;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .museum-list {
+    .item {
+      min-height: 200px;
+    }
+  }
+  .exhibition-list {
+    .item {
+      min-height: 240px;
+    }
+  }
+}
+@media (min-width: 992px) {
+  .museum-list {
+    .item {
+      min-height: 249px;
+    }
+  }
+  .exhibition-list {
+    .item {
+      min-height: 289px;
+    }
+  }
+}
+@media (min-width: 1200px) {
+  .museum-list {
+    .item {
+      min-height: 212px;
+    }
+  }
+  .exhibition-list {
+    .item {
+      min-height: 252px;
+    }
+  }
+}
