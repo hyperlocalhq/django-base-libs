@@ -2376,7 +2376,8 @@ input[type="button"].btn-block {
       border: 1px solid transparent;
       padding: 10px 10px;
       position: relative;
-      display: block; }
+      display: block;
+      cursor: not-allowed; }
     .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
       color: #555555;
       background-color: white;
