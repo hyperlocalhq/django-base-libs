@@ -33,6 +33,10 @@ $(document).scroll(function(){
 });
 
 $(document).ready(function() {
+    $('.navbar-toggle').on('click', function() {
+        $('body').toggleClass('nav-expanded');
+    });
+
     $("input").focus(function(e){
         e.preventDefault();
         e.stopPropagation();
