@@ -13,6 +13,7 @@ class Command(BaseCommand):
         print "This command is outdated. Use stream_tweets instead."
 
         from twython import Twython
+        from datetime import timedelta
         from dateutil.parser import parse as parse_datetime
         from pprint import pprint
         from django.utils.encoding import force_unicode
@@ -100,7 +101,7 @@ class Command(BaseCommand):
                         tweet.creation_date = parse_datetime(
                             tweet_dict['created_at'],
                             ignoretz=True,
-                        )
+                        ) + timedelta(hours=2)  # Berlin time
                         tweet.text = tweet_dict['text']
                         tweet.html = format_html(tweet.text, tweet_dict.get('entities', {}))
                         geo = tweet_dict.get('geo', None)
@@ -182,7 +183,7 @@ class Command(BaseCommand):
                     tweet.creation_date = parse_datetime(
                         tweet_dict['created_at'],
                         ignoretz=True,
-                    )
+                    ) + timedelta(hours=2)  # Berlin time
                     tweet.text = tweet_dict['text']
                     tweet.html = format_html(tweet.text, tweet_dict.get('entities', {}))
                     if tweet_dict.get('coordinates', None):
