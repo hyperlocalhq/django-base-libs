@@ -88,7 +88,7 @@
             return false;
         });
 
-        $('#container').on('click', '.item>a', function(e) {
+        $('#container').on('contextmenu taphold', '.item>a', function(e) {
             e.preventDefault();
 
             var $clicked_item = $(this).closest('.item');
