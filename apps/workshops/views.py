@@ -198,41 +198,85 @@ def workshop_list_map(request):
     facets = {
         'selected': {},
         'categories': {
+            'is_for_wheelchaired': _("For people in wheelchairs"),
+            'is_for_deaf': _("For deaf people"),
+            'is_for_blind': _("For blind people"),
+            'is_for_learning_difficulties': _("For people with learning difficulties"),
+            'smart_list': SMART_LIST_CHOICES,
+            'calendar': CALENDAR_CHOICES,
         },
     }
 
     status = None
     if form.is_valid():
-        status = form.cleaned_data['status']
-        if status:
-            facets['selected']['status'] = status
+        is_for_wheelchaired = form.cleaned_data['is_for_wheelchaired']
+        if is_for_wheelchaired:
+            facets['selected']['is_for_wheelchaired'] = True
+            qs = qs.filter(
+                is_for_wheelchaired=True,
+            )
+        is_for_deaf = form.cleaned_data['is_for_deaf']
+        if is_for_deaf:
+            facets['selected']['is_for_deaf'] = True
+            qs = qs.filter(
+                is_for_deaf=True,
+            )
+        is_for_blind = form.cleaned_data['is_for_blind']
+        if is_for_blind:
+            facets['selected']['is_for_blind'] = True
+            qs = qs.filter(
+                is_for_blind=True,
+            )
+        is_for_learning_difficulties = form.cleaned_data['is_for_learning_difficulties']
+        if is_for_learning_difficulties:
+            facets['selected']['is_for_learning_difficulties'] = True
+            qs = qs.filter(
+                is_for_learning_difficulties=True,
+            )
+        cat = form.cleaned_data['smart']
+        if cat:
+            facets['selected']['smart'] = (cat, dict(SMART_LIST_CHOICES)[cat])
+            qs = qs.filter(**{
+                cat: True,
+            })
+        cat = form.cleaned_data['calendar']
+        if cat:
+            facets['selected']['calendar'] = (cat, dict(CALENDAR_CHOICES)[cat])
             today = date.today()
-            two_weeks = timedelta(days=14)
-            if status == "newly_opened":
-                # today - 2 weeks < WORKSHOP START <= today
+            if cat == "today":
                 qs = qs.filter(
-                    workshoptime__workshop_date__gt=today-two_weeks,
-                    workshoptime__workshop_date__lte=today,
+                    workshoptime__workshop_date=today,
                 )
-            elif status == "closing_soon":
-                # today <= WORKSHOP END < today + two weeks
+            if cat == "tomorrow":
+                tomorrow = today + timedelta(days=1)
                 qs = qs.filter(
-                    workshoptime__workshop_date__gte=today,
-                    workshoptime__workshop_date__lt=today+two_weeks,
+                    workshoptime__workshop_date=tomorrow,
                 )
-    #if status == "closing_soon":
-    #    qs = qs.order_by("workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
-    #else:
-    #    qs = qs.order_by("-workshoptime__workshop_date", "title_%s" % request.LANGUAGE_CODE)
+            if cat == "within_7_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=7)
+                qs = qs.filter(
+                    workshoptime__workshop_date__gte=selected_start,
+                    workshoptime__workshop_date__lte=selected_end,
+                )
+            if cat == "within_30_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=30)
+                qs = qs.filter(
+                    workshoptime__workshop_date__gte=selected_start,
+                    workshoptime__workshop_date__lte=selected_end,
+                )
 
-    qs = qs.order_by("closest_workshop_date", "closest_workshop_time", "title_%s" % request.LANGUAGE_CODE)
+    qs = qs.order_by("has_group_offer", "closest_workshop_date", "closest_workshop_time", "title_%s" % request.LANGUAGE_CODE)
 
     qs = qs.distinct()
 
-    abc_filter = request.GET.get('by-abc', None)
-    abc_list = get_abc_list(qs, "title", abc_filter)
+    abc_filter = request.GET.get('abc', None)
     if abc_filter:
-        qs = filter_abc(qs, "title", abc_filter)
+        facets['selected']['abc'] = abc_filter
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
 
     extra_context = {}
     extra_context['form'] = form
