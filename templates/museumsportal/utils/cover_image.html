@@ -3,10 +3,10 @@
 {% if object.cover_image %}
   <div id="cover_img">
       {% with object.cover_image|file_description as fd %}
-          <a href="{{ object.get_url_path }}slideshow/#0" class="img hidden-xs">
+          <a href="{{ object.get_url_path }}slideshow/#0" class="img hidden-xs clearfix">
             <img src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" />
           </a>
-          <a href="{{ object.get_url_path }}slideshow/#0" class="img visible-xs">
+          <a href="{{ object.get_url_path }}slideshow/#0" class="img visible-xs clearfix">
             <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"museum_list" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" />
           </a>
 
