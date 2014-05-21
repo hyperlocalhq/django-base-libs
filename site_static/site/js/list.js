@@ -67,7 +67,7 @@
                 $container.jscroll({
                     loadingHtml: '<small>Loading...</small>',
                     padding: 100,
-                    contentSelector: '#container .grid',
+                    contentSelector: '#container .grid,#container .list',
                     nextSelector: '.next_page:last',
                     pagingSelector: '.pagination',
                     callback: function() {

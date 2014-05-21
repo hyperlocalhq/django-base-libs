@@ -1,10 +1,12 @@
 {% load menu_tags %}
 <ul class="language-chooser-mobile">
-  {% for language in languages %}
-      <li class="{% if current_language == language.0 %}active{% endif %}">
-        <a href="/{{ language.0 }}/">
-          {{ language.0|upper }}
-          </a>
+  {% for lang_code, lang_name in languages %}
+    {% if lang_code in "en|de" %}
+      <li class="{% if current_language == lang_code %}active{% endif %}">
+        <a href="/{{ lang_code }}/">
+          {{ lang_code|upper }}
+        </a>
       </li>
+    {% endif %}
   {% endfor %}
 </ul>
