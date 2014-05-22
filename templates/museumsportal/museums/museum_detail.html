@@ -589,119 +589,119 @@
             </div>
           </div>
         </div>
-      </div>
-
-  {% include "utils/images.html" %}
-
-  {% if museum.get_twitter_username %}
-
-    <div id="museums-twitterfeed" class="content">
-      <div class="container">
-        <h2 class="section-head" id="section-tweets">{% trans "Current Tweets" %}</h2>
-        <div id="tweets" class="row row-md" data-twitter-username="{{ museum.get_twitter_username }}"></div>
-      </div>
     </div>
-  {% endif %}
 
-  <!-- ======= Exhibitions ======= -->
-  <div id="additional-contents">
+    {% include "utils/images.html" %}
 
-    {% if object.get_published_exhibitions %}
-      <div id="exhibitions" class="content">
+    {% if museum.get_twitter_username %}
+
+      <div id="museums-twitterfeed" class="content">
         <div class="container">
-          <h2 class="section-head" id="section-exhibitions">{% trans "Current Exhibitions" %}</h2>
-          <div class="list row row-md">
-            {% for exhibition in object.get_published_exhibitions %}
-            <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              {% comment %}<!--
-                <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }}"{% endif %}> </a>
-
-                <nav class="actions">
-                    {% if request.user.is_authenticated %}
-                        {% adding2favorites for exhibition %}
-                    {% endif %}
-                    <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
-                </nav>
-
-                {% with exhibition as list_item %}
-                    {% include "utils/geo_position.html" %}
-                {% endwith %}
-              -->{% endcomment %}
-
-              <a href="{{ exhibition.get_url_path }}">
-                <h3>{{ exhibition.title }}</h3>
-                <h4>{{ exhibition.subtitle }}</h4>
-                <h5>
-                  {% if exhibition.permanent %}
-                  {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
-                  {% else %}
-                  {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
-                  {% endif %}
-                </h5>
-              </a>
-            </div>
-            {% endfor %}
-          </div>
+          <h2 class="section-head" id="section-tweets">{% trans "Current Tweets" %}</h2>
+          <div id="tweets" class="row row-md" data-twitter-username="{{ museum.get_twitter_username }}"></div>
         </div>
       </div>
     {% endif %}
 
-    <!-- ======= Events ======= -->
+    <!-- ======= Exhibitions ======= -->
+    <div id="additional-contents">
 
-    {% if object.get_published_events %}
-      <div id="events" class="content">
-        <div class="container">
-          <h2 class="section-head" id="section-events">{% trans "Current Events" %}</h2>
-          <div class="list row row-md">
-            {% for event in object.get_published_events %}
-            <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <a href="{{ event.get_url_path }}">
-                <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}</h4>
-                <h3>{{ event.title }}</h3>
-                <h4>{{ event.subtitle }}</h4>
-                <h5>{{ event.museum.title }}</h5>
-              </a>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    {% endif %}
-
-    <!-- ======= Guided Tours ======= -->
-
-    {% if object.get_published_workshops %}
-      <div id="workshops" class="content">
-        <div class="container">
-          <h2 class="section-head" id="section-workshops">{% trans "Current Guided Tours, Workshops and educational offers" %}</h2>
-          <div class="list row row-md">
-            {% for workshop in object.get_published_workshops %}
+      {% if object.get_published_exhibitions %}
+        <div id="exhibitions" class="content">
+          <div class="container">
+            <h2 class="section-head" id="section-exhibitions">{% trans "Current Exhibitions" %}</h2>
+            <div class="list row row-md">
+              {% for exhibition in object.get_published_exhibitions %}
               <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <a href="{{ workshop.get_url_path }}">
-                  {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
-                    <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4>
+                {% comment %}<!--
+                  <a class="img" href="{{ exhibition.get_url_path }}" {% if exhibition.cover_image %} data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"museum_list" }}"{% endif %}> </a>
+
+                  <nav class="actions">
+                      {% if request.user.is_authenticated %}
+                          {% adding2favorites for exhibition %}
+                      {% endif %}
+                      <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
+                  </nav>
+
+                  {% with exhibition as list_item %}
+                      {% include "utils/geo_position.html" %}
+                  {% endwith %}
+                -->{% endcomment %}
+
+                <a href="{{ exhibition.get_url_path }}">
+                  <h3>{{ exhibition.title }}</h3>
+                  <h4>{{ exhibition.subtitle }}</h4>
+                  <h5>
+                    {% if exhibition.permanent %}
+                    {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}
                     {% else %}
-                    <h4>
-                      {% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
-                      {% with workshop.get_closest_workshop_time as workshop_time %}
-                      {{ workshop_time.workshop_date|date:"j. F Y" }}
-                      {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
-                      {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                      {% endwith %}
-                    </h4>
-                  {% endif %}
-                  <h3>{{ workshop.title }}</h3>
-                  <h4>{{ workshop.subtitle }}</h4>
-                  <h5>{{ workshop.museum.title }}</h5>
+                    {{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}
+                    {% endif %}
+                  </h5>
                 </a>
               </div>
-            {% endfor %}
+              {% endfor %}
+            </div>
           </div>
         </div>
-      </div>
-    {% endif %}
-    
-  </div>
+      {% endif %}
+
+      <!-- ======= Events ======= -->
+
+      {% if object.get_published_events %}
+        <div id="events" class="content">
+          <div class="container">
+            <h2 class="section-head" id="section-events">{% trans "Current Events" %}</h2>
+            <div class="list row row-md">
+              {% for event in object.get_published_events %}
+              <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="{{ event.get_url_path }}">
+                  <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}</h4>
+                  <h3>{{ event.title }}</h3>
+                  <h4>{{ event.subtitle }}</h4>
+                  <h5>{{ event.museum.title }}</h5>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- ======= Guided Tours ======= -->
+
+      {% if object.get_published_workshops %}
+        <div id="workshops" class="content">
+          <div class="container">
+            <h2 class="section-head" id="section-workshops">{% trans "Current Guided Tours, Workshops and educational offers" %}</h2>
+            <div class="list row row-md">
+              {% for workshop in object.get_published_workshops %}
+                <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <a href="{{ workshop.get_url_path }}">
+                    {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+                      <h4>{% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %} {% trans "Bookable Offer" %}</h4>
+                      {% else %}
+                      <h4>
+                        {% if workshop.workshop_type %}{{ workshop.workshop_type }}:{% endif %}
+                        {% with workshop.get_closest_workshop_time as workshop_time %}
+                        {{ workshop_time.workshop_date|date:"j. F Y" }}
+                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}
+                        {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                        {% endwith %}
+                      </h4>
+                    {% endif %}
+                    <h3>{{ workshop.title }}</h3>
+                    <h4>{{ workshop.subtitle }}</h4>
+                    <h5>{{ workshop.museum.title }}</h5>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
 
   {% endwith %}
 
@@ -709,19 +709,16 @@
   {# {% include "utils/gmap_scripts.html" %} #}
   {# {% include "utils/gallery_scripts.html" %} #}
 
-  <div id="hotelbooking" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="hotelbookingLabel" aria-hidden="true">
-    <div class="modal-centered">
-      <div class="cell">
-        <div class="inner">
-          <div class="modal-body">
-            <p></p>
-            <iframe style="" src="https://buchung1.visitberlin.de/hotelbuchung/controller?command=part&partid=93597537563" width="500px" height="500px" name="SELFHTML_in_a_box">
-            <p>Ihr Browser kann leider keine eingebetteten Frames anzeigen:
-              Sie k&ouml;nnen die eingebettete Seite &uuml;ber den folgenden Verweis
-              aufrufen: <a href="../../../index.htm">SELFHTML</a></p>
-            </iframe>
-            <button id="hotel-cancel" name="cancel" class="btn" data-dismiss="modal" aria-hidden="true">×</button>
-          </div>
+  <div class="modal fade" id="hotelbooking" tabindex="-1" role="dialog" aria-labelledby="hotelbookingLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body" style="background: #fff;">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <iframe style="border:none" src="https://buchung1.visitberlin.de/hotelbuchung/controller?command=part&partid=93597537563" width="500px" height="500px" name="SELFHTML_in_a_box">
+          <p>Ihr Browser kann leider keine eingebetteten Frames anzeigen:
+            Sie k&ouml;nnen die eingebettete Seite &uuml;ber den folgenden Verweis
+            aufrufen: <a href="../../../index.htm">SELFHTML</a></p>
+          </iframe>
         </div>
       </div>
     </div>
