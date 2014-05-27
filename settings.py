@@ -64,12 +64,12 @@ STATIC_ROOT = os.path.join(PROJECT_PATH, "museumsportal", "static")
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(STATIC_ROOT)
+STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(os.path.join(PROJECT_PATH, "museumsportal"))
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/static/%s/admin/' % get_git_changeset(STATIC_ROOT)
+ADMIN_MEDIA_PREFIX = '/static/%s/admin/' % get_git_changeset(os.path.join(PROJECT_PATH, "museumsportal"))
 
 # Additional locations of static files
 STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "museumsportal", "site_static")]
