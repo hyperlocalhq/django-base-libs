@@ -12,6 +12,15 @@ function isotope_list() {
             fitRows: { columnWidth: Math.floor($container.width() / 12) }
         });
     });
+    $('.isotope-masonry').each(function(){
+        var $container = $(this);
+        $container.isotope({
+            itemSelector : '.item',
+            resizable: false, // disable normal resizing
+            layoutMode: 'masonry',
+            masonry: { columnWidth: Math.floor($container.width() / 12) }
+        });
+    });
 }
 
 function lazyload_images() {

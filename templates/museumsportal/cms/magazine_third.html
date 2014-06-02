@@ -33,7 +33,7 @@
       <div class="container">
         <h2>{% trans "Additional Contents" %}</h2>
 
-        <div class="row row-sm isotope"> 
+        <div class="row row-sm{% if not request.toolbar.edit_mode %} isotope{% endif %}">
           {% placeholder "series_items_featured" inherit %}
           {% placeholder "series_items" inherit %} 
         </div>

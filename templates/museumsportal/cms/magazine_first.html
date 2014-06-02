@@ -10,7 +10,7 @@
 					{% placeholder "intro" %}
 				</div>
 			</div>
-			<div class="row isotope">
+			<div class="row{% if not request.toolbar.edit_mode %} isotope{% endif %}">
 				{% with "cms/plugins/editorial_content/ec_magazine_firstlevel_item.html" as editorial_content_template %}
 					{% placeholder "magazine_overview" %}
 					{% placeholder "main_content" %}
