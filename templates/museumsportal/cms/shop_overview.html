@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load cms_tags %}
-{% block bodyclass %}magazine_overview{% endblock %}
+{% block bodyclass %}shop_overview{% endblock %}
 
 {% block content %}
 <div class="content">
@@ -15,13 +15,9 @@
 
 <div class="content">
 	<div class="container">
-		<div class="row{% if not request.toolbar.edit_mode %} isotope{% endif %}">
-			{% with "cms/plugins/editorial_content/ec_shop_overview_item.html" as editorial_content_template %}
-				{% placeholder "shop_overview" %}
-				{% placeholder "main_content" %}
-				{% placeholder "marginal_content" %}
-			{% endwith %}
-		</div>
+		{% with "cms/plugins/editorial_content/ec_shop_overview_item.html" as editorial_content_template %}
+			{% placeholder "main_content" %}
+		{% endwith %}
 	</div>
 </div>
 {% endblock %}
