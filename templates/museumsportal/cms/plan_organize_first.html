@@ -10,7 +10,7 @@
   				{% placeholder "intro" %}
   			</div>
   		</div>
-      <div class="row isotope">
+      <div class="row{% if not request.toolbar.edit_mode %} isotope{% endif %}">
     		{% with "cms/plugins/editorial_content/ec_planorg_firstlevel_item.html" as editorial_content_template %}
           {% placeholder "plan_organize_first" %}
     		{% endwith %}

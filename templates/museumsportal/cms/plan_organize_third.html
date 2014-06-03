@@ -42,7 +42,7 @@
 <div class="content">
   <div class="container">
     <h2>{% trans "Additional Contents" %}</h2>
-    <div class="row row-sm isotope">
+    <div class="row row-sm{% if not request.toolbar.edit_mode %} isotope{% endif %}">
       {% with 1 as hide_ads %}
         {% with "cms/plugins/editorial_content/ec_planorg_firstlevel_inherited_item.html" as editorial_content_template %}
           {% placeholder "plan_organize_first" inherit %}
