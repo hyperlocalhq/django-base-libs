@@ -24,18 +24,23 @@
 				{% endwith %}
 			</div>
 			<div class="col-xs-12 col-sm-5 col-md-4 col-lg-4">
-				{% if LANGUAGE_CODE == "de" %}
-					<ul id="side_nav">{% show_menu_below_id "planen_organisieren" 0 100 0 100 "menu/side_menu.html" %}</ul>
-				{% else %}
-					<ul id="side_nav">{% show_menu_below_id "plan_organize" 0 100 0 100 "menu/side_menu.html" %}</ul>
-				{% endif %}	
+				<div class="row">
+					<div class="col-xs-12">
+						{% if LANGUAGE_CODE == "de" %}
+							<ul id="side_nav">{% show_menu_below_id "planen_organisieren" 0 100 0 100 "menu/side_menu.html" %}</ul>
+						{% else %}
+							<ul id="side_nav">{% show_menu_below_id "plan_organize" 0 100 0 100 "menu/side_menu.html" %}</ul>
+						{% endif %}	
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						{% load advertising_tags %}
+						{% random_zone_ad 'plan_organize_second' %}
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div class="container hidden">
-		{% load advertising_tags %}
-		{% random_zone_ad 'plan_organize_second' %}
 	</div>
 	
 {% comment %}
