@@ -3,21 +3,14 @@
 {% block bodyclass %}plan_organize secondlevel{% endblock %}
 
 {% block content %}
-{% comment %}
-<div class="content">
-  <div class="container">
-    <div class="row"> 
-      <div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
-        {% placeholder "intro" %}
-      </div>
-    </div>
-  </div>
-</div>
-{% endcomment %}
 <div class="content ">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
+				<div class="col-xs-12">
+					{% placeholder "intro" %}
+				</div>
+				<div class="clearfix"></div>
 				{% with "cms/plugins/editorial_content/ec_planorg_secondlevel_item.html" as editorial_content_template %}
 					{% placeholder "plan_organize_second" %}
 					{% placeholder "main_content" %}

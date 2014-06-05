@@ -7,17 +7,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
-				<div class="row"> 
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						{% placeholder "intro" %}
-					</div>
+				<div class="col-xs-12">
+					{% placeholder "intro" %}
 				</div>
-				<div class="row">
-					{% with "cms/plugins/editorial_content/ec_planorg_thirdlevel_item.html" as editorial_content_template %}
-						{% placeholder "plan_organize_third" %}
-						{% placeholder "main_content" %}
-					{% endwith %}
-				</div>
+				<div class="clearfix"></div>
+				{% with "cms/plugins/editorial_content/ec_planorg_thirdlevel_item.html" as editorial_content_template %}
+					{% placeholder "plan_organize_third" %}
+					{% placeholder "main_content" %}
+				{% endwith %}
 			</div>
 			<div class="col-xs-12 col-sm-5 col-md-4 col-lg-4">
 				<div class="row">
