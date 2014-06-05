@@ -1,3 +1,5 @@
+/* global settings:false */
+
 $(window).load(function() {
     var MAPPER = {
         // de
@@ -18,22 +20,26 @@ $(window).load(function() {
     var $mega = $('#mega_drop_down_menu');
     $mega.load('/' + settings.lang + '/helper/menu/', function() {
         loaded = true;
-        $top_nav.css('position', 'relative').hover(function() {
-            if ($('.navbar-wrapper').is('.on')) {
-                $mega.css('position', 'fixed');
-            } else {
-                $mega.css('position', 'absolute');
+        $top_nav.hover(function() {
+            if (window.innerWidth > 767) {
+                if ($('.navbar-wrapper').is('.on')) {
+                    $mega.css('position', 'fixed');
+                } else {
+                    $mega.css('position', 'absolute');
+                }
+                $mega.removeClass('hide');
             }
-            $mega.removeClass('hide');
         }, function() {
             $mega.addClass('hide');
         });
         $('li', $top_nav).hover(function() {
-            $('.mega_drop_down', $mega).addClass('hide');
-            var cssClasses = $(this).attr('class') || '';
-            var m = cssClasses.match(/\bmenu-\S+/);
-            if (m) {
-                $('#' + MAPPER[m[0]]).removeClass('hide');
+            if (window.innerWidth > 767) {
+                $('.mega_drop_down', $mega).addClass('hide');
+                var cssClasses = $(this).attr('class') || '';
+                var m = cssClasses.match(/\bmenu-\S+/);
+                if (m) {
+                    $('#' + MAPPER[m[0]]).removeClass('hide');
+                }
             }
         });
         /*
