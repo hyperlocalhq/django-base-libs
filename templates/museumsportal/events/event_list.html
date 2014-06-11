@@ -23,7 +23,7 @@ var str_filter_selection = "{% trans "Filter selection" %}";
         <div class="list-controls">
           <a class="btn btn-info pull-right" href="{% url "event_list_map" %}">{% trans "Show map" %}</a>
           <div class="btn-group pull-left" style="margin-right: 15px;">
-            <button id="toggle-list-filter" class="btn btn-info"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}</button>
+            <button id="toggle-list-filter" class="btn btn-info"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
             <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
           </div>
           <ul id="filter-summary" class="pull-left">
