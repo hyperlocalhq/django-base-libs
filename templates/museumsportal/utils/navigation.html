@@ -1,4 +1,4 @@
-{% load menu_tags i18n base_tags %}
+{% load menu_tags i18n base_tags sekizai_tags %}
 
 <div class="navbar-wrapper">
   <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="80">
@@ -161,10 +161,12 @@
         {% endcomment %}
         {% if not request.is_mobile %}
           <!--TODO: move the style to (s)css and create media queries for different widths of the mega drop down menu -->
-          <div style="position: relative">
-            <div id="mega_drop_down_menu" style="position: fixed; z-index: 20; width: 970px; margin-left: -15px; background: #eee; top: 50px;"></div>
+          <div class="mega-dropdown">
+            <div id="mega_drop_down_menu" class="container"></div>
           </div>
-          <script type="text/javascript" src="{{ STATIC_URL }}site/js/mega_drop_down_menu.min.js"></script>
+          {% addtoblock "js" %}
+            <script type="text/javascript" src="{{ STATIC_URL }}site/js/mega_drop_down_menu.min.js"></script>
+          {% endaddtoblock %}
         {% endif %}
       </div>
     </div><!-- /.navbar-collapse -->
