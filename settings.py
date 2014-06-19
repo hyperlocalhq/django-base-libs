@@ -227,6 +227,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.search",
     "museumsportal.apps.external_services",
     "museumsportal.apps.internal_links",
+	"museumsportal.apps.shop",
 
     # the following apps are copied and converted from jetson
     "museumsportal.apps.mailchimp",
@@ -274,6 +275,9 @@ ADMIN_APP_INDEX = (
             }),
             ('blog', {
                 'models': ('Blog','Post',),
+            }),
+            ('shop', {
+                'models': ('ShopProductCategory','ShopProductType','ShopProduct',),
             }),
         )
     },
