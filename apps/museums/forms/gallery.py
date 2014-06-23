@@ -87,18 +87,20 @@ class ImageFileForm(forms.Form):
         fieldset_content.append(
             "goto_next",
         )
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('title_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('description_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
         fieldset_content.append(
             "author"
         )
@@ -114,14 +116,12 @@ class ImageFileForm(forms.Form):
                 {% trans "Add Image" %}
             {% endif %}
             """,
-            layout.Row(
-                layout.Div(
-                    layout.HTML(u"""{% load i18n base_tags image_modifications %}
+            layout.HTML(u"""{% load i18n base_tags image_modifications %}
+            <div class="row row-md">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div id="image_preview">
                         {% if media_file.path %}
                             <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"medium" }}?now={% now "YmdHis" %}" alt="" />
-                            {% parse "{{ museum.get_url_path }}change/" as goto_next %}
-                            <input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
                         {% endif %}
                     </div>
 
@@ -133,16 +133,17 @@ class ImageFileForm(forms.Form):
                         </div>
                         <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
                     {% endif %}
-                    """),
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                    *fieldset_content
-                ),
-                css_class="row-md",
-            ),
-            css_class="fieldset-media-file"
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    {% if media_file.path %}
+                        {% parse "{{ museum.get_url_path }}change/" as goto_next %}
+                        <input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
+                    {% endif %}
+                </div>
+            </div>
+            """),
+            css_class="fieldset-media-file",
+            *fieldset_content
         ))
 
         layout_blocks.append(bootstrap.FormActions(

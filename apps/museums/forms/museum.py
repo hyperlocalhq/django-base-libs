@@ -82,54 +82,60 @@ class BasicInfoForm(ModelForm):
             _("Basic Info"),
 
             layout.HTML("""{% load i18n %}
-                <div class="multilingual lang-de" data-lang="de">
-                    <div id="div_id_title_de" class="form-group">
-                        <label for="id_title_de" class="control-label requiredField">{% trans "Name" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
-                        <div class="controls">
-                            <input disabled="disabled" name="title_de" value="{{ museum.title_de|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_title_de">
+                <div class="row row-md">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_title_de" class="form-group">
+                            <label for="id_title_de" class="control-label requiredField">{% trans "Name" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
+                            <div class="controls">
+                                <input disabled="disabled" name="title_de" value="{{ museum.title_de|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_title_de">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="multilingual lang-en" data-lang="en">
-                    <div id="div_id_title_en" class="form-group">
-                        <label for="id_title_de" class="control-label requiredField">{% trans "Name" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
-                        <div class="controls">
-                            <input disabled="disabled" name="title_en" value="{{ museum.title_en|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_title_en">
-                        </div>
-                    </div>
-                </div>
-                <div class="multilingual lang-de" data-lang="de">
-                    <div id="div_id_subtitle_de" class="form-group">
-                        <label for="id_subtitle_de" class="control-label requiredField">{% trans "Subtitle" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
-                        <div class="controls">
-                            <input disabled="disabled" name="subtitle_de" value="{{ museum.subtitle_de|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_subtitle_de">
-                        </div>
-                    </div>
-                </div>
-                <div class="multilingual lang-en" data-lang="en">
-                    <div id="div_id_subtitle_en" class="form-group">
-                        <label for="id_subtitle_en" class="control-label requiredField">{% trans "Subtitle" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
-                        <div class="controls">
-                            <input disabled="disabled" name="subtitle_en" value="{{ museum.subtitle_en|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_subtitle_en">
-                        </div>
-                    </div>
-                </div>
-                <div class="multilingual lang-de" data-lang="de">
-                    <div id="div_id_description_de" class="form-group">
-                        <label for="id_description_de" class="control-label requiredField">{% trans "Description" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
-                        <div class="controls">
-                            <div id="id_description_de" name="description_de" class="form-control textarea" aria-hidden="true">
-                                {{ museum.description_de|safe }}
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_title_en" class="form-group">
+                            <label for="id_title_de" class="control-label requiredField">{% trans "Name" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
+                            <div class="controls">
+                                <input disabled="disabled" name="title_en" value="{{ museum.title_en|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_title_en">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="multilingual lang-en" data-lang="en">
-                    <div id="div_id_description_en" class="form-group">
-                        <label for="id_description_en" class="control-label requiredField">{% trans "Description" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
-                        <div class="controls">
-                            <div id="id_description_en" name="description_en" class="form-control textarea" aria-hidden="true">
-                                {{ museum.description_en|safe }}
+                <div class="row row-md">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_subtitle_de" class="form-group">
+                            <label for="id_subtitle_de" class="control-label requiredField">{% trans "Subtitle" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
+                            <div class="controls">
+                                <input disabled="disabled" name="subtitle_de" value="{{ museum.subtitle_de|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_subtitle_de">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_subtitle_en" class="form-group">
+                            <label for="id_subtitle_en" class="control-label requiredField">{% trans "Subtitle" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
+                            <div class="controls">
+                                <input disabled="disabled" name="subtitle_en" value="{{ museum.subtitle_en|escape }}" class="textinput textInput form-control form_text" maxlength="255" type="text" id="id_subtitle_en">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-md">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_description_de" class="form-group">
+                            <label for="id_description_de" class="control-label requiredField">{% trans "Description" %} <span class="lang">DE</span><span class="asteriskField">*</span></label>
+                            <div class="controls">
+                                <div id="id_description_de" name="description_de" class="form-control textarea" aria-hidden="true">
+                                    {{ museum.description_de|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="div_id_description_en" class="form-group">
+                            <label for="id_description_en" class="control-label requiredField">{% trans "Description" %} <span class="lang">EN</span><span class="asteriskField">*</span></label>
+                            <div class="controls">
+                                <div id="id_description_en" name="description_en" class="form-control textarea" aria-hidden="true">
+                                    {{ museum.description_en|safe }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -283,12 +289,13 @@ class SeasonForm(ModelForm):
         layout_blocks = []
 
         fieldset_content = []  # collect multilingual divs into one list...
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('title_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
         fieldset_content += [
             layout.Row(
                 layout.Div(
@@ -419,18 +426,20 @@ class SeasonForm(ModelForm):
         ))
 
         fieldset_content = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('last_entry_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('exceptions_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
         fieldset_content.append(
             layout.Field('id'),
         )
@@ -472,17 +481,21 @@ class SpecialOpeningTimeForm(ModelForm):
         self.fields['yyyy'].choices[0] = ("", _("Every year"))
         self.fields['yyyy'].help_text = ""
 
+        self.fields['day_label_de'].help_text = u"e.g. Weihnachten, Ostern, etc."
+        self.fields['day_label_de'].help_text = u"e.g. Christmas, Easter, etc."
+
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
 
         fieldset_content = []  # collect multilingual divs into one list...
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('day_label_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Occasion"),
@@ -536,12 +549,13 @@ class SpecialOpeningTimeForm(ModelForm):
         ))
 
         fieldset_content = []  # collect multilingual divs into one list...
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('exceptions_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
         fieldset_content.append(
             layout.Field('id'),
         )
@@ -611,12 +625,13 @@ class PricesForm(ModelForm):
         fieldset_content.append(
             layout.Field('admission_price', placeholder=decimalfmt(0, "#,##0.00"))
         )
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('admission_price_info_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Admission"),
@@ -628,12 +643,13 @@ class PricesForm(ModelForm):
         fieldset_content.append(
             layout.Field('reduced_price', placeholder=decimalfmt(0, "#,##0.00"))
         )
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('reduced_price_info_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Reduced Prices"),
@@ -651,12 +667,13 @@ class PricesForm(ModelForm):
                 css_class="checkbox-group"
             )
         )
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('group_ticket_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Offers"),
@@ -988,12 +1005,13 @@ class AccessibilityForm(ModelForm):
         layout_blocks = []
 
         fieldset_content = []
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
-                layout.Field('accessibility_%s' % lang_code, css_class="tinymce"),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('accessibility_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
         fieldset_content.append(
             "accessibility_options"
         )

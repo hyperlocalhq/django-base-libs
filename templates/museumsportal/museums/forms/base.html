@@ -41,8 +41,6 @@
             {% endif %}
         {% endblock %}
         <div id="form-meta">
-            {% block form_language_switcher %} {% endblock %}
-
             <a class="pull-right btn btn-primary" id="preview_page" href="{{ museum.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
         </div>
         {% include "utils/step_list.html" %}

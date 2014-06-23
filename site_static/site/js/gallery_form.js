@@ -100,7 +100,7 @@
         };
         var options = $.extend(translatable_file_uploader_options, {
             allowedExtensions: ['gif', 'jpg', 'png', 'tif', 'bmp'],
-            action: "/helper/ajax-upload/",
+            action: '/' + self.settings.lang + '/helper/ajax-upload/',
             element: $('#image_uploader')[0],
             multiple: false,
             onComplete: function(id, fileName, responseJSON) {
@@ -109,7 +109,7 @@
                     // set the original to media_file_path
                     $('#id_media_file_path').val('uploads/' + fileName);
                     // load the modified version for the preview
-                    $.post('/helper/modified-path/', {
+                    $.post('/' + self.settings.lang + '/helper/modified-path/', {
                         file_path: 'uploads/' + fileName,
                         mod_sysname: 'medium'
                     }, function(data, textStatus, jqXHR) {
