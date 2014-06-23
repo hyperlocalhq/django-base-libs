@@ -3,7 +3,6 @@
 /* global jQuery: false */
 /* global qq: false */
 /* global translatable_file_uploader_options: false */
-/* global activate_form_language: false */
 /* global lazyload_images: false */
 (function($, undefined) {
     function reinit() {
@@ -26,7 +25,7 @@
                     create: function() {
                         var list = this;
                         var resize = function(){
-                            $(list).css("height","auto");
+                            $(list).css("height", "auto");
                             //$(list).height($(list).height());
                         };
                         // $(list).height($(list).height());
@@ -66,7 +65,6 @@
     });
     function edit_photo_loaded() {
         $('textarea').autosize();
-        activate_form_language(window.settings.lang);
 
         $('#button-id-cancel').click(function() {
             $('#edit_photo').html("");

@@ -42,8 +42,6 @@
         {% endblock %}
 
         <div id="form-meta">
-            {% block form_language_switcher %} {% endblock %}
-            
             {% if event %}
                 <div id="pub-status" class="status">
                     <select class="status-switch" data-url="{{ event.get_url_path }}status/">
