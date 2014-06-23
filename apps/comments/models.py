@@ -37,6 +37,8 @@ IS_PUBLIC = 'ip'
 DEFAULT_KARMA = 5
 KARMA_NEEDED_BEFORE_DISPLAYED = 3
 
+COMMENTS_BANNED_USERS_GROUP = getattr(settings, "COMMENTS_BANNED_USERS_GROUP", "")
+
 class CommentManager(models.Manager):
     def get_security_hash(self, options, photo_options, rating_options, target):
         """

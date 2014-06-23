@@ -12,6 +12,7 @@ from base_libs.forms.fields import SecurityField
 from museumsportal.apps.comments.models import Comment
 from museumsportal.apps.comments.models import PHOTOS_REQUIRED, PHOTOS_OPTIONAL, RATINGS_REQUIRED, RATINGS_OPTIONAL, IS_PUBLIC
 from museumsportal.apps.comments.models import MIN_PHOTO_DIMENSION, MAX_PHOTO_DIMENSION
+from museumsportal.apps.comments.models import COMMENTS_BANNED_USERS_GROUP
 from museumsportal.apps.comments.views.comments import PublicCommentForm
 
 register = template.Library()
