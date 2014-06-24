@@ -152,30 +152,34 @@ class BasicInfoForm(ModelForm):
         layout_blocks = []
 
         fieldset_content = []  # collect multilingual divs into one list...
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('title_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('subtitle_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('press_text_%s' % lang_code, css_class="tinymce"),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('website_%s' % lang_code, placeholder="http://"),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Basic Info"),
@@ -442,12 +446,13 @@ class PricesForm(ModelForm):
                 css_class="cols-2",
             )
         )
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('admission_price_info_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Prices"),
@@ -456,18 +461,20 @@ class PricesForm(ModelForm):
         ))
 
         fieldset_content = []  # collect multilingual divs into one list...
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('meeting_place_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
-        for lang_code, lang_name in FRONTEND_LANGUAGES:
-            fieldset_content.append(layout.Div(
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
                 layout.Field('booking_info_%s' % lang_code),
-                css_class="multilingual lang-%s" % lang_code,
-                data_lang=lang_code,
-            ))
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
 
         layout_blocks.append(layout.Fieldset(
             _("Details"),
@@ -667,31 +674,40 @@ class BatchEventTimeForm(forms.Form):
         layout_blocks.append(layout.Fieldset(
             _("Batch event time creation"),
             
-            layout.Div(
-                layout.Field("range_start", placeholder="dd.mm.yyyy"),
-                layout.Field("range_end", placeholder="dd.mm.yyyy"),
-                css_class="cols-2",
+            layout.Row(
+                layout.Div(
+                    layout.Field("range_start", placeholder="dd.mm.yyyy"),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ),
+                layout.Div(
+                    layout.Field("range_end", placeholder="dd.mm.yyyy"),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ),
+                css_class="row-md",
             ),
             "repeat",
-            layout.Div(
-                layout.Field("mon_start", placeholder="00:00"),
-                layout.Field("tue_start", placeholder="00:00"),
-                layout.Field("wed_start", placeholder="00:00"),
-                layout.Field("thu_start", placeholder="00:00"),
-                layout.Field("fri_start", placeholder="00:00"),
-                layout.Field("sat_start", placeholder="00:00"),
-                layout.Field("sun_start", placeholder="00:00"),
-                css_class="cols-7",
-            ),
-            layout.Div(
-                layout.Field("mon_end", placeholder="00:00"),
-                layout.Field("tue_end", placeholder="00:00"),
-                layout.Field("wed_end", placeholder="00:00"),
-                layout.Field("thu_end", placeholder="00:00"),
-                layout.Field("fri_end", placeholder="00:00"),
-                layout.Field("sat_end", placeholder="00:00"),
-                layout.Field("sun_end", placeholder="00:00"),
-                css_class="cols-7",
+            layout.Row(
+                layout.Div(
+                    layout.Field("mon_start", placeholder="00:00"),
+                    layout.Field("tue_start", placeholder="00:00"),
+                    layout.Field("wed_start", placeholder="00:00"),
+                    layout.Field("thu_start", placeholder="00:00"),
+                    layout.Field("fri_start", placeholder="00:00"),
+                    layout.Field("sat_start", placeholder="00:00"),
+                    layout.Field("sun_start", placeholder="00:00"),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ),
+                layout.Div(
+                    layout.Field("mon_end", placeholder="00:00"),
+                    layout.Field("tue_end", placeholder="00:00"),
+                    layout.Field("wed_end", placeholder="00:00"),
+                    layout.Field("thu_end", placeholder="00:00"),
+                    layout.Field("fri_end", placeholder="00:00"),
+                    layout.Field("sat_end", placeholder="00:00"),
+                    layout.Field("sun_end", placeholder="00:00"),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ),
+                css_class="row-md",
             ),
         ))
         
