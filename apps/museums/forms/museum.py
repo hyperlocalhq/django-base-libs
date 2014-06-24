@@ -1008,7 +1008,7 @@ class AccessibilityForm(ModelForm):
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('accessibility_%s' % lang_code),
+                layout.Field('accessibility_%s' % lang_code, css_class="tinymce"),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))

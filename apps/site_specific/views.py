@@ -65,8 +65,8 @@ def login(request, template_name='registration/login.html', redirect_field_name=
                 login_as_user.backend = user.backend
                 user = login_as_user
             login(request, user)
-            if not redirect_to.startswith("http"):
-                redirect_to = smart_str(get_website_url(redirect_to))
+            #if not redirect_to.startswith("http"):
+            #    redirect_to = smart_str(get_website_url(redirect_to))
             if request.is_ajax():
                 return HttpResponse("redirect=%s" % redirect_to)
             if user.groups.filter(name="Museum Owners").count():

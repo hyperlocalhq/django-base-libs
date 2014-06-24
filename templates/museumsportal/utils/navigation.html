@@ -39,7 +39,7 @@
             <div class="btn-group">
               <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                 {% blocktrans with first_name=request.user.first_name|default:request.user.username %}{{ first_name }}{% endblocktrans %}
-				<span class="caret black"></span>
+				        <span class="caret black"></span>
               </button>
               <ul class="dropdown-menu pull-right" role="menu">
                 {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
