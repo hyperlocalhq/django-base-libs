@@ -3423,6 +3423,9 @@ a.img-detail.loaded:hover img {
   font-weight: 400;
   height: 40px;
 }
+#picker ul.body {
+  list-style-type: none;
+}
 #picker .body {
   padding-left: 30px;
   padding-right: 30px;
@@ -3544,6 +3547,7 @@ a.img-detail.loaded:hover img {
 }
 #picker footer button {
   height: 80px;
+  border: none;
 }
 #picker footer button.done {
   float: left;
