@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
@@ -21,16 +20,13 @@ from museumsportal.apps.exhibitions.models import Exhibition
 from museumsportal.apps.events.models import Event
 from museumsportal.apps.workshops.models import Workshop
 
-
-
 STATUS_CHOICES = (
     ('draft', _("Draft")),
     ('published', _("Published")),
 )
 
 
-
-class ShopProductType(MPTTModel, CreationModificationDateMixin, SlugMixin()):
+class ShopProductType(MPTTModel, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
     title = MultilingualCharField(_('Title'), max_length=255)
     
@@ -45,8 +41,7 @@ class ShopProductType(MPTTModel, CreationModificationDateMixin, SlugMixin()):
         verbose_name_plural = _("Product Types")
 
         
-class ShopProductCategory(models.Model):
-
+class ShopProductCategory(SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     
     def __unicode__(self):
@@ -59,12 +54,11 @@ class ShopProductCategory(models.Model):
         
 
 class ShopProduct(CreationModificationDateMixin, SlugMixin()):
-
     title = MultilingualCharField(_("Name"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
-    image = FileBrowseField(_('Image'), max_length=255, directory="shop/", extensions=['.jpg', '.jpeg', '.gif','.png'])
-    price = models.CharField(_('Price'), max_length=10)
+    image = FileBrowseField(_('Image'), max_length=255, directory="shop/", extensions=['.jpg', '.jpeg', '.gif', '.png'])
+    price = models.DecimalField(_(u"Price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     link = models.URLField(_('Order link'), max_length=255)
     product_categories = models.ManyToManyField(ShopProductCategory, verbose_name=_("Categories"), blank=True, null=True)
     product_types = TreeManyToManyField(ShopProductType, verbose_name=_("Types"), blank=True, null=True)
@@ -77,7 +71,6 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
     is_for_children = models.BooleanField(_('Is for children'), blank=True)
     is_new = models.BooleanField(_('New'), blank=True)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
-
 
     def __unicode__(self):
         return self.title
@@ -95,4 +88,3 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
         ordering = ['title']
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
-

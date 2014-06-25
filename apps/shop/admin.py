@@ -26,7 +26,8 @@ class ShopProductCategoryAdmin(ExtendedModelAdmin):
 
     save_on_top = True
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    
+    fieldsets += [(None, {'fields': ('slug',)}),]
+
 admin.site.register(ShopProductCategory, ShopProductCategoryAdmin)
 
 

@@ -13,8 +13,6 @@ class Migration(SchemaMigration):
         # Adding model 'ShopProductType'
         db.create_table(u'shop_shopproducttype', south_cleaned_fields((
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
             ('parent', self.gf('mptt.fields.TreeForeignKey')(to=orm['shop.ShopProductType'], null=True, blank=True)),
             ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
@@ -35,6 +33,7 @@ class Migration(SchemaMigration):
         # Adding model 'ShopProductCategory'
         db.create_table(u'shop_shopproductcategory', south_cleaned_fields((
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
             ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
             ('title_de', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
             ('title_en', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
@@ -56,7 +55,7 @@ class Migration(SchemaMigration):
             ('subtitle', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
             ('description', self.gf('base_libs.models.fields.MultilingualTextField')(default='', null=True, blank=True)),
             ('image', self.gf('filebrowser.fields.FileBrowseField')(directory='shop/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'])),
-            ('price', self.gf('django.db.models.fields.CharField')(max_length=10)),
+            ('price', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=5, decimal_places=2, blank=True)),
             ('link', self.gf('django.db.models.fields.URLField')(max_length=255)),
             ('is_featured', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('is_for_children', self.gf('django.db.models.fields.BooleanField')(default=False)),
@@ -876,7 +875,7 @@ class Migration(SchemaMigration):
             'link': ('django.db.models.fields.URLField', [], {'max_length': '255'}),
             'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'museums': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['museums.Museum']", 'null': 'True', 'blank': 'True'}),
-            'price': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
+            'price': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '2', 'blank': 'True'}),
             'product_categories': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['shop.ShopProductCategory']", 'null': 'True', 'blank': 'True'}),
             'product_types': ('mptt.fields.TreeManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['shop.ShopProductType']", 'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
@@ -902,6 +901,7 @@ class Migration(SchemaMigration):
         u'shop.shopproductcategory': {
             'Meta': {'ordering': "['title']", 'object_name': 'ShopProductCategory'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
             'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True'}),
             'title_de': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
             'title_en': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
@@ -913,11 +913,9 @@ class Migration(SchemaMigration):
         },
         u'shop.shopproducttype': {
             'Meta': {'ordering': "['tree_id', 'lft']", 'object_name': 'ShopProductType'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'parent': ('mptt.fields.TreeForeignKey', [], {'to': u"orm['shop.ShopProductType']", 'null': 'True', 'blank': 'True'}),
             'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),

@@ -77,6 +77,12 @@ class ExhibitionFilterForm(dynamicforms.Form):
         choices=CALENDAR_CHOICES,
         required=False,
     )
+    from_date = forms.DateField(
+        required=False,
+    )
+    till_date = forms.DateField(
+        required=False,
+    )
 
 
 def exhibition_list(request):
@@ -157,51 +163,33 @@ def exhibition_list(request):
                 qs = qs.filter(
                     is_for_children=True,
                 )
+        selected_start = None
+        selected_end = None
         cat = form.cleaned_data['calendar']
         if cat:
             facets['selected']['calendar'] = (cat, dict(CALENDAR_CHOICES)[cat])
             today = date.today()
             if cat == "today":
-                qs = qs.filter(
-                    start__lte=today,
-                    end__gte=today,
-                )
+                selected_start = today
             if cat == "tomorrow":
-                tomorrow = today + timedelta(days=1)
-                qs = qs.filter(
-                    start__lte=tomorrow,
-                    end__gte=tomorrow,
-                )
+                selected_start = today + timedelta(days=1)
             if cat == "within_7_days":
                 selected_start = today
                 selected_end = selected_start + timedelta(days=7)
-                # Get events which start date is within the selected range
-                # -----[--selected range--]----- time ->
-                #            [-event-]
-                #                   [-event-]
-                conditions = models.Q(
-                    start__gte=selected_start,
-                    start__lte=selected_end,
-                )
-                # .. which started before and will end after the selected range
-                # -----[-selected range-]------- time ->
-                #    [------event---------]
-                conditions |= models.Q(
-                    start__lte=selected_start,
-                    end__gte=selected_end,
-                )
-                # .. or which end date is within the selected range
-                # -----[--selected range--]----- time ->
-                #          [-event-]
-                #   [-event-]
-                conditions |= models.Q(
-                    end__gte=selected_start,
-                    end__lte=selected_end,
-                )
-                qs = qs.filter(conditions)
             if cat == "within_30_days":
                 selected_start = today
                 selected_end = selected_start + timedelta(days=30)
+        from_date = form.cleaned_data['from_date']
+        if from_date:
+            facets['selected']['from_date'] = from_date
+            selected_start = from_date
+        till_date = form.cleaned_data['till_date']
+        if till_date:
+            facets['selected']['till_date'] = till_date
+            selected_end = till_date
+
+        if selected_start:
+            if selected_end:
                 # Get events which start date is within the selected range
                 # -----[--selected range--]----- time ->
                 #            [-event-]
@@ -226,7 +214,11 @@ def exhibition_list(request):
                     end__lte=selected_end,
                 )
                 qs = qs.filter(conditions)
-
+            else:
+                qs = qs.filter(
+                    start__lte=selected_start,
+                    end__gte=selected_start,
+                )
 
     if closing_soon:
         qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
