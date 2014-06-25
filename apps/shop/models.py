@@ -22,6 +22,14 @@ from museumsportal.apps.events.models import Event
 from museumsportal.apps.workshops.models import Workshop
 
 
+
+STATUS_CHOICES = (
+    ('draft', _("Draft")),
+    ('published', _("Published")),
+)
+
+
+
 class ShopProductType(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
     title = MultilingualCharField(_('Title'), max_length=255)
@@ -50,7 +58,7 @@ class ShopProductCategory(models.Model):
         verbose_name_plural = _("Product Categories")
         
 
-class ShopProduct(models.Model):
+class ShopProduct(CreationModificationDateMixin, SlugMixin()):
 
     title = MultilingualCharField(_("Name"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
@@ -68,6 +76,7 @@ class ShopProduct(models.Model):
     is_featured = models.BooleanField(_('Featured'), blank=True)
     is_for_children = models.BooleanField(_('Is for children'), blank=True)
     is_new = models.BooleanField(_('New'), blank=True)
+    status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
 
     def __unicode__(self):
@@ -75,7 +84,7 @@ class ShopProduct(models.Model):
         
     def get_url_path(self):
         try:
-            path = reverse("shop_product", kwargs={'product_id': self.id})
+            path = reverse("shop_product", kwargs={'slug': self.slug})
         except:
             # the apphook is not attached yet
             return ""

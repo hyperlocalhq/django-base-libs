@@ -54,19 +54,22 @@ class ShopProductAdmin(ExtendedModelAdmin):
         )
         
     save_on_top = True
-    list_display = ('id', 'title', 'subtitle', 'get_categories_display', 'get_types_display', 'price', 'is_featured', 'is_for_children', 'is_new')
-    list_editable = ('is_featured', 'is_for_children', 'is_new')
+    list_display = ('id', 'title', 'subtitle', 'get_categories_display', 'get_types_display', 'price', 'is_featured', 'is_for_children', 'is_new', 'status')
+    list_editable = ('is_featured', 'is_for_children', 'is_new', 'status')
     list_display_links = ('title', )
-    list_filter = ('is_featured', 'is_for_children', 'is_new', 'product_categories', 'product_types', 'museums', 'exhibitions', 'events', 'workshops', 'languages')
-    search_fields = ('title', 'subtitle')
+    list_filter = ('product_categories', 'product_types', 'is_featured', 'is_for_children', 'is_new', 'languages', 'creation_date', 'status')
+    search_fields = ('title', 'subtitle', 'slug')
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description',])
+    fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(None, {'fields': ('image', 'price', 'link', 'languages')}),]
     fieldsets += [('Categories', {'fields': ('product_categories', 'product_types')}),]
     fieldsets += [('Relations', {'fields': ('museums', 'exhibitions', 'events', 'workshops')}),]
     fieldsets += [(None, {'fields': ('is_featured', 'is_for_children', 'is_new')})]
+    fieldsets += [(_("Status"), {'fields': ('status',)}),]
 
     filter_horizontal = ('museums', 'exhibitions', 'events', 'workshops', 'product_categories', 'product_types', 'languages')
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     
     
     def get_categories_display(self, obj):
