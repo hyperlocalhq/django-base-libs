@@ -426,8 +426,3 @@ def confirm_registration(request, encrypted_email):
     return redirect('/signup/welcome/')
 
 uploader = AjaxFileUploader()
-
-
-def mega_drop_down_menu(request):
-    context = {'test': "TEST"}
-    return render(request, "site_specific/mega_drop_down_menu.html", context)

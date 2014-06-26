@@ -90,7 +90,7 @@ urlpatterns += i18n_patterns('',
     url(r'^helper/museum_attrs/(?P<museum_id>[0-9]+)/$', 'museumsportal.apps.museums.views.json_museum_attrs'),
     url(r'^helper/ajax-upload/$', 'museumsportal.apps.site_specific.views.uploader', name="ajax_uploader"),
     url(r'^helper/modified-path/$', 'jetson.apps.image_mods.views.get_or_create_modified_path', name="modified_path"),
-    url(r'^helper/menu/$', 'museumsportal.apps.site_specific.views.mega_drop_down_menu', name="mega_drop_down_menu"),
+    url(r'^helper/menu/$', 'museumsportal.apps.mega_menu.views.mega_drop_down_menu', name="mega_drop_down_menu"),
 
     # i18n
     url(r'^i18n/', 'jetson.apps.utils.views.set_language', name="set_language"),

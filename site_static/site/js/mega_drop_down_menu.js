@@ -32,7 +32,7 @@ $(window).load(function() {
         }, function() {
             $mega.addClass('hide');
         });
-        $('li', $top_nav).hover(function() {
+        $('ul.nav>li', $top_nav).hover(function() {
             if (window.innerWidth > 767) {
                 $('.mega_drop_down', $mega).addClass('hide');
                 var cssClasses = $(this).attr('class') || '';

@@ -237,6 +237,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.advertising",
     "museumsportal.apps.advertising.plugins.cms_ads",
     "museumsportal.apps.comments",
+    "museumsportal.apps.mega_menu",
 )
 
 
@@ -345,6 +346,9 @@ ADMIN_APP_INDEX = (
             }),
             ('configuration', {
                 'models': ("SiteSettings",),
+            }),
+            ('mega_menu', {
+                'models': ("MenuBlock",),
             }),
         )
     }
