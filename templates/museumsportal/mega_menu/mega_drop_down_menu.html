@@ -62,7 +62,7 @@
             {{ menu_block.get_rendered_center_column }}
           </div>
         {% endif %}
-        <div class="calendar"></div>
+        <div class="calendar" data-url="{% url "exhibition_list" %}"></div>
       </div>
       <div class="col-sm-4">
         {% if menu_block.right_column_link %}
@@ -110,7 +110,7 @@
             {{ menu_block.get_rendered_center_column }}
           </div>
         {% endif %}
-        <div class="calendar"></div>
+        <div class="calendar" data-url="{% url "event_list" %}"></div>
       </div>
       <div class="col-sm-4">
         {% if menu_block.right_column_link %}
@@ -158,7 +158,7 @@
             {{ menu_block.get_rendered_center_column }}
           </div>
         {% endif %}
-        <div class="calendar"></div>
+        <div class="calendar" data-url="{% url "workshop_list" %}"></div>
       </div>
       <div class="col-sm-4">
         {% if menu_block.right_column_link %}

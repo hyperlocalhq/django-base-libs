@@ -77,6 +77,9 @@ class ExhibitionFilterForm(dynamicforms.Form):
         choices=CALENDAR_CHOICES,
         required=False,
     )
+    selected_date = forms.DateField(
+        required=False,
+    )
     from_date = forms.DateField(
         required=False,
     )
@@ -179,6 +182,10 @@ def exhibition_list(request):
             if cat == "within_30_days":
                 selected_start = today
                 selected_end = selected_start + timedelta(days=30)
+        selected_date = form.cleaned_data['selected_date']
+        if selected_date:
+            facets['selected']['selected_date'] = selected_date
+            selected_start = selected_date
         from_date = form.cleaned_data['from_date']
         if from_date:
             facets['selected']['from_date'] = from_date
