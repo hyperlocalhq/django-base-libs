@@ -1,5 +1,3 @@
-/* global settings:false */
-
 $(window).load(function() {
     var MAPPER = {
         // de
@@ -314,11 +312,11 @@ $(window).load(function() {
 				navStep: 10
 		}],
 		dates:{
-			days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
-			daysShort: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
-			daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
-			months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-			monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
+			days: window.WEEKDAYS,
+			daysShort: window.WEEKDAYS_SHORT,
+			daysMin: window.WEEKDAYS_SHORT,
+			months: window.MONTHS,
+			monthsShort: window.MONTHS_SHORT
 		},
 		isLeapYear: function (year) {
 			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
@@ -327,7 +325,7 @@ $(window).load(function() {
 			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 		},
 		parseFormat: function(format){
-			var separator = format.match(/[.\/\-\s].*?/),
+			var separator = format.match(/[\-.\/\s].*?/),
 				parts = format.split(/\W+/);
 			if (!separator || !parts || parts.length === 0){
 				throw new Error("Invalid date format.");
@@ -413,7 +411,7 @@ $(window).load(function() {
     var loaded = false;
     var $top_nav = $('#top_nav');
     var $mega = $('#mega_drop_down_menu');
-    $mega.load('/' + settings.lang + '/helper/menu/', function() {
+    $mega.load('/' + window.settings.lang + '/helper/menu/', function() {
         $('.calendar', $mega).each(function() {
             var $this = $(this).html(DPGlobal.template);
             var $input = $('<input type="hidden" />');
