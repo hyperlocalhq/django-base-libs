@@ -95,6 +95,11 @@
                 <a href="{% append_to_get calendar=cat.0 page="" %}" data-filter-value=".is_{{ cat.0 }}">{{ cat.1 }}</a>
               </li>
             {% endfor %}
+            {% if facets.selected.selected_date %}
+              <li class="active hide" data-param="selected_date" data-value="{{ facets.selected.selected_date|date:"Y-m-d" }}">
+                <a href="{% append_to_get selected_date="" page="" %}" data-filter-value=".is_{{ cat.0 }}">{{ facets.selected.selected_date }}</a>
+              </li>
+            {% endif %}
           </ul>
         </div>
       </div>

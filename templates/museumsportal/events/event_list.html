@@ -27,13 +27,14 @@ var str_filter_selection = "{% trans "Filter selection" %}";
             <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
           </div>
           <ul id="filter-summary" class="pull-left">
-            {% if facets.selected.abc or facets.selected.category or facets.selected.suitable_for_children or facets.selected.free_admission or facets.selected.calendar %}
+            {% if facets.selected.abc or facets.selected.category or facets.selected.suitable_for_children or facets.selected.free_admission or facets.selected.calendar or facets.selected.selected_date %}
               <li><b>{% trans "Filter selection" %}:</b></li>
               {% if facets.selected.abc %}<li data-param="abc" data-value="{{ facets.selected.abc }}"><a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a></li>{% endif %}
               {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
               {% if facets.selected.suitable_for_children %}<li data-param="suitable_for_children" data-value="1"><a href="{% append_to_get suitable_for_children="" %}">{% trans "Suitable for children" %}</a></li>{% endif %}
               {% if facets.selected.free_admission %}<li data-param="free_admission" data-value="1"><a href="{% append_to_get free_admission="" %}">{% trans "Free admission" %}</a></li>{% endif %}
               {% if facets.selected.calendar %}<li data-param="calendar" data-value="{{ facets.selected.calendar.0 }}"><a href="{% append_to_get calendar="" %}">{{ facets.selected.calendar.1 }}</a></li>{% endif %}
+              {% if facets.selected.selected_date %}<li data-param="selected_date" data-value="{{ facets.selected.selected_date|date:"Y-m-d" }}"><a href="{% append_to_get selected_date="" %}">{{ facets.selected.selected_date }}</a></li>{% endif %}
             {% endif %}
           </ul>
         </div>

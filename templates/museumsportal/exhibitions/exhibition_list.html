@@ -33,13 +33,14 @@
             <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
           </div>
           <ul id="filter-summary" class="pull-left">
-            {% if facets.selected.abc or facets.selected.category or facets.selected.subcategory or facets.selected.smart or facets.selected.calendar %}
+            {% if facets.selected.abc or facets.selected.category or facets.selected.subcategory or facets.selected.smart or facets.selected.calendar or facets.selected.selected_date %}
               <li><b>{% trans "Filter selection" %}:</b></li>
               {% if facets.selected.abc %}<li data-param="abc" data-value="{{ facets.selected.abc }}"><a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a></li>{% endif %}
               {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
               {% if facets.selected.subcategory %}<li data-param="subcategory" data-value="{{ facets.selected.subcategory.slug }}"><a href="{% append_to_get subcategory="" %}">{{ facets.selected.subcategory.title }}</a></li>{% endif %}
               {% if facets.selected.smart %}<li data-param="smart" data-value="{{ facets.selected.smart.0 }}"><a href="{% append_to_get smart="" %}">{{ facets.selected.smart.1 }}</a></li>{% endif %}
               {% if facets.selected.calendar %}<li data-param="calendar" data-value="{{ facets.selected.calendar.0 }}"><a href="{% append_to_get calendar="" %}">{{ facets.selected.calendar.1 }}</a></li>{% endif %}
+              {% if facets.selected.selected_date %}<li data-param="selected_date" data-value="{{ facets.selected.selected_date|date:"Y-m-d" }}"><a href="{% append_to_get selected_date="" %}">{{ facets.selected.selected_date }}</a></li>{% endif %}
             {% endif %}
           </ul>
         </div>

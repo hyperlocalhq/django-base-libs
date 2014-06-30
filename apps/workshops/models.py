@@ -330,6 +330,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
                 particularities.append(unicode(self._meta.get_field(f).verbose_name))
         return particularities
 
+
 class WorkshopTime(models.Model):
 
     workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))

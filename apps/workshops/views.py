@@ -78,6 +78,9 @@ class WorkshopFilterForm(dynamicforms.Form):
         choices=CALENDAR_CHOICES,
         required=False,
     )
+    selected_date = forms.DateField(
+        required=False,
+    )
 
 
 def workshop_list(request):
@@ -159,6 +162,15 @@ def workshop_list(request):
                     workshoptime__workshop_date__gte=selected_start,
                     workshoptime__workshop_date__lte=selected_end,
                 )
+        selected_date = form.cleaned_data['selected_date']
+        if selected_date:
+            facets['selected']['selected_date'] = selected_date
+            selected_start = selected_date
+
+        if selected_start:
+            qs = qs.filter(
+                workshoptime__workshop_date=selected_start,
+            )
 
     qs = qs.order_by("has_group_offer", "closest_workshop_date", "closest_workshop_time", "title_%s" % request.LANGUAGE_CODE)
 

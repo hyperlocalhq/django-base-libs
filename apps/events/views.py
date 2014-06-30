@@ -63,6 +63,9 @@ class EventFilterForm(dynamicforms.Form):
         choices=CALENDAR_CHOICES,
         required=False,
     )
+    selected_date = forms.DateField(
+        required=False,
+    )
 
 
 def event_list(request):
@@ -136,6 +139,15 @@ def event_list(request):
                     eventtime__event_date__gte=selected_start,
                     eventtime__event_date__lte=selected_end,
                 )
+        selected_date = form.cleaned_data['selected_date']
+        if selected_date:
+            facets['selected']['selected_date'] = selected_date
+            selected_start = selected_date
+
+        if selected_start:
+            qs = qs.filter(
+                eventtime__event_date=selected_start,
+            )
 
     qs = qs.distinct()
 
