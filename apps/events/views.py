@@ -139,6 +139,7 @@ def event_list(request):
                     eventtime__event_date__gte=selected_start,
                     eventtime__event_date__lte=selected_end,
                 )
+        selected_start = None
         selected_date = form.cleaned_data['selected_date']
         if selected_date:
             facets['selected']['selected_date'] = selected_date

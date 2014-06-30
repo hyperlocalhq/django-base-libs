@@ -162,6 +162,7 @@ def workshop_list(request):
                     workshoptime__workshop_date__gte=selected_start,
                     workshoptime__workshop_date__lte=selected_end,
                 )
+        selected_start = None
         selected_date = form.cleaned_data['selected_date']
         if selected_date:
             facets['selected']['selected_date'] = selected_date
