@@ -4491,8 +4491,21 @@ a:hover .icon-social-instagram {
       #mega_drop_down_menu .calendar table .old.active, #mega_drop_down_menu .calendar table .new.active {
         background: #cccccc; }
 
+#top_nav ul.nav > li a:hover {
+  color: #00aefd !important; }
+
 .mega-menu-active a {
   color: #00aefd !important; }
+
+.mega-menu-active a:after {
+  content: "▲";
+  position: absolute;
+  top: 22px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  color: #999; }
 
 .mega-dropdown {
   position: relative; }

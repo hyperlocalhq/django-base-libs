@@ -87,10 +87,23 @@
     }
   }
 }
-
+#top_nav ul.nav>li a:hover {
+  color: $blue!important;
+}
 .mega-menu-active a {
   color: $blue!important;
 }
+.mega-menu-active a:after {
+  content: "▲";
+  position: absolute;
+  top: 22px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  color: #999;
+}
+
 .mega-dropdown {
   position:relative;
 }
