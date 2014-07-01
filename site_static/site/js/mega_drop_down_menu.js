@@ -437,14 +437,18 @@ $(window).load(function() {
             }
         }, function() {
             $mega.addClass('hide');
+            $('ul.nav>li', $top_nav).removeClass('mega-menu-active');
         });
         $('ul.nav>li', $top_nav).hover(function() {
             if (window.innerWidth > 767) {
                 $('.mega_drop_down', $mega).addClass('hide');
+                $('ul.nav>li', $top_nav).removeClass('mega-menu-active');
                 var cssClasses = $(this).attr('class') || '';
                 var m = cssClasses.match(/\bmenu-\S+/);
                 if (m) {
-                    $('#' + MAPPER[m[0]]).removeClass('hide');
+                    if ($('#' + MAPPER[m[0]]).removeClass('hide').length) {
+                        $(this).addClass('mega-menu-active');
+                    }
                 }
             }
         });
