@@ -8,28 +8,40 @@
   background:#eee; 
   top:50px;
   box-shadow:inset 0px 0px 1px #666666;
+  display:none;
+  
+  h3 {
+    font-size:16px;
+    font-weight:bold;
+    text-transform:uppercase;
+  }
+  
+  h4 {
+    margin-bottom:5px;
+    font-size:14px;
+    font-weight:bold;
+    text-transform:uppercase;
+  }
   
   .richtext {
-    padding:10px;
+    padding:7%;
     ul {
       list-style-type: none;
-      font-size:18px;
+      font-size:15px;
     }
   }
   
   .no-richtext {
-    padding:10px;
+    padding:7%;
     img {
       margin-bottom:15px;
-    }
-    h4 {
-      margin-bottom:5px;
-      font-size:15px;
-      font-weight:bold;
     }
     p {
       .btn {
         margin-top:10px;
+        line-height:30px;
+        min-height:30px;
+        padding:0 8px;
       }
     }
   }
@@ -37,7 +49,8 @@
   .calendar {
     margin-top:20px;
     table {
-      margin:0px auto;
+      width:100%;
+      margin:0px 7%;
       box-shadow:0px 0px 2px #333333;
       .prev, .next, .switch, .day, .month, .year {
         cursor:pointer;
@@ -48,7 +61,7 @@
       .datepicker-years .switch {
         cursor:default;
       }
-      .switch {
+      .switch, .dow {
         text-align:center;
       }
       .next {
@@ -87,6 +100,11 @@
     }
   }
 }
+
+#mega_drop_down_menu.show {
+  display:block;
+}
+
 #top_nav ul.nav>li a:hover {
   color: $blue!important;
 }
