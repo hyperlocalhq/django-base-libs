@@ -4,36 +4,35 @@
   <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="80">
     <div class="container relative">
       <div id="meta" class="pull-right">
-		<ul class="nav navbar-nav hidden-xs">
-			<li>
-				<a href="{% url "haystack_search" %}" class="btn btn-link btn-icon">
-					<span class="icon icon-zoom"></span>
-					<span class="sr-only">{% trans "Search" %}</span>
-				</a>
-			</li>
-		</ul>
-		<ul class="nav navbar-nav social-bar hidden-xs">
-			<li>
-				<a class="btn btn-link btn-icon" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">
-					<span class="icon icon-social-facebook"></span>
-					<span class="sr-only">Facebook</span>
-				</a>
-			</li>
-			<li>
-				<a class="btn btn-link btn-icon" href="https://twitter.com/museumsportal" target="_blank">
-					<span class="icon icon-social-twitter"></span>
-					<span class="sr-only">Twitter</span>
-				</a>
-			</li>
-			<li>
-				<a class="btn btn-link btn-icon" href="http://instagram.com/museumsportal" target="_blank">
-					<span class="icon icon-social-instagram"></span>
-					<span class="sr-only">Facebook</span>
-				</a>
-			</li>
-		</ul>
+        <ul class="nav navbar-nav hidden-xs">
+          <li>
+            <a href="{% url "haystack_search" %}" class="btn btn-link btn-icon">
+              <span class="icon icon-zoom"></span>
+              <span class="sr-only">{% trans "Search" %}</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav social-bar hidden-xs">
+          <li>
+            <a class="btn btn-link btn-icon" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">
+              <span class="icon icon-social-facebook"></span>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-link btn-icon" href="https://twitter.com/museumsportal" target="_blank">
+              <span class="icon icon-social-twitter"></span>
+              <span class="sr-only">Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-link btn-icon" href="http://instagram.com/museumsportal" target="_blank">
+              <span class="icon icon-social-instagram"></span>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </li>
+        </ul>
 
-		
         {% if request.user.is_authenticated %}
           <div id="user-menu" class="pull-left hidden-xs">
             <div class="btn-group">
@@ -82,26 +81,26 @@
           <span class="icon-bar"></span>
         </button>
 		
-		<ul class="nav navbar-nav social-bar visible-xs">
-			<li>
-				<a class="btn btn-link btn-icon" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">
-					<span class="icon icon-social-facebook"></span>
-					<span class="sr-only">Facebook</span>
-				</a>
-			</li>
-			<li>
-				<a class="btn btn-link btn-icon" href="https://twitter.com/museumsportal" target="_blank">
-					<span class="icon icon-social-twitter"></span>
-					<span class="sr-only">Twitter</span>
-				</a>
-			</li>
-			<li>
-				<a class="btn btn-link btn-icon" href="http://instagram.com/museumsportal" target="_blank">
-					<span class="icon icon-social-instagram"></span>
-					<span class="sr-only">Facebook</span>
-				</a>
-			</li>
-		</ul>
+        <ul class="nav navbar-nav social-bar visible-xs">
+          <li>
+            <a class="btn btn-link btn-icon" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">
+              <span class="icon icon-social-facebook"></span>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-link btn-icon" href="https://twitter.com/museumsportal" target="_blank">
+              <span class="icon icon-social-twitter"></span>
+              <span class="sr-only">Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-link btn-icon" href="http://instagram.com/museumsportal" target="_blank">
+              <span class="icon icon-social-instagram"></span>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </li>
+        </ul>
 		
         <a class="navbar-brand hidden-xs" href="/">
           <img src="{{ STATIC_URL }}site/img/logo/logo.png" alt="Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten" />
@@ -160,7 +159,6 @@
         </form>
         {% endcomment %}
         {% if not request.is_mobile %}
-          <!--TODO: move the style to (s)css and create media queries for different widths of the mega drop down menu -->
           <div class="mega-dropdown">
             <div id="mega_drop_down_menu" class="container"></div>
           </div>

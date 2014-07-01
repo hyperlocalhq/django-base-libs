@@ -435,6 +435,7 @@ $(window).load(function() {
                 }
                 $mega.removeClass('hide');
             }
+
         }, function() {
             $mega.addClass('hide');
             $('ul.nav>li', $top_nav).removeClass('mega-menu-active');
@@ -452,15 +453,5 @@ $(window).load(function() {
                 }
             }
         });
-        /*
-        $.each(MAPPER, function(key, value) {
-            $('.' + key + ' a').hover(function() {
-                $('.mega_drop_down', $mega).addClass('hide');
-                $('#' + value).removeClass('hide');
-            }, function(){
-                // $('#' + value).addClass('hide');
-            });
-        });
-        */
     });
 });
