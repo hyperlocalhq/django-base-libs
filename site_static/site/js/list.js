@@ -142,6 +142,16 @@
         var url_filters = {};
 
         var filtering_busy = false;
+
+        $('.panel-collapse', $filters).on('show.bs.collapse', function(event) {
+            $.bbq.pushState({filter_section: $(event.target).attr('id').replace(/^filter-/, '')});
+        });
+        var hash_vars = $.bbq.getState();
+        if (hash_vars.filter_section) {
+            $('#toggle-list-filter').click();
+            $('.btn[data-target="#filter-' + hash_vars.filter_section + '"]', $filters).click();
+        }
+
         // filter buttons
         $('.filter a').on(activation_event, function(e, dont_load_data_yet){
             e.preventDefault();
