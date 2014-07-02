@@ -201,6 +201,7 @@ def exhibition_list(request):
                 # -----[--selected range--]----- time ->
                 #            [-event-]
                 #                   [-event-]
+                #                 [-event------
                 conditions = models.Q(
                     start__gte=selected_start,
                     start__lte=selected_end,
@@ -208,9 +209,14 @@ def exhibition_list(request):
                 # .. which started before and will end after the selected range
                 # -----[-selected range-]------- time ->
                 #    [------event---------]
+                #    [------event------------
                 conditions |= models.Q(
                     start__lte=selected_start,
                     end__gte=selected_end,
+                )
+                conditions |= models.Q(
+                    start__lte=selected_start,
+                    end=None,
                 )
                 # .. or which end date is within the selected range
                 # -----[--selected range--]----- time ->
