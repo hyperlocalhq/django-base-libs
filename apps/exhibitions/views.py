@@ -223,8 +223,13 @@ def exhibition_list(request):
                 qs = qs.filter(conditions)
             else:
                 qs = qs.filter(
-                    start__lte=selected_start,
-                    end__gte=selected_start,
+                    models.Q(
+                        start__lte=selected_start,
+                        end__gte=selected_start,
+                    ) | models.Q(
+                        start__lte=selected_start,
+                        end=None,
+                    )
                 )
 
     if closing_soon:

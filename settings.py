@@ -280,6 +280,9 @@ ADMIN_APP_INDEX = (
             ('shop', {
                 'models': ('ShopProductCategory','ShopProductType','ShopProduct',),
             }),
+            ('mega_menu', {
+                'models': ("MenuBlock",),
+            }),
         )
     },
     {
@@ -346,9 +349,6 @@ ADMIN_APP_INDEX = (
             }),
             ('configuration', {
                 'models': ("SiteSettings",),
-            }),
-            ('mega_menu', {
-                'models': ("MenuBlock",),
             }),
         )
     }
