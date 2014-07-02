@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 from optparse import make_option
-from apps.workshops.forms import workshop
 from django.core.management.base import NoArgsCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -14,32 +13,33 @@ class Command(NoArgsCommand):
     help = """Imports exhibitions, events, and workshops from Staatliche Museen zu Berlin"""
 
     MUSEUM_MAPPER = {
-        43009: 62,
-        43010: 129,
-        43011: 130,
-        31: 150,
-        35: 77,
-        37: 105,
-        39: 107,
-        40: 103,
-        24: 9,
-        25: 152,
-        27: 157,
-        28: 35,
-        29: 8,
-        32: 67,
-        26: 177,
-        30: 84,
-        43: 79,
-        48: 0,  # Institut für Museumsforschung
-        2433: 0,  # Rathgen-Forschungslabor
-        27774: 0,  # Zentralarchiv
-        37096: 0,  # Archäologisches Zentrum
-        43007: 0,  # Humboldt-Forum
-        43008: 0,  # Generaldirektion
-        45: 166,
-        2976: 124,
-        6124: 131,
+        43009: 62,      # Ethnologisches Museum
+        43010: 129,     # Museum Europäischer Kulturen
+        43011: 130,     # Museum für Asiatische Kunst
+        31: 150,        # Neue Nationalgalerie
+        35: 77,         # Gemäldegalerie
+        37: 105,        # Kunstgewerbemuseum
+        39: 107,        # Kupferstichkabinett
+        40: 103,        # Kunstbibliothek
+        24: 9,          # Altes Museum
+        25: 152,        # Neues Museum
+        27: 157,        # Pergamonmuseum
+        28: 35,         # Bode-Museum
+        29: 8,          # Alte Nationalgalerie
+        32: 67,         # Friedrichswerdersche Kirche
+        179: 113,       # Martin-Gropiu-Bau
+        26: 177,        # Schloss Köpenick
+        30: 84,         # Hamburger Bahnhof - Museum für Gegenwart
+        43: 79,         # Gipsformerei
+        48: 0,          # Institut für Museumsforschung
+        2433: 0,        # Rathgen-Forschungslabor
+        27774: 0,       # Zentralarchiv
+        37096: 0,       # Archäologisches Zentrum
+        43007: 0,       # Humboldt-Forum
+        43008: 0,       # Generaldirektion
+        45: 166,        # Sammlung Scharf-Gerstenberg
+        2976: 124,      # Museum Berggruen
+        6124: 131,      # Museum für Fotografie
     }
 
     def handle_noargs(self, **options):
@@ -54,15 +54,17 @@ class Command(NoArgsCommand):
 
         import time
         import urllib2
+        import json
         from dateutil.parser import parse as parse_datetime
         from decimal import Decimal
         
         from django.db import models
         from django.template.defaultfilters import slugify
-        import json
 
         from filebrowser.models import FileDescription
-        
+
+        from base_libs.utils.misc import get_unique_value
+
         image_mods = models.get_app("image_mods")
         Museum = models.get_model("museums", "Museum")
         Exhibition = models.get_model("exhibitions", "Exhibition")
@@ -140,7 +142,9 @@ class Command(NoArgsCommand):
             exhibition.title_en = data_dict['title_en'] or data_dict['title_de']
             exhibition.subtitle_de = data_dict['subtitle_de']
             exhibition.subtitle_en = data_dict['subtitle_en']
-            exhibition.slug = slugify(data_dict['title_de'])
+
+            exhibition.slug = get_unique_value(Exhibition, slugify(data_dict['title_de']))
+
             exhibition.start = parse_datetime(data_dict['start_date'])
             if data_dict['perma_exhibition'] == 1 or data_dict['end_date'] == "unlimited":
                 exhibition.permanent = True
@@ -221,14 +225,31 @@ class Command(NoArgsCommand):
                     else:
                         exhibition.categories.add(exhibition_cat)
 
-            if data_dict['opening_times']:
-                season = Season(exhibition=exhibition)
-                for day_index, times in data_dict['opening_times'].items():
-                    from_time, till_time = times.split("-")
-                    setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
-                    setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
-                season.save()
+            # if data_dict['opening_times']:
+            #     season = Season(exhibition=exhibition)
+            #     for day_index, times in data_dict['opening_times'].items():
+            #         from_time, till_time = times.split("-")
+            #         setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
+            #         setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
+            #     season.save()
 
+            if data_dict['openings']:
+                if isinstance(data_dict['openings'], list):
+                    season = Season(exhibition=exhibition)
+                    for day_index, times in enumerate(data_dict['openings']):
+                        from_time = times['start_h'] + ':' + times['start_min']
+                        till_time = times['ende_h'] + ':' + times['ende_min']
+                        setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
+                        setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
+                    season.save()
+                elif isinstance(data_dict['openings'], dict):
+                    season = Season(exhibition=exhibition)
+                    for day_index, times in data_dict['openings'].items():
+                        from_time = times['start_h'] + ':' + times['start_min']
+                        till_time = times['ende_h'] + ':' + times['ende_min']
+                        setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
+                        setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
+                    season.save()
 
             # get biggest possible images
             img_teaser = (data_dict.get('img_teaser_963', []) or data_dict.get('img_teaser_637', []))
@@ -292,6 +313,7 @@ class Command(NoArgsCommand):
 
         import time
         import urllib2
+        import json
         from datetime import timedelta
         from dateutil.parser import parse as parse_datetime
         from decimal import Decimal
@@ -299,9 +321,10 @@ class Command(NoArgsCommand):
         from django.db import models
         from django.template.defaultfilters import slugify
         from django.conf import settings
-        import json
 
         from filebrowser.models import FileDescription
+
+        from base_libs.utils.misc import get_unique_value
 
         image_mods = models.get_app("image_mods")
         Museum = models.get_model("museums", "Museum")
@@ -411,11 +434,14 @@ class Command(NoArgsCommand):
                     workshop_stats['skipped'] += 1
                     continue
 
-                workshop.title_de, workshop.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
-                workshop.title_en, workshop.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
+                workshop.title_de, workshop.subtitle_de = data_dict['title_de'], data_dict['title_sub_de']
+                workshop.title_en, workshop.subtitle_en = data_dict['title_en'], data_dict['title_sub_en']
                 if not workshop.title_en:
                     workshop.title_en = workshop.title_de
-                workshop.slug = slugify(data_dict['title_de'])
+                if not workshop.subtitle_en:
+                    workshop.subtitle_en = workshop.subtitle_de
+
+                workshop.slug = get_unique_value(Workshop, slugify(data_dict['title_de']))
 
                 workshop.website_de = data_dict['link_de'].replace('&amp;', '&')
                 workshop.website_en = data_dict['link_en'].replace('&amp;', '&')
@@ -447,13 +473,16 @@ class Command(NoArgsCommand):
                 # based on http://ww2.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
                 for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
                     target_group_id = int(target_group_id)
-                    if target_group_id == 191:
-                        workshop.is_for_preschool = True
+                    if target_group_id in (301, 302, 303):  # "Kinder"
                         workshop.is_for_primary_school = True
-                    elif target_group_id == 193:
-                        workshop.is_for_primary_school = True
-                    elif target_group_id in (195, 196):
+                    elif target_group_id == 304:  # "Jugendliche"
                         workshop.is_for_youth = True
+                    elif target_group_id == 305:  # "Familien + Kinder 4-6"
+                        workshop.is_for_preschool = True
+                        workshop.is_for_families = True
+                    elif target_group_id == 306:  # "Familien + Kinder 6-12"
+                        workshop.is_for_primary_school = True
+                        workshop.is_for_families = True
                     elif target_group_id == 212:
                         workshop.is_for_families = True
                     elif target_group_id == 204:
@@ -517,7 +546,7 @@ class Command(NoArgsCommand):
                         image_data.close()
                         mf.save()
                         exh_file_descriptions = FileDescription.objects.filter(
-                            file_path=mf.path,
+                            file_path=exh_mf.path,
                         ).order_by("pk")
                         if exh_file_descriptions:
                             try:
@@ -531,24 +560,24 @@ class Command(NoArgsCommand):
                             file_description.title_en = exh_file_descriptions[0].title_en
                             file_description.author = exh_file_descriptions[0].author
                             file_description.save()
-                            time.sleep(1)
+                        time.sleep(1)
 
-                #workshop.organizer_set.all().delete()
-                #linked_institutions = data_dict.get('linked_institutions', {})
-                #if linked_institutions:
-                #    for linked_inst_title in linked_institutions.values():
-                #        try:
-                #            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
-                #        except:
-                #            Organizer(
-                #                workshop=workshop,
-                #                organizer_title=linked_inst_title,
-                #            ).save()
-                #        else:
-                #            Organizer(
-                #                workshop=workshop,
-                #                organizing_museum=organizing_museum,
-                #            ).save()
+                workshop.organizer_set.all().delete()
+                linked_institutions = data_dict.get('linked_institutions', {})
+                if linked_institutions:
+                    for linked_inst_title in linked_institutions.values():
+                        try:
+                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                        except:
+                            Organizer(
+                                workshop=workshop,
+                                organizer_title=linked_inst_title,
+                            ).save()
+                        else:
+                            Organizer(
+                                workshop=workshop,
+                                organizing_museum=organizing_museum,
+                            ).save()
 
                 workshop.workshoptime_set.all().delete()
 
@@ -558,13 +587,13 @@ class Command(NoArgsCommand):
                 else:
                     end = start + timedelta(minutes=60)
 
-                time = WorkshopTime(
+                workshop_time = WorkshopTime(
                     workshop=workshop,
                     workshop_date=start.date(),
                     start=start.time(),
                     end=end.time(),
                 )
-                time.save()
+                workshop_time.save()
 
                 for event_time_id, event_time_dict in data_dict.get('more_dates', {}).items():
                     start = parse_datetime(event_time_dict['start'], ignoretz=True)
@@ -573,13 +602,13 @@ class Command(NoArgsCommand):
                     else:
                         end = start + timedelta(minutes=60)
 
-                    time = WorkshopTime(
+                    workshop_time = WorkshopTime(
                         workshop=workshop,
                         workshop_date=start.date(),
                         start=start.time(),
                         end=end.time(),
                     )
-                    time.save()
+                    workshop_time.save()
 
                 workshop.update_closest_workshop_time()
 
@@ -648,11 +677,14 @@ class Command(NoArgsCommand):
                     event_stats['skipped'] += 1
                     continue
 
-                event.title_de, event.subtitle_de = self.parse_title_and_subtitle(data_dict['title_de'])
-                event.title_en, event.subtitle_en = self.parse_title_and_subtitle(data_dict['title_en'])
+                event.title_de, event.subtitle_de = data_dict['title_de'], data_dict['title_sub_de']
+                event.title_en, event.subtitle_en = data_dict['title_en'], data_dict['title_sub_en']
                 if not event.title_en:
                     event.title_en = event.title_de
-                event.slug = slugify(data_dict['title_de'])
+                if not event.subtitle_en:
+                    event.subtitle_en = event.subtitle_de
+
+                event.slug = get_unique_value(Event, slugify(data_dict['title_de']))
 
                 event.website_de = data_dict['link_de'].replace('&amp;', '&')
                 event.website_en = data_dict['link_en'].replace('&amp;', '&')
@@ -766,7 +798,7 @@ class Command(NoArgsCommand):
                         image_data.close()
                         mf.save()
                         exh_file_descriptions = FileDescription.objects.filter(
-                            file_path=mf.path,
+                            file_path=exh_mf.path,
                         ).order_by("pk")
                         if exh_file_descriptions:
                             try:
@@ -780,7 +812,7 @@ class Command(NoArgsCommand):
                             file_description.title_en = exh_file_descriptions[0].title_en
                             file_description.author = exh_file_descriptions[0].author
                             file_description.save()
-                            time.sleep(1)
+                        time.sleep(1)
 
                 event.eventtime_set.all().delete()
 
@@ -790,13 +822,13 @@ class Command(NoArgsCommand):
                 else:
                     end = start + timedelta(minutes=60)
 
-                time = EventTime(
+                event_time = EventTime(
                     event=event,
                     event_date=start.date(),
                     start=start.time(),
                     end=end.time(),
                 )
-                time.save()
+                event_time.save()
 
                 for event_time_id, event_time_dict in data_dict.get('more_dates', {}).items():
                     start = parse_datetime(event_time_dict['start'], ignoretz=True)
@@ -805,13 +837,13 @@ class Command(NoArgsCommand):
                     else:
                         end = start + timedelta(minutes=60)
 
-                    time = EventTime(
+                    event_time = EventTime(
                         event=event,
                         event_date=start.date(),
                         start=start.time(),
                         end=end.time(),
                     )
-                    time.save()
+                    event_time.save()
 
                 event.update_closest_event_time()
 
