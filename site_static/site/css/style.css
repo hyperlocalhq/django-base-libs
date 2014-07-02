@@ -5559,17 +5559,28 @@ a:hover .icon-social-instagram {
   font-weight: bold;
   text-transform: uppercase;
 }
+#mega_drop_down_menu .col-sm-4 {
+  padding-top: 20px !important;
+  padding-left: 16px;
+  padding-right: 20px;
+}
+#mega_drop_down_menu .col-sm-4:first-child {
+  padding-left: 45px;
+  padding-right: 10px;
+}
+#mega_drop_down_menu .col-sm-4:last-child {
+  padding-left: 5px;
+  padding-right: 50px;
+}
 #mega_drop_down_menu .richtext {
-  padding: 7%;
+  padding-bottom: 20px;
 }
 #mega_drop_down_menu .richtext ul {
   list-style-type: none;
   font-size: 15px;
 }
-#mega_drop_down_menu .no-richtext {
-  padding: 7%;
-}
 #mega_drop_down_menu .no-richtext img {
+  margin-top: 5px;
   margin-bottom: 15px;
 }
 #mega_drop_down_menu .no-richtext p .btn {
@@ -5577,20 +5588,24 @@ a:hover .icon-social-instagram {
   line-height: 30px;
   min-height: 30px;
   padding: 0 8px;
+  float: right;
 }
 #mega_drop_down_menu .calendar {
-  margin-top: 20px;
+  margin-top: 5px;
 }
 #mega_drop_down_menu .calendar table {
   width: 100%;
-  margin: 0px 7%;
-  box-shadow: 0px 0px 2px #333333;
+  background: #f5f5f5;
+}
+#mega_drop_down_menu .calendar table tr:last-child td {
+  border-bottom: 10px solid #f5f5f5;
 }
 #mega_drop_down_menu .calendar table td {
   padding: 5px 0px;
 }
 #mega_drop_down_menu .calendar table .prev, #mega_drop_down_menu .calendar table .next, #mega_drop_down_menu .calendar table .switch, #mega_drop_down_menu .calendar table .day, #mega_drop_down_menu .calendar table .month, #mega_drop_down_menu .calendar table .year {
   cursor: pointer;
+  border: 1px solid #f5f5f5;
 }
 #mega_drop_down_menu .calendar table .day:hover, #mega_drop_down_menu .calendar table .month:hover, #mega_drop_down_menu .calendar table .year:hover {
   background: #dddddd;
@@ -5600,14 +5615,18 @@ a:hover .icon-social-instagram {
 }
 #mega_drop_down_menu .calendar table .switch, #mega_drop_down_menu .calendar table .dow {
   text-align: center;
+  border: 1px solid #f5f5f5;
+}
+#mega_drop_down_menu .calendar table .prev {
+  padding-left: 14px;
 }
 #mega_drop_down_menu .calendar table .next {
   text-align: right;
+  padding-right: 14px;
 }
 #mega_drop_down_menu .calendar table .day {
   width: 14%;
   text-align: center;
-  border: 1px solid #eee;
 }
 #mega_drop_down_menu .calendar table .month {
   width: 25%;
@@ -5627,7 +5646,7 @@ a:hover .icon-social-instagram {
 #mega_drop_down_menu .calendar table .active {
   font-weight: bold;
   color: #ffffff;
-  background: #999999;
+  background: #919191;
 }
 #mega_drop_down_menu .calendar table .active:hover {
   background: #999999;
