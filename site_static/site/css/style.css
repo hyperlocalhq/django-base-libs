@@ -5671,11 +5671,10 @@ a:hover .icon-social-instagram {
   content: "";
   position: absolute;
   top: 36px;
-  left: 20%;
-  width: 30px;
+  width: 100%;
   height: 15px;
   display: block;
-  background: url(../img/mega_menu_marker.png) no-repeat;
+  background: url(../img/mega_menu_marker.png) no-repeat center bottom;
   z-index: 100;
 }
 
