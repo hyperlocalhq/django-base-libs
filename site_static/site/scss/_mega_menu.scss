@@ -23,8 +23,22 @@
     text-transform:uppercase;
   }
   
+  .col-sm-4 {
+    padding-top:20px !important;
+    padding-left:16px;
+    padding-right:20px;
+  }
+  .col-sm-4:first-child {
+    padding-left:45px;
+    padding-right:10px;
+  }
+  .col-sm-4:last-child {
+    padding-left:5px;
+    padding-right:50px;
+  }
+  
   .richtext {
-    padding:7%;
+    padding-bottom:20px;
     ul {
       list-style-type: none;
       font-size:15px;
@@ -32,8 +46,9 @@
   }
   
   .no-richtext {
-    padding:7%;
+    padding-bottom:20px;
     img {
+      margin-top:5px;
       margin-bottom:15px;
     }
     p {
@@ -42,21 +57,25 @@
         line-height:30px;
         min-height:30px;
         padding:0 8px;
+        float:right;
       }
     }
   }
   
   .calendar {
-    margin-top:20px;
+    margin-top:5px;
     table {
       width:100%;
-      margin:0px 7%;
-      box-shadow:0px 0px 2px #333333;
-	  td {
-		padding:5px 0px;  
-	  }
+      background:#f5f5f5;
+      tr:last-child td {
+        border-bottom:10px solid #f5f5f5;
+      }
+	    td {
+  		  padding:5px 0px;  
+	    }
       .prev, .next, .switch, .day, .month, .year {
         cursor:pointer;
+        border:1px solid #f5f5f5;
       }
       .day:hover, .month:hover, .year:hover {
         background:#dddddd;
@@ -66,14 +85,18 @@
       }
       .switch, .dow {
         text-align:center;
+        border:1px solid #f5f5f5;
+      }
+      .prev {
+        padding-left:14px;
       }
       .next {
         text-align:right;
+        padding-right:14px;
       }
       .day {
-		width:14%;
+		    width:14%;
         text-align:center;
-        border:1px solid #eee;
       }
       .month {
         width:25%;
@@ -93,7 +116,7 @@
       .active {
         font-weight:bold;
         color:#ffffff;
-        background:#999999;
+        background:#919191;
       }
       .active:hover {
         background:#999999;
