@@ -575,7 +575,7 @@ CMS_TEMPLATES = [
 # UPDATE cms_page SET template = REPLACE(template,'cms/magazine.html','cms/magazine_third.html');
 
 CMS_APPHOOKS = (
-    )
+)
 
 CMS_REDIRECTS = True
 CMS_MENU_TITLE_OVERWRITE = True

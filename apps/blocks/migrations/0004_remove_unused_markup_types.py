@@ -22,7 +22,8 @@ class Migration(SchemaMigration):
 
         for lang_code, lang_name in settings.LANGUAGES:
             # Changing field 'InfoBlock.content_*'
-            db.alter_column(u'blocks_infoblock', 'content_%s' % lang_code, self.gf('base_libs.models.fields.ExtendedTextField')(u'content', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, unique=False, db_tablespace=''))
+            if lang_code in ('de', 'en'):
+                db.alter_column(u'blocks_infoblock', 'content_%s' % lang_code, self.gf('base_libs.models.fields.ExtendedTextField')(u'content', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, unique=False, db_tablespace=''))
 
     def backwards(self, orm):
         # Adding field 'infoblock.content_markup_type'
@@ -38,7 +39,8 @@ class Migration(SchemaMigration):
 
         for lang_code, lang_name in settings.LANGUAGES:
             # Changing field 'InfoBlock.content_*'
-            db.alter_column(u'blocks_infoblock', 'content_%s' % lang_code, self.gf('ExtendedTextField')(u'content', rel=None, unique_for_year=None, unique_for_date=None, unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=None, db_tablespace=''))
+            if lang_code in ('de', 'en'):
+                db.alter_column(u'blocks_infoblock', 'content_%s' % lang_code, self.gf('ExtendedTextField')(u'content', rel=None, unique_for_year=None, unique_for_date=None, unique_for_month=None, unique=False, primary_key=False, db_column=None, default='', max_length=None, db_tablespace=''))
 
     models = {
         u'auth.group': {
