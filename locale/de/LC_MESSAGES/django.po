@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-26 19:33+0100\n"
-"PO-Revision-Date: 2014-01-27 16:24\n"
+"PO-Revision-Date: 2014-04-11 16:00\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -210,9 +210,8 @@ msgid "Social"
 msgstr "Social-Media Kanal"
 
 #: settings.py:581
-#, fuzzy
 msgid "Image authorship"
-msgstr "Bildbeschreibung"
+msgstr "Bildurheber"
 
 #: apps/articles/admin.py:15
 msgid "Contents"
@@ -1178,9 +1177,10 @@ msgid ""
 "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × "
 "100 px. Optimal size is 1000 × 350 px (min)."
 msgstr ""
-"Erlaubt sind Daten in Format JPG, GIF, PNG, TIFF und BMP. Minimale Größe 100"
-" × 100 px, optimale Größe 1000 x 350 px (Breite x Höhe). Bitte im Dateinamen"
-" keine Sonderzeichen verwenden."
+"Erlaubt sind Daten in Format JPG, GIF, PNG, TIFF und BMP. Für eine optimale "
+"Darstellung sollte die Abbildung mindestens 1000 px breit und 350 px hoch "
+"sein. Maximale Dateigröße: 10 MB. Bitte im Dateinamen keine Sonderzeichen "
+"verwenden."
 
 #: apps/events/forms/gallery.py:46 apps/exhibitions/forms/gallery.py:46
 #: apps/museums/forms/gallery.py:46 apps/workshops/forms/gallery.py:46
@@ -1987,7 +1987,7 @@ msgstr "Verfügbare Angebote"
 
 #: apps/museums/forms/museum.py:57
 msgid "Booking Phone"
-msgstr "Buchungstelefon"
+msgstr "Führungsbuchung"
 
 #: apps/museums/forms/museum.py:58
 msgid "Service Phone"
@@ -3202,7 +3202,7 @@ msgstr "Telefon"
 #: templates/museumsportal/museums/museum_detail.html:366
 #: templates/museumsportal/workshops/workshop_detail.html:104
 msgid "Booking Telephone"
-msgstr "Buchungstelefon"
+msgstr "Führungsbuchungen"
 
 #: templates/museumsportal/events/event_detail.html:165
 #: templates/museumsportal/exhibitions/exhibition_detail.html:715
