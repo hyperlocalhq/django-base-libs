@@ -181,6 +181,77 @@ margin: 0px;
   }
 }
 
+#filter-calendar {
+  .calendar {
+		max-width:315px;
+    table {
+      width:100%;
+      background:#efefef;
+      tr:last-child td {
+        border-bottom:10px solid #efefef;
+      }
+	    td {
+  		  padding:5px 0px;  
+	    }
+      span {
+        background:#efefef;
+      }
+      .prev, .next, .switch, .day, .month, .year {
+        cursor:pointer;
+        border:1px solid #efefef;
+      }
+      .day:hover, .month:hover, .year:hover {
+        background:#dddddd;
+      }
+      .datepicker-years .switch {
+        cursor:default;
+      }
+      .switch, .dow {
+        text-align:center;
+        border:1px solid #efefef;
+      }
+      .prev {
+        padding-left:14px;
+      }
+      .next {
+        text-align:right;
+        padding-right:14px;
+      }
+      .day {
+		    width:14%;
+        text-align:center;
+      }
+      .month {
+        width:25%;
+        display:block;
+        float:left;
+        text-align:center;
+      }
+      .year {
+        width:25%;
+        display:block;
+        float:left;
+        text-align:center;
+      }
+      .old, .new {
+        color:#999999;
+      }
+      .active {
+        font-weight:bold;
+        color:#ffffff;
+        background:#00a3ed;
+      }
+      .active:hover {
+        background:#00a3ed;
+      }
+      .old.active, .new.active {
+        background:#00a3ed;
+      }
+    }
+  }
+}
+
+
 
 .level-1-container li {
   background-color: $blue;

@@ -1,4 +1,4 @@
-{% load i18n base_tags %}
+{% load i18n base_tags sekizai_tags %}
 <div id="filters">
   <h4>{% trans "Filters" %}</h4>
 
@@ -100,9 +100,19 @@
                 <a href="{% append_to_get selected_date="" page="" %}" data-filter-value=".is_{{ cat.0 }}">{{ facets.selected.selected_date }}</a>
               </li>
             {% endif %}
+            <li id="filter-calendar-day-loader" class="hide" data-param="selected_date" data-value="">
+              <a href="{% append_to_get selected_date="" page="" %}" data-filter-value=".is_"></a>
+            </li>
+            <li id="filter-calendar-day-active" class="hide" data-param="selected_date" data-value="">
+              <a href="{% append_to_get selected_date="" page="" %}" data-filter-value=".is_"></a>
+            </li>
           </ul>
+          <div class="calendar" data-url="{% url "exhibition_list" %}"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
+{% addtoblock "js" %}
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/filter.js"></script>
+{% endaddtoblock %}

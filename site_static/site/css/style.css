@@ -3755,6 +3755,74 @@ a.img-detail.loaded:hover img {
   padding: 10px;
 }
 
+#filter-calendar .calendar {
+  max-width: 315px;
+}
+#filter-calendar .calendar table {
+  width: 100%;
+  background: #efefef;
+}
+#filter-calendar .calendar table tr:last-child td {
+  border-bottom: 10px solid #efefef;
+}
+#filter-calendar .calendar table td {
+  padding: 5px 0px;
+}
+#filter-calendar .calendar table span {
+  background: #efefef;
+}
+#filter-calendar .calendar table .prev, #filter-calendar .calendar table .next, #filter-calendar .calendar table .switch, #filter-calendar .calendar table .day, #filter-calendar .calendar table .month, #filter-calendar .calendar table .year {
+  cursor: pointer;
+  border: 1px solid #efefef;
+}
+#filter-calendar .calendar table .day:hover, #filter-calendar .calendar table .month:hover, #filter-calendar .calendar table .year:hover {
+  background: #dddddd;
+}
+#filter-calendar .calendar table .datepicker-years .switch {
+  cursor: default;
+}
+#filter-calendar .calendar table .switch, #filter-calendar .calendar table .dow {
+  text-align: center;
+  border: 1px solid #efefef;
+}
+#filter-calendar .calendar table .prev {
+  padding-left: 14px;
+}
+#filter-calendar .calendar table .next {
+  text-align: right;
+  padding-right: 14px;
+}
+#filter-calendar .calendar table .day {
+  width: 14%;
+  text-align: center;
+}
+#filter-calendar .calendar table .month {
+  width: 25%;
+  display: block;
+  float: left;
+  text-align: center;
+}
+#filter-calendar .calendar table .year {
+  width: 25%;
+  display: block;
+  float: left;
+  text-align: center;
+}
+#filter-calendar .calendar table .old, #filter-calendar .calendar table .new {
+  color: #999999;
+}
+#filter-calendar .calendar table .active {
+  font-weight: bold;
+  color: #ffffff;
+  background: #00a3ed;
+}
+#filter-calendar .calendar table .active:hover {
+  background: #00a3ed;
+}
+#filter-calendar .calendar table .old.active, #filter-calendar .calendar table .new.active {
+  background: #00a3ed;
+}
+
 .level-1-container li {
   background-color: #00aefd;
 }
