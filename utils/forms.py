@@ -11,14 +11,18 @@ from django.utils.html import conditional_escape
 
 from crispy_forms import layout
 
+
 class PrimarySubmit(layout.Submit):
     field_classes = "btn btn-lg btn-primary"
+
 
 class SecondarySubmit(layout.Submit):
     field_classes = "btn btn-lg btn-info"
 
+
 class SecondaryButton(layout.Button):
     field_classes = "btn btn-lg btn-info"
+
 
 class InlineFormSet(BaseInlineFormSet):
     """ Inline formset which accepts initial values for unsaved models """
@@ -53,6 +57,7 @@ class InlineFormSet(BaseInlineFormSet):
             return len(self._initial)
         return super(InlineFormSet, self).initial_form_count()
 
+
 class SplitDateTimeWidget(forms.SplitDateTimeWidget):
     def format_output(self, rendered_widgets):
         return """
@@ -70,58 +75,15 @@ class SplitDateTimeWidget(forms.SplitDateTimeWidget):
                     </div>
                 </div>
             </div>""" % (
-                ugettext("Date"),
-                rendered_widgets[0].replace('/>', ' placeholder="dd.mm.yyyy" />'),
-                ugettext("Time"),
-                rendered_widgets[1].replace('/>', ' placeholder="00:00" />'),
-                )
+            ugettext("Date"),
+            rendered_widgets[0].replace('/>', ' placeholder="dd.mm.yyyy" />'),
+            ugettext("Time"),
+            rendered_widgets[1].replace('/>', ' placeholder="00:00" />'),
+        )
 
-class CheckboxSelectMultipleTree(forms.CheckboxSelectMultiple):
-    def render(self, name, value, attrs=None, choices=()):
-        if value is None: value = []
-        has_id = attrs and 'id' in attrs
-        final_attrs = self.build_attrs(attrs, name=name)
-        output = [u'<ul class="tree">']
-        # Normalize to strings
-        str_values = set([force_unicode(v) for v in value])
-        
-        level = 0
-        for i, (option_value, option_label) in enumerate(chain(self.choices, choices)):
-            open_ul = False
-            close_uls = 0
-            if level < option_label.level:
-                open_ul = True
-            elif level > option_label.level:
-                close_uls = level - option_label.level
-            level = option_label.level
-                
-            # If an ID attribute was given, add a numeric index as a suffix,
-            # so that the checkboxes don't all have the same ID attribute.
-            if has_id:
-                final_attrs = dict(final_attrs, id='%s_%s' % (attrs['id'], i))
-                label_for = u' for="%s"' % final_attrs['id']
-            else:
-                label_for = ''
-
-            cb = forms.CheckboxInput(final_attrs, check_test=lambda value: value in str_values)
-            rendered_cb = cb.render(name, force_unicode(option_value))
-            option_label_unicode = conditional_escape(force_unicode(option_label))
-            
-            if open_ul:
-                output.append(u'<ul>')
-            elif close_uls:
-                output.append(u'</ul></li>' * close_uls)
-            elif i > 0:
-                output.append(u'</li>')
-            output.append(u'<li class="level-%s"><label%s>%s %s</label>' % (level, label_for, rendered_cb, option_label_unicode))
-        if level > 0:
-            output.append(u'</ul></li>' * level)
-        else:
-            output.append(u'</li>')
-        output.append(u'</ul>')
-        return mark_safe(u'\n'.join(output))
 
 class ModelMultipleChoiceTreeField(forms.ModelMultipleChoiceField):
-    widget = CheckboxSelectMultipleTree
+    widget = forms.CheckboxSelectMultiple
+
     def label_from_instance(self, obj):
         return obj

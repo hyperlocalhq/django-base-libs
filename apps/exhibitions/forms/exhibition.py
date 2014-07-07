@@ -351,7 +351,7 @@ class BasicInfoForm(ModelForm):
         ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
-            layout.Div("categories"),
+            layout.Div(layout.Field("categories", template="utils/checkboxselectmultipletree.html")),
 
             layout.Div(
                 layout.HTML("""{% load i18n %} <label>{% trans "Particularities" %}</label> """),

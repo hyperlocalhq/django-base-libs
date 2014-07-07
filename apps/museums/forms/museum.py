@@ -153,7 +153,7 @@ class BasicInfoForm(ModelForm):
                     <div class="checkbox-group">
                         {% get_objects all museums.MuseumCategory as museum_categories %}
                         {% for cat in museum_categories %}
-                            <div class="form-group">
+                            <div class="form-group level-{{ cat.level }}">
                                 <div class="checkbox">
                                     <label><input type="checkbox" name="categories" id="id_categories_{{ forloop.counter }}" value="{{ cat.id }}" disabled="disabled"{% if cat in museum.categories.all %} checked="checked"{% endif %}> {{ cat.title }}</label>
                                 </div>
