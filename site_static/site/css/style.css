@@ -5757,6 +5757,38 @@ a:hover .icon-social-instagram {
   color: #000;
 }
 
+.navbar-search {
+  height: 40px;
+  clear: both;
+  overflow: hidden;
+  background: #f7f7f7;
+  margin-right: 10px;
+}
+.navbar-search li {
+  display: block;
+  float: left;
+}
+.navbar-search li:last-child {
+  margin-left: 2px;
+}
+.navbar-search .form-control {
+  width: 150px;
+  height: 40px;
+  min-height: 30px;
+  font-size: 15px/30px !important;
+  border: none;
+  box-shadow: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.navbar-search a:hover {
+  background: #efefef !important;
+}
+
+#search_form button.btn {
+  min-width: auto;
+}
+
 #mega_drop_down_menu {
   padding: 0px;
   position: fixed;

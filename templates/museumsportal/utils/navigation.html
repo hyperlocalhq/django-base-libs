@@ -4,7 +4,10 @@
   <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="80">
     <div class="container relative">
       <div id="meta" class="pull-right">
-        <ul class="nav navbar-nav hidden-xs">
+        <ul class="nav navbar-nav navbar-search hidden-xs">
+          <li>
+            <form method="get" action="#"><input class="input-block-level textinput textInput form-control form_text" type="text" value="" /></form>
+          </li>
           <li>
             <a href="{% url "haystack_search" %}" class="btn btn-link btn-icon">
               <span class="icon icon-zoom"></span>
@@ -12,6 +15,9 @@
             </a>
           </li>
         </ul>
+        {% addtoblock "js" %}
+          <script type="text/javascript" src="{{ STATIC_URL }}site/js/navbar_search.min.js"></script>
+        {% endaddtoblock %}
         <ul class="nav navbar-nav social-bar hidden-xs">
           <li>
             <a class="btn btn-link btn-icon" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">

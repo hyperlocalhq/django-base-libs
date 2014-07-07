@@ -55,3 +55,37 @@ a:hover {
 		}
 	}
 }
+
+.navbar-search {
+	height:40px;
+	clear:both;
+	overflow:hidden;
+	background:#f7f7f7;
+	margin-right:10px;
+	li {
+		display:block;
+		float:left;
+	}
+	li:last-child {
+		margin-left:2px;
+	}
+	.form-control {
+		width:150px;
+		height:40px;
+		min-height:30px;
+		font-size:15px/30px !important;
+		border:none;
+		box-shadow:none;
+		padding-top:5px;
+		padding-bottom:5px;
+	}
+	a:hover {
+		background:#efefef !important;
+	}
+}
+
+#search_form {
+	button.btn {
+		min-width:auto;
+	}
+}
