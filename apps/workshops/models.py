@@ -207,8 +207,11 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     def is_within_30_days(self):
         return self.is_within_days(30)
     
-    def get_closest_workshop_time(self):
-        today = date.today()
+    def get_closest_workshop_time(self, selected_date = 0):
+        if selected_date != 0:
+            today = selected_date
+        else:
+            today = date.today()
         qs = self.workshoptime_set.filter(workshop_date__gte=today)
         if qs:
             return qs[0]

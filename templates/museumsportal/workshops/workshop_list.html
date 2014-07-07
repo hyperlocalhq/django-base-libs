@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended infoblocks %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended infoblocks get_selected_date %}
 {% block title %}{% trans "Guided Tours, Workshops and educational offers" %} – {% endblock %}
 {% block bodyclass %}workshop-list{% endblock %}
 
@@ -78,13 +78,20 @@
 
                     {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
                       <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %} {% trans "Bookable Offer" %}. {{ workshop.get_particularities|join:'. ' }}</h4>
-                      {% else %}
+                    {% else %}
                       <h4>{% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
+                      {% if facets.selected.selected_date %}
+                        {% with workshop|get_selected_date:facets.selected.selected_date as workshop_time %}
+                        {{ workshop_time.workshop_date|date:"j. F Y" }}
+                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
+                        {% endwith %}
+                      {% else %}
                         {% with workshop.get_closest_workshop_time as workshop_time %}
                         {{ workshop_time.workshop_date|date:"j. F Y" }}
                         {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}.
                         {% endwith %}
-                        {{ workshop.get_particularities|join:'. ' }}
+                      {% endif %}
+                      {{ workshop.get_particularities|join:'. ' }}
                       </h4>
                     {% endif %}
 
