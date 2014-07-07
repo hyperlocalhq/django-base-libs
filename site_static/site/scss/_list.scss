@@ -412,6 +412,7 @@ only screen and (                min-resolution: 2dppx) {
         background: none !important;
         width: 100%;
         display: block !important;
+        margin-bottom:8px;
 
         h3,
         h4,
@@ -431,6 +432,70 @@ only screen and (                min-resolution: 2dppx) {
       .img {
         width: 100% !important;
         position: relative;
+      }
+    }
+  }
+  
+  .cms_placeholder {
+    .item {
+      padding-bottom:25px;
+      .inner {
+        background-color: #f2f2f2 !important;
+        padding-bottom:0px;
+      }
+
+      .img {
+        width: 80px !important;
+        position: absolute;
+      }
+
+      a.txt {
+        padding: 10px 10px 10px 95px;
+        margin:0;
+        h3,
+        h4,
+        h5 {
+          font-size: 13px !important;
+          line-height: 18px !important;
+        }
+        p { display: none;}
+      }
+    }
+
+    &:nth-child(2) {
+      .item {
+        margin-bottom: 0px !important;
+        .inner {
+          background: none !important;
+          padding-bottom: 80px;
+        }
+
+        .txt {
+          padding: 0px;
+          background: none !important;
+          width: 100%;
+          display: block !important;
+          margin-bottom:8px;
+
+          h3,
+          h4,
+          h5 {
+            font-size: 14px !important;
+            line-height: 20px !important;
+          }
+  
+          p {
+            font-size: 13px !important;
+            line-height: 18px !important;
+            margin-top: 8px;
+            display: block;
+          }
+        }
+
+        .img {
+          width: 100% !important;
+          position: relative;
+        }
       }
     }
   }

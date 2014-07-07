@@ -3272,6 +3272,7 @@ a.img-detail.loaded:hover img {
   background: none !important;
   width: 100%;
   display: block !important;
+  margin-bottom: 8px;
 }
 .compact .item:nth-child(1) .txt h3,
 .compact .item:nth-child(1) .txt h4,
@@ -3286,6 +3287,60 @@ a.img-detail.loaded:hover img {
   display: block;
 }
 .compact .item:nth-child(1) .img {
+  width: 100% !important;
+  position: relative;
+}
+.compact .cms_placeholder .item {
+  padding-bottom: 25px;
+}
+.compact .cms_placeholder .item .inner {
+  background-color: #f2f2f2 !important;
+  padding-bottom: 0px;
+}
+.compact .cms_placeholder .item .img {
+  width: 80px !important;
+  position: absolute;
+}
+.compact .cms_placeholder .item a.txt {
+  padding: 10px 10px 10px 95px;
+  margin: 0;
+}
+.compact .cms_placeholder .item a.txt h3,
+.compact .cms_placeholder .item a.txt h4,
+.compact .cms_placeholder .item a.txt h5 {
+  font-size: 13px !important;
+  line-height: 18px !important;
+}
+.compact .cms_placeholder .item a.txt p {
+  display: none;
+}
+.compact .cms_placeholder:nth-child(2) .item {
+  margin-bottom: 0px !important;
+}
+.compact .cms_placeholder:nth-child(2) .item .inner {
+  background: none !important;
+  padding-bottom: 80px;
+}
+.compact .cms_placeholder:nth-child(2) .item .txt {
+  padding: 0px;
+  background: none !important;
+  width: 100%;
+  display: block !important;
+  margin-bottom: 8px;
+}
+.compact .cms_placeholder:nth-child(2) .item .txt h3,
+.compact .cms_placeholder:nth-child(2) .item .txt h4,
+.compact .cms_placeholder:nth-child(2) .item .txt h5 {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+.compact .cms_placeholder:nth-child(2) .item .txt p {
+  font-size: 13px !important;
+  line-height: 18px !important;
+  margin-top: 8px;
+  display: block;
+}
+.compact .cms_placeholder:nth-child(2) .item .img {
   width: 100% !important;
   position: relative;
 }
