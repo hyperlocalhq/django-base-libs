@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites workshops_tags %}
 {% block title %}{% trans "Guided Tour" %} – {{ object.title }}{% endblock %}
 {% block bodyclass %}workshop-detail{% endblock %}
 
@@ -61,10 +61,17 @@
                       {% trans "Bookable Offer" %}
                     {% else %}
                       {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
-                      {% with workshop.get_closest_workshop_time as workshop_time %}
-                        <span class="nobr">{{ workshop_time.workshop_date|date:"j. F Y" }}
+                      {% if selected_date %}
+                        {% with workshop|get_selected_date:selected_date as workshop_time %}
+                          <span class="nobr">{{ workshop_time.workshop_date|date:"j. F Y" }}
                         {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
-                      {% endwith %}
+                        {% endwith %}
+                      {% else %}
+                        {% with workshop.get_closest_workshop_time as workshop_time %}
+                          <span class="nobr">{{ workshop_time.workshop_date|date:"j. F Y" }}
+                        {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
+                        {% endwith %}
+                       {% endif %}
                     {% endif %}
                   </time>
                 </h2>

@@ -204,8 +204,11 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     def is_within_30_days(self):
         return self.is_within_days(30)
     
-    def get_closest_event_time(self):
-        today = date.today()
+    def get_closest_event_time(self, selected_date = 0):
+        if selected_date != 0:
+            today = selected_date
+        else:
+            today = date.today()
         qs = self.eventtime_set.filter(event_date__gte=today).order_by("event_date", "start")
         if qs:
             return qs[0]

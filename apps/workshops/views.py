@@ -315,12 +315,22 @@ def workshop_detail(request, slug):
             return access_denied(request)
     else:
         qs = Workshop.objects.filter(status="published")
+        
+    form = WorkshopFilterForm(data=request.REQUEST)
+    
+    if form.is_valid():
+        selected_date = form.cleaned_data['selected_date']
+
+    extra_context = {}
+    extra_context['selected_date'] = selected_date
+        
     return object_detail(
         request,
         queryset=qs,
         slug=slug,
         slug_field="slug",
         template_name="workshops/workshop_detail.html",
+        extra_context=extra_context,
         context_processors=(prev_next_processor,),
     )
 
