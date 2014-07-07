@@ -208,12 +208,12 @@ INSTALLED_APPS = (
     "jetson.apps.utils",
     "jetson.apps.extendedadmin",
     "jetson.apps.mailing",
-    "jetson.apps.permissions",
     #"jetson.apps.external_services",
     "jetson.apps.favorites",
     "jetson.apps.blog",
 
     ### museumsportal apps ###
+    "museumsportal.apps.permissions",
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",
     "museumsportal.apps.exhibitions_plugins",
