@@ -16,6 +16,7 @@ ADMINS = (
      ('Museumsportal Berlin Webmaster', 'bendoraitis@studio38.de'),
 )
 
+DEFAULT_FROM_EMAIL = 'museumsportal@kulturprojekte-berlin.de'
 MANAGERS = (
      ('Museumsportal Berlin Webmaster', 'museumsportal@kulturprojekte-berlin.de'),
 )
