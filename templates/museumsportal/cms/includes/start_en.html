@@ -3,30 +3,35 @@
 {% slideshow "start_slideshow_en" %}
 
 {% with "cms/plugins/editorial_content/ec_start_page.html" as editorial_content_template %}
-  <div id="teaser" class="content">
-    <div class="container">
-      <div class="row row-md">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+  <div class="container">
+    <div class="row row-md">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="start-content">
           <h5 class="caps">{% trans "Featured Museums" %}</h5>
           <div class="compact row">
             {% placeholder "start_page_left" %}
           </div>
         </div>
+      </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="start-content">
           <h5 class="caps">{% trans "Good to Know" %}</h5>
           <div class="compact row">
             {% placeholder "start_page_center" %}
           </div>
         </div>
+      </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="start-content">
           <h5 class="caps">{% trans "Featured Exhibitions" %}</h5>
           <div class="compact row">
             {% placeholder "start_page_right" %}
           </div>
         </div>
       </div>
+
     </div>
   </div>
 {% endwith %}
@@ -39,13 +44,6 @@
         {% random_zone_ad 'start_page' %}
       </div>
     </div>
-  </div>
-</div>
-
-<div id="twitter" class="content">
-  <div class="container">
-    <h5 class="caps">{% trans "Twitter" %} <a href="https://twitter.com/museumsportal" target="_blank">({% trans "Follow us" %})</a></h5>
-    <div class="row row-md" id="tweets" data-twitter-username="museumsportal"> </div>
   </div>
 </div>
 
