@@ -982,7 +982,7 @@ def load_data(instance=None):
 
 
 def submit_step(current_step, form_steps, form_step_data, instance=None):
-    museum = form_step_data.get('basic', {}).get('museum', None)
+    museum_id = form_step_data.get('basic', {}).get('museum', None)
     if current_step == "basic":
         # save the entry
         if "_pk" in form_step_data:
@@ -1007,9 +1007,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
         instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
-        if museum:
+        if museum_id:
             try:
-                instance.museum = Museum.objects.get(pk=museum)
+                instance.museum = Museum.objects.get(pk=museum_id)
             except:
                 pass
         instance.location_name = form_step_data['basic']['location_name']
@@ -1095,7 +1095,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         
         form_step_data['_pk'] = instance.pk
         
-    if current_step == "basic" and museum:
+    if current_step == "basic" and museum_id:
+        museum = None
+        if museum_id:
+            try:
+                museum = Museum.objects.get(pk=museum_id)
+            except:
+                pass
+
         # fill in Opening hours from museum
         if not form_step_data.get('opening', {}).get('_filled', False):
             form_step_data['opening'] = {'_filled': True, 'sets': {'seasons': [], 'special_openings': []}}
