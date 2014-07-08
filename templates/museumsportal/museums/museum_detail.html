@@ -98,7 +98,7 @@
 
 
               {% if object.mediafile_set.count > 1 or museum.get_twitter_username or object.get_published_exhibitions or object.get_published_events or object.get_published_workshops %}
-              <div class="btn-group hidden-xs" style="margin-bottom: 15px;">
+              <div class="btn-group hidden-xs clearfix">
                 {% if object.mediafile_set.count > 1 %}
                   <a class="btn btn-info btn-sm" href="#section-images">{% trans "Images" %}</a>
                 {% endif %}
@@ -714,7 +714,7 @@
       <div class="modal-content">
         <div class="modal-body" style="background: #fff;">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <iframe style="border:none" src="https://buchung1.visitberlin.de/hotelbuchung/controller?command=part&partid=93597537563" width="500px" height="500px" name="SELFHTML_in_a_box">
+          <iframe style="border:none" src="https://buchung1.visitberlin.de/hotelbuchung/controller?command=part&partid=93597537563" width="500" height="500" name="SELFHTML_in_a_box">
           <p>Ihr Browser kann leider keine eingebetteten Frames anzeigen:
             Sie k&ouml;nnen die eingebettete Seite &uuml;ber den folgenden Verweis
             aufrufen: <a href="../../../index.htm">SELFHTML</a></p>

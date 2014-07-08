@@ -32,7 +32,20 @@
   #cover_img {
     padding:0px;
     margin-bottom: 30px;
+    position: relative;
     .img {margin: 0px; }
+    .crop {
+      width: auto;
+      display: none!important;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+    &:hover {
+      .crop {
+        display: block!important;
+      }
+    }
   }
 
   header {

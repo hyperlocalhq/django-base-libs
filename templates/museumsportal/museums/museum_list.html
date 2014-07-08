@@ -78,6 +78,13 @@
                     <h3>{{ museum.title }}</h3>
                     <h4>{{ museum.subtitle }}</h4>
                   </a>
+                  {% if not request.is_mobile and museum.cover_image %}
+                    {% if_has_perm "museums.change_museum" museum %}
+                      <a href="{% cropping_url museum.cover_image "museum_list" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+                        <span class="icon icon-white icon-tool-crop"></span>
+                      </a>
+                    {% end_if_has_perm %}
+                  {% endif %}
                   <div class="description"></div>
                 </div>
                 {% if museums_ad_html %}

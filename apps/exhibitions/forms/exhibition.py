@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from distutils.command.install import install
-
 import os
 import shutil
 

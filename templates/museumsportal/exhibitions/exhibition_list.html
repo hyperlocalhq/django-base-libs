@@ -91,6 +91,19 @@
                     <h5>{{ exhibition.museum.title }}</h5>
                     {% endif %}
                   </a>
+                  {% if not request.is_mobile %}
+                    {% if_has_perm "exhibitions.change_exhibition" exhibition %}
+                      {% if exhibition.cover_image %}
+                        <a href="{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+                          <span class="icon icon-white icon-tool-crop"></span>
+                        </a>
+                      {% else %}
+                        <a href="{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+                          <span class="icon icon-white icon-tool-crop"></span>
+                        </a>
+                      {% endif %}
+                    {% end_if_has_perm %}
+                  {% endif %}
                   <div class="description"></div>
                 </div>
                 {% if exhibitions_ad_html %}

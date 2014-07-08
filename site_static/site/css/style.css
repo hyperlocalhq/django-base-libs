@@ -12,6 +12,9 @@
   font-size: 14px;
   -webkit-font-smoothing: antialiased; }
 
+.icon-white {
+  color: white !important; }
+
 .icon-hyphen:before {
   content: "\002D"; }
 
@@ -2452,6 +2455,13 @@ a.img-detail.loaded:hover img {
   .list .item.first_item_on_next_row {
     clear: left !important; }
 
+.grid .item .crop {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  display: none !important; }
+.grid .item:hover .crop {
+  display: block !important; }
 .grid .item > a {
   display: block;
   color: black;
@@ -3600,12 +3610,27 @@ dl {
   .event-detail article #cover_img,
   .workshop-detail article #cover_img {
     padding: 0px;
-    margin-bottom: 30px; }
+    margin-bottom: 30px;
+    position: relative; }
     .museum-detail article #cover_img .img,
     .exhibition-detail article #cover_img .img,
     .event-detail article #cover_img .img,
     .workshop-detail article #cover_img .img {
       margin: 0px; }
+    .museum-detail article #cover_img .crop,
+    .exhibition-detail article #cover_img .crop,
+    .event-detail article #cover_img .crop,
+    .workshop-detail article #cover_img .crop {
+      width: auto;
+      display: none !important;
+      position: absolute;
+      right: 10px;
+      top: 10px; }
+    .museum-detail article #cover_img:hover .crop,
+    .exhibition-detail article #cover_img:hover .crop,
+    .event-detail article #cover_img:hover .crop,
+    .workshop-detail article #cover_img:hover .crop {
+      display: block !important; }
   .museum-detail article header,
   .exhibition-detail article header,
   .event-detail article header,

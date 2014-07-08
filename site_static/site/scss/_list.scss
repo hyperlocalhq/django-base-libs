@@ -280,8 +280,17 @@ only screen and (                min-resolution: 2dppx) {
 
 .grid {
   .item {
+    .crop {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      display: none!important;
+    }
 
     &:hover {
+      .crop {
+        display: block!important;
+      }
       .img img {
           // -webkit-filter: grayscale(0%); /* New WebKit */
           // -moz-filter: grayscale(0%);
