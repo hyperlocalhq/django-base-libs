@@ -407,7 +407,9 @@ $(window).load(function() {
 				break;
 			}
 		}
-		if (i == search.length) $input.data("not-filtered", 1);
+		if (i == search.length) {
+			$input.data("not-filtered", 1);
+		}
 		
 		var $day_loader = $('#filter-calendar-day-loader', $filters);
 		var $day_loader_link = $('a', $day_loader);
@@ -444,7 +446,14 @@ $(window).load(function() {
 		
 		$('#filter-calendar li a', $filters).click(function(me) {
 			var $parent = $(me.target).parent();
-			if (!$parent.hasClass("active") || ($parent.hasClass("active") && $parent[0] == $day_loader[0])) return;
+			if (!$parent.hasClass("active") || ($parent.hasClass("active") && $parent[0] == $day_loader[0])) {
+				return;
+			}
+			$input.data("not-filtered", 1);
+			oDatepicker.update();
+		});
+		
+		$('#filter-reset').click(function() {
 			$input.data("not-filtered", 1);
 			oDatepicker.update();
 		});
