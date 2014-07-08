@@ -220,11 +220,6 @@
                                 {{ workshop.street_address }}<br/>
                                 {% if workshop.street_address2 %}{{ workshop.street_address2 }}<br/>{% endif %}
                                 {{ workshop.postal_code }} {{ workshop.city }}
-
-                                {% with workshop as list_item %}
-                                  <a href="#" class="location">{% trans "Show location on map" %}</a>
-                                  {% include "utils/geo_position.html" %}</dd>
-                                {% endwith %}
                               </p>
                             {% endif %}
 

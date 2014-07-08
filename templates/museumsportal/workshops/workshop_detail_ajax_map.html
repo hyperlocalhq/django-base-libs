@@ -17,8 +17,8 @@
             {% else %}
               {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
               {% with workshop.get_closest_workshop_time as workshop_time %}
-                <span class="nobr">{{ workshop_time.workshop_date|date:"j. F Y" }}</span><span class="nobr">
-                {{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
+                <span class="nobr">{{ workshop_time.workshop_date|date:"j. F Y" }}</span>
+                <span class="nobr">{{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
               {% endwith %}
             {% endif %}
           </time>
