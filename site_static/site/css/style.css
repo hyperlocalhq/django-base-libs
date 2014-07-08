@@ -2488,99 +2488,102 @@ a.img-detail.loaded:hover img {
     .grid .item > a h3:empty, .grid .item > a h4:empty, .grid .item > a h5:empty {
       display: none; }
 
-.compact .item .inner {
-  font-size: 15px;
-  line-height: 21px;
-  overflow: hidden;
-  background-color: #f2f2f2;
-  position: relative; }
-.compact .item:hover .inner {
-  background-color: rgba(0, 0, 0, 0.075); }
-.compact .item.title {
+.compact .item {
   background: none; }
-  .compact .item.title:hover {
+  .compact .item .inner {
+    font-size: 15px;
+    line-height: 21px;
+    overflow: hidden;
+    background-color: #f2f2f2;
+    position: relative; }
+  .compact .item:hover .inner {
+    background-color: rgba(0, 0, 0, 0.075); }
+  .compact .item.title {
     background: none; }
-  .compact .item.title h3 {
-    font-weight: 700;
-    margin-bottom: 5px !important;
+    .compact .item.title:hover {
+      background: none; }
+    .compact .item.title h3 {
+      font-weight: 700;
+      margin-bottom: 5px !important;
+      display: block;
+      text-transform: uppercase;
+      text-transform: uppercase;
+      font-size: 16px;
+      line-height: 20px; }
+  .compact .item .img {
+    background-color: #f2f2f2;
+    width: 80px;
+    height: 100%;
+    float: left;
     display: block;
-    text-transform: uppercase;
-    text-transform: uppercase;
-    font-size: 16px;
-    line-height: 20px; }
-.compact .item .img {
-  background-color: #f2f2f2;
-  width: 80px;
-  height: 100%;
-  float: left;
-  display: block;
-  overflow: hidden;
-  margin-bottom: 9px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding: 0px; }
-.compact .item a.txt {
-  float: left;
-  padding: 10px;
-  padding-left: 95px;
-  display: block !important;
-  font-size: 13px;
-  line-height: 18px;
-  width: 100%;
-  height: 90px;
-  box-sizing: border-box !important;
-  -moz-box-sizing: border-box !important; }
-  .compact .item a.txt:hover * {
-    color: black; }
-  .compact .item a.txt h3 {
-    font-weight: 700; }
-  .compact .item a.txt h4 {
-    font-weight: 300; }
-  .compact .item a.txt h5 {
-    font-weight: 300;
-    opacity: 0.5; }
-  .compact .item a.txt h3,
-  .compact .item a.txt h4,
-  .compact .item a.txt h5 {
+    overflow: hidden;
+    margin-bottom: 9px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0px; }
+  .compact .item a.txt {
+    float: left;
+    padding: 10px;
+    padding-left: 95px;
+    display: block !important;
     font-size: 13px;
     line-height: 18px;
     width: 100%;
-    display: inline-block;
+    min-height: 90px;
     box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
-    margin: 0px !important;
-    display: block !important; }
-    .compact .item a.txt h3:empty,
-    .compact .item a.txt h4:empty,
-    .compact .item a.txt h5:empty {
-      display: none !important; }
-  .compact .item a.txt p {
-    display: none; }
-.compact .item:nth-child(1) {
-  margin-bottom: 0px !important; }
-  .compact .item:nth-child(1) .inner {
-    background: none !important;
-    padding-bottom: 80px; }
-  .compact .item:nth-child(1) .txt {
-    padding: 0px;
-    background: none !important;
-    width: 100%;
-    display: block !important;
-    margin-bottom: 8px; }
-    .compact .item:nth-child(1) .txt h3,
-    .compact .item:nth-child(1) .txt h4,
-    .compact .item:nth-child(1) .txt h5 {
-      font-size: 14px !important;
-      line-height: 20px !important; }
-    .compact .item:nth-child(1) .txt p {
-      font-size: 13px !important;
-      line-height: 18px !important;
-      margin-top: 8px;
-      display: block; }
-  .compact .item:nth-child(1) .img {
-    width: 100% !important;
-    position: relative; }
+    -moz-box-sizing: border-box !important; }
+    .compact .item a.txt:hover * {
+      color: black; }
+    .compact .item a.txt h3 {
+      font-weight: 700; }
+    .compact .item a.txt h4 {
+      font-weight: 300; }
+    .compact .item a.txt h5 {
+      font-weight: 300;
+      opacity: 0.5; }
+    .compact .item a.txt h3,
+    .compact .item a.txt h4,
+    .compact .item a.txt h5 {
+      font-size: 13px;
+      line-height: 18px;
+      width: 100%;
+      display: inline-block;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      margin: 0px !important;
+      display: block !important; }
+      .compact .item a.txt h3:empty,
+      .compact .item a.txt h4:empty,
+      .compact .item a.txt h5:empty {
+        display: none !important; }
+    .compact .item a.txt p {
+      display: none; }
+  .compact .item:nth-child(1) {
+    margin-bottom: 0px !important; }
+    .compact .item:nth-child(1) .inner {
+      background: none !important;
+      padding-bottom: 80px; }
+    .compact .item:nth-child(1) .txt {
+      padding: 0px;
+      background: none !important;
+      width: 100%;
+      display: block !important;
+      margin-bottom: 8px;
+      height: 90px; }
+      .compact .item:nth-child(1) .txt h3,
+      .compact .item:nth-child(1) .txt h4,
+      .compact .item:nth-child(1) .txt h5 {
+        font-size: 14px !important;
+        line-height: 20px !important; }
+      .compact .item:nth-child(1) .txt p {
+        font-size: 13px !important;
+        line-height: 18px !important;
+        margin-top: 8px;
+        display: block; }
+    .compact .item:nth-child(1) .img {
+      width: 100% !important;
+      position: relative; }
 .compact .cms_placeholder .item {
   padding-bottom: 25px; }
   .compact .cms_placeholder .item .inner {
@@ -2591,7 +2594,8 @@ a.img-detail.loaded:hover img {
     position: absolute; }
   .compact .cms_placeholder .item a.txt {
     padding: 10px 10px 10px 95px;
-    margin: 0; }
+    margin: 0;
+    height: auto; }
     .compact .cms_placeholder .item a.txt h3,
     .compact .cms_placeholder .item a.txt h4,
     .compact .cms_placeholder .item a.txt h5 {
@@ -2609,7 +2613,8 @@ a.img-detail.loaded:hover img {
     background: none !important;
     width: 100%;
     display: block !important;
-    margin-bottom: 8px; }
+    margin-bottom: 8px;
+    height: 90px; }
     .compact .cms_placeholder:nth-child(2) .item .txt h3,
     .compact .cms_placeholder:nth-child(2) .item .txt h4,
     .compact .cms_placeholder:nth-child(2) .item .txt h5 {
@@ -4688,14 +4693,15 @@ a:hover .icon-social-instagram {
   position: absolute;
   top: 4px;
   right: 40px;
-  clear: both; }
+  clear: both;
+  margin-right: 10px; }
   .navbar-header .social-bar li {
     float: left; }
     .navbar-header .social-bar li a {
-      min-width: 35px; }
+      min-width: 27px; }
       .navbar-header .social-bar li a .icon {
         color: #777;
-        width: 35px; }
+        width: 27px; }
     .navbar-header .social-bar li a:hover .icon {
       color: #000; }
 
