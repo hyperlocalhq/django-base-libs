@@ -160,6 +160,14 @@
                 <span>Landesverband der Museen zu Berlin e.V.</span>
               </a>
             </div>
+            <div>
+              {% if LANGUAGE_CODE == "de" %}
+                <a href="/de/impressum/">Impressum</a>
+              {% else %}
+                <a href="/en/imprint/">Imprint</a>
+              {% endif %}
+              <a href="/logodownload/">Logodownload</a>
+            </div>
           </div>
         </div>
       {% endblock %}
