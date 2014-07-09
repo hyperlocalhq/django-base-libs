@@ -43,6 +43,7 @@ def strip_invalid_chars(text):
 class WorkshopTypeResource(ModelResource):
     class Meta:
         queryset = WorkshopType.objects.all()
+        max_limit = 100
         resource_name = 'workshop_type'
         allowed_methods = ['get']
         excludes = ['title', 'slug', 'sort_order']
@@ -59,6 +60,7 @@ class OrganizerResource(ModelResource):
 
     class Meta:
         queryset = Organizer.objects.all()
+        max_limit = 100
         resource_name = 'workshop_organizer'
         allowed_methods = ['get']
         excludes = []
@@ -71,6 +73,7 @@ class OrganizerResource(ModelResource):
 class WorkshopTimeResource(ModelResource):
     class Meta:
         queryset = WorkshopTime.objects.all()
+        max_limit = 100
         resource_name = 'workshop_time'
         allowed_methods = ['get']
         authentication = ApiKeyAuthentication()
@@ -82,6 +85,7 @@ class WorkshopTimeResource(ModelResource):
 class MediaFileResource(ModelResource):
     class Meta:
         queryset = MediaFile.objects.all()
+        max_limit = 100
         resource_name = 'workshop_media_file'
         allowed_methods = ['get']
         excludes = ['path', 'sort_order']
@@ -124,6 +128,7 @@ class WorkshopResource(ModelResource):
     
     class Meta:
         queryset = Workshop.objects.all()
+        max_limit = 100
         resource_name = 'workshop'
         allowed_methods = ['get']
         fields = [

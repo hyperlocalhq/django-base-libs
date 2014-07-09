@@ -42,6 +42,7 @@ class ExhibitionCategoryResource(ModelResource):
 
     class Meta:
         queryset = ExhibitionCategory.objects.all()
+        max_limit = 100
         resource_name = 'exhibition_category'
         allowed_methods = ['get']
         excludes = ['title', 'slug', 'sort_order']
@@ -55,6 +56,7 @@ class SeasonResource(ModelResource):
 
     class Meta:
         queryset = Season.objects.all()
+        max_limit = 100
         resource_name = 'exhibition_season'
         allowed_methods = ['get']
         excludes = ['last_entry', 'exceptions', 'exceptions_markup_type', 'exceptions_de_markup_type', 'exceptions_en_markup_type']
@@ -74,6 +76,7 @@ class OrganizerResource(ModelResource):
 
     class Meta:
         queryset = Organizer.objects.all()
+        max_limit = 100
         resource_name = 'exhibition_organizer'
         allowed_methods = ['get']
         excludes = []
@@ -87,6 +90,7 @@ class MediaFileResource(ModelResource):
 
     class Meta:
         queryset = MediaFile.objects.all()
+        max_limit = 100
         resource_name = 'exhibition_media_file'
         allowed_methods = ['get']
         excludes = ['path', 'sort_order']
@@ -127,6 +131,7 @@ class ExhibitionResource(ModelResource):
     
     class Meta:
         queryset = Exhibition.objects.all()
+        max_limit = 100
         resource_name = 'exhibition'
         allowed_methods = ['get']
         fields = [

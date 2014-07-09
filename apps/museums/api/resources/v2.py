@@ -149,6 +149,7 @@ class MuseumResource(ModelResource):
     
     class Meta:
         queryset = Museum.objects.all()
+        max_limit = 100
         resource_name = 'museum'
         allowed_methods = ['get']
         fields = [

@@ -19,6 +19,7 @@ Exhibition = models.get_model("exhibitions", "Exhibition")
 class ExhibitionCategoryResource(ModelResource):
     class Meta:
         queryset = ExhibitionCategory.objects.all()
+        max_limit = 100
         resource_name = 'exhibition_category'
         allowed_methods = ['get']
         excludes = ['title', 'slug', 'sort_order']
@@ -33,6 +34,7 @@ class ExhibitionResource(ModelResource):
     
     class Meta:
         queryset = Exhibition.objects.all()
+        max_limit = 100
         resource_name = 'exhibition'
         allowed_methods = ['get']
         fields = [

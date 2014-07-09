@@ -44,6 +44,7 @@ def strip_invalid_chars(text):
 class EventCategoryResource(ModelResource):
     class Meta:
         queryset = EventCategory.objects.all()
+        max_limit = 100
         resource_name = 'event_category'
         allowed_methods = ['get']
         excludes = ['title', 'slug', 'sort_order']
@@ -58,6 +59,7 @@ class OrganizerResource(ModelResource):
 
     class Meta:
         queryset = Organizer.objects.all()
+        max_limit = 100
         resource_name = 'event_category'
         allowed_methods = ['get']
         excludes = []
@@ -70,6 +72,7 @@ class OrganizerResource(ModelResource):
 class EventTimeResource(ModelResource):
     class Meta:
         queryset = EventTime.objects.all()
+        max_limit = 100
         resource_name = 'event_time'
         allowed_methods = ['get']
         authentication = ApiKeyAuthentication()
@@ -81,6 +84,7 @@ class EventTimeResource(ModelResource):
 class MediaFileResource(ModelResource):
     class Meta:
         queryset = MediaFile.objects.all()
+        max_limit = 100
         resource_name = 'event_media_file'
         allowed_methods = ['get']
         excludes = ['path', 'sort_order']
@@ -122,6 +126,7 @@ class EventResource(ModelResource):
     
     class Meta:
         queryset = Event.objects.all()
+        max_limit = 100
         resource_name = 'event'
         allowed_methods = ['get']
         fields = [
