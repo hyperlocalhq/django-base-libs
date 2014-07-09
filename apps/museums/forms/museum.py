@@ -1541,7 +1541,7 @@ def save_data(form_steps, form_step_data, instance=None):
     ]
     for f in fields:
         setattr(instance, f, form_step_data['address'][f])
-    if form_step_data['address']['parent']:
+    if form_step_data['address'].get('parent', None):
         try:
             instance.parent = Museum.objects.get(pk=form_step_data['address']['parent'])
         except:
