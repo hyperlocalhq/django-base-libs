@@ -29,17 +29,6 @@
     </script>
 {% endblock %}
 
-{% block edit_item %}
-    {% if_has_perm "events.change_event" object %}
-    <div>
-        <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">
-            <span class="sr-only">{% trans "Edit" %}</span>
-            <span class="icon icon-pencil"></span>
-        </a>
-    </div>
-    {% end_if_has_perm %}
-{% endblock %}
-
 {% block content %}
   {% with object as event %}
     <div id="exhibition" class="content">
@@ -74,7 +63,11 @@
                   {% endif %}
                 </h2>
 
-                <h1> {{ event.title }} </h1>
+                <h1> {{ event.title }} {% if_has_perm "events.change_event" object %}
+                  {% if not request.is_mobile %}
+                    <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                   {% endif %}
+                {% end_if_has_perm %}</h1>
                 {% if event.subtitle %}
                   <h2>{{ event.subtitle }}</h2>
                 {% endif %}
