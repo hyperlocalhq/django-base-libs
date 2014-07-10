@@ -124,12 +124,20 @@
 
               {% include "utils/cover_image.html" %}
               
-              {% if exhibition.vernissage %}
+              {% if exhibition.vernissage or exhibition.finissage %}
               <div class="extras">
-                <dl>
-                  <dt>{% trans "Vernissage" %}</dt>
-                  <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
-                </dl>
+                {% if exhibition.vernissage %}
+                  <dl>
+                    <dt>{% trans "Vernissage" %}</dt>
+                    <dd>{{ exhibition.vernissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
+                  </dl>
+                {% endif %}
+                {% if exhibition.finissage %}
+                  <dl>
+                    <dt>{% trans "Finissage" %}</dt>
+                    <dd>{{ exhibition.finissage|date:"d.m.Y H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
+                  </dl>
+                {% endif %}
               </div>
               {% endif %}
               
@@ -330,7 +338,6 @@
                   </div>
                 </div>
               {% endif %}
-              {% endcomment %}
 
               <!-- ======= Finissage ======= -->
 
@@ -350,6 +357,7 @@
                   </div>
                 </div>
               {% endif %}
+              {% endcomment %}
 
               <!-- ======= Catalog ======= -->
 

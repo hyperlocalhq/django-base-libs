@@ -4650,6 +4650,13 @@ dl dl dd:last-child {
 .workshop-detail article header .extras {
   margin-top: 25px;
 }
+.museum-detail article header .extras dl,
+.exhibition-detail article header .extras dl,
+.event-detail article header .extras dl,
+.workshop-detail article header .extras dl {
+  display: inline-block !important;
+  margin-right: 20px;
+}
 .museum-detail article header .extras dd, .museum-detail article header .extras dt,
 .exhibition-detail article header .extras dd,
 .exhibition-detail article header .extras dt,
@@ -4692,6 +4699,13 @@ dl dl dd:last-child {
 .event-detail article blockquote:last-child,
 .workshop-detail article blockquote:last-child {
   padding: 0px !important;
+}
+.museum-detail article .extras dl,
+.exhibition-detail article .extras dl,
+.event-detail article .extras dl,
+.workshop-detail article .extras dl {
+  display: inline-block !important;
+  margin-right: 20px;
 }
 
 @media (max-width: 767px) {

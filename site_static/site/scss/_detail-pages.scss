@@ -81,6 +81,10 @@
     }
     .extras {
       margin-top: 25px;
+      dl {
+        display:inline-block !important;
+        margin-right:20px;
+      }
       dd, dt {
         font-size: 20px;
         line-height: 32px;
@@ -108,6 +112,13 @@
     &:after  {content: "Â»";}
     &:last-child{
       padding: 0px !important;
+    }
+  }
+  
+  .extras {
+    dl {
+      display:inline-block !important;
+      margin-right:20px;
     }
   }
 }
