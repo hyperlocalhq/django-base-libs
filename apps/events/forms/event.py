@@ -884,7 +884,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
-        if form_step_data['basic']['exhibition']:
+        if form_step_data['basic'].get('exhibition', None):
             try:
                 instance.exhibition = Exhibition.objects.get(pk=form_step_data['basic']['exhibition'])
             except:
