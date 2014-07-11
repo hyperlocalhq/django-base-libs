@@ -5018,6 +5018,21 @@ dl dl dd:last-child {
   margin-left: 4px;
 }
 
+.dashboard-content .fieldset-imagegallery .fieldset-meta {
+  position: static;
+  top: 0;
+  right: 0;
+}
+.dashboard-content .fieldset-imagegallery .fieldset-meta > * {
+  float: none;
+  margin-left: 0px;
+  margin-right: 4px;
+  max-width: 300px;
+}
+.dashboard-content .fieldset-imagegallery #photos {
+  width: 100%;
+}
+
 #form-meta {
   position: absolute;
   top: 30px;

@@ -54,6 +54,25 @@
   }
 }
 
+.dashboard-content {
+  .fieldset-imagegallery {
+    .fieldset-meta {
+      position:static;
+      top:0;
+      right:0;
+      > * {
+        float:none;
+        margin-left:0px;
+        margin-right:4px;
+        max-width:300px;
+      }
+    }
+    #photos {
+      width:100%;
+    }
+  }
+}
+
 #form-meta {
   position: absolute;
   top: 30px;
