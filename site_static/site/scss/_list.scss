@@ -330,6 +330,17 @@ only screen and (                min-resolution: 2dppx) {
   }
 }
 
+.exhibition-list {
+  .jscroll-inner {
+    .grid:after {
+      clear:none;
+    }
+    .jscroll-loading {
+      clear:both;
+    }
+  }
+}
+
 .compact {
   .item {
 		background:none;

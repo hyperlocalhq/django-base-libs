@@ -232,14 +232,46 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     def is_upcoming(self):
         today = date.today()
         return today < self.start
+        
+    def is_open(self, selected_date):
+        if self.museum_opening_hours:
+            today = date.today()
+            for t in self.get_museums_special_opening_times():
+                if selected_date == date(t.yyyy or today.year, t.mm, t.dd):
+                    if t.is_closed:
+                        return False
+                    if not t.is_regular:
+                        return True
+                    
+            for season in self.get_actual_seasons():
+                if season.is_open(selected_date):
+                    return True
+                
+        else:
+            for season in self.season_set.all():
+                if season.is_open(selected_date):
+                    return True
+            
+        return False
     
     def is_today(self):
-        return self.is_actual()
+        today = date.today()
+        if self.end is None:
+            if self.start <= today:
+                return self.is_open(today)
+        elif self.start <= today <= self.end:
+            return self.is_open(today)
+        return False
         
     def is_tomorrow(self):
         today = date.today()
         one_day = timedelta(days=1)
-        return self.start <= today + one_day <= self.end
+        if self.end is None:
+            if self.start <= today + one_day:
+                return self.is_open(today + one_day)
+        elif self.start <= today + one_day <= self.end:
+            return self.is_open(today + one_day)
+        return False
         
     def is_within_days(self, days=0):
         selected_start = date.today()
@@ -476,7 +508,15 @@ class Season(OpeningHoursMixin):
                 )),
             })
         return times
-
+        
+    def is_open(self, selected_date):
+        if self.is_open_24_7:
+            return True
+        WEEKDAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
+        if getattr(self, "%s_open" % WEEKDAYS[selected_date.weekday()]):
+            return True
+        return False
+            
 
 class NewlyOpenedExhibition(CMSPlugin):
     exhibition = models.ForeignKey(Exhibition, limit_choices_to={'newly_opened': True})

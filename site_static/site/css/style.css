@@ -3190,6 +3190,13 @@ a.img-detail.loaded:hover img {
   display: none;
 }
 
+.exhibition-list .jscroll-inner .grid:after {
+  clear: none;
+}
+.exhibition-list .jscroll-inner .jscroll-loading {
+  clear: both;
+}
+
 .compact .item {
   background: none;
 }

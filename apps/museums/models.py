@@ -473,6 +473,12 @@ class Season(OpeningHoursMixin):
     def is_current(self):
         today = datetime.today().date()
         return self.start <= today <= self.end
+        
+    def is_open(self, selected_date):
+        WEEKDAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
+        if getattr(self, "%s_open" % WEEKDAYS[selected_date.weekday()]):
+            return True
+        return False
 
 
 class SpecialOpeningTime(models.Model):
