@@ -80,7 +80,7 @@
             }
             var options_de = $.extend(translatable_file_uploader_options_de, {
                 allowedExtensions: ['pdf'],
-                action: "/helper/ajax-upload/",
+                action: '/' + settings.lang + '/helper/ajax-upload/',
                 element: $('.pdf_uploader', $pdf_document_de_upload)[0],
                 multiple: false,
                 onComplete: function(id, fileName, responseJSON) {
@@ -123,7 +123,7 @@
             }
             var options_en = $.extend(translatable_file_uploader_options_en, {
                 allowedExtensions: ['pdf'],
-                action: "/helper/ajax-upload/",
+                action: '/' + settings.lang + '/helper/ajax-upload/',
                 element: $('.pdf_uploader', $pdf_document_en_upload)[0],
                 multiple: false,
                 onComplete: function(id, fileName, responseJSON) {
