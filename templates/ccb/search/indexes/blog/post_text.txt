@@ -1,0 +1,8 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+        {{ object.title }}
+        {{ object.body }}
+        {{ object.tags }}
+    {% endautoescape %}
+{% endfilter %}

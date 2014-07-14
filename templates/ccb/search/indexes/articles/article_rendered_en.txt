@@ -1,0 +1,2 @@
+{% load base_tags image_modifications %}
+<div class="searchinfo"><h5><a href="{{ object.get_url_path }}">{{ object.title }}</a></h5></div>

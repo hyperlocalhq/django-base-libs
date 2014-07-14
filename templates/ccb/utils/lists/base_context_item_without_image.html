@@ -1,0 +1,18 @@
+{% extends "utils/lists/base_context_item.html" %}
+
+{% comment %}<!--
+The base for context item without image in context item lists
+-->{% endcomment %}
+
+{% block object_col1_container %}
+    <div>
+        <div class="object_title">
+            <h5>
+                {% block object_title %}TITLE{% endblock %}
+            </h5>
+        </div>
+        <div class="object_col1">{% block object_col1 %}{% endblock %}</div>
+    </div>
+    <div class="object_controls">{% block object_controls %}{% endblock %}</div>
+{% endblock %}
+

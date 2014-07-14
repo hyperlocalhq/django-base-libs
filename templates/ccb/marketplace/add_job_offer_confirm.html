@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load base_tags i18n site_specific babel %}
+
+{% block title %}{% trans "Registration" %} - {% trans "Job Offer" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Registration" %}</h1>
+    <h2 class="sub">{% trans "Job Offer" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}{% endblock %}
+
+{% block content %}
+    {% comment %}<!-- TODO: remove the comment to see all available data
+    <pre>{{ form_step_data|pprint|escape }}</pre>
+    -->{% endcomment %}
+    {% if form_step_data.step_main_data.offering_institution %}
+        {% load_obj institutions.institution form_step_data.step_main_data.offering_institution as institution %}
+    {% endif %}
+    <div class="reg confirm">
+        <div class="field_layout">
+            <form action="" method="post" class="uniForm">
+	            <h5 class="begin">{% trans "Confirm Entered Data" %}</h5>
+	            
+	            <h3>{{ form_step_data.step_main_data.position }}</h3>
+	            <div class="check">
+                <dl class="spacer">
+                    {% if institution or form_step_data.step_main_data.offering_institution_title %}
+                        <dt>{% trans "Institution/Company" %}:</dt>
+                        <dd>
+                            {% if institution %}
+                                <a href="{{ institution.get_url_path }}">{{ institution.get_title }}</a>
+                            {% else %}
+                                {{ form_step_data.step_main_data.offering_institution_title }}
+                            {% endif %}
+                        </dd>
+                    {% endif %}
+                    <dt>{% trans "Job type" %}:</dt>
+                    <dd>{{ form_step_data.step_main_data.job_type }}</dd>
+                    {% if form_step_data.step_main_data.qualifications %}
+                        <dt>{% trans "Qualification" %}:</dt>
+                        <dd>{% for q in form_step_data.step_main_data.qualifications %}{% if not forloop.first and not forloop.last %}, {% endif %}{% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}{% if forloop.first %}{{ q.title|capfirst }}{% else %}{{ q.title|lower }}{% endif %}{% endfor %}</dd>
+                    {% endif %}
+                    <dt>{% trans "Description" %}:</dt>
+                    <dd>{{ form_step_data.step_main_data.description|urlize|linebreaksbr }}</dd>
+                    {% if form_step_data.step_main_data.end_date %}
+                        <dt>{% trans "Published till" %}</dt>
+                        <dd>{{ form_step_data.step_main_data.end_date|datefmt:"medium" }}</dd>
+                    {% endif %}
+                </dl>
+                </div>
+                <h5>{% trans "Contact Info" %}</h5>
+	            <div class="check">
+	                <dl>
+	                    <dt>{% trans "Address" %}:</dt>
+	                    <dd>
+	                        <address>
+                                {% if institution or form_step_data.step_main_data.offering_institution_title %}
+                                    {% if institution %}
+                                        {{ institution.get_title }}
+                                    {% else %}
+                                        {{ form_step_data.step_main_data.offering_institution_title }}
+                                    {% endif %}<br />
+                                {% endif %}
+                                {{ form_step_data.step_main_data.street_address|escape }}<br />
+                                {% if form_step_data.step_main_data.street_address2 %}
+                                    {{ form_step_data.step_main_data.street_address2|escape }}<br />
+                                {% endif %}
+                                {{ form_step_data.step_main_data.postal_code|escape }} {{ form_step_data.step_main_data.city|escape }}<br />
+                                {{ form_step_data.step_main_data.get_country_display }}
+	                        </address>
+	                    </dd>
+	                </dl>
+                </div>
+                <div class="check">
+                    {% ifequal form_step_data.step_main_data.contact_person_ind "0" %}
+                        <dl>
+                            <dt>{% trans "Contact Person" %}</dt>
+                            <dd><a href="{{ request.user.get_profile.get_url_path }}">{{ request.user.get_profile.get_title }}</a></dd>
+                        </dl>
+                    {% else %}
+                        {% if form_step_data.step_main_data.contact_person_name %}
+                            <dl>
+                                <dt>{% trans "Contact Person" %}</dt>
+                                <dd>{{ form_step_data.step_main_data.contact_person_name }}</dd>
+                            </dl>
+                        {% endif %}
+                    {% endifequal %}
+	                <dl>
+	                    {% if form_step_data.step_main_data.phone_number %}
+	                        <dt>{% trans "Phone" %}:</dt>
+	                        <dd>+{% if form_step_data.step_main_data.phone_country %}{{ form_step_data.step_main_data.phone_country }}{% else %}49{% endif %}-{{ form_step_data.step_main_data.phone_area }}-{{ form_step_data.step_main_data.phone_number }}</dd>
+	                    {% endif %}
+	
+	                    {% if form_step_data.step_main_data.fax_number %}
+	                        <dt>{% trans "Fax" %}:</dt>
+	                        <dd>+{% if form_step_data.step_main_data.fax_country %}{{ form_step_data.step_main_data.fax_country }}{% else %}49{% endif %}-{{ form_step_data.step_main_data.fax_area }}-{{ form_step_data.step_main_data.fax_number }}</dd>
+	                    {% endif %}
+	                </dl>
+	                <dl>
+	                    {% if form_step_data.step_main_data.email0_address %}
+	                        <dt>{% trans "Email" %}:</dt>
+	                        <dd>{{ form_step_data.step_main_data.email0_address }}</dd>
+	                    {% endif %}
+	                    {% if form_step_data.step_main_data.email0_address %}
+	                        <dt>{% trans "Homepage" %}:</dt>
+	                        <dd><a href="{{ form_step_data.step_main_data.url0_link }}">{{ form_step_data.step_main_data.url0_link }}</a></dd>
+	                    {% endif %}
+	                </dl>
+	            </div>
+	            
+		        <div class="cleaner"></div>
+		        
+		        {% get_job_sectors form_step_data.step_categories as job_sectors %}
+                {% if job_sectors or form_step_data.step_categories.tags %}
+                    <div class="cleaner"></div>
+                    <h5>{% trans "Categories" %}</h5>
+                    <div class="check">
+                        <dl>
+                            {% if job_sectors %}
+                                <dt>{% trans "Job Sector" %}:</dt>
+                                <dd>
+                                    {% for job_sector in job_sectors %}
+                                        {{ job_sector.title }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </dd>
+                            {% endif %}
+                            {% if form_step_data.step_categories.tags %}
+                                <dt>{% trans "Tags" %}:</dt>
+                                <dd>
+                                    {% with form_step_data.step_categories.tags|slice:"-2:" as trailing_coma %}
+                                        {% ifequal trailing_coma ", " %}
+                                            {{ form_step_data.step_categories.tags|slice:"0:-2" }}
+                                        {% else %}
+                                            {{ form_step_data.step_categories.tags }}
+                                        {% endifequal %}
+                                    {% endwith %}
+                                </dd>
+                            {% endif %}
+                        </dl>		            
+                    </div>
+                {% endif %}
+                    
+                <fieldset class="fieldset_end">
+                    <legend><span>{% trans "Report job offer" %}</span></legend>
+                    <ul>
+                        <li><p>{% trans "Please activate the checkboxes if you want to send your jobposting to one of our partners." %}</p></li>
+                        <li class="line_checkbox">
+                            {{ form.report_kulturmanagement }}
+                            <label for="id_report_kulturmanagement">
+                                {% if form.report_kulturmanagement.required %}<strong>{% endif %}
+                                {% blocktrans %}Send to <a href="http://www.kulturmanagement.net/" onclick="open_new_window(event)">Kulturmanagement.net</a>.{% endblocktrans %}
+                                {% if form.report_kulturmanagement.required %}*</strong>{% endif %}
+                            </label>
+                            {{ form.report_kulturmanagement.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.report_creativeset }}
+                            <label for="id_report_creativeset">
+                                {% if form.report_creativeset.required %}<strong>{% endif %}
+                                {% blocktrans %}Send to <a href="http://www.creativeset.net/" onclick="open_new_window(event)">Creativeset.net</a>.{% endblocktrans %}
+                                {% if form.report_creativeset.required %}*</strong>{% endif %}
+                            </label>
+                            {{ form.report_creativeset.error_tag }}
+                        </li>
+                    </ul>
+                </fieldset>
+                {% include "utils/step_buttons_reg.html" %}
+                <div class="cleaner"></div>
+        </form>
+	</div>
+</div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
+        <span class="b-sep"><span>::</span></span><span>{% trans "Offer a job" %}</span>
+    </div>
+{% endblock %}
+
+

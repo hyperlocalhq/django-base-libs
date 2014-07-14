@@ -1,0 +1,49 @@
+{% extends "utils/lists/base_context_item.html" %}
+{% load i18n base_tags babel comments %}
+{% block object_title %}
+    <a href="{{ object.get_url_path }}">{{ object.name|escape }}</a>
+{% endblock %}
+
+{% block object_absolute_url %}{{ object.get_url_path }}{% endblock %}
+
+{% block list-content %}
+
+<div class="object_title">
+    <h5> <a href="{{ object.get_url_path }}">{{ object.name|escape }}</a></h5>
+	<a href="{{ object.get_url_path }}">
+    <img src="{{ object.get_media0_thumb_path }}" alt=""/> 
+    </a>
+</div>
+<div>
+    <div class="txt">
+        {% if not object.description %}<p>{% endif %}
+        {{ object.pubdate|datefmt:"long" }}
+        {% if not object.description %}</p>{% endif %}
+        {% if object.description %}
+            <p>{{ object.description|escape }}</p>
+        {% endif %}
+        
+        {% if object.rating %}
+        	{% with object.rating as rating %}
+        	{% with object.ext_id as ext_id %}
+        		{% include "external_services/jovoto/profile/starrating.html" %}
+        	{% endwith %}
+        	{% endwith %}
+        {% endif %}
+        
+        {% if not object.comments %}
+            <div>{% trans "No comments" %}</div>
+        {% else %}
+            <div>{% blocktrans count object.comments as counter %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}</div>
+        {% endif %}
+    </div>
+    {% comment %}<!--
+    <div class="object-type">
+        {% trans "URL" %}: <a href="{{ object.link|escape }}" onclick="open_new_window(event)">{% with object.link|slice:"0:35"|escape as sliced %}{{ sliced }}{% with object.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...{% endifnotequal %}{% endwith %}{% endwith %}</a>
+    </div>    
+    -->{% endcomment %}      	
+</div>	
+{% endblock %}
+
+
+

@@ -1,0 +1,26 @@
+{% extends "extendedadmin/job_offer_change_base.html" %}
+
+{% load i18n %}
+
+{% block fieldset_additional_info %}
+    <fieldset class="module aligned collapse closed">
+        <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
+        <div class="row{% if form.additional_info.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_additional_info"{% if form.additional_info.field.required %} class="required"{% endif %}>{% trans "Additional info" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ form.additional_info_markup_type }}
+                    {% if form.additional_info_markup_type.help_text %}<span class="help">{{ form.additional_info_markup_type.help_text|safe }}</span>{% endif %}
+                    <p>{{ form.additional_info }}</p>
+                    {{ form.additional_info.errors }}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+{% endblock %}
+
+
+{% block fieldset_status %}
+    {% include "extendedadmin/includes/fieldset_categories.html" %}
+    {{ block.super }}
+{% endblock %}

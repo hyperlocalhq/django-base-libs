@@ -1,0 +1,57 @@
+{% load i18n uni_form_field %}
+<h3>{% trans "Websites" %}</h3>
+<div class="ctrlHolders">
+    <div class="ctrlHolder">
+        {{ form.url0_type.error_tag }}
+        {{ form.url0_link.error_tag }}
+        <p class="label">Website</p>
+        <ul class="alternate2">
+            <li>
+                <label for="id_url0_type">
+                    {{ form.url0_type.label }}
+                    {{ form.url0_type|with_class }}
+                </label>
+            </li>
+            <li>
+                <label for="id_url0_link">
+                    {{ form.url0_link.label }}
+                    {{ form.url0_link|with_class }}
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="ctrlHolder">
+        {{ form.url1_type.error_tag }}
+        {{ form.url1_link.error_tag }}
+        <p class="label">Website</p>
+        <ul class="alternate2">
+            <li>
+                <label for="id_url1_type">
+                    {{ form.url1_type|with_class }}
+                </label>
+            </li>
+            <li>
+                <label for="id_url1_link">
+                    {{ form.url1_link|with_class }}
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="ctrlHolder">
+        {{ form.url2_type.error_tag }}
+        {{ form.url2_link.error_tag }}
+        <p class="label">Website</p>
+        <ul class="alternate2">
+            <li>
+                <label for="id_url2_type">
+                    {{ form.url2_type|with_class }}
+                </label>
+            </li>
+            <li>
+                <label for="id_url2_link">
+                    {{ form.url2_link|with_class }}
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>

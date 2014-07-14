@@ -1,0 +1,6 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+        {{ object.description_en }}
+    {% endautoescape %}
+{% endfilter %}

@@ -1,0 +1,19 @@
+{% load i18n base_tags nav_menu memos %}
+{% with forloop.counter|default:0 as counter %}
+    <ul class="toolbar">
+        {% if request.user.is_authenticated %}
+            <li class="memo">{% adding2memos for job_offer %}</li>
+            {% if request.user.is_staff %}
+                {% if perms.marketplace.change_joboffer %}
+                    <li class="admin_edit">
+                        <a href="/admin/marketplace/joboffer/{{ job_offer.pk }}/" onclick="open_new_window(event)" title="{% trans "Edit Job Offer" %}">
+                            <span><span>{% trans "Edit Job Offer" %}</span></span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <li class="memo">{% adding2memos for job_offer %}</li>
+        {% endif %}
+    </ul>
+{% endwith %}

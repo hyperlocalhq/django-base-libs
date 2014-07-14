@@ -1,0 +1,83 @@
+{% extends base_template|default:"base.html" %}
+{% load i18n base_tags nav_menu auth_extended uni_form_tags %}
+
+
+{% block extrahead %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Infolinks" %}{% endblock %}
+
+
+{% block headline %}
+	<h1>{% trans "Infolinks" %}</h1>
+	{% comment %}<!--<h2>{% trans "Support Programmes" %}</h2>-->{% endcomment %}
+{% endblock %}			
+
+
+{% block sidebar-a %}
+    <div class="sidebar-box nav_expanded" id="block_filter_{{ LANGUAGE_CODE }}">
+        <h5>
+            <a href="#" class="open_but">
+                <b>{% trans "Filter" %}</b>
+                <span class="pic"></span>
+            </a>
+        </h5>
+        <form method="get" id="object_list_filter_form" class="uniForm hidable">
+            <div class="object_search_form">
+                {{ form.creative_sector|as_uni_field }}
+                {{ form.document_type|as_uni_field }}
+                <div class="col one-line last">
+                    <input type="submit" class="primaryAction" value="{% trans "Search" %}" />
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% block tabs %}
+        <div id="tabs">
+            {% children_of "documents" using "navigation/children_in_tabs.html" %}
+        </div>
+        <hr class="hidden"/>
+    {% endblock %}
+    {% if object_list %}
+        {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
+        {% include "utils/abc_filters.html" %}
+        <div id="object_list">
+            {% for document in object_list %}
+                {% include_parsed "resources/lists/document.html" %}
+            {% endfor %}
+        </div>
+        {% include "utils/includes/sorting_and_pagination.html" %}
+    {% else %}
+        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        {% if not show %}
+            <span class="b-sep"><span>::</span></span><span>{% trans "Infolinks" %}</span>
+        {% endif %}
+        {% if show == "/memos" %}
+            <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
+            <span class="b-sep"><span>::</span></span><span>{% trans "Memos" %}</span>
+        {% endif %}
+        {% if show == "/favorites" %}
+            <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
+            <span class="b-sep"><span>::</span></span><span>{% trans "Favorites" %}</span>
+        {% endif %}
+        {% if show == "/own-documents" %}
+            <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "Infolinks" %}</a>
+            <span class="b-sep"><span>::</span></span><span>{% trans "Own infolinks" %}</span>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+{% endblock %}

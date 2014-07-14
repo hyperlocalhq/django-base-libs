@@ -1,0 +1,17 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+        {{ object.title_de }}
+        {{ object.slug }}
+        {{ object.description_de }}
+        {% for cat in object.get_object_types %}
+            {{ cat.title_de }}
+        {% endfor %}
+        {% for cat in object.get_context_categories %}
+            {{ cat.title_de }}
+        {% endfor %}
+        {% for cat in object.get_creative_sectors %}
+            {{ cat.title_de }}
+        {% endfor %}
+    {% endautoescape %}
+{% endfilter %}

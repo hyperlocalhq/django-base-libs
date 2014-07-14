@@ -1,0 +1,98 @@
+{% extends "people/details_base.html" %}
+{% load i18n base_tags auth_extended compressed compressed_jetson %}
+
+{% block doctype %}
+    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
+{% endblock %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.get_title }}"/>
+    <meta property="og:type" content="public_figure"/>
+    {% if object.image %}
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ UPLOADS_URL }}{{ object.image.path }}" />
+    {% else %}
+        <meta property="og:image" content="{{ website_url|slice:":-1" }}{{ STATIC_URL }}site/img/website/c_logo.png"/>
+    {% endif %}
+    <meta property="og:url" content="{{ object.get_url }}"/>
+    <meta property="og:site_name" content="Creative City Berlin"/>
+    <meta property="og:description" content="{{ object.description|striptags|truncatewords:20|escape }}"/>
+{% endblock %}
+
+{% block details %}
+    <div id="dyn_avatar" class="dyn_section">
+        {% include "people/profile/avatar.html" %}
+    </div>
+    <p><strong>{{ object.get_title }}</strong></p>
+    <div class="vcard">
+        {% if object.are_contacts_displayed %}
+            <div id="address">
+                <div id="dyn_contacts">
+                    <div>
+                        <h6>{% trans "contact data" %}</h6>
+                    </div>
+                    {% for contact in object.get_contacts %}
+                        {% with forloop.counter0 as index %}
+                            <div id="dyn_contact_{{ index }}" class="dyn_section">
+                                {% include "people/profile/contact.html" %}
+                            </div>
+                        {% endwith %}
+                    {% endfor %}
+               </div>
+            </div>
+            <div class="dyn_contact_new">
+            </div>
+        {% endif %}
+    </div>
+    <hr />
+    <div id="dyn_description" class="dyn_section">
+        {% include "people/profile/description.html" %}
+    </div>
+    <hr />
+    <div id="dyn_details" class="dyn_section">
+        {% include "people/profile/details.html" %}
+    </div>
+    <hr />
+    <div id="dyn_categories" class="dyn_section">
+        {% include "people/profile/categories.html" %}
+    </div>
+    <hr />
+    {% if object.get_contacts.0.postal_address.get_geoposition.latitude %}
+    <div id="dyn_map">
+        <h6 class="section-header">
+            {% trans "Map" %}
+        </h6>
+        <div class="section-details">
+            <div id="gmap_view"></div>
+        </div>
+    </div>
+    {% endif %}
+    
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
+        <span class="b-sep"><span>::</span></span><span>{{ object.get_title }}</span>
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+    {{ block.super }}
+    {% if_has_perm "people.change_person" object %}
+        {% compressed_js "person_details" %}
+        {% compressed_jetson_js "autocomplete" %}
+    {% end_if_has_perm %}
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}&amp;region=DE"></script>
+    <script type="text/javascript">
+    self.aGeopositions = [];
+    {% for contact in object.get_contacts %}
+        {% with contact.postal_address.get_geoposition as geopos %}
+            {% if geopos.latitude and geopos.longitude %}
+            self.aGeopositions[{{ forloop.counter0 }}] = [{{ geopos.latitude }}, {{ geopos.longitude }}];
+            {% endif %}
+        {% endwith %}
+    {% endfor %}
+    </script>
+    {% compressed_js "map" %}
+{% endblock %}

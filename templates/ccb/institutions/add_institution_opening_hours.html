@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load base_tags i18n uni_form_tags uni_form_field %}
+
+{% block title %}{% trans "Registration" %} - {% trans "Institution Contact Data" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Registration" %}</h1>
+    <h2 class="sub">{% trans "Institutional Account" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+<div class="reg">
+    <form action="" method="post" class="uniForm">
+        <fieldset class="inlineLabels">
+            <h3>{% trans "Opening Hours (Optional)" %}</h3>
+            {% include "uni_form/includes/opening_hours.html" %}
+            {{ form.exceptions_de|as_uni_field }}
+            {{ form.exceptions_en|as_uni_field }}
+            {{ form.is_appointment_based|as_uni_field }}
+            
+            <h3>{% trans "Payment Options" %}</h3>
+            <div class="ctrlHolder noLabel">
+                <ul class="alternate2">
+                    <li>
+                        <label for="id_is_cash_ok">
+                            {{ form.is_cash_ok|with_class }}
+                            {{ form.is_cash_ok.label }}
+                        </label>
+                    </li>
+                    <li>
+                        <label for="id_is_card_visa_ok">
+                            {{ form.is_card_visa_ok|with_class }}
+                            {{ form.is_card_visa_ok.label }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="ctrlHolder noLabel">
+                <ul class="alternate2">
+                    <li>
+                        <label for="id_is_invoice_ok">
+                            {{ form.is_invoice_ok|with_class }}
+                            {{ form.is_invoice_ok.label }}
+                        </label>
+                    </li>
+                    <li>
+                        <label for="id_is_card_mastercard_ok">
+                            {{ form.is_card_mastercard_ok|with_class }}
+                            {{ form.is_card_mastercard_ok.label }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="ctrlHolder noLabel">
+                <ul class="alternate2">
+                    <li>
+                        <label for="id_is_on_delivery_ok">
+                            {{ form.is_on_delivery_ok|with_class }}
+                            {{ form.is_on_delivery_ok.label }}
+                        </label>
+                    </li>
+                    <li>
+                        <label for="id_is_card_americanexpress_ok">
+                            {{ form.is_card_americanexpress_ok|with_class }}
+                            {{ form.is_card_americanexpress_ok.label }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="ctrlHolder noLabel">
+                <ul class="alternate2">
+                    <li>
+                        <label for="id_is_ec_maestro_ok">
+                            {{ form.is_ec_maestro_ok|with_class }}
+                            {{ form.is_ec_maestro_ok.label }}
+                        </label>
+                    </li>
+                    <li>
+                        <label for="id_is_giropay_ok">
+                            {{ form.is_giropay_ok|with_class }}
+                            {{ form.is_giropay_ok.label }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="ctrlHolder noLabel">
+                <ul class="alternate2">
+                    <li>
+                        <label for="id_is_prepayment_ok">
+                            {{ form.is_prepayment_ok|with_class }}
+                            {{ form.is_prepayment_ok.label }}
+                        </label>
+                    </li>
+                    <li>
+                        <label for="id_is_paypal_ok">
+                            {{ form.is_paypal_ok|with_class }}
+                            {{ form.is_paypal_ok.label }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            
+            {% include "utils/step_buttons_reg.html" %}
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
+        <span class="b-sep"><span>::</span></span><span>{% trans "Add new institution" %}</span>
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/opening_hours.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
+{% endblock %}

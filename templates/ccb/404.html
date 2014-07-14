@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n base_tags infoblocks %}
+
+{% block title %}{% trans "Page not found" %}{% endblock %}
+
+{% block headline %}
+	<h1>{% trans "Ooops! Page Not Found" %}</h1>
+{% endblock %}			
+
+{% block sidebar-a %}&nbsp;{% endblock %}
+
+{% block sidebar-b %}&nbsp;{% endblock %}
+
+{% block content %}
+    <hr/>
+    <div>
+       <p>{% trans "Sorry, but the page you are looking for does not exist. Like Berlin, Creative City Berlin is not flawless, so we would appreciate it if you report this error using our suggest form. The second option is to simply click the back button to continue with what you were doing." %}</p>
+    </div>
+    <hr/>
+    <div>
+        <form action="" class="uniForm">
+            <fieldset class="inlineLabels">
+                <div class="buttonHolder">
+                    <input type="button" value="{% filter upper %}{% trans "back" %}{% endfilter %}" onclick="window.history.go(-1)" />
+                    <input type="button" class="primaryAction" value="{% filter upper %}{% trans "report" %}{% endfilter %}" onclick="redirect('/ticket/')" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

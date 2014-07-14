@@ -1,0 +1,19 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+        {{ object.user.get_full_name }}
+        {{ object.user.username }}
+        {{ object.description_en }}
+        {{ object.user.email }}
+        {{ object.get_additional_search_data }}
+        {% for cat in object.get_object_types %}
+            {{ cat.title_en }}
+        {% endfor %}
+        {% for cat in object.get_context_categories %}
+            {{ cat.title_en }}
+        {% endfor %}
+        {% for cat in object.get_creative_sectors %}
+            {{ cat.title_en }}
+        {% endfor %}
+    {% endautoescape %}
+{% endfilter %}

@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load base_tags i18n highlight uni_form_tags %}
+
+{% block title %}{% trans 'SEARCH' %}{% endblock %}
+
+{% block headline %}
+	<h1>{% trans "SEARCH" %}</h1>
+{% endblock %}			
+
+{% block extrahead %}
+    <style>
+    span.highlighted {
+        background: yellow;
+    }
+    </style>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/search.js"></script>
+{% endblock %}			
+
+{% block content %}
+    <div class="search">    
+        <form action="/search/" method="get" class="search_form uniForm">
+            <fieldset class="inlineLabels">
+                <h3>{% trans "Enter a word to search" %}</h3>
+                {{ form.q|as_uni_field }}
+                <div class="models-field ctrlHolder noLabel">
+                    {{ form.t }}
+                </div>
+                <div class="buttonHolder">
+                    <input class="primaryAction" type="submit" value="{% filter upper %}{% trans "Search" %}{% endfilter %}" />
+                </div>
+            </fieldset>
+        </form>
+        
+        {% if query %}
+            <h3>{% trans "Results" %}</h3>
+    
+            {% if result_groups %}
+                {% for result_group in result_groups %}
+                    {% if result_group.page %}
+                        <div class="listsection">{{ result_group.verbose_name }} ({{ result_group.count }})</div>
+                        <div id="object_list">
+                            {% for result in result_group.page.object_list %}
+                                {% if result.object %} {# if the object still exists (is not deleted) #}
+                                    <div class="list-item expanded {{ extra_css_classes|default:"" }}" onclick="redirect('{{ result.get_stored_fields.url_path }}')">
+                                        {% if LANGUAGE_CODE == "en" %}
+                                            {% autoescape off %}
+                                                <img src="{{ result.get_stored_fields.image_path }}" alt="" />
+                                                {{ result.get_stored_fields.rendered_en }}
+                                                <div class="searchinfo">{% highlight result.get_stored_fields.description_en with query %}</div>
+                                            {% endautoescape %}
+                                        {% else %}
+                                            {% autoescape off %}
+                                                <img src="{{ result.get_stored_fields.image_path }}" alt="" />
+                                                {{ result.get_stored_fields.rendered_de }}
+                                                <div class="searchinfo">{% highlight result.get_stored_fields.description_de with query %}</div>
+                                            {% endautoescape %}
+                                        {% endif %}
+                                        <hr class="hidden" />
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% if result_group.page.has_previous or result_group.page.has_next %}
+                            <div class="paginated pagination">
+                                <div class="previous left">
+                                    {% if result_group.page.has_previous %}
+                                        <a href="?q={{ query }}&amp;t={{ result_group.short_name|urlencode }}&amp;page={{ result_group.page.previous_page_number }}">
+                                            <span class="enabled">
+                                                <span class="hidden">
+                                                    {% trans "previous" %}
+                                                </span>
+                                            </span>
+                                        </a>
+                                    {% else %}
+                                        <span class="disabled">
+                                            <span class="hidden">{% trans "previous" %}</span>
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                <form class="to_show secondaryForm" action="">
+                                    <div class="ctrlHolder"><select class="page_skip">
+                                        {% for pnumber in result_group.paginator.page_range %}
+                                        <option value="{{ pnumber }}"{% ifequal pnumber result_group.page.number %} selected="selected"{% endifequal %}>{% blocktrans with result_group.paginator.num_pages as pages %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
+                                        {% endfor %}
+                                   </select></div>
+                                </form>
+                                <div class="next">
+                                    {% if result_group.page.has_next %}
+                                        <a href="?q={{ query }}&amp;t={{ result_group.short_name|urlencode }}&amp;page={{ result_group.page.next_page_number }}">
+                                            <span class="enabled">
+                                                <span class="hidden">
+                                                    {% trans "next" %}
+                                                </span>
+                                            </span>
+                                        </a>
+                                    {% else %}
+                                        <span class="disabled">
+                                            <span class="hidden">
+                                                {% trans "next" %}
+                                            </span>
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="listsection">{{ result_group.verbose_name }} ({{ result_group.count }})</div>
+                        {% for result in result_group.results %}
+                            {% if result.object %} {# if the object still exists (is not deleted) #}
+                                <div class="list-item expanded {{ extra_css_classes|default:"" }}" onclick="redirect('{{ result.get_stored_fields.url_path }}')">
+                                    {% if LANGUAGE_CODE == "en" %}
+                                        {% autoescape off %}
+                                            <img src="{{ result.get_stored_fields.image_path }}" alt="" />
+                                            {{ result.get_stored_fields.rendered_en }}
+                                            {% if result.get_stored_fields.description_en %}
+                                                <div class="searchinfo">{% highlight result.get_stored_fields.description_en with query %}</div>
+                                            {% endif %}
+                                        {% endautoescape %}
+                                    {% else %}
+                                        {% autoescape off %}
+                                            <img src="{{ result.get_stored_fields.image_path }}" alt="" />
+                                            {{ result.get_stored_fields.rendered_de }}
+                                            {% if result.get_stored_fields.description_de %}
+                                                <div class="searchinfo">{% highlight result.get_stored_fields.description_de with query %}</div>
+                                            {% endif %}
+                                        {% endautoescape %}
+                                    {% endif %}
+                                    <hr class="hidden" />
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% with result_group.results|length as results_count %}
+                            {% if result_group.count > results_count %}
+                                <p class="searchmore">
+                                    <a href="full/?q={{ query }}&t={{ result_group.short_name|urlencode }}">{% trans "more..." %}</a>
+                                </p>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div><p class="nothing">{% trans "No results found." %}</p></div>
+            {% endif %}
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><span>{% trans 'Search' %}</span>
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing_search.js"></script>
+{% endblock %}

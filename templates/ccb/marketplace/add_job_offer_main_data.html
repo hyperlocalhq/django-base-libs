@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load base_tags i18n uni_form_tags uni_form_field %}
+
+{% block extrahead %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/autocomplete.js"></script>
+{% endblock %}
+
+{% block title %}{% trans "Registration" %} - {% trans "Job Offer" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Registration" %}</h1>
+    <h2 class="sub">{% trans "Job Offer" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}{% endblock %}
+
+{% block content %}
+    <div class="reg">
+        <div class="field_layout">
+            <form id="id_job_offer_main_data_form" action="" method="post" class="uniForm">
+                <fieldset class="inlineLabels">
+                    <h3>{% trans "Job" %}</h3>
+                    {{ form.position|as_uni_field }}
+                    {{ form.job_type|as_uni_field }}
+                    {{ form.qualifications|as_uni_field }}
+                    {{ form.description|as_uni_field }}
+                    
+                    <div id="block_institution_select">
+                        <h3>{% trans "Institution/Company" %}</h3>
+                        {{ form.offering_institution|as_uni_field }}
+                        <p class="disclaimer"><a id="link_enter_institution" href="#block_institution_title_input">{% trans "Not listed? Enter manually" %}</a></p>                
+                    </div>
+                    <div id="block_institution_title_input" class="to_hide">
+                        <h3>{% trans "Institution/Company" %}</h3>
+                        {{ form.offering_institution_title|as_uni_field }}
+                        <p class="disclaimer"><a id="link_enter_institution" href="#block_institution_select">{% trans "Back to selection" %}</a></p>                
+                    </div>
+                    
+                    <h3>{% trans "Address" %}</h3>
+                    {{ form.street_address|as_uni_field }}
+                    {{ form.street_address2|as_uni_field }}
+                    
+                    {% include "uni_form/includes/postal_code_city.html" %}
+                    
+                    {{ form.country|as_uni_field }}
+
+                    <h3>{% trans "Contact person" %}</h3>
+                    <div class="ctrlHolder noLabel">
+                        {{ form.contact_person_ind|with_class }}
+                    </div>
+                    <div id="block_contact_input">
+                        {{ form.contact_person_name|as_uni_field }}
+                    </div>
+
+                    <h3>{% trans "Contact info" %}</h3>
+                    {% include "uni_form/includes/phone.html" %} 
+                    {% include "uni_form/includes/fax.html" %}
+                    
+                    {{ form.email0_address|as_uni_field }}
+                    {{ form.publish_emails|as_uni_field }}
+                    {{ form.url0_link|as_uni_field }}
+
+                    <h3>{% trans "Publishing" %}</h3>
+                    
+                    {% include "uni_form/includes/publish_until.html" %}
+                    
+                    {% include "utils/step_buttons_reg.html" %}
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/{{ URL_ID_JOB_OFFERS }}/">{% trans "Jobs" %}</a>
+        <span class="b-sep"><span>::</span></span><span>{% trans "Offer a job" %}</span>
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/multipleselectautocomplete.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_job_offer.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/formsets.js"></script>
+{% endblock %}

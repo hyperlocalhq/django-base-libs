@@ -1,0 +1,10 @@
+{% load i18n base_tags auth_extended %}
+<div id="popup_content">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+        <p class="disclaimer">{% blocktrans with object.position as position and object.offering_institution.get_title as institution_title %}Are you sure you want to delete job offer for {{ position }} at "{{ institution_title }}"?{% endblocktrans %}</p>
+        <div class="buttonHolder">
+            <input class="primaryAction" id="delete_profile" type="submit" value="{% filter upper %}{% trans "Delete" %}{% endfilter %}" />
+            <input name="cancel" type="button" class="secondaryAction"{% if not request.is_ajax %} onclick="history.go(-1)"{% endif %} value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"/>
+        </div>
+    </form>
+</div>

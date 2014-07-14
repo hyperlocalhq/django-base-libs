@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n base_tags infoblocks %}
+
+{% block title %}{% trans "Access Denied" %}{% endblock %}
+
+{% block sidebar-a %}&nbsp;{% endblock %}
+
+{% block sidebar-b %}&nbsp;{% endblock %}
+
+{% block headline %}
+	<h1>{% trans "Access Denied" %}</h1>
+{% endblock %}			
+
+{% block content %}
+    <hr/>
+    <div>
+        <p>{% trans "Sorry, you are not allowed to access this page." %}</p>
+    </div>
+    <hr/>
+    <div>
+        <form action="" class="uniForm">
+            <fieldset class="inlineLabels">
+                <div class="buttonsHolder">
+                    <input type="button" class="primaryAction" value="{% filter upper %}{% trans "back" %}{% endfilter %}" onclick="window.history.go(-1)" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

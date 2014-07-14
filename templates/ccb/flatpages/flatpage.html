@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n base_tags babel %}
+{% block title %}{{ flatpage.get_title|escape }}{% endblock %}
+{% block headline %}
+    <h1>
+    {% if creative_sector %}
+    {{ creative_sector.get_title|escape }}
+    {% else %}
+    Creative City Berlin
+    {% endif %}
+    </h1>
+    <h2 class="sub">
+        {% if "/knowledge/"|in_list:request.path %}
+            {% trans "Knowledge" %}
+        {% else %}
+            {{ flatpage.get_title|escape }}
+        {% endif %}
+    </h2>
+{% endblock %}			
+ 
+{% block content %}
+    <div class="flatpage-content">
+        {{ flatpage.get_content }}
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="{{ rel_root_dir }}">{% trans "Overview" %}</a>
+        <span class="b-sep"><span>::</span></span><span class="b-sep"><span>::</span></span> 
+    </div>
+{% endblock %}
+

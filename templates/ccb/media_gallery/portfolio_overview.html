@@ -1,0 +1,68 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n base_tags auth_extended infoblocks image_modifications %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript">
+        // preloading portfolio images
+        {% for f in list_of_files %}
+        var oImg_{{ forloop.counter0 }} = new Image();
+        oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
+        {% endfor %}
+    </script>
+{% endblock %}
+
+{% block details %}
+    {% if portfolio_settings.landing_page == "first_album" %}
+        {% if not published_gallery_list %}
+            {% trans "There haven't been any files uploaded yet." %}
+        {% endif %}
+    {% endif %}
+    {% if portfolio_settings.landing_page == "album_list" or 1 == 1 %}
+        <div class="gallery_list">
+            <div id="object_list">
+                {% for item in published_gallery_list %}
+                    {% if forloop.first %}
+                    <div class="row">
+                    {% endif %}
+                        <div class="list-item {{ extra_css_classes|default:"" }}" onclick="redirect('{{ object.content_object.get_url_path }}portfolio/')">
+                            {% include_parsed "media_gallery/lists/landing_page_gallery_item.html" with forloop.counter as counter and item as object %}
+                        </div>
+                    {% if not forloop.last %}
+                        {% if forloop.counter|divisibleby:"3" %}
+                            {% if not forloop.first %}</div><div class="row">{% endif %}
+                        {% endif %}
+                    {% else %}
+                    </div>
+                    {% endif %}
+                    <hr class="hidden"/>
+                 {% endfor %}
+             </div>
+        </div>
+    {% endif %}
+    {% if portfolio_settings.landing_page == "custom_image" and 1 == 0 %}
+        {% if portfolio_settings.landing_page_image %}
+            <p>
+                <a href="{{ object.get_url_path }}portfolio/album/{{ published_gallery_list.0.get_token }}/">
+                    <img alt="" src="{{ UPLOADS_URL }}{{ portfolio_settings.landing_page_image.path|modified_path:"gd" }}" />
+                </a>
+            </p>
+        {% else %}
+            {% if can_manage_portfolio %}
+                <p><a href="settings/">{% trans "You need to upload an image." %}</a></p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs_details %}
+    <span class="b-sep"><span>::</span></span><span>{% trans "Portfolio" %}</span>
+{% endblock %}
+
+{% block extrabody %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.popup.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/portfolio.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/comment.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/gallery_comments.js"></script>
+{% endblock %}

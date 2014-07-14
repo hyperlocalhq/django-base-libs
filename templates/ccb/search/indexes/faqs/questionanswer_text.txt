@@ -1,0 +1,15 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+        {{ object.question_de }}
+        {{ object.question_en }}
+        {{ object.answer_de }}
+        {{ object.answer_en }}
+        {{ object.category.title_de }}
+        {{ object.category.title_en }}
+        {{ object.category.short_title_de }}
+        {{ object.category.short_title_en }}
+        {{ object.category.description_de }}
+        {{ object.category.description_en }}
+    {% endautoescape %}
+{% endfilter %}

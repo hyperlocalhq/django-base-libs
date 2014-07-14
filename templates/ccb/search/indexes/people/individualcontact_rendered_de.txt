@@ -1,0 +1,11 @@
+{% load base_tags image_modifications static %}
+<p><a href="{{ object.person.get_url_path }}">
+    {% if object.person.image %}
+        <div class="searchthumb"><img alt="{{ object.person.get_title|escape }}" src="{% url uploads_url path="" %}{{ object.person.image|modified_path:"al" }}" /></div>
+    {% else %}
+        <div class="searchthumb"><img alt="{{ object.person.get_title|escape }}" src="{% get_static_prefix %}site/img/website/placeholder/person_m.png" /></div>
+    {% endif %}
+</a></p>
+<div class="searchinfo"><li><h5><a href="{{ object.person.get_url_path }}">{{ object.person.get_title }}</a></h5></li>
+<li>{{ object.postal_address }}</li>
+<li><small>PERSON</small></li></div>

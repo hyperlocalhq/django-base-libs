@@ -1,0 +1,14 @@
+{% load base_tags i18n %}
+
+{% if not post_list %}
+    <p class="nothing">{% trans "No blog entries have been posted yet" %}</p>
+{% else %}
+    {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
+    <div id="object_list">
+        {% for post in post_list %}
+            {% include_selected "post_brief.html" for object under "blog" %}
+        {% endfor %}
+    </div>
+    {% include "utils/includes/sorting_and_pagination.html" %}
+{% endif %}
+                           

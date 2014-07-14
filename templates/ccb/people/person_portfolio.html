@@ -1,0 +1,39 @@
+{% extends "people/details_base.html" %}
+{% load base_tags image_modifications %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ gallery.get_title }}"/>
+    <meta property="og:type" content="album"/>
+    {% if gallery.cover_image %}
+        <meta property="og:image" content="http://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"glist" }}" />
+    {% else %}
+        <meta property="og:image" content="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
+    {% endif %}
+    <meta property="og:url" content="{{ gallery.get_url }}"/>
+    <meta property="og:site_name" content="Creative City Berlin"/>
+{% endblock %}
+
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript">
+    // preloading portfolio images
+    {% for f in list_of_files %}
+    var oImg_{{ forloop.counter0 }} = new Image();
+    oImg_{{ forloop.counter0 }}.src = "{{ UPLOADS_URL }}{{ f.path|modified_path:"gd" }}";
+    {% endfor %}
+    </script>
+{% endblock %}
+
+
+{% block details %}
+    {% include_parsed "media_gallery/includes/gallery_slideshow.html" with "people.change_person" as permission_name %}
+{% endblock %}
+
+{% block extrabody %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.popup.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/portfolio.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/comment.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/gallery_comments.js"></script>
+{% endblock %}

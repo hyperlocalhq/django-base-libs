@@ -1,0 +1,19 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+        {{ object.title_de }}
+        {{ object.title_en }}
+        {{ object.subtitle_de }}
+        {{ object.subtitle_en }}
+        {{ object.short_title_de }}
+        {{ object.short_title_en }}
+        {{ object.title_de }}
+        {{ object.title_en }}
+        {{ object.image_title_de }}
+        {{ object.image_title_en }}
+        {{ object.image_description_de }}
+        {{ object.image_description_en }}
+        {{ object.content_de }}
+        {{ object.content_en }}
+    {% endautoescape %}
+{% endfilter %}

@@ -1,0 +1,14 @@
+{% load i18n base_tags nav_menu %}
+<div class="sidebar-box nav_expanded" id="settings_{{ LANGUAGE_CODE }}">
+    <h5>
+        <a href="#" class="open_but">
+            <b>{% trans "Settings" %}</b>
+            <span class="pic"></span>
+        </a>
+    </h5>
+    <div class="hidable">
+        {% filter remove_empty_lists %}
+            {% children_of "menu_settings" %}
+        {% endfilter %}
+    </div>
+</div>

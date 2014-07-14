@@ -1,0 +1,14 @@
+{% load i18n base_tags babel %}
+
+<h6 class="section-header">{% trans "Details" %}</h6>
+<div class="section-details">
+    
+    <dl>
+        <dt>{% trans "Title" %}</dt>
+        <dd>{{ object.title }}</dd>
+    </dl>
+    <dl>
+        <dt>{% trans "Event type" %}</dt>
+        <dd>{{ object.event_type.title }}</dd>
+    </dl>
+</div>

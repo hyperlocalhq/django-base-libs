@@ -1,0 +1,95 @@
+{% load i18n base_tags auth_extended uni_form_tags uni_form_field %}
+<h5 class="edit_subline">{% trans "edit payment options" %}</h5>
+<div class="edit">
+    <div class="detail-form">
+        <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/payment/" method="post" enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+            <fieldset class="inlineLabels">
+                <h3>{% trans "Payment Options" %}</h3>
+                <div class="ctrlHolder noLabel">
+                    <ul class="alternate2">
+                        <li>
+                            <label for="id_is_cash_ok">
+                                {{ form.is_cash_ok|with_class }}
+                                {{ form.is_cash_ok.label }}
+                            </label>
+                        </li>
+                        <li>
+                            <label for="id_is_card_visa_ok">
+                                {{ form.is_card_visa_ok|with_class }}
+                                {{ form.is_card_visa_ok.label }}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ctrlHolder noLabel">
+                    <ul class="alternate2">
+                        <li>
+                            <label for="id_is_invoice_ok">
+                                {{ form.is_invoice_ok|with_class }}
+                                {{ form.is_invoice_ok.label }}
+                            </label>
+                        </li>
+                        <li>
+                            <label for="id_is_card_mastercard_ok">
+                                {{ form.is_card_mastercard_ok|with_class }}
+                                {{ form.is_card_mastercard_ok.label }}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ctrlHolder noLabel">
+                    <ul class="alternate2">
+                        <li>
+                            <label for="id_is_on_delivery_ok">
+                                {{ form.is_on_delivery_ok|with_class }}
+                                {{ form.is_on_delivery_ok.label }}
+                            </label>
+                        </li>
+                        <li>
+                            <label for="id_is_card_americanexpress_ok">
+                                {{ form.is_card_americanexpress_ok|with_class }}
+                                {{ form.is_card_americanexpress_ok.label }}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ctrlHolder noLabel">
+                    <ul class="alternate2">
+                        <li>
+                            <label for="id_is_ec_maestro_ok">
+                                {{ form.is_ec_maestro_ok|with_class }}
+                                {{ form.is_ec_maestro_ok.label }}
+                            </label>
+                        </li>
+                        <li>
+                            <label for="id_is_giropay_ok">
+                                {{ form.is_giropay_ok|with_class }}
+                                {{ form.is_giropay_ok.label }}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ctrlHolder noLabel">
+                    <ul class="alternate2">
+                        <li>
+                            <label for="id_is_prepayment_ok">
+                                {{ form.is_prepayment_ok|with_class }}
+                                {{ form.is_prepayment_ok.label }}
+                            </label>
+                        </li>
+                        <li>
+                            <label for="id_is_paypal_ok">
+                                {{ form.is_paypal_ok|with_class }}
+                                {{ form.is_paypal_ok.label }}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="buttonHolder">
+                    <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
+                    <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

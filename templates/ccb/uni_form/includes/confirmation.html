@@ -1,0 +1,42 @@
+{% load base_tags i18n uni_form_field %}
+
+<h3>{% trans "Confirmation" %}</h3>
+<div class="ctrlHolder noLabel">
+    {{ form.privacy_policy.error_tag }}
+    <ul>
+        <li>
+            <label for="id_privacy_policy">
+                {{ form.privacy_policy|with_class }}
+                {% if form.privacy_policy.required %}<strong>{% endif %}
+                {% blocktrans %}I accept <a href="/privacy/" onclick="open_new_window(event)">the privacy policy</a>.{% endblocktrans %}
+                {% if form.privacy_policy.required %}*</strong>{% endif %}
+            </label>
+        </li>
+    </ul>
+</div>
+<div class="ctrlHolder noLabel">
+    {{ form.terms_of_use.error_tag }}
+    <ul>
+        <li>
+            <label for="id_terms_of_use">
+                {{ form.terms_of_use|with_class }}
+                {% if form.terms_of_use.required %}<strong>{% endif %}
+                {% blocktrans %}I accept <a href="/terms-of-use/" onclick="open_new_window(event)">the terms of use</a>.{% endblocktrans %}
+                {% if form.terms_of_use.required %}*</strong>{% endif %}
+            </label>
+        </li>
+    </ul>
+</div>
+{% for f in form.newsletter_fields %}
+    <div class="ctrlHolder noLabel">
+        <ul>
+            <li>
+                <label>
+                    {{ form|dict_value:f.0|with_class }}
+                    {{ f.1.label }}
+                </label>
+            </li>
+        </ul>
+    </div>
+{% endfor %}
+

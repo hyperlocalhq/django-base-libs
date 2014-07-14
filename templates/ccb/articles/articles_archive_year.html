@@ -1,0 +1,28 @@
+{% extends base_template|default:"articles/articles_base.html" %}
+{% load base_tags blog babel i18n auth_extended %}
+
+{% block details %}
+    {% if not article_list %}
+        <p class="nothing">{% trans "No articles are available" %}</p>
+    {% else %}
+        {% include "utils/includes/sorting_and_pagination.html" %}
+        <div id="object_list">
+            {% for article in article_list %}
+                {% include "articles/articles_brief.html" %}
+            {% endfor %}
+        </div>
+        {% include "utils/includes/sorting_and_pagination.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span><a href="/news/">{% trans "News" %}</a>
+        <span class="b-sep"><span>::</span></span> <span>{{ year }}</span>
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+{% endblock %}

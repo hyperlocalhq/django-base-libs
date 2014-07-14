@@ -1,0 +1,10 @@
+{% load base_tags %}
+{% if object.language == "en" %}
+    {% filter decode_entities %}
+        {% autoescape off %}
+            {{ object.description|striptags }}
+            {{ object.content|striptags }}
+        {% endautoescape %}
+    {% endfilter %}
+{% endif %}
+

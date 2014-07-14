@@ -1,0 +1,11 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+        {{ object.title_en }}
+        {{ object.title_de }}
+        {{ object.description_en }}
+        {{ object.description_de }}
+        {{ object.content_object_repr_en }}
+        {{ object.content_object_repr_de }}
+    {% endautoescape %}
+{% endfilter %}

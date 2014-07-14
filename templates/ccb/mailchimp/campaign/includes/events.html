@@ -1,0 +1,87 @@
+{% load mailhtml image_modifications babel base_tags %}
+<table class="events" width="600" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="background-color: #E8EDF0">
+    <td align="left" valign="bottom">
+        <!-- title goes here -->
+        <h3><span>Featured</span> Events</h3>
+    </td>
+    <td align="right" valign="bottom" width="175">
+        <!-- VIEW MORE link goes here -->
+        <a title="" class="proceed" href="http://www.creative-city-berlin.de/events/" target="_blank">more …</a>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <table width="600" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        {% get_objects nearest_published_featured events.Event 4 as newest_objects %}
+        {% for event in newest_objects %}
+            <tr>
+                <td align="left" valign="top" width="65" style="border-bottom:1px #E8EDF0 solid; border-right:1px #E8EDF0 solid; background-color: #f1f4f6;">
+                    {% if event.image %}
+                        <a href="{{ event.get_url }}" target="_blank"><img src="http://www.creative-city-berlin.de/media/{{ event.image|modified_path:"nl_e" }}" alt="" width="65" height="65" border="no"/></a>
+                    {% else %}
+                        <a href="{{ event.get_url }}" target="_blank"><img src="http://www.creative-city-berlin.de/static/0/site/img/website/placeholder/event.png" alt="" width="65" height="65" border="no"/></a>
+                    {% endif %}
+                </td>
+                <td align="left" valign="top" width="534" style="border-bottom:1px #E8EDF0 solid;">
+                    
+                    <a href="{{ event.get_url }}" target="_blank" class="capitalized">
+                    <span class="category">{% for cat in event.get_object_types %}{{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    | 
+                    {% if event.has_start_date or event.has_end_date %}
+                        {% if event.has_start_date and event.has_end_date and event.get_start_date != event.get_end_date %}
+                            {% if event.get_start_date %}
+                                {{ event.get_start_date|datefmt:"long" }}
+                            {% else %}
+                                {% if event.start_mm %}
+                                    {{ event.get_start_mm_display }}
+                                {% endif %}                    
+                                {{ event.start_yyyy }}
+                            {% endif %}
+                                -
+                            {% if event.get_end_date %}
+                                {{ event.get_end_date|datefmt:"long" }}
+                            {% else %}
+                                {% if event.end_mm %}{{ event.get_end_mm_display }}{% endif %}
+                                {{ event.end_yyyy }}
+                            {% endif %}
+                        {% else %}
+                            {% if event.has_start_date %}
+                                {% if event.get_start_date %}
+                                    {{ event.get_start_date|datefmt:"long" }}
+                                    {{ event.get_start_date|time:"H:i" }}
+                                {% else %}
+                                    {% if event.start_mm %}
+                                        {{ event.get_start_mm_display }}
+                                    {% endif %}                    
+                                    {{ event.start_yyyy }}
+                                {% endif %}
+                            {% endif %}
+                            {% if event.has_end_date %}{% ifnotequal event.get_start_date event.get_end_date %}
+                                -
+                                {% if event.get_end_date %}
+                                    {{ event.get_end_date|datefmt:"long" }}
+                                    {{ event.get_end_date|time:"H:i" }}
+                                {% else %}
+                                    {% if event.end_mm %}{{ event.get_end_mm_display }}{% endif %}
+                                    {{ event.end_yyyy }}
+                                {% endif %}
+                            {% endifnotequal %}{% endif %}
+                        {% endif %}
+                        |
+                    {% endif %}
+                    {{ event.venue.get_title|default:event.venue_title }}</span><br />
+                    {{ event.get_title|escape }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr><td colspan="4"><img src="http://www.creative-city-berlin.de/static/0/site/img/newsletter/ccb_newsletter_shadow.png" alt="" width="600" height="20" border="no"/></td></tr>
+        </tbody>
+        </table>
+    </td>
+</tr>
+</tbody>
+</table>

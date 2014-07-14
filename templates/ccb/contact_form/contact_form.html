@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load base_tags i18n infoblocks uni_form_tags %}
+
+{% block headline %}
+    <h1>{{ site_settings.site.name }}</h1>
+    <h2 class="sub">
+        {% trans "Contact us" %}
+    </h2>
+{% endblock %}
+
+{% block title %}{% trans "Contact us" %}{% endblock %}
+
+{% block content %}
+    {% infoblock "contact_info" %}
+	<form action="" method="post" class="uniForm">
+        <fieldset class="inlineLabels">
+            <h3>{% trans "Contact us" %}</h3>
+            {{ form.sender_name|as_uni_field }}
+            {{ form.sender_email|as_uni_field }}
+            {% if form.contact_form_category %}
+                {{ form.contact_form_category|as_uni_field }}
+            {% endif %}
+            {{ form.subject|as_uni_field }}
+            {{ form.body|as_uni_field }}
+            {{ form.prevent_spam }}
+            {{ form.prevent_spam.error_tag }}
+            <div class="buttonHolder">
+                <input class="primaryAction" id="id_submit" type="submit" value="{% filter upper %}{% trans "Submit" %}{% endfilter %}"/>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

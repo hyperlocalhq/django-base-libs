@@ -1,0 +1,8 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+    {{ object.question_de|striptags }}
+    {{ object.answer_de|striptags }}
+    {{ object.category.description_de|striptags }}
+    {% endautoescape %}
+{% endfilter %}

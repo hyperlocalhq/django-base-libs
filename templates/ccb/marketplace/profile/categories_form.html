@@ -1,0 +1,49 @@
+{% load i18n base_tags auth_extended uni_form_tags %}
+<div class="profile_infos"> 
+    <h5 class="edit_subline" >{% trans "edit categories" %}</h5>
+    <form class="uniForm" action="/helper/edit-{{ URL_ID_JOB_OFFER }}-profile/{{ object.get_secure_id }}/categories/" method="post" enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+        <fieldset class="inlineLabels">
+            <div class="nav_expanded" id="CI_{{ LANGUAGE_CODE }}_search">
+                <h3 class="{% if not form.object_types %}no-padding-top{% endif %}">
+                    <a href="#" class="open_but">
+                        <b>{% trans "job sector" %}</b>
+                        <span class="pic"></span>
+                    </a>
+                </h3>
+                <fieldset class="fieldset_categories">
+                    <div class="hidable">
+                        {% filter remove_empty_lists %}
+                            {% for slug, cat in form.job_sectors.items %}
+                                {% if forloop.first %}
+                                    <ul>
+                                {% endif %}
+                                {% with form|dict_value:cat.field_name as job_sector_field %}
+                                    {% if job_sector_field %}
+                                        <li> 
+                                            <a href="#" class="no-children"><span>&bull;</span></a>
+                                            <label for="id_{{ cat.field_name }}">
+                                                {{ job_sector_field }}
+                                                {{ cat.title|escape }}
+                                            </label>
+                                        </li>
+                                    {% endif %}
+                                {% endwith %}
+                                {% if forloop.last %}
+                                    </ul>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfilter %}
+                    </div>
+                    {{ form.choose_job_sectors }}
+                    {{ form.choose_job_sectors.error_tag }}
+                </fieldset>
+            </div>
+            <p class="disclaimer">{% blocktrans %}Is some category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}</p>
+            {{ form.tags|as_uni_field }}
+            <div class="buttonHolder">
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
+                <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+            </div>
+        </fieldset>
+    </form>
+</div>

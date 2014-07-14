@@ -1,0 +1,36 @@
+{% load i18n base_tags babel %}
+
+<h6 class="section-header">{% trans "Details" %}</h6>
+<div class="section-details">
+    
+    <dl>
+        <dt>{% trans "Position" %}</dt>
+        <dd>{{ object.position }}</dd>
+    </dl>
+    <dl>
+        <dt>{% trans "Job Type" %}</dt>
+        <dd>{{ object.job_type.title }}</dd>
+    </dl>
+    {% if object.qualifications.count %}
+        <dl>
+            <dt>{% trans "Qualification" %}</dt>
+            {% comment %}<!--
+            List of qualifications separated by commas with the word "or" before the last qualification, e.g.:
+            * Junior
+            * Middle or senior
+            * Junior, middle or senior
+            -->{% endcomment %}
+            <dd>{% for q in object.qualifications.all %}{% if not forloop.first and not forloop.last %}, {% endif %}{% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}{% if forloop.first %}{{ q.title|capfirst }}{% else %}{{ q.title|lower }}{% endif %}{% endfor %}</dd>
+        </dl>
+    {% endif %}
+    <dl>
+        <dt>{% trans "Description" %}</dt>
+        <dd>{{ object.description|urlize|linebreaks|mark_first_and_last:"p" }}</dd>
+    </dl>
+    {% if object.published_till %}
+        <dl>
+            <dt>{% trans "Published till" %}</dt>
+            <dd>{{ object.published_till|datefmt:"medium" }}</dd>
+        </dl>
+    {% endif %}
+</div>

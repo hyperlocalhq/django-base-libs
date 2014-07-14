@@ -1,0 +1,38 @@
+{% load i18n base_tags auth_extended %}
+
+<h6 class="section-header">{% trans "Categories" %}</h6>
+<div class="section-details">
+    
+    {% if object.get_creative_sectors %}
+        <dl>
+            <dt>
+                {% with object.get_creative_sectors|length as creative_sectors_count %}
+                    {% ifequal creative_sectors_count 1 %}
+                        {% trans "Creative Sector" %}
+                    {% else %}
+                        {% trans "Creative Sectors" %}
+                    {% endifequal %}
+                {% endwith %}
+            </dt>
+            {% for cat in object.get_creative_sectors %}
+                {% if forloop.first %}<dd>{% endif %}
+                    {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                {% if forloop.last %}</dd>{% endif %}  
+            {% endfor %}
+        </dl>
+    {% endif %}
+    {% if object.tags %}
+        <dl>
+            <dt>{% trans "Tags" %}</dt>
+            <dd>{{ object.get_tags|join:", " }}</dd>
+        </dl>
+    {% endif %}
+    {% if object.get_location_type %}
+        <dl>
+            <dt>{% trans "Location" %}</dt>
+            <dd>
+                {{ object.get_location_type.get_title|escape }}
+            </dd>
+        </dl>
+    {% endif %}
+</div>

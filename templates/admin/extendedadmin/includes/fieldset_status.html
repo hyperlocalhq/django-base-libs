@@ -1,0 +1,52 @@
+{% load i18n %}
+<fieldset class="module aligned collapse closed">
+    <h2 class="collapse-handler">{% if form.is_featured %}
+            {{ _("Status & Featured")|force_escape }}
+        {% else %}
+            {% trans "Status" %}
+        {% endif %}
+    </h2>
+    {% if form.completeness %}
+        <div class="row{% if form.completeness.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_completeness"{% if form.completeness.field.required %} class="required"{% endif %}>{% trans "Completeness" %} (%):</label></div>
+                <div class="column span-flexible">
+                    {{ form.completeness }}
+                    {{ form.completeness.errors }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row{% if form.status.errors %} errors{% endif %}">
+        <div>
+            <div class="column span-4"><label for="id_status"{% if form.status.field.required %} class="required"{% endif %}>{% trans "Status" %}:</label></div>
+            <div class="column span-flexible">
+                {{ form.status }}
+                {{ form.status.errors }}
+            </div>
+        </div>
+    </div>
+    {% if form.is_featured %}
+        <div class="row{% if form.is_featured.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ form.is_featured }}<label for="id_is_featured" class="vCheckboxLabel{% if form.is_featured.field.required %} required{% endif %}">{% trans "Featured?" %}</label>
+                    {{ form.is_featured.errors }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if form.importance %}
+        <div class="row{% if form.importance.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_importance"{% if form.importance.field.required %} class="required"{% endif %}>{% trans "Importance" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ form.importance }}
+                    {{ form.importance.errors }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</fieldset>
+

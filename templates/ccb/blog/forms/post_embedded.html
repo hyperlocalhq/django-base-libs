@@ -1,0 +1,53 @@
+{% load base_tags i18n auth_extended blog uni_form_tags %}
+
+<div class="first-item-txt" id="popup_content">	    
+    <form action="" method="post" class="uniForm">
+        {% if form_preview %}
+            <div class="preview">
+                <div class="headline"><h3>{{ form.title.data }}</h3></div>
+                    
+                {{ form.body.data|disarm_user_input }}
+                
+                {% if form.tags.data %}
+	                <div class="post-meta left">
+	                    <span>{% trans "Tags" %}: </span> 
+	                    {{ form.tags.data }}
+	                </div>
+                {% endif %}
+                <div class="buttonHolder">
+                	<input type="submit" class="primaryAction" id="post" name="{{ post_stage_field }}" value={% if post.is_draft %}'{% filter upper %}{% trans "Save as Draft" %}{% endfilter %}'{% else %}'{% filter upper %}{% trans "Save" %}{% endfilter %}'{% endif %}/>
+                </div>
+            </div>
+		{% endif %}
+            
+        <fieldset class="inlineLabels">
+            <h3>
+                {% ifequal form_action "new" %}
+                    {% trans "Post To the Blog" %}
+                {% else %}
+                    {% ifequal form_action "edit" %}
+                        {% trans "Edit Post" %}
+                    {% endifequal %}	                
+                {% endifequal %}	                
+            </h3>
+            {{ form.title|as_uni_field }}
+            <div class="ctrlHolder{% if form.body.errors %} error{% endif %}">
+                {{ form.body.errors }}
+                <strong>{{ form.body.label }}*</strong><br />
+                {{ form.body }}
+            </div>
+            {{ form.tags|as_uni_field }}
+            {{ form.status|as_uni_field }}
+            {{ form.enable_comment_form|as_uni_field }}
+        
+            <div class="buttonHolder" class="space_correction_more">
+                <input id="id_preview" class="primaryAction" type="submit" name="{{ preview_stage_field }}" value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}" />
+                <input id="id_cancel" type="submit" class="secondaryAction" name="{{ cancel_stage_field }}" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
+                {% comment %}this one is used for security reasons -->{% endcomment %}
+                <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
+                <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}" />
+            </div>
+        </fieldset>
+    </form>
+</div>
+

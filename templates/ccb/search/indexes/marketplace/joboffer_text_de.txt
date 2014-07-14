@@ -1,0 +1,15 @@
+{% load base_tags %}
+{% filter decode_entities %}
+    {% autoescape off %}
+        {{ object.position }}
+        {{ object.description }}
+        {{ object.job_type.title_de }}
+        {{ object.get_additional_search_data }}
+        {% for cat in object.qualifications.all %}
+            {{ cat.title_de }}
+        {% endfor %}
+        {% for cat in object.job_sectors.all %}
+            {{ cat.title_de }}
+        {% endfor %}
+    {% endautoescape %}
+{% endfilter %}

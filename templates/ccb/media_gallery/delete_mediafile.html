@@ -1,0 +1,13 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n %}
+
+{% block details %}
+    <div id="delete_mediafile">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
+            <p class="disclaimer">{% blocktrans %}Do you really want to delete this media file?{% endblocktrans %}</p>
+            <div class="buttonHolder">
+                <input type="submit" value="Delete" class="primaryAction" />
+            </div>
+        </form>
+    </div>
+{% endblock %}
