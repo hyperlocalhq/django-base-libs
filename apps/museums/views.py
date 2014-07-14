@@ -159,7 +159,11 @@ def museum_list(request):
     if abc_filter:
         qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
 
-    qs = qs.extra(select={'title_uni' : 'IF (NULLIF(`title_%s`, \'\') IS NULL, `title_de`, `title_%s`)' % (request.LANGUAGE_CODE,request.LANGUAGE_CODE)}).order_by("title_uni")
+    qs = qs.extra(select={
+        'title_uni': "IF (NULLIF(museums_museum.title_%(lang_code)s, '') IS NULL, museums_museum.title_de, museums_museum.title_%(lang_code)s)" % {
+            'lang_code': request.LANGUAGE_CODE,
+        }
+    }).order_by("title_uni")
     
     extra_context = {}
     extra_context['form'] = form
