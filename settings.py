@@ -38,7 +38,7 @@ MEDIA_ROOT = os.path.join(ROOT_PATH, "ccb", "media")
 STATIC_ROOT = os.path.join(ROOT_PATH, "ccb", "static")
 STATICFILES_DIRS = [os.path.join(ROOT_PATH, "ccb", "site_static")]
 MEDIA_URL = "/media/"
-STATIC_URL = PIPELINE_URL = "/static/%s/" % get_media_svn_revision(STATIC_ROOT)
+STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(STATIC_ROOT)
 PATH_TMP = os.path.join(ROOT_PATH, "ccb", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
