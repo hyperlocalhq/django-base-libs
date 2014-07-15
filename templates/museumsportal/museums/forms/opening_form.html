@@ -195,7 +195,7 @@ var error_messages = {
             return success;
         }
         // SEASONS
-        $('#seasons .save-link').live("click", function(event, close_form_anyway) {
+        $('#seasons').on('click', '.save-link', function(event, close_form_anyway) {
             var $season = $(this).closest('.formset-form');
             var valid = validate($season);
             if (!close_form_anyway && !valid) {
@@ -223,8 +223,7 @@ var error_messages = {
             $('#item_container').show();
             $('.form-actions:last').show();
             return false;
-        });
-        $('#seasons .delete').live("click", function() {
+        }).on('click', '.delete', function() {
             var $season = $(this).closest('.formset-form');
             var $checkbox = $season.find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");
@@ -238,7 +237,7 @@ var error_messages = {
             return false;
         });
         // SPECIAL OPENINGS
-        $('#special_openings .save-link').on("click", function(event, close_form_anyway) {
+        $('#special_openings').on('click', '.save-link', function(event, close_form_anyway) {
             var $season = $(this).closest('.formset-form');
             var valid = validate($season);
             if (!close_form_anyway && !valid) {
@@ -267,8 +266,7 @@ var error_messages = {
             $('#item_container').show();
             $('.form-actions:last').show();
             return false;
-        });
-        $('#special_openings .delete').on("click", function() {
+        }).on('click', '.delete', function() {
             var $season = $(this).closest('.formset-form');
             var $checkbox = $season.find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");
@@ -281,7 +279,7 @@ var error_messages = {
             $('.form-actions:last').show();
             return false;
         });
-        $('#item_container .edit').live("click", function() {
+        $('#item_container').on('click', '.edit', function() {
             var $mirror = $(this).closest('.item');
             var $origin = $mirror.data('origin');
             $origin.show();
