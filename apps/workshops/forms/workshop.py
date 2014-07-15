@@ -941,7 +941,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
                 setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         instance.other_languages = form_step_data['basic']['other_languages']
-        if form_step_data['basic']['museum']:
+        if form_step_data['basic'].get('museum', None):
             try:
                 instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
             except:
@@ -953,7 +953,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
         instance.longitude = form_step_data['basic']['longitude']
-        if form_step_data['basic']['exhibition']:
+        if form_step_data['basic'].get('exhibition', None):
             try:
                 instance.exhibition = Exhibition.objects.get(pk=form_step_data['basic']['exhibition'])
             except:
@@ -1114,7 +1114,7 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.other_languages = form_step_data['basic']['other_languages'] 
-    if form_step_data['basic']['museum']:
+    if form_step_data['basic'].get('museum', None):
         try:
             instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
         except:
