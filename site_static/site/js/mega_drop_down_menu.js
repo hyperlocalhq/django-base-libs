@@ -11,7 +11,13 @@ $(window).load(function() {
         'menu-exhibitions': 'mega_exhibitions',
         'menu-events': 'mega_events',
         'menu-guided-tours': 'mega_workshops',
-        'menu-plan-your-visit': 'mega_plan_your_visit'
+        'menu-plan-your-visit': 'mega_plan_your_visit',
+        // pl
+        'menu-muzea': 'mega_museums',
+        'menu-wystawy': 'mega_exhibitions',
+        'menu-wydarzenia': 'mega_events',
+        'menu-oprowadzanie': 'mega_workshops',
+        'menu-planowanie-organizacja': 'mega_plan_your_visit'
     };
 
 	var Datepicker = function(element, picker, options){

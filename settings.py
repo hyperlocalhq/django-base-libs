@@ -31,7 +31,7 @@ LANGUAGES = (
     ('de', u"Deutsch"),
     ('en', u"English"),
     ('fr', u"Français"),
-    ('pl', u"Polszczyzna"),
+    ('pl', u"Polski"),
     ('tr', u"Türkçe"),
     ('es', u"Español"),
     ('it', u"Italiano"),
@@ -422,7 +422,7 @@ CMS_LANGUAGES = {
         {
             'code': 'pl',
             'hide_untranslated': True,
-            'name': u'Polszczyzna',
+            'name': u'Polski',
             'public': True,
             'redirect_on_fallback': False,
         },
