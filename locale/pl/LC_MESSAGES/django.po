@@ -2,22 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 21:04+0200\n"
-"PO-Revision-Date: 2014-04-30 12:34+0100\n"
+"PO-Revision-Date: 2014-07-18 16:39+0100\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Language: \n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
 #: settings.py:246 apps/advertising/models.py:151 apps/blocks/models.py:39
@@ -121,7 +120,7 @@ msgstr ""
 
 #: settings.py:528
 msgid "Featured Magazin"
-msgstr "Polecany magazyn"
+msgstr "Polecane w magazynie"
 
 #: settings.py:533
 msgid "Start page left"
@@ -364,11 +363,11 @@ msgstr "Język"
 
 #: apps/advertising/models.py:93
 msgid "Start showing"
-msgstr ""
+msgstr "Pokaż"
 
 #: apps/advertising/models.py:95
 msgid "Stop showing"
-msgstr ""
+msgstr "Nie pokazuj"
 
 #: apps/advertising/models.py:100
 #: apps/advertising/plugins/cms_ads/models.py:11 apps/articles/models.py:55
@@ -453,7 +452,7 @@ msgstr ""
 #: apps/blocks/migrations/0004_remove_unused_markup_types.py:34
 #: apps/comments/models.py:276 apps/events/models.py:72
 msgid "title"
-msgstr ""
+msgstr "tytuł"
 
 #: apps/articles/models.py:35
 msgid "Article Category"
@@ -581,8 +580,8 @@ msgstr "Spam"
 
 #: apps/comments/models.py:113
 msgid ""
-"Check this box if the comment should be marked as spam. The comment will not "
-"be displayed in this case."
+"Check this box if the comment should be marked as spam. The comment will not"
+" be displayed in this case."
 msgstr ""
 
 #: apps/comments/models.py:118
@@ -731,7 +730,7 @@ msgstr "Komentarz:"
 
 #: apps/comments/templates/comments/form.html:36
 msgid "Preview comment"
-msgstr ""
+msgstr "Poprzedni komentarz"
 
 #: apps/comments/views/comments.py:42
 msgid "Your Name"
@@ -788,13 +787,11 @@ msgstr "Napisz komentarz"
 #: apps/comments/views/comments.py:292
 #, python-format
 msgid ""
-"This comment was posted by a user who has posted fewer than %(count)s "
-"comment:\n"
+"This comment was posted by a user who has posted fewer than %(count)s comment:\n"
 "\n"
 "%(text)s"
 msgid_plural ""
-"This comment was posted by a user who has posted fewer than %(count)s "
-"comments:\n"
+"This comment was posted by a user who has posted fewer than %(count)s comments:\n"
 "\n"
 "%(text)s"
 msgstr[0] ""
@@ -1335,8 +1332,8 @@ msgstr "Długość geograficzna "
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 
 #: apps/events/models.py:155 apps/events/forms/event.py:60
@@ -1653,14 +1650,12 @@ msgstr "To pole jest obowiązkowe "
 
 #: apps/events/forms/event.py:338 apps/exhibitions/forms/exhibition.py:392
 #: apps/workshops/forms/workshop.py:362
-msgid ""
-"Museum from the list <b>(active)</b> / <a href=\"#\">Other Organizer</a>"
+msgid "Museum from the list <b>(active)</b> / <a href=\"#\">Other Organizer</a>"
 msgstr ""
 
 #: apps/events/forms/event.py:359 apps/exhibitions/forms/exhibition.py:413
 #: apps/workshops/forms/workshop.py:383
-msgid ""
-"Other Organizer <b>(active)</b> / <a href=\"#\">Museum from the list</a>"
+msgid "Other Organizer <b>(active)</b> / <a href=\"#\">Museum from the list</a>"
 msgstr ""
 
 #: apps/events/forms/event.py:571 apps/exhibitions/models.py:147
@@ -1900,8 +1895,7 @@ msgstr ""
 #: apps/events/forms/gallery.py:72 apps/exhibitions/forms/gallery.py:72
 #: apps/museums/forms/gallery.py:72 apps/workshops/forms/gallery.py:72
 #, python-format
-msgid ""
-"Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
+msgid "Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
 msgstr ""
 
 #: apps/events/forms/gallery.py:148 apps/exhibitions/forms/gallery.py:148
@@ -2220,7 +2214,7 @@ msgstr ""
 #: apps/museums/forms/museum.py:325 apps/museums/forms/museum.py:376
 #: apps/workshops/forms/workshop.py:742
 msgid "Mo"
-msgstr "Pon."
+msgstr "pon."
 
 #: apps/exhibitions/forms/exhibition.py:56
 #: apps/exhibitions/forms/exhibition.py:595
@@ -2228,7 +2222,7 @@ msgstr "Pon."
 #: apps/museums/forms/museum.py:331 apps/museums/forms/museum.py:381
 #: apps/workshops/forms/workshop.py:751
 msgid "Tu"
-msgstr "Wt."
+msgstr "wt."
 
 #: apps/exhibitions/forms/exhibition.py:57
 #: apps/exhibitions/forms/exhibition.py:601
@@ -2315,7 +2309,7 @@ msgstr "Godziny otwarcia muzeum"
 #: templates/museumsportal/exhibitions/exhibition_detail.html:557
 #: templates/museumsportal/museums/museum_detail.html:341
 msgid "Closed"
-msgstr "Zamknięte "
+msgstr "zamknięte "
 
 #: apps/exhibitions/forms/exhibition.py:530 apps/museums/forms/museum.py:259
 msgid "Additional Information"
@@ -2841,9 +2835,9 @@ msgstr ""
 
 #: apps/media_gallery/forms.py:155
 msgid ""
-"You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?"
-"v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://"
-"vimeo.com/17853047)."
+"You can link to a FLV file, Youtube video (e.g. "
+"http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) "
+"or Vimeo video (e.g. http://vimeo.com/17853047)."
 msgstr ""
 
 #: apps/media_gallery/forms.py:190
@@ -2954,7 +2948,7 @@ msgstr ""
 #: apps/museums/forms/museum.py:1706
 #: templates/museumsportal/museums/museum_detail.html:464
 msgid "Services"
-msgstr ""
+msgstr "Usługi"
 
 #: apps/museums/admin.py:128
 msgid "Invite owners"
@@ -3082,37 +3076,37 @@ msgstr "Audioguide"
 #: apps/museums/models.py:168 apps/museums/models.py:224
 #: apps/twitterwall/models.py:47
 msgid "German"
-msgstr "Niemiecki"
+msgstr "niemiecki"
 
 #: apps/museums/models.py:169 apps/museums/models.py:226
 #: apps/twitterwall/models.py:42
 msgid "English"
-msgstr "Angielski"
+msgstr "angielski"
 
 #: apps/museums/models.py:170 apps/museums/models.py:228
 #: apps/twitterwall/models.py:46
 msgid "French"
-msgstr "Francuski"
+msgstr "francuski"
 
 #: apps/museums/models.py:171 apps/museums/models.py:230
 #: apps/twitterwall/models.py:52
 msgid "Italian"
-msgstr "Włoski"
+msgstr "włoski"
 
 #: apps/museums/models.py:172 apps/museums/models.py:232
 #: apps/twitterwall/models.py:61
 msgid "Spanish"
-msgstr "Hiszpański"
+msgstr "hiszpański"
 
 #: apps/museums/models.py:173 apps/museums/models.py:234
 #: apps/twitterwall/models.py:57
 msgid "Polish"
-msgstr "Polski"
+msgstr "polski"
 
 #: apps/museums/models.py:174 apps/museums/models.py:236
 #: apps/twitterwall/models.py:65
 msgid "Turkish"
-msgstr "Turecki"
+msgstr "turecki"
 
 #: apps/museums/models.py:176
 msgid "Audioguide for children"
@@ -3120,7 +3114,7 @@ msgstr "Audioguide dla dzieci"
 
 #: apps/museums/models.py:177
 msgid "Audioguide for people with learning difficulties"
-msgstr "Audioguide dla osób z upośledzeniem umysłowym  "
+msgstr "Audioguide dla osób z niepełnosprawnością intelektualną  "
 
 #: apps/museums/models.py:258 apps/museums/forms/museum.py:1698
 msgid "Address"
@@ -3141,7 +3135,7 @@ msgstr ""
 
 #: apps/museums/models.py:481
 msgid "Month"
-msgstr ""
+msgstr "Miesiąc"
 
 #: apps/museums/models.py:482
 msgid "Day"
@@ -3209,7 +3203,7 @@ msgstr ""
 
 #: apps/museums/views.py:45 apps/museums/views.py:46
 msgid "Mon"
-msgstr "Pon."
+msgstr "pon."
 
 #: apps/museums/views.py:45 apps/museums/views.py:47 apps/museums/views.py:49
 #: apps/museums/views.py:51 apps/museums/views.py:53 apps/museums/views.py:55
@@ -3225,7 +3219,7 @@ msgstr "22.00"
 
 #: apps/museums/views.py:47 apps/museums/views.py:48
 msgid "Tue"
-msgstr "Wt."
+msgstr "wt."
 
 #: apps/museums/views.py:49 apps/museums/views.py:50
 msgid "Wed"
@@ -3256,7 +3250,7 @@ msgstr ""
 
 #: apps/museums/forms/museum.py:53
 msgid "Available Offers"
-msgstr ""
+msgstr "Dostępne oferty"
 
 #: apps/museums/forms/museum.py:59
 msgid "Booking Phone"
@@ -3268,15 +3262,15 @@ msgstr "Informacja"
 
 #: apps/museums/forms/museum.py:61
 msgid "Available Services"
-msgstr ""
+msgstr "Dostępne usługi"
 
 #: apps/museums/forms/museum.py:63
 msgid "Available Audioguides"
-msgstr ""
+msgstr "Dostępne audioguide'y"
 
 #: apps/museums/forms/museum.py:269
 msgid "Open by appointment only"
-msgstr ""
+msgstr "Dostępne po uprzednim umówieniu się "
 
 #: apps/museums/forms/museum.py:472
 msgid "Every year"
@@ -3345,8 +3339,8 @@ msgstr "Login"
 
 #: apps/site_specific/forms.py:58 apps/site_specific/forms.py:172
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 
 #: apps/site_specific/forms.py:60 apps/site_specific/forms.py:174
@@ -3413,7 +3407,7 @@ msgstr ""
 #: apps/site_specific/forms.py:331 apps/site_specific/forms.py:355
 #: apps/site_specific/forms.py:379
 msgid "Filter"
-msgstr ""
+msgstr "Filtr"
 
 #: apps/site_specific/models.py:12
 msgid "Caption"
@@ -3506,11 +3500,11 @@ msgstr ""
 
 #: apps/twitterwall/models.py:38
 msgid "Arabic"
-msgstr ""
+msgstr "Arabski"
 
 #: apps/twitterwall/models.py:39
 msgid "Catalan"
-msgstr ""
+msgstr "kataloński"
 
 #: apps/twitterwall/models.py:40
 msgid "Danish"
@@ -3530,11 +3524,11 @@ msgstr ""
 
 #: apps/twitterwall/models.py:45
 msgid "Finnish"
-msgstr ""
+msgstr "Fiński"
 
 #: apps/twitterwall/models.py:48
 msgid "Hebrew"
-msgstr ""
+msgstr "hebrajski"
 
 #: apps/twitterwall/models.py:49
 msgid "Hindi"
@@ -3542,7 +3536,7 @@ msgstr ""
 
 #: apps/twitterwall/models.py:50
 msgid "Hungarian"
-msgstr ""
+msgstr "Węgierski"
 
 #: apps/twitterwall/models.py:51
 msgid "Indonesian"
@@ -3550,11 +3544,11 @@ msgstr ""
 
 #: apps/twitterwall/models.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "japoński"
 
 #: apps/twitterwall/models.py:54
 msgid "Korean"
-msgstr ""
+msgstr "Koreański"
 
 #: apps/twitterwall/models.py:55
 msgid "Malay"
@@ -3562,15 +3556,15 @@ msgstr ""
 
 #: apps/twitterwall/models.py:56
 msgid "Norwegian"
-msgstr ""
+msgstr "norweski"
 
 #: apps/twitterwall/models.py:58
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugalski"
 
 #: apps/twitterwall/models.py:59
 msgid "Russian"
-msgstr "Rosyjski"
+msgstr "rosyjski"
 
 #: apps/twitterwall/models.py:60
 msgid "Simplified Chinese"
@@ -3578,7 +3572,7 @@ msgstr ""
 
 #: apps/twitterwall/models.py:62
 msgid "Swedish"
-msgstr ""
+msgstr "szwedzki"
 
 #: apps/twitterwall/models.py:63
 msgid "Thai"
@@ -3590,7 +3584,7 @@ msgstr ""
 
 #: apps/twitterwall/models.py:66
 msgid "Ukrainian"
-msgstr ""
+msgstr "ukraiński"
 
 #: apps/twitterwall/models.py:67
 msgid "Urdu"
@@ -3659,7 +3653,7 @@ msgstr ""
 
 #: apps/twitterwall/models.py:121
 msgid "Photo"
-msgstr ""
+msgstr "Zdjęcie"
 
 #: apps/twitterwall/models.py:124 apps/twitterwall/models.py:125
 msgid "Tweet media"
@@ -3676,12 +3670,12 @@ msgstr ""
 #: apps/workshops/models.py:138 apps/workshops/views.py:44
 #: templates/museumsportal/workshops/filter_workshops.html:35
 msgid "Has bookable group offer"
-msgstr ""
+msgstr "Możliwość rezerwacji dla grup"
 
 #: apps/workshops/models.py:139
 #: templates/museumsportal/workshops/filter_workshops.html:56
 msgid "Special for preschool children (up to 5 years)"
-msgstr "Szczególnie dla dzieci w wieku przedszkolnym (do 5 roku życia)"
+msgstr "Szczególnie dla dzieci w wieku przedszkolnym (do 5. roku życia)"
 
 #: apps/workshops/models.py:140
 #: templates/museumsportal/workshops/filter_workshops.html:57
@@ -3701,22 +3695,22 @@ msgstr "Szczególnie dla rodzin"
 #: apps/workshops/models.py:143
 #: templates/museumsportal/workshops/filter_workshops.html:44
 msgid "Special for people in wheelchairs"
-msgstr ""
+msgstr "Specjalnie dla osób na wózkach inwalidzkich"
 
 #: apps/workshops/models.py:144
 #: templates/museumsportal/workshops/filter_workshops.html:45
 msgid "Special for deaf people"
-msgstr ""
+msgstr "Specjalnie dla osób niesłyszących"
 
 #: apps/workshops/models.py:145
 #: templates/museumsportal/workshops/filter_workshops.html:46
 msgid "Special for blind people"
-msgstr ""
+msgstr "Specjalnie dla osób niewidomych "
 
 #: apps/workshops/models.py:146
 #: templates/museumsportal/workshops/filter_workshops.html:47
 msgid "Special for people with learning difficulties"
-msgstr "Szczególnie dla osób z upośledzeniem umysłowym"
+msgstr "Szczególnie dla osób z niepełnosprawnością intelektualną "
 
 #: apps/workshops/models.py:147
 msgid "Special for sufferers of dementia"
@@ -3755,44 +3749,44 @@ msgstr "Godziny warsztatów"
 
 #: apps/workshops/views.py:45
 msgid "For preschool children (up to 5 years)"
-msgstr "Dla dzieci w wieku przedszkolnym (do 5 roku życia)"
+msgstr "Dla dzieci w wieku przedszkolnym (do 5. roku życia)"
 
 #: apps/workshops/views.py:46
 msgid "For children of primary school (6-12 years)"
-msgstr ""
+msgstr "Dla uczniów szkół podstawowych (w wieku 6-12 lat)"
 
 #: apps/workshops/views.py:47
 msgid "For youth (13 years)"
-msgstr ""
+msgstr "Dla młodzieży (około 13. roku życia)"
 
 #: apps/workshops/views.py:48
 msgid "For families"
-msgstr ""
+msgstr "Dla rodzin"
 
 #: apps/workshops/views.py:94 apps/workshops/views.py:201
 #: templates/museumsportal/utils/filter_workshops.html:29
 #: templates/museumsportal/workshops/workshop_list.html:32
 msgid "For people in wheelchairs"
-msgstr ""
+msgstr "Dla osób na wózkach inwalidzkich"
 
 #: apps/workshops/views.py:95 apps/workshops/views.py:202
 #: templates/museumsportal/utils/filter_workshops.html:32
 #: templates/museumsportal/workshops/workshop_list.html:33
 msgid "For deaf people"
-msgstr ""
+msgstr "Dla osób niesłyszących"
 
 #: apps/workshops/views.py:96 apps/workshops/views.py:203
 #: templates/museumsportal/utils/filter_workshops.html:35
 #: templates/museumsportal/workshops/workshop_list.html:34
 msgid "For blind people"
-msgstr ""
+msgstr "Dla osób niewidomych "
 
 #: apps/workshops/views.py:97 apps/workshops/views.py:204
 #: templates/museumsportal/museums/museum_detail.html:579
 #: templates/museumsportal/utils/filter_workshops.html:38
 #: templates/museumsportal/workshops/workshop_list.html:35
 msgid "For people with learning difficulties"
-msgstr ""
+msgstr "Dla osób z niepełnosprawnością intelektualną "
 
 #: apps/workshops/forms/workshop.py:419
 msgid "Price (€)"
@@ -3865,7 +3859,7 @@ msgstr "Od"
 #: templates/museumsportal/workshops/workshop_list_map.html:35
 #: templates/museumsportal/workshops/workshop_list_map.html:46
 msgid "till"
-msgstr "Do"
+msgstr "do"
 
 #: apps/workshops/forms/workshop.py:725
 msgid "Batch workshop time creation"
@@ -3895,6 +3889,306 @@ msgstr "Mapa"
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:8
 msgid "Visiting by Appointment"
 msgstr ""
+"Zwiedzanie po uprzednim umówieniu się \n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"´\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"Zwiedzanie po uprzednim umówieniu się"
 
 #: templates/admin/admin/exhibitions/exhibition/fieldset_opening_hours.html:26
 #: templates/admin/admin/museums/museum/fieldset_opening_hours.html:17
@@ -3951,7 +4245,7 @@ msgstr ""
 #: templates/museumsportal/403.html:19 templates/museumsportal/404.html:19
 #: templates/museumsportal/500.html:19
 msgid "Back"
-msgstr ""
+msgstr "Powrót"
 
 #: templates/museumsportal/base.html:101
 msgid "Back to top"
@@ -3963,7 +4257,7 @@ msgstr "Finansowany przez"
 
 #: templates/museumsportal/base.html:151
 msgid "A service from"
-msgstr ""
+msgstr "Serwis od"
 
 #: templates/museumsportal/base.html:158
 msgid "Together with Berlin museums and"
@@ -3982,7 +4276,7 @@ msgstr "Razem z muzeami berlińskimi i  "
 #: templates/museumsportal/workshops/workshop_detail_ajax_map.html:6
 #: templates/museumsportal/workshops/workshop_list.html:49
 msgid "close"
-msgstr ""
+msgstr "zamknij "
 
 #: templates/museumsportal/base_map.html:103
 msgid "Show my current location"
@@ -3998,7 +4292,7 @@ msgstr ""
 #: templates/museumsportal/museums/museum_list.html:27
 #: templates/museumsportal/workshops/workshop_list.html:25
 msgid "filter"
-msgstr ""
+msgstr "filtruj"
 
 #: templates/museumsportal/base_map.html:136
 #: templates/museumsportal/accounts/login.html:14
@@ -4007,7 +4301,7 @@ msgstr ""
 #: templates/museumsportal/museums/museum_list.html:28
 #: templates/museumsportal/workshops/workshop_list.html:26
 msgid "Reset"
-msgstr ""
+msgstr "cofnij"
 
 #: templates/museumsportal/base_map.html:151
 msgid "Nothing is selected"
@@ -4015,7 +4309,7 @@ msgstr ""
 
 #: templates/museumsportal/base_map.html:152
 msgid "Please, select a location in the map!"
-msgstr ""
+msgstr "Proszę wybrać położenie na mapie!"
 
 #: templates/museumsportal/accounts/dashboard.html:6
 #: templates/museumsportal/utils/dashboard_header.html:14
@@ -4228,11 +4522,11 @@ msgstr ""
 
 #: templates/museumsportal/accounts/login.html:14
 msgid "Forgot your Password?"
-msgstr ""
+msgstr "Zapomniałeś hasła?"
 
 #: templates/museumsportal/accounts/password_change_done.html:4
 msgid "Password change successful"
-msgstr ""
+msgstr "Hasło pomyślnie zmienione "
 
 #: templates/museumsportal/accounts/password_change_done.html:8
 #: templates/museumsportal/accounts/password_change_form.html:8
@@ -4245,12 +4539,12 @@ msgstr ""
 
 #: templates/museumsportal/accounts/password_change_form.html:4
 msgid "Password change"
-msgstr ""
+msgstr "Zmień hasło"
 
 #: templates/museumsportal/accounts/password_change_form.html:9
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 
 #: templates/museumsportal/accounts/password_reset_complete.html:4
@@ -4262,13 +4556,13 @@ msgstr ""
 #: templates/museumsportal/accounts/password_reset_form.html:5
 #: templates/museumsportal/accounts/password_reset_form.html:9
 msgid "Password reset"
-msgstr ""
+msgstr "Usuń hasło"
 
 #: templates/museumsportal/accounts/password_reset_complete.html:10
 #, python-format
 msgid ""
-"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
-"\">log in</a> now."
+"Your password has been set. You may go ahead and <a "
+"href=\"%(login_url)s\">log in</a> now."
 msgstr ""
 
 #: templates/museumsportal/accounts/password_reset_confirm.html:13
@@ -4279,7 +4573,7 @@ msgstr ""
 
 #: templates/museumsportal/accounts/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr ""
+msgstr "Hasło pomyślnie usunięte"
 
 #: templates/museumsportal/accounts/password_reset_done.html:10
 msgid ""
@@ -4290,8 +4584,8 @@ msgstr ""
 #: templates/museumsportal/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
 msgstr ""
 
 #: templates/museumsportal/accounts/password_reset_email.html:5
@@ -4329,7 +4623,7 @@ msgstr ""
 #: templates/museumsportal/accounts/register.html:12
 #: templates/museumsportal/site_specific/claiming_confirmation.html:22
 msgid "Already have an account?"
-msgstr ""
+msgstr "Posiadasz już konto?"
 
 #: templates/museumsportal/accounts/register_done.html:4
 #: templates/museumsportal/accounts/register_done.html:8
@@ -4338,17 +4632,17 @@ msgstr ""
 
 #: templates/museumsportal/accounts/register_verify_required.html:4
 msgid "You're almost there."
-msgstr ""
+msgstr "Jesteś prawie na miejscu"
 
 #: templates/museumsportal/accounts/register_verify_required.html:8
 msgid "You're almost there"
-msgstr ""
+msgstr "Jesteś prawie na miejscu"
 
 #: templates/museumsportal/accounts/register_verify_required.html:10
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 
 #: templates/museumsportal/accounts/register_verify_required.html:11
@@ -4436,7 +4730,7 @@ msgstr[1] "1 komentarz"
 
 #: templates/museumsportal/blog/post_brief.html:37
 msgid "Read more"
-msgstr ""
+msgstr "Czytaj więcej"
 
 #: templates/museumsportal/blog/post_brief.html:52
 #: templates/museumsportal/blog/post_detail.html:49
@@ -4460,17 +4754,17 @@ msgstr "Zostaw komentarz"
 #: templates/museumsportal/blog/post_detail.html:98
 #: templates/museumsportal/blog/comments/refuse_embedded.html:13
 msgid "Refuse"
-msgstr ""
+msgstr "Odrzuć"
 
 #: templates/museumsportal/blog/post_detail.html:99
 #: templates/museumsportal/blog/comments/mark_as_spam_embedded.html:8
 msgid "Mark as Spam"
-msgstr ""
+msgstr "Oznacz jako spam"
 
 #: templates/museumsportal/blog/post_detail.html:101
 #: templates/museumsportal/blog/comments/accept_embedded.html:9
 msgid "Accept"
-msgstr ""
+msgstr "Akceptuj"
 
 #: templates/museumsportal/blog/sidebar_tools.html:3
 msgid "Tools"
@@ -4523,7 +4817,7 @@ msgstr ""
 
 #: templates/museumsportal/cms/magazine_third.html:21
 msgid "To the Magazin"
-msgstr ""
+msgstr "Do magazynu"
 
 #: templates/museumsportal/cms/magazine_third.html:35
 #: templates/museumsportal/cms/plan_organize_second.html:34
@@ -4533,7 +4827,7 @@ msgstr ""
 
 #: templates/museumsportal/cms/start.html:23
 msgid "Login for Museums"
-msgstr ""
+msgstr "Logowanie dla muzeów"
 
 #: templates/museumsportal/cms/includes/start_de.html:8
 msgid "First things first"
@@ -4621,7 +4915,7 @@ msgstr ""
 #: templates/museumsportal/workshops/workshop_detail.html:220
 #: templates/museumsportal/workshops/workshop_detail_ajax.html:41
 msgid "Show location on map"
-msgstr ""
+msgstr "Pokaż lokalizację na mapie"
 
 #: templates/museumsportal/events/event_detail.html:95
 #: templates/museumsportal/events/event_detail.html:100
@@ -4674,7 +4968,7 @@ msgstr ""
 #: templates/museumsportal/workshops/workshop_detail_ajax.html:48
 #: templates/museumsportal/workshops/workshop_detail_ajax.html:50
 msgid "Share on Twitter"
-msgstr ""
+msgstr "Podziel się na Twitterze"
 
 #: templates/museumsportal/events/event_detail.html:102
 #: templates/museumsportal/events/event_detail_ajax.html:52
@@ -4694,7 +4988,7 @@ msgstr ""
 #: templates/museumsportal/workshops/workshop_detail_ajax.html:53
 #: templates/museumsportal/workshops/workshop_detail_ajax.html:55
 msgid "Share on Facebook"
-msgstr ""
+msgstr "Podziel się na Facebooku"
 
 #: templates/museumsportal/events/event_detail.html:139
 #: templates/museumsportal/workshops/workshop_detail.html:138
@@ -4818,16 +5112,16 @@ msgstr "Pokaż mapę"
 
 #: templates/museumsportal/events/event_list.html:34
 msgid "Suitable for children"
-msgstr ""
+msgstr "Odpowiednie dla dzieci"
 
 #: templates/museumsportal/events/event_list.html:59
 #: templates/museumsportal/workshops/workshop_list.html:60
 msgid "Editors Recommendations"
-msgstr ""
+msgstr "Redakcja poleca"
 
 #: templates/museumsportal/events/forms/base.html:9
 msgid "New event"
-msgstr ""
+msgstr "Nowe wydarzenie"
 
 #: templates/museumsportal/events/forms/base.html:40
 msgid "Add new event"
@@ -4965,13 +5259,13 @@ msgstr "Godziny"
 #: templates/museumsportal/workshops/forms/times_form.html:19
 #: templates/museumsportal/workshops/forms/times_form.html:146
 msgid "Minutes"
-msgstr ""
+msgstr "Minuty"
 
 #: templates/museumsportal/events/forms/basic_info_form.html:180
 #: templates/museumsportal/exhibitions/forms/basic_info_form.html:180
 #: templates/museumsportal/workshops/forms/basic_info_form.html:178
 msgid "add a tag"
-msgstr ""
+msgstr "Dodaj tag"
 
 #: templates/museumsportal/events/forms/basic_info_form.html:247
 #: templates/museumsportal/exhibitions/forms/basic_info_form.html:246
@@ -4984,7 +5278,7 @@ msgstr ""
 #: templates/museumsportal/museums/forms/gallery_form.html:22
 #: templates/museumsportal/workshops/forms/gallery_form.html:22
 msgid "Image Gallery"
-msgstr ""
+msgstr "Galeria obrazów "
 
 #: templates/museumsportal/events/forms/gallery_form.html:24
 #: templates/museumsportal/exhibitions/forms/gallery_form.html:24
@@ -5076,11 +5370,11 @@ msgstr "Wstęp wolny dla"
 
 #: templates/museumsportal/exhibitions/exhibition_detail.html:805
 msgid "Free entrance times"
-msgstr ""
+msgstr "Wstęp wolny w godzinach"
 
 #: templates/museumsportal/exhibitions/exhibition_detail.html:819
 msgid "Other tickets"
-msgstr ""
+msgstr "Inne bilety"
 
 #: templates/museumsportal/exhibitions/exhibition_detail.html:826
 #: templates/museumsportal/museums/museum_detail.html:440
@@ -5099,7 +5393,7 @@ msgstr "Przystosowany dla osób niepełnosprawnych"
 #: templates/museumsportal/workshops/workshop_list.html:79
 #: templates/museumsportal/workshops/workshop_list_map.html:30
 msgid "Bookable Offer"
-msgstr ""
+msgstr "Możliwość rezerwacji"
 
 #: templates/museumsportal/exhibitions/exhibition_list.html:28
 msgid "RSS Feed"
@@ -5107,11 +5401,11 @@ msgstr ""
 
 #: templates/museumsportal/exhibitions/vernissage_list.html:3
 msgid "Vernissages"
-msgstr ""
+msgstr "Wernisaże "
 
 #: templates/museumsportal/exhibitions/vernissage_list.html:18
 msgid "Vernissages in the Museums of Berlin"
-msgstr ""
+msgstr "Wernisaże w berlińskich muzeach"
 
 #: templates/museumsportal/exhibitions/feeds/feed_description.html:3
 #, python-format
@@ -5120,11 +5414,11 @@ msgstr ""
 
 #: templates/museumsportal/exhibitions/forms/base.html:9
 msgid "New exhibition"
-msgstr ""
+msgstr "Nowa wystawa"
 
 #: templates/museumsportal/exhibitions/forms/base.html:40
 msgid "Add new exhibition"
-msgstr ""
+msgstr "Dodaj nową wystawę "
 
 #: templates/museumsportal/exhibitions/forms/opening_form.html:85
 #: templates/museumsportal/museums/forms/opening_form.html:167
@@ -5226,7 +5520,7 @@ msgstr ""
 
 #: templates/museumsportal/museums/forms/opening_form.html:27
 msgid "Closing times / Holidays"
-msgstr ""
+msgstr "Godziny zamknięcia / dni wolne od pracy"
 
 #: templates/museumsportal/museums/forms/opening_form.html:39
 msgid "Add Closing time / Holiday"
@@ -5235,15 +5529,15 @@ msgstr ""
 #: templates/museumsportal/search/search.html:96
 #: templates/museumsportal/search/search_old.html:77
 msgid "No results found."
-msgstr ""
+msgstr "Nie znaleziono żadnych wyników"
 
 #: templates/museumsportal/search/search.html:98
 msgid "Please enter a phrase to search for."
-msgstr ""
+msgstr "Wprowadź hasło, którego szukasz"
 
 #: templates/museumsportal/search/search_old.html:6
 msgid "Suche"
-msgstr ""
+msgstr "Szukaj"
 
 #: templates/museumsportal/search/search_old.html:84
 #: templates/museumsportal/search/search_old.html:86
@@ -5267,28 +5561,28 @@ msgstr ""
 #, python-format
 msgid ""
 "Please fill in this form to create and account at Museumsportal Berlin and "
-"to confirm that you are the owner of <a href=\"%(museum_link)s\">"
-"%(museum_title)s</a>."
+"to confirm that you are the owner of <a "
+"href=\"%(museum_link)s\">%(museum_title)s</a>."
 msgstr ""
 
 #: templates/museumsportal/site_specific/claiming_confirmation.html:27
 #, python-format
 msgid ""
-"Please login to confirm that you are the owner of <a href=\"%(museum_link)s"
-"\">%(museum_title)s</a>."
+"Please login to confirm that you are the owner of <a "
+"href=\"%(museum_link)s\">%(museum_title)s</a>."
 msgstr ""
 
 #: templates/museumsportal/site_specific/claiming_confirmation.html:31
 msgid "Don't have an account?"
-msgstr ""
+msgstr "Nie masz konta?"
 
 #: templates/museumsportal/site_specific/claiming_confirmation.html:60
 msgid "I agree"
-msgstr ""
+msgstr "Zgadzam się"
 
 #: templates/museumsportal/site_specific/claiming_confirmation.html:61
 msgid "I disagree"
-msgstr ""
+msgstr "Nie zgadzam się"
 
 #: templates/museumsportal/site_specific/claiming_invitation.html:4
 #: templates/museumsportal/site_specific/claiming_invitation_done.html:4
@@ -5329,7 +5623,7 @@ msgstr "Wyślij zapytanie"
 
 #: templates/museumsportal/utils/container_empty.html:4
 msgid "Your filter selection did not match any items."
-msgstr ""
+msgstr "Nie znaleziono żadnych wyników"
 
 #: templates/museumsportal/utils/dashboard_delete.html:8
 msgid "Do you really want to delete this item?"
@@ -5356,7 +5650,7 @@ msgstr ""
 
 #: templates/museumsportal/utils/dashboard_navigation.html:78
 msgid "Help"
-msgstr ""
+msgstr "Pomoc"
 
 #: templates/museumsportal/utils/dashboard_pagination.html:11
 msgid "current"
@@ -5367,13 +5661,13 @@ msgstr "aktualne"
 #: templates/museumsportal/utils/filter_museums.html:3
 #: templates/museumsportal/utils/filter_workshops.html:3
 msgid "Filters"
-msgstr ""
+msgstr "Filtry"
 
 #: templates/museumsportal/utils/filter_events.html:13
 #: templates/museumsportal/utils/filter_exhibitions.html:14
 #: templates/museumsportal/utils/filter_museums.html:13
 msgid "A - Z"
-msgstr ""
+msgstr "A - Z"
 
 #: templates/museumsportal/utils/filter_events.html:18
 #: templates/museumsportal/utils/filter_events.html:61
@@ -5414,7 +5708,7 @@ msgstr ""
 
 #: templates/museumsportal/utils/gmap.html:6
 msgid "Return to the List"
-msgstr ""
+msgstr "Powróć do listy"
 
 #: templates/museumsportal/utils/gmap.html:7
 msgid "toggle map"
@@ -5422,7 +5716,7 @@ msgstr ""
 
 #: templates/museumsportal/workshops/filter_workshops.html:6
 msgid "Bookable group offer"
-msgstr ""
+msgstr "Możliwość rezerwacji dla grup"
 
 #: templates/museumsportal/workshops/filter_workshops.html:11
 msgid "Barrier-free guided tours"
@@ -5431,7 +5725,7 @@ msgstr "Oprowadzanie bez barier"
 #: templates/museumsportal/workshops/filter_workshops.html:25
 #: templates/museumsportal/workshops/filter_workshops.html:27
 msgid "Reset all filters"
-msgstr ""
+msgstr "Cofnij wszystkie filtry"
 
 #: templates/museumsportal/workshops/workshop_detail.html:3
 #: templates/museumsportal/workshops/workshop_detail_slideshow.html:4
@@ -5440,7 +5734,7 @@ msgstr "Oprowadzanie"
 
 #: templates/museumsportal/workshops/workshop_detail.html:147
 msgid "Age groups"
-msgstr ""
+msgstr "Grupy wiekowe"
 
 #: templates/museumsportal/workshops/workshop_detail.html:365
 msgid "Price"
@@ -5453,7 +5747,7 @@ msgstr "Inne oprowadzania, warsztaty i oferty edukacyjne"
 #: templates/museumsportal/workshops/workshop_detail_ajax.html:48
 #: templates/museumsportal/workshops/workshop_detail_ajax.html:53
 msgid "Permanent workshop"
-msgstr ""
+msgstr "Warsztaty stałe"
 
 #: templates/museumsportal/workshops/workshop_list.html:93
 #: templates/museumsportal/workshops/workshop_list_map.html:45

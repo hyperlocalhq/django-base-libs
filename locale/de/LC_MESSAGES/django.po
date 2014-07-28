@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 21:02+0200\n"
-"PO-Revision-Date: 2014-07-09 17:18+0100\n"
+"PO-Revision-Date: 2014-07-19 16:01+0100\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1690,7 +1690,7 @@ msgstr "Von"
 #: apps/museums/models.py:433 apps/workshops/forms/workshop.py:632
 #: templates/museumsportal/events/forms/times_form.html:14
 msgid "End"
-msgstr "Bis"
+msgstr "bis"
 
 #: apps/events/forms/event.py:579 apps/workshops/forms/workshop.py:636
 msgid "Repeat"
@@ -1798,7 +1798,7 @@ msgstr "Zeiten"
 #: templates/museumsportal/museums/museum_detail.html:104
 #: templates/museumsportal/utils/images.html:5
 msgid "Images"
-msgstr "Bilddaten"
+msgstr "Galerie"
 
 #: apps/events/forms/event.py:1090 apps/exhibitions/forms/exhibition.py:1470
 #: apps/museums/forms/museum.py:1730 apps/workshops/forms/workshop.py:1238
@@ -2240,7 +2240,7 @@ msgstr "Von %(time)s"
 #: apps/exhibitions/forms/exhibition.py:54 apps/museums/forms/museum.py:44
 #, python-format
 msgid "To %(time)s"
-msgstr "Bis %(time)s"
+msgstr "bis %(time)s"
 
 #: apps/exhibitions/forms/exhibition.py:55
 #: apps/exhibitions/forms/exhibition.py:589
@@ -3901,7 +3901,7 @@ msgstr "Von"
 #: templates/museumsportal/workshops/workshop_list_map.html:35
 #: templates/museumsportal/workshops/workshop_list_map.html:46
 msgid "till"
-msgstr "Bis"
+msgstr "bis"
 
 #: apps/workshops/forms/workshop.py:725
 msgid "Batch workshop time creation"
