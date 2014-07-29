@@ -20,6 +20,7 @@ SpecialOpeningTime = models.get_model("museums", "SpecialOpeningTime")
 MediaFile = models.get_model("museums", "MediaFile")
 SocialMediaChannel = models.get_model("museums", "SocialMediaChannel")
 
+
 class MuseumCategoryAdmin(TreeEditor, ExtendedModelAdmin):
         
     save_on_top = True
@@ -54,24 +55,32 @@ admin.site.register(AccessibilityOption, AccessibilityOptionAdmin)
 class SeasonInline(ExtendedStackedInline):
     model = Season
     extra = 0
+    allow_add = True
     template = "admin/museums/museum/season_inline.html"
+
 
 class SpecialOpeningTimeInline(ExtendedStackedInline):
     model = SpecialOpeningTime
+    allow_add = True
     extra = 0
     fieldsets = get_admin_lang_section(_("Title"), ['day_label'])
     fieldsets += [(_("Date"), {'fields': ('yyyy', 'mm', 'dd'), })]
     fieldsets += [(_("Opening hours"), {'fields': ('is_closed', 'is_regular', 'opening', 'break_close', 'break_open', 'closing', get_admin_lang_section(_("Exceptions"), ['exceptions']))})]
 
+
 class SocialMediaChannelInline(admin.TabularInline):
     model = SocialMediaChannel
+    allow_add = True
     extra = 0
+
 
 class MediaFileInline(ExtendedStackedInline):
     model = MediaFile
+    allow_add = True
     extra = 0
     sortable = True
     sortable_field_name = "sort_order"
+
 
 class MuseumAdmin(ExtendedModelAdmin):
     class Media:
