@@ -208,7 +208,6 @@ INSTALLED_APPS = (
     "jetson.apps.history",
     "jetson.apps.utils",
     "jetson.apps.extendedadmin",
-    "jetson.apps.mailing",
     #"jetson.apps.external_services",
     "jetson.apps.favorites",
     "jetson.apps.blog",
@@ -239,6 +238,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.advertising.plugins.cms_ads",
     "museumsportal.apps.comments",
     "museumsportal.apps.mega_menu",
+    "museumsportal.apps.mailing",
 )
 
 

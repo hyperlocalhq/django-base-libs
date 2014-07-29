@@ -15,8 +15,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from jetson.apps.utils.decorators import login_required
-from jetson.apps.mailing.recipient import Recipient
-from jetson.apps.mailing.views import send_email_using_template
+from museumsportal.apps.mailing.recipient import Recipient
+from museumsportal.apps.mailing.views import send_email_using_template
 
 from forms import EmailOrUsernameAuthentication
 from forms import ClaimingInvitationForm

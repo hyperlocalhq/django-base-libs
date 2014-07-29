@@ -20,8 +20,8 @@ class Command(BaseCommand):
         
         from datetime import date
         
-        from jetson.apps.mailing.recipient import Recipient
-        from jetson.apps.mailing.views import send_email_using_template
+        from museumsportal.apps.mailing.recipient import Recipient
+        from museumsportal.apps.mailing.views import send_email_using_template
         
         Museum = models.get_model("museums", "Museum")
         
