@@ -40,7 +40,7 @@
 
 {% block details %}
     <h4>{{ gallery.title }}</h4>
-    <div>{{ gallery.description }}</div>
+    <div>{{ gallery.description|linebreaks }}</div>
     
     <div class="gallery-detail">
         {% block gallery_detail %}

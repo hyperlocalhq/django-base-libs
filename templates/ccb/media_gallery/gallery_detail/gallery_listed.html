@@ -6,12 +6,12 @@
         <div>
             {% for media_file in list_of_files %}
                 <div class="media_file">
-                    {{ media_file.get_representation }}
+                    {{ media_file.get_representation }}
                     {% if media_file.title %}
                         <h5>{{ media_file.title }}</h5>
                     {% endif %}
                     {% if media_file.description %}
-                        {{ media_file.description|decode_entities|striptags|linebreaks }}
+                        {{ media_file.description|decode_entities|linebreaks }}
                     {% endif %}
                 </div>
             {% endfor %}
