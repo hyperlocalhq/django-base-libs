@@ -2,6 +2,19 @@
 
 {% slideshow "start_slideshow_pl" %}
 
+<div class="container">
+  <div id="notices" class="content visible-xs">
+    <div class="row row-sm">
+      <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
+        <p> <a href="{% url "museum_list" %}">Muzea</a> </p>
+      </div>
+      <div class="item col-xs-12 col-sm-4 col-md-3 col-lg-3">
+        <p> <a href="{% url "exhibition_list" %}">Wystawy</a> </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% with "cms/plugins/editorial_content/ec_start_page.html" as editorial_content_template %}
   <div id="teaser" class="content">
     <div class="container">
