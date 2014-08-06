@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from fabric.api import env, run, prompt, local, get, sudo
+from fabric.api import env, run, prompt, local, get, sudo, settings
 from fabric.colors import red, green
 from fabric.state import output
 
@@ -100,7 +100,8 @@ def _update_staging():
 
     if env.full or "y" == prompt(red('Stop cron jobs (y/n)?'), default="y"):
         print(green(" * Stopping cron jobs"))
-        sudo('/etc/init.d/cron stop')
+        with settings(user="root"):
+            run('/etc/init.d/cron stop')
     print
 
     if env.full or "y" == prompt(red('Get latest production database (y/n)?'), default="y"):
@@ -150,12 +151,14 @@ def _update_staging():
 
     if env.full or "y" == prompt(red('Restart webserver (y/n)?'), default="y"):
         print(green(" * Restarting Apache"))
-        sudo('/etc/init.d/apache graceful')
+        with settings(user="root"):
+            run('/etc/init.d/apache2 graceful')
     print
 
     if env.full or "y" == prompt(red('Start cron jobs (y/n)?'), default="y"):
         print(green(" * Starting cron jobs"))
-        sudo('/etc/init.d/cron start')
+        with settings(user="root"):
+            run('/etc/init.d/cron start')
     print
 
     if env.full or "y" == prompt(red('Unset under-construction screen (y/n)?'), default="y"):
@@ -181,7 +184,8 @@ def _update_production():
 
     if env.full or "y" == prompt(red('Stop cron jobs (y/n)?'), default="y"):
         print(green(" * Stopping cron jobs"))
-        sudo('/etc/init.d/cron stop')
+        with settings(user="root"):
+            run('/etc/init.d/cron stop')
     print
 
     if env.full or "y" == prompt(red('Backup database (y/n)?'), default="y"):
@@ -212,12 +216,14 @@ def _update_production():
 
     if env.full or "y" == prompt(red('Restart webserver (y/n)?'), default="y"):
         print(green(" * Restarting Apache"))
-        sudo('/etc/init.d/apache graceful')
+        with settings(user="root"):
+            run('/etc/init.d/apache2 graceful')
     print
 
     if env.full or "y" == prompt(red('Start cron jobs (y/n)?'), default="y"):
         print(green(" * Starting cron jobs"))
-        sudo('/etc/init.d/cron start')
+        with settings(user="root"):
+            run('/etc/init.d/cron start')
     print
 
     if env.full or "y" == prompt(red('Unset under-construction screen (y/n)?'), default="y"):
