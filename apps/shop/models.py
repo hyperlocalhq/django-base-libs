@@ -77,7 +77,7 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
         
     def get_url_path(self):
         try:
-            path = reverse("shop_product", kwargs={'slug': self.slug})
+            path = reverse("shop_product_detail", kwargs={'slug': self.slug})
         except:
             # the apphook is not attached yet
             return ""

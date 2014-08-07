@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% block title %}{% trans "Shop" %} – {% endblock %}
+{% block bodyclass %}shop-products-list no-transition{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript">
+    var str_filter_selection = "{% trans "Filter selection" %}";
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+      <header class="list-header clearfix">
+        <h4 class="visible-xs">{% trans "Shop" %}</h4>
+
+        <div class="list-controls">
+          <div class="btn-group pull-left" style="margin-right: 15px;">
+            <button id="toggle-list-filter" class="btn btn-info" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
+            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+          </div>
+          <ul id="filter-summary" class="pull-left">
+            {% if facets.selected.product_category or facets.selected.product_type %}
+              <li><b>{% trans "Filter selection" %}:</b></li>
+              {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
+              {% if facets.selected.product_type %}<li data-param="product_type" data-value="{{ facets.selected.product_type.slug }}"><a href="{% append_to_get product_type="" %}">{{ facets.selected.product_type.title }}</a></li>{% endif %}
+            {% endif %}
+          </ul>
+        </div>
+      </header>
+    </div>
+
+    <div id="list-filter" class="collapse">
+      <div>
+        <div class="container relative">
+          <button class="cancel btn btn-info btn-lg btn-icon" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">
+            <span class="icon icon-remove"></span>
+            <span class="sr-only">{% trans "close" %}</span>
+          </button>
+          {% include "utils/filter_products.html" %}
+        </div>
+      </div>
+    </div>
+
+    <div id="list">
+        <div class="container">
+            <div id="container">
+                <div class="row row-md grid">
+                    {% if object_list %}
+                        {% for product in object_list %}
+                            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                                <a href="{{ product.get_url_path }}">
+                                    {% if product.image %}
+                                        <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                    {% endif %}
+                                    <h3>{{ product.title }}</h3>
+                                    <h4>{{ product.subtitle }}</h4>
+                                </a>
+                            </div>
+                        {% endfor %}
+                        {% include "utils/pagination.html" %}
+                    {% else %}
+                        {% include "utils/container_empty.html" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
