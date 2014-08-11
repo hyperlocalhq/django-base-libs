@@ -16,23 +16,24 @@
 {% block content %}
 <div class="content">
     <div class="container">
-      <header class="list-header clearfix">
-        <h4 class="visible-xs">{% trans "Shop" %}</h4>
+        <header class="list-header clearfix">
+            <h4 class="visible-xs">{% trans "Shop" %}</h4>
 
-        <div class="list-controls">
-          <div class="btn-group pull-left" style="margin-right: 15px;">
-            <button id="toggle-list-filter" class="btn btn-info" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
-            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
-          </div>
-          <ul id="filter-summary" class="pull-left">
-            {% if facets.selected.product_category or facets.selected.product_type %}
-              <li><b>{% trans "Filter selection" %}:</b></li>
-              {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
-              {% if facets.selected.product_type %}<li data-param="product_type" data-value="{{ facets.selected.product_type.slug }}"><a href="{% append_to_get product_type="" %}">{{ facets.selected.product_type.title }}</a></li>{% endif %}
-            {% endif %}
-          </ul>
-        </div>
-      </header>
+            <div class="list-controls">
+                <div class="btn-group pull-left" style="margin-right: 15px;">
+                    <button id="toggle-list-filter" class="btn btn-info" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
+                    <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+                </div>
+                <ul id="filter-summary" class="pull-left">
+                    {% if facets.selected.product_category or facets.selected.product_type %}
+                        <li><b>{% trans "Filter selection" %}:</b></li>
+                        {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
+                        {% if facets.selected.product_type %}<li data-param="product_type" data-value="{{ facets.selected.product_type.slug }}"><a href="{% append_to_get product_type="" %}">{{ facets.selected.product_type.title }}</a></li>{% endif %}
+                        {% if facets.selected.product_subtype %}<li data-param="product_type" data-value="{{ facets.selected.product_type.slug }}"><a href="{% append_to_get product_type="" %}">{{ facets.selected.product_subtype.title }}</a></li>{% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+        </header>
     </div>
 
     <div id="list-filter" class="collapse">
@@ -59,7 +60,9 @@
                                         <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
                                     {% endif %}
                                     <h3>{{ product.title }}</h3>
-                                    <h4>{{ product.subtitle }}</h4>
+                                    {% if product.subtitle %}
+                                        <h4>{{ product.subtitle }}</h4>
+                                    {% endif %}
                                 </a>
                             </div>
                         {% endfor %}

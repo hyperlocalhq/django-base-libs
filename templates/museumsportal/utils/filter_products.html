@@ -22,7 +22,7 @@
           <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
             {% for cat in facets.categories.categories %}
               <li class="level-{{ cat.level }}{% if facets.selected.category == cat %} active{% endif %}" data-param="category" data-value="{{ cat.slug }}">
-                <a href="{% append_to_get category=cat.slug page="" %}">{{ cat.title }}</a>
+                <a data-filter-value="cat-{{ cat.slug }}" href="{% append_to_get category=cat.slug page="" %}">{{ cat.title }}</a>
               </li>
             {% endfor %}
           </ul>
@@ -39,7 +39,7 @@
             {% for cat in facets.categories.product_types %}
               {% if cat.is_root_node %}
                 <li class="level-{{ cat.level }}{% if facets.selected.product_type == cat %} active{% endif %}" data-level="{{ cat.level }}" data-param="product_type" data-value="{{ cat.slug }}">
-                  <a href="{% append_to_get product_type=cat.slug page="" %}" {% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#type_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a>
+                  <a data-filter-value="type-{{ cat.slug }}" href="{% append_to_get product_type=cat.slug page="" %}" {% if cat.get_children %} data-level-1-at="#level-1-type-container" data-target="#type_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a>
                 </li>
               {% endif %}
             {% endfor %}
@@ -47,10 +47,10 @@
           <div id="level-1-type-container" class="level-1-container">
             {% for cat in facets.categories.product_types %}
               {% if cat.is_root_node and cat.get_children %}
-                <ul id="type_{{ cat.slug }}" class="filter option-set clearfix collapse{% if facets.selected.product_type == cat %} in{% endif %}" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+                <ul id="type_{{ cat.slug }}" class="filter option-set clearfix collapse{% if facets.selected.product_type == cat %} in{% endif %}" data-filter-group="types" data-single-selection="1" data-hierarchical="1">
                   {% for child in cat.get_children %}
-                    <li class="x-level-{{ child.level }}{% if facets.selected.subcategory == child %} active{% endif %}" data-level="{{ child.level }}" data-param="subcategory" data-value="{{ child.slug }}">
-                      <a href="{% append_to_get product_type=child.slug page="" %}">{{ child.title }}</a>
+                    <li class="x-level-{{ child.level }}{% if facets.selected.product_subtype == child %} active{% endif %}" data-level="{{ child.level }}" data-param="subcategory" data-value="{{ child.slug }}">
+                      <a data-filter-value="subtype-{{ cat.slug }}" href="{% append_to_get product_subtype=child.slug page="" %}">{{ child.title }}</a>
                     </li>
                   {% endfor %}
                 </ul>

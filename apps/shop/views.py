@@ -24,7 +24,12 @@ class ProductFilterForm(dynamicforms.Form):
     )
     product_type = forms.ModelChoiceField(
         required=False,
-        queryset=get_related_queryset(ShopProduct, "product_types"),
+        queryset=get_related_queryset(ShopProduct, "product_types").filter(parent=None),
+        to_field_name="slug",
+    )
+    product_subtype = forms.ModelChoiceField(
+        required=False,
+        queryset=get_related_queryset(ShopProduct, "product_types").exclude(parent=None),
         to_field_name="slug",
     )
 
@@ -39,7 +44,8 @@ def shop_product_list(request):
         'selected': {},
         'categories': {
             'categories': get_related_queryset(ShopProduct, "product_categories"),
-            'product_types': get_related_queryset(ShopProduct, "product_types"),
+            'product_types': get_related_queryset(ShopProduct, "product_types").filter(parent=None),
+            'product_subtypes': get_related_queryset(ShopProduct, "product_types").exclude(parent=None),
         },
     }
 
@@ -55,6 +61,13 @@ def shop_product_list(request):
         cat = form.cleaned_data['product_type']
         if cat:
             facets['selected']['product_type'] = cat
+            qs = qs.filter(
+                product_types=cat,
+            ).distinct()
+
+        cat = form.cleaned_data['product_subtype']
+        if cat:
+            facets['selected']['product_subtype'] = cat
             qs = qs.filter(
                 product_types=cat,
             ).distinct()
