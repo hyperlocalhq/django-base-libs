@@ -3207,7 +3207,8 @@ a.img-detail.loaded:hover img {
   height: 100%;
   width: 100%;
   display: table;
-  table-layout: fixed; }
+  table-layout: fixed;
+  z-index: 2000; }
   .modal-centered > div,
   .modal-centered .cell {
     display: table-cell;
