@@ -2,7 +2,7 @@
 {% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended babel %}
 {% block title %}{% trans "Shop" %} – {{ object.title }} – {% endblock %}
-{% block bodyclass %}shop-product-detail no-transition{% endblock %}
+{% block bodyclass %}shop-product-detail shop-product-list no-transition{% endblock %}
 
 {% block open_graph %}
     <meta property="og:title" content="{{ object.title }}" />
@@ -44,21 +44,32 @@
     {% include "utils/page_controls.html" %}
 
     {% if object.get_similar_published_products %}
-        <div id="products" class="content">
-          <div class="container">
-            <h2 class="section-head" id="section-products">{% trans "Similar Products" %}</h2>
-            <div class="list row row-md">
-              {% for product in object.get_similar_published_products|slice:':4' %}
-              <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <a href="{{ product.get_url_path }}">
-                  <h3>{{ product.title }}</h3>
-                  <h4>{{ product.subtitle }}</h4>
-                  <h5>{{ product.price|currencyfmt:"€" }}</h5>
-                </a>
-              </div>
-              {% endfor %}
+        <div id="list">
+            <div class="container">
+                <div id="container">
+                    <h2 class="section-head" id="section-similar-products">{% trans "Similar products" %}</h2>
+                    <div class="row row-md grid">
+                        {% for product in object.get_similar_published_products|slice:':4' %}
+                            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                                <a href="{{ product.get_url_path }}">
+                                    {% if product.image %}
+                                        <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                    {% endif %}
+                                    {% if product.price %}
+                                        <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
+                                    {% endif %}
+                                    <h3>
+                                        {{ product.title }}
+                                    </h3>
+                                    {% if product.subtitle %}
+                                        <h4>{{ product.subtitle }}</h4>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
     {% endif %}
 {% endblock %}
