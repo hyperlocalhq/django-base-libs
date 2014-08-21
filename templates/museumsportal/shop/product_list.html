@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended babel %}
 {% block title %}{% trans "Shop" %} – {% endblock %}
-{% block bodyclass %}shop-products-list no-transition{% endblock %}
+{% block bodyclass %}shop-product-list no-transition{% endblock %}
 
 {% block js %}
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
@@ -25,11 +25,15 @@
                     <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
                 </div>
                 <ul id="filter-summary" class="pull-left">
-                    {% if facets.selected.product_category or facets.selected.product_type %}
+                    {% if facets.selected.category or facets.selected.product_type or facets.selected.product_subtype or facets.selected.is_featured or facets.selected.is_new or facets.selected.is_for_children or facets.selected.sort_by %}
                         <li><b>{% trans "Filter selection" %}:</b></li>
                         {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
                         {% if facets.selected.product_type %}<li data-param="product_type" data-value="{{ facets.selected.product_type.slug }}"><a href="{% append_to_get product_type="" %}">{{ facets.selected.product_type.title }}</a></li>{% endif %}
-                        {% if facets.selected.product_subtype %}<li data-param="product_type" data-value="{{ facets.selected.product_type.slug }}"><a href="{% append_to_get product_type="" %}">{{ facets.selected.product_subtype.title }}</a></li>{% endif %}
+                        {% if facets.selected.product_subtype %}<li data-param="product_subtype" data-value="{{ facets.selected.product_subtype.slug }}"><a href="{% append_to_get product_subtype="" %}">{{ facets.selected.product_subtype.title }}</a></li>{% endif %}
+                        {% if facets.selected.is_featured %}<li data-param="is_featured" data-value="1"><a href="{% append_to_get is_featured="" %}">{% trans "Featured" %}</a></li>{% endif %}
+                        {% if facets.selected.is_new %}<li data-param="is_new" data-value="1"><a href="{% append_to_get is_new="" %}">{% trans "New" %}</a></li>{% endif %}
+                        {% if facets.selected.is_for_children %}<li data-param="is_for_children" data-value="1"><a href="{% append_to_get is_for_children="" %}">{% trans "For children" %}</a></li>{% endif %}
+                        {% if facets.selected.sort_by %}<li data-param="sort_by" data-value="{{ facets.selected.sort_by.0 }}"><a href="{% append_to_get sort_by="" %}">{{ facets.selected.sort_by.1 }}</a></li>{% endif %}
                     {% endif %}
                 </ul>
             </div>
@@ -59,7 +63,12 @@
                                     {% if product.image %}
                                         <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
                                     {% endif %}
-                                    <h3>{{ product.title }}</h3>
+                                    {% if product.price %}
+                                        <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
+                                    {% endif %}
+                                    <h3>
+                                        {{ product.title }}
+                                    </h3>
                                     {% if product.subtitle %}
                                         <h4>{{ product.subtitle }}</h4>
                                     {% endif %}

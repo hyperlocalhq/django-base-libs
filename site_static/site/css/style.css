@@ -4704,6 +4704,18 @@ select {
 .shop_overview .shop_overview_entry {
   margin-bottom: 30px !important; }
 
+.shop-product-list .item h3 {
+  max-width: 80%;
+  width: auto; }
+.shop-product-list .price {
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 140%;
+  display: block;
+  white-space: nowrap;
+  height: 20px !important;
+  margin: 0px !important; }
+
 .plan_organize.secondlevel .img_left.secondlevel {
   width: 35%;
   display: block;

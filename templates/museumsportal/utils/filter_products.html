@@ -11,6 +11,14 @@
       <input type="radio" name="options" id="filter-toggle-types">
       {% trans "Types" %}
     </label>
+    <label class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
+      <input type="radio" name="options" id="filter-toggle-types">
+      {% trans "Smart lists" %}
+    </label>
+    <label class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-sort-by">
+      <input type="radio" name="options" id="filter-toggle-types">
+      {% trans "Sorting" %}
+    </label>
   </div>
 
   <div class="panel-group" id="filter-options">
@@ -19,10 +27,10 @@
         <div class="panel-body">
           <h4>{% trans "Categories" %}</h4>
 
-          <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+          <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
             {% for cat in facets.categories.categories %}
               <li class="level-{{ cat.level }}{% if facets.selected.category == cat %} active{% endif %}" data-param="category" data-value="{{ cat.slug }}">
-                <a data-filter-value="cat-{{ cat.slug }}" href="{% append_to_get category=cat.slug page="" %}">{{ cat.title }}</a>
+                <a data-filter-value=".cat-{{ cat.slug }}" href="{% append_to_get category=cat.slug page="" %}">{{ cat.title }}</a>
               </li>
             {% endfor %}
           </ul>
@@ -39,7 +47,7 @@
             {% for cat in facets.categories.product_types %}
               {% if cat.is_root_node %}
                 <li class="level-{{ cat.level }}{% if facets.selected.product_type == cat %} active{% endif %}" data-level="{{ cat.level }}" data-param="product_type" data-value="{{ cat.slug }}">
-                  <a data-filter-value="type-{{ cat.slug }}" href="{% append_to_get product_type=cat.slug page="" %}" {% if cat.get_children %} data-level-1-at="#level-1-type-container" data-target="#type_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a>
+                  <a data-filter-value=".type-{{ cat.slug }}" href="{% append_to_get product_type=cat.slug page="" %}" {% if cat.get_children %} data-level-1-at="#level-1-type-container" data-target="#type_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a>
                 </li>
               {% endif %}
             {% endfor %}
@@ -49,8 +57,8 @@
               {% if cat.is_root_node and cat.get_children %}
                 <ul id="type_{{ cat.slug }}" class="filter option-set clearfix collapse{% if facets.selected.product_type == cat %} in{% endif %}" data-filter-group="types" data-single-selection="1" data-hierarchical="1">
                   {% for child in cat.get_children %}
-                    <li class="x-level-{{ child.level }}{% if facets.selected.product_subtype == child %} active{% endif %}" data-level="{{ child.level }}" data-param="subcategory" data-value="{{ child.slug }}">
-                      <a data-filter-value="subtype-{{ cat.slug }}" href="{% append_to_get product_subtype=child.slug page="" %}">{{ child.title }}</a>
+                    <li class="x-level-{{ child.level }}{% if facets.selected.product_subtype == child %} active{% endif %}" data-level="{{ child.level }}" data-param="product_subtype" data-value="{{ child.slug }}">
+                      <a data-filter-value=".subtype-{{ cat.slug }}" href="{% append_to_get product_subtype=child.slug page="" %}">{{ child.title }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -60,6 +68,43 @@
         </div>
       </div>
     </div>
+
+    <div class="panel panel-default">
+      <div id="filter-smartlists" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Smart lists" %}</h4>
+
+          <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
+            <li{% if facets.selected.is_featured %} class="active"{% endif %} data-param="is_featured" data-value="1">
+              <a href="{% append_to_get is_featured=1 page="" %}" data-filter-value=".is_featured">{% trans "Featured" %}</a>
+            </li>
+            <li{% if facets.selected.is_new %} class="active"{% endif %} data-param="is_new" data-value="1">
+              <a href="{% append_to_get is_new=1 page="" %}" data-filter-value=".is_new">{% trans "New" %}</a>
+            </li>
+            <li{% if facets.selected.is_for_children %} class="active"{% endif %} data-param="is_for_children" data-value="1">
+              <a href="{% append_to_get is_for_children=1 page="" %}" data-filter-value=".is_for_children">{% trans "For children" %}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+    <div class="panel panel-default">
+      <div id="filter-sort-by" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Sort by" %}</h4>
+
+          <ul class="filter option-set clearfix" id="sorting" data-filter-group="sorting" data-single-selection="1">
+            {% for cat in facets.categories.sort_by %}
+              <li{% if facets.selected.sort_by %} class="active"{% endif %} data-param="sort_by" data-value="{{ cat.0 }}">
+                <a href="{% append_to_get sort_by=cat.0 page="" %}" data-filter-value=".sort_by_{{ cat.0 }}">{{ cat.1 }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 </div>
