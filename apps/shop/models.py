@@ -70,7 +70,7 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
     events = models.ManyToManyField(Event, verbose_name=_("Related Events"), blank=True, null=True)
     workshops = models.ManyToManyField(Workshop, verbose_name=_("Related Workshops"), blank=True, null=True)
     is_featured = models.BooleanField(_('Featured'), blank=True)
-    is_for_children = models.BooleanField(_('Is for children'), blank=True)
+    is_for_children = models.BooleanField(_('For children'), blank=True)
     is_new = models.BooleanField(_('New'), blank=True)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
@@ -100,3 +100,32 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
                 status="published",
             ).exclude(pk=self.pk).distinct().order_by('title_%s' % language)
         return ShopProduct.objects.none()
+
+    def get_related_museums(self):
+        if not hasattr(self, '_cached_related_museums'):
+            self._cached_related_museums = self.museums.filter(
+                status="published",
+            )
+        return self._cached_related_museums
+
+    def get_related_exhibitions(self):
+        if not hasattr(self, '_cached_related_exhibitions'):
+            self._cached_related_exhibitions = self.exhibitions.filter(
+                status="published",
+            )
+        return self._cached_related_exhibitions
+
+    def get_related_events(self):
+        if not hasattr(self, '_cached_related_events'):
+            self._cached_related_events = self.events.filter(
+                status="published",
+            )
+        return self._cached_related_events
+
+    def get_related_workshops(self):
+        if not hasattr(self, '_cached_related_workshops'):
+            self._cached_related_workshops = self.workshops.filter(
+                status="published",
+            )
+        return self._cached_related_workshops
+

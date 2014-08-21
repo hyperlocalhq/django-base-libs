@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
 {% block title %}{% trans "Museum" %} – {{ object.title }} – {% endblock %}
-{% block bodyclass %}museum-detail{% endblock %}
+{% block bodyclass %}museum-detail shop-product-list{% endblock %}
 
 {% block open_graph %}
     <meta property="og:title" content="{{ object.title }}" />
@@ -97,12 +97,12 @@
               </div>
 
 
-              {% if object.mediafile_set.count > 1 or museum.get_twitter_username or object.get_published_exhibitions or object.get_published_events or object.get_published_workshops %}
+              {% if object.mediafile_set.count > 1 or object.get_twitter_username or object.get_published_exhibitions or object.get_published_events or object.get_published_workshops or object.get_related_products %}
               <div class="btn-group hidden-xs clearfix">
                 {% if object.mediafile_set.count > 1 %}
                   <a class="btn btn-info btn-sm" href="#section-images">{% trans "Images" %}</a>
                 {% endif %}
-                {% if museum.get_twitter_username %}
+                {% if object.get_twitter_username %}
                   <a class="btn btn-info btn-sm" href="#section-tweets">{% trans "Current Tweets" %}</a>
                 {% endif %}
                 {% if object.get_published_exhibitions %}
@@ -113,6 +113,9 @@
                 {% endif %}
                 {% if object.get_published_workshops %}
                   <a class="btn btn-info btn-sm" href="#section-workshops">{% trans "Current Guided Tours, Workshops and educational offers" %}</a>
+                {% endif %}
+                {% if object.get_related_products %}
+                  <a class="btn btn-info btn-sm" href="#section-related-products">{% trans "Products" %}</a>
                 {% endif %}
               </div>
               {% endif %}
@@ -700,6 +703,39 @@
           </div>
         </div>
       {% endif %}
+
+      <!-- ======= Products ======= -->
+
+      {% if object.get_related_products %}
+          <div id="list">
+              <div class="container">
+                  <h2 class="section-head" id="section-related-products">{% trans "Products" %}</h2>
+                  <div id="container">
+                      <div class="row row-md grid">
+                          {% for product in object.get_related_products|slice:':4' %}
+                              <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3{% if forloop.counter == 4 %} hidden-sm hidden-md{% endif %}">
+                                  <a href="{{ product.get_url_path }}">
+                                      {% if product.image %}
+                                          <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                      {% endif %}
+                                      {% if product.price %}
+                                          <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
+                                      {% endif %}
+                                      <h3>
+                                          {{ product.title }}
+                                      </h3>
+                                      {% if product.subtitle %}
+                                          <h4>{{ product.subtitle }}</h4>
+                                      {% endif %}
+                                  </a>
+                              </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      {% endif %}
+
 
     </div>
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites workshops_tags %}
 {% block title %}{% trans "Guided Tour" %} – {{ object.title }}{% endblock %}
-{% block bodyclass %}workshop-detail{% endblock %}
+{% block bodyclass %}workshop-detail shop-product-list{% endblock %}
 
 {% block open_graph %}
     <meta property="og:title" content="{{ object.title }}" />
@@ -110,10 +110,13 @@
               </div>
 
               {% comment %}
-                {% if object.get_other_workshops %}
+                {% if object.get_other_workshops or object.get_related_products %}
                 <div class="btn-group" style="margin-bottom: 15px;">
                     <a class="btn btn-info btn-sm" href="#section-workshops">{% trans "Other Guided Tours, Workshops and educational offers" %}</a>
                 </div>
+                {% if object.get_related_products %}
+                  <a class="btn btn-info btn-sm" href="#section-related-products">{% trans "Products" %}</a>
+                {% endif %}
                 {% endif %}
               {% endcomment %}
 
@@ -471,6 +474,39 @@
           </div>
         </div>
       {% endif %}
+
+      <!-- ======= Products ======= -->
+
+      {% if object.get_related_products %}
+          <div id="list">
+              <div class="container">
+                  <h2 class="section-head" id="section-related-products">{% trans "Products" %}</h2>
+                  <div id="container">
+                      <div class="row row-md grid">
+                          {% for product in object.get_related_products|slice:':4' %}
+                              <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3{% if forloop.counter == 4 %} hidden-sm hidden-md{% endif %}">
+                                  <a href="{{ product.get_url_path }}">
+                                      {% if product.image %}
+                                          <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                      {% endif %}
+                                      {% if product.price %}
+                                          <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
+                                      {% endif %}
+                                      <h3>
+                                          {{ product.title }}
+                                      </h3>
+                                      {% if product.subtitle %}
+                                          <h4>{{ product.subtitle }}</h4>
+                                      {% endif %}
+                                  </a>
+                              </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      {% endif %}
+
     </div>
   {% endwith %}
 

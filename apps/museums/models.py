@@ -425,6 +425,14 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             return current_seasons[0]
         return None
 
+    def get_related_products(self):
+        if not hasattr(self, '_cached_related_products'):
+            self._cached_related_products = self.shopproduct_set.filter(
+                status="published",
+                is_featured=True,
+            )
+        return self._cached_related_products
+
 
 class Season(OpeningHoursMixin):
     museum = models.ForeignKey(Museum)

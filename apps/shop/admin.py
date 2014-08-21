@@ -55,7 +55,7 @@ class ShopProductAdmin(ExtendedModelAdmin):
         )
         
     save_on_top = True
-    list_display = ('id', 'title', 'subtitle', 'get_categories_display', 'get_types_display', 'price', 'is_featured', 'is_for_children', 'is_new', 'status')
+    list_display = ('id', 'title', 'subtitle', 'get_categories_display', 'get_types_display', 'price', 'is_featured', 'is_new', 'is_for_children', 'status')
     list_editable = ('is_featured', 'is_for_children', 'is_new', 'status')
     list_display_links = ('title', )
     list_filter = ('product_categories', 'product_types', 'is_featured', 'is_for_children', 'is_new', 'languages', 'creation_date', 'status')

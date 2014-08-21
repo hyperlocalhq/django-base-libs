@@ -452,6 +452,14 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
                         times.append(t)
         return times
 
+    def get_related_products(self):
+        if not hasattr(self, '_cached_related_products'):
+            self._cached_related_products = self.shopproduct_set.filter(
+                status="published",
+                is_featured=True,
+            )
+        return self._cached_related_products
+
 
 class Organizer(models.Model):
     exhibition = models.ForeignKey(Exhibition)

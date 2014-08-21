@@ -333,6 +333,14 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
                 particularities.append(unicode(self._meta.get_field(f).verbose_name))
         return particularities
 
+    def get_related_products(self):
+        if not hasattr(self, '_cached_related_products'):
+            self._cached_related_products = self.shopproduct_set.filter(
+                status="published",
+                is_featured=True,
+            )
+        return self._cached_related_products
+
 
 class WorkshopTime(models.Model):
 

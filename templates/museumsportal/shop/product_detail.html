@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container clearfix">
         <div class="row">
 			      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				        <h1>{{ object.title }}</h1>
@@ -33,11 +33,46 @@
                 </a>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
-                <p>{{ object.get_rendered_description }}</p>
-                {% if object.price %}
-                    <div class="clearfix"><div class="price">{{ object.price|currencyfmt:"€" }}</div></div>
-                {% endif %}
-                <div class="clearfix"><div class="to-shop"><a class="btn btn-default btn-sm" href="{{ object.link }}" target="_blank">{% trans "to shop" %}</a></div></div>
+                <div class="clearfix">
+                    <p>{{ object.get_rendered_description }}</p>
+                    {% if object.price %}
+                        <div class="clearfix"><div class="price">{{ object.price|currencyfmt:"€" }}</div></div>
+                    {% endif %}
+                    {% if object.get_related_museums %}
+                        <h3>{% trans "Related museums" %}</h3>
+                        <ul>
+                            {% for museum in object.get_related_museums %}
+                                <li><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if object.get_related_exhibitions %}
+                        <h3>{% trans "Related exhibitions" %}</h3>
+                        <ul>
+                            {% for exhibition in object.get_related_exhibitions %}
+                                <li><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if object.get_related_events %}
+                        <h3>{% trans "Related events" %}</h3>
+                        <ul>
+                            {% for event in object.get_related_events %}
+                                <li><a href="{{ event.get_url_path }}">{{ event.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if object.get_related_workshops %}
+                        <h3>{% trans "Related guided tours" %}</h3>
+                        <ul>
+                            {% for workshop in object.get_related_workshops %}
+                                <li><a href="{{ workshop.get_url_path }}">{{ workshop.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    <a class="btn btn-default btn-sm pull-right" href="{{ object.link }}" target="_blank">{% trans "to shop" %}</a>
+                </div>
             </div>
         </div>
     </div>
@@ -46,11 +81,11 @@
     {% if object.get_similar_published_products %}
         <div id="list">
             <div class="container">
+                <h2>{% trans "Similar products" %}</h2>
                 <div id="container">
-                    <h2 class="section-head" id="section-similar-products">{% trans "Similar products" %}</h2>
                     <div class="row row-md grid">
                         {% for product in object.get_similar_published_products|slice:':4' %}
-                            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3{% if forloop.counter == 4 %} hidden-sm hidden-md{% endif %}">
                                 <a href="{{ product.get_url_path }}">
                                     {% if product.image %}
                                         <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
