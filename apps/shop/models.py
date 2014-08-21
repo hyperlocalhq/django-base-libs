@@ -15,6 +15,8 @@ from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
+from base_libs.middleware.threadlocals import get_current_language
+
 from museumsportal.apps.museums.models import Museum
 from museumsportal.apps.exhibitions.models import Exhibition
 from museumsportal.apps.events.models import Event
@@ -91,9 +93,10 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
 
     def get_similar_published_products(self):
         category_ids = [cat.pk for cat in self.product_categories.all()]
+        language = get_current_language()
         if category_ids:
             return ShopProduct.objects.filter(
                 product_categories__id__in=category_ids,
                 status="published",
-            ).exclude(pk=self.pk).distinct()
+            ).exclude(pk=self.pk).distinct().order_by('title_%s' % language)
         return ShopProduct.objects.none()
