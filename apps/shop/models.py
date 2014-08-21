@@ -88,3 +88,12 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
         ordering = ['title']
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
+
+    def get_similar_published_products(self):
+        category_ids = [cat.pk for cat in self.product_categories.all()]
+        if category_ids:
+            return ShopProduct.objects.filter(
+                product_categories__id__in=category_ids,
+                status="published",
+            ).exclude(pk=self.pk).distinct()
+        return ShopProduct.objects.none()

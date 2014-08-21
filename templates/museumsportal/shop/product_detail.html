@@ -42,4 +42,23 @@
         </div>
     </div>
     {% include "utils/page_controls.html" %}
+
+    {% if object.get_similar_published_products %}
+        <div id="products" class="content">
+          <div class="container">
+            <h2 class="section-head" id="section-products">{% trans "Similar Products" %}</h2>
+            <div class="list row row-md">
+              {% for product in object.get_similar_published_products|slice:':4' %}
+              <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="{{ product.get_url_path }}">
+                  <h3>{{ product.title }}</h3>
+                  <h4>{{ product.subtitle }}</h4>
+                  <h5>{{ product.price|currencyfmt:"€" }}</h5>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+    {% endif %}
 {% endblock %}
