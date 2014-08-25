@@ -1067,7 +1067,7 @@ def save_data(form_steps, form_step_data, instance=None):
     for f in fields:
         setattr(instance, f, form_step_data['prices'][f])
 
-    if not instance.status or is_new:
+    if is_new:
         instance.status = "published"
     instance.save()
     

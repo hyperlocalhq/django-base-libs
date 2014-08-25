@@ -1356,7 +1356,7 @@ def save_data(form_steps, form_step_data, instance=None):
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         setattr(instance, 'suitable_for_disabled_info_%s' % lang_code, form_step_data['accessibility']['suitable_for_disabled_info_%s' % lang_code])
 
-    if not instance.status or is_new:
+    if is_new:
         instance.status = "published"
     instance.save()
     
