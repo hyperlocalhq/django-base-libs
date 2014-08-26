@@ -157,8 +157,8 @@
                 {% with forloop.counter0 as counter %}
                     {% include "admin/museums/museum/fieldset_opening_hours.html" %}
                 {% endwith %}
-                <input id="id_season_set-{{ forloop.counter0 }}-id" type="hidden" class="form_hidden" value="{{ form.instance.id }}" name="season_set-{{ forloop.counter0 }}-id" />
-                <input id="id_season_set-{{ forloop.counter0 }}-museum" type="hidden" class="form_hidden" value="{{ form.instance.museum.id }}" name="season_set-{{ forloop.counter0 }}-museum" />
+                <input id="id_season_set-{{ forloop.counter0 }}-id" type="hidden" class="form_hidden" value="{{ form.instance.id|default:"" }}" name="season_set-{{ forloop.counter0 }}-id" />
+                <input id="id_season_set-{{ forloop.counter0 }}-museum" type="hidden" class="form_hidden" value="{{ form.instance.museum.id|default:"" }}" name="season_set-{{ forloop.counter0 }}-museum" />
             </div>
         {% endfor %}
         {% with inline_admin_formset.formset.empty_form as form %}
@@ -302,6 +302,8 @@
                 {% with "__prefix__" as counter %}
                     {% include "admin/museums/museum/fieldset_opening_hours.html" %}
                 {% endwith %}
+                <input id="id_season_set-__prefix__-id" type="hidden" class="form_hidden" value="" name="season_set-__prefix__-id" />
+                <input id="id_season_set-__prefix__-museum" type="hidden" class="form_hidden" value="" name="season_set-__prefix__-museum" />
             </div>
         {% endwith %}
     </div>
