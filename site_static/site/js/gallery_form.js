@@ -7,10 +7,21 @@
 (function($, undefined) {
     function reinit() {
         lazyload_images();
+        var dragCheck = false;
         $('#photos').each(function() {
             var load_url = $(this).data("load-url");
             $(this).load(load_url + ' #photos>*', function() {
                 $('#photos').sortable({
+                    start: function(){
+                        // On drag set that flag to true
+                        dragCheck = true;
+                    },
+                    stop: function(){
+                        // On stop of dragging reset the flag back to false
+                        setTimeout(function() {
+                            dragCheck = false;
+                        }, 500);
+                    },
                     placeholder: "ui-state-highlight",
                     update: function(event, ui) {
                         var tokens = [];
@@ -33,6 +44,9 @@
                     }
                 });
                 $('#photos').disableSelection().find('.edit').click(function() {
+                    if (dragCheck) {
+                        return false;
+                    }
                     $('#edit_photo').load($(this).attr('href') + ' #edit_photo form', edit_photo_loaded);
                     $('#photos').parents('fieldset:first').hide();
                     $('.form-actions:last').hide();
@@ -75,7 +89,7 @@
         });
         $('#button-id-delete-photo').click(function() {
             var delete_url = $(this).data('href');
-            $('#deleteConfirmation').modal('show');
+            $('#deleteConfirmation').removeClass('hide').modal('show');
             $('#button-id-confirm-deletion').click(function() {
                 $.post(delete_url, {}, function() {
                     $('#deleteConfirmation').modal('hide');
