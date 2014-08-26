@@ -35,7 +35,7 @@ var setDataSwitch = {
 
 $.widget("ui.dialog", {
 
-	_init: function() {
+	_init: function _init() {
 		this.originalTitle = this.element.attr('title');
 
 		var self = this,
@@ -200,7 +200,7 @@ $.widget("ui.dialog", {
 		this._trigger('focus', event);
 	},
 
-	open: function() {
+	open: function open() {
 		if (this._isOpen) { return; }
 
 		var options = this.options,
@@ -350,7 +350,7 @@ $.widget("ui.dialog", {
 		.find('.ui-resizable-se').addClass('ui-icon ui-icon-grip-diagonal-se');
 	},
 
-	_position: function(pos) {
+	_position: function _position(pos) {
 		var wnd = $(window), doc = $(document),
 			pTop = doc.scrollTop(), pLeft = doc.scrollLeft(),
 			minTop = pTop;
@@ -361,7 +361,7 @@ $.widget("ui.dialog", {
 				pos == 'top' || pos == 'bottom' ? pos : 'middle'
 			];
 		}
-		if (pos.constructor != Array) {
+		if (!pos || pos.constructor != Array) { // <-- DONE: "!pos ||" added
 			pos = ['center', 'middle'];
 		}
 		if (pos[0].constructor == Number) {
