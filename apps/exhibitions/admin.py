@@ -103,7 +103,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'is_geoposition_set', 'status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
     list_editable = ('status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
     list_display_links = ('title', )
-    list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon')
+    list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon', 'linkgroup')
     search_fields = ('title_de','title_en', 'subtitle_de','subtitle_en', 'slug', 'museum__title_de', 'museum__title_en',)
     
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'teaser', 'description', 'press_text', 'website', 'catalog', 'catalog_ordering'])
