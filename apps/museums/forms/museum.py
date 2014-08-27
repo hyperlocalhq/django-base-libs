@@ -443,6 +443,9 @@ class SeasonForm(ModelForm):
         fieldset_content.append(
             layout.Field('id'),
         )
+        fieldset_content.append(
+            layout.Field('DELETE'),
+        )
 
         layout_blocks.append(layout.Fieldset(
             _("Additional info"),
@@ -558,6 +561,9 @@ class SpecialOpeningTimeForm(ModelForm):
         ))
         fieldset_content.append(
             layout.Field('id'),
+        )
+        fieldset_content.append(
+            layout.Field('DELETE'),
         )
 
         layout_blocks.append(layout.Fieldset(
