@@ -361,6 +361,13 @@
                           {% if event.reduced_price_info %}
                             <p class="reduced_price_info">{{ event.get_rendered_reduced_price_info }}</p>
                           {% endif %}
+
+                          {% if event.shop_link %}
+                              <p>
+                                  <a class="btn btn-default btn-lg btn-block" href="{{ event.shop_link }}" target="_blank">{% trans "Buy ticket" %}</a>
+                              </p>
+                          {% endif %}
+
                         {% endif %}
                       </div>
                       {% if event.booking_info %}

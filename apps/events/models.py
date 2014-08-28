@@ -13,12 +13,8 @@ from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
-from tagging.fields import TagField
-from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
-from base_libs.models.models import OpeningHoursMixin
-from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import UrlMixin
@@ -31,7 +27,6 @@ from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_translation
 
 from jetson.apps.i18n.models import Language
-from jetson.apps.utils.models import MONTH_CHOICES
 from filebrowser.fields import FileBrowseField
 
 from museumsportal.apps.museums.models import Museum
@@ -160,6 +155,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     booking_info = MultilingualTextField(_("Booking info"), blank=True)
+    shop_link = MultilingualCharField(_("Buy ticket"), max_length=255, blank=True, help_text=_("A link to an external ticket shop"))
 
     closest_event_date = models.DateField(_("Event date"), editable=False, blank=True, null=True)
     closest_event_time = models.TimeField(_("Event start time"), editable=False, blank=True, null=True)

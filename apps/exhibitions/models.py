@@ -23,15 +23,12 @@ from filebrowser.fields import FileBrowseField
 
 from cms.models import CMSPlugin
 
-from tagging.fields import TagField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
 from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
-
-from jetson.apps.utils.models import MONTH_CHOICES
 
 from south.modelsinspector import add_introspection_rules
 
@@ -180,6 +177,7 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     reduced_price_info = MultilingualTextField(_("Reduced admission price info"), blank=True)
+    shop_link = MultilingualCharField(_("Buy ticket"), max_length=255, blank=True, help_text=_("A link to an external ticket shop"))
 
     museum_opening_hours = models.BooleanField(_("See opening hours from museum"))
 

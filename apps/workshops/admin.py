@@ -4,13 +4,13 @@ from django.contrib import admin
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django import forms
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
-from base_libs.admin.tree_editor import TreeEditor
 
 WorkshopType = models.get_model("workshops", "WorkshopType")
 Workshop = models.get_model("workshops", "Workshop")
@@ -43,7 +43,26 @@ class OrganizerInline(ExtendedStackedInline):
     extra = 0
 
 
+class WorkshopForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(WorkshopForm, self).__init__(*args, **kwargs)
+        for lang_code, lang_name in settings.LANGUAGES:
+            self.fields['website_%s' % lang_code] = forms.URLField(
+                label=self.fields['website_%s' % lang_code].label,
+                help_text=self.fields['website_%s' % lang_code].help_text,
+                required=self.fields['website_%s' % lang_code].required,
+                widget=forms.TextInput(attrs={'class': 'vURLField'})
+            )
+            self.fields['shop_link_%s' % lang_code] = forms.URLField(
+                label=self.fields['shop_link_%s' % lang_code].label,
+                help_text=self.fields['shop_link_%s' % lang_code].help_text,
+                required=self.fields['shop_link_%s' % lang_code].required,
+                widget=forms.TextInput(attrs={'class': 'vURLField'})
+            )
+
+
 class WorkshopAdmin(ExtendedModelAdmin):
+    form = WorkshopForm
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
@@ -63,7 +82,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
         'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties', 'is_for_dementia_sufferers',
     )}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'country','latitude','longitude', 'exhibition')}),]
-    fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]
+    fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place', 'shop_link']))}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}

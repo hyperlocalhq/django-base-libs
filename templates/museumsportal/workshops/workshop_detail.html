@@ -400,6 +400,13 @@
                                 <p class="reduced_price_info">{{ workshop.get_rendered_reduced_price_info }}</p>
                               {% endif %}
                             {% endif %}
+
+                            {% if workshop.shop_link %}
+                                <p>
+                                    <a class="btn btn-default btn-lg btn-block" href="{{ workshop.shop_link }}" target="_blank">{% trans "Buy ticket" %}</a>
+                                </p>
+                            {% endif %}
+
                           {% endif %}
                           {% if workshop.booking_info %}
                             <b>{% trans "Booking info" %}</b>

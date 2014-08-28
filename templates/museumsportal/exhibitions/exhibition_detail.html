@@ -870,7 +870,11 @@
                               <p>{{ exhibition.get_rendered_reduced_price_info|striptags|urlize }}</p>
                             {% endif %}
                           {% endif %}
-
+                          {% if exhibition.shop_link %}
+                              <p>
+                                  <a class="btn btn-default btn-lg btn-block" href="{{ exhibition.shop_link }}" target="_blank">{% trans "Buy ticket" %}</a>
+                              </p>
+                          {% endif %}
                         {% endif %}
                       </div>
                     </div>
