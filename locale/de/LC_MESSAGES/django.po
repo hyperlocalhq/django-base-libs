@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 21:02+0200\n"
-"PO-Revision-Date: 2014-07-19 16:01+0100\n"
+"PO-Revision-Date: 2014-08-13 15:44+0100\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1280,7 +1280,7 @@ msgstr "Andere Sprachen"
 #: apps/events/models.py:144 apps/events/views.py:86 apps/events/views.py:179
 #: templates/museumsportal/utils/filter_events.html:65
 msgid "Also suitable for children"
-msgstr "Geeignet für Kinder"
+msgstr "Speziell geeignet für Kinder"
 
 #: apps/events/models.py:146 apps/exhibitions/admin.py:138
 #: apps/exhibitions/models.py:135 apps/museums/models.py:193
@@ -1888,9 +1888,9 @@ msgid ""
 "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × "
 "100 px. Optimal size is 1000 × 350 px (min)."
 msgstr ""
-"Erlaubt sind Daten in Format JPG, GIF, PNG, TIFF und BMP. Minimale Größe 100"
-" × 100 px, optimale Größe 1000 x 350 px (Breite x Höhe). Bitte im Dateinamen"
-" keine Sonderzeichen verwenden."
+"Bitte das Format JPG verwenden. Optimal sind Abbildungen mit einer minimalen"
+" Breite von 1000 px und einer minimalen Höhe von 350 px. Maximale Bildgröße "
+"10 MB. Bitte im Dateinamen keine Sonderzeichen verwenden."
 
 #: apps/events/forms/gallery.py:51 apps/exhibitions/forms/gallery.py:51
 #: apps/museums/forms/gallery.py:51 apps/workshops/forms/gallery.py:51
@@ -3717,17 +3717,17 @@ msgstr "Buchbares Gruppenangebot"
 #: apps/workshops/models.py:139
 #: templates/museumsportal/workshops/filter_workshops.html:56
 msgid "Special for preschool children (up to 5 years)"
-msgstr "Geeignet für Vorschulkinder (bis 5 Jahre)"
+msgstr "Speziell geeignet für Vorschulkinder (bis 5 Jahre)"
 
 #: apps/workshops/models.py:140
 #: templates/museumsportal/workshops/filter_workshops.html:57
 msgid "Special for children of primary school age (6-12 years)"
-msgstr "Geeignet für Grundschulkinder (6-12 Jahre)"
+msgstr "Speziell geeignet für Grundschulkinder (6-12 Jahre)"
 
 #: apps/workshops/models.py:141
 #: templates/museumsportal/workshops/filter_workshops.html:58
 msgid "Special for youth (aged 13 years)"
-msgstr "Geeignet für Jugendliche (ab 13 Jahre)"
+msgstr "Speziell geeignet für Jugendliche (ab 13 Jahre)"
 
 #: apps/workshops/models.py:142
 #: templates/museumsportal/workshops/filter_workshops.html:59
@@ -4787,7 +4787,7 @@ msgstr "Telefon"
 #: templates/museumsportal/museums/museum_detail.html:449
 #: templates/museumsportal/workshops/workshop_detail.html:259
 msgid "Booking Telephone"
-msgstr "Buchungstelefon"
+msgstr "Führungsbuchungen"
 
 #: templates/museumsportal/events/event_detail.html:289
 msgid "less"
@@ -4874,7 +4874,7 @@ msgstr "Karte zeigen"
 
 #: templates/museumsportal/events/event_list.html:34
 msgid "Suitable for children"
-msgstr "Geeignet für Kinder"
+msgstr "Speziell geeignet für Kinder"
 
 #: templates/museumsportal/events/event_list.html:59
 #: templates/museumsportal/workshops/workshop_list.html:60
