@@ -42,6 +42,16 @@ class Command(NoArgsCommand):
         6124: 131,      # Museum für Fotografie
     }
 
+    LINKED_INSTITUTION_MAPPER = {
+        3: 13,          # Antikensammlung
+        2: 16,          # Ägyptisches Museum und Papyrussammlung
+        12: 132,        # Museum für Islamische Kunst
+        15: 135,        # Museum für Vor- und Frühgeschichte
+        9: 118,         # Münzkabinett
+        14: 185,        # Skulpturensammlung und Museum für Byzantinische Kunst
+        23: 195,        # Vorderasiatisches Museum
+    }
+
     def handle_noargs(self, **options):
         self.import_exhibitions(**options)
         self.import_events_and_workshops(**options)
@@ -192,13 +202,13 @@ class Command(NoArgsCommand):
             exhibition.organizer_set.all().delete()
             linked_institutions = data_dict.get('linked_institutions', {})
             if linked_institutions:
-                for linked_inst_title in linked_institutions.values():
+                for linked_inst_smb_id in linked_institutions.keys():
                     try:
-                        organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                        organizing_museum = Museum.objects.get(pk=self.LINKED_INSTITUTION_MAPPER.get(linked_inst_smb_id, None))
                     except:
                         Organizer(
                             exhibition=exhibition,
-                            organizer_title=linked_inst_title,
+                            organizer_title=linked_institutions[linked_inst_smb_id],
                         ).save()
                     else:
                         Organizer(
@@ -565,13 +575,13 @@ class Command(NoArgsCommand):
                 workshop.organizer_set.all().delete()
                 linked_institutions = data_dict.get('linked_institutions', {})
                 if linked_institutions:
-                    for linked_inst_title in linked_institutions.values():
+                    for linked_inst_smb_id in linked_institutions.keys():
                         try:
-                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                            organizing_museum = Museum.objects.get(pk=self.LINKED_INSTITUTION_MAPPER.get(linked_inst_smb_id, None))
                         except:
                             Organizer(
                                 workshop=workshop,
-                                organizer_title=linked_inst_title,
+                                organizer_title=linked_institutions[linked_inst_smb_id],
                             ).save()
                         else:
                             Organizer(
@@ -715,7 +725,8 @@ class Command(NoArgsCommand):
 
                 # based on http://ww2.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
                 for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
-                    if target_group_id in (191, 193, 195, 196):
+                    target_group_id = int(target_group_id)
+                    if target_group_id in (301, 302, 303, 304, 305, 306):  # "Kinder", "Jugendliche", "Familien + Kinder 4-6", "Familien + Kinder 6-12"
                         event.suitable_for_children = True
 
                 event.museum = museum
@@ -761,22 +772,22 @@ class Command(NoArgsCommand):
                     elif event_cat_id in (110, 214, 222):
                         event.categories.add(EventCategory.objects.get(slug="sonstiges"))
 
-                #event.organizer_set.all().delete()
-                #linked_institutions = data_dict.get('linked_institutions', {})
-                #if linked_institutions:
-                #    for linked_inst_title in linked_institutions.values():
-                #        try:
-                #            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
-                #        except:
-                #            Organizer(
-                #                event=event,
-                #                organizer_title=linked_inst_title,
-                #            ).save()
-                #        else:
-                #            Organizer(
-                #                event=event,
-                #                organizing_museum=organizing_museum,
-                #            ).save()
+                event.organizer_set.all().delete()
+                linked_institutions = data_dict.get('linked_institutions', {})
+                if linked_institutions:
+                    for linked_inst_smb_id in linked_institutions.keys():
+                        try:
+                            organizing_museum = Museum.objects.get(pk=self.LINKED_INSTITUTION_MAPPER.get(linked_inst_smb_id, None))
+                        except:
+                            Organizer(
+                                event=event,
+                                organizer_title=linked_institutions[linked_inst_smb_id],
+                            ).save()
+                        else:
+                            Organizer(
+                                event=event,
+                                organizing_museum=organizing_museum,
+                            ).save()
 
                 if event.exhibition and not event.mediafile_set.count():
                     MediaFile = models.get_model("events", "MediaFile")
