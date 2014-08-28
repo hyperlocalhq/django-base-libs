@@ -137,7 +137,7 @@
               {% include "utils/cover_image.html" %}
 
               <div class="lead">
-                {{ event.get_rendered_description }}
+                {{ event.get_rendered_description|disarm_user_input }}
               </div>
 
               {% if event.meeting_place or event.get_languages %}

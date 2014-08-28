@@ -123,7 +123,7 @@
               {% include "utils/cover_image.html" %}
 
               <div class="lead">
-                {{ workshop.get_rendered_description }}
+                {{ workshop.get_rendered_description|disarm_user_input }}
               </div>
 
               {% if workshop.get_particularities or workshop.meeting_place or workshop.age_groups or workshop.get_languages %}

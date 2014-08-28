@@ -124,7 +124,7 @@
 
 
               <div class="lead">
-                {{ museum.get_rendered_description }}
+                {{ museum.get_rendered_description|disarm_user_input }}
               </div>
             </article>
           </div>

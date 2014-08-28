@@ -147,7 +147,7 @@
               {% endif %}
               
               <div class="lead">
-                {{ exhibition.get_rendered_description }}
+                {{ exhibition.get_rendered_description|disarm_user_input }}
               </div>
 
               {% comment %}
