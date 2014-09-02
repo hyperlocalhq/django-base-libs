@@ -3,6 +3,7 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 from base_libs.views import access_denied
 from base_libs.forms import dynamicforms
@@ -24,6 +25,10 @@ SORT_BY_CHOICES = (
 
 
 class ProductFilterForm(dynamicforms.Form):
+    q = forms.CharField(
+        required=False,
+        widget=forms.TextInput(),
+    )
     category = forms.ModelChoiceField(
         required=False,
         queryset=get_related_queryset(ShopProduct, "product_categories"),
@@ -75,6 +80,18 @@ def shop_product_list(request):
 
     sort_by = "a-z"
     if form.is_valid():
+
+        q = form.cleaned_data['q']
+        if q:
+            facets['selected']['q'] = q
+            qs = qs.filter(
+                models.Q(**{'title_%s__icontains' % settings.LANGUAGE_CODE: q}) |
+                models.Q(**{'subtitle_%s__icontains' % settings.LANGUAGE_CODE: q}) |
+                models.Q(**{'description_%s__icontains' % settings.LANGUAGE_CODE: q}) |
+                models.Q(**{'title_%s__icontains' % request.LANGUAGE_CODE: q}) |
+                models.Q(**{'subtitle_%s__icontains' % request.LANGUAGE_CODE: q}) |
+                models.Q(**{'description_%s__icontains' % request.LANGUAGE_CODE: q})
+            )
 
         cat = form.cleaned_data['category']
         if cat:

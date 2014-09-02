@@ -107,9 +107,36 @@ margin: 0px;
   }
 }
 
+.search {
+  position: relative;
+  input.form-control {
+    width: 150px;
+    height: 30px;
+    min-height: 30px;
+    font-size: 14px;
+    line-height: 30px;
+    border: none;
+    box-shadow: none;
+    float: left;
+  }
+  button.btn {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    line-height: 30px;
+    float: right;
+    .icon {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+}
 
 .tags,
-.filter {
+.filter,
+.sorting {
   font-size: 0px;
   -webkit-transform: translate(0px,0px); /* Safari and Chrome */
   -webkit-transition-property: all;
