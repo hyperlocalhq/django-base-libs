@@ -104,11 +104,13 @@ def dashboard(request):
     owned_exhibitions = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
     owned_events = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
     owned_workshops = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+    owned_products = ShopProduct.objects.owned_by(request.user).filter(status__in=("published", "draft")).order_by("-modified_date", "-creation_date")[:3]
     context = {
         'owned_museums': owned_museums,
         'owned_exhibitions': owned_exhibitions,
         'owned_events': owned_events,
         'owned_workshops': owned_workshops,
+        'owned_products': owned_products,
     }
     return render(request, "accounts/dashboard.html", context)
 
