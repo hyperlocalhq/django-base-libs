@@ -308,6 +308,29 @@ password_reset_change_form_helper.layout = layout.Layout(
 )
 
 
+class ShopFilterForm(forms.Form):
+    status = forms.ChoiceField(
+        label=_("Status"),
+        choices=(
+            ('published', _("Published")),
+            ('draft', _("Draft")),
+        ),
+        required=False,
+        initial="published",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(ShopFilterForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.layout = layout.Layout(
+            "status",
+            layout.Submit('submit', _('Filter')),
+        )
+
+
 class ExhibitionFilterForm(forms.Form):
     status = forms.ChoiceField(
         label=_("Status"),

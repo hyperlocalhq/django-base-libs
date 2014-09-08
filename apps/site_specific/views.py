@@ -36,8 +36,9 @@ Museum = models.get_model("museums", "Museum")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 Event = models.get_model("events", "Event")
 Workshop = models.get_model("workshops", "Workshop")
+ShopProduct = models.get_model("shop", "ShopProduct")
 
-from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm
+from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
 
 
 @never_cache
@@ -111,6 +112,35 @@ def dashboard(request):
     }
     return render(request, "accounts/dashboard.html", context)
 
+    
+@never_cache
+@login_required
+def dashboard_shopproducts(request):
+    owned_shop_qs = ShopProduct.objects.owned_by(request.user).filter(status__in=("published", "draft")).order_by("-modified_date", "-creation_date")
+
+    status = None
+    form = ShopFilterForm(request.REQUEST)
+    if form.is_valid():
+        status = form.cleaned_data['status'] or "published"
+        owned_shop_qs = owned_shop_qs.filter(status=status)
+        
+    paginator = Paginator(owned_shop_qs, 50)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page = paginator.page(paginator.num_pages)
+    context = {
+        'form': form,
+        'status': status,
+        'page': page,
+    }
+    return render(request, "accounts/dashboard_shopproducts.html", context)
+    
 
 @never_cache
 @login_required

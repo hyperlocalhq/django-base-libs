@@ -73,7 +73,7 @@ class WorkshopType(CreationModificationDateMixin, SlugMixin()):
 class WorkshopManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
-        if user.has_perm("workshos.change_workshop"):
+        if user.has_perm("workshop.change_workshop"):
             return self.get_query_set().exclude(status="trashed")
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="workshops",

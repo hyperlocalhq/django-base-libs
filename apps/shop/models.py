@@ -25,6 +25,7 @@ from museumsportal.apps.workshops.models import Workshop
 STATUS_CHOICES = (
     ('draft', _("Draft")),
     ('published', _("Published")),
+    ('trashed', _("Trashed")),
 )
 
 
@@ -54,7 +55,54 @@ class ShopProductCategory(SlugMixin()):
         verbose_name = _("Product Category")
         verbose_name_plural = _("Product Categories")
         
-
+        
+class ShopProductManager(models.Manager):
+    def owned_by(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
+        
+        if user.has_perm("shop.change_shop_product"):
+            return self.get_query_set().exclude(status="trashed")
+        
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="shop",
+            content_type__model="shopproduct",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+        
+        #workshop_ids = PerObjectGroup.objects.filter(
+        #    content_type__app_label="workshops",
+        #    content_type__model="workshop",
+        #    sysname__startswith="owners",
+        #    users=user,
+        #).values_list("object_id", flat=True)
+        
+        #exhibition_ids = PerObjectGroup.objects.filter(
+        #    content_type__app_label="exhibitions",
+        #    content_type__model="exhibition",
+        #    sysname__startswith="owners",
+        #    users=user,
+        #).values_list("object_id", flat=True)
+        
+        #event_ids = PerObjectGroup.objects.filter(
+        #    content_type__app_label="events",
+        #    content_type__model="event",
+        #    sysname__startswith="owners",
+        #    users=user,
+        #).values_list("object_id", flat=True)
+        
+        #museum_ids = PerObjectGroup.objects.filter(
+        #    content_type__app_label="museums",
+        #    content_type__model="museum",
+        #    sysname__startswith="owners",
+        #    users=user,
+        #).values_list("object_id", flat=True)
+            
+        #return self.get_query_set().filter(workshops__pk__in=workshop_ids).filter(events__pk__in=event_ids).filter(exhibitions__pk__in=exhibition_ids).filter(museums__pk__in=museum_ids).exclude(status="trashed")
+        
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        
+        
 class ShopProduct(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_("Name"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
@@ -73,6 +121,9 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
     is_for_children = models.BooleanField(_('For children'), blank=True)
     is_new = models.BooleanField(_('New'), blank=True)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
+    
+    objects = ShopProductManager()
+    
 
     def __unicode__(self):
         return self.title
@@ -90,6 +141,12 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
         ordering = ['title']
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
+
+    def get_languages(self):
+        langs = []
+        for lang in self.languages.all():
+            langs.append(lang.get_name())
+        return langs
 
     def get_similar_published_products(self):
         category_ids = [cat.pk for cat in self.product_categories.all()]

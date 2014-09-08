@@ -1,15 +1,31 @@
 # -*- coding: utf-8 -*-
+import os
+import shutil
+
 from django.db import models
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.core.urlresolvers import reverse
+from django.conf import settings
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.cache import never_cache
 
 from base_libs.views import access_denied
 from base_libs.forms import dynamicforms
+from base_libs.models.settings import MARKUP_HTML_WYSIWYG
+from base_libs.utils.misc import get_related_queryset
 
+from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list, object_detail
 from jetson.apps.utils.context_processors import prev_next_processor
-from base_libs.utils.misc import get_related_queryset
+from jetson.apps.image_mods.models import FileManager
+
+from datetime import datetime, time
+
+from forms import ShopProductForm
+
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 ShopProductCategory = models.get_model("shop", "ShopProductCategory")
 ShopProductType = models.get_model("shop", "ShopProductType")
@@ -162,3 +178,126 @@ def shop_product_detail(request, slug):
         template_name="shop/product_detail.html",
         context_processors=(prev_next_processor,),
     )
+
+
+@never_cache
+@login_required
+def add_shop_product(request):
+    if not request.user.has_perm("shop.add_shop_product"):
+        return access_denied(request)
+        
+    if request.method == "POST":
+    
+        form = ShopProductForm(request.POST, request.FILES)
+        
+        if 'reset' in request.POST:
+            return redirect("dashboard_shopproducts")
+            
+        if form.is_valid():
+        
+            instance = form.save(commit=False)
+            
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+            
+            rel_dir = "shop/"
+            
+            tmp_path = form.cleaned_data['image_path']
+            abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+                
+            fname, fext = os.path.splitext(tmp_path)
+            filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+            dest_path = "".join((rel_dir, filename))
+            FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+            abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+                
+            shutil.copy2(abs_tmp_path, abs_dest_path)
+                
+            os.remove(abs_tmp_path)
+            instance.image = dest_path
+                
+            instance.save()
+            form.save_m2m()
+            
+            return HttpResponseRedirect(reverse("dashboard_shopproducts") + "?status=%s" % instance.status)
+    else:
+        form = ShopProductForm()
+            
+    return render(request, "shop/change_product.html", {'form': form})
+
+
+@never_cache
+@login_required
+def change_shop_product(request, slug):
+    instance = get_object_or_404(ShopProduct, slug=slug)
+    if not request.user.has_perm("shop.change_shop_product", instance):
+        return access_denied(request)
+        
+    if request.method == "POST":
+        
+        form = ShopProductForm(request.POST, request.FILES, instance=instance)
+        
+        if 'reset' in request.POST:
+            instance = form.save(commit=False)
+            return HttpResponseRedirect(reverse("dashboard_shopproducts") + "?status=%s" % instance.status)
+        
+        if form.is_valid():
+        
+            instance = form.save(commit=False)
+            
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
+            
+            tmp_path = form.cleaned_data['image_path']
+            if tmp_path != "preset":
+            
+                rel_dir = "shop/"
+                abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+                
+                fname, fext = os.path.splitext(tmp_path)
+                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+                dest_path = "".join((rel_dir, filename))
+                FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+                abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+                
+                shutil.copy2(abs_tmp_path, abs_dest_path)
+                
+                os.remove(abs_tmp_path)
+                instance.image = dest_path
+            
+            instance.save()
+            form.save_m2m()
+            
+            return HttpResponseRedirect(reverse("dashboard_shopproducts") + "?status=%s" % instance.status)
+    else:
+        form = ShopProductForm(instance=instance)
+        
+    return render(request, "shop/change_product.html", {'form': form, 'object': instance})
+
+
+@never_cache
+@login_required
+def delete_shop_product(request, slug):
+    instance = get_object_or_404(ShopProduct, slug=slug)
+    if not request.user.has_perm("shop.delete_shop_product", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.status = "trashed"
+        instance.save()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
+
+
+@never_cache
+@login_required
+def change_shop_product_status(request, slug):
+    instance = get_object_or_404(ShopProduct, slug=slug)
+    if not request.user.has_perm("shop.change_shop_product", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.status = request.POST['status']
+        instance.save()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
+    
+    

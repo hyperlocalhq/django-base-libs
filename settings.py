@@ -227,7 +227,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.search",
     "museumsportal.apps.external_services",
     "museumsportal.apps.internal_links",
-	"museumsportal.apps.shop",
+    "museumsportal.apps.shop",
 
     # the following apps are copied and converted from jetson
     "museumsportal.apps.mailchimp",
