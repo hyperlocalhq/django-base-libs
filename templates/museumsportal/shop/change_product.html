@@ -59,7 +59,7 @@
                     // load the modified version for the preview
                     $.post('/' + settings.lang + '/helper/modified-path/', {
                         file_path: 'uploads/' + fileName,
-                        mod_sysname: 'editorial'
+                        mod_sysname: 'shop_small'
                     }, function(data, textStatus, jqXHR) {
                         $('#image_preview').html('<img alt="" src="/media/' + data + '" />');
                         // $('#image_uploader').hide();

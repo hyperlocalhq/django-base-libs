@@ -126,7 +126,7 @@ class ShopProductForm(forms.ModelForm):
             layout.HTML(u"""{% load i18n image_modifications %}
                 <div id="image_preview">
                     {% if object.image %}
-                        <img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" />
+                        <img src="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" alt="" />
                         <script>
                             $('#id_image_path').val('preset');
                         </script>

@@ -42,13 +42,13 @@
         <div class="row">
             <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4">
                 <a href="{{ object.link }}" target="_blank">
-                    <span class="img hidden-xs"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image }}" /></span>
-                    <span class="img visible-xs"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" /></span>
+                    <span class="img hidden-xs"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" /></span>
+                    <span class="img visible-xs"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" /></span>
                 </a>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
                 <div class="clearfix">
-                    <p>{{ object.get_rendered_description }}</p>
+                    {{ object.get_rendered_description }}
                     {% if object.price %}
                         <div class="clearfix"><div class="price">{{ object.price|currencyfmt:"€" }}</div></div>
                     {% endif %}
