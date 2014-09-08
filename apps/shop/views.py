@@ -234,7 +234,9 @@ def add_shop_product(request):
                 
             instance.save()
             form.save_m2m()
-            
+
+            instance.set_owner(request.user)
+
             return HttpResponseRedirect(reverse("dashboard_shopproducts") + "?status=%s" % instance.status)
     else:
         form = ShopProductForm()
@@ -308,7 +310,7 @@ def delete_shop_product(request, slug):
 @login_required
 def change_shop_product_status(request, slug):
     instance = get_object_or_404(ShopProduct, slug=slug)
-    if not request.user.has_perm("shop.change_shop_product", instance):
+    if not request.user.has_perm("shop.change_shopproduct", instance):
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = request.POST['status']

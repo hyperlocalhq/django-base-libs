@@ -34,10 +34,9 @@
     <div class="dashboard-header container relative">
     {% block dashboard_title %}
         {% if object %}
-            <!-- <span>{% trans "Guided Tours, Workshops and educational offers" %}</span>  -->
             <h4>{{ object.title }}</h4>
         {% else %}
-            <h4>{% trans "Add new Shop Product" %}</h4>
+            <h4>{% trans "Add new shop product" %}</h4>
         {% endif %}
     {% endblock %}
         <div id="form-meta">
@@ -61,8 +60,8 @@
                         });
                     });
                 </script>
+                <a id="preview_page" class="btn btn-primary" href="{{ object.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
             {% endif %}
-            <a id="preview_page" class="btn btn-primary" href="{{ object.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
         </div>
     </div>
 {% endblock %}

@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
@@ -16,6 +17,7 @@ from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
 from base_libs.middleware.threadlocals import get_current_language
+from base_libs.utils.misc import get_translation
 
 from museumsportal.apps.museums.models import Museum
 from museumsportal.apps.exhibitions.models import Exhibition
@@ -59,47 +61,14 @@ class ShopProductCategory(SlugMixin()):
 class ShopProductManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
-        
-        if user.has_perm("shop.change_shop_product"):
+        if user.has_perm("shop.change_shopproduct"):
             return self.get_query_set().exclude(status="trashed")
-        
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="shop",
             content_type__model="shopproduct",
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        
-        #workshop_ids = PerObjectGroup.objects.filter(
-        #    content_type__app_label="workshops",
-        #    content_type__model="workshop",
-        #    sysname__startswith="owners",
-        #    users=user,
-        #).values_list("object_id", flat=True)
-        
-        #exhibition_ids = PerObjectGroup.objects.filter(
-        #    content_type__app_label="exhibitions",
-        #    content_type__model="exhibition",
-        #    sysname__startswith="owners",
-        #    users=user,
-        #).values_list("object_id", flat=True)
-        
-        #event_ids = PerObjectGroup.objects.filter(
-        #    content_type__app_label="events",
-        #    content_type__model="event",
-        #    sysname__startswith="owners",
-        #    users=user,
-        #).values_list("object_id", flat=True)
-        
-        #museum_ids = PerObjectGroup.objects.filter(
-        #    content_type__app_label="museums",
-        #    content_type__model="museum",
-        #    sysname__startswith="owners",
-        #    users=user,
-        #).values_list("object_id", flat=True)
-            
-        #return self.get_query_set().filter(workshops__pk__in=workshop_ids).filter(events__pk__in=event_ids).filter(exhibitions__pk__in=exhibition_ids).filter(museums__pk__in=museum_ids).exclude(status="trashed")
-        
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
         
         
@@ -124,6 +93,7 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
     
     objects = ShopProductManager()
     
+    row_level_permissions = True
 
     def __unicode__(self):
         return self.title
@@ -186,3 +156,58 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
             )
         return self._cached_related_workshops
 
+    def set_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Museum),
+            )
+        except:
+            role = PerObjectGroup(
+                sysname="owners",
+            )
+            for lang_code, lang_name in settings.LANGUAGES:
+                setattr(role, "title_%s" % lang_code, get_translation("Owners", language=lang_code))
+            role.content_object = self
+            role.save()
+
+            RowLevelPermission.objects.create_default_row_permissions(
+                model_instance=self,
+                owner=role,
+            )
+
+        if not role.users.filter(pk=user.pk).count():
+            role.users.add(user)
+
+    def remove_owner(self, user):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Museum),
+                )
+        except:
+            return
+        role.users.remove(user)
+        if not role.users.count():
+            role.delete()
+
+    def get_owners(self):
+        ContentType = models.get_model("contenttypes", "ContentType")
+        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        try:
+            role = PerObjectGroup.objects.get(
+                sysname__startswith="owners",
+                object_id=self.pk,
+                content_type=ContentType.objects.get_for_model(Museum),
+            )
+        except:
+            return []
+        return role.users.all()

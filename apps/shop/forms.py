@@ -207,5 +207,3 @@ class ShopProductForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
-        
-        

@@ -25,7 +25,14 @@
     <div class="container clearfix">
         <div class="row">
 			      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				        <h1>{{ object.title }}</h1>
+				        <h1>
+                  {{ object.title }}
+                  {% if_has_perm "shop.change_shopproduct" object %}
+                    {% if not request.is_mobile %}
+                      <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                    {% endif %}
+                  {% end_if_has_perm %}
+                </h1>
                 <h2>{{ object.subtitle }}</h2>
                 <div class="tools">
                     <button class="btn btn-default btn-round share-twitter"  data-url="{{ object.get_url }}" data-text="{{ object.title }}{% if object.subtitle %} / {{ object.subtitle }}{% endif %}">
