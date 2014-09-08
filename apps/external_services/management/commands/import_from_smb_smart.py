@@ -42,6 +42,16 @@ class Command(NoArgsCommand):
         6124: 131,      # Museum für Fotografie
     }
 
+    LINKED_INSTITUTION_MAPPER = {
+        3: 13,          # Antikensammlung
+        2: 16,          # Ägyptisches Museum und Papyrussammlung
+        12: 132,        # Museum für Islamische Kunst
+        15: 135,        # Museum für Vor- und Frühgeschichte
+        9: 118,         # Münzkabinett
+        14: 185,        # Skulpturensammlung und Museum für Byzantinische Kunst
+        23: 195,        # Vorderasiatisches Museum
+    }
+
     def handle_noargs(self, **options):
         self.import_exhibitions(**options)
         self.import_events_and_workshops(**options)
@@ -55,6 +65,7 @@ class Command(NoArgsCommand):
         import time
         import urllib2
         import json
+        from datetime import datetime, timedelta
         from dateutil.parser import parse as parse_datetime
         from decimal import Decimal
         
@@ -94,7 +105,6 @@ class Command(NoArgsCommand):
         stats = {
             'added': 0,
             'updated': 0,
-            'updatable': 0,
             'skipped': 0,
         }
         for external_id, exhibition_dict in list_data_dict.items():
@@ -119,8 +129,9 @@ class Command(NoArgsCommand):
                     stats['skipped'] += 1
                     continue
                 else:
-                    stats['updatable'] += 1
-                    continue
+                    if parse_datetime(exhibition_dict['lastaction'], ignoretz=True) < datetime.now() - timedelta(days=1):
+                        stats['skipped'] += 1
+                        continue
 
             museum = None
             museum_guid = int(exhibition_dict['location']['SMart_id'])
@@ -185,6 +196,9 @@ class Command(NoArgsCommand):
                 exhibition.admission_price_info_de_markup_type = "pt"
                 exhibition.admission_price_info_en = u". ".join((prices[0]['label_en'], prices[0]['description_en']))
                 exhibition.admission_price_info_en_markup_type = "pt"
+                if prices[0]['shop_link']:
+                    exhibition.shop_link_de = prices[0]['shop_link']
+                    exhibition.shop_link_en = prices[0]['shop_link']
 
             exhibition.status = "import"
             exhibition.save()
@@ -192,13 +206,13 @@ class Command(NoArgsCommand):
             exhibition.organizer_set.all().delete()
             linked_institutions = data_dict.get('linked_institutions', {})
             if linked_institutions:
-                for linked_inst_title in linked_institutions.values():
+                for linked_inst_smb_id in linked_institutions.keys():
                     try:
-                        organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                        organizing_museum = Museum.objects.get(pk=self.LINKED_INSTITUTION_MAPPER.get(int(linked_inst_smb_id), None))
                     except:
                         Organizer(
                             exhibition=exhibition,
-                            organizer_title=linked_inst_title,
+                            organizer_title=linked_institutions[linked_inst_smb_id],
                         ).save()
                     else:
                         Organizer(
@@ -294,7 +308,6 @@ class Command(NoArgsCommand):
         if verbosity > 1:
             print u"Exibitions added: %d" % stats['added']
             print u"Exibitions updated: %d" % stats['updated']
-            print u"Exibitions updatable: %d" % stats['updatable']  # if there was modification date defined
             print u"Exibitions skipped: %d" % stats['skipped']
             print
 
@@ -314,7 +327,7 @@ class Command(NoArgsCommand):
         import time
         import urllib2
         import json
-        from datetime import timedelta
+        from datetime import datetime, timedelta
         from dateutil.parser import parse as parse_datetime
         from decimal import Decimal
 
@@ -366,13 +379,11 @@ class Command(NoArgsCommand):
         event_stats = {
             'added': 0,
             'updated': 0,
-            'updatable': 0,
             'skipped': 0,
         }
         workshop_stats = {
             'added': 0,
             'updated': 0,
-            'updatable': 0,
             'skipped': 0,
         }
 
@@ -404,9 +415,9 @@ class Command(NoArgsCommand):
                         workshop_stats['skipped'] += 1
                         continue
                     else:
-                        workshop_stats['updatable'] += 1
-                        continue
-
+                        if parse_datetime(event_dict['lastaction'], ignoretz=True) < datetime.now() - timedelta(days=1):
+                            workshop_stats['skipped'] += 1
+                            continue
 
                 museum = None
                 museum_guid = int(event_dict['location']['SMart_id'])
@@ -463,6 +474,8 @@ class Command(NoArgsCommand):
                 workshop.admission_price_info_de_markup_type = "pt"
                 workshop.admission_price_info_en = data_dict.get('admission_en', "")
                 workshop.admission_price_info_en_markup_type = "pt"
+                workshop.shop_link_de = data_dict.get('shop_link', "")
+                workshop.shop_link_en = data_dict.get('shop_link', "")
                 workshop.meeting_place_de = data_dict['treffpunkt_de']
                 workshop.meeting_place_en = data_dict['treffpunkt_en']
                 workshop.booking_info_de = data_dict['registration_de']
@@ -565,13 +578,13 @@ class Command(NoArgsCommand):
                 workshop.organizer_set.all().delete()
                 linked_institutions = data_dict.get('linked_institutions', {})
                 if linked_institutions:
-                    for linked_inst_title in linked_institutions.values():
+                    for linked_inst_smb_id in linked_institutions.keys():
                         try:
-                            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
+                            organizing_museum = Museum.objects.get(pk=self.LINKED_INSTITUTION_MAPPER.get(int(linked_inst_smb_id), None))
                         except:
                             Organizer(
                                 workshop=workshop,
-                                organizer_title=linked_inst_title,
+                                organizer_title=linked_institutions[linked_inst_smb_id],
                             ).save()
                         else:
                             Organizer(
@@ -648,8 +661,9 @@ class Command(NoArgsCommand):
                         event_stats['skipped'] += 1
                         continue
                     else:
-                        event_stats['updatable'] += 1
-                        continue
+                        if parse_datetime(event_dict['lastaction'], ignoretz=True) < datetime.now() - timedelta(days=1):
+                            event_stats['skipped'] += 1
+                            continue
 
                 museum = None
                 museum_guid = int(event_dict['location']['SMart_id'])
@@ -706,6 +720,8 @@ class Command(NoArgsCommand):
                 event.admission_price_info_de_markup_type = "pt"
                 event.admission_price_info_en = data_dict.get('admission_en', "")
                 event.admission_price_info_en_markup_type = "pt"
+                event.shop_link_de = data_dict.get('shop_link', "")
+                event.shop_link_en = data_dict.get('shop_link', "")
                 event.meeting_place_de = data_dict['treffpunkt_de']
                 event.meeting_place_en = data_dict['treffpunkt_en']
                 event.booking_info_de = data_dict['registration_de']
@@ -715,7 +731,8 @@ class Command(NoArgsCommand):
 
                 # based on http://ww2.smb.museum/smb/export/getTargetGroupListFromSMart.php?format=json
                 for target_group_id in (data_dict.get('event_targetgroup_detail', {}) or {}).keys():
-                    if target_group_id in (191, 193, 195, 196):
+                    target_group_id = int(target_group_id)
+                    if target_group_id in (301, 302, 303, 304, 305, 306):  # "Kinder", "Jugendliche", "Familien + Kinder 4-6", "Familien + Kinder 6-12"
                         event.suitable_for_children = True
 
                 event.museum = museum
@@ -761,22 +778,22 @@ class Command(NoArgsCommand):
                     elif event_cat_id in (110, 214, 222):
                         event.categories.add(EventCategory.objects.get(slug="sonstiges"))
 
-                #event.organizer_set.all().delete()
-                #linked_institutions = data_dict.get('linked_institutions', {})
-                #if linked_institutions:
-                #    for linked_inst_title in linked_institutions.values():
-                #        try:
-                #            organizing_museum = Museum.objects.get(title_de=linked_inst_title)
-                #        except:
-                #            Organizer(
-                #                event=event,
-                #                organizer_title=linked_inst_title,
-                #            ).save()
-                #        else:
-                #            Organizer(
-                #                event=event,
-                #                organizing_museum=organizing_museum,
-                #            ).save()
+                event.organizer_set.all().delete()
+                linked_institutions = data_dict.get('linked_institutions', {})
+                if linked_institutions:
+                    for linked_inst_smb_id in linked_institutions.keys():
+                        try:
+                            organizing_museum = Museum.objects.get(pk=self.LINKED_INSTITUTION_MAPPER.get(int(linked_inst_smb_id), None))
+                        except:
+                            Organizer(
+                                event=event,
+                                organizer_title=linked_institutions[linked_inst_smb_id],
+                            ).save()
+                        else:
+                            Organizer(
+                                event=event,
+                                organizing_museum=organizing_museum,
+                            ).save()
 
                 if event.exhibition and not event.mediafile_set.count():
                     MediaFile = models.get_model("events", "MediaFile")
@@ -862,12 +879,10 @@ class Command(NoArgsCommand):
         if verbosity > 1:
             print u"Events added: %d" % event_stats['added']
             print u"Events updated: %d" % event_stats['updated']
-            print u"Events updatable: %d" % event_stats['updatable']  # if there was modification date defined
             print u"Events skipped: %d" % event_stats['skipped']
             print
             print u"Workshops added: %d" % workshop_stats['added']
             print u"Workshops updated: %d" % workshop_stats['updated']
-            print u"Workshops updatable: %d" % workshop_stats['updatable']  # if there was modification date defined
             print u"Workshops skipped: %d" % workshop_stats['skipped']
             print
 

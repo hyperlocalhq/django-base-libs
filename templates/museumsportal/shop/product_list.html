@@ -6,7 +6,7 @@
 
 {% block js %}
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/product_list.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
   <script type="text/javascript">
     var str_filter_selection = "{% trans "Filter selection" %}";
@@ -25,7 +25,7 @@
                     <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
                 </div>
                 <ul id="filter-summary" class="pull-left">
-                    {% if facets.selected.category or facets.selected.product_type or facets.selected.product_subtype or facets.selected.is_featured or facets.selected.is_new or facets.selected.is_for_children or facets.selected.sort_by %}
+                    {% if facets.selected.category or facets.selected.product_type or facets.selected.product_subtype or facets.selected.is_featured or facets.selected.is_new or facets.selected.is_for_children %}
                         <li><b>{% trans "Filter selection" %}:</b></li>
                         {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
                         {% if facets.selected.product_type %}<li data-param="product_type" data-value="{{ facets.selected.product_type.slug }}"><a href="{% append_to_get product_type="" %}">{{ facets.selected.product_type.title }}</a></li>{% endif %}
@@ -33,7 +33,6 @@
                         {% if facets.selected.is_featured %}<li data-param="is_featured" data-value="1"><a href="{% append_to_get is_featured="" %}">{% trans "Featured" %}</a></li>{% endif %}
                         {% if facets.selected.is_new %}<li data-param="is_new" data-value="1"><a href="{% append_to_get is_new="" %}">{% trans "New" %}</a></li>{% endif %}
                         {% if facets.selected.is_for_children %}<li data-param="is_for_children" data-value="1"><a href="{% append_to_get is_for_children="" %}">{% trans "For children" %}</a></li>{% endif %}
-                        {% if facets.selected.sort_by %}<li data-param="sort_by" data-value="{{ facets.selected.sort_by.0 }}"><a href="{% append_to_get sort_by="" %}">{{ facets.selected.sort_by.1 }}</a></li>{% endif %}
                     {% endif %}
                 </ul>
             </div>

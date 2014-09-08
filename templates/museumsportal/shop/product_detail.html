@@ -17,12 +17,26 @@
     <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
 {% endblock %}
 
+{% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/share.js" defer="defer"></script>
+{% endblock %}
+
 {% block content %}
     <div class="container clearfix">
         <div class="row">
 			      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				        <h1>{{ object.title }}</h1>
                 <h2>{{ object.subtitle }}</h2>
+                <div class="tools">
+                    <button class="btn btn-default btn-round share-twitter"  data-url="{{ object.get_url }}" data-text="{{ object.title }}{% if object.subtitle %} / {{ object.subtitle }}{% endif %}">
+                        <span class="icon icon-social-twitter"></span>
+                        <span class="sr-only">{% trans "Share on Twitter" %}</span>
+                    </button>
+                    <button class="btn btn-default btn-round share-facebook" data-url="{{ object.get_url }}" data-text="{{ object.title }}{% if object.subtitle %} / {{ object.subtitle }}{% endif %}">
+                        <span class="icon icon-social-facebook"></span>
+                        <span class="sr-only">{% trans "Share on Facebook" %}</span>
+                    </button>
+                </div>
 			      </div>
         </div>
         <div class="row">

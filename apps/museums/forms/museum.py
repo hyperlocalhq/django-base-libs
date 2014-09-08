@@ -443,6 +443,9 @@ class SeasonForm(ModelForm):
         fieldset_content.append(
             layout.Field('id'),
         )
+        fieldset_content.append(
+            layout.Field('DELETE'),
+        )
 
         layout_blocks.append(layout.Fieldset(
             _("Additional info"),
@@ -558,6 +561,9 @@ class SpecialOpeningTimeForm(ModelForm):
         ))
         fieldset_content.append(
             layout.Field('id'),
+        )
+        fieldset_content.append(
+            layout.Field('DELETE'),
         )
 
         layout_blocks.append(layout.Fieldset(
@@ -1646,6 +1652,7 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(season, 'exceptions_%s' % lang_code, season_dict['exceptions_%s' % lang_code])
             setattr(season, 'exceptions_%s_markup_type' % lang_code, MARKUP_PLAIN_TEXT)
         season.save()
+        season_ids_to_keep.append(season.pk)
     instance.season_set.exclude(pk__in=season_ids_to_keep).delete()
 
     special_opening_ids_to_keep = []

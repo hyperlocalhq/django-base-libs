@@ -440,16 +440,23 @@ class PricesForm(ModelForm):
                 'admission_price_info_%s' % lang_code,
                 'meeting_place_%s' % lang_code,
                 'booking_info_%s' % lang_code,
+                'shop_link_%s' % lang_code,
             ]
 
     def __init__(self, *args, **kwargs):
         super(PricesForm, self).__init__(*args, **kwargs)
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
+            self.fields['shop_link_%s' % lang_code] = forms.URLField(
+                label=self.fields['shop_link_%s' % lang_code].help_text,
+                required=self.fields['shop_link_%s' % lang_code].required,
+                widget=forms.TextInput(attrs={'class': 'vURLField'})
+            )
             for f in [
                 'admission_price_info_%s' % lang_code,
                 'meeting_place_%s' % lang_code,
                 'booking_info_%s' % lang_code,
+                'shop_link_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
                 
@@ -476,6 +483,13 @@ class PricesForm(ModelForm):
             css_class="row-md",
             *[layout.Div(
                 layout.Field('admission_price_info_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('shop_link_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
@@ -915,6 +929,7 @@ def load_data(instance=None):
                 'admission_price_info_%s' % lang_code,
                 'meeting_place_%s' % lang_code,
                 'booking_info_%s' % lang_code,
+                'shop_link_%s' % lang_code,
             ]
         for f in fields:
             form_step_data['prices'][f] = getattr(instance, f)
@@ -1074,6 +1089,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     'admission_price_info_%s' % lang_code,
                     'meeting_place_%s' % lang_code,
                     'booking_info_%s' % lang_code,
+                    'shop_link_%s' % lang_code,
                 ]
                 setattr(instance, "admission_price_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
                 setattr(instance, "meeting_place_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
@@ -1155,6 +1171,7 @@ def save_data(form_steps, form_step_data, instance=None):
             'admission_price_info_%s' % lang_code,
             'meeting_place_%s' % lang_code,
             'booking_info_%s' % lang_code,
+            'shop_link_%s' % lang_code,
         ]
         setattr(instance, "admission_price_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
         setattr(instance, "meeting_place_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)

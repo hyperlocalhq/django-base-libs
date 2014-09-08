@@ -9,12 +9,8 @@ from django.conf import settings
 from django.template.defaultfilters import date as django_date
 from django.utils.translation import activate
 
-from tagging.fields import TagField
-from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
-from base_libs.models.models import OpeningHoursMixin
-from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import UrlMixin
@@ -27,7 +23,6 @@ from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_translation
 
 from jetson.apps.i18n.models import Language
-from jetson.apps.utils.models import MONTH_CHOICES
 from filebrowser.fields import FileBrowseField
 
 from museumsportal.apps.museums.models import Museum
@@ -163,6 +158,7 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     booking_info = MultilingualTextField(_("Booking info"), blank=True)
+    shop_link = MultilingualCharField(_("Buy ticket"), max_length=255, blank=True, help_text=_("A link to an external ticket shop"))
 
     closest_workshop_date = models.DateField(_("Workshop date"), editable=False, blank=True, null=True)
     closest_workshop_time = models.TimeField(_("Workshop start time"), editable=False, blank=True, null=True)

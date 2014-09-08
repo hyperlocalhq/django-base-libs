@@ -87,6 +87,22 @@ class ExhibitionAdminForm(forms.ModelForm):
         },
     )
 
+    def __init__(self, *args, **kwargs):
+        super(ExhibitionAdminForm, self).__init__(*args, **kwargs)
+        for lang_code, lang_name in settings.LANGUAGES:
+            self.fields['website_%s' % lang_code] = forms.URLField(
+                label=self.fields['website_%s' % lang_code].label,
+                help_text=self.fields['website_%s' % lang_code].help_text,
+                required=self.fields['website_%s' % lang_code].required,
+                widget=forms.TextInput(attrs={'class': 'vURLField'})
+            )
+            self.fields['shop_link_%s' % lang_code] = forms.URLField(
+                label=self.fields['shop_link_%s' % lang_code].label,
+                help_text=self.fields['shop_link_%s' % lang_code].help_text,
+                required=self.fields['shop_link_%s' % lang_code].required,
+                widget=forms.TextInput(attrs={'class': 'vURLField'})
+            )
+
     class Meta:
         model = Exhibition
 
@@ -114,6 +130,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Prices"), {'fields': ('museum_prices', 'free_entrance',  
         'admission_price', get_admin_lang_section(_("Price info"), ['admission_price_info']),
         'reduced_price', get_admin_lang_section(_("Price info"), ['reduced_price_info']),
+        get_admin_lang_section(_("Shop link"), ['shop_link']),
     )}),]
     fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon', 'is_for_children', 'special')}),]

@@ -2,6 +2,20 @@
 <div id="filters">
   <h4>{% trans "Filters" %}</h4>
 
+  <form class="search pull-right" action="">
+    <input name="q" class="input-block-level textinput textInput form-control form_text" type="text" value="{{ facets.selected.q|escape }}">
+    <button class="btn btn-link btn-icon" type="submit">
+      <span class="icon icon-zoom"></span>
+      <span class="sr-only">Search</span>
+    </button>
+  </form>
+  <ul class="sorting option-set pull-right" id="sorting">
+    {% for cat in facets.categories.sort_by %}
+      <li{% if facets.selected.sort_by.0 == cat.0 or not facets.selected.sort_by and forloop.first %} class="active"{% endif %} data-param="sort_by" data-value="{{ cat.0 }}">
+        <a href="{% append_to_get sort_by=cat.0 page="" %}">{{ cat.1 }}</a>
+      </li>
+    {% endfor %}
+  </ul>
   <div class="btn-group" id="filter-toggle" data-toggle="buttons">
     <label class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
       <input type="radio" name="options" id="filter-toggle-categories">
@@ -14,10 +28,6 @@
     <label class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
       <input type="radio" name="options" id="filter-toggle-types">
       {% trans "Smart lists" %}
-    </label>
-    <label class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-sort-by">
-      <input type="radio" name="options" id="filter-toggle-types">
-      {% trans "Sorting" %}
     </label>
   </div>
 
@@ -94,13 +104,6 @@
         <div class="panel-body">
           <h4>{% trans "Sort by" %}</h4>
 
-          <ul class="filter option-set clearfix" id="sorting" data-filter-group="sorting" data-single-selection="1">
-            {% for cat in facets.categories.sort_by %}
-              <li{% if facets.selected.sort_by %} class="active"{% endif %} data-param="sort_by" data-value="{{ cat.0 }}">
-                <a href="{% append_to_get sort_by=cat.0 page="" %}" data-filter-value=".sort_by_{{ cat.0 }}">{{ cat.1 }}</a>
-              </li>
-            {% endfor %}
-          </ul>
         </div>
       </div>
     </div>

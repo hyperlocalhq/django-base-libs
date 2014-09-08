@@ -40,6 +40,10 @@ SORT_BY_CHOICES = (
 
 
 class ProductFilterForm(dynamicforms.Form):
+    q = forms.CharField(
+        required=False,
+        widget=forms.TextInput(),
+    )
     category = forms.ModelChoiceField(
         required=False,
         queryset=get_related_queryset(ShopProduct, "product_categories"),
@@ -91,6 +95,18 @@ def shop_product_list(request):
 
     sort_by = "a-z"
     if form.is_valid():
+
+        q = form.cleaned_data['q']
+        if q:
+            facets['selected']['q'] = q
+            qs = qs.filter(
+                models.Q(**{'title_%s__icontains' % settings.LANGUAGE_CODE: q}) |
+                models.Q(**{'subtitle_%s__icontains' % settings.LANGUAGE_CODE: q}) |
+                models.Q(**{'description_%s__icontains' % settings.LANGUAGE_CODE: q}) |
+                models.Q(**{'title_%s__icontains' % request.LANGUAGE_CODE: q}) |
+                models.Q(**{'subtitle_%s__icontains' % request.LANGUAGE_CODE: q}) |
+                models.Q(**{'description_%s__icontains' % request.LANGUAGE_CODE: q})
+            )
 
         cat = form.cleaned_data['category']
         if cat:

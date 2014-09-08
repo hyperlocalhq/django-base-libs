@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django import forms
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
@@ -48,7 +49,26 @@ class OrganizerInline(ExtendedStackedInline):
     extra = 0
 
 
+class EventForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        for lang_code, lang_name in settings.LANGUAGES:
+            self.fields['website_%s' % lang_code] = forms.URLField(
+                label=self.fields['website_%s' % lang_code].label,
+                help_text=self.fields['website_%s' % lang_code].help_text,
+                required=self.fields['website_%s' % lang_code].required,
+                widget=forms.TextInput(attrs={'class': 'vURLField'})
+            )
+            self.fields['shop_link_%s' % lang_code] = forms.URLField(
+                label=self.fields['shop_link_%s' % lang_code].label,
+                help_text=self.fields['shop_link_%s' % lang_code].help_text,
+                required=self.fields['shop_link_%s' % lang_code].required,
+                widget=forms.TextInput(attrs={'class': 'vURLField'})
+            )
+
+
 class EventAdmin(ExtendedModelAdmin):
+    form = EventForm
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
@@ -65,7 +85,7 @@ class EventAdmin(ExtendedModelAdmin):
     fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'languages', 'other_languages', 'suitable_for_children', 'featured')}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'country','latitude','longitude', 'exhibition')}),]
-    fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place']))}),]
+    fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place', 'shop_link']))}),]
     fieldsets += [(_("Status"), {'fields': ('status', )}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
