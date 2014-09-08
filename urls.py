@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 from django.conf.urls.i18n import i18n_patterns
 
 from filebrowser.sites import site
+import autocomplete_light
 
 from tastypie.api import Api
 # API v1
@@ -28,6 +29,7 @@ from museumsportal.apps.site_specific.forms import password_reset_change_form_he
 
 from museumsportal.apps.search.views import SearchView
 
+autocomplete_light.autodiscover()
 admin.autodiscover()
 
 handler404 = "jetson.apps.error_handler.views.page_not_found"
@@ -80,6 +82,10 @@ urlpatterns = patterns('',
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}, name="media_url"),
     url(r'^jetson-media/\d+/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.JETSON_MEDIA_ROOT}, name="jetson_media_url"),
 ) + urlpatterns
+
+urlpatterns += patterns('',
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
+)
 
 urlpatterns += i18n_patterns('',
     url(r'^api/', include(v1_api.urls)),

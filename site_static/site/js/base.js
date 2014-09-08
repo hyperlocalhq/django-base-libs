@@ -94,7 +94,7 @@ $(document).ready(function() {
         }
     });
 
-    $("select").not('[name*="__prefix__"]').not('[sb]').selectbox();
+    $("select").not('[name*="__prefix__"]').not('[sb]').not('[multiple]').selectbox();
 });
 
 // ADD crsftoken TO AJAX CALLS

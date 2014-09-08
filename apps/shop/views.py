@@ -199,7 +199,7 @@ def shop_product_detail(request, slug):
 @never_cache
 @login_required
 def add_shop_product(request):
-    if not request.user.has_perm("shop.add_shop_product"):
+    if not request.user.has_perm("shop.add_shopproduct"):
         return access_denied(request)
         
     if request.method == "POST":
@@ -246,7 +246,7 @@ def add_shop_product(request):
 @login_required
 def change_shop_product(request, slug):
     instance = get_object_or_404(ShopProduct, slug=slug)
-    if not request.user.has_perm("shop.change_shop_product", instance):
+    if not request.user.has_perm("shop.change_shopproduct", instance):
         return access_denied(request)
         
     if request.method == "POST":
@@ -295,7 +295,7 @@ def change_shop_product(request, slug):
 @login_required
 def delete_shop_product(request, slug):
     instance = get_object_or_404(ShopProduct, slug=slug)
-    if not request.user.has_perm("shop.delete_shop_product", instance):
+    if not request.user.has_perm("shop.delete_shopproduct", instance):
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"

@@ -22,6 +22,8 @@
     <script src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
     <script src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+    {% include "autocomplete_light/static.html" %}
+    <link href="{{ STATIC_URL }}site/css/autocomplete_light.css" rel="stylesheet" media="screen" type="text/css" />
 {% endblock %}
 
 {% block edit_item %}
@@ -89,13 +91,3 @@
     </div>
 </div>
 {% endblock %}
-
-{% block footer %}
-    {{ block.super }}
-    <script>
-        $(function() {
-            $("select").not('[name*="__prefix__"]').selectbox();
-        });
-    </script>
-{% endblock %}
-

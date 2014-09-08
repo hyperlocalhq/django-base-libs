@@ -6,6 +6,8 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils import timezone
 
+import autocomplete_light
+
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
@@ -20,7 +22,8 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 ShopProduct = models.get_model("shop", "ShopProduct")
 ShopProductType = models.get_model("shop", "ShopProductType")
 
-class ShopProductForm(forms.ModelForm):
+
+class ShopProductForm(autocomplete_light.ModelForm):
 
     image_path = forms.CharField(
         label="Product Image",
@@ -44,7 +47,16 @@ class ShopProductForm(forms.ModelForm):
             'is_new',
             'is_featured',
             'is_for_children',
+            'museums', 'exhibitions', 'events', 'workshops',
         ]
+        autocomplete_fields = ('museums', 'exhibitions', 'events', 'workshops')
+        autocomplete_names = {
+            'museums': 'OwnMuseumAutocomplete',
+            'exhibitions': 'OwnExhibitionAutocomplete',
+            'events': 'OwnEventAutocomplete',
+            'workshops': 'OwnWorkshopAutocomplete',
+        }
+
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
                 'title_%s' % lang_code,
@@ -58,6 +70,8 @@ class ShopProductForm(forms.ModelForm):
         self.fields['link'] = forms.URLField(
             label=_("Shop Link"),
         )
+
+        self.fields['price'].label = _("Price")
 
         self.fields['languages'].widget = forms.CheckboxSelectMultiple()
         self.fields['languages'].help_text = ""
@@ -108,7 +122,7 @@ class ShopProductForm(forms.ModelForm):
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
         fieldset_content.append(
-            layout.Field("price", style="max-width:100px;")
+            bootstrap.AppendedText("price", "€")
         )
         fieldset_content.append(
             layout.Field("link", placeholder="http://")
@@ -176,6 +190,15 @@ class ShopProductForm(forms.ModelForm):
             *fieldset_content
         ))
         
+        layout_blocks.append(layout.Fieldset(
+            _("Related museums, exhibitions, events, and guided tours"),
+            layout.Field("museums", placeholder=_("Type some text to search in your museums")),
+            layout.Field("exhibitions", placeholder=_("Type some text to search in your exhibitions")),
+            layout.Field("events", placeholder=_("Type some text to search in your events")),
+            layout.Field("workshops", placeholder=_("Type some text to search in your workshops")),
+            css_class="fieldset-related-objects"
+        ))
+
         layout_blocks.append(bootstrap.FormActions(
             PrimarySubmit('submit', _('Save')),
             SecondarySubmit('reset', _('Cancel')),

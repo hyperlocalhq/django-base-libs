@@ -1,0 +1,17 @@
+.autocomplete-light-widget {
+  width: 100%; }
+  .autocomplete-light-widget input, .autocomplete-light-widget input:focus {
+    width: 100%; }
+  .autocomplete-light-widget .deck {
+    display: block; }
+    .autocomplete-light-widget .deck [data-value] {
+      line-height: 15px;
+      display: inline-block;
+      padding: 10px 12px;
+      background-color: #ebebeb;
+      background-color: rgba(0, 0, 0, 0.1);
+      margin-right: 2px;
+      margin-bottom: 2px; }
+      .autocomplete-light-widget .deck [data-value] .remove {
+        margin-top: 5px;
+        margin-right: 10px; }

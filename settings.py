@@ -151,6 +151,7 @@ ROOT_URLCONF = 'museumsportal.urls'
 
 INSTALLED_APPS = (
     ### third-party apps ###
+    "autocomplete_light",
     "grappelli",
     "filebrowser",
 
