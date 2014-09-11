@@ -119,10 +119,10 @@
                 if(responseJSON.success) {
                     $('.messages').html("");
                     // set the original to media_file_path
-                    $('#id_media_file_path').val('uploads/' + fileName);
+                    $('#id_media_file_path').val(responseJSON.path);
                     // load the modified version for the preview
                     $.post('/' + self.settings.lang + '/helper/modified-path/', {
-                        file_path: 'uploads/' + fileName,
+                        file_path: responseJSON.path,
                         mod_sysname: 'medium'
                     }, function(data, textStatus, jqXHR) {
                         $('#image_preview').html('<img class="img-responsive" alt="" src="/media/' + data + '" />');

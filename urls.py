@@ -142,7 +142,7 @@ urlpatterns += i18n_patterns('',
     url(r'^claiming-invitation/$', 'museumsportal.apps.site_specific.views.invite_to_claim_museum', name="invite_to_claim_museum"),
     url(r'^claiming-invitation/done/$', TemplateView.as_view(template_name='site_specific/claiming_invitation_done.html'), name="invite_to_claim_museum_done"),
     url(r'^claiming-confirmation/(?P<invitation_code>[a-zA-Z0-9_\-=]+)/$', 'museumsportal.apps.site_specific.views.register_and_claim_museum', name="register_and_claim_museum"),
-    url(r'^my-profile/favorites/$', 'jetson.apps.favorites.views.favorites', {'template_name': 'favorites/favorites.html'}),
+    url(r'^my-profile/favorites/$', 'museumsportal.apps.site_specific.views.favorites', {'template_name': 'favorites/favorites.html'}),
     
     url(r'^rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(admin.site.urls)),

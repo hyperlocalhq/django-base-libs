@@ -15,6 +15,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from jetson.apps.utils.decorators import login_required
+from jetson.apps.favorites.models import Favorite
+
 from museumsportal.apps.mailing.recipient import Recipient
 from museumsportal.apps.mailing.views import send_email_using_template
 
@@ -26,6 +28,7 @@ from forms import ClaimingConfirmForm
 from forms import RegistrationForm
 
 from ajaxuploader.views import AjaxFileUploader
+from ajaxuploader.backends.default_storage import DefaultStorageUploadBackend
 
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.crypt import cryptString, decryptString
@@ -457,4 +460,40 @@ def confirm_registration(request, encrypted_email):
     )
     return redirect('/signup/welcome/')
 
-uploader = AjaxFileUploader()
+
+class ASCIIFileSystemStorageBackend(DefaultStorageUploadBackend):
+    def update_filename(self, request, filename, *args, **kwargs):
+        from django.core.files.storage import default_storage
+        return default_storage.get_valid_name(filename)
+
+
+uploader = AjaxFileUploader(backend=ASCIIFileSystemStorageBackend)
+
+
+@login_required
+def favorites(request, **kwargs):
+    """
+    Displays the list of favorite objects
+    """
+    favorites = (
+        ('museums', Favorite.objects.filter(
+            content_type__model="museum",
+            user=request.user,
+        )),
+        ('exhibitions', Favorite.objects.filter(
+            content_type__model="exhibition",
+            user=request.user,
+        )),
+        ('events', Favorite.objects.filter(
+            content_type__model="event",
+            user=request.user,
+        )),
+        ('workshops', Favorite.objects.filter(
+            content_type__model="workshop",
+            user=request.user,
+        )),
+    )
+    return render(request, kwargs["template_name"], {
+        'object_list': favorites,
+    })
+

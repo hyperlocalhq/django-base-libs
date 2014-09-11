@@ -55,10 +55,10 @@
                 if(responseJSON.success) {
                     $('.messages', $profile_image_upload).html("");
                     // set the original to media_file_path
-                    $('#id_image_path').val('uploads/' + fileName);
+                    $('#id_image_path').val(responseJSON.path);
                     // load the modified version for the preview
                     $.post('/' + settings.lang + '/helper/modified-path/', {
-                        file_path: 'uploads/' + fileName,
+                        file_path: responseJSON.path,
                         mod_sysname: 'shop_small'
                     }, function(data, textStatus, jqXHR) {
                         $('#image_preview').html('<img alt="" src="/media/' + data + '" />');
