@@ -1194,7 +1194,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 fields += [
                     'admission_price_info_%s' % lang_code,
                     'reduced_price_info_%s' % lang_code,
-                    'shop_link_%s' % lang_code,
                 ]
             for f in fields:
                 form_step_data['prices'][f] = getattr(museum, f)
