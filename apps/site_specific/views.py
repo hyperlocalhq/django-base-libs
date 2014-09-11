@@ -475,25 +475,112 @@ def favorites(request, **kwargs):
     """
     Displays the list of favorite objects
     """
+    museum_ids = list(Favorite.objects.filter(
+        content_type__app_label="museums",
+        content_type__model="museum",
+        user=request.user,
+    ).values_list("object_id", flat=True))
+
+    exhibition_ids = list(Favorite.objects.filter(
+        content_type__app_label="exhibitions",
+        content_type__model="exhibition",
+        user=request.user,
+    ).values_list("object_id", flat=True))
+
+    event_ids = list(Favorite.objects.filter(
+        content_type__app_label="events",
+        content_type__model="event",
+        user=request.user,
+    ).values_list("object_id", flat=True))
+
+    workshop_ids = list(Favorite.objects.filter(
+        content_type__app_label="workshops",
+        content_type__model="workshop",
+        user=request.user,
+    ).values_list("object_id", flat=True))
+
     favorites = (
-        ('museums', Favorite.objects.filter(
-            content_type__model="museum",
-            user=request.user,
-        )),
-        ('exhibitions', Favorite.objects.filter(
-            content_type__model="exhibition",
-            user=request.user,
-        )),
-        ('events', Favorite.objects.filter(
-            content_type__model="event",
-            user=request.user,
-        )),
-        ('workshops', Favorite.objects.filter(
-            content_type__model="workshop",
-            user=request.user,
-        )),
+        ('museums', Museum.objects.filter(id__in=museum_ids, status="published")),
+        ('exhibitions', Exhibition.objects.filter(id__in=exhibition_ids, status="published")),
+        ('events', Event.objects.filter(id__in=event_ids, status="published")),
+        ('workshops', Workshop.objects.filter(id__in=workshop_ids, status="published")),
     )
-    return render(request, kwargs["template_name"], {
-        'object_list': favorites,
+    return render(request, "favorites/favorites.html", {
+        'favorites': favorites,
     })
 
+
+@login_required
+def favorite_museums(request, **kwargs):
+    """
+    Displays the list of favorite objects
+    """
+    museum_ids = list(Favorite.objects.filter(
+        content_type__app_label="museums",
+        content_type__model="museum",
+        user=request.user,
+    ).values_list("object_id", flat=True))
+
+    favorites = (
+        ('museums', Museum.objects.filter(id__in=museum_ids, status="published")),
+    )
+    return render(request, "favorites/favorite_museums.html", {
+        'favorites': favorites,
+    })
+
+
+@login_required
+def favorite_exhibitions(request, **kwargs):
+    """
+    Displays the list of favorite objects
+    """
+    exhibition_ids = list(Favorite.objects.filter(
+        content_type__app_label="exhibitions",
+        content_type__model="exhibition",
+        user=request.user,
+    ).values_list("object_id", flat=True))
+
+    favorites = (
+        ('exhibitions', Exhibition.objects.filter(id__in=exhibition_ids, status="published")),
+    )
+    return render(request, "favorites/favorite_exhibitions.html", {
+        'favorites': favorites,
+    })
+
+
+@login_required
+def favorite_events(request, **kwargs):
+    """
+    Displays the list of favorite objects
+    """
+    event_ids = list(Favorite.objects.filter(
+        content_type__app_label="events",
+        content_type__model="event",
+        user=request.user,
+    ).values_list("object_id", flat=True))
+
+    favorites = (
+        ('events', Event.objects.filter(id__in=event_ids, status="published")),
+    )
+    return render(request, "favorites/favorite_events.html", {
+        'favorites': favorites,
+    })
+
+
+@login_required
+def favorite_workshops(request, **kwargs):
+    """
+    Displays the list of favorite objects
+    """
+    workshop_ids = list(Favorite.objects.filter(
+        content_type__app_label="workshops",
+        content_type__model="workshop",
+        user=request.user,
+    ).values_list("object_id", flat=True))
+
+    favorites = (
+        ('workshops', Workshop.objects.filter(id__in=workshop_ids, status="published")),
+    )
+    return render(request, "favorites/favorite_workshops.html", {
+        'favorites': favorites,
+    })
