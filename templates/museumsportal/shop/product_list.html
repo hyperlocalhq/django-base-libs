@@ -55,29 +55,39 @@
         <div class="container">
             <div id="container">
                 <div class="row row-md grid">
-                    {% if object_list %}
-                        {% for product in object_list %}
-                            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                <a href="{{ product.get_url_path }}">
-                                    {% if product.image %}
-                                        <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
-                                    {% endif %}
-                                    {% if product.price %}
-                                        <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
-                                    {% endif %}
-                                    <h3>
-                                        {{ product.title }}
-                                    </h3>
-                                    {% if product.subtitle %}
-                                        <h4>{{ product.subtitle }}</h4>
-                                    {% endif %}
-                                </a>
-                            </div>
-                        {% endfor %}
-                        {% include "utils/pagination.html" %}
-                    {% else %}
-                        {% include "utils/container_empty.html" %}
-                    {% endif %}
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                        <div class="row row-md grid">
+                            {% if object_list %}
+                                {% for product in object_list %}
+                                    <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                                        <a href="{{ product.get_url_path }}">
+                                            {% if product.image %}
+                                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                            {% endif %}
+                                            {% if product.price %}
+                                                <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
+                                            {% endif %}
+                                            <h3>
+                                                {{ product.title }}
+                                            </h3>
+                                            {% if product.subtitle %}
+                                                <h4>{{ product.subtitle }}</h4>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                                {% include "utils/pagination.html" %}
+                            {% else %}
+                                {% include "utils/container_empty.html" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
                 </div>
             </div>
         </div>
