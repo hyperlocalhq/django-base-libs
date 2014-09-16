@@ -170,7 +170,7 @@ def shop_product_list(request):
         request,
         queryset=qs,
         template_name="shop/product_list.html",
-        paginate_by=24,
+        paginate_by=12,
         httpstate_prefix="products_list",
         context_processors=(prev_next_processor,),
         extra_context=extra_context,
