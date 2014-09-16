@@ -36,9 +36,6 @@ def random_zone_ad(context, ad_zone):
     Tag usage:
     {% load advertising_tags %}
     {% random_zone_ad 'zone_sysname' %}
-    or
-    {% random_zone_ad 'zone_sysname' as zone_sysname_ad %}
-    {{ zone_sysname_ad }}
 
     """
     to_return = {}
