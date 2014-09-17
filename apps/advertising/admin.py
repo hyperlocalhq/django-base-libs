@@ -36,7 +36,7 @@ class AdZoneAdmin(ExtendedModelAdmin):
 
 
 class AdBaseAdmin(ExtendedModelAdmin):
-    list_display = ['title', 'url', 'advertiser', 'zone', 'category', 'start_showing', 'stop_showing', 'get_impressions', 'get_clicks']
+    list_display = ['title', 'url', 'advertiser', 'zone', 'category', 'show_ad_label', 'start_showing', 'stop_showing', 'get_impressions', 'get_clicks']
     list_filter = ['start_showing', 'advertiser', 'category', 'zone', 'language']
     search_fields = ['title', 'url']
 
@@ -110,7 +110,7 @@ class AdImpressionAdmin(ExtendedModelAdmin):
 class TextAdAdmin(AdBaseAdmin):
     search_fields = ['title', 'url', 'content']
     fieldsets = [
-        (_(u'Main data'), {'fields': ('title', 'url', 'content')}),
+        (_(u'Main data'), {'fields': ('title', 'url', 'content', 'show_ad_label')}),
         (_(u'Categories'), {'fields': ('language', 'advertiser', 'zone', 'category')}),
         (_(u'Publishing'), {'fields': ('start_showing', 'stop_showing')}),
     ]
@@ -118,7 +118,7 @@ class TextAdAdmin(AdBaseAdmin):
 
 class BannerAdAdmin(AdBaseAdmin):
     fieldsets = [
-        (_(u'Main data'), {'fields': ('title', 'url', 'content')}),
+        (_(u'Main data'), {'fields': ('title', 'url', 'content', 'show_ad_label')}),
         (_(u'Categories'), {'fields': ('language', 'advertiser', 'zone', 'category')}),
         (_(u'Publishing'), {'fields': ('start_showing', 'stop_showing')}),
     ]

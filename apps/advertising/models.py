@@ -100,6 +100,8 @@ class AdBase(CreationModificationMixin, UrlMixin):
     category = models.ForeignKey(AdCategory, verbose_name=_("Category"), blank=True, null=True)
     zone = models.ForeignKey(AdZone, verbose_name=_("Zone"))
 
+    show_ad_label = models.BooleanField(_('Show label "Advertisement"'), default=True)
+
     # Our Custom Manager
     objects = AdManager()
 
