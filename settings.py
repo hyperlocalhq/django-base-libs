@@ -176,7 +176,7 @@ INSTALLED_APPS = (
     "haystack",
     "ajaxuploader",
 
-    ### Required CMS Django 2.2 apps ###
+    ### Required CMS Django 2.4.1 apps ###
     "cms",
     "mptt",
     "menus",
