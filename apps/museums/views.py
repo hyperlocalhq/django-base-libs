@@ -165,7 +165,7 @@ def museum_list(request):
         }
     }).order_by("title_uni")
 
-    qs = qs.prefetch_related('season_set', 'mediafile_set', 'categories', 'accessibility_options')
+    qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
     
     extra_context = {}
     extra_context['form'] = form

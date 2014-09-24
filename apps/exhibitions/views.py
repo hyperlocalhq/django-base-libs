@@ -250,7 +250,7 @@ def exhibition_list(request):
     if abc_filter:
         qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
 
-    qs = qs.prefetch_related("museum", "mediafile_set", "categories")
+    qs = qs.prefetch_related("museum", "mediafile_set", "categories").defer("tags")
 
     extra_context = {}
     extra_context['form'] = form
