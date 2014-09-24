@@ -164,6 +164,8 @@ def museum_list(request):
             'lang_code': request.LANGUAGE_CODE,
         }
     }).order_by("title_uni")
+
+    qs = qs.prefetch_related('season_set', 'mediafile_set', 'categories', 'accessibility_options')
     
     extra_context = {}
     extra_context['form'] = form

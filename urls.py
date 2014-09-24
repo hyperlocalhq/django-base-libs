@@ -87,6 +87,12 @@ urlpatterns += patterns('',
     url(r'^autocomplete/', include('autocomplete_light.urls')),
 )
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
+
 urlpatterns += i18n_patterns('',
     url(r'^api/', include(v1_api.urls)),
     url(r'^api/', include(v2_api.urls)),

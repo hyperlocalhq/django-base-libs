@@ -145,6 +145,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'jetson.apps.mobile_detection.middleware.MobileDetectionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'museumsportal.urls'
@@ -175,6 +176,7 @@ INSTALLED_APPS = (
     "babeldjango",
     "haystack",
     "ajaxuploader",
+    "debug_toolbar",
 
     ### Required CMS Django 2.4.1 apps ###
     "cms",
@@ -613,6 +615,10 @@ FILEBROWSER_VERSIONS = {
 }
 
 FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
+
+### DEBUG TOOLBAR ###
+
+execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
 
 ### GRAPPELLI ###
 
