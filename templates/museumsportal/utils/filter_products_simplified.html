@@ -1,17 +1,17 @@
 {% load i18n base_tags %}
-<div id="filters">
+<div id="filters" style="margin-top: 37px;">
   {% comment %}
   <h4>{% trans "Filters" %}</h4>
   {% endcomment %}
 
-  <form class="search pull-right" action="" style="margin-top: 37px;">
+  <form class="search pull-right" action="">
     <input name="q" class="input-block-level textinput textInput form-control form_text" type="text" value="{{ facets.selected.q|escape }}">
     <button class="btn btn-link btn-icon" type="submit">
       <span class="icon icon-zoom"></span>
       <span class="sr-only">Search</span>
     </button>
   </form>
-  <ul class="sorting option-set pull-right" id="sorting" style="margin-top: 37px;">
+  <ul class="sorting option-set pull-right" id="sorting">
     {% for cat in facets.categories.sort_by %}
       <li{% if facets.selected.sort_by.0 == cat.0 or not facets.selected.sort_by and forloop.first %} class="active"{% endif %} data-param="sort_by" data-value="{{ cat.0 }}">
         <a href="{% append_to_get sort_by=cat.0 page="" %}">{{ cat.1 }}</a>
@@ -57,7 +57,7 @@
     <div class="panel panel-default">
       <div id="filter-types" class="xpanel-collapse xcollapse">
         <div class="panel-body">
-          <h4>{% trans "Types" %}</h4>
+          {% comment %}<h4>{% trans "Types" %}</h4>{% endcomment %}
 
           <ul class="filter option-set clearfix" id="types" data-filter-group="types" data-single-selection="1" data-hierarchical="1">
             {% for cat in facets.categories.product_types %}
@@ -106,16 +106,5 @@
       </div>
     </div>
     {% endcomment %}
-  
-    <div class="panel panel-default">
-      <div id="filter-sort-by" class="panel-collapse collapse">
-        <div class="panel-body">
-          <h4>{% trans "Sort by" %}</h4>
-
-        </div>
-      </div>
-    </div>
-
-
   </div>
 </div>

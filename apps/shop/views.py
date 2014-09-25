@@ -33,9 +33,9 @@ ShopProduct = models.get_model("shop", "ShopProduct")
 
 
 SORT_BY_CHOICES = (
+    ('newest', _("By creation date")),
     ('a-z', _("Alphabetically")),
     ('price', _("By price")),
-    ('newest', _("By creation date")),
 )
 
 
@@ -93,7 +93,7 @@ def shop_product_list(request):
         },
     }
 
-    sort_by = "a-z"
+    sort_by = "newest"
     if form.is_valid():
 
         q = form.cleaned_data['q']
@@ -156,9 +156,9 @@ def shop_product_list(request):
 
     if sort_by:
         SORT_BY_MAPPER = {
+            'newest': '-creation_date',
             'a-z': "title_%s" % request.LANGUAGE_CODE,
             'price': "price",
-            'newest': '-creation_date',
         }
         qs = qs.order_by(SORT_BY_MAPPER[sort_by])
 
