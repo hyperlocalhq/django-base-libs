@@ -972,13 +972,13 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.organizer_set.all().delete()
         for organizer_dict in form_step_data['basic']['sets']['organizers']:
             organizer = Organizer(event=instance)
-            if organizer_dict['organizing_museum']:
+            if organizer_dict.get('organizing_museum', None):
                 try:
                     organizer.organizing_museum = Museum.objects.get(pk=organizer_dict['organizing_museum'])
                 except:
                     pass
-            organizer.organizer_title = organizer_dict['organizer_title']
-            organizer.organizer_url_link = organizer_dict['organizer_url_link']
+            organizer.organizer_title = organizer_dict.get('organizer_title', "")
+            organizer.organizer_url_link = organizer_dict.get('organizer_url_link', "")
             organizer.save()
         
         form_step_data['_pk'] = instance.pk
@@ -1103,13 +1103,13 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.organizer_set.all().delete()
     for organizer_dict in form_step_data['basic']['sets']['organizers']:
         organizer = Organizer(event=instance)
-        if organizer_dict['organizing_museum']:
+        if organizer_dict.get('organizing_museum', None):
             try:
                 organizer.organizing_museum = Museum.objects.get(pk=organizer_dict['organizing_museum'])
             except:
                 pass
-        organizer.organizer_title = organizer_dict['organizer_title']
-        organizer.organizer_url_link = organizer_dict['organizer_url_link']
+        organizer.organizer_title = organizer_dict.get('organizer_title', "")
+        organizer.organizer_url_link = organizer_dict.get('organizer_url_link', "")
         organizer.save()
 
     instance.eventtime_set.all().delete()
