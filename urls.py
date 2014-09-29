@@ -10,6 +10,8 @@ from django.conf.urls.i18n import i18n_patterns
 from filebrowser.sites import site
 import autocomplete_light
 
+from museumsportal.apps.site_specific.sitemaps import sitemaps
+
 from tastypie.api import Api
 # API v1
 from museumsportal.apps.museums.api.resources import v1 as museums_api_v1
@@ -94,6 +96,7 @@ if settings.DEBUG:
     )
 
 urlpatterns += i18n_patterns('',
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     url(r'^api/', include(v1_api.urls)),
     url(r'^api/', include(v2_api.urls)),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
