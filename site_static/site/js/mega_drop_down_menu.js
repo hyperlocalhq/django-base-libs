@@ -1,3 +1,5 @@
+/* global window:false, lscache:false */
+
 $(window).load(function() {
     var MAPPER = {
         // de
@@ -417,7 +419,10 @@ $(window).load(function() {
     var loaded = false;
     var $top_nav = $('#top_nav');
     var $mega = $('#mega_drop_down_menu');
-    $mega.load('/' + window.settings.lang + '/helper/menu/', function() {
+    var key = 'mega-drop-down-menu:' + window.settings.lang;
+
+    function processHTML(html) {
+        $mega.html(html);
         $('.calendar', $mega).each(function() {
             var $this = $(this).html(DPGlobal.template);
             var $input = $('<input type="hidden" />');
@@ -459,5 +464,20 @@ $(window).load(function() {
                 }
             }
         });
-    });
+    }
+
+    function fetchHTML() {
+        $.get('/' + window.settings.lang + '/helper/menu/', function(html) {
+            processHTML(html);
+            lscache.set(key, html, 10);
+        }, "html");
+    }
+
+    var html = lscache.get(key);
+    if (html) {
+        processHTML(html);
+    } else {
+        fetchHTML(html);
+    }
+
 });
