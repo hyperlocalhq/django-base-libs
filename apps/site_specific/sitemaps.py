@@ -2,12 +2,21 @@
 
 from django.contrib.sitemaps import Sitemap
 
-from cms.sitemaps import CMSSitemap
+from cms.sitemaps import CMSSitemap as CMSSitemapBase
 
 from museumsportal.apps.museums.models import Museum
 from museumsportal.apps.exhibitions.models import Exhibition
 from museumsportal.apps.events.models import Event
 from museumsportal.apps.workshops.models import Workshop
+
+
+class CMSSitemap(CMSSitemapBase):
+    def items(self):
+        from cms.utils.page_resolver import get_page_queryset
+        page_queryset = get_page_queryset(None)
+        all_pages = page_queryset.published().filter(login_required=False, in_navigation=True)
+        return all_pages
+
 
 class MuseumSitemap(Sitemap):
     changefreq = "daily"
