@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
-import datetime
 import urlparse
 import operator
+from datetime import datetime
 
 from django.core.exceptions import FieldError
 from django.db import models
@@ -15,10 +15,14 @@ from django.contrib.contenttypes import generic
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from django.template.defaultfilters import slugify
 from django.template.defaultfilters import escape
 from django.db.models.fields import NOT_PROVIDED
 
+try:
+    from django.utils.timezone import now as tz_now
+except:
+    tz_now = datetime.now
+ 
 from babel.numbers import format_currency
 
 from base_libs.models.fields import MultilingualProxy
@@ -26,6 +30,7 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # needed for south to work
 from base_libs.signals import strip_whitespaces_from_charfields
+from base_libs.utils.betterslugify import better_slugify
 
 from base_libs.middleware import get_current_user
 from base_libs.middleware import get_current_language
@@ -55,14 +60,14 @@ class CreationDateMixin(BaseModel):
     
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.creation_date = datetime.datetime.now()
+            self.creation_date = tz_now()
         else:
             """
             there are some strange creation_date entries in the dump.
             To ensure that we have a creation data always, we add this one
             """
             if not self.creation_date:
-                self.creation_date = datetime.datetime.now()
+                self.creation_date = tz_now()
                 
         super(CreationDateMixin, self).save(*args, **kwargs)
         # TODO: maybe should be changed to self.save_base(*args, **kwargs)
@@ -83,7 +88,7 @@ class ModifiedDateMixin(BaseModel):
 
     def save(self, *args, **kwargs):
         if self.pk:
-            self.modified_date = datetime.datetime.now()
+            self.modified_date = tz_now()
         super(ModifiedDateMixin, self).save(*args, **kwargs)
         # TODO: maybe should be changed to self.save_base(*args, **kwargs)
     save.alters_data = True
@@ -169,7 +174,7 @@ class PublishingMixinDraftManager(models.Manager):
 class PublishingMixinPublishedManager(models.Manager):
     def get_query_set(self):
         conditions = []
-        now = datetime.datetime.now()
+        now = tz_now()
         conditions.append(models.Q(
             published_from=None,
             published_till=None,
@@ -243,7 +248,7 @@ class PublishingMixin(BaseModel):
             
         # publishing date save logic.
         if not self.published_from:
-            self.published_from = datetime.datetime.now()
+            self.published_from = tz_now()
                   
         super(PublishingMixin, self).save(*args, **kwargs)
         # TODO: maybe should be changed to self.save_base(*args, **kwargs)
@@ -251,9 +256,13 @@ class PublishingMixin(BaseModel):
         
     def is_published(self):
         return bool(type(self).published_objects.filter(pk=self.pk))
+    is_published.boolean = True
+    is_published.short_description = _("Published")
 
     def is_draft(self):
         return self.status == STATUS_CODE_DRAFT        
+    is_draft.boolean = True
+    is_draft.short_description = _("Draft")
 
 class ViewsMixin(BaseModel):
     """
@@ -833,7 +842,7 @@ def SlugMixin(
                         getattr(self, fname, "")
                         for fname in prepopulate_from
                         ]) or slug_field.default
-                slug_proposal = slugify(slug_proposal).replace(
+                slug_proposal = better_slugify(slug_proposal).replace(
                     "-",
                     separator,
                     )[:slug_field.max_length-5]
@@ -930,7 +939,7 @@ def MultilingualSlugMixin(
                             ])
                         if slug_field.default != NOT_PROVIDED:
                             slug_proposal = slug_proposal or slug_field.default
-                    slug_proposal = slugify(slug_proposal).replace(
+                    slug_proposal = better_slugify(slug_proposal).replace(
                         "-",
                         separator,
                         )[:slug_field.max_length-5]

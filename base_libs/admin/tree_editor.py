@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+import json
+
 from django.conf import settings as django_settings
 from django.contrib import admin
 from django.contrib.admin.views import main
@@ -5,7 +9,6 @@ from django.db import transaction
 from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseServerError, HttpResponseRedirect
-from django.utils import simplejson
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.views.decorators.cache import never_cache
@@ -14,6 +17,8 @@ from django.utils.decorators import method_decorator
 from django.utils.encoding import force_unicode
 from django import template
 from django.shortcuts import render_to_response
+from django.core.exceptions import PermissionDenied
+from django.http.response import Http404
 
 from mptt.exceptions import InvalidMove
 from mptt.forms import MoveNodeForm
@@ -117,7 +122,7 @@ class TreeEditor(admin.ModelAdmin):
 
     def get_urls(self):
         from django.utils.functional import update_wrapper
-        from django.conf.urls.defaults import patterns, url
+        from django.conf.urls import patterns, url
         
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -126,15 +131,18 @@ class TreeEditor(admin.ModelAdmin):
 
         info = self.model._meta.app_label, self.model._meta.module_name
 
-        urlpatterns = patterns('',
-            url(r'^(.+)/move/$',
+        urlpatterns = patterns(
+            '',
+            url(
+                r'^(.+)/move/$',
                 wrap(self.move_view),
-                name='%s_%s_move' % info),
-            )
+                name='%s_%s_move' % info
+            ),
+        )
         
         urlpatterns += super(TreeEditor, self).get_urls()
         
-        return  urlpatterns
+        return urlpatterns
 
     @csrf_protect_m
     @transaction.commit_on_success
@@ -150,13 +158,14 @@ class TreeEditor(admin.ModelAdmin):
             raise PermissionDenied
 
         if obj is None:
-            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
+            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': object_id})
 
         if request.POST: # The user has already confirmed the deletion.
             form = MoveNodeForm(obj, request.POST)
             if form.is_valid():
-                import johnny
-                johnny.cache.invalidate(self.model)
+                if "johnny" in django_settings.INSTALLED_APPS:
+                    from johnny.cache import invalidate
+                    invalidate(self.model)
                 
                 form.save()
 
@@ -174,7 +183,7 @@ class TreeEditor(admin.ModelAdmin):
             "object_name": unicode(obj),
             "object": obj,
             "opts": opts,
-            "root_path": self.admin_site.root_path,
+            #"root_path": self.admin_site.root_path,
             "app_label": app_label,
         }
         context.update(extra_context or {})
@@ -245,7 +254,7 @@ class TreeEditor(admin.ModelAdmin):
 
         extra_context = extra_context or {}
         extra_context['tree_structure'] = mark_safe(
-            simplejson.dumps(_build_tree_structure(self.model))
+            json.dumps(_build_tree_structure(self.model))
             )
 
         return super(TreeEditor, self).changelist_view(request, extra_context, *args, **kwargs)

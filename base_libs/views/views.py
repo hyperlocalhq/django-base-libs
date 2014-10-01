@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
-from django.utils import simplejson
+import json
+
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.views.decorators.cache import never_cache
@@ -216,7 +217,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
         
 def json_get_objects_from_contenttype(request, content_type_id):
     "Gets all objects with a given contenttype"
-    json = "false"
+    json_str = "false"
     if True:
         content_type = ContentType.objects.get(id=content_type_id)
         objs = content_type.model_class().objects.all()
@@ -225,17 +226,17 @@ def json_get_objects_from_contenttype(request, content_type_id):
             for obj in objs
             )
         result = sorted(result, lambda a, b: cmp(a[1],b[1]))
-        json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+        json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
     else:
         pass
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
 
 json_get_objects_from_contenttype = never_cache(json_get_objects_from_contenttype)        
 
 def json_objects_to_select(request, app_name, model_name, obj_pk, field_name, content_type_id):
     """
     Get object_id selection options for selected content_type at the given model editing view"""
-    json = "false"
+    json_str = "false"
     model = get_object_or_404(
         ContentType, 
         app_label=app_name,
@@ -272,8 +273,8 @@ def json_objects_to_select(request, app_name, model_name, obj_pk, field_name, co
                 (pk, text and ("%s | ID %s" % (text, pk)) or ("ID %s" % pk))
                 for pk, text in result
                 ]
-            json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+            json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
 
 json_objects_to_select = never_cache(json_objects_to_select)
 
@@ -282,7 +283,6 @@ def ajax_autocomplete(request, app, qs_function, display_attr, add_display_attr=
     Method to lookup a model field and return an array. Intended for use 
     in AJAX widgets.
     """
-    
     obj_list = []
     t = Template("")
     if 'q' in request.GET:
@@ -309,11 +309,11 @@ def ajax_autocomplete(request, app, qs_function, display_attr, add_display_attr=
                 obj_list.append([display, obj.pk, add_display])                                    
             else:
                 obj_list.append([display, obj.pk])
-
+                
         if add_display_attr:    
-            t = Template('{% for el in obj_list %}{{ el.0 }}|{{ el.1 }}|{{ el.2 }}\n{% endfor %}')
+            t = Template('{% autoescape off %}{% for el in obj_list %}{{ el.0 }}|{{ el.1 }}|{{ el.2 }}\n{% endfor %}{% endautoescape %}')
         else:
-            t = Template('{% for el in obj_list %}{{ el.0 }}|{{ el.1 }}\n{% endfor %}')
+            t = Template('{% autoescape off %}{% for el in obj_list %}{{ el.0 }}|{{ el.1 }}\n{% endfor %}{% endautoescape %}')
     c = Context({'obj_list': obj_list})
     r = HttpResponse(t.render(c))
     r['Content-Type'] = 'text/plain; charset=UTF-8'

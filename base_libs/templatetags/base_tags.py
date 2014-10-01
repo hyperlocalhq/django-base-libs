@@ -11,6 +11,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.template import defaultfilters
 from django.utils.encoding import force_unicode
 from django.template.loader import select_template
+from django.utils.safestring import mark_safe
+from django.utils.text import normalize_newlines
+from django.template.defaultfilters import stringfilter
 
 from base_libs.utils.loader import select_template_for_object
 from base_libs.utils.user import get_user_title
@@ -276,6 +279,71 @@ class ObjectsNode(template.Node):
 
 register.tag('get_objects', do_get_objects)
 
+
+def do_call(parser, token):
+    """
+    Calls a method if it has not attribute alters_data set to True.
+
+    Usage:
+
+        {% call <object>.<method> param1 param2 key1=value1 key2=value2 [as <var_name>] %}
+
+    Example:
+
+        {% call event.get_closest_event_time from_date="2014-01-01" till_date="2014-02-01" as closest_event_time %}
+
+    """
+    bits = token.split_contents()
+    bits.pop(0)  # tag name
+    var_name = ""
+    method_args = []
+    method_kwargs = {}
+    try:
+        obj, method_name = bits.pop(0).split(".")
+        if bits[-2] == "as":
+            var_name = bits.pop(-1)
+            bits.pop(-1)  # string "as"
+        while bits:
+            arg = bits.pop(0)
+            if "=" in arg:
+                key, value = arg.split("=")
+                method_kwargs[key] = value
+            else:
+                method_args.append(arg)
+    except ValueError:
+        raise template.TemplateSyntaxError, "call tag requires a following syntax: {% call <object>.<method> param1 param2 key1=value1 key2=value2 [as <var_name>] %}"
+    return CallNode(obj, method_name, method_args, method_kwargs, var_name)
+
+
+class CallNode(template.Node):
+
+    def __init__(self, obj, method_name, method_args, method_kwargs, var_name):
+        self.obj = obj
+        self.method_name = method_name
+        self.method_args = method_args
+        self.method_kwargs = method_kwargs
+        self.var_name = var_name
+
+    def render(self, context):
+        obj = template.resolve_variable(self.obj, context)
+        method = getattr(obj, self.method_name)
+        if getattr(method, "alters_data", False):
+            raise template.TemplateSyntaxError, u"You can't call %s.%s in a template, because it alters data. Call it in the view instead." % (self.obj, self.method_name)
+
+        method_args = [template.resolve_variable(arg, context) for arg in self.method_args]
+        method_kwargs = dict([(key, template.resolve_variable(value, context)) for key, value in self.method_kwargs.items()])
+
+        result = method(*method_args, **method_kwargs)
+
+        if self.var_name:
+            context[self.var_name] = result
+            return ''
+
+        return result
+
+register.tag('call', do_call)
+
+
 def auto_populated_field_script_fixed(auto_pop_fields, change = False):
     t = []
     for field in auto_pop_fields:
@@ -507,7 +575,34 @@ class AppendGetNode(template.Node):
 def append_to_get(_tag_name, dict, no_path=False):
     return AppendGetNode(dict, no_path)
     
-    
+class IncludeNode(template.Node):
+    def __init__(self, template_name):
+        self.template_name = template_name
+
+    def render(self, context):
+        try:
+            # Loading the template and rendering it
+            template_name = template.resolve_variable(self.template_name, context)
+            included_template = template.loader.get_template(
+                    template_name).render(context)
+        except template.TemplateDoesNotExist:
+            included_template = ''
+        return included_template
+
+
+@register.tag
+def try_to_include(parser, token):
+    """Usage: {% try_to_include "head.html" %}
+
+    This will fail silently if the template doesn't exist. If it does, it will
+    be rendered with the current context."""
+    try:
+        tag_name, template_name = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError, \
+            "%r tag requires a single argument" % token.contents.split()[0]
+
+    return IncludeNode(template_name)    
     
 ### FILTERS ### 
 
@@ -794,3 +889,47 @@ def cssclass(value, arg):
     return rendered
 register.filter('cssclass', cssclass)
 
+@register.filter
+def in_group(user, groups):
+    """Returns a boolean if the user is in the given group, or comma-separated
+    list of groups.
+
+    Usage::
+
+        {% if user|in_group:"Friends" %}
+        ...
+        {% endif %}
+
+    or::
+
+        {% if user|in_group:"Friends,Enemies" %}
+        ...
+        {% endif %}
+
+    """
+    group_list = force_unicode(groups).split(',')
+    return bool(user.groups.filter(name__in=group_list).values('name'))
+    
+def remove_newlines(text):
+    """
+    Removes all newline characters from a block of text.
+    """
+    # First normalize the newlines using Django's nifty utility
+    normalized_text = normalize_newlines(text)
+    # Then simply remove the newlines like so.
+    return mark_safe(normalized_text.replace('\n', ' '))
+remove_newlines.is_safe = True
+remove_newlines = defaultfilters.stringfilter(remove_newlines)
+register.filter(remove_newlines)
+
+@register.filter
+@stringfilter
+def better_slugify(value):
+    from base_libs.utils.betterslugify import better_slugify as utils_better_slugify
+    return utils_better_slugify(value)
+
+@register.filter
+@stringfilter
+def convert_umlauts(value):
+    from base_libs.utils.betterslugify import better_slugify as utils_better_slugify
+    return utils_better_slugify(value, remove_stopwords=False, slugify=False)

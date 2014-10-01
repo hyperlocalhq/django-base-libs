@@ -8,7 +8,7 @@ from django.utils import dateformat
 from django.utils.html import escape, conditional_escape
 from django.utils.text import capfirst
 from django.utils.safestring import mark_safe
-from django.utils.translation import get_date_formats 
+from django.utils.formats import get_format
 from django.utils.encoding import smart_unicode, force_unicode
 from django.template import Library
 from django.contrib.contenttypes.models import ContentType
@@ -67,7 +67,9 @@ def tree_items_for_result(cl, result):
             # Dates and times are special: They're formatted in a certain way.
             elif isinstance(f, models.DateField) or isinstance(f, models.TimeField):
                 if field_val:
-                    (date_format, datetime_format, time_format) = get_date_formats()
+                    date_format = get_format("DATE_FORMAT")
+                    datetime_format = get_format("DATETIME_FORMAT")
+                    time_format = get_format("TIME_FORMAT")
                     if isinstance(f, models.DateTimeField):
                         result_repr = capfirst(dateformat.format(field_val, datetime_format))
                     elif isinstance(f, models.TimeField):

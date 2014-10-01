@@ -4,16 +4,21 @@ custom model fields
 """
 import warnings
 import sys
+from datetime import datetime
 
-from django.db import models
 from django.db.models.fields import TextField
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
-from django.utils.html import escape, linebreaks, urlize, clean_html
+from django.utils.html import escape, linebreaks, urlize
 from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.db import connection, models
 from django.db.models.signals import post_delete, post_save
+
+try:
+    from django.utils.timezone import now as tz_now
+except:
+    tz_now = datetime.now
 
 from base_libs.middleware import get_current_language
 from base_libs.forms.fields import PlainTextFormField
@@ -23,10 +28,11 @@ from base_libs.models import settings as markup_settings
 
 qn = connection.ops.quote_name
 
+
 class ExtendedTextField(TextField):
-    """
-    Text field with additional capabilities for editing. 
-    """
+
+    description = _("Text field with additional capabilities for editing.")
+
     def has_markup_type(self):
         return True
     
@@ -40,7 +46,7 @@ class ExtendedTextField(TextField):
     
     def contribute_to_class(self, cls, name): 
         # generate an additional select field for selecting the markup type
-        if not cls._meta.abstract:
+        if True or not cls._meta.abstract:
             try: # the field shouldn't be already added (for south)
                 cls._meta.get_field(name)
             except models.FieldDoesNotExist:
@@ -53,29 +59,39 @@ class ExtendedTextField(TextField):
                 if not(hasattr(sys, "argv") and "migrate" in sys.argv and sys.argv.index("migrate") == 1):
                     # the field shouldn't be added for south,
                     # because south will care about it itself
+                    try:  # the field shouldn't be already added
+                        cls._meta.get_field("%s_markup_type" % name)
+                    except models.FieldDoesNotExist:
+                        pass
+                    else:
+                        cls._meta.local_fields.remove(cls._meta.get_field("%s_markup_type" % name))
+
                     editable = not isinstance(self, MultilingualTextField)
-                    self.related_markup_type_field = models.CharField(
-                        _("Markup type"),
-                        max_length=10,
-                        blank=False,
-                        choices=markup_settings.MARKUP_TYPES,
-                        default=markup_settings.DEFAULT_MARKUP_TYPE, 
-                        help_text=_("You can select an appropriate markup type here"),
-                        editable=editable,
-                        )
-                    self.related_markup_type_field.south_field_triple = lambda: (
-                        "django.db.models.fields.CharField",
-                        [repr("Markup type")],
-                        dict(
-                            max_length=repr(self.related_markup_type_field.max_length),
-                            blank=repr(self.related_markup_type_field.blank),
-                            choices=repr(self.related_markup_type_field.choices),
-                            default=repr(isinstance(self.related_markup_type_field.default, basestring) and self.related_markup_type_field.default or "")
-                            ))
-                    self.related_markup_type_field.contribute_to_class(
-                        cls,
-                        "%s_markup_type" % name
-                        )
+
+                    if not hasattr(self, 'related_markup_type_field'):
+                        # TODO: find out why the related markup type tries to be added twice
+                        self.related_markup_type_field = models.CharField(
+                            _("Markup type"),
+                            max_length=10,
+                            blank=False,
+                            choices=markup_settings.MARKUP_TYPES,
+                            default=markup_settings.DEFAULT_MARKUP_TYPE,
+                            help_text=_("You can select an appropriate markup type here"),
+                            editable=editable,
+                            )
+                        self.related_markup_type_field.south_field_triple = lambda: (
+                            "django.db.models.fields.CharField",
+                            [repr("Markup type")],
+                            dict(
+                                max_length=repr(self.related_markup_type_field.max_length),
+                                blank=repr(self.related_markup_type_field.blank),
+                                choices=repr(self.related_markup_type_field.choices),
+                                default=repr(isinstance(self.related_markup_type_field.default, basestring) and self.related_markup_type_field.default or "")
+                                ))
+                        self.related_markup_type_field.contribute_to_class(
+                            cls,
+                            "%s_markup_type" % name
+                            )
         # create the field itself
         super(ExtendedTextField, self).contribute_to_class(cls, name)
         
@@ -96,19 +112,22 @@ class ExtendedTextField(TextField):
                         import markdown
                     except ImportError:
                         if settings.DEBUG:
-                            raise template.TemplateSyntaxError, "Error in {% markdown %} filter: The Python markdown library isn't installed."
+                            raise Warning("Error in {% markdown %} filter: The Python markdown library isn't installed.")
                         return field_value
                     else:
                         field_value = markdown.markdown(field_value)
                 
                 return mark_safe(field_value)
-                get_rendered.needs_autoescape = False
+            get_rendered.needs_autoescape = False
             return get_rendered
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))
         cls.add_to_class("rendered_%s" % name, property(get_rendered_wrapper(name)))
-    
+
+
 class PlainTextModelField(TextField):
-    """ Model field for Textarea which won't be converted to RTE """
+
+    description = _("Model field for Textarea which won't be converted to RTE")
+
     def formfield(self, **kwargs):
         defaults = {'form_class': PlainTextFormField}
         defaults.update(kwargs)
@@ -118,6 +137,7 @@ class PlainTextModelField(TextField):
         return "TextField"
 
 _language_field_name = lambda name, lang_code: "%s_%s" % (name, lang_code)
+
 
 class MultilingualProxy(object): 
     def __init__(self, field): 
@@ -151,8 +171,11 @@ class MultilingualProxy(object):
             language = get_current_language() or settings.LANGUAGE_CODE
             obj.__dict__[_language_field_name(self._field.attname, language)] = value
 
-class MultilingualCharField(models.CharField):
-    
+
+class MultilingualCharField(models.Field):
+
+    description = _("Multilingual string (up to %(max_length)s)")
+
     def __init__(self, verbose_name=None, **kwargs):
         
         self._blank = kwargs.get('blank', False)
@@ -164,10 +187,10 @@ class MultilingualCharField(models.CharField):
         kwargs['blank'] = self._blank
         super(MultilingualCharField, self).__init__(verbose_name, **kwargs)
 
-    def get_internal_type(self): 
-        return "CharField" 
+    def get_internal_type(self):
+        return "CharField"
     
-    def contribute_to_class(self, cls, name): 
+    def contribute_to_class(self, cls, name):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
@@ -178,12 +201,7 @@ class MultilingualCharField(models.CharField):
                 else: # related multilingual fields will be added by south itself
                     if getattr(hacks, "old_app_models", False):
                         continue
-                        
-                if language[0] == settings.LANGUAGE_CODE:
-                    _blank = self._blank
-                else:
-                    _blank = True
-                
+
                 try: # the field shouldn't be already added (for south)
                     cls._meta.get_field(_language_field_name(name, language[0]))
                 except models.FieldDoesNotExist:
@@ -191,9 +209,14 @@ class MultilingualCharField(models.CharField):
                 else:
                     continue
                 
+                if language[0] == settings.LANGUAGE_CODE:
+                    _blank = self._blank
+                else:
+                    _blank = True
+
                 localized_field = models.CharField(
                     self.verbose_name, 
-                    name=self.name, 
+                    name=_language_field_name(name, language[0]),  # self.name,
                     primary_key=self.primary_key,
                     max_length=self.max_length, 
                     unique=self.unique, 
@@ -237,11 +260,22 @@ class MultilingualCharField(models.CharField):
         But we make the dummy database column not editable, blank=true
         in the init method
         """
+        try:  # the field shouldn't be already added
+            cls._meta.get_field(name)
+        except models.FieldDoesNotExist:
+            pass
+        else:
+            cls._meta.local_fields.remove(cls._meta.get_field(name))
+            # TODO: find why the field has already been added as CharField
         super(MultilingualCharField, self).contribute_to_class(cls, name)
-        # override with proxy 
+        # override with proxy
         setattr(cls, name, MultilingualProxy(self))
 
-class MultilingualTextField(ExtendedTextField):
+
+class MultilingualTextField(models.Field):
+
+    description = _("Multilingual Text")
+
     _field_class = ExtendedTextField
     
     def __init__(self, verbose_name=None, **kwargs):
@@ -257,18 +291,13 @@ class MultilingualTextField(ExtendedTextField):
         super(MultilingualTextField, self).__init__(verbose_name, **kwargs)
 
     def get_internal_type(self): 
-        return "TextField" 
+        return "TextField"
 
     def contribute_to_class(self, cls, name): 
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
                 
-                if language[0] == settings.LANGUAGE_CODE:
-                    _blank = self._blank
-                else:
-                    _blank = True
-
                 try: # if that's south data migration
                     from south.hacks import hacks
                 except ImportError:
@@ -284,11 +313,16 @@ class MultilingualTextField(ExtendedTextField):
                 else:
                     continue
                 
+                if language[0] == settings.LANGUAGE_CODE:
+                    _blank = self._blank
+                else:
+                    _blank = True
+
                 verbose_name = "%s" % force_unicode(self.verbose_name)
                  
                 localized_field = self._field_class(
                     verbose_name,
-                    name=self.name,
+                    name=_language_field_name(name, language[0]),  # self.name,
                     primary_key=self.primary_key,
                     max_length=self.max_length,
                     unique=self.unique,
@@ -336,12 +370,21 @@ class MultilingualTextField(ExtendedTextField):
         But we make the dummy database column not editable, blank=true
         in the init method
         """
+        try:  # the field shouldn't be already added
+            cls._meta.get_field(name)
+        except models.FieldDoesNotExist:
+            pass
+        else:
+            cls._meta.local_fields.remove(cls._meta.get_field(name))
+            # TODO: find why the field has already been added as ExtendedTextField
         super(MultilingualTextField, self).contribute_to_class(cls, name)
         # override with proxy 
         setattr(cls, name, MultilingualProxy(self))
+
         # overwrite the get_rendered_*
         def get_rendered_wrapper(name):
             _name = name
+
             def get_rendered(self):
                 language = get_current_language() or settings.LANGUAGE_CODE
                 
@@ -371,7 +414,7 @@ class MultilingualTextField(ExtendedTextField):
                         import markdown
                     except ImportError:
                         if settings.DEBUG:
-                            raise template.TemplateSyntaxError, "Error in {% markdown %} filter: The Python markdown library isn't installed."
+                            raise Warning("Error in {% markdown %} filter: The Python markdown library isn't installed.")
                         return field_value
                     else:
                         field_value = markdown.markdown(field_value)
@@ -382,10 +425,11 @@ class MultilingualTextField(ExtendedTextField):
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))
         cls.add_to_class("rendered_%s" % name, property(get_rendered_wrapper(name)))
 
+
 class MultilingualPlainTextField(MultilingualTextField):
-    """
-    Plain text Multilingual text fields
-    """
+
+    description = _("Plain text Multilingual text fields")
+
     _field_class = PlainTextModelField
 
 
@@ -400,7 +444,8 @@ class URLField(models.URLField):
             }
         defaults.update(kwargs)
         return super(URLField, self).formfield(**defaults)
-    
+
+
 class TemplatePathField(models.FilePathField):
     def formfield(self, **kwargs):
         defaults = {
@@ -548,7 +593,7 @@ class PositionField(models.IntegerField):
         queryset = self.get_collection(instance)
         updates = {self.name: models.F(self.name) - 1}
         if self.auto_now_fields:
-            now = datetime.datetime.now()
+            now = tz_now()
             for field in self.auto_now_fields:
                 updates[field.name] = now
         queryset.filter(**{'%s__gt' % self.name: current}).update(**updates)
@@ -563,7 +608,7 @@ class PositionField(models.IntegerField):
 
         updates = {}
         if self.auto_now_fields:
-            now = datetime.datetime.now()
+            now = tz_now()
             for field in self.auto_now_fields:
                 updates[field.name] = now
 

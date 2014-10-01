@@ -2,10 +2,10 @@
 import hashlib
 import re
 import sys
+import json
 from datetime import datetime, time
 from time import strptime
 
-from django.utils import simplejson
 from django.contrib.sites.models import Site
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.translation import ugettext, get_language, activate
@@ -13,7 +13,6 @@ from django.db.models.loading import get_app
 from django.db import models
 from django.conf import settings
 from django.http import Http404
-
 
 def get_or_404(model, **fields):
     """
@@ -251,7 +250,7 @@ class XChoiceList(list):
             del result[0]
         return result
 
-class ExtendedJSONEncoder(simplejson.JSONEncoder):
+class ExtendedJSONEncoder(json.JSONEncoder):
     def default(self, o, markers=None):
         if isinstance(o, models.Model):
             return o.__dict__
@@ -276,15 +275,7 @@ class ExtendedJSONEncoder(simplejson.JSONEncoder):
             return o.path
         if type(o).__name__ == "ModelState":
             return None
-        return simplejson.JSONEncoder.default(self, o)
-
-def get_media_svn_revision(prefix="", postfix=""):
-    from django.utils.version import get_svn_revision
-    rev = get_svn_revision(settings.MEDIA_ROOT) # "SVN-1234" or "SVN-unknown"
-    rev = re.sub(r"[^0-9]+", "", rev) # "1234" or ""
-    if rev:
-        rev = "".join((prefix, rev, postfix))
-    return rev
+        return json.JSONEncoder.default(self, o)
 
 def get_installed(path):
     """

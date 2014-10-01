@@ -10,13 +10,18 @@ from django.contrib.admin import validation
 from django.contrib.admin.validation import (check_isseq, get_field, check_isdict, check_formfield)
 from django.contrib.admin.options import HORIZONTAL, VERTICAL
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.forms.formsets import all_valid
 from django.forms.models import (BaseModelForm, BaseModelFormSet, fields_for_model,
     _get_foreign_key)
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.core.exceptions import ImproperlyConfigured
+
+try:
+    from django.utils.encoding import force_text
+except:
+    from django.utils.encoding import force_unicode as force_text
 
 from base_libs.models.settings import MARKUP_PLAIN_TEXT  
 from base_libs.models.settings import MARKUP_HTML_WYSIWYG
@@ -25,6 +30,7 @@ from base_libs.models.fields import ExtendedTextField
 from base_libs.widgets import TreeSelectWidget, TreeSelectMultipleWidget
 
 ### Guerilla patches for nested fieldsets
+
 
 def flatten_fieldsets(fieldsets):
     """Returns a list of field names from an admin fieldsets structure."""
@@ -44,6 +50,7 @@ def flatten_fieldsets(fieldsets):
     return field_names
 
 options.flatten_fieldsets = util.flatten_fieldsets = flatten_fieldsets
+
 
 def validate_base(cls, model):
     opts = model._meta
@@ -192,6 +199,7 @@ def validate_base(cls, model):
 
 validation.validate_base = validate_base
 
+
 class Fieldset(object):
     is_fieldset = True
     def __init__(self, form, name=None, readonly_fields=(), fields=(), classes=(), description=None, model_admin=None, level=0):
@@ -205,7 +213,7 @@ class Fieldset(object):
 
     def _media(self):
         if 'collapse' in self.classes:
-            js = ['js/jquery.min.js', 'js/jquery.init.js', 'js/collapse.min.js']
+            js = []
             return forms.Media(js=['%s%s' % (settings.ADMIN_MEDIA_PREFIX, url) for url in js])
             #return forms.Media(js=['%sjs/admin/CollapsedFieldsets.js' % settings.ADMIN_MEDIA_PREFIX])
         return forms.Media()
@@ -229,6 +237,7 @@ class Fieldset(object):
                 yield helpers.Fieldline(self.form, field, self.readonly_fields, model_admin=self.model_admin)
                 
 helpers.Fieldset = Fieldset
+
 
 class InlineFieldset(Fieldset):
     def __init__(self, formset, *args, **kwargs):
@@ -257,6 +266,7 @@ class InlineFieldset(Fieldset):
                 model_admin=self.model_admin)
 
 helpers.InlineFieldset = InlineFieldset
+
 
 def _declared_fieldsets(self):
     """ overriden to handle additional <<whatever>>_markup_type field!!! """
@@ -300,6 +310,7 @@ def _declared_fieldsets(self):
         return [(None, {'fields': self.fields})]
     return None
 
+
 def _formfield_for_choice_field(cls, instance, db_field, request=None, **kwargs):
     # catch markup type fields
     if re.search('markup_type$', db_field.name):
@@ -311,6 +322,7 @@ def _formfield_for_choice_field(cls, instance, db_field, request=None, **kwargs)
         if len(new_choices)>0:
             kwargs['default'] = new_choices[-1][0]
     return super(cls, instance).formfield_for_choice_field(db_field, request, **kwargs)
+
 
 def _formfield_for_dbfield(cls, instance, db_field, **kwargs):
     # catch markup type fields here and modify the widget to assign
@@ -339,8 +351,9 @@ def _formfield_for_dbfield(cls, instance, db_field, **kwargs):
         field.widget.attrs['class'] = "markupType"
     return field
 
+
 class ExtendedStackedInline(admin.StackedInline):
-    classes = ("collapse closed",)
+    classes = ("grp-collapse grp-closed",)
 
     # default allowed markup types for TextFields in the Admin ...
     allowed_markup_admin = [
@@ -348,7 +361,8 @@ class ExtendedStackedInline(admin.StackedInline):
         MARKUP_RAW_HTML, 
         MARKUP_HTML_WYSIWYG, 
         #MARKUP_MARKDOWN
-        ]
+    ]
+
     def formfield_for_choice_field(self, db_field, request=None, **kwargs):
         return _formfield_for_choice_field(ExtendedStackedInline, self, db_field, request=None, **kwargs)
   
@@ -357,8 +371,9 @@ class ExtendedStackedInline(admin.StackedInline):
 
     declared_fieldsets = property(_declared_fieldsets)
 
+
 class ExtendedTabularInline(admin.TabularInline):
-    classes = ("collapse closed",)
+    classes = ("grp-collapse grp-closed",)
     
     # default allowed markup types for TextFields in the Admin ...
     allowed_markup_admin = [
@@ -375,7 +390,8 @@ class ExtendedTabularInline(admin.TabularInline):
         return _formfield_for_dbfield(ExtendedTabularInline, self, db_field, **kwargs)
   
     declared_fieldsets = property(_declared_fieldsets)
-  
+
+
 class ExtendedModelAdmin(admin.ModelAdmin):
     """
     overwritten to handle custom buttons for the admin 
@@ -405,7 +421,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
             new_fields = fields + additional_fields
     
         return [(cls.fieldsets[0][0],
-                 {'fields' : new_fields,
+                 {'fields': new_fields,
                   'classes': cls.fieldsets[0][1]['classes']
                  }),]
     
@@ -440,6 +456,8 @@ class ExtendedModelAdmin(admin.ModelAdmin):
         self.change_additional_buttons = self.change_get_additional_buttons_callback()
     
     # overwritten
+    @options.csrf_protect_m
+    @transaction.commit_on_success
     def add_view(self, request, form_url='', extra_context=None):
         """
         The 'add' admin view for this model.
@@ -447,9 +465,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
         code from contrib.admin.options.add_view. If that
         method changes in the django code, it should be 
         updated here!!!
-        """
-        
-        """
+
         overwritten add_view. The default behaviour is extended by
         simple additional button actions.
         """
@@ -460,45 +476,35 @@ class ExtendedModelAdmin(admin.ModelAdmin):
         # HERE THE PART TAKEN FROM DJANGO STARTS
         model = self.model
         opts = model._meta
-        app_label = opts.app_label
 
         if not self.has_add_permission(request):
             raise PermissionDenied
 
-        if self.has_change_permission(request, None):
-            # redirect to list view
-            post_url = '../'
-        else:
-            # Object list will give 'Permission Denied', so go back to admin home
-            post_url = '../../../'
-
         ModelForm = self.get_form(request)
         formsets = []
+        inline_instances = self.get_inline_instances(request, None)
         if request.method == 'POST':
             form = ModelForm(request.POST, request.FILES)
             if form.is_valid():
-                form_validated = True
                 new_object = self.save_form(request, form, change=False)
+                form_validated = True
             else:
-                form_validated = False
                 new_object = self.model()
+                form_validated = False
             prefixes = {}
-            for FormSet, inline in zip(self.get_formsets(request), self.inline_instances):
+            for FormSet, inline in zip(self.get_formsets(request), inline_instances):
                 prefix = FormSet.get_default_prefix()
                 prefixes[prefix] = prefixes.get(prefix, 0) + 1
-                if prefixes[prefix] != 1:
+                if prefixes[prefix] != 1 or not prefix:
                     prefix = "%s-%s" % (prefix, prefixes[prefix])
                 formset = FormSet(data=request.POST, files=request.FILES,
                                   instance=new_object,
-                                  save_as_new=request.POST.has_key("_saveasnew"),
+                                  save_as_new="_saveasnew" in request.POST,
                                   prefix=prefix, queryset=inline.queryset(request))
                 formsets.append(formset)
             if all_valid(formsets) and form_validated:
-                self.save_model(request, new_object, form, change=False)
-                form.save_m2m()
-                for formset in formsets:
-                    self.save_formset(request, form, formset, change=False)
-                
+                self.save_model(request, new_object, form, False)
+                self.save_related(request, form, formsets, False)
                 self.log_addition(request, new_object)
                 """ HERE THE CUSTOM CODE BEGINS"""
                 # action handling has to be done after the usual form processing!!!
@@ -525,37 +531,48 @@ class ExtendedModelAdmin(admin.ModelAdmin):
                 if isinstance(f, models.ManyToManyField):
                     initial[k] = initial[k].split(",")
             form = ModelForm(initial=initial)
-            for FormSet in self.get_formsets(request):
-                formset = FormSet(instance=self.model())
+            prefixes = {}
+            for FormSet, inline in zip(self.get_formsets(request), inline_instances):
+                prefix = FormSet.get_default_prefix()
+                prefixes[prefix] = prefixes.get(prefix, 0) + 1
+                if prefixes[prefix] != 1 or not prefix:
+                    prefix = "%s-%s" % (prefix, prefixes[prefix])
+                formset = FormSet(instance=self.model(), prefix=prefix,
+                                  queryset=inline.queryset(request))
                 formsets.append(formset)
 
-        adminForm = helpers.AdminForm(form, list(self.get_fieldsets(request)), self.prepopulated_fields)
+        adminForm = helpers.AdminForm(form, list(self.get_fieldsets(request)),
+            self.get_prepopulated_fields(request),
+            self.get_readonly_fields(request),
+            model_admin=self)
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
-        for inline, formset in zip(self.inline_instances, formsets):
+        for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request))
-            inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
+            readonly = list(inline.get_readonly_fields(request))
+            prepopulated = dict(inline.get_prepopulated_fields(request))
+            inline_admin_formset = helpers.InlineAdminFormSet(inline, formset,
+                fieldsets, prepopulated, readonly, model_admin=self)
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
-            'title': _('Add %s') % force_unicode(opts.verbose_name),
+            'title': _('Add %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
-            'is_popup': request.REQUEST.has_key('_popup'),
-            'show_delete': False,
+            'is_popup': "_popup" in request.REQUEST,
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
-            'root_path': self.admin_site.root_path,
-            'app_label': app_label,
+            'app_label': opts.app_label,
         }
         context.update(extra_context or {})
-        return self.render_change_form(request, context, add=True)
-    add_view = transaction.commit_on_success(add_view)
+        return self.render_change_form(request, context, form_url=form_url, add=True)
     
     # overwritten    
-    def change_view(self, request, object_id, extra_context=None):
+    @options.csrf_protect_m
+    @transaction.commit_on_success
+    def change_view(self, request, object_id, form_url='', extra_context=None):
         """
         overwritten change_view. The default behaviour is extended by
         simple additional button actions.
@@ -564,7 +581,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
         if not extra_context:
             extra_context = {}
         extra_context['additional_buttons'] = self.change_additional_buttons
-        result = super(ExtendedModelAdmin, self).change_view(request, object_id, extra_context)
+        result = super(ExtendedModelAdmin, self).change_view(request, object_id, form_url, extra_context)
 
         # action ahandling has to be done after the usual form processing!!!
         if request.POST:
@@ -589,6 +606,3 @@ class ExtendedModelAdmin(admin.ModelAdmin):
         return _formfield_for_dbfield(ExtendedModelAdmin, self, db_field, **kwargs)
   
     declared_fieldsets = property(_declared_fieldsets)
-    
-    
-    

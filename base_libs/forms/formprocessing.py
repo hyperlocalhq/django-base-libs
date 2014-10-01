@@ -8,8 +8,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpRespons
 from django.conf import settings
 from django.shortcuts import render_to_response
 
-from django.utils.hashcompat import md5_constructor
-from django.contrib.formtools.utils import security_hash
+from django.contrib.formtools.utils import form_hmac
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -321,7 +320,7 @@ class FormPreviewHandler(FormHandler):
         account request-specific information, such as the IP 
         address.
         """
-        return security_hash(request, form)
+        return form_hmac(form)
 
     def failed_hash(self, request, action):
         "Returns an HttpResponse in the case of an invalid security hash."

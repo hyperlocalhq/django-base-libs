@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+from json import JSONEncoder
 from itertools import chain
 from copy import deepcopy
 
@@ -9,7 +10,6 @@ from django.utils.encoding import StrAndUnicode, force_unicode
 from django.utils.safestring import mark_safe
 from django.forms.util import flatatt
 from django.forms.widgets import Widget
-from django.utils.simplejson import JSONEncoder
 from django.conf import settings
 from django.contrib.admin import widgets as admin_widgets
 
@@ -19,7 +19,7 @@ from babel.dates import parse_date, parse_time
 from base_libs.utils.misc import get_installed
 from base_libs.utils.misc import get_related_queryset
 from base_libs.utils.misc import XChoiceList
-from base_libs.middleware.threading import get_current_language
+from base_libs.middleware.threadlocals import get_current_language
 
 ADMIN_MEDIA_URL = getattr(
     settings,
@@ -165,11 +165,11 @@ class AutocompleteWidget(Widget):
                 pass
                     
         text_field_attrs['value'] = text_field_value
-        text_field_attrs['class'] = "autocomplete textinput textInput"
+        text_field_attrs['class'] = "autocomplete textinput textInput form-control"
         
         if not self.attrs.has_key('id'):
-            text_field_attrs['id'] = 'id_%s_text' % name    
-        
+            text_field_attrs['id'] = 'id_%s_text' % name
+            
         # hidden field for key value
         hidden_field_attrs = {
             'id' : 'id_%s' % name,

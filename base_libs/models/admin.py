@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+import json
+
 from django.contrib import admin
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
@@ -10,7 +12,6 @@ from django.utils.translation import string_concat
 from django.contrib.admin.views.main import ERROR_FLAG
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.core.exceptions import PermissionDenied
-from django.utils import simplejson
 from django.conf import settings
 
 from base_libs.views.hierarchy import HierarchyChangeList
@@ -26,13 +27,14 @@ CONTENT_BASE_SUBMIT_CHOICES = (
     ('save', _("Save")),
     ('save-add', _("Save and Add Another")),
     ('hello', _("Hello")),
-    )
+)
 
 ADMIN_MEDIA_URL = getattr(
     settings,
     "JETSON_MEDIA_URL",
     settings.ADMIN_MEDIA_PREFIX,
-    )
+)
+
 
 def get_admin_lang_section(heading, field_list, default_expanded=True):
     """
@@ -59,11 +61,11 @@ def get_admin_lang_section(heading, field_list, default_expanded=True):
         
         if default_expanded:
             if lang_code == settings.LANGUAGE_CODE:
-                classes = ["collapse open"]
+                classes = ["grp-collapse grp-open"]
             else:
-                classes = ["collapse closed"]
+                classes = ["grp-collapse grp-closed"]
         else:
-            classes = ["collapse closed"]
+            classes = ["grp-collapse grp-closed"]
         
         classes.append("multilingual")
         classes.append("multilingual-set-%d" % get_admin_lang_section.count)
@@ -75,9 +77,10 @@ def get_admin_lang_section(heading, field_list, default_expanded=True):
             (section, {
                 'fields': fields,
                 'classes': classes,
-                }),
+            }),
         )
     return fieldset
+
 
 class PublishingMixinAdminOptions(ExtendedModelAdmin):
     """
@@ -102,7 +105,8 @@ class PublishingMixinAdminOptions(ExtendedModelAdmin):
         
     # currently logged in user cannot set as default in the model definition. so we do that here!
     #prepopulated_fields = {'author': ('get_current_user',),}
-    
+
+
 def ObjectRelationMixinAdminOptions(
     prefix="",
     prefix_verbose="",
@@ -122,7 +126,7 @@ def ObjectRelationMixinAdminOptions(
     object_id_field = "%sobject_id" % prefix
     content_object_field = "%scontent_object" % prefix
     
-    """ here is the class itself """    
+    # here is the class itself
     class klass(extending):
         fieldsets = [
             (
@@ -176,6 +180,7 @@ def ObjectRelationMixinAdminOptions(
         )
             
     return klass
+
 
 def ObjectRelationMixinAdminForm(prefix=None):
     """
@@ -270,6 +275,7 @@ class SingleSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
     ]
     pass
 
+
 class SingleSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
 
     def clean(self):
@@ -318,6 +324,7 @@ class SingleSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
         
         return super(SingleSiteContainerMixinAdminForm, self).clean()
 
+
 class MultiSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
     """
     newforms admin options for SingleSiteContainers
@@ -331,6 +338,7 @@ class MultiSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
           ),
     ]
     pass
+
 
 class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
 
@@ -363,9 +371,9 @@ class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
         
         if content_type_value and object_id_value:
             qs = qs.filter(
-                   content_type=content_type_value,
-                   object_id=object_id_value,
-                   )
+                content_type=content_type_value,
+                object_id=object_id_value,
+            )
         else:
             qs = qs.filter(content_type__isnull=True, object_id__isnull=True)
     
@@ -397,7 +405,7 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
         if request.method == 'POST':
             tree_data = request.POST.get('tree_data')
             if tree_data:
-                tree_list = simplejson.loads(tree_data)
+                tree_list = json.loads(tree_data)
                 sort_order_list = []
                 for item in tree_list:
                     node = self.model.objects.get(pk=item['id'])
@@ -415,19 +423,18 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
                     counter += 1
             return HttpResponseRedirect('.')
         
-        """ 
-        here the normal procedure for change list 
-        views go. we just took that part from 
-        django.contrib.admin.options.changelist_view
-        """
-        
-        # suppress pagination TODO This is not the best solution, but it works :)
+        # here the normal procedure for change list
+        # views go. we just took that part from
+        # django.contrib.admin.options.changelist_view
+
+        # suppress pagination TODO: This is not the best solution, but it works :)
         self.list_per_page = 100000000
         if not self.has_change_permission(request, None):
             raise PermissionDenied
         try:
             cl = HierarchyChangeList(request, self.model, self.list_display, self.list_display_links, self.list_filter,
-                self.date_hierarchy, self.search_fields, self.list_select_related, self.list_per_page, self.list_editable, self)
+                self.date_hierarchy, self.search_fields, self.list_select_related, self.list_per_page,
+                self.list_max_show_all, self.list_editable, self)
         except IncorrectLookupParameters:
             if ERROR_FLAG in request.GET.keys():
                 return render_to_response('admin/invalid_setup.html', {'title': _('Database error')})
@@ -447,17 +454,15 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
             'is_popup': cl.is_popup,
             'cl': cl,
             'has_add_permission': self.has_add_permission(request),
-            'root_path': self.admin_site.root_path,
             'app_label': app_label,
             'media': mark_safe(media),
         }
         
         return render_to_response(
-              'admin/tree_change_list.html',
-              context, 
-              context_instance=template.RequestContext(request)
+            'admin/tree_change_list.html',
+            context,
+            context_instance=template.RequestContext(request)
         ) 
-        
         
     def formfield_for_dbfield(self, db_field, **kwargs):
         """ applying custom widgets here! """
@@ -465,8 +470,9 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
         if db_field.name == 'parent':
             field.widget = TreeSelectWidget(self.model, choices = field.widget.choices)
         return field        
-                                  
-class HierarchyMixinAdminForm(forms.ModelForm):   
+
+
+class HierarchyMixinAdminForm(forms.ModelForm):
     """
     a validator for checking infinite loops in 
     hierarchical data defined below!
@@ -491,6 +497,7 @@ class HierarchyMixinAdminForm(forms.ModelForm):
             pid = new_parent.parent_id
             if pid is None:
                 return parent
+
 
 class ContentBaseMixinAdminOptions(PublishingMixinAdminOptions):
     save_on_top = True
@@ -537,19 +544,21 @@ class ContentBaseMixinAdminOptions(PublishingMixinAdminOptions):
         return obj._get_pk_val()
     get_id.short_description = "ID"
 
+
 class MetaTagsMixinAdminOptions(ExtendedModelAdmin):
     fieldsets = (
         (_("Meta tags"), {
             'classes': ("collapse open",),                                             
             'fields': get_admin_lang_section(_("Keywords"), ['meta_keywords']) + get_admin_lang_section(_("Description"), ['meta_description',]) + [(_("Author"), {'fields': ['meta_author']}), (_("Copyright"), {'fields':['meta_copyright']})],
-            }),
-        )
+        }),
+    )
+
 
 class SEOMixinAdminOptions(ExtendedModelAdmin):
     fieldsets = (
         (_("SEO"), {
             'classes': ("collapse closed",),                                             
             'fields': get_admin_lang_section(_("Page title"), ['page_title']) + get_admin_lang_section(_("Keywords"), ['meta_keywords']) + get_admin_lang_section(_("Description"), ['meta_description',]) + [(_("Author"), {'fields': ['meta_author']}), (_("Copyright"), {'fields':['meta_copyright']})],
-            }),
-        )
+        }),
+    )
 

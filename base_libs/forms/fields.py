@@ -41,7 +41,7 @@ from base_libs.widgets import DecimalWidget
 from base_libs.widgets import DateWidget
 from base_libs.widgets import TimeWidget
 from base_libs.widgets import URLWidget
-from base_libs.middleware.threading import get_current_language
+from base_libs.middleware.threadlocals import get_current_language
 
 SECURITY_FIELD_MIN_TIME = getattr(settings, "SECURITY_FIELD_MIN_TIME", 3) # 3 seconds
 SECURITY_FIELD_MAX_TIME = getattr(settings, "SECURITY_FIELD_MAX_TIME", 3600) # 1 hour
@@ -278,7 +278,12 @@ class AutocompleteModelChoiceField(AutocompleteField):
         else:
             value = None
         return value
-        
+
+    def prepare_value(self, value):
+        if hasattr(value, 'pk'):
+            return value.pk
+        return value
+
 class AutocompleteModelMultipleChoiceField(forms.CharField):
     def __init__(self, app, qs_function, display_attr,
         add_display_attr=None, options={}, 
@@ -609,13 +614,15 @@ class TemplateChoiceField(forms.ChoiceField):
     """
     Form field for selecting a template
     """
-    def __init__(self, path, match=None, recursive=False, required=True,
+    def __init__(self, path, match=None, recursive=False, allow_files=True, allow_folders=False, required=True,
                  widget=None, label=None, initial=None, help_text=None,
                  *args, **kwargs):
         """
         path is a relative template path where the templates should be checked
         """
         self.path, self.match, self.recursive = path, match, recursive
+        self.allow_files, self.allow_folders =  allow_files, allow_folders
+
         super(TemplateChoiceField, self).__init__(choices=(), required=required,
             widget=widget, label=label, initial=initial, help_text=help_text,
             *args, **kwargs)
