@@ -158,7 +158,9 @@ def event_list(request):
     abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
     if abc_filter:
         qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
-        
+
+    #qs = qs.select_related("museum").defer("tags")
+
     extra_context = {}
     extra_context['form'] = form
     extra_context['abc_list'] = abc_list

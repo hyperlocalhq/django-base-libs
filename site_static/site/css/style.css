@@ -2638,25 +2638,39 @@ a.img-detail.loaded:hover img {
     min-height: none; }
 
   .exhibition-list .item {
+    min-height: none; }
+
+  .shop-product-list .item {
     min-height: none; } }
 @media (min-width: 768px) {
   .museum-list .item {
     min-height: 200px; }
 
   .exhibition-list .item {
-    min-height: 240px; } }
+    min-height: 240px; }
+
+  .shop-product-list .item {
+    min-height: 203px;
+    padding-bottom: 0 !important; } }
 @media (min-width: 992px) {
   .museum-list .item {
     min-height: 249px; }
 
   .exhibition-list .item {
-    min-height: 289px; } }
+    min-height: 289px; }
+
+  .shop-product-list .item {
+    min-height: 217px; } }
 @media (min-width: 1200px) {
   .museum-list .item {
     min-height: 214px; }
 
   .exhibition-list .item {
-    min-height: 254px; } }
+    min-height: 254px; }
+
+  .shop-product-list .item {
+    min-height: 217px;
+    padding-bottom: 0 !important; } }
 .actions {
   position: absolute;
   right: 0px;

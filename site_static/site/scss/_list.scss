@@ -540,6 +540,11 @@ only screen and (                min-resolution: 2dppx) {
       min-height: none;
     }
   }
+  .shop-product-list {
+    .item {
+      min-height: none;
+    }
+  }
 }
 @media (min-width: 768px) {
   .museum-list {
@@ -550,6 +555,12 @@ only screen and (                min-resolution: 2dppx) {
   .exhibition-list {
     .item {
       min-height: 240px;
+    }
+  }
+  .shop-product-list {
+    .item {
+      min-height: 203px;
+      padding-bottom: 0!important;
     }
   }
 }
@@ -564,6 +575,11 @@ only screen and (                min-resolution: 2dppx) {
       min-height: 289px;
     }
   }
+  .shop-product-list {
+    .item {
+      min-height: 217px;
+    }
+  }
 }
 @media (min-width: 1200px) {
   .museum-list {
@@ -574,6 +590,12 @@ only screen and (                min-resolution: 2dppx) {
   .exhibition-list {
     .item {
       min-height: 254px;
+    }
+  }
+  .shop-product-list {
+    .item {
+      min-height: 217px;
+      padding-bottom: 0!important;
     }
   }
 }
