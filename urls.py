@@ -89,11 +89,10 @@ urlpatterns += patterns('',
     url(r'^autocomplete/', include('autocomplete_light.urls')),
 )
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += patterns('',
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    )
+import debug_toolbar
+urlpatterns += patterns('',
+    url(r'^debug/8663759059730/', include(debug_toolbar.urls)),
+)
 
 urlpatterns += i18n_patterns('',
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),

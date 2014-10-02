@@ -64,7 +64,7 @@
                                     <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-4">
                                         <a href="{{ product.get_url_path }}">
                                             {% if product.image %}
-                                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" /></span>
                                             {% endif %}
                                             {% if product.price %}
                                                 <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
@@ -85,6 +85,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 product-list-sidebar">
+                        {% include "slideshows/featured_product_slideshow.html" %}
                         {% load advertising_tags %}
                         {% random_zone_ad "shop_1" %}
                         {% random_zone_ad "shop_2" %}

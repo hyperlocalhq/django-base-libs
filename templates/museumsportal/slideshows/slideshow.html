@@ -13,14 +13,14 @@
       <div class="carousel-inner">
 
         {% for slide in slides %}
-            <div class="item {% if forloop.first %}active{% endif %}">
-                <a class="img" href="{{ slide.link }}">
-                    <img src="{{ STATIC_URL }}site/img/placeholder_slideshow.gif" data-original="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" />
-                     <div class="carousel-caption">
-                      <h2><b>{{ slide.title|striptags }}</b><br/>
-                      {{ slide.subtitle|striptags }}</h2>
-                    </div>
-                </a>
+          <div class="item {% if forloop.first %}active{% endif %}">
+            <a class="img" href="{{ slide.link }}">
+              <img src="{{ STATIC_URL }}site/img/placeholder_slideshow.gif" data-original="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" />
+              <div class="carousel-caption">
+                <h2><b>{{ slide.title|striptags }}</b><br/>
+                {{ slide.subtitle|striptags }}</h2>
+              </div>
+            </a>
           </div>
         {% endfor %}
       </div>

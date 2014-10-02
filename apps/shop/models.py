@@ -70,7 +70,9 @@ class ShopProductManager(models.Manager):
             users=user,
         ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
-        
+
+    def featured_published(self):
+        return self.filter(status="published", is_featured=True)
         
 class ShopProduct(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_("Name"), max_length=255)

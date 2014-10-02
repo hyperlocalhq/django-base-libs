@@ -1,0 +1,73 @@
+{% load i18n base_tags image_modifications babel %}
+<div id="carousel-startpage" class="hidden-xs">
+  <div id="carousel" class="carousel carousel-fade">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      {% for slide in slides %}
+      <li data-target="#carousel-startpage" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+      {% endfor %}
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      {% get_objects featured_published shop.ShopProduct 10 as featured_products %}
+      {% for product in featured_products %}
+        <div class="item">
+          <a href="{{ product.get_url_path }}">
+            {% if product.image %}
+              <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" /></span>
+            {% endif %}
+            {% if product.price %}
+              <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
+            {% endif %}
+            <h3>
+              {{ product.title }}
+            </h3>
+            {% if product.subtitle %}
+              <h4>{{ product.subtitle }}</h4>
+            {% endif %}
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <!-- <a class="left carousel-control" href="#carousel-startpage" data-slide="prev">
+      <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-startpage" data-slide="next">
+      <span class="icon-next"></span>
+    </a> -->
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $('body').on('dragstart', function(e) {
+            e.preventDefault();
+        });
+        $('.carousel').each(function() {
+            var $carousel = $(this);
+            $('.active img', $carousel).lazyload({
+                load : function(element, el_left, settings){
+                    $(this).closest('.img').addClass('loaded');
+                }
+            });
+            $carousel.carousel({interval: 2000}).on('slid.bs.carousel', function () {
+                $('.active img', $carousel).lazyload({
+                    load : function(element, el_left, settings){
+                        $(this).closest('.img').addClass('loaded');
+                    }
+                });
+            });
+            $carousel.hammer().on('swipeleft', function() {
+                $carousel.carousel('next');
+            });
+            $carousel.hammer().on('swiperight', function() {
+                $carousel.carousel('prev');
+            });
+        });
+    });
+</script>
+

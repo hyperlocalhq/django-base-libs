@@ -311,7 +311,6 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
         if not hasattr(self, '_cached_related_products'):
             self._cached_related_products = self.shopproduct_set.filter(
                 status="published",
-                is_featured=True,
             )
         return self._cached_related_products
 
