@@ -1,17 +1,16 @@
 {% load i18n base_tags image_modifications babel %}
+{% get_objects featured_published shop.ShopProduct 10 as featured_products %}
 <div id="carousel-startpage" class="hidden-xs">
   <div id="carousel" class="carousel carousel-fade">
     <!-- Indicators -->
     <ol class="carousel-indicators">
-      {% for slide in slides %}
-      <li data-target="#carousel-startpage" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+      {% for product in featured_products %}
+      <li data-target="#carousel-startpage" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}">{{ forloop.counter }}</li>
       {% endfor %}
     </ol>
-
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
 
-      {% get_objects featured_published shop.ShopProduct 10 as featured_products %}
       {% for product in featured_products %}
         <div class="item">
           <a href="{{ product.get_url_path }}">
@@ -33,12 +32,12 @@
     </div>
 
     <!-- Controls -->
-    <!-- <a class="left carousel-control" href="#carousel-startpage" data-slide="prev">
+    <a class="left carousel-control" href="#carousel-startpage" data-slide="prev">
       <span class="icon-prev"></span>
     </a>
     <a class="right carousel-control" href="#carousel-startpage" data-slide="next">
       <span class="icon-next"></span>
-    </a> -->
+    </a>
   </div>
 </div>
 
