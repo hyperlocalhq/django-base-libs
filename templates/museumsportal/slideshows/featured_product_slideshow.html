@@ -1,13 +1,8 @@
 {% load i18n base_tags image_modifications babel %}
 {% get_objects featured_published shop.ShopProduct 10 as featured_products %}
-<div id="carousel-startpage" class="hidden-xs">
+{% if featured_products %}
+<div id="carousel-shop" class="hidden-xs">
   <div id="carousel" class="carousel carousel-fade">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      {% for product in featured_products %}
-      <li data-target="#carousel-startpage" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}">{{ forloop.counter }}</li>
-      {% endfor %}
-    </ol>
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
 
@@ -32,12 +27,20 @@
     </div>
 
     <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-startpage" data-slide="prev">
-      <span class="icon-prev"></span>
-    </a>
-    <a class="right carousel-control" href="#carousel-startpage" data-slide="next">
-      <span class="icon-next"></span>
-    </a>
+    <div class="carousel-controls-wrapper">
+      <a class="left carousel-control" href="#carousel-shop" data-slide="prev">
+        <span class="icon-prev"></span>
+      </a>
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        {% for product in featured_products %}
+        <li data-target="#carousel-shop" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"><span>{{ forloop.counter }}</span></li>
+        {% endfor %}
+      </ol>
+      <a class="right carousel-control" href="#carousel-shop" data-slide="next">
+        <span class="icon-next"></span>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -69,4 +72,5 @@
         });
     });
 </script>
+{% endif %}
 
