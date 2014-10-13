@@ -568,7 +568,8 @@ CMS_TEMPLATES = [
     ('cms/magazine_second.html', gettext(u'Magazine – Second')),                   # previous: series.html
     ('cms/magazine_second_featured.html', gettext(u'Magazine – Second - Featured')), # previous: series_with_featured.html
     ('cms/magazine_third.html', gettext(u'Magazine - Third')),
-    
+    ('cms/magazine_special_event.html', gettext(u'Magazine – Special Event')),
+
     ('cms/shop_overview.html', gettext(u'Shop – Overview')),
     ('cms/shop_first.html', gettext(u'Shop – First')),
 
