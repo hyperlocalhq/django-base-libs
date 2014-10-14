@@ -71,7 +71,7 @@ class ShopProductAdmin(ExtendedModelAdmin):
 
     filter_horizontal = ('museums', 'exhibitions', 'events', 'workshops', 'product_categories', 'product_types', 'languages')
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
-    
+    ordering = ['-creation_date']
     
     def get_categories_display(self, obj):
         text = u''

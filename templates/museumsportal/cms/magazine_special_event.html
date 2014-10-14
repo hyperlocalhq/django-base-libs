@@ -9,12 +9,18 @@
 
 {% block content %}
   <div class="container">
-    <header class="intro clearfix">{% placeholder "intro" %}</header>
-    <article class="clearfix">
-      <section class="clearfix">
-        {% placeholder "main_content" %}
-      </section>
-    </article>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <header class="intro clearfix">{% placeholder "intro" %}</header>
+        <div class="magazine-detail-main">
+          {% placeholder "main_content" %}
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        {% load advertising_tags %}
+        {% random_zone_ad "magazine_special_event" %}
+      </div>
+    </div>
   </div>
 
   {% get_objects featured_in_magazine exhibitions.Exhibition as featured_exhibitions %}
@@ -22,7 +28,11 @@
   {% if featured_exhibitions %}
     <div class="container">
       <article class="clearfix">
-        <h2>{% trans "New exhibitions opened under the theme year" %}</h2>
+        {% if LANGUAGE_CODE == "de" %}
+          <h2>Ausstellungen zum Thema Mauerfall und deutsche Teilung</h2>
+        {% else %}
+          <h2>{% trans "Related exhibitions" %}</h2>
+        {% endif %}
         <div class="row row-md list">
           {% for exhibition in featured_exhibitions %}
           <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12  ">
