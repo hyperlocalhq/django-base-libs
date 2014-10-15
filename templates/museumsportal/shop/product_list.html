@@ -17,7 +17,7 @@
 <div class="content">
     <div class="container">
         <h1>{% trans "Offers from the Shops of Berlin Museums and more" %}</h1>
-        <a href="" class="pull-right">{% trans "Shop information" %}</a>
+        <a href="/de/informationen-zum-shop/" class="pull-right">{% trans "Shop information" %}</a>
         <header class="list-header clearfix">
             <h4 class="visible-xs">{% trans "Shop" %}</h4>
 
@@ -64,7 +64,7 @@
                                     <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-4">
                                         <a href="{{ product.get_url_path }}">
                                             {% if product.image %}
-                                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" /></span>
+                                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" /></span>
                                             {% endif %}
                                             {% if product.price %}
                                                 <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>

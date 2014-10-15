@@ -334,6 +334,26 @@ def event_detail_slideshow(request, slug):
     )
 
 
+def event_products(request, slug):
+    qs = Event.objects.all()
+    obj = get_object_or_404(qs, slug=slug)
+
+    qs = obj.get_related_products()
+
+    extra_context = {
+        'object': obj,
+    }
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="events/event_products.html",
+        paginate_by=24,
+        extra_context=extra_context,
+        httpstate_prefix="event_%s_products" % obj.pk,
+        context_processors=(prev_next_processor,),
+    )
+
+
 @never_cache
 @login_required
 def add_event(request):

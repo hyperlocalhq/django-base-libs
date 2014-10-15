@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from django.http import Http404
 from django.utils.translation import string_concat
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
@@ -325,6 +326,26 @@ def museum_detail_slideshow(request, slug):
         slug=slug,
         slug_field="slug",
         template_name="museums/museum_detail_slideshow.html",
+        context_processors=(prev_next_processor,),
+    )
+
+
+def museum_products(request, slug):
+    qs = Museum.objects.all()
+    obj = get_object_or_404(qs, slug=slug)
+
+    qs = obj.get_related_products()
+
+    extra_context = {
+        'object': obj,
+    }
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="museums/museum_products.html",
+        paginate_by=24,
+        extra_context=extra_context,
+        httpstate_prefix="museum_%s_products" % obj.pk,
         context_processors=(prev_next_processor,),
     )
 

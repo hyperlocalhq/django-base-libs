@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites events_tags %}
 {% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
-{% block bodyclass %}event-detail shop-product-list{% endblock %}
+{% block bodyclass %}event-detail{% endblock %}
 
 {% block open_graph %}
     <meta property="og:title" content="{{ object.title }}" />
@@ -422,9 +422,12 @@
       <!-- ======= Products ======= -->
 
       {% if object.get_related_products %}
-          <div id="list">
+          <div id="list" class="shop-product-list">
               <div class="container">
-                  <h2 class="section-head" id="section-related-products">{% trans "Products" %}</h2>
+                  <header class="clearfix">
+                      <h2 class="section-head pull-left" id="section-related-products">{% trans "Products" %}</h2>
+                      <a href="{% url "event_products" slug=object.slug %}" class="pull-right">{% trans "All products of the event" %}</a>
+                  </header>
                   <div id="container">
                       <div class="row row-md grid">
                           {% for product in object.get_related_products|slice:':4' %}

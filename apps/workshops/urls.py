@@ -17,6 +17,7 @@ urlpatterns = patterns('museumsportal.apps.workshops.views',
     url(r'^(?P<slug>[^/]+)/delete/$', 'delete_workshop', name='delete_workshop'),    
     url(r'^(?P<slug>[^/]+)/status/$', 'change_workshop_status', name='change_workshop_status'),    
     url(r'^(?P<slug>[^/]+)/batch-workshop-times/$', 'batch_workshop_times', name='batch_workshop_times'),    
+    url(r'^(?P<slug>[^/]+)/products/$', 'workshop_products', name='workshop_products'),
     # gallery
     url(r'^(?P<slug>[^/]+)/gallery/$', 'gallery_overview', name='workshop_gallery_overview'),    
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_mediafile', name='workshop_add_mediafile'),    

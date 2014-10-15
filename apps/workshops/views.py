@@ -373,6 +373,27 @@ def workshop_detail_slideshow(request, slug):
     )
 
 
+def workshop_products(request, slug):
+    qs = Workshop.objects.all()
+    obj = get_object_or_404(qs, slug=slug)
+
+    qs = obj.get_related_products()
+
+    extra_context = {
+        'object': obj,
+    }
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="workshops/workshop_products.html",
+        paginate_by=24,
+        extra_context=extra_context,
+        httpstate_prefix="workshop_%s_products" % obj.pk,
+        context_processors=(prev_next_processor,),
+    )
+
+
+
 @never_cache
 @login_required
 def add_workshop(request):

@@ -12,6 +12,7 @@ urlpatterns = patterns('museumsportal.apps.museums.views',
     url(r'^(?P<slug>[^/]+)/ajax/map/$', 'museum_detail_ajax', {'template_name': 'museums/museum_detail_ajax_map.html'}, name='museum_detail_ajax_map'),
     url(r'^(?P<slug>[^/]+)/slideshow/$', 'museum_detail_slideshow', name='museum_detail_slideshow'),
     url(r'^(?P<slug>[^/]+)/change/$', 'change_museum', name='change_museum'),
+    url(r'^(?P<slug>[^/]+)/products/$', 'museum_products', name='museum_products'),
     # gallery
     url(r'^(?P<slug>[^/]+)/gallery/$', 'gallery_overview', name='museum_gallery_overview'),    
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_mediafile', name='museum_add_mediafile'),    

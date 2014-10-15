@@ -504,6 +504,27 @@ def exhibition_detail_slideshow(request, slug):
     )
 
 
+def exhibition_products(request, slug):
+    qs = Exhibition.objects.all()
+    obj = get_object_or_404(qs, slug=slug)
+
+    qs = obj.get_related_products()
+
+    extra_context = {
+        'object': obj,
+    }
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="exhibitions/exhibition_products.html",
+        paginate_by=24,
+        extra_context=extra_context,
+        httpstate_prefix="exhibition_%s_products" % obj.pk,
+        context_processors=(prev_next_processor,),
+    )
+
+
+
 def export_json_exhibitions(request):
     #create queryset
     qs = Exhibition.objects.filter(status="published")

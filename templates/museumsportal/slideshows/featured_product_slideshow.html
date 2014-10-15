@@ -10,7 +10,7 @@
         <div class="item">
           <a href="{{ product.get_url_path }}">
             {% if product.image %}
-              <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" /></span>
+              <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" /></span>
             {% endif %}
             {% if product.price %}
               <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
