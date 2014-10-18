@@ -9,50 +9,31 @@
 
 #carousel-shop {
   #carousel {
-    width:100%;
     .carousel-controls-wrapper {
-      width:100%;
-      text-align:center;
-      position:relative;
-      margin-top:-35px;
-      margin-bottom:20px;
-      cursor:default;
+      display:none;
       .carousel-control {
-        color:inherit;
-        position:static;
-        vertical-align:top;
-        span {
-          display:inline-block;
-          height:auto;
-          line-height:initial;
-          position:static;
-          background-color:transparent;
-          margin-top:0px;
-          width:20px;
-        }
-      }
-      .carousel-indicators {
-        display:inline-block;
-        position:static;
-        margin:0px;
-        padding:1px 0 0 0;
         width:auto;
-        li {
-          width:6px;
-          height:6px;
-          background-color:white;
-          border:1px solid black;
-          opacity:1;
-          margin: 1px 3px;
-          overflow:hidden;
-          span {
-            margin-left:10px;
-          }
+        .icon-prev {
+          left:auto;
         }
-        li.active {
-          background-color:black;
+        .icon-next {
+          right:auto;
+          left:-41px;
         }
       }
+    }
+  }
+  .item {
+    a {
+      display:block;
+      width:48.5%;
+      float:left;
+      img {
+        border:1px solid #939393;
+      }
+    }
+    a:first-child {
+      margin-right:3%;
     }
   }
 }

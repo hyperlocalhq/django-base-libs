@@ -15,7 +15,7 @@
 
 {% block content %}
 <div class="content">
-    <div class="container">
+    <div class="container filter">
         <h1>{% trans "Offers from the Shops of Berlin Museums and more" %}</h1>
         <a href="/de/informationen-zum-shop/" class="pull-right">{% trans "Shop information" %}</a>
         <header class="list-header clearfix">
@@ -55,8 +55,11 @@
 
     <div id="list">
         <div class="container">
-            <div>
+            <div class="wrapper-grid">
                 <div class="row row-md grid">
+                    <div class="hidden-xs col-sm-12 col-md-12 col-lg-9 wrapper-carousel">
+                        {% include "slideshows/featured_product_slideshow.html" %}
+                    </div>
                     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9" id="container">
                         <div class="row row-md grid">
                             {% if object_list %}
@@ -74,6 +77,8 @@
                                             </h3>
                                             {% if product.subtitle %}
                                                 <h4>{{ product.subtitle }}</h4>
+                                            {% else %}
+                                                <h4>&nbsp;</h4>
                                             {% endif %}
                                         </a>
                                     </div>
@@ -85,7 +90,6 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 product-list-sidebar">
-                        {% include "slideshows/featured_product_slideshow.html" %}
                         {% load advertising_tags %}
                         {% random_zone_ad "shop_1" %}
                         {% random_zone_ad "shop_2" %}
@@ -107,4 +111,30 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function() {
+    
+        var carousel = $('.wrapper-carousel');
+        var list = $('#container');
+        var sidebar = $('.product-list-sidebar');
+        
+        function setSidebar() {
+        
+            sidebar.css("position", "relative");
+            sidebar.css("left", "0px");
+            sidebar.css("top", "0px");
+        
+            if (carousel.width() == list.width()) {
+            
+                var position = sidebar.position();
+                sidebar.css("position", "absolute");
+                sidebar.css("left", position.left+"px");
+                sidebar.css("top", "0px");
+            }
+        }
+        
+        setSidebar();
+        $(window).resize(setSidebar);
+    })
+</script>
 {% endblock %}

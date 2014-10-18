@@ -22,77 +22,117 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container clearfix">
+<div id="shop" class="content">
+    <div class="container">
         <div class="row">
-			      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				        <h1>
-                  {{ object.title }}
-                  {% if_has_perm "shop.change_shopproduct" object %}
-                    {% if not request.is_mobile %}
-                      <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
-                    {% endif %}
-                  {% end_if_has_perm %}
-                </h1>
-                <h2>{{ object.subtitle }}</h2>
-                <div class="tools">
-                    <button class="btn btn-default btn-round share-twitter"  data-url="{{ object.get_url }}" data-text="{{ object.title }}{% if object.subtitle %} / {{ object.subtitle }}{% endif %}">
-                        <span class="icon icon-social-twitter"></span>
-                        <span class="sr-only">{% trans "Share on Twitter" %}</span>
-                    </button>
-                    <button class="btn btn-default btn-round share-facebook" data-url="{{ object.get_url }}" data-text="{{ object.title }}{% if object.subtitle %} / {{ object.subtitle }}{% endif %}">
-                        <span class="icon icon-social-facebook"></span>
-                        <span class="sr-only">{% trans "Share on Facebook" %}</span>
-                    </button>
-                </div>
+			      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 clearfix">
+                    <article>
+                        <div class="col-xs-12">
+                            <header>
+		    		                    <h1>
+                                    {{ object.title }}
+                                    {% if_has_perm "shop.change_shopproduct" object %}
+                                    {% if not request.is_mobile %}
+                                        <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                    {% endif %}
+                                    {% end_if_has_perm %}
+                                </h1>
+                                <h2>{{ object.subtitle }}</h2>
+                            </header>
+                            <div class="tools">
+                                <button class="btn btn-default btn-round share-twitter"  data-url="{{ object.get_url }}" data-text="{{ object.title }}{% if object.subtitle %} / {{ object.subtitle }}{% endif %}">
+                                    <span class="icon icon-social-twitter"></span>
+                                    <span class="sr-only">{% trans "Share on Twitter" %}</span>
+                                </button>
+                                <button class="btn btn-default btn-round share-facebook" data-url="{{ object.get_url }}" data-text="{{ object.title }}{% if object.subtitle %} / {{ object.subtitle }}{% endif %}">
+                                    <span class="icon icon-social-facebook"></span>
+                                    <span class="sr-only">{% trans "Share on Facebook" %}</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 visible-xs">
+                            <a href="{{ object.link }}" target="_blank" class="product-img-hidden-xs">
+                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" /></span>
+                            </a>
+                        </div>
+                        <div class="col-xs-12">
+                            <a href="{{ object.link }}" target="_blank" class="hidden-xs col-sm-6 product-img-hidden-xs">
+                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" /></span>
+                            </a>
+                            {{ object.get_rendered_description }}
+                            {% if object.price %}
+                                <div class="price">{{ object.price|currencyfmt:"€" }}</div>
+                            {% endif %}
+                            <a class="btn btn-default btn-sm pull-right" href="{{ object.link }}" target="_blank">{% trans "buy" %}</a>
+                        </div>
+                    </article>
 			      </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4">
-                <a href="{{ object.link }}" target="_blank">
-                    <span class="img hidden-xs"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" /></span>
-                    <span class="img visible-xs"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" /></span>
-                </a>
-            </div>
-            <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
-                <div class="clearfix">
-                    {{ object.get_rendered_description }}
-                    {% if object.price %}
-                        <div class="clearfix"><div class="price">{{ object.price|currencyfmt:"€" }}</div></div>
-                    {% endif %}
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="panel-group">
                     {% if object.get_related_museums %}
-                        <h3>{% trans "Related museums" %}</h3>
-                        <ul>
-                            {% for museum in object.get_related_museums %}
-                                <li><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></li>
-                            {% endfor %}
-                        </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3>{% trans "Related museums" %}</h3>
+                            </div>
+                            <div class="panel-collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        {% for museum in object.get_related_museums %}
+                                            <li><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     {% endif %}
                     {% if object.get_related_exhibitions %}
-                        <h3>{% trans "Related exhibitions" %}</h3>
-                        <ul>
-                            {% for exhibition in object.get_related_exhibitions %}
-                                <li><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></li>
-                            {% endfor %}
-                        </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3>{% trans "Related exhibitions" %}</h3>
+                            </div>
+                            <div class="panel-collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        {% for exhibition in object.get_related_exhibitions %}
+                                            <li><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     {% endif %}
                     {% if object.get_related_events %}
-                        <h3>{% trans "Related events" %}</h3>
-                        <ul>
-                            {% for event in object.get_related_events %}
-                                <li><a href="{{ event.get_url_path }}">{{ event.title }}</a></li>
-                            {% endfor %}
-                        </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3>{% trans "Related events" %}</h3>
+                            </div>
+                            <div class="panel-collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                      {% for event in object.get_related_events %}
+                                        <li><a href="{{ event.get_url_path }}">{{ event.title }}</a></li>
+                                      {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     {% endif %}
                     {% if object.get_related_workshops %}
-                        <h3>{% trans "Related guided tours" %}</h3>
-                        <ul>
-                            {% for workshop in object.get_related_workshops %}
-                                <li><a href="{{ workshop.get_url_path }}">{{ workshop.title }}</a></li>
-                            {% endfor %}
-                        </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3>{% trans "Related guided tours" %}</h3>
+                            </div>
+                            <div class="panel-collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                      {% for workshop in object.get_related_workshops %}
+                                        <li><a href="{{ workshop.get_url_path }}">{{ workshop.title }}</a></li>
+                                      {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     {% endif %}
-
-                    <a class="btn btn-default btn-sm pull-right" href="{{ object.link }}" target="_blank">{% trans "to shop" %}</a>
                 </div>
             </div>
         </div>
@@ -128,4 +168,5 @@
             </div>
         </div>
     {% endif %}
+</div>
 {% endblock %}
