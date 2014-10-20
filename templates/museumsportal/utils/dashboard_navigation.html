@@ -18,9 +18,7 @@
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
-                  {% comment %}
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Shop" %}</a></li>
-                  {% endcomment %}
                   <li class="divider"></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
               </ul>
@@ -78,9 +76,8 @@
           <li{% if "/guided-tours/" in request.path or "/fuehrungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
 
           <li{% if "/museums/" in request.path or "/museen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
-          {% comment %}
+
           <li{% if "/shop/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Shop" %}</a></li>
-          {% endcomment %}
 
           <!-- <li{% if request.path == "/hilfe/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/hilfe/">{% trans "Help" %}</a></li> -->
         </ul>
