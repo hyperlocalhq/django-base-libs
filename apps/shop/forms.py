@@ -43,7 +43,7 @@ class ShopProductForm(autocomplete_light.ModelForm):
         
         fields = [
             'price', 'link', 'languages',
-            'product_categories', 'product_types',
+            'product_types',
             'is_new',
             'is_featured',
             'is_for_children',
@@ -77,9 +77,9 @@ class ShopProductForm(autocomplete_light.ModelForm):
         self.fields['languages'].help_text = ""
         self.fields['languages'].empty_label = None
 
-        self.fields['product_categories'].widget = forms.CheckboxSelectMultiple()
-        self.fields['product_categories'].help_text = ""
-        self.fields['product_categories'].empty_label = None
+        #self.fields['product_categories'].widget = forms.CheckboxSelectMultiple()
+        #self.fields['product_categories'].help_text = ""
+        #self.fields['product_categories'].empty_label = None
 
         self.fields['product_types'].help_text = ""
         self.fields['product_types'].empty_label = None
@@ -165,12 +165,12 @@ class ShopProductForm(autocomplete_light.ModelForm):
         fieldset_content.append(
             "languages"
         )
-        fieldset_content.append(
-            "product_categories"
-        )
+        #fieldset_content.append(
+        #    "product_categories"
+        #)
         fieldset_content.append(
             layout.Div(
-                layout.HTML("""{% load i18n %} <label>{% trans "Types" %}</label>"""),
+                layout.HTML("""{% load i18n %} <label>{% trans "Product Types" %}</label>"""),
                 layout.Field("product_types", template="utils/checkboxselectmultipletree.html")
             ),
         )
