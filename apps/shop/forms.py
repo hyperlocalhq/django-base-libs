@@ -44,9 +44,9 @@ class ShopProductForm(autocomplete_light.ModelForm):
         fields = [
             'price', 'link', 'languages',
             'product_types',
-            'is_new',
-            'is_featured',
-            'is_for_children',
+            #'is_new',
+            #'is_featured',
+            #'is_for_children',
             'museums', 'exhibitions', 'events', 'workshops',
         ]
         autocomplete_fields = ('museums', 'exhibitions', 'events', 'workshops')
@@ -174,15 +174,15 @@ class ShopProductForm(autocomplete_light.ModelForm):
                 layout.Field("product_types", template="utils/checkboxselectmultipletree.html")
             ),
         )
-        fieldset_content.append(
-            "is_new"
-        )
-        fieldset_content.append(
-            "is_featured"
-        )
-        fieldset_content.append(
-            "is_for_children"
-        )
+        #fieldset_content.append(
+        #    "is_new"
+        #)
+        #fieldset_content.append(
+        #    "is_featured"
+        #)
+        #fieldset_content.append(
+        #    "is_for_children"
+        #)
 
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
