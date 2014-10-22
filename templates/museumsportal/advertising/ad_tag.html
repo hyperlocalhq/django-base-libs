@@ -16,7 +16,7 @@
 {% if ad.bannerad %}
     <div class="ad_banner zone_{{ ad.zone.sysname }} clearfix">
         {% if ad.show_ad_label %}
-            <h6 class="block-label" {% if ad.zone.sysname == "museums" or ad.zone.sysname == "exhibitions" or ad.zone.sysname == "plan_organize_first" or ad.zone.sysname == "summer_tips" or ad.zone.sysname == "shop_1" %}style="margin-top: -17px !important; margin-bottom: 2px !important;"{% endif %}>{% trans "Advertisement" %}</h6>
+            <h6 class="block-label{% if ad.zone.sysname == "museums" or ad.zone.sysname == "exhibitions" or ad.zone.sysname == "plan_organize_first" or ad.zone.sysname == "summer_tips" or ad.zone.sysname == "shop_1" %} headline-up{% endif %}">{% trans "Advertisement" %}</h6>
         {% endif %}
         <a target="_blank" href="{{ ad.get_url_path }}"><img class="img-responsive img-full" src="{{ ad.bannerad.content.url }}" alt="{{ ad.title }}" /></a>
     </div>
