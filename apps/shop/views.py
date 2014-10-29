@@ -153,6 +153,8 @@ def shop_product_list(request):
         sort_by = form.cleaned_data['sort_by']
         if sort_by:
             facets['selected']['sort_by'] = (sort_by, dict(SORT_BY_CHOICES)[sort_by])
+        else:
+            sort_by = "newest"
 
     if sort_by:
         SORT_BY_MAPPER = {
