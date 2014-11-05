@@ -308,8 +308,19 @@ def change_shop_product(request, slug):
 @login_required
 def delete_shop_product(request, slug):
     instance = get_object_or_404(ShopProduct, slug=slug)
-    if not request.user.has_perm("shop.delete_shopproduct", instance):
+
+    can_delete = False
+    if request.user.has_perm("shop.delete_shopproduct", instance):
+        can_delete = True
+
+    for museum in instance.museums.all():
+        if request.user.has_perm("museums.change_museum", museum):
+            can_delete = True
+            break
+
+    if not can_delete:
         return access_denied(request)
+
     if request.method == "POST" and request.is_ajax():
         instance.status = "trashed"
         instance.save()
@@ -321,8 +332,19 @@ def delete_shop_product(request, slug):
 @login_required
 def change_shop_product_status(request, slug):
     instance = get_object_or_404(ShopProduct, slug=slug)
-    if not request.user.has_perm("shop.change_shopproduct", instance):
+
+    can_edit = False
+    if request.user.has_perm("shop.change_shopproduct", instance):
+        can_edit = True
+
+    for museum in instance.museums.all():
+        if request.user.has_perm("museums.change_museum", museum):
+            can_edit = True
+            break
+
+    if not can_edit:
         return access_denied(request)
+
     if request.method == "POST" and request.is_ajax():
         instance.status = request.POST['status']
         instance.save()
