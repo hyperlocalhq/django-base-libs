@@ -250,7 +250,16 @@ def add_shop_product(request):
 @login_required
 def change_shop_product(request, slug):
     instance = get_object_or_404(ShopProduct, slug=slug)
-    if not request.user.has_perm("shop.change_shopproduct", instance):
+    can_edit = False
+    if request.user.has_perm("shop.change_shopproduct", instance):
+        can_edit = True
+
+    for museum in instance.museums:
+        if request.user.has_perm("museums.change_museum", museum):
+            can_edit = True
+            break
+
+    if not can_edit:
         return access_denied(request)
         
     if request.method == "POST":
