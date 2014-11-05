@@ -254,7 +254,7 @@ def change_shop_product(request, slug):
     if request.user.has_perm("shop.change_shopproduct", instance):
         can_edit = True
 
-    for museum in instance.museums:
+    for museum in instance.museums.all():
         if request.user.has_perm("museums.change_museum", museum):
             can_edit = True
             break
