@@ -63,13 +63,23 @@ class ShopProductManager(models.Manager):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("shop.change_shopproduct"):
             return self.get_query_set().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
+        product_ids = PerObjectGroup.objects.filter(
             content_type__app_label="shop",
             content_type__model="shopproduct",
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
+        museum_ids = PerObjectGroup.objects.filter(
+            content_type__app_label="museums",
+            content_type__model="museum",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+
+        return self.get_query_set().filter(
+            models.Q(pk__in=product_ids) | models.Q(museums__id__in=museum_ids)
+        ).exclude(status="trashed").distinct()
 
     def featured_published(self):
         return self.filter(status="published", is_featured=True)
@@ -166,7 +176,7 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
             role = PerObjectGroup.objects.get(
                 sysname__startswith="owners",
                 object_id=self.pk,
-                content_type=ContentType.objects.get_for_model(Museum),
+                content_type=ContentType.objects.get_for_model(ShopProduct),
             )
         except:
             role = PerObjectGroup(
@@ -193,8 +203,8 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
             role = PerObjectGroup.objects.get(
                 sysname__startswith="owners",
                 object_id=self.pk,
-                content_type=ContentType.objects.get_for_model(Museum),
-                )
+                content_type=ContentType.objects.get_for_model(ShopProduct),
+            )
         except:
             return
         role.users.remove(user)
@@ -202,14 +212,26 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
             role.delete()
 
     def get_owners(self):
+        from django.contrib.auth.models import User
         ContentType = models.get_model("contenttypes", "ContentType")
         PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
         try:
-            role = PerObjectGroup.objects.get(
+            owners_ids = list(PerObjectGroup.objects.get(
                 sysname__startswith="owners",
                 object_id=self.pk,
-                content_type=ContentType.objects.get_for_model(Museum),
-            )
+                content_type=ContentType.objects.get_for_model(ShopProduct),
+            ).users.values_list("id", flat=True))
         except:
-            return []
-        return role.users.all()
+            owners_ids = []
+
+        for museum in self.museums.all():
+            try:
+                owners_ids += list(PerObjectGroup.objects.get(
+                    sysname__startswith="owners",
+                    object_id=museum.pk,
+                    content_type=ContentType.objects.get_for_model(Museum),
+                ).users.values_list("id", flat=True))
+            except:
+                pass
+
+        return User.objects.filter(id__in=owners_ids).distinct()
