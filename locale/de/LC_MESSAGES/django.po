@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-20 21:48+0200\n"
-"PO-Revision-Date: 2014-10-21 16:32+0100\n"
+"PO-Revision-Date: 2014-11-04 12:55+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3882,9 +3882,8 @@ msgid "Shop"
 msgstr "Shop"
 
 #: apps/shop/forms.py:71
-#, fuzzy
 msgid "Shop Link"
-msgstr "Shopinfo"
+msgstr "Link zum Shop"
 
 #: apps/shop/forms.py:74
 #: templates/museumsportal/workshops/workshop_detail.html:383
@@ -3948,13 +3947,11 @@ msgid "Related Events"
 msgstr "Zugehörige Veranstaltung"
 
 #: apps/shop/models.py:90
-#, fuzzy
 msgid "Related Workshops"
-msgstr "Führungen"
+msgstr "Zugehörige Führung / zugehöriger Workshop"
 
 #: apps/shop/models.py:92 templates/museumsportal/shop/product_list.html:37
 #: templates/museumsportal/utils/filter_products.html:95
-#, fuzzy
 msgid "For children"
 msgstr "Speziell geeignet für Kinder und Jugendliche"
 
@@ -3996,7 +3993,6 @@ msgid "By price"
 msgstr "Preis (aufsteigend)"
 
 #: apps/shop/views.py:90
-#, fuzzy
 msgid "For Children"
 msgstr "Speziell geeignet für Kinder und Jugendliche"
 
@@ -4878,7 +4874,7 @@ msgstr "Abgelaufen"
 
 #: templates/museumsportal/accounts/dashboard_shopproducts.html:33
 msgid "Add Product"
-msgstr ""
+msgstr "Produkt hinzufügen"
 
 #: templates/museumsportal/accounts/login.html:6
 msgid "login"
@@ -6008,9 +6004,8 @@ msgid "New Shop Product"
 msgstr ""
 
 #: templates/museumsportal/shop/base_form.html:39
-#, fuzzy
 msgid "Add new shop product"
-msgstr "Neue Führung hinzufügen"
+msgstr "Neues Produkt in den Shop einstellen"
 
 #: templates/museumsportal/shop/change_product.html:25
 #: templates/museumsportal/utils/gallery_upload_scripts.html:5
@@ -6030,9 +6025,8 @@ msgid "Related events"
 msgstr "Zugehörige  Veranstaltung"
 
 #: templates/museumsportal/shop/product_detail.html:123
-#, fuzzy
 msgid "Related guided tours"
-msgstr "Barrierefreie Angebote"
+msgstr "Zugehörige Führung"
 
 #: templates/museumsportal/shop/product_detail.html:145
 msgid "Similar products"
