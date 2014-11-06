@@ -140,6 +140,7 @@ INSTALLED_APPS = [
     "ccb.apps.facebook_app",
     "ccb.apps.slideshows",
     "ccb.apps.faqs",
+    "ccb.apps.celerytest",
     "ccb", # just for i18n in Javascript
     ]
 
