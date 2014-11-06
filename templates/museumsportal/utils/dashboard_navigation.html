@@ -69,13 +69,17 @@
         <ul class="nav navbar-nav">
           <li{% if request.path == "/dashboard/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
 
-          <li{% if "/exhibitions/" in request.path or "/ausstellungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
+          {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
 
-          <li{% if "/events/" in request.path or "/veranstaltungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
+            <li{% if "/exhibitions/" in request.path or "/ausstellungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
 
-          <li{% if "/guided-tours/" in request.path or "/fuehrungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
+            <li{% if "/events/" in request.path or "/veranstaltungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
 
-          <li{% if "/museums/" in request.path or "/museen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+            <li{% if "/guided-tours/" in request.path or "/fuehrungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
+
+            <li{% if "/museums/" in request.path or "/museen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+
+          {% endif %}
 
           <li{% if "/shop/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Shop" %}</a></li>
 
