@@ -54,6 +54,9 @@
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+                  <li class="divider"></li>
+                {% endif %}
+                {% if request.user|in_group:"Museum Owners" or  request.user|in_group:"Shop Admins" or request.user.is_superuser %}
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Shop" %}</a></li>
                   <li class="divider"></li>
                 {% endif %}
