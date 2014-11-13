@@ -56,12 +56,14 @@
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
                   <li class="divider"></li>
                 {% endif %}
-                {% if request.user|in_group:"Museum Owners" or  request.user|in_group:"Shop Admins" or request.user.is_superuser %}
-                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Shop" %}</a></li>
+                {% if request.user|in_group:"Museum Owners" or request.user|in_group:"Shop Admins" or request.user.is_superuser %}
+                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Product list" %}</a></li>
                   <li class="divider"></li>
                 {% endif %}
-                <li><a href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a></li>
-                <li class="divider"></li>
+                {% if not request.user|in_group:"Shop Admins" or request.user.is_superuser %}
+                  <li><a href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">{% trans "Favorites" %}</a></li>
+                  <li class="divider"></li>
+                {% endif %}
                 <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
               </ul>
             </div>
