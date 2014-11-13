@@ -164,10 +164,11 @@ class Command(NoArgsCommand):
                 exhibition.end = parse_datetime(data_dict['end_date'])
             exhibition.website_de = data_dict['link_de'].replace('&amp;', '&')
             exhibition.website_en = data_dict['link_en'].replace('&amp;', '&')
-            exhibition.description_de = data_dict['description_de']
-            exhibition.description_de_markup_type = "hw"
-            exhibition.description_en = data_dict['description_en']
-            exhibition.description_en_markup_type = "hw"
+            if not exhibition.description_locked:
+                exhibition.description_de = data_dict['description_de']
+                exhibition.description_de_markup_type = "hw"
+                exhibition.description_en = data_dict['description_en']
+                exhibition.description_en_markup_type = "hw"
             exhibition.press_text_de = data_dict['description_de']
             exhibition.press_text_de_markup_type = "hw"
             exhibition.press_text_en = data_dict['description_en']
