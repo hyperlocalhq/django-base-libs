@@ -19,7 +19,10 @@ class OwnExhibitionAutocomplete(autocomplete_light.AutocompleteModelBase):
     model = Exhibition
 
     def choices_for_request(self):
-        self.choices = Exhibition.objects.owned_by(self.request.user)
+        if self.request.user.groups.filter(name="Shop Admins"):
+            self.choices = Exhibition.objects.exclude(status="trashed")
+        else:
+            self.choices = Exhibition.objects.owned_by(self.request.user)
         return super(OwnExhibitionAutocomplete, self).choices_for_request()
 
 

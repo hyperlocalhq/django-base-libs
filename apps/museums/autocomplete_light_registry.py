@@ -19,7 +19,10 @@ class OwnMuseumAutocomplete(autocomplete_light.AutocompleteModelBase):
     model = Museum
 
     def choices_for_request(self):
-        self.choices = Museum.objects.owned_by(self.request.user)
+        if self.request.user.groups.filter(name="Shop Admins"):
+            self.choices = Museum.objects.exclude(status="trashed")
+        else:
+            self.choices = Museum.objects.owned_by(self.request.user)
         return super(OwnMuseumAutocomplete, self).choices_for_request()
 
 

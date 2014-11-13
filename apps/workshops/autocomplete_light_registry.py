@@ -19,7 +19,10 @@ class OwnWorkshopAutocomplete(autocomplete_light.AutocompleteModelBase):
     model = Workshop
 
     def choices_for_request(self):
-        self.choices = Workshop.objects.owned_by(self.request.user)
+        if self.request.user.groups.filter(name="Shop Admins"):
+            self.choices = Workshop.objects.exclude(status="trashed")
+        else:
+            self.choices = Workshop.objects.owned_by(self.request.user)
         return super(OwnWorkshopAutocomplete, self).choices_for_request()
 
 
