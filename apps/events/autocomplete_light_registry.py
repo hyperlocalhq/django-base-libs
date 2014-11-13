@@ -19,7 +19,7 @@ class OwnEventAutocomplete(autocomplete_light.AutocompleteModelBase):
     model = Event
 
     def choices_for_request(self):
-        if self.request.user.groups.filter(name="Shop Admins"):
+        if self.request.user.is_superuser or self.request.user.groups.filter(name="Shop Admins"):
             self.choices = Event.objects.exclude(status="trashed")
         else:
             self.choices = Event.objects.owned_by(self.request.user)
