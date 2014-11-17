@@ -9,7 +9,10 @@ from jetson.apps.marketplace.base import *
 
 ### SITE-SPECIFIC JOB POSTING ###
 
+
 class JobOffer(JobOfferBase):
+    talent_in_berlin = models.BooleanField(_("Export to www.talent-in-berlin.de"), default=False)
+
     def get_location_type(self):
         try:
             postal_address = self.postal_address

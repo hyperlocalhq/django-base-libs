@@ -574,7 +574,8 @@ urlpatterns += patterns('',
         ),
 
     url(r'^%s/create-berlin-jobboard/$' % URL_ID_JOB_OFFERS, _project_name + '.apps.marketplace.views.job_board'), 
-    url(r'^%s/add/$' % URL_ID_JOB_OFFERS, _project_name + '.apps.marketplace.views.add_job_offer'), 
+    url(r'^%s/talent-in-berlin/$' % URL_ID_JOB_OFFERS, _project_name + '.apps.marketplace.views.jobs_talent_in_berlin'),
+    url(r'^%s/add/$' % URL_ID_JOB_OFFERS, _project_name + '.apps.marketplace.views.add_job_offer'),
     url(
         r'^%s/'
         r'((?P<show>memos|internships|jobs|all|own-%s)/)?'

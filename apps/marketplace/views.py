@@ -209,3 +209,57 @@ def job_offer_detail(request, *args, **kwargs):
     kwargs['object_id'] = int(kwargs['secure_id']) - SECURITY_SUMMAND
     return object_detail(request, *args, **kwargs)
 
+
+def jobs_talent_in_berlin(request):
+    from dicttoxml import dicttoxml
+    from django.core.paginator import Paginator, InvalidPage, EmptyPage
+
+    try:
+        paginate_by = int(request.GET.get('paginate_by', 50))
+    except ValueError as e:
+        paginate_by = 50
+    if paginate_by > 50:
+        paginate_by = 50
+
+    qs = JobOffer.published_objects.filter(
+        talent_in_berlin=True,
+    ).order_by('-modified_date', '-creation_date')
+
+    paginator = Paginator(qs, paginate_by)  # Show <paginate_by> job offers per page
+    try:
+        page = int(request.GET.get('page', 1))
+    except ValueError:
+        page = 1
+
+    try:
+        job_offers = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        job_offers = paginator.page(paginator.num_pages)
+
+    result = {
+        'meta': {
+            'paginate_by': paginate_by,
+            'total_pages': paginator.num_pages,
+            'page': job_offers.number,
+        },
+        'objects': [],
+    }
+    for job_offer in job_offers.object_list:
+        company = job_offer.offering_institution_title
+        company_logo = ""
+        if job_offer.offering_institution:
+            company = job_offer.offering_institution.title
+            if job_offer.offering_institution.image:
+                company_logo = get_website_url(job_offer.offering_institution.image.url)
+        result['objects'].append({
+            'id': job_offer.pk,
+            'title': job_offer.position,
+            'company': company,
+            'url': job_offer.get_url(),
+            'description': job_offer.description,
+            'company_logo': company_logo,
+            'date': (job_offer.modified_date or job_offer.creation_date).strftime('%Y-%m-%d %H:%M'),
+            'categories': [js.title for js in job_offer.job_sectors.all()],
+            'source': 'http://www.creative-city-berlin.de/',
+        })
+    return HttpResponse(dicttoxml(result, custom_root="job_offers", attr_type=False), mimetype="text/xml")

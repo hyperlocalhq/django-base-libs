@@ -2,6 +2,65 @@
 
 {% load i18n %}
 
+{% block fieldset_job_offer %}
+    <fieldset class="module aligned collapse open">
+        <h2>{% trans "Job Offer" %}</h2>
+        {{ form.user_id }}
+        <div class="row{% if form.position.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_position"{% if form.position.field.required %} class="required"{% endif %}>{% trans "Position" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ form.position }}
+                    {{ form.position.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if form.job_type.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_job_type"{% if form.job_type.field.required %} class="required"{% endif %}>{% trans "Job Type" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ form.job_type }}
+                    {{ form.job_type.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if form.qualifications.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_qualifications"{% if form.qualifications.field.required %} class="required"{% endif %}>{% trans "Qualifications" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ form.qualifications }}
+                    {{ form.qualifications.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if form.job_sectors.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_job_sectors"{% if form.job_sectors.field.required %} class="required"{% endif %}>{% trans "Job Sectors" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ form.job_sectors }}
+                    {{ form.job_sectors.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row checkbox-row">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ form.is_commercial }}<label for="id_is_commercial" class="vCheckboxLabel">{{ form.is_commercial.label }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row checkbox-row">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ form.talent_in_berlin }}<label for="id_talent_in_berlin" class="vCheckboxLabel">{{ form.talent_in_berlin.label }}</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+{% endblock %}
+
 {% block fieldset_additional_info %}
     <fieldset class="module aligned collapse closed">
         <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
