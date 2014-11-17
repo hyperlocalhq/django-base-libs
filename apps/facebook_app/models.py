@@ -34,7 +34,7 @@ class FacebookAppSettings(CreationModificationDateMixin):
     fb_id = models.BigIntegerField(_("User ID on Facebook"))
     name = models.CharField(_("Full name"), max_length=255)
     profile_url = models.URLField(_("User Link"), max_length=255)
-    access_token = models.CharField(_("Access Token"), max_length=150)
+    access_token = models.CharField(_("Access Token"), max_length=255)
     
     class Meta:
         verbose_name = _("Facebook App Settings")
@@ -49,7 +49,7 @@ class FacebookPage(CreationModificationDateMixin):
     fb_id = models.BigIntegerField(_("Page ID on Facebook"))
     name = models.CharField(_("Full name"), max_length=255)
     profile_url = models.URLField(_("Page Link"), max_length=255)
-    access_token = models.CharField(_("Page Access Token"), max_length=150)
+    access_token = models.CharField(_("Page Access Token"), max_length=255)
     
     class Meta:
         verbose_name = _("Facebook Page")
