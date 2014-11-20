@@ -55,7 +55,7 @@ class ShopProductAdmin(ExtendedModelAdmin):
         )
         
     save_on_top = True
-    list_display = ('id', 'title', 'subtitle', 'get_categories_display', 'get_types_display', 'price', 'is_featured', 'is_new', 'is_for_children', 'status')
+    list_display = ('id', 'title', 'subtitle', 'get_owners_display', 'get_categories_display', 'get_types_display', 'price', 'is_featured', 'is_new', 'is_for_children', 'status')
     list_editable = ('is_featured', 'is_for_children', 'is_new', 'status')
     list_display_links = ('title', )
     list_filter = ('product_categories', 'product_types', 'is_featured', 'is_for_children', 'is_new', 'languages', 'creation_date', 'status')
@@ -72,7 +72,15 @@ class ShopProductAdmin(ExtendedModelAdmin):
     filter_horizontal = ('museums', 'exhibitions', 'events', 'workshops', 'product_categories', 'product_types', 'languages')
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
     ordering = ['-creation_date']
-    
+
+    def get_owners_display(self, obj):
+        owners_list = []
+        for user in obj.get_owners():
+            owners_list.append("""<a href="/admin/auth/user/%s/" target="_blank">%s</a>""" % (user.pk, user))
+        return "<br />".join(owners_list)
+    get_owners_display.short_description = _("Owners")
+    get_owners_display.allow_tags = True
+
     def get_categories_display(self, obj):
         text = u''
         if obj.product_categories:
@@ -85,8 +93,7 @@ class ShopProductAdmin(ExtendedModelAdmin):
                 text += category.title
         return text
     get_categories_display.short_description = _("Categories")
-    
-    
+
     def get_types_display(self, obj):
         text = u''
         if obj.product_types:
