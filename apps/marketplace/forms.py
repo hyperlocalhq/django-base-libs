@@ -277,7 +277,12 @@ class JobOfferForm: # namespace
             initial=False,
             required=False,
             )
-            
+        report_talent_in_berlin = forms.BooleanField(
+            label=_("Report to talent-in-berlin.de"),
+            initial=False,
+            required=False,
+            )
+
 
     def submit_step(current_step, form_steps, form_step_data):
         if current_step == "step_main_data":
@@ -347,6 +352,9 @@ class JobOfferForm: # namespace
         end_date = step_main_data.get('end_date', None)
         if end_date:
             job_offer.published_till = end_date
+
+        if step_confirm_data.get('report_talent_in_berlin', False):
+            job_offer.talent_in_berlin = True
 
         job_offer.save()
         

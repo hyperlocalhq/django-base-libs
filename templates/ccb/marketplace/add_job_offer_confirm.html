@@ -150,8 +150,8 @@
                     <ul>
                         <li><p>{% trans "Please activate the checkboxes if you want to send your jobposting to one of our partners." %}</p></li>
                         <li class="line_checkbox">
-                            {{ form.report_kulturmanagement }}
                             <label for="id_report_kulturmanagement">
+                                {{ form.report_kulturmanagement }}
                                 {% if form.report_kulturmanagement.required %}<strong>{% endif %}
                                 {% blocktrans %}Send to <a href="http://www.kulturmanagement.net/" onclick="open_new_window(event)">Kulturmanagement.net</a>.{% endblocktrans %}
                                 {% if form.report_kulturmanagement.required %}*</strong>{% endif %}
@@ -159,13 +159,22 @@
                             {{ form.report_kulturmanagement.error_tag }}
                         </li>
                         <li class="line_checkbox">
-                            {{ form.report_creativeset }}
                             <label for="id_report_creativeset">
+                                {{ form.report_creativeset }}
                                 {% if form.report_creativeset.required %}<strong>{% endif %}
                                 {% blocktrans %}Send to <a href="http://www.creativeset.net/" onclick="open_new_window(event)">Creativeset.net</a>.{% endblocktrans %}
                                 {% if form.report_creativeset.required %}*</strong>{% endif %}
                             </label>
                             {{ form.report_creativeset.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            <label for="id_report_talent_in_berlin">
+                                {{ form.report_talent_in_berlin }}
+                                {% if form.report_creativeset.required %}<strong>{% endif %}
+                                {% blocktrans %}Send to <a href="https://www.talent-berlin.de/jobs/" onclick="open_new_window(event)">talent-in-berlin.de</a>.{% endblocktrans %}
+                                {% if form.report_talent_in_berlin.required %}*</strong>{% endif %}
+                            </label>
+                            {{ form.report_talent_in_berlin.error_tag }}
                         </li>
                     </ul>
                 </fieldset>
