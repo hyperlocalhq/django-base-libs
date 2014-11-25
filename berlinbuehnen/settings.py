@@ -210,6 +210,8 @@ INSTALLED_APPS = (
     "jetson.apps.mailing",
 
     ### berlin buehnen apps ###
+    "berlinbuehnen.apps.articles",
+    "berlinbuehnen.apps.mailchimp",
     "berlinbuehnen.apps.mega_menu",
 )
 
