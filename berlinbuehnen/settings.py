@@ -90,7 +90,7 @@ PATH_TMP = os.path.join(PROJECT_PATH, "berlinbuehnen", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
 FILE_UPLOAD_TEMP_DIR = SESSION_FILE_PATH = PATH_TMP
-FILE_UPLOAD_PERMISSIONS = 770
+FILE_UPLOAD_PERMISSIONS = 0775
 
 # List of finder classes that know how to find static files in
 # various locations.
