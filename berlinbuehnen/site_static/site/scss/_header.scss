@@ -1,0 +1,86 @@
+// ================= HEADER =================
+
+#support {
+  position: absolute;
+  left: 0px;
+  top: 20px;
+}
+
+#login_button {
+  display: block;
+  position: relative;
+  height: 32px;
+  line-height: 32px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  white-space:  nowrap;
+  a {
+    margin: 0px !important;
+    display: inline-block;
+    background-color: #f2f2f2;
+    height: 32px;
+    color: black;
+    line-height: inherit !important;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding-right: 10px; 
+    padding-left: 10px; 
+    width: auto; 
+    
+    span { display: none;}
+    &:hover {
+      background-color: black !important;
+      color: white;
+    }
+  }
+}
+
+#meta {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  > div {margin-left: 2px; }
+}
+
+#header {
+  border: none !important;
+  min-height: 100px;
+  .container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .logo {
+    display: block;
+
+    .img {
+      display: block;
+      height: 35px;
+      width: 220px;
+      background-image: url("../img/logo_img.png");
+      background-repeat: no-repeat;
+      background-position: left;
+      background-size: contain;
+      float: left;
+      margin-right: 15px;
+      font-size: 0px;
+    }
+
+    .claim {
+      font-size: 13px;
+      line-height: 16px;
+      display: block;
+      float: left;
+      font-weight: 300;
+      color: rgba(0,0,0,0.5);
+      padding-left: 15px;
+      margin-left: 15px;
+      border-left: 2px solid #f2f2f2;
+    }
+  }
+
+  .inner { 
+    height: 100px; 
+    padding: 0px !important;
+  }
+}
