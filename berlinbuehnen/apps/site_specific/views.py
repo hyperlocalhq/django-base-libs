@@ -34,7 +34,7 @@ from base_libs.utils.crypt import cryptString, decryptString
 
 ContentType = models.get_model("contenttypes", "ContentType")
 User = models.get_model("auth", "User")
-Museum = models.get_model("museums", "Museum")
+Location = models.get_model("locations", "Location")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 Event = models.get_model("events", "Event")
 Workshop = models.get_model("workshops", "Workshop")
@@ -72,7 +72,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
             #    redirect_to = smart_str(get_website_url(redirect_to))
             if request.is_ajax():
                 return HttpResponse("redirect=%s" % redirect_to)
-            if user.groups.filter(name="Museum Owners").count():
+            if user.groups.filter(name="Location Owners").count():
                 return redirect("dashboard")
             return redirect(redirect_to)
     else:
@@ -102,13 +102,13 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 # @never_cache
 # @login_required
 # def dashboard(request):
-#     owned_museums = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
+#     owned_locations = Location.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
 #     owned_exhibitions = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
 #     owned_events = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
 #     owned_workshops = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
 #     owned_products = ShopProduct.objects.owned_by(request.user).filter(status__in=("published", "draft")).order_by("-modified_date", "-creation_date")[:3]
 #     context = {
-#         'owned_museums': owned_museums,
+#         'owned_locations': owned_locations,
 #         'owned_exhibitions': owned_exhibitions,
 #         'owned_events': owned_events,
 #         'owned_workshops': owned_workshops,
@@ -148,9 +148,9 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #
 # @never_cache
 # @login_required
-# def dashboard_museums(request):
-#     owned_museum_qs = Museum.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
-#     paginator = Paginator(owned_museum_qs, 50)
+# def dashboard_locations(request):
+#     owned_location_qs = Location.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+#     paginator = Paginator(owned_location_qs, 50)
 #     page_number = request.GET.get('page', 1)
 #     try:
 #         page = paginator.page(page_number)
@@ -163,7 +163,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #     context = {
 #         'page': page,
 #     }
-#     return render(request, "accounts/dashboard_museums.html", context)
+#     return render(request, "accounts/dashboard_locations.html", context)
 #
 #
 # @never_cache
@@ -258,12 +258,12 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #
 # @never_cache
 # @staff_member_required
-# def invite_to_claim_museum(request):
+# def invite_to_claim_location(request):
 #     if request.method == "POST":
 #         form = ClaimingInvitationForm(request.POST)
 #         if form.is_valid():
 #             cleaned = form.cleaned_data
-#             invitation_code = cryptString(cleaned['email'] + "|" + str(cleaned['museum'].pk))
+#             invitation_code = cryptString(cleaned['email'] + "|" + str(cleaned['location'].pk))
 #             # setting default values
 #             sender_name, sender_email = settings.MANAGERS[0]
 #             send_email_using_template(
@@ -271,22 +271,22 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #                 email_template_slug="claiming_invitation",
 #                 obj_placeholders={
 #                     'invitation_code': invitation_code,
-#                     'object_link': cleaned['museum'].get_url(),
-#                     'object_title': cleaned['museum'].title,
+#                     'object_link': cleaned['location'].get_url(),
+#                     'object_title': cleaned['location'].title,
 #                 },
 #                 sender_name=sender_name,
 #                 sender_email=sender_email,
 #                 delete_after_sending=False,
 #             )
 #
-#             return redirect("invite_to_claim_museum_done")
+#             return redirect("invite_to_claim_location_done")
 #     else:
-#         museum_id = request.REQUEST.get("museum_id", None)
+#         location_id = request.REQUEST.get("location_id", None)
 #         try:
-#             museum = Museum.objects.get(pk=museum_id)
+#             location = Location.objects.get(pk=location_id)
 #         except:
-#             museum = None
-#         form = ClaimingInvitationForm(initial={'museum': museum})
+#             location = None
+#         form = ClaimingInvitationForm(initial={'location': location})
 #     context = {
 #         'form': form,
 #     }
@@ -294,15 +294,15 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #
 #
 # @never_cache
-# def register_and_claim_museum(request, invitation_code):
+# def register_and_claim_location(request, invitation_code):
 #     try:
-#         email, museum_id = decryptString(invitation_code).split("|")
+#         email, location_id = decryptString(invitation_code).split("|")
 #     except:
 #         raise Http404, _("Wrong invitation code.")
 #     try:
-#         museum = Museum.objects.get(pk=museum_id)
+#         location = Location.objects.get(pk=location_id)
 #     except:
-#         raise Http404, _("Museum doesn't exist.")
+#         raise Http404, _("Location doesn't exist.")
 #
 #     try:
 #         u = User.objects.get(email=email)
@@ -314,7 +314,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #
 #     if request.method == "POST":
 #         from django.contrib.auth.models import Group
-#         group, _created = Group.objects.get_or_create(name=u"Museum Owners")
+#         group, _created = Group.objects.get_or_create(name=u"Location Owners")
 #
 #         if "register" in request.POST:
 #             register_form = ClaimingRegisterForm(u, request.POST, prefix="register")
@@ -330,13 +330,13 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #                 u.set_password(cleaned['password'])
 #                 u.save()
 #                 u.groups.add(group)
-#                 # set museum's and its exhibitions' owner
-#                 museum.set_owner(u)
-#                 for e in museum.get_exhibitions():
+#                 # set location's and its exhibitions' owner
+#                 location.set_owner(u)
+#                 for e in location.get_exhibitions():
 #                     e.set_owner(u)
-#                 for e in museum.get_events():
+#                 for e in location.get_events():
 #                     e.set_owner(u)
-#                 for w in museum.get_workshops():
+#                 for w in location.get_workshops():
 #                     w.set_owner(u)
 #
 #                 # login the current user
@@ -348,26 +348,26 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #             if login_form.is_valid():
 #                 u = login_form.get_user()
 #                 u.groups.add(group)
-#                 # set museum's and its exhibitions' owner
-#                 museum.set_owner(u)
-#                 for e in museum.get_exhibitions():
+#                 # set location's and its exhibitions' owner
+#                 location.set_owner(u)
+#                 for e in location.get_exhibitions():
 #                     e.set_owner(u)
-#                 for e in museum.get_events():
+#                 for e in location.get_events():
 #                     e.set_owner(u)
-#                 for w in museum.get_workshops():
+#                 for w in location.get_workshops():
 #                     w.set_owner(u)
 #                 auth_login(request, u)
 #                 return redirect("dashboard")
 #         if "confirm" in request.POST:
 #             u = authenticate(email=email)
 #             u.groups.add(group)
-#             # set museum's and its exhibitions' owner
-#             museum.set_owner(u)
-#             for e in museum.get_exhibitions():
+#             # set location's and its exhibitions' owner
+#             location.set_owner(u)
+#             for e in location.get_exhibitions():
 #                 e.set_owner(u)
-#             for e in museum.get_events():
+#             for e in location.get_events():
 #                 e.set_owner(u)
-#             for w in museum.get_workshops():
+#             for w in location.get_workshops():
 #                 w.set_owner(u)
 #             auth_login(request, u)
 #             return redirect("dashboard")
@@ -375,7 +375,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 #     context = {
 #         'register_form': register_form,
 #         'login_form': login_form,
-#         'museum': museum,
+#         'location': location,
 #         'user': u,
 #     }
 #     if u:
@@ -474,9 +474,9 @@ uploader = AjaxFileUploader(backend=ASCIIFileSystemStorageBackend)
 #     """
 #     Displays the list of favorite objects
 #     """
-#     museum_ids = list(Favorite.objects.filter(
-#         content_type__app_label="museums",
-#         content_type__model="museum",
+#     location_ids = list(Favorite.objects.filter(
+#         content_type__app_label="locations",
+#         content_type__model="location",
 #         user=request.user,
 #     ).values_list("object_id", flat=True))
 #
@@ -499,7 +499,7 @@ uploader = AjaxFileUploader(backend=ASCIIFileSystemStorageBackend)
 #     ).values_list("object_id", flat=True))
 #
 #     favorites = (
-#         ('museums', Museum.objects.filter(id__in=museum_ids, status="published")),
+#         ('locations', Location.objects.filter(id__in=location_ids, status="published")),
 #         ('exhibitions', Exhibition.objects.filter(id__in=exhibition_ids, status="published")),
 #         ('events', Event.objects.filter(id__in=event_ids, status="published")),
 #         ('workshops', Workshop.objects.filter(id__in=workshop_ids, status="published")),
@@ -510,20 +510,20 @@ uploader = AjaxFileUploader(backend=ASCIIFileSystemStorageBackend)
 #
 #
 # @login_required
-# def favorite_museums(request, **kwargs):
+# def favorite_locations(request, **kwargs):
 #     """
 #     Displays the list of favorite objects
 #     """
-#     museum_ids = list(Favorite.objects.filter(
-#         content_type__app_label="museums",
-#         content_type__model="museum",
+#     location_ids = list(Favorite.objects.filter(
+#         content_type__app_label="locations",
+#         content_type__model="location",
 #         user=request.user,
 #     ).values_list("object_id", flat=True))
 #
 #     favorites = (
-#         ('museums', Museum.objects.filter(id__in=museum_ids, status="published")),
+#         ('locations', Location.objects.filter(id__in=location_ids, status="published")),
 #     )
-#     return render(request, "favorites/favorite_museums.html", {
+#     return render(request, "favorites/favorite_locations.html", {
 #         'favorites': favorites,
 #     })
 #

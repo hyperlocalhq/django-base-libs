@@ -3,25 +3,25 @@
 $(window).load(function() {
     var MAPPER = {
         // de
-        'menu-museen': 'mega_museums',
+        'menu-museen': 'mega_locations',
         'menu-ausstellungen': 'mega_exhibitions',
         'menu-veranstaltungen': 'mega_events',
         'menu-fuhrungen': 'mega_workshops',
         'menu-planen-organisieren': 'mega_plan_your_visit',
         // en
-        'menu-museums': 'mega_museums',
+        'menu-locations': 'mega_locations',
         'menu-exhibitions': 'mega_exhibitions',
         'menu-events': 'mega_events',
         'menu-guided-tours': 'mega_workshops',
         'menu-plan-your-visit': 'mega_plan_your_visit',
         // pl
-        'menu-muzea': 'mega_museums',
+        'menu-muzea': 'mega_locations',
         'menu-wystawy': 'mega_exhibitions',
         'menu-wydarzenia': 'mega_events',
         'menu-oprowadzanie': 'mega_workshops',
         'menu-planowanie-organizacja': 'mega_plan_your_visit',
         // fr
-        'menu-musees': 'mega_museums',
+        'menu-musees': 'mega_locations',
         'menu-expositions': 'mega_exhibitions',
         'menu-spectacles': 'mega_events',
         'menu-visites-guidees': 'mega_workshops',

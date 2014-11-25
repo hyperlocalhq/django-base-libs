@@ -10,7 +10,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
 User = models.get_model("auth", "User")
-Museum = models.get_model("museums", "Museum")
+Location = models.get_model("locations", "Location")
 
 
 class EmailOrUsernameAuthentication(AuthenticationForm):
@@ -63,9 +63,9 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
 
 # class ClaimingInvitationForm(forms.Form):
-#     museum = forms.ModelChoiceField(
-#         label=_("Museum"),
-#         queryset=Museum.objects.all(),
+#     location = forms.ModelChoiceField(
+#         label=_("Location"),
+#         queryset=Location.objects.all(),
 #     )
 #     email = forms.EmailField(label=_("Owner's email"))
 #
@@ -79,7 +79,7 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 #         self.helper.layout = layout.Layout(
 #             layout.Fieldset(
 #                 "", # no legend
-#                 "museum",
+#                 "location",
 #                 "email",
 #             ),
 #             bootstrap.FormActions(

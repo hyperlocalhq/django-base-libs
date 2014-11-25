@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django settings for berlinbuehnen project.
 
-# -*- coding: utf-8 -*-
-
-# Django settings for museumsportal project.
 import os
 _ = gettext = lambda s: s
 
@@ -229,7 +226,7 @@ ADMIN_APP_INDEX = (
             ('blocks', {
                 'models': ('InfoBlock',),
             }),
-            ('museums', {
+            ('locations', {
                 'models': ('MuseumCategory','MuseumService','AccessibilityOption', 'Museum',),
             }),
             ('exhibitions', {
@@ -403,11 +400,6 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Series Items")
     },
 
-    'jewish_museum': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Jewish Museum")
-    },
-
     'series_exhibitions': {
         'plugins': ("EditorialContentPlugin",),
         'name': _("Series Exhibitions")
@@ -546,7 +538,7 @@ HAYSTACK_CONNECTIONS = {
         'POST_LIMIT': 128 * 1024 * 1024,
         'INCLUDE_SPELLING': True,
         'BATCH_SIZE': 100,
-        'URL': 'http://www.museumsportal-berlin.de/de/suche/',
+        'URL': 'http://www.locationsportal-berlin.de/de/suche/',
     },
     'en': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
@@ -555,7 +547,7 @@ HAYSTACK_CONNECTIONS = {
         'POST_LIMIT': 128 * 1024 * 1024,
         'INCLUDE_SPELLING': True,
         'BATCH_SIZE': 100,
-        'URL': 'http://www.museumsportal-berlin.de/en/search/',
+        'URL': 'http://www.locationsportal-berlin.de/en/search/',
     },
 }
 
@@ -568,7 +560,7 @@ ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
 
 ARTICLES_HAVE_TYPES = False
 
-TWITTER_USERNAME = "museumsportal"
+TWITTER_USERNAME = "locationsportal"
 TWITTER_NUMBER_OF_TWEETS = 4
 
 TWITTER_CONSUMER_KEY = "JXZlfw8Z5jmkjGnQrL8xA"

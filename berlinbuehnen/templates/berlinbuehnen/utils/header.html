@@ -31,12 +31,6 @@
               <span class="sr-only">Twitter</span>
             </a>
           </li>
-          <li>
-            <a class="btn btn-link btn-icon" href="http://instagram.com/museumsportal" target="_blank">
-              <span class="icon icon-social-instagram"></span>
-              <span class="sr-only">Instagram</span>
-            </a>
-          </li>
         </ul>
 
         {% if request.user.is_authenticated %}
@@ -53,7 +47,7 @@
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
                   <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
-                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Museums" %}</a></li>
                   <li class="divider"></li>
                 {% endif %}
                 {% if request.user|in_group:"Museum Owners" or request.user|in_group:"Shop Admins" or request.user.is_superuser %}
@@ -70,8 +64,8 @@
           </div>
         {% else %}
           {% comment %}
-              <!-- <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
-              <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
+            <!-- <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
+            <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
           {% endcomment %}
           <div id="user-menu" class="pull-left hidden-xs">
             <a class="btn btn-info" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a>
@@ -95,21 +89,15 @@
 		
         <ul class="nav navbar-nav social-bar visible-xs">
           <li>
-            <a class="btn btn-link btn-icon" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">
+            <a class="btn btn-link btn-icon" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank">
               <span class="icon icon-social-facebook"></span>
               <span class="sr-only">Facebook</span>
             </a>
           </li>
           <li>
-            <a class="btn btn-link btn-icon" href="https://twitter.com/museumsportal" target="_blank">
+            <a class="btn btn-link btn-icon" href="https://twitter.com/#!/berlinbuehnen" target="_blank">
               <span class="icon icon-social-twitter"></span>
               <span class="sr-only">Twitter</span>
-            </a>
-          </li>
-          <li>
-            <a class="btn btn-link btn-icon" href="http://instagram.com/museumsportal" target="_blank">
-              <span class="icon icon-social-instagram"></span>
-              <span class="sr-only">Instagram</span>
             </a>
           </li>
         </ul>
@@ -150,8 +138,8 @@
             {% endif %}
     
             {% comment %}
-            <li class="visible-xs"><a href="https://twitter.com/museumsportal" target="_blank">Twitter</a></li>
-            <li class="visible-xs"><a href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">Facebook</a></li>
+            <li class="visible-xs"><a href="https://twitter.com/#!/berlinbuehnen" target="_blank">Twitter</a></li>
+            <li class="visible-xs"><a href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank">Facebook</a></li>
             {% endcomment %}
         </ul>
 

@@ -11,12 +11,12 @@ class CMSSitemap(CMSSitemapBase):
         return all_pages
 
 
-# class MuseumSitemap(Sitemap):
+# class LocationSitemap(Sitemap):
 #     changefreq = "daily"
 #     priority = 0.5
 #
 #     def items(self):
-#         return Museum.objects.filter(status="published")
+#         return Location.objects.filter(status="published")
 #
 #     def lastmod(self, obj):
 #         return obj.modified_date
@@ -57,7 +57,7 @@ class CMSSitemap(CMSSitemapBase):
 
 sitemaps = {
     'cms_pages': CMSSitemap,
-    # 'museums': MuseumSitemap,
+    # 'locations': LocationSitemap,
     # 'exhibitions': ExhibitionSitemap,
     # 'events': EventSitemap,
     # 'workshops': WorkshopSitemap,
