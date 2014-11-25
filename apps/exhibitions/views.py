@@ -137,7 +137,7 @@ def exhibition_list(request):
                 qs = qs.filter(
                     start__gt=today,
                 )
-            elif cat == "newly_opened":
+            elif cat == "newly_open":
                 # today - 2 weeks < EXHIBITION START <= today
                 qs = qs.filter(
                     start__gt=today-two_weeks,
