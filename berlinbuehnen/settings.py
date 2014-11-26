@@ -213,6 +213,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.articles",
     "berlinbuehnen.apps.mailchimp",
     "berlinbuehnen.apps.mega_menu",
+    "berlinbuehnen.apps.locations",
 )
 
 
@@ -229,7 +230,7 @@ ADMIN_APP_INDEX = (
                 'models': ('InfoBlock',),
             }),
             ('locations', {
-                'models': ('MuseumCategory','MuseumService','AccessibilityOption', 'Museum',),
+                'models': ('Service','AccessibilityOption','Location',),
             }),
             ('exhibitions', {
                 'models': ('ExhibitionCategory','Exhibition',),

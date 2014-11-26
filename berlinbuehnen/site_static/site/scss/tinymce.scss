@@ -1,0 +1,16 @@
+.img_and_desc {
+    background: #fff;
+    display: inline-block;
+    padding: 10px !important;
+}
+
+body#tinymce {
+}
+
+body#tinymce .img_and_desc div {
+    margin: 0;
+}
+
+.img_and_desc div.title {
+    font-weight: bold;
+}
