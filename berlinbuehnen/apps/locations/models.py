@@ -153,7 +153,6 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin()):
     def remove_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
         PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
-        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
         try:
             role = PerObjectGroup.objects.get(
                 sysname__startswith="owners",
@@ -203,7 +202,7 @@ class Stage(CreationModificationMixin, SlugMixin()):
 
 class Image(CreationModificationDateMixin):
     location = models.ForeignKey(Location, verbose_name=_("Location"))
-    path = FileBrowseField(_('File path'), max_length=255, directory="locations/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image, video, or audio file."))
+    path = FileBrowseField(_('File path'), max_length=255, directory="locations/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     sort_order = PositionField(_("Sort order"), collection="location")
 
     class Meta:

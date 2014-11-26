@@ -214,6 +214,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.mailchimp",
     "berlinbuehnen.apps.mega_menu",
     "berlinbuehnen.apps.locations",
+    #"berlinbuehnen.apps.productions",
 )
 
 
