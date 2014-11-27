@@ -30,6 +30,11 @@ STATUS_CHOICES = (
     ('trashed', _("Trashed")),
 )
 
+COPYRIGHT_RESTRICTION_CHOICES = (
+    ('general_use', _("Released for general use")),
+    ('protected', _("Released for this and own site only"))
+)
+
 
 class LanguageAndSubtitles(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -208,6 +213,7 @@ class ProductionVideo(CreationModificationDateMixin):
 class ProductionImage(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Prodution"))
     path = FileBrowseField(_('File path'), max_length=255, directory="productions/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
     sort_order = PositionField(_("Sort order"), collection="location")
 
     class Meta:

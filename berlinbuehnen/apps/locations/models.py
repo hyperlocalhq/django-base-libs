@@ -26,6 +26,11 @@ STATUS_CHOICES = (
     ('trashed', _("Trashed")),
 )
 
+COPYRIGHT_RESTRICTION_CHOICES = (
+    ('general_use', _("Released for general use")),
+    ('protected', _("Released for this and own site only"))
+)
+
 
 class Service(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -203,6 +208,7 @@ class Stage(CreationModificationMixin, SlugMixin()):
 class Image(CreationModificationDateMixin):
     location = models.ForeignKey(Location, verbose_name=_("Location"))
     path = FileBrowseField(_('File path'), max_length=255, directory="locations/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
     sort_order = PositionField(_("Sort order"), collection="location")
 
     class Meta:

@@ -1,0 +1,66 @@
+# -*- coding: UTF-8 -*-
+
+from django.contrib import admin
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _, ugettext
+
+from base_libs.admin import ExtendedModelAdmin
+from base_libs.admin import ExtendedStackedInline
+from base_libs.models.admin import get_admin_lang_section
+
+from filebrowser.settings import URL_FILEBROWSER_MEDIA
+
+from models import Prefix
+from models import InvolvementType
+from models import AuthorshipType
+from models import Person
+
+
+class PrefixAdmin(ExtendedModelAdmin):
+    save_on_top = True
+    list_display = ['title', 'sort_order']
+
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug', 'gender', 'sort_order', )}),]
+
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+admin.site.register(Prefix, PrefixAdmin)
+
+
+class InvolvementTypeAdmin(ExtendedModelAdmin):
+    save_on_top = True
+    list_display = ['title', 'sort_order']
+
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
+
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+admin.site.register(InvolvementType, InvolvementTypeAdmin)
+
+
+class AuthorshipTypeAdmin(ExtendedModelAdmin):
+    save_on_top = True
+    list_display = ['title', 'sort_order']
+
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
+
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+admin.site.register(AuthorshipType, AuthorshipTypeAdmin)
+
+
+class PersonAdmin(ExtendedModelAdmin):
+    class Media:
+        js = (
+            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
+        )
+
+    fieldsets = [(None, {'fields': ('prefix', 'first_name', 'last_name', 'slug')}),]
+    fieldsets += [(_('Defaults'), {'fields': ('involvement_type', 'authorship_type', get_admin_lang_section(_("Functions"), ['leadership_function', 'involvement_role', 'involvement_instrument',]))}),]
+
+    prepopulated_fields = {"slug": ("first_name", "last_name"),}
+
+admin.site.register(Person, PersonAdmin)

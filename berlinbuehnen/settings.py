@@ -214,6 +214,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.mailchimp",
     "berlinbuehnen.apps.mega_menu",
     "berlinbuehnen.apps.locations",
+    "berlinbuehnen.apps.people",
     #"berlinbuehnen.apps.productions",
 )
 
@@ -231,10 +232,10 @@ ADMIN_APP_INDEX = (
                 'models': ('InfoBlock',),
             }),
             ('locations', {
-                'models': ('Service','AccessibilityOption','Location',),
+                'models': ('Service', 'AccessibilityOption', 'Location',),
             }),
-            ('exhibitions', {
-                'models': ('ExhibitionCategory','Exhibition',),
+            ('people', {
+                'models': ('Prefix', 'InvolvementType', 'AuthorshipType', 'Person'),
             }),
             ('events', {
                 'models': ('EventCategory','Event',),
