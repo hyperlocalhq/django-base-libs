@@ -84,4 +84,4 @@ class Person(CreationModificationMixin, SlugMixin(prepopulate_from=("first_name"
         ordering = ['last_name', 'first_name']
 
     def __unicode__(self):
-        return self.title
+        return self.first_name + ' ' + self.last_name

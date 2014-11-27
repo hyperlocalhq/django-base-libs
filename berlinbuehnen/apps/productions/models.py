@@ -241,3 +241,47 @@ class ProductionPDF(CreationModificationDateMixin):
         if self.path:
             return self.path.path
         return "Missing file (id=%s)" % self.pk
+
+
+class ProductionLeadership(CreationModificationDateMixin):
+    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    function = MultilingualCharField(_('Function'), max_length=255, blank=True)
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Leadership")
+        verbose_name_plural = _("Leaderships")
+
+    def __unicode__(self):
+        return unicode(self.person)
+
+
+class ProductionAuthorship(CreationModificationDateMixin):
+    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Authorship")
+        verbose_name_plural = _("Authorships")
+
+    def __unicode__(self):
+        return unicode(self.person)
+
+
+class ProductionInvolvement(CreationModificationDateMixin):
+    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'))
+    involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
+    involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Involvement")
+        verbose_name_plural = _("Involvements")
+
+    def __unicode__(self):
+        return unicode(self.person)

@@ -215,6 +215,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.mega_menu",
     "berlinbuehnen.apps.locations",
     "berlinbuehnen.apps.people",
+    "berlinbuehnen.apps.festivals",
     #"berlinbuehnen.apps.productions",
 )
 
@@ -236,6 +237,9 @@ ADMIN_APP_INDEX = (
             }),
             ('people', {
                 'models': ('Prefix', 'InvolvementType', 'AuthorshipType', 'Person'),
+            }),
+            ('festivals', {
+                'models': ('Festival',),
             }),
             ('events', {
                 'models': ('EventCategory','Event',),

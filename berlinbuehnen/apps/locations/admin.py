@@ -88,6 +88,7 @@ class LocationAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Tickets"), {'fields': ('tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city', 'tickets_email', 'tickets_website')}),]
     fieldsets += [(_("Services"), {'fields': ('services',)}),]
     fieldsets += [(_("Accessibility"), {'fields': ('accessibility_options',)}),]
+    fieldsets += [(_("Status"), {'fields': ('status',)}),]
 
     inlines = [StageInline, ImageInline, SocialMediaChannelInline]
 

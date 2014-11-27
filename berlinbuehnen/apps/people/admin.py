@@ -60,6 +60,7 @@ class PersonAdmin(ExtendedModelAdmin):
 
     fieldsets = [(None, {'fields': ('prefix', 'first_name', 'last_name', 'slug')}),]
     fieldsets += [(_('Defaults'), {'fields': ('involvement_type', 'authorship_type', get_admin_lang_section(_("Functions"), ['leadership_function', 'involvement_role', 'involvement_instrument',]))}),]
+    fieldsets += [(_("Status"), {'fields': ('status',)}),]
 
     prepopulated_fields = {"slug": ("first_name", "last_name"),}
 
