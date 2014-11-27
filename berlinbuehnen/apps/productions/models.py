@@ -195,7 +195,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
 
 class ProductionVideo(CreationModificationDateMixin):
-    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
     link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
     sort_order = PositionField(_("Sort order"), collection="location")
 
@@ -211,7 +211,7 @@ class ProductionVideo(CreationModificationDateMixin):
 
 
 class ProductionImage(CreationModificationDateMixin):
-    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
     path = FileBrowseField(_('File path'), max_length=255, directory="productions/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
     sort_order = PositionField(_("Sort order"), collection="location")
@@ -228,7 +228,7 @@ class ProductionImage(CreationModificationDateMixin):
 
 
 class ProductionPDF(CreationModificationDateMixin):
-    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
     path = FileBrowseField(_('File path'), max_length=255, directory="productions/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
     sort_order = PositionField(_("Sort order"), collection="location")
 
@@ -244,7 +244,7 @@ class ProductionPDF(CreationModificationDateMixin):
 
 
 class ProductionLeadership(CreationModificationDateMixin):
-    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
 
@@ -258,7 +258,7 @@ class ProductionLeadership(CreationModificationDateMixin):
 
 
 class ProductionAuthorship(CreationModificationDateMixin):
-    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
 
@@ -272,7 +272,7 @@ class ProductionAuthorship(CreationModificationDateMixin):
 
 
 class ProductionInvolvement(CreationModificationDateMixin):
-    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
     involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'))
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
@@ -285,3 +285,115 @@ class ProductionInvolvement(CreationModificationDateMixin):
 
     def __unicode__(self):
         return unicode(self.person)
+
+
+class Event(CreationModificationMixin, UrlMixin):
+    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    start_date = models.DateField(_("Start date"))
+    end_date = models.DateField(_("End date"), blank=True, null=True)
+    start_time = models.TimeField(_("Start time"))
+    duration = models.TimeField(_("Duration"))
+    pauses = models.PositiveIntegerField(_("Pauses"), default=0)
+
+    class Meta:
+        ordering = ["start_date", "start_time"]
+        verbose_name = _("Event")
+        verbose_name_plural = _("Events")
+
+    def __unicode__(self):
+        return unicode(self.production) + ' ' + self.start_date.strftime('%Y-%m-%d')
+
+
+class EventVideo(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
+    sort_order = PositionField(_("Sort order"), collection="location")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Video")
+        verbose_name_plural = _("Videos")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+
+class EventImage(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    path = FileBrowseField(_('File path'), max_length=255, directory="events/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
+    sort_order = PositionField(_("Sort order"), collection="location")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Image")
+        verbose_name_plural = _("Images")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+
+class EventPDF(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    path = FileBrowseField(_('File path'), max_length=255, directory="events/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
+    sort_order = PositionField(_("Sort order"), collection="location")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("PDF")
+        verbose_name_plural = _("PDFs")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+
+class EventLeadership(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    function = MultilingualCharField(_('Function'), max_length=255, blank=True)
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Leadership")
+        verbose_name_plural = _("Leaderships")
+
+    def __unicode__(self):
+        return unicode(self.person)
+
+
+class EventAuthorship(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Authorship")
+        verbose_name_plural = _("Authorships")
+
+    def __unicode__(self):
+        return unicode(self.person)
+
+
+class EventInvolvement(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'))
+    involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
+    involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Involvement")
+        verbose_name_plural = _("Involvements")
+
+    def __unicode__(self):
+        return unicode(self.person)
+
+
