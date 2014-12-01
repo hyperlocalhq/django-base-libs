@@ -35,6 +35,13 @@ COPYRIGHT_RESTRICTION_CHOICES = (
     ('protected', _("Released for this and own site only"))
 )
 
+TICKET_STATUS_CHOICES = (
+    ('takes_place', _("Takes place")),
+    ('is_happening', _("Is happening")),
+    ('sold_out', _("Sold out")),
+    ('tickets_@_box_office', _("Tickets at the box office")),
+)
+
 
 class LanguageAndSubtitles(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -45,8 +52,8 @@ class LanguageAndSubtitles(CreationModificationDateMixin, SlugMixin()):
 
     class Meta:
         ordering = ['sort_order']
-        verbose_name = _("Service")
-        verbose_name_plural = _("Services")
+        verbose_name = _("Language and Subtitles")
+        verbose_name_plural = _("Languages and Subtitles")
 
 
 class ProductionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
@@ -67,6 +74,19 @@ class ProductionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
         if not self.pk:
             ProductionCategory.objects.insert_node(self, self.parent)
         super(ProductionCategory, self).save(*args, **kwargs)
+
+
+class ProductionCharacteristics(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = _("Production Characteristics")
+        verbose_name_plural = _("Production Characteristics")
 
 
 class ProductionManager(models.Manager):
@@ -107,12 +127,18 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     festivals = models.ManyToManyField("festivals.Festival", verbose_name=_("Festivals"), blank=True)
     language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
+    related_productions = models.ManyToManyField("self", verbose_name=_("Related productions"))
 
     free_entrance = models.BooleanField(_("Free entrance"))
     price_from = models.DecimalField(_(u"Price from (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     price_till = models.DecimalField(_(u"Price till (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     tickets_website = URLField("Tickets website", blank=True)
     price_information = MultilingualTextField(_("Additional price information"), blank=True)
+
+    characteristics = models.ManyToManyField(ProductionCharacteristics, verbose_name=_("Characteristics"), blank=True)
+    age_from = models.PositiveSmallIntegerField(_(u"Age from"), blank=True, null=True)
+    age_till = models.PositiveSmallIntegerField(_(u"Age till"), blank=True, null=True)
+    edu_offer_website = URLField("Educational offer website", blank=True)
 
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
@@ -243,6 +269,24 @@ class ProductionPDF(CreationModificationDateMixin):
         return "Missing file (id=%s)" % self.pk
 
 
+class ProductionSponsor(CreationModificationDateMixin):
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
+    title = models.CharField(_('Title'), max_length=255, blank=True)
+    path = FileBrowseField(_('File path'), max_length=255, directory="sponsors/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    website = URLField("Website", blank=True)
+    sort_order = PositionField(_("Sort order"), collection="location")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Sponsor")
+        verbose_name_plural = _("Sponsors")
+
+    def __unicode__(self):
+        if self.path:
+            return self.path.path
+        return "Missing file (id=%s)" % self.pk
+
+
 class ProductionLeadership(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
@@ -287,13 +331,41 @@ class ProductionInvolvement(CreationModificationDateMixin):
         return unicode(self.person)
 
 
+class EventCharacteristics(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = _("Event Characteristics")
+        verbose_name_plural = _("Event Characteristics")
+
+
 class Event(CreationModificationMixin, UrlMixin):
     production = models.ForeignKey(Production, verbose_name=_("Prodution"))
     start_date = models.DateField(_("Start date"))
     end_date = models.DateField(_("End date"), blank=True, null=True)
     start_time = models.TimeField(_("Start time"))
-    duration = models.TimeField(_("Duration"))
+    end_time = models.TimeField(_("End time"))
+    duration = models.PositiveIntegerField(_("Duration in seconds"))
     pauses = models.PositiveIntegerField(_("Pauses"), default=0)
+
+    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Play locations"), blank=True)
+    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Play stages"), blank=True)
+
+    description = MultilingualTextField(_("Description"), blank=True)
+    teaser = MultilingualTextField(_("Teaser"), blank=True)
+    work_info = MultilingualTextField(_("Work info"), blank=True)
+    contents = MultilingualTextField(_("Contents"), blank=True)
+    press_text = MultilingualTextField(_("Press text"), blank=True)
+
+    ticket_status = models.CharField(_("Ticket status"), max_length=20, choices=TICKET_STATUS_CHOICES, blank=True)
+
+    characteristics = models.ManyToManyField(EventCharacteristics, verbose_name=_("Characteristics"), blank=True)
+    other_characteristics = MultilingualTextField(_("Other characteristics"), blank=True)
 
     class Meta:
         ordering = ["start_date", "start_time"]
