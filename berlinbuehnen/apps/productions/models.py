@@ -36,10 +36,13 @@ COPYRIGHT_RESTRICTION_CHOICES = (
 )
 
 TICKET_STATUS_CHOICES = (
-    ('takes_place', _("Takes place")),
-    ('is_happening', _("Is happening")),
     ('sold_out', _("Sold out")),
     ('tickets_@_box_office', _("Tickets at the box office")),
+)
+
+EVENT_STATUS_CHOICES = (
+    ('takes_place', _("Takes place")),
+    ('canceled', _("Canceled")),
 )
 
 
@@ -108,7 +111,15 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     original = MultilingualCharField(_("Original title"), max_length=255)
-    website = URLField("Production URL", blank=True)
+    website = URLField(_("Production URL"), blank=True)
+
+    location_title = models.CharField(_("Location title"), max_length=255, blank=True)
+    street_address = models.CharField(_("Street address"), max_length=255, blank=True)
+    street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
+    postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
+    city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
+    latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
+    longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
 
     in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In program of"), blank=True)
     ensembles = models.ManyToManyField("locations.Location", verbose_name=_("Ensembles"), blank=True)
@@ -124,6 +135,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     work_info = MultilingualTextField(_("Work info"), blank=True)
     contents = MultilingualTextField(_("Contents"), blank=True)
     press_text = MultilingualTextField(_("Press text"), blank=True)
+    credits = MultilingualTextField(_("Credits"), blank=True)
 
     festivals = models.ManyToManyField("festivals.Festival", verbose_name=_("Festivals"), blank=True)
     language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
@@ -132,14 +144,15 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     free_entrance = models.BooleanField(_("Free entrance"))
     price_from = models.DecimalField(_(u"Price from (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     price_till = models.DecimalField(_(u"Price till (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
-    tickets_website = URLField("Tickets website", blank=True)
+    tickets_website = URLField(_("Tickets website"), blank=True)
     price_information = MultilingualTextField(_("Additional price information"), blank=True)
 
     characteristics = models.ManyToManyField(ProductionCharacteristics, verbose_name=_("Characteristics"), blank=True)
     age_from = models.PositiveSmallIntegerField(_(u"Age from"), blank=True, null=True)
     age_till = models.PositiveSmallIntegerField(_(u"Age till"), blank=True, null=True)
-    edu_offer_website = URLField("Educational offer website", blank=True)
+    edu_offer_website = URLField(_("Educational offer website"), blank=True)
 
+    sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
@@ -269,24 +282,6 @@ class ProductionPDF(CreationModificationDateMixin):
         return "Missing file (id=%s)" % self.pk
 
 
-class ProductionSponsor(CreationModificationDateMixin):
-    production = models.ForeignKey(Production, verbose_name=_("Production"))
-    title = models.CharField(_('Title'), max_length=255, blank=True)
-    path = FileBrowseField(_('File path'), max_length=255, directory="sponsors/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
-    website = URLField("Website", blank=True)
-    sort_order = PositionField(_("Sort order"), collection="location")
-
-    class Meta:
-        ordering = ["sort_order", "creation_date"]
-        verbose_name = _("Sponsor")
-        verbose_name_plural = _("Sponsors")
-
-    def __unicode__(self):
-        if self.path:
-            return self.path.path
-        return "Missing file (id=%s)" % self.pk
-
-
 class ProductionLeadership(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
@@ -356,12 +351,22 @@ class Event(CreationModificationMixin, UrlMixin):
     play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Play locations"), blank=True)
     play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Play stages"), blank=True)
 
+    location_title = models.CharField(_("Location title"), max_length=255, blank=True)
+    street_address = models.CharField(_("Street address"), max_length=255, blank=True)
+    street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
+    postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
+    city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
+    latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
+    longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
+
     description = MultilingualTextField(_("Description"), blank=True)
     teaser = MultilingualTextField(_("Teaser"), blank=True)
     work_info = MultilingualTextField(_("Work info"), blank=True)
     contents = MultilingualTextField(_("Contents"), blank=True)
     press_text = MultilingualTextField(_("Press text"), blank=True)
+    credits = MultilingualTextField(_("Credits"), blank=True)
 
+    event_status = models.CharField(_("Event status"), max_length=20, choices=EVENT_STATUS_CHOICES, blank=True)
     ticket_status = models.CharField(_("Ticket status"), max_length=20, choices=TICKET_STATUS_CHOICES, blank=True)
 
     characteristics = models.ManyToManyField(EventCharacteristics, verbose_name=_("Characteristics"), blank=True)
