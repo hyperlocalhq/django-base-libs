@@ -217,7 +217,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.people",
     "berlinbuehnen.apps.festivals",
     "berlinbuehnen.apps.sponsors",
-    #"berlinbuehnen.apps.productions",
+    "berlinbuehnen.apps.productions",
 )
 
 

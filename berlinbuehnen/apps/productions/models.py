@@ -36,8 +36,8 @@ COPYRIGHT_RESTRICTION_CHOICES = (
 )
 
 TICKET_STATUS_CHOICES = (
-    ('sold_out', _("Sold out")),
     ('tickets_@_box_office', _("Tickets at the box office")),
+    ('sold_out', _("Sold out")),
 )
 
 EVENT_STATUS_CHOICES = (
@@ -113,6 +113,13 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     original = MultilingualCharField(_("Original title"), max_length=255)
     website = URLField(_("Production URL"), blank=True)
 
+    in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In program of"), blank=True, related_name="program_productions")
+    ensembles = models.ManyToManyField("locations.Location", verbose_name=_("Ensembles"), blank=True, related_name="ensembled_productions")
+    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Play locations"), blank=True, related_name="located_productions")
+    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Play stages"), blank=True)
+    organizers = models.ManyToManyField("locations.Location", verbose_name=_("Organizers"), blank=True, related_name="organized_productions")
+    in_cooperation_with = models.ManyToManyField("locations.Location", verbose_name=_("In cooperation with"), blank=True, related_name="cooperated_productions")
+
     location_title = models.CharField(_("Location title"), max_length=255, blank=True)
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
@@ -120,13 +127,6 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
-
-    in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In program of"), blank=True)
-    ensembles = models.ManyToManyField("locations.Location", verbose_name=_("Ensembles"), blank=True)
-    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Play locations"), blank=True)
-    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Play stages"), blank=True)
-    organizers = models.ManyToManyField("locations.Location", verbose_name=_("Organizers"), blank=True)
-    in_cooperation_with = models.ManyToManyField("locations.Location", verbose_name=_("In cooperation with"), blank=True)
 
     categories = TreeManyToManyField(ProductionCategory, verbose_name=_("Categories"), blank=True)
 
@@ -288,7 +288,7 @@ class ProductionLeadership(CreationModificationDateMixin):
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
 
     class Meta:
-        ordering = ["sort_order", "creation_date"]
+        ordering = ["person__last_name", "person__first_name"]
         verbose_name = _("Leadership")
         verbose_name_plural = _("Leaderships")
 
@@ -302,7 +302,7 @@ class ProductionAuthorship(CreationModificationDateMixin):
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
 
     class Meta:
-        ordering = ["sort_order", "creation_date"]
+        ordering = ["person__last_name", "person__first_name"]
         verbose_name = _("Authorship")
         verbose_name_plural = _("Authorships")
 
@@ -318,7 +318,7 @@ class ProductionInvolvement(CreationModificationDateMixin):
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
 
     class Meta:
-        ordering = ["sort_order", "creation_date"]
+        ordering = ["person__last_name", "person__first_name"]
         verbose_name = _("Involvement")
         verbose_name_plural = _("Involvements")
 
@@ -436,7 +436,7 @@ class EventLeadership(CreationModificationDateMixin):
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
 
     class Meta:
-        ordering = ["sort_order", "creation_date"]
+        ordering = ["person__last_name", "person__first_name"]
         verbose_name = _("Leadership")
         verbose_name_plural = _("Leaderships")
 
@@ -450,7 +450,7 @@ class EventAuthorship(CreationModificationDateMixin):
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
 
     class Meta:
-        ordering = ["sort_order", "creation_date"]
+        ordering = ["person__last_name", "person__first_name"]
         verbose_name = _("Authorship")
         verbose_name_plural = _("Authorships")
 
@@ -466,7 +466,7 @@ class EventInvolvement(CreationModificationDateMixin):
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
 
     class Meta:
-        ordering = ["sort_order", "creation_date"]
+        ordering = ["person__last_name", "person__first_name"]
         verbose_name = _("Involvement")
         verbose_name_plural = _("Involvements")
 
