@@ -107,10 +107,10 @@ class ProductionManager(models.Manager):
 
 
 class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
-    prefix = MultilingualCharField(_("Title prefix"), max_length=255)
+    prefix = MultilingualCharField(_("Title prefix"), max_length=255, blank=True)
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
-    original = MultilingualCharField(_("Original title"), max_length=255)
+    original = MultilingualCharField(_("Original title"), max_length=255, blank=True)
     website = URLField(_("Production URL"), blank=True)
 
     in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In program of"), blank=True, related_name="program_productions")
