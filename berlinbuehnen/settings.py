@@ -208,6 +208,7 @@ INSTALLED_APPS = (
     "jetson.apps.blocks",
     "jetson.apps.configuration",
     "jetson.apps.mailing",
+    "jetson.apps.external_services",
 
     ### berlin buehnen apps ###
     "berlinbuehnen.apps.articles",
