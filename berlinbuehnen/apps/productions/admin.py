@@ -43,7 +43,7 @@ admin.site.register(LanguageAndSubtitles, LanguageAndSubtitlesAdmin)
 
 class ProductionCategoryAdmin(TreeEditor, ExtendedModelAdmin):
     save_on_top = True
-    list_display = ['actions_column', 'title']
+    list_display = ['actions_column', 'indented_short_title', ]
 
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
     fieldsets += [(None, {'fields': ('slug', 'parent')}),]
