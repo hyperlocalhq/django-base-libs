@@ -193,7 +193,10 @@ class Command(NoArgsCommand):
         return location, False
 
     def save_page(self, root_node):
+        import time
+        from filebrowser.models import FileDescription
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        image_mods = models.get_app("image_mods")
 
         for prod_node in root_node.findall('%(prefix)sProduction' % self.helper_dict):
             external_prod_id = prod_node.get('Id')
@@ -305,10 +308,41 @@ class Command(NoArgsCommand):
                     prod.play_locations.clear()
                     prod.play_locations.add(location)
 
-            for picture_node in prod_node.findall('%(prefix)sPicture' % self.helper_dict):
-                print smart_str(self.get_child_text(picture_node, 'Url'))
-                print smart_str(self.get_child_text(picture_node, 'Description', Language="de"))
-                print smart_str(self.get_child_text(picture_node, 'PublishType') == "publish_type_for_free_use")
+            if not self.skip_images and not prod.productionimage_set.count():
+                for picture_node in prod_node.findall('%(prefix)sPicture' % self.helper_dict):
+                    print smart_str()
+                    print smart_str(self.get_child_text(picture_node, 'PublishType') == "publish_type_for_free_use")
+                    image_url = self.get_child_text(picture_node, 'Url')
+                    mf = ProductionImage(production=prod)
+                    filename = image_url.split("/")[-1]
+                    image_response = requests.get(image_url)
+                    if image_response.status_code == 200:
+                        image_mods.FileManager.save_file_for_object(
+                            mf,
+                            filename,
+                            image_response.iter_content(),
+                            field_name="path",
+                            subpath="productions/%s/gallery/" % prod.slug,
+                        )
+                        if self.get_child_text(picture_node, 'PublishType') == "publish_type_for_free_use":
+                            mf.copyright_restrictions = "general_use"
+                        else:
+                            mf.copyright_restrictions = "protected"
+                        mf.save()
+                        try:
+                            file_description = FileDescription.objects.filter(
+                                file_path=mf.path,
+                            ).order_by("pk")[0]
+                        except:
+                            file_description = FileDescription(file_path=mf.path)
+
+                        file_description.title_de = self.get_child_text(picture_node, 'Title', Language="de")
+                        file_description.title_en = self.get_child_text(picture_node, 'Title', Language="en")
+                        file_description.description_de = self.get_child_text(picture_node, 'Description', Language="de")
+                        file_description.description_en = self.get_child_text(picture_node, 'Description', Language="en")
+                        file_description.author = self.get_child_text(picture_node, 'Photographer')
+                        file_description.save()
+                        time.sleep(1)
 
             for category_id_node in prod_node.findall('%(prefix)sContentCategory/%(prefix)sCategoryId' % self.helper_dict):
                 internal_cat_id = self.CATEGORY_MAPPER.get(int(category_id_node.text), None)
@@ -431,6 +465,40 @@ class Command(NoArgsCommand):
                     elif text_cat_id == 40:  # Audio & Video
                         pass
                 event.save()
+
+                if not self.skip_images and not event.eventimage_set.count():
+                    for picture_node in event_node.findall('%(prefix)sPicture' % self.helper_dict):
+                        image_url = self.get_child_text(picture_node, 'Url')
+                        mf = EventImage(event=event)
+                        filename = image_url.split("/")[-1]
+                        image_response = requests.get(image_url)
+                        if image_response.status_code == 200:
+                            image_mods.FileManager.save_file_for_object(
+                                mf,
+                                filename,
+                                image_response.iter_content(),
+                                field_name="path",
+                                subpath="productions/%s/events/%s/gallery/" % (prod.slug, event.pk),
+                            )
+                            if self.get_child_text(picture_node, 'PublishType') == "publish_type_for_free_use":
+                                mf.copyright_restrictions = "general_use"
+                            else:
+                                mf.copyright_restrictions = "protected"
+                            mf.save()
+                            try:
+                                file_description = FileDescription.objects.filter(
+                                    file_path=mf.path,
+                                ).order_by("pk")[0]
+                            except:
+                                file_description = FileDescription(file_path=mf.path)
+
+                            file_description.title_de = self.get_child_text(picture_node, 'Title', Language="de")
+                            file_description.title_en = self.get_child_text(picture_node, 'Title', Language="en")
+                            file_description.description_de = self.get_child_text(picture_node, 'Description', Language="de")
+                            file_description.description_en = self.get_child_text(picture_node, 'Description', Language="en")
+                            file_description.author = self.get_child_text(picture_node, 'Photographer')
+                            file_description.save()
+                            time.sleep(1)
 
                 venue_node = event_node.find('%(prefix)sVenue' % self.helper_dict)
                 if venue_node:
