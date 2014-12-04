@@ -1,18 +1,13 @@
 # -*- coding: UTF-8 -*-
 
-import os
 import re
 import requests
 from xml.etree import ElementTree
-from StringIO import StringIO
 from dateutil.parser import parse as parse_datetime
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
-from django.core.management.base import CommandError
 from django.utils.encoding import smart_str, force_unicode
-from django.conf import settings
-from django.core.files import File
 from django.utils.text import slugify
 from django.db import models
 
