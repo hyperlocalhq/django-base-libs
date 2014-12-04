@@ -369,6 +369,12 @@ class Event(CreationModificationMixin, UrlMixin):
     event_status = models.CharField(_("Event status"), max_length=20, choices=EVENT_STATUS_CHOICES, blank=True)
     ticket_status = models.CharField(_("Ticket status"), max_length=20, choices=TICKET_STATUS_CHOICES, blank=True)
 
+    free_entrance = models.BooleanField(_("Free entrance"))
+    price_from = models.DecimalField(_(u"Price from (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
+    price_till = models.DecimalField(_(u"Price till (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
+    tickets_website = URLField(_("Tickets website"), blank=True)
+    price_information = MultilingualTextField(_("Additional price information"), blank=True)
+
     characteristics = models.ManyToManyField(EventCharacteristics, verbose_name=_("Characteristics"), blank=True)
     other_characteristics = MultilingualTextField(_("Other characteristics"), blank=True)
 

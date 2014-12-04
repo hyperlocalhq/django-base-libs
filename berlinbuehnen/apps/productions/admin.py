@@ -189,6 +189,7 @@ class EventAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Location"), {'fields': ['play_locations', 'play_stages']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])
+    fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['event_status', 'ticket_status', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',])]}),]
     raw_id_fields = ['production']
     filter_horizontal = ['play_locations', 'play_stages', 'characteristics']
