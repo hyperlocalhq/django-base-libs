@@ -18,6 +18,7 @@ from berlinbuehnen.apps.productions.models import Production
 from berlinbuehnen.apps.productions.models import ProductionImage
 from berlinbuehnen.apps.productions.models import Event
 from berlinbuehnen.apps.productions.models import EventImage
+from berlinbuehnen.apps.people.models import Person
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -230,6 +231,11 @@ class Command(NoArgsCommand):
 
             prod.slug = get_unique_value(Production, slugify(prod.title_de))
 
+            ticket_node = prod_node.find('%(prefix)sTicket' % self.helper_dict)
+            if ticket_node is not None:
+                prod.price_from, prod.price_till = self.get_child_text(ticket_node, 'Price').split(u' - ')
+                prod.tickets_website = self.get_child_text(ticket_node, 'TicketLink')
+
             for text_node in prod_node.findall('%(prefix)sText' % self.helper_dict):
                 text_cat_id = int(text_node.find('%(prefix)sCategory' % self.helper_dict).get('Id'))
                 text_de = self.get_child_text(text_node, 'Value', Language="de")
@@ -305,8 +311,6 @@ class Command(NoArgsCommand):
 
             if not self.skip_images and not prod.productionimage_set.count():
                 for picture_node in prod_node.findall('%(prefix)sPicture' % self.helper_dict):
-                    print smart_str()
-                    print smart_str(self.get_child_text(picture_node, 'PublishType') == "publish_type_for_free_use")
                     image_url = self.get_child_text(picture_node, 'Url')
                     mf = ProductionImage(production=prod)
                     filename = image_url.split("/")[-1]
@@ -315,7 +319,7 @@ class Command(NoArgsCommand):
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
-                            image_response.iter_content(),
+                            image_response.content,
                             field_name="path",
                             subpath="productions/%s/gallery/" % prod.slug,
                         )
@@ -344,6 +348,25 @@ class Command(NoArgsCommand):
                 if internal_cat_id:
                     prod.categories.add(ProductionCategory.objects.get(pk=internal_cat_id))
 
+            if not prod.productioninvolvement_set.count():
+                for person_node in prod_node.findall('%(prefix)sPerson' % self.helper_dict):
+                    first_name, last_name = self.get_child_text(person_node, 'Name').rsplit(" ", 1)
+                    role_de = self.get_child_text(person_node, 'RoleDescription', Language="de")
+                    role_en = self.get_child_text(person_node, 'RoleDescription', Language="en")
+                    p, created = Person.objects.get_or_create(
+                        first_name=first_name,
+                        last_name=last_name,
+                        defaults={
+                            'involvement_role_de': role_de,
+                            'involvement_role_en': role_en,
+                        }
+                    )
+                    prod.productioninvolvement_set.create(
+                        person=p,
+                        involvement_role_de=role_de,
+                        involvement_role_en=role_en,
+                    )
+
             if not mapper:
                 mapper = ObjectMapper(
                     service=self.service,
@@ -355,7 +378,7 @@ class Command(NoArgsCommand):
             else:
                 self.stats['prods_updated'] += 1
 
-            for event_node in prod_node.findall('%(prefix)sProduction' % self.helper_dict):
+            for event_node in prod_node.findall('%(prefix)sEvent' % self.helper_dict):
 
                 external_event_id = event_node.get('Id')
 
@@ -389,6 +412,14 @@ class Command(NoArgsCommand):
                 end_time_str = self.get_child_text(event_node, 'End')
                 if end_time_str:
                     event.end_time = parse_datetime(end_time_str).time()
+                duration_str = self.get_child_text(event_node, 'Duration')
+                if duration_str:
+                    event.duration = int(duration_str)
+
+                ticket_node = event_node.find('%(prefix)sTicket' % self.helper_dict)
+                if ticket_node is not None:
+                    event.price_from, event.price_till = self.get_child_text(ticket_node, 'Price').split(u' - ')
+                    event.tickets_website = self.get_child_text(ticket_node, 'TicketLink')
 
                 flag_status = event_node.find('%(prefix)sFlagStatus' % self.helper_dict).get('Id')
                 if flag_status == 0:  # fällt aus
@@ -471,7 +502,7 @@ class Command(NoArgsCommand):
                             image_mods.FileManager.save_file_for_object(
                                 mf,
                                 filename,
-                                image_response.iter_content(),
+                                image_response.content,
                                 field_name="path",
                                 subpath="productions/%s/events/%s/gallery/" % (prod.slug, event.pk),
                             )
@@ -501,6 +532,26 @@ class Command(NoArgsCommand):
                     if location:
                         event.play_locations.clear()
                         event.play_locations.add(location)
+
+                if not event.eventinvolvement_set.count():
+                    for person_node in event_node.findall('%(prefix)sPerson' % self.helper_dict):
+                        first_name, last_name = self.get_child_text(person_node, 'Name').rsplit(" ", 1)
+                        role_de = self.get_child_text(person_node, 'RoleDescription', Language="de")
+                        role_en = self.get_child_text(person_node, 'RoleDescription', Language="en")
+                        p, created = Person.objects.get_or_create(
+                            first_name=first_name,
+                            last_name=last_name,
+                            defaults={
+                                'involvement_role_de': role_de,
+                                'involvement_role_en': role_en,
+                            }
+                        )
+                        event.eventinvolvement_set.create(
+                            person=p,
+                            involvement_role_de=role_de,
+                            involvement_role_en=role_en,
+                        )
+
 
                 if not event_mapper:
                     event_mapper = ObjectMapper(

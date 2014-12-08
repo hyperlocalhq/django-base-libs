@@ -109,6 +109,7 @@ class ProductionInvolvementInline(ExtendedStackedInline):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
+    search_fields = ['title']
     fieldsets = get_admin_lang_section(_("Title"), ['prefix', 'title', 'subtitle', 'original'])
     fieldsets += [(None, {'fields': ('slug', 'website', )}),]
     fieldsets += [(_("Location"), {'fields': ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with']}),]
@@ -185,6 +186,8 @@ class EventInvolvementInline(ExtendedStackedInline):
 
 
 class EventAdmin(ExtendedModelAdmin):
+    list_display = ['title', 'start_date', 'start_time']
+    search_fields = ['production__title']
     fieldsets = [(_("Main Data"), {'fields': ('production', 'start_date', 'start_time', 'end_date', 'end_time', 'duration', 'pauses')}),]
     fieldsets += [(_("Location"), {'fields': ['play_locations', 'play_stages']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
@@ -197,5 +200,9 @@ class EventAdmin(ExtendedModelAdmin):
         EventVideoInline, EventImageInline, EventPDFInline,
         EventLeadershipInline, EventAuthorshipInline, EventInvolvementInline,
     ]
+
+    def title(self, obj):
+        return unicode(obj.production)
+    title.short_description = _("Title")
 
 admin.site.register(Event, EventAdmin)

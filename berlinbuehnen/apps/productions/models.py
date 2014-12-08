@@ -236,7 +236,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 class ProductionVideo(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
-    sort_order = PositionField(_("Sort order"), collection="location")
+    sort_order = PositionField(_("Sort order"), collection="production")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -253,7 +253,7 @@ class ProductionImage(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     path = FileBrowseField(_('File path'), max_length=255, directory="productions/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
-    sort_order = PositionField(_("Sort order"), collection="location")
+    sort_order = PositionField(_("Sort order"), collection="production")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -269,7 +269,7 @@ class ProductionImage(CreationModificationDateMixin):
 class ProductionPDF(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     path = FileBrowseField(_('File path'), max_length=255, directory="productions/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
-    sort_order = PositionField(_("Sort order"), collection="location")
+    sort_order = PositionField(_("Sort order"), collection="production")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -313,7 +313,7 @@ class ProductionAuthorship(CreationModificationDateMixin):
 class ProductionInvolvement(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
-    involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'))
+    involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'), blank=True, null=True)
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
 
@@ -344,8 +344,8 @@ class Event(CreationModificationMixin, UrlMixin):
     start_date = models.DateField(_("Start date"))
     end_date = models.DateField(_("End date"), blank=True, null=True)
     start_time = models.TimeField(_("Start time"))
-    end_time = models.TimeField(_("End time"))
-    duration = models.PositiveIntegerField(_("Duration in seconds"))
+    end_time = models.TimeField(_("End time"), blank=True, null=True)
+    duration = models.PositiveIntegerField(_("Duration in seconds"), null=True, blank=True)
     pauses = models.PositiveIntegerField(_("Pauses"), default=0)
 
     play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Play locations"), blank=True)
@@ -390,7 +390,7 @@ class Event(CreationModificationMixin, UrlMixin):
 class EventVideo(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
     link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
-    sort_order = PositionField(_("Sort order"), collection="location")
+    sort_order = PositionField(_("Sort order"), collection="event")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -407,7 +407,7 @@ class EventImage(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
     path = FileBrowseField(_('File path'), max_length=255, directory="events/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
     copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
-    sort_order = PositionField(_("Sort order"), collection="location")
+    sort_order = PositionField(_("Sort order"), collection="event")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -423,7 +423,7 @@ class EventImage(CreationModificationDateMixin):
 class EventPDF(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
     path = FileBrowseField(_('File path'), max_length=255, directory="events/", extensions=['.pdf'], help_text=_("A path to a locally stored PDF file."))
-    sort_order = PositionField(_("Sort order"), collection="location")
+    sort_order = PositionField(_("Sort order"), collection="event")
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
@@ -467,7 +467,7 @@ class EventAuthorship(CreationModificationDateMixin):
 class EventInvolvement(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
-    involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'))
+    involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'), blank=True, null=True)
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
 
