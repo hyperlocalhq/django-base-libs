@@ -116,6 +116,7 @@ class ProductionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += [(_("Relations"), {'fields': ['categories', 'festivals', 'language_and_subtitles', 'related_productions']}),]
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])
+    fieldsets += get_admin_lang_section(_("Imported"), ['concert_programm', 'supporting_programm', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['characteristics', 'age_from', 'age_till', 'edu_offer_website']}),]
     fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
@@ -192,6 +193,7 @@ class EventAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Location"), {'fields': ['play_locations', 'play_stages']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])
+    fieldsets += get_admin_lang_section(_("Imported"), ['concert_programm', 'supporting_programm', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['event_status', 'ticket_status', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',])]}),]
     raw_id_fields = ['production']

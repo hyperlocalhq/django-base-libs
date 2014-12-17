@@ -85,7 +85,7 @@ class Command(NoArgsCommand):
         self.service, created = Service.objects.get_or_create(
             sysname="culturebase_productions",
             defaults={
-                'url': "https://export.culturebase.org/cb-event/event/hamburger_staatstheater.xml",
+                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
                 'title': "Culturebase Productions",
             },
         )
@@ -146,7 +146,8 @@ class Command(NoArgsCommand):
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         city_suffix = re.compile(r' \[[^\]]+\]')
 
-        external_id = venue_node.get('Id')
+        # TODO: decide whether to leave title handling as external id
+        external_id = venue_node.get('Id') or self.get_child_text(venue_node, 'Name')
         mapper = None
         try:
             # get exhibition from saved mapper
@@ -233,9 +234,19 @@ class Command(NoArgsCommand):
 
             ticket_node = prod_node.find('%(prefix)sTicket' % self.helper_dict)
             if ticket_node is not None:
-                prod.price_from, prod.price_till = self.get_child_text(ticket_node, 'Price').split(u' - ')
+                prices = self.get_child_text(ticket_node, 'Price')
+                if prices:
+                    prod.price_from, prod.price_till = prices.split(u' - ')
                 prod.tickets_website = self.get_child_text(ticket_node, 'TicketLink')
 
+            pressetext_de = pressetext_en = u""
+            kritik_de = kritik_en = u""
+            werkinfo_kurz_de = werkinfo_kurz_en = u""
+            werbezeile_de = werbezeile_en = u""
+            werkinfo_gesamt_de = werkinfo_gesamt_en = u""
+            hintergrundinformation_de = hintergrundinformation_en = u""
+            inhaltsangabe_de = inhaltsangabe_en = u""
+            programbuch_de = programbuch_en = u""
             for text_node in prod_node.findall('%(prefix)sText' % self.helper_dict):
                 text_cat_id = int(text_node.find('%(prefix)sCategory' % self.helper_dict).get('Id'))
                 text_de = self.get_child_text(text_node, 'Value', Language="de")
@@ -251,38 +262,52 @@ class Command(NoArgsCommand):
                     prod.description_en = text_en
                     prod.description_en_markup_type = 'pt'
                 elif text_cat_id == 16:  # Inhaltsangabe
-                    pass
+                    inhaltsangabe_de = text_de
+                    inhaltsangabe_en = text_en
                 elif text_cat_id == 17:  # Konzertprogramm
-                    pass
+                    prod.concert_programm_de = text_de
+                    prod.concert_programm_de_markup_type = 'pt'
+                    prod.concert_programm_en = text_en
+                    prod.concert_programm_en_markup_type = 'pt'
                 elif text_cat_id == 18:  # Koproduktion
-                    pass
+                    prod.credits_de = text_de
+                    prod.credits_de_markup_type = 'pt'
+                    prod.credits_en = text_en
+                    prod.credits_en_markup_type = 'pt'
                 elif text_cat_id == 19:  # Kritik
-                    pass
+                    kritik_de = text_de
+                    kritik_en = text_en
                 elif text_cat_id == 20:  # Originaltitel
                     prod.original_de = text_de
                     prod.original_en = text_en
                 elif text_cat_id == 21:  # Pressetext
-                    prod.press_text_de = text_de
-                    prod.press_text_de_markup_type = 'pt'
-                    prod.press_text_en = text_en
-                    prod.press_text_en_markup_type = 'pt'
+                    pressetext_de = text_de
+                    pressetext_de = text_en
                 elif text_cat_id == 22:  # Rahmenprogramm zur Veranstaltung
-                    pass
+                    prod.supporting_programm_de = text_de
+                    prod.supporting_programm_de_markup_type = 'pt'
+                    prod.supporting_programm_en = text_en
+                    prod.supporting_programm_en_markup_type = 'pt'
                 elif text_cat_id == 23:  # Sondermerkmal
-                    pass
+                    prod.remarks_de = text_de
+                    prod.remarks_de_markup_type = 'pt'
+                    prod.remarks_en = text_en
+                    prod.remarks_en_markup_type = 'pt'
                 elif text_cat_id == 24:  # Spieldauer
-                    pass
+                    prod.duration_text_de = text_de
+                    prod.duration_text_en = text_en
                 elif text_cat_id == 25:  # Übertitel
-                    pass
+                    prod.subtitles_text_de = text_de
+                    prod.subtitles_text_en = text_en
                 elif text_cat_id == 26:  # Werbezeile
-                    pass
+                    werbezeile_de = text_de
+                    werbezeile_en = text_en
                 elif text_cat_id == 27:  # Werkinfo gesamt
-                    prod.work_info_de = text_de
-                    prod.work_info_de_markup_type = 'pt'
-                    prod.work_info_en = text_en
-                    prod.work_info_en_markup_type = 'pt'
+                    werkinfo_gesamt_de = text_de
+                    werkinfo_gesamt_en = text_en
                 elif text_cat_id == 28:  # Werkinfo kurz
-                    pass
+                    werkinfo_kurz_de = text_de
+                    werkinfo_kurz_en = text_en
                 elif text_cat_id == 29:  # zusätzliche Preisinformationen
                     prod.price_information_de = text_de
                     prod.price_information_de_markup_type = 'pt'
@@ -292,13 +317,36 @@ class Command(NoArgsCommand):
                     prod.prefix_de = text_de
                     prod.prefix_en = text_en
                 elif text_cat_id == 35:  # Programmbuch
-                    pass
+                    programbuch_de = text_de
+                    programbuch_en = text_en
                 elif text_cat_id == 36:  # Hintergrundinformation
-                    pass
+                    hintergrundinformation_de = text_de
+                    hintergrundinformation_en = text_en
                 elif text_cat_id == 39:  # Altersangabe
-                    pass
+                    prod.age_text_de = text_de
+                    prod.age_text_en = text_en
                 elif text_cat_id == 40:  # Audio & Video
                     pass
+
+            prod.press_text_de = pressetext_de + u'\n' + kritik_de
+            prod.press_text_de_markup_type = 'pt'
+            prod.press_text_en = pressetext_en + u'\n' + kritik_en
+            prod.press_text_en_markup_type = 'pt'
+
+            prod.teaser_de = werkinfo_kurz_de + u'\n' + werbezeile_de
+            prod.teaser_de_markup_type = 'pt'
+            prod.teaser_en = werkinfo_kurz_en + u'\n' + werbezeile_en
+            prod.teaser_en_markup_type = 'pt'
+
+            prod.work_info_de = werkinfo_gesamt_de + u'\n' + hintergrundinformation_de
+            prod.work_info_de_markup_type = 'pt'
+            prod.work_info_en = werkinfo_gesamt_en + u'\n' + hintergrundinformation_en
+            prod.work_info_en_markup_type = 'pt'
+
+            prod.contents_de = inhaltsangabe_de + u'\n' + programbuch_de
+            prod.contents_de_markup_type = 'pt'
+            prod.contents_en = inhaltsangabe_en + u'\n' + programbuch_en
+            prod.contents_en_markup_type = 'pt'
 
             prod.save()
 
@@ -418,7 +466,9 @@ class Command(NoArgsCommand):
 
                 ticket_node = event_node.find('%(prefix)sTicket' % self.helper_dict)
                 if ticket_node is not None:
-                    event.price_from, event.price_till = self.get_child_text(ticket_node, 'Price').split(u' - ')
+                    prices = self.get_child_text(ticket_node, 'Price')
+                    if prices:
+                        event.price_from, event.price_till = prices.split(u' - ')
                     event.tickets_website = self.get_child_text(ticket_node, 'TicketLink')
 
                 flag_status = event_node.find('%(prefix)sFlagStatus' % self.helper_dict).get('Id')
@@ -429,6 +479,14 @@ class Command(NoArgsCommand):
                 elif flag_status == 2:  # ausverkauft
                     event.ticket_status = 'sold_out'
 
+                pressetext_de = pressetext_en = u""
+                kritik_de = kritik_en = u""
+                werkinfo_kurz_de = werkinfo_kurz_en = u""
+                werbezeile_de = werbezeile_en = u""
+                werkinfo_gesamt_de = werkinfo_gesamt_en = u""
+                hintergrundinformation_de = hintergrundinformation_en = u""
+                inhaltsangabe_de = inhaltsangabe_en = u""
+                programbuch_de = programbuch_en = u""
                 for text_node in event_node.findall('%(prefix)sText' % self.helper_dict):
                     text_cat_id = int(text_node.find('%(prefix)sCategory' % self.helper_dict).get('Id'))
                     text_de = self.get_child_text(text_node, 'Value', Language="de")
@@ -444,37 +502,51 @@ class Command(NoArgsCommand):
                         event.description_en = text_en
                         event.description_en_markup_type = 'pt'
                     elif text_cat_id == 16:  # Inhaltsangabe
-                        pass
+                        inhaltsangabe_de = text_de
+                        inhaltsangabe_en = text_en
                     elif text_cat_id == 17:  # Konzertprogramm
-                        pass
+                        event.concert_programm_de = text_de
+                        event.concert_programm_de_markup_type = 'pt'
+                        event.concert_programm_en = text_en
+                        event.concert_programm_en_markup_type = 'pt'
                     elif text_cat_id == 18:  # Koproduktion
-                        pass
+                        event.credits_de = text_de
+                        event.credits_de_markup_type = 'pt'
+                        event.credits_en = text_en
+                        event.credits_en_markup_type = 'pt'
                     elif text_cat_id == 19:  # Kritik
-                        pass
+                        kritik_de = text_de
+                        kritik_en = text_en
                     elif text_cat_id == 20:  # Originaltitel
                         pass
                     elif text_cat_id == 21:  # Pressetext
-                        event.press_text_de = text_de
-                        event.press_text_de_markup_type = 'pt'
-                        event.press_text_en = text_en
-                        event.press_text_en_markup_type = 'pt'
+                        pressetext_de = text_de
+                        pressetext_en = text_en
                     elif text_cat_id == 22:  # Rahmenprogramm zur Veranstaltung
-                        pass
+                        event.supporting_programm_de = text_de
+                        event.supporting_programm_de_markup_type = 'pt'
+                        event.supporting_programm_en = text_en
+                        event.supporting_programm_en_markup_type = 'pt'
                     elif text_cat_id == 23:  # Sondermerkmal
-                        pass
+                        event.remarks_de = text_de
+                        event.remarks_de_markup_type = 'pt'
+                        event.remarks_en = text_en
+                        event.remarks_en_markup_type = 'pt'
                     elif text_cat_id == 24:  # Spieldauer
-                        pass
+                        event.duration_text_de = text_de
+                        event.duration_text_en = text_en
                     elif text_cat_id == 25:  # Übertitel
-                        pass
+                        event.subtitles_text_de = text_de
+                        event.subtitles_text_en = text_en
                     elif text_cat_id == 26:  # Werbezeile
-                        pass
+                        werbezeile_de = text_de
+                        werbezeile_en = text_en
                     elif text_cat_id == 27:  # Werkinfo gesamt
-                        event.work_info_de = text_de
-                        event.work_info_de_markup_type = 'pt'
-                        event.work_info_en = text_en
-                        event.work_info_en_markup_type = 'pt'
+                        werkinfo_gesamt_de = text_de
+                        werkinfo_gesamt_en = text_en
                     elif text_cat_id == 28:  # Werkinfo kurz
-                        pass
+                        werkinfo_kurz_de = text_de
+                        werkinfo_kurz_en = text_en
                     elif text_cat_id == 29:  # zusätzliche Preisinformationen
                         event.price_information_de = text_de
                         event.price_information_de_markup_type = 'pt'
@@ -483,13 +555,37 @@ class Command(NoArgsCommand):
                     elif text_cat_id == 30:  # Titelprefix
                         pass
                     elif text_cat_id == 35:  # Programmbuch
-                        pass
+                        programbuch_de = text_de
+                        programbuch_en = text_en
                     elif text_cat_id == 36:  # Hintergrundinformation
-                        pass
+                        hintergrundinformation_de = text_de
+                        hintergrundinformation_en = text_en
                     elif text_cat_id == 39:  # Altersangabe
-                        pass
+                        event.age_text_de = text_de
+                        event.age_text_en = text_en
                     elif text_cat_id == 40:  # Audio & Video
                         pass
+
+                event.press_text_de = pressetext_de + u'\n' + kritik_de
+                event.press_text_de_markup_type = 'pt'
+                event.press_text_en = pressetext_en + u'\n' + kritik_en
+                event.press_text_en_markup_type = 'pt'
+
+                event.teaser_de = werkinfo_kurz_de + u'\n' + werbezeile_de
+                event.teaser_de_markup_type = 'pt'
+                event.teaser_en = werkinfo_kurz_en + u'\n' + werbezeile_en
+                event.teaser_en_markup_type = 'pt'
+
+                event.work_info_de = werkinfo_gesamt_de + u'\n' + hintergrundinformation_de
+                event.work_info_de_markup_type = 'pt'
+                event.work_info_en = werkinfo_gesamt_en + u'\n' + hintergrundinformation_en
+                event.work_info_en_markup_type = 'pt'
+
+                event.contents_de = inhaltsangabe_de + u'\n' + programbuch_de
+                event.contents_de_markup_type = 'pt'
+                event.contents_en = inhaltsangabe_en + u'\n' + programbuch_en
+                event.contents_en_markup_type = 'pt'
+
                 event.save()
 
                 if not self.skip_images and not event.eventimage_set.count():

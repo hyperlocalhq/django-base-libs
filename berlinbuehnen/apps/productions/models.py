@@ -137,6 +137,14 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     press_text = MultilingualTextField(_("Press text"), blank=True)
     credits = MultilingualTextField(_("Credits"), blank=True)
 
+    # text fields for data from the Culturbase import feed
+    concert_programm = MultilingualTextField(_("Concert programm"), blank=True)
+    supporting_programm = MultilingualTextField(_("Supporting programm"), blank=True)
+    remarks = MultilingualTextField(_("Remarks"), blank=True)
+    duration_text = MultilingualCharField(_("Duration text"), max_length=255, blank=True)
+    subtitles_text = MultilingualCharField(_("Subtitles text"), max_length=255, blank=True)
+    age_text = MultilingualCharField(_("Age text"), max_length=255, blank=True)
+
     festivals = models.ManyToManyField("festivals.Festival", verbose_name=_("Festivals"), blank=True)
     language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
     related_productions = models.ManyToManyField("self", verbose_name=_("Related productions"))
@@ -365,6 +373,14 @@ class Event(CreationModificationMixin, UrlMixin):
     contents = MultilingualTextField(_("Contents"), blank=True)
     press_text = MultilingualTextField(_("Press text"), blank=True)
     credits = MultilingualTextField(_("Credits"), blank=True)
+
+    # text fields for data from the Culturbase import feed
+    concert_programm = MultilingualTextField(_("Concert programm"), blank=True)
+    supporting_programm = MultilingualTextField(_("Supporting programm"), blank=True)
+    remarks = MultilingualTextField(_("Remarks"), blank=True)
+    duration_text = MultilingualCharField(_("Duration text"), max_length=255, blank=True)
+    subtitles_text = MultilingualCharField(_("Subtitles text"), max_length=255, blank=True)
+    age_text = MultilingualCharField(_("Age text"), max_length=255, blank=True)
 
     event_status = models.CharField(_("Event status"), max_length=20, choices=EVENT_STATUS_CHOICES, blank=True)
     ticket_status = models.CharField(_("Ticket status"), max_length=20, choices=TICKET_STATUS_CHOICES, blank=True)
