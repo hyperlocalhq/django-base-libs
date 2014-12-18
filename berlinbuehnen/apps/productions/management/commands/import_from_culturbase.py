@@ -413,6 +413,7 @@ class Command(NoArgsCommand):
                         person=p,
                         involvement_role_de=role_de,
                         involvement_role_en=role_en,
+                        sort_order=person_node.get('Position'),
                     )
 
             if not mapper:
@@ -646,6 +647,7 @@ class Command(NoArgsCommand):
                             person=p,
                             involvement_role_de=role_de,
                             involvement_role_en=role_en,
+                            sort_order=person_node.get('Position'),
                         )
 
 

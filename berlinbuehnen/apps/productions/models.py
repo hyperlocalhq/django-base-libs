@@ -324,9 +324,10 @@ class ProductionInvolvement(CreationModificationDateMixin):
     involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'), blank=True, null=True)
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
+    sort_order = PositionField(_("Sort order"), collection="production", default=0)
 
     class Meta:
-        ordering = ["person__last_name", "person__first_name"]
+        ordering = ["sort_order"]
         verbose_name = _("Involvement")
         verbose_name_plural = _("Involvements")
 
@@ -486,9 +487,10 @@ class EventInvolvement(CreationModificationDateMixin):
     involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'), blank=True, null=True)
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
+    sort_order = PositionField(_("Sort order"), collection="event", default=0)
 
     class Meta:
-        ordering = ["person__last_name", "person__first_name"]
+        ordering = ["sort_order"]
         verbose_name = _("Involvement")
         verbose_name_plural = _("Involvements")
 
