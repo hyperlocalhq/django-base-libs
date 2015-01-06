@@ -175,7 +175,9 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     audioguide_other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)
     has_audioguide_for_children = models.BooleanField(_("Audioguide for children"), blank=True)
     has_audioguide_for_learning_difficulties = models.BooleanField(_("Audioguide for people with learning difficulties"), blank=True)
-    
+
+    favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
+
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
     objects = MuseumManager()

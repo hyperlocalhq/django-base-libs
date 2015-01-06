@@ -163,6 +163,8 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     closest_workshop_date = models.DateField(_("Workshop date"), editable=False, blank=True, null=True)
     closest_workshop_time = models.TimeField(_("Workshop start time"), editable=False, blank=True, null=True)
 
+    favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
+
     objects = WorkshopManager()
 
     row_level_permissions = True

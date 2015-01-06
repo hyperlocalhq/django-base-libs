@@ -295,18 +295,21 @@ ADMIN_APP_INDEX = (
         'apps': (
             ('auth', {
                 'verbose_name': gettext("Authentication"),
-                'models':("Group", "User",),
+                'models': ("Group", "User",),
                 'icon': 'key',
             }),
             ('permissions', {
                 'models': ('PerObjectGroup','RowLevelPermission',),
             }),
             ('institutions', {
-                'models':("Institution",),
+                'models': ("Institution",),
             }),
             ('twitterwall', {
                 'verbose_name': gettext("Twitter Wall"),
-                'models':("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),
+                'models': ("SearchSettings", "UserTimelineSettings", "TwitterUser", "Tweet"),
+            }),
+            ('favorites', {
+                'models': ("Favorite",),
             }),
         )
     },

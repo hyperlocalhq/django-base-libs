@@ -74,7 +74,7 @@ class EventAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'featured', 'is_geoposition_set')
+    list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'featured', 'is_geoposition_set', 'favorites_count')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'categories', 'featured', 'linkgroup')
     search_fields = ('title', 'subtitle', 'event_type', 'slug')

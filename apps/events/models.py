@@ -160,6 +160,8 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     closest_event_date = models.DateField(_("Event date"), editable=False, blank=True, null=True)
     closest_event_time = models.TimeField(_("Event start time"), editable=False, blank=True, null=True)
 
+    favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
+
     objects = EventManager()
 
     row_level_permissions = True

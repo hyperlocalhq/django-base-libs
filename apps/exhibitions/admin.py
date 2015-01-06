@@ -116,7 +116,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
         )
 
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'is_geoposition_set', 'status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
+    list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'is_geoposition_set', 'favorites_count', 'status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
     list_editable = ('status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'status', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon', 'linkgroup')
