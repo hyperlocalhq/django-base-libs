@@ -28,7 +28,7 @@ class Command(NoArgsCommand):
         make_option('--skip-images', action='store_true', dest='skip_images', default=False,
             help='Tells Django to NOT download images.'),
     )
-    help = "Imports productions and events from Culturebase"
+    help = "Imports productions and events from Deutsches Theater"
 
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", NORMAL))
