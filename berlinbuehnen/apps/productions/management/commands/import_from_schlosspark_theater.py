@@ -83,10 +83,10 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="schlosspark_theater_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "www.schlosspark-theater.de/index.php?do=export",
+                'title': "Schlosspark Theater Productions",
             },
         )
 

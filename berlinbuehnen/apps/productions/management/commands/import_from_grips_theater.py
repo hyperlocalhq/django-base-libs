@@ -83,10 +83,10 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="grips_theater_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "http://cb.heimat.de/interface/schema/interfaceformat.xsd",
+                'title': "GRIPS Theater Productions",
             },
         )
 

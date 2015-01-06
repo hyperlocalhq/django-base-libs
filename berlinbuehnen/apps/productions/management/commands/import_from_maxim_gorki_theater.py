@@ -83,10 +83,10 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="gorki_theater_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "http://www.gorki.de/cbstage/export.xml",
+                'title': "Maxim Gorki Theater Productions",
             },
         )
 

@@ -83,10 +83,10 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="schaubuehne_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "http://schaubuehne.de/export/kulturserver.php",
+                'title': u"Schaubühne am Lehniner Platz Productions",
             },
         )
 

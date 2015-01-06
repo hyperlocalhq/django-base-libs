@@ -83,10 +83,12 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="bka_theater_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "https://shb01.de.inter.net:8443/login_up.php3",
+                'title': "BKA Theater Productions",
+                'user': '24729',
+                'password': 'Ameisenbaer12',
             },
         )
 

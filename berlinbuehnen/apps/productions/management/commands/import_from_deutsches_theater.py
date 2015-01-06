@@ -83,10 +83,10 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="deutsches_theater_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "http://www.deutschestheater.de/cbstage/export.xml",
+                'title': "Deutsches Theater Productions",
             },
         )
 

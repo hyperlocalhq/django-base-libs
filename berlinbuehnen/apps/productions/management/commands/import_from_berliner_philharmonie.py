@@ -83,10 +83,10 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="berliner_philharmonie_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "http://www.berliner-philharmoniker.de/api/kulturserver/",
+                'title': "Berliner Philharmonie Productions",
             },
         )
 

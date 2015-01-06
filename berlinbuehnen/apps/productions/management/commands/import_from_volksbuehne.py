@@ -83,10 +83,10 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="volksbuehne_berlin_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "http://www.volksbuehne-berlin.de/redaktion/spielplan/cbstage.xml",
+                'title': "Volksbühne am Rosa-Luxemburg-Platz Productions",
             },
         )
 

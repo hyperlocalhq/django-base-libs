@@ -83,10 +83,10 @@ class Command(NoArgsCommand):
         }
 
         self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
+            sysname="staatsballett_berlin _prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
-                'title': "Culturebase Productions",
+                'url': "http://www.staatsballett-berlin.de/xml/cb_staging.xml",
+                'title': "Staatsballett Berlin Productions",
             },
         )
 
