@@ -195,9 +195,10 @@ class EventAdmin(ExtendedModelAdmin):
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])
     fieldsets += get_admin_lang_section(_("Imported"), ['concert_programm', 'supporting_programm', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
+    fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Additional details"), {'fields': ['event_status', 'ticket_status', 'characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',])]}),]
     raw_id_fields = ['production']
-    filter_horizontal = ['play_locations', 'play_stages', 'characteristics']
+    filter_horizontal = ['play_locations', 'play_stages', 'characteristics', 'sponsors']
     inlines = [
         EventVideoInline, EventImageInline, EventPDFInline,
         EventLeadershipInline, EventAuthorshipInline, EventInvolvementInline,

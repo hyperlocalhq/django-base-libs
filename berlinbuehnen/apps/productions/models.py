@@ -395,6 +395,8 @@ class Event(CreationModificationMixin, UrlMixin):
     characteristics = models.ManyToManyField(EventCharacteristics, verbose_name=_("Characteristics"), blank=True)
     other_characteristics = MultilingualTextField(_("Other characteristics"), blank=True)
 
+    sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
+
     class Meta:
         ordering = ["start_date", "start_time"]
         verbose_name = _("Event")
