@@ -219,6 +219,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.festivals",
     "berlinbuehnen.apps.sponsors",
     "berlinbuehnen.apps.productions",
+    "berlinbuehnen.apps.site_specific",
 )
 
 

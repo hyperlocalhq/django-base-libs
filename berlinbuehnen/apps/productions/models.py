@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
@@ -404,6 +404,99 @@ class Event(CreationModificationMixin, UrlMixin):
 
     def __unicode__(self):
         return unicode(self.production) + ' ' + self.start_date.strftime('%Y-%m-%d')
+
+    def get_url_path(self):
+        try:
+            path = reverse("event_detail", kwargs={'slug': self.production.slug, 'event_id': self.pk})
+        except:
+            # the apphook is not attached yet
+            return ""
+        else:
+            return path
+
+    def humanized_duration(self):
+        from dateutil.relativedelta import relativedelta
+        attrs = ['years', 'months', 'days', 'hours', 'minutes', 'seconds']
+        human_readable = lambda delta: ['%d %s' % (getattr(delta, attr), ugettext(getattr(delta, attr) > 1 and attr or attr[:-1]))
+            for attr in attrs if getattr(delta, attr)
+        ]
+        return u" ".join(human_readable(relativedelta(seconds=self.duration)))
+
+    ### venues ###
+
+    def ev_or_prod_play_locations(self):
+        if self.play_locations.exists():
+            return self.play_locations.all()
+        return self.production.play_locations.all()
+
+    def ev_or_prod_play_stages(self):
+        if self.play_stages.exists():
+            return self.play_stages.all()
+        return self.production.play_stages.all()
+
+    ### text fields ###
+
+    def ev_or_prod_description(self):
+        return self.get_rendered_description() or self.production.get_rendered_description()
+
+    def ev_or_prod_teaser(self):
+        return self.get_rendered_teaser() or self.production.get_rendered_teaser()
+
+    def ev_or_prod_work_info(self):
+        return self.get_rendered_work_info() or self.production.get_rendered_work_info()
+
+    def ev_or_prod_contents(self):
+        return self.get_rendered_contents() or self.production.get_rendered_contents()
+
+    def ev_or_prod_press_text(self):
+        return self.get_rendered_press_text() or self.production.get_rendered_press_text()
+
+    def ev_or_prod_credits(self):
+        return self.get_rendered_credits() or self.production.get_rendered_credits()
+
+    ### Culturebase-specific fields ###
+
+    def ev_or_prod_concert_programm(self):
+        return self.get_rendered_concert_programm() or self.production.get_rendered_concert_programm()
+
+    def ev_or_prod_supporting_programm(self):
+        return self.get_rendered_supporting_programm() or self.production.get_rendered_supporting_programm()
+
+    def ev_or_prod_remarks(self):
+        return self.get_rendered_remarks() or self.production.get_rendered_remarks()
+
+    def ev_or_prod_duration_text(self):
+        return self.duration_text or self.production.duration_text
+
+    def ev_or_prod_subtitles_text(self):
+        return self.subtitles_text or self.production.subtitles_text
+
+    def ev_or_prod_age_text(self):
+        return self.age_text or self.production.age_text
+
+    ### prices ###
+
+    def ev_or_prod_free_entrance(self):
+        return self.free_entrance or self.production.free_entrance
+
+    def ev_or_prod_price_from(self):
+        return self.price_from or self.production.price_from
+
+    def ev_or_prod_price_till(self):
+        return self.price_till or self.production.price_till
+
+    def ev_or_prod_tickets_website(self):
+        return self.tickets_website or self.production.tickets_website
+
+    def ev_or_prod_price_information(self):
+        return self.get_rendered_price_information() or self.production.get_rendered_price_information()
+
+    ### sponsors ###
+
+    def ev_or_prod_sponsors(self):
+        if self.sponsors.exists():
+            return self.sponsors.all()
+        return self.production.sponsors.all()
 
 
 class EventVideo(CreationModificationDateMixin):

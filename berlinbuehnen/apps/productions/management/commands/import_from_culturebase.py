@@ -85,7 +85,7 @@ class Command(NoArgsCommand):
         self.service, created = Service.objects.get_or_create(
             sysname="culturebase_prods",
             defaults={
-                'url': "https://export.culturebase.org/deutscheoper/event/dob.xml",
+                'url': "https://export.culturebase.org/studio_38/event/berlin-buehnen.xml",
                 'title': "Culturebase Productions",
             },
         )
