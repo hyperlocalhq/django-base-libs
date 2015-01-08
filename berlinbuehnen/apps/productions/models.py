@@ -498,6 +498,40 @@ class Event(CreationModificationMixin, UrlMixin):
             return self.sponsors.all()
         return self.production.sponsors.all()
 
+    ### media ###
+
+    def ev_or_prod_videos(self):
+        if self.eventvideo_set.exists():
+            return self.eventvideo_set.all()
+        return self.production.productionvideo_set.all()
+
+    def ev_or_prod_images(self):
+        if self.eventimage_set.exists():
+            return self.eventimage_set.all()
+        return self.production.productionimage_set.all()
+
+    def ev_or_prod_pdfs(self):
+        if self.eventpdf_set.exists():
+            return self.eventpdf_set.all()
+        return self.production.productionpdf_set.all()
+
+    ### people ###
+
+    def ev_or_prod_leaderships(self):
+        if self.eventleadership_set.exists():
+            return self.eventleadership_set.all()
+        return self.production.productionleadership_set.all()
+
+    def ev_or_prod_authorships(self):
+        if self.eventauthorship_set.exists():
+            return self.eventauthorship_set.all()
+        return self.production.productionauthorship_set.all()
+
+    def ev_or_prod_involvements(self):
+        if self.eventinvolvement_set.exists():
+            return self.eventinvolvement_set.all()
+        return self.production.productioninvolvement_set.all()
+
 
 class EventVideo(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
