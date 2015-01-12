@@ -378,6 +378,49 @@
                 {% endfor %}
               {% endif %}
 
+              {% if event.ev_or_prod_videos %}
+                <h4>{% trans "Videos" %}</h4>
+                {% for video in event.ev_or_prod_videos %}
+                  <p>{{ video.get_embed }}</p>
+                {% endfor %}
+              {% endif %}
+
+              {% if event.ev_or_prod_images %}
+                <h4>{% trans "Images" %}</h4>
+                {% for image in event.ev_or_prod_images %}
+                  <p><img src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="" /></p>
+                  <p>{{ image.copyright_restrictions }}</p>
+                {% endfor %}
+              {% endif %}
+
+              {% if event.ev_or_prod_pdfs %}
+                <h4>{% trans "Images" %}</h4>
+                {% for pdf in event.ev_or_prod_pdfs %}
+                  <p><a href="{{ MEDIA_URL }}{{ pdf.path }}">{{ pdf.filename }}</a></p>
+                {% endfor %}
+              {% endif %}
+
+              {% if event.ev_or_prod_leaderships %}
+                <h4>{% trans "Leaders" %}</h4>
+                {% for leadership in event.ev_or_prod_leaderships %}
+                  <p>{{ leadership.position }} - {{ leadership.person }}</p>
+                {% endfor %}
+              {% endif %}
+
+              {% if event.ev_or_prod_authorships %}
+                <h4>{% trans "Authors" %}</h4>
+                {% for authorship in event.ev_or_prod_authorships %}
+                  <p>{{ authorship.authorship_type }} - {{ leadership.person }}</p>
+                {% endfor %}
+              {% endif %}
+
+              {% if event.ev_or_prod_involvements %}
+                <h4>{% trans "Involved people" %}</h4>
+                {% for involvement in event.ev_or_prod_involvements %}
+                  <p>{{ involvement.involvement_type }} {{ involvement.involvement_role }} {{ involvement.involvement_instrument }} - {{ leadership.person }}</p>
+                {% endfor %}
+              {% endif %}
+
             </article>
           </div>
 

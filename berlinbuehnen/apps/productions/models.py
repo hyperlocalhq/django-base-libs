@@ -256,6 +256,10 @@ class ProductionVideo(CreationModificationDateMixin):
             return self.path.path
         return "Missing file (id=%s)" % self.pk
 
+    def get_embed(self):
+        # TODO: return embed code
+        return self.link_or_embed
+
 
 class ProductionImage(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
@@ -547,6 +551,10 @@ class EventVideo(CreationModificationDateMixin):
         if self.path:
             return self.path.path
         return "Missing file (id=%s)" % self.pk
+
+    def get_embed(self):
+        # TODO: return embed code
+        return self.link_or_embed
 
 
 class EventImage(CreationModificationDateMixin):
