@@ -20,7 +20,8 @@ class EventFilterForm(forms.Form):
 
 
 def event_list(request, year=None, month=None, day=None):
-    qs = Event.objects.filter(production__status="published")
+    #qs = Event.objects.filter(production__status="published")
+    qs = Event.objects.all()
 
     form = EventFilterForm(data=request.REQUEST)
     
@@ -78,7 +79,8 @@ def event_detail(request, slug, event_id):
         if not request.user.has_perm("events.change_event", obj):
             return access_denied(request)
     else:
-        qs = Event.objects.filter(production__status="published")
+        #qs = Event.objects.filter(production__status="published")
+        qs = Event.objects.all()
     return object_detail(
         request,
         queryset=qs,

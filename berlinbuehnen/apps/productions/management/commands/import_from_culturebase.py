@@ -137,7 +137,7 @@ class Command(NoArgsCommand):
                 if child_node.get(name) != val:
                     all_attributes_match = False
                     break
-            if all_attributes_match:
+            if all_attributes_match and child_node.text:
                 return force_unicode(child_node.text)
         return u""
 
@@ -398,7 +398,12 @@ class Command(NoArgsCommand):
 
             if not prod.productioninvolvement_set.count():
                 for person_node in prod_node.findall('%(prefix)sPerson' % self.helper_dict):
-                    first_name, last_name = self.get_child_text(person_node, 'Name').rsplit(" ", 1)
+                    first_and_last_name = self.get_child_text(person_node, 'Name')
+                    if u" " in first_and_last_name:
+                        first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                    else:
+                        first_name = ""
+                        last_name = first_and_last_name
                     role_de = self.get_child_text(person_node, 'RoleDescription', Language="de")
                     role_en = self.get_child_text(person_node, 'RoleDescription', Language="en")
                     p, created = Person.objects.get_or_create(
@@ -458,6 +463,8 @@ class Command(NoArgsCommand):
                 start_time_str = self.get_child_text(event_node, 'Begin')
                 if start_time_str:
                     event.start_time = parse_datetime(start_time_str).time()
+                else:
+                    continue
                 end_time_str = self.get_child_text(event_node, 'End')
                 if end_time_str:
                     event.end_time = parse_datetime(end_time_str).time()
@@ -632,7 +639,12 @@ class Command(NoArgsCommand):
 
                 if not event.eventinvolvement_set.count():
                     for person_node in event_node.findall('%(prefix)sPerson' % self.helper_dict):
-                        first_name, last_name = self.get_child_text(person_node, 'Name').rsplit(" ", 1)
+                        first_and_last_name = self.get_child_text(person_node, 'Name')
+                        if u" " in first_and_last_name:
+                            first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                        else:
+                            first_name = ""
+                            last_name = first_and_last_name
                         role_de = self.get_child_text(person_node, 'RoleDescription', Language="de")
                         role_en = self.get_child_text(person_node, 'RoleDescription', Language="en")
                         p, created = Person.objects.get_or_create(

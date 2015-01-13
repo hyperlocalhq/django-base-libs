@@ -316,13 +316,6 @@
                   {{ event.ev_or_prod_credits|disarm_user_input }}
                 </div>
               {% endif %}
-              <!-- -->
-              {% if event.ev_or_prod_credits %}
-                <div>
-                  <h4>{% trans "Credits" %}</h4>
-                  {{ event.ev_or_prod_credits|disarm_user_input }}
-                </div>
-              {% endif %}
               {% if event.ev_or_prod_concert_programm %}
                 <div>
                   <h4>{% trans "Concert Program" %}</h4>
@@ -389,7 +382,7 @@
                 <h4>{% trans "Images" %}</h4>
                 {% for image in event.ev_or_prod_images %}
                   <p><img src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="" /></p>
-                  <p>{{ image.copyright_restrictions }}</p>
+                  <p>{{ image.get_copyright_restrictions_display }}</p>
                 {% endfor %}
               {% endif %}
 
@@ -410,14 +403,14 @@
               {% if event.ev_or_prod_authorships %}
                 <h4>{% trans "Authors" %}</h4>
                 {% for authorship in event.ev_or_prod_authorships %}
-                  <p>{{ authorship.authorship_type }} - {{ leadership.person }}</p>
+                  <p>{{ authorship.authorship_type.title }} - {{ authorship.person }}</p>
                 {% endfor %}
               {% endif %}
 
               {% if event.ev_or_prod_involvements %}
                 <h4>{% trans "Involved people" %}</h4>
                 {% for involvement in event.ev_or_prod_involvements %}
-                  <p>{{ involvement.involvement_type }} {{ involvement.involvement_role }} {{ involvement.involvement_instrument }} - {{ leadership.person }}</p>
+                  <p>{{ involvement.involvement_type.title }} {{ involvement.involvement_role }} {{ involvement.involvement_instrument }} - {{ involvement.person }}</p>
                 {% endfor %}
               {% endif %}
 

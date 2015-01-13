@@ -111,7 +111,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     original = MultilingualCharField(_("Original title"), max_length=255, blank=True)
-    website = URLField(_("Production URL"), blank=True)
+    website = URLField(_("Production URL"), blank=True, max_length=255)
 
     in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In program of"), blank=True, related_name="program_productions")
     ensembles = models.ManyToManyField("locations.Location", verbose_name=_("Ensembles"), blank=True, related_name="ensembled_productions")
@@ -152,13 +152,13 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     free_entrance = models.BooleanField(_("Free entrance"))
     price_from = models.DecimalField(_(u"Price from (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     price_till = models.DecimalField(_(u"Price till (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
-    tickets_website = URLField(_("Tickets website"), blank=True)
+    tickets_website = URLField(_("Tickets website"), blank=True, max_length=255)
     price_information = MultilingualTextField(_("Additional price information"), blank=True)
 
     characteristics = models.ManyToManyField(ProductionCharacteristics, verbose_name=_("Characteristics"), blank=True)
     age_from = models.PositiveSmallIntegerField(_(u"Age from"), blank=True, null=True)
     age_till = models.PositiveSmallIntegerField(_(u"Age till"), blank=True, null=True)
-    edu_offer_website = URLField(_("Educational offer website"), blank=True)
+    edu_offer_website = URLField(_("Educational offer website"), blank=True, max_length=255)
 
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
@@ -393,7 +393,7 @@ class Event(CreationModificationMixin, UrlMixin):
     free_entrance = models.BooleanField(_("Free entrance"))
     price_from = models.DecimalField(_(u"Price from (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     price_till = models.DecimalField(_(u"Price till (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
-    tickets_website = URLField(_("Tickets website"), blank=True)
+    tickets_website = URLField(_("Tickets website"), blank=True, max_length=255)
     price_information = MultilingualTextField(_("Additional price information"), blank=True)
 
     characteristics = models.ManyToManyField(EventCharacteristics, verbose_name=_("Characteristics"), blank=True)
