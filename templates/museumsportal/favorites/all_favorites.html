@@ -1,1 +1,191 @@
-{% extends "base.html" %}{% load i18n base_tags image_modifications tagging_tags favorites %}{% block js %}{{ block.super }}<script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script><script type="text/javascript">  $(function() {    $('.favorite').click(function() {      var $badge = $(this).closest('.container').find('h3:first .badge');      $badge.text(parseInt($badge.text()) - 1);      $(this).closest('.item').addClass('delete');    });  });</script>{% endblock %}{% block title %}{% trans "Favorites" %}{% endblock %}{% block content %}<div id="favorites">  <div class="content">    <div class="container">      {% if object_list %}        <h3>{% trans "Favorites" %} <span class="badge">{{ object_list.count }}</span></h3>        <div class="list row row-md">          {% for favorite in object_list %}            {% if favorite.content_type.model.lower == "museum" %}              {% with museum=favorite.content_object %}                {% tags_for_object museum as tags %}                <div class="item item-{{ favorite.content_type.model.lower }} col-xs-12 col-sm-12 col-md-12 col-lg-12 initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">                  <a href="{{ museum.get_url_path }}">                    <h3>{{ museum.title }}</h3>                    {% if museum.subtitle %}                    <h4>{{ museum.subtitle }}</h4>                    {% endif %}                  </a>                  <nav class="actions">                    {% adding2favorites for museum %}                  </nav>                </div>              {% endwith %}            {% elif favorite.content_type.model.lower == "exhibition" %}              {% with exhibition=favorite.content_object %}                {% tags_for_object exhibition as tags %}                <div class="item item-{{ favorite.content_type.model.lower }} col-xs-12 col-sm-12 col-md-12 col-lg-12 {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">                  <a href="{{ exhibition.get_url_path }}">                    <h4><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }} </h4>                    <h3>{{ exhibition.title }}</h3>                    <h4>{{ exhibition.subtitle }}</h4>                    <h5>{{ exhibition.museum.title }}</h5>                  </a>                  <nav class="actions">                    {% adding2favorites for exhibition %}                  </nav>                </div>              {% endwith %}            {% elif favorite.content_type.model.lower == "event" %}              {% with event=favorite.content_object %}                {% tags_for_object event as tags %}                <div class="item item-{{ favorite.content_type.model.lower }} col-xs-12 col-sm-12 col-md-12 col-lg-12 initial_{{ event.title|slugify|slice:"0:1" }} {% if event.closing_soon %} closing_soon{% endif %}{% if event.newly_opened %} newly_opened{% endif %}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">                  <a href="{{ event.get_url_path }}">                    <h4>{% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% endwith %}</h4>                    <h3>{{ event.title }}</h3>                    <h4>{{ event.subtitle }}</h4>                    <h5>{{ event.museum.title }}</h5>                  </a>                  <nav class="actions">                    {% adding2favorites for event %}                  </nav>                </div>              {% endwith %}            {% elif favorite.content_type.model.lower == "workshop" %}              {% with workshop=favorite.content_object %}                {% tags_for_object workshop as tags %}                <div class="item item-{{ favorite.content_type.model.lower }} col-xs-12 col-sm-12 col-md-12 col-lg-12 {% cycle "class1" "class2" "class3" %} initial_{{ workshop.title|slugify|slice:"0:1" }} {% if workshop.closing_soon %} closing_soon{% endif %}{% if workshop.newly_opened %} newly_opened{% endif %}{% for cat in workshop.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}">                  <a href="{{ workshop.get_url_path }}">                    <h4>{{ workshop.workshop_type }} {% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }}{{ workshop_time.start|time:"H:i" }}{% endwith %}</h4>                    <h3>{{ workshop.title }}</h3>                    <h4>{{ workshop.subtitle }}</h4>                    <h5>{{ workshop.museum.title }}</h5>                  </a>                  <nav class="actions">                    {% adding2favorites for workshop %}                  </nav>                </div>              {% endwith %}                          {% endif %}          {% endfor %}        </div>      {% else %}        <h3>{% trans "Favorites" %}</h3>        <p class="nothing">{% trans "You didn't favor any objects." %}</p>      {% endif %}    </div>  </div></div>{% endblock %}
+{% extends "base.html" %}
+{% load i18n base_tags image_modifications tagging_tags favorites %}
+
+{% block js %}
+{{ block.super }}
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/isotope/isotope.pkgd.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $('.favorite').click(function() {
+      var $badge = $(this).closest('.container').find('h3:first .badge');
+      $badge.text(parseInt($badge.text()) - 1);
+      $(this).closest('.item').addClass('delete');
+      $('#favorites .list').isotope('layout');
+    });
+  });
+  
+  $( document ).ready(function() {
+  
+    var $container = $('#favorites .list');
+    var $buttons = $('#filters label');
+    
+    $container.isotope({
+      layoutMode: 'masonry',
+      itemSelector: '.item'
+    });
+    
+    var init = function() {
+    
+      $('.item', $container).each(function() {
+        
+        var $this = $(this);
+        var $links = $('a', $this);
+      
+        if ($links.length == 2) {
+        
+          var $img =  $($links[0]);
+          var $content = $($links[1]);
+        
+          $this.css("height", "auto");
+          $("img", $img).css("visibility", "visible");
+          $content.removeClass('item-hidden');
+          $content.css("top", "0px");
+          $content.css("height", "auto");
+          $content.css("display", "block");
+        
+          $this.off();
+          
+          if ($img.css("display") == "block") {
+          
+            var img_height = $("img", $img).height();
+           
+            $content.addClass('item-hidden');
+            $content.css("top", "-"+img_height+"px");
+            $this.height(img_height);
+           
+            if (img_height > $content.height() + 70) $content.height(img_height - 70);
+            $content.css("display", "none");
+          
+            $this.mouseenter(onMouseEnter);
+            $this.mouseleave(onMouseLeave);
+          }
+        }
+      });    
+      
+      $container.isotope('layout');
+    }
+    
+    var onMouseEnter = function(event) {
+    
+        var $this = $(this);
+        var $links = $('a', $this);
+      
+        if ($links.length == 2) {
+        
+           var $img = $("img", $($links[0]));
+           var $content = $($links[1]);
+    
+           $img.css("visibility", "hidden");
+           $content.css("display", "block");
+           
+           $this.height($content.height());
+        }
+        
+        $this.css("z-index", 100);
+    }
+    
+    var onMouseLeave = function(event) {
+        
+        var $this = $(this);
+        var $links = $('a', $this);
+      
+        if ($links.length == 2) {
+        
+           var $img = $("img", $($links[0]));
+           var $content = $($links[1]);
+    
+           $img.css("visibility", "visible");
+           $content.css("display", "none");
+           
+           $this.height($img.height());
+        }
+    
+        $this.css("z-index", "inherit");
+    }
+    
+    var onFilter = function(event) {
+      
+      var $button = $(this);
+      var active = !$button.hasClass("active");
+    
+      $buttons.each(function() {
+        $(this).removeClass("active");
+      });
+      
+      if (active) {
+        $container.isotope({ filter: $button.attr('data-filter') });
+      } else {
+        $container.isotope({ filter: '*' });
+        event.stopImmediatePropagation();
+      }
+      
+    }
+    
+    
+    $( window ).resize(init);
+    $buttons.click(onFilter);
+    
+    $container.imagesLoaded( function() {
+      init();
+    });
+    
+  });
+</script>
+
+{% endblock %}
+
+{% block title %}{% trans "Favorites" %}{% endblock %}
+
+{% block content %}
+<div id="favorites">
+  <div class="content">
+    <div class="container">
+      {% if object_list %}
+        <h3>{% trans "Favorites" %} <span class="badge">{{ object_list.count }}</span></h3>
+        <div id="filters">
+          <div class="btn-group" data-toggle="buttons">
+            <label type="button" class="btn btn-info btn-sm" data-filter=".museum">{% trans "Museums" %}</label>
+            <label type="button" class="btn btn-info btn-sm" data-filter=".exhibition">{% trans "Exhibitions" %}</label>
+            <label type="button" class="btn btn-info btn-sm" data-filter=".event">{% trans "Events" %}</label>
+            <label type="button" class="btn btn-info btn-sm" data-filter=".workshop">{% trans "Workshops" %}</label>
+          </div>
+        </div>
+        <div class="list row row-md">
+          {% for favorite in object_list %}
+            {% with item=favorite.content_object %}
+              {% with type=favorite.content_type.model.lower %}
+		            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3 {{ type }}">
+                  {% if item.cover_image and item.cover_image|modified_path:"favorites_list" %}
+                    <a class="item-img hidden-xs visible-sm" href="{{ item.get_url_path }}">
+                      <img src="{{ MEDIA_URL }}{{ item.cover_image|modified_path:"favorites_list" }}" alt="" />
+                    </a>
+                  {% endif %}
+                  <a class="item-content" href="{{ item.get_url_path }}">
+                    <h3>{{ item.title }}</h3>
+                    {% if item.subtitle %}<h4>{{ item.subtitle }}</h4>{% endif %}
+                    {% if type == "exhibition" or type == "event" or type == "workshop" %}<h5>{{ item.museum.title }}</h5>{% endif %}
+                    {% if type == "exhibition" %} 
+                      <h4><span class="from_date">{{ item.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ item.end|date:"d.m.Y" }}</h4>
+                    {% endif %}
+                    {% if type == "event" %} 
+                      <h4>{% with item.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% endwith %}</h4>
+                    {% endif %}
+                    {% if type == "workshop" %} 
+                      <h4>{{ item.workshop_type }} {% with item.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|time:"H:i" }}{% endwith %}</h4>
+                    {% endif %}
+                  </a>
+                  <nav class="actions">{% adding2favorites for item %}</nav>
+                </div>
+              {% endwith %}
+            {% endwith %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <h3>{% trans "Favorites" %}</h3>
+        <p class="nothing">{% trans "You didn't favor any objects." %}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
