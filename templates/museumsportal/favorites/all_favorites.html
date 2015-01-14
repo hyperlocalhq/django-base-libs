@@ -155,7 +155,7 @@
           {% for favorite in object_list %}
             {% with item=favorite.content_object %}
               {% with type=favorite.content_type.model.lower %}
-		            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3 {{ type }}">
+                <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3 {{ type }}">
                   {% if item.cover_image and item.cover_image|modified_path:"favorites_list" %}
                     <a class="item-img hidden-xs visible-sm" href="{{ item.get_url_path }}">
                       <img src="{{ MEDIA_URL }}{{ item.cover_image|modified_path:"favorites_list" }}" alt="" />
@@ -175,7 +175,9 @@
                       <h4>{{ item.workshop_type }} {% with item.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|time:"H:i" }}{% endwith %}</h4>
                     {% endif %}
                   </a>
-                  <nav class="actions">{% adding2favorites for item %}</nav>
+                  {% if favorite.user == request.user %}
+                    <nav class="actions">{% adding2favorites for item %}</nav>
+                  {% endif %}
                 </div>
               {% endwith %}
             {% endwith %}

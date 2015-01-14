@@ -469,6 +469,29 @@ class ASCIIFileSystemStorageBackend(DefaultStorageUploadBackend):
 
 uploader = AjaxFileUploader(backend=ASCIIFileSystemStorageBackend)
 
+USER_TOKEN_SUMMAND = 564654
+
+
+@login_required
+def redirect_to_user_favorites(request):
+    user = request.user
+    user_token = user.pk + USER_TOKEN_SUMMAND
+    return redirect('user_favorites', user_token=user_token)
+
+
+def user_favorites(request, user_token, **kwargs):
+    """
+    Displays the list of favorite objects
+    """
+    user_id = int(user_token) - USER_TOKEN_SUMMAND
+
+    favorites = Favorite.objects.filter(
+        user__pk=user_id,
+    )
+    return render(request, kwargs["template_name"], {
+        'object_list': favorites,
+    })
+
 
 @login_required
 def favorites(request, **kwargs):
