@@ -236,10 +236,14 @@ class ImportFromHeimatBase(object):
 
         culturbase_location = self.LOCATIONS[external_id]
 
-        location.title = culturbase_location.title
-        location.street_address = culturbase_location.street_address
-        location.postal_code = culturbase_location.postal_code
-        location.city = "Berlin"
+        locations_by_title = Location.objects.filter(title=culturbase_location.title)
+        if locations_by_title and not location.pk:
+            location = locations_by_title[0]
+        else:
+            location.title = culturbase_location.title
+            location.street_address = culturbase_location.street_address
+            location.postal_code = culturbase_location.postal_code
+            location.city = "Berlin"
         location.save()
 
         if not mapper:
@@ -287,6 +291,9 @@ class ImportFromHeimatBase(object):
 
             title_de = self.get_child_text(prod_node, 'title', languageId="1")
             title_en = self.get_child_text(prod_node, 'title', languageId="2")
+            if not title_de:  # skip productions without title
+                self.stats['prods_skipped'] += 1
+                continue
             prod.title_de = title_de
             prod.title_en = title_en or title_de
             prod.website = prod_node.get('url')
@@ -345,7 +352,7 @@ class ImportFromHeimatBase(object):
 
                         file_description.title_de = self.get_child_text(picture_node, 'text', languageId="1")
                         file_description.title_en = self.get_child_text(picture_node, 'text', languageId="2")
-                        file_description.author = picture_node.get('photographer').replace("Foto: ", "")
+                        file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
                         file_description.copyright_limitations = picture_node.get('copyright')
                         file_description.save()
                         time.sleep(1)
@@ -366,8 +373,13 @@ class ImportFromHeimatBase(object):
                     role_en = self.get_child_text(person_node, 'mediaText/text', languageId="2")
                     if not role_de and int(person_node.get('roleId')) in self.ROLE_ID_MAPPER:
                         role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.get('roleId'))]
-                    for person_name in person_node.get('personFreetext').split(", "):
-                        first_name, last_name = person_name.rsplit(" ", 1)
+                    for person_name in re.split(r'\s*[/,]\s*', person_node.get('personFreetext')):
+                        first_and_last_name = person_name
+                        if u" " in first_and_last_name:
+                            first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                        else:
+                            first_name = ""
+                            last_name = first_and_last_name
                         p, created = Person.objects.get_or_create(
                             first_name=first_name,
                             last_name=last_name,
@@ -452,8 +464,8 @@ class ImportFromHeimatBase(object):
 
                 price_node = event_node.find('price')
                 if price_node is not None:
-                    event.price_from = price_node.get('minPrice').replace(',', '.')
-                    event.price_till = price_node.get('maxPrice').replace(',', '.')
+                    event.price_from = (price_node.get('minPrice') or u"").replace(',', '.') or None
+                    event.price_till = (price_node.get('maxPrice') or u"").replace(',', '.') or None
                     event.tickets_website = price_node.get('url')
 
                 if event_node.get('takingPlace') == "1":
@@ -503,7 +515,7 @@ class ImportFromHeimatBase(object):
 
                             file_description.title_de = self.get_child_text(picture_node, 'text', languageId="1")
                             file_description.title_en = self.get_child_text(picture_node, 'text', languageId="2")
-                            file_description.author = picture_node.get('photographer').replace("Foto: ", "")
+                            file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
                             file_description.copyright_limitations = picture_node.get('copyright')
                             file_description.save()
                             time.sleep(1)
@@ -526,8 +538,13 @@ class ImportFromHeimatBase(object):
                         role_en = self.get_child_text(person_node, 'mediaText/text', languageId="2")
                         if not role_de and int(person_node.get('roleId')) in self.ROLE_ID_MAPPER:
                             role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.get('roleId'))]
-                        for person_name in person_node.get('personFreetext').split(", "):
-                            first_name, last_name = person_name.rsplit(" ", 1)
+                        for person_name in re.split(r'\s*[/,]\s*', person_node.get('personFreetext')):
+                            first_and_last_name = person_name
+                            if u" " in first_and_last_name:
+                                first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                            else:
+                                first_name = ""
+                                last_name = first_and_last_name
                             p, created = Person.objects.get_or_create(
                                 first_name=first_name,
                                 last_name=last_name,
