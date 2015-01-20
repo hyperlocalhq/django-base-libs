@@ -124,7 +124,7 @@ class ImportFromHeimatBase(object):
         21: '',  # Repertoire
         22: 'zum-letzten-mal',  # zum letzten Mal
         23: '',  # Urauffuhrung
-        24: '',  # Familienvorstellung
+        24: 'familienpreise',  # Familienvorstellung
         25: '',  # Kindervorstellung
         27: '',  # Einfuhrung
         28: 'zum-letzten-mal-dieser-spielzeit',  # zum letzten Mal in dieser Spielzeit

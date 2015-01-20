@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
 {% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}event-detail{% endblock %}
 
@@ -383,6 +383,15 @@
                 {% for image in event.ev_or_prod_images %}
                   <p><img src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="" /></p>
                   <p>{{ image.get_copyright_restrictions_display }}</p>
+                  {% with image.path|file_description as file_desc %}
+                    <p>
+                      <small>
+                        <span class="title">{{ file_desc.title }}</span>
+                        <span class="description">{{ file_desc.description }}</span>
+                        <span class="author">{{ file_desc.author }}</span>
+                      </small>
+                    </p>
+                  {% endwith %}
                 {% endfor %}
               {% endif %}
 
@@ -874,8 +883,6 @@
         </div>
       </div>
     </div>
-
-      {% include "utils/images.html" %}
 
       {% if event.get_twitter_username %}
 

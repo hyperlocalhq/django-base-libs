@@ -150,23 +150,23 @@ class Command(NoArgsCommand):
         external_id = venue_node.get('Id') or self.get_child_text(venue_node, 'Name')
         mapper = None
         try:
-            # get exhibition from saved mapper
+            # get location from saved mapper
             mapper = self.service.objectmapper_set.get(
                 external_id=external_id,
                 content_type__app_label="locations",
                 content_type__model="location",
             )
         except models.ObjectDoesNotExist:
-            # or create a new exhibition and then create a mapper
+            # or create a new location and then create a mapper
             location = Location()
         else:
             location = mapper.content_object
             if not location:
-                # if exhibition was deleted after import,
+                # if location was deleted after import,
                 # don't import it again
                 return None, False
 
-        location.title = self.get_child_text(venue_node, 'Name')
+        location.title_de = location.title_en = self.get_child_text(venue_node, 'Name')
         lat = self.get_child_text(venue_node, 'Latitude')
         if lat:
             location.latitude = float(lat)
@@ -463,8 +463,6 @@ class Command(NoArgsCommand):
                 start_time_str = self.get_child_text(event_node, 'Begin')
                 if start_time_str:
                     event.start_time = parse_datetime(start_time_str).time()
-                else:
-                    continue
                 end_time_str = self.get_child_text(event_node, 'End')
                 if end_time_str:
                     event.end_time = parse_datetime(end_time_str).time()

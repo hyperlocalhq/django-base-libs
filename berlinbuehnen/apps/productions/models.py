@@ -356,7 +356,7 @@ class Event(CreationModificationMixin, UrlMixin):
     production = models.ForeignKey(Production, verbose_name=_("Prodution"))
     start_date = models.DateField(_("Start date"))
     end_date = models.DateField(_("End date"), blank=True, null=True)
-    start_time = models.TimeField(_("Start time"))
+    start_time = models.TimeField(_("Start time"), blank=True, null=True)
     end_time = models.TimeField(_("End time"), blank=True, null=True)
     duration = models.PositiveIntegerField(_("Duration in seconds"), null=True, blank=True)
     pauses = models.PositiveIntegerField(_("Pauses"), default=0)

@@ -12,7 +12,6 @@
                   <img src="{{ STATIC_URL }}site/img/placeholder_detail.gif" data-original="{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" alt="" title="{{ file_desc.description|remove_newlines|escape }}" />
                 </a>
               </div>
-              <!--
               <p>
                 <small>
                 <span class="title">{{ file_desc.title }}</span>
@@ -20,17 +19,6 @@
                 <span class="author">{{ file_desc.author }}</span>
                 </small>
               </p>
-               <div class="info">
-                {% if file_desc.title %}
-                <p><small class="title">{{ file_desc.title }}</small></p>
-                {% endif %}
-                {% if file_desc.description %}
-                <p><small class="description">{{ file_desc.description }}</small></p>
-                {% endif %}
-                {% if file_desc.author %}
-                <p><small class="author">{{ file_desc.author }}</small></p>
-                {% endif %}
-              </div> -->
               <nav class="actions">
                 <button class="btn btn-default btn-sm btn-round share-twitter"  data-url="http://www.museumsportal-berlin.de{{ MEDIA_URL }}{{ mf.path|modified_image:"max" }}" data-text="{{ file_desc.title }}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}">
                   <span class="icon icon-social-twitter"></span>
