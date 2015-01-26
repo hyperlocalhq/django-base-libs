@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
+{% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
+{% block bodyclass %}location-detail{% endblock %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:type" content="article" />
+    {% if object.image %}
+      <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+    {% else %}
+      <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/berlinbuehnen_opengraph.png" />
+    {% endif %}
+    <meta property="og:url" content="{{ object.get_url }}" />
+    <meta property="og:site_name" content="Berlin Bühnen" />
+    <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/share.js" defer="defer"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $(".toggle_bvg").click(function () {
+      $("#bvg_widget").toggleClass("on");
+      return false;
+    });
+  });
+  </script>
+{% endblock %}
+
+{% block map %}
+{# {% include "utils/gmap.html" %} #}
+{% endblock %}
+
+{% block content %}
+  {% with object as location %}
+    <br /><br />
+    <div id="location" class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <article>
+              <header>
+                  <h1>{{ location.title }}
+                  {% if_has_perm "locations.change_location" object %}
+                    {% if not request.is_mobile %}
+                      <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                    {% endif %}
+                  {% end_if_has_perm %}
+                </h1>
+                {% if location.subtitle %}
+                  <h2>{{ location.subtitle }}</h2>
+                {% endif %}
+              </header>
+              
+              <!-- ======= Tools ======= -->
+
+              <div class="tools">
+
+                {% if request.user.is_authenticated %}
+                  {% adding2favorites for location using "favorites/includes/favorite_detail.html" %}
+                {% endif %}
+
+                {% comment %}
+                <a class="btn btn-default btn-round location" href="{% url "location_list_map" %}#object_id={{ location.pk }}">
+                  <span class="icon icon-location"></span>
+                  <span class="sr-only">{% trans "Show location on map" %}</span>
+                </a>
+                {% endcomment %}
+
+                <button class="btn btn-default btn-round share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}"  data-url="{{ object.get_url }}" data-text="{{ location.title }}">
+                  <span class="icon icon-social-twitter"></span>
+                  <span class="sr-only">{% trans "Share on Twitter" %}</span>
+                </button>
+
+                <button class="btn btn-default btn-round share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{{ location.title }}">
+                  <span class="icon icon-social-facebook"></span>
+                  <span class="sr-only">{% trans "Share on Facebook" %}</span>
+                </button>
+              </div>
+
+              {% include "utils/cover_image.html" %}
+
+              <dl>
+                <dt>{% trans "Venue" %}</dt>
+                    <dd data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                    {{ location.street_address }}<br />
+                    {{ location.street_address2 }}<br />
+                    {{ location.postal_code }} {{ location.city }}<br />
+                    </dd>
+              </dl>
+
+              {% if location.stages_set.all %}
+                <dl>
+                  <dt>{% trans "Stages" %}</dt>
+                  {% for stage in location.stages_set.all %}
+                    <dd data-latitude="{{ stage.latitude|stringformat:"%f" }}" data-longitude="{{ stage.longitude|stringformat:"%f" }}">
+                      {{ stage.title }}<br />
+                      {{ stage.street_address }}<br />
+                      {{ stage.street_address2 }}<br />
+                      {{ stage.postal_code }} {{ stage.city }}<br />
+                    </dd>
+                  {% endfor %}
+                </dl>
+              {% endif %}
+
+              {% if location.website %}
+                <dl>
+                  <dt>{% trans "Website" %}</dt>
+                  <dd><a href="{{ location.production.website }}">{{ location.production.website|humanize_url:30 }}</a></dd>
+                </dl>
+              {% endif %}
+
+              {% if location.services.exists %}
+                <dl>
+                  <dt>{% trans "Services" %}</dt>
+                  <dd>
+                    {% for cat in location.services.all %}
+                      <p>{{ cat.title }}</p>
+                    {% endfor %}
+                  </dd>
+                </dl>
+              {% endif %}
+
+              {% if location.accessibility_options.exists %}
+                <dl>
+                  <dt>{% trans "Accessibility Options" %}</dt>
+                  <dd>
+                    {% for cat in location.accessibility_options.all %}
+                      <p>{{ cat.title }}</p>
+                    {% endfor %}
+                  </dd>
+                </dl>
+              {% endif %}
+
+              {% if location.description %}
+                <div class="lead">
+                  <h4>{% trans "Description" %}</h4>
+                  {{ location.get_rendered_description|disarm_user_input }}
+                </div>
+              {% endif %}
+
+              {% if location.image_set.exists %}
+                <h4>{% trans "Images" %}</h4>
+                {% for image in location.image_set.all %}
+                  <p><img src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="" /></p>
+                  <p>{{ image.get_copyright_restrictions_display }}</p>
+                  {% with image.path|file_description as file_desc %}
+                    <p>
+                      <small>
+                        {% if file_desc.title %}
+                          <span class="title"><strong>{% trans "Title" %}:</strong> {{ file_desc.title }}</span>
+                        {% endif %}
+                        {% if file_desc.description %}
+                          <span class="description"><strong>{% trans "Description" %}:</strong> {{ file_desc.description }}</span>
+                        {% endif %}
+                        {% if file_desc.author %}
+                          <span class="author"><strong>{% trans "Author" %}:</strong> {{ file_desc.author }}</span>
+                        {% endif %}
+                      </small>
+                    </p>
+                  {% endwith %}
+                {% endfor %}
+              {% endif %}
+
+            </article>
+          </div>
+        </div>
+      </div>
+
+      {% if location.get_twitter_username %}
+
+        <div id="locations-twitterfeed" class="content">
+          <div class="container">
+            <h2 class="section-head" id="section-tweets">{% trans "Current Tweets" %}</h2>
+            <div id="tweets" class="row row-md" data-twitter-username="{{ location.get_twitter_username }}"></div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+  {% endwith %}
+
+  {% include "utils/page_controls.html" %}
+{% endblock %}

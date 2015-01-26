@@ -32,7 +32,8 @@ STATUS_CHOICES = (
 
 COPYRIGHT_RESTRICTION_CHOICES = (
     ('general_use', _("Released for general use")),
-    ('protected', _("Released for this and own site only"))
+    ('protected', _("Released for this and own site only")),
+    ('promotional', _("Released for promotional reasons")),
 )
 
 TICKET_STATUS_CHOICES = (
