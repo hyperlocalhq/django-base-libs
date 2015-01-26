@@ -16,8 +16,8 @@ from berlinbuehnen.apps.productions.models import ProductionCategory
 from berlinbuehnen.apps.productions.models import ProductionCharacteristics
 from berlinbuehnen.apps.productions.models import Production
 from berlinbuehnen.apps.productions.models import ProductionImage
-from berlinbuehnen.apps.productions.models import EventCharacteristics
 from berlinbuehnen.apps.productions.models import Event
+from berlinbuehnen.apps.productions.models import EventCharacteristics
 from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.people.models import Person
 from berlinbuehnen.apps.sponsors.models import Sponsor

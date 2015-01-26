@@ -298,6 +298,7 @@ class ProductionLeadership(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
+    sort_order = PositionField(_("Sort order"), collection="production", default=0)
 
     class Meta:
         ordering = ["person__last_name", "person__first_name"]
@@ -312,6 +313,7 @@ class ProductionAuthorship(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
+    sort_order = PositionField(_("Sort order"), collection="production", default=0)
 
     class Meta:
         ordering = ["person__last_name", "person__first_name"]
@@ -594,6 +596,7 @@ class EventLeadership(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
+    sort_order = PositionField(_("Sort order"), collection="event", default=0)
 
     class Meta:
         ordering = ["person__last_name", "person__first_name"]
@@ -608,6 +611,7 @@ class EventAuthorship(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"))
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
+    sort_order = PositionField(_("Sort order"), collection="event", default=0)
 
     class Meta:
         ordering = ["person__last_name", "person__first_name"]

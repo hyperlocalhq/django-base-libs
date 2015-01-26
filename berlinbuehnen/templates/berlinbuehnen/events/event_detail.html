@@ -386,9 +386,15 @@
                   {% with image.path|file_description as file_desc %}
                     <p>
                       <small>
-                        <span class="title">{{ file_desc.title }}</span>
-                        <span class="description">{{ file_desc.description }}</span>
-                        <span class="author">{{ file_desc.author }}</span>
+                        {% if file_desc.title %}
+                          <span class="title"><strong>{% trans "Title" %}:</strong> {{ file_desc.title }}</span>
+                        {% endif %}
+                        {% if file_desc.description %}
+                          <span class="description"><strong>{% trans "Description" %}:</strong> {{ file_desc.description }}</span>
+                        {% endif %}
+                        {% if file_desc.author %}
+                          <span class="author"><strong>{% trans "Author" %}:</strong> {{ file_desc.author }}</span>
+                        {% endif %}
                       </small>
                     </p>
                   {% endwith %}
@@ -405,7 +411,7 @@
               {% if event.ev_or_prod_leaderships %}
                 <h4>{% trans "Leaders" %}</h4>
                 {% for leadership in event.ev_or_prod_leaderships %}
-                  <p>{{ leadership.position }} - {{ leadership.person }}</p>
+                  <p>{{ leadership.function }} - {{ leadership.person }}</p>
                 {% endfor %}
               {% endif %}
 

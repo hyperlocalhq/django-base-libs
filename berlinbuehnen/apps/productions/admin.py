@@ -86,7 +86,7 @@ class ProductionPDFInline(ExtendedStackedInline):
 class ProductionLeadershipInline(ExtendedStackedInline):
     model = ProductionLeadership
     extra = 0
-    fieldsets = [(None, {'fields': ('person', )}),]
+    fieldsets = [(None, {'fields': ('person', 'sort_order', )}),]
     fieldsets += get_admin_lang_section(_("Function"), ['function',])
     raw_id_fields = ['person']
     inline_classes = ('grp-collapse grp-open',)
@@ -164,7 +164,7 @@ class EventPDFInline(ExtendedStackedInline):
 class EventLeadershipInline(ExtendedStackedInline):
     model = EventLeadership
     extra = 0
-    fieldsets = [(None, {'fields': ('person', )}),]
+    fieldsets = [(None, {'fields': ('person', 'sort_order', )}),]
     fieldsets += get_admin_lang_section(_("Function"), ['function',])
     raw_id_fields = ['person']
     inline_classes = ('grp-collapse grp-open',)
