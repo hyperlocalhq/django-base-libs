@@ -116,12 +116,13 @@ class BasicInfoForm(forms.ModelForm):
                     layout.HTML("""{% load i18n %}
                         <div class="dyn_set_map">
                             <label>{% trans "Location" %}</label>
-                            <div class="gmap-wrapper">
-                                <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                            <div class="map_canvas">
                             </div>
                             <div class="form-actions">
-                                <input type="button" class="dyn_locate_geo btn btn-primary" value="{% trans "Relocate on map" %}" />&zwnj;
-                                <!--<input type="button" class="dyn_remove_geo btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                                <input type="button" class="locate_address btn btn-primary" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input type="button" class="remove_geo btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            </div>
+                            <div class="map_locations">
                             </div>
                         </div>
                     """),
@@ -404,12 +405,13 @@ class StageForm(forms.ModelForm):
                     layout.HTML("""{% load i18n %}
                         <div class="dyn_set_map">
                             <label>{% trans "Location" %}</label>
-                            <div class="gmap-wrapper">
-                                <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+                            <div class="map_canvas">
                             </div>
                             <div class="form-actions">
-                                <input type="button" class="dyn_locate_geo btn btn-primary" value="{% trans "Relocate on map" %}" />&zwnj;
-                                <!--<input type="button" class="dyn_remove_geo btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                                <input type="button" class="locate_address btn btn-primary" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input type="button" class="remove_geo btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            </div>
+                            <div class="map_locations">
                             </div>
                         </div>
                     """),
