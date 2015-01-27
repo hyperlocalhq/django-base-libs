@@ -9,7 +9,7 @@ from models import LinkGroup
 
 
 class LinkGroupAdmin(ExtendedModelAdmin):
-    list_display = ['__unicode__', 'creation_date', 'get_links_str', 'get_placement_str']
+    list_display = ['__unicode__', 'creation_date', 'link_1_text', 'get_links_str', 'get_placement_str']
     list_filter = ['creation_date', 'language']
     search_fields = ['group_title', 'link_1_text', 'link_2_text', 'link_3_text']
     filter_horizontal = ['museums', 'exhibitions', 'events', 'workshops']
