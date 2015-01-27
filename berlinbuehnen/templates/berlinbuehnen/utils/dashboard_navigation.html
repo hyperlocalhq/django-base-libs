@@ -12,17 +12,10 @@
 				        <span class="caret black"></span>
               </button>
               <ul class="dropdown-menu pull-right" role="menu">
-                {% if not request.user|in_group:"Shop Admins" or request.user.is_superuser %}
-                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Input Mask" %}</a></li>
-                  <li class="divider"></li>
-                {% endif %}
-                {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
-                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
-                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
-                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
-                  <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
-                {% endif %}
-                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Product list" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Input Mask" %}</a></li>
+                <li class="divider"></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Locations" %}</a></li>
+                <li><a href="/{{ LANGUAGE_CODE }}/dashboard/productions/">{% trans "Productions" %}</a></li>
                 <li class="divider"></li>
                 <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
               </ul>
@@ -62,33 +55,18 @@
         </button>
 
         <a class="navbar-brand hidden-xs" href="/{{ LANGUAGE_CODE }}/">
-          <img src="{{ STATIC_URL }}site/img/logo/logo.png" alt="Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten" />
+          <img src="{{ STATIC_URL }}site/img/logo.png" alt="Berlin Bühnen" />
         </a>
         <a class="navbar-brand visible-xs" href="/{{ LANGUAGE_CODE }}/">
-          <img src="{{ STATIC_URL }}site/img/logo/logo_xs.png" alt="Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten" />
+          <img src="{{ STATIC_URL }}site/img/logo_xs.png" alt="Berlin Bühnen" />
         </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-          {% if not request.user|in_group:"Shop Admins" or request.user.is_superuser %}
-            <li{% if request.path == "/dashboard/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
-          {% endif %}
-          {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
-
-            <li{% if "/exhibitions/" in request.path or "/ausstellungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
-
-            <li{% if "/events/" in request.path or "/veranstaltungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
-
-            <li{% if "/guided-tours/" in request.path or "/fuehrungen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
-
-            <li{% if "/museums/" in request.path or "/museen/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
-
-          {% endif %}
-
-          <li{% if "/shop/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Product list" %}</a></li>
-
-          <!-- <li{% if request.path == "/hilfe/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/hilfe/">{% trans "Help" %}</a></li> -->
+          <li{% if request.path == "/dashboard/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
+          <li{% if "/stages-and-companies/" in request.path or "/locations/" in request.path or "/buehnen-und-ensembles/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Locations" %}</a></li>
+          <li{% if "/whats-on/" in request.path or "/productions/" in request.path or "/spielplan/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/productions/">{% trans "Productions" %}</a></li>
         </ul>
 
         {% comment %}

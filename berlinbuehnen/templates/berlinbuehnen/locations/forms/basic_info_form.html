@@ -19,23 +19,9 @@
     <script src="{{ STATIC_URL }}site/js/gmaps_for_address.js"></script>
     <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
     <script>
-        $(function() {
-            $('#id_museum').change(function() {
-                if ($(this).val()) {
-                    $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
-                        $('#id_street_address').val(data['street_address']).addClass("noneditable");
-                        $('#id_street_address2').val(data['street_address2']).addClass("noneditable");
-                        $('#id_postal_code').val(data['postal_code']).addClass("noneditable");
-                        $('#id_city').val(data['city']).addClass("noneditable");
-                        $('#id_latitude').val(data['latitude']).addClass("noneditable");
-                        $('#id_longitude').val(data['longitude']).addClass("noneditable");
-                        $('#dyn_locate_geo').click();
-                    }, 'json');
-                }
-            });
-        });
         function reinit_widgets() {
             $('[rel=tooltip]').tooltip();
+            $('[id^="id_social"][id$="channel_type"]').autocomplete(['Google+', 'Twitter', 'Facebook', 'LinkedIn', 'XING']);
         }
         function set_index_for_fields($formset_form, index) {
             $formset_form.find(':input').each(function() {
@@ -75,18 +61,17 @@
             
         $(function() {
             $(
-                '<a class="add btn btn-primary" id="add_organizer" href="#">{% trans "Add organizer" %}</a>'
-            ).insertAfter('#organizers').click(function() {
-                var $total_forms = $('#id_organizers-TOTAL_FORMS');
-                var $new_form = $('#organizers_empty_form').clone(true).attr("id", null).show();
+                '<a class="add btn btn-primary" id="add_social" href="#">{% trans "Add social media channel" %}</a>'
+            ).insertAfter('#social').click(function() {
+                var $total_forms = $('#id_social-TOTAL_FORMS');
+                var $new_form = $('#social_empty_form').clone(true).attr("id", null).show();
                 set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
-                $('#organizers').append($new_form);
+                $('#social').append($new_form);
                 $total_forms.val(parseInt($total_forms.val(), 10) + 1);
-                AutocompleteManager.reinit($new_form);
                 reinit_widgets();
                 return false;
             });
-            
+
             $('.formset-form').each(function() {
                 var $season = $(this);
                 $season.find('input:checkbox[id$=DELETE]').each(function() {
@@ -107,92 +92,11 @@
             });
             
             // Initial state
-            var $total_forms = $('#id_organizers-TOTAL_FORMS');
+            var $total_forms = $('#id_social-TOTAL_FORMS');
             if ($total_forms.val() == "0") {
-                $('#add_organizer').click();
+                $('#add_social').click();
             }
             reinit_widgets();
-            
-            $('#div_id_museum>label>a,#div_id_museum .help-block>a').click(function() {
-                $('#div_id_museum').hide();
-                $('#div_id_location_name').show();
-                $('#id_museum').val("");
-                $('#id_museum_text').val("");
-                
-                $('#id_location_name').val("").removeClass("noneditable");
-                $('#id_street_address').val("").removeClass("noneditable");
-                $('#id_street_address2').val("").removeClass("noneditable");
-                $('#id_postal_code').val("").removeClass("noneditable");
-                $('#id_city').val("").removeClass("noneditable");
-                GMapManager.removeGeoPos();
-                
-                return false;
-            });
-            $('#div_id_location_name>label>a,#div_id_location_name .help-block>a').click(function() {
-                $('#div_id_location_name').hide();
-                $('#div_id_museum').show();
-                return false;
-            });
-            if ($('#id_museum').val() || !$('#id_location_name').val()) {
-                $('#div_id_location_name').hide();
-                $('#div_id_museum').show();
-            } else {
-                $('#div_id_museum').hide();
-                $('#div_id_location_name').show();
-            }
-            
-            $('div[id$="organizing_museum"]>label>a,div[id$="organizing_museum"] .help-block>a').live("click", function() {
-                var $organizer = $(this).parents('.div_organizer:first');
-                $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').hide();
-                $organizer.find(':input[id$="organizing_museum"]').val("");
-                $organizer.find(':input[id$="organizing_museum_text"]').val("");
-                $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').show();
-                return false;
-            });
-            $('div[id$="organizer_title"]>label>a,div[id$="organizer_title"] .help-block>a').live("click", function() {
-                var $organizer = $(this).parents('.div_organizer:first');
-                $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').hide();
-                $organizer.find(':input[id$="organizer_title"]').val("");
-                $organizer.find(':input[id$="organizer_url_link"]').val("");
-                $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').show();
-                return false;
-            });
-            $(':input[id$="organizer_title"]').each(function() {
-                var $organizer = $(this).parents('.div_organizer:first');
-                if (!$(this).val()) {
-                    $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').hide();
-                    $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').show();
-                } else {
-                    $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').hide();
-                    $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').show();
-                }
-            });
-            
-            $('#id_permanent').click(function() {
-                if ($(this).is(':checked')) {
-                    $('#div_id_exhibition_extended').hide();
-                    $('#div_id_end').hide();
-                } else {
-                    $('#div_id_exhibition_extended').show();
-                    $('#div_id_end').show();
-                }
-            }).each(function() {
-                if ($(this).is(':checked')) {
-                    $('#div_id_exhibition_extended').hide();
-                    $('#div_id_end').hide();
-                }
-            });
-            $('#id_end').each(function() {
-                if ($(this).val()) {
-                    $(this).data('initial', $(this).val());
-                }
-            }).on("change blur", function() {
-                var initial = $(this).data('initial');
-                if (initial && initial != $(this).val()) {
-                    $('#id_exhibition_extended').prop('checked', true);
-                }
-            });
-            
         });
         
     </script>

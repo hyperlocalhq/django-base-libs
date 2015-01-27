@@ -2044,7 +2044,8 @@ form {
       font-size: 28px;
       color: black;
       margin: 0px;
-      margin-left: -1px; }
+      margin-left: -1px;
+      position: static; }
     form fieldset label {
       color: rgba(0, 0, 0, 0.8);
       position: relative;
@@ -2540,6 +2541,9 @@ div.tagsinput {
 
 #image_preview {
   margin-top: 32px; }
+
+.gmap {
+  height: 300px; }
 
 html {
   height: 100%; }
