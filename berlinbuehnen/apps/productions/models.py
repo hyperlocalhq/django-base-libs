@@ -121,6 +121,8 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     organizers = models.ManyToManyField("locations.Location", verbose_name=_("Organizers"), blank=True, related_name="organized_productions")
     in_cooperation_with = models.ManyToManyField("locations.Location", verbose_name=_("In cooperation with"), blank=True, related_name="cooperated_productions")
 
+    organizer_title = models.CharField(_("Organizer title"), max_length=255, blank=True)
+
     location_title = models.CharField(_("Location title"), max_length=255, blank=True)
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)

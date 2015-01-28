@@ -509,6 +509,9 @@ class Command(NoArgsCommand):
                 if location:
                     prod.organizers.clear()
                     prod.organizers.add(location)
+                else:
+                    prod.organizer_title = self.get_child_text(organisation_node, 'Name')
+                    prod.save()
 
             if not self.skip_images and not prod.productionimage_set.count():
                 for picture_node in prod_node.findall('./%(prefix)sPicture' % self.helper_dict):
@@ -553,6 +556,8 @@ class Command(NoArgsCommand):
                 internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)
                 if internal_ch_slug:
                     prod.characteristics.add(ProductionCharacteristics.objects.get(slug=internal_ch_slug))
+                elif int(status_node.get('Id')) == 25:
+                    prod.categories.add(ProductionCategory.objects.get(slug="kinder-jugend"))
 
             if not prod.productionleadership_set.count() and not prod.productionauthorship_set.count() and not prod.productioninvolvement_set.count():
                 for person_node in prod_node.findall('./%(prefix)sPerson' % self.helper_dict):
