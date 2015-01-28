@@ -43,7 +43,7 @@
                     <select class="status-switch" data-url="{{ location.get_url_path }}status/">
                         <option value="draft"{% if location.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
                         <option value="published"{% if location.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
-                        <option value="expired"{% if location.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
+                        <option value="not_listed"{% if location.status == "not_listed" %} selected="selected"{% endif %}>{% trans "Not listed" %}</option>
                     </select>
                 </div>
                 <script>

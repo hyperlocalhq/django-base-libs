@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
-{% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
+{% block title %}{% trans "Location" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}location-detail{% endblock %}
 
 {% block open_graph %}
@@ -92,18 +92,22 @@
                     </dd>
               </dl>
 
-              {% if location.stages_set.all %}
-                <dl>
-                  <dt>{% trans "Stages" %}</dt>
-                  {% for stage in location.stages_set.all %}
-                    <dd data-latitude="{{ stage.latitude|stringformat:"%f" }}" data-longitude="{{ stage.longitude|stringformat:"%f" }}">
-                      {{ stage.title }}<br />
+              {% if location.stage_set.all %}
+                <div>
+                  <h4>{% trans "Stages" %}</h4>
+                  {% for stage in location.stage_set.all %}
+                    <div data-latitude="{{ stage.latitude|stringformat:"%f" }}" data-longitude="{{ stage.longitude|stringformat:"%f" }}">
+                      <strong>{{ stage.title }}</strong><br />
                       {{ stage.street_address }}<br />
-                      {{ stage.street_address2 }}<br />
-                      {{ stage.postal_code }} {{ stage.city }}<br />
-                    </dd>
+                      {% if stage.street_address2 %}{{ stage.street_address2 }}<br />{% endif %}
+                      {{ stage.postal_code }} {{ stage.city }}<br /><br />
+
+                      {% if stage.description %}
+                        {{ stage.get_rendered_description }}
+                      {% endif %}
+                    </div>
                   {% endfor %}
-                </dl>
+                </div>
               {% endif %}
 
               {% if location.website %}

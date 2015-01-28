@@ -73,7 +73,7 @@
                     var $deleteLink = $(
                         '<span class="input-group-btn"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
                     );
-                    $checkbox.closest('.formset-form').find(".input-group").append($deleteLink);
+                    $checkbox.closest('.formset-form').find("fieldset:last").append($deleteLink);
                     $checkbox.closest('.form-group').hide();
                 });
             });

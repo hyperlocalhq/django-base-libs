@@ -1,0 +1,22 @@
+{% load i18n base_tags %}
+{% if page.has_other_pages %}
+  <ul class="pagination">
+    {% if page.has_previous %}
+      <li><a href="{% append_to_get page=page.previous_page_number %}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for page_number in page.paginator.page_range %}
+      {% if page_number == page.number %}
+        <li class="active"><a href="{% append_to_get page=page_number %}">{{ page_number }} <span class="sr-only">({% trans "current" %})</span></a></li>
+      {% else %}
+        <li><a href="{% append_to_get page=page_number %}">{{ page_number }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page.has_next %}
+      <li><a href="{% append_to_get page=page.next_page_number %}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}

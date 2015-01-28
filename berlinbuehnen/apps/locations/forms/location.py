@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
+from django.db import models
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -424,6 +425,13 @@ class StageForm(forms.ModelForm):
             css_class="fieldset-where",
         ))
 
+        layout_blocks.append(
+            layout.Field('id'),
+        )
+        layout_blocks.append(
+            layout.Field('DELETE'),
+        )
+
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
@@ -466,7 +474,46 @@ def load_data(instance=None):
             'gallery': {'_filled': True},
             '_pk': instance.pk,
         }
-        # TODO: do the loading
+        fields = [
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'phone_country', 'phone_area', 'phone_number',
+            'fax_country', 'fax_area', 'fax_number',
+            'email', 'website',
+            'tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city',
+            'tickets_email', 'tickets_website',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'title_%s' % lang_code,
+                'subtitle_%s' % lang_code,
+                'description_%s' % lang_code,
+            ]
+        for fname in fields:
+            form_step_data['basic'][fname] = getattr(instance, fname)
+
+        form_step_data['basic']['services'] = instance.services.all()
+        form_step_data['basic']['accessibility_options'] = instance.accessibility_options.all()
+
+        for social_media_channel in instance.socialmediachannel_set.all():
+            social_media_channel_dict = {}
+            social_media_channel_dict['channel_type'] = social_media_channel.channel_type
+            social_media_channel_dict['url'] = social_media_channel.url
+            form_step_data['basic']['sets']['social'].append(social_media_channel_dict)
+
+        stage_fields = [
+            'id', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            stage_fields += [
+                'title_%s' % lang_code,
+                'description_%s' % lang_code,
+            ]
+        for stage in instance.stage_set.all():
+            stage_dict = {}
+            for fname in stage_fields:
+                stage_dict[fname] = getattr(stage, fname)
+            form_step_data['stages']['sets']['stages'].append(stage_dict)
+
     return form_step_data
 
 
@@ -478,7 +525,42 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         else:
             instance = Location()
 
-        # TODO: do the saving
+        fields = [
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'phone_country', 'phone_area', 'phone_number',
+            'fax_country', 'fax_area', 'fax_number',
+            'email', 'website',
+            'tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city',
+            'tickets_email', 'tickets_website',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'title_%s' % lang_code,
+                'subtitle_%s' % lang_code,
+                'description_%s' % lang_code,
+            ]
+        for fname in fields:
+            setattr(instance, fname, form_step_data[current_step][fname])
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
+
+        instance.save()
+
+        instance.services.clear()
+        for cat in form_step_data['basic']['services']:
+            instance.services.add(cat)
+
+        instance.accessibility_options.clear()
+        for cat in form_step_data['basic']['accessibility_options']:
+            instance.accessibility_options.add(cat)
+
+        instance.socialmediachannel_set.all().delete()
+        for social_dict in form_step_data['basic']['sets']['social']:
+            social = SocialMediaChannel(location=instance)
+            social.channel_type = social_dict['channel_type']
+            social.url = social_dict['url']
+            social.save()
 
         form_step_data['_pk'] = instance.pk
 
@@ -486,7 +568,35 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if "_pk" in form_step_data:
             instance = Location.objects.get(pk=form_step_data['_pk'])
         else:
-            instance = Location()
+            return
+
+        stage_fields = [
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            stage_fields += [
+                'title_%s' % lang_code,
+                'description_%s' % lang_code,
+            ]
+        stage_ids_to_keep = []
+        for stage_dict in form_step_data['stages']['sets']['stages']:
+            if stage_dict['id']:
+                try:
+                    stage = Stage.objects.get(
+                        pk=stage_dict['id'],
+                        location=instance,
+                    )
+                except models.ObjectDoesNotExist:
+                    continue
+            else:
+                stage = Stage(location=instance)
+            for fname in stage_fields:
+                setattr(stage, fname, stage_dict[fname])
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(stage, 'description_%s_markup_type' % lang_code, 'pt')
+            stage.save()
+            stage_ids_to_keep.append(stage.pk)
+        instance.stage_set.exclude(pk__in=stage_ids_to_keep).delete()
 
     return form_step_data
 
@@ -540,6 +650,7 @@ LOCATION_FORM_STEPS = {
     'onsubmit': submit_step,
     'onsave': save_data,
     'onreset': cancel_editing,
+    'success_url': "/dashboard/",
     'general_error_message': _("There are errors in this form. Please correct them and try to save again."),
     'name': 'location_editing',
     'default_path': ["basic", "stages", "gallery"],

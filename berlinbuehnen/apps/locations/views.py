@@ -142,7 +142,7 @@ def change_location_status(request, slug):
     instance = get_object_or_404(Location, slug=slug)
     if not request.user.has_perm("locations.change_location", instance):
         return access_denied(request)
-    if request.method == "POST" and request.is_ajax():
+    if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
         instance.status = request.POST['status']
         instance.save()
         return HttpResponse("OK")

@@ -64,7 +64,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-          <li{% if request.path == "/dashboard/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
+          <li{% if request.path == "/de/dashboard/" or  request.path == "/en/dashboard/" %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Overview" %}</a></li>
           <li{% if "/stages-and-companies/" in request.path or "/locations/" in request.path or "/buehnen-und-ensembles/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/locations/">{% trans "Locations" %}</a></li>
           <li{% if "/whats-on/" in request.path or "/productions/" in request.path or "/spielplan/" in request.path %} class="active"{% endif %}><a href="/{{ LANGUAGE_CODE }}/dashboard/productions/">{% trans "Productions" %}</a></li>
         </ul>

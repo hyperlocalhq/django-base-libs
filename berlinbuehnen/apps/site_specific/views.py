@@ -35,10 +35,7 @@ from base_libs.utils.crypt import cryptString, decryptString
 ContentType = models.get_model("contenttypes", "ContentType")
 User = models.get_model("auth", "User")
 Location = models.get_model("locations", "Location")
-Exhibition = models.get_model("exhibitions", "Exhibition")
-Event = models.get_model("events", "Event")
-Workshop = models.get_model("workshops", "Workshop")
-ShopProduct = models.get_model("shop", "ShopProduct")
+Production = models.get_model("productions", "Production")
 
 # from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
 
@@ -99,163 +96,57 @@ def login(request, template_name='registration/login.html', redirect_field_name=
     )
 
 
-# @never_cache
-# @login_required
-# def dashboard(request):
-#     owned_locations = Location.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
-#     owned_exhibitions = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
-#     owned_events = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
-#     owned_workshops = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
-#     owned_products = ShopProduct.objects.owned_by(request.user).filter(status__in=("published", "draft")).order_by("-modified_date", "-creation_date")[:3]
-#     context = {
-#         'owned_locations': owned_locations,
-#         'owned_exhibitions': owned_exhibitions,
-#         'owned_events': owned_events,
-#         'owned_workshops': owned_workshops,
-#         'owned_products': owned_products,
-#     }
-#     return render(request, "accounts/dashboard.html", context)
-#
-#
-# @never_cache
-# @login_required
-# def dashboard_shopproducts(request):
-#     owned_shop_qs = ShopProduct.objects.owned_by(request.user).filter(status__in=("published", "draft")).order_by("-modified_date", "-creation_date")
-#
-#     status = None
-#     form = ShopFilterForm(request.REQUEST)
-#     if form.is_valid():
-#         status = form.cleaned_data['status'] or "published"
-#         owned_shop_qs = owned_shop_qs.filter(status=status)
-#
-#     paginator = Paginator(owned_shop_qs, 50)
-#     page_number = request.GET.get('page', 1)
-#     try:
-#         page = paginator.page(page_number)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         page = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         page = paginator.page(paginator.num_pages)
-#     context = {
-#         'form': form,
-#         'status': status,
-#         'page': page,
-#     }
-#     return render(request, "accounts/dashboard_shopproducts.html", context)
-#
-#
-# @never_cache
-# @login_required
-# def dashboard_locations(request):
-#     owned_location_qs = Location.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
-#     paginator = Paginator(owned_location_qs, 50)
-#     page_number = request.GET.get('page', 1)
-#     try:
-#         page = paginator.page(page_number)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         page = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         page = paginator.page(paginator.num_pages)
-#     context = {
-#         'page': page,
-#     }
-#     return render(request, "accounts/dashboard_locations.html", context)
-#
-#
-# @never_cache
-# @login_required
-# def dashboard_exhibitions(request):
-#     owned_exhibition_qs = Exhibition.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
-#
-#     status = None
-#     form = ExhibitionFilterForm(request.REQUEST)
-#     if form.is_valid():
-#         status = form.cleaned_data['status'] or "published"
-#         owned_exhibition_qs = owned_exhibition_qs.filter(status=status)
-#
-#     paginator = Paginator(owned_exhibition_qs, 50)
-#     page_number = request.GET.get('page', 1)
-#     try:
-#         page = paginator.page(page_number)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         page = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         page = paginator.page(paginator.num_pages)
-#
-#     context = {
-#         'form': form,
-#         'status': status,
-#         'page': page,
-#         }
-#     return render(request, "accounts/dashboard_exhibitions.html", context)
-#
-#
-# @never_cache
-# @login_required
-# def dashboard_events(request):
-#     owned_event_qs = Event.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
-#
-#     status = None
-#     form = EventFilterForm(request.REQUEST)
-#     if form.is_valid():
-#         status = form.cleaned_data['status'] or "published"
-#         owned_event_qs = owned_event_qs.filter(status=status)
-#
-#     paginator = Paginator(owned_event_qs, 50)
-#     page_number = request.GET.get('page', 1)
-#     try:
-#         page = paginator.page(page_number)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         page = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         page = paginator.page(paginator.num_pages)
-#
-#     context = {
-#         'form': form,
-#         'status': status,
-#         'page': page,
-#     }
-#     return render(request, "accounts/dashboard_events.html", context)
-#
-#
-# @never_cache
-# @login_required
-# def dashboard_workshops(request):
-#     owned_workshop_qs = Workshop.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")
-#
-#     status = None
-#     form = WorkshopFilterForm(request.REQUEST)
-#     if form.is_valid():
-#         status = form.cleaned_data['status'] or "published"
-#         owned_workshop_qs = owned_workshop_qs.filter(status=status)
-#
-#     paginator = Paginator(owned_workshop_qs, 50)
-#     page_number = request.GET.get('page', 1)
-#     try:
-#         page = paginator.page(page_number)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         page = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         page = paginator.page(paginator.num_pages)
-#
-#     context = {
-#         'form': form,
-#         'status': status,
-#         'page': page,
-#     }
-#     return render(request, "accounts/dashboard_workshops.html", context)
-#
-#
+@never_cache
+@login_required
+def dashboard(request):
+    owned_locations = Location.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
+    owned_productions = Production.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+    context = {
+        'owned_locations': owned_locations,
+        'owned_productions': owned_productions,
+    }
+    return render(request, "accounts/dashboard.html", context)
+
+@never_cache
+@login_required
+def dashboard_locations(request):
+    owned_location_qs = Location.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    paginator = Paginator(owned_location_qs, 50)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+    }
+    return render(request, "accounts/dashboard_locations.html", context)
+
+
+@never_cache
+@login_required
+def dashboard_productions(request):
+    owned_production_qs = Production.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    paginator = Paginator(owned_production_qs, 50)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+    }
+    return render(request, "accounts/dashboard_productions.html", context)
+
+
 # @never_cache
 # @staff_member_required
 # def invite_to_claim_location(request):
