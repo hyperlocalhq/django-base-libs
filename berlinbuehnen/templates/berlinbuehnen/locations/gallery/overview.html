@@ -4,9 +4,9 @@
 {% block content %}
 <div class="container">
     <div id="photos">
-        {% for media_file in exhibition.mediafile_set.all %}
+        {% for media_file in location.image_set.all %}
             <div class="photo" data-token="{{ media_file.get_token }}">
-                <a href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/" class="edit reorder img">
+                <a href="{{ location.get_url_path }}gallery/file_{{ media_file.get_token }}/" class="edit reorder img">
                     <img class="img-responsive" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ media_file.path|modified_path:"thumb" }}?now={% now "YmdHis" %}" alt="" />
                 </a>
                 {% with media_file.path|file_description as file_desc %}
@@ -21,7 +21,7 @@
                 {% endwith %}
 
                 <nav class="actions hide">
-                    <a href="{% cropping_url media_file.path "exhibition_list" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop list image" %}" class="crop icon icon-white icon-tool-crop crop_list_image"></a>
+                    <a href="{% cropping_url media_file.path "location_list" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop list image" %}" class="crop icon icon-white icon-tool-crop crop_list_image"></a>
                     <a href="{% cropping_url media_file.path "cover" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop cover image" %}" class="crop icon icon-white icon-tool-crop crop_cover_image"></a>
                 </nav>
             </div>        

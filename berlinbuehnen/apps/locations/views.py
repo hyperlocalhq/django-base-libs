@@ -182,7 +182,7 @@ def gallery_overview(request, slug):
         update_mediafile_ordering(tokens, instance)
         return HttpResponse("OK")
 
-    return render(request, "locations/gallery/overview.html", {'exhibition': instance})
+    return render(request, "locations/gallery/overview.html", {'location': instance})
 
 
 @never_cache
@@ -235,7 +235,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
 
             if not media_file_obj:
                 media_file_obj = LocationImage(
-                    exhibition=instance
+                    location=instance
                 )
 
             media_file_path = ""
@@ -275,7 +275,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
 
             if not media_file_obj.pk:
                 media_file_obj.sort_order = LocationImage.objects.filter(
-                    exhibition=instance,
+                    location=instance,
                 ).count()
             else:
                 # trick not to reorder media files on save
@@ -285,14 +285,14 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
             if "hidden_iframe" in request.REQUEST:
                 return render(
                     request,
-                    "exhibitions/gallery/success.html",
+                    "locations/gallery/success.html",
                     {},
                 )
             else:
                 if cleaned['goto_next']:
                     return redirect(cleaned['goto_next'])
                 else:
-                    return redirect("exhibition_gallery_overview", slug=instance.slug)
+                    return redirect("location_gallery_overview", slug=instance.slug)
     else:
         if media_file_obj:
             # existing media file
@@ -321,7 +321,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         'media_file': media_file_obj,
         'media_file_type': media_file_type,
         'form': form,
-        'exhibition': instance,
+        'location': instance,
     }
 
     return render(
@@ -335,14 +335,14 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
 @login_required
 def delete_mediafile(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Location, slug=slug)
-    if not request.user.has_perm("exhibitions.change_exhibition", instance):
+    if not request.user.has_perm("locations.change_location", instance):
         return access_denied(request)
 
     filters = {
         'id': LocationImage.token_to_pk(mediafile_token),
     }
     if instance:
-        filters['exhibition'] = instance
+        filters['location'] = instance
     try:
         media_file_obj = LocationImage.objects.get(**filters)
     except:
@@ -370,7 +370,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
     context_dict = {
         'media_file': media_file_obj,
         'form': form,
-        'exhibition': instance,
+        'location': instance,
     }
 
     return render(

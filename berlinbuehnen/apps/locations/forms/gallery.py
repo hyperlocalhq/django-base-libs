@@ -69,7 +69,7 @@ class ImageFileForm(forms.Form):
                 max_length=255,
             )
             self.fields['description_%s' % lang_code] = forms.CharField(
-                label= _('Description (will be used as alt attribute) <span class="lang">%s</span>') % lang_code.upper(),
+                label=_('Description (will be used as alt attribute) <span class="lang">%s</span>') % lang_code.upper(),
                 required=False,
                 widget=forms.Textarea(),
             )
@@ -135,7 +135,7 @@ class ImageFileForm(forms.Form):
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     {% if media_file.path %}
-                        {% parse "{{ exhibition.get_url_path }}change/" as goto_next %}
+                        {% parse "{{ location.get_url_path }}change/" as goto_next %}
                         <input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
                     {% endif %}
                 </div>
@@ -150,8 +150,8 @@ class ImageFileForm(forms.Form):
             SecondarySubmit('cancel', _('Cancel')),
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
-                    {% parse "{{ exhibition.get_url_path }}change/" as goto_next %}
-                    <input type="button" id="button-id-delete-photo" class="delete_photo btn btn btn-lg btn-info" data-href="{{ exhibition.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+                    {% parse "{{ location.get_url_path }}change/" as goto_next %}
+                    <input type="button" id="button-id-delete-photo" class="delete_photo btn btn btn-lg btn-info" data-href="{{ location.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
                         <div class="modal-centered">
