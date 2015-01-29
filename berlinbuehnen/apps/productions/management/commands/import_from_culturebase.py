@@ -831,6 +831,11 @@ class Command(NoArgsCommand):
                     event.contents_en = u"\n".join([text for text in (inhaltsangabe_en, programbuch_en) if text])
                     event.contents_en_markup_type = 'pt'
 
+                organisation_node = event_node.find('./%(prefix)sOrganisation' % self.helper_dict)
+                if organisation_node:
+                    event.organizer_title = self.get_child_text(organisation_node, 'Name')
+                    event.save()
+
                 event.save()
 
                 if not self.skip_images and not event.eventimage_set.count():
