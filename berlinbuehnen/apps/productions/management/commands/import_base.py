@@ -468,7 +468,11 @@ class ImportFromHeimatBase(object):
 
                 price_node = event_node.find('price')
                 if price_node is not None:
-                    event.price_from = (price_node.get('minPrice') or u"").replace(',', '.') or None
+                    price_from = (price_node.get('minPrice') or u"").replace(',', '.') or None
+                    if price_from == u"Eintritt frei":
+                        event.free_entrance = True
+                    else:
+                        event.price_from = price_from
                     event.price_till = (price_node.get('maxPrice') or u"").replace(',', '.') or None
                     event.tickets_website = price_node.get('url')
 
