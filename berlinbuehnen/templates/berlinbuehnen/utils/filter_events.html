@@ -3,16 +3,19 @@
   <h4>{% trans "Filters" %}</h4>
 
   <div class="btn-group" id="filter-toggle" data-toggle="buttons">
+    {% comment %}
     <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
       <input type="radio" name="options" id="filter-toggle-categories">
       {% trans "Categories" %}
     </label>
+    {% endcomment %}
 
     <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
       <input type="radio" name="options" id="filter-toggle-alphabetic">
       {% trans "A - Z" %}
     </label>
 
+    {% comment %}
     <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
       <input type="radio" name="options" id="filter-toggle-smartlists">
       {% trans "Smart lists" %}
@@ -27,9 +30,17 @@
       <input type="radio" name="options" id="filter-toggle-accessibility">
       {% trans "Accessibility" %}
     </label>
+    {% endcomment %}
+
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-location">
+      <input type="radio" name="options" id="filter-toggle-location">
+      {% trans "Location" %}
+    </label>
+
   </div>
 
   <div class="panel-group" id="filter-options">
+    {% comment %}
     <div class="panel panel-default">
       <div id="filter-categories" class="panel-collapse collapse">
         <div class="panel-body">
@@ -60,6 +71,7 @@
         </div>
       </div>
     </div>
+    {% endcomment %}
     <div class="panel panel-default">
       <div id="filter-alphabetic" class="panel-collapse collapse">
         <div class="panel-body">
@@ -76,6 +88,7 @@
         </div>
       </div>
     </div>
+    {% comment %}
     <div class="panel panel-default">
       <div id="filter-smartlists" class="panel-collapse collapse">
         <div class="panel-body">
@@ -88,22 +101,6 @@
             <li{% if facets.selected.free_entrance %} class="active"{% endif %} data-param="free_entrance" data-value="1">
               <a href="{% append_to_get free_entrance=1,page="" %}" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a>
             </li>
-            {% comment %}
-            <!-- <li><a href="" data-filter-value=".is_for_children">{% trans "Special for children" %}</a></li>
-            <li><a href="" data-filter-value=".is_family_ticket">{% trans "Family ticket" %}</a></li>
-            <li><a href="" data-filter-value=".is_group_ticket">{% trans "Group ticket" %}</a></li>
-            <li><a href="" data-filter-value=".is_yearly_ticket">{% trans "Yearly ticket" %}</a></li>
-            <li><a href="" data-filter-value=".is_museumspass">{% trans "Museumspass Berlin" %}</a></li>
-            <li><a href="" data-filter-value=".has_service_shop">{% trans "Museum Shop" %}</a></li>
-            <li><a href="" data-filter-value=".has_service_restaurant">{% trans "Restaurant" %}</a></li>
-            <li><a href="" data-filter-value=".has_service_cafe">{% trans "Cafe" %}</a></li>
-            <li><a href="" data-filter-value=".has_service_library">{% trans "Library" %}</a></li>
-            <li><a href="" data-filter-value=".has_service_archive">{% trans "Archive" %}</a></li>
-            <li><a href="" data-filter-value=".has_service_diaper_changing">{% trans "Diaper changing table" %}</a></li>
-            <li><a href="" data-filter-value=".has_audioguide">{% trans "Audioguide" %}</a></li>
-            <li><a href="" data-filter-value=".has_audioguide_for_children">{% trans "Audioguide for children" %}</a></li>
-            <li><a href="" data-filter-value=".has_audioguide_for_learning_difficulties">{% trans "Audioguide for people with learning difficulties" %}</a></li> -->
-            {% endcomment %}
           </ul>
         </div>
       </div>
@@ -130,6 +127,21 @@
             {% for cat in facets.categories.accessibility_options %}
               <li{% if facets.selected.accessibility_option == cat %} class="active"{% endif %} data-param="accessibility_option" data-value="{{ cat.slug }}">
                 <a href="{% append_to_get accessibility_option=cat.slug,page="" %}" data-filter-value=".access_{{ cat.slug }}">{{ cat.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endcomment %}
+    <div class="panel panel-default">
+      <div id="filter-location" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Location" %}</h4>
+          <ul class="filter option-set clearfix" id="location" data-filter-group="location" data-single-selection="1">
+            {% for cat in facets.categories.locations %}
+              <li{% if facets.selected.location == cat %} class="active"{% endif %} data-param="location" data-value="{{ cat.pk }}">
+                <a href="{% append_to_get location=cat.pk,page="" %}" data-filter-value=".location_{{ cat.pk }}">{{ cat.title }}</a>
               </li>
             {% endfor %}
           </ul>

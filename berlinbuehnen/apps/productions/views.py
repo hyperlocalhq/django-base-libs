@@ -3,6 +3,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.db import models
 
 from base_libs.views.views import access_denied
 
@@ -13,10 +14,15 @@ from jetson.apps.utils.context_processors import prev_next_processor
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
+from berlinbuehnen.apps.locations.models import Location
 from models import Production, Event
 
+
 class EventFilterForm(forms.Form):
-    pass
+    location = forms.ModelChoiceField(
+        queryset=Location.objects.all(),
+        required=False,
+    )
 
 
 def event_list(request, year=None, month=None, day=None):
@@ -28,18 +34,19 @@ def event_list(request, year=None, month=None, day=None):
     facets = {
         'selected': {},
         'categories': {
+            'locations': Location.objects.all(),
         },
     }
     
     if form.is_valid():
-        pass
-        # cat = form.cleaned_data['category']
-        # if cat:
-        #     facets['selected']['category'] = cat
-        #     qs = qs.filter(
-        #         categories=cat,
-        #     ).distinct()
-        #
+        cat = form.cleaned_data['location']
+        if cat:
+            facets['selected']['location'] = cat
+            qs = qs.filter(
+                models.Q(play_locations=cat) |
+                models.Q(production__play_locations=cat)
+            ).distinct()
+
 
     abc_filter = request.GET.get('abc', None)
     if abc_filter:
