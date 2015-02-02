@@ -27,7 +27,7 @@ SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 class CultureBaseLocation(object):
     def __init__(self, id, title, street_address, postal_code, city, *args, **kwargs):
-        self.id = int(id)
+        self.id = id
         self.title = force_unicode(title)
         self.street_address = force_unicode(street_address)
         self.postal_code = force_unicode(postal_code)
@@ -174,10 +174,11 @@ class ImportFromHeimatBase(object):
         if response.status_code != 200:
             return
         reader = csv.reader(response.content.splitlines(), delimiter=";")
+        reader.next()  # skip the first line
         for row in reader:
-            if row[0] == "locationId":  # skip the first row
-                continue
-            self.LOCATIONS[int(row[0])] = CultureBaseLocation(*row)
+            # if row[0] == "locationId":  # skip the first row
+            #     continue
+            self.LOCATIONS[row[0]] = CultureBaseLocation(*row)
 
     def get_child_text(self, node, tag, **attrs):
         """
@@ -209,7 +210,7 @@ class ImportFromHeimatBase(object):
             self.load_and_parse_locations()
 
         if venue_node.get('isId') == "1":
-            external_id = int(venue_node.text)
+            external_id = venue_node.text
         else:  # unknown location id
             return None, False
 
@@ -263,8 +264,16 @@ class ImportFromHeimatBase(object):
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
 
-        for prod_node in root_node.findall('production'):
+        prod_nodes = root_node.findall('production')
+        prods_count = len(prod_nodes)
+
+        for prod_index, prod_node in enumerate(prod_nodes, 1):
             external_prod_id = prod_node.get('foreignId')
+
+            title_de = self.get_child_text(prod_node, 'title', languageId="1")
+            title_en = self.get_child_text(prod_node, 'title', languageId="2")
+            if self.verbosity > NORMAL:
+                print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
 
             mapper = None
             try:
@@ -289,17 +298,12 @@ class ImportFromHeimatBase(object):
                 #         self.stats['prods_skipped'] += 1
                 #         continue
 
-            title_de = self.get_child_text(prod_node, 'title', languageId="1")
-            title_en = self.get_child_text(prod_node, 'title', languageId="2")
             if not title_de:  # skip productions without title
                 self.stats['prods_skipped'] += 1
                 continue
             prod.title_de = title_de
             prod.title_en = title_en or title_de
             prod.website = prod_node.get('url')
-
-            if self.verbosity > NORMAL:
-                print smart_str(title_de) + " | " + smart_str(title_en)
 
             prod.slug = get_unique_value(Production, slugify(prod.title_de))
 
@@ -318,7 +322,7 @@ class ImportFromHeimatBase(object):
             prod.save()
 
             venue_node = prod_node.find('location')
-            if venue_node:
+            if venue_node is not None:
                 location, created = self.create_or_update_location(venue_node)
                 if location:
                     prod.play_locations.clear()
@@ -355,7 +359,7 @@ class ImportFromHeimatBase(object):
                         file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
                         file_description.copyright_limitations = picture_node.get('copyright')
                         file_description.save()
-                        time.sleep(1)
+                        #time.sleep(1)
 
             for category_node in prod_node.findall('category'):
                 internal_cat_id = self.CATEGORY_MAPPER.get(int(category_node.text), None)
@@ -518,7 +522,7 @@ class ImportFromHeimatBase(object):
                             file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
                             file_description.copyright_limitations = picture_node.get('copyright')
                             file_description.save()
-                            time.sleep(1)
+                            #time.sleep(1)
 
                 venue_node = event_node.find('location')
                 if venue_node:
