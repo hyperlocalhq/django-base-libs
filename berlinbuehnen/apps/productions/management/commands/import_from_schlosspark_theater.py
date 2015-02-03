@@ -25,9 +25,6 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
 
         Service = models.get_model("external_services", "Service")
 
-        self.CATEGORY_MAPPER = {
-        }
-
         self.service, created = Service.objects.get_or_create(
             sysname="schlosspark_theater_prods",
             defaults={

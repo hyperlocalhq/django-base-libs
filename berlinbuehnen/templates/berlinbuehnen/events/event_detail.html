@@ -159,7 +159,7 @@
                 {% endif %}
                 {% for location in event.ev_or_prod_play_locations %}
                   <dd data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
-                    {{ location.title }}<br />
+                    <a href="{{ location.get_url_path }}">{{ location.title }}</a><br />
                     {{ location.street_address }}<br />
                     {{ location.street_address2 }}<br />
                     {{ location.postal_code }} {{ location.city }}<br />
@@ -412,6 +412,9 @@
                         {% endif %}
                         {% if file_desc.author %}
                           <span class="author"><strong>{% trans "Author" %}:</strong> {{ file_desc.author }}</span>
+                        {% endif %}
+                        {% if file_desc.copyright_limitations %}
+                          <span class="copyright_limitations"><strong>{% trans "Copyright" %}:</strong> {{ file_desc.copyright_limitations }}</span>
                         {% endif %}
                       </small>
                     </p>

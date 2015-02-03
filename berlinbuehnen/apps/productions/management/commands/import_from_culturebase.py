@@ -129,8 +129,8 @@ class Command(NoArgsCommand):
         1: (u'Regie', u'Director'),
         4: (u'Dramaturgie', u'Dramaturgy'),
         6: (u'Ausstatter/-in', u'Designer'),
-        8: (u'Schauspieler/-in', u'Actor'),
-        9: (u'Sänger/-in', u'Singer'),
+        8: (u'Sänger/-in', u'Singer'),
+        9: (u'Schauspieler/-in', u'Actor'),
         10: (u'Solist/-in', u'Solist'),
         11: (u'Tänzer/-in', u'Dancer'),
         12: (u'Dirigent/-in', u'Director'),
@@ -339,6 +339,7 @@ class Command(NoArgsCommand):
                     prod.price_from, prod.price_till = prices.split(u' - ')
                 prod.tickets_website = self.get_child_text(ticket_node, 'TicketLink')
 
+            description_de = description_en = u""
             teaser_de = teaser_en = u""
             pressetext_de = pressetext_en = u""
             kritik_de = kritik_en = u""
@@ -359,11 +360,9 @@ class Command(NoArgsCommand):
                         teaser_en = text_en
                 elif text_cat_id == 15:  # Beschreibungstext lang
                     if text_de:
-                        prod.description_de = text_de
-                        prod.description_de_markup_type = 'pt'
+                        description_de = text_de
                     if text_en:
-                        prod.description_en = text_en
-                        prod.description_en_markup_type = 'pt'
+                        description_en = text_en
                 elif text_cat_id == 16:  # Inhaltsangabe
                     if text_de:
                         inhaltsangabe_de = text_de
@@ -494,6 +493,28 @@ class Command(NoArgsCommand):
             if inhaltsangabe_en or programbuch_en:
                 prod.contents_en = u"\n".join([text for text in (inhaltsangabe_en, programbuch_en) if text])
                 prod.contents_en_markup_type = 'pt'
+
+            if description_de:
+                prod.description_de = description_de
+            elif prod.teaser_de:
+                prod.description_de = prod.teaser_de
+                prod.teaser_de = u""
+            elif prod.work_info_de:
+                prod.description_de = prod.work_info_de
+                prod.work_info_de = u""
+
+            prod.description_de_markup_type = 'pt'
+
+            if description_en:
+                prod.description_en = description_en
+            elif prod.teaser_en:
+                prod.description_en = prod.teaser_en
+                prod.teaser_en = u""
+            elif prod.work_info_en:
+                prod.description_en = prod.work_info_en
+                prod.work_info_en = u""
+
+            prod.description_en_markup_type = 'pt'
 
             prod.save()
 
@@ -702,6 +723,7 @@ class Command(NoArgsCommand):
                 elif flag_status == 2:  # ausverkauft
                     event.ticket_status = 'sold_out'
 
+                description_de = description_en = u""
                 teaser_de = teaser_en = u""
                 pressetext_de = pressetext_en = u""
                 kritik_de = kritik_en = u""
@@ -722,11 +744,9 @@ class Command(NoArgsCommand):
                             teaser_en = text_en
                     elif text_cat_id == 15:  # Beschreibungstext lang
                         if text_de:
-                            event.description_de = text_de
-                            event.description_de_markup_type = 'pt'
+                            description_de = text_de
                         if text_en:
-                            event.description_en = text_en
-                            event.description_en_markup_type = 'pt'
+                            description_en = text_en
                     elif text_cat_id == 16:  # Inhaltsangabe
                         if text_de:
                             inhaltsangabe_de = text_de
@@ -852,10 +872,31 @@ class Command(NoArgsCommand):
                     event.contents_en = u"\n".join([text for text in (inhaltsangabe_en, programbuch_en) if text])
                     event.contents_en_markup_type = 'pt'
 
+                if description_de:
+                    event.description_de = description_de
+                elif event.teaser_de:
+                    event.description_de = event.teaser_de
+                    event.teaser_de = u""
+                elif event.work_info_de:
+                    event.description_de = event.work_info_de
+                    event.work_info_de = u""
+
+                event.description_de_markup_type = 'pt'
+
+                if description_en:
+                    event.description_en = description_en
+                elif event.teaser_en:
+                    event.description_en = event.teaser_en
+                    event.teaser_en = u""
+                elif event.work_info_en:
+                    event.description_en = event.work_info_en
+                    event.work_info_en = u""
+
+                event.description_en_markup_type = 'pt'
+
                 organisation_node = event_node.find('./%(prefix)sOrganisation' % self.helper_dict)
                 if organisation_node:
                     event.organizer_title = self.get_child_text(organisation_node, 'Name')
-                    event.save()
 
                 event.save()
 
