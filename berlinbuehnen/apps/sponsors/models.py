@@ -16,8 +16,8 @@ STATUS_CHOICES = (
 
 
 class Sponsor(CreationModificationDateMixin):
-    title = MultilingualCharField(_('Title'), max_length=255)
-    image = FileBrowseField(_('File path'), max_length=255, directory="sponsors/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."))
+    title = MultilingualCharField(_('Title'), max_length=255, blank=True)
+    image = FileBrowseField(_('File path'), max_length=255, directory="sponsors/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."), blank=True)
     website = URLField(_("Website"), blank=True)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 

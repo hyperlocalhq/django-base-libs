@@ -180,13 +180,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         verbose_name_plural = _("Productions")
 
     def get_url_path(self):
-        try:
-            path = reverse("production_detail", kwargs={'slug': self.slug})
-        except:
-            # the apphook is not attached yet
-            return ""
-        else:
-            return path
+        return self.event_set.all()[0].get_url_path()
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")

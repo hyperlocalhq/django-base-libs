@@ -373,7 +373,19 @@
               {% if event.ev_or_prod_sponsors %}
                 <h4>{% trans "Sponsors" %}</h4>
                 {% for sponsor in event.ev_or_prod_sponsors %}
-                  <p>{{ sponsor.title }}</p>
+                  <p>
+                    {% if sponsor.website %}
+                    <a href="{{ sponsor.website }}">
+                    {% endif %}
+                    {% if sponsor.image %}
+                      <img alt="{{ sponsor.title }}" src="{{ MEDIA_URL }}{{ sponsor.image.path }}" />
+                    {% else %}
+                      {{ sponsor.title }}
+                    {% endif %}
+                    {% if sponsor.website %}
+                    </a>
+                    {% endif %}
+                  </p>
                 {% endfor %}
               {% endif %}
 

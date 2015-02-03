@@ -21,6 +21,7 @@ from berlinbuehnen.apps.productions.models import Event
 from berlinbuehnen.apps.productions.models import EventCharacteristics
 from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
+from berlinbuehnen.apps.sponsors.models import Sponsor
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -616,6 +617,26 @@ class Command(NoArgsCommand):
                             involvement_role_en=role_en,
                             sort_order=person_node.get('Position'),
                         )
+
+            if not prod.sponsors.count():
+                for sponsor_node in prod_node.findall('./%(prefix)sSponsor' % self.helper_dict):
+                    sponsor = Sponsor()
+                    sponsor.title_de = self.get_child_text(sponsor_node, 'Description', Language="de")
+                    sponsor.title_en = self.get_child_text(sponsor_node, 'Description', Language="en")
+                    sponsor.website = self.get_child_text(sponsor_node, 'Url')
+                    sponsor.save()
+                    image_url = self.get_child_text(sponsor_node, 'ImageUrl')
+                    filename = image_url.split("/")[-1]
+                    image_response = requests.get(image_url)
+                    if image_response.status_code == 200:
+                        image_mods.FileManager.save_file_for_object(
+                            sponsor,
+                            filename,
+                            image_response.content,
+                            field_name="image",
+                            subpath="sponsors/",
+                        )
+                    prod.sponsors.add(sponsor)
 
             if not mapper:
                 mapper = ObjectMapper(

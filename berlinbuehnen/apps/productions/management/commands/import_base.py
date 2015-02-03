@@ -241,7 +241,7 @@ class ImportFromHeimatBase(object):
         if locations_by_title and not location.pk:
             location = locations_by_title[0]
         else:
-            location.title = culturbase_location.title
+            location.title_de = location.title_en = culturbase_location.title
             location.street_address = culturbase_location.street_address
             location.postal_code = culturbase_location.postal_code
             location.city = "Berlin"
