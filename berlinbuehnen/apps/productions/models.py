@@ -524,18 +524,18 @@ class Event(CreationModificationMixin, UrlMixin):
 
     def ev_or_prod_leaderships(self):
         if self.eventleadership_set.exists():
-            return self.eventleadership_set.all()
-        return self.production.productionleadership_set.all()
+            return self.eventleadership_set.all().order_by('sort_order')
+        return self.production.productionleadership_set.all().order_by('sort_order')
 
     def ev_or_prod_authorships(self):
         if self.eventauthorship_set.exists():
-            return self.eventauthorship_set.all()
-        return self.production.productionauthorship_set.all()
+            return self.eventauthorship_set.all().order_by('sort_order')
+        return self.production.productionauthorship_set.all().order_by('sort_order')
 
     def ev_or_prod_involvements(self):
         if self.eventinvolvement_set.exists():
-            return self.eventinvolvement_set.all()
-        return self.production.productioninvolvement_set.all()
+            return self.eventinvolvement_set.all().order_by('sort_order')
+        return self.production.productioninvolvement_set.all().order_by('sort_order')
 
 
 class EventVideo(CreationModificationDateMixin):

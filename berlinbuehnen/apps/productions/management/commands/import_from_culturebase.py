@@ -115,7 +115,7 @@ class Command(NoArgsCommand):
         23: '',  # Urauffuhrung
         24: 'familienpreise',  # Familienvorstellung
         25: '',  # Kindervorstellung
-        27: '',  # Einfuhrung
+        27: 'einfuehrung',  # Einfuhrung
         28: 'zum-letzten-mal-dieser-spielzeit',  # zum letzten Mal in dieser Spielzeit
         30: 'deutschsprachige-erstauffuehrung',  # Deutschsprachige Erstauffuhrung
         31: '',  # On Tour
@@ -473,13 +473,6 @@ class Command(NoArgsCommand):
                 prod.press_text_en = u"\n".join([text for text in (pressetext_en, kritik_en) if text])
                 prod.press_text_en_markup_type = 'pt'
 
-            if teaser_de or werkinfo_kurz_de or werbezeile_de:
-                prod.teaser_de = u"\n".join([text for text in (teaser_de, werkinfo_kurz_de, werbezeile_de) if text])
-                prod.teaser_de_markup_type = 'pt'
-            if teaser_en or werkinfo_kurz_en or werbezeile_en:
-                prod.teaser_en = u"\n".join([text for text in (teaser_en, werkinfo_kurz_en, werbezeile_en) if text])
-                prod.teaser_en_markup_type = 'pt'
-
             if werkinfo_gesamt_de or hintergrundinformation_de:
                 prod.work_info_de = u"\n".join([text for text in (werkinfo_gesamt_de, hintergrundinformation_de) if text])
                 prod.work_info_de_markup_type = 'pt'
@@ -494,26 +487,17 @@ class Command(NoArgsCommand):
                 prod.contents_en = u"\n".join([text for text in (inhaltsangabe_en, programbuch_en) if text])
                 prod.contents_en_markup_type = 'pt'
 
-            if description_de:
-                prod.description_de = description_de
-            elif prod.teaser_de:
-                prod.description_de = prod.teaser_de
-                prod.teaser_de = u""
-            elif prod.work_info_de:
-                prod.description_de = prod.work_info_de
-                prod.work_info_de = u""
+            # according to Bjorn's request:
+            prod.teaser_de = werbezeile_de or werkinfo_kurz_de or teaser_de
+            prod.teaser_de_markup_type = 'pt'
 
+            prod.teaser_en = werbezeile_en or werkinfo_kurz_en or teaser_en
+            prod.teaser_en_markup_type = 'pt'
+
+            prod.description_de = description_de or werkinfo_gesamt_de or werkinfo_kurz_de or werbezeile_de
             prod.description_de_markup_type = 'pt'
 
-            if description_en:
-                prod.description_en = description_en
-            elif prod.teaser_en:
-                prod.description_en = prod.teaser_en
-                prod.teaser_en = u""
-            elif prod.work_info_en:
-                prod.description_en = prod.work_info_en
-                prod.work_info_en = u""
-
+            prod.description_en = description_en or werkinfo_gesamt_en or werkinfo_kurz_en or werbezeile_en
             prod.description_en_markup_type = 'pt'
 
             prod.save()
@@ -525,15 +509,18 @@ class Command(NoArgsCommand):
                     prod.play_locations.clear()
                     prod.play_locations.add(location)
 
-            organisation_node = prod_node.find('./%(prefix)sOrganisation' % self.helper_dict)
-            if organisation_node:
+            organizers_list = []
+            for organisation_node in prod_node.findall('./%(prefix)sOrganisation' % self.helper_dict):
                 location = self.get_location_by_title(self.get_child_text(organisation_node, 'Name'))
                 if location:
                     prod.organizers.clear()
                     prod.organizers.add(location)
                 else:
-                    prod.organizer_title = self.get_child_text(organisation_node, 'Name')
-                    prod.save()
+                    organizers_list.append(self.get_child_text(organisation_node, 'Name'))
+
+            if organizers_list:
+                prod.organizer_title = u', '.join(organizers_list)
+                prod.save()
 
             if not self.skip_images and not prod.productionimage_set.count():
                 for picture_node in prod_node.findall('./%(prefix)sPicture' % self.helper_dict):
@@ -608,7 +595,7 @@ class Command(NoArgsCommand):
                             authorship_type=authorship_type,
                             sort_order=person_node.get('Position'),
                         )
-                    elif role_de in (u"Regie",):
+                    elif role_de in (u"Regie", u"Regisseur", u"Regisseurin"):
                         p, created = Person.objects.get_or_create(
                             first_name=first_name,
                             last_name=last_name,
@@ -851,13 +838,6 @@ class Command(NoArgsCommand):
                     event.press_text_en = u"\n".join([text for text in (pressetext_en, kritik_en) if text])
                     event.press_text_en_markup_type = 'pt'
 
-                if teaser_de or werkinfo_kurz_de or werbezeile_de:
-                    event.teaser_de = u"\n".join([text for text in (teaser_de, werkinfo_kurz_de, werbezeile_de) if text])
-                    event.teaser_de_markup_type = 'pt'
-                if teaser_en or werkinfo_kurz_en or werbezeile_en:
-                    event.teaser_en = u"\n".join([text for text in (teaser_en, werkinfo_kurz_en, werbezeile_en) if text])
-                    event.teaser_en_markup_type = 'pt'
-
                 if werkinfo_gesamt_de or hintergrundinformation_de:
                     event.work_info_de = u"\n".join([text for text in (werkinfo_gesamt_de, hintergrundinformation_de) if text])
                     event.work_info_de_markup_type = 'pt'
@@ -872,26 +852,16 @@ class Command(NoArgsCommand):
                     event.contents_en = u"\n".join([text for text in (inhaltsangabe_en, programbuch_en) if text])
                     event.contents_en_markup_type = 'pt'
 
-                if description_de:
-                    event.description_de = description_de
-                elif event.teaser_de:
-                    event.description_de = event.teaser_de
-                    event.teaser_de = u""
-                elif event.work_info_de:
-                    event.description_de = event.work_info_de
-                    event.work_info_de = u""
+                event.teaser_de = werbezeile_de or werkinfo_kurz_de or teaser_de
+                event.teaser_de_markup_type = 'pt'
 
+                event.teaser_en = werbezeile_en or werkinfo_kurz_en or teaser_en
+                event.teaser_en_markup_type = 'pt'
+
+                event.description_de = description_de or werkinfo_gesamt_de or werkinfo_kurz_de or werbezeile_de
                 event.description_de_markup_type = 'pt'
 
-                if description_en:
-                    event.description_en = description_en
-                elif event.teaser_en:
-                    event.description_en = event.teaser_en
-                    event.teaser_en = u""
-                elif event.work_info_en:
-                    event.description_en = event.work_info_en
-                    event.work_info_en = u""
-
+                event.description_en = description_en or werkinfo_gesamt_en or werkinfo_kurz_en or werbezeile_en
                 event.description_en_markup_type = 'pt'
 
                 organisation_node = event_node.find('./%(prefix)sOrganisation' % self.helper_dict)
