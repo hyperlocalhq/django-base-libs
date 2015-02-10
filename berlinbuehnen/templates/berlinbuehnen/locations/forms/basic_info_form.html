@@ -97,7 +97,12 @@
                 $('#add_social').click();
             }
             reinit_widgets();
+            $('.timeinput').timepicker({
+                str_hours: '{% trans "Hours" %}',
+                str_minutes: '{% trans "Minutes" %}',
+                str_confirm: '{% trans "Confirm" %}',
+                str_close: '{% trans "Close" %}'
+            });
         });
-        
     </script>
 {% endblock %}

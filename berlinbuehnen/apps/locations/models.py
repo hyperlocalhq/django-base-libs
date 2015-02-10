@@ -9,6 +9,7 @@ from base_libs.models.models import UrlMixin
 from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import CreationModificationDateMixin
+from base_libs.models.models import OpeningHoursMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualTextField
@@ -76,7 +77,7 @@ class LocationManager(models.Manager):
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
 
-class Location(CreationModificationMixin, UrlMixin, SlugMixin()):
+class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
@@ -103,6 +104,13 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin()):
     tickets_city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
     tickets_email = models.EmailField(_("Tickets Email"), max_length=255, blank=True)
     tickets_website = URLField("Tickets Website", blank=True)
+
+    tickets_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    tickets_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    tickets_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    tickets_fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    tickets_fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    tickets_fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
 
     services = models.ManyToManyField(Service, verbose_name=_("Services"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)

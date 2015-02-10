@@ -237,6 +237,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 media_file_obj = LocationImage(
                     location=instance
                 )
+            media_file_obj.copyright_restrictions = cleaned['copyright_restrictions']
 
             media_file_path = ""
             if cleaned.get("media_file_path", None):
@@ -269,7 +270,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
                 setattr(file_description, 'description_%s' % lang_code, cleaned['description_%s' % lang_code])
             setattr(file_description, 'author', cleaned['author'])
-            setattr(file_description, 'copyright_limitations', cleaned['copyright_limitations'])
+            #setattr(file_description, 'copyright_limitations', cleaned['copyright_limitations'])
 
             file_description.save()
 

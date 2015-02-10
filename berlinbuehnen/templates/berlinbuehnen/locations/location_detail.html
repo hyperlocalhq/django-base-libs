@@ -113,7 +113,18 @@
               {% if location.website %}
                 <dl>
                   <dt>{% trans "Website" %}</dt>
-                  <dd><a href="{{ location.production.website }}">{{ location.production.website|humanize_url:30 }}</a></dd>
+                  <dd><a href="{{ location.website }}">{{ location.website|humanize_url:30 }}</a></dd>
+                </dl>
+              {% endif %}
+
+              {% if location.socialmediachannel_set.exists %}
+                <dl>
+                  <dt>{% trans "Social media" %}</dt>
+                  <dd>
+                    {% for cat in location.socialmediachannel_set.all %}
+                      <p>{{ cat.channel_type|capfirst }}: <a href="{{ cat.url }}">{{ cat.url }}</a></p>
+                    {% endfor %}
+                  </dd>
                 </dl>
               {% endif %}
 

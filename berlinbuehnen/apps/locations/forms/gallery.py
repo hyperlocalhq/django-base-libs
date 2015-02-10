@@ -31,6 +31,9 @@ _("No, Thanks")
 _("Are you sure you want to delete this photo?")
 _(u"Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min).")
 
+from berlinbuehnen.apps.locations.models import COPYRIGHT_RESTRICTION_CHOICES
+
+COPYRIGHT_RESTRICTION_CHOICES = (('', '---------'),) + COPYRIGHT_RESTRICTION_CHOICES
 
 class ImageFileForm(forms.Form):
     goto_next = forms.CharField(
@@ -52,11 +55,16 @@ class ImageFileForm(forms.Form):
         required=False,
         max_length=255,
     )
-    copyright_limitations = forms.CharField(
-        label=_('Details of any restrictions on use (time limit) for the disclosure to third parties (Cinemarketing, Berlin online, etc.)'),
-        help_text=_('If this field does not contain precise restrictions or if no restrictions are set, the rights of use are granted non-exclusively, and unrestricted in terms of time, place and content.'),
+    # copyright_limitations = forms.CharField(
+    #     label=_('Details of any restrictions on use (time limit) for the disclosure to third parties (Cinemarketing, Berlin online, etc.)'),
+    #     help_text=_('If this field does not contain precise restrictions or if no restrictions are set, the rights of use are granted non-exclusively, and unrestricted in terms of time, place and content.'),
+    #     required=False,
+    #     max_length=255,
+    # )
+    copyright_restrictions = forms.ChoiceField(
+        label=_("Copyright restrictions"),
+        choices=COPYRIGHT_RESTRICTION_CHOICES,
         required=False,
-        max_length=255,
     )
 
     def __init__(self, media_file_obj=None, *args, **kwargs):
@@ -105,7 +113,7 @@ class ImageFileForm(forms.Form):
             "author"
         )
         fieldset_content.append(
-            "copyright_limitations"
+            "copyright_restrictions"
         )
 
         layout_blocks.append(layout.Fieldset(

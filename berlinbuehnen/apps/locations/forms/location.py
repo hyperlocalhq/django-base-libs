@@ -31,6 +31,15 @@ class BasicInfoForm(forms.ModelForm):
             'email', 'website',
             'tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city',
             'tickets_email', 'tickets_website',
+            'tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number',
+            'tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number',
+            'mon_open', 'mon_break_close', 'mon_break_open', 'mon_close',
+            'tue_open', 'tue_break_close', 'tue_break_open', 'tue_close',
+            'wed_open', 'wed_break_close', 'wed_break_open', 'wed_close',
+            'thu_open', 'thu_break_close', 'thu_break_open', 'thu_close',
+            'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
+            'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
+            'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
             'services', 'accessibility_options',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -187,6 +196,7 @@ class BasicInfoForm(forms.ModelForm):
 
             css_class="fieldset-other-contact-info"
         ))
+
         layout_blocks.append(layout.Fieldset(
             _("Social media"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
@@ -209,7 +219,7 @@ class BasicInfoForm(forms.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Tickets"),
+            _("Tickets Box Office (when differs from location address)"),
             layout.Row(
                 layout.Div(
                     "tickets_street_address",
@@ -221,12 +231,177 @@ class BasicInfoForm(forms.ModelForm):
                 layout.Div(
                     "tickets_email",
                     "tickets_website",
+                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Phone" %}</label></div>'),
+                    layout.Row(
+                        layout.Div(
+                            'tickets_phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'tickets_phone_area',  css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'tickets_phone_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                        ),
+                        css_class="row-xs"
+                    ),
+                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
+                    layout.Row(
+                        layout.Div(
+                            'tickets_fax_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'tickets_fax_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'tickets_fax_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                        ),
+                        css_class="row-xs"
+                    ),
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-md",
             ),
             css_class="fieldset-tickets",
         ))
+
+        layout_blocks.append(layout.Fieldset(
+            _("Tickets Opening Hours"),
+            layout.Row(
+                layout.Div(
+                    'mon_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'mon_break_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'mon_break_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'mon_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                css_class="row-md",
+            ),
+            layout.Row(
+                layout.Div(
+                    'tue_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'tue_break_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'tue_break_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'tue_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                css_class="row-md",
+            ),
+            layout.Row(
+                layout.Div(
+                    'wed_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'wed_break_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'wed_break_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'wed_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                css_class="row-md",
+            ),
+            layout.Row(
+                layout.Div(
+                    'thu_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'thu_break_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'thu_break_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'thu_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                css_class="row-md",
+            ),
+            layout.Row(
+                layout.Div(
+                    'fri_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'fri_break_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'fri_break_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'fri_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                css_class="row-md",
+            ),
+            layout.Row(
+                layout.Div(
+                    'sat_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'sat_break_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'sat_break_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'sat_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                css_class="row-md",
+            ),
+            layout.Row(
+                layout.Div(
+                    'sun_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'sun_break_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'sun_break_open',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                layout.Div(
+                    'sun_close',
+                    css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                ),
+                css_class="row-md",
+            ),
+            css_class="fieldset-tickets",
+        ))
+
         layout_blocks.append(layout.Fieldset(
             _("Services"),
             "services",
@@ -481,6 +656,15 @@ def load_data(instance=None):
             'email', 'website',
             'tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city',
             'tickets_email', 'tickets_website',
+            'tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number',
+            'tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number',
+            'mon_open', 'mon_break_close', 'mon_break_open', 'mon_close',
+            'tue_open', 'tue_break_close', 'tue_break_open', 'tue_close',
+            'wed_open', 'wed_break_close', 'wed_break_open', 'wed_close',
+            'thu_open', 'thu_break_close', 'thu_break_open', 'thu_close',
+            'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
+            'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
+            'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -532,6 +716,15 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             'email', 'website',
             'tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city',
             'tickets_email', 'tickets_website',
+            'tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number',
+            'tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number',
+            'mon_open', 'mon_break_close', 'mon_break_open', 'mon_close',
+            'tue_open', 'tue_break_close', 'tue_break_open', 'tue_close',
+            'wed_open', 'wed_break_close', 'wed_break_open', 'wed_close',
+            'thu_open', 'thu_break_close', 'thu_break_open', 'thu_close',
+            'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
+            'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
+            'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
