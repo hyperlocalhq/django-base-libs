@@ -8,8 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.views.decorators.cache import never_cache
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
 from django.http import Http404
+from django.shortcuts import get_object_or_404, render, redirect
 
 from base_libs.views.views import access_denied
 
@@ -120,7 +120,7 @@ def change_location(request, slug):
     instance = get_object_or_404(Location, slug=slug)
     if not request.user.has_perm("locations.change_location", instance):
         return access_denied(request)
-    return show_form_step(request, LOCATION_FORM_STEPS, extra_context={'museum': instance}, instance=instance);
+    return show_form_step(request, LOCATION_FORM_STEPS, extra_context={'location': instance}, instance=instance);
 
 
 @never_cache
