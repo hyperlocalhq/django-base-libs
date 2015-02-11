@@ -443,11 +443,8 @@ class Command(NoArgsCommand):
             werkinfo_kurz_en = u""
         instance.teaser_en_markup_type = 'pt'
 
-        if teaser_de and description_de:
-            description_de = teaser_de + '\n' + description_de
-
-        if description_de:
-            instance.description_de = description_de
+        if teaser_de or description_de:
+            instance.description_de = u"\n".join([text for text in (teaser_de, description_de) if text])
         elif werkinfo_kurz_de:
             instance.description_de = werkinfo_kurz_de
             werkinfo_kurz_de = u""
@@ -456,11 +453,8 @@ class Command(NoArgsCommand):
             werkinfo_gesamt_de = u""
         instance.description_de_markup_type = 'pt'
 
-        if teaser_en and description_en:
-            description_en = teaser_en + '\n' + description_en
-
-        if description_en:
-            instance.description_en = description_en
+        if teaser_en or description_en:
+            instance.description_en = u"\n".join([text for text in (teaser_en, description_en) if text])
         elif werkinfo_kurz_en:
             instance.description_en = werkinfo_kurz_en
             werkinfo_kurz_en = u""
