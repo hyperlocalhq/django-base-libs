@@ -78,6 +78,8 @@
         return false;
     });
     function edit_photo_loaded() {
+        $("select").not('[name*="__prefix__"]').selectbox();
+
         $('textarea').autosize();
 
         $('#button-id-cancel').click(function() {

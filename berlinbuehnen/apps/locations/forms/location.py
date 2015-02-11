@@ -265,7 +265,7 @@ class BasicInfoForm(forms.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Tickets Opening Hours"),
+            _("Opening Hours of Tickets Box Office"),
             layout.Row(
                 layout.Div(
                     'mon_open',
