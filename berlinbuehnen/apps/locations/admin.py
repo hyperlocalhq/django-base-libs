@@ -28,7 +28,9 @@ class ServiceAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
     def icon(self, obj):
-        return """<img alt="" src="%s%s" />""" % (settings.MEDIA_URL, obj.image.path)
+        if not obj.image:
+            return u""
+        return u"""<img alt="" src="%s%s" />""" % (settings.MEDIA_URL, obj.image.path)
     icon.allow_tags = True
 
 admin.site.register(Service, ServiceAdmin)
@@ -45,7 +47,9 @@ class AccessibilityOptionAdmin(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
     def icon(self, obj):
-        return """<img alt="" src="%s%s" />""" % (settings.MEDIA_URL, obj.image.path)
+        if not obj.image:
+            return u""
+        return u"""<img alt="" src="%s%s" />""" % (settings.MEDIA_URL, obj.image.path)
     icon.allow_tags = True
 
 admin.site.register(AccessibilityOption, AccessibilityOptionAdmin)
