@@ -163,24 +163,6 @@
           <!-- ======= Marginal Collumn ======= -->
 
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            {% if event.linkgroup_set.count %}
-              {% for link_group in event.linkgroup_set.all %}
-                {% if LANGUAGE_CODE == link_group.language %}
-                  <div class="link-group">
-                    {% if link_group.group_title %}<h4>{{ link_group.group_title }}</h4>{% endif %}
-                    {% with link_group.get_links as links %}
-                      {% if links %}
-                        <ul>
-                          {% for link in links %}
-                            <li><a href="{{ link.url }}">{{ link.text }}</a></li>
-                          {% endfor %}
-                        </ul>
-                      {% endif %}
-                    {% endwith %}
-                  </div>
-                {% endif %}
-              {% endfor %}
-            {% endif %}
             <div class="panel-group" id="details">
               <div class="panel panel-default">
                   <div class="panel-heading">
@@ -382,6 +364,24 @@
                   </div>
                 {% endif %}
             </div>
+            {% if event.linkgroup_set.count %}
+              {% for link_group in event.linkgroup_set.all %}
+                {% if LANGUAGE_CODE == link_group.language %}
+                  <div class="link-group">
+                    {% if link_group.group_title %}<h4>{{ link_group.group_title }}</h4>{% endif %}
+                    {% with link_group.get_links as links %}
+                      {% if links %}
+                        <ul>
+                          {% for link in links %}
+                            <li><a href="{{ link.url }}">{{ link.text }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
           </div> <!-- ======= End Marginal Collumn ======= -->
         </div>
       </div>
