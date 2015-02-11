@@ -87,7 +87,7 @@
                 <dt>{% trans "Venue" %}</dt>
                     <dd data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
                     {{ location.street_address }}<br />
-                    {{ location.street_address2 }}<br />
+                    {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
                     {{ location.postal_code }} {{ location.city }}<br />
                     </dd>
               </dl>
@@ -116,6 +116,56 @@
                   <dd><a href="{{ location.website }}">{{ location.website|humanize_url:30 }}</a></dd>
                 </dl>
               {% endif %}
+
+              {% if location.phone_number %}
+                <dl>
+                  <dt>{% trans "Phone" %}</dt>
+                  <dd>+{{ location.phone_country }}-{{ location.phone_area }}-{{ location.phone_number }}</dd>
+                </dl>
+              {% endif %}
+
+              {% if location.fax_number %}
+                <dl>
+                  <dt>{% trans "Fax" %}</dt>
+                  <dd>+{{ location.fax_country }}-{{ location.fax_area }}-{{ location.fax_number }}</dd>
+                </dl>
+              {% endif %}
+
+            <dl>
+              <dt>{% trans "Tickets Box Office" %}</dt>
+              <dd>
+                  {% if location.tickets_street_address %}
+                    {{ location.tickets_street_address }}<br />
+                    {% if location.tickets_street_address2 %}{{ location.tickets_street_address2 }}<br />{% endif %}
+                    {{ location.tickets_postal_code }} {{ location.tickets_city }}<br /><br />
+                  {% endif %}
+                {% if location.tickets_email %}
+                  <a href="mailto:{{ location.tickets_email }}">{{ location.tickets_email }}</a><br />
+                {% endif %}
+                {% if location.tickets_website %}
+                  <a href="{{ location.tickets_website }}">{{ location.tickets_website|humanize_url:30 }}</a><br />
+                {% endif %}
+                {% if location.tickets_phone_number %}
+                  {% trans "Phone" %}: +{{ location.tickets_phone_country }}-{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}<br />
+                {% endif %}
+                {% if location.tickets_fax_number %}
+                  {% trans "Fax" %}: +{{ location.tickets_fax_country }}-{{ location.tickets_fax_area }}-{{ location.tickets_fax_number }}<br />
+                {% endif %}
+                <br />
+                {% for times in location.get_opening_hours %}
+                  <strong>{{ times.weekday }}:</strong>
+                  {% if times.open %}
+                    {{ times.open|time:"H:i" }} - {{ times.close|time:"H:i" }}
+                    {% if times.break_close %}
+                        ({% trans "Break" %}: {{ times.break_close|time:"H:i" }} - {{ times.break_open|time:"H:i" }})
+                    {% endif %}
+                  {% else %}
+                    {% trans "Closed" %}
+                  {% endif %}
+                    <br />
+                {% endfor %}
+              </dd>
+            </dl>
 
               {% if location.socialmediachannel_set.exists %}
                 <dl>
