@@ -8,7 +8,6 @@ from django.http import HttpResponse
 from django import forms
 from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import redirect
 from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
