@@ -401,13 +401,6 @@ class ImportFromHeimatBase(object):
             instance.press_text_en = u"\n".join([text for text in (pressetext_en, kritik_en) if text])
             instance.press_text_en_markup_type = 'pt'
 
-        if werkinfo_gesamt_de or hintergrundinformation_de:
-            instance.work_info_de = u"\n".join([text for text in (werkinfo_gesamt_de, hintergrundinformation_de) if text])
-            instance.work_info_de_markup_type = 'pt'
-        if werkinfo_gesamt_en or hintergrundinformation_en:
-            instance.work_info_en = u"\n".join([text for text in (werkinfo_gesamt_en, hintergrundinformation_en) if text])
-            instance.work_info_en_markup_type = 'pt'
-
         if inhaltsangabe_de or programbuch_de:
             instance.contents_de = u"\n".join([text for text in (inhaltsangabe_de, programbuch_de) if text])
             instance.contents_de_markup_type = 'pt'
@@ -416,17 +409,45 @@ class ImportFromHeimatBase(object):
             instance.contents_en_markup_type = 'pt'
 
         # according to Bjorn's request:
-        instance.teaser_de = werbezeile_de or werkinfo_kurz_de or teaser_de
+        if werbezeile_de:
+            instance.teaser_de = werbezeile_de
+        elif werkinfo_kurz_de:
+            instance.teaser_de = werkinfo_kurz_de
+            werkinfo_kurz_de = u""
         instance.teaser_de_markup_type = 'pt'
 
-        instance.teaser_en = werbezeile_en or werkinfo_kurz_en or teaser_en
+        if werbezeile_en:
+            instance.teaser_en = werbezeile_en
+        elif werkinfo_kurz_en:
+            instance.teaser_en = werkinfo_kurz_en
+            werkinfo_kurz_en = u""
         instance.teaser_en_markup_type = 'pt'
 
-        instance.description_de = description_de or werkinfo_gesamt_de or werkinfo_kurz_de or werbezeile_de
+        if teaser_de or description_de:
+            instance.description_de = u"\n".join([text for text in (teaser_de, description_de) if text])
+        elif werkinfo_kurz_de:
+            instance.description_de = werkinfo_kurz_de
+            werkinfo_kurz_de = u""
+        elif werkinfo_gesamt_de:
+            instance.description_de = werkinfo_gesamt_de
+            werkinfo_gesamt_de = u""
         instance.description_de_markup_type = 'pt'
 
-        instance.description_en = description_en or werkinfo_gesamt_en or werkinfo_kurz_en or werbezeile_en
+        if teaser_en or description_en:
+            instance.description_en = u"\n".join([text for text in (teaser_en, description_en) if text])
+        elif werkinfo_kurz_en:
+            instance.description_en = werkinfo_kurz_en
+            werkinfo_kurz_en = u""
+        elif werkinfo_gesamt_en:
+            instance.description_en = werkinfo_gesamt_en
+            werkinfo_gesamt_en = u""
         instance.description_en_markup_type = 'pt'
+
+        instance.work_info_de = u"\n".join([text for text in (werkinfo_kurz_de, werkinfo_gesamt_de, hintergrundinformation_de) if text])
+        instance.work_info_de_markup_type = 'pt'
+
+        instance.work_info_en = u"\n".join([text for text in (werkinfo_kurz_en, werkinfo_gesamt_en, hintergrundinformation_en) if text])
+        instance.work_info_en_markup_type = 'pt'
 
     def save_page(self, root_node):
         import time
@@ -487,6 +508,9 @@ class ImportFromHeimatBase(object):
                 if location:
                     prod.play_locations.clear()
                     prod.play_locations.add(location)
+                else:
+                    prod.location_title = venue_node.text
+                    prod.save()
 
             if not self.skip_images and not prod.productionimage_set.count():
                 for picture_node in prod_node.findall('picture'):
@@ -687,6 +711,9 @@ class ImportFromHeimatBase(object):
                     if location:
                         event.play_locations.clear()
                         event.play_locations.add(location)
+                    else:
+                        event.location_title = venue_node.text
+                        event.save()
 
                 for status_id_node in event_node.findall('statusId'):
                     internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
