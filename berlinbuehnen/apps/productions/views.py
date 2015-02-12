@@ -131,7 +131,7 @@ def change_production(request, slug):
 
 @never_cache
 @login_required
-def delete_location(request, slug):
+def delete_production(request, slug):
     instance = get_object_or_404(Production, slug=slug)
     if not request.user.has_perm("productions.delete_production", instance):
         return access_denied(request)
@@ -144,7 +144,7 @@ def delete_location(request, slug):
 
 @never_cache
 @login_required
-def change_location_status(request, slug):
+def change_production_status(request, slug):
     instance = get_object_or_404(Production, slug=slug)
     if not request.user.has_perm("productions.change_production", instance):
         return access_denied(request)
