@@ -112,6 +112,16 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     tickets_fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     tickets_fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
 
+    press_contact_name = models.CharField(_("Press contact name"), max_length=255, blank=True)
+    press_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    press_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    press_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    press_fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    press_fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    press_fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    press_email = models.EmailField(_("Press Email"), max_length=255, blank=True)
+    press_website = URLField("Press Website", blank=True)
+
     services = models.ManyToManyField(Service, verbose_name=_("Services"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
 

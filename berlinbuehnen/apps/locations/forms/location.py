@@ -40,6 +40,9 @@ class BasicInfoForm(forms.ModelForm):
             'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
             'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
             'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
+            'press_contact_name', 'press_email', 'press_website',
+            'press_phone_country', 'press_phone_area', 'press_phone_number',
+            'press_fax_country', 'press_fax_area', 'press_fax_number',
             'services', 'accessibility_options',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -403,6 +406,64 @@ class BasicInfoForm(forms.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
+            _("Press Contact"),
+
+            layout.Row(
+                layout.Div(
+                    'press_contact_name', css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+                css_class="row-md"
+            ),
+
+            layout.Row(
+                layout.Div(
+                    'press_email', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    layout.Field('press_website', placeholder="http://"), css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-md"
+            ),
+
+            layout.Row(
+                layout.Div(
+                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Phone" %}</label></div>'),
+                    layout.Row(
+                        layout.Div(
+                            'press_phone_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'press_phone_area',  css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'press_phone_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                        ),
+                        css_class="row-xs"
+                    ),
+                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    layout.HTML('{% load i18n %}<div><label class="with">{% trans "Fax" %}</label></div>'),
+                    layout.Row(
+                        layout.Div(
+                            'press_fax_country', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'press_fax_area', css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                        ),
+                        layout.Div(
+                            'press_fax_number', css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                        ),
+                        css_class="row-xs"
+                    ),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-md"
+            ),
+            css_class="fieldset-press_contact",
+        ))
+
+        layout_blocks.append(layout.Fieldset(
             _("Services"),
             "services",
             css_class="fieldset-services",
@@ -665,6 +726,9 @@ def load_data(instance=None):
             'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
             'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
             'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
+            'press_contact_name', 'press_email', 'press_website',
+            'press_phone_country', 'press_phone_area', 'press_phone_number',
+            'press_fax_country', 'press_fax_area', 'press_fax_number',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -725,6 +789,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             'fri_open', 'fri_break_close', 'fri_break_open', 'fri_close',
             'sat_open', 'sat_break_close', 'sat_break_open', 'sat_close',
             'sun_open', 'sun_break_close', 'sun_break_open', 'sun_close',
+            'press_contact_name', 'press_email', 'press_website',
+            'press_phone_country', 'press_phone_area', 'press_phone_number',
+            'press_fax_country', 'press_fax_area', 'press_fax_number',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
