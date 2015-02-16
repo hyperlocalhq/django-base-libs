@@ -512,6 +512,16 @@ class ImportFromHeimatBase(object):
                     prod.location_title = venue_node.text
                     prod.save()
 
+            institution_node = prod_node.find('institution')
+            if institution_node is not None:
+                location, created = self.create_or_update_location(institution_node)
+                if location:
+                    prod.in_program_of.clear()
+                    prod.in_program_of.add(location)
+                else:
+                    prod.organizer_title = institution_node.text
+                    prod.save()
+
             if not self.skip_images and not prod.productionimage_set.count():
                 for picture_node in prod_node.findall('picture'):
                     image_url = picture_node.get('url')
@@ -643,7 +653,7 @@ class ImportFromHeimatBase(object):
 
                 event.production = prod
 
-                start_datetime = parse_datetime(event_node.get('datetime'))
+                start_datetime = parse_datetime(event_node.get('datetime'), dayfirst=True)
                 event.start_date = start_datetime.date()
                 event.start_time = start_datetime.time()
                 duration_str = event_node.get('duration')

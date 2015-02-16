@@ -11,7 +11,7 @@ from django.db import models
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-from berlinbuehnen.apps.productions.models import Production, Event
+from berlinbuehnen.apps.productions.models import Production, Event, ProductionCategory
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LANGUAGES).keys())
@@ -19,11 +19,139 @@ EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LA
 from berlinbuehnen.utils.forms import PrimarySubmit
 from berlinbuehnen.utils.forms import SecondarySubmit
 from berlinbuehnen.utils.forms import InlineFormSet
+from berlinbuehnen.utils.forms import ModelMultipleChoiceTreeField
+
+import autocomplete_light
 
 
-class BasicInfoForm(forms.ModelForm):
+class BasicInfoForm(autocomplete_light.ModelForm):
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        required=False,
+        queryset=ProductionCategory.objects.all(),
+    )
+
     class Meta:
         model = Production
+        autocomplete_fields = ('in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with')
+        fields = [
+            'website',
+            'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
+            'categories',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'prefix_%s' % lang_code,
+                'title_%s' % lang_code,
+                'subtitle_%s' % lang_code,
+                'original_%s' % lang_code,
+            ]
+
+    def __init__(self, *args, **kwargs):
+        super(BasicInfoForm, self).__init__(*args, **kwargs)
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'prefix_%s' % lang_code,
+                'title_%s' % lang_code,
+                'subtitle_%s' % lang_code,
+                'original_%s' % lang_code,
+            ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
+        # self.fields['categories'].widget = forms.CheckboxSelectMultiple()
+        # self.fields['categories'].help_text = ""
+        # self.fields['categories'].empty_label = None
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        layout_blocks = []
+        fieldset_content = []  # collect multilingual divs into one list...
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('prefix_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('title_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('subtitle_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('original_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            layout.Div(
+                layout.Field('website'),
+                css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
+            ),
+            css_class="row-md",
+        ))
+        layout_blocks.append(layout.Fieldset(
+            _("Title"),
+            css_class="fieldset-basic-info",
+            *fieldset_content  # ... then pass them to a fieldset
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            _("Venue"),
+            layout.Row(
+                layout.Div(
+                    "in_program_of",
+                    "ensembles",
+                    "play_locations",
+                    "play_stages",
+                    "organizers",
+                    "in_cooperation_with",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
+            css_class="fieldset-venue",
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            _("Categories"),
+            layout.Row(
+                layout.Div(
+                    layout.Div(layout.Field("categories", template="utils/checkboxselectmultipletree.html")),
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
+            css_class="fieldset-categories",
+        ))
+
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                PrimarySubmit('submit', _('Next')),
+                SecondarySubmit('save_and_close', _('Close')),
+                SecondarySubmit('reset', _('Cancel')),
+            ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                PrimarySubmit('submit', _('Next')),
+                SecondarySubmit('reset', _('Cancel')),
+            ))
+
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
 
 
 class DescriptionForm(forms.ModelForm):

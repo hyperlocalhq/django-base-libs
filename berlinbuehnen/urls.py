@@ -15,6 +15,9 @@ from berlinbuehnen.apps.site_specific.forms import password_change_form_helper
 from berlinbuehnen.apps.site_specific.forms import password_reset_form_helper
 from berlinbuehnen.apps.site_specific.forms import password_reset_change_form_helper
 
+import autocomplete_light
+autocomplete_light.autodiscover()
+
 from django.contrib import admin
 admin.autodiscover()
 
@@ -50,6 +53,7 @@ urlpatterns += i18n_patterns('',
     url(r'^helper/ajax-upload/$', 'berlinbuehnen.apps.site_specific.views.uploader', name="ajax_uploader"),
     url(r'^helper/modified-path/$', 'jetson.apps.image_mods.views.get_or_create_modified_path', name="modified_path"),
     url(r'^helper/menu/$', 'berlinbuehnen.apps.mega_menu.views.mega_drop_down_menu', name="mega_drop_down_menu"),
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
 
     # i18n
     url(r'^i18n/', 'jetson.apps.utils.views.set_language', name="set_language"),

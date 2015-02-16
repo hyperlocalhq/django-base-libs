@@ -22,6 +22,7 @@
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-datepicker.js"></script>
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-timepicker.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+    {% include 'autocomplete_light/static.html' %}
 {% endblock %}
 
 {% block edit_item %}
@@ -97,7 +98,7 @@
     {{ block.super }}
     <script>
         $(function() {
-            $("select").not('[name*="__prefix__"]').selectbox();
+            $("select:visible").not('[name*="__prefix__"]').selectbox();
         });
     </script>
 {% endblock %}
