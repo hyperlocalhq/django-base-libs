@@ -103,6 +103,29 @@
                 str_confirm: '{% trans "Confirm" %}',
                 str_close: '{% trans "Close" %}'
             });
+
+            $('body').on('change', '.autocomplete-light-widget select[name$=play_locations]', function() {
+                var $this = $(this);
+                var stagesSelectElement = $('#' + $this.attr('id').replace('play_locations', 'play_stages'));
+                var stagesWidgetElement = stagesSelectElement.parents('.autocomplete-light-widget');
+
+                // When the country select changes
+                values = $this.val();
+
+                if (values) {
+                    // If value is contains something, add it to autocomplete.data
+                    stagesWidgetElement.yourlabsWidget().autocomplete.data = {
+                        'location_ids': values.join(',')
+                    };
+                } else {
+                    // If value is empty, empty autocomplete.data
+                    stagesWidgetElement.yourlabsWidget().autocomplete.data = {};
+                }
+
+                // example debug statements, that does not replace using breakbpoints and a proper debugger but can hel
+                // console.log($(this), 'changed to', value);
+                // console.log(regionWidgetElement, 'data is', regionWidgetElement.yourlabsWidget().autocomplete.data)
+            });
         });
     </script>
 {% endblock %}
