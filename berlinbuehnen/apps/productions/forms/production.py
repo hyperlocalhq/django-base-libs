@@ -733,18 +733,18 @@ class SponsorForm(autocomplete_light.ModelForm):
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
             <div class="row row-md">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div id="image_preview">
+                    <div class="image_preview">
                         {% if media_file.path %}
                             <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"medium" }}?now={% now "YmdHis" %}" alt="" />
                         {% endif %}
                     </div>
                     {% if not media_file.path %}
-                        <div id="image_uploader">
+                        <div class="image_uploader">
                             <noscript>
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                             </noscript>
                         </div>
-                        <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
+                        <p class="image_help_text help-block">{% trans "Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
                     {% endif %}
                 </div>
             </div>
@@ -778,6 +778,27 @@ SponsorFormset = formset_factory(form=SponsorForm, extra=0, can_delete=True)
 class GalleryForm(forms.ModelForm):
     class Meta:
         model = Production
+        fields = []
+
+    def __init__(self, *args, **kwargs):
+        super(GalleryForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        layout_blocks = []
+        if self.instance and self.instance.pk:
+            layout_blocks.append(bootstrap.FormActions(
+                PrimarySubmit('save_and_close', _('Close')),
+                SecondarySubmit('reset', _('Cancel')),
+            ))
+        else:
+            layout_blocks.append(bootstrap.FormActions(
+                PrimarySubmit('submit', _('Save')),
+                SecondarySubmit('reset', _('Cancel')),
+            ))
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
 
 
 class EventsForm(forms.ModelForm):
@@ -790,19 +811,88 @@ def load_data(instance=None):
     if instance:
         form_step_data = {
             'basic': {'_filled': True, 'sets': {'social': []}},
-            'description': {'_filled': True},
+            'description': {'_filled': True, 'sets': {'leaderships': [], 'authorships': [], 'involvements': [], 'sponsors': []}},
             'gallery': {'_filled': True},
             'events': {'_filled': True},
             '_pk': instance.pk,
         }
         fields = [
+            'website',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
+                'prefix_%s' % lang_code,
                 'title_%s' % lang_code,
+                'subtitle_%s' % lang_code,
+                'original_%s' % lang_code,
             ]
         for fname in fields:
             form_step_data['basic'][fname] = getattr(instance, fname)
+
+        form_step_data['basic']['in_program_of'] = instance.in_program_of.all()
+        form_step_data['basic']['ensembles'] = instance.ensembles.all()
+        form_step_data['basic']['play_locations'] = instance.play_locations.all()
+        form_step_data['basic']['play_stages'] = instance.play_stages.all()
+        form_step_data['basic']['organizers'] = instance.organizers.all()
+        form_step_data['basic']['in_cooperation_with'] = instance.in_cooperation_with.all()
+        form_step_data['basic']['categories'] = instance.categories.all()
+
+        fields = [
+            'language_and_subtitles',
+            'free_entrance', 'price_from', 'price_till', 'tickets_website',
+            'age_from', 'age_till', 'edu_offer_website',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'description_%s' % lang_code,
+                'teaser_%s' % lang_code,
+                'work_info_%s' % lang_code,
+                'contents_%s' % lang_code,
+                'press_text_%s' % lang_code,
+                'credits_%s' % lang_code,
+                'concert_programm_%s' % lang_code,
+                'supporting_programm_%s' % lang_code,
+                'remarks_%s' % lang_code,
+                'duration_text_%s' % lang_code,
+                'subtitles_text_%s' % lang_code,
+                'age_text_%s' % lang_code,
+                'price_information_%s' % lang_code,
+            ]
+        for fname in fields:
+            form_step_data['description'][fname] = getattr(instance, fname)
+
+        form_step_data['description']['festivals'] = instance.festivals.all()
+        form_step_data['description']['related_productions'] = instance.related_productions.all()
+        form_step_data['description']['characteristics'] = instance.characteristics.all()
+
+        for leadership in instance.productionleadership_set.all():
+            leadership_dict = {}
+            leadership_dict['person'] = leadership.person
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                leadership_dict['function_%s' % lang_code] = getattr(leadership, 'function_%s' % lang_code)
+            form_step_data['description']['sets']['leaderships'].append(leadership_dict)
+
+        for authorship in instance.productionauthorship_set.all():
+            authorship_dict = {}
+            authorship_dict['person'] = authorship.person
+            authorship_dict['authorship_type'] = authorship.authorship_type
+            form_step_data['description']['sets']['authorships'].append(authorship_dict)
+
+        for involvement in instance.productioninvolvement_set.all():
+            involvement_dict = {}
+            involvement_dict['person'] = involvement.person
+            involvement_dict['involvement_type'] = involvement.involvement_type
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                involvement_dict['involvement_role_%s' % lang_code] = getattr(involvement, 'involvement_role_%s' % lang_code)
+                involvement_dict['involvement_instrument_%s' % lang_code] = getattr(involvement, 'involvement_instrument_%s' % lang_code)
+            form_step_data['description']['sets']['involvements'].append(involvement_dict)
+
+        for sponsor in instance.sponsors.all():
+            sponsor_dict = {}
+            sponsor_dict['website'] = sponsor.website
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                sponsor_dict['title_%s' % lang_code] = getattr(sponsor, 'title_%s' % lang_code)
+            form_step_data['description']['sets']['sponsors'].append(sponsor_dict)
 
     return form_step_data
 
@@ -816,51 +906,206 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance = Production()
 
         fields = [
+            'website',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
+                'prefix_%s' % lang_code,
                 'title_%s' % lang_code,
+                'subtitle_%s' % lang_code,
+                'original_%s' % lang_code,
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
 
         instance.save()
 
+        instance.in_program_of.clear()
+        for cat in form_step_data['basic']['in_program_of']:
+            instance.in_program_of.add(cat)
+
+        instance.ensembles.clear()
+        for cat in form_step_data['basic']['ensembles']:
+            instance.ensembles.add(cat)
+
+        instance.play_locations.clear()
+        for cat in form_step_data['basic']['play_locations']:
+            instance.play_locations.add(cat)
+
+        instance.play_stages.clear()
+        for cat in form_step_data['basic']['play_stages']:
+            instance.play_stages.add(cat)
+
+        instance.organizers.clear()
+        for cat in form_step_data['basic']['organizers']:
+            instance.organizers.add(cat)
+
+        instance.in_cooperation_with.clear()
+        for cat in form_step_data['basic']['in_cooperation_with']:
+            instance.in_cooperation_with.add(cat)
+
+        instance.categories.clear()
+        for cat in form_step_data['basic']['categories']:
+            instance.categories.add(cat)
+
         form_step_data['_pk'] = instance.pk
 
-    if current_step == "stages":
+    if current_step == "description":
         if "_pk" in form_step_data:
             instance = Production.objects.get(pk=form_step_data['_pk'])
         else:
             return
 
-        stage_fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+        fields = [
+            'language_and_subtitles',
+            'free_entrance', 'price_from', 'price_till', 'tickets_website',
+            'age_from', 'age_till', 'edu_offer_website',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            stage_fields += [
-                'title_%s' % lang_code,
+            fields += [
                 'description_%s' % lang_code,
+                'teaser_%s' % lang_code,
+                'work_info_%s' % lang_code,
+                'contents_%s' % lang_code,
+                'press_text_%s' % lang_code,
+                'credits_%s' % lang_code,
+                'concert_programm_%s' % lang_code,
+                'supporting_programm_%s' % lang_code,
+                'remarks_%s' % lang_code,
+                'duration_text_%s' % lang_code,
+                'subtitles_text_%s' % lang_code,
+                'age_text_%s' % lang_code,
+                'price_information_%s' % lang_code,
             ]
-        stage_ids_to_keep = []
-        for stage_dict in form_step_data['stages']['sets']['stages']:
-            if stage_dict['id']:
+        for fname in fields:
+            setattr(instance, fname, form_step_data[current_step][fname])
+
+        # set markup types to plain text
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'teaser_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'work_info_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'contents_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'press_text_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'credits_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'concert_programm_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'supporting_programm_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'remarks_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'price_information_%s_markup_type' % lang_code, 'pt')
+
+        instance.save()
+
+        instance.festivals.clear()
+        for cat in form_step_data['description']['festivals']:
+            instance.festivals.add(cat)
+
+        instance.related_productions.clear()
+        for cat in form_step_data['description']['related_productions']:
+            instance.related_productions.add(cat)
+
+        instance.characteristics.clear()
+        for cat in form_step_data['description']['characteristics']:
+            instance.characteristics.add(cat)
+
+        # save leaderships
+        fields = [
+            'person', 'sort_order',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'function_%s' % lang_code,
+            ]
+        leadership_ids_to_keep = []
+        for leadership_dict in form_step_data['description']['sets']['leaderships']:
+            if leadership_dict['id']:
                 try:
-                    stage = Event.objects.get(
-                        pk=stage_dict['id'],
-                        location=instance,
+                    leadership = ProductionLeadership.objects.get(
+                        pk=leadership_dict['id'],
+                        production=instance,
                     )
                 except models.ObjectDoesNotExist:
                     continue
             else:
-                stage = Event(location=instance)
-            for fname in stage_fields:
-                setattr(stage, fname, stage_dict[fname])
-            for lang_code, lang_name in FRONTEND_LANGUAGES:
-                setattr(stage, 'description_%s_markup_type' % lang_code, 'pt')
-            stage.save()
-            stage_ids_to_keep.append(stage.pk)
-        instance.stage_set.exclude(pk__in=stage_ids_to_keep).delete()
+                leadership = ProductionLeadership(production=instance)
+            for fname in fields:
+                setattr(leadership, fname, leadership_dict[fname])
+            leadership.save()
+            leadership_ids_to_keep.append(leadership.pk)
+        instance.productionleadership_set.exclude(pk__in=leadership_ids_to_keep).delete()
+
+        # save authorships
+        fields = [
+            'person', 'sort_order', 'authorship_type',
+        ]
+        authorship_ids_to_keep = []
+        for authorship_dict in form_step_data['description']['sets']['authorships']:
+            if authorship_dict['id']:
+                try:
+                    authorship = ProductionAuthorship.objects.get(
+                        pk=authorship_dict['id'],
+                        production=instance,
+                    )
+                except models.ObjectDoesNotExist:
+                    continue
+            else:
+                authorship = ProductionAuthorship(production=instance)
+            for fname in fields:
+                setattr(authorship, fname, authorship_dict[fname])
+            authorship.save()
+            authorship_ids_to_keep.append(authorship.pk)
+        instance.productionauthorship_set.exclude(pk__in=authorship_ids_to_keep).delete()
+
+        # save involvements
+        fields = [
+            'person', 'sort_order', 'involvement_type',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'involvement_role_%s' % lang_code,
+                'involvement_instrument_%s' % lang_code,
+            ]
+        involvement_ids_to_keep = []
+        for involvement_dict in form_step_data['description']['sets']['involvements']:
+            if involvement_dict['id']:
+                try:
+                    involvement = ProductionInvolvement.objects.get(
+                        pk=involvement_dict['id'],
+                        production=instance,
+                    )
+                except models.ObjectDoesNotExist:
+                    continue
+            else:
+                involvement = ProductionInvolvement(production=instance)
+            for fname in fields:
+                setattr(involvement, fname, involvement_dict[fname])
+            involvement.save()
+            involvement_ids_to_keep.append(involvement.pk)
+        instance.productioninvolvement_set.exclude(pk__in=involvement_ids_to_keep).delete()
+
+        # save sponsors
+        # TODO: save the image
+        fields = [
+            'website', 'image',
+        ]
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'title_%s' % lang_code,
+            ]
+        instance.sponsors.clear()
+        for sponsor_dict in form_step_data['description']['sets']['sponsors']:
+            if sponsor_dict['id']:
+                try:
+                    sponsor = Sponsor.objects.get(
+                        pk=sponsor_dict['id'],
+                    )
+                except models.ObjectDoesNotExist:
+                    continue
+            else:
+                sponsor = Sponsor()
+            for fname in fields:
+                setattr(sponsor, fname, sponsor_dict[fname])
+            sponsor.save()
+            instance.sponsors.add(sponsor)
 
     return form_step_data
 
