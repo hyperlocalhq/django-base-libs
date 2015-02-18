@@ -21,7 +21,7 @@
     <script>
         function reinit_widgets() {
             $('[rel=tooltip]').tooltip();
-            $('[id^="id_social"][id$="channel_type"]').autocomplete(['Google+', 'Twitter', 'Facebook', 'LinkedIn', 'XING']);
+            $("select:visible").not('[name*="__prefix__"]').selectbox();
         }
         function set_index_for_fields($formset_form, index) {
             $formset_form.find(':input').each(function() {
@@ -61,48 +61,114 @@
             
         $(function() {
             $(
-                '<a class="add btn btn-primary" id="add_social" href="#">{% trans "Add social media channel" %}</a>'
-            ).insertAfter('#social').click(function() {
-                var $total_forms = $('#id_social-TOTAL_FORMS');
-                var $new_form = $('#social_empty_form').clone(true).attr("id", null).show();
+                '<a class="add btn btn-primary" id="add_leaderships" href="#">{% trans "Add leader" %}</a>'
+            ).insertAfter('#leaderships').click(function() {
+                var $total_forms = $('#id_leaderships-TOTAL_FORMS');
+                var $new_form = $('#leaderships_empty_form').clone(true).attr("id", null).show();
                 set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
-                $('#social').append($new_form);
+                $('#leaderships').append($new_form);
                 $total_forms.val(parseInt($total_forms.val(), 10) + 1);
                 reinit_widgets();
                 return false;
             });
 
             $('.formset-form').each(function() {
-                var $season = $(this);
-                $season.find('input:checkbox[id$=DELETE]').each(function() {
+                var $formset_form = $(this);
+                $formset_form.find('input:checkbox[id$=DELETE]').each(function() {
                     var $checkbox = $(this);
                     var $deleteLink = $(
                         '<span class="input-group-btn"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
                     );
-                    $checkbox.closest('.formset-form').find(".input-group").append($deleteLink);
+                    $checkbox.closest('.formset-form').append($deleteLink);
                     $checkbox.closest('.form-group').hide();
                 });
             });
-            $('.delete').live("click", function() {
-                var $season = $(this).parents('.formset-form:first');
-                var $checkbox = $season.find('input:checkbox[id$=DELETE]');
+            $('.delete').on('click', function() {
+                var $formset_form = $(this).closest('.formset-form');
+                var $checkbox = $formset_form.find('input:checkbox[id$=DELETE]');
                 $checkbox.attr("checked", "checked");
-                $season.hide();
+                $formset_form.hide();
                 return false;
             });
             
             // Initial state
-            var $total_forms = $('#id_social-TOTAL_FORMS');
+            var $total_forms = $('#id_leaderships-TOTAL_FORMS');
             if ($total_forms.val() == "0") {
-                $('#add_social').click();
+                $('#add_leaderships').click();
             }
-            reinit_widgets();
-            $('.timeinput').timepicker({
-                str_hours: '{% trans "Hours" %}',
-                str_minutes: '{% trans "Minutes" %}',
-                str_confirm: '{% trans "Confirm" %}',
-                str_close: '{% trans "Close" %}'
+          
+            $(
+                '<a class="add btn btn-primary" id="add_authorships" href="#">{% trans "Add author" %}</a>'
+            ).insertAfter('#authorships').click(function() {
+                var $total_forms = $('#id_authorships-TOTAL_FORMS');
+                var $new_form = $('#authorships_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#authorships').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                reinit_widgets();
+                return false;
             });
+
+            // Initial state
+            var $total_forms = $('#id_authorships-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_authorships').click();
+            }
+          
+            $(
+                '<a class="add btn btn-primary" id="add_involvements" href="#">{% trans "Add another involved person" %}</a>'
+            ).insertAfter('#involvements').click(function() {
+                var $total_forms = $('#id_involvements-TOTAL_FORMS');
+                var $new_form = $('#involvements_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#involvements').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                reinit_widgets();
+                return false;
+            });
+
+            // Initial state
+            var $total_forms = $('#id_involvements-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_involvements').click();
+            }
+
+            $(
+                '<a class="add btn btn-primary" id="add_sponsors" href="#">{% trans "Add sponsor" %}</a>'
+            ).insertAfter('#sponsors').click(function() {
+                var $total_forms = $('#id_sponsors-TOTAL_FORMS');
+                var $new_form = $('#sponsors_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#sponsors').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                reinit_widgets();
+                return false;
+            });
+
+            // Initial state
+            var $total_forms = $('#id_sponsors-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_sponsors').click();
+            }
+          
+            $('.enter_person').on('click', function(e) {
+                e.preventDefault();
+                var $formset_form = $(this).closest('.formset-form');
+                $formset_form.find('.choosing_person').addClass('hidden').find(".remove").click();
+                $formset_form.find('.entering_person').removeClass('hidden');
+            });
+            $('.choose_person').on('click', function(e) {
+                e.preventDefault();
+                var $formset_form = $(this).closest('.formset-form');
+                $formset_form.find('.entering_person').addClass('hidden').find(":input").val('');
+                $formset_form.find('.choosing_person').removeClass('hidden');
+            });
+            $('.entering_person').each(function() {
+                if ($(this).find('[name$="first_name"]').val() || $(this).find('[name$="last_name"]').val()) {
+                    $(this).closest('.formset-form').find('.enter_person').click();
+                }
+            });
+            reinit_widgets();
         });
     </script>
 {% endblock %}

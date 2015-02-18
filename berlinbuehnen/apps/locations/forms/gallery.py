@@ -29,7 +29,7 @@ _("Do you really want to delete this image?")
 _("Yes, Please")
 _("No, Thanks")
 _("Are you sure you want to delete this photo?")
-_(u"Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min).")
+_(u"Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min).")
 
 from berlinbuehnen.apps.locations.models import COPYRIGHT_RESTRICTION_CHOICES
 
@@ -40,12 +40,6 @@ class ImageFileForm(forms.Form):
         widget=forms.HiddenInput(),
         required=False,
     )
-    #media_file = ImageField(
-    #    label= _("Image File"),
-    #    help_text= _("You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
-    #    required=False,
-    #    min_dimensions=IMAGE_MIN_DIMENSIONS,
-    #)
     media_file_path = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
@@ -138,7 +132,7 @@ class ImageFileForm(forms.Form):
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                             </noscript>
                         </div>
-                        <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
+                        <p id="image_help_text" class="help-block">{% trans "Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
                     {% endif %}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">

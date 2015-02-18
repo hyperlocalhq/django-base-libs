@@ -150,7 +150,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     festivals = models.ManyToManyField("festivals.Festival", verbose_name=_("Festivals"), blank=True)
     language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
-    related_productions = models.ManyToManyField("self", verbose_name=_("Related productions"))
+    related_productions = models.ManyToManyField("self", verbose_name=_("Related productions"), blank=True)
 
     free_entrance = models.BooleanField(_("Free entrance"))
     price_from = models.DecimalField(_(u"Price from (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
