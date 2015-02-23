@@ -179,8 +179,8 @@ def update_mediafile_ordering(tokens, production):
 @never_cache
 @login_required
 def gallery_overview(request, slug):
-    instance = get_object_or_404(Location, slug=slug)
-    if not request.user.has_perm("locations.change_location", instance):
+    instance = get_object_or_404(Production, slug=slug)
+    if not request.user.has_perm("productions.change_production", instance):
         return access_denied(request)
 
     if "ordering" in request.POST and request.is_ajax():
@@ -188,13 +188,13 @@ def gallery_overview(request, slug):
         update_mediafile_ordering(tokens, instance)
         return HttpResponse("OK")
 
-    return render(request, "locations/gallery/overview.html", {'location': instance})
+    return render(request, "productions/gallery/overview.html", {'production': instance})
 
 
 @never_cache
 @login_required
 def create_update_mediafile(request, slug, mediafile_token="", media_file_type="", **kwargs):
-    instance = get_object_or_404(Location, slug=slug)
+    instance = get_object_or_404(Production, slug=slug)
     if not request.user.has_perm("productions.change_production", instance):
         return access_denied(request)
 
@@ -205,13 +205,13 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
     if not "extra_context" in kwargs:
         kwargs["extra_context"] = {}
 
-    rel_dir = "production/%s/" % instance.slug
+    rel_dir = "productions/%s/" % instance.slug
 
     filters = {}
     if mediafile_token:
         media_file_obj = get_object_or_404(
             ProductionImage,
-            location=instance,
+            production=instance,
             pk=ProductionImage.token_to_pk(mediafile_token),
         )
     else:
@@ -296,7 +296,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 if cleaned['goto_next']:
                     return redirect(cleaned['goto_next'])
                 else:
-                    return redirect("location_gallery_overview", slug=instance.slug)
+                    return redirect("production_gallery_overview", slug=instance.slug)
     else:
         if media_file_obj:
             # existing media file
@@ -325,12 +325,12 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         'media_file': media_file_obj,
         'media_file_type': media_file_type,
         'form': form,
-        'location': instance,
+        'production': instance,
     }
 
     return render(
         request,
-        "locations/gallery/create_update_mediafile.html",
+        "productions/gallery/create_update_mediafile.html",
         context_dict,
     )
 
@@ -338,7 +338,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
 @never_cache
 @login_required
 def delete_mediafile(request, slug, mediafile_token="", **kwargs):
-    instance = get_object_or_404(Location, slug=slug)
+    instance = get_object_or_404(Production, slug=slug)
     if not request.user.has_perm("productions.change_production", instance):
         return access_denied(request)
 
@@ -346,7 +346,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
         'id': ProductionImage.token_to_pk(mediafile_token),
     }
     if instance:
-        filters['location'] = instance
+        filters['production'] = instance
     try:
         media_file_obj = ProductionImage.objects.get(**filters)
     except:
@@ -374,7 +374,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
     context_dict = {
         'media_file': media_file_obj,
         'form': form,
-        'location': instance,
+        'production': instance,
     }
 
     return render(

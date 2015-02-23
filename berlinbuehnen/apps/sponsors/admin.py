@@ -19,6 +19,8 @@ class SponsorAdmin(ExtendedModelAdmin):
     fieldsets += [(None, {'fields': ('image', 'website', 'status')}),]
 
     def icon(self, obj):
+        if not obj.image:
+            return u""
         return """<img alt="" src="%s%s" />""" % (settings.MEDIA_URL, obj.image.path)
     icon.allow_tags = True
 

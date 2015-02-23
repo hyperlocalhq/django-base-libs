@@ -46,6 +46,7 @@ EVENT_STATUS_CHOICES = (
     ('canceled', _("Canceled")),
 )
 
+TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 
 class LanguageAndSubtitles(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -257,6 +258,16 @@ class ProductionVideo(CreationModificationDateMixin):
         # TODO: return embed code
         return self.link_or_embed
 
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
 
 class ProductionImage(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
@@ -274,6 +285,16 @@ class ProductionImage(CreationModificationDateMixin):
             return self.path.path
         return "Missing file (id=%s)" % self.pk
 
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
 
 class ProductionPDF(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
@@ -289,6 +310,16 @@ class ProductionPDF(CreationModificationDateMixin):
         if self.path:
             return self.path.path
         return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
 
 
 class ProductionLeadership(CreationModificationDateMixin):
@@ -557,6 +588,16 @@ class EventVideo(CreationModificationDateMixin):
         # TODO: return embed code
         return self.link_or_embed
 
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
 
 class EventImage(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
@@ -574,6 +615,16 @@ class EventImage(CreationModificationDateMixin):
             return self.path.path
         return "Missing file (id=%s)" % self.pk
 
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
 
 class EventPDF(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
@@ -589,6 +640,16 @@ class EventPDF(CreationModificationDateMixin):
         if self.path:
             return self.path.path
         return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
 
 
 class EventLeadership(CreationModificationDateMixin):

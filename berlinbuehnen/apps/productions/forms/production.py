@@ -17,7 +17,7 @@ from crispy_forms import layout, bootstrap
 from jetson.apps.image_mods.models import FileManager
 
 from berlinbuehnen.apps.sponsors.models import Sponsor
-from berlinbuehnen.apps.productions.models import Production, Event, ProductionCategory, ProductionLeadership, ProductionAuthorship, ProductionInvolvement
+from berlinbuehnen.apps.productions.models import Production, Event, ProductionCategory, ProductionLeadership, ProductionAuthorship, ProductionInvolvement, LanguageAndSubtitles
 from berlinbuehnen.apps.people.models import Person, InvolvementType, AuthorshipType
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
@@ -972,7 +972,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             return
 
         fields = [
-            'language_and_subtitles',
             'free_entrance', 'price_from', 'price_till', 'tickets_website',
             'age_from', 'age_till', 'edu_offer_website',
         ]
@@ -994,6 +993,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
+
+        if form_step_data[current_step]['language_and_subtitles']:
+            instance.language_and_subtitles = LanguageAndSubtitles.objects.get(pk=form_step_data[current_step]['language_and_subtitles'])
 
         # set markup types to plain text
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -1021,8 +1023,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.characteristics.clear()
         for cat in form_step_data['description']['characteristics']:
             instance.characteristics.add(cat)
-
-        return form_step_data ## DEBUG
 
         # save leaderships
         fields = [
@@ -1185,6 +1185,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             for fname in fields:
                 setattr(sponsor, fname, sponsor_dict[fname])
             sponsor.save()
+            sponsor_dict['id'] = sponsor.pk
             instance.sponsors.add(sponsor)
 
     return form_step_data
