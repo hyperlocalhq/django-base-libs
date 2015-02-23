@@ -1,4 +1,7 @@
 # -*- coding: UTF-8 -*-
+import os
+import shutil
+from datetime import datetime
 
 from django import forms
 from django.forms.models import inlineformset_factory, formset_factory
@@ -11,8 +14,11 @@ from django.db import models
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from jetson.apps.image_mods.models import FileManager
+
 from berlinbuehnen.apps.sponsors.models import Sponsor
 from berlinbuehnen.apps.productions.models import Production, Event, ProductionCategory, ProductionLeadership, ProductionAuthorship, ProductionInvolvement
+from berlinbuehnen.apps.people.models import Person, InvolvementType, AuthorshipType
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LANGUAGES).keys())
@@ -225,7 +231,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 {% endwith %}
             </div>
             """),
-            css_id="leaderships_channels_fieldset",
+            css_id="leaderships_fieldset",
         ))
 
         layout_blocks.append(layout.Fieldset(
@@ -246,7 +252,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 {% endwith %}
             </div>
             """),
-            css_id="authorships_channels_fieldset",
+            css_id="authorships_fieldset",
         ))
 
         layout_blocks.append(layout.Fieldset(
@@ -267,7 +273,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 {% endwith %}
             </div>
             """),
-            css_id="involvements_channels_fieldset",
+            css_id="involvements_fieldset",
         ))
 
         fieldset_content = []  # collect multilingual divs into one list...
@@ -449,7 +455,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 {% endwith %}
             </div>
             """),
-            css_id="involvements_channels_fieldset",
+            css_id="sponsors_fieldset",
         ))
 
         if self.instance and self.instance.pk:
@@ -508,6 +514,7 @@ class ProductionLeadershipForm(autocomplete_light.ModelForm):
                 layout.Div(
                     "person",
                     "sort_order",
+                    "id",
                     "DELETE",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
@@ -598,6 +605,7 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
                 layout.Div(
                     "authorship_type",
                     "sort_order",
+                    "id",
                     "DELETE",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
@@ -652,6 +660,7 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
                 layout.Div(
                     "person",
                     "sort_order",
+                    "id",
                     "DELETE",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
@@ -707,6 +716,10 @@ ProductionInvolvementFormset = inlineformset_factory(Production, ProductionInvol
 
 
 class SponsorForm(autocomplete_light.ModelForm):
+    id = forms.IntegerField(
+        widget=forms.HiddenInput(),
+        required=False,
+    )
     media_file_path = forms.CharField(
         widget=forms.HiddenInput(),
         required=False,
@@ -734,18 +747,16 @@ class SponsorForm(autocomplete_light.ModelForm):
             <div class="row row-md">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="image_preview">
-                        {% if media_file.path %}
-                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ media_file.path|modified_path:"medium" }}?now={% now "YmdHis" %}" alt="" />
+                        {% if form.instance.image %}
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ form.instance.image|modified_path:"medium" }}?now={% now "YmdHis" %}" alt="" />
                         {% endif %}
                     </div>
-                    {% if not media_file.path %}
-                        <div class="image_uploader">
-                            <noscript>
-                                <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
-                            </noscript>
-                        </div>
-                        <p class="image_help_text help-block">{% trans "Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
-                    {% endif %}
+                    <div class="image_uploader">
+                        <noscript>
+                            <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
+                        </noscript>
+                    </div>
+                    <p class="image_help_text help-block">{% trans "Available formats are JPG, GIF, and PNG. Minimal size is 100 × 100 px. Optimal size is 1000 × 350 px (min)." %}</p>
                 </div>
             </div>
             """)
@@ -762,6 +773,7 @@ class SponsorForm(autocomplete_light.ModelForm):
             layout.Div(
                 "media_file_path",
                 layout.Field("website", placeholder="http://"),
+                "id",
                 "DELETE",
                 css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
             ),
@@ -867,6 +879,7 @@ def load_data(instance=None):
 
         for leadership in instance.productionleadership_set.all():
             leadership_dict = {}
+            leadership_dict['id'] = leadership.pk
             leadership_dict['person'] = leadership.person
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 leadership_dict['function_%s' % lang_code] = getattr(leadership, 'function_%s' % lang_code)
@@ -874,12 +887,14 @@ def load_data(instance=None):
 
         for authorship in instance.productionauthorship_set.all():
             authorship_dict = {}
+            authorship_dict['id'] = authorship.pk
             authorship_dict['person'] = authorship.person
             authorship_dict['authorship_type'] = authorship.authorship_type
             form_step_data['description']['sets']['authorships'].append(authorship_dict)
 
         for involvement in instance.productioninvolvement_set.all():
             involvement_dict = {}
+            involvement_dict['id'] = involvement.pk
             involvement_dict['person'] = involvement.person
             involvement_dict['involvement_type'] = involvement.involvement_type
             for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -889,13 +904,13 @@ def load_data(instance=None):
 
         for sponsor in instance.sponsors.all():
             sponsor_dict = {}
+            sponsor_dict['id'] = sponsor.pk
             sponsor_dict['website'] = sponsor.website
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 sponsor_dict['title_%s' % lang_code] = getattr(sponsor, 'title_%s' % lang_code)
             form_step_data['description']['sets']['sponsors'].append(sponsor_dict)
 
     return form_step_data
-
 
 def submit_step(current_step, form_steps, form_step_data, instance=None):
     if current_step == "basic":
@@ -1007,9 +1022,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for cat in form_step_data['description']['characteristics']:
             instance.characteristics.add(cat)
 
+        return form_step_data ## DEBUG
+
         # save leaderships
         fields = [
-            'person', 'sort_order',
+            'sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -1017,6 +1034,15 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             ]
         leadership_ids_to_keep = []
         for leadership_dict in form_step_data['description']['sets']['leaderships']:
+            if leadership_dict['person']:
+                person = Person.objects.get(pk=leadership_dict['person'])
+            else:
+                person = Person()
+                person.first_name = leadership_dict['first_name']
+                person.last_name = leadership_dict['last_name']
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    setattr(person, 'leadership_function_%s' % lang_code, leadership_dict['function_%s' % lang_code])
+                person.save()
             if leadership_dict['id']:
                 try:
                     leadership = ProductionLeadership.objects.get(
@@ -1029,16 +1055,30 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 leadership = ProductionLeadership(production=instance)
             for fname in fields:
                 setattr(leadership, fname, leadership_dict[fname])
+            leadership.person = person
             leadership.save()
             leadership_ids_to_keep.append(leadership.pk)
         instance.productionleadership_set.exclude(pk__in=leadership_ids_to_keep).delete()
 
         # save authorships
         fields = [
-            'person', 'sort_order', 'authorship_type',
+            'sort_order',
         ]
         authorship_ids_to_keep = []
         for authorship_dict in form_step_data['description']['sets']['authorships']:
+            authorship_type = None
+            if authorship_dict['authorship_type']:
+                authorship_type = AuthorshipType.objects.get(pk=authorship_dict['authorship_type'])
+            if authorship_dict['person']:
+                person = Person.objects.get(pk=authorship_dict['person'])
+            else:
+                person = Person()
+                person.first_name = authorship_dict['first_name']
+                person.last_name = authorship_dict['last_name']
+                person.authorship_type = authorship_type
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    setattr(person, 'leadership_function_%s' % lang_code, authorship_dict['function_%s' % lang_code])
+                person.save()
             if authorship_dict['id']:
                 try:
                     authorship = ProductionAuthorship.objects.get(
@@ -1051,13 +1091,15 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 authorship = ProductionAuthorship(production=instance)
             for fname in fields:
                 setattr(authorship, fname, authorship_dict[fname])
+            authorship.person = person
+            authorship.authorship_type = authorship_type
             authorship.save()
             authorship_ids_to_keep.append(authorship.pk)
         instance.productionauthorship_set.exclude(pk__in=authorship_ids_to_keep).delete()
 
         # save involvements
         fields = [
-            'person', 'sort_order', 'involvement_type',
+            'sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -1066,6 +1108,20 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             ]
         involvement_ids_to_keep = []
         for involvement_dict in form_step_data['description']['sets']['involvements']:
+            involvement_type = None
+            if involvement_dict['involvement_type']:
+                involvement_type = InvolvementType.objects.get(pk=involvement_dict['involvement_type'])
+            if involvement_dict['person']:
+                person = Person.objects.get(pk=involvement_dict['person'])
+            else:
+                person = Person()
+                person.first_name = involvement_dict['first_name']
+                person.last_name = involvement_dict['last_name']
+                person.involvement_type = involvement_type
+                for lang_code, lang_name in FRONTEND_LANGUAGES:
+                    setattr(person, 'involvement_role_%s' % lang_code, involvement_dict['involvement_role_%s' % lang_code])
+                    setattr(person, 'involvement_instrument_%s' % lang_code, involvement_dict['involvement_instrument_%s' % lang_code])
+                person.save()
             if involvement_dict['id']:
                 try:
                     involvement = ProductionInvolvement.objects.get(
@@ -1078,14 +1134,15 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 involvement = ProductionInvolvement(production=instance)
             for fname in fields:
                 setattr(involvement, fname, involvement_dict[fname])
+            involvement.person = person
+            involvement.involvement_type = involvement_type
             involvement.save()
             involvement_ids_to_keep.append(involvement.pk)
         instance.productioninvolvement_set.exclude(pk__in=involvement_ids_to_keep).delete()
 
         # save sponsors
-        # TODO: save the image
         fields = [
-            'website', 'image',
+            'website',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -1102,6 +1159,29 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     continue
             else:
                 sponsor = Sponsor()
+            if sponsor_dict['media_file_path'] and sponsor.image:
+                # delete the old file
+                try:
+                    FileManager.delete_file(sponsor.image.path)
+                except OSError:
+                    pass
+            rel_dir = "sponsors/"
+            if sponsor_dict['media_file_path']:
+                tmp_path = sponsor_dict['media_file_path']
+                abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+
+                fname, fext = os.path.splitext(tmp_path)
+                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+                dest_path = "".join((rel_dir, filename))
+                FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+                abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+
+                shutil.copy2(abs_tmp_path, abs_dest_path)
+
+                os.remove(abs_tmp_path);
+                sponsor.image = dest_path
+                sponsor_dict['media_file_path'] = u""
+
             for fname in fields:
                 setattr(sponsor, fname, sponsor_dict[fname])
             sponsor.save()

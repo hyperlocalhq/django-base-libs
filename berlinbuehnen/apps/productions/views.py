@@ -219,12 +219,9 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
 
     form_class = ImageFileForm
 
-    if request.method=="POST":
+    if request.method == "POST":
         # just after submitting data
         form = form_class(media_file_obj, request.POST, request.FILES)
-        # Passing request.FILES to the form always breaks the form validation
-        # WHY!?? As a workaround, let's validate just the POST and then
-        # manage FILES separately.
         if form.is_valid():
             cleaned = form.cleaned_data
             path = ""
