@@ -1,5 +1,8 @@
 # -*- coding: UTF-8 -*-
 
+from datetime import time
+from dateutil.parser import parse as datetime_parse
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.forms.models import inlineformset_factory, formset_factory
@@ -35,8 +38,9 @@ class AddEventsForm(forms.Form):
         initial='single',
     )
     dates = forms.CharField(
-        required=False,
-        widget=forms.HiddenInput(),
+        required=True,
+        #widget=forms.HiddenInput(),
+        widget=forms.TextInput(),
     )
     start_time = forms.TimeField(
         label=_("Start time"),
@@ -55,8 +59,10 @@ class AddEventsForm(forms.Form):
         initial=0,
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, production, *args, **kwargs):
         super(AddEventsForm, self).__init__(*args, **kwargs)
+
+        self.production = production
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -113,8 +119,41 @@ class AddEventsForm(forms.Form):
             *layout_blocks
         )
 
+    def clean_dates(self):
+        dates_str = self.cleaned_data['dates'].split(',')
+        try:
+            return [datetime_parse(d).date() for d in dates_str]
+        except ValueError:
+            pass
+        return []
+
+    def clean_duration(self):
+        duration = self.cleaned_data['duration']
+        if duration is not None:
+            hours, minutes = duration.hour, duration.minute
+            return hours * 3600 + minutes * 60
+
+    def save(self, *args, **kwargs):
+        cleaned = self.cleaned_data
+        saved_events = []
+        for d in cleaned['dates']:
+            ev = Event(production=self.production)
+            ev.start_date = d
+            ev.start_time = cleaned['start_time']
+            ev.end_time = cleaned['end_time']
+            ev.pauses = cleaned['pauses']
+            ev.duration = cleaned['duration']
+            ev.save()
+            saved_events.append(ev)
+        return saved_events
+
 
 class BasicInfoForm(autocomplete_light.ModelForm):
+    duration_as_time = forms.TimeField(
+        label=_("Duration"),
+        required=False,
+    )
+
     class Meta:
         model = Event
         autocomplete_fields = ('play_locations', 'play_stages',)
@@ -123,7 +162,6 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             'end_date',
             'start_time',
             'end_time',
-            'duration',
             'pauses',
             'organizer_title',
             'play_locations', 'play_stages',
@@ -134,6 +172,12 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
+
+        if self.instance.duration:
+            duration_in_minutes = self.instance.duration / 60
+            hours = duration_in_minutes / 60
+            minutes = duration_in_minutes % 60
+            self.fields['duration_as_time'].initial = time(hours, minutes)
 
         # for lang_code, lang_name in FRONTEND_LANGUAGES:
         #     for f in []:
@@ -172,11 +216,11 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             ),
             layout.Row(
                 layout.Div(
-                    "pauses",
+                    layout.Field("duration_as_time", placeholder="HH:MM"),
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 layout.Div(
-                    layout.Field("duration", placeholder="HH:MM"),
+                    "pauses",
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-sm"
@@ -221,6 +265,19 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def save(self, commit=True):
+        event = super(BasicInfoForm, self).save(commit=False)
+        duration_as_time = self.cleaned_data['duration_as_time']
+        event.duration = None
+        if duration_as_time is not None:
+            hours, minutes = duration_as_time.hour, duration_as_time.minute
+            event.duration = hours * 3600 + minutes * 60
+        if commit:
+            event.save()
+            self.save_m2m()
+        return event
+
 
 class DescriptionForm(autocomplete_light.ModelForm):
     class Meta:
@@ -824,3 +881,25 @@ class SponsorForm(autocomplete_light.ModelForm):
         )
 
 SponsorFormset = formset_factory(form=SponsorForm, extra=0, can_delete=True)
+
+
+class GalleryForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = []
+
+    def __init__(self, *args, **kwargs):
+        super(GalleryForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        layout_blocks = []
+        layout_blocks.append(bootstrap.FormActions(
+            PrimarySubmit('submit', _('Save')),
+            SecondarySubmit('reset', _('Cancel')),
+        ))
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
+
+

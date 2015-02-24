@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from django.views.decorators.cache import never_cache
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from base_libs.views.views import access_denied
 
@@ -27,8 +28,8 @@ from forms.production import PRODUCTION_FORM_STEPS
 from forms.gallery import ImageFileForm, ImageDeletionForm
 from forms.events import AddEventsForm
 from forms.events import BasicInfoForm as EventBasicInfoForm
-from forms.events import DescriptionForm as EventDescriptionForm
-from forms.events import EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SponsorFormset
+from forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SponsorFormset
+from forms.events import GalleryForm
 
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
@@ -393,29 +394,33 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
 @never_cache
 @login_required
 def events_overview(request, slug):
-    instance = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", instance):
+    production = get_object_or_404(Production, slug=slug)
+    if not request.user.has_perm("productions.change_production", production):
         return access_denied(request)
 
-    return render(request, "productions/events/overview.html", {'production': instance})
+    return render(request, "productions/events/overview.html", {'production': production})
 
 
 @never_cache
 @login_required
 def add_events(request, slug):
-    instance = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", instance):
+    production = get_object_or_404(Production, slug=slug)
+    if not request.user.has_perm("productions.change_production", production):
         return access_denied(request)
 
-    if request.method == "POST":
-        form = AddEventsForm(data=request.POST)
-        if form.is_valid():
-            # TODO: create new events
-            return redirect(instance.get_url_path())
-    else:
-        form = AddEventsForm()
+    if request.REQUEST.get('reset'):
+        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
 
-    return render(request, "productions/events/add_events.html", {'production': instance, 'form': form})
+    if request.method == "POST":
+        form = AddEventsForm(production, data=request.POST)
+        if form.is_valid():
+            # create new events
+            form.save()
+            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+    else:
+        form = AddEventsForm(production)
+
+    return render(request, "productions/events/add_events.html", {'production': production, 'form': form})
 
 
 @never_cache
@@ -426,11 +431,14 @@ def change_event_basic_info(request, slug, event_id):
     if not request.user.has_perm("productions.change_production", production):
         return access_denied(request)
 
+    if request.REQUEST.get('reset'):
+        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+
     if request.method == "POST":
         form = EventBasicInfoForm(data=request.POST, instance=event)
         if form.is_valid():
-            # TODO: save basic info fields
-            return redirect(production.get_url_path())
+            form.save()
+            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
     else:
         form = EventBasicInfoForm(instance=event)
 
@@ -445,6 +453,9 @@ def change_event_description(request, slug, event_id):
     if not request.user.has_perm("productions.change_production", production):
         return access_denied(request)
 
+    if request.REQUEST.get('reset'):
+        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+
     if request.method == "POST":
         form = EventDescriptionForm(data=request.POST, instance=event)
         leadership_formset = EventLeadershipFormset(data=request.POST, prefix="leaderships")
@@ -454,7 +465,7 @@ def change_event_description(request, slug, event_id):
 
         if form.is_valid() and leadership_formset.is_valid() and authorship_formset.is_valid() and involvement_formset.is_valid() and sponsor_formset.is_valid():
             # TODO: save description fields
-            return redirect(production.get_url_path())
+            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
     else:
         form = EventDescriptionForm(instance=event)
         leadership_formset = EventLeadershipFormset(prefix="leaderships")
@@ -483,12 +494,15 @@ def change_event_gallery(request, slug, event_id):
     if not request.user.has_perm("productions.change_production", production):
         return access_denied(request)
 
+    if request.REQUEST.get('reset'):
+        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+
     if request.method == "POST":
         # TODO: exchange the form with some gallery form
-        form = EventDescriptionForm(data=request.POST, instance=event)
+        form = GalleryForm(data=request.POST, instance=event)
         if form.is_valid():
-            return redirect(production.get_url_path())
+            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
     else:
-        form = EventDescriptionForm(instance=event)
+        form = GalleryForm(instance=event)
 
     return render(request, "productions/events/gallery_form.html", {'production': production, 'event': event, 'form': form})
