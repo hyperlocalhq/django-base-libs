@@ -14,6 +14,11 @@ urlpatterns = patterns('berlinbuehnen.apps.productions.views',
     url(r'^(?P<slug>[^/]+)/gallery/add/$', 'create_update_mediafile', name='production_add_mediafile'),
     url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/$', 'create_update_mediafile', name='production_change_mediafile'),
     url(r'^(?P<slug>[^/]+)/gallery/file_(?P<mediafile_token>[^/]+)/delete/$', 'delete_mediafile', name='production_delete_mediafile'),
-
+    # events
+    url(r'^(?P<slug>[^/]+)/events/$', 'events_overview', name='production_events_overview'),
+    url(r'^(?P<slug>[^/]+)/events/add/$', 'add_events', name='add_events'),
     url(r'^(?P<slug>[^/]+)/(?P<event_id>[^/]+)/$', 'event_detail', name='event_detail'),
+    url(r'^(?P<slug>[^/]+)/(?P<event_id>[^/]+)/change/basic-info/$', 'change_event_basic_info', name='change_event_basic_info'),
+    url(r'^(?P<slug>[^/]+)/(?P<event_id>[^/]+)/change/description/$', 'change_event_description', name='change_event_description'),
+    url(r'^(?P<slug>[^/]+)/(?P<event_id>[^/]+)/change/gallery/$', 'change_event_gallery', name='change_event_gallery'),
 )

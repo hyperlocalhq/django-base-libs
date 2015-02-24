@@ -25,6 +25,10 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from forms.production import PRODUCTION_FORM_STEPS
 from forms.gallery import ImageFileForm, ImageDeletionForm
+from forms.events import AddEventsForm
+from forms.events import BasicInfoForm as EventBasicInfoForm
+from forms.events import DescriptionForm as EventDescriptionForm
+from forms.events import EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SponsorFormset
 
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
@@ -383,3 +387,108 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
         context_dict,
     )
 
+
+### EVENTS MANAGEMENT ###
+
+@never_cache
+@login_required
+def events_overview(request, slug):
+    instance = get_object_or_404(Production, slug=slug)
+    if not request.user.has_perm("productions.change_production", instance):
+        return access_denied(request)
+
+    return render(request, "productions/events/overview.html", {'production': instance})
+
+
+@never_cache
+@login_required
+def add_events(request, slug):
+    instance = get_object_or_404(Production, slug=slug)
+    if not request.user.has_perm("productions.change_production", instance):
+        return access_denied(request)
+
+    if request.method == "POST":
+        form = AddEventsForm(data=request.POST)
+        if form.is_valid():
+            # TODO: create new events
+            return redirect(instance.get_url_path())
+    else:
+        form = AddEventsForm()
+
+    return render(request, "productions/events/add_events.html", {'production': instance, 'form': form})
+
+
+@never_cache
+@login_required
+def change_event_basic_info(request, slug, event_id):
+    production = get_object_or_404(Production, slug=slug)
+    event = get_object_or_404(Event, pk=event_id, production=production)
+    if not request.user.has_perm("productions.change_production", production):
+        return access_denied(request)
+
+    if request.method == "POST":
+        form = EventBasicInfoForm(data=request.POST, instance=event)
+        if form.is_valid():
+            # TODO: save basic info fields
+            return redirect(production.get_url_path())
+    else:
+        form = EventBasicInfoForm(instance=event)
+
+    return render(request, "productions/events/basic_info_form.html", {'production': production, 'event': event, 'form': form})
+
+
+@never_cache
+@login_required
+def change_event_description(request, slug, event_id):
+    production = get_object_or_404(Production, slug=slug)
+    event = get_object_or_404(Event, pk=event_id, production=production)
+    if not request.user.has_perm("productions.change_production", production):
+        return access_denied(request)
+
+    if request.method == "POST":
+        form = EventDescriptionForm(data=request.POST, instance=event)
+        leadership_formset = EventLeadershipFormset(data=request.POST, prefix="leaderships")
+        authorship_formset = EventAuthorshipFormset(data=request.POST, prefix="authorships")
+        involvement_formset = EventInvolvementFormset(data=request.POST, prefix="involvements")
+        sponsor_formset = SponsorFormset(data=request.POST, prefix="sponsors")
+
+        if form.is_valid() and leadership_formset.is_valid() and authorship_formset.is_valid() and involvement_formset.is_valid() and sponsor_formset.is_valid():
+            # TODO: save description fields
+            return redirect(production.get_url_path())
+    else:
+        form = EventDescriptionForm(instance=event)
+        leadership_formset = EventLeadershipFormset(prefix="leaderships")
+        authorship_formset = EventAuthorshipFormset(prefix="authorships")
+        involvement_formset = EventInvolvementFormset(prefix="involvements")
+        sponsor_formset = SponsorFormset(prefix="sponsors")
+
+    return render(request, "productions/events/description_form.html", {
+        'production': production,
+        'event': event,
+        'form': form,
+        'formsets': {
+            'leaderships': leadership_formset,
+            'authorships': authorship_formset,
+            'involvements': involvement_formset,
+            'sponsors': sponsor_formset,
+        }
+    })
+
+
+@never_cache
+@login_required
+def change_event_gallery(request, slug, event_id):
+    production = get_object_or_404(Production, slug=slug)
+    event = get_object_or_404(Event, pk=event_id, production=production)
+    if not request.user.has_perm("productions.change_production", production):
+        return access_denied(request)
+
+    if request.method == "POST":
+        # TODO: exchange the form with some gallery form
+        form = EventDescriptionForm(data=request.POST, instance=event)
+        if form.is_valid():
+            return redirect(production.get_url_path())
+    else:
+        form = EventDescriptionForm(instance=event)
+
+    return render(request, "productions/events/gallery_form.html", {'production': production, 'event': event, 'form': form})

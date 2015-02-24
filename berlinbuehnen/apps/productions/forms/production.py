@@ -816,6 +816,17 @@ class GalleryForm(forms.ModelForm):
 class EventsForm(forms.ModelForm):
     class Meta:
         model = Production
+        fields = []
+
+    def __init__(self, *args, **kwargs):
+        super(EventsForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(bootstrap.FormActions(
+            PrimarySubmit('save_and_close', _('Close')),
+            SecondarySubmit('reset', _('Cancel')),
+        ))
 
 
 def load_data(instance=None):
