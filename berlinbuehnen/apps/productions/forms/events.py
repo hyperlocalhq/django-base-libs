@@ -41,6 +41,10 @@ class AddEventsForm(forms.Form):
     start_time = forms.TimeField(
         label=_("Start time"),
     )
+    end_time = forms.TimeField(
+        label=_("End time"),
+        required=False,
+    )
     duration = forms.TimeField(
         label=_("Duration"),
         required=False,
@@ -70,7 +74,11 @@ class AddEventsForm(forms.Form):
                 css_class="row-sm"
             ),
             layout.HTML("""
-                <div id="calendar">
+                <div class="row-sm">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="calendar">
+                        </div>
+                    </div>
                 </div>
             """),
             layout.Row(
@@ -79,15 +87,19 @@ class AddEventsForm(forms.Form):
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 layout.Div(
-                    layout.Field("duration", placeholder="HH:MM"),
+                    layout.Field("end_time", placeholder="HH:MM"),
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-sm"
             ),
             layout.Row(
                 layout.Div(
-                    "pauses",
-                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                    layout.Field("duration", placeholder="HH:MM"),
+                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    layout.Field("pauses"),
+                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-sm"
             )

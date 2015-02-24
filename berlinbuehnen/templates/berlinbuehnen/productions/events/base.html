@@ -33,7 +33,11 @@
     <div class="dashboard-header container relative">
         {% block dashboard_title %}
             {% if production %}
-                <h4>{{ production.title }}</h4>
+                <h4>{{ production.title }}
+                    {% if event %}
+                        - {{ event.start_date|date:"j. F Y" }}, {{ event.start_time|time:"H:i" }}
+                    {% endif %}
+                </h4>
             {% else %}
                 <h4>{% trans "Add new production" %}</h4>
             {% endif %}
@@ -65,7 +69,12 @@
             <a class="btn btn-primary" id="preview_page" href="{{ production.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
         </div>
 
-        {% include "utils/step_list.html" %}
+        <ul class="nav nav-tabs form-steps">
+            <li><a class="txt" href="{% url "change_production" slug=production.slug %}?step=1"> {% trans "Production" %} </a></li>
+            <li><a class="txt" href="{% url "change_production" slug=production.slug %}?step=2"> {% trans "Description" %} </a></li>
+            <li><a class="txt" href="{% url "change_production" slug=production.slug %}?step=3"> {% trans "Images" %} </a></li>
+            <li class="active"><a class="txt" href="{% url "change_production" slug=production.slug %}?step=4"> {% trans "Events" %} </a></li>
+        </ul>
     </div>
 {% endblock %}
 

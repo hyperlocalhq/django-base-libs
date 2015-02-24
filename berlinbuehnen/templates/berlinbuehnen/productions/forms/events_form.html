@@ -1,99 +1,71 @@
 {% extends "productions/forms/base.html" %}
-{% load i18n crispy_forms_tags %}
+{% load i18n crispy_forms_tags auth_extended %}
 
-{% block multistep_form %}
-    {% crispy form %}
+{% block content %}
+    <div class="container">
+        <div class="dashboard-content">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div id="events" class="content">
+                <a class="btn btn-primary pull-right" href="{% url "add_events" slug=production.slug %}">{% trans "Add events" %}</a>
+                <h4>{% trans "Events" %}</h4>
+                <table class="dashboard-table">
+                  <thead>
+                    <tr>
+                      <th> <small>{% trans "Title" %}</small> </th>
+                      <th> <small>{% trans "Actions" %}</small> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if production.event_set.count %}
+                    {% for event in production.event_set.all %}
+                    <tr>
+                      <td class="item">
+                        <a href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}"> <b>{{ event.start_date|date:"j. F Y" }}, {{ event.start_time|time:"H:i" }}</b> </a>
+                      </td>
+                      <td>
+                        <a href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}" class="btn"> {% trans "Details" %} </a>
+                        <a href="{% url "change_event_description" slug=production.slug event_id=event.pk %}" class="btn"> {% trans "Description" %} </a>
+                        <a href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}" class="btn"> {% trans "Gallery" %} </a>
 
-    <script src="http://maps.google.com/maps/api/js?sensor=false&amp;language={{ LANGUAGE_CODE }}&amp;region=DE"></script>
-    <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
-    <script type="text/javascript">
-    var error_messages = {
-        required: "{% trans "This field is required." %}"
-    };
-
-    (function($, undefined) {
-        function reinit_widgets() {
-            $('[rel=tooltip]').tooltip();
-            self.reinit_maps();
-        }
-
-        function set_index_for_fields($formset_form, index) {
-            $formset_form.find(':input').each(function() {
-                var $field = $(this);
-                if ($field.attr("id")) {
-                    $field.attr(
-                        "id",
-                        $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
-                    );
-                }
-                if ($field.attr("name")) {
-                    $field.attr(
-                        "name",
-                        $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
-                    );
-                }
-            });
-            $formset_form.find('label').each(function() {
-                var $field = $(this);
-                if ($field.attr("for")) {
-                    $field.attr(
-                        "for",
-                        $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
-                    );
-                }
-            });
-            $formset_form.find('div').each(function() {
-                var $field = $(this);
-                if ($field.attr("id")) {
-                    $field.attr(
-                        "id",
-                        $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
-                    );
-                }
-            });
-        }
-
-        $(function() {
-            $(
-                '<a class="add btn btn-primary" id="add_stage" href="#">{% trans "Add stage" %}</a>'
-            ).insertAfter('#stages').click(function() {
-                var $total_forms = $('#id_stages-TOTAL_FORMS');
-                var $new_form = $('#stages_empty_form').clone(true).attr("id", null).show();
-                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
-                $('#stages').append($new_form);
-                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
-                reinit_widgets();
-                return false;
-            });
-
-            $('.formset-form').each(function() {
-                var $season = $(this);
-                $season.find('input:checkbox[id$=DELETE]').each(function() {
-                    var $checkbox = $(this);
-                    var $deleteLink = $(
-                        '<span class="input-group-btn"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
-                    );
-                    $checkbox.closest('.formset-form').find("fieldset:last").append($deleteLink);
-                    $checkbox.closest('.form-group').hide();
-                });
-            });
-            $('.delete').live("click", function() {
-                var $season = $(this).parents('.formset-form:first');
-                var $checkbox = $season.find('input:checkbox[id$=DELETE]');
-                $checkbox.attr("checked", "checked");
-                $season.hide();
-                return false;
-            });
-
-            // Initial state
-            var $total_forms = $('#id_stages-TOTAL_FORMS');
-            if ($total_forms.val() == "0") {
-                $('#add_stage').click();
-            }
-            reinit_widgets();
-        });
-
-    })(jQuery);
-    </script>
+                        <a href="{{ event.get_url_path }}?preview" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Preview" %}" class="btn btn-sm btn-icon btn-link" target="_blank">
+                          <span class="icon icon-eye-open"></span>
+                          <span class="sr-only">{% trans "Preview" %}</span>
+                        </a>
+                        {% if_has_perm "events.delete_event" production %}
+                        <a href="{{ production.get_url_path }}delete/" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}" class="btn btn-sm btn-icon btn-link delete" data-object-title="{{ production.title }}" data-object-type="{% trans "Event" %}">
+                          <span class="icon icon-remove"></span>
+                          <span class="sr-only">{% trans "Remove" %}</span>
+                        </a>
+                        {% end_if_has_perm %}
+                        {% if production.status == "published" %} {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td colspan="4">
+                        <span class="pull-left">
+                          {% if status == "published" %} {% trans "There are no published items." %} {% endif %}
+                          {% if status == "draft" %} {% trans "There are no draft items." %} {% endif %}
+                          {% if status == "expired" %} {% trans "There are no expired items." %} {% endif %}
+                        </span>
+                      </td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+            </div>
+            {% crispy form %}
+        </div>
+    </div>
 {% endblock %}
 

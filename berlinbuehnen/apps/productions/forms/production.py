@@ -798,16 +798,11 @@ class GalleryForm(forms.ModelForm):
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         layout_blocks = []
-        if self.instance and self.instance.pk:
-            layout_blocks.append(bootstrap.FormActions(
-                PrimarySubmit('save_and_close', _('Close')),
-                SecondarySubmit('reset', _('Cancel')),
-            ))
-        else:
-            layout_blocks.append(bootstrap.FormActions(
-                PrimarySubmit('submit', _('Save')),
-                SecondarySubmit('reset', _('Cancel')),
-            ))
+        layout_blocks.append(bootstrap.FormActions(
+            PrimarySubmit('submit', _('Next')),
+            SecondarySubmit('save_and_close', _('Close')),
+            SecondarySubmit('reset', _('Cancel')),
+        ))
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
