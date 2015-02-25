@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from datetime import time
+from datetime import time, timedelta
 from dateutil.parser import parse as datetime_parse
 
 from django import forms
@@ -26,7 +26,7 @@ import autocomplete_light
 EVENTS_TYPE_CHOICES = (
     ('single', _('Single date')),
     ('range', _('Date range')),
-    ('series', _('Date series')),
+    ('multiple', _('Multiple dates')),
 )
 
 
@@ -39,8 +39,7 @@ class AddEventsForm(forms.Form):
     )
     dates = forms.CharField(
         required=True,
-        #widget=forms.HiddenInput(),
-        widget=forms.TextInput(),
+        widget=forms.HiddenInput(),
     )
     start_time = forms.TimeField(
         label=_("Start time"),
@@ -79,10 +78,15 @@ class AddEventsForm(forms.Form):
                 ),
                 css_class="row-sm"
             ),
-            layout.HTML("""
-                <div class="row-sm">
+            layout.HTML("""{% load i18n %}
+                <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div id="calendar">
+                        <div class="form-group {% if form.dates.errors %}has-error{% endif %}">
+                            <label class="control-label requiredField">{% trans "Dates" %}*</label>
+                            <div class="controls">
+                                <div id="calendar"></div>
+                                {% if form.dates.errors %}<span class="help-block"><strong>{% trans "At least one date should be selected." %}</strong></span>{% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,14 @@ class AddEventsForm(forms.Form):
     def save(self, *args, **kwargs):
         cleaned = self.cleaned_data
         saved_events = []
-        for d in cleaned['dates']:
+        dates = cleaned['dates']
+        if cleaned['events_type'] == 'range':
+            d1, d2 = dates
+            delta = d2 - d1
+            dates = []
+            for i in range(delta.days + 1):
+                dates.append(d1 + timedelta(days=i))
+        for d in dates:
             ev = Event(production=self.production)
             ev.start_date = d
             ev.start_time = cleaned['start_time']
