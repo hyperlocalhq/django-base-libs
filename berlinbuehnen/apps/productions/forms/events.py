@@ -834,6 +834,7 @@ class SponsorForm(autocomplete_light.ModelForm):
 
     class Meta:
         model = Sponsor
+        exclude = ['image']
 
     def __init__(self, *args, **kwargs):
         super(SponsorForm, self).__init__(*args, **kwargs)

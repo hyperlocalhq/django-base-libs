@@ -1184,7 +1184,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
                 shutil.copy2(abs_tmp_path, abs_dest_path)
 
-                os.remove(abs_tmp_path);
+                os.remove(abs_tmp_path)
                 sponsor.image = dest_path
                 sponsor_dict['media_file_path'] = u""
 
