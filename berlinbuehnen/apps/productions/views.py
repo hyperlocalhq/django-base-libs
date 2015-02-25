@@ -506,3 +506,16 @@ def change_event_gallery(request, slug, event_id):
         form = GalleryForm(instance=event)
 
     return render(request, "productions/events/gallery_form.html", {'production': production, 'event': event, 'form': form})
+
+
+@never_cache
+@login_required
+def delete_event(request, slug, event_id):
+    production = get_object_or_404(Production, slug=slug)
+    event = get_object_or_404(Event, pk=event_id, production=production)
+    if not request.user.has_perm("productions.delete_event", event):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        event.delete()
+        return HttpResponse("OK")
+    return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')

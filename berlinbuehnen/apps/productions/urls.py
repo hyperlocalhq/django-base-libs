@@ -21,4 +21,5 @@ urlpatterns = patterns('berlinbuehnen.apps.productions.views',
     url(r'^(?P<slug>[^/]+)/(?P<event_id>[^/]+)/change/basic-info/$', 'change_event_basic_info', name='change_event_basic_info'),
     url(r'^(?P<slug>[^/]+)/(?P<event_id>[^/]+)/change/description/$', 'change_event_description', name='change_event_description'),
     url(r'^(?P<slug>[^/]+)/(?P<event_id>[^/]+)/change/gallery/$', 'change_event_gallery', name='change_event_gallery'),
+    url(r'^(?P<slug>[^/]+)/(?P<event_id>[^/]+)/delete/$', 'delete_event', name='delete_event'),
 )
