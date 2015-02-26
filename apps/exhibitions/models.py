@@ -13,6 +13,7 @@ from base_libs.models.models import OpeningHoursMixin
 from base_libs.models.models import SlugMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
+from base_libs.models.fields import MultilingualPlainTextField
 from base_libs.models.fields import ExtendedTextField # for south
 from base_libs.models.fields import URLField
 from base_libs.models.fields import PositionField
@@ -188,6 +189,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     tags = TagAutocompleteField(verbose_name=_("tags"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     is_for_children = models.BooleanField(_("Special for children / families / youth"), blank=True)
+
+    search_keywords = MultilingualPlainTextField(_("Search keywords"), blank=True)
 
     favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
 

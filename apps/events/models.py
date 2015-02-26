@@ -22,6 +22,7 @@ from base_libs.models.models import SlugMixin
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
+from base_libs.models.fields import MultilingualPlainTextField
 from base_libs.models.fields import PositionField
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_translation
@@ -159,6 +160,8 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     closest_event_date = models.DateField(_("Event date"), editable=False, blank=True, null=True)
     closest_event_time = models.TimeField(_("Event start time"), editable=False, blank=True, null=True)
+
+    search_keywords = MultilingualPlainTextField(_("Search keywords"), blank=True)
 
     favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
 

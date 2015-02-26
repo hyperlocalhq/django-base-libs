@@ -83,6 +83,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
     )}),]
     fieldsets += [(_("Location"), {'fields': ('museum', 'location_name','street_address','street_address2','postal_code','city', 'country','latitude','longitude', 'exhibition')}),]
     fieldsets += [(_("Prices"), {'fields': ('free_admission', 'admission_price', 'reduced_price', get_admin_lang_section(_("Details"), ['admission_price_info', 'booking_info', 'meeting_place', 'shop_link']))}),]
+    fieldsets += get_admin_lang_section(_("Search"), ['search_keywords',])
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}

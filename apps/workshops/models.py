@@ -18,6 +18,7 @@ from base_libs.models.models import SlugMixin
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
+from base_libs.models.fields import MultilingualPlainTextField
 from base_libs.models.fields import PositionField
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_translation
@@ -162,6 +163,8 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     closest_workshop_date = models.DateField(_("Workshop date"), editable=False, blank=True, null=True)
     closest_workshop_time = models.TimeField(_("Workshop start time"), editable=False, blank=True, null=True)
+
+    search_keywords = MultilingualPlainTextField(_("Search keywords"), blank=True)
 
     favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
 

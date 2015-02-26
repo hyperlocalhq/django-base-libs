@@ -58,6 +58,7 @@ class MuseumIndex(AldrynIndexBase, indexes.Indexable):
                 "title_%s" % language,
                 "subtitle_%s" % language,
                 "description_%s" % language,
+                "search_keywords_%s" % language,
             )
         )
         all_text = decode_entities(all_text)
@@ -115,6 +116,7 @@ class ExhibitionIndex(AldrynIndexBase, indexes.Indexable):
                 "description_%s" % language,
                 "press_text_%s" % language,
                 "catalog_%s" % language,
+                "search_keywords_%s" % language,
             )
         )
         all_text = decode_entities(all_text)
@@ -172,6 +174,7 @@ class EventIndex(AldrynIndexBase, indexes.Indexable):
                 "subtitle_%s" % language,
                 "event_type_%s" % language,
                 "description_%s" % language,
+                "search_keywords_%s" % language,
             )
         )
         all_text = decode_entities(all_text)
@@ -231,6 +234,7 @@ class WorkshopIndex(AldrynIndexBase, indexes.Indexable):
                 "subtitle_%s" % language,
                 "workshop_type_%s" % language,
                 "description_%s" % language,
+                "search_keywords_%s" % language,
             )
         )
         all_text = decode_entities(all_text)

@@ -115,6 +115,7 @@ class MuseumAdmin(ExtendedModelAdmin):
         'service_archive',
         'service_diaper_changing_table',
     ]})]
+    fieldsets += get_admin_lang_section(_("Search"), ['search_keywords',])
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}

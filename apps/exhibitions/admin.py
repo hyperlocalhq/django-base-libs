@@ -135,6 +135,7 @@ class ExhibitionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("PDF Documents"), {'fields': ('pdf_document_de', 'pdf_document_en',)}),]
     fieldsets += [(_("Categories"), {'fields': ('categories', 'tags', 'newly_opened', 'featured', 'featured_in_magazine', 'closing_soon', 'is_for_children', 'special')}),]
     fieldsets += [(_("Suitability"), {'fields': ('suitable_for_disabled', get_admin_lang_section(_("Description"), ['suitable_for_disabled_info', ]))}),]
+    fieldsets += get_admin_lang_section(_("Search"), ['search_keywords',])
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
     
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}

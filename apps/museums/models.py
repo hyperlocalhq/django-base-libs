@@ -13,6 +13,7 @@ from base_libs.models.models import SlugMixin
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
+from base_libs.models.fields import MultilingualPlainTextField
 from base_libs.models.fields import ExtendedTextField
 from base_libs.models.fields import PositionField
 from base_libs.middleware import get_current_language
@@ -175,6 +176,8 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     audioguide_other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)
     has_audioguide_for_children = models.BooleanField(_("Audioguide for children"), blank=True)
     has_audioguide_for_learning_difficulties = models.BooleanField(_("Audioguide for people with learning difficulties"), blank=True)
+
+    search_keywords = MultilingualPlainTextField(_("Search keywords"), blank=True)
 
     favorites_count = models.PositiveIntegerField(_("Favorites count"), editable=False, default=0)
 
