@@ -13,7 +13,9 @@ from models import LanguageAndSubtitles
 from models import ProductionCategory
 from models import ProductionCharacteristics
 from models import Production
+from models import ProductionSocialMediaChannel
 from models import ProductionVideo
+from models import ProductionLiveStream
 from models import ProductionImage
 from models import ProductionPDF
 from models import ProductionLeadership
@@ -21,7 +23,9 @@ from models import ProductionAuthorship
 from models import ProductionInvolvement
 from models import EventCharacteristics
 from models import Event
+from models import EventSocialMediaChannel
 from models import EventVideo
+from models import EventLiveStream
 from models import EventImage
 from models import EventPDF
 from models import EventLeadership
@@ -65,9 +69,25 @@ class ProductionCharacteristicsAdmin(ExtendedModelAdmin):
 admin.site.register(ProductionCharacteristics, ProductionCharacteristicsAdmin)
 
 
+class ProductionSocialMediaChannelInline(ExtendedStackedInline):
+    model = ProductionSocialMediaChannel
+    extra = 0
+    inline_classes = ('grp-collapse grp-open',)
+
+
 class ProductionVideoInline(ExtendedStackedInline):
     model = ProductionVideo
     extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('link_or_embed', 'sort_order')}),]
+    inline_classes = ('grp-collapse grp-open',)
+
+
+class ProductionLiveStreamInline(ExtendedStackedInline):
+    model = ProductionLiveStream
+    extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('link_or_embed', 'sort_order')}),]
     inline_classes = ('grp-collapse grp-open',)
 
 
@@ -124,7 +144,8 @@ class ProductionAdmin(ExtendedModelAdmin):
 
     filter_horizontal = ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with', 'categories', 'festivals', 'related_productions', 'characteristics', 'sponsors']
     inlines = [
-        ProductionVideoInline, ProductionImageInline, ProductionPDFInline,
+        ProductionSocialMediaChannelInline,
+        ProductionVideoInline, ProductionLiveStreamInline, ProductionImageInline, ProductionPDFInline,
         ProductionLeadershipInline, ProductionAuthorshipInline, ProductionInvolvementInline,
     ]
 
@@ -143,9 +164,25 @@ class EventCharacteristicsAdmin(ExtendedModelAdmin):
 admin.site.register(EventCharacteristics, EventCharacteristicsAdmin)
 
 
+class EventSocialMediaChannelInline(ExtendedStackedInline):
+    model = EventSocialMediaChannel
+    extra = 0
+    inline_classes = ('grp-collapse grp-open',)
+
+
 class EventVideoInline(ExtendedStackedInline):
     model = EventVideo
     extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('link_or_embed', 'sort_order')}),]
+    inline_classes = ('grp-collapse grp-open',)
+
+
+class EventLiveStreamInline(ExtendedStackedInline):
+    model = EventLiveStream
+    extra = 0
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('link_or_embed', 'sort_order')}),]
     inline_classes = ('grp-collapse grp-open',)
 
 
@@ -200,7 +237,8 @@ class EventAdmin(ExtendedModelAdmin):
     raw_id_fields = ['production']
     filter_horizontal = ['play_locations', 'play_stages', 'characteristics', 'sponsors']
     inlines = [
-        EventVideoInline, EventImageInline, EventPDFInline,
+        EventSocialMediaChannelInline,
+        EventVideoInline, EventLiveStreamInline, EventImageInline, EventPDFInline,
         EventLeadershipInline, EventAuthorshipInline, EventInvolvementInline,
     ]
 

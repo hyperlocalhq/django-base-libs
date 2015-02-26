@@ -239,8 +239,23 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         return role.users.all()
 
 
+class ProductionSocialMediaChannel(models.Model):
+    production = models.ForeignKey(Production)
+    channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))
+    url = URLField(_("URL"), max_length=255)
+
+    class Meta:
+        ordering = ['channel_type']
+        verbose_name = _("Social media channel")
+        verbose_name_plural = _("Social media channels")
+
+    def __unicode__(self):
+        return self.channel_type
+
+
 class ProductionVideo(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
+    title = MultilingualCharField(_("Title"), max_length=255)
     link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
     sort_order = PositionField(_("Sort order"), collection="production")
 
@@ -250,9 +265,36 @@ class ProductionVideo(CreationModificationDateMixin):
         verbose_name_plural = _("Videos")
 
     def __unicode__(self):
-        if self.path:
-            return self.path.path
-        return "Missing file (id=%s)" % self.pk
+        return self.title
+
+    def get_embed(self):
+        # TODO: return embed code
+        return self.link_or_embed
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
+
+class ProductionLiveStream(CreationModificationDateMixin):
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
+    title = MultilingualCharField(_("Title"), max_length=255)
+    link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
+    sort_order = PositionField(_("Sort order"), collection="production")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Live Stream")
+        verbose_name_plural = _("Live Streams")
+
+    def __unicode__(self):
+        return self.title
 
     def get_embed(self):
         # TODO: return embed code
@@ -569,8 +611,23 @@ class Event(CreationModificationMixin, UrlMixin):
         return self.production.productioninvolvement_set.all().order_by('sort_order')
 
 
+class EventSocialMediaChannel(models.Model):
+    event = models.ForeignKey(Event)
+    channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))
+    url = URLField(_("URL"), max_length=255)
+
+    class Meta:
+        ordering = ['channel_type']
+        verbose_name = _("Social media channel")
+        verbose_name_plural = _("Social media channels")
+
+    def __unicode__(self):
+        return self.channel_type
+
+
 class EventVideo(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
+    title = MultilingualCharField(_("Title"), max_length=255)
     link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
     sort_order = PositionField(_("Sort order"), collection="event")
 
@@ -580,9 +637,36 @@ class EventVideo(CreationModificationDateMixin):
         verbose_name_plural = _("Videos")
 
     def __unicode__(self):
-        if self.path:
-            return self.path.path
-        return "Missing file (id=%s)" % self.pk
+        return self.title
+
+    def get_embed(self):
+        # TODO: return embed code
+        return self.link_or_embed
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
+
+class EventLiveStream(CreationModificationDateMixin):
+    event = models.ForeignKey(Event, verbose_name=_("Event"))
+    title = MultilingualCharField(_("Title"), max_length=255)
+    link_or_embed = models.TextField(verbose_name=_("Link or embed code"))
+    sort_order = PositionField(_("Sort order"), collection="event")
+
+    class Meta:
+        ordering = ["sort_order", "creation_date"]
+        verbose_name = _("Live Stream")
+        verbose_name_plural = _("Live Streams")
+
+    def __unicode__(self):
+        return self.title
 
     def get_embed(self):
         # TODO: return embed code
