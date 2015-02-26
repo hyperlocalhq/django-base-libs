@@ -854,7 +854,7 @@ def event_create_update_mediafile(request, slug, event_id, mediafile_token="", m
 def event_delete_mediafile(request, slug, event_id, mediafile_token="", **kwargs):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", instance):
+    if not request.user.has_perm("productions.change_production", production):
         return access_denied(request)
 
     filters = {

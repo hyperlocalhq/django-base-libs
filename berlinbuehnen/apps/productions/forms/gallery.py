@@ -137,7 +137,11 @@ class ImageFileForm(forms.Form):
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     {% if media_file.path %}
-                        {% parse "{{ location.get_url_path }}change/" as goto_next %}
+                        {% if event %}
+                            {% parse "{{ event.get_url_path }}change/gallery/" as goto_next %}
+                        {% else %}
+                            {% parse "{{ production.get_url_path }}gallery/" as goto_next %}
+                        {% endif %}
                         <input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
                     {% endif %}
                 </div>
@@ -152,8 +156,13 @@ class ImageFileForm(forms.Form):
             SecondarySubmit('cancel', _('Cancel')),
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
-                    {% parse "{{ instance.get_url_path }}change/" as goto_next %}
-                    <input type="button" id="button-id-delete-photo" class="delete_photo btn btn btn-lg btn-info" data-href="{{ instance.get_url_path }}gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+                    {% if event %}
+                        {% parse "{{ event.get_url_path }}change/gallery/" as goto_next %}
+                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn btn-lg btn-info" data-href="{{ event.get_url_path }}change/gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+                    {% else %}
+                        {% parse "{{ production.get_url_path }}change/" as goto_next %}
+                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn btn-lg btn-info" data-href="{{ production.get_url_path }}../gallery/file_{{ media_file.get_token }}/delete/" value="{% trans "Delete" %}" />&zwnj;
+                    {% endif %}
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
                         <div class="modal-centered">
@@ -169,7 +178,7 @@ class ImageFileForm(forms.Form):
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                 {% endif %}
             """),
         ))

@@ -82,7 +82,8 @@
 
         $('textarea').autosize();
 
-        $('#button-id-cancel').click(function() {
+        $('#submit-id-cancel').click(function(e) {
+            e.preventDefault();
             $('#edit_photo').html("");
             reinit();
         });
