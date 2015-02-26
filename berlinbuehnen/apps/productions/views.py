@@ -28,7 +28,7 @@ from forms.production import PRODUCTION_FORM_STEPS
 from forms.gallery import ImageFileForm, ImageDeletionForm
 from forms.events import AddEventsForm
 from forms.events import BasicInfoForm as EventBasicInfoForm
-from forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SponsorFormset
+from forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, SponsorFormset
 from forms.events import GalleryForm
 
 from jetson.apps.image_mods.models import FileManager
@@ -37,7 +37,7 @@ from filebrowser.models import FileDescription
 from berlinbuehnen.apps.locations.models import Location
 from berlinbuehnen.apps.sponsors.models import Sponsor
 from models import Production, ProductionImage, Event, EventImage
-from models import EventLeadership, EventAuthorship, EventInvolvement
+from models import EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
 
 
 class EventFilterForm(forms.Form):
@@ -475,6 +475,11 @@ def change_event_description(request, slug, event_id):
             prefix="involvements",
             instance=event,
         )
+        social_formset = SocialMediaChannelFormset(
+            data=request.POST,
+            prefix="social",
+            instance=event,
+        )
         sponsor_formset = SponsorFormset(
             data=request.POST,
             prefix="sponsors",
@@ -519,6 +524,17 @@ def change_event_description(request, slug, event_id):
                     obj = frm.save()
                     ids_to_keep.append(obj.pk)
             event.eventinvolvement_set.exclude(pk__in=ids_to_keep).delete()
+
+            ids_to_keep = []
+            for frm in social_formset.forms:
+                if (
+                    frm.has_changed()
+                    and hasattr(frm, "cleaned_data")
+                    and not frm.cleaned_data.get('DELETE', False)
+                ):
+                    obj = frm.save()
+                    ids_to_keep.append(obj.pk)
+            event.eventsocialmediachannel_set.exclude(pk__in=ids_to_keep).delete()
 
             event.sponsors.clear()
             for frm in sponsor_formset.forms:
@@ -602,6 +618,17 @@ def change_event_description(request, slug, event_id):
             initial=initial,
         )
 
+        initial = [{
+            'id': obj.id,
+            'channel_type': obj.channel_type,
+            'url': obj.url,
+        } for obj in EventSocialMediaChannel.objects.filter(event=event)]
+        social_formset = SocialMediaChannelFormset(
+            prefix="social",
+            instance=event,
+            initial=initial,
+        )
+
         sponsors = list(Sponsor.objects.filter(event=event))
         initial = []
         for obj in sponsors:
@@ -626,6 +653,7 @@ def change_event_description(request, slug, event_id):
             'leaderships': leadership_formset,
             'authorships': authorship_formset,
             'involvements': involvement_formset,
+            'social': social_formset,
             'sponsors': sponsor_formset,
         }
     })

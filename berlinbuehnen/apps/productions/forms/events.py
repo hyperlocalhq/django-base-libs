@@ -18,7 +18,7 @@ from berlinbuehnen.utils.forms import PrimarySubmit
 from berlinbuehnen.utils.forms import SecondarySubmit
 from berlinbuehnen.utils.forms import InlineFormSet
 
-from berlinbuehnen.apps.productions.models import Event, EventLeadership, EventAuthorship, EventInvolvement
+from berlinbuehnen.apps.productions.models import Event, EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
 from berlinbuehnen.apps.sponsors.models import Sponsor
 
 import autocomplete_light
@@ -552,6 +552,27 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
+            _("Social media"),
+            layout.HTML("""{% load crispy_forms_tags i18n %}
+            {{ formsets.social.management_form }}
+            <div id="social">
+                {% for form in formsets.social.forms %}
+                    <div class="social formset-form tabular-inline">
+                        {% crispy form %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- used by javascript -->
+            <div id="social_empty_form" class="social formset-form tabular-inline" style="display: none">
+                {% with formsets.social.empty_form as form %}
+                    {% crispy form %}
+                {% endwith %}
+            </div>
+            """),
+            css_id="social_channels_fieldset",
+        ))
+
+        layout_blocks.append(layout.Fieldset(
             _("Sponsors"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.sponsors.management_form }}
@@ -820,6 +841,40 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
         )
 
 EventInvolvementFormset = inlineformset_factory(Event, EventInvolvement, form=EventInvolvementForm, formset=InlineFormSet, extra=0)
+
+
+class SocialMediaChannelForm(forms.ModelForm):
+    class Meta:
+        model = EventSocialMediaChannel
+
+    def __init__(self, *args, **kwargs):
+        super(SocialMediaChannelForm, self).__init__(*args, **kwargs)
+
+        self.fields['channel_type'].help_text = ""
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_blocks = []
+
+        layout_blocks.append(
+            layout.Row(
+                layout.Div(
+                    "channel_type", css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    layout.Field("url", placeholder="http://"),
+                    "DELETE",
+                    css_class="input-group col-xs-12 col-sm-8 col-md-8 col-lg-8"
+                ),
+                css_class="row-sm"
+            )
+        )
+
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
+
+SocialMediaChannelFormset = inlineformset_factory(Event, EventSocialMediaChannel, form=SocialMediaChannelForm, formset=InlineFormSet, extra=0)
 
 
 class SponsorForm(autocomplete_light.ModelForm):

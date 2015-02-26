@@ -17,7 +17,7 @@ from crispy_forms import layout, bootstrap
 from jetson.apps.image_mods.models import FileManager
 
 from berlinbuehnen.apps.sponsors.models import Sponsor
-from berlinbuehnen.apps.productions.models import Production, Event, ProductionCategory, ProductionLeadership, ProductionAuthorship, ProductionInvolvement, LanguageAndSubtitles
+from berlinbuehnen.apps.productions.models import Production, Event, ProductionCategory, ProductionLeadership, ProductionAuthorship, ProductionInvolvement, LanguageAndSubtitles, ProductionSocialMediaChannel
 from berlinbuehnen.apps.people.models import Person, InvolvementType, AuthorshipType
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
@@ -438,6 +438,27 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
+            _("Social media"),
+            layout.HTML("""{% load crispy_forms_tags i18n %}
+            {{ formsets.social.management_form }}
+            <div id="social">
+                {% for form in formsets.social.forms %}
+                    <div class="social formset-form tabular-inline">
+                        {% crispy form %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- used by javascript -->
+            <div id="social_empty_form" class="social formset-form tabular-inline" style="display: none">
+                {% with formsets.social.empty_form as form %}
+                    {% crispy form %}
+                {% endwith %}
+            </div>
+            """),
+            css_id="social_channels_fieldset",
+        ))
+
+        layout_blocks.append(layout.Fieldset(
             _("Sponsors"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.sponsors.management_form }}
@@ -715,6 +736,40 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
 ProductionInvolvementFormset = inlineformset_factory(Production, ProductionInvolvement, form=ProductionInvolvementForm, formset=InlineFormSet, extra=0)
 
 
+class SocialMediaChannelForm(forms.ModelForm):
+    class Meta:
+        model = ProductionSocialMediaChannel
+
+    def __init__(self, *args, **kwargs):
+        super(SocialMediaChannelForm, self).__init__(*args, **kwargs)
+
+        self.fields['channel_type'].help_text = ""
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_blocks = []
+
+        layout_blocks.append(
+            layout.Row(
+                layout.Div(
+                    "channel_type", css_class="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                ),
+                layout.Div(
+                    layout.Field("url", placeholder="http://"),
+                    "DELETE",
+                    css_class="input-group col-xs-12 col-sm-8 col-md-8 col-lg-8"
+                ),
+                css_class="row-sm"
+            )
+        )
+
+        self.helper.layout = layout.Layout(
+            *layout_blocks
+        )
+
+SocialMediaChannelFormset = inlineformset_factory(Production, ProductionSocialMediaChannel, form=SocialMediaChannelForm, formset=InlineFormSet, extra=0)
+
+
 class SponsorForm(autocomplete_light.ModelForm):
     id = forms.IntegerField(
         widget=forms.HiddenInput(),
@@ -828,8 +883,8 @@ def load_data(instance=None):
     form_step_data = {}
     if instance:
         form_step_data = {
-            'basic': {'_filled': True, 'sets': {'social': []}},
-            'description': {'_filled': True, 'sets': {'leaderships': [], 'authorships': [], 'involvements': [], 'sponsors': []}},
+            'basic': {'_filled': True, 'sets': {}},
+            'description': {'_filled': True, 'sets': {'leaderships': [], 'authorships': [], 'involvements': [], 'social': [], 'sponsors': []}},
             'gallery': {'_filled': True},
             'events': {'_filled': True},
             '_pk': instance.pk,
@@ -907,6 +962,12 @@ def load_data(instance=None):
                 involvement_dict['involvement_role_%s' % lang_code] = getattr(involvement, 'involvement_role_%s' % lang_code)
                 involvement_dict['involvement_instrument_%s' % lang_code] = getattr(involvement, 'involvement_instrument_%s' % lang_code)
             form_step_data['description']['sets']['involvements'].append(involvement_dict)
+
+        for social_media_channel in instance.productionsocialmediachannel_set.all():
+            social_media_channel_dict = {}
+            social_media_channel_dict['channel_type'] = social_media_channel.channel_type
+            social_media_channel_dict['url'] = social_media_channel.url
+            form_step_data['description']['sets']['social'].append(social_media_channel_dict)
 
         for sponsor in instance.sponsors.all():
             sponsor_dict = {}
@@ -1146,6 +1207,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             involvement_ids_to_keep.append(involvement.pk)
         instance.productioninvolvement_set.exclude(pk__in=involvement_ids_to_keep).delete()
 
+        # save social media channels
+        instance.productionsocialmediachannel_set.all().delete()
+        for social_dict in form_step_data['description']['sets']['social']:
+            social = ProductionSocialMediaChannel(production=instance)
+            social.channel_type = social_dict['channel_type']
+            social.url = social_dict['url']
+            social.save()
+
         # save sponsors
         fields = [
             'website',
@@ -1233,6 +1302,7 @@ PRODUCTION_FORM_STEPS = {
             'leaderships': ProductionLeadershipFormset,
             'authorships': ProductionAuthorshipFormset,
             'involvements': ProductionInvolvementFormset,
+            'social': SocialMediaChannelFormset,
             'sponsors': SponsorFormset,
         }
     },
