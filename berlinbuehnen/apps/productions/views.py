@@ -486,7 +486,7 @@ def change_event_description(request, slug, event_id):
             initial=[s.__dict__ for s in Sponsor.objects.filter(event=event)],
         )
 
-        if form.is_valid() and leadership_formset.is_valid() and authorship_formset.is_valid() and involvement_formset.is_valid() and sponsor_formset.is_valid():
+        if form.is_valid() and leadership_formset.is_valid() and authorship_formset.is_valid() and involvement_formset.is_valid() and social_formset.is_valid() and sponsor_formset.is_valid():
             # save description fields
             event = form.save(commit=False)
             event.save()
@@ -528,8 +528,7 @@ def change_event_description(request, slug, event_id):
             ids_to_keep = []
             for frm in social_formset.forms:
                 if (
-                    frm.has_changed()
-                    and hasattr(frm, "cleaned_data")
+                    hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save()
