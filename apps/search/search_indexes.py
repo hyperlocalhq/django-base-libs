@@ -70,6 +70,7 @@ class MuseumIndex(AldrynIndexBase, indexes.Indexable):
             force_unicode(getattr(obj, field))
             for field in (
                 "street_address",
+                "tags",
             )
         )
         return all_text + "\n" + non_multilingual_data
@@ -129,6 +130,7 @@ class ExhibitionIndex(AldrynIndexBase, indexes.Indexable):
             for field in (
                 "location_name",
                 "street_address",
+                "tags",
             )
         )
         # set text of both languages
@@ -188,6 +190,7 @@ class EventIndex(AldrynIndexBase, indexes.Indexable):
             for field in (
                 "location_name",
                 "street_address",
+                "tags",
             )
         )
 
@@ -248,6 +251,7 @@ class WorkshopIndex(AldrynIndexBase, indexes.Indexable):
             for field in (
                 "location_name",
                 "street_address",
+                "tags",
             )
         )
 
