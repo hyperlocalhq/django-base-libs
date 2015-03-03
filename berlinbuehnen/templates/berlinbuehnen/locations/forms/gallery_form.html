@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block multistep_form %}
-    <form class="relative">
+    <form id="media_item_overviews" class="relative">
         <fieldset class="fieldset-imagegallery">
             <legend>{% trans "Image Gallery" %}</legend>
             <div class="fieldset-meta">
@@ -24,7 +24,7 @@
             <div id="photos" data-load-url="{{ location.get_url_path }}gallery/"></div>
         </fieldset>
     </form>
-    <div id="edit_photo"></div>
+    <div id="edit_media_item"></div>
     
     {% crispy form %}
     <!-- Hidden Iframe -->

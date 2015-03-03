@@ -901,7 +901,7 @@ LOCATION_FORM_STEPS = {
         }
     },
     'gallery': {
-        'title': _("Images"),
+        'title': _("Media"),
         'template': "locations/forms/gallery_form.html",
         'form': GalleryForm,  # dummy form
     },

@@ -24,7 +24,7 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from models import Location, Image as LocationImage
 
-from forms.location import LOCATION_FORM_STEPS
+from forms.locations import LOCATION_FORM_STEPS
 from forms.gallery import ImageFileForm, ImageDeletionForm
 
 from jetson.apps.image_mods.models import FileManager
@@ -172,7 +172,7 @@ def update_mediafile_ordering(tokens, location):
 
 @never_cache
 @login_required
-def gallery_overview(request, slug):
+def image_overview(request, slug):
     instance = get_object_or_404(Location, slug=slug)
     if not request.user.has_perm("locations.change_location", instance):
         return access_denied(request)
@@ -187,21 +187,13 @@ def gallery_overview(request, slug):
 
 @never_cache
 @login_required
-def create_update_mediafile(request, slug, mediafile_token="", media_file_type="", **kwargs):
+def create_update_image(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Location, slug=slug)
     if not request.user.has_perm("locations.change_location", instance):
         return access_denied(request)
 
-    media_file_type = media_file_type or "image"
-    if media_file_type not in ("image",):
-        raise Http404
-
-    if not "extra_context" in kwargs:
-        kwargs["extra_context"] = {}
-
     rel_dir = "locations/%s/" % instance.slug
 
-    filters = {}
     if mediafile_token:
         media_file_obj = get_object_or_404(
             LocationImage,
@@ -317,21 +309,20 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
     context_dict = {
         'base_template': base_template,
         'media_file': media_file_obj,
-        'media_file_type': media_file_type,
         'form': form,
         'location': instance,
     }
 
     return render(
         request,
-        "locations/gallery/create_update_mediafile.html",
+        "locations/gallery/create_update_image.html",
         context_dict,
     )
 
 
 @never_cache
 @login_required
-def delete_mediafile(request, slug, mediafile_token="", **kwargs):
+def delete_image(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Location, slug=slug)
     if not request.user.has_perm("locations.change_location", instance):
         return access_denied(request)
@@ -346,8 +337,10 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
     except:
         raise Http404
 
+    form_class = ImageDeletionForm
+
     if "POST" == request.method:
-        form = ImageDeletionForm(request.POST)
+        form = form_class(request.POST)
         if media_file_obj:
             if media_file_obj.path:
                 try:
@@ -361,7 +354,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
 
             return HttpResponse("OK")
     else:
-        form = ImageDeletionForm()
+        form = form_class()
 
     form.helper.form_action = request.path
 
@@ -373,7 +366,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
 
     return render(
         request,
-        "locations/gallery/delete_mediafile.html",
+        "locations/gallery/delete_image.html",
         context_dict,
     )
 

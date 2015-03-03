@@ -13,18 +13,39 @@
 {% endblock %}
 
 {% block multistep_form %}
-    <form class="relative">
+    <form id="media_item_overviews" class="relative">
+        <fieldset class="fieldset-videos">
+            <legend>{% trans "Video Trailers" %}</legend>
+            <div class="fieldset-meta">
+                <a class="btn btn-primary add" id="add_video" href="{% url "event_add_video" slug=production.slug event_id=event.pk %}">{% trans "Add video trailer" %}</a>
+            </div>
+            <div id="videos" data-load-url="{% url "event_video_overview" slug=production.slug event_id=event.pk %}"></div>
+        </fieldset>
+        <fieldset class="fieldset-live-stream">
+            <legend>{% trans "Live Streaming" %}</legend>
+            <div class="fieldset-meta">
+                <a class="btn btn-primary add" id="add_streaming" href="{% url "event_add_streaming" slug=production.slug event_id=event.pk %}">{% trans "Add live stream" %}</a>
+            </div>
+            <div id="live_streamings" data-load-url="{% url "event_streaming_overview" slug=production.slug event_id=event.pk %}"></div>
+        </fieldset>
         <fieldset class="fieldset-imagegallery">
             <legend>{% trans "Image Gallery" %}</legend>
             <div class="fieldset-meta">
                 <a class="btn btn-info" href="#" id="crop_list_image">{% trans "Crop List Image" %}</a>
                 <a class="btn btn-info" href="#" id="crop_cover_image">{% trans "Crop Cover Image" %}</a>
-                <a class="btn btn-primary add" id="add_photo" href="{{ event.get_url_path }}change/gallery/add/">{% trans "Add image" %}</a>
+                <a class="btn btn-primary add" id="add_photo" href="{% url "event_add_image" slug=production.slug event_id=event.pk %}">{% trans "Add image" %}</a>
             </div>
-            <div id="photos" data-load-url="{{ event.get_url_path }}change/gallery/overview/"></div>
+            <div id="photos" data-load-url="{% url "event_image_overview" slug=production.slug event_id=event.pk %}"></div>
+        </fieldset>
+        <fieldset class="fieldset-pdf">
+            <legend>{% trans "PDF" %}</legend>
+            <div class="fieldset-meta">
+                <a class="btn btn-primary add" id="add_pdf" href="{% url "event_add_pdf" slug=production.slug event_id=event.pk %}">{% trans "Add PDF document" %}</a>
+            </div>
+            <div id="pdfs" data-load-url="{% url "event_pdf_overview" slug=production.slug event_id=event.pk %}"></div>
         </fieldset>
     </form>
-    <div id="edit_photo"></div>
+    <div id="edit_media_item"></div>
     
     {% crispy form %}
     <!-- Hidden Iframe -->

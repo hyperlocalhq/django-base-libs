@@ -1307,7 +1307,7 @@ PRODUCTION_FORM_STEPS = {
         }
     },
     'gallery': {
-        'title': _("Images"),
+        'title': _("Media"),
         'template': "productions/forms/gallery_form.html",
         'form': GalleryForm,  # dummy form
     },

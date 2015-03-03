@@ -34,7 +34,7 @@
                                     <td>
                                         <a href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}" class="btn"> {% trans "Details" %} </a>
                                         <a href="{% url "change_event_description" slug=production.slug event_id=event.pk %}" class="btn"> {% trans "Description" %} </a>
-                                        <a href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}" class="btn"> {% trans "Gallery" %} </a>
+                                        <a href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}" class="btn"> {% trans "Media" %} </a>
 
                                         <a href="{{ event.get_url_path }}?preview" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Preview" %}" class="btn btn-sm btn-icon btn-link" target="_blank">
                                             <span class="icon icon-eye-open"></span>

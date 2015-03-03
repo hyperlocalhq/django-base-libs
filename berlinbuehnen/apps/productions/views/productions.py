@@ -24,20 +24,24 @@ from jetson.apps.utils.decorators import login_required
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
-from forms.production import PRODUCTION_FORM_STEPS
-from forms.gallery import ImageFileForm, ImageDeletionForm
-from forms.events import AddEventsForm
-from forms.events import BasicInfoForm as EventBasicInfoForm
-from forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, SponsorFormset
-from forms.events import GalleryForm
+from berlinbuehnen.apps.productions.forms.productions import PRODUCTION_FORM_STEPS
+from berlinbuehnen.apps.productions.forms.gallery import VideoForm, VideoDeletionForm
+from berlinbuehnen.apps.productions.forms.gallery import StreamingForm, StreamingDeletionForm
+from berlinbuehnen.apps.productions.forms.gallery import ImageForm, ImageDeletionForm
+from berlinbuehnen.apps.productions.forms.gallery import PDFForm, PDFDeletionForm
+from berlinbuehnen.apps.productions.forms.events import AddEventsForm
+from berlinbuehnen.apps.productions.forms.events import BasicInfoForm as EventBasicInfoForm
+from berlinbuehnen.apps.productions.forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, SponsorFormset
+from berlinbuehnen.apps.productions.forms.events import GalleryForm
 
 from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
 from berlinbuehnen.apps.locations.models import Location
 from berlinbuehnen.apps.sponsors.models import Sponsor
-from models import Production, ProductionImage, Event, EventImage
-from models import EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
+from berlinbuehnen.apps.productions.models import Production, ProductionImage
+from berlinbuehnen.apps.productions.models import Event, ProductionVideo, ProductionLiveStream, EventImage, ProductionPDF
+from berlinbuehnen.apps.productions.models import EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
 
 
 class EventFilterForm(forms.Form):
@@ -161,236 +165,6 @@ def change_production_status(request, slug):
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
 
-
-### MEDIA FILE MANAGEMENT ###
-
-
-def update_mediafile_ordering(tokens, production):
-    # tokens is in this format:
-    # "<mediafile1_token>,<mediafile2_token>,<mediafile3_token>"
-    mediafiles = []
-    for mediafile_token in tokens.split(u","):
-        mediafile = get_object_or_404(
-            ProductionImage,
-            production=production,
-            pk=ProductionImage.token_to_pk(mediafile_token)
-        )
-        mediafiles.append(mediafile)
-    sort_order = 0
-    for mediafile in mediafiles:
-        mediafile.sort_order = sort_order
-        mediafile.save()
-        sort_order += 1
-
-
-@never_cache
-@login_required
-def gallery_overview(request, slug):
-    instance = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", instance):
-        return access_denied(request)
-
-    if "ordering" in request.POST and request.is_ajax():
-        tokens = request.POST['ordering']
-        update_mediafile_ordering(tokens, instance)
-        return HttpResponse("OK")
-
-    return render(request, "productions/gallery/overview.html", {'production': instance})
-
-
-@never_cache
-@login_required
-def create_update_mediafile(request, slug, mediafile_token="", media_file_type="", **kwargs):
-    instance = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", instance):
-        return access_denied(request)
-
-    media_file_type = media_file_type or "image"
-    if media_file_type not in ("image",):
-        raise Http404
-
-    if not "extra_context" in kwargs:
-        kwargs["extra_context"] = {}
-
-    rel_dir = "productions/%s/" % instance.slug
-
-    filters = {}
-    if mediafile_token:
-        media_file_obj = get_object_or_404(
-            ProductionImage,
-            production=instance,
-            pk=ProductionImage.token_to_pk(mediafile_token),
-        )
-    else:
-        media_file_obj = None
-
-    form_class = ImageFileForm
-
-    if request.method == "POST":
-        # just after submitting data
-        form = form_class(media_file_obj, request.POST, request.FILES)
-        if form.is_valid():
-            cleaned = form.cleaned_data
-            path = ""
-            if media_file_obj and media_file_obj.path:
-                path = media_file_obj.path.path
-            if cleaned.get("media_file_path", None):
-                if path:
-                    # delete the old file
-                    try:
-                        FileManager.delete_file(path)
-                    except OSError:
-                        pass
-                    path = ""
-
-            if not media_file_obj:
-                media_file_obj = ProductionImage(
-                    production=instance
-                )
-            media_file_obj.copyright_restrictions = cleaned['copyright_restrictions']
-
-            media_file_path = ""
-            if cleaned.get("media_file_path", None):
-                tmp_path = cleaned['media_file_path']
-                abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
-
-                fname, fext = os.path.splitext(tmp_path)
-                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
-                dest_path = "".join((rel_dir, filename))
-                FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
-                abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
-
-                shutil.copy2(abs_tmp_path, abs_dest_path)
-
-                os.remove(abs_tmp_path);
-                media_file_obj.path = media_file_path = dest_path
-                media_file_obj.save()
-
-
-            from filebrowser.base import FileObject
-
-            try:
-                file_description = FileDescription.objects.filter(
-                    file_path=FileObject(media_file_path or path),
-                ).order_by("pk")[0]
-            except:
-                file_description = FileDescription(file_path=media_file_path or path)
-
-            for lang_code, lang_name in FRONTEND_LANGUAGES:
-                setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
-                setattr(file_description, 'description_%s' % lang_code, cleaned['description_%s' % lang_code])
-            setattr(file_description, 'author', cleaned['author'])
-            #setattr(file_description, 'copyright_limitations', cleaned['copyright_limitations'])
-
-            file_description.save()
-
-            if not media_file_obj.pk:
-                media_file_obj.sort_order = ProductionImage.objects.filter(
-                    production=instance,
-                ).count()
-            else:
-                # trick not to reorder media files on save
-                media_file_obj.sort_order = media_file_obj.sort_order
-            media_file_obj.save()
-
-            if "hidden_iframe" in request.REQUEST:
-                return render(
-                    request,
-                    "productions/gallery/success.html",
-                    {},
-                )
-            else:
-                if cleaned['goto_next']:
-                    return redirect(cleaned['goto_next'])
-                else:
-                    return redirect("production_gallery_overview", slug=instance.slug)
-    else:
-        if media_file_obj:
-            # existing media file
-            try:
-                file_description = FileDescription.objects.filter(
-                    file_path=media_file_obj.path,
-                ).order_by("pk")[0]
-            except:
-                file_description = FileDescription(file_path=media_file_obj.path)
-            initial = {}
-            initial.update(media_file_obj.__dict__)
-            initial.update(file_description.__dict__)
-            form = form_class(media_file_obj, initial=initial)
-        else:
-            # new media file
-            form = form_class(media_file_obj)
-
-    form.helper.form_action = request.path + "?hidden_iframe=1"
-
-    base_template = "base.html"
-    if "hidden_iframe" in request.REQUEST:
-        base_template = "base_iframe.html"
-
-    context_dict = {
-        'base_template': base_template,
-        'media_file': media_file_obj,
-        'media_file_type': media_file_type,
-        'form': form,
-        'production': instance,
-    }
-
-    return render(
-        request,
-        "productions/gallery/create_update_mediafile.html",
-        context_dict,
-    )
-
-
-@never_cache
-@login_required
-def delete_mediafile(request, slug, mediafile_token="", **kwargs):
-    instance = get_object_or_404(Production, slug=slug)
-    if not request.user.has_perm("productions.change_production", instance):
-        return access_denied(request)
-
-    filters = {
-        'id': ProductionImage.token_to_pk(mediafile_token),
-    }
-    if instance:
-        filters['production'] = instance
-    try:
-        media_file_obj = ProductionImage.objects.get(**filters)
-    except:
-        raise Http404
-
-    if "POST" == request.method:
-        form = ImageDeletionForm(request.POST)
-        if media_file_obj:
-            if media_file_obj.path:
-                try:
-                    FileManager.delete_file(media_file_obj.path.path)
-                except OSError:
-                    pass
-                FileDescription.objects.filter(
-                    file_path=media_file_obj.path,
-                ).delete()
-            media_file_obj.delete()
-
-            return HttpResponse("OK")
-    else:
-        form = ImageDeletionForm()
-
-    form.helper.form_action = request.path
-
-    context_dict = {
-        'media_file': media_file_obj,
-        'form': form,
-        'production': instance,
-    }
-
-    return render(
-        request,
-        "productions/gallery/delete_mediafile.html",
-        context_dict,
-    )
-
-
 ### EVENTS MANAGEMENT ###
 
 @never_cache
@@ -495,8 +269,7 @@ def change_event_description(request, slug, event_id):
             ids_to_keep = []
             for frm in leadership_formset.forms:
                 if (
-                    frm.has_changed()
-                    and hasattr(frm, "cleaned_data")
+                    hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save()
@@ -506,8 +279,7 @@ def change_event_description(request, slug, event_id):
             ids_to_keep = []
             for frm in authorship_formset.forms:
                 if (
-                    frm.has_changed()
-                    and hasattr(frm, "cleaned_data")
+                    hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save()
@@ -517,8 +289,7 @@ def change_event_description(request, slug, event_id):
             ids_to_keep = []
             for frm in involvement_formset.forms:
                 if (
-                    frm.has_changed()
-                    and hasattr(frm, "cleaned_data")
+                    hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save()
@@ -691,238 +462,3 @@ def delete_event(request, slug, event_id):
         event.delete()
         return HttpResponse("OK")
     return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
-
-
-### EVENT GALLERY ###
-
-
-def events_update_mediafile_ordering(tokens, event):
-    # tokens is in this format:
-    # "<mediafile1_token>,<mediafile2_token>,<mediafile3_token>"
-    mediafiles = []
-    for mediafile_token in tokens.split(u","):
-        mediafile = get_object_or_404(
-            EventImage,
-            event=event,
-            pk=EventImage.token_to_pk(mediafile_token)
-        )
-        mediafiles.append(mediafile)
-    sort_order = 0
-    for mediafile in mediafiles:
-        mediafile.sort_order = sort_order
-        mediafile.save()
-        sort_order += 1
-
-
-@never_cache
-@login_required
-def event_gallery_overview(request, slug, event_id):
-    production = get_object_or_404(Production, slug=slug)
-    event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
-        return access_denied(request)
-
-    if "ordering" in request.POST and request.is_ajax():
-        tokens = request.POST['ordering']
-        events_update_mediafile_ordering(tokens, event)
-        return HttpResponse("OK")
-
-    return render(request, "productions/events/gallery/overview.html", {'production': production, 'event': event})
-
-
-@never_cache
-@login_required
-def event_create_update_mediafile(request, slug, event_id, mediafile_token="", media_file_type="", **kwargs):
-    production = get_object_or_404(Production, slug=slug)
-    event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
-        return access_denied(request)
-
-    media_file_type = media_file_type or "image"
-    if media_file_type not in ("image",):
-        raise Http404
-
-    if not "extra_context" in kwargs:
-        kwargs["extra_context"] = {}
-
-    rel_dir = "productions/%s/" % production.slug
-
-    filters = {}
-    if mediafile_token:
-        media_file_obj = get_object_or_404(
-            EventImage,
-            event=event,
-            pk=EventImage.token_to_pk(mediafile_token),
-        )
-    else:
-        media_file_obj = None
-
-    form_class = ImageFileForm
-
-    if request.method == "POST":
-        # just after submitting data
-        form = form_class(media_file_obj, request.POST, request.FILES)
-        if form.is_valid():
-            cleaned = form.cleaned_data
-            path = ""
-            if media_file_obj and media_file_obj.path:
-                path = media_file_obj.path.path
-            if cleaned.get("media_file_path", None):
-                if path:
-                    # delete the old file
-                    try:
-                        FileManager.delete_file(path)
-                    except OSError:
-                        pass
-                    path = ""
-
-            if not media_file_obj:
-                media_file_obj = EventImage(
-                    event=event
-                )
-            media_file_obj.copyright_restrictions = cleaned['copyright_restrictions']
-
-            media_file_path = ""
-            if cleaned.get("media_file_path", None):
-                tmp_path = cleaned['media_file_path']
-                abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
-
-                fname, fext = os.path.splitext(tmp_path)
-                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
-                dest_path = "".join((rel_dir, filename))
-                FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
-                abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
-
-                shutil.copy2(abs_tmp_path, abs_dest_path)
-
-                os.remove(abs_tmp_path);
-                media_file_obj.path = media_file_path = dest_path
-                media_file_obj.save()
-
-
-            from filebrowser.base import FileObject
-
-            try:
-                file_description = FileDescription.objects.filter(
-                    file_path=FileObject(media_file_path or path),
-                ).order_by("pk")[0]
-            except:
-                file_description = FileDescription(file_path=media_file_path or path)
-
-            for lang_code, lang_name in FRONTEND_LANGUAGES:
-                setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
-                setattr(file_description, 'description_%s' % lang_code, cleaned['description_%s' % lang_code])
-            setattr(file_description, 'author', cleaned['author'])
-            #setattr(file_description, 'copyright_limitations', cleaned['copyright_limitations'])
-
-            file_description.save()
-
-            if not media_file_obj.pk:
-                media_file_obj.sort_order = EventImage.objects.filter(
-                    event=event,
-                ).count()
-            else:
-                # trick not to reorder media files on save
-                media_file_obj.sort_order = media_file_obj.sort_order
-            media_file_obj.save()
-
-            if "hidden_iframe" in request.REQUEST:
-                return render(
-                    request,
-                    "productions/gallery/success.html",
-                    {},
-                )
-            else:
-                if cleaned['goto_next']:
-                    return redirect(cleaned['goto_next'])
-                else:
-                    return redirect("change_event_gallery", slug=production.slug, event_id=event.pk)
-    else:
-        if media_file_obj:
-            # existing media file
-            try:
-                file_description = FileDescription.objects.filter(
-                    file_path=media_file_obj.path,
-                ).order_by("pk")[0]
-            except:
-                file_description = FileDescription(file_path=media_file_obj.path)
-            initial = {}
-            initial.update(media_file_obj.__dict__)
-            initial.update(file_description.__dict__)
-            form = form_class(media_file_obj, initial=initial)
-        else:
-            # new media file
-            form = form_class(media_file_obj)
-
-    form.helper.form_action = request.path + "?hidden_iframe=1"
-
-    base_template = "base.html"
-    if "hidden_iframe" in request.REQUEST:
-        base_template = "base_iframe.html"
-
-    context_dict = {
-        'base_template': base_template,
-        'media_file': media_file_obj,
-        'media_file_type': media_file_type,
-        'form': form,
-        'production': production,
-        'event': event,
-    }
-
-    return render(
-        request,
-        "productions/events/gallery/create_update_mediafile.html",
-        context_dict,
-    )
-
-
-@never_cache
-@login_required
-def event_delete_mediafile(request, slug, event_id, mediafile_token="", **kwargs):
-    production = get_object_or_404(Production, slug=slug)
-    event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.change_production", production):
-        return access_denied(request)
-
-    filters = {
-        'id': EventImage.token_to_pk(mediafile_token),
-    }
-    if event:
-        filters['event'] = event
-    try:
-        media_file_obj = EventImage.objects.get(**filters)
-    except:
-        raise Http404
-
-    if "POST" == request.method:
-        form = ImageDeletionForm(request.POST)
-        if media_file_obj:
-            if media_file_obj.path:
-                try:
-                    FileManager.delete_file(media_file_obj.path.path)
-                except OSError:
-                    pass
-                FileDescription.objects.filter(
-                    file_path=media_file_obj.path,
-                ).delete()
-            media_file_obj.delete()
-
-            return HttpResponse("OK")
-    else:
-        form = ImageDeletionForm()
-
-    form.helper.form_action = request.path
-
-    context_dict = {
-        'media_file': media_file_obj,
-        'form': form,
-        'production': production,
-        'event': event,
-    }
-
-    return render(
-        request,
-        "productions/events/gallery/delete_mediafile.html",
-        context_dict,
-    )
-
