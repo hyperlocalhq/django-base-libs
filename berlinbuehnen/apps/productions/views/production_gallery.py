@@ -166,14 +166,16 @@ def delete_video(request, slug, mediafile_token="", **kwargs):
     except:
         raise Http404
 
+    form_class = VideoDeletionForm
+
     if "POST" == request.method:
-        form = ImageDeletionForm(request.POST)
+        form = form_class(request.POST)
         if media_file_obj:
             media_file_obj.delete()
 
             return HttpResponse("OK")
     else:
-        form = VideoDeletionForm()
+        form = form_class()
 
     form.helper.form_action = request.path
 
@@ -331,14 +333,6 @@ def delete_streaming(request, slug, mediafile_token="", **kwargs):
     if "POST" == request.method:
         form = form_class(request.POST)
         if media_file_obj:
-            if media_file_obj.path:
-                try:
-                    FileManager.delete_file(media_file_obj.path.path)
-                except OSError:
-                    pass
-                FileDescription.objects.filter(
-                    file_path=media_file_obj.path,
-                ).delete()
             media_file_obj.delete()
 
             return HttpResponse("OK")
@@ -651,7 +645,6 @@ def create_update_pdf(request, slug, mediafile_token="", **kwargs):
                 media_file_obj = ProductionPDF(
                     production=instance
                 )
-            media_file_obj.copyright_restrictions = cleaned['copyright_restrictions']
 
             media_file_path = ""
             if cleaned.get("media_file_path", None):

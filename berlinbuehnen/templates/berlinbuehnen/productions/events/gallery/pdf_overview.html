@@ -6,11 +6,11 @@
     <div id="pdfs">
         {% for media_file in event.eventpdf_set.all %}
             <div class="pdf" data-token="{{ media_file.get_token }}">
-                <a href="{{ event.get_url_path }}change/pdf/file_{{ media_file.get_token }}/" class="edit reorder img">
-                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/pdf.gif" alt="" />
+                <a href="{% url "event_change_pdf" slug=production.slug event_id=event.pk mediafile_token=media_file.get_token %}" class="edit reorder img">
+                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/pdf.png" alt="" />
                 </a>
                 {% with media_file.path|file_description as file_desc %}
-                    <div class="info hide">
+                    <div class="info">
                         {% if file_desc.title %}
                             <small class="title">{{ file_desc.title }}</small>
                         {% endif %}

@@ -57,6 +57,7 @@ class VideoForm(forms.Form):
                 required=False,
                 max_length=255,
             )
+        self.fields['title_%s' % settings.LANGUAGE_CODE].required = True
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -91,6 +92,17 @@ class VideoForm(forms.Form):
                 {% trans "Add Video" %}
             {% endif %}
             """,
+            layout.HTML(u"""{% load i18n base_tags image_modifications %}
+            <div class="row row-md">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="video_preview">
+                        {% if media_file.get_embed %}
+                            {{ media_file.get_embed|safe }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            """),
             css_class="fieldset-media-file",
             *fieldset_content
         ))
@@ -101,9 +113,9 @@ class VideoForm(forms.Form):
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
                     {% if event %}
-                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn-lg btn-info" data-href="{% url "event_delete_video" slug=production.slug event_id=event.pk mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                        <input type="button" id="button-id-delete-video" class="delete_photo btn btn-lg btn-info" data-href="{% url "event_delete_video" slug=production.slug event_id=event.pk mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
                     {% else %}
-                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn-lg btn-info" data-href="{% url "production_delete_video" slug=production.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                        <input type="button" id="button-id-delete-video" class="delete_photo btn btn-lg btn-info" data-href="{% url "production_delete_video" slug=production.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
                     {% endif %}
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
@@ -129,7 +141,18 @@ class VideoForm(forms.Form):
         )
 
     def get_embed(self):
-        return ""  # TODO: use https://github.com/rafaelmartins/pyoembed/ to get embed code
+        from pyoembed import oEmbed, PyOembedException
+        link_or_embed = self.cleaned_data['link_or_embed']
+        if link_or_embed.startswith("http"):
+            try:
+                # maxwidth and maxheight are optional.
+                data = oEmbed(link_or_embed, maxwidth=640, maxheight=480)
+            except PyOembedException, e:
+                pass
+            else:
+                if data['type'] == 'video':
+                    return data['html']
+        return link_or_embed
 
 class VideoDeletionForm(forms.Form):
     goto_next = forms.CharField(
@@ -186,6 +209,8 @@ class StreamingForm(forms.Form):
                 max_length=255,
             )
 
+        self.fields['title_%s' % settings.LANGUAGE_CODE].required = True
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
@@ -214,11 +239,22 @@ class StreamingForm(forms.Form):
         layout_blocks.append(layout.Fieldset(
             """{% load i18n %}
             {% if media_file %}
-                {% trans "Edit Video" %}
+                {% trans "Edit Live Stream" %}
             {% else %}
-                {% trans "Add Video" %}
+                {% trans "Add Live Stream" %}
             {% endif %}
             """,
+            layout.HTML(u"""{% load i18n base_tags image_modifications %}
+            <div class="row row-md">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="video_preview">
+                        {% if media_file.get_embed %}
+                            {{ media_file.get_embed|safe }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            """),
             css_class="fieldset-media-file",
             *fieldset_content
         ))
@@ -229,9 +265,9 @@ class StreamingForm(forms.Form):
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
                     {% if event %}
-                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn-lg btn-info" data-href="{% url "event_delete_streaming" slug=production.slug event_id=event.pk mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                        <input type="button" id="button-id-delete-streaming" class="delete_photo btn btn-lg btn-info" data-href="{% url "event_delete_streaming" slug=production.slug event_id=event.pk mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
                     {% else %}
-                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn-lg btn-info" data-href="{% url "production_delete_streaming" slug=production.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                        <input type="button" id="button-id-delete-streaming" class="delete_photo btn btn-lg btn-info" data-href="{% url "production_delete_streaming" slug=production.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
                     {% endif %}
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
@@ -257,7 +293,18 @@ class StreamingForm(forms.Form):
         )
 
     def get_embed(self):
-        return ""  # TODO: use https://github.com/rafaelmartins/pyoembed/ to get embed code
+        from pyoembed import oEmbed, PyOembedException
+        link_or_embed = self.cleaned_data['link_or_embed']
+        if link_or_embed.startswith("http"):
+            try:
+                # maxwidth and maxheight are optional.
+                data = oEmbed(link_or_embed, maxwidth=640, maxheight=480)
+            except PyOembedException, e:
+                pass
+            else:
+                if data['type'] == 'video':
+                    return data['html']
+        return link_or_embed
 
 
 class StreamingDeletionForm(forms.Form):
@@ -499,6 +546,8 @@ class PDFForm(forms.Form):
                 max_length=255,
             )
 
+        self.fields['title_%s' % settings.LANGUAGE_CODE].required = True
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
@@ -539,7 +588,7 @@ class PDFForm(forms.Form):
                         {% endif %}
                     </div>
                     {% if not media_file.path %}
-                        <div id="image_uploader">
+                        <div id="pdf_uploader">
                             <noscript>
                                 <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                             </noscript>
@@ -559,9 +608,9 @@ class PDFForm(forms.Form):
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
                     {% if event %}
-                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn-lg btn-info" data-href="{% url "event_delete_pdf" slug=production.slug event_id=event.pk mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                        <input type="button" id="button-id-delete-pdf" class="delete_photo btn btn-lg btn-info" data-href="{% url "event_delete_pdf" slug=production.slug event_id=event.pk mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
                     {% else %}
-                        <input type="button" id="button-id-delete-photo" class="delete_photo btn btn-lg btn-info" data-href="{% url "production_delete_pdf" slug=production.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
+                        <input type="button" id="button-id-delete-pdf" class="delete_photo btn btn-lg btn-info" data-href="{% url "production_delete_pdf" slug=production.slug mediafile_token=media_file.get_token %}" value="{% trans "Delete" %}" />&zwnj;
                     {% endif %}
                     <!-- Modal -->
                     <div id="deleteConfirmation" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">

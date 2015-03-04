@@ -26,7 +26,7 @@
             <div class="fieldset-meta">
                 <a class="btn btn-primary add" id="add_streaming" href="{% url "production_add_streaming" slug=production.slug %}">{% trans "Add live stream" %}</a>
             </div>
-            <div id="live_streamings" data-load-url="{% url "production_streaming_overview" slug=production.slug %}"></div>
+            <div id="streamings" data-load-url="{% url "production_streaming_overview" slug=production.slug %}"></div>
         </fieldset>
         <fieldset class="fieldset-imagegallery">
             <legend>{% trans "Image Gallery" %}</legend>

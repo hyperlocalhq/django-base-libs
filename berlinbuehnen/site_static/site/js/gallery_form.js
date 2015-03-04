@@ -51,18 +51,18 @@
                     $('.form-actions:last').hide();
                     return false;
                 });
-                $('#add_video').click(function() {
-                    $('#edit_media_item').load($(this).attr('href') + ' #edit_media_item form', edit_video_loaded);
-                    $('#media_item_overviews').hide();
-                    $('.form-actions:last').hide();
-                    return false;
-                });
                 $(window).trigger('scrollstop');
             });
         });
         $('#media_item_overviews').show();
         $('.form-actions:last').show();
     }
+    $('#add_video').click(function() {
+        $('#edit_media_item').load($(this).attr('href') + ' #edit_media_item form', edit_video_loaded);
+        $('#media_item_overviews').hide();
+        $('.form-actions:last').hide();
+        return false;
+    });
     function edit_video_loaded() {
         $("select").not('[name*="__prefix__"]').selectbox();
 
@@ -146,18 +146,18 @@
                     $('.form-actions:last').hide();
                     return false;
                 });
-                $('#add_streaming').click(function() {
-                    $('#edit_media_item').load($(this).attr('href') + ' #edit_media_item form', edit_streaming_loaded);
-                    $('#media_item_overviews').hide();
-                    $('.form-actions:last').hide();
-                    return false;
-                });
                 $(window).trigger('scrollstop');
             });
         });
         $('#media_item_overviews').show();
         $('.form-actions:last').show();
     }
+    $('#add_streaming').click(function() {
+        $('#edit_media_item').load($(this).attr('href') + ' #edit_media_item form', edit_streaming_loaded);
+        $('#media_item_overviews').hide();
+        $('.form-actions:last').hide();
+        return false;
+    });
     function edit_streaming_loaded() {
         $("select").not('[name*="__prefix__"]').selectbox();
 
@@ -243,12 +243,6 @@
                     $('.form-actions:last').hide();
                     return false;
                 });
-                $('#add_photo').click(function() {
-                    $('#edit_media_item').load($(this).attr('href') + ' #edit_media_item form', edit_photo_loaded);
-                    $('#media_item_overviews').hide();
-                    $('.form-actions:last').hide();
-                    return false;
-                });
                 $('#photos').find('.crop').each(function() {
                     if ($(this).attr('href')) {
                         $(this).attr('href', $(this).attr('href').replace(/goto_next=.+$/gim, "goto_next=" + location.href));
@@ -260,6 +254,12 @@
         $('#media_item_overviews').show();
         $('.form-actions:last').show();
     }
+    $('#add_photo').click(function() {
+        $('#edit_media_item').load($(this).attr('href') + ' #edit_media_item form', edit_photo_loaded);
+        $('#media_item_overviews').hide();
+        $('.form-actions:last').hide();
+        return false;
+    });
     $(document).on('click', '#crop_list_image', function() {
         location.href = $('#photos').find('.crop_list_image:first').attr('href').replace(/goto_next=.+$/, 'goto_next=' + location.href);
         return false;
@@ -397,23 +397,18 @@
                     $('.form-actions:last').hide();
                     return false;
                 });
-                $('#add_pdf').click(function() {
-                    $('#edit_media_item').load($(this).attr('href') + ' #edit_media_item form', edit_pdf_loaded);
-                    $('#media_item_overviews').hide();
-                    $('.form-actions:last').hide();
-                    return false;
-                });
-                $('#pdfs').find('.crop').each(function() {
-                    if ($(this).attr('href')) {
-                        $(this).attr('href', $(this).attr('href').replace(/goto_next=.+$/gim, "goto_next=" + location.href));
-                    }
-                });
                 $(window).trigger('scrollstop');
             });
         });
         $('#media_item_overviews').show();
         $('.form-actions:last').show();
     }
+    $('#add_pdf').click(function() {
+        $('#edit_media_item').load($(this).attr('href') + ' #edit_media_item form', edit_pdf_loaded);
+        $('#media_item_overviews').hide();
+        $('.form-actions:last').hide();
+        return false;
+    });
     function edit_pdf_loaded() {
         $("select").not('[name*="__prefix__"]').selectbox();
 
@@ -449,7 +444,7 @@
         };
         if ($('#pdf_uploader').length) {
             var options = $.extend(translatable_file_uploader_options, {
-                allowedExtensions: ['gif', 'jpg', 'png'],
+                allowedExtensions: ['pdf'],
                 action: '/' + self.settings.lang + '/helper/ajax-upload/',
                 element: $('#pdf_uploader')[0],
                 multiple: false,
@@ -463,7 +458,7 @@
                             file_path: responseJSON.path,
                             mod_sysname: 'medium'
                         }, function(data, textStatus, jqXHR) {
-                            $('#pdf_preview').html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
+                            $('#pdf_preview').html('<img class="img-responsive" alt="" src="' + window.settings.STATIC_URL + 'site/img/pdf.png" />');
                             $('#pdf_uploader').hide();
                             $('#pdf_help_text').hide();
                         },

@@ -6,8 +6,8 @@
     <div id="streamings">
         {% for media_file in event.eventlivestream_set.all %}
             <div class="streaming" data-token="{{ media_file.get_token }}">
-                <a href="{{ event.get_url_path }}change/gallery/file_{{ media_file.get_token }}/" class="edit reorder img">
-                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ media_file.path|modified_path:"thumb" }}?now={% now "YmdHis" %}" alt="" />
+                <a href="{% url "event_change_streaming" slug=production.slug event_id=event.pk mediafile_token=media_file.get_token %}" class="edit reorder img">
+                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/video-placeholder.png" alt="" />
                 </a>
                 <div class="info">
                     {% if media_file.title %}

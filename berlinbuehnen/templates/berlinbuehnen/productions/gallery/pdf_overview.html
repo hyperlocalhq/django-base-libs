@@ -3,25 +3,20 @@
 
 {% block content %}
 <div class="container">
-    <div id="photos">
+    <div id="pdfs">
         {% for media_file in production.productionpdf_set.all %}
-            <div class="photo" data-token="{{ media_file.get_token }}">
+            <div class="pdf" data-token="{{ media_file.get_token }}">
                 <a href="{% url "production_change_pdf" slug=production.slug mediafile_token=media_file.get_token %}" class="edit reorder img">
-                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/pdf.gif" alt="" />
+                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/pdf.png" alt="" />
                 </a>
                 {% with media_file.path|file_description as file_desc %}
-                    <div class="info hide">
+                    <div class="info">
                         {% if file_desc.title %}
                             <small class="title">{{ file_desc.title }}</small>
                         {% endif %}
                     </div>
                 {% endwith %}
-
-                <nav class="actions hide">
-                    <a href="{% cropping_url media_file.path "event_list" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop list image" %}" class="crop icon icon-white icon-tool-crop crop_list_image"></a>
-                    <a href="{% cropping_url media_file.path "cover" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop cover image" %}" class="crop icon icon-white icon-tool-crop crop_cover_image"></a>
-                </nav>
-            </div>        
+            </div>
         {% endfor %}
     </div>
 </div>
