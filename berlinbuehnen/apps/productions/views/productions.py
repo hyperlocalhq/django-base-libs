@@ -232,6 +232,8 @@ def change_event_description(request, slug, event_id):
     if request.REQUEST.get('reset'):
         return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
 
+    from_production = []
+
     if request.method == "POST":
         form = EventDescriptionForm(data=request.POST, instance=event)
         leadership_formset = EventLeadershipFormset(
@@ -269,7 +271,8 @@ def change_event_description(request, slug, event_id):
             ids_to_keep = []
             for frm in leadership_formset.forms:
                 if (
-                    hasattr(frm, "cleaned_data")
+                    frm.has_changed()
+                    and hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save()
@@ -279,7 +282,8 @@ def change_event_description(request, slug, event_id):
             ids_to_keep = []
             for frm in authorship_formset.forms:
                 if (
-                    hasattr(frm, "cleaned_data")
+                    frm.has_changed()
+                    and hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save()
@@ -289,7 +293,8 @@ def change_event_description(request, slug, event_id):
             ids_to_keep = []
             for frm in involvement_formset.forms:
                 if (
-                    hasattr(frm, "cleaned_data")
+                    frm.has_changed()
+                    and hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save()
@@ -299,7 +304,8 @@ def change_event_description(request, slug, event_id):
             ids_to_keep = []
             for frm in social_formset.forms:
                 if (
-                    hasattr(frm, "cleaned_data")
+                    frm.has_changed()
+                    and hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save()
@@ -347,7 +353,15 @@ def change_event_description(request, slug, event_id):
 
             return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
     else:
+        initial = {}
         form = EventDescriptionForm(instance=event)
+        for fname in form.fields.iterkeys():
+            if not getattr(event, fname, False):
+                initial[fname] = getattr(production, fname, None)
+                from_production.append(fname)
+            else:
+                initial[fname] = getattr(event, fname, None)
+        form.initial = initial
 
         initial = [{
             'id': obj.id,
@@ -425,7 +439,8 @@ def change_event_description(request, slug, event_id):
             'involvements': involvement_formset,
             'social': social_formset,
             'sponsors': sponsor_formset,
-        }
+        },
+        'fields_from_production': from_production,
     })
 
 

@@ -20,6 +20,7 @@
     <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
     <script>
+        var fields_from_production = {{ fields_from_production|safe }};
         var translatable_file_uploader_options = {
             template: '<div class="qq-uploader">' +
                 '<div class="qq-upload-drop-area"><span>{% trans "Drop image here" %}</span></div>' +
@@ -260,6 +261,13 @@
                 }
             });
             reinit_widgets();
+
+            $(fields_from_production).each(function(index, el) {
+                $('#id_' + el).closest('.form-group').addClass('from-production');
+            });
+            $(document).on('change keyup', '.from-production .form-control', function() {
+                $(this).closest('.from-production').removeClass('from-production');
+            });
         });
     </script>
 {% endblock %}

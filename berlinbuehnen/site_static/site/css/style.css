@@ -2703,6 +2703,9 @@ div.tagsinput {
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   background-image: url("../img/trns-1.png"); }
 
+.from-production .form-control {
+  color: #aaa; }
+
 textarea.form-control {
   resize: vertical; }
 

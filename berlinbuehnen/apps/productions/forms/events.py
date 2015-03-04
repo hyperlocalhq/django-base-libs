@@ -602,6 +602,13 @@ class DescriptionForm(autocomplete_light.ModelForm):
             *layout_blocks
         )
 
+    def clean(self):
+        cleaned = super(DescriptionForm, self).clean()
+        production = self.instance.production
+        for fname in self.fields.iterkeys():
+            if cleaned[fname] == getattr(production, fname, None):
+                del cleaned[fname]
+        return cleaned
 
 class EventLeadershipForm(autocomplete_light.ModelForm):
     first_name = forms.CharField(
