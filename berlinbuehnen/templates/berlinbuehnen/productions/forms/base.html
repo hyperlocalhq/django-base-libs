@@ -41,7 +41,7 @@
         <div id="form-meta">
             {% if production %}
                 <div id="pub-status" class="status">
-                    <select class="status-switch" data-url="{{ production.get_url_path }}../status/">
+                    <select class="status-switch" data-url="{% url "change_production_status" slug=production.slug %}">
                         <option value="draft"{% if production.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
                         <option value="published"{% if production.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
                         <option value="not_listed"{% if production.status == "not_listed" %} selected="selected"{% endif %}>{% trans "Not listed" %}</option>
