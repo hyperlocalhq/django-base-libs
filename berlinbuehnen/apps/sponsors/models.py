@@ -27,4 +27,4 @@ class Sponsor(CreationModificationDateMixin):
         verbose_name_plural = _("Sponsors")
 
     def __unicode__(self):
-        return self.title
+        return self.title or (self.image and self.image.filename) or self.pk

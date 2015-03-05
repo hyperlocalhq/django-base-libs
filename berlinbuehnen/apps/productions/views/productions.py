@@ -214,6 +214,16 @@ def change_event_basic_info(request, slug, event_id):
             return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
     else:
         form = EventBasicInfoForm(instance=event)
+        initial = event.__dict__
+        if event.play_locations.exists():
+            initial['play_locations'] = event.play_locations.all()
+        else:
+            initial['play_locations'] = production.play_locations.all()
+        if event.play_stages.exists():
+            initial['play_stages'] = event.play_stages.all()
+        else:
+            initial['play_stages'] = production.play_stages.all()
+        form.initial = initial
 
     return render(request, "productions/events/basic_info_form.html", {'production': production, 'event': event, 'form': form})
 
@@ -312,7 +322,8 @@ def change_event_description(request, slug, event_id):
             event.sponsors.clear()
             for frm in sponsor_formset.forms:
                 if (
-                    hasattr(frm, "cleaned_data")
+                    frm.has_changed()
+                    and hasattr(frm, "cleaned_data")
                     and not frm.cleaned_data.get('DELETE', False)
                 ):
                     obj = frm.save(commit=False)
@@ -444,21 +455,39 @@ def change_event_description(request, slug, event_id):
             initial=initial,
         )
 
-        sponsors = list(Sponsor.objects.filter(event=event))
-        initial = []
-        for obj in sponsors:
-            initial.append({
-                'id': obj.id,
-                'title_de': obj.title_de,
-                'title_en': obj.title_en,
-                'website': obj.website,
-            })
-        sponsor_formset = SponsorFormset(
-            prefix="sponsors",
-            initial=initial,
-        )
-        for obj, frm in zip(sponsors, sponsor_formset.forms):
-            frm.instance = obj
+        if Sponsor.objects.filter(event=event).count():
+            sponsors = list(Sponsor.objects.filter(event=event))
+            initial = []
+            for obj in sponsors:
+                initial.append({
+                    'id': obj.id,
+                    'title_de': obj.title_de,
+                    'title_en': obj.title_en,
+                    'website': obj.website,
+                })
+            sponsor_formset = SponsorFormset(
+                prefix="sponsors",
+                initial=initial,
+            )
+            for obj, frm in zip(sponsors, sponsor_formset.forms):
+                frm.instance = obj
+        else:
+            sponsors = list(Sponsor.objects.filter(production=production))
+            initial = []
+            for obj in sponsors:
+                initial.append({
+                    'id': obj.id,
+                    'title_de': obj.title_de,
+                    'title_en': obj.title_en,
+                    'website': obj.website,
+                })
+            sponsor_formset = SponsorFormset(
+                prefix="sponsors",
+                initial=initial,
+            )
+            for obj, frm in zip(sponsors, sponsor_formset.forms):
+                frm.instance = obj
+
 
     return render(request, "productions/events/description_form.html", {
         'production': production,
