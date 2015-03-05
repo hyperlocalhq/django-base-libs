@@ -12,6 +12,12 @@
     <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
 {% endblock %}
 
+{% block event_tabs %}
+    <li><a class="txt" href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}"> {% trans "Details" %} </a></li>
+    <li><a class="txt" href="{% url "change_event_description" slug=production.slug event_id=event.pk %}"> {% trans "Description" %} </a></li>
+    <li class="active"><a class="txt" href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}"> {% trans "Media" %} </a></li>
+{% endblock %}
+
 {% block multistep_form %}
     <form id="media_item_overviews" class="relative">
         <fieldset class="fieldset-videos">

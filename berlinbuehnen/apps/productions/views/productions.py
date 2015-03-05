@@ -25,10 +25,6 @@ from jetson.apps.utils.decorators import login_required
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from berlinbuehnen.apps.productions.forms.productions import PRODUCTION_FORM_STEPS
-from berlinbuehnen.apps.productions.forms.gallery import VideoForm, VideoDeletionForm
-from berlinbuehnen.apps.productions.forms.gallery import StreamingForm, StreamingDeletionForm
-from berlinbuehnen.apps.productions.forms.gallery import ImageForm, ImageDeletionForm
-from berlinbuehnen.apps.productions.forms.gallery import PDFForm, PDFDeletionForm
 from berlinbuehnen.apps.productions.forms.events import AddEventsForm
 from berlinbuehnen.apps.productions.forms.events import BasicInfoForm as EventBasicInfoForm
 from berlinbuehnen.apps.productions.forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, SponsorFormset
@@ -40,6 +36,7 @@ from filebrowser.models import FileDescription
 from berlinbuehnen.apps.locations.models import Location
 from berlinbuehnen.apps.sponsors.models import Sponsor
 from berlinbuehnen.apps.productions.models import Production, ProductionImage
+from berlinbuehnen.apps.productions.models import ProductionLeadership, ProductionAuthorship, ProductionInvolvement, ProductionSocialMediaChannel
 from berlinbuehnen.apps.productions.models import Event, ProductionVideo, ProductionLiveStream, EventImage, ProductionPDF
 from berlinbuehnen.apps.productions.models import EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
 
@@ -363,50 +360,84 @@ def change_event_description(request, slug, event_id):
                 initial[fname] = getattr(event, fname, None)
         form.initial = initial
 
-        initial = [{
-            'id': obj.id,
-            'person': obj.person,
-            'function_de': obj.function_de,
-            'function_en': obj.function_en,
-            'sort_order': obj.sort_order,
-        } for obj in EventLeadership.objects.filter(event=event)]
+        if EventLeadership.objects.filter(event=event).count():
+            initial = [{
+                'id': obj.id,
+                'person': obj.person,
+                'function_de': obj.function_de,
+                'function_en': obj.function_en,
+                'sort_order': obj.sort_order,
+            } for obj in EventLeadership.objects.filter(event=event)]
+        else:
+            initial = [{
+                'person': obj.person,
+                'function_de': obj.function_de,
+                'function_en': obj.function_en,
+                'sort_order': obj.sort_order,
+            } for obj in ProductionLeadership.objects.filter(production=production)]
         leadership_formset = EventLeadershipFormset(
             prefix="leaderships",
             instance=event,
             initial=initial,
         )
-        initial = [{
-            'id': obj.id,
-            'person': obj.person,
-            'authorship_type': obj.authorship_type,
-            'sort_order': obj.sort_order,
-        } for obj in EventAuthorship.objects.filter(event=event)]
+
+        if EventAuthorship.objects.filter(event=event).count():
+            initial = [{
+                'id': obj.id,
+                'person': obj.person,
+                'authorship_type': obj.authorship_type,
+                'sort_order': obj.sort_order,
+            } for obj in EventAuthorship.objects.filter(event=event)]
+        else:
+            initial = [{
+                'person': obj.person,
+                'authorship_type': obj.authorship_type,
+                'sort_order': obj.sort_order,
+            } for obj in ProductionAuthorship.objects.filter(production=production)]
         authorship_formset = EventAuthorshipFormset(
             prefix="authorships",
             instance=event,
             initial=initial,
         )
-        initial = [{
-            'id': obj.id,
-            'person': obj.person,
-            'involvement_type': obj.involvement_type,
-            'involvement_role_de': obj.involvement_role_de,
-            'involvement_role_en': obj.involvement_role_en,
-            'involvement_instrument_de': obj.involvement_instrument_de,
-            'involvement_instrument_en': obj.involvement_instrument_en,
-            'sort_order': obj.sort_order,
-        } for obj in EventInvolvement.objects.filter(event=event)]
+
+        if EventInvolvement.objects.filter(event=event).count():
+            initial = [{
+                'id': obj.id,
+                'person': obj.person,
+                'involvement_type': obj.involvement_type,
+                'involvement_role_de': obj.involvement_role_de,
+                'involvement_role_en': obj.involvement_role_en,
+                'involvement_instrument_de': obj.involvement_instrument_de,
+                'involvement_instrument_en': obj.involvement_instrument_en,
+                'sort_order': obj.sort_order,
+            } for obj in EventInvolvement.objects.filter(event=event)]
+        else:
+            initial = [{
+                'person': obj.person,
+                'involvement_type': obj.involvement_type,
+                'involvement_role_de': obj.involvement_role_de,
+                'involvement_role_en': obj.involvement_role_en,
+                'involvement_instrument_de': obj.involvement_instrument_de,
+                'involvement_instrument_en': obj.involvement_instrument_en,
+                'sort_order': obj.sort_order,
+            } for obj in ProductionInvolvement.objects.filter(production=production)]
         involvement_formset = EventInvolvementFormset(
             prefix="involvements",
             instance=event,
             initial=initial,
         )
 
-        initial = [{
-            'id': obj.id,
-            'channel_type': obj.channel_type,
-            'url': obj.url,
-        } for obj in EventSocialMediaChannel.objects.filter(event=event)]
+        if EventSocialMediaChannel.objects.filter(event=event).count():
+            initial = [{
+                'id': obj.id,
+                'channel_type': obj.channel_type,
+                'url': obj.url,
+            } for obj in EventSocialMediaChannel.objects.filter(event=event)]
+        else:
+            initial = [{
+                'channel_type': obj.channel_type,
+                'url': obj.url,
+            } for obj in ProductionSocialMediaChannel.objects.filter(production=production)]
         social_formset = SocialMediaChannelFormset(
             prefix="social",
             instance=event,

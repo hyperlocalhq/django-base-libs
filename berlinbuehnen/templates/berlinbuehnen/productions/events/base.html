@@ -69,11 +69,14 @@
             <a class="btn btn-primary" id="preview_page" href="{{ production.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
         </div>
 
-        <ul class="nav nav-tabs form-steps">
+        <ul class="nav nav-tabs form-steps pull-left">
             <li><a class="txt" href="{% url "change_production" slug=production.slug %}?step=1"> {% trans "Production" %} </a></li>
             <li><a class="txt" href="{% url "change_production" slug=production.slug %}?step=2"> {% trans "Description" %} </a></li>
             <li><a class="txt" href="{% url "change_production" slug=production.slug %}?step=3"> {% trans "Media" %} </a></li>
             <li class="active"><a class="txt" href="{% url "change_production" slug=production.slug %}?step=4"> {% trans "Events" %} </a></li>
+        </ul>
+        <ul class="nav nav-tabs form-steps pull-right">
+            {% block event_tabs %}{% endblock %}
         </ul>
     </div>
 {% endblock %}
