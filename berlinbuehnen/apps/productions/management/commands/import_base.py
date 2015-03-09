@@ -238,9 +238,15 @@ class ImportFromHeimatBase(object):
                 return force_unicode(child_node.text)
         return u""
 
-    def create_or_update_location(self, venue_node):
-        from berlinbuehnen.apps.locations.models import Location
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+    def get_updated_location_and_stage(self, venue_node):
+        """
+        Creates or gets and updates location and stage
+        :param venue_node: XML node with venue data
+        :return: named tuple LocationAndStage(location, stage)
+        """
+        from collections import namedtuple
+        from berlinbuehnen.apps.locations.models import Location, Stage
+        LocationAndStage = namedtuple('LocationAndStage', ['location', 'stage'])
 
         if not self.LOCATIONS:
             self.load_and_parse_locations()
@@ -248,51 +254,50 @@ class ImportFromHeimatBase(object):
         if venue_node.get('isId') == "1":
             external_id = venue_node.text
         else:  # unknown location id
-            return None, False
-
-        mapper = None
-        try:
-            # get exhibition from saved mapper
-            mapper = self.service.objectmapper_set.get(
-                external_id=external_id,
-                content_type__app_label="locations",
-                content_type__model="location",
-            )
-        except models.ObjectDoesNotExist:
-            # or create a new exhibition and then create a mapper
-            location = Location()
-        else:
-            location = mapper.content_object
-            if not location:
-                # if exhibition was deleted after import,
-                # don't import it again
-                return None, False
+            return LocationAndStage(None, None)
 
         if external_id not in self.LOCATIONS:  # location not found in Berlin
-            return None, False
+            return LocationAndStage(None, None)
 
-        culturbase_location = self.LOCATIONS[external_id]
+        culturebase_location = self.LOCATIONS[external_id]
 
-        locations_by_title = Location.objects.filter(title=culturbase_location.title)
-        if locations_by_title and not location.pk:
-            location = locations_by_title[0]
+        stage_settings = STAGE_TO_LOCATION_MAPPER.get(culturebase_location.title, None)
+        if stage_settings:
+            try:
+                location = Location.objects.get(title_de=stage_settings.location_title)
+            except Location.DoesNotExist:
+                location = Location()
+                location.title_de = location.title_en = stage_settings.location_title
         else:
-            location.title_de = location.title_en = culturbase_location.title
-            location.street_address = culturbase_location.street_address
-            location.postal_code = culturbase_location.postal_code
+            try:
+                location = Location.objects.get(title_de=culturebase_location.title)
+            except Location.DoesNotExist:
+                location = Location()
+                location.title_de = location.title_en = culturebase_location.title
+
+        if not stage_settings:
+            location.street_address = culturebase_location.street_address
+            location.postal_code = culturebase_location.postal_code
             location.city = "Berlin"
+
         location.save()
 
-        if not mapper:
-            mapper = ObjectMapper(
-                service=self.service,
-                external_id=external_id,
-            )
-            mapper.content_object = location
-            mapper.save()
-            return location, True
+        stage = None
+        if stage_settings:
+            try:
+                stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+            except Stage.DoesNotExist:
+                stage = Stage()
+                stage.location = location
+                stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
-        return location, False
+            stage.street_address = culturebase_location.street_address
+            stage.postal_code = culturebase_location.postal_code
+            stage.city = "Berlin"
+
+            stage.save()
+
+        return LocationAndStage(location, stage)
 
     def cleanup_text(self, text):
         from BeautifulSoup import BeautifulStoneSoup
@@ -540,17 +545,20 @@ class ImportFromHeimatBase(object):
 
             venue_node = prod_node.find('location')
             if venue_node is not None:
-                location, created = self.create_or_update_location(venue_node)
+                location, stage = self.get_updated_location_and_stage(venue_node)
                 if location:
                     prod.play_locations.clear()
                     prod.play_locations.add(location)
                 else:
                     prod.location_title = venue_node.text
                     prod.save()
+                if stage:
+                    prod.play_stages.clear()
+                    prod.play_stages.add(stage)
 
             institution_node = prod_node.find('institution')
             if institution_node is not None:
-                location, created = self.create_or_update_location(institution_node)
+                location, stage = self.get_updated_location_and_stage(institution_node)
                 if location:
                     prod.in_program_of.clear()
                     prod.in_program_of.add(location)
@@ -753,13 +761,16 @@ class ImportFromHeimatBase(object):
 
                 venue_node = event_node.find('location')
                 if venue_node is not None:
-                    location, created = self.create_or_update_location(venue_node)
+                    location, stage = self.get_updated_location_and_stage(venue_node)
                     if location:
                         event.play_locations.clear()
                         event.play_locations.add(location)
                     else:
                         event.location_title = venue_node.text
                         event.save()
+                    if stage:
+                        event.play_stages.clear()
+                        event.play_stages.add(stage)
 
                 for status_id_node in event_node.findall('statusId'):
                     internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)

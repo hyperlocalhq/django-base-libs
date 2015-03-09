@@ -23,6 +23,8 @@ from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
 from berlinbuehnen.apps.sponsors.models import Sponsor
 
+from import_base import STAGE_TO_LOCATION_MAPPER
+
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 
@@ -226,53 +228,67 @@ class Command(NoArgsCommand):
                 return force_unicode(child_node.text)
         return u""
 
-    def create_or_update_location(self, venue_node):
-        from berlinbuehnen.apps.locations.models import Location
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+    def get_updated_location_and_stage(self, venue_node):
+        """
+        Creates or gets and updates location and stage
+        :param venue_node: XML node with venue data
+        :return: named tuple LocationAndStage(location, stage)
+        """
+        from collections import namedtuple
+        from berlinbuehnen.apps.locations.models import Location, Stage
         city_suffix = re.compile(r' \[[^\]]+\]')
+        LocationAndStage = namedtuple('LocationAndStage', ['location', 'stage'])
 
-        # TODO: decide whether to leave title handling as external id
-        external_id = venue_node.get('Id') or self.get_child_text(venue_node, 'Name')
-        mapper = None
-        try:
-            # get location from saved mapper
-            mapper = self.service.objectmapper_set.get(
-                external_id=external_id,
-                content_type__app_label="locations",
-                content_type__model="location",
-            )
-        except models.ObjectDoesNotExist:
-            # or create a new location and then create a mapper
-            location = Location()
+        venue_title = self.get_child_text(venue_node, 'Name')
+        stage_settings = STAGE_TO_LOCATION_MAPPER.get(venue_title, None)
+        if stage_settings:
+            try:
+                location = Location.objects.get(title_de=stage_settings.location_title)
+            except Location.DoesNotExist:
+                location = Location()
+                location.title_de = location.title_en = stage_settings.location_title
         else:
-            location = mapper.content_object
-            if not location:
-                # if location was deleted after import,
-                # don't import it again
-                return None, False
+            try:
+                location = Location.objects.get(title_de=venue_title)
+            except Location.DoesNotExist:
+                location = Location()
+                location.title_de = location.title_en = venue_title
 
-        location.title_de = location.title_en = self.get_child_text(venue_node, 'Name')
-        lat = self.get_child_text(venue_node, 'Latitude')
-        if lat:
-            location.latitude = float(lat)
-        lng = self.get_child_text(venue_node, 'Longitude')
-        if lng:
-            location.longitude = float(lng)
-        location.street_address = self.get_child_text(venue_node, 'Street')
-        location.postal_code = self.get_child_text(venue_node, 'ZipCode')
-        location.city = city_suffix.sub("", self.get_child_text(venue_node, 'City') or "")
+        if not stage_settings:
+            lat = self.get_child_text(venue_node, 'Latitude')
+            if lat:
+                location.latitude = float(lat)
+            lng = self.get_child_text(venue_node, 'Longitude')
+            if lng:
+                location.longitude = float(lng)
+            location.street_address = self.get_child_text(venue_node, 'Street')
+            location.postal_code = self.get_child_text(venue_node, 'ZipCode')
+            location.city = city_suffix.sub('', self.get_child_text(venue_node, 'City') or "")
+
         location.save()
 
-        if not mapper:
-            mapper = ObjectMapper(
-                service=self.service,
-                external_id=external_id,
-            )
-            mapper.content_object = location
-            mapper.save()
-            return location, True
+        stage = None
+        if stage_settings:
+            try:
+                stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+            except Stage.DoesNotExist:
+                stage = Stage()
+                stage.location = location
+                stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
-        return location, False
+            lat = self.get_child_text(venue_node, 'Latitude')
+            if lat:
+                stage.latitude = float(lat)
+            lng = self.get_child_text(venue_node, 'Longitude')
+            if lng:
+                stage.longitude = float(lng)
+            stage.street_address = self.get_child_text(venue_node, 'Street')
+            stage.postal_code = self.get_child_text(venue_node, 'ZipCode')
+            stage.city = city_suffix.sub('', self.get_child_text(venue_node, 'City') or "")
+
+            stage.save()
+
+        return LocationAndStage(location, stage)
 
     def get_location_by_title(self, title):
         from berlinbuehnen.apps.locations.models import Location
@@ -529,10 +545,13 @@ class Command(NoArgsCommand):
 
             venue_node = prod_node.find('./%(prefix)sVenue' % self.helper_dict)
             if venue_node:
-                location, created = self.create_or_update_location(venue_node)
+                location, stage = self.get_updated_location_and_stage(venue_node)
                 if location:
                     prod.play_locations.clear()
                     prod.play_locations.add(location)
+                if stage:
+                    prod.play_stages.clear()
+                    prod.play_stages.add(stage)
 
             organizers_list = []
             for organisation_node in prod_node.findall('./%(prefix)sOrganisation' % self.helper_dict):
@@ -779,10 +798,13 @@ class Command(NoArgsCommand):
 
                 venue_node = event_node.find('%(prefix)sVenue' % self.helper_dict)
                 if venue_node:
-                    location, created = self.create_or_update_location(venue_node)
+                    location, stage = self.get_updated_location_and_stage(venue_node)
                     if location:
                         event.play_locations.clear()
                         event.play_locations.add(location)
+                    if stage:
+                        event.play_stages.clear()
+                        event.play_stages.add(stage)
 
                 for status_node in event_node.findall('%(prefix)sStatus' % self.helper_dict):
                     internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)
