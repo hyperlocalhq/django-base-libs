@@ -16,6 +16,17 @@ from berlinbuehnen.apps.site_specific.forms import password_reset_form_helper
 from berlinbuehnen.apps.site_specific.forms import password_reset_change_form_helper
 
 import autocomplete_light
+
+from tastypie.api import Api
+
+# API v1
+from berlinbuehnen.apps.locations.api.resources import v1 as locations_api_v1
+
+v1_api = Api(api_name='v1')
+v1_api.register(locations_api_v1.ServiceResource())
+v1_api.register(locations_api_v1.AccessibilityOptionResource())
+v1_api.register(locations_api_v1.LocationResource())
+
 autocomplete_light.autodiscover()
 
 from django.contrib import admin
@@ -47,6 +58,7 @@ urlpatterns += i18n_patterns('',
 
 urlpatterns += i18n_patterns('',
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    url(r'^api/', include(v1_api.urls)),
 
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^helper/autocomplete/(?P<app>[^/]+)/(?P<qs_function>[^/]+)/(?P<display_attr>[^/]+)/(?P<add_display_attr>[^/]+)/$', 'base_libs.views.ajax_autocomplete'),
