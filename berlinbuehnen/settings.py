@@ -83,7 +83,7 @@ TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
 ] + TEMPLATE_DIRS
 
 LOCALE_PATHS = (
-    os.path.join(PROJECT_PATH, "berlinbuehnen", "locale"),
+    os.path.join(PROJECT_PATH, "locale"),
 )
 
 PATH_TMP = os.path.join(PROJECT_PATH, "berlinbuehnen", "tmp")
@@ -608,7 +608,7 @@ ROSETTA_STORAGE_CLASS = "rosetta.storage.SessionRosettaStorage"
 
 ALLOWED_HOSTS = ['www.berlinbuehnen.de', 'berlinbuehnen.de']
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+#SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 
 ### LOCAL SETTINGS ###
