@@ -21,11 +21,20 @@ from tastypie.api import Api
 
 # API v1
 from berlinbuehnen.apps.locations.api.resources import v1 as locations_api_v1
+from berlinbuehnen.apps.productions.api.resources import v1 as productions_api_v1
 
 v1_api = Api(api_name='v1')
+
 v1_api.register(locations_api_v1.ServiceResource())
 v1_api.register(locations_api_v1.AccessibilityOptionResource())
 v1_api.register(locations_api_v1.LocationResource())
+v1_api.register(locations_api_v1.StageResource())
+
+v1_api.register(productions_api_v1.LanguageAndSubtitlesResource())
+v1_api.register(productions_api_v1.ProductionCategoryResource())
+v1_api.register(productions_api_v1.ProductionCharacteristicsResource())
+v1_api.register(productions_api_v1.ProductionResource())
+v1_api.register(productions_api_v1.EventCharacteristicsResource())
 
 autocomplete_light.autodiscover()
 

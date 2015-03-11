@@ -47,12 +47,13 @@ class BaseMetaForModelResource(object):
     #authorization = ReadOnlyAuthorization()
     serializer = Serializer(formats=['json', 'xml'])
     cache = SimpleCache(timeout=10)
+    max_limit = 100
 
 
 class ServiceResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = Service.objects.all()
-        resource_name = 'service'
+        resource_name = 'location_service'
         excludes = ['title', 'slug', 'sort_order', 'image']
 
     def dehydrate(self, bundle):
@@ -68,7 +69,7 @@ class ServiceResource(ModelResource):
 class AccessibilityOptionResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = AccessibilityOption.objects.all()
-        resource_name = 'accessibility'
+        resource_name = 'location_accessibility'
         excludes = ['title', 'slug', 'sort_order', 'image']
 
     def dehydrate(self, bundle):

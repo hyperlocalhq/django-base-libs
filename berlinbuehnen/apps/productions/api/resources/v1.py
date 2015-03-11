@@ -2,6 +2,8 @@
 
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.utils.translation import activate, get_language
 
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie import fields
@@ -14,6 +16,9 @@ from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import strip_html
 
 from filebrowser.models import FileDescription
+
+from berlinbuehnen.apps.locations.api.resources.v1 import LocationResource
+from berlinbuehnen.apps.locations.api.resources.v1 import StageResource
 
 from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
 from berlinbuehnen.apps.productions.models import ProductionCategory
@@ -39,6 +44,9 @@ from berlinbuehnen.apps.productions.models import EventLeadership
 from berlinbuehnen.apps.productions.models import EventAuthorship
 from berlinbuehnen.apps.productions.models import EventInvolvement
 
+from berlinbuehnen.apps.sponsors.api.resources.v1 import SponsorResource
+
+
 def valid_XML_char_ordinal(i):
     """
     Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
@@ -55,3 +63,515 @@ def strip_invalid_chars(text):
     return u''.join(c for c in text if valid_XML_char_ordinal(ord(c)))
 
 
+class BaseMetaForModelResource(object):
+    allowed_methods = ['get']
+    #authentication = ApiKeyAuthentication()
+    #authorization = ReadOnlyAuthorization()
+    serializer = Serializer(formats=['json', 'xml'])
+    cache = SimpleCache(timeout=10)
+    max_limit = 100
+
+
+class LanguageAndSubtitlesResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = LanguageAndSubtitles.objects.all()
+        resource_name = 'language_and_subtitles'
+        fields = ['id', 'title_de', 'title_en']
+
+
+class ProductionCategoryResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionCategory.objects.all()
+        resource_name = 'production_category'
+        fields = ['id', 'parent', 'title≤_de', 'title≤_en', 'creation_date', 'modified_date']
+
+
+class ProductionCharacteristicsResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionCharacteristics.objects.all()
+        resource_name = 'production_characteristics'
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+
+
+class ProductionSocialMediaChannelResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionSocialMediaChannel.objects.all()
+        resource_name = 'production_social_media'
+        excludes = []
+
+
+class ProductionVideoResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionVideo.objects.all()
+        resource_name = 'production_video'
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        bundle.data['embed'] = bundle.obj.get_embed()
+        return bundle
+
+
+class ProductionLiveStreamResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionLiveStream.objects.all()
+        resource_name = 'production_live_stream'
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        bundle.data['embed'] = bundle.obj.get_embed()
+        return bundle
+
+
+class ProductionImageResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionImage.objects.all()
+        resource_name = 'production_image'
+        fields = [
+            'id',
+            'creation_date', 'modified_date',
+            'copyright_restrictions',
+        ]
+
+    def dehydrate(self, bundle):
+        if bundle.obj.path:
+            bundle.data['url'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.path.path,
+                ))
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=bundle.obj.path,
+                    ).order_by("pk")[0]
+            except:
+                pass
+            else:
+                bundle.data['title_de'] = strip_invalid_chars(file_description.title_de)
+                bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
+                bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
+                bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
+                bundle.data['author'] = strip_invalid_chars(file_description.author)
+        return bundle
+
+
+class ProductionPDFResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionPDF.objects.all()
+        resource_name = 'production_pdf'
+        fields = [
+            'id',
+            'creation_date', 'modified_date',
+        ]
+
+    def dehydrate(self, bundle):
+        if bundle.obj.path:
+            bundle.data['url'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.path.path,
+                ))
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=bundle.obj.path,
+                    ).order_by("pk")[0]
+            except:
+                pass
+            else:
+                bundle.data['title_de'] = strip_invalid_chars(file_description.title_de)
+                bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
+                bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
+                bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
+                bundle.data['author'] = strip_invalid_chars(file_description.author)
+        return bundle
+
+
+class ProductionLeadershipResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionLeadership.objects.all()
+        resource_name = 'production_leadership'
+        fields = ['id', 'function_de', 'function_en', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        if bundle.obj.person.prefix:
+            bundle.data['prefix_de'] = bundle.obj.person.prefix.title_de
+            bundle.data['prefix_en'] = bundle.obj.person.prefix.title_en
+            bundle.data['gender'] = bundle.obj.person.gender
+        bundle.data['first_name'] = bundle.obj.person.first_name
+        bundle.data['last_name'] = bundle.obj.person.last_name
+        return bundle
+
+
+class ProductionAuthorshipResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionAuthorship.objects.all()
+        resource_name = 'production_authorship'
+        fields = ['id', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        if bundle.obj.person.prefix:
+            bundle.data['prefix_de'] = bundle.obj.person.prefix.title_de
+            bundle.data['prefix_en'] = bundle.obj.person.prefix.title_en
+            bundle.data['gender'] = bundle.obj.person.gender
+        bundle.data['first_name'] = bundle.obj.person.first_name
+        bundle.data['last_name'] = bundle.obj.person.last_name
+        if bundle.obj.authorship_type:
+            bundle.data['type_de'] = bundle.obj.authorship_type.title_de
+            bundle.data['type_en'] = bundle.obj.authorship_type.title_en
+        return bundle
+
+
+class ProductionInvolvementResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = ProductionInvolvement.objects.all()
+        resource_name = 'production_involvement'
+        fields = ['id', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        if bundle.obj.person.prefix:
+            bundle.data['prefix_de'] = bundle.obj.person.prefix.title_de
+            bundle.data['prefix_en'] = bundle.obj.person.prefix.title_en
+            bundle.data['gender'] = bundle.obj.person.gender
+        bundle.data['first_name'] = bundle.obj.person.first_name
+        bundle.data['last_name'] = bundle.obj.person.last_name
+        if bundle.obj.involvement_type:
+            bundle.data['type_de'] = bundle.obj.involvement_type.title_de
+            bundle.data['type_en'] = bundle.obj.involvement_type.title_en
+        if bundle.obj.involvement_role_de:
+            bundle.data['role_de'] = bundle.obj.involvement_role_de
+        if bundle.obj.involvement_role_en:
+            bundle.data['role_en'] = bundle.obj.involvement_role_en
+        if bundle.obj.involvement_instrument_de:
+            bundle.data['instrument_de'] = bundle.obj.involvement_instrument_de
+        if bundle.obj.involvement_instrument_en:
+            bundle.data['instrument_en'] = bundle.obj.involvement_instrument_en
+        return bundle
+
+
+class EventCharacteristicsResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventCharacteristics.objects.all()
+        resource_name = 'event_characteristics'
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+
+
+class EventSocialMediaChannelResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventSocialMediaChannel.objects.all()
+        resource_name = 'event_social_media'
+        excludes = []
+
+
+class EventVideoResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventVideo.objects.all()
+        resource_name = 'event_video'
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        bundle.data['embed'] = bundle.obj.get_embed()
+        return bundle
+
+
+class EventLiveStreamResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventLiveStream.objects.all()
+        resource_name = 'event_live_stream'
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        bundle.data['embed'] = bundle.obj.get_embed()
+        return bundle
+
+
+class EventImageResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventImage.objects.all()
+        resource_name = 'event_image'
+        fields = [
+            'id',
+            'creation_date', 'modified_date',
+            'copyright_restrictions',
+        ]
+
+    def dehydrate(self, bundle):
+        if bundle.obj.path:
+            bundle.data['url'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.path.path,
+                ))
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=bundle.obj.path,
+                    ).order_by("pk")[0]
+            except:
+                pass
+            else:
+                bundle.data['title_de'] = strip_invalid_chars(file_description.title_de)
+                bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
+                bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
+                bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
+                bundle.data['author'] = strip_invalid_chars(file_description.author)
+        return bundle
+
+
+class EventPDFResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventPDF.objects.all()
+        resource_name = 'event_pdf'
+        fields = [
+            'id',
+            'creation_date', 'modified_date',
+        ]
+
+    def dehydrate(self, bundle):
+        if bundle.obj.path:
+            bundle.data['url'] = "".join((
+                get_website_url(),
+                settings.MEDIA_URL[1:],
+                bundle.obj.path.path,
+                ))
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=bundle.obj.path,
+                    ).order_by("pk")[0]
+            except:
+                pass
+            else:
+                bundle.data['title_de'] = strip_invalid_chars(file_description.title_de)
+                bundle.data['title_en'] = strip_invalid_chars(file_description.title_en)
+                bundle.data['description_de'] = strip_invalid_chars(file_description.description_de)
+                bundle.data['description_en'] = strip_invalid_chars(file_description.description_en)
+                bundle.data['author'] = strip_invalid_chars(file_description.author)
+        return bundle
+
+
+class EventLeadershipResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventLeadership.objects.all()
+        resource_name = 'event_leadership'
+        fields = ['id', 'function_de', 'function_en', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        if bundle.obj.person.prefix:
+            bundle.data['prefix_de'] = bundle.obj.person.prefix.title_de
+            bundle.data['prefix_en'] = bundle.obj.person.prefix.title_en
+            bundle.data['gender'] = bundle.obj.person.gender
+        bundle.data['first_name'] = bundle.obj.person.first_name
+        bundle.data['last_name'] = bundle.obj.person.last_name
+        return bundle
+
+
+class EventAuthorshipResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventAuthorship.objects.all()
+        resource_name = 'event_authorship'
+        fields = ['id', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        if bundle.obj.person.prefix:
+            bundle.data['prefix_de'] = bundle.obj.person.prefix.title_de
+            bundle.data['prefix_en'] = bundle.obj.person.prefix.title_en
+            bundle.data['gender'] = bundle.obj.person.gender
+        bundle.data['first_name'] = bundle.obj.person.first_name
+        bundle.data['last_name'] = bundle.obj.person.last_name
+        if bundle.obj.authorship_type:
+            bundle.data['type_de'] = bundle.obj.authorship_type.title_de
+            bundle.data['type_en'] = bundle.obj.authorship_type.title_en
+        return bundle
+
+
+class EventInvolvementResource(ModelResource):
+    class Meta(BaseMetaForModelResource):
+        queryset = EventInvolvement.objects.all()
+        resource_name = 'event_involvement'
+        fields = ['id', 'creation_date', 'modified_date']
+
+    def dehydrate(self, bundle):
+        if bundle.obj.person.prefix:
+            bundle.data['prefix_de'] = bundle.obj.person.prefix.title_de
+            bundle.data['prefix_en'] = bundle.obj.person.prefix.title_en
+            bundle.data['gender'] = bundle.obj.person.gender
+        bundle.data['first_name'] = bundle.obj.person.first_name
+        bundle.data['last_name'] = bundle.obj.person.last_name
+        if bundle.obj.involvement_type:
+            bundle.data['type_de'] = bundle.obj.involvement_type.title_de
+            bundle.data['type_en'] = bundle.obj.involvement_type.title_en
+        if bundle.obj.involvement_role_de:
+            bundle.data['role_de'] = bundle.obj.involvement_role_de
+        if bundle.obj.involvement_role_en:
+            bundle.data['role_en'] = bundle.obj.involvement_role_en
+        if bundle.obj.involvement_instrument_de:
+            bundle.data['instrument_de'] = bundle.obj.involvement_instrument_de
+        if bundle.obj.involvement_instrument_en:
+            bundle.data['instrument_en'] = bundle.obj.involvement_instrument_en
+        return bundle
+
+
+class EventResource(ModelResource):
+    play_locations = fields.ToManyField(LocationResource, "play_locations")
+    play_stages = fields.ToManyField(StageResource, "play_stages")
+
+    characteristics = fields.ToManyField(EventCharacteristicsResource, "characteristics", full=True)
+
+    leaders = fields.ToManyField(EventLeadershipResource, "eventleadership_set", full=True)
+    authors = fields.ToManyField(EventAuthorshipResource, "eventauthorship_set", full=True)
+    participants = fields.ToManyField(EventInvolvementResource, "eventinvolvement_set", full=True)
+
+    videos = fields.ToManyField(EventVideoResource, "eventvideo_set", full=True)
+    live_streams = fields.ToManyField(EventLiveStreamResource, "eventlivestream_set", full=True)
+    images = fields.ToManyField(EventImageResource, "eventimage_set", full=True)
+    pdfs = fields.ToManyField(EventPDFResource, "eventpdf_set", full=True)
+
+    sponsors = fields.ToManyField(SponsorResource, "sponsors", full=True)
+
+    class Meta(BaseMetaForModelResource):
+        queryset = Event.objects.all()
+        resource_name = 'event'
+        fields = [
+            'id', 'creation_date', 'modified_date',
+            'start_date', 'end_date',
+            'start_time', 'end_time',
+            'duration', 'pauses',
+            'location_title',
+            'street_address', 'street_address2', 'postal_code', 'city', 'country',
+            'latitude', 'longitude',
+            'organizer_title',
+            'duration_text_de', 'duration_text_en',
+            'subtitles_text_de', 'subtitles_text_en',
+            'age_text_de', 'age_text_en',
+            'free_entrance', 'price_from', 'price_till', 'tickets_website',
+        ]
+
+    def dehydrate(self, bundle):
+        current_language = get_language()
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
+            try:
+                activate(lang_code)
+                path = reverse('event_detail', kwargs={
+                    'slug': bundle.obj.production.slug,
+                    'event_id': bundle.obj.pk,
+                })
+                bundle.data['link_%s' % lang_code] = "".join((get_website_url()[:-1], path))
+            except:
+                pass
+        activate(current_language)
+
+        bundle.data['description_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_de()))
+        bundle.data['description_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_en()))
+        bundle.data['teaser_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_teaser_de()))
+        bundle.data['teaser_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_teaser_en()))
+        bundle.data['work_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_work_info_de()))
+        bundle.data['work_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_work_info_en()))
+        bundle.data['contents_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_contents_de()))
+        bundle.data['contents_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_contents_en()))
+        bundle.data['press_text_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_de()))
+        bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_en()))
+        bundle.data['credits_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_credits_de()))
+        bundle.data['credits_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_credits_en()))
+        bundle.data['concert_programm_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_programm_de()))
+        bundle.data['concert_programm_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_programm_en()))
+        bundle.data['supporting_programm_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_programm_de()))
+        bundle.data['supporting_programm_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_programm_en()))
+        bundle.data['remarks_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_de()))
+        bundle.data['remarks_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_en()))
+        bundle.data['price_information_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_price_information_de()))
+        bundle.data['price_information_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_price_information_en()))
+        bundle.data['other_characteristics_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_characteristics_de()))
+        bundle.data['other_characteristics_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_other_characteristics_en()))
+
+        return bundle
+
+
+class ProductionResource(ModelResource):
+    play_locations = fields.ToManyField(LocationResource, "play_locations")
+    play_stages = fields.ToManyField(StageResource, "play_stages")
+
+    in_program_of = fields.ToManyField(LocationResource, "in_program_of")
+    ensembles = fields.ToManyField(LocationResource, "ensembles")
+    organizers = fields.ToManyField(LocationResource, "organizers")
+    in_cooperation_with = fields.ToManyField(LocationResource, "in_cooperation_with")
+
+    categories = fields.ToManyField(ProductionCategoryResource, "categories", full=True)
+    characteristics = fields.ToManyField(ProductionCharacteristicsResource, "characteristics", full=True)
+
+    leaders = fields.ToManyField(ProductionLeadershipResource, "productionleadership_set", full=True)
+    authors = fields.ToManyField(ProductionAuthorshipResource, "productionauthorship_set", full=True)
+    participants = fields.ToManyField(ProductionInvolvementResource, "productioninvolvement_set", full=True)
+
+    videos = fields.ToManyField(ProductionVideoResource, "productionvideo_set", full=True)
+    live_streams = fields.ToManyField(ProductionLiveStreamResource, "productionlivestream_set", full=True)
+    images = fields.ToManyField(ProductionImageResource, "productionimage_set", full=True)
+    pdfs = fields.ToManyField(ProductionPDFResource, "productionpdf_set", full=True)
+    social_media = fields.ToManyField(ProductionSocialMediaChannelResource, "productionsocialmediachannel_set", full=True)
+
+    sponsors = fields.ToManyField(SponsorResource, "sponsors", full=True)
+
+    events = fields.ToManyField(EventResource, "event_set", full=True)
+
+    class Meta(BaseMetaForModelResource):
+        queryset = Production.objects.all()
+        resource_name = 'production'
+        fields = [
+            'id', 'creation_date', 'modified_date', 'language_and_subtitles',
+            'prefix_de', 'prefix_en',
+            'title_de', 'title_en',
+            'subtitle_de', 'subtitle_en',
+            'original_de', 'original_en',
+            'duration_text_de', 'duration_text_en',
+            'subtitles_text_de', 'subtitles_text_en',
+            'age_text_de', 'age_text_en',
+            'website',
+            'free_entrance', 'price_from', 'price_till', 'tickets_website',
+            'age_from', 'age_till', 'edu_offer_website',
+        ]
+
+    def dehydrate(self, bundle):
+        current_language = get_language()
+        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
+            try:
+                activate(lang_code)
+                path = reverse('production_detail', kwargs={'slug': bundle.obj.slug})
+                bundle.data['link_%s' % lang_code] = "".join((get_website_url()[:-1], path))
+            except:
+                pass
+        activate(current_language)
+
+        bundle.data['description_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_de()))
+        bundle.data['description_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_description_en()))
+        bundle.data['teaser_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_teaser_de()))
+        bundle.data['teaser_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_teaser_en()))
+        bundle.data['work_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_work_info_de()))
+        bundle.data['work_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_work_info_en()))
+        bundle.data['contents_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_contents_de()))
+        bundle.data['contents_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_contents_en()))
+        bundle.data['press_text_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_de()))
+        bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_en()))
+        bundle.data['credits_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_credits_de()))
+        bundle.data['credits_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_credits_en()))
+        bundle.data['concert_programm_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_programm_de()))
+        bundle.data['concert_programm_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_programm_en()))
+        bundle.data['supporting_programm_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_programm_de()))
+        bundle.data['supporting_programm_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_programm_en()))
+        bundle.data['remarks_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_de()))
+        bundle.data['remarks_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_en()))
+        bundle.data['price_information_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_price_information_de()))
+        bundle.data['price_information_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_price_information_en()))
+
+        return bundle
+
+    def apply_filters(self, request, applicable_filters):
+        from dateutil.parser import parse
+        base_object_list = super(ProductionResource, self).apply_filters(request, applicable_filters)
+        created_or_modified_since = request.GET.get('created_or_modified_since', None)
+        if created_or_modified_since:
+            try:
+                created_or_modified_since = parse(created_or_modified_since)
+            except:
+                pass
+            else:
+                base_object_list = base_object_list.filter(
+                    models.Q(creation_date__gte=created_or_modified_since) |
+                    models.Q(modified_date__gte=created_or_modified_since)
+                )
+        return base_object_list
