@@ -105,7 +105,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         ))
         fieldset_content.append(layout.Row(
             layout.Div(
-                layout.Field('website'),
+                layout.Field('website', placeholder="http://"),
                 css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
             ),
             css_class="row-md",
@@ -1003,7 +1003,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
-        instance.slug = get_unique_value(Production, slugify(instance.title_de))
+
+        if not instance.slug:
+            instance.slug = get_unique_value(Production, slugify(instance.title_de), instance_pk=instance.pk)
 
         instance.save()
 
