@@ -181,7 +181,10 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         verbose_name_plural = _("Productions")
 
     def get_url_path(self):
-        return self.event_set.all()[0].get_url_path()
+        events = self.event_set.all()
+        if events:
+            return self.event_set.all()[0].get_url_path()
+        return u""
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")

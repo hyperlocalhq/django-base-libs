@@ -10,6 +10,9 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
 from django.db import models
+from django.utils.text import slugify
+
+from base_libs.utils.misc import get_unique_value
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -999,6 +1002,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
+        instance.slug = get_unique_value(Production, slugify(instance.title_de))
 
         instance.save()
 
@@ -1268,7 +1272,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
 def set_extra_context(current_step, form_steps, form_step_data, instance=None):
     if "_pk" in form_step_data:
-        return {'location': Production.objects.get(pk=form_step_data['_pk'])}
+        return {'production': Production.objects.get(pk=form_step_data['_pk'])}
     return {}
 
 
