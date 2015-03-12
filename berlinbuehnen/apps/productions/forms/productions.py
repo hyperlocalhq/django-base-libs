@@ -982,6 +982,7 @@ def load_data(instance=None):
 
     return form_step_data
 
+
 def submit_step(current_step, form_steps, form_step_data, instance=None):
     if current_step == "basic":
         # save the entry
@@ -1114,6 +1115,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 for lang_code, lang_name in FRONTEND_LANGUAGES:
                     setattr(person, 'leadership_function_%s' % lang_code, leadership_dict['function_%s' % lang_code])
                 person.save()
+
+                leadership_dict['person'] = person.pk
+                del leadership_dict['first_name']
+                del leadership_dict['last_name']
             if leadership_dict['id']:
                 try:
                     leadership = ProductionLeadership.objects.get(
@@ -1147,9 +1152,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 person.first_name = authorship_dict['first_name']
                 person.last_name = authorship_dict['last_name']
                 person.authorship_type = authorship_type
-                for lang_code, lang_name in FRONTEND_LANGUAGES:
-                    setattr(person, 'leadership_function_%s' % lang_code, authorship_dict['function_%s' % lang_code])
                 person.save()
+
+                authorship_dict['person'] = person.pk
+                del authorship_dict['first_name']
+                del authorship_dict['last_name']
             if authorship_dict['id']:
                 try:
                     authorship = ProductionAuthorship.objects.get(
@@ -1193,6 +1200,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                     setattr(person, 'involvement_role_%s' % lang_code, involvement_dict['involvement_role_%s' % lang_code])
                     setattr(person, 'involvement_instrument_%s' % lang_code, involvement_dict['involvement_instrument_%s' % lang_code])
                 person.save()
+
+                involvement_dict['person'] = person.pk
+                del involvement_dict['first_name']
+                del involvement_dict['last_name']
             if involvement_dict['id']:
                 try:
                     involvement = ProductionInvolvement.objects.get(

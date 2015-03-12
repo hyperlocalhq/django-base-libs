@@ -369,7 +369,7 @@ class ProductionPDF(CreationModificationDateMixin):
 
 class ProductionLeadership(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
-    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="production", default=0)
 
@@ -384,7 +384,7 @@ class ProductionLeadership(CreationModificationDateMixin):
 
 class ProductionAuthorship(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
-    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
     sort_order = PositionField(_("Sort order"), collection="production", default=0)
 
@@ -399,7 +399,7 @@ class ProductionAuthorship(CreationModificationDateMixin):
 
 class ProductionInvolvement(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
-    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'), blank=True, null=True)
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
@@ -741,7 +741,7 @@ class EventPDF(CreationModificationDateMixin):
 
 class EventLeadership(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
-    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="event", default=0)
 
@@ -756,7 +756,7 @@ class EventLeadership(CreationModificationDateMixin):
 
 class EventAuthorship(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
-    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
     sort_order = PositionField(_("Sort order"), collection="event", default=0)
 
@@ -771,7 +771,7 @@ class EventAuthorship(CreationModificationDateMixin):
 
 class EventInvolvement(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
-    person = models.ForeignKey('people.Person', verbose_name=_("Person"))
+    person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     involvement_type = models.ForeignKey('people.InvolvementType', verbose_name=_('Type'), blank=True, null=True)
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)

@@ -19,6 +19,7 @@ from berlinbuehnen.utils.forms import SecondarySubmit
 from berlinbuehnen.utils.forms import InlineFormSet
 
 from berlinbuehnen.apps.productions.models import Event, EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
+from berlinbuehnen.apps.people.models import Person
 from berlinbuehnen.apps.sponsors.models import Sponsor
 
 import autocomplete_light
@@ -683,6 +684,24 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
             *layout_blocks
         )
 
+    def save(self, commit=True):
+        cleaned = self.cleaned_data
+        if not cleaned['person']:
+            person = Person()
+            person.first_name = cleaned['first_name']
+            person.last_name = cleaned['last_name']
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(person, 'leadership_function_%s' % lang_code, cleaned['function_%s' % lang_code])
+            person.save()
+            self.cleaned_data['person'] = person
+            del self.cleaned_data['first_name']
+            del self.cleaned_data['last_name']
+        instance = super(EventLeadershipForm, self).save(commit=False)
+        instance.person = self.cleaned_data['person']
+        if commit:
+            instance.save()
+        return instance
+
 EventLeadershipFormset = inlineformset_factory(Event, EventLeadership, form=EventLeadershipForm, formset=InlineFormSet, extra=0)
 
 
@@ -751,6 +770,23 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def save(self, commit=True):
+        cleaned = self.cleaned_data
+        if not cleaned['person']:
+            person = Person()
+            person.first_name = cleaned['first_name']
+            person.last_name = cleaned['last_name']
+            person.authorship_type = cleaned['authorship_type']
+            person.save()
+            self.cleaned_data['person'] = person
+            del self.cleaned_data['first_name']
+            del self.cleaned_data['last_name']
+        instance = super(EventAuthorshipForm, self).save(commit=False)
+        instance.person = self.cleaned_data['person']
+        if commit:
+            instance.save()
+        return instance
 
 EventAuthorshipFormset = inlineformset_factory(Event, EventAuthorship, form=EventAuthorshipForm, formset=InlineFormSet, extra=0)
 
@@ -846,6 +882,27 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def save(self, commit=True):
+        cleaned = self.cleaned_data
+        if not cleaned['person']:
+            person = Person()
+            person.first_name = cleaned['first_name']
+            person.last_name = cleaned['last_name']
+            person.involvement_type = cleaned['involvement_type']
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(person, 'involvement_role_%s' % lang_code, cleaned['involvement_role_%s' % lang_code])
+                setattr(person, 'involvement_instrument_%s' % lang_code, cleaned['involvement_instrument_%s' % lang_code])
+            person.save()
+            self.cleaned_data['person'] = person
+            del self.cleaned_data['first_name']
+            del self.cleaned_data['last_name']
+        instance = super(EventInvolvementForm, self).save(commit=False)
+        instance.person = self.cleaned_data['person']
+        if commit:
+            instance.save()
+        return instance
+
 
 EventInvolvementFormset = inlineformset_factory(Event, EventInvolvement, form=EventInvolvementForm, formset=InlineFormSet, extra=0)
 
