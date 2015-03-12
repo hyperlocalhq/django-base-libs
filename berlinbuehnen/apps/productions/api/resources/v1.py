@@ -505,6 +505,8 @@ class ProductionResource(ModelResource):
     pdfs = fields.ToManyField(ProductionPDFResource, "productionpdf_set", full=True)
     social_media = fields.ToManyField(ProductionSocialMediaChannelResource, "productionsocialmediachannel_set", full=True)
 
+    language_and_subtitles = fields.ToOneField(LanguageAndSubtitlesResource, "language_and_subtitles", null=True, blank=True, full=True)
+
     sponsors = fields.ToManyField(SponsorResource, "sponsors", full=True)
 
     events = fields.ToManyField(EventResource, "event_set", full=True)
@@ -513,7 +515,7 @@ class ProductionResource(ModelResource):
         queryset = Production.objects.all()
         resource_name = 'production'
         fields = [
-            'id', 'creation_date', 'modified_date', 'language_and_subtitles',
+            'id', 'creation_date', 'modified_date',
             'prefix_de', 'prefix_en',
             'title_de', 'title_en',
             'subtitle_de', 'subtitle_en',
