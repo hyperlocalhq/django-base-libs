@@ -260,6 +260,80 @@
                 }
             });
             reinit_widgets();
+
+
+            $(document).on('click', '[name^="involvements"][name$="selection"]', function() {
+                var $this = $(this);
+                var m = $this.attr('id').match(/-(\d+)-/);
+                if (!m) {
+                    return;
+                }
+                var index = m[1];
+                if ('type' === $this.val()) {
+                    $('#id_involvements-' + index + '-involvement_type').closest('.row').removeClass('hidden');
+
+                    $('#id_involvements-' + index + '-involvement_role_de').closest('.row').addClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_role_de').val('');
+                    $('#id_involvements-' + index + '-involvement_role_en').val('');
+
+                    $('#id_involvements-' + index + '-involvement_instrument_de').closest('.row').addClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_instrument_de').val('');
+                    $('#id_involvements-' + index + '-involvement_instrument_en').val('');
+
+                } else if ('role' === $this.val()) {
+                    $('#id_involvements-' + index + '-involvement_type').closest('.row').addClass('hidden');
+                    $.selectbox._changeSelectbox($('#id_involvements-' + index + '-involvement_type').get(0), '', '');
+
+                    $('#id_involvements-' + index + '-involvement_role_de').closest('.row').removeClass('hidden');
+
+                    $('#id_involvements-' + index + '-involvement_instrument_de').closest('.row').addClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_instrument_de').val('');
+                    $('#id_involvements-' + index + '-involvement_instrument_en').val('');
+                } else if ('instrument' === $this.val()) {
+                    $('#id_involvements-' + index + '-involvement_type').closest('.row').addClass('hidden');
+                    $.selectbox._changeSelectbox($('#id_involvements-' + index + '-involvement_type').get(0), '', '');
+
+                    $('#id_involvements-' + index + '-involvement_role_de').closest('.row').addClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_role_de').val('');
+                    $('#id_involvements-' + index + '-involvement_role_en').val('');
+
+                    $('#id_involvements-' + index + '-involvement_instrument_de').closest('.row').removeClass('hidden');
+                }
+            });
+            $('[name^="involvements"][name$="involvement_type"]').each(function() {
+                var $this = $(this);
+                if ($this.val()) {
+                    var m = $this.attr('id').match(/-(\d+)-/);
+                    if (!m) {
+                        return;
+                    }
+                    var index = m[1];
+                    $('#id_involvements-' + index + '-selection_1').click();
+                }
+            });
+            $('[name^="involvements"][name$="involvement_role_de"]').each(function() {
+                var $this = $(this);
+                if ($this.val()) {
+                    var m = $this.attr('id').match(/-(\d+)-/);
+                    if (!m) {
+                        return;
+                    }
+                    var index = m[1];
+                    $('#id_involvements-' + index + '-selection_2').click();
+                }
+            });
+            $('[name^="involvements"][name$="involvement_instrument_de"]').each(function() {
+                var $this = $(this);
+                if ($this.val()) {
+                    var m = $this.attr('id').match(/-(\d+)-/);
+                    if (!m) {
+                        return;
+                    }
+                    var index = m[1];
+                    $('#id_involvements-' + index + '-selection_3').click();
+                }
+            });
+
         });
     </script>
 {% endblock %}

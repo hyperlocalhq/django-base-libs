@@ -631,6 +631,16 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         required=False,
         max_length=255,
     )
+    selection = forms.ChoiceField(
+        label=_("Select one option"),
+        required=True,
+        choices=(
+            ('type', _("Choose type")),
+            ('role', _("Enter role")),
+            ('instrument', _("Enter instrument")),
+        ),
+        widget=forms.RadioSelect(),
+    )
 
     class Meta:
         model = ProductionInvolvement
@@ -656,12 +666,17 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         layout_blocks = []
 
         layout_blocks.append(
+            layout.Div(
+                "sort_order",
+                "id",
+                "DELETE",
+                css_class="hidden",
+            )
+        )
+        layout_blocks.append(
             layout.Row(
                 layout.Div(
                     "person",
-                    "sort_order",
-                    "id",
-                    "DELETE",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
                 css_class="row-sm choosing_person"
@@ -683,7 +698,7 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         layout_blocks.append(
             layout.Row(
                 layout.Div(
-                    "involvement_type",
+                    "selection",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
                 css_class="row-sm"
@@ -691,7 +706,16 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         )
         layout_blocks.append(
             layout.Row(
-                css_class="row-sm",
+                layout.Div(
+                    "involvement_type",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+                css_class="row-sm hidden"
+            )
+        )
+        layout_blocks.append(
+            layout.Row(
+                css_class="row-sm hidden",
                 *[layout.Div(
                     layout.Field('involvement_role_%s' % lang_code),
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
@@ -700,7 +724,7 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         )
         layout_blocks.append(
             layout.Row(
-                css_class="row-sm",
+                css_class="row-sm hidden",
                 *[layout.Div(
                     layout.Field('involvement_instrument_%s' % lang_code),
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
