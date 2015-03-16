@@ -369,6 +369,7 @@ def change_event_description(request, slug, event_id):
                 from_production.append(fname)
             else:
                 initial[fname] = getattr(event, fname, None)
+        initial['characteristics'] = event.characteristics.all()
         form.initial = initial
 
         if EventLeadership.objects.filter(event=event).count():

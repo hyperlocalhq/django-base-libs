@@ -43,7 +43,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
     class Meta:
         model = Production
-        autocomplete_fields = ('in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with')
+        autocomplete_fields = ('in_program_of', 'play_locations', 'play_stages')
         fields = [
             'website',
             'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
@@ -869,7 +869,7 @@ def load_data(instance=None):
             '_pk': instance.pk,
         }
         fields = [
-            'website',
+            'website', 'ensembles', 'organizers', 'in_cooperation_with'
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -882,11 +882,8 @@ def load_data(instance=None):
             form_step_data['basic'][fname] = getattr(instance, fname)
 
         form_step_data['basic']['in_program_of'] = instance.in_program_of.all()
-        form_step_data['basic']['ensembles'] = instance.ensembles.all()
         form_step_data['basic']['play_locations'] = instance.play_locations.all()
         form_step_data['basic']['play_stages'] = instance.play_stages.all()
-        form_step_data['basic']['organizers'] = instance.organizers.all()
-        form_step_data['basic']['in_cooperation_with'] = instance.in_cooperation_with.all()
         form_step_data['basic']['categories'] = instance.categories.all()
 
         fields = [
@@ -965,7 +962,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance = Production()
 
         fields = [
-            'website',
+            'website', 'ensembles', 'organizers', 'in_cooperation_with',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -986,10 +983,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for cat in form_step_data['basic']['in_program_of']:
             instance.in_program_of.add(cat)
 
-        instance.ensembles.clear()
-        for cat in form_step_data['basic']['ensembles']:
-            instance.ensembles.add(cat)
-
         instance.play_locations.clear()
         for cat in form_step_data['basic']['play_locations']:
             instance.play_locations.add(cat)
@@ -997,14 +990,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.play_stages.clear()
         for cat in form_step_data['basic']['play_stages']:
             instance.play_stages.add(cat)
-
-        instance.organizers.clear()
-        for cat in form_step_data['basic']['organizers']:
-            instance.organizers.add(cat)
-
-        instance.in_cooperation_with.clear()
-        for cat in form_step_data['basic']['in_cooperation_with']:
-            instance.in_cooperation_with.add(cat)
 
         instance.categories.clear()
         for cat in form_step_data['basic']['categories']:

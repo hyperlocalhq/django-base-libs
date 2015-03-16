@@ -142,7 +142,7 @@ class ProductionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Status"), {'fields': ['status',]}),]
 
-    filter_horizontal = ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with', 'categories', 'festivals', 'related_productions', 'characteristics', 'sponsors']
+    filter_horizontal = ['in_program_of', 'play_locations', 'play_stages', 'categories', 'festivals', 'related_productions', 'characteristics', 'sponsors']
     inlines = [
         ProductionSocialMediaChannelInline,
         ProductionVideoInline, ProductionLiveStreamInline, ProductionImageInline, ProductionPDFInline,

@@ -563,7 +563,7 @@ class ImportFromHeimatBase(object):
                     prod.in_program_of.clear()
                     prod.in_program_of.add(location)
                 else:
-                    prod.organizer_title = institution_node.text
+                    prod.organizers = institution_node.text
                     prod.save()
 
             if not self.skip_images and not prod.productionimage_set.count():

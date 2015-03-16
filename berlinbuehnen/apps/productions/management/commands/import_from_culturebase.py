@@ -555,15 +555,10 @@ class Command(NoArgsCommand):
 
             organizers_list = []
             for organisation_node in prod_node.findall('./%(prefix)sOrganisation' % self.helper_dict):
-                location = self.get_location_by_title(self.get_child_text(organisation_node, 'Name'))
-                if location:
-                    prod.organizers.clear()
-                    prod.organizers.add(location)
-                else:
-                    organizers_list.append(self.get_child_text(organisation_node, 'Name'))
+                organizers_list.append(self.get_child_text(organisation_node, 'Name'))
 
             if organizers_list:
-                prod.organizer_title = u', '.join(organizers_list)
+                prod.organizers = u', '.join(organizers_list)
                 prod.save()
 
             if not self.skip_images and not prod.productionimage_set.count():
