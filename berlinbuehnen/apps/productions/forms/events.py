@@ -309,9 +309,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'concert_programm_%s' % lang_code,
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
-                'duration_text_%s' % lang_code,
-                'subtitles_text_%s' % lang_code,
-                'age_text_%s' % lang_code,
                 'price_information_%s' % lang_code,
                 'other_characteristics_%s' % lang_code,
             ]
@@ -330,9 +327,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'concert_programm_%s' % lang_code,
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
-                'duration_text_%s' % lang_code,
-                'subtitles_text_%s' % lang_code,
-                'age_text_%s' % lang_code,
                 'price_information_%s' % lang_code,
                 'other_characteristics_%s' % lang_code,
             ]:
@@ -471,27 +465,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
             css_class="row-md",
             *[layout.Div(
                 layout.Field('remarks_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('duration_text_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('subtitles_text_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('age_text_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))

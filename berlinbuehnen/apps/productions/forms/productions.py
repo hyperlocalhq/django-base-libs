@@ -37,7 +37,7 @@ import autocomplete_light
 class BasicInfoForm(autocomplete_light.ModelForm):
     categories = ModelMultipleChoiceTreeField(
         label=_("Categories"),
-        required=False,
+        required=True,
         queryset=ProductionCategory.objects.all(),
     )
 
@@ -68,6 +68,8 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 'original_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
+        self.fields['play_locations'].required = True
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -133,7 +135,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Categories"),
+            _('Categories<span class="asteriskField">*</span>'),
             layout.Row(
                 layout.Div(
                     layout.Div(layout.Field("categories", template="utils/checkboxselectmultipletree.html")),
@@ -180,9 +182,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'concert_programm_%s' % lang_code,
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
-                'duration_text_%s' % lang_code,
-                'subtitles_text_%s' % lang_code,
-                'age_text_%s' % lang_code,
                 'price_information_%s' % lang_code,
             ]
 
@@ -200,9 +199,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'concert_programm_%s' % lang_code,
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
-                'duration_text_%s' % lang_code,
-                'subtitles_text_%s' % lang_code,
-                'age_text_%s' % lang_code,
                 'price_information_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
@@ -219,6 +215,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Leaders"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
+            <p class="help-block">{% trans "The leaders will be shown in the repertoire of the production." %}</p>
             {{ formsets.leaderships.management_form }}
             <div id="leaderships">
                 {% for form in formsets.leaderships.forms %}
@@ -340,27 +337,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
             css_class="row-md",
             *[layout.Div(
                 layout.Field('remarks_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('duration_text_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('subtitles_text_%s' % lang_code),
-                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-        fieldset_content.append(layout.Row(
-            css_class="row-md",
-            *[layout.Div(
-                layout.Field('age_text_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
@@ -929,9 +905,6 @@ def load_data(instance=None):
                 'concert_programm_%s' % lang_code,
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
-                'duration_text_%s' % lang_code,
-                'subtitles_text_%s' % lang_code,
-                'age_text_%s' % lang_code,
                 'price_information_%s' % lang_code,
             ]
         for fname in fields:
@@ -1060,9 +1033,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'concert_programm_%s' % lang_code,
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
-                'duration_text_%s' % lang_code,
-                'subtitles_text_%s' % lang_code,
-                'age_text_%s' % lang_code,
                 'price_information_%s' % lang_code,
             ]
         for fname in fields:
