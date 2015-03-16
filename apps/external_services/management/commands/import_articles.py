@@ -17,6 +17,7 @@ class Command(NoArgsCommand):
         from urllib2 import URLError
         
         from django.db import models
+        from django.core.exceptions import MultipleObjectsReturned
         from django.template.defaultfilters import slugify
 
         from base_libs.utils.misc import get_related_queryset
@@ -79,6 +80,9 @@ class Command(NoArgsCommand):
                 except models.ObjectDoesNotExist:
                     # or create a new article and then create a mapper
                     article = Article()
+                except MultipleObjectsReturned:
+                    print u"Database integrity error with article which external_id is %s." % external_id
+                    continue
                 else:
                     article = mapper.content_object
                     if not article:
