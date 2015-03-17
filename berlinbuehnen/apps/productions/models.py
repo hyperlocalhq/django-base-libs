@@ -95,10 +95,20 @@ class ProductionCharacteristics(CreationModificationDateMixin, SlugMixin()):
 
 
 class ProductionManager(models.Manager):
-    def owned_by(self, user):
+    def accessible_to(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("productions.change_production"):
             return self.get_query_set().exclude(status="trashed")
+        ids = PerObjectGroup.objects.filter(
+            content_type__app_label="productions",
+            content_type__model="production",
+            sysname__startswith="owners",
+            users=user,
+        ).values_list("object_id", flat=True)
+        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+
+    def owned_by(self, user):
+        from jetson.apps.permissions.models import PerObjectGroup
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="productions",
             content_type__model="production",

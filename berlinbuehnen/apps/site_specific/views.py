@@ -99,8 +99,8 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 @never_cache
 @login_required
 def dashboard(request):
-    owned_locations = Location.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")[:3]
-    owned_productions = Production.objects.owned_by(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+    owned_locations = Location.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
+    owned_productions = Production.objects.accessible_to(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
     context = {
         'owned_locations': owned_locations,
         'owned_productions': owned_productions,
@@ -110,7 +110,7 @@ def dashboard(request):
 @never_cache
 @login_required
 def dashboard_locations(request):
-    owned_location_qs = Location.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    owned_location_qs = Location.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")
     paginator = Paginator(owned_location_qs, 50)
     page_number = request.GET.get('page', 1)
     try:
@@ -130,7 +130,7 @@ def dashboard_locations(request):
 @never_cache
 @login_required
 def dashboard_productions(request):
-    owned_production_qs = Production.objects.owned_by(request.user).order_by("-modified_date", "-creation_date")
+    owned_production_qs = Production.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")
     paginator = Paginator(owned_production_qs, 50)
     page_number = request.GET.get('page', 1)
     try:

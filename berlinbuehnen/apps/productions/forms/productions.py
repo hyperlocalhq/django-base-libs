@@ -17,11 +17,14 @@ from base_libs.utils.misc import get_unique_value
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from base_libs.middleware.threadlocals import get_current_user
+
 from jetson.apps.image_mods.models import FileManager
 
 from berlinbuehnen.apps.sponsors.models import Sponsor
 from berlinbuehnen.apps.productions.models import Production, Event, ProductionCategory, ProductionLeadership, ProductionAuthorship, ProductionInvolvement, LanguageAndSubtitles, ProductionSocialMediaChannel
 from berlinbuehnen.apps.people.models import Person, InvolvementType, AuthorshipType
+from berlinbuehnen.apps.locations.models import Location
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LANGUAGES).keys())
@@ -1026,6 +1029,13 @@ def load_data(instance=None):
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 sponsor_dict['title_%s' % lang_code] = getattr(sponsor, 'title_%s' % lang_code)
             form_step_data['description']['sets']['sponsors'].append(sponsor_dict)
+    else:
+        form_step_data = {
+            'basic': {'_filled': True, 'sets': {}},
+        }
+        own_locations = Location.objects.owned_by(get_current_user())
+        if own_locations:
+            form_step_data['basic']['in_program_of'] = own_locations
 
     return form_step_data
 

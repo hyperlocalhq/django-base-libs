@@ -26,7 +26,9 @@
 {% endblock %}
 
 {% block edit_item %}
-    <li><a class="preview icon icon-white icon-view" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Preview" %}" href="{% url "production_detail" slug=production.slug %}?preview">&nbsp;<span>{% trans "Preview" %}</span></a></li>
+    {% if production.slug %}
+        <li><a class="preview icon icon-white icon-view" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Preview" %}" href="{% url "production_detail" slug=production.slug %}?preview">&nbsp;<span>{% trans "Preview" %}</span></a></li>
+    {% endif %}
 {% endblock %}
 
 {% block form_steps %}
@@ -61,8 +63,10 @@
                     });
                 </script>
             {% endif %}
-            
-            <a class="btn btn-primary" id="preview_page" href="{% url "production_detail" slug=production.slug %}?preview" ><span>{% trans "Preview" %}</span></a>
+
+            {% if production.slug %}
+                <a class="btn btn-primary" id="preview_page" href="{% url "production_detail" slug=production.slug %}?preview" ><span>{% trans "Preview" %}</span></a>
+            {% endif %}
         </div>
 
         {% include "utils/step_list.html" %}
