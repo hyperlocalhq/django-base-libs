@@ -342,7 +342,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         layout_blocks = []
 
         layout_blocks.append(layout.Fieldset(
-            _("Leaders"),
+            _("Staff"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.leaderships.management_form }}
             <div id="leaderships">
@@ -384,7 +384,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Other involved people"),
+            _("Ensemble"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.involvements.management_form }}
             <div id="involvements">

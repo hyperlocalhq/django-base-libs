@@ -69,7 +69,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
-        self.fields['play_locations'].required = True
+        self.fields['in_program_of'].required = True
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -213,7 +213,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         layout_blocks = []
 
         layout_blocks.append(layout.Fieldset(
-            _("Leaders"),
+            _("Staff"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             <p class="help-block">{% trans "The leaders will be shown in the repertoire of the production." %}</p>
             {{ formsets.leaderships.management_form }}
@@ -256,7 +256,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Other involved people"),
+            _("Ensemble"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.involvements.management_form }}
             <div id="involvements">

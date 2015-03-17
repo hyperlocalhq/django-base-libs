@@ -115,9 +115,9 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     original = MultilingualCharField(_("Original title"), max_length=255, blank=True)
     website = URLField(_("Production URL"), blank=True, max_length=255)
 
-    in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In program of"), blank=True, related_name="program_productions")
-    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Play locations"), blank=True, related_name="located_productions")
-    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Play stages"), blank=True)
+    in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In the programme of"), blank=True, related_name="program_productions")
+    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Performance location"), blank=True, related_name="located_productions")
+    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Performance space"), blank=True)
 
     ensembles = models.CharField(_("Ensembles"), blank=True, max_length=255)
     organizers = models.CharField(_("Organizers"), blank=True, max_length=255)
@@ -435,8 +435,8 @@ class Event(CreationModificationMixin, UrlMixin):
     duration = models.PositiveIntegerField(_("Duration in seconds"), null=True, blank=True)
     pauses = models.PositiveIntegerField(_("Pauses"), default=0)
 
-    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Play locations"), blank=True)
-    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Play stages"), blank=True)
+    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Performance location"), blank=True)
+    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Performance space"), blank=True)
 
     location_title = models.CharField(_("Location title"), max_length=255, blank=True)
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)
