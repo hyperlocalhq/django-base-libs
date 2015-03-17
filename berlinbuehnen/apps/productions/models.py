@@ -183,7 +183,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         events = self.event_set.all()
         if events:
             return self.event_set.all()[0].get_url_path()
-        return u""
+        return reverse('production_detail', kwargs={'slug': self.slug})
 
     def set_owner(self, user):
         ContentType = models.get_model("contenttypes", "ContentType")
@@ -505,12 +505,12 @@ class Event(CreationModificationMixin, UrlMixin):
     ### venues ###
 
     def ev_or_prod_play_locations(self):
-        if self.play_locations.exists():
+        if self.pk and self.play_locations.exists():
             return self.play_locations.all()
         return self.production.play_locations.all()
 
     def ev_or_prod_play_stages(self):
-        if self.play_stages.exists():
+        if self.pk and self.play_stages.exists():
             return self.play_stages.all()
         return self.production.play_stages.all()
 
@@ -574,41 +574,41 @@ class Event(CreationModificationMixin, UrlMixin):
     ### sponsors ###
 
     def ev_or_prod_sponsors(self):
-        if self.sponsors.exists():
+        if self.pk and self.sponsors.exists():
             return self.sponsors.all()
         return self.production.sponsors.all()
 
     ### media ###
 
     def ev_or_prod_videos(self):
-        if self.eventvideo_set.exists():
+        if self.pk and self.eventvideo_set.exists():
             return self.eventvideo_set.all()
         return self.production.productionvideo_set.all()
 
     def ev_or_prod_images(self):
-        if self.eventimage_set.exists():
+        if self.pk and self.eventimage_set.exists():
             return self.eventimage_set.all()
         return self.production.productionimage_set.all()
 
     def ev_or_prod_pdfs(self):
-        if self.eventpdf_set.exists():
+        if self.pk and self.eventpdf_set.exists():
             return self.eventpdf_set.all()
         return self.production.productionpdf_set.all()
 
     ### people ###
 
     def ev_or_prod_leaderships(self):
-        if self.eventleadership_set.exists():
+        if self.pk and self.eventleadership_set.exists():
             return self.eventleadership_set.all().order_by('sort_order')
         return self.production.productionleadership_set.all().order_by('sort_order')
 
     def ev_or_prod_authorships(self):
-        if self.eventauthorship_set.exists():
+        if self.pk and self.eventauthorship_set.exists():
             return self.eventauthorship_set.all().order_by('sort_order')
         return self.production.productionauthorship_set.all().order_by('sort_order')
 
     def ev_or_prod_involvements(self):
-        if self.eventinvolvement_set.exists():
+        if self.pk and self.eventinvolvement_set.exists():
             return self.eventinvolvement_set.all().order_by('sort_order')
         return self.production.productioninvolvement_set.all().order_by('sort_order')
 
