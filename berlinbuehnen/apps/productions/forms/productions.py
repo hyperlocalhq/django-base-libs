@@ -70,6 +70,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.fields['in_program_of'].required = True
+        self.fields['play_locations'].help_text = _('Choose only when differs from the "In the programm of".')
 
         self.helper = FormHelper()
         self.helper.form_action = ""
