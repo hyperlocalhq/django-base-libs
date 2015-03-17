@@ -139,7 +139,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     layout.Div(layout.Field("categories", template="utils/checkboxselectmultipletree.html")),
-                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tree"
                 ),
             ),
             css_class="fieldset-categories",
