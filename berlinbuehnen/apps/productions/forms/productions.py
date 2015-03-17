@@ -47,6 +47,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         fields = [
             'website',
             'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
+            'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
             'categories',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -71,6 +72,9 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         self.fields['in_program_of'].required = True
         self.fields['play_locations'].help_text = _('Choose only when differs from the "In the programm of".')
+
+        self.fields['latitude'].widget = forms.HiddenInput()
+        self.fields['longitude'].widget = forms.HiddenInput()
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -133,6 +137,42 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 ),
             ),
             css_class="fieldset-venue",
+        ))
+        layout_blocks.append(layout.Fieldset(
+            _("Performance location"),
+            layout.HTML("""{% load i18n %}
+            <p class="help-block">{% trans 'Enter the address when the location differs from the "In the programme of" and is not found under "Performance location".' %}</p>
+            """),
+            layout.Row(
+                layout.Div(
+                    "location_title",
+                    "street_address",
+                    "street_address2",
+                    "postal_code",
+                    "city",
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                layout.Div(
+                    layout.HTML("""{% load i18n %}
+                        <div class="dyn_set_map">
+                            <label>{% trans "Location" %}</label>
+                            <div class="map_canvas">
+                            </div>
+                            <div class="form-actions">
+                                <input type="button" class="locate_address btn btn-primary" value="{% trans "Relocate on map" %}" />&zwnj;
+                                <!--<input type="button" class="remove_geo btn btn-primary" value="{% trans "Remove from map" %}"/>&zwnj;-->
+                            </div>
+                            <div class="map_locations">
+                            </div>
+                        </div>
+                    """),
+                    "latitude",
+                    "longitude",
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+                ),
+                css_class="row-md",
+            ),
+            css_class="fieldset-where",
         ))
 
         layout_blocks.append(layout.Fieldset(
@@ -216,7 +256,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         layout_blocks.append(layout.Fieldset(
             _("Staff"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
-            <p class="help-block">{% trans "The leaders will be shown in the repertoire of the production." %}</p>
+            <p class="help-block">{% trans "The staff will be shown in the repertoire of the production." %}</p>
             {{ formsets.leaderships.management_form }}
             <div id="leaderships">
                 {% for form in formsets.leaderships.forms %}
@@ -894,7 +934,8 @@ def load_data(instance=None):
             '_pk': instance.pk,
         }
         fields = [
-            'website', 'ensembles', 'organizers', 'in_cooperation_with'
+            'website', 'ensembles', 'organizers', 'in_cooperation_with',
+            'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -988,6 +1029,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
         fields = [
             'website', 'ensembles', 'organizers', 'in_cooperation_with',
+            'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
