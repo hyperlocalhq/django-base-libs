@@ -180,6 +180,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         layout_blocks.append(layout.Fieldset(
             _('Categories<span class="asteriskField">*</span>'),
+            layout.HTML("""{% load i18n %}<p class="help-block">{% trans "Select one or more categories." %}</p>"""),
             layout.Row(
                 layout.Div(
                     layout.Div(layout.Field("categories", template="utils/checkboxselectmultipletree.html")),
