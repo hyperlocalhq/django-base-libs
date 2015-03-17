@@ -664,9 +664,6 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     "person",
-                    "sort_order",
-                    "id",
-                    "DELETE",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
                 css_class="row-sm choosing_person"
@@ -683,6 +680,17 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-sm entering_person hidden"
+            )
+        )
+        layout_blocks.append(
+            layout.Row(
+                layout.Div(
+                    "sort_order",
+                    "id",
+                    "DELETE",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+                css_class="row-sm hidden"
             )
         )
         layout_blocks.append(
@@ -773,12 +781,18 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     "authorship_type",
-                    "sort_order",
-                    "id",
-                    "DELETE",
+                    "work_title",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
                 css_class="row-sm"
+            )
+        )
+        layout_blocks.append(
+            layout.Div(
+                "sort_order",
+                "id",
+                "DELETE",
+                css_class="row-sm hidden"
             )
         )
 
@@ -855,9 +869,6 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     "person",
-                    "sort_order",
-                    "id",
-                    "DELETE",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
                 css_class="row-sm choosing_person"
@@ -874,6 +885,14 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-sm entering_person hidden"
+            )
+        )
+        layout_blocks.append(
+            layout.Div(
+                "sort_order",
+                "id",
+                "DELETE",
+                css_class="hidden",
             )
         )
         layout_blocks.append(

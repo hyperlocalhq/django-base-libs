@@ -408,12 +408,14 @@ def change_event_description(request, slug, event_id):
                 'id': obj.id,
                 'person': obj.person,
                 'authorship_type': obj.authorship_type,
+                'work_title': obj.work_title,
                 'sort_order': obj.sort_order,
             } for obj in EventAuthorship.objects.filter(event=event)]
         else:
             initial = [{
                 'person': obj.person,
                 'authorship_type': obj.authorship_type,
+                'work_title': obj.work_title,
                 'sort_order': obj.sort_order,
             } for obj in ProductionAuthorship.objects.filter(production=production)]
         authorship_formset = EventAuthorshipFormset(

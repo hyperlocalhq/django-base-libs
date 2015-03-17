@@ -385,6 +385,7 @@ class ProductionAuthorship(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
+    work_title = models.CharField(_("Work title"), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="production", default=0)
 
     class Meta:
@@ -757,6 +758,7 @@ class EventAuthorship(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
     person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
+    work_title = models.CharField(_("Work title"), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="event", default=0)
 
     class Meta:

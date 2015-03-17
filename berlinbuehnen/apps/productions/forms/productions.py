@@ -554,9 +554,6 @@ class ProductionLeadershipForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     "person",
-                    "sort_order",
-                    "id",
-                    "DELETE",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
                 css_class="row-sm choosing_person"
@@ -573,6 +570,14 @@ class ProductionLeadershipForm(autocomplete_light.ModelForm):
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-sm entering_person hidden"
+            )
+        )
+        layout_blocks.append(
+            layout.Div(
+                "sort_order",
+                "id",
+                "DELETE",
+                css_class="hidden"
             )
         )
         layout_blocks.append(
@@ -642,12 +647,18 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
             )
         )
         layout_blocks.append(
+            layout.Div(
+                "sort_order",
+                "id",
+                "DELETE",
+                css_class="hidden"
+            )
+        )
+        layout_blocks.append(
             layout.Row(
                 layout.Div(
                     "authorship_type",
-                    "sort_order",
-                    "id",
-                    "DELETE",
+                    "work_title",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
                 css_class="row-sm"
@@ -707,14 +718,6 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         layout_blocks = []
 
         layout_blocks.append(
-            layout.Div(
-                "sort_order",
-                "id",
-                "DELETE",
-                css_class="hidden",
-            )
-        )
-        layout_blocks.append(
             layout.Row(
                 layout.Div(
                     "person",
@@ -734,6 +737,14 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
                     css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-sm entering_person hidden"
+            )
+        )
+        layout_blocks.append(
+            layout.Div(
+                "sort_order",
+                "id",
+                "DELETE",
+                css_class="hidden",
             )
         )
         layout_blocks.append(
