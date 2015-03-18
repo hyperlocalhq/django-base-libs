@@ -197,6 +197,7 @@
                 $('#involvements').append($new_form);
                 $total_forms.val(parseInt($total_forms.val(), 10) + 1);
                 reinit_widgets();
+                $('select[name$="involvement_type"]', $new_form).selectbox();
                 return false;
             });
 

@@ -1062,7 +1062,7 @@ def load_data(instance=None):
             form_step_data['description']['sets']['sponsors'].append(sponsor_dict)
     else:
         form_step_data = {
-            'basic': {'_filled': True, 'sets': {}},
+            'basic': {'_filled': False, 'sets': {}},
         }
         own_locations = Location.objects.owned_by(get_current_user())
         if own_locations:
