@@ -11,6 +11,8 @@ from django.db import models
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from base_libs.middleware.threadlocals import get_current_user
+
 from berlinbuehnen.apps.locations.models import Location, Stage, Image, SocialMediaChannel
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
@@ -821,6 +823,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             social.channel_type = social_dict['channel_type']
             social.url = social_dict['url']
             social.save()
+
+        if not instance.get_owners():
+            instance.set_owner(get_current_user())
 
         form_step_data['_pk'] = instance.pk
 
