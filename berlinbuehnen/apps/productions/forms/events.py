@@ -707,6 +707,15 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
             *layout_blocks
         )
 
+    def clean(self):
+        cleaned = super(EventLeadershipForm, self).clean()
+        if not cleaned.get('last_name') and not cleaned.get('person'):
+            msg = _("Choose a person from the database or enter his name.")
+            self._errors["person"] = self.error_class([msg])
+            del cleaned['last_name']
+            del cleaned['person']
+        return cleaned
+
     def save(self, commit=True):
         cleaned = self.cleaned_data
         if not cleaned['person']:
@@ -799,6 +808,15 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def clean(self):
+        cleaned = super(EventAuthorshipForm, self).clean()
+        if not cleaned.get('last_name') and not cleaned.get('person'):
+            msg = _("Choose a person from the database or enter his name.")
+            self._errors["person"] = self.error_class([msg])
+            del cleaned['last_name']
+            del cleaned['person']
+        return cleaned
 
     def save(self, commit=True):
         cleaned = self.cleaned_data
@@ -935,6 +953,15 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def clean(self):
+        cleaned = super(EventInvolvementForm, self).clean()
+        if not cleaned.get('last_name') and not cleaned.get('person'):
+            msg = _("Choose a person from the database or enter his name.")
+            self._errors["person"] = self.error_class([msg])
+            del cleaned['last_name']
+            del cleaned['person']
+        return cleaned
 
     def save(self, commit=True):
         cleaned = self.cleaned_data

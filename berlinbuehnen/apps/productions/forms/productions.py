@@ -598,6 +598,16 @@ class ProductionLeadershipForm(autocomplete_light.ModelForm):
             *layout_blocks
         )
 
+    def clean(self):
+        cleaned = super(ProductionLeadershipForm, self).clean()
+        if not cleaned.get('last_name') and not cleaned.get('person'):
+            msg = _("Choose a person from the database or enter his name.")
+            self._errors["person"] = self.error_class([msg])
+            del cleaned['last_name']
+            del cleaned['person']
+        return cleaned
+
+
 ProductionLeadershipFormset = inlineformset_factory(Production, ProductionLeadership, form=ProductionLeadershipForm, formset=InlineFormSet, extra=0)
 
 
@@ -672,6 +682,16 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def clean(self):
+        cleaned = super(ProductionAuthorshipForm, self).clean()
+        if not cleaned.get('last_name') and not cleaned.get('person'):
+            msg = _("Choose a person from the database or enter his name.")
+            self._errors["person"] = self.error_class([msg])
+            del cleaned['last_name']
+            del cleaned['person']
+        return cleaned
+
 
 ProductionAuthorshipFormset = inlineformset_factory(Production, ProductionAuthorship, form=ProductionAuthorshipForm, formset=InlineFormSet, extra=0)
 
@@ -791,6 +811,16 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def clean(self):
+        cleaned = super(ProductionInvolvementForm, self).clean()
+        if not cleaned.get('last_name') and not cleaned.get('person'):
+            msg = _("Choose a person from the database or enter his name.")
+            self._errors["person"] = self.error_class([msg])
+            del cleaned['last_name']
+            del cleaned['person']
+        return cleaned
+
 
 ProductionInvolvementFormset = inlineformset_factory(Production, ProductionInvolvement, form=ProductionInvolvementForm, formset=InlineFormSet, extra=0)
 
