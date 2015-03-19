@@ -85,6 +85,9 @@ class LocationAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
 
+    list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'status')
+    list_filter = ('status', )
+
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description',])
     fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
@@ -110,5 +113,15 @@ class LocationAdmin(ExtendedModelAdmin):
     filter_horizontal = ['services', 'accessibility_options']
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+    def get_owners_list(self, obj):
+        owners_list = []
+        for o in obj.get_owners():
+            owners_list.append('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
+        if owners_list:
+            return '<br />'.join(owners_list)
+        return '<a href="/claiming-invitation/?location_id=%s">%s</a>' % (obj.pk, ugettext("Invite owners"))
+    get_owners_list.allow_tags = True
+    get_owners_list.short_description = _("Owners")
 
 admin.site.register(Location, LocationAdmin)

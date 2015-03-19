@@ -21,10 +21,10 @@ from jetson.apps.mailing.recipient import Recipient
 from jetson.apps.mailing.views import send_email_using_template
 
 from forms import EmailOrUsernameAuthentication
-# from forms import ClaimingInvitationForm
-# from forms import ClaimingRegisterForm
-# from forms import ClaimingLoginForm
-# from forms import ClaimingConfirmForm
+from forms import ClaimingInvitationForm
+from forms import ClaimingRegisterForm
+from forms import ClaimingLoginForm
+from forms import ClaimingConfirmForm
 from forms import RegistrationForm
 
 from ajaxuploader.views import AjaxFileUploader
@@ -170,132 +170,132 @@ def dashboard_multiparts(request):
     return render(request, "accounts/dashboard_multiparts.html", context)
 
 
-# @never_cache
-# @staff_member_required
-# def invite_to_claim_location(request):
-#     if request.method == "POST":
-#         form = ClaimingInvitationForm(request.POST)
-#         if form.is_valid():
-#             cleaned = form.cleaned_data
-#             invitation_code = cryptString(cleaned['email'] + "|" + str(cleaned['location'].pk))
-#             # setting default values
-#             sender_name, sender_email = settings.MANAGERS[0]
-#             send_email_using_template(
-#                 recipients_list=[Recipient(email=cleaned['email'])],
-#                 email_template_slug="claiming_invitation",
-#                 obj_placeholders={
-#                     'invitation_code': invitation_code,
-#                     'object_link': cleaned['location'].get_url(),
-#                     'object_title': cleaned['location'].title,
-#                 },
-#                 sender_name=sender_name,
-#                 sender_email=sender_email,
-#                 delete_after_sending=False,
-#             )
-#
-#             return redirect("invite_to_claim_location_done")
-#     else:
-#         location_id = request.REQUEST.get("location_id", None)
-#         try:
-#             location = Location.objects.get(pk=location_id)
-#         except:
-#             location = None
-#         form = ClaimingInvitationForm(initial={'location': location})
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, "site_specific/claiming_invitation.html", context)
-#
-#
-# @never_cache
-# def register_and_claim_location(request, invitation_code):
-#     try:
-#         email, location_id = decryptString(invitation_code).split("|")
-#     except:
-#         raise Http404, _("Wrong invitation code.")
-#     try:
-#         location = Location.objects.get(pk=location_id)
-#     except:
-#         raise Http404, _("Location doesn't exist.")
-#
-#     try:
-#         u = User.objects.get(email=email)
-#     except User.DoesNotExist:
-#         u = None
-#
-#     register_form = ClaimingRegisterForm(u, initial={'email': email}, prefix="register")
-#     login_form = ClaimingLoginForm(u, initial={'email_or_username': email}, prefix="login")
-#
-#     if request.method == "POST":
-#         from django.contrib.auth.models import Group
-#         group, _created = Group.objects.get_or_create(name=u"Location Owners")
-#
-#         if "register" in request.POST:
-#             register_form = ClaimingRegisterForm(u, request.POST, prefix="register")
-#             if register_form.is_valid():
-#                 cleaned = register_form.cleaned_data
-#
-#                 # get or create a user
-#                 if not u:
-#                     u = User(email=email)
-#                 u.email = cleaned['email']
-#                 u.username = cleaned['email'][:30]
-#                 u.is_active = True
-#                 u.set_password(cleaned['password'])
-#                 u.save()
-#                 u.groups.add(group)
-#                 # set location's and its exhibitions' owner
-#                 location.set_owner(u)
-#                 for e in location.get_exhibitions():
-#                     e.set_owner(u)
-#                 for e in location.get_events():
-#                     e.set_owner(u)
-#                 for w in location.get_workshops():
-#                     w.set_owner(u)
-#
-#                 # login the current user
-#                 user = authenticate(email=cleaned['email'], password=cleaned['password'])
-#                 auth_login(request, user)
-#                 return redirect("dashboard")
-#         if "login" in request.POST:
-#             login_form = ClaimingLoginForm(u, request.POST, prefix="login")
-#             if login_form.is_valid():
-#                 u = login_form.get_user()
-#                 u.groups.add(group)
-#                 # set location's and its exhibitions' owner
-#                 location.set_owner(u)
-#                 for e in location.get_exhibitions():
-#                     e.set_owner(u)
-#                 for e in location.get_events():
-#                     e.set_owner(u)
-#                 for w in location.get_workshops():
-#                     w.set_owner(u)
-#                 auth_login(request, u)
-#                 return redirect("dashboard")
-#         if "confirm" in request.POST:
-#             u = authenticate(email=email)
-#             u.groups.add(group)
-#             # set location's and its exhibitions' owner
-#             location.set_owner(u)
-#             for e in location.get_exhibitions():
-#                 e.set_owner(u)
-#             for e in location.get_events():
-#                 e.set_owner(u)
-#             for w in location.get_workshops():
-#                 w.set_owner(u)
-#             auth_login(request, u)
-#             return redirect("dashboard")
-#
-#     context = {
-#         'register_form': register_form,
-#         'login_form': login_form,
-#         'location': location,
-#         'user': u,
-#     }
-#     if u:
-#         confirm_form = ClaimingConfirmForm(u, prefix="confirm")
-#         context['confirm_form'] = confirm_form
-#     return render(request, "site_specific/claiming_confirmation.html", context)
+@never_cache
+@staff_member_required
+def invite_to_claim_location(request):
+    if request.method == "POST":
+        form = ClaimingInvitationForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            invitation_code = cryptString(cleaned['email'] + "|" + str(cleaned['location'].pk))
+            # setting default values
+            sender_name, sender_email = settings.MANAGERS[0]
+            send_email_using_template(
+                recipients_list=[Recipient(email=cleaned['email'])],
+                email_template_slug="claiming_invitation",
+                obj_placeholders={
+                    'invitation_code': invitation_code,
+                    'object_link': cleaned['location'].get_url(),
+                    'object_title': cleaned['location'].title,
+                },
+                sender_name=sender_name,
+                sender_email=sender_email,
+                delete_after_sending=False,
+            )
+
+            return redirect("invite_to_claim_location_done")
+    else:
+        location_id = request.REQUEST.get("location_id", None)
+        try:
+            location = Location.objects.get(pk=location_id)
+        except:
+            location = None
+        form = ClaimingInvitationForm(initial={'location': location})
+    context = {
+        'form': form,
+    }
+    return render(request, "site_specific/claiming_invitation.html", context)
+
+
+@never_cache
+def register_and_claim_location(request, invitation_code):
+    try:
+        email, location_id = decryptString(invitation_code).split("|")
+    except:
+        raise Http404, _("Wrong invitation code.")
+    try:
+        location = Location.objects.get(pk=location_id)
+    except:
+        raise Http404, _("Location doesn't exist.")
+
+    try:
+        u = User.objects.get(email=email)
+    except User.DoesNotExist:
+        u = None
+
+    register_form = ClaimingRegisterForm(u, initial={'email': email}, prefix="register")
+    login_form = ClaimingLoginForm(u, initial={'email_or_username': email}, prefix="login")
+
+    if request.method == "POST":
+        from django.contrib.auth.models import Group
+        group, _created = Group.objects.get_or_create(name=u"Location Owners")
+
+        if "register" in request.POST:
+            register_form = ClaimingRegisterForm(u, request.POST, prefix="register")
+            if register_form.is_valid():
+                cleaned = register_form.cleaned_data
+
+                # get or create a user
+                if not u:
+                    u = User(email=email)
+                u.email = cleaned['email']
+                u.username = cleaned['email'][:30]
+                u.is_active = True
+                u.set_password(cleaned['password'])
+                u.save()
+                u.groups.add(group)
+                # set location's and its exhibitions' owner
+                location.set_owner(u)
+                for p in location.program_productions.all():
+                    p.set_owner(u)
+                    try:
+                        p.multipart.set_owner(u)
+                    except models.ObjectDoesNotExist:
+                        pass
+
+                # login the current user
+                user = authenticate(email=cleaned['email'], password=cleaned['password'])
+                auth_login(request, user)
+                return redirect("dashboard")
+        if "login" in request.POST:
+            login_form = ClaimingLoginForm(u, request.POST, prefix="login")
+            if login_form.is_valid():
+                u = login_form.get_user()
+                u.groups.add(group)
+                # set location's and its exhibitions' owner
+                location.set_owner(u)
+                for p in location.program_productions.all():
+                    p.set_owner(u)
+                    try:
+                        p.multipart.set_owner(u)
+                    except models.ObjectDoesNotExist:
+                        pass
+                auth_login(request, u)
+                return redirect("dashboard")
+        if "confirm" in request.POST:
+            u = authenticate(email=email)
+            u.groups.add(group)
+            # set location's and its exhibitions' owner
+            location.set_owner(u)
+            for p in location.program_productions.all():
+                p.set_owner(u)
+                try:
+                    p.multipart.set_owner(u)
+                except models.ObjectDoesNotExist:
+                    pass
+            auth_login(request, u)
+            return redirect("dashboard")
+
+    context = {
+        'register_form': register_form,
+        'login_form': login_form,
+        'location': location,
+        'user': u,
+    }
+    if u:
+        confirm_form = ClaimingConfirmForm(u, prefix="confirm")
+        context['confirm_form'] = confirm_form
+    return render(request, "site_specific/claiming_confirmation.html", context)
 
 
 @never_cache
