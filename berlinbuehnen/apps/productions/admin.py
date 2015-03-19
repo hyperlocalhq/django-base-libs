@@ -132,7 +132,7 @@ class ProductionAdmin(ExtendedModelAdmin):
     search_fields = ['title']
     fieldsets = get_admin_lang_section(_("Title"), ['prefix', 'title', 'subtitle', 'original'])
     fieldsets += [(None, {'fields': ('slug', 'website', )}),]
-    fieldsets += [(_("Location"), {'fields': ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'organizer_title', 'in_cooperation_with']}),]
+    fieldsets += [(_("Location"), {'fields': ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += [(_("Relations"), {'fields': ['categories', 'festivals', 'language_and_subtitles', 'related_productions']}),]
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])

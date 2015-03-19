@@ -66,6 +66,7 @@ def event_list(request, year=None, month=None, day=None):
         if cat:
             facets['selected']['location'] = cat
             qs = qs.filter(
+                models.Q(production__in_program_of=cat) |
                 models.Q(play_locations=cat) |
                 models.Q(production__play_locations=cat)
             ).distinct()

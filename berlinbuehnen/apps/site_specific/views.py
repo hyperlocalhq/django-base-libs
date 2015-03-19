@@ -36,6 +36,7 @@ ContentType = models.get_model("contenttypes", "ContentType")
 User = models.get_model("auth", "User")
 Location = models.get_model("locations", "Location")
 Production = models.get_model("productions", "Production")
+Parent = models.get_model("multiparts", "Parent")
 
 # from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
 
@@ -101,9 +102,11 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 def dashboard(request):
     owned_locations = Location.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
     owned_productions = Production.objects.accessible_to(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+    owned_multiparts = Parent.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
     context = {
         'owned_locations': owned_locations,
         'owned_productions': owned_productions,
+        'owned_multiparts': owned_multiparts,
     }
     return render(request, "accounts/dashboard.html", context)
 
@@ -145,6 +148,26 @@ def dashboard_productions(request):
         'page': page,
     }
     return render(request, "accounts/dashboard_productions.html", context)
+
+
+@never_cache
+@login_required
+def dashboard_multiparts(request):
+    owned_multipart_qs = Parent.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")
+    paginator = Paginator(owned_multipart_qs, 50)
+    page_number = request.GET.get('page', 1)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+    }
+    return render(request, "accounts/dashboard_multiparts.html", context)
 
 
 # @never_cache
