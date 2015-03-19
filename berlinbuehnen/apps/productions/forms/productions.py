@@ -73,7 +73,6 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
-        self.fields['in_program_of'].required = True
         self.fields['play_locations'].help_text = _('Choose only when differs from the "In the programm of".')
 
         self.fields['latitude'].widget = forms.HiddenInput()
@@ -205,6 +204,15 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
+    def clean(self):
+        cleaned = super(BasicInfoForm, self).clean()
+        if not cleaned.get('in_program_of') and not cleaned.get('location_title'):
+            msg = _("Choose a location from the database or enter another location's title and address below.")
+            self._errors["in_program_of"] = self.error_class([msg])
+            del cleaned['in_program_of']
+            del cleaned['location_title']
+        return cleaned
 
 
 class DescriptionForm(autocomplete_light.ModelForm):
