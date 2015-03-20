@@ -1,0 +1,85 @@
+.details {
+    .back {
+        color: black;
+        font-weight: 200;
+        display: inline-block;
+        margin-bottom: 40px;
+        &:hover, &:focus {
+            color: $blue;
+        }
+    }
+    header {
+        margin-bottom: 24px;
+        ul.header-top {
+            width: 100%;
+            list-style: none;
+            padding-bottom: 6px;
+            margin-bottom: 29px;
+            border-bottom: 4px solid #000;
+            li {
+                display: inline-block;
+                text-transform: uppercase;
+                font-size: 1.125em;
+                font-weight: 700;
+                :after {
+                    content: "|";
+                    margin: 0 10px;
+                }
+            }
+        }
+        h1 {
+            font-weight: 200;
+            font-size: 2em;
+            text-transform: uppercase;
+            margin-bottom: 13px;
+        }
+        h2 {
+            font-weight: 400;
+            font-size: 1.125em;
+            margin-bottom: 13px;
+        }
+    }
+    .main {
+    }
+    .additional {
+    }
+    .left {
+        padding-left: 0;
+        padding-right: 20px;
+        .top-image {
+            width:100%;
+            margin-bottom: 24px;
+            img {
+                width: 100%;
+            }
+        }
+    }
+    .right {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .full {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    dl {
+        dt {
+            display: inline;
+            float: none;
+        }
+        dt:after {
+            content: ":";
+            padding-right: 2px;
+        }
+        dd {
+            display: inline;
+            float: none;
+        }
+        dd:after {
+            content:"\A"; 
+            white-space:pre;
+            display:block;
+            line-height: 10px;
+        }
+    }
+}

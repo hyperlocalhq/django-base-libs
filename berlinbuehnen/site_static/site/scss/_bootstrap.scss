@@ -1,0 +1,41 @@
+.btn-primary { 
+    background-color: $blue !important; 
+    color: white !important;
+    &:hover, &:focus, &:active {
+        background-color: $blue_hover !important; 
+    }
+}
+
+.btn, .btn-sm, .btn-group-sm > .btn {
+    font-size: 1em;
+}
+
+.pagination > .active > a, .pagination > .active > span {
+    background-color: $blue !important; 
+    &:hover, &:focus {
+        background-color: $blue_hover !important;
+    }
+}
+
+.tooltip {
+    font-size: 1em !important;
+}
+
+.caret.black {
+    border-top-color: black;
+}
+
+.dropdown-menu > li {
+    &.active {
+        > a, > a:hover {
+            background-color: $blue;
+        }
+    }
+    
+    > a {
+        font-size: 0.875em !important;
+        &:hover {
+            background-color: $blue_hover;
+        }
+    }
+}
