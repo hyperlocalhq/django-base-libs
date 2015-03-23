@@ -75,6 +75,9 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 
         self.fields['play_locations'].help_text = _('Choose only when differs from the "In the programm of".')
 
+        self.fields['in_program_of'].label += ' (' + ugettext('or') + ' <a href="" class="enter_location">' + ugettext('enter a new location below') + '</a>)'
+        self.fields['play_locations'].label += ' (' + ugettext('or') + ' <a href="" class="enter_location">' + ugettext('enter a new location below') + '</a>)'
+
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
 
@@ -174,7 +177,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 ),
                 css_class="row-md",
             ),
-            css_class="fieldset-where",
+            css_class="fieldset-where hidden",
         ))
 
         layout_blocks.append(layout.Fieldset(
@@ -256,6 +259,8 @@ class DescriptionForm(autocomplete_light.ModelForm):
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
+        self.fields['festivals'].label = _("Belongs to festival")
+
         self.fields['characteristics'].widget = forms.CheckboxSelectMultiple()
         self.fields['characteristics'].help_text = u""
 
@@ -309,7 +314,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Ensemble"),
+            _("Cast"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.involvements.management_form }}
             <div id="involvements">
@@ -470,7 +475,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Social media"),
+            _("Social media for this production"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.social.management_form }}
             <div id="social">

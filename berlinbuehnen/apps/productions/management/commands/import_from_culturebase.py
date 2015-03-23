@@ -753,7 +753,7 @@ class Command(NoArgsCommand):
 
                 organisation_node = event_node.find('./%(prefix)sOrganisation' % self.helper_dict)
                 if organisation_node:
-                    event.organizer_title = self.get_child_text(organisation_node, 'Name')
+                    event.organizers = self.get_child_text(organisation_node, 'Name')
 
                 event.save()
 

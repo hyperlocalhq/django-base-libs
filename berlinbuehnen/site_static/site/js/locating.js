@@ -157,6 +157,7 @@ var gettext = self.gettext || function (val) {return val;};
             }
 
             $(this).data('initialized', true);
+            $(this).data('gmap', gMap);
         });
     };
 

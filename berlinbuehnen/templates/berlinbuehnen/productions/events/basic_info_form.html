@@ -52,6 +52,15 @@
                 }
             });
             $('.autocomplete-light-widget select[name$=play_locations],.autocomplete-light-widget select[name$=in_program_of]').trigger('change')
+
+            $('.enter_location').on('click', function(e) {
+                e.preventDefault();
+                var oGmap = $('.fieldset-where').removeClass('hidden').find('.map_canvas').data('gmap');
+                google.maps.event.trigger(oGmap, 'resize');
+            });
+            if ($('#id_location_title').val()) {
+                $('.enter_location:first').trigger('click');
+            }
         });
         $('.dateinput').datepicker({
             format: 'yyyy-mm-dd',
