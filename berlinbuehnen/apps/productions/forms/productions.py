@@ -309,7 +309,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Ensemble"),
+            _("Cast"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.involvements.management_form }}
             <div id="involvements">
