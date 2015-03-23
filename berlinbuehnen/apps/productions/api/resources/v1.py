@@ -436,7 +436,7 @@ class EventResource(ModelResource):
             'location_title',
             'street_address', 'street_address2', 'postal_code', 'city', 'country',
             'latitude', 'longitude',
-            'organizer_title',
+            'organizers',
             'duration_text_de', 'duration_text_en',
             'subtitles_text_de', 'subtitles_text_en',
             'age_text_de', 'age_text_en',

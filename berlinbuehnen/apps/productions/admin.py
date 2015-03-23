@@ -227,7 +227,7 @@ class EventAdmin(ExtendedModelAdmin):
     list_display = ['title', 'start_date', 'start_time']
     search_fields = ['production__title']
     fieldsets = [(_("Main Data"), {'fields': ('production', 'start_date', 'start_time', 'end_date', 'end_time', 'duration', 'pauses')}),]
-    fieldsets += [(_("Location"), {'fields': ['play_locations', 'play_stages', 'organizer_title']}),]
+    fieldsets += [(_("Location"), {'fields': ['play_locations', 'play_stages', 'organizers']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])
     fieldsets += get_admin_lang_section(_("Imported"), ['concert_programm', 'supporting_programm', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
