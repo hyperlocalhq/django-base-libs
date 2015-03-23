@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-19 22:34+0100\n"
-"PO-Revision-Date: 2015-03-17 13:05+0053\n"
+"PO-Revision-Date: 2015-03-23 16:58+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
@@ -23,7 +23,7 @@ msgstr ""
 #: berlinbuehnen/apps/mailchimp/admin.py:135
 #: berlinbuehnen/apps/mailchimp/models.py:381
 msgid "Content"
-msgstr "Handlung"
+msgstr "Content"
 
 #: berlinbuehnen/settings.py:278
 msgid "Community"
@@ -43,7 +43,7 @@ msgstr "Kampagne"
 
 #: berlinbuehnen/settings.py:314
 msgid "Configure"
-msgstr "konfigurieren"
+msgstr "Konfiguration"
 
 #: berlinbuehnen/settings.py:320
 #: berlinbuehnen/apps/locations/forms/locations.py:909
@@ -62,6 +62,7 @@ msgid "Sites"
 msgstr "Seiten"
 
 #: berlinbuehnen/settings.py:376
+#, fuzzy
 msgid "Typehead"
 msgstr ""
 
@@ -90,10 +91,12 @@ msgid "Plan & Organize - First"
 msgstr "planen & organisieren - zuerst"
 
 #: berlinbuehnen/settings.py:411
+#, fuzzy
 msgid "Series Items Featured"
 msgstr ""
 
 #: berlinbuehnen/settings.py:416
+#, fuzzy
 msgid "Series Items"
 msgstr ""
 
@@ -556,7 +559,7 @@ msgstr "Pressekontakte"
 #: berlinbuehnen/apps/locations/forms/locations.py:469
 #: berlinbuehnen/templates/berlinbuehnen/locations/location_detail.html:184
 msgid "Services"
-msgstr "Servie / (Dienst)Leistungen"
+msgstr "Service / (Dienst)Leistungen"
 
 #: berlinbuehnen/apps/locations/admin.py:108
 #: berlinbuehnen/apps/locations/forms/locations.py:474
@@ -567,11 +570,11 @@ msgstr "Barrierefreiheit"
 
 #: berlinbuehnen/apps/locations/admin.py:123
 msgid "Invite owners"
-msgstr ""
+msgstr "Eigentümer einladen"
 
 #: berlinbuehnen/apps/locations/admin.py:125
 msgid "Owners"
-msgstr ""
+msgstr "Eigentümer"
 
 #: berlinbuehnen/apps/locations/autocomplete_light_registry.py:14
 msgid "Start typing to choose a location"
@@ -675,8 +678,8 @@ msgstr "Langengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 
 #: berlinbuehnen/apps/locations/models.py:102
@@ -695,7 +698,7 @@ msgstr "Landesvorwahl"
 #: berlinbuehnen/apps/locations/models.py:127
 #: berlinbuehnen/apps/locations/models.py:130
 msgid "Area Code"
-msgstr "Nummer"
+msgstr "Ortsvorwahl"
 
 #: berlinbuehnen/apps/locations/models.py:104
 #: berlinbuehnen/apps/locations/models.py:107
@@ -703,9 +706,8 @@ msgstr "Nummer"
 #: berlinbuehnen/apps/locations/models.py:123
 #: berlinbuehnen/apps/locations/models.py:128
 #: berlinbuehnen/apps/locations/models.py:131
-#, fuzzy
 msgid "Subscriber Number and Extension"
-msgstr "Teilnehmerzahl und Erweiterung"
+msgstr "Nummer inkl. Durchwahl"
 
 #: berlinbuehnen/apps/locations/models.py:108
 #: berlinbuehnen/apps/site_specific/forms.py:92
@@ -905,8 +907,7 @@ msgstr ""
 #: berlinbuehnen/apps/locations/forms/gallery.py:74
 #: berlinbuehnen/apps/productions/forms/gallery.py:374
 #, python-format
-msgid ""
-"Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
+msgid "Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
 msgstr ""
 
 #: berlinbuehnen/apps/locations/forms/gallery.py:151
@@ -1149,7 +1150,7 @@ msgstr "Abschiedsnachricht senden"
 
 #: berlinbuehnen/apps/mailchimp/models.py:40
 msgid "Flag to send the goodbye message to the email address."
-msgstr ""
+msgstr "Markieren, um eine Abschiedsnachricht an die Emailadresse zu senden."
 
 #: berlinbuehnen/apps/mailchimp/models.py:43
 #: berlinbuehnen/apps/mailchimp/models.py:44
@@ -1309,31 +1310,27 @@ msgid "Menu Blocks"
 msgstr "Menüblöcke"
 
 #: berlinbuehnen/apps/multiparts/admin.py:29
-#, fuzzy
 msgid "Contains"
-msgstr "Kontakte"
+msgstr "Beinhaltet"
 
 #: berlinbuehnen/apps/multiparts/cms_app.py:8
 #: berlinbuehnen/apps/multiparts/models.py:47
-#, fuzzy
 msgid "Multipart productions"
-msgstr "Verwandte Produktionen"
+msgstr "Mehrteiler"
 
 #: berlinbuehnen/apps/multiparts/forms.py:28
-#, fuzzy
 msgid "Parent production"
-msgstr "Neue Produktion"
+msgstr "Übergeordnete Produktion"
 
 #: berlinbuehnen/apps/multiparts/forms.py:37
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard_multiparts.html:42
-#, fuzzy
 msgid "Multipart Production"
-msgstr "Produktion"
+msgstr "Mehrteiler"
 
 #: berlinbuehnen/apps/multiparts/forms.py:41
 #: berlinbuehnen/apps/multiparts/models.py:120
 msgid "Parts"
-msgstr ""
+msgstr "Teile"
 
 #: berlinbuehnen/apps/multiparts/models.py:37
 #: berlinbuehnen/apps/productions/models.py:189
@@ -1353,18 +1350,16 @@ msgstr "Produktion"
 
 #: berlinbuehnen/apps/multiparts/models.py:46
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard.html:121
-#, fuzzy
 msgid "Multipart production"
-msgstr "Verwandte Produktionen"
+msgstr "Mehrteiler"
 
 #: berlinbuehnen/apps/multiparts/models.py:110
-#, fuzzy
 msgid "Parent"
-msgstr "Aktuell"
+msgstr "Übergeordnet"
 
 #: berlinbuehnen/apps/multiparts/models.py:119
 msgid "Part"
-msgstr ""
+msgstr "Teil"
 
 #: berlinbuehnen/apps/people/admin.py:62
 msgid "Defaults"
@@ -1563,7 +1558,6 @@ msgid "Production URL"
 msgstr "Produktion URL"
 
 #: berlinbuehnen/apps/productions/models.py:128
-#, fuzzy
 msgid "In the programme of"
 msgstr "im Spielplan von"
 
@@ -1571,14 +1565,13 @@ msgstr "im Spielplan von"
 #: berlinbuehnen/apps/productions/models.py:449
 #: berlinbuehnen/apps/productions/forms/events.py:260
 #: berlinbuehnen/apps/productions/forms/productions.py:145
-#, fuzzy
 msgid "Performance location"
 msgstr "Spielstätte"
 
 #: berlinbuehnen/apps/productions/models.py:130
 #: berlinbuehnen/apps/productions/models.py:450
 msgid "Performance space"
-msgstr ""
+msgstr "Spielstätte"
 
 #: berlinbuehnen/apps/productions/models.py:132
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:228
@@ -1793,9 +1786,8 @@ msgstr "Typ"
 
 #: berlinbuehnen/apps/productions/models.py:398
 #: berlinbuehnen/apps/productions/models.py:771
-#, fuzzy
 msgid "Work title"
-msgstr "Kurztitel"
+msgstr "Arbeitstitel"
 
 #: berlinbuehnen/apps/productions/models.py:403
 #: berlinbuehnen/apps/productions/models.py:776
@@ -1922,13 +1914,14 @@ msgstr "Datum und Uhrzeit"
 #: berlinbuehnen/apps/productions/forms/productions.py:130
 #: berlinbuehnen/templates/berlinbuehnen/events/event_detail.html:154
 #: berlinbuehnen/templates/berlinbuehnen/locations/location_detail.html:88
+#, fuzzy
 msgid "Venue"
 msgstr "Venue"
 
 #: berlinbuehnen/apps/productions/forms/events.py:385
 #: berlinbuehnen/apps/productions/forms/productions.py:261
 msgid "Staff"
-msgstr ""
+msgstr "Stab"
 
 #: berlinbuehnen/apps/productions/forms/events.py:407
 #: berlinbuehnen/apps/productions/forms/productions.py:283
@@ -1938,9 +1931,8 @@ msgstr "Autoren"
 
 #: berlinbuehnen/apps/productions/forms/events.py:428
 #: berlinbuehnen/apps/productions/forms/productions.py:304
-#, fuzzy
 msgid "Ensemble"
-msgstr "Ensembles"
+msgstr "Ensemble"
 
 #: berlinbuehnen/apps/productions/forms/events.py:552
 #: berlinbuehnen/apps/productions/forms/productions.py:437
@@ -1986,32 +1978,28 @@ msgstr "eine Person aus der Datenbank auswählen"
 #: berlinbuehnen/apps/productions/forms/productions.py:604
 #: berlinbuehnen/apps/productions/forms/productions.py:689
 #: berlinbuehnen/apps/productions/forms/productions.py:818
-#, fuzzy
 msgid "Choose a person from the database or enter his name."
-msgstr "eine Person aus der Datenbank auswählen"
+msgstr "Eine Person aus der Datenbank auswählen"
 
 #: berlinbuehnen/apps/productions/forms/events.py:853
 #: berlinbuehnen/apps/productions/forms/productions.py:711
 msgid "Select one option"
-msgstr ""
+msgstr "Auswählen"
 
 #: berlinbuehnen/apps/productions/forms/events.py:856
 #: berlinbuehnen/apps/productions/forms/productions.py:714
-#, fuzzy
 msgid "Choose type"
-msgstr "Autorentyp"
+msgstr "Typ auswählen"
 
 #: berlinbuehnen/apps/productions/forms/events.py:857
 #: berlinbuehnen/apps/productions/forms/productions.py:715
-#, fuzzy
 msgid "Enter role"
-msgstr "Mittige Spalte"
+msgstr "Rolle eintragen"
 
 #: berlinbuehnen/apps/productions/forms/events.py:858
 #: berlinbuehnen/apps/productions/forms/productions.py:716
-#, fuzzy
 msgid "Enter instrument"
-msgstr "Instrument"
+msgstr "Instrument eintragen"
 
 #: berlinbuehnen/apps/productions/forms/gallery.py:56
 #: berlinbuehnen/apps/productions/forms/gallery.py:207
@@ -2034,11 +2022,11 @@ msgstr "PDF Dokument löschen?"
 
 #: berlinbuehnen/apps/productions/forms/productions.py:77
 msgid "Choose only when differs from the \"In the programm of\"."
-msgstr ""
+msgstr "Nur ausfüllen, wenn anders als \"im Spielplan von\"."
 
 #: berlinbuehnen/apps/productions/forms/productions.py:182
 msgid "Categories<span class=\"asteriskField\">*</span>"
-msgstr ""
+msgstr "Kategorien"
 
 #: berlinbuehnen/apps/site_specific/forms.py:18
 #: berlinbuehnen/apps/site_specific/forms.py:27
@@ -2059,8 +2047,8 @@ msgstr "Login"
 #: berlinbuehnen/apps/site_specific/forms.py:58
 #: berlinbuehnen/apps/site_specific/forms.py:172
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 "Bitte geben Sie Email oder Username und Passwort korrekt ein.\n"
 "Beachten sie Groß- und Kleinschreibung."
@@ -2071,14 +2059,12 @@ msgid "This account is inactive."
 msgstr "Dieser Account ist inaktiv."
 
 #: berlinbuehnen/apps/site_specific/forms.py:70
-#, fuzzy
 msgid "Owner's email"
 msgstr "Absender Email"
 
 #: berlinbuehnen/apps/site_specific/forms.py:86
-#, fuzzy
 msgid "Send invitation"
-msgstr "Zielort"
+msgstr "Einladung senden"
 
 #: berlinbuehnen/apps/site_specific/forms.py:94
 #: berlinbuehnen/apps/site_specific/forms.py:138
@@ -2153,12 +2139,11 @@ msgstr "Beschreibung (wird als Alt-tag ausgegeben)"
 
 #: berlinbuehnen/apps/site_specific/views.py:215
 msgid "Wrong invitation code."
-msgstr ""
+msgstr "Falscher Einladungscode"
 
 #: berlinbuehnen/apps/site_specific/views.py:219
-#, fuzzy
 msgid "Location doesn't exist."
-msgstr "Name der Spielstätte"
+msgstr "Dieser Ort existiert nicht in der Datenbank"
 
 #: berlinbuehnen/apps/sponsors/admin.py:24
 msgid "(untitled)"
@@ -2262,9 +2247,8 @@ msgstr "Entfernen"
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard.html:133
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard.html:191
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard_multiparts.html:54
-#, fuzzy
 msgid "There are no items."
-msgstr "Es gibt keine Entwürfe."
+msgstr "Es gibt hierzu keine Einträge."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard.html:90
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard.html:140
@@ -2279,18 +2263,16 @@ msgstr "Mehr"
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard.html:96
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard_multiparts.html:12
-#, fuzzy
 msgid "Add multipart production"
-msgstr "Produktion hinzufügen"
+msgstr "Mehrteiler hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard.html:97
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard_multiparts.html:15
 #: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:18
 #: berlinbuehnen/templates/berlinbuehnen/utils/dashboard_navigation.html:71
 #: berlinbuehnen/templates/berlinbuehnen/utils/header.html:47
-#, fuzzy
 msgid "Multipart Productions"
-msgstr "Verwandte Produktionen"
+msgstr "Mehrteiler"
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard.html:146
 #: berlinbuehnen/templates/berlinbuehnen/accounts/dashboard_locations.html:13
@@ -2361,8 +2343,8 @@ msgstr "Passwortänderung"
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_change_form.html:9
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 "Bitte geben Sie ihr altes Passwort aus Sicherheitsgründen ein. Danach geben "
 "Sie Ihr neues Passwort doppelt ein, damit wir eine Überprüfung vornehmen "
@@ -2382,20 +2364,20 @@ msgstr "Passwort zurücksetzen"
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_complete.html:10
 #, python-format
 msgid ""
-"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
-"\">log in</a> now."
+"Your password has been set. You may go ahead and <a "
+"href=\"%(login_url)s\">log in</a> now."
 msgstr ""
-"Ihr Passwort wurde bestätigt. Sie können sich nun <a href=\"%(login_url)s"
-"\">einloggen</a>."
+"Ihr Passwort wurde bestätigt. Sie können sich nun <a "
+"href=\"%(login_url)s\">einloggen</a>."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_confirm.html:13
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
 msgstr ""
-"Der Link zum Zurücksetzten des Passworts war ungültig,  da er wahrscheinlich "
-"bereits verwendet wurde. Bitte fordern Sie das Zurücksetzen Ihres Passwortes "
-"erneut an."
+"Der Link zum Zurücksetzten des Passworts war ungültig,  da er wahrscheinlich"
+" bereits verwendet wurde. Bitte fordern Sie das Zurücksetzen Ihres "
+"Passwortes erneut an."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_done.html:4
 msgid "Password reset successful"
@@ -2412,8 +2394,8 @@ msgstr ""
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
 msgstr ""
 "Sie erhalten diese Email, da Sie das Zurücksetzen Ihres Passwortes für Ihr "
 "Nutzerkonto bei %(site_name)s beantragt haben."
@@ -2478,9 +2460,9 @@ msgstr "Sie haben es gleich geschafft."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/register_verify_required.html:10
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 "Um die Registrierung abzuschließen müssen wir die Gültigkeit der eingeben "
 "Emailadresse prüfen. Sie erhalten dazu in Kürze eine weitere E-Mail mit "
@@ -2491,8 +2473,8 @@ msgid ""
 "Please also check your Spam folder to make sure that our message has not "
 "been filtered out."
 msgstr ""
-"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort "
-"gelandet."
+"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort"
+" gelandet."
 
 #: berlinbuehnen/templates/berlinbuehnen/cms/start.html:18
 msgid "Login for Stages"
@@ -2751,19 +2733,16 @@ msgid "Crop cover image"
 msgstr "Hauptbild zuschneiden"
 
 #: berlinbuehnen/templates/berlinbuehnen/multiparts/forms/base.html:9
-#, fuzzy
 msgid "New Multipart Production"
-msgstr "Neue Produktion"
+msgstr "Neuer Mehrteiler"
 
 #: berlinbuehnen/templates/berlinbuehnen/multiparts/forms/base.html:38
-#, fuzzy
 msgid "Add new multipart"
-msgstr "Einen neuen Spielort hinzufügen"
+msgstr "Neuen Mehrteiler hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/multiparts/forms/multipart_form.html:53
-#, fuzzy
 msgid "Add Part"
-msgstr "Leiter hinzufügen"
+msgstr "Teilproduktion hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/add_events.html:20
 msgid "S|M|T|W|T|F|S"
@@ -2942,9 +2921,8 @@ msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:144
 #: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:137
-#, fuzzy
 msgid "Add staff"
-msgstr "Bühne hinzufügen"
+msgstr "Beteiligten hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/description_form.html:181
 #: berlinbuehnen/templates/berlinbuehnen/productions/forms/description_form.html:174
@@ -2988,54 +2966,51 @@ msgstr "PDF Dokument hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:4
 msgid "Claiming confirmation"
-msgstr ""
+msgstr "Administrationsrechte anfordern"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:10
-#, fuzzy
 msgid "Confirm ownership"
-msgstr "Passwort bestätigen"
+msgstr "Administrationsrechte bestätigen"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:18
 #, python-format
 msgid ""
 "Please fill in this form to create and account at Berlin Bühnen and to "
-"confirm that you are the owner of <a href=\"%(location_link)s\">"
-"%(location_title)s</a>."
+"confirm that you are the owner of <a "
+"href=\"%(location_link)s\">%(location_title)s</a>."
 msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:27
 #, python-format
 msgid ""
-"Please login to confirm that you are the owner of <a href=\"%(location_link)s"
-"\">%(location_title)s</a>."
+"Please login to confirm that you are the owner of <a "
+"href=\"%(location_link)s\">%(location_title)s</a>."
 msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:31
-#, fuzzy
 msgid "Don't have an account?"
 msgstr "Haben Sie bereits einen Account?"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:60
 msgid "I agree"
-msgstr ""
+msgstr "Ich stimme zu"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:61
 msgid "I disagree"
-msgstr ""
+msgstr "Ich stimme nicht zu"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_invitation.html:4
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_invitation_done.html:4
 msgid "Claiming invitation"
-msgstr ""
+msgstr "Einladung für Administrationsrechte anfordern"
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_invitation_done.html:7
 msgid "Invitation has been sent."
-msgstr ""
+msgstr "Einladung wurde verschickt."
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_invitation_done.html:10
-#, fuzzy
 msgid "Back to the list"
-msgstr "Nach oben"
+msgstr "Zurück zur Übersicht"
 
 #: berlinbuehnen/templates/berlinbuehnen/utils/bvg.html:6
 msgid "Public Transport"
