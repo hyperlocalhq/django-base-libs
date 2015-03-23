@@ -457,7 +457,7 @@ class Event(CreationModificationMixin, UrlMixin):
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
 
-    organizer_title = models.CharField(_("Organizer title"), max_length=255, blank=True)
+    organizers = models.CharField(_("Organizers"), max_length=255, blank=True)
 
     description = MultilingualTextField(_("Description"), blank=True)
     teaser = MultilingualTextField(_("Teaser"), blank=True)

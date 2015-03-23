@@ -175,7 +175,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             'start_time',
             'end_time',
             'pauses',
-            'organizer_title',
+            'organizers',
             'play_locations', 'play_stages',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
             'event_status', 'ticket_status',
@@ -250,7 +250,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 layout.Div(
                     "play_locations",
                     "play_stages",
-                    "organizer_title",
+                    "organizers",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
             ),

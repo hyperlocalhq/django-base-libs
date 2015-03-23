@@ -233,18 +233,15 @@
                 </dl>
               {% endif %}
 
-              {% if event.production.organizers.exists or event.production.organizer_title or event.organizer_title %}
+              {% if event.production.organizers.exists or event.organizers %}
                 <dl>
                   <dt>{% trans "Organizers" %}</dt>
                   <dd>
-                    {% for location in event.production.organizers.all %}
-                      <p>{{ location.title }}</p>
-                    {% endfor %}
-                    {% if event.production.organizer_title %}
-                      <p>{{ event.production.organizer_title }}</p>
+                    {% if event.production.organizers %}
+                      <p>{{ event.production.organizers }}</p>
                     {% endif %}
-                    {% if event.organizer_title %}
-                      <p>{{ event.organizer_title }}</p>
+                    {% if event.organizers %}
+                      <p>{{ event.organizers }}</p>
                     {% endif %}
                   </dd>
                 </dl>

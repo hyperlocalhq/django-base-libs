@@ -484,13 +484,11 @@ class EventResource(ModelResource):
 
 
 class ProductionResource(ModelResource):
+    in_program_of = fields.ToManyField(LocationResource, "in_program_of")
+
     play_locations = fields.ToManyField(LocationResource, "play_locations")
     play_stages = fields.ToManyField(StageResource, "play_stages")
 
-    in_program_of = fields.ToManyField(LocationResource, "in_program_of")
-    ensembles = fields.ToManyField(LocationResource, "ensembles")
-    organizers = fields.ToManyField(LocationResource, "organizers")
-    in_cooperation_with = fields.ToManyField(LocationResource, "in_cooperation_with")
 
     categories = fields.ToManyField(ProductionCategoryResource, "categories", full=True)
     characteristics = fields.ToManyField(ProductionCharacteristicsResource, "characteristics", full=True)
@@ -516,6 +514,7 @@ class ProductionResource(ModelResource):
         resource_name = 'production'
         fields = [
             'id', 'creation_date', 'modified_date',
+            'ensembles', 'organizers', 'in_cooperation_with',
             'prefix_de', 'prefix_en',
             'title_de', 'title_en',
             'subtitle_de', 'subtitle_en',
