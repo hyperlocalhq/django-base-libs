@@ -46,6 +46,15 @@
                 }
             });
             $('.autocomplete-light-widget select[name$=play_locations],.autocomplete-light-widget select[name$=in_program_of]').trigger('change')
+            $(function() {
+                $('.enter_location').on('click', function(e) {
+                    e.preventDefault();
+                    $('.fieldset-where').removeClass('hidden');
+                });
+                if ($('#id_location_title').val()) {
+                    $('.fieldset-where').removeClass('hidden');
+                }
+            });
         });
     </script>
 {% endblock %}
