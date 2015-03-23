@@ -238,7 +238,10 @@ a:link    { text-decoration: none;}
 a:hover   { text-decoration: none; color: $blue_hover;}
 a:visited { text-decoration: none;}
 a:active  { outline: none !important; }
-a:focus  { outline: none !important; color: #46a8d5; }
+a:focus  { outline: none !important; color: $blue_hover; }
+a.black {color: black;}
+a.black:hover {color: black;}
+a.black:focus {color: black;}
 
 
 em { color: black; font-style: italic; }

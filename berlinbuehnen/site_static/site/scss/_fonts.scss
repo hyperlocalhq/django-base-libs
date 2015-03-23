@@ -113,3 +113,10 @@
         font-size: 1.375em;
     }
 }
+.fawesome.tickets {
+    line-height: 1.375em;
+    &:before {
+        content: "\f02c";
+        font-size: 1.375em;
+    }
+}

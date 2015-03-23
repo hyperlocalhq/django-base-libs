@@ -113,6 +113,14 @@
   font-size: 1.375em;
 }
 
+.fawesome.tickets {
+  line-height: 1.375em;
+}
+.fawesome.tickets:before {
+  content: "\f02c";
+  font-size: 1.375em;
+}
+
 @font-face {
   font-family: 'DingRegular';
   src: url("../fonts/ding/ding-regular.eot");
@@ -4262,6 +4270,10 @@ select {
   font-size: 1.125em;
   margin-bottom: 13px;
 }
+.details .main dl.listing p {
+  display: inline;
+  padding-right: 5px;
+}
 .details .left {
   padding-left: 0;
   padding-right: 20px;
@@ -4276,6 +4288,66 @@ select {
 .details .right {
   padding-left: 0;
   padding-right: 0;
+}
+.details .right p, .details .right a.block {
+  display: block;
+  margin: 10px 10px;
+}
+.details .right ul.dates {
+  width: 100%;
+  font-size: 0.875em;
+  line-height: 22px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+.details .right ul.dates li {
+  width: 100%;
+  height: 23px;
+  border-bottom: 1px solid black;
+  position: relative;
+}
+.details .right ul.dates li span {
+  display: inline-block;
+}
+.details .right ul.dates li span:first-child {
+  margin-left: 10px;
+}
+.details .right ul.dates li .date, .details .right ul.dates li .time {
+  margin: 0 4px;
+}
+.details .right ul.dates li .date:after, .details .right ul.dates li .time:after {
+  content: "|";
+  margin-left: 8px;
+  font-weight: 200;
+}
+.details .right ul.dates li .date {
+  font-weight: 700;
+}
+.details .right ul.dates li .extra {
+  background: #4583c8;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 20px 0 5px;
+  height: 22px;
+  color: white;
+  font-weight: 700;
+}
+.details .right ul.dates li .extra:before {
+  content: url(../img/label_22px.png);
+  position: relative;
+  left: -15px;
+}
+.details .right ul.dates li .tickets {
+  color: black;
+  display: inline-block;
+  font-size: 0.875em !important;
+  margin-left: 8px;
+  width: 15px;
+}
+.details .right ul.dates li .tickets:hover, .details .right ul.dates li .tickets:focus {
+  color: black;
 }
 .details .full {
   padding-left: 0;
@@ -4610,6 +4682,18 @@ a:active {
 a:focus {
   outline: none !important;
   color: #46a8d5;
+}
+
+a.black {
+  color: black;
+}
+
+a.black:hover {
+  color: black;
+}
+
+a.black:focus {
+  color: black;
 }
 
 em {

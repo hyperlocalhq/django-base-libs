@@ -7,9 +7,9 @@
     <meta property="og:title" content="{{ object.title }}" />
     <meta property="og:type" content="article" />
     {% if object.image %}
-      <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+        <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
     {% else %}
-      <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/berlinbuehnen_opengraph.png" />
+        <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/berlinbuehnen_opengraph.png" />
     {% endif %}
     <meta property="og:url" content="{{ object.get_url }}" />
     <meta property="og:site_name" content="Berlin Bühnen" />
@@ -17,914 +17,381 @@
 {% endblock %}
 
 {% block js %}
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/share.js" defer="defer"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    $(".toggle_bvg").click(function () {
-      $("#bvg_widget").toggleClass("on");
-      return false;
-    });
-  });
-  </script>
-{% endblock %}
-
-{% block map %}
-{# {% include "utils/gmap.html" %} #}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
 {% endblock %}
 
 {% block content %}
-  {% with object as event %}
-    <br /><br />
-    <div id="event" class="content">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            <article>
-              <header>
-                <h1>
-                  {% if event.production.prefix %}{{ event.production.prefix }} - {% endif %}
-                  {{ event.production.title }}
-                  {% if_has_perm "productions.change_production" object %}
-                    {% if not request.is_mobile %}
-                      <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_production" slug=event.production.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
-                    {% endif %}
-                  {% end_if_has_perm %}
-                </h1>
-                {% if event.production.subtitle %}
-                <h2>{{ event.production.subtitle }}</h2>
-                {% endif %}
-              </header>
-              
-              <!-- ======= Tools ======= -->
-
-              <div class="tools">
-
-                {% if request.user.is_authenticated %}
-                  {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
-                {% endif %}
-
-                {% comment %}
-                <a class="btn btn-default btn-round location" href="{% url "event_list_map" %}#object_id={{ event.pk }}">
-                  <span class="icon icon-location"></span>
-                  <span class="sr-only">{% trans "Show location on map" %}</span>
-                </a>
-                {% endcomment %}
-
-                <button class="btn btn-default btn-round share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}"  data-url="{{ object.get_url }}" data-text="{{ event.title }}">
-                  <span class="icon icon-social-twitter"></span>
-                  <span class="sr-only">{% trans "Share on Twitter" %}</span>
-                </button>
-
-                <button class="btn btn-default btn-round share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{{ event.title }}">
-                  <span class="icon icon-social-facebook"></span>
-                  <span class="sr-only">{% trans "Share on Facebook" %}</span>
-                </button>
-              </div>
-
-              {% include "utils/cover_image.html" %}
-
-              <h3>{% trans "Dates" %}</h3>
-              <ul>
-                {% for ev in event.production.event_set.all %}
-                  <li>
-                  {% if ev == event %}
-                    <strong>{{ ev.start_date|date:"j.M Y" }} {{ ev.start_time|time:"H:i" }}</strong>
-                  {% else %}
-                    <a href="{% url "event_detail" slug=ev.production.slug event_id=ev.id %}">{{ ev.start_date|date:"j.M Y" }} {{ ev.start_time|time:"H:i" }}</a>
-                  {% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
-
-              {% if event.start_time %}
-                <dl>
-                  <dt>{% trans "Start" %}</dt>
-                  <dd>{{ event.start_time|time:"H:i" }}</dd>
-                </dl>
-              {% endif %}
-
-              {% if event.end_date or event.end_time %}
-                <dl>
-                  <dt>{% trans "End" %}</dt>
-                  <dd>
-                    {% if event.end_date and event.start_date != event.end_date %}{{ event.end_date|date:"j.M Y" }}{% endif %}
-                    {% if event.end_time %}{{ event.end_time|time:"H:i" }}{% endif %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if event.event_status %}
-                <dl>
-                  <dt>{% trans "Status" %}</dt>
-                  <dd>
-                    {{ event.get_event_status_display }}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              <dl>
-                <dt>{% trans "Price" %}</dt>
-                <dd>
-                  {% if event.ticket_status %}
-                    <p>{{ event.get_ticket_status_display }}<p>
-                  {% endif %}
-                  {% if event.ev_or_prod_free_entrance %}
-                    {% trans "Free entrance" %}
-                  {% else %}
-                    {% if event.ev_or_prod_price_from %}
-                      {{ event.ev_or_prod_price_from }} EUR
-                    {% endif %}
-                    {% if event.ev_or_prod_price_till %}
-                      - {{ event.ev_or_prod_price_till }} EUR
-                    {% endif %}
-                    {% if event.ev_or_prod_price_information %}
-                      {{ event.ev_or_prod_price_information }}
-                    {% endif %}
-                    {% if event.ev_or_prod_tickets_website %}
-                      <p><a href="{{ event.ev_or_prod_tickets_website }}" target="_blank">{% trans "Buy tickets" %}</a></p>
-                    {% endif %}
-                  {% endif %}
-                </dd>
-              </dl>
-
-              <dl>
-                <dt>{% trans "Venue" %}</dt>
-                {% if event.location_title %}
-                  <dd data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
-                    {{ event.location_title }}<br />
-                    {{ event.street_address }}<br />
-                    {{ event.street_address2 }}<br />
-                    {{ event.postal_code }} {{ event.city }}<br />
-                  </dd>
-                {% endif %}
-                {% for location in event.ev_or_prod_play_locations %}
-                  <dd data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
-                    <a href="{{ location.get_url_path }}">{{ location.title }}</a><br />
-                    {{ location.street_address }}<br />
-                    {{ location.street_address2 }}<br />
-                    {{ location.postal_code }} {{ location.city }}<br />
-                  </dd>
-                {% endfor %}
-              </dl>
-
-              {% if event.ev_or_prod_play_stages %}
-                <dl>
-                  <dt>{% trans "Stage" %}</dt>
-                  {% for stage in event.ev_or_prod_play_stages %}
-                    <dd data-latitude="{{ stage.latitude|stringformat:"%f" }}" data-longitude="{{ stage.longitude|stringformat:"%f" }}">
-                      {{ stage.title }}<br />
-                      {{ stage.street_address }}<br />
-                      {{ stage.street_address2 }}<br />
-                      {{ stage.postal_code }} {{ stage.city }}<br />
-                    </dd>
-                  {% endfor %}
-                </dl>
-              {% endif %}
-
-              {% if event.duration %}
-                <dl>
-                  <dt>{% trans "Duration" %}</dt>
-                  <dd>{{ event.humanized_duration }}</dd>
-                </dl>
-              {% endif %}
-
-              {% if event.pauses %}
-                <dl>
-                  <dt>{% trans "Pauses" %}</dt>
-                  <dd>{{ event.pauses }}</dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.original %}
-                <dl>
-                  <dt>{% trans "Original title" %}</dt>
-                  <dd>{{ event.production.original }}</dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.website %}
-                <dl>
-                  <dt>{% trans "Website" %}</dt>
-                  <dd><a href="{{ event.production.website }}">{{ event.production.website|humanize_url:30 }}</a></dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.in_program_of.exists %}
-                <dl>
-                  <dt>{% trans "In program of" %}</dt>
-                  <dd>
-                    {% for location in event.production.in_program_of.all %}
-                      <p>{{ location.title }}</p>
-                    {% endfor %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.ensembles.exists %}
-                <dl>
-                  <dt>{% trans "Ensembles" %}</dt>
-                  <dd>
-                    {% for location in event.production.ensembles.all %}
-                      <p>{{ location.title }}</p>
-                    {% endfor %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.organizers.exists or event.production.organizer_title or event.organizer_title %}
-                <dl>
-                  <dt>{% trans "Organizers" %}</dt>
-                  <dd>
-                    {% for location in event.production.organizers.all %}
-                      <p>{{ location.title }}</p>
-                    {% endfor %}
-                    {% if event.production.organizer_title %}
-                      <p>{{ event.production.organizer_title }}</p>
-                    {% endif %}
-                    {% if event.organizer_title %}
-                      <p>{{ event.organizer_title }}</p>
-                    {% endif %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.in_cooperation_with.exists %}
-                <dl>
-                  <dt>{% trans "In cooperation with" %}</dt>
-                  <dd>
-                    {% for location in event.production.in_cooperation_with.all %}
-                      <p>{{ location.title }}</p>
-                    {% endfor %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.categories.exists %}
-                <dl>
-                  <dt>{% trans "Categories" %}</dt>
-                  <dd>
-                    {% for cat in event.production.categories.all %}
-                      <p>{{ cat.title }}</p>
-                    {% endfor %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.age_from and event.production.age_till %}
-                <dl>
-                  <dt>{% trans "Age" %}</dt>
-                  <dd>
-                    {{ event.production.age_from }} - {{ event.production.age_till }}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if event.production.edu_offer_website %}
-                <dl>
-                  <dt>{% trans "Educational offer" %}</dt>
-                  <dd><a href="{{ event.production.edu_offer_website }}">{{ event.production.edu_offer_website|humanize_url:30 }}</a></dd>
-                </dl>
-              {% endif %}
-
-              {% if event.ev_or_prod_description %}
-                <div class="lead">
-                  <h4>{% trans "Description" %}</h4>
-                  {{ event.ev_or_prod_description|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_teaser %}
-                <div>
-                  <h4>{% trans "Teaser" %}</h4>
-                  {{ event.ev_or_prod_teaser|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_work_info %}
-                <div>
-                  <h4>{% trans "Work Info" %}</h4>
-                  {{ event.ev_or_prod_work_info|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_contents %}
-                <div>
-                  <h4>{% trans "Contents" %}</h4>
-                  {{ event.ev_or_prod_contents|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_press_text %}
-                <div>
-                  <h4>{% trans "Press Text" %}</h4>
-                  {{ event.ev_or_prod_press_text|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_credits %}
-                <div>
-                  <h4>{% trans "Credits" %}</h4>
-                  {{ event.ev_or_prod_credits|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_concert_programm %}
-                <div>
-                  <h4>{% trans "Concert Program" %}</h4>
-                  {{ event.ev_or_prod_concert_programm|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_supporting_programm %}
-                <div>
-                  <h4>{% trans "Supporting Program" %}</h4>
-                  {{ event.ev_or_prod_supporting_programm|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_remarks %}
-                <div>
-                  <h4>{% trans "Remarks" %}</h4>
-                  {{ event.ev_or_prod_remarks|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_duration_text %}
-                <div>
-                  <h4>{% trans "Duration" %}</h4>
-                  {{ event.ev_or_prod_duration_text|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_subtitles_text %}
-                <div>
-                  <h4>{% trans "Subtitles" %}</h4>
-                  {{ event.ev_or_prod_subtitles_text|disarm_user_input }}
-                </div>
-              {% endif %}
-              {% if event.ev_or_prod_age_text %}
-                <div>
-                  <h4>{% trans "Age" %}</h4>
-                  {{ event.ev_or_prod_age_text|disarm_user_input }}
-                </div>
-              {% endif %}
-
-              {% if event.characteristics.exists or event.production.characteristics.exists or event.get_rendered_other_characteristics %}
-                <h4>{% trans "Characteristics" %}</h4>
-                {% for ch in event.characteristics.all %}
-                  <p>{{ ch.title }}</p>
-                {% endfor %}
-                {% for ch in event.production.characteristics.all %}
-                  <p>{{ ch.title }}</p>
-                {% endfor %}
-                {{ event.get_rendered_other_characteristics }}
-              {% endif %}
-
-              {% if event.ev_or_prod_sponsors %}
-                <h4>{% trans "Sponsors" %}</h4>
-                {% for sponsor in event.ev_or_prod_sponsors %}
-                  <p>
-                    {% if sponsor.website %}
-                    <a href="{{ sponsor.website }}">
-                    {% endif %}
-                    {% if sponsor.image %}
-                      <img alt="{{ sponsor.title }}" src="{{ MEDIA_URL }}{{ sponsor.image.path }}" />
-                    {% else %}
-                      {{ sponsor.title }}
-                    {% endif %}
-                    {% if sponsor.website %}
-                    </a>
-                    {% endif %}
-                  </p>
-                {% endfor %}
-              {% endif %}
-
-              {% if event.ev_or_prod_videos %}
-                <h4>{% trans "Videos" %}</h4>
-                {% for video in event.ev_or_prod_videos %}
-                  <p>{{ video.get_embed }}</p>
-                {% endfor %}
-              {% endif %}
-
-              {% if event.ev_or_prod_images %}
-                <h4>{% trans "Images" %}</h4>
-                {% for image in event.ev_or_prod_images %}
-                  <p><img src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="" /></p>
-                  <p>{{ image.get_copyright_restrictions_display }}</p>
-                  {% with image.path|file_description as file_desc %}
-                    <p>
-                      <small>
-                        {% if file_desc.title %}
-                          <span class="title"><strong>{% trans "Title" %}:</strong> {{ file_desc.title }}</span>
-                        {% endif %}
-                        {% if file_desc.description %}
-                          <span class="description"><strong>{% trans "Description" %}:</strong> {{ file_desc.description }}</span>
-                        {% endif %}
-                        {% if file_desc.author %}
-                          <span class="author"><strong>{% trans "Author" %}:</strong> {{ file_desc.author }}</span>
-                        {% endif %}
-                        {% if file_desc.copyright_limitations %}
-                          <span class="copyright_limitations"><strong>{% trans "Copyright" %}:</strong> {{ file_desc.copyright_limitations }}</span>
-                        {% endif %}
-                      </small>
-                    </p>
-                  {% endwith %}
-                {% endfor %}
-              {% endif %}
-
-              {% if event.ev_or_prod_pdfs %}
-                <h4>{% trans "Images" %}</h4>
-                {% for pdf in event.ev_or_prod_pdfs %}
-                  <p><a href="{{ MEDIA_URL }}{{ pdf.path }}">{{ pdf.filename }}</a></p>
-                {% endfor %}
-              {% endif %}
-
-              {% if event.ev_or_prod_leaderships %}
-                <h4>{% trans "Leaders" %}</h4>
-                {% for leadership in event.ev_or_prod_leaderships %}
-                  <p>{{ leadership.function }} - {{ leadership.person }}</p>
-                {% endfor %}
-              {% endif %}
-
-              {% if event.ev_or_prod_authorships %}
-                <h4>{% trans "Authors" %}</h4>
-                {% for authorship in event.ev_or_prod_authorships %}
-                  <p>{{ authorship.authorship_type.title }} - {{ authorship.person }}</p>
-                {% endfor %}
-              {% endif %}
-
-              {% if event.ev_or_prod_involvements %}
-                <h4>{% trans "Involved people" %}</h4>
-                {% for involvement in event.ev_or_prod_involvements %}
-                  <p>{{ involvement.involvement_type.title }} {{ involvement.involvement_role }} {{ involvement.involvement_instrument }} - {{ involvement.person }}</p>
-                {% endfor %}
-              {% endif %}
-
-            </article>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            {% comment %}
-            {% if event.linkgroup_set.count %}
-              {% for link_group in event.linkgroup_set.all %}
-                {% if LANGUAGE_CODE == link_group.language %}
-                  <div class="link-group">
-                    {% if link_group.group_title %}<h4>{{ link_group.group_title }}</h4>{% endif %}
-                    {% with link_group.get_links as links %}
-                      {% if links %}
-                        <ul>
-                          {% for link in links %}
-                            <li><a href="{{ link.url }}">{{ link.text }}</a></li>
-                          {% endfor %}
-                        </ul>
-                      {% endif %}
-                    {% endwith %}
-                  </div>
-                {% endif %}
-              {% endfor %}
-            {% endif %}
-            <div class="panel-group" id="details">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#details" href="#collapse-location"> {% trans "Location" %}</a>
-                </div>
-
-                <div id="collapse-location" class="panel-collapse collapse in">
-                  <div class="panel-body">
-                    {% if event.parent %}
-                    <p>
-                      <b>{{ event.parent.title }}</b><br/>
-                      {{ event.parent.street_address }}<br/>
-                      {% if event.parent.street_address2 %}{{ event.parent.street_address2 }}<br/>{% endif %}
-                      {{ event.parent.postal_code }} {{ event.parent.city }}
-                    </p>
-                    {% else %}
-                    <p>
-                      <b>{{ event.title }}</b><br/>
-                      {{ event.street_address }}<br/>
-                      {% if event.street_address2 %}
-                        {{ event.street_address2 }}<br/>
-                      {% endif %}
-                      {{ event.postal_code }} {{ event.city }}
-                    </p>
-                    {% endif %}
-
-                      {% if event.service_phone_number %}
-                        <dl>
-                          <dt>{% trans "Service Telephone" %}</dt>
-                          <dd>+{{ event.service_phone_country }} ({{ event.service_phone_area }}) {{ event.service_phone_number }}</dd>
-                        </dl>
-                      {% endif %}
-
-                      {% if event.phone_number %}
-                        <dl>
-                          <dt>{% trans "Telephone" %}</dt>
-                          <dd>+{{ event.phone_country }} ({{ event.phone_area }}) {{ event.phone_number }}</dd>
-                        </dl>
-                      {% endif %}
-
-                      {% if event.group_bookings_phone_number %}
-                      <dl>
-                        <dt>{% trans "Booking Telephone" %}</dt>
-                        <dd>+{{ event.group_bookings_phone_country }} ({{ event.group_bookings_phone_area }}) {{ event.group_bookings_phone_number }}</dd>
-                      </dl>
-                      {% endif %}
-
-
-                      {% if event.fax_number %}
-                        <dl>
-                          <dt>{% trans "Fax" %}</dt>
-                          <dd>+{{ event.fax_country }} ({{ event.fax_area }}) {{ event.fax_number }}</dd>
-                        </dl>
-                      {% endif %}
-
-                      {% if event.website %}
-                        <dl>
-                          <dt>{% trans "Website" %}</dt>
-                          <dd><a class="crop" href="{{ event.website }}">{{ event.website|humanize_url:"25" }}</a></dd>
-                        </dl>
-                      {% endif %}
-
-                      {% if event.email %}
-                      {% load site_specific_tags %}
-                        <dl>
-                          <dt>{% trans "Email" %}</dt>
-                          <dd>{% encrypt_email event.email 30 %}</dd>
-                        </dl>
-                      {% endif %}
-
-                    {% if event.socialmediachannel_set.count %}
-                    <dl>
-                      <dt>{% trans "Social Networks" %}</dt>
-                      <dd>
-                        {% for social in event.socialmediachannel_set.all %}
-                        <a target="_blank" href="{{ social.url }}">{{ social.channel_type }}</a>
-                        {% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                      </dd>
-                    </dl>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-
-              {% with event as list_item %}
-                {% include "utils/bvg.html" %}
-              {% endwith %}
-
-              <!-- ======= Opening hours ======= -->
-
-              {% if event.season_set.count or event.specialopeningtime_set.count %}
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-opening-times">
-                      {% trans "Opening hours" %}
-                    </a>
-                  </div>
-
-                  <div id="collapse-opening-times" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                      {% if event.season_set.count == 1 %}
-                        {% with event.season_set.all.0 as season %}
-                            {% if season.is_appointment_based %}
-                            <dl>
-                              <dt>{% trans "Based on appointment" %}</dt>
-                            </dl>
-                            {% else %}
-                            {% regroup season.get_opening_hours by times as opening_hours %}
-                              {% for same_hours in opening_hours %}
-                                <dl>
-                                  <dt>
-                                    {% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %} 
-                                  </dt>
-                                  {% if same_hours.list.0.open %}
-                                  <dd>
-                                    {{ same_hours.list.0.open|time:"H:i" }}
-                                    {% if same_hours.list.0.break_close %}
-                                    - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                    / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                    - {{ same_hours.list.0.close|time:"H:i" }}
-                                    {% else %}
-                                    - {{ same_hours.list.0.close|time:"H:i" }}
+    {% with object as event %}
+        <div id="event" class="content details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a class="fawesome back uc" href="{% url 'event_list' %}">{% trans "back to overview" %}</a>
+                        <article>
+                            
+                            <!-- headlines -->
+                            <header>
+                                <ul class="header-top">
+                                    {% if event.start_date or event.start_time %}
+                                        <li><time>{{ event.start_date|date:"l, j.F Y" }}{{ event.start_time|time:", H:i" }}</time></li>
                                     {% endif %}
-                                    {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                  </dd>
-                                  {% else %}
-                                  <dd>
-                                    {% trans "closed" %}
-                                  </dd>
-                                  {% endif %}
-                                </dl>
-                              {% endfor %}
-                            {% endif %}
-                            {% if season.last_entry %}
-                            <dl>
-                              <dt>{% trans "Last entry" %} </dt>
-                                <dd>{{ season.last_entry }}</dd>
-                            </dl>
-                            {% endif %}
-                            {% if season.exceptions %}
-                            <p>{{ season.get_rendered_exceptions }}</p>
-                            {% endif %}
-                        {% endwith %}
-                      {% else %}
-                        <div id="seasons">
-                          {% for season in event.season_set.all %}
-                            <div class="season">
-                              <b>{{ season.title }}</b>
-                              <p>{{ season.start|date:"j. F Y" }} - {{ season.end|date:"j. F Y" }}</p>
-                              {% if season.is_appointment_based %}
-                                <dl>
-                                  <dt>{% trans "Based on appointment" %}</dt>
-                                </dl>
-                              {% else %}
-                                {% regroup season.get_opening_hours by times as opening_hours %}
-                                {% for same_hours in opening_hours %}
-                                  <dl>
-                                    <dt>
-                                      {% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}
-                                    </dt>
-                                    <dd>
-                                      {% if same_hours.list.0.open %}
-                                          {{ same_hours.list.0.open|time:"H:i" }}
-                                          {% if same_hours.list.0.break_close %}
-                                            - {{ same_hours.list.0.break_close|time:"H:i" }}
-                                            / {{ same_hours.list.0.break_open|time:"H:i" }}
-                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                          {% else %}
-                                            - {{ same_hours.list.0.close|time:"H:i" }}
-                                          {% endif %}
-                                          {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
-                                      {% else %}
-                                          {% trans "closed" %}
-                                      {% endif %}
-                                    </dd>
-                                  </dl>
-                                {% endfor %}
-                              {% endif %}
-
-                              {% if season.last_entry %}
-                                <dl>
-                                  <dt>{% trans "Last entry" %}
-                                    <dd>{{ season.last_entry }}</dd>
-                                  </dt>
-                                </dl>
-                              {% endif %}
-                              {% if season.exceptions %}
-                              <dd>{{ season.get_rendered_exceptions }}</dd>
-                            {% endif %}
-                          </div>
-                        {% endfor %}
-                      </div>
-                    {% endif %}
-
-                    {% if event.specialopeningtime_set.count %}
-                      <div id="special_openings">
-                        {% for special_opening in event.specialopeningtime_set.all %}
-                          <dl>
-                            <dt>
-                              {{ special_opening.dd }}. {{ special_opening.get_mm_display }} {{ special_opening.yyyy|default:"" }}
-                              {% if special_opening.is_closed %}
-                                <dd>{% trans "Closed" %}</dd>
-                              {% else %}
-                                {% if special_opening.is_regular %}
-                                  <dd>{% trans "Regular" %}</dd>
-                                {% else %}
-                                  <dd>{{ special_opening.opening|time:"H:i" }} - {{ special_opening.closing|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
-                                  {% if season.sun_break_close %}
-                                    <dt>{% trans "Break:" %}</dt>
-                                    <dd>{{ special_opening.break_close|time:"H:i" }} - {{ special_opening.break_open|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</dd>
-                                  {% endif %}
-                                {% endif %}
-                              {% endif %}
-                            </dt>
-                          </dl>
-                        {% endfor %}
-                      </div>
-                    {% endif %}
-                  </div>
+                                    {% with event.ev_or_prod_play_locations as locations %}
+                                        {% if event.location_title or locations|length_is:1 %}
+                                            <li>{% if event.location_title %}{{event.location_title}}{% else %}{% with locations|first as first %}{{ first.title }}{% endwith %}{% endif %}</li>
+                                        {% endif %}
+                                    {% endwith %}
+                                </ul>
+                                {% if event.production.prefix %}<h3>{{ event.production.prefix }}</h3>{% endif %}
+                                <h1>{{ event.production.title }}
+                                    {% if_has_perm "productions.change_production" object %}
+                                        {% if not request.is_mobile %}
+                                            <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_production" slug=event.production.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                        {% endif %}
+                                    {% end_if_has_perm %}
+                                </h1>
+                                {% if event.production.subtitle %}<h2>{{ event.production.subtitle }}</h2>{% endif %}
+                                {% if event.production.original %}<h2>{{ event.production.original }}</h2>{% endif %}
+                            </header>
+                            
+                            <!-- main  part (including sidebar) -->
+                            <div class="main">
+                                <div class="container">
+                                    <div class="row">
+                                        
+                                        <!-- main content -->
+                                        <div class="col-xs-12 col-md-8 left">
+                                            {% if event.ev_or_prod_images %}
+                                                {% with event.ev_or_prod_images|first as first %}
+                                                    <div class="top-image"><img src="{{ MEDIA_URL }}{{ first.path|modified_path:"max" }}" alt="{{ first.title }}" /></div> 
+                                                {% endwith %}
+                                            {% endif %}
+                                            <div class="description">
+                                                {{ event.ev_or_prod_description }}
+                                            </div>
+                                            <dl class="listing">
+                                                {% if event.production.language_and_subtitles %}
+                                                    <dt>{% trans "Language" %}</dt>
+                                                    <dd>{{ event.production.language_and_subtitles }}</dd>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_subtitles_text %}
+                                                    <dt>{% trans "Subtitles" %}</dt>
+                                                    <dd>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</dd>
+                                                {% endif %}
+                                                {% if event.humanized_duration or event.ev_or_prod_duration_text %}
+                                                    <dt>{% trans "Duration" %}</dt>
+                                                    <dd>
+                                                        {% if event.humanized_duration %}{{ event.humanized_duration }}{% endif %}
+                                                        {% if event.ev_or_prod_duration_text %}{{ event.ev_or_prod_duration_text }}{% endif %}
+                                                    </dd>
+                                                {% endif %}
+                                                {% if event.pauses %}
+                                                    <dt>{% trans "Pauses" %}</dt>
+                                                    <dd>{{ event.pauses }}</dd>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_supporting_programm %}
+                                                    <dt>{% trans "Supporting_programm" %}</dt>
+                                                    <dd>{{ event.ev_or_prod_supporting_programm }}</dd>
+                                                {% endif %}
+                                                {% if event.production.website %}
+                                                    <dt>{% trans "Web" %}</dt>
+                                                    <dd><a href="{{ event.production.website }}" target="_blank">{{ event.production.website }}</a></dd>
+                                                {% endif %}
+                                            </dl>
+                                        </div>
+                                        
+                                        <!-- main sidebar -->
+                                        <div class="col-xs-12 col-md-4 right">
+                                            <div class="accordion sidebar-accordion">
+                                                <div class="accordion-item">
+                                                    <h4 class="accordion-item-head open">{% trans "Dates" %}</h4>
+                                                    <div class="accordion-item-content">
+                                                        <ul class="dates">
+                                                            {% for ev in event.production.event_set.all %}
+                                                                <li>
+                                                                    {% if ev == event %}
+                                                                        <span class="date">{{ ev.start_date|date:"j.M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }} Uhr</span>
+                                                                    {% else %}
+                                                                        <a class="black" href="{% url "event_detail" slug=ev.production.slug event_id=ev.id %}"><span class="date">{{ ev.start_date|date:"j.M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }} Uhr</span></a>
+                                                                    {% endif %}
+                                                                    {% if ev.ev_or_prod_tickets_website %}
+                                                                        <span class="tickets"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank"></a></span>
+                                                                    {% endif %}
+                                                                    <!-- <span class="extra">Matinee</span> -->
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
+                                                    <div class="accordion-item-content">
+                                                        {% if event.location_title %}
+                                                            <p data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
+                                                                <strong>{{ event.location_title }}</strong>{<br />
+                                                                {% if event.street_address %}{{ event.street_address }}<br />{% endif %}
+                                                                {% if event.street_address2 %}{{ event.street_address2 }}<br />{% endif %}
+                                                                {% if event.city %}{{ event.postal_code }} {{ event.city }}<br />{% endif %}
+                                                            </p>
+                                                        {% endif %}
+                                                        {% for location in event.ev_or_prod_play_locations %}
+                                                            <a class="black block" href="{{ location.get_url_path }}" data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                                                                <strong>{{ location.title }}</strong><br />
+                                                                {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                                                                {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                                                                {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                            </a>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                {% if event.ticket_status or event.ev_or_prod_free_entrance or event.ev_or_prod_price_from or event.ev_or_prod_price_information or event.ev_or_prod_tickets_website %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Tickets" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% if event.ticket_status %}
+                                                                <p>{{ event.get_ticket_status_display }}<p>
+                                                            {% endif %}
+                                                            {% if event.ev_or_prod_free_entrance %}
+                                                                <p>{% trans "Free entrance" %}</p>
+                                                            {% else %}
+                                                                <p>
+                                                                    {% if event.ev_or_prod_price_from %}
+                                                                        {{ event.ev_or_prod_price_from }} EUR
+                                                                    {% endif %}
+                                                                    {% if event.ev_or_prod_price_till %}
+                                                                        - {{ event.ev_or_prod_price_till }} EUR
+                                                                    {% endif %}
+                                                                    {% if event.ev_or_prod_price_information %}
+                                                                        {{ event.ev_or_prod_price_information }}
+                                                                    {% endif %}
+                                                                </p>
+                                                                {% if event.ev_or_prod_tickets_website %}
+                                                                    <p><a href="{{ event.ev_or_prod_tickets_website }}" target="_blank">{% trans "Buy tickets" %}</a></p>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.production.ensembles.exists %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Ensembles" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for location in event.production.ensembles.all %}
+                                                                <p>{{ location.title }}</p>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.production.in_program_of.exists %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "In program of" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for location in event.production.in_program_of.all %}
+                                                                <p>{{ location.title }}</p>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.production.organizers.exists or event.production.organizer_title or event.organizer_title %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Organizers" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for location in event.production.organizers.all %}
+                                                                <p>{{ location.title }}</p>
+                                                            {% endfor %}
+                                                            {% if event.production.organizer_title %}
+                                                                <p>{{ event.production.organizer_title }}</p>
+                                                            {% endif %}
+                                                            {% if event.organizer_title %}
+                                                                <p>{{ event.organizer_title }}</p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.production.in_cooperation_with.exists %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "In cooperation with" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for location in event.production.in_cooperation_with.all %}
+                                                                <p>{{ location.title }}</p>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.production.age_from or event.production.edu_offer_website or event.ev_or_prod_age_text %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Age and Education" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% if event.ev_or_prod_age_text %}
+                                                                <p>{{ event.ev_or_prod_age_text|disarm_user_input }}</p>
+                                                            {% endif %}
+                                                            {% if event.production.age_from and event.production.age_till %}
+                                                                <p>{{ event.production.age_from }}{% if event.production.age_till %} - {{ event.production.age_till }}{% endif %}</p>
+                                                            {% endif %}
+                                                            {% if event.production.edu_offer_website %}
+                                                                <p><strong>Educational offer: </strong><a href="{{ event.production.edu_offer_website }}">{{ event.production.edu_offer_website|humanize_url:30 }}</a></p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                                    
+                            <!-- additional content (accordion) -->
+                            <div class="additional">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12 full">
+                                            <div class="accordion content-accordion">
+                                                {% if event.ev_or_prod_leaderships %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Staff" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <dl>
+                                                                {% for leadership in event.ev_or_prod_leaderships %}
+                                                                    {% if leadership.function %}
+                                                                        <dt>{{ leadership.function }}</dt>
+                                                                    {% endif %}
+                                                                    <dd>{{ leadership.person }}</dd>
+                                                                {% endfor %}
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_involvements %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Cast" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <dl>
+                                                                {% for involvement in event.ev_or_prod_involvements %}
+                                                                    {% if involvement.involvement_type.title or involvement.involvement_role or involvement.involvement_instrument%}
+                                                                        <dt>{{ involvement.involvement_type.title }} {{ involvement.involvement_role }} {{ involvement.involvement_instrument }}</dt>
+                                                                    {% endif %}
+                                                                    <dd>{{ involvement.person }}</dd>
+                                                                {% endfor %}
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_authorships %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Authors" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <dl>
+                                                                {% for authorship in event.ev_or_prod_authorships %}
+                                                                    {% if authorship.authorship_type.title %}
+                                                                        <dt>{{ authorship.authorship_type.title }}</dt>
+                                                                    {% endif %}
+                                                                    <dd>{{ authorship.person }}</dd>
+                                                                {% endfor %}
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_sponsors %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Presented by" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for sponsor in event.ev_or_prod_sponsors %}
+                                                                <div class="sponsor">
+                                                                    {% if sponsor.website %}
+                                                                        <a href="{{ sponsor.website }}" target="_blank">
+                                                                    {% endif %}
+                                                                    {% if sponsor.image %}
+                                                                        <img alt="{{ sponsor.title }}" src="{{ MEDIA_URL }}{{ sponsor.image.path }}" />
+                                                                    {% else %}
+                                                                        {{ sponsor.title }}
+                                                                    {% endif %}
+                                                                    {% if sponsor.website %}
+                                                                        </a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_contents %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Contents" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {{ event.ev_or_prod_contents|disarm_user_input }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_concert_programm %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Concert program" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {{ event.ev_or_prod_concert_programm|disarm_user_input }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_supporting_programm %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Supporting program" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {{ event.ev_or_prod_supporting_programm|disarm_user_input }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_work_info %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Work info" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {{ event.ev_or_prod_work_info|disarm_user_input }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_press_text %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Press text" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {{ event.ev_or_prod_press_text|disarm_user_input }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_remarks %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Remarks" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {{ event.ev_or_prod_remarks|disarm_user_input }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.characteristics.exists or event.production.characteristics.exists or event.get_rendered_other_characteristics %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Characteristics" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for ch in event.characteristics.all %}
+                                                                {{ ch.title }}<br/>
+                                                            {% endfor %}
+                                                            {% for ch in event.production.characteristics.all %}
+                                                                {{ ch.title }}<br/>
+                                                            {% endfor %}
+                                                            {{ event.get_rendered_other_characteristics }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.ev_or_prod_credits %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Credits" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {{ event.ev_or_prod_credits|disarm_user_input }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 </div>
-              {% endif %}
             </div>
-
-              <!-- ======= Tickets ======= -->
-
-              {% if event.free_entrance or event.admission_price or event.admission_price_info or event.reduced_price or event.reduced_price_info or event.arrangements_for_children or event.free_entrance_for or event.family_ticket or event.group_ticket or event.free_entrance_times or event.yearly_ticket or event.other_tickets or event.member_of_eventspass or event.group_booking_phone_number or event.service_phone_number %}
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-prices">
-                    {% trans "Tickets" %}
-                  </a>
-                </div>
-                <div id="collapse-prices" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    {% if event.free_entrance %}
-                    {% trans "Free entrance" %}
-                    {% else %}
-                    {% if event.admission_price or event.admission_price_info %}
-                      <dl>
-                        {% if event.admission_price %}
-                        <dt>{% trans "Admission price" %} </dt>
-                        <dd>{{ event.admission_price|currencyfmt:"EUR" }}</dd>
-                        {% endif %}
-                      </dl>
-                      {% if event.admission_price_info %}
-                        <p>{{ event.get_rendered_admission_price_info|removetags:"p" }}</p>
-                      {% endif %}
-                    {% endif %}
-
-                    {% if event.reduced_price or event.reduced_price_info %}
-                    <dl>
-                      {% if event.reduced_price %}
-                      <dt>{% trans "Reduced price" %} </dt>
-                      <dd>{{ event.reduced_price|currencyfmt:"EUR" }}</dd>
-                      {% endif %}
-                    </dl>
-                      {% if event.reduced_price_info %}
-                        <p>{{ event.get_rendered_reduced_price_info|removetags:"p" }} </p>
-                      {% endif %}
-                    {% endif %}
-
-                    {% if event.show_family_ticket %}
-                    <dl>
-                      <dt>{% trans "Family ticket" %}</dt>
-                      <dd>{% infoblock "family_ticket_info" %} </dd>
-                    </dl>
-                    {% endif %}
-
-                    {% if event.show_group_ticket %}
-                    <dl>
-                      <dt>{% trans "Group ticket" %}</dt>
-                      <dd>{{ event.get_rendered_group_ticket }} </dd>
-                    </dl>
-                    {% endif %}
-
-                    {% if event.show_yearly_ticket %}
-                    <dl>
-                      <dt>{% trans "Yearly ticket" %}</dt>
-                      <dd>{% infoblock "yearly_ticket_info" %} </dd>
-                    </dl>
-                    {% endif %}
-
-                    {% if event.member_of_eventspass %}
-                    <dl>
-                      <dt>{% trans "Member of Eventspass Berlin" %}</dt>
-                    </dl>
-                    {% endif %}
-
-                    {% endif %}
-                  </div>
-                  {% if event.group_bookings_phone_number %}
-                  <div class="panel-body">
-                    <dl>
-                      <dt>{% trans "Booking Telephone" %}</dt>
-                      <dd>+{{ event.group_bookings_phone_country }} ({{ event.group_bookings_phone_area }}) {{ event.group_bookings_phone_number }}</dd>
-                    </dl>
-                  </div>
-                  {% endif %}
-                </div>
-              </div>
-              {% endif %}
-
-              <!-- ======= Services ======= -->
-
-              {% if event.service_shop or event.service_books or event.service_restaurant or event.service_cafe or event.service_library or musuem.service_archive or musuem.service_studio or event.service_online or event.service_diaper_changing_table or musuem.service_birthdays or event.service_rent or musuem.service_other %}
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-services">
-                    {% trans "Services" %}
-                  </a>
-                </div>
-                <div id="collapse-services" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <p>
-                    <!-- {% if event.service_shop %}
-                        <dd>{% trans "Shop" %}</dd>
-                    {% endif %}
-                    {% if event.service_restaurant %}
-                        <dd>{% trans "Restaurant" %}</dd>
-                    {% endif %}
-                    {% if event.service_cafe %}
-                        <dd>{% trans "Cafe" %}</dd>
-                    {% endif %}
-                    {% if event.service_library %}
-                        <dd>{% trans "Library" %}</dd>
-                    {% endif %}
-                    {% if musuem.service_archive %}
-                        <dd>{% trans "Archive" %}</dd>
-                    {% endif %}
-                    {% if event.service_diaper_changing_table %}
-                        <dd>{% trans "Diaper changing table" %}</dd>
-                        {% endif %} -->
-                          {% for service in event.get_services %}
-                          {{ service }} {% if not forloop.last %}, {% endif %}
-                          {% endfor %}
-                      </p>
-                    </div>
-
-                    {% if event.service_phone_number %}
-                    <div class="panel-body">
-                      <dl>
-                        <dt>{% trans "Service Telephone" %}</dt>
-                        <dd>+{{ event.service_phone_country }} ({{ event.service_phone_area }}) {{ event.service_phone_number }}</dd>
-                      </dl>
-                    </div>
-                    {% endif %}
-                  </div>
-                </div>
-                {% endif %}
-
-                <!-- ======= Accessibility ======= -->
-
-                {% if event.accessibility_options.count or event.accessibility or event.mobidat %}
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-accessibility">
-                      {% trans "Accessibility" %}
-                    </a>
-                  </div>
-                  <div id="collapse-accessibility" class="panel-collapse collapse" style="height: 0px; ">
-                    <div class="panel-body clearfix">
-                      {% if event.accessibility_options.count %}
-                      <ul class="list-lines">
-                        {% for opt in event.accessibility_options.all %}
-                          <li class="clearfix">
-                            <img class="pull-left" style="margin-right: 10px;" alt="{{ opt.title|escape }}" title="{{ opt.title|escape }}" src="{{ MEDIA_URL }}{{ opt.image }}" />
-                            {{ opt.title|escape }}
-                          </li>
-                        {% endfor %}
-                      </ul>
-                      {% endif %}
-                    </div>
-                    {% if event.accessibility %}
-                    <div class="panel-body">
-                      <div class="accessibility">
-                        {{ event.get_rendered_accessibility }}
-                      </div>
-                    </div>
-                    {% endif %}
-                    {% if event.mobidat %}
-                    <div class="panel-body">
-                      <div class="accessibility">
-                        {{ event.get_rendered_mobidat }}
-                      </div>
-                    </div>
-                    {% endif %}
-                  </div>
-                </div>
-                {% endif %}
-
-                <!-- ======= Audioguides ======= -->
-
-                {% if event.has_audioguide or event.has_audioguide_for_children or event.has_audioguide_for_learning_difficulties %}
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-mediation-offer">   {% trans "Audioguides" %}
-                    </a>
-                  </div>
-                  <div id="collapse-mediation-offer" class="panel-collapse collapse" style="height: 0px; ">
-                    {% if event.has_audioguide %}
-                    <div class="panel-body">
-                      <dl>
-                        <dt>
-                          {% if event.get_audioguide_languages %}
-                          {% trans "In" %}
-                          {% for lang in event.get_audioguide_languages %}
-                          {{ lang }}{% if not forloop.last %}, {% endif %}
-                          {% endfor %}
-                          {% endif %}
-                        </dt>
-                      </dl>
-                    </div>
-                    {% endif %}
-                    {% if event.has_audioguide_for_children %}
-                    <div class="panel-body">
-                      <dl>
-                        <dt>{% trans "For children and teenager" %}</dt>
-                      </dl>
-                    </div>
-                    {% endif %}
-                    {% if event.has_audioguide_for_learning_difficulties %}
-                    <div class="panel-body">
-                      <dl>
-                        <dt>{% trans "For people with learning difficulties" %}</dt>
-                      </dl>
-                    </div>
-                    {% endif %}
-                  </div>
-                </div>
-                {% endif %}
-
-              </div>
-            {% endcomment %}
         </div>
-      </div>
-    </div>
-
-      {% if event.get_twitter_username %}
-
-        <div id="events-twitterfeed" class="content">
-          <div class="container">
-            <h2 class="section-head" id="section-tweets">{% trans "Current Tweets" %}</h2>
-            <div id="tweets" class="row row-md" data-twitter-username="{{ event.get_twitter_username }}"></div>
-          </div>
-        </div>
-      {% endif %}
-    </div>
-
-  {% endwith %}
-
-  {% include "utils/page_controls.html" %}
+    {% endwith %}
 {% endblock %}
