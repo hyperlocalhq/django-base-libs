@@ -259,6 +259,8 @@ class DescriptionForm(autocomplete_light.ModelForm):
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
+        self.fields['festivals'].label = _("Belongs to festival")
+
         self.fields['characteristics'].widget = forms.CheckboxSelectMultiple()
         self.fields['characteristics'].help_text = u""
 
@@ -473,7 +475,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Social media"),
+            _("Social media for this production"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.social.management_form }}
             <div id="social">

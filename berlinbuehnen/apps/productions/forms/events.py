@@ -569,7 +569,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Social media"),
+            _("Social media for this event"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.social.management_form }}
             <div id="social">
