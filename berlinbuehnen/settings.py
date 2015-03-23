@@ -614,7 +614,7 @@ ALLOWED_HOSTS = ['www.berlinbuehnen.de', 'berlinbuehnen.de']
 
 #SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
-USE_TZ = False
+USE_TZ = True
 
 ### LOCAL SETTINGS ###
 
