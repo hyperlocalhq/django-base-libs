@@ -138,7 +138,7 @@ class ProductionAdmin(ExtendedModelAdmin):
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'teaser', 'work_info', 'contents', 'press_text', 'credits'])
     fieldsets += get_admin_lang_section(_("Imported"), ['concert_programm', 'supporting_programm', 'remarks', 'duration_text', 'subtitles_text', 'age_text'])
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
-    fieldsets += [(_("Additional details"), {'fields': ['characteristics', 'age_from', 'age_till', 'edu_offer_website']}),]
+    fieldsets += [(_("Additional details"), {'fields': ['characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',]), 'age_from', 'age_till', 'edu_offer_website']}),]
     fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
     fieldsets += [(_("Status"), {'fields': ['status',]}),]
 

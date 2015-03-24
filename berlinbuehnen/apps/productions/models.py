@@ -170,6 +170,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     price_information = MultilingualTextField(_("Additional price information"), blank=True)
 
     characteristics = models.ManyToManyField(ProductionCharacteristics, verbose_name=_("Characteristics"), blank=True)
+    other_characteristics = MultilingualTextField(_("Other characteristics"), blank=True)
     age_from = models.PositiveSmallIntegerField(_(u"Age from"), blank=True, null=True)
     age_till = models.PositiveSmallIntegerField(_(u"Age till"), blank=True, null=True)
     edu_offer_website = URLField(_("Educational offer website"), blank=True, max_length=255)

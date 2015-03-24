@@ -240,6 +240,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
                 'price_information_%s' % lang_code,
+                'other_characteristics_%s' % lang_code,
             ]
 
     def __init__(self, *args, **kwargs):
@@ -257,6 +258,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
                 'price_information_%s' % lang_code,
+                'other_characteristics_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
@@ -454,6 +456,13 @@ class DescriptionForm(autocomplete_light.ModelForm):
                     "characteristics",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
+            ),
+            layout.Row(
+                css_class="row-md",
+                *[layout.Div(
+                    layout.Field('other_characteristics_%s' % lang_code),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ) for lang_code, lang_name in FRONTEND_LANGUAGES]
             ),
             layout.Row(
                 layout.Div(
@@ -1031,6 +1040,7 @@ def load_data(instance=None):
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
                 'price_information_%s' % lang_code,
+                'other_characteristics_%s' % lang_code,
             ]
         for fname in fields:
             form_step_data['description'][fname] = getattr(instance, fname)
@@ -1159,6 +1169,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
                 'price_information_%s' % lang_code,
+                'other_characteristics_%s' % lang_code,
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
@@ -1178,6 +1189,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'supporting_programm_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'remarks_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'price_information_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'other_characteristics_%s_markup_type' % lang_code, 'pt')
 
         instance.save()
 
