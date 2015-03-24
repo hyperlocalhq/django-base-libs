@@ -1207,8 +1207,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 person = Person()
                 person.first_name = leadership_dict['first_name']
                 person.last_name = leadership_dict['last_name']
-                for lang_code, lang_name in FRONTEND_LANGUAGES:
-                    setattr(person, 'leadership_function_%s' % lang_code, leadership_dict['function_%s' % lang_code])
                 person.save()
 
                 leadership_dict['person'] = person.pk
@@ -1246,7 +1244,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 person = Person()
                 person.first_name = authorship_dict['first_name']
                 person.last_name = authorship_dict['last_name']
-                person.authorship_type = authorship_type
                 person.save()
 
                 authorship_dict['person'] = person.pk
@@ -1290,10 +1287,6 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 person = Person()
                 person.first_name = involvement_dict['first_name']
                 person.last_name = involvement_dict['last_name']
-                person.involvement_type = involvement_type
-                for lang_code, lang_name in FRONTEND_LANGUAGES:
-                    setattr(person, 'involvement_role_%s' % lang_code, involvement_dict['involvement_role_%s' % lang_code])
-                    setattr(person, 'involvement_instrument_%s' % lang_code, involvement_dict['involvement_instrument_%s' % lang_code])
                 person.save()
 
                 involvement_dict['person'] = person.pk

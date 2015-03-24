@@ -724,8 +724,6 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
             person = Person()
             person.first_name = cleaned['first_name']
             person.last_name = cleaned['last_name']
-            for lang_code, lang_name in FRONTEND_LANGUAGES:
-                setattr(person, 'leadership_function_%s' % lang_code, cleaned['function_%s' % lang_code])
             person.save()
             self.cleaned_data['person'] = person
             del self.cleaned_data['first_name']
@@ -826,7 +824,6 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
             person = Person()
             person.first_name = cleaned['first_name']
             person.last_name = cleaned['last_name']
-            person.authorship_type = cleaned['authorship_type']
             person.save()
             self.cleaned_data['person'] = person
             del self.cleaned_data['first_name']
@@ -971,10 +968,6 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
             person = Person()
             person.first_name = cleaned['first_name']
             person.last_name = cleaned['last_name']
-            person.involvement_type = cleaned['involvement_type']
-            for lang_code, lang_name in FRONTEND_LANGUAGES:
-                setattr(person, 'involvement_role_%s' % lang_code, cleaned['involvement_role_%s' % lang_code])
-                setattr(person, 'involvement_instrument_%s' % lang_code, cleaned['involvement_instrument_%s' % lang_code])
             person.save()
             self.cleaned_data['person'] = person
             del self.cleaned_data['first_name']

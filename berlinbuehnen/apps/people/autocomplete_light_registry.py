@@ -22,17 +22,6 @@ class AutocompletePerson(autocomplete_light.AutocompleteModelBase):
     }
 
     def choice_label(self, choice):
-        label = unicode(choice)
-        if choice.leadership_function:
-            return label + u' - ' + unicode(choice.leadership_function)
-        if choice.involvement_type:
-            return label + u' - ' + unicode(choice.involvement_type)
-        if choice.involvement_role:
-            return label + u'  - ' + unicode(choice.involvement_role)
-        if choice.involvement_instrument:
-            return label + u'  - ' + unicode(choice.involvement_instrument)
-        if choice.authorship_type:
-            return label + u' - ' + unicode(choice.authorship_type)
-        return label
+        return unicode(choice)
 
 autocomplete_light.register(Person, AutocompletePerson)

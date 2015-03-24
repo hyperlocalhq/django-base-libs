@@ -625,10 +625,6 @@ class ImportFromHeimatBase(object):
                         p, created = Person.objects.get_or_create(
                             first_name=first_name,
                             last_name=last_name,
-                            defaults={
-                                'involvement_role_de': role_de,
-                                'involvement_role_en': role_en,
-                            }
                         )
                         prod.productioninvolvement_set.create(
                             person=p,
@@ -793,10 +789,6 @@ class ImportFromHeimatBase(object):
                             p, created = Person.objects.get_or_create(
                                 first_name=first_name,
                                 last_name=last_name,
-                                defaults={
-                                    'involvement_role_de': role_de,
-                                    'involvement_role_en': role_en,
-                                }
                             )
                             event.eventinvolvement_set.create(
                                 person=p,

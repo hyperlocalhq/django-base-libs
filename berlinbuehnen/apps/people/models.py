@@ -70,12 +70,6 @@ class Person(CreationModificationMixin, SlugMixin(prepopulate_from=("first_name"
     first_name = models.CharField(_('First name'), max_length=255, blank=True)
     last_name = models.CharField(_('Last name'), max_length=255, blank=True)
 
-    leadership_function = MultilingualCharField(_('Default leadership function'), max_length=255, blank=True)
-    involvement_type = models.ForeignKey(InvolvementType, verbose_name=_('Default involvement type'), max_length=255, blank=True, null=True)
-    involvement_role = MultilingualCharField(_('Default involvement role'), max_length=255, blank=True)
-    involvement_instrument = MultilingualCharField(_('Default involvement instrument'), max_length=255, blank=True)
-    authorship_type = models.ForeignKey(AuthorshipType, verbose_name=_('Default authorship type'), max_length=255, blank=True, null=True)
-
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     class Meta:
@@ -84,4 +78,4 @@ class Person(CreationModificationMixin, SlugMixin(prepopulate_from=("first_name"
         ordering = ['last_name', 'first_name']
 
     def __unicode__(self):
-        return self.first_name + ' ' + self.last_name
+        return (self.first_name + ' ' + self.last_name).strip()
