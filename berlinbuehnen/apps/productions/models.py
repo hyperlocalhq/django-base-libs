@@ -10,6 +10,7 @@ from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.fields import MultilingualCharField
+from base_libs.models.fields import MultilingualURLField
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # needed for south to work
@@ -123,7 +124,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     original = MultilingualCharField(_("Original title"), max_length=255, blank=True)
-    website = URLField(_("Production URL"), blank=True, max_length=255)
+    website = MultilingualURLField(_("Production URL"), blank=True, max_length=255)
 
     in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In the programme of"), blank=True, related_name="program_productions")
     play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Performance location"), blank=True, related_name="located_productions")

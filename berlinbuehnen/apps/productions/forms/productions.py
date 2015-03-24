@@ -48,7 +48,6 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         model = Production
         autocomplete_fields = ('in_program_of', 'play_locations', 'play_stages')
         fields = [
-            'website',
             'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
             'categories',
@@ -59,6 +58,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'original_%s' % lang_code,
+                'website_%s' % lang_code,
             ]
 
     def __init__(self, *args, **kwargs):
@@ -70,6 +70,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'original_%s' % lang_code,
+                'website_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
@@ -90,14 +91,14 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('prefix_%s' % lang_code),
+                layout.Field('title_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('title_%s' % lang_code),
+                layout.Field('prefix_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
@@ -116,11 +117,11 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
         fieldset_content.append(layout.Row(
-            layout.Div(
-                layout.Field('website', placeholder="http://"),
-                css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12",
-            ),
             css_class="row-md",
+            *[layout.Div(
+                layout.Field('website_%s' % lang_code, placeholder="http://"),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
         layout_blocks.append(layout.Fieldset(
             _("Title"),
@@ -992,7 +993,7 @@ def load_data(instance=None):
             '_pk': instance.pk,
         }
         fields = [
-            'website', 'ensembles', 'organizers', 'in_cooperation_with',
+            'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -1001,6 +1002,7 @@ def load_data(instance=None):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'original_%s' % lang_code,
+                'website_%s' % lang_code,
             ]
         for fname in fields:
             form_step_data['basic'][fname] = getattr(instance, fname)
@@ -1093,7 +1095,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance = Production()
 
         fields = [
-            'website', 'ensembles', 'organizers', 'in_cooperation_with',
+            'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
@@ -1102,6 +1104,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'original_%s' % lang_code,
+                'website_%s' % lang_code,
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
