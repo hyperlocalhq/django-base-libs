@@ -294,7 +294,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Authors"),
+            _("Authors/Composers"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.authorships.management_form }}
             <div id="authorships">
@@ -644,6 +644,7 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProductionAuthorshipForm, self).__init__(*args, **kwargs)
 
+        self.fields['authorship_type'].label = _("Function")
         self.fields['sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
@@ -725,7 +726,7 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         label=_("Select one option"),
         required=True,
         choices=(
-            ('type', _("Choose type")),
+            ('type', _("Choose function")),
             ('role', _("Enter role")),
             ('instrument', _("Enter instrument")),
         ),
@@ -746,6 +747,7 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
+        self.fields['involvement_type'].label = _("Function")
         self.fields['sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
