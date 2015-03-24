@@ -344,3 +344,114 @@ em { color: black; font-style: italic; }
     margin-bottom: 2px !important;
   }
 }
+
+
+#page-controls {
+    position: absolute;
+    top: 0px;
+    z-index: 950;
+    a {
+        width: 215px;
+        height: 140px;
+        line-height: 95px;
+        text-align: center;
+        font-size: 22px;
+        position: fixed;
+        top: 50%;
+        margin-top: -70px;
+        transition-property: all;
+        transition-duration: 0.75s;
+        color: #000;
+        background-color: #000;
+        background-clip: padding-box;
+        background-repeat: no-repeat;
+        background-size: 33px auto;
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        overflow: hidden;
+        > span {
+            display: table;
+            width: 90%;
+            height: 100%;
+            position: absolute;
+            span.title {
+                display: table-cell;
+                vertical-align: middle;
+                font-size: 14px;
+                line-height: 20px;
+                font-weight: 700;
+                width: 150px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+        &.prev {
+            left: 0px;
+            border-right: 20px solid transparent;
+            text-align: right;
+            margin-left: -190px;
+            background-image: url("../img/icons/left.png");
+            background-position: left center;
+            &:hover {
+                margin-left: 0px;
+            }
+            > span {
+                right: 0px;
+            }
+        }
+        &.next {
+            right: 0px;
+            border-left: 20px solid transparent;
+            text-align: left;
+            margin-right: -190px;
+            background-image: url("../img/icons/right.png");
+            background-position: right center;
+            &:hover {
+                margin-right: 0px;
+            }
+            > span {
+                left: 0px;
+            }
+        }
+    }
+}
+
+    
+#to-top {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    display: block;
+    color: #000;
+    text-align: center;
+    z-index: 950;
+    overflow: hidden;
+    height: 60px;
+    width: 70px;
+    span {
+        transform: translateY(250px);
+        font-size: 0px;
+        text-indent: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+        height: 60px;
+        width: 70px;
+        background-color: #000;
+        display: inline-block;
+        transition-property: all;
+        transition-duration: 0.75s;
+        position: relative;
+        opacity: 0;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 40px auto;
+        background-image: url("../img/icons/arrow_up.png");
+    }
+    &.on span {
+        transform: translateY(0px);
+        background-color: rgba(0, 0, 0, 0.95);
+        opacity: 1;
+        color: #FFF;
+    }
+}
+    

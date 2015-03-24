@@ -1,4 +1,5 @@
 .details {
+    
     .back {
         color: black;
         font-weight: 200;
@@ -48,6 +49,10 @@
         }
     }
     .additional {
+        .sponsor {
+            display: inline-block;
+            margin: 15px 15px 0 0;
+        }
     }
     .left {
         padding-left: 0;

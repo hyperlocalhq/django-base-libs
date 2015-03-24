@@ -8,6 +8,7 @@
 
 .btn, .btn-sm, .btn-group-sm > .btn {
     font-size: 1em;
+    font-weight: 400;
 }
 
 .pagination > .active > a, .pagination > .active > span {
@@ -38,4 +39,11 @@
             background-color: $blue_hover;
         }
     }
+}
+
+.navbar-brand {
+    padding-top: 50px;
+}
+.navbar.affix {
+    margin-top: -40px;
 }

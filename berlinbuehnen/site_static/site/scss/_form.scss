@@ -1374,7 +1374,7 @@ select {
     th small{
       font-size: 0.875em;
       text-transform: uppercase;
-      font-weight: normal;
+      font-weight: 400;
       color: rgba(0,0,0,0.75) !important;
     }
     td {
@@ -1670,6 +1670,12 @@ select {
 
 .dashboard {
   
+  font-weight: 400;
+  
+  label {
+    font-weight: 400;
+  }
+    
   .dashboard-header {
     .form-steps {
       li {
