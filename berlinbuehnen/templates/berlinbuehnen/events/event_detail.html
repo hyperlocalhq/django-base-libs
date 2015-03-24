@@ -171,13 +171,11 @@
                                                         </div>
                                                     </div>
                                                 {% endif %}
-                                                {% if event.production.ensembles.exists %}
+                                                {% if event.production.ensembles %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Ensembles" %}</h4>
                                                         <div class="accordion-item-content">
-                                                            {% for location in event.production.ensembles.all %}
-                                                                <p>{{ location.title }}</p>
-                                                            {% endfor %}
+                                                            <p>{{ event.production.ensembles }}</p>
                                                         </div>
                                                     </div>
                                                 {% endif %}
@@ -191,29 +189,24 @@
                                                         </div>
                                                     </div>
                                                 {% endif %}
-                                                {% if event.production.organizers.exists or event.production.organizer_title or event.organizer_title %}
+                                                {% if event.production.organizers or event.organizers %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Organizers" %}</h4>
                                                         <div class="accordion-item-content">
-                                                            {% for location in event.production.organizers.all %}
-                                                                <p>{{ location.title }}</p>
-                                                            {% endfor %}
-                                                            {% if event.production.organizer_title %}
-                                                                <p>{{ event.production.organizer_title }}</p>
+                                                            {% if event.production.organizers %}
+                                                                <p>{{ event.production.organizers }}</p>
                                                             {% endif %}
-                                                            {% if event.organizer_title %}
-                                                                <p>{{ event.organizer_title }}</p>
+                                                            {% if event.organizers %}
+                                                                <p>{{ event.organizers }}</p>
                                                             {% endif %}
                                                         </div>
                                                     </div>
                                                 {% endif %}
-                                                {% if event.production.in_cooperation_with.exists %}
+                                                {% if event.production.in_cooperation_with %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "In cooperation with" %}</h4>
                                                         <div class="accordion-item-content">
-                                                            {% for location in event.production.in_cooperation_with.all %}
-                                                                <p>{{ location.title }}</p>
-                                                            {% endfor %}
+                                                            <p>{{ event.production.in_cooperation_with }}</p>
                                                         </div>
                                                     </div>
                                                 {% endif %}
