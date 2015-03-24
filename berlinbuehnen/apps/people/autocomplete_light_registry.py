@@ -1,13 +1,16 @@
 # -*- coding: UTF-8 -*-
 
 from django.utils.translation import ugettext_lazy as _
+from django.db import models
 
 import autocomplete_light
 from models import Person
 
 
 class AutocompletePerson(autocomplete_light.AutocompleteModelBase):
-    search_fields = ['first_name', 'last_name']
+    search_fields = ['^first_name', '^last_name']
+    split_words = True
+
     autocomplete_js_attributes = attrs = {
         'placeholder': _('Start typing to choose a person'),
         'data-autocomplete-minimum-characters': 1,
