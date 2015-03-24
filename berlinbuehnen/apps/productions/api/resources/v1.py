@@ -80,10 +80,11 @@ class LanguageAndSubtitlesResource(ModelResource):
 
 
 class ProductionCategoryResource(ModelResource):
+    parent = fields.ToOneField("self", "parent", null=True, blank=True)
     class Meta(BaseMetaForModelResource):
         queryset = ProductionCategory.objects.all()
         resource_name = 'production_category'
-        fields = ['id', 'parent', 'title≤_de', 'title≤_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
 
 
 class ProductionCharacteristicsResource(ModelResource):

@@ -37,7 +37,7 @@ class SponsorResource(ModelResource):
 
     def dehydrate(self, bundle):
         if bundle.obj.image:
-            bundle.data['url'] = "".join((
+            bundle.data['image_url'] = "".join((
                 get_website_url(),
                 settings.MEDIA_URL[1:],
                 bundle.obj.image.path,
