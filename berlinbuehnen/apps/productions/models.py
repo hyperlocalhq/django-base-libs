@@ -274,8 +274,8 @@ class ProductionVideo(CreationModificationDateMixin):
 
     class Meta:
         ordering = ["sort_order", "creation_date"]
-        verbose_name = _("Video")
-        verbose_name_plural = _("Videos")
+        verbose_name = _("Video/Audio")
+        verbose_name_plural = _("Videos/Audios")
 
     def __unicode__(self):
         return self.title

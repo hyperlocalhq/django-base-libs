@@ -37,6 +37,7 @@ COPYRIGHT_RESTRICTION_CHOICES = (('', '---------'),) + COPYRIGHT_RESTRICTION_CHO
 
 # TODO: use https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php for responsive video
 
+
 class VideoForm(forms.Form):
     goto_next = forms.CharField(
         widget=forms.HiddenInput(),
@@ -87,9 +88,9 @@ class VideoForm(forms.Form):
         layout_blocks.append(layout.Fieldset(
             """{% load i18n %}
             {% if media_file %}
-                {% trans "Edit Video" %}
+                {% trans "Edit Video/Audio" %}
             {% else %}
-                {% trans "Add Video" %}
+                {% trans "Add Video/Audio" %}
             {% endif %}
             """,
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
@@ -123,7 +124,7 @@ class VideoForm(forms.Form):
                             <div class="cell">
                                 <div class="inner">
                                     <div class="modal-body">
-                                        <p>{% trans "Do you really want to delete this video?" %}</p>
+                                        <p>{% trans "Do you really want to delete this video/audio?" %}</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button id="button-id-confirm-deletion" class="btn btn-primary">{% trans "Yes, Please" %}</button>
@@ -150,9 +151,10 @@ class VideoForm(forms.Form):
             except PyOembedException, e:
                 pass
             else:
-                if data['type'] == 'video':
+                if data['type'] in ('video', 'audio'):
                     return data['html']
         return link_or_embed
+
 
 class VideoDeletionForm(forms.Form):
     goto_next = forms.CharField(
@@ -169,7 +171,7 @@ class VideoDeletionForm(forms.Form):
         layout_blocks = []
 
         layout_blocks.append(layout.Fieldset(
-            _("Delete Video?"),
+            _("Delete Video/Audio?"),
             layout.HTML("""{% load image_modifications %}
                 {% if media_file.link_or_embed %}
                     <p>Are you sure you want to delete this video?</p>
@@ -187,6 +189,7 @@ class VideoDeletionForm(forms.Form):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
+
 
 class StreamingForm(forms.Form):
     goto_next = forms.CharField(
@@ -678,4 +681,3 @@ class PDFDeletionForm(forms.Form):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
-
