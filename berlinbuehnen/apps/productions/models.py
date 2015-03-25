@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.utils.timezone import now as tz_now
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import SlugMixin
@@ -177,6 +178,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
+    show_among_others = models.BooleanField(_("Show among others"), default=True, help_text=_("Should this production be shown in event details among other productions at the same venue?"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     objects = ProductionManager()
@@ -251,6 +253,33 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         except:
             return []
         return role.users.all()
+
+    def get_nearest_occurrence(self, timestamp=tz_now):
+        """ returns current or closest future or closest past event time """
+        if callable(timestamp):
+            timestamp = timestamp()
+
+        event_times = self.event_set.filter(
+            end_date__gte=timestamp.date(),
+        )
+
+        if not event_times:
+            event_times = self.event_set.order_by("-end_date")
+
+        if event_times:
+            return event_times[0]
+
+        return None
+
+    def get_past_occurrences(self, timestamp=tz_now):
+        if callable(timestamp):
+            timestamp = timestamp()
+        return self.event_set.filter(end_date__lt=timestamp.date())
+
+    def get_future_occurrences(self, timestamp=tz_now):
+        if callable(timestamp):
+            timestamp = timestamp()
+        return self.event_set.filter(start_date__gt=timestamp.date())
 
 
 class ProductionSocialMediaChannel(models.Model):
@@ -440,7 +469,7 @@ class EventCharacteristics(CreationModificationDateMixin, SlugMixin()):
 
 
 class Event(CreationModificationMixin, UrlMixin):
-    production = models.ForeignKey(Production, verbose_name=_("Prodution"))
+    production = models.ForeignKey(Production, verbose_name=_("Production"))
     start_date = models.DateField(_("Start date"))
     end_date = models.DateField(_("End date"), blank=True, null=True)
     start_time = models.TimeField(_("Start time"), blank=True, null=True)

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites production_tags %}
 {% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}event-detail{% endblock %}
 
@@ -382,6 +382,7 @@
                                 </div>
                             </div>
                         </article>
+                        {% other_productions current_event=event %}
                     </div>
                 </div>
             </div>

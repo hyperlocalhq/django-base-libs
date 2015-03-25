@@ -1,0 +1,18 @@
+<ul>
+    {% for prod in other_productions %}
+        <li>
+            {% with event=prod.get_nearest_occurrence %}
+                <a href="{{ event.get_url_path }}">{{ prod.title }}</a>
+                {% with im=event.ev_or_prod_images.0 %}
+                    {% if im %}
+                        <img src="{{ MEDIA_URL }}{{ im.path }}" alt="" />
+                    {% endif %}
+                {% endwith %}
+            {% endwith %}
+        </li>
+        {% if forloop.counter|divisibleby:"2" and not forloop.last %}
+          </ul>
+          <ul>
+        {% endif %}
+    {% endfor %}
+</ul>
