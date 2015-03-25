@@ -178,10 +178,15 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             'organizers',
             'play_locations', 'play_stages',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'free_entrance', 'price_from', 'price_till', 'tickets_website',
+            'characteristics',
             'event_status', 'ticket_status',
         ]
-        # for lang_code, lang_name in FRONTEND_LANGUAGES:
-        #     fields += []
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            fields += [
+                'price_information_%s' % lang_code,
+                'other_characteristics_%s' % lang_code,
+            ]
 
     def __init__(self, *args, **kwargs):
         super(BasicInfoForm, self).__init__(*args, **kwargs)
@@ -192,9 +197,15 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             minutes = duration_in_minutes % 60
             self.fields['duration_as_time'].initial = time(hours, minutes)
 
-        # for lang_code, lang_name in FRONTEND_LANGUAGES:
-        #     for f in []:
-        #         self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'price_information_%s' % lang_code,
+                'other_characteristics_%s' % lang_code,
+            ]:
+                self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
+
+        self.fields['characteristics'].widget = forms.CheckboxSelectMultiple()
+        self.fields['characteristics'].help_text = u""
 
         self.fields['play_locations'].label += ' (' + ugettext('or') + ' <a href="" class="enter_location">' + ugettext('enter a new location below') + '</a>)'
 
@@ -296,15 +307,61 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
+            _("Tickets"),
+            layout.Row(
+                layout.Div(
+                    layout.Field('price_from'),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ),
+                layout.Div(
+                    layout.Field('price_till'),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ),
+                css_class="row-md",
+            ),
+            layout.Row(
+                layout.Div(
+                    "free_entrance",
+                    layout.Field("ticket_status"),
+                    layout.Field("tickets_website", placeholder="http://"),
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
+            layout.Row(
+                css_class="row-md",
+                *[layout.Div(
+                    layout.Field('price_information_%s' % lang_code),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+            ),
+            css_class="fieldset-tickets",
+            *fieldset_content
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            _("Other Characteristics"),
+            layout.Row(
+                layout.Div(
+                    "characteristics",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
+            layout.Row(
+                css_class="row-md",
+                *[layout.Div(
+                    layout.Field('other_characteristics_%s' % lang_code),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+            ),
+            css_class="fieldset-characteristics",
+        ))
+
+        layout_blocks.append(layout.Fieldset(
             _("Status"),
             layout.Row(
                 layout.Div(
                     layout.Field("event_status"),
-                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
-                ),
-                layout.Div(
-                    layout.Field("ticket_status"),
-                    css_class="col-xs-12 col-sm-6 col-md-6 col-lg-6"
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
                 ),
                 css_class="row-sm"
             ),
@@ -337,8 +394,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
     class Meta:
         model = Event
         fields = [
-            'free_entrance', 'price_from', 'price_till', 'tickets_website',
-            'characteristics',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -351,8 +406,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'concert_programm_%s' % lang_code,
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
-                'price_information_%s' % lang_code,
-                'other_characteristics_%s' % lang_code,
             ]
 
     def __init__(self, *args, **kwargs):
@@ -369,13 +422,8 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'concert_programm_%s' % lang_code,
                 'supporting_programm_%s' % lang_code,
                 'remarks_%s' % lang_code,
-                'price_information_%s' % lang_code,
-                'other_characteristics_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
-
-        self.fields['characteristics'].widget = forms.CheckboxSelectMultiple()
-        self.fields['characteristics'].help_text = u""
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -524,48 +572,6 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 layout.Field('price_information_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-        ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Tickets"),
-            layout.Row(
-                layout.Div(
-                    layout.Field('price_from'),
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                ),
-                layout.Div(
-                    layout.Field('price_till'),
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                ),
-                css_class="row-md",
-            ),
-            layout.Row(
-                layout.Div(
-                    "free_entrance",
-                    layout.Field("tickets_website", placeholder="http://"),
-                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-                ),
-            ),
-            css_class="fieldset-tickets",
-            *fieldset_content
-        ))
-
-        layout_blocks.append(layout.Fieldset(
-            _("Other Characteristics"),
-            layout.Row(
-                layout.Div(
-                    "characteristics",
-                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-                ),
-            ),
-            layout.Row(
-                css_class="row-md",
-                *[layout.Div(
-                    layout.Field('other_characteristics_%s' % lang_code),
-                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
-                ) for lang_code, lang_name in FRONTEND_LANGUAGES]
-            ),
-            css_class="fieldset-characteristics",
         ))
 
         layout_blocks.append(layout.Fieldset(
