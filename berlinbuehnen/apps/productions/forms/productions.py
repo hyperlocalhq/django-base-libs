@@ -134,9 +134,9 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     "in_program_of",
-                    "ensembles",
                     "play_locations",
                     "play_stages",
+                    "ensembles",
                     "organizers",
                     "in_cooperation_with",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
