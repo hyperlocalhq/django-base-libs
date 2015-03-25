@@ -50,7 +50,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         fields = [
             'in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
-            'categories',
+            'categories', 'show_among_others',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -187,6 +187,17 @@ class BasicInfoForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     layout.Div(layout.Field("categories", template="utils/checkboxselectmultipletree.html")),
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tree"
+                ),
+            ),
+            css_class="fieldset-categories",
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            _('Visibility'),
+            layout.Row(
+                layout.Div(
+                    "show_among_others",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tree"
                 ),
             ),
@@ -1006,6 +1017,7 @@ def load_data(instance=None):
         fields = [
             'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'show_among_others',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -1109,6 +1121,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         fields = [
             'ensembles', 'organizers', 'in_cooperation_with',
             'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'show_among_others',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
