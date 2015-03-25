@@ -209,6 +209,8 @@ INSTALLED_APPS = (
     "jetson.apps.configuration",
     "jetson.apps.mailing",
     "jetson.apps.external_services",
+    "jetson.apps.blog",
+    "jetson.apps.comments",
 
     ### berlin buehnen apps ###
     "berlinbuehnen.apps.articles",
@@ -257,17 +259,11 @@ ADMIN_APP_INDEX = (
             ('slideshows', {
                 'models': ('Slideshow',),
             }),
-            ('internal_links', {
-                'models': ('LinkGroup',),
-            }),
             ('articles', {
                 'models': ('ArticleCategory','Article',),
             }),
             ('blog', {
                 'models': ('Blog','Post',),
-            }),
-            ('shop', {
-                'models': ('ShopProductCategory','ShopProductType','ShopProduct',),
             }),
             ('mega_menu', {
                 'models': ("MenuBlock",),
@@ -611,6 +607,8 @@ MAILING_DEFAULT_FROM_EMAIL = "kontakt@berlinbuehnen.de"
 ROSETTA_STORAGE_CLASS = "rosetta.storage.SessionRosettaStorage"
 
 ALLOWED_HOSTS = ['www.berlinbuehnen.de', 'berlinbuehnen.de']
+
+COMMENTS_BANNED_USERS_GROUP = ""
 
 #SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
