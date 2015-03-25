@@ -654,6 +654,13 @@ class Event(CreationModificationMixin, UrlMixin):
             return self.eventinvolvement_set.all().order_by('sort_order')
         return self.production.productioninvolvement_set.all().order_by('sort_order')
 
+    ### special text ###
+
+    def get_special_text(self):
+        ch = self.characteristics.filter(slug="premiere")
+        if ch:
+            return ch[0].title
+        return u""
 
 class EventSocialMediaChannel(models.Model):
     event = models.ForeignKey(Event)

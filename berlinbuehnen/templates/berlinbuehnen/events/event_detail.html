@@ -116,7 +116,9 @@
                                                                     {% if ev.ev_or_prod_tickets_website %}
                                                                         <span class="tickets"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank"></a></span>
                                                                     {% endif %}
-                                                                    <!-- <span class="extra">Matinee</span> -->
+                                                                    {% if ev.get_special_text %}
+                                                                        <span class="extra">{{ ev.get_special_text }}</span>
+                                                                    {% endif %}
                                                                 </li>
                                                             {% endfor %}
                                                         </ul>
