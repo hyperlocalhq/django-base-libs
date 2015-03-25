@@ -129,10 +129,17 @@
                                                     <div class="accordion-item-content">
                                                         {% if event.location_title %}
                                                             <p data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
-                                                                <strong>{{ event.location_title }}</strong>{<br />
+                                                                <strong>{{ event.location_title }}</strong><br />
                                                                 {% if event.street_address %}{{ event.street_address }}<br />{% endif %}
                                                                 {% if event.street_address2 %}{{ event.street_address2 }}<br />{% endif %}
                                                                 {% if event.city %}{{ event.postal_code }} {{ event.city }}<br />{% endif %}
+                                                            </p>
+                                                        {% elif event.production.location_title %}
+                                                            <p data-latitude="{{ event.production.latitude|stringformat:"%f" }}" data-longitude="{{ event.production.longitude|stringformat:"%f" }}">
+                                                                <strong>{{ event.production.location_title }}</strong><br />
+                                                                {% if event.production.street_address %}{{ event.production.street_address }}<br />{% endif %}
+                                                                {% if event.production.street_address2 %}{{ event.production.street_address2 }}<br />{% endif %}
+                                                                {% if event.production.city %}{{ event.production.postal_code }} {{ event.production.city }}<br />{% endif %}
                                                             </p>
                                                         {% endif %}
                                                         {% for location in event.ev_or_prod_play_locations %}
