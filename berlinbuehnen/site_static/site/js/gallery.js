@@ -24,7 +24,6 @@
         me.$main = $main;
         me.$items = $('.gallery-item', $main);   
         me.player = new Array();
-        me.image_counter = 0;
         
         
         
@@ -53,8 +52,6 @@
         });
         
         $('.image', $main).each(function() {
-            
-            me.image_counter++;
             
             var $this = $(this);
             var $image = $($this.children()[0]);
@@ -152,10 +149,7 @@
     Gallery.prototype.onImageLoaded = function() {
         
         if (this.me) var me = this.me;
-        
-        me.image_counter--;
-        
-        if (me.image_counter <= 0) me.arrange();
+        me.arrange();
     }
     
     
