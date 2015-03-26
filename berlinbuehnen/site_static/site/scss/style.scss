@@ -8,6 +8,7 @@
 @import 'details';
 @import 'slideshows';
 @import 'accordions';
+@import 'galery';
 //@import 'isotope';
 //@import 'tooltip';
 //@import 'maps';
@@ -52,7 +53,7 @@ body {
   position: relative;
   background-color: white;
   color: black;
-  font-family: 'TitilliumWeb', Helvetica, Arial, sans-serif;
+  font-family: 'Webfont', Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 125%;
   overflow-y: scroll;
@@ -147,7 +148,7 @@ h6,
   margin-top: 0px;
   font-weight: bold;
   line-height: 120%;
-  font-family: 'TitilliumWeb', Helvetica, Arial, sans-serif;
+  font-family: 'Webfont', Helvetica, Arial, sans-serif;
   &:last-child { margin-bottom: 0px !important; padding-bottom: 0px !important;}
 }
 
@@ -361,7 +362,7 @@ em { color: black; font-style: italic; }
         margin-top: -70px;
         transition-property: all;
         transition-duration: 0.75s;
-        color: #000;
+        color: white;
         background-color: #000;
         background-clip: padding-box;
         background-repeat: no-repeat;

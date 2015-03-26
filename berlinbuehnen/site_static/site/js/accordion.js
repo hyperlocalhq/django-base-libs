@@ -1,5 +1,16 @@
+/**
+ * ...
+ * @author Daniel Lehmann
+ */
+
 (function() {
     
+    /**
+     * The constructor.
+     * Gets the jQuery object of the accordion which contains the $('.accordion-item') objects.
+     *
+     * @param   $main   the jQuery object of the accordion wrapper
+     */
     function Accordion($main) {
         
         var me = this;

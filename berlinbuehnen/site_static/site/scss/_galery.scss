@@ -1,0 +1,27 @@
+.gallery {
+    
+    position: relative;
+    margin-left: -10px;
+    margin-right: -10px;
+    
+    .col-xs-12, .col-sm-6, .col-md-8, .col-md-4 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .gallery-head {
+        font-weight: 200;
+        font-size: 2em;
+        text-transform: uppercase;
+        padding: 8px 0;
+        margin: 0 10px;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+    }
+    
+    .gallery-item {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

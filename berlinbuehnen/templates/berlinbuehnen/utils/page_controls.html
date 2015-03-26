@@ -3,14 +3,14 @@
     {% if prev_item %}
         <a href="{{ prev_item.get_url_path }}" class="prev">
             <span>
-                <span class="title">{{ prev_item.title }}</span>
+                <span class="title">{{ prev_item.production.title }}</span>
             </span>
         </a>
     {% endif %}
     {% if next_item %}
         <a href="{{ next_item.get_url_path }}" class="next">
             <span>
-                <span class="title">{{ next_item.title }}</span>
+                <span class="title">{{ next_item.production.title }}</span>
             </span>
         </a>
     {% endif %}

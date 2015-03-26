@@ -18,6 +18,7 @@
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -386,12 +387,25 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
+                                            <div class="gallery row">
+                                                <h4 class="gallery-head">{% trans "Gallery" %}</h4>
+                                                {% if event.ev_or_prod_videos %}
+                                                    {% for video in event.ev_or_prod_videos %}
+                                                        <div class="col-xs-12 col-md-8 video gallery-item">{{ video.get_embed|safe }}</div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                {% if event.ev_or_prod_images %}
+                                                    {% for image in event.ev_or_prod_images %}
+                                                        <div class="col-xs-12 col-sm-6 col-md-4 gallery-item"><img src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="" width="100%" /></div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </article>
-                        {% other_productions current_event=event %}
+                        {% comment %}{% other_productions current_event=event %}{% endcomment %}
                     </div>
                 </div>
             </div>
