@@ -64,7 +64,7 @@ class LanguageAndSubtitles(CreationModificationDateMixin, SlugMixin()):
 
 
 class ProductionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
-    parent = TreeForeignKey('self', blank=True, null=True)
+    parent = TreeForeignKey('self', blank=True, null=True, related_name="children")
     title = MultilingualCharField(_('Title'), max_length=200)
 
     objects = TreeManager()

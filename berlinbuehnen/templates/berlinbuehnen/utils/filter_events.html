@@ -1,152 +1,174 @@
 {% load i18n base_tags %}
 <div id="filters">
-  <h4>{% trans "Filters" %}</h4>
+    <h4>{% trans "Filters" %}</h4>
 
-  <div class="btn-group" id="filter-toggle" data-toggle="buttons">
-    {% comment %}
-    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
-      <input type="radio" name="options" id="filter-toggle-categories">
-      {% trans "Categories" %}
-    </label>
-    {% endcomment %}
+    <div class="btn-group" id="filter-toggle" data-toggle="buttons">
+        {% for cat in facets.categories.categories %}
+            <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories-{{ cat.pk }}">
+                <input type="radio" name="options" id="filter-toggle-categories-{{ cat.pk }}">
+                {{ cat.title }}
+            </label>
+        {% endfor %}
 
-    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
-      <input type="radio" name="options" id="filter-toggle-alphabetic">
-      {% trans "A - Z" %}
-    </label>
+        <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
+            <input type="radio" name="options" id="filter-toggle-alphabetic">
+            {% trans "A - Z" %}
+        </label>
 
-    {% comment %}
-    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
-      <input type="radio" name="options" id="filter-toggle-smartlists">
-      {% trans "Smart lists" %}
-    </label>
+        {% comment %}
+        <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
+            <input type="radio" name="options" id="filter-toggle-smartlists">
+            {% trans "Smart lists" %}
+        </label>
+        {% endcomment %}
 
-    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-open-late">
-      <input type="radio" name="options" id="filter-toggle-open-late">
-      {% trans "Open late" %}
-    </label>
+        <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-language">
+            <input type="radio" name="options" id="filter-toggle-language">
+            {% trans "Language" %}
+        </label>
 
-    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-accessibility">
-      <input type="radio" name="options" id="filter-toggle-accessibility">
-      {% trans "Accessibility" %}
-    </label>
-    {% endcomment %}
+        <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-characteristics">
+            <input type="radio" name="options" id="filter-toggle-characteristics">
+            {% trans "Characteristics" %}
+        </label>
 
-    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-location">
-      <input type="radio" name="options" id="filter-toggle-location">
-      {% trans "Location" %}
-    </label>
+        <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-location">
+            <input type="radio" name="options" id="filter-toggle-location">
+            {% trans "Location" %}
+        </label>
 
-  </div>
-
-  <div class="panel-group" id="filter-options">
-    {% comment %}
-    <div class="panel panel-default">
-      <div id="filter-categories" class="panel-collapse collapse">
-        <div class="panel-body">
-          <h4>{% trans "Categories" %}</h4>
-
-          <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
-            {% for cat in facets.categories.categories %}
-              {% if cat.is_root_node %}
-                <li class="level-{{ cat.level }}{% if facets.selected.category == cat %} active{% endif %}" data-level="{{ cat.level }}" data-param="category" data-value="{{ cat.slug }}">
-                  <a data-filter-value=".cat_{{ cat.slug }}" href="{% append_to_get category=cat.slug,page="" %}" {% if cat.get_children %} data-level-1-at="#level-1-cat-container" data-target="#cat_{{ cat.slug }}"{% endif %}>{{ cat.title }}</a>
-                </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-          <div id="level-1-cat-container" class="level-1-container">
-            {% for cat in facets.categories.categories %}
-              {% if cat.is_root_node and cat.get_children %}
-                <ul id="cat_{{ cat.slug }}" class="filter option-set clearfix collapse{% if facets.selected.category == cat %} in{% endif %}" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
-                  {% for child in cat.get_children %}
-                    <li class="x-level-{{ child.level }}{% if facets.selected.subcategory == child %} active{% endif %}" data-level="{{ child.level }}" data-param="subcategory" data-value="{{ child.slug }}">
-                      <a data-filter-value=".cat_{{ child.slug }}" href="{% append_to_get subcategory=child.slug,page="" %}">{{ child.title }}</a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
     </div>
-    {% endcomment %}
-    <div class="panel panel-default">
-      <div id="filter-alphabetic" class="panel-collapse collapse">
-        <div class="panel-body">
-          <h4>{% trans "Alphabet" %}</h4>
-          <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
-            {% for item in abc_list %}
-              {% if not forloop.first %}
-                <li{% if item.3 %} class="active"{% endif %} data-param="abc" data-value="{{ item.0 }}">
-                  <a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}" href="{% append_to_get abc=item.0,page="" %}">{{ item.1 }}</a>
-                </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
-    {% comment %}
-    <div class="panel panel-default">
-      <div id="filter-smartlists" class="panel-collapse collapse">
-        <div class="panel-body">
-          <h4>{% trans "Smart lists" %}</h4>
 
-          <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
-            <li{% if facets.selected.open_on_mondays %} class="active"{% endif %} data-param="open_on_mondays" data-value="1">
-              <a href="{% append_to_get open_on_mondays=1,page="" %}" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a>
-            </li>
-            <li{% if facets.selected.free_entrance %} class="active"{% endif %} data-param="free_entrance" data-value="1">
-              <a href="{% append_to_get free_entrance=1,page="" %}" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a>
-            </li>
-          </ul>
+    <div class="panel-group" id="filter-options">
+        {% for cat in facets.categories.categories %}
+            <div class="panel panel-default">
+                <div id="filter-categories-{{ cat.pk }}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <h4>{{ cat.title }}</h4>
+                        <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1" data-hierarchical="1">
+                            {% for child in cat.children.all %}
+                                {% if child in facets.selected.subcategories %}
+                                    <li class="active" data-param="subcategories" data-value="{{ child.pk }}">
+                                        <a data-filter-value=".cat_{{ cat.slug }}" href="{% remove_from_query "page" subcategories=child.pk %}">{{ child.title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li data-param="subcategories" data-value="{{ child.pk }}">
+                                        <a data-filter-value=".cat_{{ cat.slug }}" href="{% add_to_query "page" subcategories=child.pk %}">{{ child.title }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="panel panel-default">
+            <div id="filter-alphabetic" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <h4>{% trans "Alphabet" %}</h4>
+                    <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
+                        {% for item in abc_list %}
+                            {% if not forloop.first %}
+                                <li{% if item.3 %} class="active"{% endif %} data-param="abc" data-value="{{ item.0 }}">
+                                    <a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}" href="{% append_to_get abc=item.0,page="" %}">{{ item.1 }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div id="filter-open-late" class="panel-collapse collapse">
-        <div class="panel-body">
-          <h4>{% trans "Open late" %}</h4>
-          <ul class="filter option-set clearfix" id="open_late" data-filter-group="open_late" data-single-selection="1">
-            {% for cat in facets.categories.open_late %}
-              <li{% if facets.selected.open_late.0 == cat.0 %} class="active"{% endif %} data-param="open_late" data-value="{{ cat.0 }}">
-                <a href="{% append_to_get open_late=cat.0,page="" %}" data-filter-value=".is_open_on_{{ cat.0 }}">{{ cat.1 }}</a>
-              </li>
-            {% endfor %}
-          </ul>
+        {% comment %}
+        <div class="panel panel-default">
+            <div id="filter-smartlists" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <h4>{% trans "Smart lists" %}</h4>
+
+                    <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
+                        <li{% if facets.selected.open_on_mondays %} class="active"{% endif %} data-param="open_on_mondays" data-value="1">
+                            <a href="{% append_to_get open_on_mondays=1,page="" %}" data-filter-value=".is_open_on_mondays">{% trans "Open on Mondays" %}</a>
+                        </li>
+                        <li{% if facets.selected.free_entrance %} class="active"{% endif %} data-param="free_entrance" data-value="1">
+                            <a href="{% append_to_get free_entrance=1,page="" %}" data-filter-value=".is_free_entrance">{% trans "Free entrance" %}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div id="filter-accessibility" class="panel-collapse collapse">
-        <div class="panel-body">
-          <h4>{% trans "Accessibility" %}</h4>
-          <ul class="filter option-set clearfix" id="accessibility" data-filter-group="accessibility" data-single-selection="1">
-            {% for cat in facets.categories.accessibility_options %}
-              <li{% if facets.selected.accessibility_option == cat %} class="active"{% endif %} data-param="accessibility_option" data-value="{{ cat.slug }}">
-                <a href="{% append_to_get accessibility_option=cat.slug,page="" %}" data-filter-value=".access_{{ cat.slug }}">{{ cat.title }}</a>
-              </li>
-            {% endfor %}
-          </ul>
+        {% endcomment %}
+
+        <div class="panel panel-default">
+            <div id="filter-language" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <h4>{% trans "Language" %}</h4>
+                    <ul class="filter option-set clearfix" id="language_and_subtitles" data-filter-group="language_and_subtitles" data-single-selection="1">
+                        {% for cat in facets.categories.language_and_subtitles %}
+                            {% if facets.selected.language_and_subtitles == cat %}
+                                <li class="active" data-param="language_and_subtitles" data-value="{{ cat.0 }}">
+                                    <a href="{% remove_from_query "page" language_and_subtitles=cat.pk %}" data-filter-value=".language_and_subtitles_{{ cat.pk }}">{{ cat.title }}</a>
+                                </li>
+                            {% else %}
+                                <li data-param="language_and_subtitles" data-value="{{ cat.0 }}">
+                                    <a href="{% add_to_query "page" language_and_subtitles=cat.pk %}" data-filter-value=".language_and_subtitles_{{ cat.pk }}">{{ cat.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    {% endcomment %}
-    <div class="panel panel-default">
-      <div id="filter-location" class="panel-collapse collapse">
-        <div class="panel-body">
-          <h4>{% trans "Location" %}</h4>
-          <ul class="filter option-set clearfix" id="location" data-filter-group="location" data-single-selection="1">
-            {% for cat in facets.categories.locations %}
-              <li{% if facets.selected.location == cat %} class="active"{% endif %} data-param="location" data-value="{{ cat.pk }}">
-                <a href="{% append_to_get location=cat.pk,page="" %}" data-filter-value=".location_{{ cat.pk }}">{{ cat.title }}</a>
-              </li>
-            {% endfor %}
-          </ul>
+        <div class="panel panel-default">
+            <div id="filter-characteristics" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <h4>{% trans "Characteristics" %}</h4>
+                    <ul class="filter option-set clearfix" id="characteristics" data-filter-group="characteristics">
+                        {% for cat in facets.categories.production_characteristics %}
+                            {% if cat in facets.selected.production_characteristics %}
+                                <li class="active" data-param="characteristics" data-value="{{ cat.slug }}">
+                                    <a href="{% remove_from_query "page" production_characteristics=cat.pk %}" data-filter-value=".characteristics_{{ cat.slug }}">{{ cat.title }}</a>
+                                </li>
+                            {% else %}
+                                <li data-param="characteristics" data-value="{{ cat.slug }}">
+                                    <a href="{% add_to_query "page" production_characteristics=cat.pk %}" data-filter-value=".characteristics_{{ cat.slug }}">{{ cat.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% for cat in facets.categories.event_characteristics %}
+                            {% if cat in facets.selected.event_characteristics %}
+                                <li class="active" data-param="characteristics" data-value="{{ cat.slug }}">
+                                    <a href="{% remove_from_query "page" event_characteristics=cat.pk %}" data-filter-value=".characteristics_{{ cat.slug }}">{{ cat.title }}</a>
+                                </li>
+                            {% else %}
+                                <li data-param="characteristics" data-value="{{ cat.slug }}">
+                                    <a href="{% add_to_query "page" event_characteristics=cat.pk %}" data-filter-value=".characteristics_{{ cat.slug }}">{{ cat.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="panel panel-default">
+            <div id="filter-location" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <h4>{% trans "Location" %}</h4>
+                    <ul class="filter option-set clearfix" id="location" data-filter-group="location" data-single-selection="1">
+                        {% for cat in facets.categories.locations %}
+                            {% if cat in facets.selected.locations %} 
+                                <li class="active" data-param="locations" data-value="{{ cat.pk }}">
+                                    <a href="{% remove_from_query "page" locations=cat.pk %}" data-filter-value=".location_{{ cat.pk }}">{{ cat.title }}</a>
+                                </li>
+                            {% else %}
+                                <li data-param="locations" data-value="{{ cat.pk }}">
+                                    <a href="{% add_to_query "page" locations=cat.pk %}" data-filter-value=".location_{{ cat.pk }}">{{ cat.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

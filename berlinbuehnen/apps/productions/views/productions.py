@@ -39,11 +39,32 @@ from berlinbuehnen.apps.productions.models import Production, ProductionImage
 from berlinbuehnen.apps.productions.models import ProductionLeadership, ProductionAuthorship, ProductionInvolvement, ProductionSocialMediaChannel
 from berlinbuehnen.apps.productions.models import Event, ProductionVideo, ProductionLiveStream, EventImage, ProductionPDF
 from berlinbuehnen.apps.productions.models import EventLeadership, EventAuthorship, EventInvolvement, EventSocialMediaChannel
+from berlinbuehnen.apps.productions.models import ProductionCategory, LanguageAndSubtitles, ProductionCharacteristics, EventCharacteristics
 
 
 class EventFilterForm(forms.Form):
-    location = forms.ModelChoiceField(
+    locations = forms.ModelMultipleChoiceField(
         queryset=Location.objects.all(),
+        required=False,
+    )
+    categories = forms.ModelMultipleChoiceField(
+        queryset=ProductionCategory.objects.filter(parent=None),
+        required=False,
+    )
+    subcategories = forms.ModelMultipleChoiceField(
+        queryset=ProductionCategory.objects.exclude(parent=None),
+        required=False,
+    )
+    language_and_subtitles = forms.ModelChoiceField(
+        queryset=LanguageAndSubtitles.objects.all(),
+        required=False,
+    )
+    production_characteristics = forms.ModelMultipleChoiceField(
+        queryset=ProductionCharacteristics.objects.all(),
+        required=False,
+    )
+    event_characteristics = forms.ModelMultipleChoiceField(
+        queryset=EventCharacteristics.objects.all(),
         required=False,
     )
 
@@ -58,19 +79,58 @@ def event_list(request, year=None, month=None, day=None):
         'selected': {},
         'categories': {
             'locations': Location.objects.all(),
+            'categories': ProductionCategory.objects.filter(parent=None),
+            'subcategories': ProductionCategory.objects.exclude(parent=None),
+            'language_and_subtitles': LanguageAndSubtitles.objects.all(),
+            'production_characteristics': ProductionCharacteristics.objects.all(),
+            'event_characteristics': EventCharacteristics.objects.all(),
         },
     }
     
     if form.is_valid():
-        cat = form.cleaned_data['location']
+        cats = form.cleaned_data['locations']
+        if cats:
+            facets['selected']['locations'] = cats
+            for cat in cats:
+                qs = qs.filter(
+                    models.Q(production__in_program_of=cat) |
+                    models.Q(play_locations=cat) |
+                    models.Q(production__play_locations=cat)
+                ).distinct()
+        cats = form.cleaned_data['categories']
+        if cats:
+            facets['selected']['categories'] = cats
+            for cat in cats:
+                qs = qs.filter(
+                    production__categories=cat,
+                ).distinct()
+        cats = form.cleaned_data['subcategories']
+        if cats:
+            facets['selected']['subcategories'] = cats
+            for cat in cats:
+                qs = qs.filter(
+                    production__categories=cat,
+                ).distinct()
+        cat = form.cleaned_data['language_and_subtitles']
         if cat:
-            facets['selected']['location'] = cat
+            facets['selected']['language_and_subtitles'] = cat
             qs = qs.filter(
-                models.Q(production__in_program_of=cat) |
-                models.Q(play_locations=cat) |
-                models.Q(production__play_locations=cat)
+                production__language_and_subtitles=cat,
             ).distinct()
-
+        cats = form.cleaned_data['production_characteristics']
+        if cats:
+            facets['selected']['production_characteristics'] = cats
+            for cat in cats:
+                qs = qs.filter(
+                    production__characteristics=cat,
+                ).distinct()
+        cats = form.cleaned_data['event_characteristics']
+        if cats:
+            facets['selected']['event_characteristics'] = cats
+            for cat in cats:
+                qs = qs.filter(
+                    characteristics=cat,
+                ).distinct()
 
     abc_filter = request.GET.get('abc', None)
     if abc_filter:
