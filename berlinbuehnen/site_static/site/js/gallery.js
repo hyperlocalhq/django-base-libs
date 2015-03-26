@@ -23,8 +23,10 @@
         
         me.$main = $main;
         me.$items = $('.gallery-item', $main);   
-        me.$videos = $('.video', $main);
         me.player = new Array();
+        me.image_counter = 0;
+        
+        
         
         var $gallery_head = $('.gallery-head', $main);
         me.margin_head += $gallery_head.height();
@@ -32,7 +34,7 @@
         me.$columns = $('<div class="col-xs-12 col-sm-6 col-md-4 clearfix" style="height:1px;"/>');
         $gallery_head.after(me.$columns);
         
-        me.$videos.each(function() {
+        $('.video', $main).each(function() {
             
             var $this = $(this);
             var $embed = $($this.children()[0]);
@@ -48,6 +50,16 @@
             $this.append($player);
             
             me.player.push($player);
+        });
+        
+        $('.image', $main).each(function() {
+            
+            me.image_counter++;
+            
+            var $this = $(this);
+            var $image = $($this.children()[0]);
+            $image.load(function() {me.onImageLoaded();});
+            
         });
         
         me.arrange();
@@ -131,6 +143,19 @@
             $player.width(width);
             $player.height(height);
         }
+    }
+    
+    /**
+     * An image got loaded.
+     * Rearranges the images after all got loaded.
+     */
+    Gallery.prototype.onImageLoaded = function() {
+        
+        if (this.me) var me = this.me;
+        
+        me.image_counter--;
+        
+        if (me.image_counter <= 0) me.arrange();
     }
     
     
