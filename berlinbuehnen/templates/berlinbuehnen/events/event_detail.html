@@ -118,7 +118,7 @@
                                                                         <span class="tickets"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank"></a></span>
                                                                     {% endif %}
                                                                     {% if ev.get_special_text %}
-                                                                        <span class="extra">{{ ev.get_special_text }}</span>
+                                                                        <span class="extra"><span>{{ ev.get_special_text }}</span></span>
                                                                     {% endif %}
                                                                 </li>
                                                             {% endfor %}
@@ -387,6 +387,8 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
+                                            
+                                            <!-- Gallery -->
                                             <div class="gallery row">
                                                 <h4 class="gallery-head">{% trans "Gallery" %}</h4>
                                                 {% if event.ev_or_prod_videos %}
@@ -396,7 +398,27 @@
                                                 {% endif %}
                                                 {% if event.ev_or_prod_images %}
                                                     {% for image in event.ev_or_prod_images %}
-                                                        <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item"><img src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="" width="100%" /></div>
+                                                        <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item">
+                                                            {% with image.path|file_description as file_desc %}
+                                                                <img class="gallery-image" src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="{% if file_desc.description %}{{ file_desc.description }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" />
+                                                                <div class="gallery-image-text">
+                                                                    <div class="gallery-image-text-description">
+                                                                        {% if file_desc.title %}
+                                                                            <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
+                                                                        {% endif %}
+                                                                        {% if file_desc.description %}
+                                                                            <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
+                                                                        {% endif %}
+                                                                        {% if file_desc.author %}
+                                                                            <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    {% if file_desc.copyright_limitations %}
+                                                                        <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }} }}</div>
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endwith %}
+                                                        </div>
                                                     {% endfor %}
                                                 {% endif %}
                                             </div>

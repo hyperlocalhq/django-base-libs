@@ -1757,6 +1757,12 @@ select {
     }
   }
   
+  #edit_media_item {
+    #image_preview {
+        max-width: 810px;   
+    }
+  }
+  
   #popup {
     position: fixed;
     background-color: rgba(255, 255, 255, 0.75);

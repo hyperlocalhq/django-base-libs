@@ -41,6 +41,14 @@
         }
     }
     .main {
+        .container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .row {
+            margin-left: -10px;
+            margin-right: -10px;
+        }
         dl.listing {
             p {
                 display: inline;
@@ -55,8 +63,8 @@
         }
     }
     .left {
-        padding-left: 0;
-        padding-right: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
         .top-image {
             width:100%;
             margin-bottom: 24px;
@@ -66,8 +74,8 @@
         }
     }
     .right {
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 10px;
+        padding-right: 10px;
         p, a.block {
             display: block;
             margin: 10px 10px;
@@ -106,14 +114,20 @@
                     position: absolute;
                     top: 0;
                     right: 0;
-                    padding: 0 20px 0 5px;
+                    padding: 0 10px 0 0;
                     height: 22px;
                     color: white;
                     font-weight: 700;
                     &:before {
                         content: url(../img/label_22px.png);
                         position: relative;
-                        left: -15px;
+                        left: -10px;
+                    }
+                    span {
+                        margin: 0;
+                        position: relative;
+                        left: 0;
+                        top: -5px;
                     }
                 }
                 .tickets {
