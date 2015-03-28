@@ -97,6 +97,51 @@
 }
 
 
+body {
+  color: black;
+  font-family: 'Webfont', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 125%;
+  font-weight: 200;
+  // text-shadow: 0 1px 0 rgba(0,0,0,0.01);
+  -webkit-text-stroke: 1px transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 700;
+  line-height: 120%;
+  font-family: 'Webfont', Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 1.375em;
+}
+h2 {
+  font-size: 1.25em;
+}
+h3 {
+    font-size: 1.125em;
+}
+
+strong {
+    font-weight: 700;
+}
+
+
+
+
+
 @font-face {
     font-family: 'FontAwesome';
     src: url('../fonts/fontawesome-webfont.eot?v=4.3.0');
