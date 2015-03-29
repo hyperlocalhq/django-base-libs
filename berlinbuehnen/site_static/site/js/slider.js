@@ -79,14 +79,21 @@
             
             me.$items.detach();
             
+            // handleing the case that there are to few items to have a slider
             while (me.$items.length < me.max_items * 2) {
                 for (var i=0; i < me.initial_items_length; i++) {
                     var $clone = $(me.$items.get(i)).clone();
                     me.$items = me.$items.add($clone);
                 }
-                alert(me.$items.length);
             }
             
+            if (me.initial_items_length <= me.max_items) {
+                me.$prev.css('display', 'none');
+                me.$next.css('display', 'none');
+            } else {
+                me.$prev.css('display', 'block');
+                me.$next.css('display', 'block');
+            }
         }
         
         
