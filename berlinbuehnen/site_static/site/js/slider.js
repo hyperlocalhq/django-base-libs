@@ -81,8 +81,8 @@
             
             while (me.$items.length < me.max_items * 2) {
                 for (var i=0; i < me.initial_items_length; i++) {
-                    var clone = '<li class="col-xs-12 col-md-6 slider-item">' + $(me.$items.get(i)).html() + '</li>';
-                    me.$items.add(clone);
+                    var $clone = $(me.$items.get(i)).clone();
+                    me.$items = me.$items.add($clone);
                 }
                 alert(me.$items.length);
             }
