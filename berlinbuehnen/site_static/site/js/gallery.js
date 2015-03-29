@@ -83,6 +83,9 @@
             $('#gallery-layer-close').click(function() {me.closeLayer();});
         }
         
+        me.$next = $('#gallery-layer-next');
+        me.$prev = $('#gallery-layer-prev');
+        
         me.onResize();
         $(window).resize(function() {me.onResize();});
     }
@@ -189,10 +192,18 @@
         
         me.resizedLayer();        
         
-        $('#gallery-layer-prev').off();
-        $('#gallery-layer-next').off();
-        $('#gallery-layer-prev').click(function() {me.prevImage();});
-        $('#gallery-layer-next').click(function() {me.nextImage();});
+        me.$prev.off();
+        me.$next.off();
+        
+        if (me.images.length == 1) {
+            me.$prev.css('display', 'none');
+            me.$next.css('display', 'none');
+        } else {
+            me.$prev.css('display', 'block');
+            me.$next.css('display', 'block');
+            me.$prev.click(function() {me.prevImage();});
+            me.$next.click(function() {me.nextImage();});
+        }
         
         $('body').css('overflow', 'hidden');
         me.$layer.css('display', 'block');
