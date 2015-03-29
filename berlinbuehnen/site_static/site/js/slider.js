@@ -45,13 +45,13 @@
         
         if (this.me) var me = this.me;
     
-        var $img = $('img', $(me.$items.get(me.current_item)));
+        var $item = $(me.$items.get(me.current_item));
         
-        $img.off();
-        $img.load(function() {me.onResize();});
+        $item.off();
+        $item.load(function() {me.onResize();});
         
-        var height = $img.height();
-        var width = $img.width();
+        var height = $item.height();
+        var width = $item.width();
         
         me.$body.height(height);
         me.item_width = width;
@@ -118,7 +118,7 @@
         
         me.$items.each(function(index, element) {
             if (index != me.current_item) {
-                $(this).remove();
+                $(this).detach();
             }
         });
         var indices = me.getItems();
@@ -142,12 +142,18 @@
         if (this.me) var me = this.me;
         if (me.animating) return;
         
+        
+        $(me.$items.get(me.current_item)).off();
+        
         var old_items = me.getItems();
         me.current_item += me.max_items;
         if (me.current_item >= me.$items.length) {
             me.current_item -= me.$items.length;
         }
         var new_items = me.getItems();
+        
+        $(me.$items.get(me.current_item)).load(function() {me.onResize();});
+        
         
         var left = me.item_width * me.max_items;
         for (var i=0; i < me.max_items; i++) {
@@ -170,12 +176,18 @@
         if (this.me) var me = this.me;
         if (me.animating) return;
         
+        
+        $(me.$items.get(me.current_item)).off();
+        
         var old_items = me.getItems();
         me.current_item -= me.max_items;
         if (me.current_item < 0) {
             me.current_item += me.$items.length;
         }
         var new_items = me.getItems();
+        
+        $(me.$items.get(me.current_item)).load(function() {me.onResize();});
+        
         
         var left = me.item_width * me.max_items * (-1);
         for (var i=0; i < me.max_items; i++) {
