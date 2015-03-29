@@ -84,6 +84,7 @@
                     var clone = '<li class="col-xs-12 col-md-6 slider-item">' + $(me.$items.get(i)).html() + '</li>';
                     me.$items.add(clone);
                 }
+                alert(me.$items.length);
             }
             
         }
