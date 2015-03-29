@@ -21,6 +21,12 @@
         me.$main = $main;
         me.$body = $('.slider-body', $main);
         me.$items = $('.slider-item', $main);
+        me.initial_items_length = me.$items.length;
+        
+        if (me.initial_items_length == 0) {
+            $main.remove();
+            return;
+        }
         
         me.current_item = 0;
         me.max_items = 0;
@@ -68,7 +74,18 @@
         
         var current_items = me.max_items
         me.max_items = Math.round(me.$body.width() / max_width);
-        if (current_items != me.max_items) me.$items.detach();
+        
+        if (current_items != me.max_items) {
+            
+            me.$items.detach();
+            
+            while (me.$items.length < me.max_items * 2) {
+                for (var i=0; i < me.initial_items_length; i++) {
+                    var $clone = me.$items.get(i).clone();
+                    me.$items.add($clone);
+                }
+            }
+        }
         
         
         // setting styles depending on the width and margin
