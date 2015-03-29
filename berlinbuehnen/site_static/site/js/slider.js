@@ -85,6 +85,8 @@
                     me.$items.add($clone);
                 }
             }
+            
+            alert(me.$items.length);
         }
         
         
