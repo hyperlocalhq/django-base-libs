@@ -47,6 +47,8 @@
     
         var $img = ('img', $(me.$items.get(me.current_item)));
         
+        me.$body.css('height', 'auto');
+        
         $img.off();
         $img.load(function() {me.calculateDimensions();});
         
@@ -116,7 +118,11 @@
         
         if (this.me) var me = this.me;
         
-        me.$items.detach();
+        me.$items.each(function(index, element) {
+            if (index != me.current_item) {
+                $(this).detach();
+            }
+        });
         var indices = me.getItems();
         
         var left = 0;
