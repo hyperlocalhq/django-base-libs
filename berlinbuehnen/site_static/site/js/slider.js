@@ -33,7 +33,6 @@
         
         me.onResize();
         $(window).resize(function() {me.onResize();});
-        me.$items.resize(function() {me.calculateDimensions();});
         
         me.$prev.click(function() {me.prevItems();});
         me.$next.click(function() {me.nextItems();});
@@ -46,7 +45,11 @@
         
         if (this.me) var me = this.me;
     
-        var $img = ('img', $(me.$items.get(me.current_item)));        
+        var $img = $('img', $(me.$items.get(me.current_item)));
+        
+        $img.off();
+        $img.load(function() {me.calculateDimensions();});
+        
         var height = $img.height();
         var width = $img.width();
         
