@@ -48,7 +48,7 @@
         var $img = $('img', $(me.$items.get(me.current_item)));
         
         $img.off();
-        $img.load(function() {me.calculateDimensions();});
+        $img.load(function() {me.onResize();});
         
         var height = $img.height();
         var width = $img.width();
@@ -118,7 +118,7 @@
         
         me.$items.each(function(index, element) {
             if (index != me.current_item) {
-                $(this).detach();
+                $(this).remove();
             }
         });
         var indices = me.getItems();
