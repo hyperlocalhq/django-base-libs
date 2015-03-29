@@ -31,8 +31,10 @@
         me.$prev = $('.slider-prev', me.$main);
         me.$next = $('.slider-next', me.$main);
         
+        
         me.onResize();
         $(window).resize(function() {me.onResize();});
+        $('.slider-item img', $main).load(function() {me.onResize();});
         
         me.$prev.click(function() {me.prevItems();});
         me.$next.click(function() {me.nextItems();});
@@ -41,21 +43,32 @@
     /**
      * Sets the height and gets the width of the slider.
      */
-    Slider.prototype.calculateDimensions = function() {
+    Slider.prototype.calculateDimensions = function(test) {
         
         if (this.me) var me = this.me;
-    
-        var $item = $(me.$items.get(me.current_item));
         
-        $item.off();
-        $item.load(function() {me.onResize();});
+        var max_width = 0;
+        var max_height = 0;
         
-        var height = $item.height();
-        var width = $item.width();
+        var length = me.$items.length;
+        for (var i=0; i < length; i++) {
+            
+            $item = $(me.$items.get(i));
+            
+            var test_width = $item.width();
+            var test_height = $item.height();
+            
+            if (test_width > max_width) max_width = test_width;
+            if (test_height > max_height) max_height = test_height;
+        }
         
-        me.$body.height(height);
-        me.item_width = width;
-        me.max_items = Math.round(me.$body.width() / width);
+        
+        me.$body.height(max_height);
+        me.item_width = max_width;
+        
+        var current_items = me.max_items
+        me.max_items = Math.round(me.$body.width() / max_width);
+        if (current_items != me.max_items) me.$items.detach();
         
         
         // setting styles depending on the width and margin
@@ -116,14 +129,9 @@
         
         if (this.me) var me = this.me;
         
-        me.$items.each(function(index, element) {
-            if (index != me.current_item) {
-                $(this).detach();
-            }
-        });
         var indices = me.getItems();
         
-        var left = 0;
+        var left = $(me.$items.get(me.current_item)).position().left;
         for (var i=0; i < me.max_items; i++) {
             
             var $item = $(me.$items.get(indices[i]));
@@ -143,16 +151,12 @@
         if (me.animating) return;
         
         
-        $(me.$items.get(me.current_item)).off();
-        
         var old_items = me.getItems();
         me.current_item += me.max_items;
         if (me.current_item >= me.$items.length) {
             me.current_item -= me.$items.length;
         }
         var new_items = me.getItems();
-        
-        $(me.$items.get(me.current_item)).load(function() {me.onResize();});
         
         
         var left = me.item_width * me.max_items;
@@ -165,6 +169,7 @@
             left += me.item_width;
         }
         
+        me.calculateDimensions();
         me.slideItems(old_items, new_items);
     }
     
@@ -177,16 +182,12 @@
         if (me.animating) return;
         
         
-        $(me.$items.get(me.current_item)).off();
-        
         var old_items = me.getItems();
         me.current_item -= me.max_items;
         if (me.current_item < 0) {
             me.current_item += me.$items.length;
         }
         var new_items = me.getItems();
-        
-        $(me.$items.get(me.current_item)).load(function() {me.onResize();});
         
         
         var left = me.item_width * me.max_items * (-1);
@@ -199,6 +200,7 @@
             left += me.item_width;
         }
         
+        me.calculateDimensions();
         me.slideItems(old_items, new_items);
     }
     
