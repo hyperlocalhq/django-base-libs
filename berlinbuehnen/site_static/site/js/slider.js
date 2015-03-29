@@ -23,6 +23,8 @@
         me.$items = $('.slider-item', $main);
         me.initial_items_length = me.$items.length;
         
+        alert(me.initial_items_length);
+        
         if (me.initial_items_length == 0) {
             $main.remove();
             return;
@@ -75,6 +77,7 @@
         var current_items = me.max_items
         me.max_items = Math.round(me.$body.width() / max_width);
         
+        alert(current_items + " - " + me.max_items);
         if (current_items != me.max_items) {
             
             me.$items.detach();
