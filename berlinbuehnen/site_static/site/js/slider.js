@@ -1,5 +1,6 @@
 /**
- * Initiates the slider.
+ * Initiates the image slider.
+ * The images have to have the same dimensions.
  *
  * @author Daniel Lehmann
  */
@@ -44,21 +45,20 @@
         
         if (this.me) var me = this.me;
     
-        var max_height = 0;
-        var width = 0;
-        me.$items.each(function(index, el) {
-            
-            var $item = $(this);
-            var height = $item.height();
-            
-            if (max_height < height) max_height = height;
-            if (index == me.current_item) width = $item.width();
-        });
+        var $img = ('img', $(me.$items.get(me.current_item)));
         
-        me.$body.height(max_height);
+        $img.off();
+        $img.load(function() {me.calculateDimensions();});
+        
+        var height = $img.height();
+        var width = $img.width();
+        
+        me.$body.height(height);
         me.item_width = width;
         me.max_items = Math.round(me.$body.width() / width);
         
+        
+        // setting styles depending on the width and margin
         var main_width = me.$main.width();
         var slider_margin = Math.round(($(window).width() - main_width) / 2) - 10;
         if (slider_margin > 70) slider_margin = 70;
