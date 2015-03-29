@@ -82,7 +82,9 @@
             
             me.$items.detach();
             
+            alert((me.$items.length) + " < " + (me.max_items * 2));
             while (me.$items.length < me.max_items * 2) {
+                alert(me.$items.length);
                 for (var i=0; i < me.initial_items_length; i++) {
                     var $clone = me.$items.get(i).clone();
                     me.$items.add($clone);
