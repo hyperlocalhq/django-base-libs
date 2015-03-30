@@ -669,6 +669,7 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
+        self.fields['work_title'].help_text = _("When differs from the title of the production.")
 
         self.helper = FormHelper()
         self.helper.form_tag = False
