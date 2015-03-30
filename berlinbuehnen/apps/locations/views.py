@@ -23,6 +23,7 @@ from jetson.apps.utils.decorators import login_required
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from models import Location, Image as LocationImage
+from models import Service, AccessibilityOption
 
 from forms.locations import LOCATION_FORM_STEPS
 from forms.gallery import ImageFileForm, ImageDeletionForm
@@ -31,7 +32,14 @@ from jetson.apps.image_mods.models import FileManager
 from filebrowser.models import FileDescription
 
 class LocationFilterForm(forms.Form):
-    pass
+    services = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=Service.objects.all(),
+    )
+    accessibility = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=AccessibilityOption.objects.all(),
+    )
 
 
 def location_list(request, year=None, month=None, day=None):
@@ -43,18 +51,26 @@ def location_list(request, year=None, month=None, day=None):
     facets = {
         'selected': {},
         'categories': {
+            'services': Service.objects.all(),
+            'accessibility': AccessibilityOption.objects.all(),
         },
     }
     
     if form.is_valid():
-        pass
-        # cat = form.cleaned_data['category']
-        # if cat:
-        #     facets['selected']['category'] = cat
-        #     qs = qs.filter(
-        #         categories=cat,
-        #     ).distinct()
-        #
+        cats = form.cleaned_data['services']
+        if cats:
+            facets['selected']['services'] = cats
+            for cat in cats:
+                qs = qs.filter(
+                    services=cat,
+                ).distinct()
+        cats = form.cleaned_data['accessibility']
+        if cats:
+            facets['selected']['accessibility'] = cats
+            for cat in cats:
+                qs = qs.filter(
+                    accessibility_options=cat,
+                ).distinct()
 
     abc_filter = request.GET.get('abc', None)
     if abc_filter:
