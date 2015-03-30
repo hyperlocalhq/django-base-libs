@@ -113,7 +113,29 @@ def dashboard(request):
 @never_cache
 @login_required
 def dashboard_locations(request):
-    owned_location_qs = Location.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")
+    owned_location_qs = Location.objects.accessible_to(request.user)
+
+    status = request.REQUEST.get('status', 'published')
+    if status in ('published', 'draft', 'not_listed'):
+        owned_location_qs = owned_location_qs.filter(status=status)
+
+    q = request.REQUEST.get('q', '')
+    if q:
+        owned_location_qs = owned_location_qs.filter(
+            models.Q(title_de__icontains=q) | models.Q(title_en__icontains=q) |
+            models.Q(subtitle_de__icontains=q) | models.Q(subtitle_en__icontains=q)
+        )
+
+    sort_by = request.REQUEST.get('sort_by', 'date')
+    if sort_by == 'title':
+        owned_location_qs = owned_location_qs.order_by("title_de")
+    elif sort_by == '-title':
+        owned_location_qs = owned_location_qs.order_by("-title_de")
+    elif sort_by == '-date':
+        owned_location_qs = owned_location_qs.order_by("modified_date", "creation_date")
+    else:
+        owned_location_qs = owned_location_qs.order_by("-modified_date", "-creation_date")
+
     paginator = Paginator(owned_location_qs, 50)
     page_number = request.GET.get('page', 1)
     try:
@@ -126,6 +148,9 @@ def dashboard_locations(request):
         page = paginator.page(paginator.num_pages)
     context = {
         'page': page,
+        'q': q,
+        'status': status,
+        'sort_by': sort_by,
     }
     return render(request, "accounts/dashboard_locations.html", context)
 
@@ -133,7 +158,31 @@ def dashboard_locations(request):
 @never_cache
 @login_required
 def dashboard_productions(request):
-    owned_production_qs = Production.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")
+    owned_production_qs = Production.objects.accessible_to(request.user)
+
+    status = request.REQUEST.get('status', 'published')
+    if status in ('published', 'draft', 'expired', 'not_listed'):
+        owned_production_qs = owned_production_qs.filter(status=status)
+
+    q = request.REQUEST.get('q', '')
+    if q:
+        owned_production_qs = owned_production_qs.filter(
+            models.Q(title_de__icontains=q) | models.Q(title_en__icontains=q) |
+            models.Q(prefix_de__icontains=q) | models.Q(prefix_en__icontains=q) |
+            models.Q(subtitle_de__icontains=q) | models.Q(subtitle_en__icontains=q) |
+            models.Q(original_de__icontains=q) | models.Q(original_en__icontains=q)
+        )
+
+    sort_by = request.REQUEST.get('sort_by', 'date')
+    if sort_by == 'title':
+        owned_production_qs = owned_production_qs.order_by("title_de")
+    elif sort_by == '-title':
+        owned_production_qs = owned_production_qs.order_by("-title_de")
+    elif sort_by == '-date':
+        owned_production_qs = owned_production_qs.order_by("modified_date", "creation_date")
+    else:
+        owned_production_qs = owned_production_qs.order_by("-modified_date", "-creation_date")
+
     paginator = Paginator(owned_production_qs, 50)
     page_number = request.GET.get('page', 1)
     try:
@@ -146,6 +195,9 @@ def dashboard_productions(request):
         page = paginator.page(paginator.num_pages)
     context = {
         'page': page,
+        'q': q,
+        'status': status,
+        'sort_by': sort_by,
     }
     return render(request, "accounts/dashboard_productions.html", context)
 
@@ -153,7 +205,31 @@ def dashboard_productions(request):
 @never_cache
 @login_required
 def dashboard_multiparts(request):
-    owned_multipart_qs = Parent.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")
+    owned_multipart_qs = Parent.objects.accessible_to(request.user)
+
+    status = request.REQUEST.get('status', 'published')
+    if status in ('published', 'draft', 'expired', 'not_listed'):
+        owned_multipart_qs = owned_multipart_qs.filter(production__status=status)
+
+    q = request.REQUEST.get('q', '')
+    if q:
+        owned_multipart_qs = owned_multipart_qs.filter(
+            models.Q(production__title_de__icontains=q) | models.Q(production__title_en__icontains=q) |
+            models.Q(production__prefix_de__icontains=q) | models.Q(production__prefix_en__icontains=q) |
+            models.Q(production__subtitle_de__icontains=q) | models.Q(production__subtitle_en__icontains=q) |
+            models.Q(production__original_de__icontains=q) | models.Q(production__original_en__icontains=q)
+        )
+
+    sort_by = request.REQUEST.get('sort_by', 'date')
+    if sort_by == 'title':
+        owned_multipart_qs = owned_multipart_qs.order_by("production__title_de")
+    elif sort_by == '-title':
+        owned_multipart_qs = owned_multipart_qs.order_by("-production__title_de")
+    elif sort_by == '-date':
+        owned_multipart_qs = owned_multipart_qs.order_by("modified_date", "creation_date")
+    else:
+        owned_multipart_qs = owned_multipart_qs.order_by("-modified_date", "-creation_date")
+
     paginator = Paginator(owned_multipart_qs, 50)
     page_number = request.GET.get('page', 1)
     try:
@@ -166,6 +242,9 @@ def dashboard_multiparts(request):
         page = paginator.page(paginator.num_pages)
     context = {
         'page': page,
+        'q': q,
+        'status': status,
+        'sort_by': sort_by,
     }
     return render(request, "accounts/dashboard_multiparts.html", context)
 
