@@ -1,18 +1,34 @@
-<ul>
-    {% for prod in other_productions %}
-        <li>
-            {% with event=prod.get_nearest_occurrence %}
-                <a href="{{ event.get_url_path }}">{{ prod.title }}</a>
-                {% with im=event.ev_or_prod_images.0 %}
-                    {% if im %}
-                        <img src="{{ MEDIA_URL }}{{ im.path }}" alt="" />
-                    {% endif %}
-                {% endwith %}
-            {% endwith %}
-        </li>
-        {% if forloop.counter|divisibleby:"2" and not forloop.last %}
-          </ul>
-          <ul>
-        {% endif %}
-    {% endfor %}
-</ul>
+{% load base_tags i18n %}
+{% if other_productions %}
+    <div class="slider row">
+        <div class="col-xs-12">
+            <h4 class="slider-head">{% trans "More productions at this place" %}</h4>
+            <ul class="slider-body row">
+                {% for prod in other_productions %}
+                    {% with event=prod.get_nearest_occurrence %}
+                        {% with im=event.ev_or_prod_images.0 %}
+                            {% if im %}
+                                <li class="col-xs-12 col-md-6 slider-item">
+                                    <a href="{{ event.get_url_path }}">
+                                        <img src="{{ MEDIA_URL }}{{ im.path }}" alt="{{ prod.title|escape }}" />
+                                        <div class="slider-item-text">
+                                            <h5>{{ prod.title }}</h5>
+                                            {% if prod.get_future_occurrences %}
+                                                {% with ev=prod.get_future_occurrences.0 %}
+                                                    <p>
+                                                        <strong>{% trans "Next Date" %}:</strong><br/>
+                                                        <span class="date">{{ ev.start_date|date:"j.M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }} Uhr</span>
+                                                    </p>
+                                                {% endwith %}
+                                            {% endif %}
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endwith %}
+                    {% endwith %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}
