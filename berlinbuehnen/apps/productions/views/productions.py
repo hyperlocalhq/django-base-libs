@@ -490,6 +490,8 @@ def change_event_description(request, slug, event_id):
                 'id': obj.id,
                 'person': obj.person,
                 'involvement_type': obj.involvement_type,
+                'another_type_de': obj.another_type_de,
+                'another_type_en': obj.another_type_en,
                 'involvement_role_de': obj.involvement_role_de,
                 'involvement_role_en': obj.involvement_role_en,
                 'involvement_instrument_de': obj.involvement_instrument_de,
@@ -500,6 +502,8 @@ def change_event_description(request, slug, event_id):
             initial = [{
                 'person': obj.person,
                 'involvement_type': obj.involvement_type,
+                'another_type_de': obj.another_type_de,
+                'another_type_en': obj.another_type_en,
                 'involvement_role_de': obj.involvement_role_de,
                 'involvement_role_en': obj.involvement_role_en,
                 'involvement_instrument_de': obj.involvement_instrument_de,

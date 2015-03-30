@@ -285,7 +285,7 @@
                 }
                 var index = m[1];
                 if ('type' === $this.val()) {
-                    $('#id_involvements-' + index + '-involvement_type').closest('.row').removeClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_type').closest('.type_selection').removeClass('hidden');
 
                     $('#id_involvements-' + index + '-involvement_role_de').closest('.row').addClass('hidden');
                     $('#id_involvements-' + index + '-involvement_role_de').val('');
@@ -296,8 +296,10 @@
                     $('#id_involvements-' + index + '-involvement_instrument_en').val('');
 
                 } else if ('role' === $this.val()) {
-                    $('#id_involvements-' + index + '-involvement_type').closest('.row').addClass('hidden');
-                    $.selectbox._changeSelectbox($('#id_involvements-' + index + '-involvement_type').get(0), '', '');
+                    $('#id_involvements-' + index + '-involvement_type').closest('.type_selection').addClass('hidden');
+                    $.selectbox._changeSelectbox($('#id_involvements-' + index + '-involvement_type').get(0), '', '---------');
+                    $('#id_involvements-' + index + '-another_type_de').val('');
+                    $('#id_involvements-' + index + '-another_type_en').val('');
 
                     $('#id_involvements-' + index + '-involvement_role_de').closest('.row').removeClass('hidden');
 
@@ -305,8 +307,10 @@
                     $('#id_involvements-' + index + '-involvement_instrument_de').val('');
                     $('#id_involvements-' + index + '-involvement_instrument_en').val('');
                 } else if ('instrument' === $this.val()) {
-                    $('#id_involvements-' + index + '-involvement_type').closest('.row').addClass('hidden');
-                    $.selectbox._changeSelectbox($('#id_involvements-' + index + '-involvement_type').get(0), '', '');
+                    $('#id_involvements-' + index + '-involvement_type').closest('.type_selection').addClass('hidden');
+                    $.selectbox._changeSelectbox($('#id_involvements-' + index + '-involvement_type').get(0), '', '---------');
+                    $('#id_involvements-' + index + '-another_type_de').val('');
+                    $('#id_involvements-' + index + '-another_type_en').val('');
 
                     $('#id_involvements-' + index + '-involvement_role_de').closest('.row').addClass('hidden');
                     $('#id_involvements-' + index + '-involvement_role_de').val('');
@@ -315,7 +319,7 @@
                     $('#id_involvements-' + index + '-involvement_instrument_de').closest('.row').removeClass('hidden');
                 }
             });
-            $('[name^="involvements"][name$="involvement_type"]').each(function() {
+            $('[name^="involvements"][name$="involvement_type"],[name^="involvements"][name$="another_type_de"],[name^="involvements"][name$="another_type_en"]').each(function() {
                 var $this = $(this);
                 if ($this.val()) {
                     var m = $this.attr('id').match(/-(\d+)-/);
@@ -348,6 +352,26 @@
                     $('#id_involvements-' + index + '-selection_3').click();
                 }
             });
+
+            $('.enter_type').on('click', function(e) {
+                e.preventDefault();
+                var $formset_form = $(this).closest('.formset-form');
+                var $select = $formset_form.find('.choosing_type').addClass('hidden').find("select");
+                $.selectbox._changeSelectbox($select.get(0), '', '---------');
+                $formset_form.find('.entering_type').removeClass('hidden');
+            });
+            $('.choose_type').on('click', function(e) {
+                e.preventDefault();
+                var $formset_form = $(this).closest('.formset-form');
+                $formset_form.find('.entering_type').addClass('hidden').find(":input").val('');
+                $formset_form.find('.choosing_type').removeClass('hidden');
+            });
+            $('.entering_type').each(function() {
+                if ($(this).find('[name$="another_type_de"]').val() || $(this).find('[name$="another_type_en"]').val()) {
+                    $(this).closest('.formset-form').find('.enter_type').click();
+                }
+            });
+
         });
     </script>
 {% endblock %}

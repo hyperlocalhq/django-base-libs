@@ -768,7 +768,13 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
-        self.fields['involvement_type'].label = _("Function")
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            for f in [
+                'another_type_%s' % lang_code,
+            ]:
+                self.fields[f].label = ugettext("Function") + (""" <span class="lang">%s</span>""" % lang_code.upper()) + ' (' + ugettext('or') + ' <a href="" class="choose_type">' + ugettext('choose a function from the database') + '</a>)'
+
+        self.fields['involvement_type'].label = ugettext("Function") + ' (' + ugettext('or') + ' <a href="" class="enter_type">' + ugettext('enter a new function') + '</a>)'
         self.fields['sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
@@ -818,12 +824,22 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
             )
         )
         layout_blocks.append(
-            layout.Row(
-                layout.Div(
-                    "involvement_type",
-                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+            layout.Div(
+                layout.Row(
+                    layout.Div(
+                        "involvement_type",
+                        css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                    ),
+                    css_class="row-sm choosing_type"
                 ),
-                css_class="row-sm hidden"
+                layout.Row(
+                    css_class="row-sm hidden entering_type",
+                    *[layout.Div(
+                        layout.Field('another_type_%s' % lang_code),
+                        css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                    ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+                ),
+                css_class="type_selection hidden",
             )
         )
         layout_blocks.append(
@@ -1083,6 +1099,7 @@ def load_data(instance=None):
             involvement_dict['person'] = involvement.person
             involvement_dict['involvement_type'] = involvement.involvement_type
             for lang_code, lang_name in FRONTEND_LANGUAGES:
+                involvement_dict['another_type_%s' % lang_code] = getattr(involvement, 'another_type_%s' % lang_code)
                 involvement_dict['involvement_role_%s' % lang_code] = getattr(involvement, 'involvement_role_%s' % lang_code)
                 involvement_dict['involvement_instrument_%s' % lang_code] = getattr(involvement, 'involvement_instrument_%s' % lang_code)
             form_step_data['description']['sets']['involvements'].append(involvement_dict)
@@ -1301,6 +1318,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
+                'another_type_%s' % lang_code,
                 'involvement_role_%s' % lang_code,
                 'involvement_instrument_%s' % lang_code,
             ]
