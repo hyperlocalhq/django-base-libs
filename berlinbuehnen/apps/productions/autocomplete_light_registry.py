@@ -19,13 +19,24 @@ class AutocompleteProduction(autocomplete_light.AutocompleteModelBase):
     }
 
     def choices_for_request(self):
+        from jetson.apps.permissions.models import PerObjectGroup
         q = self.request.GET.get('q', '')
         try:
             self_id = int(self.request.GET.get('self_id', ""))
         except ValueError:
             self_id = None
 
-        choices = self.choices.all()
+        if self.request.user.has_perm("productions.change_production"):
+            choices = self.choices.exclude(status="trashed")
+        else:
+            ids = PerObjectGroup.objects.filter(
+                content_type__app_label="productions",
+                content_type__model="production",
+                sysname__startswith="owners",
+                users=self.request.user,
+            ).values_list("object_id", flat=True)
+            choices = self.choices.filter(pk__in=ids).exclude(status="trashed")
+
         if q:
             choices = choices.filter(title__icontains=q)
         choices = choices.exclude(pk=self_id)
