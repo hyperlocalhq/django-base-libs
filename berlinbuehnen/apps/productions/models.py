@@ -476,7 +476,7 @@ class Event(CreationModificationMixin, UrlMixin):
     start_time = models.TimeField(_("Start time"), blank=True, null=True)
     end_time = models.TimeField(_("End time"), blank=True, null=True)
     duration = models.PositiveIntegerField(_("Duration in seconds"), null=True, blank=True)
-    pauses = models.PositiveIntegerField(_("Pauses"), default=0)
+    pauses = models.PositiveIntegerField(_("Pauses"), blank=True, null=True)
 
     play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Performance location"), blank=True)
     play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Performance space"), blank=True)

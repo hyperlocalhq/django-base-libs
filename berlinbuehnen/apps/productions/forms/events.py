@@ -30,6 +30,34 @@ EVENTS_TYPE_CHOICES = (
     ('multiple', _('Multiple dates')),
 )
 
+PAUSES_CHOICES = (
+    ('', _("No info about pauses")),
+    ('0', _("No pauses")),
+    ('1', _("1 pause")),
+    ('2', _("2 pauses")),
+    ('3', _("3 pauses")),
+    ('4', _("4 pauses")),
+    ('5', _("5 pauses")),
+    ('6', _("6 pauses")),
+    ('7', _("7 pauses")),
+)
+
+
+class NullIntegerChoiceField(forms.ChoiceField):
+    def to_python(self, value):
+        value = super(NullIntegerChoiceField, self).to_python(value)
+        if value is u'':
+            return None
+        return int(value)
+
+    def valid_value(self, value):
+        "Check to see if the provided value is a valid choice"
+        from django.utils.encoding import smart_text
+        for k, v in self.choices:
+            if smart_text(value) == smart_text(k):
+                return True
+        return False
+
 
 class AddEventsForm(forms.Form):
     events_type = forms.ChoiceField(
@@ -53,10 +81,11 @@ class AddEventsForm(forms.Form):
         label=_("Duration"),
         required=False,
     )
-    pauses = forms.IntegerField(
+    pauses = NullIntegerChoiceField(
         label=_("Amount of pauses"),
         required=False,
-        initial=0,
+        initial='',
+        choices=PAUSES_CHOICES,
     )
 
     def __init__(self, production, *args, **kwargs):
@@ -164,6 +193,12 @@ class BasicInfoForm(autocomplete_light.ModelForm):
     duration_as_time = forms.TimeField(
         label=_("Duration"),
         required=False,
+    )
+    pauses = NullIntegerChoiceField(
+        label=_("Amount of pauses"),
+        required=False,
+        initial='',
+        choices=PAUSES_CHOICES,
     )
 
     class Meta:
