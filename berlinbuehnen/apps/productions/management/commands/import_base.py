@@ -5,6 +5,7 @@ from dateutil.parser import parse as parse_datetime
 import requests
 import csv
 from collections import namedtuple
+from decimal import Decimal, InvalidOperation
 from django.db import models
 
 from django.utils.encoding import smart_str, force_unicode
@@ -569,6 +570,8 @@ class ImportFromHeimatBase(object):
             if not self.skip_images and not prod.productionimage_set.count():
                 for picture_node in prod_node.findall('picture'):
                     image_url = picture_node.get('url')
+                    if not image_url.startswith('http'):
+                        continue
                     mf = ProductionImage(production=prod)
                     filename = image_url.split("/")[-1]
                     image_response = requests.get(image_url)
@@ -670,7 +673,7 @@ class ImportFromHeimatBase(object):
 
             for event_node in prod_node.findall('event'):
 
-                external_event_id = event_node.get('foreignId')
+                external_event_id = event_node.get('foreignId') or event_node.get('datetime')
 
                 event_mapper = None
                 try:
@@ -705,18 +708,40 @@ class ImportFromHeimatBase(object):
                     price_from = (price_node.get('minPrice') or u"").replace(',', '.') or None
                     if price_from == u"Eintritt frei":
                         event.free_entrance = True
-                    else:
-                        event.price_from = price_from
-                    event.price_till = (price_node.get('maxPrice') or u"").replace(',', '.') or None
+                    elif price_from is not None:
+                        try:
+                            # in case of price conversion errors, save the price into price_information fields
+                            Decimal(price_from)
+                        except InvalidOperation:
+                            if price_from not in event.price_information_de:
+                                event.price_information_de += '\n' + price_from
+                            if price_from not in event.price_information_en:
+                                event.price_information_en += '\n' + price_from
+                        else:
+                            event.price_from = price_from
+
+                    price_till = (price_node.get('maxPrice') or u"").replace(',', '.') or None
+                    if price_till is not None:
+                        try:
+                            # in case of price conversion errors, save the price into price_information fields
+                            Decimal(price_till)
+                        except InvalidOperation:
+                            if price_till not in event.price_information_de:
+                                event.price_information_de += '\n' + price_till
+                            if price_till not in event.price_information_en:
+                                event.price_information_en += '\n' + price_till
+                        else:
+                            event.price_till = price_till
                     event.tickets_website = price_node.get('url')
 
-                flag_status = int(event_node.get('takingPlace'))
-                if flag_status == 0:  # fällt aus
-                    event.event_status = 'canceled'
-                elif flag_status == 1:  # findet statt
-                    event.event_status = 'takes_place'
-                elif flag_status == 2:  # ausverkauft
-                    event.ticket_status = 'sold_out'
+                if event_node.get('takingPlace'):
+                    flag_status = int(event_node.get('takingPlace'))
+                    if flag_status == 0:  # fällt aus
+                        event.event_status = 'canceled'
+                    elif flag_status == 1:  # findet statt
+                        event.event_status = 'takes_place'
+                    elif flag_status == 2:  # ausverkauft
+                        event.ticket_status = 'sold_out'
 
                 self.parse_and_use_texts(event_node, event)
 
@@ -725,6 +750,8 @@ class ImportFromHeimatBase(object):
                 if not self.skip_images and not event.eventimage_set.count():
                     for picture_node in event_node.findall('picture'):
                         image_url = self.get_child_text(picture_node, 'Url')
+                        if not image_url.startswith('http'):
+                            continue
                         mf = EventImage(event=event)
                         filename = image_url.split("/")[-1]
                         image_response = requests.get(image_url)

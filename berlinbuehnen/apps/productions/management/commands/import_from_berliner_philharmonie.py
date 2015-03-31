@@ -6,6 +6,7 @@ from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 from django.db import models
+from django.utils.encoding import smart_str
 
 from import_base import ImportFromHeimatBase
 
@@ -47,7 +48,15 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
             'events_skipped': 0,
         }
 
-        root_node = ElementTree.fromstring(r.content)
+        content = r.content
+        content = content.replace('&Auml;', smart_str(u'Ä'))
+        content = content.replace('&Ouml;', smart_str(u'Ö'))
+        content = content.replace('&Uuml;', smart_str(u'Ü'))
+        content = content.replace('&auml;', smart_str(u'ä'))
+        content = content.replace('&ouml;', smart_str(u'ö'))
+        content = content.replace('&uuml;', smart_str(u'ü'))
+        content = content.replace('&szlig;', smart_str(u'ß'))
+        root_node = ElementTree.fromstring(content)
         self.save_page(root_node)
 
         if self.verbosity >= NORMAL:
