@@ -39,7 +39,7 @@
                                     {% endif %}
                                     {% with event.ev_or_prod_play_locations as locations %}
                                         {% if event.location_title or locations|length_is:1 %}
-                                            <li>{% if event.location_title %}{{event.location_title}}{% else %}{% with locations|first as first %}{{ first.title }}{% endwith %}{% endif %}</li>
+                                            <li>{% if event.location_title %}{{ event.location_title }}{% else %}{% with locations|first as first %}{{ first.title }}{% endwith %}{% endif %}</li>
                                         {% endif %}
                                     {% endwith %}
                                 </ul>
@@ -104,7 +104,7 @@
                                                     <h4 class="accordion-item-head open">{% trans "Dates" %}</h4>
                                                     <div class="accordion-item-content">
                                                         <ul class="dates">
-                                                            {% for ev in event.production.event_set.all %}
+                                                            {% for ev in event.production.get_upcoming_occurrences %}
                                                                 <li>
                                                                     {% if ev == event %}
                                                                         <span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span>

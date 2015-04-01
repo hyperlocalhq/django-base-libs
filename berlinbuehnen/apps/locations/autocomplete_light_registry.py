@@ -11,7 +11,7 @@ autocomplete_light.register(Location,
     search_fields=['title_de', 'title_en', 'subtitle_de', 'subtitle_en'],
     attrs={
         # This will set the input placeholder attribute:
-        'placeholder': _('Start typing to choose a location'),
+        'placeholder': _('Start typing to choose a theater'),
         # This will set the yourlabs.Autocomplete.minimumCharacters
         # options, the naming conversion is handled by jQuery
         'data-autocomplete-minimum-characters': 1,

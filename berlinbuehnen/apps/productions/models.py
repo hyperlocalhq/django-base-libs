@@ -48,7 +48,7 @@ EVENT_STATUS_CHOICES = (
     ('canceled', _("Canceled")),
 )
 
-TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
 
 class LanguageAndSubtitles(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -128,8 +128,8 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     website = MultilingualURLField(_("Production URL"), blank=True, max_length=255)
 
     in_program_of = models.ManyToManyField("locations.Location", verbose_name=_("In the programme of"), blank=True, related_name="program_productions")
-    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Performance location"), blank=True, related_name="located_productions")
-    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Performance space"), blank=True)
+    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Theaters"), blank=True, related_name="located_productions")
+    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Stages"), blank=True)
 
     ensembles = models.CharField(_("Ensembles"), blank=True, max_length=255)
     organizers = models.CharField(_("Organizers"), blank=True, max_length=255)
@@ -260,7 +260,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             timestamp = timestamp()
 
         event_times = self.event_set.filter(
-            end_date__gte=timestamp.date(),
+            models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
         )
 
         if not event_times:
@@ -270,6 +270,17 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             return event_times[0]
 
         return None
+
+    def get_upcoming_occurrences(self, timestamp=tz_now):
+        """ returns current or closest future or closest past event time """
+        if callable(timestamp):
+            timestamp = timestamp()
+
+        event_times = self.event_set.filter(
+            models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
+        )
+
+        return event_times
 
     def get_past_occurrences(self, timestamp=tz_now):
         if callable(timestamp):
@@ -478,8 +489,8 @@ class Event(CreationModificationMixin, UrlMixin):
     duration = models.PositiveIntegerField(_("Duration in seconds"), null=True, blank=True)
     pauses = models.PositiveIntegerField(_("Pauses"), blank=True, null=True)
 
-    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Performance location"), blank=True)
-    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Performance space"), blank=True)
+    play_locations = models.ManyToManyField("locations.Location", verbose_name=_("Theaters"), blank=True)
+    play_stages = models.ManyToManyField("locations.Stage", verbose_name=_("Stages"), blank=True)
 
     location_title = models.CharField(_("Location title"), max_length=255, blank=True)
     street_address = models.CharField(_("Street address"), max_length=255, blank=True)

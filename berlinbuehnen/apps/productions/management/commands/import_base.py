@@ -229,8 +229,8 @@ class ImportFromHeimatBase(object):
         :param attrs: attributes of the children to match
         :return: text value of the selected child or empty string otherwise
         """
-        all_attributes_match = True
         for child_node in node.findall(tag):
+            all_attributes_match = True
             for name, val in attrs.items():
                 if child_node.get(name) != val:
                     all_attributes_match = False
@@ -505,6 +505,7 @@ class ImportFromHeimatBase(object):
 
             title_de = self.get_child_text(prod_node, 'title', languageId="1")
             title_en = self.get_child_text(prod_node, 'title', languageId="2")
+
             if self.verbosity > NORMAL:
                 print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
 
@@ -538,7 +539,7 @@ class ImportFromHeimatBase(object):
             prod.title_en = title_en or title_de
             prod.website = prod_node.get('url')
 
-            prod.slug = get_unique_value(Production, slugify(prod.title_de))
+            prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
 
             self.parse_and_use_texts(prod_node, prod)
             

@@ -890,7 +890,7 @@ def cancel_editing(request):
 
 LOCATION_FORM_STEPS = {
     'basic': {
-        'title': _("Location"),
+        'title': _("Theater"),
         'template': "locations/forms/basic_info_form.html",
         'form': BasicInfoForm,
         'formsets': {
