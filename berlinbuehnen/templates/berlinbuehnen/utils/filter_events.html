@@ -105,11 +105,11 @@
                     <ul class="filter option-set clearfix" id="language_and_subtitles" data-filter-group="language_and_subtitles" data-single-selection="1">
                         {% for cat in facets.categories.language_and_subtitles %}
                             {% if facets.selected.language_and_subtitles == cat %}
-                                <li class="active" data-param="language_and_subtitles" data-value="{{ cat.0 }}">
+                                <li class="active" data-param="language_and_subtitles" data-value="{{ cat.pk }}">
                                     <a href="{% remove_from_query "page" language_and_subtitles=cat.pk %}" data-filter-value=".language_and_subtitles_{{ cat.pk }}">{{ cat.title }}</a>
                                 </li>
                             {% else %}
-                                <li data-param="language_and_subtitles" data-value="{{ cat.0 }}">
+                                <li data-param="language_and_subtitles" data-value="{{ cat.pk }}">
                                     <a href="{% add_to_query "page" language_and_subtitles=cat.pk %}" data-filter-value=".language_and_subtitles_{{ cat.pk }}">{{ cat.title }}</a>
                                 </li>
                             {% endif %}
