@@ -77,8 +77,8 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         self.fields['play_locations'].help_text = _('Choose only when differs from the "In the programm of".')
 
         self.fields['in_program_of'].label += ' (' + ugettext('or') + ' <a href="" class="enter_location">' + ugettext('enter a new location below') + '</a>)'
-        self.fields['play_locations'].label = ugettext('Stage') + ' (' + ugettext('or') + ' <a href="" class="enter_location">' + ugettext('enter a new location below') + '</a>)'
-        self.fields['play_stages'].label = ugettext('Venue')
+        self.fields['play_locations'].label = ugettext('Theaters') + ' (' + ugettext('or') + ' <a href="" class="enter_location">' + ugettext('enter a new location below') + '</a>)'
+        self.fields['play_stages'].label = ugettext('Stages')
 
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()

@@ -542,7 +542,7 @@ class StagesForm(forms.ModelForm):
         layout_blocks = []
 
         layout_blocks.append(layout.Fieldset(
-            _("Venues"),
+            _("Stages"),
             layout.HTML("""{% load crispy_forms_tags i18n %}
             {{ formsets.stages.management_form }}
             <div id="stages">
@@ -890,7 +890,7 @@ def cancel_editing(request):
 
 LOCATION_FORM_STEPS = {
     'basic': {
-        'title': _("Stage"),
+        'title': _("Theater"),
         'template': "locations/forms/basic_info_form.html",
         'form': BasicInfoForm,
         'formsets': {
@@ -898,7 +898,7 @@ LOCATION_FORM_STEPS = {
         }
     },
     'stages': {
-        'title': _("Venues"),
+        'title': _("Stages"),
         'template': "locations/forms/stages_form.html",
         'form': StagesForm,  # dummy form
         'formsets': {

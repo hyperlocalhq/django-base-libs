@@ -55,7 +55,7 @@
 
         $(function() {
             $(
-                '<a class="add btn btn-primary" id="add_stage" href="#">{% trans "Add venue" %}</a>'
+                '<a class="add btn btn-primary" id="add_stage" href="#">{% trans "Add stage" %}</a>'
             ).insertAfter('#stages').click(function() {
                 var $total_forms = $('#id_stages-TOTAL_FORMS');
                 var $new_form = $('#stages_empty_form').clone(true).attr("id", null).show();

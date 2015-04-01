@@ -293,7 +293,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Venue"),
+            _("Location"),
             layout.Row(
                 layout.Div(
                     "play_locations",

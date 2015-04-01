@@ -146,8 +146,8 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
 
     class Meta:
         ordering = ['title']
-        verbose_name = _("Location")
-        verbose_name_plural = _("Locations")
+        verbose_name = _("Theater")
+        verbose_name_plural = _("Theaters")
 
     def get_url_path(self):
         try:
