@@ -133,6 +133,11 @@ class ProductionImageResource(ModelResource):
             'copyright_restrictions',
         ]
 
+    def get_object_list(self, request):
+        object_list = super(ProductionImageResource, self).get_object_list(request)
+        object_list = object_list.exclude(copyright_restrictions="protected")
+        return object_list
+
     def dehydrate(self, bundle):
         if bundle.obj.path:
             bundle.data['url'] = "".join((
@@ -293,6 +298,11 @@ class EventImageResource(ModelResource):
             'creation_date', 'modified_date',
             'copyright_restrictions',
         ]
+
+    def get_object_list(self, request):
+        object_list = super(EventImageResource, self).get_object_list(request)
+        object_list = object_list.exclude(copyright_restrictions="protected")
+        return object_list
 
     def dehydrate(self, bundle):
         if bundle.obj.path:

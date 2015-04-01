@@ -110,6 +110,11 @@ class ImageResource(ModelResource):
             'copyright_restrictions',
         ]
 
+    def get_object_list(self, request):
+        object_list = super(ImageResource, self).get_object_list(request)
+        object_list = object_list.exclude(copyright_restrictions="protected")
+        return object_list
+
     def dehydrate(self, bundle):
         if bundle.obj.path:
             bundle.data['url'] = "".join((
