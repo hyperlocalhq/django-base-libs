@@ -73,6 +73,9 @@ def event_list(request, year=None, month=None, day=None):
     #qs = Event.objects.filter(production__status="published")
     qs = Event.objects.all()
 
+    # exclude the parts of multipart productions
+    qs = qs.filter(production__part=None)
+
     form = EventFilterForm(data=request.REQUEST)
     
     facets = {
