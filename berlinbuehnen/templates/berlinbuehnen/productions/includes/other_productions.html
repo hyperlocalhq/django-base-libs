@@ -1,4 +1,4 @@
-{% load base_tags i18n %}
+{% load base_tags i18n image_modifications %}
 {% if other_productions %}
     <div class="slider row">
         <div class="col-xs-12">
@@ -10,7 +10,7 @@
                             {% if im %}
                                 <li class="col-xs-12 col-md-6 slider-item">
                                     <a href="{{ event.get_url_path }}">
-                                        <img src="{{ MEDIA_URL }}{{ im.path }}" alt="{{ prod.title|escape }}" />
+                                        <img src="{{ MEDIA_URL }}{{ im.path|modified_path:"slider_image" }}" alt="{{ prod.title|escape }}" />
                                         <div class="slider-item-text">
                                             <h5>{{ prod.title }}</h5>
                                             {% if prod.get_future_occurrences %}

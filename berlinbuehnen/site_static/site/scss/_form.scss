@@ -1987,6 +1987,18 @@ select {
     border-bottom: 1px solid $lightgrey_2;
   }
   
+  .stage {
+    border-bottom: 5px solid #ffffff;
+  }
+  
+  #stages_fieldset {
+    > legend {
+        border-bottom: 5px solid white;
+        padding-bottom: 50px;
+        margin-bottom: -30px;
+    }
+  }
+  
   #events {
     h4 {
         margin-left: 10px;   
@@ -2000,6 +2012,20 @@ select {
   
   .pagination > li > a {
     margin-bottom: 1px;  
+  }
+  
+  #dashboard_search {
+    position: relative;
+    input {
+        padding-right: 50px;   
+    }
+    button {
+        position: absolute;
+        right: 0px;
+        &:hover {
+            color: $blue;
+        }
+    }
   }
 }
 

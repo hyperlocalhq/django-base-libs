@@ -1,0 +1,129 @@
+.list {
+    
+    margin: 0;
+    padding: 0;
+    .row {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .list-item {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid black;
+        .list-item-head {
+            margin: 0;
+            padding: 0;
+            .list-item-head-date {
+                margin: 18px 0 0;
+                padding: 0;
+                .list-item-head-date-day {
+                    height: 28px;
+                    margin: 0;
+                    padding: 0;
+                    font-weight: 700;
+                    font-size: 1.375em;
+                    line-height: 22px;
+                    text-transform: uppercase;
+                }
+                .list-item-head-date-month {
+                    height: 40px;
+                    margin: 0;
+                    padding: 0;
+                    font-weight: 400;
+                    font-size: 0.75em;
+                    line-height: 12px;
+                    text-transform: uppercase;
+                }
+                .list-item-head-date-time {
+                    height: 37px;
+                    margin: 0;
+                    padding: 0;
+                    font-weight: 700;
+                    font-size: 1.875em;
+                    line-height: 30px;
+                }
+                .list-item-head-date-icons {
+                    height: 25px;
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+            .list-item-head-image {
+                margin: 0;
+                padding: 0;
+                img {
+                    width: 100%;
+                    max-width: 148px;
+                    float: right;
+                }
+            }
+        }
+        
+        .list-item-body {
+            margin: 0;
+            padding: 0;
+            height: 148px;
+            overflow: hidden;
+            
+            a {
+                display: block;
+                width: 100%;
+                height: 100%;
+                color: black;
+                &:hover {
+                    color: black;
+                    background-color: #eee;
+                }
+            }
+            
+            dl, h2, h3, h4, p {
+                margin-left: 15px;
+            }
+            
+            dl {
+                float: none;
+                padding-top: 10px;
+                margin-top: 0px;
+                dd {
+                    float: left;
+                    font-weight: 300px;
+                    &:after {
+                        content: ", ";
+                    }
+                    &:last-child:after {
+                        content: "";
+                    }
+                }
+            }
+            
+            h2 {
+                font-weight: 700;
+                font-size: 1.125em;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            
+            h3 {
+                font-weight: 400;
+                font-size: 1em;
+                line-height: 125%;
+                &:last-child {
+                    padding-bottom: 10px;
+                }
+            }
+            
+            h4 {
+                font-weight: 400;
+                font-size: 1em;
+                line-height: 125%;
+                padding-top: 10px;
+            }
+            
+        }
+        
+        &:last-child {
+            border-bottom: 1px solid black;
+        }
+    }
+}

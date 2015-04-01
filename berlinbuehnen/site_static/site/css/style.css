@@ -4282,6 +4282,14 @@ select {
   padding-bottom: 10px;
   border-bottom: 1px solid #ebebeb;
 }
+.dashboard .stage {
+  border-bottom: 5px solid #ffffff;
+}
+.dashboard #stages_fieldset > legend {
+  border-bottom: 5px solid white;
+  padding-bottom: 50px;
+  margin-bottom: -30px;
+}
 .dashboard #events h4 {
   margin-left: 10px;
 }
@@ -4292,6 +4300,19 @@ select {
 }
 .dashboard .pagination > li > a {
   margin-bottom: 1px;
+}
+.dashboard #dashboard_search {
+  position: relative;
+}
+.dashboard #dashboard_search input {
+  padding-right: 50px;
+}
+.dashboard #dashboard_search button {
+  position: absolute;
+  right: 0px;
+}
+.dashboard #dashboard_search button:hover {
+  color: #4583c8;
 }
 
 .ac_results {
@@ -4768,6 +4789,125 @@ select {
 #gallery-layer.small #gallery-layer-next {
   right: 0.5%;
   background-size: 50% 50%;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+}
+.list .row {
+  margin: 0;
+  padding: 0;
+}
+.list .list-item {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid black;
+}
+.list .list-item .list-item-head {
+  margin: 0;
+  padding: 0;
+}
+.list .list-item .list-item-head .list-item-head-date {
+  margin: 18px 0 0;
+  padding: 0;
+}
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-day {
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  font-size: 1.375em;
+  line-height: 22px;
+  text-transform: uppercase;
+}
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-month {
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 0.75em;
+  line-height: 12px;
+  text-transform: uppercase;
+}
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-time {
+  height: 37px;
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  font-size: 1.875em;
+  line-height: 30px;
+}
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons {
+  height: 25px;
+  margin: 0;
+  padding: 0;
+}
+.list .list-item .list-item-head .list-item-head-image {
+  margin: 0;
+  padding: 0;
+}
+.list .list-item .list-item-head .list-item-head-image img {
+  width: 100%;
+  max-width: 148px;
+  float: right;
+}
+.list .list-item .list-item-body {
+  margin: 0;
+  padding: 0;
+  height: 148px;
+  overflow: hidden;
+}
+.list .list-item .list-item-body a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: black;
+}
+.list .list-item .list-item-body a:hover {
+  color: black;
+  background-color: #eee;
+}
+.list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4, .list .list-item .list-item-body p {
+  margin-left: 15px;
+}
+.list .list-item .list-item-body dl {
+  float: none;
+  padding-top: 10px;
+  margin-top: 0px;
+}
+.list .list-item .list-item-body dl dd {
+  float: left;
+  font-weight: 300px;
+}
+.list .list-item .list-item-body dl dd:after {
+  content: ", ";
+}
+.list .list-item .list-item-body dl dd:last-child:after {
+  content: "";
+}
+.list .list-item .list-item-body h2 {
+  font-weight: 700;
+  font-size: 1.125em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.list .list-item .list-item-body h3 {
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 125%;
+}
+.list .list-item .list-item-body h3:last-child {
+  padding-bottom: 10px;
+}
+.list .list-item .list-item-body h4 {
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 125%;
+  padding-top: 10px;
+}
+.list .list-item:last-child {
+  border-bottom: 1px solid black;
 }
 
 html {
