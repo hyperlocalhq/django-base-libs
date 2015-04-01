@@ -104,21 +104,25 @@
                                                     <h4 class="accordion-item-head open">{% trans "Dates" %}</h4>
                                                     <div class="accordion-item-content">
                                                         <ul class="dates">
-                                                            {% for ev in event.production.get_upcoming_occurrences %}
-                                                                <li>
-                                                                    {% if ev == event %}
-                                                                        <span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span>
-                                                                    {% else %}
-                                                                        <a class="black" href="{% url "event_detail" slug=ev.production.slug event_id=ev.id %}"><span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span></a>
-                                                                    {% endif %}
-                                                                    {% if ev.ev_or_prod_tickets_website %}
-                                                                        <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank"></a></span>
-                                                                    {% endif %}
-                                                                    {% if ev.get_special_text %}
-                                                                        <span class="extra"><span>{{ ev.get_special_text }}</span></span>
-                                                                    {% endif %}
-                                                                </li>
-                                                            {% endfor %}
+                                                            {% if event.production.get_upcoming_occurrences %}
+                                                                {% for ev in event.production.get_upcoming_occurrences %}
+                                                                    <li>
+                                                                        {% if ev == event %}
+                                                                            <span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span>
+                                                                        {% else %}
+                                                                            <a class="black" href="{% url "event_detail" slug=ev.production.slug event_id=ev.id %}"><span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span></a>
+                                                                        {% endif %}
+                                                                        {% if ev.ev_or_prod_tickets_website %}
+                                                                            <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank"></a></span>
+                                                                        {% endif %}
+                                                                        {% if ev.get_special_text %}
+                                                                            <span class="extra"><span>{{ ev.get_special_text }}</span></span>
+                                                                        {% endif %}
+                                                                    </li>
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <li>{% trans "No dates found" %}</li>
+                                                            {% endif %}
                                                         </ul>
                                                     </div>
                                                 </div>
