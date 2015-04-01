@@ -43,6 +43,9 @@ from berlinbuehnen.apps.productions.models import ProductionCategory, LanguageAn
 
 
 class EventFilterForm(forms.Form):
+    date = forms.DateField(
+        required=False,
+    )
     locations = forms.ModelMultipleChoiceField(
         queryset=Location.objects.all(),
         required=False,
@@ -91,6 +94,12 @@ def event_list(request, year=None, month=None, day=None):
     }
     
     if form.is_valid():
+        cat = form.cleaned_data['date'] or datetime.today()
+        facets['selected']['date'] = cat
+        qs = qs.filter(
+            start_date__gte=cat,
+        ).distinct()
+
         cats = form.cleaned_data['locations']
         if cats:
             facets['selected']['locations'] = cats
@@ -169,22 +178,24 @@ def event_list(request, year=None, month=None, day=None):
 def event_detail(request, slug, event_id=None):
     if "preview" in request.REQUEST:
         qs = Event.objects.all()
-        if event_id:
-            obj = get_object_or_404(qs, production__slug=slug, pk=event_id)
-            if not request.user.has_perm("events.change_event", obj):
-                return access_denied(request)
-        else:
-            production = get_object_or_404(Production, slug=slug)
-            now = datetime.now()
-            obj = Event(production=production, start_date=now.date())
-            return render(
-                request,
-                "events/event_detail.html",
-                {'object': obj},
-            )
     else:
         #qs = Event.objects.filter(production__status="published")
         qs = Event.objects.all()
+
+    if event_id:
+        obj = get_object_or_404(qs, production__slug=slug, pk=event_id)
+        if not request.user.has_perm("events.change_event", obj):
+            return access_denied(request)
+    else:
+        production = get_object_or_404(Production, slug=slug)
+        now = datetime.now()
+        obj = Event(production=production, start_date=now.date())
+        return render(
+            request,
+            "events/event_detail.html",
+            {'object': obj},
+        )
+
     return object_detail(
         request,
         queryset=qs,

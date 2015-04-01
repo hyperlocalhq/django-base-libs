@@ -48,7 +48,7 @@ EVENT_STATUS_CHOICES = (
     ('canceled', _("Canceled")),
 )
 
-TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
 
 class LanguageAndSubtitles(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -260,7 +260,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             timestamp = timestamp()
 
         event_times = self.event_set.filter(
-            end_date__gte=timestamp.date(),
+            models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
         )
 
         if not event_times:
@@ -270,6 +270,17 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             return event_times[0]
 
         return None
+
+    def get_upcoming_occurrences(self, timestamp=tz_now):
+        """ returns current or closest future or closest past event time """
+        if callable(timestamp):
+            timestamp = timestamp()
+
+        event_times = self.event_set.filter(
+            models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
+        )
+
+        return event_times
 
     def get_past_occurrences(self, timestamp=tz_now):
         if callable(timestamp):
