@@ -17,7 +17,7 @@
                                                 {% with ev=prod.get_future_occurrences.0 %}
                                                     <p>
                                                         <strong>{% trans "Next Date" %}:</strong><br/>
-                                                        <span class="date">{{ ev.start_date|date:"j.M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }} Uhr</span>
+                                                        <span class="date">{{ ev.start_date|date:"j. M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }}</span>
                                                     </p>
                                                 {% endwith %}
                                             {% endif %}

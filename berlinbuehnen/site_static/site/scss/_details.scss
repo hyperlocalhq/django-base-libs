@@ -92,14 +92,19 @@
                 height: 23px;
                 border-bottom: 1px solid black;
                 position: relative;
-                span {
+                .date-wrapper, .time-wrapper {
+                    margin: 0;
                     display: inline-block;
-                    &:first-child {
-                        margin-left: 10px;
-                    }
+                }
+                .date-wrapper {
+                    width: 110px;
+                }
+                .time-wrapper {
+                    width: 55px;
                 }
                 .date, .time {
-                    margin: 0 4px;
+                    margin: 0 4px 0;
+                    float: right;
                     &:after {
                         content: "|";
                         margin-left: 8px;
@@ -125,17 +130,17 @@
                     }
                     span {
                         margin: 0;
-                        position: relative;
-                        left: 0;
-                        top: -5px;
+                        vertical-align: top;
                     }
                 }
                 .tickets {
                     color: black;
                     display: inline-block;
                     font-size: 0.875em !important;
-                    margin-left: 8px;
+                    margin-left: 4px;
                     width: 15px;
+                    vertical-align: top;
+                    padding-top: 4px;
                     &:hover, &:focus {
                         color: black;
                     }
@@ -151,20 +156,39 @@
         dt {
             display: inline;
             float: none;
-        }
-        dt:after {
-            content: ":";
-            padding-right: 2px;
+            &:after {
+                content: ":";
+                padding-right: 2px; 
+            }
+            &:before {
+                content:"\A"; 
+                white-space:pre;
+                display:block;
+                line-height: 10px;    
+            }
+            &:first-child {
+                &:before {
+                    content:""; 
+                    white-space:normal;
+                    display:inline;
+                    line-height: inherit;  
+                }
+            }
+            &.empty {
+                &:after {
+                    content: "";
+                    padding-right: 0; 
+                }
+            }
         }
         dd {
             display: inline;
             float: none;
-        }
-        dd:after {
-            content:"\A"; 
-            white-space:pre;
-            display:block;
-            line-height: 10px;
+            &.series {
+                &:before {
+                    content: ", ";
+                }
+            }
         }
     }
 }
