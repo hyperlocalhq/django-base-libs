@@ -125,22 +125,22 @@
                     <ul class="filter option-set clearfix" id="characteristics" data-filter-group="characteristics">
                         {% for cat in facets.categories.production_characteristics %}
                             {% if cat in facets.selected.production_characteristics %}
-                                <li class="active" data-param="characteristics" data-value="{{ cat.slug }}">
+                                <li class="active" data-param="characteristics" data-value="{{ cat.pk }}">
                                     <a href="{% remove_from_query "page" production_characteristics=cat.pk %}" data-filter-value=".characteristics_{{ cat.slug }}">{{ cat.title }}</a>
                                 </li>
                             {% else %}
-                                <li data-param="characteristics" data-value="{{ cat.slug }}">
+                                <li data-param="characteristics" data-value="{{ cat.pk }}">
                                     <a href="{% add_to_query "page" production_characteristics=cat.pk %}" data-filter-value=".characteristics_{{ cat.slug }}">{{ cat.title }}</a>
                                 </li>
                             {% endif %}
                         {% endfor %}
                         {% for cat in facets.categories.event_characteristics %}
                             {% if cat in facets.selected.event_characteristics %}
-                                <li class="active" data-param="characteristics" data-value="{{ cat.slug }}">
+                                <li class="active" data-param="characteristics" data-value="{{ cat.pk }}">
                                     <a href="{% remove_from_query "page" event_characteristics=cat.pk %}" data-filter-value=".characteristics_{{ cat.slug }}">{{ cat.title }}</a>
                                 </li>
                             {% else %}
-                                <li data-param="characteristics" data-value="{{ cat.slug }}">
+                                <li data-param="characteristics" data-value="{{ cat.pk }}">
                                     <a href="{% add_to_query "page" event_characteristics=cat.pk %}" data-filter-value=".characteristics_{{ cat.slug }}">{{ cat.title }}</a>
                                 </li>
                             {% endif %}
