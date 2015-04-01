@@ -218,8 +218,8 @@ class Command(NoArgsCommand):
         :param attrs: attributes of the children to match
         :return: text value of the selected child or empty string otherwise
         """
-        all_attributes_match = True
         for child_node in node.findall('%(prefix)s%(tag)s' % dict(tag=tag, **self.helper_dict)):
+            all_attributes_match = True
             for name, val in attrs.items():
                 if child_node.get(name) != val:
                     all_attributes_match = False
@@ -530,7 +530,7 @@ class Command(NoArgsCommand):
             prod.title_en = title_en or title_de
             prod.website = self.get_child_text(prod_node, 'Url')
 
-            prod.slug = get_unique_value(Production, slugify(prod.title_de))
+            prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
 
             ticket_node = prod_node.find('./%(prefix)sTicket' % self.helper_dict)
             if ticket_node is not None:
