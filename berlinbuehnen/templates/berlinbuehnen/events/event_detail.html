@@ -103,8 +103,8 @@
                                                 <div class="accordion-item">
                                                     <h4 class="accordion-item-head open">{% trans "Dates" %}</h4>
                                                     <div class="accordion-item-content">
-                                                        <ul class="dates">
-                                                            {% if event.production.get_upcoming_occurrences %}
+                                                        {% if event.production.get_upcoming_occurrences %}
+                                                            <ul class="dates">
                                                                 {% for ev in event.production.get_upcoming_occurrences %}
                                                                     <li>
                                                                         {% if ev == event %}
@@ -120,10 +120,10 @@
                                                                         {% endif %}
                                                                     </li>
                                                                 {% endfor %}
-                                                            {% else %}
-                                                                <li>{% trans "No dates found" %}</li>
-                                                            {% endif %}
-                                                        </ul>
+                                                            </ul>
+                                                        {% else %}
+                                                            <p>% trans "No dates found" %}</p>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                                 <div class="accordion-item">
