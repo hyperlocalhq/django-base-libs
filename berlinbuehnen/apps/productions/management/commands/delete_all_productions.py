@@ -25,7 +25,9 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
 
+        Person = models.get_model("people", "Person")
         Production = models.get_model("productions", "Production")
+        Event = models.get_model("productions", "Event")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         ContentType = models.get_model("contenttypes", "ContentType")
         PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
@@ -46,9 +48,16 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 prod.delete()
 
         if self.verbosity >= NORMAL:
+            print u"=== Deleting People ==="
+        Person.objects.all().delete()
+
+        if self.verbosity >= NORMAL:
             print u"=== Deleting Object Mappers ==="
         ObjectMapper.objects.filter(
             content_type=ContentType.objects.get_for_model(Production),
+        ).delete()
+        ObjectMapper.objects.filter(
+            content_type=ContentType.objects.get_for_model(Event),
         ).delete()
 
         if not self.skip_images:

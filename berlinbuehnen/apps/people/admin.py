@@ -57,6 +57,8 @@ class PersonAdmin(ExtendedModelAdmin):
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
+    list_display = ('last_name', 'first_name', 'prefix')
+    search_fields = ('first_name', 'last_name')
 
     fieldsets = [(None, {'fields': ('prefix', 'first_name', 'last_name', 'slug')}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
