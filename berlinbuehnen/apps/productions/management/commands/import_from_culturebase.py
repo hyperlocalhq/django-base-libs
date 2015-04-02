@@ -498,8 +498,8 @@ class Command(NoArgsCommand):
         for prod_index, prod_node in enumerate(prod_nodes, 1):
             external_prod_id = prod_node.get('Id')
 
-            title_de = self.get_child_text(prod_node, 'Title', Language="de").replace('\n', ' ')
-            title_en = self.get_child_text(prod_node, 'Title', Language="en").replace('\n', ' ')
+            title_de = self.get_child_text(prod_node, 'Title', Language="de").replace('\n', ' ').strip()
+            title_en = self.get_child_text(prod_node, 'Title', Language="en").replace('\n', ' ').strip()
             if self.verbosity >= NORMAL:
                 print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
 

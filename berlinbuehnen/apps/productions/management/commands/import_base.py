@@ -503,8 +503,8 @@ class ImportFromHeimatBase(object):
         for prod_index, prod_node in enumerate(prod_nodes, 1):
             external_prod_id = prod_node.get('foreignId')
 
-            title_de = self.get_child_text(prod_node, 'title', languageId="1")
-            title_en = self.get_child_text(prod_node, 'title', languageId="2")
+            title_de = self.get_child_text(prod_node, 'title', languageId="1").replace('\n', ' ').strip()
+            title_en = self.get_child_text(prod_node, 'title', languageId="2").replace('\n', ' ').strip()
 
             if self.verbosity >= NORMAL:
                 print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
