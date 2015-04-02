@@ -45,6 +45,9 @@
                                 </ul>
                                 {% if event.production.prefix %}<h3>{{ event.production.prefix }}</h3>{% endif %}
                                 <h1>{{ event.production.title }}
+                                    {% if request.user.is_superuser %}
+                                        <span class="label label-default">{{ event.production.get_import_source }}</span>
+                                    {% endif %}
                                     {% if_has_perm "productions.change_production" object %}
                                         {% if not request.is_mobile %}
                                             <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{% url "change_production" slug=event.production.slug %}">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>

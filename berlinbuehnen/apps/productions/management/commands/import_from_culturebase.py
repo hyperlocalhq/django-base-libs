@@ -183,7 +183,7 @@ class Command(NoArgsCommand):
         }
 
         if self.verbosity >= NORMAL:
-            print u"=== Productions imported ==="
+            print u"=== Importing Productions ==="
 
         self.stats = {
             'prods_added': 0,
@@ -500,7 +500,7 @@ class Command(NoArgsCommand):
 
             title_de = self.get_child_text(prod_node, 'Title', Language="de").replace('\n', ' ')
             title_en = self.get_child_text(prod_node, 'Title', Language="en").replace('\n', ' ')
-            if self.verbosity > NORMAL:
+            if self.verbosity >= NORMAL:
                 print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
 
             mapper = None

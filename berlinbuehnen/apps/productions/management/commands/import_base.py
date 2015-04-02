@@ -506,7 +506,7 @@ class ImportFromHeimatBase(object):
             title_de = self.get_child_text(prod_node, 'title', languageId="1")
             title_en = self.get_child_text(prod_node, 'title', languageId="2")
 
-            if self.verbosity > NORMAL:
+            if self.verbosity >= NORMAL:
                 print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
 
             mapper = None

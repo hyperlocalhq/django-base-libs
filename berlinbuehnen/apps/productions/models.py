@@ -292,6 +292,16 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             timestamp = timestamp()
         return self.event_set.filter(start_date__gt=timestamp.date())
 
+    def get_import_source(self):
+        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        ContentType = models.get_model("contenttypes", "ContentType")
+        mappers = ObjectMapper.objects.filter(
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.pk,
+        )
+        if mappers:
+            return mappers[0].service.title.replace(' Productions', '')
+        return "OK"
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
