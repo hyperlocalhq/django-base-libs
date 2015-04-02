@@ -4033,6 +4033,9 @@ select {
 .dashboard label {
   font-weight: 400;
 }
+.dashboard .dashboard-header h4 {
+  margin-bottom: 11px !important;
+}
 .dashboard .dashboard-header .form-steps li a {
   min-width: 70px;
   text-align: center;
@@ -4426,14 +4429,19 @@ select {
   border-bottom: 1px solid black;
   position: relative;
 }
-.details .right ul.dates li span {
+.details .right ul.dates li .date-wrapper, .details .right ul.dates li .time-wrapper {
+  margin: 0;
   display: inline-block;
 }
-.details .right ul.dates li span:first-child {
-  margin-left: 10px;
+.details .right ul.dates li .date-wrapper {
+  width: 110px;
+}
+.details .right ul.dates li .time-wrapper {
+  width: 55px;
 }
 .details .right ul.dates li .date, .details .right ul.dates li .time {
-  margin: 0 4px;
+  margin: 0 4px 0;
+  float: right;
 }
 .details .right ul.dates li .date:after, .details .right ul.dates li .time:after {
   content: "|";
@@ -4460,16 +4468,16 @@ select {
 }
 .details .right ul.dates li .extra span {
   margin: 0;
-  position: relative;
-  left: 0;
-  top: -5px;
+  vertical-align: top;
 }
 .details .right ul.dates li .tickets {
   color: black;
   display: inline-block;
   font-size: 0.875em !important;
-  margin-left: 8px;
+  margin-left: 4px;
   width: 15px;
+  vertical-align: top;
+  padding-top: 4px;
 }
 .details .right ul.dates li .tickets:hover, .details .right ul.dates li .tickets:focus {
   color: black;
@@ -4486,15 +4494,28 @@ select {
   content: ":";
   padding-right: 2px;
 }
-.details dl dd {
-  display: inline;
-  float: none;
-}
-.details dl dd:after {
+.details dl dt:before {
   content: "\A";
   white-space: pre;
   display: block;
   line-height: 10px;
+}
+.details dl dt:first-child:before {
+  content: "";
+  white-space: normal;
+  display: inline;
+  line-height: inherit;
+}
+.details dl dt.empty:after {
+  content: "";
+  padding-right: 0;
+}
+.details dl dd {
+  display: inline;
+  float: none;
+}
+.details dl dd.series:before {
+  content: ", ";
 }
 
 .slider {

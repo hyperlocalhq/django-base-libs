@@ -15,6 +15,7 @@
         
         var me = this;
         me.$main = $main;
+        me.autoclose = $main.hasClass('accordion-autoclose');
         me.$items = $('.accordion-item', $main);
         
         me.$items.each(function() {
@@ -56,8 +57,10 @@
             
         } else {
             
-            $('.accordion-item-head', me.$main).removeClass('open');
-            $('.accordion-item-content', me.$main).parent().height(1);
+            if (me.autoclose) {
+                $('.accordion-item-head', me.$main).removeClass('open');
+                $('.accordion-item-content', me.$main).parent().height(1);
+            }
         
             $content.height($content.data('height'));
             $head.addClass('open');

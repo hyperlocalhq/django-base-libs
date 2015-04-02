@@ -131,7 +131,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Location"),
+            _("Venue"),
             layout.Row(
                 layout.Div(
                     "in_program_of",

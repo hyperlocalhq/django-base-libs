@@ -35,7 +35,7 @@
                             <header>
                                 <ul class="header-top">
                                     {% if event.start_date or event.start_time %}
-                                        <li><time>{{ event.start_date|date:"l, j.F Y" }}{{ event.start_time|time:", H:i" }}</time></li>
+                                        <li><time>{{ event.start_date|date:"l, j. F Y" }}{{ event.start_time|time:", H:i" }}</time></li>
                                     {% endif %}
                                     {% with event.ev_or_prod_play_locations as locations %}
                                         {% if event.location_title or locations|length_is:1 %}
@@ -71,7 +71,7 @@
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if event.ev_or_prod_images %}
                                                 {% with event.ev_or_prod_images|first as first %}
-                                                    <div class="top-image"><img src="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ first.title }}"  /></div> 
+                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ first.title }}"  /></div> 
                                                 {% endwith %}
                                             {% endif %}
                                             <div class="description">
@@ -93,10 +93,6 @@
                                                     <dt>{% trans "Pauses" %}</dt>
                                                     <dd>{{ event.pauses }}</dd>
                                                 {% endif %}
-                                                {% if event.ev_or_prod_supporting_programm %}
-                                                    <dt>{% trans "Supporting_programm" %}</dt>
-                                                    <dd>{{ event.ev_or_prod_supporting_programm }}</dd>
-                                                {% endif %}
                                                 {% if event.production.website %}
                                                     <dt>{% trans "Web" %}</dt>
                                                     <dd><a href="{{ event.production.website }}" target="_blank">{{ event.production.website }}</a></dd>
@@ -110,23 +106,27 @@
                                                 <div class="accordion-item">
                                                     <h4 class="accordion-item-head open">{% trans "Dates" %}</h4>
                                                     <div class="accordion-item-content">
-                                                        <ul class="dates">
-                                                            {% for ev in event.production.get_upcoming_occurrences %}
-                                                                <li>
-                                                                    {% if ev == event %}
-                                                                        <span class="date">{{ ev.start_date|date:"j.M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }} Uhr</span>
-                                                                    {% else %}
-                                                                        <a class="black" href="{% url "event_detail" slug=ev.production.slug event_id=ev.id %}"><span class="date">{{ ev.start_date|date:"j.M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }} Uhr</span></a>
-                                                                    {% endif %}
-                                                                    {% if ev.ev_or_prod_tickets_website %}
-                                                                        <span class="tickets"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank"></a></span>
-                                                                    {% endif %}
-                                                                    {% if ev.get_special_text %}
-                                                                        <span class="extra"><span>{{ ev.get_special_text }}</span></span>
-                                                                    {% endif %}
-                                                                </li>
-                                                            {% endfor %}
-                                                        </ul>
+                                                        {% if event.production.get_upcoming_occurrences %}
+                                                            <ul class="dates">
+                                                                {% for ev in event.production.get_upcoming_occurrences %}
+                                                                    <li>
+                                                                        {% if ev == event %}
+                                                                            <span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span>
+                                                                        {% else %}
+                                                                            <a class="black" href="{% url "event_detail" slug=ev.production.slug event_id=ev.id %}"><span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span></a>
+                                                                        {% endif %}
+                                                                        {% if ev.ev_or_prod_tickets_website %}
+                                                                            <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank"></a></span>
+                                                                        {% endif %}
+                                                                        {% if ev.get_special_text %}
+                                                                            <span class="extra"><span>{{ ev.get_special_text }}</span></span>
+                                                                        {% endif %}
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% else %}
+                                                            <p>{% trans "No dates found" %}</p>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                                 <div class="accordion-item">
@@ -252,18 +252,18 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-xs-12 full">
-                                            <div class="accordion content-accordion">
+                                            <div class="accordion accordion-autoclose content-accordion">
                                                 {% if event.ev_or_prod_leaderships %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Staff" %}</h4>
                                                         <div class="accordion-item-content">
                                                             <dl>
-                                                                {% for leadership in event.ev_or_prod_leaderships %}
-                                                                    {% if leadership.function %}
-                                                                        <dt>{{ leadership.function }}</dt>
-                                                                    {% endif %}
-                                                                    <dd>{{ leadership.person }}</dd>
-                                                                {% endfor %}
+                                                                {% for leadership in event.ev_or_prod_leaderships %}{% ifchanged leadership.function %}
+                                                                        {% if leadership.function %}
+                                                                            <dt>{{ leadership.function }}</dt>
+                                                                        {% else %}
+                                                                            <dt class="empty" />
+                                                                        {% endif %}<dd>{{ leadership.person }}</dd>{% else %}<dd class="series">{{ leadership.person }}</dd>{% endifchanged %}{% endfor %}
                                                             </dl>
                                                         </div>
                                                     </div>
@@ -273,12 +273,12 @@
                                                         <h4 class="accordion-item-head">{% trans "Cast" %}</h4>
                                                         <div class="accordion-item-content">
                                                             <dl>
-                                                                {% for involvement in event.ev_or_prod_involvements %}
-                                                                    {% if involvement.involvement_type.title or involvement.involvement_role or involvement.involvement_instrument%}
-                                                                        <dt>{{ involvement.involvement_type.title }} {{ involvement.involvement_role }} {{ involvement.involvement_instrument }}</dt>
-                                                                    {% endif %}
-                                                                    <dd>{{ involvement.person }}</dd>
-                                                                {% endfor %}
+                                                                {% for involvement in event.ev_or_prod_involvements %}{% ifchanged involvement.involvement_type.title involvement.involvement_role nvolvement.involvement_instrument %}
+                                                                        {% if involvement.involvement_type.title or involvement.involvement_role or involvement.involvement_instrument %}
+                                                                            <dt>{{ involvement.involvement_type.title }}{{ involvement.involvement_role }}{{ involvement.involvement_instrument }}</dt>
+                                                                        {% else %}
+                                                                            <dt class="empty" />
+                                                                        {% endif %}<dd>{{ involvement.person }}</dd>{% else %}<dd class="series">{{ involvement.person }}</dd>{% endifchanged %}{% endfor %}
                                                             </dl>
                                                         </div>
                                                     </div>
@@ -288,12 +288,12 @@
                                                         <h4 class="accordion-item-head">{% trans "Authors" %}</h4>
                                                         <div class="accordion-item-content">
                                                             <dl>
-                                                                {% for authorship in event.ev_or_prod_authorships %}
-                                                                    {% if authorship.authorship_type.title %}
-                                                                        <dt>{{ authorship.authorship_type.title }}</dt>
-                                                                    {% endif %}
-                                                                    <dd>{{ authorship.person }}</dd>
-                                                                {% endfor %}
+                                                                {% for authorship in event.ev_or_prod_authorships %}{% ifchanged authorship.authorship_type.title %}
+                                                                        {% if authorship.authorship_type.title %}
+                                                                            <dt>{{ authorship.authorship_type.title }}</dt>
+                                                                        {% else %}
+                                                                            <dt class="empty" />
+                                                                        {% endif %}<dd>{{ authorship.person }}</dd>{% else %}<dd class="series">{{ authorship.person }}</dd>{% endifchanged %}{% endfor %}
                                                             </dl>
                                                         </div>
                                                     </div>
@@ -403,9 +403,9 @@
                                                     {% endif %}
                                                     {% if event.ev_or_prod_images %}
                                                         {% for image in event.ev_or_prod_images %}
-                                                            <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item">
+                                                            <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img">
                                                                 {% with image.path|file_description as file_desc %}
-                                                                    <img class="gallery-image" src="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
+                                                                    <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
                                                                     <div class="gallery-image-text">
                                                                         <div class="gallery-image-text-description">
                                                                             {% if file_desc.title %}
@@ -419,7 +419,7 @@
                                                                             {% endif %}
                                                                         </div>
                                                                         {% if file_desc.copyright_limitations %}
-                                                                            <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }} }}</div>
+                                                                            <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
                                                                         {% endif %}
                                                                     </div>
                                                                 {% endwith %}
