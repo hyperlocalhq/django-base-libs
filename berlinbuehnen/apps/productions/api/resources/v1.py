@@ -105,7 +105,7 @@ class ProductionVideoResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = ProductionVideo.objects.all()
         resource_name = 'production_video'
-        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date', 'sort_order']
 
     def dehydrate(self, bundle):
         bundle.data['embed'] = bundle.obj.get_embed()
@@ -116,7 +116,7 @@ class ProductionLiveStreamResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = ProductionLiveStream.objects.all()
         resource_name = 'production_live_stream'
-        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date', 'sort_order']
 
     def dehydrate(self, bundle):
         bundle.data['embed'] = bundle.obj.get_embed()
@@ -131,6 +131,7 @@ class ProductionImageResource(ModelResource):
             'id',
             'creation_date', 'modified_date',
             'copyright_restrictions',
+            'sort_order',
         ]
 
     def get_object_list(self, request):
@@ -167,6 +168,7 @@ class ProductionPDFResource(ModelResource):
         fields = [
             'id',
             'creation_date', 'modified_date',
+            'sort_order',
         ]
 
     def dehydrate(self, bundle):
@@ -271,7 +273,7 @@ class EventVideoResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = EventVideo.objects.all()
         resource_name = 'event_video'
-        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date', 'sort_order']
 
     def dehydrate(self, bundle):
         bundle.data['embed'] = bundle.obj.get_embed()
@@ -282,7 +284,7 @@ class EventLiveStreamResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = EventLiveStream.objects.all()
         resource_name = 'event_live_stream'
-        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date', 'sort_order']
 
     def dehydrate(self, bundle):
         bundle.data['embed'] = bundle.obj.get_embed()
@@ -297,6 +299,7 @@ class EventImageResource(ModelResource):
             'id',
             'creation_date', 'modified_date',
             'copyright_restrictions',
+            'sort_order',
         ]
 
     def get_object_list(self, request):
@@ -333,6 +336,7 @@ class EventPDFResource(ModelResource):
         fields = [
             'id',
             'creation_date', 'modified_date',
+            'sort_order',
         ]
 
     def dehydrate(self, bundle):

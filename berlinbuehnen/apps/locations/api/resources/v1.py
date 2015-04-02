@@ -108,6 +108,7 @@ class ImageResource(ModelResource):
             'id',
             'creation_date', 'modified_date',
             'copyright_restrictions',
+            'sort_order',
         ]
 
     def get_object_list(self, request):
