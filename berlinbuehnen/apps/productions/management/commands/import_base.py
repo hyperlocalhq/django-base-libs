@@ -674,7 +674,9 @@ class ImportFromHeimatBase(object):
 
             for event_node in prod_node.findall('event'):
 
-                external_event_id = event_node.get('foreignId') or event_node.get('datetime')
+                external_event_id = event_node.get('foreignId')
+                if not external_event_id:
+                    external_event_id = u"%s_%s" % (external_prod_id, event_node.get('datetime'))
 
                 event_mapper = None
                 try:
