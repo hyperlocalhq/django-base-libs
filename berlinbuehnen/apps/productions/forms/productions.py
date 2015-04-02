@@ -248,8 +248,8 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'contents_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'credits_%s' % lang_code,
-                'concert_programm_%s' % lang_code,
-                'supporting_programm_%s' % lang_code,
+                'concert_program_%s' % lang_code,
+                'supporting_program_%s' % lang_code,
                 'remarks_%s' % lang_code,
                 'price_information_%s' % lang_code,
                 'other_characteristics_%s' % lang_code,
@@ -266,8 +266,8 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'contents_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'credits_%s' % lang_code,
-                'concert_programm_%s' % lang_code,
-                'supporting_programm_%s' % lang_code,
+                'concert_program_%s' % lang_code,
+                'supporting_program_%s' % lang_code,
                 'remarks_%s' % lang_code,
                 'price_information_%s' % lang_code,
                 'other_characteristics_%s' % lang_code,
@@ -395,14 +395,14 @@ class DescriptionForm(autocomplete_light.ModelForm):
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('concert_programm_%s' % lang_code),
+                layout.Field('concert_program_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('supporting_programm_%s' % lang_code),
+                layout.Field('supporting_program_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
@@ -1066,8 +1066,8 @@ def load_data(instance=None):
                 'contents_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'credits_%s' % lang_code,
-                'concert_programm_%s' % lang_code,
-                'supporting_programm_%s' % lang_code,
+                'concert_program_%s' % lang_code,
+                'supporting_program_%s' % lang_code,
                 'remarks_%s' % lang_code,
                 'price_information_%s' % lang_code,
                 'other_characteristics_%s' % lang_code,
@@ -1197,8 +1197,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'contents_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'credits_%s' % lang_code,
-                'concert_programm_%s' % lang_code,
-                'supporting_programm_%s' % lang_code,
+                'concert_program_%s' % lang_code,
+                'supporting_program_%s' % lang_code,
                 'remarks_%s' % lang_code,
                 'price_information_%s' % lang_code,
                 'other_characteristics_%s' % lang_code,
@@ -1217,8 +1217,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, 'contents_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'press_text_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'credits_%s_markup_type' % lang_code, 'pt')
-            setattr(instance, 'concert_programm_%s_markup_type' % lang_code, 'pt')
-            setattr(instance, 'supporting_programm_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'concert_program_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'supporting_program_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'remarks_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'price_information_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'other_characteristics_%s_markup_type' % lang_code, 'pt')
