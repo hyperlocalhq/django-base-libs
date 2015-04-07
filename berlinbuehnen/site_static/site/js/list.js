@@ -38,6 +38,8 @@
         me.initListItems();
         if (me.autoload) me.initAutoscroll();
         $(window).resize(function() {me.onResize();});
+        
+        lazyload_images();
     }
     
     /**
