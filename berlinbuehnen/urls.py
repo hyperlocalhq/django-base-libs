@@ -45,6 +45,15 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}, name="media_url"),
     url(r'^jetson-media/\d+/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.JETSON_MEDIA_ROOT}, name="jetson_media_url"),
+
+    url(r'^tweets/$', 'berlinbuehnen.apps.twitter.views.latest_tweets', {
+        'twitter_username': settings.TWITTER_USERNAME,
+        'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
+    }),
+    url(r'^tweets/(?P<twitter_username>.+)/$', 'berlinbuehnen.apps.twitter.views.latest_tweets', {
+        'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
+    }),
+
 )
 urlpatterns += staticfiles_urlpatterns()
 

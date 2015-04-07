@@ -3,9 +3,10 @@ from django.db.models import get_model
 from django.template import loader, Template, Context
 from django import template
 
-from museumsportal.apps.slideshows.models import Slideshow
+from berlinbuehnen.apps.slideshows.models import Slideshow
 
 register = template.Library()
+
 
 def do_slideshow(parser, token):
     try:
@@ -17,6 +18,7 @@ def do_slideshow(parser, token):
         except ValueError:
             raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> [using <template_path>] %%}" % token.contents[0]
     return SlideshowRenderer(sysname, template_path)
+
 
 class SlideshowRenderer(template.Node):
     """ {% slideshow <sysname> [using <template_path>] %} """

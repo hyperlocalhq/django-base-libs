@@ -1,49 +1,168 @@
 {% extends "cms/default.html" %}
-{% load base_tags cms_tags i18n image_modifications %}
+{% load base_tags cms_tags i18n image_modifications slideshows_tags auth_extended %}
 
 {% block stylesheet %}
-  {{ block.super }}
-  <style>
-  .carousel * {
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -o-user-select: none;
-      user-select: none;
-  }
-  </style>
+    {{ block.super }}
+    <style>
+        .carousel * {
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/date_slider.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 {% endblock %}
 
 {% block location_login %}
-  <li><a href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login for Theaters" %}</a></li>
+    <li><a href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login for Theaters" %}</a></li>
 {% endblock %}
 
 {% block content %}
-  {% comment %}
-    {# dynamical inclusion below doesn't work with cms and placeholders #}
-    {% with "cms/includes/start_"|add:LANGUAGE_CODE|add:".html" as start_page_template_name %}
-      {% include start_page_template_name %}
-    {% endwith %}
-    {% if LANGUAGE_CODE == "de" %}
-      {% include "cms/includes/start_de.html" %}
-    {% endif %}
-    {% if LANGUAGE_CODE == "en" %}
-      {% include "cms/includes/start_en.html" %}
-    {% endif %}
-    {% if LANGUAGE_CODE == "fr" %}
-      {% include "cms/includes/start_fr.html" %}
-    {% endif %}
-    {% if LANGUAGE_CODE == "pl" %}
-      {% include "cms/includes/start_pl.html" %}
-    {% endif %}
-    {% if LANGUAGE_CODE == "tr" %}
-      {% include "cms/includes/start_tr.html" %}
-    {% endif %}
-    {% if LANGUAGE_CODE == "es" %}
-      {% include "cms/includes/start_es.html" %}
-    {% endif %}
-    {% if LANGUAGE_CODE == "it" %}
-      {% include "cms/includes/start_it.html" %}
-    {% endif %}
-  {% endcomment %}
+    <div class="content overview">
+        <div class="container">
+            <div class="row">
+                {% slideshow "start_page" %}
+            </div>
+        </div>
+    </div>
+    <div class="content overview">
+        <div class="container">
+            <div class="row">
+                <h1 class="bottom-line">{% trans "Schedule" %}</h1>
+                <!-- date slider -->
+                <div class="date-slider col-xs-12" data-date="{{ date_slider.active|date:"U" }}" data-today="{{ date_slider.today|date:"U" }}" data-days="{% for day in date_slider.days %}{{ day|date:"D" }},{% endfor %}" data-months="{% for month in date_slider.months %}{{ month|date:"M" }},{% endfor %}">
+                    <img class="date-slider-links" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" usemap="#main_slider" />
+                </div>
+
+                <div class="col-xs-12">
+                    {% get_objects all productions.Event 4 as newest_events %}
+                    <div id="main_list" class="list list-autoload row">
+                        {% for event in newest_events %}
+                            {% ifchanged event.start_date %}<h1 class="list-headline">{{ event.start_date|date:"D, j. F Y" }}</h1>{% endifchanged %}
+                            <div class="list-item col-xs-12">
+                                <div class="row">
+
+                                    <!-- list item head (date and image) -->
+                                    <div class="list-item-head col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                                        <div class="row">
+
+                                            <!-- date -->
+                                            <div class="list-item-head-date col-xs-12 col-sm-4">
+                                                <div class="row">
+                                                    <div class="list-item-head-date-day col-xs-3 col-sm-12">
+                                                        {{ event.start_date|date:"D" }}
+                                                    </div>
+                                                    <div class="list-item-head-date-month col-xs-3 col-sm-12">
+                                                        <span class="hidden-xs">{{ event.start_date|date:"j. F" }}</span>
+                                                        <span class="visible-xs">{{ event.start_date|date:"j. M" }}</span>
+                                                    </div>
+                                                    <div class="list-item-head-date-type col-xs-3 col-sm-12">
+                                                        {% if event.production.get_categories %}
+                                                            {{ event.production.get_categories.0.title }}
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="list-item-head-date-time col-xs-3 col-sm-12">
+                                                        {{ event.start_time|time:"H:i" }}
+                                                    </div>
+                                                    <div class="list-item-head-date-icons col-xs-3 col-sm-12">
+                                                        {% if event.ev_or_prod_tickets_website %}
+                                                            <a class="fawesome tickets" href="{{ event.ev_or_prod_tickets_website }}" target="_blank"></a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- image -->
+                                            <div class="list-item-head-image img hidden-xs col-sm-8">
+                                                {% if event.cover_image %}
+                                                    <img src="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                {% elif event.ev_or_prod_images %}
+                                                    {% with event.ev_or_prod_images|first as image %}
+                                                        <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                    {% endwith %}
+                                                {% else %}
+                                                    <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" />
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- list item body -->
+                                    <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                                        <a class="list-item-link" href="{{ event.get_url_path }}">
+                                            {% if event.location_title or event.ev_or_prod_play_locations %}
+                                                <dl>
+                                                    {% if event.location_title %}
+                                                        <dd data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
+                                                            {{ event.location_title }}
+                                                        </dd>
+                                                    {% endif %}
+                                                    {% for location in event.ev_or_prod_play_locations %}
+                                                        <dd data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                                                            {{ location.title }}
+                                                        </dd>
+                                                    {% endfor %}
+                                                </dl>
+                                            {% endif %}
+                                            {% if event.production.prefix %}<h4>{{ event.production.prefix }}</h4>{% endif %}
+                                            {% if event.production.title %}<h2>{{ event.production.title }}</h2>{% endif %}
+                                            {% if event.production.subtitle %}<h3>{{ event.production.subtitle }}</h3>
+                                            {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text }}</h3>{% endif %}
+                                            {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
+                                            {% if event.ev_or_prod_teaser %}<div class="copy"><p>{{ event.ev_or_prod_teaser }}</p></div>{% endif %}
+                                            {% if event.get_special_text %}<div class="extra"><span>{{ event.get_special_text }}</span></div>{% endif %}
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content overview">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="bottom-line">{% trans "News" %}</h1>
+                    <!-- NEWS -->
+                    {% get_objects all articles.Article 2 as newest_articles %}
+                    {% for article in newest_articles %}
+                        <a href="{{ article.get_url_path }}">
+                            <h3>{{ article.title }}</h3>
+                        </a>
+                    {% endfor %}
+
+                    <!-- BLOG -->
+                    {% get_objects all blog.Post 2 as newest_posts %}
+                    {% for post in newest_posts %}
+                        <a href="{{ post.get_url_path }}">
+                            <h3>{{ post.title }}</h3>
+                        </a>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-4">
+                    {% trans "Ads" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="tweets" data-twitter-username="berlinbuehnen">
+        </div>
+    </div>
+    <script src="{{ STATIC_URL }}site/js/twitter.min.js"></script>
+
 {% endblock %}

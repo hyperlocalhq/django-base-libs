@@ -223,6 +223,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.productions",
     "berlinbuehnen.apps.multiparts",
     "berlinbuehnen.apps.slideshows",
+    "berlinbuehnen.apps.twitter",
     "berlinbuehnen.apps.site_specific",
 )
 
@@ -573,8 +574,8 @@ ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
 
 ARTICLES_HAVE_TYPES = False
 
-TWITTER_USERNAME = "locationsportal"
-TWITTER_NUMBER_OF_TWEETS = 4
+TWITTER_USERNAME = "berlinbuehnen"
+TWITTER_NUMBER_OF_TWEETS = 3
 
 TWITTER_CONSUMER_KEY = "JXZlfw8Z5jmkjGnQrL8xA"
 TWITTER_CONSUMER_SECRET = "DHhs9PuW8macNUh2umWyRPCOwJlTvOibSaHglV9OA"
