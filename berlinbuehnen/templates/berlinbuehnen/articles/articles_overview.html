@@ -1,39 +1,9 @@
 {% extends request.current_page.template|default:"cms/default.html" %}
-{% load base_tags babel i18n auth_extended articles infoblocks image_modifications crispy_forms_tags %}
+{% load base_tags babel i18n auth_extended articles_tags infoblocks image_modifications crispy_forms_tags %}
 
 {% block content %}
     <div class="container">
         <h1 class="pull-left abso">News</h1>
-    </div>
-    <div id="filter-wrapper">
-        <div class="inner">
-            <div class="container">
-                {% crispy form %}
-                <script>
-                    $('.checkboxinput').each(function() {
-                        if ($(this).attr('checked')) {
-                            $(this).closest('label.checkbox').addClass('c_on');
-                        } else {
-                            $(this).closest('label.checkbox').removeClass('c_on');
-                        }
-                    }).change(function() {
-                        if ($(this).attr('checked')) {
-                            $(this).closest('label.checkbox').addClass('c_on');
-                        } else {
-                            $(this).closest('label.checkbox').removeClass('c_on');
-                        }
-                        $(this).closest('form').submit();
-                    });
-                    /*
-                    $('select').selectbox({
-                        onChange: function(val, inst) {
-                            $(this).closest('form').submit();
-                        }
-                    });
-                    */
-                </script>
-            </div>
-        </div>
     </div>
     {% if article_list %}
         <div id="overview_news" class="list">
@@ -61,7 +31,7 @@
                                             {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
                                         {% endif %}
                                     </p>
-                                    <a class="btn btn-mini" href="{{ article.get_url_path }}">Mehr…</a>
+                                    <a class="btn btn-info btn-mini" href="{{ article.get_url_path }}">Mehr…</a>
                                 </div>
                             </div>
                             {% if forloop.counter|divisibleby:"4" %}
