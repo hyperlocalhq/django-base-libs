@@ -38,7 +38,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         r = requests.get(self.service.url, params={})
 
         if self.verbosity >= NORMAL:
-            print u"=== Productions imported ==="
+            print u"=== Importing Productions ==="
 
         self.stats = {
             'prods_added': 0,

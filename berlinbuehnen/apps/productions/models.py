@@ -153,8 +153,8 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     credits = MultilingualTextField(_("Credits"), blank=True)
 
     # text fields for data from the Culturbase import feed
-    concert_programm = MultilingualTextField(_("Concert programm"), blank=True)
-    supporting_programm = MultilingualTextField(_("Supporting programm"), blank=True)
+    concert_program = MultilingualTextField(_("Concert program"), blank=True)
+    supporting_program = MultilingualTextField(_("Supporting program"), blank=True)
     remarks = MultilingualTextField(_("Remarks"), blank=True)
     duration_text = MultilingualCharField(_("Duration text"), max_length=255, blank=True)
     subtitles_text = MultilingualCharField(_("Subtitles text"), max_length=255, blank=True)
@@ -295,6 +295,16 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_categories(self):
         return self.categories.all()
 
+    def get_import_source(self):
+        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        ContentType = models.get_model("contenttypes", "ContentType")
+        mappers = ObjectMapper.objects.filter(
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.pk,
+        )
+        if mappers:
+            return mappers[0].service.title.replace(' Productions', '')
+        return "OK"
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
@@ -513,8 +523,8 @@ class Event(CreationModificationMixin, UrlMixin):
     credits = MultilingualTextField(_("Credits"), blank=True)
 
     # text fields for data from the Culturbase import feed
-    concert_programm = MultilingualTextField(_("Concert programm"), blank=True)
-    supporting_programm = MultilingualTextField(_("Supporting programm"), blank=True)
+    concert_program = MultilingualTextField(_("Concert program"), blank=True)
+    supporting_program = MultilingualTextField(_("Supporting program"), blank=True)
     remarks = MultilingualTextField(_("Remarks"), blank=True)
     duration_text = MultilingualCharField(_("Duration text"), max_length=255, blank=True)
     subtitles_text = MultilingualCharField(_("Subtitles text"), max_length=255, blank=True)
@@ -593,11 +603,11 @@ class Event(CreationModificationMixin, UrlMixin):
 
     ### Culturebase-specific fields ###
 
-    def ev_or_prod_concert_programm(self):
-        return self.get_rendered_concert_programm() or self.production.get_rendered_concert_programm()
+    def ev_or_prod_concert_program(self):
+        return self.get_rendered_concert_program() or self.production.get_rendered_concert_program()
 
-    def ev_or_prod_supporting_programm(self):
-        return self.get_rendered_supporting_programm() or self.production.get_rendered_supporting_programm()
+    def ev_or_prod_supporting_program(self):
+        return self.get_rendered_supporting_program() or self.production.get_rendered_supporting_program()
 
     def ev_or_prod_remarks(self):
         return self.get_rendered_remarks() or self.production.get_rendered_remarks()

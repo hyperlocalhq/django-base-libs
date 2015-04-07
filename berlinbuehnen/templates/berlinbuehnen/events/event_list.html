@@ -69,7 +69,11 @@
                                                 <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
                                             </span>
                                         {% endif %}
-                                        <h3>{{ event.production.title }}</h3>
+                                        <h3>{{ event.production.title }}
+                                        {% if request.user.is_superuser %}
+                                            <span class="label label-default">{{ event.production.get_import_source }}</span>
+                                        {% endif %}
+                                        </h3>
                                         <h4>{{ event.production.subtitle }}</h4>
                                         <h4>{{ event.start_date|date:"j.M Y" }} {{ event.start_time|time:"H:i" }}</h4>
                                         <p>

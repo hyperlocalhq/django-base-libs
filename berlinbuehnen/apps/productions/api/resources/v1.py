@@ -105,7 +105,7 @@ class ProductionVideoResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = ProductionVideo.objects.all()
         resource_name = 'production_video'
-        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date', 'sort_order']
 
     def dehydrate(self, bundle):
         bundle.data['embed'] = bundle.obj.get_embed()
@@ -116,7 +116,7 @@ class ProductionLiveStreamResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = ProductionLiveStream.objects.all()
         resource_name = 'production_live_stream'
-        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date', 'sort_order']
 
     def dehydrate(self, bundle):
         bundle.data['embed'] = bundle.obj.get_embed()
@@ -131,6 +131,7 @@ class ProductionImageResource(ModelResource):
             'id',
             'creation_date', 'modified_date',
             'copyright_restrictions',
+            'sort_order',
         ]
 
     def get_object_list(self, request):
@@ -167,6 +168,7 @@ class ProductionPDFResource(ModelResource):
         fields = [
             'id',
             'creation_date', 'modified_date',
+            'sort_order',
         ]
 
     def dehydrate(self, bundle):
@@ -271,7 +273,7 @@ class EventVideoResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = EventVideo.objects.all()
         resource_name = 'event_video'
-        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date', 'sort_order']
 
     def dehydrate(self, bundle):
         bundle.data['embed'] = bundle.obj.get_embed()
@@ -282,7 +284,7 @@ class EventLiveStreamResource(ModelResource):
     class Meta(BaseMetaForModelResource):
         queryset = EventLiveStream.objects.all()
         resource_name = 'event_live_stream'
-        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date']
+        fields = ['id', 'title_de', 'title_en', 'creation_date', 'modified_date', 'sort_order']
 
     def dehydrate(self, bundle):
         bundle.data['embed'] = bundle.obj.get_embed()
@@ -297,6 +299,7 @@ class EventImageResource(ModelResource):
             'id',
             'creation_date', 'modified_date',
             'copyright_restrictions',
+            'sort_order',
         ]
 
     def get_object_list(self, request):
@@ -333,6 +336,7 @@ class EventPDFResource(ModelResource):
         fields = [
             'id',
             'creation_date', 'modified_date',
+            'sort_order',
         ]
 
     def dehydrate(self, bundle):
@@ -480,10 +484,10 @@ class EventResource(ModelResource):
         bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_en()))
         bundle.data['credits_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_credits_de()))
         bundle.data['credits_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_credits_en()))
-        bundle.data['concert_programm_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_programm_de()))
-        bundle.data['concert_programm_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_programm_en()))
-        bundle.data['supporting_programm_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_programm_de()))
-        bundle.data['supporting_programm_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_programm_en()))
+        bundle.data['concert_program_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_program_de()))
+        bundle.data['concert_program_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_program_en()))
+        bundle.data['supporting_program_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_program_de()))
+        bundle.data['supporting_program_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_program_en()))
         bundle.data['remarks_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_de()))
         bundle.data['remarks_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_en()))
         bundle.data['price_information_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_price_information_de()))
@@ -561,10 +565,10 @@ class ProductionResource(ModelResource):
         bundle.data['press_text_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_press_text_en()))
         bundle.data['credits_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_credits_de()))
         bundle.data['credits_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_credits_en()))
-        bundle.data['concert_programm_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_programm_de()))
-        bundle.data['concert_programm_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_programm_en()))
-        bundle.data['supporting_programm_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_programm_de()))
-        bundle.data['supporting_programm_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_programm_en()))
+        bundle.data['concert_program_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_program_de()))
+        bundle.data['concert_program_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_concert_program_en()))
+        bundle.data['supporting_program_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_program_de()))
+        bundle.data['supporting_program_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_supporting_program_en()))
         bundle.data['remarks_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_de()))
         bundle.data['remarks_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_remarks_en()))
         bundle.data['price_information_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_price_information_de()))

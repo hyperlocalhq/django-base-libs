@@ -438,8 +438,8 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'contents_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'credits_%s' % lang_code,
-                'concert_programm_%s' % lang_code,
-                'supporting_programm_%s' % lang_code,
+                'concert_program_%s' % lang_code,
+                'supporting_program_%s' % lang_code,
                 'remarks_%s' % lang_code,
             ]
 
@@ -454,8 +454,8 @@ class DescriptionForm(autocomplete_light.ModelForm):
                 'contents_%s' % lang_code,
                 'press_text_%s' % lang_code,
                 'credits_%s' % lang_code,
-                'concert_programm_%s' % lang_code,
-                'supporting_programm_%s' % lang_code,
+                'concert_program_%s' % lang_code,
+                'supporting_program_%s' % lang_code,
                 'remarks_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
@@ -576,14 +576,14 @@ class DescriptionForm(autocomplete_light.ModelForm):
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('concert_programm_%s' % lang_code),
+                layout.Field('concert_program_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('supporting_programm_%s' % lang_code),
+                layout.Field('supporting_program_%s' % lang_code),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))

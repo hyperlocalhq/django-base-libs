@@ -183,7 +183,7 @@ class Command(NoArgsCommand):
         }
 
         if self.verbosity >= NORMAL:
-            print u"=== Productions imported ==="
+            print u"=== Importing Productions ==="
 
         self.stats = {
             'prods_added': 0,
@@ -334,11 +334,11 @@ class Command(NoArgsCommand):
                     inhaltsangabe_en = text_en
             elif text_cat_id == 17:  # Konzertprogramm
                 if text_de:
-                    instance.concert_programm_de = text_de
-                    instance.concert_programm_de_markup_type = 'pt'
+                    instance.concert_program_de = text_de
+                    instance.concert_program_de_markup_type = 'pt'
                 if text_en:
-                    instance.concert_programm_en = text_en
-                    instance.concert_programm_en_markup_type = 'pt'
+                    instance.concert_program_en = text_en
+                    instance.concert_program_en_markup_type = 'pt'
             elif text_cat_id == 18:  # Koproduktion
                 if text_de:
                     instance.credits_de = text_de
@@ -363,11 +363,11 @@ class Command(NoArgsCommand):
                     pressetext_de = text_en
             elif text_cat_id == 22:  # Rahmenprogramm zur Veranstaltung
                 if text_de:
-                    instance.supporting_programm_de = text_de
-                    instance.supporting_programm_de_markup_type = 'pt'
+                    instance.supporting_program_de = text_de
+                    instance.supporting_program_de_markup_type = 'pt'
                 if text_en:
-                    instance.supporting_programm_en = text_en
-                    instance.supporting_programm_en_markup_type = 'pt'
+                    instance.supporting_program_en = text_en
+                    instance.supporting_program_en_markup_type = 'pt'
             elif text_cat_id == 23:  # Sondermerkmal
                 if text_de:
                     instance.remarks_de = text_de
@@ -498,9 +498,9 @@ class Command(NoArgsCommand):
         for prod_index, prod_node in enumerate(prod_nodes, 1):
             external_prod_id = prod_node.get('Id')
 
-            title_de = self.get_child_text(prod_node, 'Title', Language="de").replace('\n', ' ')
-            title_en = self.get_child_text(prod_node, 'Title', Language="en").replace('\n', ' ')
-            if self.verbosity > NORMAL:
+            title_de = self.get_child_text(prod_node, 'Title', Language="de").replace('\n', ' ').strip()
+            title_en = self.get_child_text(prod_node, 'Title', Language="en").replace('\n', ' ').strip()
+            if self.verbosity >= NORMAL:
                 print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
 
             mapper = None

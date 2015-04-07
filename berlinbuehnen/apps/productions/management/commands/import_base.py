@@ -340,11 +340,11 @@ class ImportFromHeimatBase(object):
                     inhaltsangabe_en = text_en
             elif text_cat_id == 17:  # Konzertprogramm
                 if text_de:
-                    instance.concert_programm_de = text_de
-                    instance.concert_programm_de_markup_type = 'pt'
+                    instance.concert_program_de = text_de
+                    instance.concert_program_de_markup_type = 'pt'
                 if text_en:
-                    instance.concert_programm_en = text_en
-                    instance.concert_programm_en_markup_type = 'pt'
+                    instance.concert_program_en = text_en
+                    instance.concert_program_en_markup_type = 'pt'
             elif text_cat_id == 18:  # Koproduktion
                 if text_de:
                     instance.credits_de = text_de
@@ -369,11 +369,11 @@ class ImportFromHeimatBase(object):
                     pressetext_de = text_en
             elif text_cat_id == 22:  # Rahmenprogramm zur Veranstaltung
                 if text_de:
-                    instance.supporting_programm_de = text_de
-                    instance.supporting_programm_de_markup_type = 'pt'
+                    instance.supporting_program_de = text_de
+                    instance.supporting_program_de_markup_type = 'pt'
                 if text_en:
-                    instance.supporting_programm_en = text_en
-                    instance.supporting_programm_en_markup_type = 'pt'
+                    instance.supporting_program_en = text_en
+                    instance.supporting_program_en_markup_type = 'pt'
             elif text_cat_id == 23:  # Sondermerkmal
                 if text_de:
                     instance.remarks_de = text_de
@@ -503,10 +503,10 @@ class ImportFromHeimatBase(object):
         for prod_index, prod_node in enumerate(prod_nodes, 1):
             external_prod_id = prod_node.get('foreignId')
 
-            title_de = self.get_child_text(prod_node, 'title', languageId="1")
-            title_en = self.get_child_text(prod_node, 'title', languageId="2")
+            title_de = self.get_child_text(prod_node, 'title', languageId="1").replace('\n', ' ').strip()
+            title_en = self.get_child_text(prod_node, 'title', languageId="2").replace('\n', ' ').strip()
 
-            if self.verbosity > NORMAL:
+            if self.verbosity >= NORMAL:
                 print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(title_de), smart_str(title_en))
 
             mapper = None
@@ -674,7 +674,9 @@ class ImportFromHeimatBase(object):
 
             for event_node in prod_node.findall('event'):
 
-                external_event_id = event_node.get('foreignId') or event_node.get('datetime')
+                external_event_id = event_node.get('foreignId')
+                if not external_event_id:
+                    external_event_id = u"%s_%s" % (external_prod_id, event_node.get('datetime'))
 
                 event_mapper = None
                 try:
