@@ -108,7 +108,7 @@ class BasicInfoForm(forms.ModelForm):
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('description_%s' % lang_code),
+                layout.Field('description_%s' % lang_code, disabled="disabled"),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
@@ -628,7 +628,7 @@ class StageForm(forms.ModelForm):
         fieldset_content.append(layout.Row(
             css_class="row-md",
             *[layout.Div(
-                layout.Field('description_%s' % lang_code),
+                layout.Field('description_%s' % lang_code, disabled="disabled"),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
@@ -809,15 +809,18 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             fields += [
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
-                'description_%s' % lang_code,
+                # 'description_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
+            # setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'tickets_calling_prices_%s_markup_type' % lang_code, 'pt')
+
+        for lang_code, lang_name in FRONTEND_LANGUAGES:
+            form_step_data[current_step]['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
 
         instance.save()
 
@@ -853,7 +856,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             stage_fields += [
                 'title_%s' % lang_code,
-                'description_%s' % lang_code,
+                # 'description_%s' % lang_code,
             ]
         stage_ids_to_keep = []
         for stage_dict in form_step_data['stages']['sets']['stages']:
@@ -869,8 +872,12 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 stage = Stage(location=instance)
             for fname in stage_fields:
                 setattr(stage, fname, stage_dict[fname])
+            # for lang_code, lang_name in FRONTEND_LANGUAGES:
+            #     setattr(stage, 'description_%s_markup_type' % lang_code, 'pt')
+
             for lang_code, lang_name in FRONTEND_LANGUAGES:
-                setattr(stage, 'description_%s_markup_type' % lang_code, 'pt')
+                stage_dict['description_%s' % lang_code] = getattr(stage, 'description_%s' % lang_code)
+
             stage.save()
             stage_ids_to_keep.append(stage.pk)
         instance.stage_set.exclude(pk__in=stage_ids_to_keep).delete()

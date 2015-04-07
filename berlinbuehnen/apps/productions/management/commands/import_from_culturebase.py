@@ -485,6 +485,16 @@ class Command(NoArgsCommand):
         instance.work_info_en = u"\n".join([text for text in (werkinfo_kurz_en, werkinfo_gesamt_en, hintergrundinformation_en) if text])
         instance.work_info_en_markup_type = 'pt'
 
+        # additional from 2015-04-07
+
+        if not instance.description_de and instance.press_text_de:
+            instance.description_de = instance.press_text_de
+            instance.press_text_de = u""
+
+        if not instance.description_en and instance.press_text_en:
+            instance.description_en = instance.press_text_en
+            instance.press_text_en = u""
+
 
     def save_page(self, root_node):
         import time
