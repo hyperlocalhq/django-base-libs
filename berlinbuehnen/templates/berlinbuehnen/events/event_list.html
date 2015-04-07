@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row">
                 
-                <h1 class="bottom-line">{% trans "Playing Schedule" %}</h1>
+                <h1 class="bottom-line">{% trans "Schedule" %}</h1>
                 
                 <!-- date slider -->
                 <div class="date-slider col-xs-12" data-date="{{ date_slider.active|date:"U" }}" data-today="{{ date_slider.today|date:"U" }}" data-days="{% for day in date_slider.days %}{{ day|date:"D" }},{% endfor %}" data-months="{% for month in date_slider.months %}{{ month|date:"M" }},{% endfor %}">

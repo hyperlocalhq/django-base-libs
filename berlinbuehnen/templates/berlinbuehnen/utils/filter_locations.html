@@ -10,7 +10,7 @@
 
         <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
             <input type="radio" name="options" id="filter-toggle-services">
-            {% trans "Services" %}
+            {% trans "Service" %}
         </label>
 
         <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-accessibility">
@@ -39,7 +39,7 @@
         <div class="panel panel-default">
             <div id="filter-smartlists" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <h4>{% trans "Services" %}</h4>
+                    <h4>{% trans "Service" %}</h4>
                     <ul class="filter option-set clearfix" id="services" data-filter-group="language_and_subtitles" data-single-selection="1">
                         {% for cat in facets.categories.services %}
                             {% if cat in facets.selected.services %}

@@ -104,7 +104,7 @@ class LocationAdmin(ExtendedModelAdmin):
        get_admin_lang_section(_("Exceptions"), ['exceptions',]),
     )}),]
     fieldsets += [(_("Press Contact"), {'fields': ('press_contact_name', 'press_email', 'press_website', (_("Phone"), {'fields': ('press_phone_country', 'press_phone_area', 'press_phone_number')}), (_("Fax"), {'fields': ('press_fax_country', 'press_fax_area', 'press_fax_number')}))}),]
-    fieldsets += [(_("Services"), {'fields': ('services',)}),]
+    fieldsets += [(_("Service"), {'fields': ('services',)}),]
     fieldsets += [(_("Accessibility"), {'fields': ('accessibility_options',)}),]
     fieldsets += [(_("Status"), {'fields': ('status',)}),]
 

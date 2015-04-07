@@ -46,7 +46,7 @@ class Service(CreationModificationDateMixin, SlugMixin()):
     class Meta:
         ordering = ['sort_order']
         verbose_name = _("Service")
-        verbose_name_plural = _("Services")
+        verbose_name_plural = _("Service")
 
 
 class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
@@ -134,7 +134,7 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     press_email = models.EmailField(_("Press Email"), max_length=255, blank=True)
     press_website = URLField("Press Website", blank=True)
 
-    services = models.ManyToManyField(Service, verbose_name=_("Services"), blank=True)
+    services = models.ManyToManyField(Service, verbose_name=_("Service"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")

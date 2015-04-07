@@ -475,7 +475,7 @@ class BasicInfoForm(forms.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
-            _("Services"),
+            _("Service"),
             "services",
             css_class="fieldset-services",
         ))

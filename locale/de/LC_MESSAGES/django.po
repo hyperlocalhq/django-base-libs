@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-07 15:03+0200\n"
+"POT-Creation-Date: 2015-04-07 17:24+0200\n"
 "PO-Revision-Date: 2015-04-07 16:49+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
@@ -46,7 +46,7 @@ msgid "Configure"
 msgstr "Konfiguration"
 
 #: berlinbuehnen/settings.py:316
-#: berlinbuehnen/apps/locations/forms/locations.py:921
+#: berlinbuehnen/apps/locations/forms/locations.py:928
 #: berlinbuehnen/apps/productions/forms/productions.py:1460
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/base.html:75
 #: berlinbuehnen/templates/berlinbuehnen/productions/events/basic_info_form.html:19
@@ -545,14 +545,15 @@ msgid "Press Contact"
 msgstr "Pressekontakte"
 
 #: berlinbuehnen/apps/locations/admin.py:107
+#: berlinbuehnen/apps/locations/models.py:48
 #: berlinbuehnen/apps/locations/models.py:49
 #: berlinbuehnen/apps/locations/models.py:137
 #: berlinbuehnen/apps/locations/forms/locations.py:478
 #: berlinbuehnen/templates/berlinbuehnen/locations/location_detail.html:198
 #: berlinbuehnen/templates/berlinbuehnen/utils/filter_locations.html:13
 #: berlinbuehnen/templates/berlinbuehnen/utils/filter_locations.html:42
-msgid "Services"
-msgstr "Service / (Dienst)Leistungen"
+msgid "Service"
+msgstr "Service"
 
 #: berlinbuehnen/apps/locations/admin.py:108
 #: berlinbuehnen/apps/locations/forms/locations.py:483
@@ -591,10 +592,6 @@ msgstr "Orte"
 #: berlinbuehnen/apps/productions/models.py:485
 msgid "Sort Order"
 msgstr "Reihenfolge"
-
-#: berlinbuehnen/apps/locations/models.py:48
-msgid "Service"
-msgstr "Dienst(Leistung) / Service"
 
 #: berlinbuehnen/apps/locations/models.py:62
 msgid "Accessibility option"
@@ -667,8 +664,8 @@ msgstr "Langengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
-" to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
+"to east) and -180 (direction to west)."
 msgstr ""
 
 #: berlinbuehnen/apps/locations/models.py:102
@@ -721,7 +718,7 @@ msgid "Press Email"
 msgstr "Email(Adresse) Presse"
 
 #: berlinbuehnen/apps/locations/models.py:151
-#: berlinbuehnen/apps/locations/forms/locations.py:905
+#: berlinbuehnen/apps/locations/forms/locations.py:912
 msgid "Theater"
 msgstr "Bühne"
 
@@ -758,7 +755,7 @@ msgstr "Spielstätte"
 
 #: berlinbuehnen/apps/locations/models.py:237
 #: berlinbuehnen/apps/locations/forms/locations.py:554
-#: berlinbuehnen/apps/locations/forms/locations.py:913
+#: berlinbuehnen/apps/locations/forms/locations.py:920
 #: berlinbuehnen/apps/productions/models.py:132
 #: berlinbuehnen/apps/productions/models.py:506
 #: berlinbuehnen/apps/productions/forms/productions.py:81
@@ -918,7 +915,8 @@ msgstr ""
 #: berlinbuehnen/apps/locations/forms/gallery.py:74
 #: berlinbuehnen/apps/productions/forms/gallery.py:377
 #, python-format
-msgid "Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
+msgid ""
+"Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
 msgstr ""
 
 #: berlinbuehnen/apps/locations/forms/gallery.py:151
@@ -1037,7 +1035,7 @@ msgstr "Schließen"
 msgid "Save"
 msgstr "Speichern"
 
-#: berlinbuehnen/apps/locations/forms/locations.py:931
+#: berlinbuehnen/apps/locations/forms/locations.py:938
 #: berlinbuehnen/apps/productions/forms/productions.py:1475
 msgid ""
 "There are errors in this form. Please correct them and try to save again."
@@ -2144,8 +2142,8 @@ msgstr "Login"
 #: berlinbuehnen/apps/site_specific/forms.py:58
 #: berlinbuehnen/apps/site_specific/forms.py:172
 msgid ""
-"Please enter a correct email or username and password. Note that both fields"
-" are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields "
+"are case-sensitive."
 msgstr ""
 "Bitte geben Sie Email oder Username und Passwort korrekt ein.\n"
 "Beachten sie Groß- und Kleinschreibung."
@@ -2442,8 +2440,8 @@ msgstr "Passwortänderung"
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_change_form.html:9
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new"
-" password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
 msgstr ""
 "Bitte geben Sie ihr altes Passwort aus Sicherheitsgründen ein. Danach geben "
 "Sie Ihr neues Passwort doppelt ein, damit wir eine Überprüfung vornehmen "
@@ -2463,20 +2461,20 @@ msgstr "Passwort zurücksetzen"
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_complete.html:10
 #, python-format
 msgid ""
-"Your password has been set. You may go ahead and <a "
-"href=\"%(login_url)s\">log in</a> now."
+"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
+"\">log in</a> now."
 msgstr ""
-"Ihr Passwort wurde bestätigt. Sie können sich nun <a "
-"href=\"%(login_url)s\">einloggen</a>."
+"Ihr Passwort wurde bestätigt. Sie können sich nun <a href=\"%(login_url)s"
+"\">einloggen</a>."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_confirm.html:13
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
 msgstr ""
-"Der Link zum Zurücksetzten des Passworts war ungültig,  da er wahrscheinlich"
-" bereits verwendet wurde. Bitte fordern Sie das Zurücksetzen Ihres "
-"Passwortes erneut an."
+"Der Link zum Zurücksetzten des Passworts war ungültig,  da er wahrscheinlich "
+"bereits verwendet wurde. Bitte fordern Sie das Zurücksetzen Ihres Passwortes "
+"erneut an."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_done.html:4
 msgid "Password reset successful"
@@ -2493,8 +2491,8 @@ msgstr ""
 #: berlinbuehnen/templates/berlinbuehnen/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your"
-" user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your "
+"user account at %(site_name)s."
 msgstr ""
 "Sie erhalten diese Email, da Sie das Zurücksetzen Ihres Passwortes für Ihr "
 "Nutzerkonto bei %(site_name)s beantragt haben."
@@ -2561,9 +2559,9 @@ msgstr "Sie haben es gleich geschafft."
 
 #: berlinbuehnen/templates/berlinbuehnen/accounts/register_verify_required.html:10
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid "
-"e-mail address. You should be getting a confirmation e-mail very shortly. It"
-" will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid e-"
+"mail address. You should be getting a confirmation e-mail very shortly. It "
+"will contain instructions on how to finalize your registration."
 msgstr ""
 "Um die Registrierung abzuschließen müssen wir die Gültigkeit der eingeben "
 "Emailadresse prüfen. Sie erhalten dazu in Kürze eine weitere E-Mail mit "
@@ -2574,8 +2572,8 @@ msgid ""
 "Please also check your Spam folder to make sure that our message has not "
 "been filtered out."
 msgstr ""
-"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort"
-" gelandet."
+"Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort "
+"gelandet."
 
 #: berlinbuehnen/templates/berlinbuehnen/blog/base.html:7
 msgid "Blog"
@@ -2809,7 +2807,7 @@ msgid "Copyright"
 msgstr "Urheberrecht"
 
 #: berlinbuehnen/templates/berlinbuehnen/events/event_list.html:19
-msgid "Playing Schedule"
+msgid "Schedule"
 msgstr "Spielplan"
 
 #: berlinbuehnen/templates/berlinbuehnen/favorites/includes/favorite_detail.html:4
@@ -2856,9 +2854,8 @@ msgid "Accessibility Options"
 msgstr "Erreichbarkeit"
 
 #: berlinbuehnen/templates/berlinbuehnen/locations/location_detail.html:222
-#, fuzzy
 msgid "Press"
-msgstr "Pressestimmen"
+msgstr "Presse"
 
 #: berlinbuehnen/templates/berlinbuehnen/locations/forms/base.html:9
 msgid "New location"
@@ -3192,13 +3189,12 @@ msgid "Add PDF document"
 msgstr "PDF Dokument hinzufügen"
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/includes/other_productions.html:7
-msgid "More productions at this place"
+msgid "Further productions at this venue"
 msgstr "Weitere Produktionen an diesem Ort"
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/includes/other_productions.html:9
-#, fuzzy
-msgid "Productions at this place"
-msgstr "Produktionsmerkmale"
+msgid "Productions at this venue"
+msgstr "Produktionen an diesem Ort"
 
 #: berlinbuehnen/templates/berlinbuehnen/productions/includes/other_productions.html:25
 #, fuzzy
@@ -3217,15 +3213,15 @@ msgstr "Administrationsrechte bestätigen"
 #, python-format
 msgid ""
 "Please fill in this form to create and account at Berlin Bühnen and to "
-"confirm that you are the owner of <a "
-"href=\"%(location_link)s\">%(location_title)s</a>."
+"confirm that you are the owner of <a href=\"%(location_link)s\">"
+"%(location_title)s</a>."
 msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:27
 #, python-format
 msgid ""
-"Please login to confirm that you are the owner of <a "
-"href=\"%(location_link)s\">%(location_title)s</a>."
+"Please login to confirm that you are the owner of <a href=\"%(location_link)s"
+"\">%(location_title)s</a>."
 msgstr ""
 
 #: berlinbuehnen/templates/berlinbuehnen/site_specific/claiming_confirmation.html:31
@@ -3351,6 +3347,9 @@ msgstr "Teilen auf Twitter"
 #: berlinbuehnen/templates/berlinbuehnen/utils/images.html:30
 msgid "Share on Facebook"
 msgstr "Teilen auf Facebook"
+
+#~ msgid "Services"
+#~ msgstr "Service / (Dienst)Leistungen"
 
 #~ msgid "Break"
 #~ msgstr "Pause"
