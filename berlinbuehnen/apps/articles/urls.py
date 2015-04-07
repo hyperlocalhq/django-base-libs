@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from base_libs.utils.misc import get_installed, path_in_installed_app
 
 ArticleRssFeed = get_installed("articles.feeds.ArticleRssFeed")
@@ -9,7 +9,7 @@ ArticleAtomFeed = get_installed("articles.feeds.ArticleAtomFeed")
 article_feeds = {
     'rss': ArticleRssFeed,
     'atom': ArticleAtomFeed,
-    }
+}
 
 
 urlpatterns = patterns(path_in_installed_app('articles.views'),

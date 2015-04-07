@@ -1,0 +1,17 @@
+{% load image_modifications %}
+{% if other_articles %}
+    {% for article in other_articles %}
+        <div class="item clickable">
+            <a href="{{ article.get_url_path }}" class="image" {% if article.image %} style="background-image: url('{{ MEDIA_URL }}{{ article.image|modified_path:"square-list" }}');"{% endif %}>
+                <time datetime="{{ article.published_from|date:"Y-m-d" }}">
+                    <span>{{ article.published_from|date:"M" }}</span>
+                    {{ article.published_from|date:"j" }}
+                </time>
+            </a>
+
+            <h6>{{ article.get_title }}</h6>
+            <p>{{ article.get_rendered_content|striptags|truncatewords:25 }}...</p>
+            <a class="btn btn-mini" href="{{ article.get_url_path }}">Mehr…</a>
+        </div>
+    {% endfor %}
+{% endif %}

@@ -209,11 +209,11 @@ INSTALLED_APPS = (
     "jetson.apps.configuration",
     "jetson.apps.mailing",
     "jetson.apps.external_services",
-    "jetson.apps.blog",
     "jetson.apps.comments",
 
     ### berlin buehnen apps ###
     "berlinbuehnen.apps.articles",
+    "berlinbuehnen.apps.blog",
     "berlinbuehnen.apps.mailchimp",
     "berlinbuehnen.apps.mega_menu",
     "berlinbuehnen.apps.locations",
@@ -222,6 +222,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.sponsors",
     "berlinbuehnen.apps.productions",
     "berlinbuehnen.apps.multiparts",
+    "berlinbuehnen.apps.slideshows",
     "berlinbuehnen.apps.site_specific",
 )
 

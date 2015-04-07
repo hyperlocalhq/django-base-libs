@@ -1,25 +1,38 @@
 {% extends base_template %}
 {% load i18n base_tags blog %}
 
-{% block extrahead %}
-	{{ block.super }}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/blog.js"></script>
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
 {% endblock %}
 
-{% block details %}
-  <div class="content">
-    <div class="container">
-      {% block breadcrumbs %}
-        <div class="breadcrumbs">
-        </div>
-      {% endblock %}
-    </div>
-  </div>
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/blog.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.autosize.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('textarea').autosize();
+        });
+    </script>
+{% endblock %}
 
-  <div class="content">
-    <div class="container">
-    	{% include_selected "post_embedded.html" for object under "blog/forms" %}
-      <a class="btn btn-lg btn-info" href="javascript:window.history.back()">{% trans "Go back" %}</a>
+
+{% block details %}
+    <div class="content">
+        <div class="container">
+            {% block breadcrumbs %}
+                <div class="breadcrumbs">
+                </div>
+            {% endblock %}
+        </div>
     </div>
-  </div>
+
+    <div class="content">
+        <div class="container">
+            {% include_selected "post_embedded.html" for object under "blog/forms" %}
+        </div>
+    </div>
 {% endblock %}

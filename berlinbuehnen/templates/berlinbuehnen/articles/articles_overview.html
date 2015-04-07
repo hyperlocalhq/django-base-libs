@@ -1,0 +1,82 @@
+{% extends request.current_page.template|default:"cms/default.html" %}
+{% load base_tags babel i18n auth_extended articles infoblocks image_modifications crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="pull-left abso">News</h1>
+    </div>
+    <div id="filter-wrapper">
+        <div class="inner">
+            <div class="container">
+                {% crispy form %}
+                <script>
+                    $('.checkboxinput').each(function() {
+                        if ($(this).attr('checked')) {
+                            $(this).closest('label.checkbox').addClass('c_on');
+                        } else {
+                            $(this).closest('label.checkbox').removeClass('c_on');
+                        }
+                    }).change(function() {
+                        if ($(this).attr('checked')) {
+                            $(this).closest('label.checkbox').addClass('c_on');
+                        } else {
+                            $(this).closest('label.checkbox').removeClass('c_on');
+                        }
+                        $(this).closest('form').submit();
+                    });
+                    /*
+                    $('select').selectbox({
+                        onChange: function(val, inst) {
+                            $(this).closest('form').submit();
+                        }
+                    });
+                    */
+                </script>
+            </div>
+        </div>
+    </div>
+    {% if article_list %}
+        <div id="overview_news" class="list">
+            <div class="block">
+                <div class="container">
+                    <div class="row">
+                        {% for article in article_list %}
+                            <div class="item span3 clickable">
+                                <a href="{{ article.get_url_path }}" class="image"  {% if article.image %} style="background-image: url('{{ MEDIA_URL }}{{ article.image|modified_path:"square-list" }}');"{% endif %}>
+                                    <time> <span>{{ article.published_from|date:"M" }}</span> {{ article.published_from|date:"j" }}</time>
+                                    <!-- {{ article.published_from|date:"Y" }} -->
+                                </a>
+                                <div class="body">
+
+                                    <!-- <div class="date">{{ article.published_from|datefmt:"long" }}</div> -->
+                                    <h6>{{ article.title }}
+                                    </h6>
+
+                                    {% if article.image %}
+                                    {% endif %}
+                                    <p>
+                                        {% if article.description %}
+                                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
+                                        {% else %}
+                                            {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
+                                        {% endif %}
+                                    </p>
+                                    <a class="btn btn-mini" href="{{ article.get_url_path }}">Mehr…</a>
+                                </div>
+                            </div>
+                            {% if forloop.counter|divisibleby:"4" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="container">
+                            <div class="row">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
