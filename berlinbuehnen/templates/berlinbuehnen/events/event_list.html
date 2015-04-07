@@ -66,10 +66,10 @@
                                                 <!-- image -->
                                                 <div class="list-item-head-image img hidden-xs col-sm-8">
                                                     {% if event.cover_image %}
-                                                        <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" data-original="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                        <img src="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
                                                     {% elif event.ev_or_prod_images %}
                                                         {% with event.ev_or_prod_images|first as image %}
-                                                            <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                            <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
                                                         {% endwith %}
                                                     {% else %}
                                                         <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" />

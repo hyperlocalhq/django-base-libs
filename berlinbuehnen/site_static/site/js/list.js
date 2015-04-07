@@ -38,8 +38,6 @@
         me.initListItems();
         if (me.autoload) me.initAutoscroll();
         $(window).resize(function() {me.onResize();});
-        
-        lazyload_images();
     }
     
     /**
@@ -254,7 +252,7 @@
         
         $('.pagination').removeClass('item').hide();
         me.initListItems(true);
-        lazyload_images();
+        //lazyload_images();
     }
     
     /**

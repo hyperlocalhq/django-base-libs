@@ -34,10 +34,10 @@
                                                 <!-- image -->
                                                 <div class="list-item-head-image img col-xs-1 col-sm-12">
                                                     {% if location.cover_image %}
-                                                        <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" data-original="{{ MEDIA_URL }}{{ location.cover_image|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                        <img src="{{ MEDIA_URL }}{{ location.cover_image|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
                                                     {% elif location.image_set %}
                                                         {% with location.image_set.all|first as image %}
-                                                            <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                            <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
                                                         {% endwith %}
                                                     {% else %}
                                                         <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" />
