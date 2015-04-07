@@ -122,7 +122,7 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     tickets_fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     tickets_fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
 
-    tickets_calling_prices = MultilingualTextField(_("Phone calling prices"), max_length=255, blank=True)
+    tickets_calling_prices = MultilingualTextField(_("Phone calling prices"), blank=True)
 
     press_contact_name = models.CharField(_("Press contact name"), max_length=255, blank=True)
     press_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
