@@ -52,6 +52,7 @@ class BasicInfoForm(forms.ModelForm):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
+                'tickets_calling_prices_%s' % lang_code,
             ]
 
     def __init__(self, *args, **kwargs):
@@ -62,6 +63,7 @@ class BasicInfoForm(forms.ModelForm):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
+                'tickets_calling_prices_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
@@ -265,6 +267,13 @@ class BasicInfoForm(forms.ModelForm):
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
                 css_class="row-md",
+            ),
+            layout.Row(
+                css_class="row-md",
+                *[layout.Div(
+                    layout.Field('tickets_calling_prices_%s' % lang_code),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ) for lang_code, lang_name in FRONTEND_LANGUAGES]
             ),
             css_class="fieldset-tickets",
         ))
@@ -737,6 +746,7 @@ def load_data(instance=None):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
+                'tickets_calling_prices_%s' % lang_code,
             ]
         for fname in fields:
             form_step_data['basic'][fname] = getattr(instance, fname)
@@ -800,12 +810,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
+                'tickets_calling_prices_%s' % lang_code,
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'tickets_calling_prices_%s_markup_type' % lang_code, 'pt')
 
         instance.save()
 

@@ -157,7 +157,9 @@
                                                                     {% if location.tickets_phone_number or location.phone_number %}
                                                                         <dt class="width_50">{% trans "Phone" %}</dt>
                                                                         {% if location.tickets_phone_number %}
-                                                                            <dd><a class="phone" href="tel:{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}{% endif %}{{ location.tickets_phone_area }}{{ location.tickets_phone_number }}">{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}-{% endif %}{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}</a></dd>
+                                                                            <dd><a class="phone" href="tel:{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}{% endif %}{{ location.tickets_phone_area }}{{ location.tickets_phone_number }}">{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}-{% endif %}{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}</a>
+                                                                                {{ location.get_rendered_tickets_calling_prices }}
+                                                                            </dd>
                                                                         {% else %}
                                                                             <dd><a class="phone" href="tel:{% if location.phone_country %}+{{ location.phone_country }}{% endif %}{{ location.phone_area }}{{ location.phone_number }}">{% if location.phone_country %}+{{ location.phone_country }}-{% endif %}{{ location.phone_area }}-{{ location.phone_number }}</a></dd>
                                                                         {% endif %}
