@@ -291,6 +291,9 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         if callable(timestamp):
             timestamp = timestamp()
         return self.event_set.filter(start_date__gt=timestamp.date())
+        
+    def get_categories(self):
+        return self.categories.all()
 
 
 class ProductionSocialMediaChannel(models.Model):

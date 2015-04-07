@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites production_tags %}
 {% block title %}{% trans "Location" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}location-detail{% endblock %}
 
@@ -7,9 +7,9 @@
     <meta property="og:title" content="{{ object.title }}" />
     <meta property="og:type" content="article" />
     {% if object.image %}
-      <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+        <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
     {% else %}
-      <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/berlinbuehnen_opengraph.png" />
+        <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/berlinbuehnen_opengraph.png" />
     {% endif %}
     <meta property="og:url" content="{{ object.get_url }}" />
     <meta property="og:site_name" content="Berlin Bühnen" />
@@ -17,236 +17,289 @@
 {% endblock %}
 
 {% block js %}
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/share.js" defer="defer"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    $(".toggle_bvg").click(function () {
-      $("#bvg_widget").toggleClass("on");
-      return false;
-    });
-  });
-  </script>
-{% endblock %}
-
-{% block map %}
-{# {% include "utils/gmap.html" %} #}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
 {% endblock %}
 
 {% block content %}
-  {% with object as location %}
-    <br /><br />
-    <div id="location" class="content">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            <article>
-              <header>
-                <h1>{{ location.title }}
-                  {% if_has_perm "locations.change_location" object %}
-                    {% if not request.is_mobile %}
-                      <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
-                    {% endif %}
-                  {% end_if_has_perm %}
-                </h1>
-                {% if location.subtitle %}
-                  <h2>{{ location.subtitle }}</h2>
-                {% endif %}
-              </header>
-              
-              <!-- ======= Tools ======= -->
+    {% with object as location %}
+        <div id="location" class="content details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a class="fawesome back uc" href="{% url 'location_list' %}">{% trans "back to overview" %}</a>
+                        <article>
+                            
+                            <!-- headlines -->
+                            <header>
+                                <h1>{{ location.title }}
+                                    {% if_has_perm "locations.change_location" object %}
+                                        {% if not request.is_mobile %}
+                                            <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                        {% endif %}
+                                    {% end_if_has_perm %}
+                                </h1>
+                                {% if location.subtitle %}
+                                    <h2>{{ location.subtitle }}</h2>
+                                {% endif %}
+                            </header>
+                            
+                            <!-- main  part (including sidebar) -->
+                            <div class="main">
+                                <div class="container">
+                                    <div class="row">
+                                        
+                                        <!-- main content -->
+                                        <div class="col-xs-12 col-md-8 left">
+                                            {% if location.image_set.exists %}
+                                                {% with location.image_set.all|first as first %}
+                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ first.title }}"  /></div> 
+                                                {% endwith %}
+                                            {% endif %}
+                                            <div class="description">
+                                                {{ location.description }}
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- main sidebar -->
+                                        <div class="col-xs-12 col-md-4 right">
+                                            <div class="accordion sidebar-accordion">
+                                                <div class="accordion-item">
+                                                    <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
+                                                    <div class="accordion-item-content">
+                                                        <p data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                                                            <strong>{{ location.title }}</strong><br />
+                                                            {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                                                            {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                                                            {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                        </p>
+                                                        {% if location.phone_number or location.fax_number or location.email or location.website %}
+                                                            <dl>
+                                                                <dd class="headline">{% trans "Contact" %}</dd>
+                                                                {% if location.phone_number %}
+                                                                    <dt class="width_50">{% trans "Phone" %}</dt>
+                                                                    <dd><a class="phone" href="tel:{% if location.phone_country %}+{{ location.phone_country }}{% endif %}{{ location.phone_area }}{{ location.phone_number }}">{% if location.phone_country %}+{{ location.phone_country }}-{% endif %}{{ location.phone_area }}-{{ location.phone_number }}</a></dd>
+                                                                {% endif %}
+                                                                {% if location.fax_number %}
+                                                                    <dt class="width_50">{% trans "Fax" %}</dt>
+                                                                    <dd>{% if location.fax_country %}+{{ location.fax_country }}-{% endif %}{{ location.fax_area }}-{{ location.fax_number }}</dd>
+                                                                {% endif %}
+                                                                {% if location.email %}
+                                                                    <dt class="width_50">{% trans "Mail" %}</dt>
+                                                                    <dd><a href="mailto:{{ location.email }}">{{ location.email }}</a></dd>
+                                                                {% endif %}
+                                                                {% if location.website %}
+                                                                    <dt class="width_50">{% trans "Web" %}</dt>
+                                                                    <dd><a href="{{ location.website }}" target="_blank">{{ location.website|humanize_url:30 }}</a></dd>
+                                                                {% endif %}
+                                                            </dl>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                {% if location.stage_set.exists %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Stages" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for stage in location.stage_set.all %}
+                                                                <p class="margin" data-latitude="{{ stage.latitude|stringformat:"%f" }}" data-longitude="{{ stage.longitude|stringformat:"%f" }}">
+                                                                    <strong>{{ stage.title }}</strong><br />
+                                                                    {% if stage.street_address %}{{ stage.street_address }}<br />{% endif %}
+                                                                    {% if stage.street_address2 %}{{ stage.street_address2 }}<br />{% endif %}
+                                                                    {% if stage.city %}{{ stage.postal_code }} {{ stage.city }}<br />{% endif %}
+                                                                </p>
 
-              <div class="tools">
-
-                {% if request.user.is_authenticated %}
-                  {% adding2favorites for location using "favorites/includes/favorite_detail.html" %}
-                {% endif %}
-
-                {% comment %}
-                <a class="btn btn-default btn-round location" href="{% url "location_list_map" %}#object_id={{ location.pk }}">
-                  <span class="icon icon-location"></span>
-                  <span class="sr-only">{% trans "Show location on map" %}</span>
-                </a>
-                {% endcomment %}
-
-                <button class="btn btn-default btn-round share-twitter" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Twitter" %}"  data-url="{{ object.get_url }}" data-text="{{ location.title }}">
-                  <span class="icon icon-social-twitter"></span>
-                  <span class="sr-only">{% trans "Share on Twitter" %}</span>
-                </button>
-
-                <button class="btn btn-default btn-round share-facebook" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Share on Facebook" %}" data-url="{{ object.get_url }}" data-text="{{ location.title }}">
-                  <span class="icon icon-social-facebook"></span>
-                  <span class="sr-only">{% trans "Share on Facebook" %}</span>
-                </button>
-              </div>
-
-              {% include "utils/cover_image.html" %}
-
-              <dl>
-                <dt>{% trans "Venue" %}</dt>
-                    <dd data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
-                    {{ location.street_address }}<br />
-                    {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
-                    {{ location.postal_code }} {{ location.city }}<br />
-                    </dd>
-              </dl>
-
-              {% if location.stage_set.all %}
-                <div>
-                  <h4>{% trans "Stages" %}</h4>
-                  {% for stage in location.stage_set.all %}
-                    <div data-latitude="{{ stage.latitude|stringformat:"%f" }}" data-longitude="{{ stage.longitude|stringformat:"%f" }}">
-                      <strong>{{ stage.title }}</strong><br />
-                      {{ stage.street_address }}<br />
-                      {% if stage.street_address2 %}{{ stage.street_address2 }}<br />{% endif %}
-                      {{ stage.postal_code }} {{ stage.city }}<br /><br />
-
-                      {% if stage.description %}
-                        {{ stage.get_rendered_description }}
-                      {% endif %}
+                                                                {% if stage.description %}
+                                                                    {{ stage.get_rendered_description }}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if location.tickets_street_address or location.get_opening_hours or location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website or location.street_address or location.phone_number or location.fax_number or location.email or location.website %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Tickets Box Office" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% if location.tickets_street_address or location.street_address %}
+                                                                <p>
+                                                                    {% if location.tickets_street_address %}
+                                                                        {{ location.tickets_street_address }}<br />
+                                                                        {% if location.tickets_street_address2 %}{{ location.tickets_street_address2 }}<br />{% endif %}
+                                                                        {% if location.tickets_city %}{{ location.tickets_postal_code }} {{ location.tickets_city }}<br />{% endif %}
+                                                                    {% else %}
+                                                                        {{ location.street_address }}<br />
+                                                                        {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                                                                        {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                                    {% endif %}
+                                                                </p>
+                                                            {% endif %}
+                                                            {% if location.get_opening_hours %}
+                                                                <dl>
+                                                                    {% for times in location.get_opening_hours %}
+                                                                        <dt class="width_80">{{ times.weekday }}</dt>
+                                                                        <dd>
+                                                                            {% if times.open %}
+                                                                                {{ times.open|time:"H:i" }} -
+                                                                                    {% if times.break_open and times.break_close %}
+                                                                                        {{ times.break_close|time:"H:i" }}, {{ times.break_open|time:"H:i" }} -
+                                                                                    {% endif %}
+                                                                                {{ times.close|time:"H:i" }}
+                                                                            {% else %}
+                                                                                {% trans "Closed" %}
+                                                                            {% endif %}
+                                                                        </dd>
+                                                                    {% endfor %}
+                                                                </dl>
+                                                                <br/>
+                                                            {% endif %}
+                                                            {% if location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website or location.phone_number or location.fax_number or location.email or location.website %}
+                                                                <dl>
+                                                                    {% if location.tickets_phone_number or location.phone_number %}
+                                                                        <dt class="width_50">{% trans "Phone" %}</dt>
+                                                                        {% if location.tickets_phone_number %}
+                                                                            <dd><a class="phone" href="tel:{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}{% endif %}{{ location.tickets_phone_area }}{{ location.tickets_phone_number }}">{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}-{% endif %}{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}</a></dd>
+                                                                        {% else %}
+                                                                            <dd><a class="phone" href="tel:{% if location.phone_country %}+{{ location.phone_country }}{% endif %}{{ location.phone_area }}{{ location.phone_number }}">{% if location.phone_country %}+{{ location.phone_country }}-{% endif %}{{ location.phone_area }}-{{ location.phone_number }}</a></dd>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                    {% if location.tickets_fax_number or location.fax_number %}
+                                                                        <dt class="width_50">{% trans "Fax" %}</dt> 
+                                                                        {% if location.tickets_fax_number %}
+                                                                            <dd>{% if location.tickets_fax_country %}+{{ location.tickets_fax_country }}-{% endif %}{{ location.tickets_fax_area }}-{{ location.tickets_fax_number }}</dd>
+                                                                        {% else %}
+                                                                            <dd>{% if location.fax_country %}+{{ location.fax_country }}-{% endif %}{{ location.fax_area }}-{{ location.fax_number }}</dd>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                    {% if location.tickets_email or location.email %}
+                                                                        <dt class="width_50">{% trans "Mail" %}</dt>
+                                                                        {% if location.tickets_email %}
+                                                                            <dd><a href="mailto:{{ location.tickets_email }}">{{ location.tickets_email }}</a></dd>
+                                                                        {% else %}
+                                                                            <dd><a href="mailto:{{ location.email }}">{{ location.email }}</a></dd>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                    {% if location.tickets_website or location.website %}
+                                                                        <dt class="width_50">{% trans "Web" %}</dt>
+                                                                        {% if location.tickets_website %}
+                                                                            <dd><a href="{{ location.tickets_website }}">{{ location.tickets_website|humanize_url:30 }}</a></dd>
+                                                                        {% else %}
+                                                                            <dd><a href="{{ location.website }}" target="_blank">{{ location.website|humanize_url:30 }}</a></dd>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                </dl>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if location.stage_set.exists %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Services" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <ul class="list">
+                                                                {% for cat in location.services.all %}
+                                                                    <li>{{ cat.title }}</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if location.accessibility_options.exists %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Accessibility Options" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <ul class="list">
+                                                                {% for cat in location.accessibility_options.all %}
+                                                                    <li>{{ cat.title }}</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if location.press_contact_name or location.press_phone_number or location.press_fax_number or location.press_email or location.press_website %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Press" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                                <dl>
+                                                                    {% if location.press_contact_name %}
+                                                                        <dd>{{ location.press_contact_name }}</dd>
+                                                                    {% endif %}
+                                                                    {% if location.press_phone_number %}
+                                                                        <dt class="width_50">{% trans "Phone" %}</dt>
+                                                                        <dd><a class="phone" href="tel:{% if location.press_phone_country %}+{{ location.press_phone_country }}{% endif %}{{ location.press_phone_area }}{{ location.press_phone_number }}">{% if location.press_phone_country %}+{{ location.press_phone_country }}-{% endif %}{{ location.press_phone_area }}-{{ location.press_phone_number }}</a></dd>
+                                                                    {% endif %}
+                                                                    {% if location.press_fax_number %}
+                                                                        <dt class="width_50">{% trans "Fax" %}</dt>
+                                                                        <dd>{% if location.press_fax_country %}+{{ location.press_fax_country }}-{% endif %}{{ location.press_fax_area }}-{{ location.press_fax_number }}</dd>
+                                                                    {% endif %}
+                                                                    {% if location.press_email %}
+                                                                        <dt class="width_50">{% trans "Mail" %}</dt>
+                                                                        <dd><a href="mailto:{{ location.press_email }}">{{ location.press_email }}</a></dd>
+                                                                    {% endif %}
+                                                                    {% if location.press_website %}
+                                                                        <dt class="width_50">{% trans "Web" %}</dt>
+                                                                        <dd><a href="{{ location.press_website }}" target="_blank">{{ location.press_website|humanize_url:30 }}</a></dd>
+                                                                    {% endif %}
+                                                                </dl>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                                    
+                            
+                            <!-- additional content (accordion) -->
+                            <div class="additional">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12 full">
+                                            
+                                            <!-- Gallery -->
+                                            {% if location.image_set.exists %}
+                                                <div class="gallery row">
+                                                    <h4 class="gallery-head">{% trans "Gallery" %}</h4>
+                                                    {% for image in location.image_set.all %}
+                                                        <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img">
+                                                            {% with image.path|file_description as file_desc %}
+                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
+                                                                <div class="gallery-image-text">
+                                                                    <div class="gallery-image-text-description">
+                                                                        {% if file_desc.title %}
+                                                                            <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
+                                                                        {% endif %}
+                                                                        {% if file_desc.description %}
+                                                                            <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
+                                                                        {% endif %}
+                                                                        {% if file_desc.author %}
+                                                                            <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    {% if file_desc.copyright_limitations %}
+                                                                        <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endwith %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </article>
+                        
+                        <!-- event slider -->
+                        {% other_productions current_location=location %}
                     </div>
-                  {% endfor %}
                 </div>
-              {% endif %}
-
-              {% if location.website %}
-                <dl>
-                  <dt>{% trans "Website" %}</dt>
-                  <dd><a href="{{ location.website }}">{{ location.website|humanize_url:30 }}</a></dd>
-                </dl>
-              {% endif %}
-
-              {% if location.phone_number %}
-                <dl>
-                  <dt>{% trans "Phone" %}</dt>
-                  <dd>+{{ location.phone_country }}-{{ location.phone_area }}-{{ location.phone_number }}</dd>
-                </dl>
-              {% endif %}
-
-              {% if location.fax_number %}
-                <dl>
-                  <dt>{% trans "Fax" %}</dt>
-                  <dd>+{{ location.fax_country }}-{{ location.fax_area }}-{{ location.fax_number }}</dd>
-                </dl>
-              {% endif %}
-
-            <dl>
-              <dt>{% trans "Tickets Box Office" %}</dt>
-              <dd>
-                  {% if location.tickets_street_address %}
-                    {{ location.tickets_street_address }}<br />
-                    {% if location.tickets_street_address2 %}{{ location.tickets_street_address2 }}<br />{% endif %}
-                    {{ location.tickets_postal_code }} {{ location.tickets_city }}<br /><br />
-                  {% endif %}
-                {% if location.tickets_email %}
-                  <a href="mailto:{{ location.tickets_email }}">{{ location.tickets_email }}</a><br />
-                {% endif %}
-                {% if location.tickets_website %}
-                  <a href="{{ location.tickets_website }}">{{ location.tickets_website|humanize_url:30 }}</a><br />
-                {% endif %}
-                {% if location.tickets_phone_number %}
-                  {% trans "Phone" %}: +{{ location.tickets_phone_country }}-{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}<br />
-                {% endif %}
-                {% if location.tickets_fax_number %}
-                  {% trans "Fax" %}: +{{ location.tickets_fax_country }}-{{ location.tickets_fax_area }}-{{ location.tickets_fax_number }}<br />
-                {% endif %}
-                <br />
-                {% for times in location.get_opening_hours %}
-                  <strong>{{ times.weekday }}:</strong>
-                  {% if times.open %}
-                    {{ times.open|time:"H:i" }} - {{ times.close|time:"H:i" }}
-                    {% if times.break_close %}
-                        ({% trans "Break" %}: {{ times.break_close|time:"H:i" }} - {{ times.break_open|time:"H:i" }})
-                    {% endif %}
-                  {% else %}
-                    {% trans "Closed" %}
-                  {% endif %}
-                    <br />
-                {% endfor %}
-              </dd>
-            </dl>
-
-              {% if location.socialmediachannel_set.exists %}
-                <dl>
-                  <dt>{% trans "Social media" %}</dt>
-                  <dd>
-                    {% for cat in location.socialmediachannel_set.all %}
-                      <p>{{ cat.channel_type|capfirst }}: <a href="{{ cat.url }}">{{ cat.url }}</a></p>
-                    {% endfor %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if location.services.exists %}
-                <dl>
-                  <dt>{% trans "Services" %}</dt>
-                  <dd>
-                    {% for cat in location.services.all %}
-                      <p>{{ cat.title }}</p>
-                    {% endfor %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if location.accessibility_options.exists %}
-                <dl>
-                  <dt>{% trans "Accessibility Options" %}</dt>
-                  <dd>
-                    {% for cat in location.accessibility_options.all %}
-                      <p>{{ cat.title }}</p>
-                    {% endfor %}
-                  </dd>
-                </dl>
-              {% endif %}
-
-              {% if location.description %}
-                <div class="lead">
-                  <h4>{% trans "Description" %}</h4>
-                  {{ location.get_rendered_description|disarm_user_input }}
-                </div>
-              {% endif %}
-
-              {% if location.image_set.exists %}
-                <h4>{% trans "Images" %}</h4>
-                {% for image in location.image_set.all %}
-                  <p><img src="{{ MEDIA_URL }}{{ image.path|modified_path:"max" }}" alt="" /></p>
-                  <p>{{ image.get_copyright_restrictions_display }}</p>
-                  {% with image.path|file_description as file_desc %}
-                    <p>
-                      <small>
-                        {% if file_desc.title %}
-                          <span class="title"><strong>{% trans "Title" %}:</strong> {{ file_desc.title }}</span>
-                        {% endif %}
-                        {% if file_desc.description %}
-                          <span class="description"><strong>{% trans "Description" %}:</strong> {{ file_desc.description }}</span>
-                        {% endif %}
-                        {% if file_desc.author %}
-                          <span class="author"><strong>{% trans "Author" %}:</strong> {{ file_desc.author }}</span>
-                        {% endif %}
-                      </small>
-                    </p>
-                  {% endwith %}
-                {% endfor %}
-              {% endif %}
-
-            </article>
-          </div>
+            </div>
         </div>
-      </div>
-
-      {% if location.get_twitter_username %}
-
-        <div id="locations-twitterfeed" class="content">
-          <div class="container">
-            <h2 class="section-head" id="section-tweets">{% trans "Current Tweets" %}</h2>
-            <div id="tweets" class="row row-md" data-twitter-username="{{ location.get_twitter_username }}"></div>
-          </div>
-        </div>
-      {% endif %}
-    </div>
-
-  {% endwith %}
-
-  {% include "utils/page_controls.html" %}
+    {% endwith %}
+    {% include "utils/page_controls.html" %}
 {% endblock %}

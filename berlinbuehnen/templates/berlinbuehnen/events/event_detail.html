@@ -38,8 +38,8 @@
                                         <li><time>{{ event.start_date|date:"l, j. F Y" }}{{ event.start_time|time:", H:i" }}</time></li>
                                     {% endif %}
                                     {% with event.ev_or_prod_play_locations as locations %}
-                                        {% if event.location_title or locations|length_is:1 %}
-                                            <li>{% if event.location_title %}{{ event.location_title }}{% else %}{% with locations|first as first %}{{ first.title }}{% endwith %}{% endif %}</li>
+                                        {% if event.location_title or event.production.location_title or locations|length_is:1 %}
+                                            <li>{% if event.location_title %}{{ event.location_title }}{% elif event.production.location_title %}{{ event.production.location_title }}{% else %}{% with locations|first as first %}{{ first.title }}{% endwith %}{% endif %}</li>
                                         {% endif %}
                                     {% endwith %}
                                 </ul>
@@ -74,27 +74,29 @@
                                             <div class="description">
                                                 {{ event.ev_or_prod_description }}
                                             </div>
-                                            <dl class="listing">
-                                                {% if event.production.language_and_subtitles %}
-                                                    <dt>{% trans "Language" %}</dt>
-                                                    <dd>{{ event.production.language_and_subtitles }}</dd>
-                                                {% endif %}
-                                                {% if event.humanized_duration or event.ev_or_prod_duration_text %}
-                                                    <dt>{% trans "Duration" %}</dt>
-                                                    <dd>
-                                                        {% if event.humanized_duration %}{{ event.humanized_duration }}{% endif %}
-                                                        {% if event.ev_or_prod_duration_text %}{{ event.ev_or_prod_duration_text }}{% endif %}
-                                                    </dd>
-                                                {% endif %}
-                                                {% if event.pauses %}
-                                                    <dt>{% trans "Pauses" %}</dt>
-                                                    <dd>{{ event.pauses }}</dd>
-                                                {% endif %}
-                                                {% if event.production.website %}
-                                                    <dt>{% trans "Web" %}</dt>
-                                                    <dd><a href="{{ event.production.website }}" target="_blank">{{ event.production.website }}</a></dd>
-                                                {% endif %}
-                                            </dl>
+                                            {% if event.production.language_and_subtitles or event.humanized_duration or event.ev_or_prod_duration_text or event.pauses or event.production.website %}
+                                                <dl class="listing">
+                                                    {% if event.production.language_and_subtitles %}
+                                                        <dt>{% trans "Language" %}</dt>
+                                                        <dd>{{ event.production.language_and_subtitles }}</dd>
+                                                    {% endif %}
+                                                    {% if event.humanized_duration or event.ev_or_prod_duration_text %}
+                                                        <dt>{% trans "Duration" %}</dt>
+                                                        <dd>
+                                                            {% if event.humanized_duration %}{{ event.humanized_duration }}{% endif %}
+                                                            {% if event.ev_or_prod_duration_text %}{{ event.ev_or_prod_duration_text }}{% endif %}
+                                                        </dd>
+                                                    {% endif %}
+                                                    {% if event.pauses %}
+                                                        <dt>{% trans "Pauses" %}</dt>
+                                                        <dd>{{ event.pauses }}</dd>
+                                                    {% endif %}
+                                                    {% if event.production.website %}
+                                                        <dt>{% trans "Web" %}</dt>
+                                                        <dd><a href="{{ event.production.website }}" target="_blank">{{ event.production.website }}</a></dd>
+                                                    {% endif %}
+                                                </dl>
+                                            {% endif %}
                                         </div>
                                         
                                         <!-- main sidebar -->
@@ -126,34 +128,38 @@
                                                         {% endif %}
                                                     </div>
                                                 </div>
-                                                <div class="accordion-item">
-                                                    <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
-                                                    <div class="accordion-item-content">
-                                                        {% if event.location_title %}
-                                                            <p data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
-                                                                <strong>{{ event.location_title }}</strong><br />
-                                                                {% if event.street_address %}{{ event.street_address }}<br />{% endif %}
-                                                                {% if event.street_address2 %}{{ event.street_address2 }}<br />{% endif %}
-                                                                {% if event.city %}{{ event.postal_code }} {{ event.city }}<br />{% endif %}
-                                                            </p>
-                                                        {% elif event.production.location_title %}
-                                                            <p data-latitude="{{ event.production.latitude|stringformat:"%f" }}" data-longitude="{{ event.production.longitude|stringformat:"%f" }}">
-                                                                <strong>{{ event.production.location_title }}</strong><br />
-                                                                {% if event.production.street_address %}{{ event.production.street_address }}<br />{% endif %}
-                                                                {% if event.production.street_address2 %}{{ event.production.street_address2 }}<br />{% endif %}
-                                                                {% if event.production.city %}{{ event.production.postal_code }} {{ event.production.city }}<br />{% endif %}
-                                                            </p>
-                                                        {% endif %}
-                                                        {% for location in event.ev_or_prod_play_locations %}
-                                                            <a class="black block" href="{{ location.get_url_path }}" data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
-                                                                <strong>{{ location.title }}</strong><br />
-                                                                {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
-                                                                {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
-                                                                {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
-                                                            </a>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
+                                                {% with event.ev_or_prod_play_locations as locations %}
+                                                    {% if event.location_title or event.production.location_title or locations %}
+                                                        <div class="accordion-item">
+                                                            <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
+                                                            <div class="accordion-item-content">
+                                                                {% if event.location_title %}
+                                                                    <p data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
+                                                                        <strong>{{ event.location_title }}</strong><br />
+                                                                        {% if event.street_address %}{{ event.street_address }}<br />{% endif %}
+                                                                        {% if event.street_address2 %}{{ event.street_address2 }}<br />{% endif %}
+                                                                        {% if event.city %}{{ event.postal_code }} {{ event.city }}<br />{% endif %}
+                                                                    </p>
+                                                                {% elif event.production.location_title %}
+                                                                    <p data-latitude="{{ event.production.latitude|stringformat:"%f" }}" data-longitude="{{ event.production.longitude|stringformat:"%f" }}">
+                                                                        <strong>{{ event.production.location_title }}</strong><br />
+                                                                        {% if event.production.street_address %}{{ event.production.street_address }}<br />{% endif %}
+                                                                        {% if event.production.street_address2 %}{{ event.production.street_address2 }}<br />{% endif %}
+                                                                        {% if event.production.city %}{{ event.production.postal_code }} {{ event.production.city }}<br />{% endif %}
+                                                                    </p>
+                                                                {% endif %}
+                                                                {% for location in locations %}
+                                                                    <a class="black block" href="{{ location.get_url_path }}" data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                                                                        <strong>{{ location.title }}</strong><br />
+                                                                        {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                                                                        {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                                                                        {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                                    </a>
+                                                                {% endfor %}
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endwith %}
                                                 {% if event.ticket_status or event.ev_or_prod_free_entrance or event.ev_or_prod_price_from or event.ev_or_prod_price_information or event.ev_or_prod_tickets_website %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Tickets" %}</h4>

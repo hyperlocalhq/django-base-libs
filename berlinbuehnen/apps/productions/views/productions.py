@@ -159,10 +159,27 @@ def event_list(request, year=None, month=None, day=None):
 
     #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
     
+    
+    days = [];
+    for i in range(0, 7):
+        days += [date(2015, 4, 5 + i)]
+    
+    months = [];
+    for i in range(1, 13):
+        months += [date(2015, i, 1)]
+    
+    date_slider = {}
+    date_slider['today'] = datetime.today()
+    date_slider['active'] = facets['selected']['date']
+    date_slider['days'] = days
+    date_slider['months'] = months
+    
+    
     extra_context = {}
     extra_context['form'] = form
     extra_context['abc_list'] = abc_list
     extra_context['facets'] = facets
+    extra_context['date_slider'] = date_slider
 
     return object_list(
         request,

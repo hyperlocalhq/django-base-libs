@@ -22,6 +22,7 @@
         me.$body = $('.slider-body', $main);
         me.$items = $('.slider-item', $main);
         me.initial_items_length = me.$items.length;
+        me.last_width = -1;
         
         if (me.initial_items_length == 0) {
             $main.remove();
@@ -95,9 +96,15 @@
                 me.$next.css('display', 'block');
             }
         }
+    }
+    
+    /**
+     * Setting styles depending on the width and margin.
+     */
+    Slider.prototype.setStyles = function() {
         
+        if (this.me) var me = this.me;
         
-        // setting styles depending on the width and margin
         var main_width = me.$main.width();
         var slider_margin = Math.round(($(window).width() - main_width) / 2) - 10;
         if (slider_margin > 70) slider_margin = 70;
@@ -123,6 +130,7 @@
         
         me.$prev.css('left', "-" + slider_margin + "px");
         me.$next.css('right', "-" + slider_margin + "px");
+        
     }
     
     /**
@@ -270,8 +278,15 @@
         
         if (this.me) var me = this.me;
         
-        me.calculateDimensions();
-        me.setItems();
+        var new_width = me.$main.width();
+        
+        if (new_width != me.last_width) {
+            me.last_width = new_width;
+            me.calculateDimensions();
+            me.setItems();
+        }
+        
+        me.setStyles();
     }
     
     function init() {

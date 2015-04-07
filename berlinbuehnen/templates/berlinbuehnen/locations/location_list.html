@@ -1,93 +1,72 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
-{% block title %}{% trans "Events" %} – {% endblock %}
+{% block title %}{% trans "Locations" %} – {% endblock %}
 {% block bodyclass %}location-list no-transition{% endblock %}
 
 
 {% block js %}
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
-  <script type="text/javascript">
-    var aGeopositions = [];
-    var str_filter_selection = "{% trans "Filter selection" %}";
-  </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 {% endblock %}
 
 {% block content %}
-  <div class="content">
-    <div class="container">
-      <header class="list-header clearfix">
-        <h4 class="visible-xs">{% trans "Events, Palaces, and Memorials" %}</h4>
-
-        <div class="list-controls">
-          {% comment %}<a class="btn btn-info pull-right" href="{% url "location_list_map" %}">{% trans "Show map" %}</a>{% endcomment %}
-          <div class="btn-group pull-left" style="margin-right: 15px;">
-            <button id="toggle-list-filter" class="btn btn-info" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
-            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
-          </div>
-          <ul id="filter-summary" class="pull-left">
-            {% if facets.selected.abc or facets.selected.category or facets.selected.subcategory or facets.selected.open_on_mondays or facets.selected.free_entrance or facets.selected.open_late or facets.selected.accessibility_option %}
-              <li><b>{% trans "Filter selection" %}:</b></li>
-              {% if facets.selected.abc %}<li data-param="abc" data-value="{{ facets.selected.abc }}"><a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a></li>{% endif %}
-              {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
-              {% if facets.selected.subcategory %}<li data-param="subcategory" data-value="{{ facets.selected.subcategory.slug }}"><a href="{% append_to_get subcategory="" %}">{{ facets.selected.subcategory.title }}</a></li>{% endif %}
-              {% if facets.selected.open_on_mondays %}<li data-param="open_on_mondays" data-value="1"><a href="{% append_to_get open_on_mondays="" %}">{% trans "Open on Mondays" %}</a></li>{% endif %}
-              {% if facets.selected.free_entrance %}<li data-param="free_entrance" data-value="1"><a href="{% append_to_get free_entrance="" %}">{% trans "Free entrance" %}</a></li>{% endif %}
-              {% if facets.selected.open_late %}<li data-param="open_late" data-value="{{ facets.selected.open_late.0 }}"><a href="{% append_to_get open_late="" %}">{{ facets.selected.open_late.1 }}</a></li>{% endif %}
-              {% if facets.selected.accessibility_option %}<li data-param="accessibility_option" data-value="{{ facets.selected.accessibility_option.slug }}"><a href="{% append_to_get accessibility_option="" %}">{{ facets.selected.accessibility_option.title }}</a></li>{% endif %}
-            {% endif %}
-          </ul>
-        </div>
-      </header>
-    </div>
-
-    <div id="list-filter" class="collapse">
-      <div>
-        <div class="container relative">
-          <button class="cancel btn btn-info btn-lg btn-icon" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">
-            <span class="icon icon-remove"></span>
-            <span class="sr-only">{% trans "close" %}</span>
-          </button>
-          {% include "utils/filter_locations.html" %}
-        </div>
-      </div>
-    </div>
-
-    <div id="list">
-      <div class="container">
-        <div id="container">
-          <div class="row row-md grid">
-            {% if object_list %}
-              {% for location in object_list %}
-                {% tags_for_object location as tags %}
-                <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3" data-filter-categories="initial_{{ location.title|slugify|slice:"0:1" }}{% for cat in location.categories.all %} cat_{{ cat.slug }}{% endfor %}{% for cat in location.accessibility_options.all %} access_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if location.is_for_children %} is_for_children{% endif %}{% if location.open_on_mondays %} is_open_on_mondays{% endif %}{% if location.free_entrance %} is_free_entrance{% endif %}{% if location.show_family_ticket %} is_family_ticket{% endif %}{% if location.show_group_ticket %} is_group_ticket{% endif %}{% if location.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if location.member_of_locationspass %} is_locationspass{% endif %}{% if location.service_shop %} has_service_shop{% endif %}{% if location.service_restaurant %} has_service_restaurant{% endif %}{% if location.service_cafe %} has_service_cafe{% endif %}{% if location.service_library %} has_service_library{% endif %}{% if location.service_archive %} has_service_archive{% endif %}{% if location.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if location.has_audioguide %} has_audioguide{% endif %}{% if location.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if location.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if location.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if location.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if location.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if location.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if location.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if location.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if location.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if location.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if location.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if location.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if location.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if location.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if location.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if location.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}" data-description-src="{{ location.get_url_path }}ajax/">
-                  <a href="{{ location.get_url_path }}">
-                    {% if location.cover_image %}
-                      <span class="img">
-                        <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ location.cover_image|modified_path:"location_list" }}{% if_has_perm "locations.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
-                      </span>
+    <div class="content overview">
+        <div class="container">
+            <div class="row">
+                
+                <h1 class="bottom-line">{% trans "Locations" %}</h1>
+                
+                <div class="col-xs-12">
+                    
+                    <!-- the list -->
+                    {% if object_list %}
+                        <div id="main_list" class="list list-autoload location-list row">
+                            {% for location in object_list %}
+                                {% ifchanged location.title.0|upper %}<h1 class="list-headline">{{ location.title.0|upper }}</h1>{% endifchanged %}
+                                <div class="list-item col-xs-12">
+                                    <div class="row">
+                                        
+                                        <!-- list item head (date and image) -->
+                                        <div class="list-item-head col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                                            <div class="row">
+                                                
+                                                <!-- image -->
+                                                <div class="list-item-head-image img col-xs-1 col-sm-12">
+                                                    {% if location.cover_image %}
+                                                        <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" data-original="{{ MEDIA_URL }}{{ location.cover_image|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                    {% elif location.image_set %}
+                                                        {% with location.image_set.all|first as image %}
+                                                            <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                        {% endwith %}
+                                                    {% else %}
+                                                        <img src="{{ STATIC_URL }}site/img/placeholder_square.gif" />
+                                                    {% endif %}
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- list item body -->
+                                        <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                                            <a class="list-item-link" href="{{ location.get_url_path }}">
+                                                {% if location.title %}<h2>{{ location.title }}</h2>{% endif %}
+                                                {% if location.subtitle %}<h3>{{ location.subtitle }}</h3>{% endif %}
+                                                {% if location.description %}<div class="copy"><p>{{ location.description }}</p></div>{% endif %}
+                                            </a>
+                                        </div>
+                            
+                                    </div>
+                                </div>  
+                            {% endfor %}
+                            {% include "utils/pagination.html" %}
+                        </div>
+                    {% else %}
+                        {% include "utils/container_empty.html" %}
                     {% endif %}
-                    <h3>{{ location.title }}</h3>
-                    <h4>{{ location.subtitle }}</h4>
-                  </a>
-                  {% if not request.is_mobile and location.cover_image %}
-                    {% if_has_perm "locations.change_location" location %}
-                      <a href="{% cropping_url location.cover_image "location_list" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
-                        <span class="icon icon-white icon-tool-crop"></span>
-                      </a>
-                    {% end_if_has_perm %}
-                  {% endif %}
+                        
                 </div>
-              {% endfor %}
-              {% include "utils/pagination.html" %}
-            {% else %}
-              {% include "utils/container_empty.html" %}
-            {% endif %}
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 {% endblock %}

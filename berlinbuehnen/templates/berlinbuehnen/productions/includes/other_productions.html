@@ -2,7 +2,13 @@
 {% if other_productions %}
     <div class="slider row">
         <div class="col-xs-12">
-            <h4 class="slider-head">{% trans "More productions at this place" %}</h4>
+            <h4 class="slider-head">
+                {% if current_event %}
+                    {% trans "More productions at this place" %}
+                {% elif current_location %}
+                    {% trans "Productions at this place" %}
+                {% endif %}
+            </h4>
             <ul class="slider-body row">
                 {% for prod in other_productions %}
                     {% with event=prod.get_nearest_occurrence %}

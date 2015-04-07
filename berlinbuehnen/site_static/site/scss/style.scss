@@ -7,6 +7,7 @@
 @import 'form';
 @import 'details';
 @import 'slider';
+@import 'date_slider';
 @import 'accordions';
 @import 'gallery';
 @import 'list';
@@ -110,7 +111,6 @@ input {
 
 .content {
   padding: 40px 0px;
-  border-bottom: 1px solid #f9f9f9;
   position: relative;
   &:last-child {
     border: none !important;
@@ -151,6 +151,13 @@ h2 {
 }
 h3 {
     margin-bottom: 16px;
+}
+
+    
+h1.bottom-line {
+    padding-bottom: 8px;
+    border-bottom: 4px solid black;
+    margin: 0 30px 35px 30px;
 }
 
 .section-head { position: relative; }

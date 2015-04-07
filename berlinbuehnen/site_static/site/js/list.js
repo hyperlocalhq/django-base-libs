@@ -1,329 +1,346 @@
-/* jshint unused:false, eqnull:false, sub:true */
-/* global $:false */
-/* global lazyload_images:false */
-/* global console:false */
+/**
+ * Initiates all lists on the page.
+ * Add the class "list-autoload" for each list which should be automaticly load its next items.
+ *
+ * Each item can have a link with the class "list-item-link" inside which will be used on the entire item.
+ * Other included links will still work.
+ *
+ * An autoload list has to have an unique id.
+ * The pagination for an autoload list has to be part/inside of the list.
+ *
+ * @author Daniel Lehmann
+ */
 
-(function($, undefined) {
-    var activation_event = "click";
-    if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|IEMobile|Opera Mini|webOS/i)) {
-        activation_event = "touchstart";
+(function() {
+    
+    /**
+     * The constructor.
+     * Gets the jQuery object of the list which contains the $('.list-item') and $('.list-headline') objects.
+     *
+     * @param   $main   the jQuery object of the list wrapper
+     */
+    function List($main) {
+        
+        var me = this;
+        this.me = me;
+        
+        me.$main = $main;
+        me.autoload = $main.hasClass('list-autoload');
+        me.last_headline = "";
+        me.last_width = -1;
+        me.small = false;
+        me.resize_timer = null;
+        
+        me.$first_item = $('.list-item', me.$main).first();
+        me.$first_body = $('.list-item-body',  me.$first_item);
+        me.$first_head = $('.list-item-head',  me.$first_item);
+        
+        me.initListItems();
+        if (me.autoload) me.initAutoscroll();
+        $(window).resize(function() {me.onResize();});
     }
-    var $current_item;
-    var $item_on_next_row;
-
-    function layout_description() {
-        var $container = $('#container').css('position', 'relative');
-        if (!$current_item || !$current_item.length) {
-            return;
-        }
-        $current_item.addClass('item-preview'); // open the new preview
-
-        if ($item_on_next_row) {
-            $item_on_next_row.removeClass('first_item_on_next_row');
-        }
-
-        $item_on_next_row = $current_item.nextAll('.item:visible:first');
-        while ($item_on_next_row.length && $current_item.position().top >= $item_on_next_row.position().top) {
-            $item_on_next_row = $item_on_next_row.nextAll('.item:visible:first');
-        }
-        if ($item_on_next_row.length) {
-            $item_on_next_row.addClass('first_item_on_next_row');
-        }
-
-        var $description = $current_item.find(".description");
-
-        // define position for the description
-        var left = $current_item.position().left;
-        var width = $container.width();
-        var offset_left = parseInt($container.css('margin-left'), 10);
-        var offset_right = parseInt($container.css('margin-right'), 10);
-
-        $description.css({
-            left: -left - 10,
-            width: width + offset_left + offset_right
+    
+    /**
+     * Handles work which needs to be done on each list item and list headline.
+     *
+     * @param   new_items   initiate only new autoloaded items
+     */
+    List.prototype.initListItems = function(new_items) {
+        
+        if (this.me) var me = this.me;
+        
+        var $items = $('.list-item', me.$main);
+        if (new_items) $items = $items.not('.old-list-item');
+        
+        $items.each(function() {
+            
+            var $item = $(this);
+            var $link = $('.list-item-link', $item);
+            
+            $item.data('link', $link);
+            $item.click(me.onClick);
         });
-    }
-
-    function close_description() {
-        if ($current_item) {
-            if ($current_item.hasClass('item-preview')) { // if clicked again, close the preview
-                $current_item.removeClass('item-preview');
-                if ($item_on_next_row) {
-                    $item_on_next_row.removeClass('first_item_on_next_row');
-                    $item_on_next_row = null;
-                }
-                $current_item = null;
-                lazyload_images();
-                return false;
-            }
-        }
-    }
-
-    function reinit_infinite_scroll() {
-        if (!navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|IEMobile|Opera Mini|webOS/i)) {
-            var $pagination = $('.pagination').removeClass('item').hide();
-            var $container = $('#container').data('jscroll', null);
-            if ($pagination.length) {
-                $container.jscroll({
-                    loadingHtml: '<small>Loading...</small>',
-                    padding: 100,
-                    contentSelector: '#container .grid,#container .list',
-                    nextSelector: '.next_page:last',
-                    pagingSelector: '.pagination',
-                    callback: function() {
-                        $('.pagination').removeClass('item').hide();
-                        lazyload_images();
-                    }
-                });
-            }
-        }
-    }
-
-    $(function() {
-
-        reinit_infinite_scroll();
-
-        $('#map-list-link').click(function() {
-            location.href = $(this).attr('href') + location.hash;
-            return false;
+        
+        var $headlines = $('.list-headline', me.$main);
+        if (new_items) $headlines = $headlines.not('.old-list-item').addClass('old-list-item');
+        
+        $headlines.each(function() {
+            
+            var $headline = $(this);
+            if ($headline.html() != me.last_headline) me.last_headline = $headline.html();
+            else $headline.css('display', 'none');
         });
-
-        $('#container').on('contextmenu taphold', '.item>a', function(e) {
-            e.preventDefault();
-
-            var $clicked_item = $(this).closest('.item');
-
-            // if the same item clicked, close it
-            if ($clicked_item.hasClass('item-preview')) {
-                close_description();
-                return false;
-            // if other item is opened, close it
-            } else if ($current_item) {
-                close_description();
-            }
-
-            // get new current item
-            $current_item = $clicked_item;
-
-            var $description = $current_item.find(".description");
-
-            // if description doesn't exist yet, load it
-            if (!$.trim($description.text())) {
-                $description.load($current_item.data('description-src'), function() {
-                    layout_description();
-                    if (window.init_share) {
-                        window.init_share();
-                    }
-                });
-            // if description already exists, just re-layout it
+        
+        me.onResize(new_items);
+    }
+    
+    /**
+     * Sets the width of the list item bodies.
+     */
+    List.prototype.setListItemsBodyWidth = function() {
+        
+        if (this.me) var me = this.me;
+        
+        var $bodies = $('.list-item-body', me.$main);
+        
+        if (me.small) {
+            $bodies.css('width', '');
+        } else {
+            var width =  me.$first_head.width();
+            $bodies.width(me.last_width - width);
+        }
+    }
+    
+    /**
+     * Callculates the max height of the inner objects of the item body.
+     *
+     * @param   $item   the list item jQuery object
+     */
+    List.prototype.setListItemBodyHeight = function($item) {
+        
+        if (this.me) var me = this.me;
+        
+        var $body = $('.list-item-body', $item);
+        var $h3 = $('h3', $body);
+        var $p = $('p', $body);
+        
+        if (!$p.length) $p = $('.copy', $body);
+        
+        
+        // putting it back to original condition
+        $p.each(function() {
+            
+            $object = $(this);
+            var text = $object.data('text');
+            if (text) {
+                $object.html(text);
+                $object.css('display', 'block');
             } else {
-                layout_description();
+                var text = $object.html();
+                text = text.replace(/(\<br\>|\<br\/\>)/ig, "\n");
+                text = text.replace(/\<\/br\>/ig, "");
+                $object.html(text);
+                text = $object.text();
+                text = text.replace(/\n/g, "<br/>");
+                $object.html(text);
+                $object.data('text', text);
             }
-            return false;
-        }).on('click', '.item .cancel', function(e){
-            e.preventDefault();
-            close_description();
         });
-    });
-
-    $(window).bind('smartresize', layout_description);
-
-    $(window).load(function() {
-        var $container = $('#container'),
-            filters = {};
-
-        if (!$container.length) {
-            return;
-        }
-
-        var $filters = $('#filters');
-        var $filter_summary = $('#filter-summary');
-
-        var url_filters = {};
-
-        var filtering_busy = false;
-
-        $('.panel-collapse', $filters).on('show.bs.collapse', function(event) {
-            $.bbq.pushState({filter_section: $(event.target).attr('id').replace(/^filter-/, '')});
+        
+        $h3.css('display', 'block');
+        
+        if (me.small) return;
+        
+        
+        // checking overflow
+        var body_height = $body.height();
+        var overflow = false
+        
+        $h3.each(function() {
+            
+            var $object = $(this);
+            
+            if (overflow) {
+                $object.css('display', 'none');
+            } else {
+            
+                var top = $object.position().top;
+                var height = $object.height();
+                
+                if (top + height > body_height) {
+                    overflow = true;
+                    $object.css('display', 'none');
+                }
+            }
         });
-        var hash_vars = $.bbq.getState();
-        if (hash_vars.filter_section) {
-            $('#toggle-list-filter').click();
-            $('.btn[data-target="#filter-' + hash_vars.filter_section + '"]', $filters).click();
-        }
-
-        // filter buttons
-        $('.filter a').on(activation_event, function(e, dont_load_data_yet){
-            e.preventDefault();
-            if (filtering_busy && !dont_load_data_yet) {
-                return;
-            }
-            filtering_busy = true;
-            var $this = $(this);
-            var $li = $this.closest('li');
-
-            var $optionSet = $this.closest('.option-set');
-            // store filter value in object
-            // i.e. filters.category = ['.cat_history']
-            var group = $optionSet.attr('data-filter-group');
-            filters[group] = filters[group] || [];
-            var filter_value = $this.attr('data-filter-value');
-            var single_selection = $optionSet.attr('data-single-selection');
-            var hierarchical = $optionSet.attr('data-hierarchical');
-            var level = parseInt($li.attr('data-level'), 10);
-            var children_selector = $this.attr('data-level-1-at');
-            var target_child = $this.attr('data-target');
-            var $children;
-            if (children_selector) {
-                $children = $(children_selector);
-            } else if (level === 1) {
-                $children = $this.closest('.level-1-container');
-            }
-            var param = $li.data('param');
-            var value = $li.data('value');
-
-            if (filter_value) {
-                if ($li.hasClass('active')) {
-                    //$this.removeClass('selected');
-                    $li.removeClass('active');
-                    if ($children && level === 0) {
-                        $('li.active>a', $children).trigger(activation_event, [true]);
-                        $('ul.in', $children).removeClass('in');
-                    }
-                    filters[group] = $.grep(filters[group], function(v) {
-                        return v !== filter_value;
-                    });
-                    // remove the corresponding item from filter summary
-                    $('li[data-param="' + param + '"]', $filter_summary).remove();
-                    if ($filter_summary.children().length === 1) {
-                        $filter_summary.empty();
-                    }
-                    url_filters[param] = false;
-                } else {
-                    if (hierarchical) {
-                        if (single_selection) {
-                            // unselect previously selected
-                            // and collect filters
-                            if (level === 0) {
-                                $('li.active>a', $optionSet).trigger(activation_event, [true]);
-                                if ($children) {
-                                    $('ul.in', $children).removeClass('in');
-                                }
-                                filters[group] = [filter_value];
-                            } else {
-                                if ($children) {
-                                    $('li.active>a', $children).trigger(activation_event, [true]);
-                                }
-                                filters[group].push(filter_value);
-                            }
-                        } else {
-                            filters[group].push(filter_value);
-                        }
+        
+        var $last_p = null;
+        $p.each(function() {
+            
+            var $object = $(this);
+            
+            if (overflow) {
+                $object.css('display', 'none');   
+            } else {
+                
+                var top = $object.position().top;
+                var height = $object.height();
+                
+                if (top + height > body_height) {
+                    overflow = true;
+                    if (top > body_height) {
+                        $object.css('display', 'none');
                     } else {
-                        if (single_selection) {
-                            // unselect previously selected
-                            // and collect filters
-                            $('li.active>a', $optionSet).trigger(activation_event, [true]);
-                            filters[group] = [filter_value];
-                        } else {
-                            filters[group].push(filter_value);
-                        }
+                        $last_p = $object;   
                     }
-                    url_filters[param] = value;
-                    // change selected class
-                    $li.addClass('active');
-                    if ($children) {
-                        $(target_child, $children).addClass('in');
-                    }
-                    var $filter_summary_li;
-                    if ($filter_summary.text().trim() === "") {
-                        $filter_summary_li = $('<li><b>' + window.str_filter_selection + ':</b></li>');
-                        $filter_summary.append($filter_summary_li);
-                    }
-                    $filter_summary_li = $('<li data-filter-group="' + group + '" data-filter-value="' + filter_value + '" data-param="' + param + '" data-value="' + value + '"><a href="">' + $this.text() + '</a></li>');
-                    $filter_summary.append($filter_summary_li);
-                    $filter_summary.css('display', 'block');  // hack for Safari
                 }
-            }
-
-            // convert object into array
-    //        var http_state_filters = [];
-            var map_filters = [];
-            for (var prop in filters) {
-    //            http_state_filters.push(filters[prop].join(''));
-                for (var i=0; i<filters[prop].length; i++) {
-                    var cat = filters[prop][i].replace(/\./, '');
-                    map_filters.push(cat);
-                }
-            }
-
-            url_filters['page'] = ""; // reset pagination
-            var url = '?' + window.append_to_get(url_filters, true);
-            window.history.pushState({}, document.title, url);
-            if (!dont_load_data_yet) {
-                if ($('#container').jscroll.destroy) {
-                    $('#container').jscroll.destroy();
-                }
-                $('#container').load(url + ' #container>*', function() {
-                    reinit_infinite_scroll();
-                    setTimeout(function() { // waiting for the ad to load
-                        lazyload_images();
-                        filtering_busy = false;
-                    }, 500);
-                });
-            } else {
-                filtering_busy = false;
-            }
-            $container.trigger("map_filter", { filter: map_filters});
-            return false;
-        });
-
-        $filter_summary.on(activation_event, 'a', function(e) {
-            e.preventDefault();
-            var $li = $(this).closest('li');
-            var param = $li.data('param');
-            var value = $li.data('value');
-            if (!param) {
-                // trigger the clicks on all selected filters
-                $('li.active>a', $filters).trigger(activation_event);
-            } else {
-                // trigger the click on corresponding filter
-                $('li.active[data-param="' + param + '"][data-value="' + value + '"]>a', $filters).trigger(activation_event);
             }
         });
-
-        $('#filter-reset').on(activation_event, function(e) {
-            e.preventDefault();
-            // for each active link from the last till the first, click to deactivate
-            $($('li.active>a', $filters).get().reverse()).trigger(activation_event, [true]);
-            if ($('#container').jscroll.destroy) {
-                $('#container').jscroll.destroy();
+        
+        // shortening the last visible paragraph
+        if ($last_p) {
+            
+            var top = $last_p.position().top;
+            var text = "";
+            var first_half = $last_p.data('text');
+            var second_half = "";
+            var split = first_half.length;
+            
+            while (split) {
+                
+                $last_p.html(text + first_half);
+                
+                while (top + $last_p.height() > body_height) {
+                    
+                    split = Math.floor(split/2);
+                    second_half = first_half.substr(split);
+                    first_half = first_half.substr(0, split);
+                    
+                    $last_p.html(text + first_half);
+                }
+                
+                text += first_half;
+                first_half = second_half;
+                second_half = "";
             }
-            $('#container').load('? #container>*', function() {
-                reinit_infinite_scroll();
-                lazyload_images();
+            
+            if (text.length > 3) {
+                
+                text = text.substr(0, text.length-3);
+                while (text.length && text.charAt(text.length-1) != " ") {
+                    text = text.substr(0, text.length-1);
+                }
+                
+                if (text.length) $last_p.html(text + "...");
+                else $last_p.css('display', 'none');
+                
+            } else {
+                $last_p.css('display', 'none');   
+            }
+        }
+    }
+    
+    /**
+     * Initialises the auto scroll behaviour.
+     */
+    List.prototype.initAutoscroll = function() {
+        
+        if (this.me) var me = this.me;
+        
+        var id = me.$main.attr("id");
+        var $pagination = $('.pagination', me.$main).removeClass('item').hide();
+        
+        me.$main.data('jscroll', null);
+        if ($pagination.length) {
+            me.$main.jscroll({
+                loadingHtml: '<small>Loading...</small>',
+                padding: 100,
+                contentSelector: '#'+id+' .list-headline, #'+id+' .list-item, #'+id+' .pagination',
+                nextSelector: '.next_page:last',
+                pagingSelector: '#'+id+' .pagination',
+                callback: function() { me.onAutoscrollItems(); }
             });
+        }
+    }
+    
+    /**
+     * Autoscroll items got loaded.
+     */
+    List.prototype.onAutoscrollItems = function() {
+        
+        if (this.me) var me = this.me;
+        
+        $('.pagination').removeClass('item').hide();
+        me.initListItems(true);
+        lazyload_images();
+    }
+    
+    /**
+     * An item got clicked.
+     */
+    List.prototype.onClick = function(event) {
+        
+        var $target =  $(event.target);
+        if ($target.is('a')) return true;
+        
+        event.stopPropagation();
+        
+        var $this = $(this);
+        var $link = $this.data('link');
+        
+        if ($link) location.href = $link.attr('href');
+    }
+    
+    /**
+     * The window got resized.
+     *
+     * @param   new_items   check only new autoloaded items
+     */
+    List.prototype.onResize = function(new_items) {
+        
+        if (this.me) var me = this.me;
+        
+        if (me.resize_timer) {
+            window.clearTimeout(me.resize_timer);   
+            me.resize_timer = null;
+        }
+        
+        
+        var doResize = function () {
+            
+            me.resize_timer = null;
+            
+            var old_small = me.small;
+            var current_body_width = me.$first_body.css('width');
+            
+            // has to be smaller then the smallest value for measuring
+            me.$first_body.css('width', '300px');
+            if (0 == me.$first_body.position().left) {
+                me.$main.addClass("small");   
+                me.small = true;
+            } else {
+                me.$main.removeClass("small");   
+                me.small = false;
+            }
+            
+            
+            var new_width = me.$main.width();
+            
+            
+            if (new_width != me.last_width || new_items || old_small != me.small) {
+                
+                me.last_width = new_width;
+            
+                me.setListItemsBodyWidth();
+                
+                var $items = $('.list-item', me.$main);
+                if (new_items) {
+                    if (old_small == me.small) $items = $items.not('.old-list-item').addClass('old-list-item');
+                    else $items.not('.old-list-item').addClass('old-list-item');
+                }
+                
+                $items.each(function() {
+                    me.setListItemBodyHeight($(this)); 
+                });
+                
+            } else {
+            
+                me.$first_body.css('width', current_body_width); 
+            }
+        }
+        
+        me.resize_timer = window.setTimeout(function() {doResize();}, 25);
+    }
+    
+    
+    function init() {
+        
+        $('.list').each(function() {
+            new List($(this));
         });
-
-    //    if (window.location.hash) {
-    //        // get options object from hash
-    //        var options = window.location.hash ? $.deparam.fragment(window.location.hash, true) : {};
-    //        // apply options from hash
-    //        if (options.filter) {
-    //            $(options.filter.split('.')).each(function() {
-    //                if (!this) {
-    //                    return;
-    //                }
-    //                $('a[data-filter-value=".' + this + '"]', $filters).click();
-    //            });
-    //        }
-    //    }
-    });
-
-    $(window).load(function() {
-        setTimeout(function() {
-            $('body').removeClass('no-transition');
-        }, 1000);
-    });
-
-}(jQuery));
+        
+    }
+    
+    $(document).ready(init);
+    
+})();

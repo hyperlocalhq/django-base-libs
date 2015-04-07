@@ -1,6 +1,6 @@
 /**
- * Initiates the media gallery.
- * The Videos have to be always the first galery items!!!
+ * Initiates all media galleries.
+ * The Videos have to be the first gallery items in each gallery!!!
  *
  * @author Daniel Lehmann
  */
@@ -30,6 +30,7 @@
         me.image_loaded = false;
         me.$active_image = null;
         me.active_image_index = 0;
+        me.last_width = -1;
         
         
         
@@ -333,7 +334,13 @@
         
         if (this.me) var me = this.me;
         
-        me.arrange();
+        var new_width = me.$main.width();
+        
+        if (new_width != me.last_width) {
+            me.last_width = new_width;
+            me.arrange();
+        }
+        
         if (me.$layer.css('display') == "block") me.resizedLayer();
     }
     
