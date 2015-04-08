@@ -4899,12 +4899,26 @@ select {
 
 .content-accordion .accordion-item {
   border-top: 2px solid black;
+  position: relative;
 }
 .content-accordion .accordion-item .accordion-item-head {
   font-weight: 200;
   font-size: 2em;
   text-transform: uppercase;
   padding: 8px 0;
+}
+.content-accordion .accordion-item .accordion-item-head:after {
+  font: normal normal normal 14px/1 FontAwesome;
+  content: "\f107";
+  font-size: 1.75em;
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  color: #222;
+}
+.content-accordion .accordion-item .accordion-item-head.open:after {
+  content: "\f106";
+  top: 0;
 }
 .content-accordion .accordion-item .accordion-item-content {
   margin-bottom: 16px;

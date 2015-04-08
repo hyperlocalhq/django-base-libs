@@ -11,11 +11,25 @@
 .content-accordion {
     .accordion-item {
         border-top: 2px solid black;
+        position: relative;
         .accordion-item-head {
             font-weight: 200;
             font-size: 2em;
             text-transform: uppercase;
             padding: 8px 0;
+            &:after {
+                font: normal normal normal 14px/1 FontAwesome;
+                content: "\f107";
+                font-size: 1.75em;
+                position: absolute;
+                top: 1px;
+                right: 10px;
+                color: #222;
+            }
+            &.open:after {
+                content: "\f106";
+                top: 0;
+            }
         }
         .accordion-item-content {
             margin-bottom: 16px;
