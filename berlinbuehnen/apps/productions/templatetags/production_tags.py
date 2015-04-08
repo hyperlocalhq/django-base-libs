@@ -19,7 +19,7 @@ def other_productions(context, current_event=False, current_location=False, amou
     other_production_set = Production.objects.filter(
         models.Q(in_program_of__in=locations) | models.Q(play_locations__in=locations),
         show_among_others=True,
-        #status="published",
+        #status="published",  # TODO: uncomment
     )
     if current_event:
         other_production_set = other_production_set.exclude(id=current_event.production.id)
