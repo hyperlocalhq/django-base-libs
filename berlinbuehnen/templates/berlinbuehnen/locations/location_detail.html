@@ -68,6 +68,9 @@
                                                 <div class="accordion-item">
                                                     <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
                                                     <div class="accordion-item-content">
+                                                        {% if location.logo %}
+                                                            <img src="{{ MEDIA_URL }}{{ location.logo|modified_path:"logo" }}" alt="" class="img-responsive" />
+                                                        {% endif %}
                                                         <p data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
                                                             <strong>{{ location.title }}</strong><br />
                                                             {% if location.street_address %}{{ location.street_address }}<br />{% endif %}

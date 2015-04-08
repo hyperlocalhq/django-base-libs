@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
-from datetime import datetime, date, timedelta
+from datetime import datetime
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -257,7 +257,7 @@ def create_update_image(request, slug, mediafile_token="", **kwargs):
 
                 shutil.copy2(abs_tmp_path, abs_dest_path)
 
-                os.remove(abs_tmp_path);
+                os.remove(abs_tmp_path)
                 media_file_obj.path = media_file_path = dest_path
                 media_file_obj.save()
 

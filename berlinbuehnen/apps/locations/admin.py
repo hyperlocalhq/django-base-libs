@@ -89,7 +89,7 @@ class LocationAdmin(ExtendedModelAdmin):
     list_filter = ('status', )
 
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description',])
-    fieldsets += [(None, {'fields': ('slug', )}),]
+    fieldsets += [(None, {'fields': ('slug', 'logo')}),]
     fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
     fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
     fieldsets += [(_("Tickets"), {'fields': ('tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city', 'tickets_email', 'tickets_website', (_("Phone"), {'fields': ('tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number')}), (_("Fax"), {'fields': ('tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number')}), get_admin_lang_section(_("Calling prices"), ['tickets_calling_prices',]))}),]

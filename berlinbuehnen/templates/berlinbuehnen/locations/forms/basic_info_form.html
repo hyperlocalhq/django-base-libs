@@ -11,6 +11,7 @@
     <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
 {% endblock %}
 
 {% block multistep_form %}
@@ -104,5 +105,82 @@
                 str_close: '{% trans "Close" %}'
             });
         });
+        var translatable_file_uploader_options = {
+            template: '<div class="qq-uploader">' +
+                '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
+                '<div class="qq-upload-button btn btn-primary">{% trans "Upload Image" %}</div>' +
+                '&nbsp;<button class="btn btn-danger qq-delete-button"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete" %}</button>' +
+                '<ul class="qq-upload-list"></ul>' +
+            '</div>',
+            // template for one item in file list
+            fileTemplate: '<li>' +
+                '<span class="qq-upload-file"></span>' +
+                '<span class="qq-upload-spinner"></span>' +
+                '<span class="qq-upload-size"></span>' +
+                '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
+                '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
+            '</li>',
+            messages: {
+                typeError: '{% trans "{file} has invalid extension. Only {extensions} are allowed." %}',
+                sizeError: '{% trans "{file} is too large, maximum file size is {sizeLimit}." %}',
+                minSizeError: '{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}',
+                emptyError: '{% trans "{file} is empty, please select files again without it." %}',
+                filesLimitError: '{% trans "No more than {filesLimit} files are allowed to be uploaded." %}',
+                onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'
+            }
+        };
+        var ajax_uploader_path = '{% url "ajax_uploader" %}';
+        $(function() {
+            var $logo_upload_widget = $('#logo_upload_widget');
+            var current_logo_path = $('#id_logo_path').val();
+            if (current_logo_path) {
+                $('.preview', $logo_upload_widget).html('<img src="' + window.settings.MEDIA_URL + current_logo_path + '" alt="" />');
+            }
+            var options = $.extend(translatable_file_uploader_options, {
+                allowedExtensions: ['jpg', 'jpeg', 'gif', 'png'],
+                action: ajax_uploader_path,
+                element: $('.uploader', $logo_upload_widget)[0],
+                multiple: false,
+                onComplete: function(id, fileName, responseJSON) {
+                    if (responseJSON.success) {
+                        $('.messages', $logo_upload_widget).html('');
+                        $('#id_logo_path').val(responseJSON.path);
+                        $.post(
+                            '/' + self.settings.lang + '/helper/modified-path/',
+                            {
+                                file_path: responseJSON.path,
+                                mod_sysname: 'medium'
+                            }, function(data, textStatus, jqXHR) {
+                                $('.preview', $logo_upload_widget).html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
+                            },
+                            'text'
+                        );
+                    }
+                },
+                onAllComplete: function(uploads) {
+                    $('.qq-upload-success', $logo_upload_widget).fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                },
+                params: {
+                    'csrf_token': $('input[name="csrfmiddlewaretoken"]').val(),
+                    'csrf_name': 'csrfmiddlewaretoken',
+                    'csrf_xname': 'X-CSRFToken'
+                },
+                showMessage: function(message) {
+                    $('.messages', $logo_upload_widget).html(
+                        '<div class="alert alert-danger">' + message + '</div>'
+                    );
+                }
+            });
+            var uploader = new qq.FileUploader(options);
+            $('.qq-delete-button', $logo_upload_widget).click(function(e) {
+                e.preventDefault();
+                $('.messages', $logo_upload_widget).html('');
+                $('.preview', $logo_upload_widget).html('');
+                $('#id_delete_logo').val(1);
+            });
+        });
     </script>
+
 {% endblock %}

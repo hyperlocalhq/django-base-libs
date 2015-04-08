@@ -1,4 +1,11 @@
 # -*- coding: UTF-8 -*-
+import os
+import shutil
+from datetime import datetime
+try:
+    from django.utils.timezone import now as tz_now
+except:
+    tz_now = datetime.now
 
 from django import forms
 from django.forms.models import inlineformset_factory
@@ -7,13 +14,16 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
 from django.db import models
+from django.utils.text import slugify
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
 from base_libs.middleware.threadlocals import get_current_user
+from base_libs.utils.misc import get_unique_value
 
 from berlinbuehnen.apps.locations.models import Location, Stage, Image, SocialMediaChannel
+from jetson.apps.image_mods.models import FileManager
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LANGUAGES).keys())
@@ -24,6 +34,16 @@ from berlinbuehnen.utils.forms import InlineFormSet
 
 
 class BasicInfoForm(forms.ModelForm):
+    logo_path = forms.CharField(
+        max_length=255,
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+    delete_logo = forms.BooleanField(
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+
     class Meta:
         model = Location
         fields = [
@@ -117,6 +137,35 @@ class BasicInfoForm(forms.ModelForm):
             _("Basic Info"),
             css_class="fieldset-basic-info",
             *fieldset_content  # ... then pass them to a fieldset
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            _("Logo"),
+            layout.Row(
+                layout.Div(
+                    layout.HTML("""{% load i18n %}
+                        <div id="logo_upload_widget">
+                            <div class="preview">
+                                {% if location.logo %}
+                                    <img src="{{ location.logo.url }}" alt="" class="img-responsive" />
+                                {% endif %}
+                            </div>
+                            <div class="uploader">
+                                <noscript>
+                                    <p>{% trans "Please enable Javascript to use file uploader." %}</p>
+                                </noscript>
+                            </div>
+                            <p class="help_text help-block">
+                                {% trans "Available formats are JPG, GIF, and PNG." %}
+                            </p>
+                            <div class="messages"></div>
+                        </div>
+                    """),
+                    "logo_path",
+                    "delete_logo",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            )
         ))
 
         layout_blocks.append(layout.Fieldset(
@@ -821,6 +870,40 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data[current_step]['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
+
+        if not instance.slug:
+            instance.slug = get_unique_value(Location, slugify(instance.title_de), instance_pk=instance.pk)
+
+        if form_step_data[current_step]['delete_logo'] and instance.logo:
+            try:
+                FileManager.delete_file(instance.logo.path)
+            except OSError:
+                pass
+            instance.logo = ""
+            del form_step_data[current_step]['delete_logo']
+
+        rel_dir = "locations/%s/" % instance.slug
+
+        if form_step_data[current_step]['logo_path']:
+            tmp_path = form_step_data[current_step]['logo_path']
+            abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+
+            fname, fext = os.path.splitext(tmp_path)
+            now = tz_now()
+            filename = "".join((
+                now.strftime("%Y%m%d%H%M%S"),
+                ("000" + str(int(round(now.microsecond / 1000))))[-4:],
+                fext
+            ))
+            dest_path = ''.join((rel_dir, filename))
+            FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+            abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+
+            shutil.copy2(abs_tmp_path, abs_dest_path)
+
+            os.remove(abs_tmp_path)
+            instance.logo = dest_path
+            del form_step_data[current_step]['logo_path']
 
         instance.save()
 
