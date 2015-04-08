@@ -9,6 +9,7 @@
         
         &.affix {
             margin-top: -30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07);
         }
     }
     
@@ -32,13 +33,13 @@
             &.visible-xs {
                 width: 94%;
                 position: fixed;
-                top: 0px;
+                top: -10px;
                 left: 10px;
             }
         }
     }
     
-    #top_nav {
+    .top_nav {
         .nav {
             font-size: 700;
             text-transform: uppercase;
@@ -58,6 +59,23 @@
                 color: black;
                 &:hover {
                     color: $blue;
+                }
+            }
+        }
+        &.collapse-navbar {
+            border-bottom: 1px solid;
+            margin-left: -30px;
+            margin-right: -30px;
+            overflow: hidden;
+            .nav {
+                padding-bottom: 10px;
+                & > li {
+                    margin-left: 10px;
+                    height: 35px;
+                }
+                a {
+                    line-height: 35px;
+                    min-height: auto;
                 }
             }
         }

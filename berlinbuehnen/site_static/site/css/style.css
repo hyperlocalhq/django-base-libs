@@ -2380,6 +2380,7 @@ strong {
 }
 .navbar-wrapper .navbar.affix {
   margin-top: -30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07);
 }
 .navbar-wrapper .navbar-header {
   min-height: 140px;
@@ -2400,28 +2401,45 @@ strong {
 .navbar-wrapper .navbar-header .navbar-brand.visible-xs {
   width: 94%;
   position: fixed;
-  top: 0px;
+  top: -10px;
   left: 10px;
 }
-.navbar-wrapper #top_nav .nav {
+.navbar-wrapper .top_nav .nav {
   font-size: 700;
   text-transform: uppercase;
   width: 100%;
   float: none;
 }
-.navbar-wrapper #top_nav .nav > li {
+.navbar-wrapper .top_nav .nav > li {
   margin-right: 2.5%;
 }
-.navbar-wrapper #top_nav .nav > li.active a {
+.navbar-wrapper .top_nav .nav > li.active a {
   color: #4583c8;
 }
-.navbar-wrapper #top_nav .nav a {
+.navbar-wrapper .top_nav .nav a {
   font-size: 1em;
   font-weight: 700;
   color: black;
 }
-.navbar-wrapper #top_nav .nav a:hover {
+.navbar-wrapper .top_nav .nav a:hover {
   color: #4583c8;
+}
+.navbar-wrapper .top_nav.collapse-navbar {
+  border-bottom: 1px solid;
+  margin-left: -30px;
+  margin-right: -30px;
+  overflow: hidden;
+}
+.navbar-wrapper .top_nav.collapse-navbar .nav {
+  padding-bottom: 10px;
+}
+.navbar-wrapper .top_nav.collapse-navbar .nav > li {
+  margin-left: 10px;
+  height: 35px;
+}
+.navbar-wrapper .top_nav.collapse-navbar .nav a {
+  line-height: 35px;
+  min-height: auto;
 }
 
 .navbar-form {
@@ -4881,12 +4899,26 @@ select {
 
 .content-accordion .accordion-item {
   border-top: 2px solid black;
+  position: relative;
 }
 .content-accordion .accordion-item .accordion-item-head {
   font-weight: 200;
   font-size: 2em;
   text-transform: uppercase;
   padding: 8px 0;
+}
+.content-accordion .accordion-item .accordion-item-head:after {
+  font: normal normal normal 14px/1 FontAwesome;
+  content: "\f107";
+  font-size: 1.75em;
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  color: #222;
+}
+.content-accordion .accordion-item .accordion-item-head.open:after {
+  content: "\f106";
+  top: 0;
 }
 .content-accordion .accordion-item .accordion-item-content {
   margin-bottom: 16px;
