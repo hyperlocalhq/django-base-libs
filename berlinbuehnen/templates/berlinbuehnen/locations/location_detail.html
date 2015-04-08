@@ -119,21 +119,15 @@
                                                         </div>
                                                     </div>
                                                 {% endif %}
-                                                {% if location.tickets_street_address or location.get_opening_hours or location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website or location.street_address or location.phone_number or location.fax_number or location.email or location.website %}
+                                                {% if location.tickets_street_address or location.get_opening_hours or location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Tickets Box Office" %}</h4>
                                                         <div class="accordion-item-content">
-                                                            {% if location.tickets_street_address or location.street_address %}
+                                                            {% if location.tickets_street_address %}
                                                                 <p>
-                                                                    {% if location.tickets_street_address %}
-                                                                        {{ location.tickets_street_address }}<br />
-                                                                        {% if location.tickets_street_address2 %}{{ location.tickets_street_address2 }}<br />{% endif %}
-                                                                        {% if location.tickets_city %}{{ location.tickets_postal_code }} {{ location.tickets_city }}<br />{% endif %}
-                                                                    {% else %}
-                                                                        {{ location.street_address }}<br />
-                                                                        {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
-                                                                        {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
-                                                                    {% endif %}
+                                                                    {{ location.tickets_street_address }}<br />
+                                                                    {% if location.tickets_street_address2 %}{{ location.tickets_street_address2 }}<br />{% endif %}
+                                                                    {% if location.tickets_city %}{{ location.tickets_postal_code }} {{ location.tickets_city }}<br />{% endif %}
                                                                 </p>
                                                             {% endif %}
                                                             {% if location.get_opening_hours %}
@@ -153,43 +147,26 @@
                                                                         </dd>
                                                                     {% endfor %}
                                                                 </dl>
-                                                                <br/>
                                                             {% endif %}
-                                                            {% if location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website or location.phone_number or location.fax_number or location.email or location.website %}
+                                                            {% if location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website %}
+                                                                {% if location.get_opening_hours %}<br/>{% endif %}
                                                                 <dl>
-                                                                    {% if location.tickets_phone_number or location.phone_number %}
+                                                                    {% if location.tickets_phone_number %}
                                                                         <dt class="width_50">{% trans "Phone" %}</dt>
-                                                                        {% if location.tickets_phone_number %}
-                                                                            <dd><a class="phone" href="tel:{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}{% endif %}{{ location.tickets_phone_area }}{{ location.tickets_phone_number }}">{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}-{% endif %}{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}</a>
-                                                                                {{ location.get_rendered_tickets_calling_prices }}
-                                                                            </dd>
-                                                                        {% else %}
-                                                                            <dd><a class="phone" href="tel:{% if location.phone_country %}+{{ location.phone_country }}{% endif %}{{ location.phone_area }}{{ location.phone_number }}">{% if location.phone_country %}+{{ location.phone_country }}-{% endif %}{{ location.phone_area }}-{{ location.phone_number }}</a></dd>
-                                                                        {% endif %}
+                                                                        <dd><a class="phone" href="tel:{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}{% endif %}{{ location.tickets_phone_area }}{{ location.tickets_phone_number }}">{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}-{% endif %}{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}</a> {{ location.get_rendered_tickets_calling_prices }}
+                                                                        </dd>
                                                                     {% endif %}
-                                                                    {% if location.tickets_fax_number or location.fax_number %}
-                                                                        <dt class="width_50">{% trans "Fax" %}</dt> 
-                                                                        {% if location.tickets_fax_number %}
-                                                                            <dd>{% if location.tickets_fax_country %}+{{ location.tickets_fax_country }}-{% endif %}{{ location.tickets_fax_area }}-{{ location.tickets_fax_number }}</dd>
-                                                                        {% else %}
-                                                                            <dd>{% if location.fax_country %}+{{ location.fax_country }}-{% endif %}{{ location.fax_area }}-{{ location.fax_number }}</dd>
-                                                                        {% endif %}
+                                                                    {% if location.tickets_fax_number %}
+                                                                        <dt class="width_50">{% trans "Fax" %}</dt>
+                                                                        <dd>{% if location.tickets_fax_country %}+{{ location.tickets_fax_country }}-{% endif %}{{ location.tickets_fax_area }}-{{ location.tickets_fax_number }}</dd>
                                                                     {% endif %}
-                                                                    {% if location.tickets_email or location.email %}
+                                                                    {% if location.tickets_email %}
                                                                         <dt class="width_50">{% trans "Mail" %}</dt>
-                                                                        {% if location.tickets_email %}
-                                                                            <dd><a href="mailto:{{ location.tickets_email }}">{{ location.tickets_email }}</a></dd>
-                                                                        {% else %}
-                                                                            <dd><a href="mailto:{{ location.email }}">{{ location.email }}</a></dd>
-                                                                        {% endif %}
+                                                                        <dd><a href="mailto:{{ location.tickets_email }}">{{ location.tickets_email }}</a></dd>
                                                                     {% endif %}
-                                                                    {% if location.tickets_website or location.website %}
+                                                                    {% if location.tickets_website %}
                                                                         <dt class="width_50">{% trans "Web" %}</dt>
-                                                                        {% if location.tickets_website %}
-                                                                            <dd><a href="{{ location.tickets_website }}">{{ location.tickets_website|humanize_url:30 }}</a></dd>
-                                                                        {% else %}
-                                                                            <dd><a href="{{ location.website }}" target="_blank">{{ location.website|humanize_url:30 }}</a></dd>
-                                                                        {% endif %}
+                                                                        <dd><a href="{{ location.tickets_website }}">{{ location.tickets_website|humanize_url:30 }}</a></dd>
                                                                     {% endif %}
                                                                 </dl>
                                                             {% endif %}

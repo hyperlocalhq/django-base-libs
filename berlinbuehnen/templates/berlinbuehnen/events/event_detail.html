@@ -191,11 +191,85 @@
                                                         </div>
                                                     </div>
                                                 {% endif %}
+                                                {% with event.ev_or_prod_play_locations|first as location %}
+                                                    {% if location %}
+                                                        {% if location.tickets_street_address or location.get_opening_hours or location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website %}
+                                                            <div class="accordion-item">
+                                                                <h4 class="accordion-item-head">{% trans "Tickets Box Office" %}</h4>
+                                                                <div class="accordion-item-content">
+                                                                    {% if location.tickets_street_address %}
+                                                                        <p>
+                                                                            {{ location.tickets_street_address }}<br />
+                                                                            {% if location.tickets_street_address2 %}{{ location.tickets_street_address2 }}<br />{% endif %}
+                                                                            {% if location.tickets_city %}{{ location.tickets_postal_code }} {{ location.tickets_city }}<br />{% endif %}
+                                                                        </p>
+                                                                    {% endif %}
+                                                                    {% if location.get_opening_hours %}
+                                                                        <dl>
+                                                                            {% for times in location.get_opening_hours %}
+                                                                                <dt class="width_80">{{ times.weekday }}</dt>
+                                                                                <dd>
+                                                                                    {% if times.open %}
+                                                                                        {{ times.open|time:"H:i" }} -
+                                                                                            {% if times.break_open and times.break_close %}
+                                                                                                {{ times.break_close|time:"H:i" }}, {{ times.break_open|time:"H:i" }} -
+                                                                                            {% endif %}
+                                                                                        {{ times.close|time:"H:i" }}
+                                                                                    {% else %}
+                                                                                        {% trans "Closed" %}
+                                                                                    {% endif %}
+                                                                                </dd>
+                                                                            {% endfor %}
+                                                                        </dl>
+                                                                    {% endif %}
+                                                                    {% if location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website %}
+                                                                        {% if location.get_opening_hours %}<br/>{% endif %}
+                                                                        <dl>
+                                                                            {% if location.tickets_phone_number %}
+                                                                                <dt class="width_50">{% trans "Phone" %}</dt>
+                                                                                <dd><a class="phone" href="tel:{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}{% endif %}{{ location.tickets_phone_area }}{{ location.tickets_phone_number }}">{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}-{% endif %}{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}</a> {{ location.get_rendered_tickets_calling_prices }}
+                                                                                </dd>
+                                                                            {% endif %}
+                                                                            {% if location.tickets_fax_number %}
+                                                                                <dt class="width_50">{% trans "Fax" %}</dt>
+                                                                                <dd>{% if location.tickets_fax_country %}+{{ location.tickets_fax_country }}-{% endif %}{{ location.tickets_fax_area }}-{{ location.tickets_fax_number }}</dd>
+                                                                            {% endif %}
+                                                                            {% if location.tickets_email %}
+                                                                                <dt class="width_50">{% trans "Mail" %}</dt>
+                                                                                <dd><a href="mailto:{{ location.tickets_email }}">{{ location.tickets_email }}</a></dd>
+                                                                            {% endif %}
+                                                                            {% if location.tickets_website %}
+                                                                                <dt class="width_50">{% trans "Web" %}</dt>
+                                                                                <dd><a href="{{ location.tickets_website }}">{{ location.tickets_website|humanize_url:30 }}</a></dd>
+                                                                            {% endif %}
+                                                                        </dl>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endwith %}
                                                 {% if event.production.ensembles %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Ensembles" %}</h4>
                                                         <div class="accordion-item-content">
                                                             <p>{{ event.production.ensembles }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.characteristics.exists or event.production.characteristics.exists or event.get_rendered_other_characteristics %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Characteristics" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <p>
+                                                                {% for ch in event.characteristics.all %}
+                                                                    {{ ch.title }}<br/>
+                                                                {% endfor %}
+                                                                {% for ch in event.production.characteristics.all %}
+                                                                    {{ ch.title }}<br/>
+                                                                {% endfor %}
+                                                                {{ event.get_rendered_other_characteristics }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 {% endif %}
@@ -371,20 +445,6 @@
                                                         <h4 class="accordion-item-head">{% trans "Remarks" %}</h4>
                                                         <div class="accordion-item-content">
                                                             {{ event.ev_or_prod_remarks|disarm_user_input }}
-                                                        </div>
-                                                    </div>
-                                                {% endif %}
-                                                {% if event.characteristics.exists or event.production.characteristics.exists or event.get_rendered_other_characteristics %}
-                                                    <div class="accordion-item">
-                                                        <h4 class="accordion-item-head">{% trans "Characteristics" %}</h4>
-                                                        <div class="accordion-item-content">
-                                                            {% for ch in event.characteristics.all %}
-                                                                {{ ch.title }}<br/>
-                                                            {% endfor %}
-                                                            {% for ch in event.production.characteristics.all %}
-                                                                {{ ch.title }}<br/>
-                                                            {% endfor %}
-                                                            {{ event.get_rendered_other_characteristics }}
                                                         </div>
                                                     </div>
                                                 {% endif %}

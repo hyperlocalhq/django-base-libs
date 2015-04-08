@@ -1,10 +1,75 @@
 // ================= HEADER =================
 
-#support {
-  position: absolute;
-  left: 0px;
-  top: 20px;
+
+.navbar-wrapper {
+    height: 180px;
+    
+    .navbar {
+        border-bottom: none;
+        
+        &.affix {
+            margin-top: -30px;
+        }
+    }
+    
+    .navbar-header {
+        min-height: 140px;
+      
+        .navbar-brand {
+            position: relative;
+            left: 0px;
+            max-width: 400px;
+            padding: 0;
+            margin: 50px 10px 0 0;
+            
+            img {
+                width: 100%;
+            }
+            
+            &.hidden-xs {
+                width: 400px;
+            }
+            &.visible-xs {
+                width: 94%;
+                position: fixed;
+                top: 0px;
+                left: 10px;
+            }
+        }
+    }
+    
+    #top_nav {
+        .nav {
+            font-size: 700;
+            text-transform: uppercase;
+            width: 100%;
+            float: none;
+            & > li {
+                margin-right: 2.5%;
+                &.active {
+                    a {
+                        color: $blue;
+                    }
+                }
+            }
+            a {
+                font-size: 1em;
+                font-weight: 700;
+                color: black;
+                &:hover {
+                    color: $blue;
+                }
+            }
+        }
+    }
 }
+
+.navbar-form {
+  background-image: url("../img/trns-1.png") !important;
+  padding: 18px !important;
+  margin: 0px !important;
+}
+
 
 #login_button {
   display: block;
@@ -37,50 +102,76 @@
   }
 }
 
-#meta {
-  margin-top: 60px;
-  margin-bottom: 20px;
-  > div {margin-left: 2px; }
-}
-
-#header {
-  border: none !important;
-  min-height: 100px;
-  .container {
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-  .logo {
-    display: block;
-
-    .img {
-      display: block;
-      height: 35px;
-      width: 220px;
-      background-image: url("../img/logo_img.png");
-      background-repeat: no-repeat;
-      background-position: left;
-      background-size: contain;
-      float: left;
-      margin-right: 15px;
-      font-size: 0px;
+.meta-wrapper {
+    width: 100%;
+    padding: 0 60px 0 0;
+    position: fixed;
+    top: 0;
+    
+    #meta {
+        list-style: none;    
+        margin: 0;
+        font-weight: 400;
+        font-size: 0.875em;
+        color: black;
+        float: right;
+        z-index: 999999;
+        
+        a {
+            color: black;
+            &:hover {
+                color: black;
+            }
+        }
+        
+        li.meta-item {
+            float: left;
+            margin-right: 20px;
+        }
+            
+        #language-menu {
+            margin-right: 0;
+        
+            .languages {
+                list-style: none;
+                
+                li {
+                    float: left;
+                    text-transform: uppercase;
+                    margin-right: 5px;
+                    &:after {
+                        content: "|";
+                        font-weight: 400;
+                        cursor: default;
+                        margin-left: 3px;
+                    }
+                    &.active {
+                        font-weight: 700;
+                    }
+                    &:last-child {
+                        margin-right: 0;
+                        &:after {
+                            content: "";
+                            margin-left: 0px;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    
+        #nav-toggle-button {
+            position: relative;
+            right: -30px;
+            width: 20px;
+            margin: 0;
+            .navbar-toggle {
+                height: 35px;
+                padding: 0 10px 10px 10px;
+                .icon-bar {
+                    opacity: 1;
+                }
+            }
+        }
     }
-
-    .claim {
-      font-size: 13px;
-      line-height: 16px;
-      display: block;
-      float: left;
-      font-weight: 300;
-      color: rgba(0,0,0,0.5);
-      padding-left: 15px;
-      margin-left: 15px;
-      border-left: 2px solid #f2f2f2;
-    }
-  }
-
-  .inner { 
-    height: 100px; 
-    padding: 0px !important;
-  }
 }
