@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.db import models
+from datetime import datetime, date
 
 register = template.Library()
 
@@ -32,3 +33,26 @@ def other_productions(context, current_event=False, current_location=False, amou
         'MEDIA_URL': context['MEDIA_URL'],
         'STATIC_URL': context['STATIC_URL'],
     }
+    
+@register.inclusion_tag('productions/includes/date_slider.html', takes_context=True)
+def date_slider(context, page, active=0):
+    
+    today = datetime.today()
+
+    days = [];
+    for i in range(0, 7):
+        days += [date(2015, 4, 5 + i)]
+    
+    months = [];
+    for i in range(1, 13):
+        months += [date(2015, i, 1)]
+    
+    return {
+        'today': today,
+        'active': active,
+        'days': days,
+        'months': months,
+        'page': page,
+        'STATIC_URL': context['STATIC_URL'],
+    }
+    

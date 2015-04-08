@@ -1,5 +1,5 @@
 {% extends "cms/default.html" %}
-{% load base_tags cms_tags i18n image_modifications slideshows_tags auth_extended %}
+{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags auth_extended %}
 
 {% block stylesheet %}
     {{ block.super }}
@@ -25,22 +25,18 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content overview">
+    <div class="content home">
         <div class="container">
+            
             <div class="row">
                 {% slideshow "start_page" %}
             </div>
-        </div>
-    </div>
-    <div class="content overview">
-        <div class="container">
+            
             <div class="row">
                 <h1 class="bottom-line">{% trans "Schedule" %}</h1>
-                <!-- date slider -->
-                <div class="date-slider col-xs-12" data-date="{{ date_slider.active|date:"U" }}" data-today="{{ date_slider.today|date:"U" }}" data-days="{% for day in date_slider.days %}{{ day|date:"D" }},{% endfor %}" data-months="{% for month in date_slider.months %}{{ month|date:"M" }},{% endfor %}">
-                    <img class="date-slider-links" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" usemap="#main_slider" />
-                </div>
-
+                {% date_slider page='event_list' %}
+                
+                <!-- event list -->
                 <div class="col-xs-12">
                     {% get_objects all productions.Event 4 as newest_events %}
                     <div id="main_list" class="list list-autoload row">
@@ -127,16 +123,10 @@
                         {% endfor %}
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="content overview">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
+                
+                <!-- news -->
+                <div class="col-xs-12 col-md-8">
                     <h1 class="bottom-line">{% trans "News" %}</h1>
-                    <!-- NEWS -->
                     {% get_objects all articles.Article 2 as newest_articles %}
                     {% for article in newest_articles %}
                         <a href="{{ article.get_url_path }}">
@@ -152,9 +142,13 @@
                         </a>
                     {% endfor %}
                 </div>
+                
+                <!-- Ads -->
                 <div class="col-lg-4">
                     {% trans "Ads" %}
                 </div>
+                
+                
             </div>
         </div>
     </div>
