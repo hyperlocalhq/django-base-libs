@@ -2056,7 +2056,9 @@ select {
     }
 }
 
-
+#cms_toolbar {
+    z-index: inherit !important;
+}
 .cms_toolbar-item {
     width: auto;  
 }
