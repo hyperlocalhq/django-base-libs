@@ -240,7 +240,7 @@ class Command(NoArgsCommand):
         LocationAndStage = namedtuple('LocationAndStage', ['location', 'stage'])
 
         venue_title = self.get_child_text(venue_node, 'Name')
-        stage_settings = STAGE_TO_LOCATION_MAPPER.get(venue_title, None)
+        stage_settings = STAGE_TO_LOCATION_MAPPER.get(venue_title.lower(), None)
         if stage_settings:
             try:
                 location = Location.objects.get(title_de=stage_settings.location_title)

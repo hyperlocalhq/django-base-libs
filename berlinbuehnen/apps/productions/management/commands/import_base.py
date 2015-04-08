@@ -28,18 +28,27 @@ SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 StageSettings = namedtuple('StageSettings', ['location_title', 'internal_stage_title'])
 
-STAGE_TO_LOCATION_MAPPER = {
+STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
+    u"Bode-Museum": StageSettings(u"Staatsoper im Schillertheater", u"Bode Museum"),
     u"Deutsches Theater - Box und Bar": StageSettings(u"Deutsches Theater Berlin", u"Box und Bar"),
     u"Deutsches Theater - Saal": StageSettings(u"Deutsches Theater Berlin", u"Saal"),
     u"Deutsches Theater Berlin - Kammerspiele": StageSettings(u"Deutsches Theater Berlin", u"Kammerspiele"),
+    u"DISTEL-Studio": StageSettings(u"Distel Kabarett-Theater", u"DISTEL-Studio"),
+    u"Foyer Deutschen Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Foyer"),  # new location name
+    u"Restaurant Deutsche Oper": StageSettings(u"Deutsche Oper Berlin", u"Restaurant"),  # new location name
+    u"Freilichtbühne an der Zitadelle Spandau": StageSettings(u"Berliner Kindertheater", u"Freilichtbühne an der Zitadelle Spandau"),
+    u"GRIPS Hansaplatz": StageSettings(u"GRIPS Theater", u"GRIPS Hansaplatz"),
+    u"GRIPS Podewil": StageSettings(u"GRIPS Theater", u"GRIPS Podewil"),
     u"Hebbel am Ufer - HAU1": StageSettings(u"Hebbel am Ufer", u"HAU1"),  # new location name
     u"Hebbel am Ufer - HAU2": StageSettings(u"Hebbel am Ufer", u"HAU2"),  # new location name
     u"Hebbel am Ufer - HAU3": StageSettings(u"Hebbel am Ufer", u"HAU3"),  # new location name
     u"WAU im HAU2":  StageSettings(u"Hebbel am Ufer", u"WAU im HAU2"),  # new location name
-    u"Volksbühne am Rosa-Luxemburg-Platz / 3. Stock": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"3. Stock"),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Books": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Books"),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Grüner Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Grüner Salon"),
-    u"Volksbühne am Rosa-Luxemburg-Platz / Roter Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Roter Salon"),
+    u"Haus der Berliner Festspiele": StageSettings(u"Berliner Festspiele", u"Haus der Berliner Festspiele"),
+    u"Martin-Gropius-Bau": StageSettings(u"Berliner Festspiele", u"Martin-Gropius-Bau"),
+    u"Volksbühne am Rosa-Luxemburg-Platz / 3. Stock": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"3. Stock"),  # new location name
+    u"Volksbühne am Rosa-Luxemburg-Platz / Books": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Books"),  # new location name
+    u"Volksbühne am Rosa-Luxemburg-Platz / Grüner Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Grüner Salon"),  # new location name
+    u"Volksbühne am Rosa-Luxemburg-Platz / Roter Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Roter Salon"),  # new location name
     u"Admiralspalast 101": StageSettings(u"Admiralspalast", u"F101"),  # new location name
     u"Admiralspalast Studio": StageSettings(u"Admiralspalast", u"Studio"),  # new location name
     u"Admiralspalast Theater": StageSettings(u"Admiralspalast", u"Theater"), # new location name
@@ -47,6 +56,8 @@ STAGE_TO_LOCATION_MAPPER = {
     u"Berliner Ensemble/ Pavillon": StageSettings(u"Berliner Ensemble", u"Pavillon"),
     u"Berliner Ensemble/ Probebühne": StageSettings(u"Berliner Ensemble", u"Probebühne"),
     u"Berliner Philharmonie – Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Kammermusiksaal"),
+    u"Foyer im Kammermusiksaal der Berliner Philharmoniker": StageSettings(u"Berliner Philharmonie", u"Foyer im Kammermusiksaal"),  # new location name
+    u"Philharmonie Berlin - Großer Saal": StageSettings(u"Berliner Philharmonie", u"Großer Saal"),  # new location name
 	u"Konzerthaus Berlin - Großer Saal": StageSettings(u"Konzerthaus Berlin", u"Großer Saal"),
 	u"Konzerthaus Berlin - Kleiner Saal": StageSettings(u"Konzerthaus Berlin", u"Kleiner Saal"),
 	u"Konzerthaus Berlin - Ludwig-van-Beethoven-Saal": StageSettings(u"Konzerthaus Berlin", u"Ludwig-van-Beethoven-Saal"),
@@ -58,9 +69,10 @@ STAGE_TO_LOCATION_MAPPER = {
 	u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer"),
 	u"Staatsoper im Schiller Theater - Werkstatt": StageSettings(u"Staatsoper im Schiller Theater", u"Werkstatt"),
     u"Theater an der Parkaue - Bühne 2": StageSettings(u"Theater an der Parkaue", u"Bühne 2"),
-    u"Gorki Foyer Berlin": StageSettings(u"Gorki Theater", u"Gorki Foyer Berlin"),  # new location name
+    u"Gorki Foyer Berlin": StageSettings(u"Gorki Theater", u"Foyer"),  # new location name
 	u"Gorki Studio R": StageSettings(u"Gorki Theater", u"Studio Я"),  # new location name
-}
+	u"Maxim Gorki Theater": StageSettings(u"Gorki Theater", u"Gorki Theater"),  # new location name
+}.iteritems())
 
 class CultureBaseLocation(object):
     def __init__(self, id, title, street_address, postal_code, city, *args, **kwargs):
@@ -262,7 +274,7 @@ class ImportFromHeimatBase(object):
 
         culturebase_location = self.LOCATIONS[external_id]
 
-        stage_settings = STAGE_TO_LOCATION_MAPPER.get(culturebase_location.title, None)
+        stage_settings = STAGE_TO_LOCATION_MAPPER.get(culturebase_location.title.lower(), None)
         if stage_settings:
             try:
                 location = Location.objects.get(title_de=stage_settings.location_title)
