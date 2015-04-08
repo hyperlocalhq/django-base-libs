@@ -306,7 +306,7 @@
                                                 {% endif %}
                                                 {% if event.production.age_from or event.production.edu_offer_website or event.ev_or_prod_age_text %}
                                                     <div class="accordion-item">
-                                                        <h4 class="accordion-item-head">{% trans "Age and Education" %}</h4>
+                                                        <h4 class="accordion-item-head">{% trans "Age" %}</h4>
                                                         <div class="accordion-item-content">
                                                             {% if event.ev_or_prod_age_text %}
                                                                 <p>{{ event.ev_or_prod_age_text|disarm_user_input }}</p>
