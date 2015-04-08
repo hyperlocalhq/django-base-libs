@@ -2372,18 +2372,62 @@ strong {
   background-color: #46a8d5;
 }
 
-.navbar-brand {
-  padding-top: 50px;
+.navbar-wrapper {
+  height: 180px;
 }
-
-.navbar.affix {
-  margin-top: -40px;
+.navbar-wrapper .navbar {
+  border-bottom: none;
 }
-
-#support {
-  position: absolute;
+.navbar-wrapper .navbar.affix {
+  margin-top: -30px;
+}
+.navbar-wrapper .navbar-header {
+  min-height: 140px;
+}
+.navbar-wrapper .navbar-header .navbar-brand {
+  position: relative;
   left: 0px;
-  top: 20px;
+  max-width: 400px;
+  padding: 0;
+  margin: 50px 10px 0 0;
+}
+.navbar-wrapper .navbar-header .navbar-brand img {
+  width: 100%;
+}
+.navbar-wrapper .navbar-header .navbar-brand.hidden-xs {
+  width: 400px;
+}
+.navbar-wrapper .navbar-header .navbar-brand.visible-xs {
+  width: 94%;
+  position: fixed;
+  top: 0px;
+  left: 10px;
+}
+.navbar-wrapper #top_nav .nav {
+  font-size: 700;
+  text-transform: uppercase;
+  width: 100%;
+  float: none;
+}
+.navbar-wrapper #top_nav .nav > li {
+  margin-right: 2.5%;
+}
+.navbar-wrapper #top_nav .nav > li.active a {
+  color: #4583c8;
+}
+.navbar-wrapper #top_nav .nav a {
+  font-size: 1em;
+  font-weight: 700;
+  color: black;
+}
+.navbar-wrapper #top_nav .nav a:hover {
+  color: #4583c8;
+}
+
+.navbar-form {
+  background-image: url("../img/trns-1.png") !important;
+  padding: 18px !important;
+  margin: 0px !important;
 }
 
 #login_button {
@@ -2417,51 +2461,70 @@ strong {
   color: white;
 }
 
-#meta {
-  margin-top: 60px;
-  margin-bottom: 20px;
+.meta-wrapper {
+  width: 100%;
+  padding: 0 60px 0 0;
+  position: fixed;
+  top: 0;
 }
-#meta > div {
-  margin-left: 2px;
+.meta-wrapper #meta {
+  list-style: none;
+  margin: 0;
+  font-weight: 400;
+  font-size: 0.875em;
+  color: black;
+  float: right;
+  z-index: 999999;
 }
-
-#header {
-  border: none !important;
-  min-height: 100px;
+.meta-wrapper #meta a {
+  color: black;
 }
-#header .container {
-  padding-top: 30px;
-  padding-bottom: 30px;
+.meta-wrapper #meta a:hover {
+  color: black;
 }
-#header .logo {
-  display: block;
+.meta-wrapper #meta li.meta-item {
+  float: left;
+  margin-right: 20px;
 }
-#header .logo .img {
-  display: block;
+.meta-wrapper #meta #language-menu {
+  margin-right: 0;
+}
+.meta-wrapper #meta #language-menu .languages {
+  list-style: none;
+}
+.meta-wrapper #meta #language-menu .languages li {
+  float: left;
+  text-transform: uppercase;
+  margin-right: 5px;
+}
+.meta-wrapper #meta #language-menu .languages li:after {
+  content: "|";
+  font-weight: 400;
+  cursor: default;
+  margin-left: 3px;
+}
+.meta-wrapper #meta #language-menu .languages li.active {
+  font-weight: 700;
+}
+.meta-wrapper #meta #language-menu .languages li:last-child {
+  margin-right: 0;
+}
+.meta-wrapper #meta #language-menu .languages li:last-child:after {
+  content: "";
+  margin-left: 0px;
+}
+.meta-wrapper #meta #nav-toggle-button {
+  position: relative;
+  right: -30px;
+  width: 20px;
+  margin: 0;
+}
+.meta-wrapper #meta #nav-toggle-button .navbar-toggle {
   height: 35px;
-  width: 220px;
-  background-image: url("../img/logo_img.png");
-  background-repeat: no-repeat;
-  background-position: left;
-  background-size: contain;
-  float: left;
-  margin-right: 15px;
-  font-size: 0px;
+  padding: 0 10px 10px 10px;
 }
-#header .logo .claim {
-  font-size: 13px;
-  line-height: 16px;
-  display: block;
-  float: left;
-  font-weight: 300;
-  color: rgba(0, 0, 0, 0.5);
-  padding-left: 15px;
-  margin-left: 15px;
-  border-left: 2px solid #f2f2f2;
-}
-#header .inner {
-  height: 100px;
-  padding: 0px !important;
+.meta-wrapper #meta #nav-toggle-button .navbar-toggle .icon-bar {
+  opacity: 1;
 }
 
 select {
@@ -4442,6 +4505,15 @@ select {
   background-image: url("../img/trns-1.png");
 }
 
+.cms_toolbar-item {
+  width: auto;
+}
+
+.cms_toolbar-item_list {
+  top: 41px !important;
+  border: 1px solid #ccc !important;
+}
+
 .details .back {
   color: black;
   font-weight: 200;
@@ -5626,24 +5698,6 @@ a.black:focus {
 em {
   color: black;
   font-style: italic;
-}
-
-.navbar-wrapper {
-  height: 195px;
-}
-
-.navbar-header {
-  min-height: 144px;
-}
-
-.navbar-form {
-  background-image: url("../img/trns-1.png") !important;
-  padding: 18px !important;
-  margin: 0px !important;
-}
-
-.navbar-nav > li {
-  margin-right: 1.2em;
 }
 
 .input-group .form-group {
