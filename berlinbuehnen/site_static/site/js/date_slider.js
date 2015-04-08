@@ -37,6 +37,7 @@
         me.today = new Date(me.$main.attr('data-today') * 1000);
         me.days = me.$main.attr('data-days').split(",");
         me.months = me.$main.attr('data-months').split(",");
+        me.href = me.$main.attr('data-path');
         
         me.usemap = me.$links.attr('usemap').substr(1);
         me.last_width = -1;
@@ -86,8 +87,7 @@
         
         if (this.me) var me = this.me;
         
-        var href = location.href.split("?");
-        href = href[0];
+        href = me.href;
         
         
         

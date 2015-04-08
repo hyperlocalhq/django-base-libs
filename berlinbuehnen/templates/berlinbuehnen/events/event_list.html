@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% load i18n image_modifications base_tags tagging_tags production_tags favorites auth_extended %}
 {% block title %}{% trans "Events" %} - {% endblock %}
 {% block bodyclass %}event-list no-transition{% endblock %}
 
@@ -17,11 +17,7 @@
             <div class="row">
                 
                 <h1 class="bottom-line">{% trans "Schedule" %}</h1>
-                
-                <!-- date slider -->
-                <div class="date-slider col-xs-12" data-date="{{ date_slider.active|date:"U" }}" data-today="{{ date_slider.today|date:"U" }}" data-days="{% for day in date_slider.days %}{{ day|date:"D" }},{% endfor %}" data-months="{% for month in date_slider.months %}{{ month|date:"M" }},{% endfor %}">
-                    <img class="date-slider-links" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" usemap="#main_slider" />
-                </div>
+                {% date_slider page='event_list' active=facets.selected.date %}
                 
                 <div class="col-xs-12">
                     
