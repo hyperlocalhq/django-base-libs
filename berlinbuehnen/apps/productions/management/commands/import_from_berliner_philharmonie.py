@@ -21,8 +21,20 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     help = "Imports productions and events from Berliner Philharmonie"
 
     def handle_noargs(self, *args, **options):
+        from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
+
+        self.in_program_of, created = Location.objects.get_or_create(
+            title_de=u"Berliner Philharmonie",
+            defaults={
+                'title_en': u"Berliner Philharmonie",
+                'slug': 'berliner-philharmonie',
+                'street_address': u'Herbert-von-Karajan-Str. 1',
+                'postal_code': u'10785',
+                'city': u'Berlin',
+            },
+        )
 
         Service = models.get_model("external_services", "Service")
 

@@ -20,8 +20,20 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     help = "Imports productions and events from Schaubühne am Lehniner Platz"
 
     def handle_noargs(self, *args, **options):
+        from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
+
+        self.in_program_of, created = Location.objects.get_or_create(
+            title_de=u"Schaubühne am Lehniner Platz",
+            defaults={
+                'title_en': u"Schaubühne am Lehniner Platz",
+                'slug': 'schaubuehne-am-lehniner-platz',
+                'street_address': u'Kurfürstendamm 153',
+                'postal_code': u'10709',
+                'city': u'Berlin',
+            },
+        )
 
         Service = models.get_model("external_services", "Service")
 

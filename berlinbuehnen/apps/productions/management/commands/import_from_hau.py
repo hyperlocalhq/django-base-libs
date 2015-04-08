@@ -20,8 +20,20 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     help = "Imports productions and events from HAU"
 
     def handle_noargs(self, *args, **options):
+        from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
+
+        self.in_program_of, created = Location.objects.get_or_create(
+            title_de=u"Hebbel am Ufer",
+            defaults={
+                'title_en': u"Hebbel am Ufer",
+                'slug': 'hebbel-am-ufer',
+                'street_address': u'Stresemannstr. 29',
+                'postal_code': u'10963',
+                'city': u'Berlin',
+            },
+        )
 
         Service = models.get_model("external_services", "Service")
 

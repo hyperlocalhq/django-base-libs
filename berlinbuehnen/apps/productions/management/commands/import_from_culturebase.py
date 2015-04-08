@@ -269,24 +269,32 @@ class Command(NoArgsCommand):
 
         stage = None
         if stage_settings:
-            try:
-                stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
-            except Stage.DoesNotExist:
-                stage = Stage()
-                stage.location = location
-                stage.title_de = stage.title_en = stage_settings.internal_stage_title
+            if stage_settings.should_create_stage_object:
+                try:
+                    stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+                except Stage.DoesNotExist:
+                    stage = Stage()
+                    stage.location = location
+                    stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
-            lat = self.get_child_text(venue_node, 'Latitude')
-            if lat:
-                stage.latitude = float(lat)
-            lng = self.get_child_text(venue_node, 'Longitude')
-            if lng:
-                stage.longitude = float(lng)
-            stage.street_address = self.get_child_text(venue_node, 'Street')
-            stage.postal_code = self.get_child_text(venue_node, 'ZipCode')
-            stage.city = city_suffix.sub('', self.get_child_text(venue_node, 'City') or "")
+                lat = self.get_child_text(venue_node, 'Latitude')
+                if lat:
+                    stage.latitude = float(lat)
+                lng = self.get_child_text(venue_node, 'Longitude')
+                if lng:
+                    stage.longitude = float(lng)
+                stage.street_address = self.get_child_text(venue_node, 'Street')
+                stage.postal_code = self.get_child_text(venue_node, 'ZipCode')
+                stage.city = city_suffix.sub('', self.get_child_text(venue_node, 'City') or "")
 
-            stage.save()
+                stage.save()
+            else:
+                return LocationAndStage(location, {
+                    'title': stage_settings.internal_stage_title,
+                    'street_address': self.get_child_text(venue_node, 'Street'),
+                    'postal_code': self.get_child_text(venue_node, 'ZipCode'),
+                    'city': "Berlin",
+                })
 
         return LocationAndStage(location, stage)
 
@@ -559,9 +567,21 @@ class Command(NoArgsCommand):
                 if location:
                     prod.play_locations.clear()
                     prod.play_locations.add(location)
+
                 if stage:
-                    prod.play_stages.clear()
-                    prod.play_stages.add(stage)
+                    if isinstance(stage, dict):
+                        prod.location_title = stage['title']
+                        prod.street_address = stage['street_address']
+                        prod.postal_code = stage['postal_code']
+                        prod.city = stage['city']
+                        prod.save()
+                    else:
+                        prod.play_stages.clear()
+                        prod.play_stages.add(stage)
+            free_text_venue = self.get_child_text(prod_node, 'FreeTextVenue')
+            if free_text_venue:
+                prod.location_title = free_text_venue
+                prod.save()
 
             organizers_list = []
             for organisation_node in prod_node.findall('./%(prefix)sOrganisation' % self.helper_dict):
@@ -796,9 +816,21 @@ class Command(NoArgsCommand):
                     if location:
                         event.play_locations.clear()
                         event.play_locations.add(location)
+
                     if stage:
-                        event.play_stages.clear()
-                        event.play_stages.add(stage)
+                        if isinstance(stage, dict):
+                            event.location_title = stage['title']
+                            event.street_address = stage['street_address']
+                            event.postal_code = stage['postal_code']
+                            event.city = stage['city']
+                            event.save()
+                        else:
+                            event.play_stages.clear()
+                            event.play_stages.add(stage)
+                free_text_venue = self.get_child_text(prod_node, 'FreeTextVenue')
+                if free_text_venue:
+                    event.location_title = free_text_venue
+                    event.save()
 
                 for status_node in event_node.findall('%(prefix)sStatus' % self.helper_dict):
                     internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)
