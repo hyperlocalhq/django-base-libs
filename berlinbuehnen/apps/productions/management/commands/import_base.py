@@ -28,14 +28,28 @@ SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 StageSettings = namedtuple('StageSettings', ['location_title', 'internal_stage_title', 'should_create_stage_object'])
 
+LOCATION_TITLE_MAPPER = dict((k.lower(), v) for k, v in {
+    u"English Theatre Berlin | International Performing Arts Center": u"English Theatre Berlin",
+    u"Wühlmäuse": u"Die Wühlmäuse",  # where does it happen?
+    u"SCHAUBUDE BERLIN - Theater.PuppenFigurenObjekte": u"SCHAUBUDE BERLIN",
+    u"Staatsoper im Schillertheater": u"Staatsoper im Schiller Theater",  # where does it happen?
+}.iteritems())
+
+
+def convert_location_title(title):
+    return LOCATION_TITLE_MAPPER.get(title.lower(), title)
+
+
 STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
-    u"Bode-Museum": StageSettings(u"Staatsoper im Schillertheater", u"Bode Museum", True),
+    u"Astrid Lindgren Bühne im FEZ Berlin": StageSettings(u"FEZ-Berlin und Landesmusikakademie Berlin", u"Astrid Lindgren Bühne", True),
+    u"Bode-Museum": StageSettings(u"Staatsoper im Schiller Theater", u"Bode Museum", True),
     u"Deutsches Theater - Box und Bar": StageSettings(u"Deutsches Theater Berlin", u"Box und Bar", True),
     u"Deutsches Theater - Saal": StageSettings(u"Deutsches Theater Berlin", u"Saal", True),
     u"Deutsches Theater Berlin - Kammerspiele": StageSettings(u"Deutsches Theater Berlin", u"Kammerspiele", True),
     u"DISTEL-Studio": StageSettings(u"Distel Kabarett-Theater", u"DISTEL-Studio", True),
     u"Foyer Deutschen Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Foyer", True),
     u"Restaurant Deutsche Oper": StageSettings(u"Deutsche Oper Berlin", u"Restaurant", True),
+    u"Tischlerei Deutsche Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Tischlerei Deutsche Oper Berlin", True),
     u"Freilichtbühne an der Zitadelle Spandau": StageSettings(u"Berliner Kindertheater", u"Freilichtbühne an der Zitadelle Spandau", True),
     u"GRIPS Hansaplatz": StageSettings(u"GRIPS Theater", u"GRIPS Hansaplatz", True),
     u"GRIPS Podewil": StageSettings(u"GRIPS Theater", u"GRIPS Podewil", True),
@@ -68,12 +82,13 @@ STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
 	u"Sophiensaele - Hochzeitssaal": StageSettings(u"Sophiensaele", u"Hochzeitssaal", True),
 	u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer", True),
 	u"Staatsoper im Schiller Theater - Werkstatt": StageSettings(u"Staatsoper im Schiller Theater", u"Werkstatt", True),
+	u"Staatsoper Unter den Linden": StageSettings(u"Staatsoper im Schiller Theater", u"Staatsoper Unter den Linden", True),
     u"Theater an der Parkaue - Bühne 2": StageSettings(u"Theater an der Parkaue", u"Bühne 2", True),
     u"Gorki Foyer Berlin": StageSettings(u"Gorki Theater", u"Foyer", True),
 	u"Gorki Studio R": StageSettings(u"Gorki Theater", u"Studio Я", True),
 	u"Maxim Gorki Theater": StageSettings(u"Gorki Theater", u"Gorki Theater", True),
     # stages to exclude
-    u"Tempodrom": StageSettings(u"Wühlmäuse", u"Tempodrom", False),
+    u"Tempodrom": StageSettings(u"Die Wühlmäuse", u"Tempodrom", False),
     u"Waldbühne Berlin": StageSettings(u"Staatsoper im Schiller Theater", u"Waldbühne Berlin", False),
 }.iteritems())
 
