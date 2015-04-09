@@ -130,7 +130,7 @@ class ProductionInvolvementInline(ExtendedStackedInline):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
-    list_display = ['title_de', 'get_locations', 'get_import_source', 'get_external_id', 'show_among_others', 'status']
+    list_display = ['title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'show_among_others', 'status']
     search_fields = ['title_de', 'title_en']
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'prefix', 'subtitle', 'original', 'website'])
     fieldsets += [(None, {'fields': ('slug', )}),]
@@ -155,11 +155,11 @@ class ProductionAdmin(ExtendedModelAdmin):
     def get_locations(self, obj):
         html = []
         if obj.in_program_of.count():
-            html.append(ugettext('In program of') + ': ' + ', '.join(('<a href="'+ loc.get_url_path() +'" tagret="_blank">' + unicode(loc) + '</a>' for loc in obj.in_program_of.all())))
+            html.append(ugettext('In program of') + ': ' + ', '.join(('<a href="' + loc.get_url_path() + '" tagret="_blank">' + unicode(loc) + '</a>' for loc in obj.in_program_of.all())))
         if obj.play_locations.count():
-            html.append(ugettext('Theaters') + ': ' + ', '.join(('<a href="'+ loc.get_url_path() +'" tagret="_blank">' + unicode(loc) + '</a>' for loc in obj.play_locations.all())))
+            html.append(ugettext('Theaters') + ': ' + ', '.join(('<a href="' + loc.get_url_path() + '" tagret="_blank">' + unicode(loc) + '</a>' for loc in obj.play_locations.all())))
         if obj.play_stages.count():
-            html.append(ugettext('Stages') + ': ' + ', '.join(('<a href="'+ stage.location.get_url_path() +'" tagret="_blank">' + unicode(stage) + '</a>' for stage in obj.play_stages.all())))
+            html.append(ugettext('Stages') + ': ' + ', '.join(('<a href="' + stage.location.get_url_path() + '" tagret="_blank">' + unicode(stage) + '</a>' for stage in obj.play_stages.all())))
         if obj.location_title:
             html.append(ugettext('Free text venue') + ': ' + obj.location_title)
         return '<br />'.join(html)
@@ -177,6 +177,16 @@ class ProductionAdmin(ExtendedModelAdmin):
             return mappers[0].external_id
         return ""
     get_external_id.short_description = _("External ID")
+
+    def get_owners_list(self, obj):
+        owners_list = []
+        for o in obj.get_owners():
+            owners_list.append('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
+        if owners_list:
+            return '<br />'.join(owners_list)
+        return ''
+    get_owners_list.allow_tags = True
+    get_owners_list.short_description = _("Owners")
 
 admin.site.register(Production, ProductionAdmin)
 
