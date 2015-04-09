@@ -25,10 +25,10 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.skip_images = options.get('skip_images')
 
         self.in_program_of, created = Location.objects.get_or_create(
-            title_de=u"Maxim Gorki Theater",
+            title_de=u"Gorki Theater",
             defaults={
-                'title_en': u"Maxim Gorki Theater",
-                'slug': 'maxim-gorki-theater',
+                'title_en': u"Gorki Theater",
+                'slug': 'gorki-theater',
                 'street_address': u'Am Festungsgraben 2',
                 'postal_code': u'10117',
                 'city': u'Berlin',
