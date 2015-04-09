@@ -17,6 +17,7 @@ from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # needed for south to work
 from base_libs.models.fields import PositionField
 from base_libs.utils.misc import get_translation
+from base_libs.middleware.threadlocals import get_current_language
 
 from filebrowser.fields import FileBrowseField
 
@@ -665,19 +666,22 @@ class Event(CreationModificationMixin, UrlMixin):
     ### people ###
 
     def ev_or_prod_leaderships(self):
+        lang_code = get_current_language()
         if self.pk and self.eventleadership_set.exists():
-            return self.eventleadership_set.all().order_by('sort_order')
-        return self.production.productionleadership_set.all().order_by('sort_order')
+            return self.eventleadership_set.all().order_by('function_%s' % lang_code, 'sort_order')
+        return self.production.productionleadership_set.all().order_by('function_%s' % lang_code, 'sort_order')
 
     def ev_or_prod_authorships(self):
+        lang_code = get_current_language()
         if self.pk and self.eventauthorship_set.exists():
-            return self.eventauthorship_set.all().order_by('sort_order')
-        return self.production.productionauthorship_set.all().order_by('sort_order')
+            return self.eventauthorship_set.all().order_by('authorship_type__title_%s' % lang_code, 'sort_order')
+        return self.production.productionauthorship_set.all().order_by('authorship_type__title_%s' % lang_code, 'sort_order')
 
     def ev_or_prod_involvements(self):
+        lang_code = get_current_language()
         if self.pk and self.eventinvolvement_set.exists():
-            return self.eventinvolvement_set.all().order_by('sort_order')
-        return self.production.productioninvolvement_set.all().order_by('sort_order')
+            return self.eventinvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
+        return self.production.productioninvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
 
     ### special text ###
 
