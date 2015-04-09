@@ -237,7 +237,7 @@ strong {
   font-weight: 700;
 }
 
-.sidebar-accordion .accordion-item-head {
+.sidebar-accordion .accordion-item-head, .news-item h3 {
   font-family: 'Webfont2', Helvetica, Arial, sans-serif;
 }
 
@@ -248,7 +248,7 @@ strong {
   font-weight: normal;
   font-style: normal;
 }
-.fawesome:before {
+.fawesome:before, .fawesome:after {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -257,6 +257,11 @@ strong {
   -moz-osx-font-smoothing: grayscale;
   padding-right: 10px;
   vertical-align: bottom;
+  font-weight: 400;
+}
+
+.fawesome:after {
+  padding-left: 10px;
 }
 
 .fawesome.back {
@@ -289,6 +294,16 @@ strong {
 .fawesome.tickets:before {
   content: "\f02c";
   font-size: 1.375em;
+}
+
+.fawesome.more {
+  line-height: 1.375em;
+}
+.fawesome.more:after {
+  content: "\f105";
+  font-size: 1.375em;
+  position: relative;
+  bottom: -1px;
 }
 
 @font-face {
@@ -5379,36 +5394,43 @@ select {
 .list .list-item:hover {
   background-color: #eee;
 }
-.list.small {
+.list.location-list .list-item .list-item-head {
+  max-width: 148px;
+}
+.list.location-list .list-item .list-item-body h2, .list.location-list .list-item .list-item-body h4 {
+  width: auto;
+}
+
+body.is-xs .list {
   margin-left: -20px;
   margin-right: -20px;
 }
-.list.small .list-item .list-item-head {
+body.is-xs .list .list-item .list-item-head {
   max-width: none;
   height: 50px;
   border-bottom: 1px solid #ccc;
 }
-.list.small .list-item .list-item-head .list-item-head-date {
+body.is-xs .list .list-item .list-item-head .list-item-head-date {
   margin: 0;
   position: absolute;
   top: 0;
   right: 0;
 }
-.list.small .list-item .list-item-head .list-item-head-date .list-item-head-date-day {
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-day {
   width: 40px;
   height: auto;
   position: absolute;
   top: 6px;
   left: 5px;
 }
-.list.small .list-item .list-item-head .list-item-head-date .list-item-head-date-month {
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month {
   width: 40px;
   height: auto;
   position: absolute;
   top: 30px;
   left: 5px;
 }
-.list.small .list-item .list-item-head .list-item-head-date .list-item-head-date-time {
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time {
   width: 115px;
   height: auto;
   font-size: 2.8em;
@@ -5416,38 +5438,38 @@ select {
   top: 8px;
   left: 47px;
 }
-.list.small .list-item .list-item-head .list-item-head-date .list-item-head-date-type {
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type {
   width: auto;
   height: auto;
   position: absolute;
   top: 10px;
   right: 5px;
 }
-.list.small .list-item .list-item-head .list-item-head-date .list-item-head-date-icons {
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons {
   width: auto;
   height: auto;
   position: absolute;
   top: 27px;
   right: 0;
 }
-.list.small .list-item .list-item-head .list-item-head-image {
+body.is-xs .list .list-item .list-item-head .list-item-head-image {
   position: absolute;
   top: 0;
   left: 0;
 }
-.list.small .list-item .list-item-head .list-item-head-image img {
+body.is-xs .list .list-item .list-item-head .list-item-head-image img {
   width: 50px;
   float: none;
 }
-.list.small .list-item-body {
+body.is-xs .list .list-item-body {
   padding-bottom: 40px;
   height: auto;
 }
-.list.small .list-item-body dl, .list.small .list-item-body h2, .list.small .list-item-body h3, .list.small .list-item-body h4, .list.small .list-item-body p {
+body.is-xs .list .list-item-body dl, body.is-xs .list .list-item-body h2, body.is-xs .list .list-item-body h3, body.is-xs .list .list-item-body h4, body.is-xs .list .list-item-body p {
   margin: 0 0 0 5px;
   width: auto;
 }
-.list.small .list-item-body .extra {
+body.is-xs .list .list-item-body .extra {
   top: inherit;
   bottom: -40px;
   height: 22px;
@@ -5457,26 +5479,96 @@ select {
   width: 160px;
   text-transform: uppercase;
 }
-.list.small .list-item-body .extra:before {
+body.is-xs .list .list-item-body .extra:before {
   content: url(../img/label_22px.png);
   position: relative;
   left: -10px;
 }
-.list.small .list-item-body .extra span {
+body.is-xs .list .list-item-body .extra span {
   margin: 1px auto 0;
   vertical-align: top;
   display: inline-block;
   width: 138px;
   text-align: center;
 }
-.list.location-list .list-item .list-item-head {
-  max-width: 148px;
-}
-.list.location-list .list-item .list-item-body h2, .list.location-list .list-item .list-item-body h4 {
-  width: auto;
-}
-.list.location-list.small .list-item .list-item-head {
+body.is-xs.location-list .list-item .list-item-head {
   max-width: none;
+}
+
+.info {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.info .row {
+  margin: 0;
+}
+.info h1.bottom-line {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 22px;
+}
+.info .news {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.info .news .row {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+.info .news .news-item {
+  padding: 0 12px;
+  margin-bottom: 40px;
+}
+.info .news .news-item h3 {
+  background: black;
+  color: white;
+  margin-bottom: 4px;
+  padding: 4px 0 4px 8px;
+  font-weight: 400;
+  font-size: 0.875em;
+  text-transform: uppercase;
+}
+.info .news .news-item .img {
+  width: 100%;
+  margin-bottom: 16px;
+}
+.info .news .news-item .img img {
+  width: 100%;
+}
+.info .news .news-item h2 {
+  font-weight: 700;
+  font-size: 1.25em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.info .news .news-item p {
+  font-weight: 400;
+  line-height: 125%;
+  margin: 0;
+  padding: 0;
+}
+.info .news .news-item .more {
+  display: inline-block;
+  margin-top: 15px;
+  font-weight: 700;
+  font-size: 0.875em;
+  color: black;
+  text-transform: uppercase;
+}
+.info .news .news-item .more:hover {
+  color: black;
+}
+.info .ads {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+body.is-xs .info {
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+.home .main {
+  margin-bottom: 55px;
 }
 
 html {
@@ -5617,6 +5709,11 @@ h1.bottom-line {
   padding-bottom: 8px;
   border-bottom: 4px solid black;
   margin: 0 30px 35px 30px;
+  text-transform: uppercase;
+}
+body.is-xs h1.bottom-line {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .section-head {

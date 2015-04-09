@@ -239,9 +239,10 @@ strong {
     font-weight: 700;
 }
 
-.sidebar-accordion .accordion-item-head {
+.sidebar-accordion .accordion-item-head, .news-item h3 {
     font-family: 'Webfont2', Helvetica, Arial, sans-serif;
 }
+
 
 
 
@@ -257,7 +258,7 @@ strong {
     font-style: normal;
 }
 
-.fawesome:before {
+.fawesome:before, .fawesome:after {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
@@ -266,6 +267,11 @@ strong {
     -moz-osx-font-smoothing: grayscale;
     padding-right: 10px;
     vertical-align: bottom;
+    font-weight: 400;
+}
+
+.fawesome:after {
+    padding-left: 10px;
 }
 
 
@@ -295,5 +301,14 @@ strong {
     &:before {
         content: "\f02c";
         font-size: 1.375em;
+    }
+}
+.fawesome.more {
+    line-height: 1.375em;
+    &:after {
+        content: "\f105";
+        font-size: 1.375em;
+        position: relative;
+        bottom: -1px;
     }
 }

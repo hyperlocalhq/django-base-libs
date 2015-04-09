@@ -25,14 +25,14 @@
         this.me = me;
         
         me.$main = $main;
+        me.$body = $('body');
         me.autoload = $main.hasClass('list-autoload');
         me.last_headline = "";
         me.last_width = -1;
-        me.small = false;
+        me.small = null;
         me.resize_timer = null;
         
         me.$first_item = $('.list-item', me.$main).first();
-        me.$first_body = $('.list-item-body',  me.$first_item);
         me.$first_head = $('.list-item-head',  me.$first_item);
         
         me.initListItems();
@@ -291,15 +291,11 @@
             me.resize_timer = null;
             
             var old_small = me.small;
-            var current_body_width = me.$first_body.css('width');
             
             // has to be smaller then the smallest value for measuring
-            me.$first_body.css('width', '300px');
-            if (0 == me.$first_body.position().left) {
-                me.$main.addClass("small");   
+            if (me.$body.hasClass('is-xs')) { 
                 me.small = true;
             } else {
-                me.$main.removeClass("small");   
                 me.small = false;
             }
             
@@ -307,7 +303,7 @@
             var new_width = me.$main.width();
             
             
-            if (new_width != me.last_width || new_items || old_small != me.small) {
+            if (new_width != me.last_width || new_items || old_small !== me.small) {
                 
                 me.last_width = new_width;
             
@@ -323,9 +319,6 @@
                     me.setListItemBodyHeight($(this)); 
                 });
                 
-            } else {
-            
-                me.$first_body.css('width', current_body_width); 
             }
         }
         

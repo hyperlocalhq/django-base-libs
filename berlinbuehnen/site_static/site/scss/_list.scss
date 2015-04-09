@@ -204,8 +204,22 @@
         }
     }
     
-    
-    &.small {
+    &.location-list {
+        .list-item {
+            .list-item-head {
+                max-width: 148px;
+            }
+            .list-item-body {
+                h2, h4 {
+                    width: auto;
+                }
+            }
+        }
+    }
+}
+
+body.is-xs {
+    .list {
         margin-left: -20px;
         margin-right: -20px;
         
@@ -304,26 +318,12 @@
         }
     }
     
-    
-    
     &.location-list {
         .list-item {
             .list-item-head {
-                max-width: 148px;
-            }
-            .list-item-body {
-                h2, h4 {
-                    width: auto;
-                }
-            }
-        }
-        
-        &.small {
-            .list-item {
-                .list-item-head {
-                    max-width: none;
-                }
+                max-width: none;
             }
         }
     }
 }
+
