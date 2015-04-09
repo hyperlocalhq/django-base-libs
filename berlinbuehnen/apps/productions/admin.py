@@ -2,7 +2,8 @@
 
 from django.contrib import admin
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
+from django.db import models
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
@@ -129,7 +130,8 @@ class ProductionInvolvementInline(ExtendedStackedInline):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
-    search_fields = ['title']
+    list_display = ['title_de', 'get_locations', 'get_import_source', 'get_external_id', 'show_among_others', 'status']
+    search_fields = ['title_de', 'title_en']
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'prefix', 'subtitle', 'original', 'website'])
     fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Location"), {'fields': ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with']}),]
@@ -149,6 +151,32 @@ class ProductionAdmin(ExtendedModelAdmin):
         ProductionVideoInline, ProductionLiveStreamInline, ProductionImageInline, ProductionPDFInline,
         ProductionLeadershipInline, ProductionAuthorshipInline, ProductionInvolvementInline,
     ]
+
+    def get_locations(self, obj):
+        html = []
+        if obj.in_program_of.count():
+            html.append(ugettext('In program of') + ': ' + ', '.join(('<a href="'+ loc.get_url_path() +'" tagret="_blank">' + unicode(loc) + '</a>' for loc in obj.in_program_of.all())))
+        if obj.play_locations.count():
+            html.append(ugettext('Theaters') + ': ' + ', '.join(('<a href="'+ loc.get_url_path() +'" tagret="_blank">' + unicode(loc) + '</a>' for loc in obj.play_locations.all())))
+        if obj.play_stages.count():
+            html.append(ugettext('Stages') + ': ' + ', '.join(('<a href="'+ stage.location.get_url_path() +'" tagret="_blank">' + unicode(stage) + '</a>' for stage in obj.play_stages.all())))
+        if obj.location_title:
+            html.append(ugettext('Free text venue') + ': ' + obj.location_title)
+        return '<br />'.join(html)
+    get_locations.short_description = _("Locations")
+    get_locations.allow_tags = True
+
+    def get_external_id(self, obj):
+        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        ContentType = models.get_model("contenttypes", "ContentType")
+        mappers = ObjectMapper.objects.filter(
+            content_type=ContentType.objects.get_for_model(obj),
+            object_id=obj.pk,
+        )
+        if mappers:
+            return mappers[0].external_id
+        return ""
+    get_external_id.short_description = _("External ID")
 
 admin.site.register(Production, ProductionAdmin)
 

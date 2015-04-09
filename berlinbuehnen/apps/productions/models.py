@@ -305,7 +305,8 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         )
         if mappers:
             return mappers[0].service.title.replace(' Productions', '')
-        return "OK"
+        return ""
+    get_import_source.short_description = _("Import Source")
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
