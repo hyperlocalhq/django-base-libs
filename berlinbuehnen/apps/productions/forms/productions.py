@@ -1174,7 +1174,8 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for cat in form_step_data['basic']['categories']:
             instance.categories.add(cat)
 
-        if not instance.get_owners():
+        current_user = get_current_user()
+        if not current_user.is_superuser and not instance.get_owners():
             instance.set_owner(get_current_user())
 
         form_step_data['_pk'] = instance.pk

@@ -922,8 +922,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             social.url = social_dict['url']
             social.save()
 
-        if not instance.get_owners():
-            instance.set_owner(get_current_user())
+        current_user = get_current_user()
+        if not current_user.is_superuser and not instance.get_owners():
+            instance.set_owner(current_user)
 
         form_step_data['_pk'] = instance.pk
 
