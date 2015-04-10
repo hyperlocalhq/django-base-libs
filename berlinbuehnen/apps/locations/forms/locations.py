@@ -641,7 +641,7 @@ class StageForm(forms.ModelForm):
     class Meta:
         model = Stage
         fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -719,6 +719,15 @@ class StageForm(forms.ModelForm):
                 css_class="row-md",
             ),
             css_class="fieldset-where",
+        ))
+        layout_blocks.append(layout.Fieldset(
+            _("Sort Order"),
+            layout.Row(
+                layout.Div(
+                    "sort_order",
+                    css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                ),
+            ),
         ))
 
         layout_blocks.append(
@@ -810,7 +819,7 @@ def load_data(instance=None):
             form_step_data['basic']['sets']['social'].append(social_media_channel_dict)
 
         stage_fields = [
-            'id', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'id', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             stage_fields += [
@@ -935,7 +944,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             return
 
         stage_fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             stage_fields += [

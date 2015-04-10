@@ -59,7 +59,7 @@ class StageInline(ExtendedStackedInline):
     model = Stage
     extra = 0
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'description',])
-    fieldsets += [(None, {'fields': ('slug', )}),]
+    fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
     fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
     # classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
