@@ -158,13 +158,14 @@ def event_list(request, year=None, month=None, day=None):
     # }).order_by("title_uni")
 
     #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
-    
-    
-    
-    extra_context = {}
-    extra_context['form'] = form
-    extra_context['abc_list'] = abc_list
-    extra_context['facets'] = facets
+
+    qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
+
+    extra_context = {
+        'form': form,
+        'abc_list': abc_list,
+        'facets': facets,
+    }
 
     return object_list(
         request,

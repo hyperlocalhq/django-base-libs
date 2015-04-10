@@ -2,6 +2,9 @@
 {% if other_productions %}
     <div class="slider row">
         <div class="col-xs-12">
+            {% if current_location %}
+                <a href="{% url "event_list" %}?locations={{ current_location.pk }}" class="pull-right">{% trans "Events at this venue" %}</a>
+            {% endif %}
             <h4 class="slider-head">
                 {% if current_event %}
                     {% trans "Further productions at this venue" %}
