@@ -229,11 +229,13 @@ class Stage(CreationModificationMixin, SlugMixin()):
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
 
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+
     def __unicode__(self):
         return self.title
 
     class Meta:
-        ordering = ['title']
+        ordering = ['sort_order', 'title']
         verbose_name = _("Stage")
         verbose_name_plural = _("Stages")
 

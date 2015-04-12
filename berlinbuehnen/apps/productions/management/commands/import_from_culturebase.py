@@ -23,7 +23,7 @@ from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
 from berlinbuehnen.apps.sponsors.models import Sponsor
 
-from import_base import STAGE_TO_LOCATION_MAPPER
+from import_base import STAGE_TO_LOCATION_MAPPER, convert_location_title
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -239,7 +239,7 @@ class Command(NoArgsCommand):
         city_suffix = re.compile(r' \[[^\]]+\]')
         LocationAndStage = namedtuple('LocationAndStage', ['location', 'stage'])
 
-        venue_title = self.get_child_text(venue_node, 'Name')
+        venue_title = convert_location_title(self.get_child_text(venue_node, 'Name'))
         stage_settings = STAGE_TO_LOCATION_MAPPER.get(venue_title.lower(), None)
         if stage_settings:
             try:
@@ -820,6 +820,7 @@ class Command(NoArgsCommand):
                     if stage:
                         if isinstance(stage, dict):
                             event.location_title = stage['title']
+
                             event.street_address = stage['street_address']
                             event.postal_code = stage['postal_code']
                             event.city = stage['city']
