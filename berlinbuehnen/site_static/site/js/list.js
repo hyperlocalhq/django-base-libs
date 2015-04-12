@@ -27,6 +27,23 @@
         me.$main = $main;
         me.$body = $('body');
         me.autoload = $main.hasClass('list-autoload');
+        
+        me.reinitByFilter();
+        
+        $(window).resize(function() {me.onResize();});
+        me.$main.data('list', me);
+    }
+    
+    /**
+     * Reinitialises the connected components of the list
+     * after new content got loaded by a filter.
+     * 
+     * Gets called internaly.
+     */
+    List.prototype.reinitByFilter = function() {
+        
+        if (this.me) var me = this.me;
+        
         me.last_headline = "";
         me.last_width = -1;
         me.small = null;
@@ -37,7 +54,6 @@
         
         me.initListItems();
         if (me.autoload) me.initAutoscroll();
-        $(window).resize(function() {me.onResize();});
     }
     
     /**

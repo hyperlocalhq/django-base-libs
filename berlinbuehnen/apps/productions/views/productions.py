@@ -58,7 +58,7 @@ class EventFilterForm(forms.Form):
         queryset=ProductionCategory.objects.exclude(parent=None),
         required=False,
     )
-    language_and_subtitles = forms.ModelChoiceField(
+    language_and_subtitles = forms.ModelMultipleChoiceField(
         queryset=LanguageAndSubtitles.objects.all(),
         required=False,
     )
@@ -123,12 +123,13 @@ def event_list(request, year=None, month=None, day=None):
                 qs = qs.filter(
                     production__categories=cat,
                 ).distinct()
-        cat = form.cleaned_data['language_and_subtitles']
-        if cat:
-            facets['selected']['language_and_subtitles'] = cat
-            qs = qs.filter(
-                production__language_and_subtitles=cat,
-            ).distinct()
+        cats = form.cleaned_data['language_and_subtitles']
+        if cats:
+            facets['selected']['language_and_subtitles'] = cats
+            for cat in cats:
+                qs = qs.filter(
+                    production__language_and_subtitles=cat,
+                ).distinct()
         cats = form.cleaned_data['production_characteristics']
         if cats:
             facets['selected']['production_characteristics'] = cats
@@ -144,12 +145,12 @@ def event_list(request, year=None, month=None, day=None):
                     characteristics=cat,
                 ).distinct()
 
-    abc_filter = request.GET.get('abc', None)
+    abc_filter = request.GET.getlist('abc', None)
+    abc_list = get_abc_list(qs, "production__title_%s" % request.LANGUAGE_CODE)
     if abc_filter:
         facets['selected']['abc'] = abc_filter
-    abc_list = get_abc_list(qs, "production__title_%s" % request.LANGUAGE_CODE, abc_filter)
-    if abc_filter:
-        qs = filter_abc(qs, "production__title_%s" % request.LANGUAGE_CODE, abc_filter)
+        for letter in abc_filter:
+            qs = filter_abc(qs, "production__title_%s" % request.LANGUAGE_CODE, letter)
 
     # qs = qs.extra(select={
     #     'title_uni': "IF (events_event.title_%(lang_code)s = '', events_event.title_de, events_event.title_%(lang_code)s)" % {
