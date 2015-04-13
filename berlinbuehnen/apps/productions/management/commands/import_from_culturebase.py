@@ -5,6 +5,7 @@ import requests
 from xml.etree import ElementTree
 from dateutil.parser import parse as parse_datetime
 from optparse import make_option
+import csv
 
 from django.core.management.base import NoArgsCommand
 from django.utils.encoding import smart_str, force_unicode
@@ -23,7 +24,7 @@ from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
 from berlinbuehnen.apps.sponsors.models import Sponsor
 
-from import_base import STAGE_TO_LOCATION_MAPPER, convert_location_title
+from import_base import STAGE_TO_LOCATION_MAPPER, convert_location_title, CultureBaseLocation
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -34,6 +35,8 @@ class Command(NoArgsCommand):
             help='Tells Django to NOT download images.'),
     )
     help = "Imports productions and events from Culturebase"
+
+    LOCATIONS = {}
 
     CATEGORY_MAPPER = {
         7002: 74,  # Ausstellung
@@ -165,6 +168,8 @@ class Command(NoArgsCommand):
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
 
+        self.load_and_parse_locations()
+
         Service = models.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
@@ -205,6 +210,15 @@ class Command(NoArgsCommand):
             print u"Events updated: %d" % self.stats['events_updated']
             print u"Events skipped: %d" % self.stats['events_skipped']
             print
+
+    def load_and_parse_locations(self):
+        response = requests.get("http://web2.heimat.de/cb-out/exports/address/address_id.php?city=berlin")
+        if response.status_code != 200:
+            return
+        reader = csv.reader(response.content.splitlines(), delimiter=";")
+        reader.next()  # skip the first line
+        for row in reader:
+            self.LOCATIONS[row[1]] = CultureBaseLocation(*row)
 
     def get_child_text(self, node, tag, **attrs):
         """
@@ -254,7 +268,6 @@ class Command(NoArgsCommand):
                 location = Location()
                 location.title_de = location.title_en = venue_title
 
-        if not stage_settings:
             lat = self.get_child_text(venue_node, 'Latitude')
             if lat:
                 location.latitude = float(lat)
@@ -295,6 +308,72 @@ class Command(NoArgsCommand):
                     'postal_code': self.get_child_text(venue_node, 'ZipCode'),
                     'city': "Berlin",
                 })
+
+        return LocationAndStage(location, stage)
+
+    def get_updated_location_and_stage_from_free_text(self, free_text_venue):
+        """
+        Creates or gets and updates location and stage
+        :param venue_node: XML node with venue data
+        :return: named tuple LocationAndStage(location, stage)
+        """
+        from collections import namedtuple
+        from berlinbuehnen.apps.locations.models import Location, Stage
+        city_suffix = re.compile(r' \[[^\]]+\]')
+        LocationAndStage = namedtuple('LocationAndStage', ['location', 'stage'])
+
+        venue_title = convert_location_title(free_text_venue)
+        stage_settings = STAGE_TO_LOCATION_MAPPER.get(venue_title.lower(), None)
+        if stage_settings:
+            try:
+                location = Location.objects.get(title_de=stage_settings.location_title)
+            except Location.DoesNotExist:
+                location = Location()
+                location.title_de = location.title_en = stage_settings.location_title
+        else:
+            try:
+                location = Location.objects.get(title_de=venue_title)
+            except Location.DoesNotExist:
+                location = Location()
+                location.title_de = location.title_en = venue_title
+
+            culturebase_location = self.LOCATIONS.get(venue_title, None)
+            if culturebase_location:
+                location.street_address = culturebase_location.street_address
+                location.postal_code = culturebase_location.postal_code
+                location.city = u"Berlin"
+
+        location.save()
+
+        stage = None
+        if stage_settings:
+            if stage_settings.should_create_stage_object:
+                try:
+                    stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+                except Stage.DoesNotExist:
+                    stage = Stage()
+                    stage.location = location
+                    stage.title_de = stage.title_en = stage_settings.internal_stage_title
+
+                culturebase_location = self.LOCATIONS.get(stage_settings.internal_stage_title, None)
+                if culturebase_location:
+                    stage.street_address = culturebase_location.street_address
+                    stage.postal_code = culturebase_location.postal_code
+                    stage.city = u"Berlin"
+
+                stage.save()
+            else:
+                stage_dict = {
+                    'title': stage_settings.internal_stage_title,
+                    'street_address': '',
+                    'postal_code': '',
+                    'city': 'Berlin',
+                }
+                culturebase_location = self.LOCATIONS.get(stage_settings.internal_stage_title, None)
+                if culturebase_location:
+                    stage_dict['street_address'] = culturebase_location.street_address
+                    stage_dict['postal_code'] = culturebase_location.postal_code
+                return LocationAndStage(location, stage_dict)
 
         return LocationAndStage(location, stage)
 
@@ -562,7 +641,7 @@ class Command(NoArgsCommand):
             prod.save()
 
             venue_node = prod_node.find('./%(prefix)sVenue' % self.helper_dict)
-            if venue_node:
+            if venue_node is not None:
                 location, stage = self.get_updated_location_and_stage(venue_node)
                 if location:
                     prod.play_locations.clear()
@@ -580,8 +659,24 @@ class Command(NoArgsCommand):
                         prod.play_stages.add(stage)
             free_text_venue = self.get_child_text(prod_node, 'FreeTextVenue')
             if free_text_venue:
-                prod.location_title = free_text_venue
-                prod.save()
+                location, stage = self.get_updated_location_and_stage_from_free_text(free_text_venue)
+                if location:
+                    prod.play_locations.clear()
+                    prod.play_locations.add(location)
+                else:
+                    prod.location_title = free_text_venue
+                    prod.save()
+
+                if stage:
+                    if isinstance(stage, dict):
+                        prod.location_title = stage['title']
+                        prod.street_address = stage['street_address']
+                        prod.postal_code = stage['postal_code']
+                        prod.city = stage['city']
+                        prod.save()
+                    else:
+                        prod.play_stages.clear()
+                        prod.play_stages.add(stage)
 
             organizers_list = []
             for organisation_node in prod_node.findall('./%(prefix)sOrganisation' % self.helper_dict):
@@ -811,7 +906,7 @@ class Command(NoArgsCommand):
                             #time.sleep(1)
 
                 venue_node = event_node.find('%(prefix)sVenue' % self.helper_dict)
-                if venue_node:
+                if venue_node is not None:
                     location, stage = self.get_updated_location_and_stage(venue_node)
                     if location:
                         event.play_locations.clear()
@@ -830,8 +925,24 @@ class Command(NoArgsCommand):
                             event.play_stages.add(stage)
                 free_text_venue = self.get_child_text(prod_node, 'FreeTextVenue')
                 if free_text_venue:
-                    event.location_title = free_text_venue
-                    event.save()
+                    location, stage = self.get_updated_location_and_stage_from_free_text(free_text_venue)
+                    if location:
+                        event.play_locations.clear()
+                        event.play_locations.add(location)
+                    else:
+                        event.location_title = free_text_venue
+                        event.save()
+
+                    if stage:
+                        if isinstance(stage, dict):
+                            event.location_title = stage['title']
+                            event.street_address = stage['street_address']
+                            event.postal_code = stage['postal_code']
+                            event.city = stage['city']
+                            event.save()
+                        else:
+                            event.play_stages.clear()
+                            event.play_stages.add(stage)
 
                 for status_node in event_node.findall('%(prefix)sStatus' % self.helper_dict):
                     internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)

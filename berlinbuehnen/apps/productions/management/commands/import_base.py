@@ -42,55 +42,99 @@ def convert_location_title(title):
 
 STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
     u"Astrid Lindgren Bühne im FEZ Berlin": StageSettings(u"FEZ-Berlin und Landesmusikakademie Berlin", u"Astrid Lindgren Bühne", True),
-    u"Bode-Museum": StageSettings(u"Staatsoper im Schiller Theater", u"Bode Museum", True),
+
     u"Deutsches Theater - Box und Bar": StageSettings(u"Deutsches Theater Berlin", u"Box und Bar", True),
     u"Deutsches Theater - Saal": StageSettings(u"Deutsches Theater Berlin", u"Saal", True),
     u"Deutsches Theater Berlin - Kammerspiele": StageSettings(u"Deutsches Theater Berlin", u"Kammerspiele", True),
+
     u"DISTEL-Studio": StageSettings(u"Distel Kabarett-Theater", u"DISTEL-Studio", True),
+
     u"Foyer Deutschen Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Foyer", True),
     u"Restaurant Deutsche Oper": StageSettings(u"Deutsche Oper Berlin", u"Restaurant", True),
     u"Tischlerei Deutsche Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Tischlerei Deutsche Oper Berlin", True),
+
     u"Freilichtbühne an der Zitadelle Spandau": StageSettings(u"Berliner Kindertheater", u"Freilichtbühne an der Zitadelle Spandau", True),
+
     u"GRIPS Hansaplatz": StageSettings(u"GRIPS Theater", u"GRIPS Hansaplatz", True),
     u"GRIPS Podewil": StageSettings(u"GRIPS Theater", u"GRIPS Podewil", True),
+
     u"Hebbel am Ufer - HAU1": StageSettings(u"Hebbel am Ufer", u"HAU1", True),
     u"Hebbel am Ufer - HAU2": StageSettings(u"Hebbel am Ufer", u"HAU2", True),
     u"Hebbel am Ufer - HAU3": StageSettings(u"Hebbel am Ufer", u"HAU3", True),
     u"WAU im HAU2":  StageSettings(u"Hebbel am Ufer", u"WAU im HAU2", True),
+    u"HAU2 Installation":  StageSettings(u"Hebbel am Ufer", u"HAU2 Installation", True),
+    u"HAU1+2":  StageSettings(u"Hebbel am Ufer", u"HAU1+2", True),
+    u"HAU 1 in the Upper Foyer":  StageSettings(u"Hebbel am Ufer", u"HAU 1 in the Upper Foyer", True),
+    u"HAU2 Foyer":  StageSettings(u"Hebbel am Ufer", u"HAU2 Foyer", True),
+    u"HAU1 Installation":  StageSettings(u"Hebbel am Ufer", u"HAU1 Installation", True),
+    u"HAU3 Houseclub":  StageSettings(u"Hebbel am Ufer", u"HAU3 Houseclub", True),
+    u"HAU2 Outdoors":  StageSettings(u"Hebbel am Ufer", u"HAU2 Outdoors", True),
+    u"Privatwohnungen in Berlin":  StageSettings(u"Hebbel am Ufer", u"Privatwohnungen in Berlin", True),
+    u"Relexa Hotel":  StageSettings(u"Hebbel am Ufer", u"Relexa Hotel", True),
+
     u"Haus der Berliner Festspiele": StageSettings(u"Berliner Festspiele", u"Haus der Berliner Festspiele", True),
     u"Martin-Gropius-Bau": StageSettings(u"Berliner Festspiele", u"Martin-Gropius-Bau", True),
+
     u"Volksbühne am Rosa-Luxemburg-Platz / 3. Stock": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"3. Stock", True),
     u"Volksbühne am Rosa-Luxemburg-Platz / Books": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Books", True),
     u"Volksbühne am Rosa-Luxemburg-Platz / Grüner Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Grüner Salon", True),
     u"Volksbühne am Rosa-Luxemburg-Platz / Roter Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Roter Salon", True),
+
     u"Admiralspalast 101": StageSettings(u"Admiralspalast", u"F101", True),
     u"Admiralspalast Studio": StageSettings(u"Admiralspalast", u"Studio", True),
     u"Admiralspalast Theater": StageSettings(u"Admiralspalast", u"Theater", True),
+
     u"Berliner Ensemble/ Foyer": StageSettings(u"Berliner Ensemble", u"Foyer", True),
     u"Berliner Ensemble/ Pavillon": StageSettings(u"Berliner Ensemble", u"Pavillon", True),
     u"Berliner Ensemble/ Probebühne": StageSettings(u"Berliner Ensemble", u"Probebühne", True),
+    u"Berliner Ensemble/ Treffpunkt Kassenhalle": StageSettings(u"Berliner Ensemble", u"Treffpunkt Kassenhalle", True),
+
     u"Berliner Philharmonie – Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Kammermusiksaal", True),
     u"Foyer im Kammermusiksaal der Berliner Philharmoniker": StageSettings(u"Berliner Philharmonie", u"Foyer im Kammermusiksaal", True),
     u"Philharmonie Berlin - Großer Saal": StageSettings(u"Berliner Philharmonie", u"Großer Saal", True),
+    u"München, Philharmonie im Gasteig": StageSettings(u"Berliner Philharmonie", u"München, Philharmonie im Gasteig", True),
+    u"Philharmonie – Karl-Schuke-Orgel": StageSettings(u"Berliner Philharmonie", u"Philharmonie – Karl-Schuke-Orgel", True),
+    u"Hermann-Wolff-Saal": StageSettings(u"Berliner Philharmonie", u"Hermann-Wolff-Saal", True),
+    u"Mailand, Expo - La Scala": StageSettings(u"Berliner Philharmonie", u"Mailand, Expo - La Scala", True),
+    u"Wien, Musikverein": StageSettings(u"Berliner Philharmonie", u"Wien, Musikverein", True),
+    u"Philharmonie und Kammermusiksaal": StageSettings(u"Berliner Philharmonie", u"Philharmonie und Kammermusiksaal", True),
+
 	u"Konzerthaus Berlin - Großer Saal": StageSettings(u"Konzerthaus Berlin", u"Großer Saal", True),
 	u"Konzerthaus Berlin - Kleiner Saal": StageSettings(u"Konzerthaus Berlin", u"Kleiner Saal", True),
 	u"Konzerthaus Berlin - Ludwig-van-Beethoven-Saal": StageSettings(u"Konzerthaus Berlin", u"Ludwig-van-Beethoven-Saal", True),
 	u"Konzerthaus Berlin - Musikclub": StageSettings(u"Konzerthaus Berlin", u"Musikclub", True),
 	u"Konzerthaus Berlin - Werner-Otto-Saal": StageSettings(u"Konzerthaus Berlin", u"Werner-Otto-Saal", True),
+
     u"Renaissance-Theater Berlin - Bruckner-Foyer": StageSettings(u"Renaissance-Theater Berlin", u"Bruckner-Foyer", True),
+
     u"Sophiensaele - Festsaal": StageSettings(u"Sophiensaele", u"Festsaal", True),
 	u"Sophiensaele - Hochzeitssaal": StageSettings(u"Sophiensaele", u"Hochzeitssaal", True),
+	u"Kantine": StageSettings(u"Sophiensaele", u"Kantine", True),
+	u"gesamtes Haus": StageSettings(u"Sophiensaele", u"gesamtes Haus", True),
+	u"Sophiensaele - Kantine": StageSettings(u"Sophiensaele", u"Kantine", True),
+
+    u"Bode-Museum": StageSettings(u"Staatsoper im Schiller Theater", u"Bode Museum", True),
 	u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer", True),
 	u"Staatsoper im Schiller Theater - Werkstatt": StageSettings(u"Staatsoper im Schiller Theater", u"Werkstatt", True),
 	u"Staatsoper Unter den Linden": StageSettings(u"Staatsoper im Schiller Theater", u"Staatsoper Unter den Linden", True),
+    u"Waldbühne Berlin": StageSettings(u"Staatsoper im Schiller Theater", u"Waldbühne Berlin", False),
+    u"Staatsoper im Schiller Theater - Probebühne I": StageSettings(u"Staatsoper im Schiller Theater", u"Probebühne I", True),
+
     u"Theater an der Parkaue - Bühne 2": StageSettings(u"Theater an der Parkaue", u"Bühne 2", True),
+
+    u"Alten Feuerwache Eichwalde": StageSettings(u"Neuköllner Oper", u"Alten Feuerwache Eichwalde", True),
+
+    u"Bebelplatz": StageSettings(u"Staatsoper im Schiller Theater", u"Bebelplatz", True),
+
     u"Gorki Foyer Berlin": StageSettings(u"Gorki Theater", u"Foyer", True),
 	u"Gorki Studio R": StageSettings(u"Gorki Theater", u"Studio Я", True),
+	u"Studio Я": StageSettings(u"Gorki Theater", u"Studio Я", True),
+	u"Vorplatz GORKI": StageSettings(u"Gorki Theater", u"Vorplatz GORKI", True),
 	u"Maxim Gorki Theater": StageSettings(u"Gorki Theater", u"Gorki Theater", True),
-    # stages to exclude
+
     u"Tempodrom": StageSettings(u"Die Wühlmäuse", u"Tempodrom", False),
-    u"Waldbühne Berlin": StageSettings(u"Staatsoper im Schiller Theater", u"Waldbühne Berlin", False),
 }.iteritems())
+
 
 class CultureBaseLocation(object):
     def __init__(self, id, title, street_address, postal_code, city, *args, **kwargs):
@@ -111,7 +155,8 @@ class ImportFromHeimatBase(object):
     """ Base interface for importing productions and events from different websites
     according to this XML schema: http://cb.heimat.de/interface/schema/interfaceformat.xsd
     """
-    LOCATIONS = {}
+    LOCATIONS_BY_EXTERNAL_ID = {}
+    LOCATIONS_BY_TITLE = {}
     service = None
     CATEGORY_MAPPER = {
         7002: 74,  # Ausstellung
@@ -245,7 +290,8 @@ class ImportFromHeimatBase(object):
         reader = csv.reader(response.content.splitlines(), delimiter=";")
         reader.next()  # skip the first line
         for row in reader:
-            self.LOCATIONS[row[0]] = CultureBaseLocation(*row)
+            self.LOCATIONS_BY_EXTERNAL_ID[row[0]] = CultureBaseLocation(*row)
+            self.LOCATIONS_BY_TITLE[row[1]] = CultureBaseLocation(*row)
 
     def get_child_text(self, node, tag, **attrs):
         """
@@ -279,18 +325,19 @@ class ImportFromHeimatBase(object):
         from berlinbuehnen.apps.locations.models import Location, Stage
         LocationAndStage = namedtuple('LocationAndStage', ['location', 'stage'])
 
-        if not self.LOCATIONS:
+        if not self.LOCATIONS_BY_EXTERNAL_ID:
             self.load_and_parse_locations()
 
         if venue_node.get('isId') == "1":
             external_id = venue_node.text
         else:  # unknown location id
+            # return location and stage by title
+            return self.get_updated_location_and_stage_from_free_text(venue_node.text)
+
+        if external_id not in self.LOCATIONS_BY_EXTERNAL_ID:  # location not found in Berlin
             return LocationAndStage(None, None)
 
-        if external_id not in self.LOCATIONS:  # location not found in Berlin
-            return LocationAndStage(None, None)
-
-        culturebase_location = self.LOCATIONS[external_id]
+        culturebase_location = self.LOCATIONS_BY_EXTERNAL_ID[external_id]
 
         stage_settings = STAGE_TO_LOCATION_MAPPER.get(culturebase_location.title.lower(), None)
         if stage_settings:
@@ -306,7 +353,6 @@ class ImportFromHeimatBase(object):
                 location = Location()
                 location.title_de = location.title_en = culturebase_location.title
 
-        if not stage_settings:
             location.street_address = culturebase_location.street_address
             location.postal_code = culturebase_location.postal_code
             location.city = "Berlin"
@@ -335,6 +381,72 @@ class ImportFromHeimatBase(object):
                     'postal_code': culturebase_location.postal_code,
                     'city': "Berlin",
                 })
+
+        return LocationAndStage(location, stage)
+
+    def get_updated_location_and_stage_from_free_text(self, free_text_venue):
+        """
+        Creates or gets and updates location and stage
+        :param venue_node: XML node with venue data
+        :return: named tuple LocationAndStage(location, stage)
+        """
+        from collections import namedtuple
+        from berlinbuehnen.apps.locations.models import Location, Stage
+        city_suffix = re.compile(r' \[[^\]]+\]')
+        LocationAndStage = namedtuple('LocationAndStage', ['location', 'stage'])
+
+        venue_title = convert_location_title(free_text_venue)
+        stage_settings = STAGE_TO_LOCATION_MAPPER.get(venue_title.lower(), None)
+        if stage_settings:
+            try:
+                location = Location.objects.get(title_de=stage_settings.location_title)
+            except Location.DoesNotExist:
+                location = Location()
+                location.title_de = location.title_en = stage_settings.location_title
+        else:
+            try:
+                location = Location.objects.get(title_de=venue_title)
+            except Location.DoesNotExist:
+                location = Location()
+                location.title_de = location.title_en = venue_title
+
+            culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_title, None)
+            if culturebase_location:
+                location.street_address = culturebase_location.street_address
+                location.postal_code = culturebase_location.postal_code
+                location.city = u"Berlin"
+
+        location.save()
+
+        stage = None
+        if stage_settings:
+            if stage_settings.should_create_stage_object:
+                try:
+                    stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+                except Stage.DoesNotExist:
+                    stage = Stage()
+                    stage.location = location
+                    stage.title_de = stage.title_en = stage_settings.internal_stage_title
+
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(stage_settings.internal_stage_title, None)
+                if culturebase_location:
+                    stage.street_address = culturebase_location.street_address
+                    stage.postal_code = culturebase_location.postal_code
+                    stage.city = u"Berlin"
+
+                stage.save()
+            else:
+                stage_dict = {
+                    'title': stage_settings.internal_stage_title,
+                    'street_address': '',
+                    'postal_code': '',
+                    'city': 'Berlin',
+                }
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(stage_settings.internal_stage_title, None)
+                if culturebase_location:
+                    stage_dict['street_address'] = culturebase_location.street_address
+                    stage_dict['postal_code'] = culturebase_location.postal_code
+                return LocationAndStage(location, stage_dict)
 
         return LocationAndStage(location, stage)
 
