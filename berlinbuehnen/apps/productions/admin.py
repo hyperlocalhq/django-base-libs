@@ -130,8 +130,9 @@ class ProductionInvolvementInline(ExtendedStackedInline):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
-    list_display = ['title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'show_among_others', 'status']
-    search_fields = ['title_de', 'title_en']
+    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'show_among_others', 'status')
+    list_editable = ('show_among_others', 'status')
+    search_fields = ('title_de', 'title_en')
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'prefix', 'subtitle', 'original', 'website'])
     fieldsets += [(None, {'fields': ('slug', )}),]
     fieldsets += [(_("Location"), {'fields': ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with']}),]

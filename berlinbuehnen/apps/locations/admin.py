@@ -86,6 +86,7 @@ class LocationAdmin(ExtendedModelAdmin):
         )
 
     list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'status')
+    list_editable = ('status', )
     list_filter = ('status', )
 
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description',])
