@@ -272,7 +272,7 @@ em { color: black; font-style: italic; }
     }
 
     &:first-child{padding-left:0;margin-left:0;border-left:0}
-    &:first-child:before{content:""}
+    &:first-child:before{content: none}
   }
 
   &.dots > li{
@@ -281,7 +281,7 @@ em { color: black; font-style: italic; }
     display: inline-block;
     &:after{content:"•";position:absolute;top:0;right:6px;font-size:10px}
     &:last-child{padding-right:0}
-    &:last-child:after{content:""}
+    &:last-child:after{content: none}
   }
 }
 

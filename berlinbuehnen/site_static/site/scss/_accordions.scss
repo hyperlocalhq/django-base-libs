@@ -91,7 +91,7 @@
                     width: 80px;
                 }
                 &:after, &:before {
-                    content: "";
+                    content: none;
                     padding: 0;
                     display: inline;
                 }
