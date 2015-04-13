@@ -136,7 +136,7 @@
                         {% get_objects all articles.Article 2 as newest_articles %}
                         {% for article in newest_articles %}
                             <div class="col-xs-12 col-md-6 news-item">
-                                <h3>{{ article.category.title }}</h3>
+                                <h3>{% if article.category.title %}{{ article.category.title }}{% else %}{% trans "News" %}{% endif %}</h3>
                                 {% if article.image %}
                                     <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
                                 {% endif %}
@@ -177,14 +177,15 @@
             </div>
                 
                 
-            </div>
         </div>
     </div>
 
-    <div class="container">
-        <div id="tweets" data-twitter-username="berlinbuehnen">
+    <div class="twitter_wrapper">
+        <div class="twitter_icon fawesome twitter"></div>
+        <div class="container">
+            <div id="twitter-tweets" data-twitter-username="berlinbuehnen" class="row"></div>
         </div>
+         <script src="{{ STATIC_URL }}site/js/twitter.min.js"></script>
     </div>
-    <script src="{{ STATIC_URL }}site/js/twitter.min.js"></script>
 
 {% endblock %}

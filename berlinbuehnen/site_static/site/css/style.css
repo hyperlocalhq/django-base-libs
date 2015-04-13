@@ -187,6 +187,10 @@ strong {
   margin-bottom: 2px;
 }
 
+.fawesome.twitter:before {
+  content: "\f099";
+}
+
 @font-face {
   font-family: 'DingRegular';
   src: url("../fonts/ding/ding-regular.eot");
@@ -5670,6 +5674,49 @@ body.is-xs .info {
   margin-right: -30px;
 }
 
+.twitter_wrapper {
+  color: white;
+  background: #4583c8;
+}
+.twitter_wrapper a {
+  font-weight: 700;
+  color: white;
+}
+.twitter_wrapper a:hover {
+  color: white;
+}
+.twitter_wrapper p {
+  text-align: center;
+}
+.twitter_wrapper p.twitter-tweet-time {
+  font-size: 0.875em;
+}
+.twitter_wrapper .twitter_icon {
+  width: 80px;
+  height: 80px;
+  background: white;
+  margin: 0 auto;
+}
+.twitter_wrapper .twitter_icon:before {
+  color: black;
+  font-size: 2.25em;
+  line-height: 2.25em;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+}
+.twitter_wrapper #twitter-tweets {
+  margin-top: 0;
+  margin-bottom: 45px;
+}
+.twitter_wrapper #twitter-tweets .twitter-tweet {
+  margin-top: 35px;
+}
+
+.home {
+  padding-bottom: 20px !important;
+}
 .home .main {
   margin-bottom: 55px;
 }
@@ -5758,12 +5805,6 @@ input {
 .editorial .content {
   padding: 0px;
   padding-bottom: 35px;
-}
-
-.tweet {
-  background-image: url("../img/trns-1.png") !important;
-  padding: 23px 25px;
-  margin-bottom: 10px;
 }
 
 h1,
