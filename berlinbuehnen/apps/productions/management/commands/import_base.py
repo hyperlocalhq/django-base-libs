@@ -33,11 +33,16 @@ LOCATION_TITLE_MAPPER = dict((k.lower(), v) for k, v in {
     u"Wühlmäuse": u"Die Wühlmäuse",  # where does it happen?
     u"SCHAUBUDE BERLIN - Theater.PuppenFigurenObjekte": u"SCHAUBUDE BERLIN",
     u"Staatsoper im Schillertheater": u"Staatsoper im Schiller Theater",  # where does it happen?
+    u"ATZE  Musiktheater": u"ATZE Musiktheater",
 }.iteritems())
 
 
 def convert_location_title(title):
     return LOCATION_TITLE_MAPPER.get(title.lower(), title)
+
+LOCATIONS_TO_SKIP = [el.lower() for el in [
+    u"-",
+]]
 
 
 STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
@@ -389,13 +394,19 @@ class ImportFromHeimatBase(object):
     def get_updated_location_and_stage_from_free_text(self, free_text_venue):
         """
         Creates or gets and updates location and stage
-        :param venue_node: XML node with venue data
-        :return: named tuple LocationAndStage(location, stage)
+        :param free_text_venue: venue title
+        :return: named tuple LocationAndStage(location, stage) or LocationAndStage(location, stage_dict)
+        where location is Location instance,
+        stage is Stage instance,
+        stage_dict is dict with details to save at production or event
         """
         from collections import namedtuple
         from berlinbuehnen.apps.locations.models import Location, Stage
         city_suffix = re.compile(r' \[[^\]]+\]')
         LocationAndStage = namedtuple('LocationAndStage', ['location', 'stage'])
+
+        if free_text_venue.lower() in LOCATIONS_TO_SKIP:
+            return LocationAndStage(None, None)
 
         venue_title = convert_location_title(free_text_venue)
         stage_settings = STAGE_TO_LOCATION_MAPPER.get(venue_title.lower(), None)
@@ -409,8 +420,15 @@ class ImportFromHeimatBase(object):
             try:
                 location = Location.objects.get(title_de=venue_title)
             except Location.DoesNotExist:
-                location = Location()
-                location.title_de = location.title_en = venue_title
+                stage_dict = {
+                    'title': venue_title,
+                }
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_title, None)
+                if culturebase_location:
+                    stage_dict['street_address'] = culturebase_location.street_address
+                    stage_dict['postal_code'] = culturebase_location.postal_code
+                    stage_dict['city'] = u"Berlin"
+                return LocationAndStage(None, stage_dict)
 
             culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_title, None)
             if culturebase_location:
@@ -703,9 +721,9 @@ class ImportFromHeimatBase(object):
                 if location:
                     prod.play_locations.clear()
                     prod.play_locations.add(location)
-                else:
-                    prod.location_title = venue_node.text
-                    prod.save()
+                #else:
+                #    prod.location_title = venue_node.text
+                #    prod.save()
                 if stage:
                     if isinstance(stage, dict):
                         prod.location_title = stage['title']
@@ -953,9 +971,9 @@ class ImportFromHeimatBase(object):
                     if location:
                         event.play_locations.clear()
                         event.play_locations.add(location)
-                    else:
-                        event.location_title = venue_node.text
-                        event.save()
+                    #else:
+                    #    event.location_title = venue_node.text
+                    #    event.save()
 
                     if stage:
                         if isinstance(stage, dict):
