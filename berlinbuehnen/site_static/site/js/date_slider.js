@@ -159,7 +159,7 @@
             if (day < 10) day = "0"+day;
             var date_string = year+'-'+month+'-'+day;
             
-            var $area = $('<area id="'+me.usemap+'_'+i+'" shape="poly" coords="'+(left+16)+',0,'+(left+54)+',0,'+(left+38)+',40,'+(left+38)+',65,'+left+',65,'+left+',40" href="'+href+'?date='+date_string+query+'" />');
+            var $area = $('<area id="'+me.usemap+'_'+i+'" shape="poly" coords="'+(left+16)+',0,'+(left+54)+',0,'+(left+38)+',40,'+(left+38)+',70,'+left+',70,'+left+',40" href="'+href+'?date='+date_string+query+'" />');
             $area.mouseenter(function() {me.onMouseEnterDate($(this));});
             $area.mouseleave(function() {me.onMouseLeaveDate($(this));});
             if (me.$list) $area.click(function(event) {me.onDateClicked(event);});

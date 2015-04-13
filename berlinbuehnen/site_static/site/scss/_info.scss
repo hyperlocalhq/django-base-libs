@@ -29,7 +29,7 @@
                 color: white;
                 margin-bottom: 4px;
                 padding: 4px 0 4px 8px;
-                font-weight: 400;
+                font-weight: $regular;
                 font-size: 0.875em;
                 text-transform: uppercase;
             }
@@ -41,13 +41,13 @@
                 }
             }
             h2 {
-                font-weight: 700;
+                font-weight: $bold;
                 font-size: 1.25em;
                 text-transform: uppercase;
                 margin-bottom: 8px;
             }
             p {
-                font-weight: 400;
+                font-weight: $regular;
                 line-height: 125%;
                 margin: 0;
                 padding: 0;
@@ -55,7 +55,7 @@
             .more {
                 display: inline-block;
                 margin-top: 15px;
-                font-weight: 700;
+                font-weight: $bold;
                 font-size: 0.875em;
                 color: black;
                 text-transform: uppercase;

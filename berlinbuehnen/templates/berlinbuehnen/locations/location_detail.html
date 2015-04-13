@@ -54,7 +54,7 @@
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if location.image_set.exists %}
                                                 {% with location.image_set.all|first as first %}
-                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ first.title }}"  /></div> 
+                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  /></div> 
                                                 {% endwith %}
                                             {% endif %}
                                             <div class="description">
@@ -69,7 +69,7 @@
                                                     <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
                                                     <div class="accordion-item-content">
                                                         {% if location.logo %}
-                                                            <img src="{{ MEDIA_URL }}{{ location.logo|modified_path:"logo" }}" alt="" class="img-responsive" />
+                                                            <img src="{{ MEDIA_URL }}{{ location.logo|modified_path:"list_image" }}" class="logo" alt="{{ location.title|escape }}"/>
                                                         {% endif %}
                                                         <p data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
                                                             <strong>{{ location.title }}</strong><br />

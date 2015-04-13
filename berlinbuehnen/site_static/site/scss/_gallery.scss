@@ -10,7 +10,7 @@
     }
     
     .gallery-head {
-        font-weight: 200;
+        font-weight: $light;
         font-size: 2em;
         text-transform: uppercase;
         padding: 8px 0;
@@ -91,7 +91,7 @@
             .gallery-image-text-description {
                 text-align: left;
                 .gallery-image-text-description-title {
-                    font-weight: 700;
+                    font-weight: $bold;
                     padding-right: 10px;
                 }
                 .gallery-image-text-description-copy {

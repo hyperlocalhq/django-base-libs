@@ -41,7 +41,7 @@
     
     .top_nav {
         .nav {
-            font-size: 700;
+            font-weight: $bold;
             text-transform: uppercase;
             width: 100%;
             float: none;
@@ -55,7 +55,7 @@
             }
             a {
                 font-size: 1em;
-                font-weight: 700;
+                font-weight: $bold;
                 color: black;
                 &:hover {
                     color: $blue;
@@ -95,7 +95,7 @@
   height: 32px;
   line-height: 32px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: $bold;
   text-align: center;
   white-space:  nowrap;
   a {
@@ -129,7 +129,7 @@
     #meta {
         list-style: none;    
         margin: 0;
-        font-weight: 400;
+        font-weight: $regular;
         font-size: 0.875em;
         color: black;
         float: right;
@@ -159,12 +159,12 @@
                     margin-right: 5px;
                     &:after {
                         content: "|";
-                        font-weight: 400;
+                        font-weight: $regular;
                         cursor: default;
                         margin-left: 3px;
                     }
                     &.active {
-                        font-weight: 700;
+                        font-weight: $bold;
                     }
                     &:last-child {
                         margin-right: 0;

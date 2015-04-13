@@ -13,7 +13,7 @@
         border-top: 2px solid black;
         position: relative;
         .accordion-item-head {
-            font-weight: 200;
+            font-weight: $light;
             font-size: 2em;
             text-transform: uppercase;
             padding: 8px 0;
@@ -41,7 +41,7 @@
     .accordion-item {
         position: relative;
         .accordion-item-head {
-            font-weight: 400;
+            font-weight: $regular;
             font-size: 0.875em;
             text-transform: uppercase;
             padding: 4px 0 4px 8px;
@@ -73,7 +73,7 @@
         h5 {
             margin: 10px 10px -10px 10px;
             font-size: 1em;
-            font-weight: 700;
+            font-weight: $bold;
         }
         dl {
             margin: 10px 10px 10px 10px;
@@ -82,7 +82,7 @@
             }
             dt {
                 margin: 0;
-                font-weight: 200;
+                font-weight: $regular;
                 display: inline-block;
                 &.width_50 {
                     width: 50px;
@@ -99,7 +99,7 @@
             dd {
                 display: inline;
                 &.headline {
-                    font-weight: 700;
+                    font-weight: $bold;
                 }
                 &:after {
                     content:"\A"; 
@@ -143,11 +143,11 @@
                     &:after {
                         content: "|";
                         margin-left: 8px;
-                        font-weight: 200;
+                        font-weight: $light;
                     }
                 }
                 .date {
-                    font-weight: 700;
+                    font-weight: $bold;
                 }
                 .extra {
                     background: $blue;
@@ -157,7 +157,7 @@
                     padding: 0 10px 0 0;
                     height: 22px;
                     color: white;
-                    font-weight: 700;
+                    font-weight: $bold;
                     &:before {
                         content: url(../img/label_22px.png);
                         position: relative;

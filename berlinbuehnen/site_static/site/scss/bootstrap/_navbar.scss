@@ -450,7 +450,7 @@
       &:focus {
         color: $navbar-default-link-active-color;
         color: black;
-        font-weight: 700;
+        font-weight: $bold;
         // background-color: $navbar-default-link-active-bg;
       }
     }

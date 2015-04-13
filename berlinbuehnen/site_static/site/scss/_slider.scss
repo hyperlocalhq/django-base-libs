@@ -11,7 +11,7 @@
     .slider-head {
         width: 100%;
         font-size: 1.375em;
-        font-weight: 700;
+        font-weight: $bold;
         text-transform: uppercase;
         padding: 0 0 3px 0;
         margin: 0 0 15px 0;
@@ -39,7 +39,7 @@
         .slider-item-text {
             color: black;
             font-size: 1.125em;
-            font-weight: 200;
+            font-weight: $light;
             padding: 12px 39px 18px 6px;
             margin-left: 110px;
             background: white;
@@ -118,7 +118,7 @@
         .slider-item-text {
             margin-left: 50px;
             h5 {
-                font-weight: 400;
+                font-weight: $regular;
                 font-size: 1em;
             }
         }
