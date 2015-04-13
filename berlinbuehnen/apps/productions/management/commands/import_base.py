@@ -331,6 +331,8 @@ class ImportFromHeimatBase(object):
         if venue_node.get('isId') == "1":
             external_id = venue_node.text
         else:  # unknown location id
+            if not venue_node.text:
+                return LocationAndStage(None, None)
             # return location and stage by title
             return self.get_updated_location_and_stage_from_free_text(venue_node.text)
 
