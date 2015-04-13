@@ -9,7 +9,7 @@
     }
     
     .list-headline {
-        font-weight: 200;
+        font-weight: $light;
         font-size: 2em;
         text-transform: uppercase;
         padding-top: 20px;
@@ -40,7 +40,7 @@
                     height: 27px;
                     margin: 0;
                     padding: 0;
-                    font-weight: 700;
+                    font-weight: $bold;
                     font-size: 1.375em;
                     line-height: 22px;
                     text-transform: uppercase;
@@ -49,7 +49,7 @@
                     height: 18px;
                     margin: 0;
                     padding: 0;
-                    font-weight: 400;
+                    font-weight: 600;
                     font-size: 0.75em;
                     line-height: 12px;
                     text-transform: uppercase;
@@ -58,7 +58,7 @@
                     height: 32px;
                     margin: 0;
                     padding: 0;
-                    font-weight: 400;
+                    font-weight: $regular;
                     font-size: 0.75em;
                     line-height: 12px;
                     text-transform: uppercase;
@@ -67,7 +67,7 @@
                     height: 37px;
                     margin: 0;
                     padding: 0;
-                    font-weight: 700;
+                    font-weight: $bold;
                     font-size: 1.875em;
                     line-height: 30px;
                 }
@@ -130,25 +130,26 @@
                 margin-top: 0px;
                 dd {
                     float: left;
-                    font-weight: 300px;
                     &:after {
-                        content: ", ";
+                        content: "–";
+                        padding-right: 3px;
                     }
                     &:last-child:after {
-                        content: "";
+                        content: none;
                     }
                 }
             }
             
             h2 {
-                font-weight: 700;
+                font-weight: $bold;
                 font-size: 1.125em;
                 padding-top: 10px;
                 padding-bottom: 10px;
+                text-transform: uppercase;
             }
             
             h3 {
-                font-weight: 400;
+                font-weight: $regular;
                 font-size: 1em;
                 line-height: 125%;
                 &:last-of-type {
@@ -157,7 +158,7 @@
             }
             
             h4 {
-                font-weight: 400;
+                font-weight: $regular;
                 font-size: 1em;
                 line-height: 125%;
                 padding-top: 10px;
@@ -179,7 +180,7 @@
                 padding: 0;
                 height: 28px;
                 color: white;
-                font-weight: 700;
+                font-weight: $bold;
                 font-size: 0.875em;
                 width: 23%;
                 text-transform: uppercase;
@@ -297,7 +298,7 @@ body.is-xs {
                 bottom: -40px;
                 height: 22px;
                 color: white;
-                font-weight: 700;
+                font-weight: $bold;
                 font-size: 0.875em;
                 width: 160px;
                 text-transform: uppercase;

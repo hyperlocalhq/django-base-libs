@@ -19,7 +19,8 @@
 }
 
 .tooltip {
-    font-size: 1em !important;
+    font-size: 0.875em !important;
+    font-weight: 400;
 }
 
 .caret.black {
@@ -39,4 +40,8 @@
             background-color: $blue_hover;
         }
     }
+}
+
+.panel-body {
+    padding: 25px 0 15px;
 }

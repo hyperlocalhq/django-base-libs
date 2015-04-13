@@ -48,7 +48,6 @@ select {
   background-color: $lightgrey_3;
   border: none;
   font-family: inherit;
-  font-weight: 300 !important;
   font-size: 18px !important;
   line-height: 22px !important;
   color: rgba(0,0,0,0.75) !important;
@@ -525,7 +524,7 @@ a
 
       .lang {
         font-size: 10px;
-        font-weight: 700;
+        font-weight: $bold;
         margin-right: 5px;
       }
       
@@ -1374,7 +1373,7 @@ select {
     th small{
       font-size: 0.875em;
       text-transform: uppercase;
-      font-weight: 400;
+      font-weight: $regular;
       color: rgba(0,0,0,0.75) !important;
     }
     td {
@@ -1577,7 +1576,7 @@ select {
         white-space: nowrap;
 
 
-        .title { font-weight: 700; }
+        .title { font-weight: $bold; }
 
         &:hover {
            h3, h4 ,h5 { color: rgba(0,0,0,0.5) !important;}
@@ -1665,17 +1664,34 @@ select {
   &.modern-style {
     border: none !important;
     padding: 0 !important;
+    .deck [data-value] {
+        background: white;
+        .remove {
+            background-position: 0 2px;
+            margin: 0 3px 0 4px;
+            &:hover {
+                background-position: -15px 2px;
+            }
+        }
+    }
   }
 }
 
 .dashboard {
   
-  font-weight: 400;
+  font-weight: $regular;
   
   label {
-    font-weight: 400;
+    font-weight: $regular;
   }
     
+  .navbar-wrapper .nav.navbar-nav {
+    width: 100%;
+    & > li {
+        margin-right: 2.5%;
+    }
+  }
+  
   .dashboard-header {
       
     h4 {
@@ -1815,7 +1831,7 @@ select {
         time {
           font-size: 80px;
           line-height: 40px;
-          font-weight: 400;
+          font-weight: $regular;
           height: 40px;
         }
       }
@@ -2047,7 +2063,7 @@ select {
         cursor: pointer !important;
         strong {
             color: black !important;
-            font-weight: 200;
+            font-weight: $light;
         }
     }
     .ac_over {
