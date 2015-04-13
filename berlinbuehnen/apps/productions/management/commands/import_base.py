@@ -34,6 +34,9 @@ LOCATION_TITLE_MAPPER = dict((k.lower(), v) for k, v in {
     u"SCHAUBUDE BERLIN - Theater.PuppenFigurenObjekte": u"SCHAUBUDE BERLIN",
     u"Staatsoper im Schillertheater": u"Staatsoper im Schiller Theater",  # where does it happen?
     u"ATZE  Musiktheater": u"ATZE Musiktheater",
+    u"Astrid Lindgren Bühne im FEZ Berlin": u"Astrid Lindgren Bühne im FEZ-Berlin",
+    u"FEZ-Berlin und Landesmusikakademie Berlin": u"Landesmusikakademie Berlin im FEZ",
+    u"UdK - Universität der Künste Berlin": u"UNI.T - Theater der UdK Berlin",
 }.iteritems())
 
 
@@ -45,9 +48,15 @@ LOCATIONS_TO_SKIP = [el.lower() for el in [
 ]]
 
 
-STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
-    u"Astrid Lindgren Bühne im FEZ Berlin": StageSettings(u"FEZ-Berlin und Landesmusikakademie Berlin", u"Astrid Lindgren Bühne", True),
+PRODUCTION_VENUES = dict((k.lower(), v) for k, v in {
+    u"Rotes Rathaus": u"Rotes Rathaus",
+    u"Babylon Berlin-Mitte": u"Babylon Berlin-Mitte",
+    u"Delphi Filmpalast": u"Delphi Filmpalast",
+    u"Waldbühne Berlin": u"Waldbühne Berlin",
+}.iteritems())
 
+
+STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
     u"Deutsches Theater - Box und Bar": StageSettings(u"Deutsches Theater Berlin", u"Box und Bar", True),
     u"Deutsches Theater - Saal": StageSettings(u"Deutsches Theater Berlin", u"Saal", True),
     u"Deutsches Theater Berlin - Kammerspiele": StageSettings(u"Deutsches Theater Berlin", u"Kammerspiele", True),
@@ -58,24 +67,24 @@ STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
     u"Restaurant Deutsche Oper": StageSettings(u"Deutsche Oper Berlin", u"Restaurant", True),
     u"Tischlerei Deutsche Oper Berlin": StageSettings(u"Deutsche Oper Berlin", u"Tischlerei Deutsche Oper Berlin", True),
 
-    u"Freilichtbühne an der Zitadelle Spandau": StageSettings(u"Berliner Kindertheater", u"Freilichtbühne an der Zitadelle Spandau", True),
+    u"Freilichtbühne an der Zitadelle Spandau": StageSettings(u"Berliner Kindertheater", u"Freilichtbühne an der Zitadelle Spandau", False),
 
     u"GRIPS Hansaplatz": StageSettings(u"GRIPS Theater", u"GRIPS Hansaplatz", True),
     u"GRIPS Podewil": StageSettings(u"GRIPS Theater", u"GRIPS Podewil", True),
 
-    u"Hebbel am Ufer - HAU1": StageSettings(u"Hebbel am Ufer", u"HAU1", True),
-    u"Hebbel am Ufer - HAU2": StageSettings(u"Hebbel am Ufer", u"HAU2", True),
-    u"Hebbel am Ufer - HAU3": StageSettings(u"Hebbel am Ufer", u"HAU3", True),
-    u"WAU im HAU2":  StageSettings(u"Hebbel am Ufer", u"WAU im HAU2", True),
-    u"HAU2 Installation":  StageSettings(u"Hebbel am Ufer", u"HAU2 Installation", True),
-    u"HAU1+2":  StageSettings(u"Hebbel am Ufer", u"HAU1+2", True),
-    u"HAU 1 in the Upper Foyer":  StageSettings(u"Hebbel am Ufer", u"HAU 1 in the Upper Foyer", True),
-    u"HAU2 Foyer":  StageSettings(u"Hebbel am Ufer", u"HAU2 Foyer", True),
-    u"HAU1 Installation":  StageSettings(u"Hebbel am Ufer", u"HAU1 Installation", True),
-    u"HAU3 Houseclub":  StageSettings(u"Hebbel am Ufer", u"HAU3 Houseclub", True),
-    u"HAU2 Outdoors":  StageSettings(u"Hebbel am Ufer", u"HAU2 Outdoors", True),
-    u"Privatwohnungen in Berlin":  StageSettings(u"Hebbel am Ufer", u"Privatwohnungen in Berlin", True),
-    u"Relexa Hotel":  StageSettings(u"Hebbel am Ufer", u"Relexa Hotel", True),
+    u"Hebbel am Ufer - HAU1": StageSettings(u"HAU Hebbel am Ufer", u"HAU1", True),
+    u"Hebbel am Ufer - HAU2": StageSettings(u"HAU Hebbel am Ufer", u"HAU2", True),
+    u"Hebbel am Ufer - HAU3": StageSettings(u"HAU Hebbel am Ufer", u"HAU3", True),
+    u"WAU im HAU2":  StageSettings(u"HAU Hebbel am Ufer", u"WAU im HAU2", True),
+    u"HAU2 Installation":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Installation", True),
+    u"HAU1+2":  StageSettings(u"HAU Hebbel am Ufer", u"HAU1+2", True),
+    u"HAU 1 in the Upper Foyer":  StageSettings(u"HAU Hebbel am Ufer", u"HAU 1 in the Upper Foyer", True),
+    u"HAU2 Foyer":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Foyer", True),
+    u"HAU1 Installation":  StageSettings(u"HAU Hebbel am Ufer", u"HAU1 Installation", True),
+    u"HAU3 Houseclub":  StageSettings(u"HAU Hebbel am Ufer", u"HAU3 Houseclub", True),
+    u"HAU2 Outdoors":  StageSettings(u"HAU Hebbel am Ufer", u"HAU2 Outdoors", True),
+    u"Privatwohnungen in Berlin":  StageSettings(u"HAU Hebbel am Ufer", u"Privatwohnungen in Berlin", True),
+    u"Relexa Hotel":  StageSettings(u"HAU Hebbel am Ufer", u"Relexa Hotel", True),
 
     u"Haus der Berliner Festspiele": StageSettings(u"Berliner Festspiele", u"Haus der Berliner Festspiele", True),
     u"Martin-Gropius-Bau": StageSettings(u"Berliner Festspiele", u"Martin-Gropius-Bau", True),
@@ -122,14 +131,12 @@ STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
 	u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer", True),
 	u"Staatsoper im Schiller Theater - Werkstatt": StageSettings(u"Staatsoper im Schiller Theater", u"Werkstatt", True),
 	u"Staatsoper Unter den Linden": StageSettings(u"Staatsoper im Schiller Theater", u"Staatsoper Unter den Linden", True),
-    u"Waldbühne Berlin": StageSettings(u"Staatsoper im Schiller Theater", u"Waldbühne Berlin", False),
     u"Staatsoper im Schiller Theater - Probebühne I": StageSettings(u"Staatsoper im Schiller Theater", u"Probebühne I", True),
+    u"Bebelplatz": StageSettings(u"Staatsoper im Schiller Theater", u"Bebelplatz", True),
 
     u"Theater an der Parkaue - Bühne 2": StageSettings(u"Theater an der Parkaue", u"Bühne 2", True),
 
     u"Alten Feuerwache Eichwalde": StageSettings(u"Neuköllner Oper", u"Alten Feuerwache Eichwalde", True),
-
-    u"Bebelplatz": StageSettings(u"Staatsoper im Schiller Theater", u"Bebelplatz", True),
 
     u"Gorki Foyer Berlin": StageSettings(u"Gorki Theater", u"Foyer", True),
 	u"Gorki Studio R": StageSettings(u"Gorki Theater", u"Studio Я", True),
@@ -354,31 +361,47 @@ class ImportFromHeimatBase(object):
                 location = Location()
                 location.title_de = location.title_en = stage_settings.location_title
         else:
+            venue_to_save_at_production = PRODUCTION_VENUES.get(culturebase_location.title.lower(), '')
+            if venue_to_save_at_production:
+                stage_dict = {
+                    'title': venue_to_save_at_production,
+                }
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_to_save_at_production, None)
+                if culturebase_location:
+                    stage_dict['street_address'] = culturebase_location.street_address
+                    stage_dict['postal_code'] = culturebase_location.postal_code
+                    stage_dict['city'] = u"Berlin"
+                return LocationAndStage(None, stage_dict)
             try:
                 location = Location.objects.get(title_de=culturebase_location.title)
             except Location.DoesNotExist:
                 location = Location()
                 location.title_de = location.title_en = culturebase_location.title
 
-            location.street_address = culturebase_location.street_address
-            location.postal_code = culturebase_location.postal_code
-            location.city = "Berlin"
+            if not location.street_address:
+                location.street_address = culturebase_location.street_address
+                location.postal_code = culturebase_location.postal_code
+                location.city = "Berlin"
 
         location.save()
+
+        if location == self.in_program_of:
+            location = None
 
         stage = None
         if stage_settings:
             if stage_settings.should_create_stage_object:
                 try:
-                    stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+                    stage = Stage.objects.get(location=location or self.in_program_of, title_de=stage_settings.internal_stage_title)
                 except Stage.DoesNotExist:
                     stage = Stage()
-                    stage.location = location
+                    stage.location = location or self.in_program_of
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
-                stage.street_address = culturebase_location.street_address
-                stage.postal_code = culturebase_location.postal_code
-                stage.city = "Berlin"
+                if not stage.street_address:
+                    stage.street_address = culturebase_location.street_address
+                    stage.postal_code = culturebase_location.postal_code
+                    stage.city = "Berlin"
 
                 stage.save()
             else:
@@ -417,6 +440,17 @@ class ImportFromHeimatBase(object):
                 location = Location()
                 location.title_de = location.title_en = stage_settings.location_title
         else:
+            venue_to_save_at_production = PRODUCTION_VENUES.get(venue_title.lower(), '')
+            if venue_to_save_at_production:
+                stage_dict = {
+                    'title': venue_to_save_at_production,
+                }
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_to_save_at_production, None)
+                if culturebase_location:
+                    stage_dict['street_address'] = culturebase_location.street_address
+                    stage_dict['postal_code'] = culturebase_location.postal_code
+                    stage_dict['city'] = u"Berlin"
+                return LocationAndStage(None, stage_dict)
             try:
                 location = Location.objects.get(title_de=venue_title)
             except Location.DoesNotExist:
@@ -430,29 +464,34 @@ class ImportFromHeimatBase(object):
                     stage_dict['city'] = u"Berlin"
                 return LocationAndStage(None, stage_dict)
 
-            culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_title, None)
-            if culturebase_location:
-                location.street_address = culturebase_location.street_address
-                location.postal_code = culturebase_location.postal_code
-                location.city = u"Berlin"
+            if not location.street_address:
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_title, None)
+                if culturebase_location:
+                    location.street_address = culturebase_location.street_address
+                    location.postal_code = culturebase_location.postal_code
+                    location.city = u"Berlin"
 
         location.save()
+
+        if location == self.in_program_of:
+            location = None
 
         stage = None
         if stage_settings:
             if stage_settings.should_create_stage_object:
                 try:
-                    stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+                    stage = Stage.objects.get(location=location or self.in_program_of, title_de=stage_settings.internal_stage_title)
                 except Stage.DoesNotExist:
                     stage = Stage()
-                    stage.location = location
+                    stage.location = location or self.in_program_of
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
-                culturebase_location = self.LOCATIONS_BY_TITLE.get(stage_settings.internal_stage_title, None)
-                if culturebase_location:
-                    stage.street_address = culturebase_location.street_address
-                    stage.postal_code = culturebase_location.postal_code
-                    stage.city = u"Berlin"
+                if not stage.street_address:
+                    culturebase_location = self.LOCATIONS_BY_TITLE.get(stage_settings.internal_stage_title, None)
+                    if culturebase_location:
+                        stage.street_address = culturebase_location.street_address
+                        stage.postal_code = culturebase_location.postal_code
+                        stage.city = u"Berlin"
 
                 stage.save()
             else:
@@ -692,7 +731,7 @@ class ImportFromHeimatBase(object):
                 prod = Production()
             else:
                 prod = mapper.content_object
-                if not prod:
+                if not prod or prod.status == "trashed":
                     # if exhibition was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
@@ -707,7 +746,7 @@ class ImportFromHeimatBase(object):
                 continue
             prod.title_de = title_de
             prod.title_en = title_en or title_de
-            prod.website = prod_node.get('url')
+            prod.website_de = prod.website_en = prod_node.get('url')
 
             prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
 
@@ -727,9 +766,9 @@ class ImportFromHeimatBase(object):
                 if stage:
                     if isinstance(stage, dict):
                         prod.location_title = stage['title']
-                        prod.street_address = stage['street_address']
-                        prod.postal_code = stage['postal_code']
-                        prod.city = stage['city']
+                        prod.street_address = stage.get('street_address', u'')
+                        prod.postal_code = stage.get('postal_code', u'')
+                        prod.city = stage.get('city', u'Berlin')
                         prod.save()
                     else:
                         prod.play_stages.clear()
@@ -978,9 +1017,9 @@ class ImportFromHeimatBase(object):
                     if stage:
                         if isinstance(stage, dict):
                             event.location_title = stage['title']
-                            event.street_address = stage['street_address']
-                            event.postal_code = stage['postal_code']
-                            event.city = stage['city']
+                            event.street_address = stage.get('street_address', u'')
+                            event.postal_code = stage.get('postal_code', u'')
+                            event.city = stage.get('city', u'Berlin')
                             event.save()
                         else:
                             event.play_stages.clear()

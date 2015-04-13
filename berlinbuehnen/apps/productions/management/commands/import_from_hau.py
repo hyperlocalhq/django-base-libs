@@ -25,10 +25,10 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.skip_images = options.get('skip_images')
 
         self.in_program_of, created = Location.objects.get_or_create(
-            title_de=u"Hebbel am Ufer",
+            title_de=u"HAU Hebbel am Ufer",
             defaults={
-                'title_en': u"Hebbel am Ufer",
-                'slug': 'hebbel-am-ufer',
+                'title_en': u"HAU Hebbel am Ufer",
+                'slug': 'hau-hebbel-am-ufer',
                 'street_address': u'Stresemannstr. 29',
                 'postal_code': u'10963',
                 'city': u'Berlin',

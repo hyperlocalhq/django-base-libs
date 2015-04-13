@@ -24,7 +24,7 @@ from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
 from berlinbuehnen.apps.sponsors.models import Sponsor
 
-from import_base import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, convert_location_title, CultureBaseLocation
+from import_base import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -36,7 +36,7 @@ class Command(NoArgsCommand):
     )
     help = "Imports productions and events from Culturebase"
 
-    LOCATIONS = {}
+    LOCATIONS_BY_TITLE = {}
 
     CATEGORY_MAPPER = {
         7002: 74,  # Ausstellung
@@ -218,7 +218,7 @@ class Command(NoArgsCommand):
         reader = csv.reader(response.content.splitlines(), delimiter=";")
         reader.next()  # skip the first line
         for row in reader:
-            self.LOCATIONS[row[1]] = CultureBaseLocation(*row)
+            self.LOCATIONS_BY_TITLE[row[1]] = CultureBaseLocation(*row)
 
     def get_child_text(self, node, tag, **attrs):
         """
@@ -262,21 +262,30 @@ class Command(NoArgsCommand):
                 location = Location()
                 location.title_de = location.title_en = stage_settings.location_title
         else:
+            venue_to_save_at_production = PRODUCTION_VENUES.get(venue_title.lower(), '')
+            if venue_to_save_at_production:
+                return LocationAndStage(None, {
+                    'title': venue_to_save_at_production,
+                    'street_address': self.get_child_text(venue_node, 'Street'),
+                    'postal_code': self.get_child_text(venue_node, 'ZipCode'),
+                    'city': "Berlin",
+                })
             try:
                 location = Location.objects.get(title_de=venue_title)
             except Location.DoesNotExist:
                 location = Location()
                 location.title_de = location.title_en = venue_title
 
-            lat = self.get_child_text(venue_node, 'Latitude')
-            if lat:
-                location.latitude = float(lat)
-            lng = self.get_child_text(venue_node, 'Longitude')
-            if lng:
-                location.longitude = float(lng)
-            location.street_address = self.get_child_text(venue_node, 'Street')
-            location.postal_code = self.get_child_text(venue_node, 'ZipCode')
-            location.city = city_suffix.sub('', self.get_child_text(venue_node, 'City') or "")
+            if not location.street_address:
+                lat = self.get_child_text(venue_node, 'Latitude')
+                if lat:
+                    location.latitude = float(lat)
+                lng = self.get_child_text(venue_node, 'Longitude')
+                if lng:
+                    location.longitude = float(lng)
+                location.street_address = self.get_child_text(venue_node, 'Street')
+                location.postal_code = self.get_child_text(venue_node, 'ZipCode')
+                location.city = city_suffix.sub('', self.get_child_text(venue_node, 'City') or "")
 
         location.save()
 
@@ -290,15 +299,16 @@ class Command(NoArgsCommand):
                     stage.location = location
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
-                lat = self.get_child_text(venue_node, 'Latitude')
-                if lat:
-                    stage.latitude = float(lat)
-                lng = self.get_child_text(venue_node, 'Longitude')
-                if lng:
-                    stage.longitude = float(lng)
-                stage.street_address = self.get_child_text(venue_node, 'Street')
-                stage.postal_code = self.get_child_text(venue_node, 'ZipCode')
-                stage.city = city_suffix.sub('', self.get_child_text(venue_node, 'City') or "")
+                if not stage.street_address:
+                    lat = self.get_child_text(venue_node, 'Latitude')
+                    if lat:
+                        stage.latitude = float(lat)
+                    lng = self.get_child_text(venue_node, 'Longitude')
+                    if lng:
+                        stage.longitude = float(lng)
+                    stage.street_address = self.get_child_text(venue_node, 'Street')
+                    stage.postal_code = self.get_child_text(venue_node, 'ZipCode')
+                    stage.city = city_suffix.sub('', self.get_child_text(venue_node, 'City') or "")
 
                 stage.save()
             else:
@@ -337,24 +347,36 @@ class Command(NoArgsCommand):
                 location = Location()
                 location.title_de = location.title_en = stage_settings.location_title
         else:
+            venue_to_save_at_production = PRODUCTION_VENUES.get(venue_title.lower(), '')
+            if venue_to_save_at_production:
+                stage_dict = {
+                    'title': venue_title,
+                }
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_to_save_at_production, None)
+                if culturebase_location:
+                    stage_dict['street_address'] = culturebase_location.street_address
+                    stage_dict['postal_code'] = culturebase_location.postal_code
+                    stage_dict['city'] = u"Berlin"
+                return LocationAndStage(None, stage_dict)
             try:
                 location = Location.objects.get(title_de=venue_title)
             except Location.DoesNotExist:
                 stage_dict = {
                     'title': venue_title,
                 }
-                culturebase_location = self.LOCATIONS.get(venue_title, None)
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_title, None)
                 if culturebase_location:
                     stage_dict['street_address'] = culturebase_location.street_address
                     stage_dict['postal_code'] = culturebase_location.postal_code
                     stage_dict['city'] = u"Berlin"
                 return LocationAndStage(None, stage_dict)
 
-            culturebase_location = self.LOCATIONS.get(venue_title, None)
-            if culturebase_location:
-                location.street_address = culturebase_location.street_address
-                location.postal_code = culturebase_location.postal_code
-                location.city = u"Berlin"
+            if location.street_address:
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(venue_title, None)
+                if culturebase_location:
+                    location.street_address = culturebase_location.street_address
+                    location.postal_code = culturebase_location.postal_code
+                    location.city = u"Berlin"
 
         location.save()
 
@@ -368,11 +390,12 @@ class Command(NoArgsCommand):
                     stage.location = location
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
-                culturebase_location = self.LOCATIONS.get(stage_settings.internal_stage_title, None)
-                if culturebase_location:
-                    stage.street_address = culturebase_location.street_address
-                    stage.postal_code = culturebase_location.postal_code
-                    stage.city = u"Berlin"
+                if not stage.street_address:
+                    culturebase_location = self.LOCATIONS_BY_TITLE.get(stage_settings.internal_stage_title, None)
+                    if culturebase_location:
+                        stage.street_address = culturebase_location.street_address
+                        stage.postal_code = culturebase_location.postal_code
+                        stage.city = u"Berlin"
 
                 stage.save()
             else:
@@ -382,7 +405,7 @@ class Command(NoArgsCommand):
                     'postal_code': '',
                     'city': 'Berlin',
                 }
-                culturebase_location = self.LOCATIONS.get(stage_settings.internal_stage_title, None)
+                culturebase_location = self.LOCATIONS_BY_TITLE.get(stage_settings.internal_stage_title, None)
                 if culturebase_location:
                     stage_dict['street_address'] = culturebase_location.street_address
                     stage_dict['postal_code'] = culturebase_location.postal_code
@@ -595,7 +618,6 @@ class Command(NoArgsCommand):
             instance.description_en = instance.press_text_en
             instance.press_text_en = u""
 
-
     def save_page(self, root_node):
         import time
         from filebrowser.models import FileDescription
@@ -626,8 +648,8 @@ class Command(NoArgsCommand):
                 prod = Production()
             else:
                 prod = mapper.content_object
-                if not prod:
-                    # if exhibition was deleted after import,
+                if not prod or prod.status == "trashed":
+                    # if production was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
@@ -638,7 +660,7 @@ class Command(NoArgsCommand):
 
             prod.title_de = title_de
             prod.title_en = title_en or title_de
-            prod.website = self.get_child_text(prod_node, 'Url')
+            prod.website_de = prod.website_en = self.get_child_text(prod_node, 'Url')
 
             prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
 
@@ -683,9 +705,9 @@ class Command(NoArgsCommand):
                 if stage:
                     if isinstance(stage, dict):
                         prod.location_title = stage['title']
-                        prod.street_address = stage['street_address']
-                        prod.postal_code = stage['postal_code']
-                        prod.city = stage['city']
+                        prod.street_address = stage.get('street_address', u'')
+                        prod.postal_code = stage.get('postal_code', u'')
+                        prod.city = stage.get('city', u'Berlin')
                         prod.save()
                     else:
                         prod.play_stages.clear()
@@ -949,9 +971,9 @@ class Command(NoArgsCommand):
                     if stage:
                         if isinstance(stage, dict):
                             event.location_title = stage['title']
-                            event.street_address = stage['street_address']
-                            event.postal_code = stage['postal_code']
-                            event.city = stage['city']
+                            event.street_address = stage.get('street_address', u'')
+                            event.postal_code = stage.get('postal_code', u'')
+                            event.city = stage.get('city', u'Berlin')
                             event.save()
                         else:
                             event.play_stages.clear()
