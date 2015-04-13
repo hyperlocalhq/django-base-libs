@@ -7,6 +7,10 @@
  * The main wrapper has to have a transparent image included with the class "date-slider-links"
  * and an unique usemap attribute.
  *
+ * If the date slider has an id and it exists a list with the id resampling the first part of the slider id up to "_" and adding "_list",
+ * the content of the list gets loaded by ajax. 
+ * E.g.: the slider with the id "main_dateslider" would belong to the list with the id "main_list".
+ *
  * @author Daniel Lehmann
  */
 
@@ -31,13 +35,24 @@
         
         me.day_limit = 366;
         
+        
+        me.loading = false;
+        
         me.$main = $main;
+        var main_id = me.$main.attr('id');
+        var connect_id = (main_id) ? main_id.split('_', 2) : '';
+        me.connect_id = connect_id[0];
+        
+        me.$list = (me.connect_id) ? $('#'+me.connect_id+'_list') : '';    
+        me.$filter = (me.connect_id) ? $('#'+me.connect_id+'_filter') : '';        
+        
         me.$links = $('.date-slider-links', $main);
         me.date = new Date(me.$main.attr('data-date') * 1000);
         me.today = new Date(me.$main.attr('data-today') * 1000);
         me.days = me.$main.attr('data-days').split(",");
         me.months = me.$main.attr('data-months').split(",");
         me.href = me.$main.attr('data-path');
+        me.query = '';
         
         me.usemap = me.$links.attr('usemap').substr(1);
         me.last_width = -1;
@@ -78,6 +93,24 @@
         
         me.onResize();
         $(window).resize(function() {me.onResize();});
+        me.$main.data('dateslider', me);
+    }
+    
+    /**
+     * Reinitialises the connected components of the dateslider
+     * after new content got loaded by a filter.
+     * 
+     * Gets called internaly.
+     *
+     * @param   query   the new filter query without a leading '?'
+     */
+    
+    DateSlider.prototype.reinitByFilter = function(query) {
+        
+        if (this.me) var me = this.me;
+        me.query = query;
+        
+        me.writeCalender();
     }
     
     /**
@@ -104,7 +137,7 @@
         
         me.$links.detach();
         
-        
+        var query = (me.query) ? '&'+me.query : '';
         var $map = $('<map name="' + me.usemap + '"/>');
         var active = me.date.getTime();
         var date = new Date(me.first_date.getTime());
@@ -126,9 +159,10 @@
             if (day < 10) day = "0"+day;
             var date_string = year+'-'+month+'-'+day;
             
-            var $area = $('<area id="'+me.usemap+'_'+i+'" shape="poly" coords="'+(left+16)+',0,'+(left+54)+',0,'+(left+38)+',40,'+(left+38)+',65,'+left+',65,'+left+',40" href="'+href+'?date='+date_string+'" />');
+            var $area = $('<area id="'+me.usemap+'_'+i+'" shape="poly" coords="'+(left+16)+',0,'+(left+54)+',0,'+(left+38)+',40,'+(left+38)+',65,'+left+',65,'+left+',40" href="'+href+'?date='+date_string+query+'" />');
             $area.mouseenter(function() {me.onMouseEnterDate($(this));});
             $area.mouseleave(function() {me.onMouseLeaveDate($(this));});
+            if (me.$list) $area.click(function(event) {me.onDateClicked(event);});
             $map.append($area);
             
             date.setDate(date.getDate()+1);
@@ -139,6 +173,60 @@
         me.$days.append($map);
         
         me.setNavi();
+    }
+    
+    /**
+     * A link got clicked.
+     * Handels the reloading of the content.
+     *
+     * @param   event   the jQuery click event
+     */
+    DateSlider.prototype.onDateClicked = function(event) {
+        
+        if (this.me) var me = this.me;
+        
+        event.preventDefault();
+        
+        if (me.loading) return false;
+        me.loading = true;
+        
+        var $area = $(event.target);
+        var href = $area.attr('href');
+        
+        if (me.$list.jscroll.destroy) me.$list.jscroll.destroy();
+        
+        
+        
+        
+        // loading the new content
+        var onContentLoaded = function(response, status, xhr) {
+            
+            if (status == "error") {
+                var msg = "Error loading filtered list: ";
+                alert( msg + xhr.status + " " + xhr.statusText );
+                me.loading = false;
+                return false;
+            }
+        
+            var id = $area.attr('id').split("_");
+            var index = id[id.length-1];
+            
+            $('.date-slider-item', me.$main).removeClass('active');
+            $('#'+me.usemap+'item_'+index, me.$main).addClass('active');
+        
+            
+            var $response = $(response);
+            var $new_main = $('#' + me.$main.attr('id'), $response);
+            
+            me.date = new Date($new_main.data('date') * 1000);
+            
+            me.$list.data('list').reinitByFilter();
+            if (me.$filter) me.$filter.data('filter').resetDate(me.date);
+            
+            me.loading = false;
+        }        
+        
+        me.$list.load(href + " #" + me.connect_id + '_list', onContentLoaded);
     }
     
     /**

@@ -35,7 +35,7 @@ def other_productions(context, current_event=False, current_location=False, amou
     }
     
 @register.inclusion_tag('productions/includes/date_slider.html', takes_context=True)
-def date_slider(context, page, active=0):
+def date_slider(context, page, active=0, id=''):
     
     today = datetime.today()
 
@@ -50,6 +50,7 @@ def date_slider(context, page, active=0):
     return {
         'today': today,
         'active': active,
+        'id': id,
         'days': days,
         'months': months,
         'page': page,

@@ -11,6 +11,7 @@
 @import 'accordions';
 @import 'gallery';
 @import 'list';
+@import 'filter';
 @import 'info';
 @import 'home';
 //@import 'isotope';
@@ -442,3 +443,7 @@ em { color: black; font-style: italic; }
     }
 }
     
+.empty-container {
+    padding: 50px 0;    
+}
+

@@ -208,6 +208,10 @@ body {
   -webkit-text-stroke: 1px transparent;
 }
 
+label {
+    font-size: 1em;
+}
+
 h1,
 h2,
 h3,
@@ -239,7 +243,7 @@ strong {
     font-weight: 700;
 }
 
-.sidebar-accordion .accordion-item-head, .news-item h3 {
+.sidebar-accordion .accordion-item-head, .news-item h3, .filter label, .filter .filter-suboptions, .filter .filter-set a, .filter .filter-reset-button {
     font-family: 'Webfont2', Helvetica, Arial, sans-serif;
 }
 
@@ -258,57 +262,53 @@ strong {
     font-style: normal;
 }
 
-.fawesome:before, .fawesome:after {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    padding-right: 10px;
-    vertical-align: bottom;
-    font-weight: 400;
-}
-
-.fawesome:after {
-    padding-left: 10px;
-}
-
-
-.fawesome.back {
+.fawesome {
+    
     line-height: 1.375em;
-    &:before {
-        content: "\f104";
+    
+    &:before, &:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding-right: 10px;
+        vertical-align: bottom;
+        font-weight: 400;
         font-size: 1.375em;
     }
-}
-.fawesome.up {
-    line-height: 1.375em;
-    &:before {
-        content: "\f106";
-        font-size: 1.375em;
-    }
-}
-.fawesome.down {
-    line-height: 1.375em;
-    &:before {
-        content: "\f107";
-        font-size: 1.375em;
-    }
-}
-.fawesome.tickets {
-    line-height: 1.375em;
-    &:before {
-        content: "\f02c";
-        font-size: 1.375em;
-    }
-}
-.fawesome.more {
-    line-height: 1.375em;
     &:after {
-        content: "\f105";
-        font-size: 1.375em;
-        position: relative;
-        bottom: -1px;
+        padding-left: 10px;
     }
 }
+
+
+.fawesome.back:before {
+    content: "\f104";
+}
+.fawesome.up:before {
+    content: "\f106";
+}
+.fawesome.down:before {
+    content: "\f107";
+}
+.fawesome.tickets:before {
+    content: "\f02c";
+}
+.fawesome.more:after {
+    content: "\f105";
+}
+.fawesome.delete:before {
+    content: "\f00d";
+    color: white;
+    background: black;padding-right: 0;
+    margin-right: 3px;
+    font-size: 1em;
+    width: 15px;
+    height: 15px;
+    line-height: 13px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
