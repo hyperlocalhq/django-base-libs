@@ -192,7 +192,7 @@ class ImportFromHeimatBase(object):
         7008: 57,  # Kabarett
         7022: 8,  # Kinder/Jugend
         7013: 43,  # Klassik
-        7017: 14,  # Komödie
+        #7017: 14,  # Komödie
         7019: 69,  # Konferenz
         6998: 17,  # Konzertante Vorstellung
         7020: 15,  # Lesung
