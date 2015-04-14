@@ -758,7 +758,9 @@ class Command(NoArgsCommand):
             for category_id_node in prod_node.findall('./%(prefix)sContentCategory/%(prefix)sCategoryId' % self.helper_dict):
                 internal_cat_id = self.CATEGORY_MAPPER.get(int(category_id_node.text), None)
                 if internal_cat_id:
-                    prod.categories.add(ProductionCategory.objects.get(pk=internal_cat_id))
+                    cats = ProductionCategory.objects.filter(pk=internal_cat_id)
+                    if cats:
+                        prod.categories.add(cats[0])
 
             for status_node in prod_node.findall('./%(prefix)sStatus' % self.helper_dict):
                 internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)
