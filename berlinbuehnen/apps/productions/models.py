@@ -700,6 +700,8 @@ class Event(CreationModificationMixin, UrlMixin):
     ### special text ###
 
     def get_special_text(self):
+        if not self.pk:
+            return u""
         ch = self.characteristics.filter(slug="premiere")
         if ch:
             return ch[0].title
