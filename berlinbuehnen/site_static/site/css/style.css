@@ -182,7 +182,7 @@ strong {
   font-size: 1em;
   width: 15px;
   height: 15px;
-  line-height: 13px;
+  line-height: 14px;
   text-align: center;
   margin-bottom: 2px;
 }
@@ -2255,8 +2255,8 @@ strong {
 }
 
 .tooltip {
-  font-size: 0.875em !important;
-  font-weight: 400;
+  font-size: 16px !important;
+  font-weight: 700;
 }
 
 .caret.black {
@@ -3639,6 +3639,13 @@ div.tagsinput input:hover {
 .dashboard-content .fieldset-imagegallery #photos {
   width: 100%;
 }
+.dashboard-content .alert.alert-error {
+  color: #b94a48;
+  font-weight: 700;
+}
+.dashboard-content p[id*="error"].help-block strong {
+  color: #b94a48;
+}
 
 #form-meta {
   position: absolute;
@@ -4633,12 +4640,22 @@ select {
 }
 .slider .slider-head {
   width: 100%;
-  font-size: 1.375em;
-  font-weight: 700;
-  text-transform: uppercase;
   padding: 0 0 3px 0;
   margin: 0 0 15px 0;
   border-bottom: 4px solid black;
+}
+.slider .slider-head h4 {
+  font-size: 1.375em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.slider .slider-head .more {
+  color: black;
+  text-transform: uppercase;
+  float: right;
+}
+.slider .slider-head .more:hover {
+  color: #4583c8;
 }
 .slider .slider-body {
   list-style: none;
@@ -4683,7 +4700,7 @@ select {
 }
 .slider .slider-item .slider-item-text:before {
   opacity: 0.7;
-  content: none;
+  content: "";
   /*width: 40px;
   height: 100%;
   display: block;
@@ -4744,6 +4761,10 @@ select {
 }
 .slider.small-margin .slider-next {
   background-size: 50% 50%;
+}
+
+.is-xs .slider .slider-head .more {
+  float: none;
 }
 
 .date-slider {
@@ -5461,14 +5482,19 @@ body.is-xs.location-list .list-item .list-item-head {
   height: 33px;
   color: white;
   background: black;
+  padding: 0;
 }
 .filter-wrapper .filter-button:before {
   font-size: 1.7em;
-  margin-left: 8px;
-  margin-top: 2px;
+  width: 33px;
+  height: 33px;
+  line-height: 33px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
 }
 .filter-wrapper .filter-button.up:before {
-  margin-top: -3px;
+  line-height: 31px;
 }
 .filter-wrapper .filter-reset-button {
   border: none;

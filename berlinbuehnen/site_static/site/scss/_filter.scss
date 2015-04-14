@@ -13,13 +13,18 @@
         height: 33px;
         color: white;
         background: black;
+        padding: 0;
         &:before {
             font-size: 1.7em;
-            margin-left: 8px;
-            margin-top: 2px;
+            width: 33px;
+            height: 33px;
+            line-height: 33px;
+            text-align: center;
+            padding: 0;
+            margin: 0;
         }
         &.up:before {
-            margin-top: -3px;
+            line-height: 31px;
         }
     }
     

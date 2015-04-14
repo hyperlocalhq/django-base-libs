@@ -292,6 +292,7 @@
             me.loading = false;
         }
         
+        if (href == '') href = '?';
         me.$list.load(href + " #" + me.connect_id + '_list', onContentLoaded);
     }
     

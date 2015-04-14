@@ -52,7 +52,20 @@
         me.days = me.$main.attr('data-days').split(",");
         me.months = me.$main.attr('data-months').split(",");
         me.href = me.$main.attr('data-path');
-        me.query = '';
+        
+        
+        me.query = location.search.substr(1);       
+        var date_split = me.query.split('date=', 2);
+        if (date_split.length == 2) {
+            me.query = date_split[0];
+            date_split = date_split[1].split("&", 2);
+            if (date_split.length == 2) {
+                me.query += date_split[1];
+            } else {
+                me.query = me.query.substr(0, me.query.length-1);   
+            }
+        }
+        
         
         me.usemap = me.$links.attr('usemap').substr(1);
         me.last_width = -1;
@@ -108,6 +121,7 @@
     DateSlider.prototype.reinitByFilter = function(query) {
         
         if (this.me) var me = this.me;
+        
         me.query = query;
         
         me.writeCalender();
