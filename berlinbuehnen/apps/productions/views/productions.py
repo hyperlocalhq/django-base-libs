@@ -73,8 +73,7 @@ class EventFilterForm(forms.Form):
 
 
 def event_list(request, year=None, month=None, day=None):
-    #qs = Event.objects.filter(production__status="published")
-    qs = Event.objects.all()
+    qs = Event.objects.filter(production__status="published")
 
     # exclude the parts of multipart productions
     qs = qs.filter(production__part=None)
@@ -181,14 +180,13 @@ def event_list(request, year=None, month=None, day=None):
 
 def event_detail(request, slug, event_id=None):
     if "preview" in request.REQUEST:
-        qs = Event.objects.all()
+        qs = Event.objects.exclude(production__status='trashed')
     else:
-        #qs = Event.objects.filter(production__status="published")
-        qs = Event.objects.all()
+        qs = Event.objects.filter(production__status__in=('published', 'expired'))
 
     if event_id:
         obj = get_object_or_404(qs, production__slug=slug, pk=event_id)
-        if not request.user.has_perm("events.change_event", obj):
+        if obj.status not in ('published', 'expired') and not request.user.has_perm("events.change_event", obj):
             return access_denied(request)
     else:
         production = get_object_or_404(Production, slug=slug)

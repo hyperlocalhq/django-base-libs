@@ -495,6 +495,17 @@ class EventCharacteristics(CreationModificationDateMixin, SlugMixin()):
         verbose_name_plural = _("Event Characteristics")
 
 
+class EventManager(models.Manager):
+    def published_upcoming(self, timestamp=tz_now):
+        if callable(timestamp):
+            timestamp = timestamp()
+        return self.filter(
+            models.Q(end_date__gte=timestamp.date()) |
+            models.Q(end_date=None, start_date__gte=timestamp.date()),
+            production__status="published",
+        )
+
+
 class Event(CreationModificationMixin, UrlMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
     start_date = models.DateField(_("Start date"))
@@ -545,6 +556,8 @@ class Event(CreationModificationMixin, UrlMixin):
     other_characteristics = MultilingualTextField(_("Other characteristics"), blank=True)
 
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
+
+    objects = EventManager()
 
     class Meta:
         ordering = ["start_date", "start_time"]
