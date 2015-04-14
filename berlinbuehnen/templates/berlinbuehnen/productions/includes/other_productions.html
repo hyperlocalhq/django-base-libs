@@ -6,7 +6,7 @@
                 {% if current_location %}
                     <div class="col-xs-12 col-sm-4 col-sm-push-8"><a href="{% url "event_list" %}?locations={{ current_location.pk }}" class="fawesome more">{% trans "Events at this venue" %}</a></div>
                 {% endif %}
-                <h4 class="col-xs-12 col-sm-8 col-sm-pull-4">
+                <h4 class="col-xs-12 {% if current_location %}col-sm-8 col-sm-pull-4{% endif %}">
                     {% if current_event %}
                         {% trans "Further productions at this venue" %}
                     {% elif current_location %}
