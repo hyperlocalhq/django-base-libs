@@ -186,7 +186,7 @@ def event_detail(request, slug, event_id=None):
 
     if event_id:
         obj = get_object_or_404(qs, production__slug=slug, pk=event_id)
-        if obj.status not in ('published', 'expired') and not request.user.has_perm("events.change_event", obj):
+        if obj.production.status not in ('published', 'expired') and not request.user.has_perm("events.change_event", obj):
             return access_denied(request)
     else:
         production = get_object_or_404(Production, slug=slug)
