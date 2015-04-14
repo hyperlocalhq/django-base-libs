@@ -102,47 +102,41 @@ def event_list(request, year=None, month=None, day=None):
         cats = form.cleaned_data['locations']
         if cats:
             facets['selected']['locations'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    models.Q(production__in_program_of=cat) |
-                    models.Q(play_locations=cat) |
-                    models.Q(production__play_locations=cat)
-                ).distinct()
+            qs = qs.filter(
+                models.Q(production__in_program_of__in=cats) |
+                models.Q(play_locations__in=cats) |
+                models.Q(production__play_locations__in=cats)
+            ).distinct()
         cats = form.cleaned_data['categories']
         if cats:
             facets['selected']['categories'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    production__categories=cat,
-                ).distinct()
+            qs = qs.filter(
+                production__categories__in=cats,
+            ).distinct()
         cats = form.cleaned_data['subcategories']
         if cats:
             facets['selected']['subcategories'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    production__categories=cat,
-                ).distinct()
+            qs = qs.filter(
+                production__categories__in=cats,
+            ).distinct()
         cats = form.cleaned_data['language_and_subtitles']
         if cats:
             facets['selected']['language_and_subtitles'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    production__language_and_subtitles=cat,
-                ).distinct()
+            qs = qs.filter(
+                production__language_and_subtitles__in=cats,
+            ).distinct()
         cats = form.cleaned_data['production_characteristics']
         if cats:
             facets['selected']['production_characteristics'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    production__characteristics=cat,
-                ).distinct()
+            qs = qs.filter(
+                production__characteristics__in=cats,
+            ).distinct()
         cats = form.cleaned_data['event_characteristics']
         if cats:
             facets['selected']['event_characteristics'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    characteristics=cat,
-                ).distinct()
+            qs = qs.filter(
+                characteristics__in=cats,
+            ).distinct()
 
     abc_filter = request.GET.getlist('abc', None)
     abc_list = get_abc_list(qs, "production__title_%s" % request.LANGUAGE_CODE)
