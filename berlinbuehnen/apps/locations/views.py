@@ -43,8 +43,7 @@ class LocationFilterForm(forms.Form):
 
 
 def location_list(request, year=None, month=None, day=None):
-    #qs = Location.objects.filter(status="published")
-    qs = Location.objects.all()
+    qs = Location.objects.filter(status="published")
 
     form = LocationFilterForm(data=request.REQUEST)
     
@@ -110,8 +109,7 @@ def location_detail(request, slug):
         if not request.user.has_perm("locations.change_location", obj):
             return access_denied(request)
     else:
-        #qs = Location.objects.filter(production__status="published")
-        qs = Location.objects.all()
+        qs = Location.objects.filter(status="published")
     return object_detail(
         request,
         queryset=qs,

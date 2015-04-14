@@ -57,6 +57,9 @@ PRODUCTION_VENUES = dict((k.lower(), v) for k, v in {
 
 
 STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
+    u"Große Orangerie Schloss Charlottenburg": StageSettings(u"Berliner Residenz Konzerte", u"Große Orangerie Schloss Charlottenburg", True),
+    u"Große Orangerie Charlottenburg": StageSettings(u"Berliner Residenz Konzerte", u"Große Orangerie Schloss Charlottenburg", True),
+
     u"Deutsches Theater - Box und Bar": StageSettings(u"Deutsches Theater Berlin", u"Box und Bar", True),
     u"Deutsches Theater - Saal": StageSettings(u"Deutsches Theater Berlin", u"Saal", True),
     u"Deutsches Theater Berlin - Kammerspiele": StageSettings(u"Deutsches Theater Berlin", u"Kammerspiele", True),
@@ -189,7 +192,7 @@ class ImportFromHeimatBase(object):
         7008: 57,  # Kabarett
         7022: 8,  # Kinder/Jugend
         7013: 43,  # Klassik
-        7017: 14,  # Komödie
+        #7017: 14,  # Komödie
         7019: 69,  # Konferenz
         6998: 17,  # Konzertante Vorstellung
         7020: 15,  # Lesung
@@ -825,7 +828,9 @@ class ImportFromHeimatBase(object):
             for category_node in prod_node.findall('category'):
                 internal_cat_id = self.CATEGORY_MAPPER.get(int(category_node.text), None)
                 if internal_cat_id:
-                    prod.categories.add(ProductionCategory.objects.get(pk=internal_cat_id))
+                    cats = ProductionCategory.objects.filter(pk=internal_cat_id)
+                    if cats:
+                        prod.categories.add(cats[0])
 
             for status_id_node in prod_node.findall('statusId'):
                 internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)

@@ -73,8 +73,7 @@ class EventFilterForm(forms.Form):
 
 
 def event_list(request, year=None, month=None, day=None):
-    #qs = Event.objects.filter(production__status="published")
-    qs = Event.objects.all()
+    qs = Event.objects.filter(production__status="published")
 
     # exclude the parts of multipart productions
     qs = qs.filter(production__part=None)
@@ -103,47 +102,41 @@ def event_list(request, year=None, month=None, day=None):
         cats = form.cleaned_data['locations']
         if cats:
             facets['selected']['locations'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    models.Q(production__in_program_of=cat) |
-                    models.Q(play_locations=cat) |
-                    models.Q(production__play_locations=cat)
-                ).distinct()
+            qs = qs.filter(
+                models.Q(production__in_program_of__in=cats) |
+                models.Q(play_locations__in=cats) |
+                models.Q(production__play_locations__in=cats)
+            ).distinct()
         cats = form.cleaned_data['categories']
         if cats:
             facets['selected']['categories'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    production__categories=cat,
-                ).distinct()
+            qs = qs.filter(
+                production__categories__in=cats,
+            ).distinct()
         cats = form.cleaned_data['subcategories']
         if cats:
             facets['selected']['subcategories'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    production__categories=cat,
-                ).distinct()
+            qs = qs.filter(
+                production__categories__in=cats,
+            ).distinct()
         cats = form.cleaned_data['language_and_subtitles']
         if cats:
             facets['selected']['language_and_subtitles'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    production__language_and_subtitles=cat,
-                ).distinct()
+            qs = qs.filter(
+                production__language_and_subtitles__in=cats,
+            ).distinct()
         cats = form.cleaned_data['production_characteristics']
         if cats:
             facets['selected']['production_characteristics'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    production__characteristics=cat,
-                ).distinct()
+            qs = qs.filter(
+                production__characteristics__in=cats,
+            ).distinct()
         cats = form.cleaned_data['event_characteristics']
         if cats:
             facets['selected']['event_characteristics'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    characteristics=cat,
-                ).distinct()
+            qs = qs.filter(
+                characteristics__in=cats,
+            ).distinct()
 
     abc_filter = request.GET.getlist('abc', None)
     abc_list = get_abc_list(qs, "production__title_%s" % request.LANGUAGE_CODE)
@@ -181,14 +174,13 @@ def event_list(request, year=None, month=None, day=None):
 
 def event_detail(request, slug, event_id=None):
     if "preview" in request.REQUEST:
-        qs = Event.objects.all()
+        qs = Event.objects.exclude(production__status='trashed')
     else:
-        #qs = Event.objects.filter(production__status="published")
-        qs = Event.objects.all()
+        qs = Event.objects.filter(production__status__in=('published', 'expired'))
 
     if event_id:
         obj = get_object_or_404(qs, production__slug=slug, pk=event_id)
-        if not request.user.has_perm("events.change_event", obj):
+        if obj.production.status not in ('published', 'expired') and not request.user.has_perm("events.change_event", obj):
             return access_denied(request)
     else:
         production = get_object_or_404(Production, slug=slug)

@@ -19,7 +19,7 @@ def other_productions(context, current_event=False, current_location=False, amou
     other_production_set = Production.objects.filter(
         models.Q(in_program_of__in=locations) | models.Q(play_locations__in=locations),
         show_among_others=True,
-        #status="published",  # TODO: uncomment
+        status="published",
     )
     if current_event:
         other_production_set = other_production_set.exclude(id=current_event.production.id)
@@ -39,11 +39,11 @@ def date_slider(context, page, active=0, id=''):
     
     today = datetime.today()
 
-    days = [];
+    days = []
     for i in range(0, 7):
         days += [date(2015, 4, 5 + i)]
     
-    months = [];
+    months = []
     for i in range(1, 13):
         months += [date(2015, i, 1)]
     
@@ -56,4 +56,3 @@ def date_slider(context, page, active=0, id=''):
         'page': page,
         'STATIC_URL': context['STATIC_URL'],
     }
-    
