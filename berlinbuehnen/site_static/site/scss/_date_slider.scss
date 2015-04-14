@@ -4,6 +4,14 @@
     margin-bottom: 7px;
     position: relative;
     
+    * {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+    
     .date-slider-month {
         width: 60px;
         margin-top: 9px;

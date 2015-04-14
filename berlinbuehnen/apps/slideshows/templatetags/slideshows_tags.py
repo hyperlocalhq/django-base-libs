@@ -42,9 +42,9 @@ class SlideshowRenderer(template.Node):
         context_vars = context
         context_vars.push()
         context_vars['slides'] = slideshow.slide_set.order_by("sort_order")
-        output = loader.render_to_string(template_path or "slideshows/slideshow.html", context_vars)
+        output = loader.render_to_string(template_path or "slideshows/top_slideshow.html", context_vars)
         context_vars.pop()
         return output
 
-register.tag('slideshow', do_slideshow)
+register.tag('top_slideshow', do_slideshow)
 

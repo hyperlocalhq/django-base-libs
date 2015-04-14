@@ -1,6 +1,13 @@
 /**
  * Initiates the image slider.
  * The images have to have the same dimensions.
+ 
+ * Add the "data-image-ratio" attribute to the main object to set the ratio of the shown images.
+ * Otherwise the ratio is calculated by the loaded images which does not always work.
+ * E.g.: data-image-ratio="680:370" - where the first value is the length and the second the height of the ratio.
+ *
+ * If the attribute "data-adjust-style" with a true value is set, the slider checks the size of the slider and 
+ * its left/right margin and adds css classes to the main object. Adjust the function setStyles() for more changes.
  *
  * @author Daniel Lehmann
  */
@@ -34,17 +41,40 @@
         me.item_width;
         me.animating = false;
         
-        me.$main.append('<div class="slider-prev"></div><div class="slider-next"></div>');
+        me.$main.append('<div class="slider-prev fawesome back"></div><div class="slider-next fawesome more"></div>');
         me.$prev = $('.slider-prev', me.$main);
         me.$next = $('.slider-next', me.$main);
+        
+        me.adjust_style = me.$main.data('adjust-style');
+        
+        me.ratio_width = 0;
+        me.ratio_height = 0;
+        var ratio = me.$main.data("image-ratio");
+        if (ratio) {
+            ratio = ratio.split(':');
+            if (ratio[0] && ratio[1]) {
+                me.ratio_width = parseFloat(ratio[0]);
+                me.ratio_height = parseFloat(ratio[1]);
+            }
+        }
+        
+        me.timer = null;
+        me.timer_time = parseInt(me.$main.data('slider-timer'));
         
         
         me.onResize();
         $(window).resize(function() {me.onResize();});
-        $('.slider-item img', $main).load(function() {me.onResize();});
         
         me.$prev.click(function() {me.prevItems();});
         me.$next.click(function() {me.nextItems();});
+        
+        
+        if (me.timer_time) {
+            me.timer = window.setTimeout(function() {me.onTimer();}, me.timer_time);
+            me.$main.mouseenter(function() {me.onTimerOver();});
+            me.$main.mouseleave(function() {me.onTimerOut();});
+            me.$main.click(function() {me.onTimerClicked();});
+        }
     }
     
     /**
@@ -69,7 +99,9 @@
             if (test_height > max_height) max_height = test_height;
         }
         
-        
+        if (me.ratio_width && me.ratio_height) {
+            max_height = Math.round(max_width * me.ratio_height / me.ratio_width);
+        }
         me.$body.height(max_height);
         me.item_width = max_width;
         
@@ -80,7 +112,7 @@
             
             me.$items.detach();
             
-            // handleing the case that there are to few items to have a slider
+            // handling the case that there are to few items to have a slider
             while (me.$items.length < me.max_items * 2) {
                 for (var i=0; i < me.initial_items_length; i++) {
                     var $clone = $(me.$items.get(i)).clone();
@@ -272,6 +304,58 @@
     }
     
     /**
+     * Slides to the next item.
+     */
+    Slider.prototype.onTimer = function() {
+        
+        if (this.me) var me = this.me;
+        
+        me.nextItems();
+        
+        me.timer = window.setTimeout(function() {me.onTimer();}, me.timer_time);
+    }
+    
+    /**
+     * Mouse is over the slider and the timer gets stoped.
+     */
+    Slider.prototype.onTimerOver = function() {
+        
+        if (this.me) var me = this.me;
+        
+        if (me.timer) {
+            window.clearTimeout(me.timer);
+            me.timer = null;
+        }
+    }
+    
+    /**
+     * Mouse left the slider and the timer gets restarted.
+     */
+    Slider.prototype.onTimerOut = function() {
+        
+        if (this.me) var me = this.me;
+        
+        if (me.timer) {
+            window.clearTimeout(me.timer);
+            me.timer = null;
+        }
+        
+        me.timer = window.setTimeout(function() {me.onTimer();}, me.timer_time);
+    }
+    
+    /**
+     * The slider got clicked and the timer gets stop indefinitely.
+     */
+    Slider.prototype.onTimerClicked = function() {
+        
+        if (this.me) var me = this.me;
+        
+        me.$main.off('mouseenter');
+        me.$main.off('mouseleave');  
+        me.$main.off('click');   
+    }
+    
+    /**
      * The window got resized.
      */
     Slider.prototype.onResize = function() {
@@ -286,7 +370,7 @@
             me.setItems();
         }
         
-        me.setStyles();
+        if (me.adjust_style) me.setStyles();
     }
     
     function init() {

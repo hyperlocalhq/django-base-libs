@@ -16,6 +16,7 @@
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/date_slider.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 {% endblock %}
@@ -25,12 +26,9 @@
 {% endblock %}
 
 {% block content %}
+    {% top_slideshow "start_page" %}
     <div class="content home">
         <div class="container">
-            
-            <div class="row top">
-                {% slideshow "start_page" %}
-            </div>
             
             <div class="row main">
                 <h1 class="bottom-line">{% trans "Schedule" %}</h1>

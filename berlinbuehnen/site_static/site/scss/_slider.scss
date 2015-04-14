@@ -4,6 +4,14 @@
     width: 100%;
     position: relative;
     
+    * {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+    
     .col-xs-12 {
         padding: 0;
     }
@@ -104,25 +112,35 @@
     
     .slider-prev, .slider-next {
         width: 30px;
-        height: 60px;
+        height: 80px;
         position: absolute;
         top:50%;
-        margin-top: -20px;
+        margin-top: -40px;
+        margin-bottom: 0px;
         background: transparent;
-        color: #999;
+        color: black;
         cursor: pointer;
         opacity: 0.7;
         &:hover {
             opacity: 1;
+            color: black;
         }        
     }
     .slider-prev {
         left: -70px;
-        background: url(../img/prev.png) no-repeat left bottom;
+        &:before {
+            font-size: 80px;
+            padding: 0;
+            float: left;
+        }
     }
     .slider-next {
         right: -70px;
-        background: url(../img/next.png) no-repeat right bottom;
+        &:after {
+            font-size: 80px;
+            padding: 0;
+            float: right;
+        }
     }
     
     &.medium {
@@ -145,10 +163,16 @@
     
     &.small-margin {
         .slider-prev {
-            background-size: 50% 50%;
+            &:before {
+                font-size: 40px;
+                padding-top: 30px;
+            }
         }
         .slider-next {
-            background-size: 50% 50%;
+            &:after {
+                font-size: 40px;
+                padding-top: 30px;
+            }
         }
     }
     
@@ -160,6 +184,60 @@
             .more {
                 float: none;
             }
+        }
+    }
+}
+
+
+#top_slider {
+    width: 100%;
+    max-height: 544px;
+    overflow: hidden;
+    margin-top: 25px;
+    
+    .slider {
+    
+        .slider-item {
+            width: 100%;
+            .slider-item-text-wrapper {
+                position:absolute; 
+                top:0; 
+                left:0; 
+                width:100%;
+                .slider-item-text {
+                    right: 30px;
+                }
+            }
+        }
+        
+        
+        .slider-prev {
+            left: 90px;
+            color: white;
+        }
+        .slider-next {
+            right: 90px;
+            color: white;
+        }
+        
+        
+    }
+    
+    .is-md & {
+        .slider-prev {
+            left: 60px;
+        }
+        .slider-next {
+            right: 60px;
+        }
+    }
+    
+    .is-sm & {
+        .slider-prev {
+            left: 40px;
+        }
+        .slider-next {
+            right: 40px;
         }
     }
 }
