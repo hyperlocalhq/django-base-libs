@@ -73,11 +73,11 @@
                                     {% end_if_has_perm %}
                                 </h1>
                                 {% if event.production.subtitle %}
-                                    <h2>{{ event.production.subtitle }}</h2>
+                                    <h2>{{ event.production.subtitle }}1</h2>
                                 {% elif event.ev_or_prod_subtitles_text %}
-                                    <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</h2>
+                                    <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}2</h2>
                                 {% endif %}
-                                {% if event.production.original %}<h2>{{ event.production.original }}</h2>{% endif %}
+                                {% if event.production.original %}<h2>{{ event.production.original }}3</h2>{% endif %}
                             </header>
                             
                             <!-- main  part (including sidebar) -->
@@ -95,7 +95,7 @@
                                                 {% endwith %}
                                             {% endif %}
                                             <div class="description">
-                                                {% if event.ev_or_prod_teaser %}<p>{{ event.ev_or_prod_teaser }}</p>{% endif %}
+                                                {% if event.ev_or_prod_teaser %}{{ event.ev_or_prod_teaser }}{% endif %}
                                                 {{ event.ev_or_prod_description }}
                                             </div>
                                             {% if event.production.language_and_subtitles or event.humanized_duration or event.ev_or_prod_duration_text or event.pauses or event.production.website %}

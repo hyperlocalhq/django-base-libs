@@ -2,55 +2,42 @@
 {% if other_productions %}
     <div class="slider row">
         <div class="col-xs-12">
-            {% if current_location %}
-                <a href="{% url "event_list" %}?locations={{ current_location.pk }}" class="pull-right">{% trans "Events at this venue" %}</a>
-            {% endif %}
-            <h4 class="slider-head">
-                {% if current_event %}
-                    {% trans "Further productions at this venue" %}
-                {% elif current_location %}
-                    {% trans "Productions at this venue" %}
+            <div class="slider-head row">
+                {% if current_location %}
+                    <div class="col-xs-12 col-sm-4 col-sm-push-8"><a href="{% url "event_list" %}?locations={{ current_location.pk }}" class="fawesome more">{% trans "Events at this venue" %}</a></div>
                 {% endif %}
-            </h4>
+                <h4 class="col-xs-12 {% if current_location %}col-sm-8 col-sm-pull-4{% endif %}">
+                    {% if current_event %}
+                        {% trans "Further productions at this venue" %}
+                    {% elif current_location %}
+                        {% trans "Productions at this venue" %}
+                    {% endif %}
+                </h4>
+            </div>
             <ul class="slider-body row">
                 {% for prod in other_productions %}
                     {% with event=prod.get_nearest_occurrence %}
                         {% with im=event.ev_or_prod_images.0 %}
-                            {% if im %}
-                                <li class="col-xs-12 col-md-6 slider-item">
-                                    <a href="{{ event.get_url_path }}">
+                            <li class="col-xs-12 col-md-6 slider-item">
+                                <a href="{{ event.get_url_path }}">
+                                    {% if im %}
                                         <img src="{{ MEDIA_URL }}{{ im.path|modified_path:"slider_image" }}" alt="{{ prod.title|escape }}" />
-                                        <div class="slider-item-text">
-                                            <h5>{{ prod.title }}</h5>
-                                            {% if prod.get_future_occurrences %}
-                                                {% with ev=prod.get_future_occurrences.0 %}
-                                                    <p>
-                                                        <strong>{% trans "Next Date" %}:</strong><br/>
-                                                        <span class="date">{{ ev.start_date|date:"j. M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }}</span>
-                                                    </p>
-                                                {% endwith %}
-                                            {% endif %}
-                                        </div>
-                                    </a>
-                                </li>
-                            {% else %}
-                                <li class="col-xs-12 col-md-6 slider-item">
-                                    <a href="{{ event.get_url_path }}">
-                                        <img src="http://placekitten.com/680/370" alt="" />
-                                        <div class="slider-item-text">
-                                            <h5>{{ prod.title }}</h5>
-                                            {% if prod.get_future_occurrences %}
-                                                {% with ev=prod.get_future_occurrences.0 %}
-                                                    <p>
-                                                        <strong>{% trans "Next Date" %}:</strong><br/>
-                                                        <span class="date">{{ ev.start_date|date:"j. M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }}</span>
-                                                    </p>
-                                                {% endwith %}
-                                            {% endif %}
-                                        </div>
-                                    </a>
-                                </li>
-                            {% endif %}
+                                    {% else %}
+                                        <img src="{{ STATIC_URL }}site/img/placeholder_slider.png" alt="{{ prod.title|escape }}" />
+                                    {% endif %}
+                                    <div class="slider-item-text">
+                                        <h5>{{ prod.title }}</h5>
+                                        {% if prod.get_future_occurrences %}
+                                            {% with ev=prod.get_future_occurrences.0 %}
+                                                <p>
+                                                    <strong>{% trans "Next Date" %}:</strong><br/>
+                                                    <span class="date">{{ ev.start_date|date:"j. M Y" }}</span><span class="time">{{ ev.start_time|time:"H:i" }}</span>
+                                                </p>
+                                            {% endwith %}
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </li>
                         {% endwith %}
                     {% endwith %}
                 {% endfor %}

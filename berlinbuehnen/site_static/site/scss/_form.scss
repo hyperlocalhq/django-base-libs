@@ -1203,6 +1203,15 @@ div.tagsinput {
       width:100%;
     }
   }
+  .alert {
+    &.alert-error {
+        color: $bootstrap_red;   
+        font-weight: $bold;
+    }
+  }
+  p[id*="error"].help-block strong {
+    color: $bootstrap_red;   
+  }
 }
 
 #form-meta {
