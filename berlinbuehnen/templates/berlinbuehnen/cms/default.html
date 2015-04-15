@@ -3,17 +3,16 @@
 {% block bodyclass %}default{% endblock %}
 
 {% block content %}
-	<div class="content intro">
+    <div class="content default">
 		<div class="container">
-		  	{% placeholder "intro" %}
+            <div class="row">
+                <div class="col-xs-12 default-intro">
+		  	        {% placeholder "intro" %}
+                </div>
+                <div class="col-xs-12 default-main">
+			        {% placeholder "main_content" %}
+                </div>
+            </div>
 		</div>
-	</div>
-
-	<div class="content">
-		<div class="container">
-			<div class="row row-md grid">
-			  {% placeholder "main_content" %}
-			</div>
-		</div>
-	</div>
+    </div>
 {% endblock %}

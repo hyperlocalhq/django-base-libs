@@ -1,17 +1,20 @@
-{% load image_modifications %}
+{% load image_modifications babel i18n %}
 {% if other_articles %}
     {% for article in other_articles %}
-        <div class="item clickable">
-            <a href="{{ article.get_url_path }}" class="image" {% if article.image %} style="background-image: url('{{ MEDIA_URL }}{{ article.image|modified_path:"square-list" }}');"{% endif %}>
-                <time datetime="{{ article.published_from|date:"Y-m-d" }}">
-                    <span>{{ article.published_from|date:"M" }}</span>
-                    {{ article.published_from|date:"j" }}
-                </time>
-            </a>
-
+        <a href="{{ article.get_url_path }}">
+            {% if article.image %}
+                <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
+            {% endif %}
+            <span class="article-more-list-date">{{ article.published_from|datefmt:"long" }}</span>
             <h6>{{ article.get_title }}</h6>
-            <p>{{ article.get_rendered_content|striptags|truncatewords:25 }}...</p>
-            <a class="btn btn-mini" href="{{ article.get_url_path }}">Mehr…</a>
-        </div>
+            <p>
+                {% if article.description %}
+                    {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"50" }}
+                {% else %}
+                    {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"50" }}
+                {% endif %}
+            </p>
+            <span class="article-more-list-more fawesome more">{% trans "read on" %}</span>
+        </a>
     {% endfor %}
 {% endif %}

@@ -2,51 +2,34 @@
 {% load base_tags babel i18n auth_extended articles_tags infoblocks image_modifications crispy_forms_tags %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="pull-left abso">News</h1>
-    </div>
-    {% if article_list %}
-        <div id="overview_news" class="list">
-            <div class="block">
-                <div class="container">
-                    <div class="row">
-                        {% for article in article_list %}
-                            <div class="item span3 clickable">
-                                <a href="{{ article.get_url_path }}" class="image"  {% if article.image %} style="background-image: url('{{ MEDIA_URL }}{{ article.image|modified_path:"square-list" }}');"{% endif %}>
-                                    <time> <span>{{ article.published_from|date:"M" }}</span> {{ article.published_from|date:"j" }}</time>
-                                    <!-- {{ article.published_from|date:"Y" }} -->
-                                </a>
-                                <div class="body">
-
-                                    <!-- <div class="date">{{ article.published_from|datefmt:"long" }}</div> -->
-                                    <h6>{{ article.title }}
-                                    </h6>
-
+    <div class="content default article">
+		<div class="container">
+            <div class="row">
+                 <div class="col-xs-12">
+                    <h1>{% trans "News" %}</h1>
+                    <div class="article-more-list">
+                        {% if article_list %}
+                            {% for article in article_list %}
+                                <a href="{{ article.get_url_path }}">
                                     {% if article.image %}
+                                        <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
                                     {% endif %}
+                                    <span class="article-more-list-date">{{ article.published_from|datefmt:"long" }}</span>
+                                    <h6>{{ article.get_title }}</h6>
                                     <p>
                                         {% if article.description %}
-                                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
+                                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"50" }}
                                         {% else %}
-                                            {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
+                                            {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"50" }}
                                         {% endif %}
                                     </p>
-                                    <a class="btn btn-info btn-mini" href="{{ article.get_url_path }}">Mehr…</a>
-                                </div>
-                            </div>
-                            {% if forloop.counter|divisibleby:"4" %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block">
-                        <div class="container">
-                            <div class="row">
-                            {% endif %}
-                        {% endfor %}
+                                    <span class="article-more-list-more fawesome more">{% trans "read on" %}</span>
+                                </a>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-    {% endif %}
+    </div>
 {% endblock %}
-

@@ -122,7 +122,7 @@ strong {
   font-weight: 700;
 }
 
-.sidebar-accordion .accordion-item-head, .sidebar-accordion .extra, .news-item h3, .filter label, .filter .filter-suboptions, .filter .filter-set a, .filter .filter-reset-button, .list .extra, .top_nav .nav {
+.sidebar-accordion .accordion-item-head, .sidebar-accordion .extra, .news-item h3, .news-item .more, .filter label, .filter .filter-suboptions, .filter .filter-set a, .filter .filter-reset-button, .list .extra, .top_nav .nav, .article .article-more-list-more {
   font-family: 'Webfont2', Helvetica, Arial, sans-serif;
 }
 
@@ -4074,6 +4074,7 @@ select {
   text-align: left;
   width: 320px;
   margin-bottom: 25px;
+  font-size: 16px;
 }
 .modal-centered .cell .inner header {
   padding-bottom: 20px !important;
@@ -4107,6 +4108,12 @@ select {
 }
 .modal-centered .cell .inner .alert li {
   line-height: 23px !important;
+}
+.modal-centered .cell .inner .modal-footer .btn:hover {
+  color: black;
+}
+.modal-centered .cell .inner .modal-footer .btn.btn-primary:hover {
+  color: white;
 }
 
 .dashboard-table .status {
@@ -4461,6 +4468,110 @@ select {
 .cms_toolbar-item_list {
   top: 41px !important;
   border: 1px solid #ccc !important;
+}
+
+.default h1:last-child, .default h2:last-child, .default h3:last-child, .default h4:last-child, .default h5:last-child, .default h6:last-child, .default .h1:last-child, .default .h2:last-child, .default .h3:last-child, .default .h4:last-child, .default .h5:last-child, .default .h6:last-child {
+  margin-bottom: 0.5em !important;
+  padding-bottom: inherit !important;
+}
+.default h1, .default h1:last-child {
+  font-weight: 200;
+  font-size: 2em;
+  margin-bottom: 24px;
+}
+.default h2, .default h2:last-child {
+  font-weight: 200;
+  margin-bottom: 16px !important;
+}
+.default h3, .default h3:last-child {
+  margin-bottom: 10px !important;
+}
+.default p, .default p:last-child {
+  margin: 10px 0;
+}
+.default .cms-plugin-filebrowser-image {
+  display: inline;
+  float: left;
+  max-width: 50%;
+  padding: 5px 10px 10px 0;
+}
+.default .cms-plugin-filebrowser-image img {
+  width: 100%;
+}
+.default .subtitle, .default .subtitle:last-child {
+  margin-top: -8px;
+  font-size: 0.9em;
+}
+.is-xs .default .cms-plugin-filebrowser-image, .is-sm .default .cms-plugin-filebrowser-image {
+  width: 100%;
+  max-width: 100%;
+}
+
+.article a.back {
+  text-transform: uppercase;
+  color: black;
+  font-weight: 200;
+}
+.article a.back:hover {
+  color: #4583c8;
+}
+.article h4.subtitle, .article h4.subtitle:last-child {
+  margin-top: -20px;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+.article .article-content {
+  position: relative;
+  margin-bottom: 40px;
+  margin-top: 25px;
+}
+.article .article-content .article-date {
+  font-weight: 200;
+  font-size: 1.125em;
+  position: absolute;
+  right: 0;
+  top: -20px;
+}
+.article .article-content .article-image {
+  display: inline;
+  float: left;
+  max-width: 50%;
+  padding: 5px 10px 10px 0;
+}
+.article .article-content .article-image .article-image-caption {
+  font-size: 0.9em;
+}
+.article .article-content .article-image img {
+  width: 100%;
+}
+.article .article-more-list a {
+  color: black;
+  overflow: hidden;
+  display: block;
+  margin-bottom: 15px;
+}
+.article .article-more-list a:hover {
+  color: black;
+}
+.article .article-more-list img {
+  float: left;
+  padding: 5px 15px 5px 0;
+}
+.article .article-more-list h6 {
+  font-size: 1.125em;
+}
+.article .article-more-list .article-more-list-date {
+  font-size: 0.9em;
+}
+.article .article-more-list .article-more-list-more {
+  float: right;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875em;
+}
+.is-xs .article .article-image, .is-sm .article .article-image {
+  width: 100%;
+  max-width: 100%;
 }
 
 .details .back {

@@ -1,0 +1,46 @@
+.default {
+    
+    h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, .h1:last-child, .h2:last-child, .h3:last-child, .h4:last-child, .h5:last-child, .h6:last-child {
+        margin-bottom: 0.5em !important;
+        padding-bottom: inherit !important;
+    }
+    
+    h1, h1:last-child {
+        font-weight: $light;
+        font-size: 2em;
+        margin-bottom: 24px;
+    }
+    h2, h2:last-child {
+        font-weight: $light;
+        margin-bottom: 16px !important;
+    }
+    h3, h3:last-child {
+        margin-bottom: 10px !important;
+    }
+    p, p:last-child {
+        margin: 10px 0;
+    }
+    
+    .cms-plugin-filebrowser-image {
+        display: inline;
+        float: left;
+        max-width: 50%;
+        padding: 5px 10px 10px 0;
+        
+        img {
+            width: 100%;
+        }
+    }
+    
+    .subtitle, .subtitle:last-child {
+        margin-top: -8px;
+        font-size: 0.9em;
+    }
+    
+    .is-xs &, .is-sm & {
+        .cms-plugin-filebrowser-image {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}

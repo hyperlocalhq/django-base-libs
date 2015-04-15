@@ -11,21 +11,28 @@
 	{% else %}
         {% trans "Welcome" %}
 	{% endif %}
-{% endblock %}
-
-{% block headline %}
-    <h2 class="main">
-        {% if type %}
-            {{ type.title|escape }}
-        {% else %}
-            {% trans "Welcome" %}
-        {% endif %}
-    </h2>
-{% endblock %}			
+{% endblock %}		
 
 {% block content %}
-    <div class="container">
-        {% block details %}
-        {% endblock %}
+    <div class="content default article">
+		<div class="container">
+            <div class="row">
+                 <div class="col-xs-12">
+                    {% block headline %}
+                        {% comment %}
+                        <h2>
+                            {% if type %}
+                                {{ type.title|escape }}
+                            {% else %}
+                                {% trans "Welcome" %}
+                            {% endif %}
+                        </h2>
+                        {% endcomment %}
+                    {% endblock %}	
+                    {% block details %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
