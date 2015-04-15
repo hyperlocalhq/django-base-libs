@@ -120,7 +120,7 @@
                 width: auto;
             }
             
-            dl, h2, h3, h4, p {
+            dl, h2, h3, h4, div.copy {
                 margin: 0 0 0 15px;
             }
             
@@ -237,14 +237,14 @@ body.is-xs {
                     top: 0;
                     right: 0;
                     .list-item-head-date-day {
-                        width: 40px;
+                        width: 45px;
                         height: auto;
                         position: absolute;
                         top: 6px;
                         left: 5px;
                     }
                     .list-item-head-date-month {
-                        width: 40px;
+                        width: 45px;
                         height: auto;
                         position: absolute;
                         top: 30px;
@@ -253,10 +253,10 @@ body.is-xs {
                     .list-item-head-date-time {
                         width: 115px;
                         height: auto;
-                        font-size: 2.8em;
+                        font-size: 2.9em;
                         position: absolute;
-                        top: 8px;
-                        left: 47px;
+                        top: 7px;
+                        left: 50px;
                     }
                     .list-item-head-date-type {
                         width: auto;
@@ -287,8 +287,9 @@ body.is-xs {
         .list-item-body {
             padding-bottom: 40px;
             height: auto;
+            max-height: 350px;
             
-            dl, h2, h3, h4, p {
+            dl, h2, h3, h4, div.copy {
                 margin: 0 0 0 5px;
                 width: auto;
             }

@@ -52,7 +52,9 @@
                                         
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
-                                            {% if location.image_set.exists %}
+                                            {% if location.cover_image %}
+                                                <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ location.cover_image.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  /></div> 
+                                            {% elif location.image_set.exists %}
                                                 {% with location.image_set.all|first as first %}
                                                     <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  /></div> 
                                                 {% endwith %}
@@ -246,7 +248,7 @@
                                                     {% for image in location.image_set.all %}
                                                         <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img">
                                                             {% with image.path|file_description as file_desc %}
-                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
+                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
                                                                 <div class="gallery-image-text">
                                                                     <div class="gallery-image-text-description">
                                                                         {% if file_desc.title %}

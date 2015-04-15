@@ -133,19 +133,21 @@
                 $object.css('display', 'block');
             } else {
                 var text = $object.html();
+                text = text.replace(/\n/g, "");
                 text = text.replace(/(\<br\>|\<br\/\>)/ig, "\n");
                 text = text.replace(/\<\/br\>/ig, "");
                 $object.html(text);
                 text = $object.text();
-                text = text.replace(/\n/g, "<br/>");
+                text = text.replace(/\n/g, " <br/>");
                 $object.html(text);
                 $object.data('text', text);
             }
+            
         });
         
         $h3.css('display', 'block');
         
-        if (me.small) return;
+        // if (me.small) return;
         
         
         // checking overflow
@@ -223,12 +225,19 @@
             if (text.length > 3) {
                 
                 text = text.substr(0, text.length-3);
-                while (text.length && text.charAt(text.length-1) != " ") {
-                    text = text.substr(0, text.length-1);
-                }
                 
-                if (text.length) $last_p.html(text + "...");
-                else $last_p.css('display', 'none');
+                do {
+                    
+                    while (text.length && text.charAt(text.length-1) != " ") {
+                        text = text.substr(0, text.length-1);
+                    }
+                    
+                    if (text.length) $last_p.html(text + "...");
+                    else $last_p.css('display', 'none');
+                    
+                    text = text.substr(0, text.length-1);
+                    
+                } while (top + $last_p.height() > body_height);
                 
             } else {
                 $last_p.css('display', 'none');   

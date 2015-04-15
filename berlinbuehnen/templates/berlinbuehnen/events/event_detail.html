@@ -20,6 +20,37 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
+    <script type="text/javascript">
+    
+        $(document).ready(function() {
+        
+            $('a.more-dates').click(function() {
+            
+                var $this = $(this);
+            
+                $('li.more-dates').css('display', 'block');
+                $this.css('display', 'none');
+                $('a.less-dates').css('display', 'inline-block');
+                
+                var $accordion = $this.closest('.accordion');
+                $accordion.data('accordion').initHeights();
+            });
+        
+            $('a.less-dates').click(function() {
+            
+                var $this = $(this);
+                
+                $('li.more-dates').css('display', 'none');
+                $this.css('display', 'none');
+                $('a.more-dates').css('display', 'inline-block');
+                
+                var $accordion = $this.closest('.accordion');
+                $accordion.data('accordion').initHeights();
+            });
+        
+        });
+        
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -128,8 +159,8 @@
                                                     <div class="accordion-item-content">
                                                         {% if event.production.get_upcoming_occurrences %}
                                                             <ul class="dates">
-                                                                {% for ev in event.production.get_upcoming_occurrences|slice:":6" %}
-                                                                    <li>
+                                                                {% for ev in event.production.get_upcoming_occurrences %}
+                                                                    <li class="{% if forloop.counter0 < 6 or ev == event %}first-dates{% else %}more-dates{% endif %}">
                                                                         {% if ev == event %}
                                                                             <span class="date-wrapper"><span class="date">{{ ev.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ ev.start_time|time:"H:i" }}</span></span>
                                                                         {% else %}
@@ -143,18 +174,9 @@
                                                                         {% endif %}
                                                                     </li>
                                                                 {% endfor %}
-                                                                {% if not event in event.production.get_upcoming_occurrences|slice:":6" %}
-                                                                    <li>
-                                                                        <span class="date-wrapper"><span class="date">{{ event.start_date|date:"j. M Y" }}</span></span><span class="time-wrapper"><span class="time">{{ event.start_time|time:"H:i" }}</span></span>
-                                                                        {% if event.ev_or_prod_tickets_website %}
-                                                                            <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ event.ev_or_prod_tickets_website }}" target="_blank"></a></span>
-                                                                        {% endif %}
-                                                                        {% if event.get_special_text %}
-                                                                            <span class="extra"><span>{{ event.get_special_text }}</span></span>
-                                                                        {% endif %}
-                                                                    </li>
-                                                                {% endif %}
                                                             </ul>
+                                                            <a href="javascript:void(null);" class="fawesome more more-dates">{% trans "more dates" %}</a>
+                                                            <a href="javascript:void(null);" class="fawesome back less-dates">{% trans "less dates" %}</a>
                                                         {% else %}
                                                             <p>{% trans "No dates found" %}</p>
                                                         {% endif %}
@@ -324,21 +346,6 @@
                                                         {% endif %}
                                                     {% endif %}
                                                 {% endwith %}
-                                                {% comment %}{% if event.production.in_program_of.exists %}
-                                                    <div class="accordion-item">
-                                                        <h4 class="accordion-item-head">{% trans "In program of" %}</h4>
-                                                        <div class="accordion-item-content">
-                                                            {% for location in event.production.in_program_of.all %}
-                                                                <p>
-                                                                    {{ location.title }}<br />
-                                                                    {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
-                                                                    {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
-                                                                    {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
-                                                                </p>
-                                                            {% endfor %}
-                                                        </div>
-                                                    </div>
-                                                {% endif %}{% endcomment %}
                                                 {% if event.production.organizers or event.organizers %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Organizers" %}</h4>
@@ -382,8 +389,17 @@
                                                         <div class="accordion-item-content">
                                                             <p>
                                                                 {% for pdf in event.ev_or_prod_pdfs %}
-                                                                    <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ pdf.path }}</a>
+                                                                    {% with pdf.path|file_description as file_desc %}
+                                                                        {% if file_desc.title %}
+                                                                            <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.title }}</a>
+                                                                        {% elif file_desc.filename %}
+                                                                            <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.filename }}</a>
+                                                                        {% else %}
+                                                                            <a class="pdf" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ pdf.path }}</a>
+                                                                        {% endif %}
+                                                                    {% endwith %}
                                                                 {% endfor %}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 {% endif %}
@@ -538,7 +554,7 @@
                                                         {% for image in event.ev_or_prod_images %}
                                                             <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img">
                                                                 {% with image.path|file_description as file_desc %}
-                                                                    <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
+                                                                    <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
                                                                     <div class="gallery-image-text">
                                                                         <div class="gallery-image-text-description">
                                                                             {% if file_desc.title %}

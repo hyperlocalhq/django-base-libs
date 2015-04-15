@@ -10,11 +10,13 @@
             </label>
         {% endfor %}
 
+        {% comment %}
         <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-alphabetic" aria-expanded="false">
             <input type="radio" name="options" id="filter-toggle-alphabetic">
             <span>{% trans "A - Z" %}</span>
             </label>
         </label>
+        {% endcomment %}
 
         {% comment %}
         <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-smartlists" aria-expanded="false">
@@ -75,6 +77,7 @@
             </div>
         {% endfor %}
 
+        {% comment %}
         <div class="panel">
             <div id="filter-alphabetic" class="filter-suboptions panel-collapse collapse col-xs-12">
                 <h5>{% trans "filter by" %}:</h5>
@@ -94,6 +97,7 @@
                 </ul>
             </div>
         </div>
+        {% endcomment %}
         
         {% comment %}
         <div class="panel">

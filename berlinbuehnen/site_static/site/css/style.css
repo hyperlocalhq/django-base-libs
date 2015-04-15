@@ -4586,11 +4586,6 @@ select {
 .details dl dd.series:before {
   content: ", ";
 }
-.details img.logo {
-  width: 74px;
-  display: block;
-  margin-bottom: 15px;
-}
 .details a.phone {
   color: black;
   cursor: default;
@@ -4608,7 +4603,7 @@ select {
   color: black;
 }
 .details a.pdf:before {
-  content: none;
+  content: "";
   width: 25px;
   height: 25px;
   display: block;
@@ -5059,7 +5054,7 @@ select {
   font-size: 0.875em;
   line-height: 22px;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   margin-top: 5px;
 }
 .sidebar-accordion .accordion-item ul.dates li {
@@ -5120,6 +5115,26 @@ select {
 }
 .sidebar-accordion .accordion-item ul.dates li .tickets:hover, .sidebar-accordion .accordion-item ul.dates li .tickets:focus {
   color: black;
+}
+.sidebar-accordion .accordion-item ul.dates li.more-dates {
+  display: none;
+}
+.sidebar-accordion .accordion-item a.more-dates, .sidebar-accordion .accordion-item a.less-dates {
+  margin: 0 0 10px 10px;
+  color: black;
+  display: inline-block;
+  text-transform: uppercase;
+}
+.sidebar-accordion .accordion-item a.more-dates:hover, .sidebar-accordion .accordion-item a.less-dates:hover {
+  color: black;
+}
+.sidebar-accordion .accordion-item a.less-dates {
+  display: none;
+}
+.sidebar-accordion .accordion-item img.logo {
+  width: 74px;
+  display: block;
+  margin: 10px 0 0 10px;
 }
 
 .gallery {
@@ -5359,7 +5374,7 @@ select {
 .list .list-item .list-item-body dl, .list .list-item .list-item-body h3 {
   width: auto;
 }
-.list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4, .list .list-item .list-item-body p {
+.list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4, .list .list-item .list-item-body div.copy {
   margin: 0 0 0 15px;
 }
 .list .list-item .list-item-body dl {
@@ -5455,14 +5470,14 @@ body.is-xs .list .list-item .list-item-head .list-item-head-date {
   right: 0;
 }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-day {
-  width: 40px;
+  width: 45px;
   height: auto;
   position: absolute;
   top: 6px;
   left: 5px;
 }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month {
-  width: 40px;
+  width: 45px;
   height: auto;
   position: absolute;
   top: 30px;
@@ -5471,10 +5486,10 @@ body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time {
   width: 115px;
   height: auto;
-  font-size: 2.8em;
+  font-size: 2.9em;
   position: absolute;
-  top: 8px;
-  left: 47px;
+  top: 7px;
+  left: 50px;
 }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type {
   width: auto;
@@ -5502,8 +5517,9 @@ body.is-xs .list .list-item .list-item-head .list-item-head-image img {
 body.is-xs .list .list-item-body {
   padding-bottom: 40px;
   height: auto;
+  max-height: 350px;
 }
-body.is-xs .list .list-item-body dl, body.is-xs .list .list-item-body h2, body.is-xs .list .list-item-body h3, body.is-xs .list .list-item-body h4, body.is-xs .list .list-item-body p {
+body.is-xs .list .list-item-body dl, body.is-xs .list .list-item-body h2, body.is-xs .list .list-item-body h3, body.is-xs .list .list-item-body h4, body.is-xs .list .list-item-body div.copy {
   margin: 0 0 0 5px;
   width: auto;
 }

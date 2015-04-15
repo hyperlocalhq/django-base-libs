@@ -145,11 +145,6 @@
             }
         }
     }
-    img.logo {
-        width: 74px;
-        display: block;
-        margin-bottom: 15px;
-    }
     a.phone {
         color: black;
         cursor: default;
@@ -166,7 +161,7 @@
             color: black;
         }
         &:before {
-            content: none;
+            content: "";
             width: 25px;
             height: 25px;
             display: block;

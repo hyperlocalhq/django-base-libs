@@ -120,7 +120,7 @@
             font-size: 0.875em;
             line-height: 22px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             margin-top: 5px;
             li {
                 width: 100%;
@@ -180,7 +180,30 @@
                         color: black;
                     }
                 }
+                
+                &.more-dates {
+                    display: none;
+                }
             }
+        }
+        
+        a.more-dates, a.less-dates {
+            margin: 0 0 10px 10px;
+            color: black;
+            display: inline-block;
+            text-transform: uppercase;
+            &:hover {
+                color: black;
+            }
+        }
+        a.less-dates {
+            display: none;
+        }
+        
+        img.logo {
+            width: 74px;
+            display: block;
+            margin: 10px 0 0 10px;
         }
     }
 }

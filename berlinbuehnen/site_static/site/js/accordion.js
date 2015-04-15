@@ -43,6 +43,7 @@
         
         me.onResize();
         $(window).resize(function() {me.onResize();});
+        me.$main.data('accordion', me);
     }
     
     /**

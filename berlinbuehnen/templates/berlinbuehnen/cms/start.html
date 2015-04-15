@@ -1,19 +1,6 @@
 {% extends "cms/default.html" %}
 {% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags auth_extended %}
 
-{% block stylesheet %}
-    {{ block.super }}
-    <style>
-        .carousel * {
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -o-user-select: none;
-            user-select: none;
-        }
-    </style>
-{% endblock %}
-
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js" defer="defer"></script>
