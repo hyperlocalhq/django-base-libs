@@ -79,15 +79,22 @@
                                     <!-- list item body -->
                                     <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
                                         <a class="list-item-link" href="{{ event.get_url_path }}">
-                                            {% if event.location_title or event.ev_or_prod_play_locations %}
+                                            {% if event.production.in_program_of.exists or event.location_title or event.ev_or_prod_play_locations %}
                                                 <dl>
+                                                    {% if event.production.in_program_of.exists %}
+                                                        {% for location in event.production.in_program_of.all %}
+                                                            <dd>
+                                                                {{ location.title }}
+                                                            </dd>
+                                                        {% endfor %}
+                                                    {% endif %}
                                                     {% if event.location_title %}
-                                                        <dd data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
+                                                        <dd>
                                                             {{ event.location_title }}
                                                         </dd>
                                                     {% endif %}
                                                     {% for location in event.ev_or_prod_play_locations %}
-                                                        <dd data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                                                        <dd>
                                                             {{ location.title }}
                                                         </dd>
                                                     {% endfor %}
