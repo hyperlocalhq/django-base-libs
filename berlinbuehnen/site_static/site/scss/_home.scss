@@ -2,5 +2,18 @@
     padding-bottom: 20px !important;
     .main {
         margin-bottom: 55px;
+        
+        .more-date {
+            margin-top: 5px;
+            float: right;
+            
+            a {
+                text-transform: uppercase;
+                color: black;
+                &:hover {
+                    color: $blue;
+                }
+            }
+        }
     }
 }
