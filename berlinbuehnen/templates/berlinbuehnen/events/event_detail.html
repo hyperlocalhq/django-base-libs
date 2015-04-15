@@ -266,7 +266,7 @@
                                                         <div class="accordion-item-content">
                                                             <p>
                                                                 {% for cat in event.production.get_categories %}
-                                                                    {{ cat.title }}<br/>
+                                                                    {% if cat.level == 1 %} &gt; {% endif %}{{ cat.title }}<br />
                                                                 {% endfor %}
                                                             </p>
                                                         </div>
