@@ -5,13 +5,13 @@
             {% if article.image %}
                 <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
             {% endif %}
-            <span class="article-more-list-date">{{ article.published_from|datefmt:"long" }}</span>
+            <span class="article-more-list-date">{{ article.published_from|datefmt:"long" }}{% if article.category.title %}<span>{{ article.category.title }}</span>{% endif %}</span>
             <h6>{{ article.get_title }}</h6>
             <p>
                 {% if article.description %}
-                    {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"50" }}
+                    {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"30" }}
                 {% else %}
-                    {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"50" }}
+                    {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"30" }}
                 {% endif %}
             </p>
             <span class="article-more-list-more fawesome more">{% trans "read on" %}</span>

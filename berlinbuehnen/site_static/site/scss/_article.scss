@@ -62,6 +62,13 @@
         }
         .article-more-list-date {
             font-size: 0.9em;
+            span {
+                padding-left: 10px;
+                &:before {
+                    content: "|";
+                    padding-right: 10px;
+                }
+            }
         }
         .article-more-list-more {
             float: right;
