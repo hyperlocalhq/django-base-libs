@@ -4074,6 +4074,7 @@ select {
   text-align: left;
   width: 320px;
   margin-bottom: 25px;
+  font-size: 16px;
 }
 .modal-centered .cell .inner header {
   padding-bottom: 20px !important;
@@ -4107,6 +4108,12 @@ select {
 }
 .modal-centered .cell .inner .alert li {
   line-height: 23px !important;
+}
+.modal-centered .cell .inner .modal-footer .btn:hover {
+  color: black;
+}
+.modal-centered .cell .inner .modal-footer .btn.btn-primary:hover {
+  color: white;
 }
 
 .dashboard-table .status {
