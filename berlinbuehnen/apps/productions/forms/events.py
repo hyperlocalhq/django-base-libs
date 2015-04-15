@@ -695,6 +695,7 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.fields['sort_order'].widget = forms.HiddenInput()
+        self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
@@ -729,6 +730,7 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
             layout.Row(
                 layout.Div(
                     "sort_order",
+                    "imported_sort_order",
                     "id",
                     "DELETE",
                     css_class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -799,6 +801,7 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
 
         self.fields['authorship_type'].label = _("Function")
         self.fields['sort_order'].widget = forms.HiddenInput()
+        self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
@@ -842,6 +845,7 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
         layout_blocks.append(
             layout.Div(
                 "sort_order",
+                "imported_sort_order",
                 "id",
                 "DELETE",
                 css_class="row-sm hidden"
@@ -924,6 +928,7 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
 
         self.fields['involvement_type'].label = ugettext("Function") + ' (' + ugettext('or') + ' <a href="" class="enter_type">' + ugettext('enter a new function') + '</a>)'
         self.fields['sort_order'].widget = forms.HiddenInput()
+        self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
@@ -957,6 +962,7 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
         layout_blocks.append(
             layout.Div(
                 "sort_order",
+                "imported_sort_order",
                 "id",
                 "DELETE",
                 css_class="hidden",

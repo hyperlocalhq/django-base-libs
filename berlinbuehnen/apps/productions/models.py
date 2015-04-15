@@ -438,6 +438,7 @@ class ProductionLeadership(CreationModificationDateMixin):
     person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="production", default=0)
+    imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
         ordering = ["person__last_name", "person__first_name"]
@@ -447,6 +448,10 @@ class ProductionLeadership(CreationModificationDateMixin):
     def __unicode__(self):
         return unicode(self.person)
 
+    def get_function(self):
+        lang_code = get_current_language()
+        return getattr(self, 'function_%s' % lang_code, '')
+
 
 class ProductionAuthorship(CreationModificationDateMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
@@ -454,6 +459,7 @@ class ProductionAuthorship(CreationModificationDateMixin):
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
     work_title = models.CharField(_("Work title"), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="production", default=0)
+    imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
         ordering = ["person__last_name", "person__first_name"]
@@ -462,6 +468,10 @@ class ProductionAuthorship(CreationModificationDateMixin):
 
     def __unicode__(self):
         return unicode(self.person)
+
+    def get_function(self):
+        lang_code = get_current_language()
+        return getattr(self.authorship_type, 'title_%s' % lang_code, '')
 
 
 class ProductionInvolvement(CreationModificationDateMixin):
@@ -472,6 +482,7 @@ class ProductionInvolvement(CreationModificationDateMixin):
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="production", default=0)
+    imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
         ordering = ["sort_order"]
@@ -480,6 +491,12 @@ class ProductionInvolvement(CreationModificationDateMixin):
 
     def __unicode__(self):
         return unicode(self.person)
+
+    def get_function(self):
+        lang_code = get_current_language()
+        if self.involvement_type:
+            return getattr(self.involvement_type, 'title_%s' % lang_code)
+        return getattr(self, 'another_type_%s' % lang_code, '') or getattr(self, 'involvement_role_%s' % lang_code, '') or getattr(self, 'involvement_instrument_%s' % lang_code, '')
 
 
 class EventCharacteristics(CreationModificationDateMixin, SlugMixin()):
@@ -682,20 +699,26 @@ class Event(CreationModificationMixin, UrlMixin):
     def ev_or_prod_leaderships(self):
         lang_code = get_current_language()
         if self.pk and self.eventleadership_set.exists():
-            return self.eventleadership_set.all().order_by('function_%s' % lang_code, 'sort_order')
-        return self.production.productionleadership_set.all().order_by('function_%s' % lang_code, 'sort_order')
+            # return self.eventleadership_set.all().order_by('function_%s' % lang_code, 'sort_order')
+            return self.eventleadership_set.all().order_by('imported_sort_order')
+        #return self.production.productionleadership_set.all().order_by('function_%s' % lang_code, 'sort_order')
+        return self.production.productionleadership_set.all().order_by('imported_sort_order')
 
     def ev_or_prod_authorships(self):
         lang_code = get_current_language()
         if self.pk and self.eventauthorship_set.exists():
-            return self.eventauthorship_set.all().order_by('authorship_type__title_%s' % lang_code, 'sort_order')
-        return self.production.productionauthorship_set.all().order_by('authorship_type__title_%s' % lang_code, 'sort_order')
+            # return self.eventauthorship_set.all().order_by('authorship_type__title_%s' % lang_code, 'sort_order')
+            return self.eventauthorship_set.all().order_by('imported_sort_order')
+        # return self.production.productionauthorship_set.all().order_by('authorship_type__title_%s' % lang_code, 'sort_order')
+        return self.production.productionauthorship_set.all().order_by('imported_sort_order')
 
     def ev_or_prod_involvements(self):
         lang_code = get_current_language()
         if self.pk and self.eventinvolvement_set.exists():
-            return self.eventinvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
-        return self.production.productioninvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
+            # return self.eventinvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
+            return self.eventinvolvement_set.all().order_by('imported_sort_order')
+        # return self.production.productioninvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
+        return self.production.productioninvolvement_set.all().order_by('imported_sort_order')
 
     ### special text ###
 
@@ -837,6 +860,7 @@ class EventLeadership(CreationModificationDateMixin):
     person = models.ForeignKey('people.Person', verbose_name=_("Person"), blank=True, null=True)
     function = MultilingualCharField(_('Function'), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="event", default=0)
+    imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
         ordering = ["person__last_name", "person__first_name"]
@@ -846,6 +870,10 @@ class EventLeadership(CreationModificationDateMixin):
     def __unicode__(self):
         return unicode(self.person)
 
+    def get_function(self):
+        lang_code = get_current_language()
+        return getattr(self, 'function_%s' % lang_code, '')
+
 
 class EventAuthorship(CreationModificationDateMixin):
     event = models.ForeignKey(Event, verbose_name=_("Event"))
@@ -853,6 +881,7 @@ class EventAuthorship(CreationModificationDateMixin):
     authorship_type = models.ForeignKey('people.AuthorshipType', verbose_name=_('Type'))
     work_title = models.CharField(_("Work title"), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="event", default=0)
+    imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
         ordering = ["person__last_name", "person__first_name"]
@@ -861,6 +890,10 @@ class EventAuthorship(CreationModificationDateMixin):
 
     def __unicode__(self):
         return unicode(self.person)
+
+    def get_function(self):
+        lang_code = get_current_language()
+        return getattr(self.authorship_type, 'title_%s' % lang_code, '')
 
 
 class EventInvolvement(CreationModificationDateMixin):
@@ -871,6 +904,7 @@ class EventInvolvement(CreationModificationDateMixin):
     involvement_role = MultilingualCharField(_('Role'), max_length=255, blank=True)
     involvement_instrument = MultilingualCharField(_('Instrument'), max_length=255, blank=True)
     sort_order = PositionField(_("Sort order"), collection="event", default=0)
+    imported_sort_order = models.IntegerField(_("Imported sort order"), default=0)
 
     class Meta:
         ordering = ["sort_order"]
@@ -880,4 +914,8 @@ class EventInvolvement(CreationModificationDateMixin):
     def __unicode__(self):
         return unicode(self.person)
 
-
+    def get_function(self):
+        lang_code = get_current_language()
+        if self.involvement_type:
+            return getattr(self.involvement_type, 'title_%s' % lang_code)
+        return getattr(self, 'another_type_%s' % lang_code, '') or getattr(self, 'involvement_role_%s' % lang_code, '') or getattr(self, 'involvement_instrument_%s' % lang_code, '')

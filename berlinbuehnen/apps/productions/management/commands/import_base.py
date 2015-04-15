@@ -858,8 +858,11 @@ class ImportFromHeimatBase(object):
                             person=p,
                             involvement_role_de=role_de,
                             involvement_role_en=role_en,
-                            sort_order=person_node.get('position'),
+                            imported_sort_order=person_node.get('position'),
                         )
+                for sort_order, item in enumerate(prod.productioninvolvement_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
 
             if not prod.sponsors.count():
                 for sponsor_node in prod_node.findall('./sponsor'):
@@ -1056,8 +1059,12 @@ class ImportFromHeimatBase(object):
                                 person=p,
                                 involvement_role_de=role_de,
                                 involvement_role_en=role_en,
-                                sort_order=person_node.get('position'),
+                                imported_sort_order=person_node.get('position'),
                             )
+                    for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
+                        item.sort_order = sort_order
+                        item.save()
+
                 if not event.sponsors.count():
                     for sponsor_node in event_node.findall('sponsor'):
                         sponsor, created = Sponsor.objects.get_or_create(

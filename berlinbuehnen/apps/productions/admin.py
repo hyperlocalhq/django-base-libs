@@ -107,7 +107,7 @@ class ProductionPDFInline(ExtendedStackedInline):
 class ProductionLeadershipInline(ExtendedStackedInline):
     model = ProductionLeadership
     extra = 0
-    fieldsets = [(None, {'fields': ('person', 'sort_order', )}),]
+    fieldsets = [(None, {'fields': ('person', 'sort_order', 'imported_sort_order')}),]
     fieldsets += get_admin_lang_section(_("Function"), ['function',])
     raw_id_fields = ['person']
     inline_classes = ('grp-collapse grp-open',)
@@ -123,7 +123,7 @@ class ProductionAuthorshipInline(ExtendedStackedInline):
 class ProductionInvolvementInline(ExtendedStackedInline):
     model = ProductionInvolvement
     extra = 0
-    fieldsets = [(None, {'fields': ('person', 'involvement_type', get_admin_lang_section(_("Another type"), ['another_type',]), 'sort_order')}),]
+    fieldsets = [(None, {'fields': ('person', 'involvement_type', get_admin_lang_section(_("Another type"), ['another_type',]), 'sort_order', 'imported_sort_order')}),]
     fieldsets += get_admin_lang_section(_("Role / Instrument"), ['involvement_role', 'involvement_instrument'])
     raw_id_fields = ['person']
     inline_classes = ('grp-collapse grp-open',)
@@ -241,7 +241,7 @@ class EventPDFInline(ExtendedStackedInline):
 class EventLeadershipInline(ExtendedStackedInline):
     model = EventLeadership
     extra = 0
-    fieldsets = [(None, {'fields': ('person', 'sort_order', )}),]
+    fieldsets = [(None, {'fields': ('person', 'sort_order', 'imported_sort_order')}),]
     fieldsets += get_admin_lang_section(_("Function"), ['function',])
     raw_id_fields = ['person']
     inline_classes = ('grp-collapse grp-open',)
@@ -257,7 +257,7 @@ class EventAuthorshipInline(ExtendedStackedInline):
 class EventInvolvementInline(ExtendedStackedInline):
     model = EventInvolvement
     extra = 0
-    fieldsets = [(None, {'fields': ('person', 'involvement_type', get_admin_lang_section(_("Another type"), ['another_type',]), 'sort_order')}),]
+    fieldsets = [(None, {'fields': ('person', 'involvement_type', get_admin_lang_section(_("Another type"), ['another_type',]), 'sort_order', 'imported_sort_order')}),]
     fieldsets += get_admin_lang_section(_("Role / Instrument"), ['involvement_role', 'involvement_instrument'])
     raw_id_fields = ['person']
     inline_classes = ('grp-collapse grp-open',)

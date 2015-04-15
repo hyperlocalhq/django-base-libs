@@ -101,11 +101,11 @@
                                     {% end_if_has_perm %}
                                 </h1>
                                 {% if event.production.subtitle %}
-                                    <h2>{{ event.production.subtitle }}1</h2>
+                                    <h2>{{ event.production.subtitle }}</h2>
                                 {% elif event.ev_or_prod_subtitles_text %}
-                                    <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}2</h2>
+                                    <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</h2>
                                 {% endif %}
-                                {% if event.production.original %}<h2>{{ event.production.original }}3</h2>{% endif %}
+                                {% if event.production.original %}<h2>{{ event.production.original }}</h2>{% endif %}
                             </header>
                             
                             <!-- main  part (including sidebar) -->
@@ -432,13 +432,25 @@
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Staff" %}</h4>
                                                         <div class="accordion-item-content">
+                                                            {% comment %}
                                                             <dl>
                                                                 {% for leadership in event.ev_or_prod_leaderships %}{% ifchanged leadership.function %}
-                                                                        {% if leadership.function %}
-                                                                            <dt>{{ leadership.function }}</dt>
-                                                                        {% else %}
-                                                                            <dt class="empty" />
-                                                                        {% endif %}<dd>{{ leadership.person }}</dd>{% else %}<dd class="series">{{ leadership.person }}</dd>{% endifchanged %}{% endfor %}
+                                                                    {% if leadership.function %}
+                                                                        <dt>{{ leadership.function }}</dt>
+                                                                    {% else %}
+                                                                        <dt class="empty"></dt>
+                                                                    {% endif %}<dd>{{ leadership.person }}</dd>{% else %}<dd class="series">{{ leadership.person }}</dd>{% endifchanged %}{% endfor %}
+                                                            </dl>
+                                                            {% endcomment %}
+                                                            <dl>
+                                                                {% regroup event.ev_or_prod_leaderships by get_function as leaderships %}
+                                                                {% for leadership_function in leaderships %}
+                                                                    {% if leadership_function.grouper %}
+                                                                        <dt>{{ leadership_function.grouper }}</dt>
+                                                                    {% else %}
+                                                                        <dt class="empty"></dt>
+                                                                    {% endif %}{% for leadership in leadership_function.list %}<dd{% if not forloop.first %} class="series"{% endif %}>{{ leadership.person }}</dd>{% endfor %}
+                                                                {% endfor %}
                                                             </dl>
                                                         </div>
                                                     </div>
@@ -447,13 +459,25 @@
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Cast" %}</h4>
                                                         <div class="accordion-item-content">
+                                                            {% comment %}
                                                             <dl>
                                                                 {% for involvement in event.ev_or_prod_involvements %}{% ifchanged involvement.involvement_type.title involvement.involvement_role nvolvement.involvement_instrument %}
-                                                                        {% if involvement.involvement_type.title or involvement.involvement_role or involvement.involvement_instrument %}
-                                                                            <dt>{{ involvement.involvement_type.title }}{{ involvement.involvement_role }}{{ involvement.involvement_instrument }}</dt>
-                                                                        {% else %}
-                                                                            <dt class="empty" />
-                                                                        {% endif %}<dd>{{ involvement.person }}</dd>{% else %}<dd class="series">{{ involvement.person }}</dd>{% endifchanged %}{% endfor %}
+                                                                    {% if involvement.involvement_type.title or involvement.involvement_role or involvement.involvement_instrument %}
+                                                                        <dt>{{ involvement.involvement_type.title }}{{ involvement.involvement_role }}{{ involvement.involvement_instrument }}</dt>
+                                                                    {% else %}
+                                                                        <dt class="empty" />
+                                                                    {% endif %}<dd>{{ involvement.person }}</dd>{% else %}<dd class="series">{{ involvement.person }}</dd>{% endifchanged %}{% endfor %}
+                                                            </dl>
+                                                            {% endcomment %}
+                                                            <dl>
+                                                                {% regroup event.ev_or_prod_involvements by get_function as involvements %}
+                                                                {% for involvement_function in involvements %}
+                                                                    {% if involvement_function.grouper %}
+                                                                        <dt>{{ involvement_function.grouper }}</dt>
+                                                                    {% else %}
+                                                                        <dt class="empty"></dt>
+                                                                    {% endif %}{% for involvement in involvement_function.list %}<dd{% if not forloop.first %} class="series"{% endif %}>{{ involvement.person }}</dd>{% endfor %}
+                                                                {% endfor %}
                                                             </dl>
                                                         </div>
                                                     </div>
@@ -462,13 +486,25 @@
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Authors" %}</h4>
                                                         <div class="accordion-item-content">
+                                                            {% comment %}
                                                             <dl>
                                                                 {% for authorship in event.ev_or_prod_authorships %}{% ifchanged authorship.authorship_type.title %}
-                                                                        {% if authorship.authorship_type.title %}
-                                                                            <dt>{{ authorship.authorship_type.title }}</dt>
-                                                                        {% else %}
-                                                                            <dt class="empty" />
-                                                                        {% endif %}<dd>{{ authorship.person }}</dd>{% else %}<dd class="series">{{ authorship.person }}</dd>{% endifchanged %}{% endfor %}
+                                                                    {% if authorship.authorship_type.title %}
+                                                                        <dt>{{ authorship.authorship_type.title }}</dt>
+                                                                    {% else %}
+                                                                        <dt class="empty"></dt>
+                                                                    {% endif %}<dd>{{ authorship.person }}</dd>{% else %}<dd class="series">{{ authorship.person }}</dd>{% endifchanged %}{% endfor %}
+                                                            </dl>
+                                                            {% endcomment %}
+                                                            <dl>
+                                                                {% regroup event.ev_or_prod_authorships by get_function as authorships %}
+                                                                {% for authorship_function in authorships %}
+                                                                    {% if authorship_function.grouper %}
+                                                                        <dt>{{ authorship_function.grouper }}</dt>
+                                                                    {% else %}
+                                                                        <dt class="empty"></dt>
+                                                                    {% endif %}{% for authorship in authorship_function.list %}<dd{% if not forloop.first %} class="series"{% endif %}>{{ authorship.person }}</dd>{% endfor %}
+                                                                {% endfor %}
                                                             </dl>
                                                         </div>
                                                     </div>

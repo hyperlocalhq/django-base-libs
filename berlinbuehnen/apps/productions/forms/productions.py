@@ -581,6 +581,7 @@ class ProductionLeadershipForm(autocomplete_light.ModelForm):
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.fields['sort_order'].widget = forms.HiddenInput()
+        self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
@@ -614,6 +615,7 @@ class ProductionLeadershipForm(autocomplete_light.ModelForm):
         layout_blocks.append(
             layout.Div(
                 "sort_order",
+                "imported_sort_order",
                 "id",
                 "DELETE",
                 css_class="hidden"
@@ -667,6 +669,7 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
 
         self.fields['authorship_type'].label = _("Function")
         self.fields['sort_order'].widget = forms.HiddenInput()
+        self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
@@ -700,6 +703,7 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
         layout_blocks.append(
             layout.Div(
                 "sort_order",
+                "imported_sort_order",
                 "id",
                 "DELETE",
                 css_class="hidden"
@@ -777,6 +781,7 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
 
         self.fields['involvement_type'].label = ugettext("Function") + ' (' + ugettext('or') + ' <a href="" class="enter_type">' + ugettext('enter a new function') + '</a>)'
         self.fields['sort_order'].widget = forms.HiddenInput()
+        self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
         self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
@@ -810,6 +815,7 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         layout_blocks.append(
             layout.Div(
                 "sort_order",
+                "imported_sort_order",
                 "id",
                 "DELETE",
                 css_class="hidden",
@@ -1079,25 +1085,31 @@ def load_data(instance=None):
         form_step_data['description']['related_productions'] = instance.related_productions.all()
         form_step_data['description']['characteristics'] = instance.characteristics.all()
 
-        for leadership in instance.productionleadership_set.all():
+        for leadership in instance.productionleadership_set.order_by('imported_sort_order'):
             leadership_dict = {}
             leadership_dict['id'] = leadership.pk
             leadership_dict['person'] = leadership.person
+            leadership_dict['sort_order'] = leadership.sort_order
+            leadership_dict['imported_sort_order'] = leadership.imported_sort_order
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 leadership_dict['function_%s' % lang_code] = getattr(leadership, 'function_%s' % lang_code)
             form_step_data['description']['sets']['leaderships'].append(leadership_dict)
 
-        for authorship in instance.productionauthorship_set.all():
+        for authorship in instance.productionauthorship_set.order_by('imported_sort_order'):
             authorship_dict = {}
             authorship_dict['id'] = authorship.pk
             authorship_dict['person'] = authorship.person
+            authorship_dict['sort_order'] = authorship.sort_order
+            authorship_dict['imported_sort_order'] = authorship.imported_sort_order
             authorship_dict['authorship_type'] = authorship.authorship_type
             form_step_data['description']['sets']['authorships'].append(authorship_dict)
 
-        for involvement in instance.productioninvolvement_set.all():
+        for involvement in instance.productioninvolvement_set.order_by('imported_sort_order'):
             involvement_dict = {}
             involvement_dict['id'] = involvement.pk
             involvement_dict['person'] = involvement.person
+            involvement_dict['sort_order'] = involvement.sort_order
+            involvement_dict['imported_sort_order'] = involvement.imported_sort_order
             involvement_dict['involvement_type'] = involvement.involvement_type
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 involvement_dict['another_type_%s' % lang_code] = getattr(involvement, 'another_type_%s' % lang_code)
@@ -1118,6 +1130,7 @@ def load_data(instance=None):
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 sponsor_dict['title_%s' % lang_code] = getattr(sponsor, 'title_%s' % lang_code)
             form_step_data['description']['sets']['sponsors'].append(sponsor_dict)
+
     else:
         form_step_data = {
             'basic': {'_filled': False, 'sets': {}},
@@ -1241,6 +1254,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         # save leaderships
         fields = [
             'sort_order',
+            'imported_sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -1279,6 +1293,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         # save authorships
         fields = [
             'sort_order',
+            'imported_sort_order',
         ]
         authorship_ids_to_keep = []
         for authorship_dict in form_step_data['description']['sets']['authorships']:
@@ -1317,6 +1332,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         # save involvements
         fields = [
             'sort_order',
+            'imported_sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [

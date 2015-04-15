@@ -65,12 +65,23 @@ class AuthorshipType(SlugMixin()):
         return self.title
 
 
+class PersonManager(models.Manager):
+    def get_first_or_create(self, **kwargs):
+        try:
+            return self.get_or_create(**kwargs)
+        except self.model.MultipleObjectsReturned:
+            defaults = kwargs.pop('defaults', {})
+            return self.filter(**kwargs)[0], False
+
+
 class Person(CreationModificationMixin, SlugMixin(prepopulate_from=("first_name", "last_name"))):
     prefix = models.ForeignKey(Prefix, verbose_name=_("Prefix"), null=True, blank=True)
     first_name = models.CharField(_('First name'), max_length=255, blank=True)
     last_name = models.CharField(_('Last name'), max_length=255, blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
+
+    objects = PersonManager()
 
     class Meta:
         verbose_name = _("person")
