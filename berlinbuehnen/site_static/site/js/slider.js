@@ -205,6 +205,8 @@
             me.$body.append($item);
             
             left += me.item_width;
+            
+            if (me.$items.length <= 1) break;
         }
     }
     
