@@ -124,7 +124,7 @@
     width: 100%;
     padding: 0 60px 0 0;
     position: fixed;
-    top: 0;
+    top: 12px;
     
     #meta {
         list-style: none;    
@@ -137,6 +137,7 @@
         
         a {
             color: black;
+            text-transform: uppercase;
             &:hover {
                 color: black;
             }

@@ -2388,7 +2388,7 @@ strong {
   width: 100%;
   padding: 0 60px 0 0;
   position: fixed;
-  top: 0;
+  top: 12px;
 }
 .meta-wrapper #meta {
   list-style: none;
@@ -2401,6 +2401,7 @@ strong {
 }
 .meta-wrapper #meta a {
   color: black;
+  text-transform: uppercase;
 }
 .meta-wrapper #meta a:hover {
   color: black;

@@ -126,7 +126,13 @@
                                     <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
                                 {% endif %}
                                 <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
-                                <p>{{ article.get_rendered_description }}</p>
+                                <p>
+                                    {% if article.description %}
+                                        {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
+                                    {% else %}
+                                        {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
+                                    {% endif %}
+                                </p>
                                 <a class="more fawesome" href="{{ article.get_url_path }}" >{% trans "read on" %}</a>
                             </div>
                         {% endfor %}
