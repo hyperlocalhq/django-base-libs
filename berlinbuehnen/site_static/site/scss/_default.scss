@@ -22,10 +22,8 @@
     }
     
     .cms-plugin-filebrowser-image {
-        display: inline;
-        float: left;
-        max-width: 50%;
-        padding: 5px 10px 10px 0;
+        width: 100%;
+        padding: 10px 0 15px 0;
         
         img {
             width: 100%;
@@ -35,12 +33,5 @@
     .subtitle, .subtitle:last-child {
         margin-top: -8px;
         font-size: 0.9em;
-    }
-    
-    .is-xs &, .is-sm & {
-        .cms-plugin-filebrowser-image {
-            width: 100%;
-            max-width: 100%;
-        }
     }
 }

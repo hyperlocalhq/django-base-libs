@@ -24,15 +24,13 @@
             font-weight: $light;
             font-size: 1.125em;
             position: absolute;
-            right: 0;
+            right: 30px;
             top: -20px;
         }
     
         .article-image {
-            display: inline;
-            float: left;
-            max-width: 50%;
-            padding: 5px 10px 10px 0;
+            width: 100%;
+            padding: 10px 0 10px 0;
             
             .article-image-caption {
                 font-size: 0.9em;
@@ -70,14 +68,6 @@
             font-weight: $bold;
             text-transform: uppercase;
             font-size: 0.875em;
-        }
-    }
-    
-    
-    .is-xs &, .is-sm & {
-        .article-image {
-            width: 100%;
-            max-width: 100%;
         }
     }
 }

@@ -4490,10 +4490,8 @@ select {
   margin: 10px 0;
 }
 .default .cms-plugin-filebrowser-image {
-  display: inline;
-  float: left;
-  max-width: 50%;
-  padding: 5px 10px 10px 0;
+  width: 100%;
+  padding: 10px 0 15px 0;
 }
 .default .cms-plugin-filebrowser-image img {
   width: 100%;
@@ -4501,10 +4499,6 @@ select {
 .default .subtitle, .default .subtitle:last-child {
   margin-top: -8px;
   font-size: 0.9em;
-}
-.is-xs .default .cms-plugin-filebrowser-image, .is-sm .default .cms-plugin-filebrowser-image {
-  width: 100%;
-  max-width: 100%;
 }
 
 .article a.back {
@@ -4529,14 +4523,12 @@ select {
   font-weight: 200;
   font-size: 1.125em;
   position: absolute;
-  right: 0;
+  right: 30px;
   top: -20px;
 }
 .article .article-content .article-image {
-  display: inline;
-  float: left;
-  max-width: 50%;
-  padding: 5px 10px 10px 0;
+  width: 100%;
+  padding: 10px 0 10px 0;
 }
 .article .article-content .article-image .article-image-caption {
   font-size: 0.9em;
@@ -4568,10 +4560,6 @@ select {
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.875em;
-}
-.is-xs .article .article-image, .is-sm .article .article-image {
-  width: 100%;
-  max-width: 100%;
 }
 
 .details .back {
