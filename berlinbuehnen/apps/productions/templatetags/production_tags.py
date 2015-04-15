@@ -2,6 +2,7 @@
 from django import template
 from django.db import models
 from datetime import datetime, date
+from django.utils.timezone import now as tz_now
 
 register = template.Library()
 
@@ -16,11 +17,13 @@ def other_productions(context, current_event=False, current_location=False, amou
     else:
         locations = []
         
+    timestamp = tz_now()
     other_production_set = Production.objects.filter(
         models.Q(in_program_of__in=locations) | models.Q(play_locations__in=locations),
         show_among_others=True,
         status="published",
-    )
+    ).exclude(event__start_date__lt=timestamp.date())
+    
     if current_event:
         other_production_set = other_production_set.exclude(id=current_event.production.id)
         

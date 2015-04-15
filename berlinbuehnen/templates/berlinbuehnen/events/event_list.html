@@ -176,8 +176,7 @@
                                                         {% endfor %}
                                                     </dl>
                                                 {% endif %}
-                                                {% if event.production.prefix %}<h4>{{ event.production.prefix }}</h4>{% endif %}
-                                                {% if event.production.title %}<h2>{{ event.production.title }}</h2>{% endif %}
+                                                {% if event.production.title %}<h2>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}</h2>{% endif %}
                                                 {% if event.production.subtitle %}<h3>{{ event.production.subtitle }}</h3>
                                                 {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text }}</h3>{% endif %}
                                                 {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
