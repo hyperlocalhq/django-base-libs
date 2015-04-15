@@ -4,6 +4,7 @@
 @import 'ding';
 @import 'bootstrap';
 @import 'header';
+@import 'footer';
 @import 'form';
 @import 'default';
 @import 'article';
@@ -89,22 +90,6 @@ input {
   -moz-box-shadow:    inset 0 0 10px rgba(0,0,0,0.05);
   -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
   box-shadow:         inset 0 0 10px rgba(0,0,0,0.05);
-}
-
-#wrapper {
-  min-height:100%;
-  position:relative;
-
-  #body {
-    padding-bottom:120px;   /* Height of the footer */
-  }
-  
-  #footer {
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:120px;   /* Height of the footer */
-  }
 }
 
 
