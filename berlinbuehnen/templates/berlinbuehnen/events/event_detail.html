@@ -228,7 +228,7 @@
                                                                     </a>
                                                                 {% endfor %}
                                                                 {% if stages %}
-                                                                    {% if event.location_title or event.production.location_title or locations %}
+                                                                    {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or locations %}
                                                                         <h5>{% trans "Stage" %}:</h5>
                                                                     {% endif %}
                                                                 {% endif %}
