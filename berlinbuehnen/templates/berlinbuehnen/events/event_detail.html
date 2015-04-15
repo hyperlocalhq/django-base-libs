@@ -175,8 +175,10 @@
                                                                     </li>
                                                                 {% endfor %}
                                                             </ul>
-                                                            <a href="javascript:void(null);" class="fawesome more more-dates">{% trans "more dates" %}</a>
-                                                            <a href="javascript:void(null);" class="fawesome back less-dates">{% trans "less dates" %}</a>
+                                                            {% if event.production.get_upcoming_occurrences|length > 6 %}
+                                                                <a href="javascript:void(null);" class="fawesome more more-dates">{% trans "more dates" %}</a>
+                                                                <a href="javascript:void(null);" class="fawesome back less-dates">{% trans "less dates" %}</a>
+                                                            {% endif %}
                                                         {% else %}
                                                             <p>{% trans "No dates found" %}</p>
                                                         {% endif %}
