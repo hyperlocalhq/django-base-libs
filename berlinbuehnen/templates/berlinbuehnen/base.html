@@ -9,38 +9,38 @@
 <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
 
 {% block meta_tags %}
-  {{ site_settings.get_meta_tags|safe }}
+    {{ site_settings.get_meta_tags|safe }}
 {% endblock %}
 
 {% block open_graph %}
 {% endblock %}
 
 {% block stylesheet %}
-  <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
-  <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
 {% endblock %}
 
 {% render_block "css" %}
 <script type="text/javascript">
-  <!--//--><![CDATA[//><!--
-    var images = [];
-    function preload() {
-      for (i = 0; i < preload.arguments.length; i++) {
-        images[i] = new Image();
-        images[i].src = preload.arguments[i];
-      }
-    }
-    preload(
-      "{{ STATIC_URL }}site/img/placeholder_list.gif",
-      "{{ STATIC_URL }}site/img/placeholder_cover.gif"
-    );
-  //--><!]]>
+    <!--//--><![CDATA[//><!--
+        var images = [];
+        function preload() {
+            for (i = 0; i < preload.arguments.length; i++) {
+                images[i] = new Image();
+                images[i].src = preload.arguments[i];
+            }
+        }
+        preload(
+            "{{ STATIC_URL }}site/img/placeholder_list.gif",
+            "{{ STATIC_URL }}site/img/placeholder_cover.gif"
+        );
+    //--><!]]>
 </script>
 <script type="text/javascript">
-  (function() {
+    (function() {
     var config = {
-        kitId: 'qru0sat',
-        scriptTimeout: 3000
+          kitId: 'qru0sat',
+          scriptTimeout: 3000
     };
     var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
   })();
@@ -69,8 +69,8 @@
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.min.js"></script>
 
 <script>
-    // forcing django CMS to use the already included version of jQuery
-    var django = {jQuery: jQuery};
+        // forcing django CMS to use the already included version of jQuery
+        var django = {jQuery: jQuery};
 </script>
 
 {{ site_settings.extra_head|safe }}
@@ -79,103 +79,103 @@
 
 
 <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
-  <!--
-    {% if request.is_phone %}This is phone.{% endif %}
-    {% if request.is_tablet %}This is tablet.{% endif %}
-    {% if request.is_mobile %}This is a mobile device.{% endif %}
-    {% if not request.is_mobile %}This is a desktop.{% endif %}
-  -->
-  {% block map %}{% endblock %}
-  {% block toolbar %}{% cms_toolbar %}{% endblock %}
-  <div id="wrapper">
-    {% block header %}
-      {% include "utils/header.html" %}
-    {% endblock %}
+    <!--
+        {% if request.is_phone %}This is phone.{% endif %}
+        {% if request.is_tablet %}This is tablet.{% endif %}
+        {% if request.is_mobile %}This is a mobile device.{% endif %}
+        {% if not request.is_mobile %}This is a desktop.{% endif %}
+    -->
+    {% block map %}{% endblock %}
+    {% block toolbar %}{% cms_toolbar %}{% endblock %}
+    <div id="wrapper">
+        {% block header %}
+            {% include "utils/header.html" %}
+        {% endblock %}
 
-    <div id="body">
-      {% block content %}
-      {% endblock %}
-    </div>
-
-    <a href="#top" id="to-top">
-      <span class="sr-only">{% trans "Back to top" %}</span>
-    </a>
-    
-    <div id="footer" class="hidden-xs">
-      {% block footer %}
-        {% comment %}
-          <div class="content">
-            <div class="container">
-              <ul class="navigation">
-                {% show_menu_below_id "start_page" 0 0 1 1 %}
-
-                {% if LANGUAGE_CODE == "de" %}
-                  <li><a href="/de/impressum/">Impressum</a></li>
-                {% else %}
-                  <li><a href="/en/imprint/">Imprint</a></li>
-                {% endif %}
-
-                <li><a href="https://twitter.com/#!/berlinbuehnen" target="_blank">Twitter</a></li>
-                <li><a href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank">Facebook</a></li>
-                <li><a href="/logodownload/">Logodownload</a></li>
-              </ul>
-            </div>
-          </div>
-        {% endcomment %}
-
-        {% comment %}
-        <!-- Sponsors ================================================== -->
-        <div id="sponsors" class="content">
-          <div class="container">
-            <div>
-              <h4 class="title">{% trans "Supported by" %}</h4>
-              <a title="EU" target="_blank" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm">
-                <img src="{{ STATIC_URL }}/site/img/footer/europa.png" alt="EU" />
-                <span>EU</span>
-              </a>
-              <a title="EFRE" target="_blank" href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html">
-                <img src="{{ STATIC_URL }}/site/img/footer/efre.png" alt="EFRE" />
-                <span>Kulturprojekte Berlin</span>
-              </a>
-              <a title="Projektzukunft" target="_blank" href="http://www.projektzukunft.berlin.de/">
-                <img src="{{ STATIC_URL }}/site/img/footer/projektzukunft.png" alt="Projektzukunft" />
-                <span>Projektzukunft</span>
-              </a>
-              <a title="Be-Berlin" target="_blank" href="http://www.berlin.de/sen/kultur/index.de.php">
-                <img src="{{ STATIC_URL }}/site/img/footer/beberlin.png" alt="Be-Berlin" />
-                <span>Be-Berlin</span>
-              </a>
-            </div>
-            <div>
-              <h4 class="title">{% trans "A service from" %}</h4>
-              <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
-                <img src="{{ STATIC_URL }}/site/img/footer/kulturprojekte.png" alt="Kulturprojekte Berlin" />
-                <span>Kulturprojekte Berlin</span>
-              </a>
-            </div>
-            <div>
-              <h4>{% trans "Together with Berlin museums and" %}</h4>
-              <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum/">
-                <img src="{{ STATIC_URL }}/site/img/footer/lmb.png" alt="Landesverband der Museen zu Berlin e.V." />
-                <span>Landesverband der Museen zu Berlin e.V.</span>
-              </a>
-            </div>
-            <ul>
-              <li{% if request.current_page.reverse_id == "impressum" %} class="active"{% endif %}>
-                <a href="{% page_url "impressum" %}">{% page_attribute "menu_title" "impressum" %}</a>
-              </li>
-              <li{% if request.current_page.reverse_id == "logo_download" %} class="active"{% endif %}>
-                <a href="{% page_url "logo_download" %}">{% page_attribute "menu_title" "logo_download" %}</a>
-              </li>
-            </ul>
-          </div>
+        <div id="body">
+            {% block content %}
+            {% endblock %}
         </div>
-        {% endcomment %}
-      {% endblock %}
+
+        <a href="#top" id="to-top">
+            <span class="sr-only">{% trans "Back to top" %}</span>
+        </a>
+        
+        <div id="footer" class="hidden-xs">
+            {% block footer %}
+                <div class="content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h3>{% trans "Links" %}</h3>
+                                <ul class="navigation">
+                                    {% show_menu_below_id "meta" 0 0 1 1 %}
+                                </ul>
+                            </div>
+                            <div class="col-md-2">
+                                <h3>{% trans "Follow us" %}</h3>
+                                <ul class="social_links">
+                                    <li><a class="twitter-link" href="https://twitter.com/#!/berlinbuehnen" target="_blank">Twitter</a></li>
+                                    <li><a class="facebook-link" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank">Facebook</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% comment %}
+                <!-- Sponsors ================================================== -->
+                <div id="sponsors" class="content">
+                    <div class="container">
+                        <div>
+                            <h4 class="title">{% trans "Supported by" %}</h4>
+                            <a title="EU" target="_blank" href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm">
+                                <img src="{{ STATIC_URL }}/site/img/footer/europa.png" alt="EU" />
+                                <span>EU</span>
+                            </a>
+                            <a title="EFRE" target="_blank" href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html">
+                                <img src="{{ STATIC_URL }}/site/img/footer/efre.png" alt="EFRE" />
+                                <span>Kulturprojekte Berlin</span>
+                            </a>
+                            <a title="Projektzukunft" target="_blank" href="http://www.projektzukunft.berlin.de/">
+                                <img src="{{ STATIC_URL }}/site/img/footer/projektzukunft.png" alt="Projektzukunft" />
+                                <span>Projektzukunft</span>
+                            </a>
+                            <a title="Be-Berlin" target="_blank" href="http://www.berlin.de/sen/kultur/index.de.php">
+                                <img src="{{ STATIC_URL }}/site/img/footer/beberlin.png" alt="Be-Berlin" />
+                                <span>Be-Berlin</span>
+                            </a>
+                        </div>
+                        <div>
+                            <h4 class="title">{% trans "A service from" %}</h4>
+                            <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
+                                <img src="{{ STATIC_URL }}/site/img/footer/kulturprojekte.png" alt="Kulturprojekte Berlin" />
+                                <span>Kulturprojekte Berlin</span>
+                            </a>
+                        </div>
+                        <div>
+                            <h4>{% trans "Together with Berlin museums and" %}</h4>
+                            <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum/">
+                                <img src="{{ STATIC_URL }}/site/img/footer/lmb.png" alt="Landesverband der Museen zu Berlin e.V." />
+                                <span>Landesverband der Museen zu Berlin e.V.</span>
+                            </a>
+                        </div>
+                        <ul>
+                            <li{% if request.current_page.reverse_id == "impressum" %} class="active"{% endif %}>
+                                <a href="{% page_url "impressum" %}">{% page_attribute "menu_title" "impressum" %}</a>
+                            </li>
+                            <li{% if request.current_page.reverse_id == "logo_download" %} class="active"{% endif %}>
+                                <a href="{% page_url "logo_download" %}">{% page_attribute "menu_title" "logo_download" %}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% endcomment %}
+            {% endblock %}
+        </div>
+        {% render_block "js" %}
+        {{ site_settings.extra_body|safe }}
     </div>
-    {% render_block "js" %}
-    {{ site_settings.extra_body|safe }}
-  </div>
-  <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span>
+    <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span>
 </body>
 </html>
