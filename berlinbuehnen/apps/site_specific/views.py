@@ -331,6 +331,10 @@ def register_and_claim_location(request, invitation_code):
                         p.multipart.set_owner(u)
                     except models.ObjectDoesNotExist:
                         pass
+                for p in location.located_productions.all():
+                    p.set_owner(u)
+                for event in location.event_set.all():
+                    event.production.set_owner(u)
 
                 # login the current user
                 user = authenticate(email=cleaned['email'], password=cleaned['password'])
@@ -349,6 +353,10 @@ def register_and_claim_location(request, invitation_code):
                         p.multipart.set_owner(u)
                     except models.ObjectDoesNotExist:
                         pass
+                for p in location.located_productions.all():
+                    p.set_owner(u)
+                for event in location.event_set.all():
+                    event.production.set_owner(u)
                 auth_login(request, u)
                 return redirect("dashboard")
         if "confirm" in request.POST:
@@ -362,6 +370,10 @@ def register_and_claim_location(request, invitation_code):
                     p.multipart.set_owner(u)
                 except models.ObjectDoesNotExist:
                     pass
+                for p in location.located_productions.all():
+                    p.set_owner(u)
+                for event in location.event_set.all():
+                    event.production.set_owner(u)
             auth_login(request, u)
             return redirect("dashboard")
 

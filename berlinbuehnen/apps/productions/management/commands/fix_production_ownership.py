@@ -37,3 +37,11 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 for location in prod.in_program_of.all():
                     for owner in location.get_owners():
                         prod.set_owner(owner)
+                for location in prod.play_locations.all():
+                    for owner in location.get_owners():
+                        prod.set_owner(owner)
+                for event in prod.event_set.all():
+                    for location in event.play_locations.all():
+                        for owner in location.get_owners():
+                            prod.set_owner(owner)
+
