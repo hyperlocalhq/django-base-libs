@@ -182,6 +182,9 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     show_among_others = models.BooleanField(_("Show among others"), default=True, help_text=_("Should this production be shown in event details among other productions at the same venue?"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
+    start_date = models.DateField(_("Actual start date"), blank=True, null=True, editable=False)
+    start_time = models.TimeField(_("Actual start time"), blank=True, null=True, editable=False)
+
     objects = ProductionManager()
 
     row_level_permissions = True
@@ -235,7 +238,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
                 sysname__startswith="owners",
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Production),
-                )
+            )
         except:
             return
         role.users.remove(user)
@@ -254,6 +257,14 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         except:
             return []
         return role.users.all()
+
+    def update_actual_date_and_time(self):
+        event = self.get_nearest_occurrence()
+        if event:
+            Production.objects.filter(pk=self.pk).update(
+                start_date=event.start_date,
+                start_time=event.start_time,
+            )
 
     def get_nearest_occurrence(self, timestamp=tz_now):
         """ returns current or closest future or closest past event time """
