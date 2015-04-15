@@ -113,7 +113,7 @@
             me.$items.detach();
             
             // handling the case that there are to few items to have a slider
-            while (me.$items.length < me.max_items * 2) {
+            while (me.$items.length > 1 && me.$items.length < me.max_items * 2) {
                 for (var i=0; i < me.initial_items_length; i++) {
                     var $clone = $(me.$items.get(i)).clone();
                     me.$items = me.$items.add($clone);

@@ -198,6 +198,11 @@
                                                                             {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
                                                                         </a>
                                                                     {% endfor %}
+                                                                    {% if not stages %}
+                                                                        {% if event.location_title or event.production.location_title or locations %}
+                                                                            <h5>{% trans "Stage" %}:</h5>
+                                                                        {% endif %}
+                                                                    {% endif %}
                                                                 {% endif %}
                                                                 {% if event.location_title %}
                                                                     <p data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
@@ -222,6 +227,11 @@
                                                                         {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
                                                                     </a>
                                                                 {% endfor %}
+                                                                {% if stages %}
+                                                                    {% if event.location_title or event.production.location_title or locations %}
+                                                                        <h5>{% trans "Stage" %}:</h5>
+                                                                    {% endif %}
+                                                                {% endif %}
                                                                 {% for stage in stages %}
                                                                     <p data-latitude="{{ stage.latitude|stringformat:"%f" }}" data-longitude="{{ stage.longitude|stringformat:"%f" }}">
                                                                         <strong>{{ stage.title }}</strong><br />
