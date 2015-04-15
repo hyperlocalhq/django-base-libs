@@ -625,7 +625,7 @@ def change_event_gallery(request, slug, event_id):
 def delete_event(request, slug, event_id):
     production = get_object_or_404(Production, slug=slug)
     event = get_object_or_404(Event, pk=event_id, production=production)
-    if not request.user.has_perm("productions.delete_event", event):
+    if not request.user.has_perm("productions.delete_production", event.production):
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
         event.delete()
