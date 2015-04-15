@@ -101,11 +101,11 @@
                                     {% end_if_has_perm %}
                                 </h1>
                                 {% if event.production.subtitle %}
-                                    <h2>{{ event.production.subtitle }}1</h2>
+                                    <h2>{{ event.production.subtitle }}</h2>
                                 {% elif event.ev_or_prod_subtitles_text %}
-                                    <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}2</h2>
+                                    <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</h2>
                                 {% endif %}
-                                {% if event.production.original %}<h2>{{ event.production.original }}3</h2>{% endif %}
+                                {% if event.production.original %}<h2>{{ event.production.original }}</h2>{% endif %}
                             </header>
                             
                             <!-- main  part (including sidebar) -->
