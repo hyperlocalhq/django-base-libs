@@ -1,0 +1,83 @@
+.article {
+        
+    a.back {
+        text-transform: uppercase;
+        color: black;
+        font-weight: $light;
+        &:hover {
+            color: $blue;
+        }
+    }
+    
+    h4.subtitle, h4.subtitle:last-child {
+        margin-top: -20px;
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+    
+    .article-content {
+        position:relative;
+        margin-bottom: 40px;
+        margin-top: 25px;
+        
+        .article-date {
+            font-weight: $light;
+            font-size: 1.125em;
+            position: absolute;
+            right: 0;
+            top: -20px;
+        }
+    
+        .article-image {
+            display: inline;
+            float: left;
+            max-width: 50%;
+            padding: 5px 10px 10px 0;
+            
+            .article-image-caption {
+                font-size: 0.9em;
+            }
+            
+            img {
+                width: 100%;
+            }
+        }
+    }
+    
+    .article-more-list {
+        
+        a {
+            color: black;
+            overflow: hidden;
+            display: block;
+            margin-bottom: 15px;
+            &:hover {
+                color: black;
+            }
+        }
+        img {
+            float: left;
+            padding: 5px 15px 5px 0;
+        }
+        h6 {
+            font-size: 1.125em;
+        }
+        .article-more-list-date {
+            font-size: 0.9em;
+        }
+        .article-more-list-more {
+            float: right;
+            &:hover {
+                color: $blue;
+            }
+        }
+    }
+    
+    
+    .is-xs &, .is-sm & {
+        .article-image {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}
