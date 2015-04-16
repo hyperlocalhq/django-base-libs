@@ -476,7 +476,9 @@
                                                                         <dt>{{ involvement_function.grouper }}</dt>
                                                                     {% else %}
                                                                         <dt class="empty"></dt>
-                                                                    {% endif %}{% for involvement in involvement_function.list %}<dd{% if not forloop.first %} class="series"{% endif %}>({{ involvement.imported_sort_order }} | {{ involvement.sort_order }}) {{ involvement.person }}</dd>{% endfor %}
+                                                                    {% endif %}{% for involvement in involvement_function.list %}<dd{% if not forloop.first %} class="series"{% endif %}><!--
+                                                                      ({{ involvement.imported_sort_order }} | {{ involvement.sort_order }})
+                                                                      -->{{ involvement.person }}</dd>{% endfor %}
                                                                 {% endfor %}
                                                             </dl>
                                                         </div>
