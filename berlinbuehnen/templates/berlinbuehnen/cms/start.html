@@ -126,7 +126,7 @@
                     <div class="row">
                         
                         <!-- NEWS -->
-                        {% get_objects published_objects.all articles.Article 2 as newest_articles %}
+                        {% get_objects objects.latest_published articles.Article 2 as newest_articles %}
                         {% for article in newest_articles %}
                             <div class="col-xs-12 col-md-6 news-item">
                                 <h3>{% if article.category.title %}{{ article.category.title }}{% else %}{% trans "News" %}{% endif %}</h3>
