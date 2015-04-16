@@ -704,7 +704,6 @@ class ImportFromHeimatBase(object):
         instance.work_info_en_markup_type = 'pt'
 
     def save_page(self, root_node):
-        import time
         from filebrowser.models import FileDescription
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
@@ -732,8 +731,6 @@ class ImportFromHeimatBase(object):
             except models.ObjectDoesNotExist:
                 # or create a new exhibition and then create a mapper
                 prod = Production()
-                self.stats['prods_skipped'] += 1
-                continue
             else:
                 prod = mapper.content_object
                 if not prod or prod.status == "trashed":
@@ -746,149 +743,151 @@ class ImportFromHeimatBase(object):
                 #         self.stats['prods_skipped'] += 1
                 #         continue
 
-            # if not title_de:  # skip productions without title
-            #     self.stats['prods_skipped'] += 1
-            #     continue
-            # prod.title_de = title_de
-            # prod.title_en = title_en or title_de
-            # prod.website_de = prod.website_en = prod_node.get('url')
-            #
-            # prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
-            #
-            # self.parse_and_use_texts(prod_node, prod)
-            #
-            # prod.save()
-            #
-            # venue_node = prod_node.find('location')
-            # if venue_node is not None:
-            #     location, stage = self.get_updated_location_and_stage(venue_node)
-            #     if location:
-            #         prod.play_locations.clear()
-            #         prod.play_locations.add(location)
-            #     #else:
-            #     #    prod.location_title = venue_node.text
-            #     #    prod.save()
-            #     if stage:
-            #         if isinstance(stage, dict):
-            #             prod.location_title = stage['title']
-            #             prod.street_address = stage.get('street_address', u'')
-            #             prod.postal_code = stage.get('postal_code', u'')
-            #             prod.city = stage.get('city', u'Berlin')
-            #             prod.save()
-            #         else:
-            #             prod.play_stages.clear()
-            #             prod.play_stages.add(stage)
-            #
-            # institution_node = prod_node.find('institution')
-            # if institution_node is not None:
-            #     location, stage = self.get_updated_location_and_stage(institution_node)
-            #     if location:
-            #         prod.in_program_of.clear()
-            #         prod.in_program_of.add(location)
-            #     else:
-            #         prod.organizers = institution_node.text
-            #         prod.save()
-            #
-            # if self.in_program_of:
-            #     prod.in_program_of.add(self.in_program_of)
-            #
-            # if not self.skip_images and not prod.productionimage_set.count():
-            #     for picture_node in prod_node.findall('picture'):
-            #         image_url = picture_node.get('url')
-            #         if not image_url.startswith('http'):
-            #             continue
-            #         mf = ProductionImage(production=prod)
-            #         filename = image_url.split("/")[-1]
-            #         image_response = requests.get(image_url)
-            #         if image_response.status_code == 200:
-            #             image_mods.FileManager.save_file_for_object(
-            #                 mf,
-            #                 filename,
-            #                 image_response.content,
-            #                 field_name="path",
-            #                 subpath="productions/%s/gallery/" % prod.slug,
-            #             )
-            #             if picture_node.get('publishType') == "1":
-            #                 mf.copyright_restrictions = "general_use"
-            #             elif picture_node.get('publishType') == "3":
-            #                 mf.copyright_restrictions = "protected"
-            #             mf.save()
-            #             try:
-            #                 file_description = FileDescription.objects.filter(
-            #                     file_path=mf.path,
-            #                 ).order_by("pk")[0]
-            #             except:
-            #                 file_description = FileDescription(file_path=mf.path)
-            #
-            #             file_description.title_de = self.get_child_text(picture_node, 'text', languageId="1")
-            #             file_description.title_en = self.get_child_text(picture_node, 'text', languageId="2")
-            #             file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
-            #             file_description.copyright_limitations = picture_node.get('copyright')
-            #             file_description.save()
-            #             #time.sleep(1)
-            #
-            # for category_node in prod_node.findall('category'):
-            #     internal_cat_id = self.CATEGORY_MAPPER.get(int(category_node.text), None)
-            #     if internal_cat_id:
-            #         cats = ProductionCategory.objects.filter(pk=internal_cat_id)
-            #         if cats:
-            #             prod.categories.add(cats[0])
-            #
-            # for status_id_node in prod_node.findall('statusId'):
-            #     internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
-            #     if internal_ch_slug:
-            #         prod.characteristics.add(ProductionCharacteristics.objects.get(slug=internal_ch_slug))
+            if not prod.pk:
 
-            prod.productioninvolvement_set.all().delete()
-            for person_node in prod_node.findall('person'):
-                role_de = self.get_child_text(person_node, 'mediaText/text', languageId="1")
-                role_en = self.get_child_text(person_node, 'mediaText/text', languageId="2")
-                if not role_de and int(person_node.get('roleId')) in self.ROLE_ID_MAPPER:
-                    role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.get('roleId'))]
-                for person_name in re.split(r'\s*[/,]\s*', person_node.get('personFreetext')):
-                    first_and_last_name = person_name
-                    if u" " in first_and_last_name:
-                        first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                if not title_de:  # skip productions without title
+                    self.stats['prods_skipped'] += 1
+                    continue
+                prod.title_de = title_de
+                prod.title_en = title_en or title_de
+                prod.website_de = prod.website_en = prod_node.get('url')
+
+                prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
+
+                self.parse_and_use_texts(prod_node, prod)
+
+                prod.save()
+
+                venue_node = prod_node.find('location')
+                if venue_node is not None:
+                    location, stage = self.get_updated_location_and_stage(venue_node)
+                    if location:
+                        prod.play_locations.clear()
+                        prod.play_locations.add(location)
+                    #else:
+                    #    prod.location_title = venue_node.text
+                    #    prod.save()
+                    if stage:
+                        if isinstance(stage, dict):
+                            prod.location_title = stage['title']
+                            prod.street_address = stage.get('street_address', u'')
+                            prod.postal_code = stage.get('postal_code', u'')
+                            prod.city = stage.get('city', u'Berlin')
+                            prod.save()
+                        else:
+                            prod.play_stages.clear()
+                            prod.play_stages.add(stage)
+
+                institution_node = prod_node.find('institution')
+                if institution_node is not None:
+                    location, stage = self.get_updated_location_and_stage(institution_node)
+                    if location:
+                        prod.in_program_of.clear()
+                        prod.in_program_of.add(location)
                     else:
-                        first_name = ""
-                        last_name = first_and_last_name
-                    p, created = Person.objects.get_first_or_create(
-                        first_name=first_name,
-                        last_name=last_name,
-                    )
-                    prod.productioninvolvement_set.create(
-                        person=p,
-                        involvement_role_de=role_de,
-                        involvement_role_en=role_en,
-                        imported_sort_order=person_node.get('position'),
-                    )
-            for sort_order, item in enumerate(prod.productioninvolvement_set.order_by('imported_sort_order'), 0):
-                item.sort_order = sort_order
-                item.save()
+                        prod.organizers = institution_node.text
+                        prod.save()
 
-            # if not prod.sponsors.count():
-            #     for sponsor_node in prod_node.findall('./sponsor'):
-            #         sponsor, created = Sponsor.objects.get_or_create(
-            #             title_de=self.get_child_text(sponsor_node, 'title', languageId="1"),
-            #             defaults={
-            #                 'title_en': self.get_child_text(sponsor_node, 'title', languageId="2"),
-            #                 'website': sponsor_node.get('linkURL'),
-            #             }
-            #         )
-            #         image_url = sponsor_node.get('pictureURL')
-            #         if image_url and created:
-            #             filename = image_url.split("/")[-1]
-            #             image_response = requests.get(image_url)
-            #             if image_response.status_code == 200:
-            #                 image_mods.FileManager.save_file_for_object(
-            #                     sponsor,
-            #                     filename,
-            #                     image_response.content,
-            #                     field_name="image",
-            #                     subpath="sponsors/",
-            #                 )
-            #             sponsor.save()
-            #             prod.sponsors.add(sponsor)
+                if self.in_program_of:
+                    prod.in_program_of.add(self.in_program_of)
+
+                if not self.skip_images and not prod.productionimage_set.count():
+                    for picture_node in prod_node.findall('picture'):
+                        image_url = picture_node.get('url')
+                        if not image_url.startswith('http'):
+                            continue
+                        mf = ProductionImage(production=prod)
+                        filename = image_url.split("/")[-1]
+                        image_response = requests.get(image_url)
+                        if image_response.status_code == 200:
+                            image_mods.FileManager.save_file_for_object(
+                                mf,
+                                filename,
+                                image_response.content,
+                                field_name="path",
+                                subpath="productions/%s/gallery/" % prod.slug,
+                            )
+                            if picture_node.get('publishType') == "1":
+                                mf.copyright_restrictions = "general_use"
+                            elif picture_node.get('publishType') == "3":
+                                mf.copyright_restrictions = "protected"
+                            mf.save()
+                            try:
+                                file_description = FileDescription.objects.filter(
+                                    file_path=mf.path,
+                                ).order_by("pk")[0]
+                            except:
+                                file_description = FileDescription(file_path=mf.path)
+
+                            file_description.title_de = self.get_child_text(picture_node, 'text', languageId="1")
+                            file_description.title_en = self.get_child_text(picture_node, 'text', languageId="2")
+                            file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
+                            file_description.copyright_limitations = picture_node.get('copyright')
+                            file_description.save()
+                            #time.sleep(1)
+
+                for category_node in prod_node.findall('category'):
+                    internal_cat_id = self.CATEGORY_MAPPER.get(int(category_node.text), None)
+                    if internal_cat_id:
+                        cats = ProductionCategory.objects.filter(pk=internal_cat_id)
+                        if cats:
+                            prod.categories.add(cats[0])
+
+                for status_id_node in prod_node.findall('statusId'):
+                    internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
+                    if internal_ch_slug:
+                        prod.characteristics.add(ProductionCharacteristics.objects.get(slug=internal_ch_slug))
+
+                if not prod.productioninvolvement_set.count():
+                    for person_node in prod_node.findall('person'):
+                        role_de = self.get_child_text(person_node, 'mediaText/text', languageId="1")
+                        role_en = self.get_child_text(person_node, 'mediaText/text', languageId="2")
+                        if not role_de and int(person_node.get('roleId')) in self.ROLE_ID_MAPPER:
+                            role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.get('roleId'))]
+                        for person_name in re.split(r'\s*[/,]\s*', person_node.get('personFreetext')):
+                            first_and_last_name = person_name
+                            if u" " in first_and_last_name:
+                                first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                            else:
+                                first_name = ""
+                                last_name = first_and_last_name
+                            p, created = Person.objects.get_first_or_create(
+                                first_name=first_name,
+                                last_name=last_name,
+                            )
+                            prod.productioninvolvement_set.create(
+                                person=p,
+                                involvement_role_de=role_de,
+                                involvement_role_en=role_en,
+                                imported_sort_order=person_node.get('position'),
+                            )
+                    for sort_order, item in enumerate(prod.productioninvolvement_set.order_by('imported_sort_order'), 0):
+                        item.sort_order = sort_order
+                        item.save()
+
+                if not prod.sponsors.count():
+                    for sponsor_node in prod_node.findall('./sponsor'):
+                        sponsor, created = Sponsor.objects.get_or_create(
+                            title_de=self.get_child_text(sponsor_node, 'title', languageId="1"),
+                            defaults={
+                                'title_en': self.get_child_text(sponsor_node, 'title', languageId="2"),
+                                'website': sponsor_node.get('linkURL'),
+                            }
+                        )
+                        image_url = sponsor_node.get('pictureURL')
+                        if image_url and created:
+                            filename = image_url.split("/")[-1]
+                            image_response = requests.get(image_url)
+                            if image_response.status_code == 200:
+                                image_mods.FileManager.save_file_for_object(
+                                    sponsor,
+                                    filename,
+                                    image_response.content,
+                                    field_name="image",
+                                    subpath="sponsors/",
+                                )
+                            sponsor.save()
+                            prod.sponsors.add(sponsor)
 
             if not mapper:
                 mapper = ObjectMapper(
@@ -918,180 +917,176 @@ class ImportFromHeimatBase(object):
                 except models.ObjectDoesNotExist:
                     # or create a new exhibition and then create a mapper
                     event = Event()
-                    self.stats['events_skipped'] += 1
-                    continue
                 else:
                     event = event_mapper.content_object
-                    if not event:
-                        # if exhibition was deleted after import,
-                        # don't import it again
-                        self.stats['events_skipped'] += 1
-                        continue
+                    # don't update existing events
+                    self.stats['events_skipped'] += 1
+                    continue
 
-                # event.production = prod
-                #
-                # start_datetime = parse_datetime(event_node.get('datetime'), dayfirst=True)
-                # event.start_date = start_datetime.date()
-                # event.start_time = start_datetime.time()
-                # duration_str = event_node.get('duration')
-                # if duration_str:
-                #     event.duration = int(duration_str)
-                #
-                # price_node = event_node.find('price')
-                # if price_node is not None:
-                #     price_from = (price_node.get('minPrice') or u"").replace(',', '.') or None
-                #     if price_from == u"Eintritt frei":
-                #         event.free_entrance = True
-                #     elif price_from is not None:
-                #         try:
-                #             # in case of price conversion errors, save the price into price_information fields
-                #             Decimal(price_from)
-                #         except InvalidOperation:
-                #             if price_from not in event.price_information_de:
-                #                 event.price_information_de += '\n' + price_from
-                #             if price_from not in event.price_information_en:
-                #                 event.price_information_en += '\n' + price_from
-                #         else:
-                #             event.price_from = price_from
-                #
-                #     price_till = (price_node.get('maxPrice') or u"").replace(',', '.') or None
-                #     if price_till is not None:
-                #         try:
-                #             # in case of price conversion errors, save the price into price_information fields
-                #             Decimal(price_till)
-                #         except InvalidOperation:
-                #             if price_till not in event.price_information_de:
-                #                 event.price_information_de += '\n' + price_till
-                #             if price_till not in event.price_information_en:
-                #                 event.price_information_en += '\n' + price_till
-                #         else:
-                #             event.price_till = price_till
-                #     event.tickets_website = price_node.get('url')
-                #
-                # if event_node.get('takingPlace'):
-                #     flag_status = int(event_node.get('takingPlace'))
-                #     if flag_status == 0:  # fällt aus
-                #         event.event_status = 'canceled'
-                #     elif flag_status == 1:  # findet statt
-                #         event.event_status = 'takes_place'
-                #     elif flag_status == 2:  # ausverkauft
-                #         event.ticket_status = 'sold_out'
-                #
-                # self.parse_and_use_texts(event_node, event)
-                #
-                # event.save()
-                #
-                # if not self.skip_images and not event.eventimage_set.count():
-                #     for picture_node in event_node.findall('picture'):
-                #         image_url = self.get_child_text(picture_node, 'Url')
-                #         if not image_url.startswith('http'):
-                #             continue
-                #         mf = EventImage(event=event)
-                #         filename = image_url.split("/")[-1]
-                #         image_response = requests.get(image_url)
-                #         if image_response.status_code == 200:
-                #             image_mods.FileManager.save_file_for_object(
-                #                 mf,
-                #                 filename,
-                #                 image_response.content,
-                #                 field_name="path",
-                #                 subpath="productions/%s/events/%s/gallery/" % (prod.slug, event.pk),
-                #             )
-                #             if picture_node.get('publishType') == "1":
-                #                 mf.copyright_restrictions = "general_use"
-                #             elif picture_node.get('publishType') == "3":
-                #                 mf.copyright_restrictions = "protected"
-                #             mf.save()
-                #             try:
-                #                 file_description = FileDescription.objects.filter(
-                #                     file_path=mf.path,
-                #                 ).order_by("pk")[0]
-                #             except:
-                #                 file_description = FileDescription(file_path=mf.path)
-                #
-                #             file_description.title_de = self.get_child_text(picture_node, 'text', languageId="1")
-                #             file_description.title_en = self.get_child_text(picture_node, 'text', languageId="2")
-                #             file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
-                #             file_description.copyright_limitations = picture_node.get('copyright')
-                #             file_description.save()
-                #             #time.sleep(1)
-                #
-                # venue_node = event_node.find('location')
-                # if venue_node is not None:
-                #     location, stage = self.get_updated_location_and_stage(venue_node)
-                #     if location:
-                #         event.play_locations.clear()
-                #         event.play_locations.add(location)
-                #     #else:
-                #     #    event.location_title = venue_node.text
-                #     #    event.save()
-                #
-                #     if stage:
-                #         if isinstance(stage, dict):
-                #             event.location_title = stage['title']
-                #             event.street_address = stage.get('street_address', u'')
-                #             event.postal_code = stage.get('postal_code', u'')
-                #             event.city = stage.get('city', u'Berlin')
-                #             event.save()
-                #         else:
-                #             event.play_stages.clear()
-                #             event.play_stages.add(stage)
-                #
-                # for status_id_node in event_node.findall('statusId'):
-                #     internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
-                #     if internal_ch_slug:
-                #         event.characteristics.add(EventCharacteristics.objects.get(slug=internal_ch_slug))
+                event.production = prod
 
-                event.eventinvolvement_set.all().delete()
-                for person_node in event_node.findall('person'):
-                    role_de = self.get_child_text(person_node, 'mediaText/text', languageId="1")
-                    role_en = self.get_child_text(person_node, 'mediaText/text', languageId="2")
-                    if not role_de and int(person_node.get('roleId')) in self.ROLE_ID_MAPPER:
-                        role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.get('roleId'))]
-                    for person_name in re.split(r'\s*[/,]\s*', person_node.get('personFreetext')):
-                        first_and_last_name = person_name
-                        if u" " in first_and_last_name:
-                            first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                start_datetime = parse_datetime(event_node.get('datetime'), dayfirst=True)
+                event.start_date = start_datetime.date()
+                event.start_time = start_datetime.time()
+                duration_str = event_node.get('duration')
+                if duration_str:
+                    event.duration = int(duration_str)
+
+                price_node = event_node.find('price')
+                if price_node is not None:
+                    price_from = (price_node.get('minPrice') or u"").replace(',', '.') or None
+                    if price_from == u"Eintritt frei":
+                        event.free_entrance = True
+                    elif price_from is not None:
+                        try:
+                            # in case of price conversion errors, save the price into price_information fields
+                            Decimal(price_from)
+                        except InvalidOperation:
+                            if price_from not in event.price_information_de:
+                                event.price_information_de += '\n' + price_from
+                            if price_from not in event.price_information_en:
+                                event.price_information_en += '\n' + price_from
                         else:
-                            first_name = ""
-                            last_name = first_and_last_name
-                        p, created = Person.objects.get_first_or_create(
-                            first_name=first_name,
-                            last_name=last_name,
-                        )
-                        event.eventinvolvement_set.create(
-                            person=p,
-                            involvement_role_de=role_de,
-                            involvement_role_en=role_en,
-                            imported_sort_order=person_node.get('position'),
-                        )
-                for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
-                    item.sort_order = sort_order
-                    item.save()
+                            event.price_from = price_from
 
-                # if not event.sponsors.count():
-                #     for sponsor_node in event_node.findall('sponsor'):
-                #         sponsor, created = Sponsor.objects.get_or_create(
-                #             title_de=self.get_child_text(sponsor_node, 'title', languageId="1"),
-                #             defaults={
-                #                 'title_en': self.get_child_text(sponsor_node, 'title', languageId="2"),
-                #                 'website': sponsor_node.get('linkURL'),
-                #             }
-                #         )
-                #         image_url = sponsor_node.get('pictureURL')
-                #         if image_url and created:
-                #             filename = image_url.split("/")[-1]
-                #             image_response = requests.get(image_url)
-                #             if image_response.status_code == 200:
-                #                 image_mods.FileManager.save_file_for_object(
-                #                     sponsor,
-                #                     filename,
-                #                     image_response.content,
-                #                     field_name="image",
-                #                     subpath="sponsors/",
-                #                 )
-                #             sponsor.save()
-                #             event.sponsors.add(sponsor)
+                    price_till = (price_node.get('maxPrice') or u"").replace(',', '.') or None
+                    if price_till is not None:
+                        try:
+                            # in case of price conversion errors, save the price into price_information fields
+                            Decimal(price_till)
+                        except InvalidOperation:
+                            if price_till not in event.price_information_de:
+                                event.price_information_de += '\n' + price_till
+                            if price_till not in event.price_information_en:
+                                event.price_information_en += '\n' + price_till
+                        else:
+                            event.price_till = price_till
+                    event.tickets_website = price_node.get('url')
+
+                if event_node.get('takingPlace'):
+                    flag_status = int(event_node.get('takingPlace'))
+                    if flag_status == 0:  # fällt aus
+                        event.event_status = 'canceled'
+                    elif flag_status == 1:  # findet statt
+                        event.event_status = 'takes_place'
+                    elif flag_status == 2:  # ausverkauft
+                        event.ticket_status = 'sold_out'
+
+                self.parse_and_use_texts(event_node, event)
+
+                event.save()
+
+                if not self.skip_images and not event.eventimage_set.count():
+                    for picture_node in event_node.findall('picture'):
+                        image_url = self.get_child_text(picture_node, 'Url')
+                        if not image_url.startswith('http'):
+                            continue
+                        mf = EventImage(event=event)
+                        filename = image_url.split("/")[-1]
+                        image_response = requests.get(image_url)
+                        if image_response.status_code == 200:
+                            image_mods.FileManager.save_file_for_object(
+                                mf,
+                                filename,
+                                image_response.content,
+                                field_name="path",
+                                subpath="productions/%s/events/%s/gallery/" % (prod.slug, event.pk),
+                            )
+                            if picture_node.get('publishType') == "1":
+                                mf.copyright_restrictions = "general_use"
+                            elif picture_node.get('publishType') == "3":
+                                mf.copyright_restrictions = "protected"
+                            mf.save()
+                            try:
+                                file_description = FileDescription.objects.filter(
+                                    file_path=mf.path,
+                                ).order_by("pk")[0]
+                            except:
+                                file_description = FileDescription(file_path=mf.path)
+
+                            file_description.title_de = self.get_child_text(picture_node, 'text', languageId="1")
+                            file_description.title_en = self.get_child_text(picture_node, 'text', languageId="2")
+                            file_description.author = (picture_node.get('photographer') or u"").replace("Foto: ", "")
+                            file_description.copyright_limitations = picture_node.get('copyright')
+                            file_description.save()
+                            #time.sleep(1)
+
+                venue_node = event_node.find('location')
+                if venue_node is not None:
+                    location, stage = self.get_updated_location_and_stage(venue_node)
+                    if location:
+                        event.play_locations.clear()
+                        event.play_locations.add(location)
+                    #else:
+                    #    event.location_title = venue_node.text
+                    #    event.save()
+
+                    if stage:
+                        if isinstance(stage, dict):
+                            event.location_title = stage['title']
+                            event.street_address = stage.get('street_address', u'')
+                            event.postal_code = stage.get('postal_code', u'')
+                            event.city = stage.get('city', u'Berlin')
+                            event.save()
+                        else:
+                            event.play_stages.clear()
+                            event.play_stages.add(stage)
+
+                for status_id_node in event_node.findall('statusId'):
+                    internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
+                    if internal_ch_slug:
+                        event.characteristics.add(EventCharacteristics.objects.get(slug=internal_ch_slug))
+
+                if not event.eventinvolvement_set.count():
+                    for person_node in event_node.findall('person'):
+                        role_de = self.get_child_text(person_node, 'mediaText/text', languageId="1")
+                        role_en = self.get_child_text(person_node, 'mediaText/text', languageId="2")
+                        if not role_de and int(person_node.get('roleId')) in self.ROLE_ID_MAPPER:
+                            role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.get('roleId'))]
+                        for person_name in re.split(r'\s*[/,]\s*', person_node.get('personFreetext')):
+                            first_and_last_name = person_name
+                            if u" " in first_and_last_name:
+                                first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                            else:
+                                first_name = ""
+                                last_name = first_and_last_name
+                            p, created = Person.objects.get_first_or_create(
+                                first_name=first_name,
+                                last_name=last_name,
+                            )
+                            event.eventinvolvement_set.create(
+                                person=p,
+                                involvement_role_de=role_de,
+                                involvement_role_en=role_en,
+                                imported_sort_order=person_node.get('position'),
+                            )
+                    for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
+                        item.sort_order = sort_order
+                        item.save()
+
+                if not event.sponsors.count():
+                    for sponsor_node in event_node.findall('sponsor'):
+                        sponsor, created = Sponsor.objects.get_or_create(
+                            title_de=self.get_child_text(sponsor_node, 'title', languageId="1"),
+                            defaults={
+                                'title_en': self.get_child_text(sponsor_node, 'title', languageId="2"),
+                                'website': sponsor_node.get('linkURL'),
+                            }
+                        )
+                        image_url = sponsor_node.get('pictureURL')
+                        if image_url and created:
+                            filename = image_url.split("/")[-1]
+                            image_response = requests.get(image_url)
+                            if image_response.status_code == 200:
+                                image_mods.FileManager.save_file_for_object(
+                                    sponsor,
+                                    filename,
+                                    image_response.content,
+                                    field_name="image",
+                                    subpath="sponsors/",
+                                )
+                            sponsor.save()
+                            event.sponsors.add(sponsor)
 
                 if not event_mapper:
                     event_mapper = ObjectMapper(
