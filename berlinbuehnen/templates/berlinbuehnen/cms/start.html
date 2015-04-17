@@ -18,7 +18,7 @@
         <div class="container">
             
             <div class="row main">
-                <h1 class="bottom-line">{% trans "Schedule" %}</h1>
+                <h1 class="bottom-line calender-headline">{% trans "Calender" %}</h1>
                 {% date_slider page='event_list' %}
                 
                 <!-- event list -->
@@ -129,19 +129,21 @@
                         {% get_objects objects.latest_published articles.Article 2 as newest_articles %}
                         {% for article in newest_articles %}
                             <div class="col-xs-12 col-md-6 news-item">
-                                <h3>{% if article.category.title %}{{ article.category.title }}{% else %}{% trans "News" %}{% endif %}</h3>
-                                {% if article.image %}
-                                    <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
-                                {% endif %}
-                                <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
-                                <p>
-                                    {% if article.description %}
-                                        {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
-                                    {% else %}
-                                        {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
+                                <a href="{{ article.get_url_path }}">
+                                    <h3>{% if article.category.title %}{{ article.category.title }}{% else %}{% trans "News" %}{% endif %}</h3>
+                                    {% if article.image %}
+                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
                                     {% endif %}
-                                </p>
-                                <a class="more fawesome" href="{{ article.get_url_path }}" >{% trans "read on" %}</a>
+                                    <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
+                                    <p>
+                                        {% if article.description %}
+                                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
+                                        {% else %}
+                                            {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
+                                        {% endif %}
+                                    </p>
+                                    <p class="more fawesome">{% trans "read on" %}</p>
+                                </a>
                             </div>
                         {% endfor %}
 

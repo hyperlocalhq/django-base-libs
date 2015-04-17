@@ -10,6 +10,8 @@
         margin-left: 0 !important;
         margin-right: 0 !important;
         margin-bottom: 22px;
+        font-size: 1.375em;
+        font-weight: 700;
     }
     
     .news {
@@ -23,6 +25,14 @@
         .news-item {
             padding: 0 12px;
             margin-bottom: 40px;
+            
+            a {
+                color: black;
+                display: block;
+                &:hover {
+                    color: black;
+                }
+            }
             
             h3 {
                 background: black;
@@ -59,9 +69,7 @@
                 font-size: 0.875em;
                 color: black;
                 text-transform: uppercase;
-                &:hover {
-                    color: black;
-                }
+                line-height: inherit;
             }
         }
     }

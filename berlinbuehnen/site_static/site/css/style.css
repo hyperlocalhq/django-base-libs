@@ -195,6 +195,12 @@ strong {
   content: "\f09a";
 }
 
+.subcategory:before {
+  content: "\2514";
+  padding-right: 6px;
+  opacity: 0.7;
+}
+
 @font-face {
   font-family: 'DingRegular';
   src: url("../fonts/ding/ding-regular.eot");
@@ -5312,6 +5318,10 @@ select {
   display: block;
   margin: 10px 0 0 10px;
 }
+.sidebar-accordion .accordion-item .maincategory .subcategory:last-of-type {
+  margin-bottom: 3px;
+  display: inline-block;
+}
 
 .gallery {
   position: relative;
@@ -5896,6 +5906,8 @@ body.is-xs.location-list .list-item .list-item-head {
   margin-left: 0 !important;
   margin-right: 0 !important;
   margin-bottom: 22px;
+  font-size: 1.375em;
+  font-weight: 700;
 }
 .info .news {
   padding-left: 10px;
@@ -5908,6 +5920,13 @@ body.is-xs.location-list .list-item .list-item-head {
 .info .news .news-item {
   padding: 0 12px;
   margin-bottom: 40px;
+}
+.info .news .news-item a {
+  color: black;
+  display: block;
+}
+.info .news .news-item a:hover {
+  color: black;
 }
 .info .news .news-item h3 {
   background: black;
@@ -5944,9 +5963,7 @@ body.is-xs.location-list .list-item .list-item-head {
   font-size: 0.875em;
   color: black;
   text-transform: uppercase;
-}
-.info .news .news-item .more:hover {
-  color: black;
+  line-height: inherit;
 }
 .info .ads {
   padding-left: 10px;
@@ -5999,6 +6016,10 @@ body.is-xs .info {
 
 .home {
   padding-bottom: 20px !important;
+}
+.home h1.bottom-line {
+  font-size: 1.375em;
+  font-weight: 700;
 }
 .home .main {
   margin-bottom: 55px;

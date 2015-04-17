@@ -205,5 +205,14 @@
             display: block;
             margin: 10px 0 0 10px;
         }
+        
+        .maincategory {
+            .subcategory {
+                &:last-of-type {
+                    margin-bottom: 3px;
+                    display: inline-block;
+                }
+            }
+        }
     }
 }

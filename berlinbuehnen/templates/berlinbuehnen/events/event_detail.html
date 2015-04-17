@@ -145,7 +145,7 @@
                                                     {% endif %}
                                                     {% if event.production.website %}
                                                         <dt>{% trans "Web" %}</dt>
-                                                        <dd><a href="{{ event.production.website }}" target="_blank">{{ event.production.website }}</a></dd>
+                                                        <dd><a href="{{ event.production.website }}" target="_blank">{{ event.production.website|humanize_url:200 }}</a></dd>
                                                     {% endif %}
                                                 </dl>
                                             {% endif %}
@@ -193,9 +193,11 @@
                                                                     {% for location in event.production.in_program_of.all %}
                                                                         <a class="black block" href="{{ location.get_url_path }}" data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
                                                                             <strong>{{ location.title }}</strong><br />
-                                                                            {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
-                                                                            {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
-                                                                            {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                                            {% if not stages or not stages.0.street_address %}
+                                                                                {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                                                                                {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                                                                                {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                                            {% endif %}
                                                                         </a>
                                                                     {% endfor %}
                                                                     {% if not stages %}
@@ -207,24 +209,30 @@
                                                                 {% if event.location_title %}
                                                                     <p data-latitude="{{ event.latitude|stringformat:"%f" }}" data-longitude="{{ event.longitude|stringformat:"%f" }}">
                                                                         <strong>{{ event.location_title }}</strong><br />
-                                                                        {% if event.street_address %}{{ event.street_address }}<br />{% endif %}
-                                                                        {% if event.street_address2 %}{{ event.street_address2 }}<br />{% endif %}
-                                                                        {% if event.city %}{{ event.postal_code }} {{ event.city }}<br />{% endif %}
+                                                                        {% if not stages or not stages.0.street_address %}
+                                                                            {% if event.street_address %}{{ event.street_address }}<br />{% endif %}
+                                                                            {% if event.street_address2 %}{{ event.street_address2 }}<br />{% endif %}
+                                                                            {% if event.city %}{{ event.postal_code }} {{ event.city }}<br />{% endif %}
+                                                                        {% endif %}
                                                                     </p>
                                                                 {% elif event.production.location_title %}
                                                                     <p data-latitude="{{ event.production.latitude|stringformat:"%f" }}" data-longitude="{{ event.production.longitude|stringformat:"%f" }}">
                                                                         <strong>{{ event.production.location_title }}</strong><br />
-                                                                        {% if event.production.street_address %}{{ event.production.street_address }}<br />{% endif %}
-                                                                        {% if event.production.street_address2 %}{{ event.production.street_address2 }}<br />{% endif %}
-                                                                        {% if event.production.city %}{{ event.production.postal_code }} {{ event.production.city }}<br />{% endif %}
+                                                                        {% if not stages or not stages.0.street_address %}
+                                                                            {% if event.production.street_address %}{{ event.production.street_address }}<br />{% endif %}
+                                                                            {% if event.production.street_address2 %}{{ event.production.street_address2 }}<br />{% endif %}
+                                                                            {% if event.production.city %}{{ event.production.postal_code }} {{ event.production.city }}<br />{% endif %}
+                                                                        {% endif %}
                                                                     </p>
                                                                 {% endif %}
                                                                 {% for location in locations %}
                                                                     <a class="black block" href="{{ location.get_url_path }}" data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
                                                                         <strong>{{ location.title }}</strong><br />
-                                                                        {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
-                                                                        {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
-                                                                        {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                                        {% if not stages or not stages.0.street_address %}
+                                                                            {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                                                                            {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                                                                            {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                                        {% endif %}
                                                                     </a>
                                                                 {% endfor %}
                                                                 {% if stages %}
@@ -264,11 +272,15 @@
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head open">{% trans "Categories" %}</h4>
                                                         <div class="accordion-item-content">
-                                                            <p>
+                                                            <p><span class="maincategory">
                                                                 {% for cat in event.production.get_categories %}
-                                                                    {% if cat.level == 1 %} &gt; {% endif %}{{ cat.title }}<br />
+                                                                    {% if cat.level == 1 %}
+                                                                        <span class="subcategory">{{ cat.title }}</span>
+                                                                    {% else %}
+                                                                        </span><span class="maincategory">{{ cat.title }}
+                                                                    {% endif %}<br />
                                                                 {% endfor %}
-                                                            </p>
+                                                            </span></p>
                                                         </div>
                                                     </div>
                                                 {% endif %}
@@ -390,7 +402,7 @@
                                                                 <p>{{ event.production.age_from }}{% if event.production.age_till %} - {{ event.production.age_till }}{% endif %}</p>
                                                             {% endif %}
                                                             {% if event.production.edu_offer_website %}
-                                                                <p><strong>Educational offer: </strong><a href="{{ event.production.edu_offer_website }}">{{ event.production.edu_offer_website|humanize_url:30 }}</a></p>
+                                                                <p><strong>{% trans "Educational offer" %}: </strong><a href="{{ event.production.edu_offer_website }}">{{ event.production.edu_offer_website|humanize_url:30 }}</a></p>
                                                             {% endif %}
                                                         </div>
                                                     </div>
