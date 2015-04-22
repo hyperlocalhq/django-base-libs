@@ -537,7 +537,7 @@ class BasicInfoForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 PrimarySubmit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('Close')),
+                SecondarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
@@ -623,7 +623,7 @@ class StagesForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 PrimarySubmit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('Close')),
+                SecondarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
@@ -757,7 +757,7 @@ class GalleryForm(forms.ModelForm):
         layout_blocks = []
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
-                PrimarySubmit('save_and_close', _('Close')),
+                PrimarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:

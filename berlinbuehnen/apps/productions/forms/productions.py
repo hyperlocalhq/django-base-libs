@@ -208,7 +208,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 PrimarySubmit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('Close')),
+                SecondarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
@@ -541,7 +541,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         if self.instance and self.instance.pk:
             layout_blocks.append(bootstrap.FormActions(
                 PrimarySubmit('submit', _('Next')),
-                SecondarySubmit('save_and_close', _('Close')),
+                SecondarySubmit('save_and_close', _('Save and close')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
         else:
@@ -1004,7 +1004,7 @@ class GalleryForm(forms.ModelForm):
         layout_blocks = []
         layout_blocks.append(bootstrap.FormActions(
             PrimarySubmit('submit', _('Next')),
-            SecondarySubmit('save_and_close', _('Close')),
+            SecondarySubmit('save_and_close', _('Save and close')),
             SecondarySubmit('reset', _('Cancel')),
         ))
         self.helper.layout = layout.Layout(
@@ -1023,7 +1023,7 @@ class EventsForm(forms.ModelForm):
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(bootstrap.FormActions(
-            PrimarySubmit('save_and_close', _('Close')),
+            PrimarySubmit('save_and_close', _('Save and close')),
             SecondarySubmit('reset', _('Cancel')),
         ))
 
