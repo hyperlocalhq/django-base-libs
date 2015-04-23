@@ -41,7 +41,7 @@
                         <div class="clearfix"></div>
                         
                         <!-- filter sets -->
-                        {% if facets.selected.abc or facets.selected.categories or facets.selected.subcategories or language_and_subtitles or production_characteristics or event_characteristics or facets.selected.locations %}
+                        {% if facets.selected.abc or facets.selected.categories or facets.selected.subcategories or facets.selected.language_and_subtitles or facets.selected.production_characteristics or facets.selected.event_characteristics or facets.selected.locations or facets.selected.starttime|time:'H:i' == '18:00' %}
                             <div class="filter-set-wrapper col-xs-12">
                                 <ul class="filter-set">
                                     <li>{% trans "Current selection" %}:</li>
@@ -60,24 +60,29 @@
                                             <li><a class="fawesome delete" href="{% remove_from_query "page" subcategories=cat.pk %}">{{ cat.title }}</a></li>
                                         {% endfor %}
                                     {% endif %}
-                                    {% if facets.selected.language_and_subtitles %}
-                                        {% for cat in facets.selected.language_and_subtitles %}
-                                            <li><a class="fawesome delete" href="{% remove_from_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a></li>
+                                    {% if facets.selected.locations %}
+                                        {% for cat in facets.selected.locations %}
+                                            <li><a class="fawesome delete" href="{% remove_from_query "page" locations=cat.pk %}">{{ cat.title }}</a></li>
                                         {% endfor %}
                                     {% endif %}
+                                    {% comment %}
                                     {% if facets.selected.production_characteristics %}
                                         {% for cat in facets.selected.production_characteristics %}
                                             <li><a class="fawesome delete" href="{% remove_from_query "page" production_characteristics=cat.pk %}">{{ cat.title }}</a></li>
                                         {% endfor %}
                                     {% endif %}
+                                    {% endcomment %}
                                     {% if facets.selected.event_characteristics %}
                                         {% for cat in facets.selected.event_characteristics %}
                                             <li><a class="fawesome delete" href="{% remove_from_query "page" event_characteristics=cat.pk %}">{{ cat.title }}</a></li>
                                         {% endfor %}
                                     {% endif %}
-                                    {% if facets.selected.locations %}
-                                        {% for cat in facets.selected.locations %}
-                                            <li><a class="fawesome delete" href="{% remove_from_query "page" locations=cat.pk %}">{{ cat.title }}</a></li>
+                                    {% if facets.selected.starttime|time:'H:i' == '18:00' %}
+                                            <li><a class="fawesome delete" href="{% remove_from_query "page" starttime='18:00' %}">{% trans 'Evening' %}</a></li>
+                                    {% endif %}
+                                    {% if facets.selected.language_and_subtitles %}
+                                        {% for cat in facets.selected.language_and_subtitles %}
+                                            <li><a class="fawesome delete" href="{% remove_from_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a></li>
                                         {% endfor %}
                                     {% endif %}
                                 </ul>

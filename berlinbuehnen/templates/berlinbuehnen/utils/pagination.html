@@ -2,7 +2,7 @@
 {% if has_previous or has_next %}
     <ul class="pagination item">
         {% if has_previous %}
-            <li><a href="{% append_to_get page=previous %}">&laquo;</a></li>
+            <li><a href="{% add_to_query "page" page=previous %}">&laquo;</a></li>
         {% else %}
             <li class="disabled"><span>&laquo;</span></li>
         {% endif %}
@@ -13,12 +13,12 @@
                 </li>
             {% else %}
                 <li>
-                    <a href="{% append_to_get page=page_number %}">{{ page_number }}</a>
+                    <a href="{% add_to_query "page" page=page_number %}">{{ page_number }}</a>
                 </li>
             {% endif %}
         {% endfor %}
         {% if has_next %}
-            <li><a class="next_page" href="{% append_to_get page=next %}">&raquo;</a></li>
+            <li><a class="next_page" href="{% add_to_query "page" page=next %}">&raquo;</a></li>
         {% else %}
             <li class="disabled"><span>&raquo;</span></li>
         {% endif %}

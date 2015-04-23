@@ -61,6 +61,7 @@
         
         me.$options = $('.filter-option', me.$options_wrapper);
         me.$suboptions = $('.filter-suboptions', me.$options_wrapper);
+        me.$singletons = $('.singleton',  me.$options_wrapper);
         
         me.$options.click(function() {me.onOptionClicked($(this));});
         $('a', me.$main).click(function(event) {me.onLinkClicked(event);});
@@ -208,11 +209,21 @@
         
         // handling a full reset
         if (params['reset']) {
+            
             $('.active', me.$suboptions).each(function() {
                 
                 $this = $(this);
                 var value = $this.data('value').split("=");
                 delete params[value[0]];
+            });
+            
+            me.$singletons.each(function() {
+                
+                $this = $(this);
+                if ($this.hasClass('active')) {
+                    var value = $this.data('value').split("=");
+                    delete params[value[0]];
+                }
             });
         }
         

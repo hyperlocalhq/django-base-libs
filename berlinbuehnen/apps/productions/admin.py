@@ -194,10 +194,10 @@ admin.site.register(Production, ProductionAdmin)
 
 class EventCharacteristicsAdmin(ExtendedModelAdmin):
     save_on_top = True
-    list_display = ['title', 'sort_order']
+    list_display = ['title', 'sort_order', 'show_as_main_category']
 
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug', 'sort_order')}),]
+    fieldsets += [(None, {'fields': ('slug', 'sort_order', 'show_as_main_category')}),]
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 

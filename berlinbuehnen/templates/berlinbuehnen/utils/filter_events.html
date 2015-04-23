@@ -14,7 +14,6 @@
         <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-alphabetic" aria-expanded="false">
             <input type="radio" name="options" id="filter-toggle-alphabetic">
             <span>{% trans "A - Z" %}</span>
-            </label>
         </label>
         {% endcomment %}
 
@@ -22,27 +21,49 @@
         <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-smartlists" aria-expanded="false">
             <input type="radio" name="options" id="filter-toggle-smartlists">
             <span>{% trans "Smart lists" %}</span>
-            </label>
         </label>
         {% endcomment %}
-
-        <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-language" aria-expanded="false">
-            <input type="radio" name="options" id="filter-toggle-language">
-            <span>{% trans "Language" %}</span>
-            </label>
-        </label>
-
-        <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-characteristics" aria-expanded="false">
-            <input type="radio" name="options" id="filter-toggle-characteristics">
-            <span>{% trans "Characteristics" %}</span>
-            </label>
-        </label>
 
         <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-location" aria-expanded="false">
             <input type="radio" name="options" id="filter-toggle-location">
             <span>{% trans "Location" %}</span>
-            </label>
         </label>
+        
+        {% for cat in facets.categories.event_characteristics %}
+            {% if cat.show_as_main_category %}
+                {% if cat in facets.selected.event_characteristics %}
+                    <label class="singleton active col-xs-6 col-sm-4 col-md-3" data-value="event_characteristics={{ cat.pk }}">
+                        <a href="{% remove_from_query "page" event_characteristics=cat.pk %}">{{ cat.title }}</a>
+                    </label>
+                {% else %}
+                    <label class="singleton col-xs-6 col-sm-4 col-md-3">
+                        <a href="{% add_to_query "page" event_characteristics=cat.pk %}">{{ cat.title }}</a>
+                    </label>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        
+        {% if facets.selected.starttime|time:'H:i' == '18:00' %}
+            <label class="singleton active col-xs-6 col-sm-4 col-md-3" data-value="starttime=18:00">
+                <a href="{% remove_from_query "page" starttime='18:00' %}">{% trans 'Evening' %}</a>
+            </label>
+        {% else %}
+            <label class="singleton col-xs-6 col-sm-4 col-md-3">
+                <a href="{% add_to_query "page" starttime='18:00' %}">{% trans 'Evening' %}</a>
+            </label>
+        {% endif %}
+        
+        <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-language" aria-expanded="false">
+            <input type="radio" name="options" id="filter-toggle-language">
+            <span>{% trans "Language" %}</span>
+        </label>
+
+        {% comment %}
+        <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-characteristics" aria-expanded="false">
+            <input type="radio" name="options" id="filter-toggle-characteristics">
+            <span>{% trans "Characteristics" %}</span>
+        </label>
+        {% endcomment %}
 
     </div>
 
@@ -114,6 +135,25 @@
             </div>
         </div>
         {% endcomment %}
+            
+        <div class="panel">
+            <div id="filter-location" class="filter-suboptions panel-collapse collapse col-xs-12">
+                <h5>{% trans "filter by" %}:</h5>
+                <ul class="option-set">
+                    {% for cat in facets.categories.locations %}
+                        {% if cat in facets.selected.locations %} 
+                            <li class="active" data-value="locations={{ cat.pk }}">
+                                <a href="{% remove_from_query "page" locations=cat.pk %}">{{ cat.title }}</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% add_to_query "page" locations=cat.pk %}">{{ cat.title }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
 
         <div class="panel">
             <div id="filter-language" class="filter-suboptions panel-collapse collapse col-xs-12">
@@ -134,6 +174,7 @@
             </div>
         </div>
             
+        {% comment %}
         <div class="panel">
             <div id="filter-characteristics" class="filter-suboptions panel-collapse collapse col-xs-12">
                 <h5>{% trans "filter by" %}:</h5>
@@ -150,38 +191,22 @@
                         {% endif %}
                     {% endfor %}
                     {% for cat in facets.categories.event_characteristics %}
-                        {% if cat in facets.selected.event_characteristics %}
-                            <li class="active" data-value="event_characteristics={{ cat.pk }}">
-                                <a href="{% remove_from_query "page" event_characteristics=cat.pk %}">{{ cat.title }}</a>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="{% add_to_query "page" event_characteristics=cat.pk %}">{{ cat.title }}</a>
-                            </li>
+                        {% if not cat.show_as_main_category %}
+                            {% if cat in facets.selected.event_characteristics %}
+                                <li class="active" data-value="event_characteristics={{ cat.pk }}">
+                                    <a href="{% remove_from_query "page" event_characteristics=cat.pk %}">{{ cat.title }}</a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{% add_to_query "page" event_characteristics=cat.pk %}">{{ cat.title }}</a>
+                                </li>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </ul>
             </div>
         </div>
-            
-        <div class="panel">
-            <div id="filter-location" class="filter-suboptions panel-collapse collapse col-xs-12">
-                <h5>{% trans "filter by" %}:</h5>
-                <ul class="option-set">
-                    {% for cat in facets.categories.locations %}
-                        {% if cat in facets.selected.locations %} 
-                            <li class="active" data-value="locations={{ cat.pk }}">
-                                <a href="{% remove_from_query "page" locations=cat.pk %}">{{ cat.title }}</a>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="{% add_to_query "page" locations=cat.pk %}">{{ cat.title }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+        {% endcomment %}
             
     </div>
 </div>

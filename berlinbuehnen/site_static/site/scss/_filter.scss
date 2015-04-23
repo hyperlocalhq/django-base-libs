@@ -87,10 +87,25 @@
                             color: $blue;
                             &.collapsed {
                                 color: black;
+                                &:hover {
+                                    color: $blue;
+                                }
                             }
                         }
                         &:hover {
                             color: $blue;
+                        }
+                        
+                        a {
+                            display: block;
+                            border-bottom: 2px solid black;
+                            text-transform: uppercase;
+                            font-size: 0.875em;
+                            font-weight: $bold;
+                            color: black;
+                            &:hover {
+                                color: $blue;
+                            }
                         }
                     }
                 }

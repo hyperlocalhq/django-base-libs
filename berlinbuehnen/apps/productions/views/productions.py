@@ -46,6 +46,9 @@ class EventFilterForm(forms.Form):
     date = forms.DateField(
         required=False,
     )
+    starttime = forms.TimeField(
+        required=False,
+    )
     locations = forms.ModelMultipleChoiceField(
         queryset=Location.objects.all(),
         required=False,
@@ -74,6 +77,7 @@ class EventFilterForm(forms.Form):
 
 def event_list(request, year=None, month=None, day=None):
     qs = Event.objects.filter(production__status="published")
+    #query_string = '?'
 
     # exclude the parts of multipart productions
     qs = qs.filter(production__part=None)
@@ -95,53 +99,87 @@ def event_list(request, year=None, month=None, day=None):
     if form.is_valid():
         cat = form.cleaned_data['date'] or datetime.today()
         facets['selected']['date'] = cat
+        #query_string += 'date='+cat.strftime('%Y-%m-%d')+'&'
+        
         qs = qs.filter(
             start_date__gte=cat,
         ).distinct()
 
+        cat = form.cleaned_data['starttime']
+        if cat:
+            facets['selected']['starttime'] = cat
+            qs = qs.filter(
+                start_time__gte=cat,
+            ).distinct()
+        
         cats = form.cleaned_data['locations']
         if cats:
             facets['selected']['locations'] = cats
+            #for cat in cats:
+            #    query_string += 'locations='+str(cat.id)+'&'
             qs = qs.filter(
                 models.Q(production__in_program_of__in=cats) |
                 models.Q(play_locations__in=cats) |
                 models.Q(production__play_locations__in=cats)
             ).distinct()
+            
         cats = form.cleaned_data['categories']
-        if cats:
-            facets['selected']['categories'] = cats
+        subcats = form.cleaned_data['subcategories']
+        if cats or subcats:
+            if cats:
+                facets['selected']['categories'] = cats
+                #for cat in cats:
+                #    query_string += 'categories='+str(cat.id)+'&'
+            if subcats:
+                facets['selected']['subcategories'] = subcats
+                #for cat in subcats:
+                #    query_string += 'subcategories='+str(cat.id)+'&'
             qs = qs.filter(
-                production__categories__in=cats,
+                models.Q(production__categories__in=cats) |
+                models.Q(production__categories__in=subcats)
             ).distinct()
-        cats = form.cleaned_data['subcategories']
-        if cats:
-            facets['selected']['subcategories'] = cats
-            qs = qs.filter(
-                production__categories__in=cats,
-            ).distinct()
+            
         cats = form.cleaned_data['language_and_subtitles']
         if cats:
             facets['selected']['language_and_subtitles'] = cats
+            #for cat in cats:
+            #    query_string += 'language_and_subtitles='+str(cat.id)+'&'
             qs = qs.filter(
                 production__language_and_subtitles__in=cats,
             ).distinct()
-        cats = form.cleaned_data['production_characteristics']
-        if cats:
-            facets['selected']['production_characteristics'] = cats
+            
+        prodcats = form.cleaned_data['production_characteristics']
+        eventcats = form.cleaned_data['event_characteristics']
+        eventcats_main = []
+        eventcats_sub = []
+        if eventcats:
+            facets['selected']['event_characteristics'] = eventcats
+            #for cat in eventcats:
+            #    query_string += 'event_characteristics='+str(cat.id)+'&'
+            eventcats_sub = EventCharacteristics.objects.filter(pk__in=eventcats, show_as_main_category=False).values_list('id', flat=True)
+            eventcats_main = EventCharacteristics.objects.filter(pk__in=eventcats, show_as_main_category=True).values_list('id', flat=True)
+        
+        if prodcats or eventcats_sub:
+            if prodcats:
+                facets['selected']['production_characteristics'] = prodcats
+                #for cat in prodcats:
+                #    query_string += 'production_characteristics='+str(cat.id)+'&'
             qs = qs.filter(
-                production__characteristics__in=cats,
+                models.Q(production__characteristics__in=prodcats) |
+                models.Q(characteristics__in=eventcats_sub)
             ).distinct()
-        cats = form.cleaned_data['event_characteristics']
-        if cats:
-            facets['selected']['event_characteristics'] = cats
+            
+        if eventcats_main:
             qs = qs.filter(
-                characteristics__in=cats,
+                characteristics__in=eventcats_main
             ).distinct()
 
     abc_filter = request.GET.getlist('abc', None)
     abc_list = get_abc_list(qs, "production__title_%s" % request.LANGUAGE_CODE)
     if abc_filter:
         facets['selected']['abc'] = abc_filter
+        #for cat in abc_filter:
+        #    query_string += 'abc='+cat+'&'
         for letter in abc_filter:
             qs = filter_abc(qs, "production__title_%s" % request.LANGUAGE_CODE, letter)
 
@@ -155,6 +193,8 @@ def event_list(request, year=None, month=None, day=None):
 
     qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
 
+    #facets['query_string'] = query_string
+    
     extra_context = {
         'form': form,
         'abc_list': abc_list,

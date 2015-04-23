@@ -513,6 +513,7 @@ class ProductionInvolvement(CreationModificationDateMixin):
 class EventCharacteristics(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
     sort_order = models.IntegerField(_("Sort Order"), default=0)
+    show_as_main_category= models.BooleanField(_("Show as main category"))
 
     def __unicode__(self):
         return self.title

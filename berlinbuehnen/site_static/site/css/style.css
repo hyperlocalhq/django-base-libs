@@ -5820,7 +5820,21 @@ body.is-xs.location-list .list-item .list-item-head {
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label.active.collapsed {
   color: black;
 }
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label.active.collapsed:hover {
+  color: #4583c8;
+}
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label:hover {
+  color: #4583c8;
+}
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label a {
+  display: block;
+  border-bottom: 2px solid black;
+  text-transform: uppercase;
+  font-size: 0.875em;
+  font-weight: 700;
+  color: black;
+}
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options label a:hover {
   color: #4583c8;
 }
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-suboptions {
