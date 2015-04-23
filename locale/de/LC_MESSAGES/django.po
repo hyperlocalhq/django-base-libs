@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-22 10:40+0200\n"
-"PO-Revision-Date: 2015-04-22 11:45+0053\n"
+"POT-Creation-Date: 2015-04-23 17:47+0200\n"
+"PO-Revision-Date: 2015-04-23 17:59+0053\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -155,7 +155,7 @@ msgid "Magazine"
 msgstr "Blog"
 
 #: .\berlinbuehnen\settings.py:599
-#: .\berlinbuehnen\apps\productions\models.py:593
+#: .\berlinbuehnen\apps\productions\models.py:594
 #: .\berlinbuehnen\apps\productions\forms\productions.py:1482
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_list.html.py:4
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_list_old.html.py:4
@@ -177,7 +177,7 @@ msgstr "Bildurheber"
 
 #: .\berlinbuehnen\apps\articles\admin.py:15
 #: .\berlinbuehnen\apps\productions\models.py:152
-#: .\berlinbuehnen\apps\productions\models.py:562
+#: .\berlinbuehnen\apps\productions\models.py:563
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:553
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:312
 msgid "Contents"
@@ -199,7 +199,7 @@ msgstr "Zusätzlicher Inhalt"
 #: .\berlinbuehnen\apps\productions\admin.py:141
 #: .\berlinbuehnen\apps\productions\admin.py:272
 #: .\berlinbuehnen\apps\productions\models.py:149
-#: .\berlinbuehnen\apps\productions\models.py:559
+#: .\berlinbuehnen\apps\productions\models.py:560
 #: .\berlinbuehnen\apps\productions\forms\events.py:598
 #: .\berlinbuehnen\apps\productions\forms\productions.py:426
 #: .\berlinbuehnen\apps\productions\forms\productions.py:1465
@@ -330,8 +330,8 @@ msgstr "Aktuellste Posts"
 #: .\berlinbuehnen\apps\productions\models.py:338
 #: .\berlinbuehnen\apps\productions\models.py:367
 #: .\berlinbuehnen\apps\productions\models.py:514
-#: .\berlinbuehnen\apps\productions\models.py:760
-#: .\berlinbuehnen\apps\productions\models.py:789
+#: .\berlinbuehnen\apps\productions\models.py:761
+#: .\berlinbuehnen\apps\productions\models.py:790
 #: .\berlinbuehnen\apps\productions\forms\productions.py:128
 #: .\berlinbuehnen\apps\slideshows\models.py:32
 #: .\berlinbuehnen\apps\sponsors\admin.py:18
@@ -660,12 +660,12 @@ msgid "Subtitle"
 msgstr "Untertitel"
 
 #: .\berlinbuehnen\apps\festivals\models.py:56
-#: .\berlinbuehnen\apps\productions\models.py:539
+#: .\berlinbuehnen\apps\productions\models.py:540
 msgid "Start date"
 msgstr "Anfangsdatum"
 
 #: .\berlinbuehnen\apps\festivals\models.py:57
-#: .\berlinbuehnen\apps\productions\models.py:540
+#: .\berlinbuehnen\apps\productions\models.py:541
 msgid "End date"
 msgstr "End(e) / Enddatum"
 
@@ -683,8 +683,8 @@ msgstr "Festivals"
 #: .\berlinbuehnen\apps\locations\models.py:245
 #: .\berlinbuehnen\apps\productions\models.py:396
 #: .\berlinbuehnen\apps\productions\models.py:423
-#: .\berlinbuehnen\apps\productions\models.py:818
-#: .\berlinbuehnen\apps\productions\models.py:845
+#: .\berlinbuehnen\apps\productions\models.py:819
+#: .\berlinbuehnen\apps\productions\models.py:846
 #: .\berlinbuehnen\apps\slideshows\models.py:29
 #: .\berlinbuehnen\apps\sponsors\models.py:20
 msgid "File path"
@@ -693,7 +693,7 @@ msgstr "Deteipfad"
 #: .\berlinbuehnen\apps\festivals\models.py:140
 #: .\berlinbuehnen\apps\locations\models.py:245
 #: .\berlinbuehnen\apps\productions\models.py:396
-#: .\berlinbuehnen\apps\productions\models.py:818
+#: .\berlinbuehnen\apps\productions\models.py:819
 #: .\berlinbuehnen\apps\sponsors\models.py:20
 msgid "A path to a locally stored image."
 msgstr "Dateipfad zu einem lokal gespreicherten Bild."
@@ -702,7 +702,7 @@ msgstr "Dateipfad zu einem lokal gespreicherten Bild."
 #: .\berlinbuehnen\apps\locations\models.py:246
 #: .\berlinbuehnen\apps\locations\forms\gallery.py:59
 #: .\berlinbuehnen\apps\productions\models.py:397
-#: .\berlinbuehnen\apps\productions\models.py:819
+#: .\berlinbuehnen\apps\productions\models.py:820
 #: .\berlinbuehnen\apps\productions\forms\gallery.py:362
 msgid "Copyright restrictions"
 msgstr "Urheberrechtsauflagen"
@@ -720,13 +720,13 @@ msgstr "Urheberrechtsauflagen"
 #: .\berlinbuehnen\apps\productions\models.py:451
 #: .\berlinbuehnen\apps\productions\models.py:472
 #: .\berlinbuehnen\apps\productions\models.py:495
-#: .\berlinbuehnen\apps\productions\models.py:762
-#: .\berlinbuehnen\apps\productions\models.py:791
-#: .\berlinbuehnen\apps\productions\models.py:820
-#: .\berlinbuehnen\apps\productions\models.py:846
-#: .\berlinbuehnen\apps\productions\models.py:873
-#: .\berlinbuehnen\apps\productions\models.py:894
-#: .\berlinbuehnen\apps\productions\models.py:917
+#: .\berlinbuehnen\apps\productions\models.py:763
+#: .\berlinbuehnen\apps\productions\models.py:792
+#: .\berlinbuehnen\apps\productions\models.py:821
+#: .\berlinbuehnen\apps\productions\models.py:847
+#: .\berlinbuehnen\apps\productions\models.py:874
+#: .\berlinbuehnen\apps\productions\models.py:895
+#: .\berlinbuehnen\apps\productions\models.py:918
 #: .\berlinbuehnen\apps\slideshows\models.py:36
 msgid "Sort order"
 msgstr "Auflistung"
@@ -737,14 +737,14 @@ msgstr "Auflistung"
 #: .\berlinbuehnen\apps\locations\models.py:251
 #: .\berlinbuehnen\apps\mega_menu\models.py:21
 #: .\berlinbuehnen\apps\productions\models.py:402
-#: .\berlinbuehnen\apps\productions\models.py:824
+#: .\berlinbuehnen\apps\productions\models.py:825
 msgid "Image"
 msgstr "Bild"
 
 #: .\berlinbuehnen\apps\festivals\models.py:147
 #: .\berlinbuehnen\apps\locations\models.py:252
 #: .\berlinbuehnen\apps\productions\models.py:403
-#: .\berlinbuehnen\apps\productions\models.py:825
+#: .\berlinbuehnen\apps\productions\models.py:826
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:403
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:429
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\location_detail_old.html.py:212
@@ -879,7 +879,7 @@ msgstr "Logo"
 #: .\berlinbuehnen\apps\locations\models.py:112
 #: .\berlinbuehnen\apps\locations\models.py:225
 #: .\berlinbuehnen\apps\productions\models.py:140
-#: .\berlinbuehnen\apps\productions\models.py:550
+#: .\berlinbuehnen\apps\productions\models.py:551
 msgid "Street address"
 msgstr "Straße"
 
@@ -887,7 +887,7 @@ msgstr "Straße"
 #: .\berlinbuehnen\apps\locations\models.py:113
 #: .\berlinbuehnen\apps\locations\models.py:226
 #: .\berlinbuehnen\apps\productions\models.py:141
-#: .\berlinbuehnen\apps\productions\models.py:551
+#: .\berlinbuehnen\apps\productions\models.py:552
 msgid "Street address (second line)"
 msgstr "Adresszusatz"
 
@@ -895,7 +895,7 @@ msgstr "Adresszusatz"
 #: .\berlinbuehnen\apps\locations\models.py:114
 #: .\berlinbuehnen\apps\locations\models.py:227
 #: .\berlinbuehnen\apps\productions\models.py:142
-#: .\berlinbuehnen\apps\productions\models.py:552
+#: .\berlinbuehnen\apps\productions\models.py:553
 msgid "Postal code"
 msgstr "Postleitzahl"
 
@@ -903,21 +903,21 @@ msgstr "Postleitzahl"
 #: .\berlinbuehnen\apps\locations\models.py:115
 #: .\berlinbuehnen\apps\locations\models.py:228
 #: .\berlinbuehnen\apps\productions\models.py:143
-#: .\berlinbuehnen\apps\productions\models.py:553
+#: .\berlinbuehnen\apps\productions\models.py:554
 msgid "City"
 msgstr "Ort"
 
 #: .\berlinbuehnen\apps\locations\models.py:100
 #: .\berlinbuehnen\apps\locations\models.py:229
 #: .\berlinbuehnen\apps\productions\models.py:144
-#: .\berlinbuehnen\apps\productions\models.py:554
+#: .\berlinbuehnen\apps\productions\models.py:555
 msgid "Latitude"
 msgstr "Breitengrad"
 
 #: .\berlinbuehnen\apps\locations\models.py:100
 #: .\berlinbuehnen\apps\locations\models.py:229
 #: .\berlinbuehnen\apps\productions\models.py:144
-#: .\berlinbuehnen\apps\productions\models.py:554
+#: .\berlinbuehnen\apps\productions\models.py:555
 msgid ""
 "Latitude (Lat.) is the angle between any point and the equator (north pole "
 "is at 90; south pole is at -90)."
@@ -926,14 +926,14 @@ msgstr ""
 #: .\berlinbuehnen\apps\locations\models.py:101
 #: .\berlinbuehnen\apps\locations\models.py:230
 #: .\berlinbuehnen\apps\productions\models.py:145
-#: .\berlinbuehnen\apps\productions\models.py:555
+#: .\berlinbuehnen\apps\productions\models.py:556
 msgid "Longitude"
 msgstr "Langengrad"
 
 #: .\berlinbuehnen\apps\locations\models.py:101
 #: .\berlinbuehnen\apps\locations\models.py:230
 #: .\berlinbuehnen\apps\productions\models.py:145
-#: .\berlinbuehnen\apps\productions\models.py:555
+#: .\berlinbuehnen\apps\productions\models.py:556
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
@@ -998,7 +998,7 @@ msgstr "Bühne"
 #: .\berlinbuehnen\apps\locations\models.py:153
 #: .\berlinbuehnen\apps\productions\admin.py:161
 #: .\berlinbuehnen\apps\productions\models.py:132
-#: .\berlinbuehnen\apps\productions\models.py:546
+#: .\berlinbuehnen\apps\productions\models.py:547
 #: .\berlinbuehnen\apps\productions\forms\productions.py:80
 #: .\berlinbuehnen\templates\berlinbuehnen\accounts\dashboard.html.py:151
 #: .\berlinbuehnen\templates\berlinbuehnen\accounts\dashboard_locations.html.py:23
@@ -1020,7 +1020,7 @@ msgstr "Bühnen"
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\location_detail.html.py:3
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\location_detail_old.html.py:3
 #: .\berlinbuehnen\templates\berlinbuehnen\utils\bvg.html.py:28
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:45
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:31
 msgid "Location"
 msgstr "Bühne"
 
@@ -1036,7 +1036,7 @@ msgstr "Spielstätte"
 #: .\berlinbuehnen\apps\locations\forms\locations.py:1013
 #: .\berlinbuehnen\apps\productions\admin.py:163
 #: .\berlinbuehnen\apps\productions\models.py:133
-#: .\berlinbuehnen\apps\productions\models.py:547
+#: .\berlinbuehnen\apps\productions\models.py:548
 #: .\berlinbuehnen\apps\productions\forms\productions.py:81
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\location_detail.html.py:107
 #: .\berlinbuehnen\templates\berlinbuehnen\locations\location_detail_old.html.py:98
@@ -1045,31 +1045,31 @@ msgstr "Spielstätten"
 
 #: .\berlinbuehnen\apps\locations\models.py:271
 #: .\berlinbuehnen\apps\productions\models.py:324
-#: .\berlinbuehnen\apps\productions\models.py:746
+#: .\berlinbuehnen\apps\productions\models.py:747
 msgid "Social media type"
 msgstr "Art des Sozialen Mediums"
 
 #: .\berlinbuehnen\apps\locations\models.py:271
 #: .\berlinbuehnen\apps\productions\models.py:324
-#: .\berlinbuehnen\apps\productions\models.py:746
+#: .\berlinbuehnen\apps\productions\models.py:747
 msgid "e.g. twitter, facebook, etc."
 msgstr "z.B. Twitter, Facebook, etc."
 
 #: .\berlinbuehnen\apps\locations\models.py:272
 #: .\berlinbuehnen\apps\productions\models.py:325
-#: .\berlinbuehnen\apps\productions\models.py:747
+#: .\berlinbuehnen\apps\productions\models.py:748
 msgid "URL"
 msgstr "URL"
 
 #: .\berlinbuehnen\apps\locations\models.py:276
 #: .\berlinbuehnen\apps\productions\models.py:329
-#: .\berlinbuehnen\apps\productions\models.py:751
+#: .\berlinbuehnen\apps\productions\models.py:752
 msgid "Social media channel"
 msgstr "Kanal der sozialen Medien"
 
 #: .\berlinbuehnen\apps\locations\models.py:277
 #: .\berlinbuehnen\apps\productions\models.py:330
-#: .\berlinbuehnen\apps\productions\models.py:752
+#: .\berlinbuehnen\apps\productions\models.py:753
 msgid "Social media channels"
 msgstr "Kanäle der sozialen Medien"
 
@@ -1576,7 +1576,7 @@ msgstr ""
 
 #: .\berlinbuehnen\apps\mega_menu\models.py:16
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:132
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:33
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:60
 msgid "Language"
 msgstr "Sprache"
 
@@ -1637,7 +1637,7 @@ msgstr "Teile"
 #: .\berlinbuehnen\apps\productions\models.py:448
 #: .\berlinbuehnen\apps\productions\models.py:468
 #: .\berlinbuehnen\apps\productions\models.py:489
-#: .\berlinbuehnen\apps\productions\models.py:538
+#: .\berlinbuehnen\apps\productions\models.py:539
 #: .\berlinbuehnen\apps\productions\forms\productions.py:1460
 #: .\berlinbuehnen\templates\berlinbuehnen\accounts\dashboard.html.py:75
 #: .\berlinbuehnen\templates\berlinbuehnen\accounts\dashboard_productions.html.py:78
@@ -1710,7 +1710,7 @@ msgstr "Personen"
 #: .\berlinbuehnen\apps\productions\admin.py:111
 #: .\berlinbuehnen\apps\productions\admin.py:245
 #: .\berlinbuehnen\apps\productions\models.py:450
-#: .\berlinbuehnen\apps\productions\models.py:872
+#: .\berlinbuehnen\apps\productions\models.py:873
 #: .\berlinbuehnen\apps\productions\forms\events.py:802
 #: .\berlinbuehnen\apps\productions\forms\events.py:927
 #: .\berlinbuehnen\apps\productions\forms\events.py:929
@@ -1723,7 +1723,7 @@ msgstr "Funktion"
 #: .\berlinbuehnen\apps\productions\admin.py:126
 #: .\berlinbuehnen\apps\productions\admin.py:260
 #: .\berlinbuehnen\apps\productions\models.py:492
-#: .\berlinbuehnen\apps\productions\models.py:914
+#: .\berlinbuehnen\apps\productions\models.py:915
 msgid "Another type"
 msgstr "Weiterer Typ"
 
@@ -1759,14 +1759,14 @@ msgstr "zusätzliche Details / Infos"
 #: .\berlinbuehnen\apps\productions\admin.py:144
 #: .\berlinbuehnen\apps\productions\admin.py:276
 #: .\berlinbuehnen\apps\productions\models.py:175
-#: .\berlinbuehnen\apps\productions\models.py:584
+#: .\berlinbuehnen\apps\productions\models.py:585
 msgid "Other characteristics"
 msgstr "Weitere Merkmale"
 
 #: .\berlinbuehnen\apps\productions\admin.py:145
 #: .\berlinbuehnen\apps\productions\admin.py:275
 #: .\berlinbuehnen\apps\productions\models.py:180
-#: .\berlinbuehnen\apps\productions\models.py:586
+#: .\berlinbuehnen\apps\productions\models.py:587
 #: .\berlinbuehnen\apps\productions\forms\events.py:634
 #: .\berlinbuehnen\apps\productions\forms\productions.py:521
 #: .\berlinbuehnen\apps\sponsors\models.py:27
@@ -1863,7 +1863,7 @@ msgid "Ensembles"
 msgstr "Ensembles"
 
 #: .\berlinbuehnen\apps\productions\models.py:136
-#: .\berlinbuehnen\apps\productions\models.py:557
+#: .\berlinbuehnen\apps\productions\models.py:558
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:375
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:239
 msgid "Organizers"
@@ -1876,66 +1876,66 @@ msgid "In cooperation with"
 msgstr "in Zusammenarbeit mit"
 
 #: .\berlinbuehnen\apps\productions\models.py:139
-#: .\berlinbuehnen\apps\productions\models.py:549
+#: .\berlinbuehnen\apps\productions\models.py:550
 msgid "Location title"
 msgstr "Name der Spielstätte"
 
 #: .\berlinbuehnen\apps\productions\models.py:150
-#: .\berlinbuehnen\apps\productions\models.py:560
+#: .\berlinbuehnen\apps\productions\models.py:561
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:300
 msgid "Teaser"
 msgstr "Teaser"
 
 #: .\berlinbuehnen\apps\productions\models.py:151
-#: .\berlinbuehnen\apps\productions\models.py:561
+#: .\berlinbuehnen\apps\productions\models.py:562
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:577
 msgid "Work info"
 msgstr "Werkinfo"
 
 #: .\berlinbuehnen\apps\productions\models.py:153
-#: .\berlinbuehnen\apps\productions\models.py:563
+#: .\berlinbuehnen\apps\productions\models.py:564
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:585
 msgid "Press text"
 msgstr "Pressestimmen"
 
 #: .\berlinbuehnen\apps\productions\models.py:154
-#: .\berlinbuehnen\apps\productions\models.py:564
+#: .\berlinbuehnen\apps\productions\models.py:565
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:601
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:324
 msgid "Credits"
 msgstr "Produktionscredits"
 
 #: .\berlinbuehnen\apps\productions\models.py:157
-#: .\berlinbuehnen\apps\productions\models.py:567
+#: .\berlinbuehnen\apps\productions\models.py:568
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:561
 msgid "Concert program"
 msgstr "Konzertprogramm"
 
 #: .\berlinbuehnen\apps\productions\models.py:158
-#: .\berlinbuehnen\apps\productions\models.py:568
+#: .\berlinbuehnen\apps\productions\models.py:569
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:569
 msgid "Supporting program"
 msgstr "Rahmenprogramm"
 
 #: .\berlinbuehnen\apps\productions\models.py:159
-#: .\berlinbuehnen\apps\productions\models.py:569
+#: .\berlinbuehnen\apps\productions\models.py:570
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:593
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:342
 msgid "Remarks"
 msgstr "Anmerkungen"
 
 #: .\berlinbuehnen\apps\productions\models.py:160
-#: .\berlinbuehnen\apps\productions\models.py:570
+#: .\berlinbuehnen\apps\productions\models.py:571
 msgid "Duration text"
 msgstr "Dauer (Freitextfeld)"
 
 #: .\berlinbuehnen\apps\productions\models.py:161
-#: .\berlinbuehnen\apps\productions\models.py:571
+#: .\berlinbuehnen\apps\productions\models.py:572
 msgid "Subtitles text"
 msgstr "Untertiteltext"
 
 #: .\berlinbuehnen\apps\productions\models.py:162
-#: .\berlinbuehnen\apps\productions\models.py:572
+#: .\berlinbuehnen\apps\productions\models.py:573
 msgid "Age text"
 msgstr "Altersangabe Freitextfeld"
 
@@ -1948,7 +1948,7 @@ msgid "Related productions"
 msgstr "Verwandte Produktionen"
 
 #: .\berlinbuehnen\apps\productions\models.py:168
-#: .\berlinbuehnen\apps\productions\models.py:577
+#: .\berlinbuehnen\apps\productions\models.py:578
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:295
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:135
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_list_old.html.py:48
@@ -1958,30 +1958,29 @@ msgid "Free entrance"
 msgstr "Freier Eintritt"
 
 #: .\berlinbuehnen\apps\productions\models.py:169
-#: .\berlinbuehnen\apps\productions\models.py:578
+#: .\berlinbuehnen\apps\productions\models.py:579
 msgid "Price from (€)"
 msgstr "Preise von (€)"
 
 #: .\berlinbuehnen\apps\productions\models.py:170
-#: .\berlinbuehnen\apps\productions\models.py:579
+#: .\berlinbuehnen\apps\productions\models.py:580
 msgid "Price till (€)"
 msgstr "Preise bis (€)"
 
 #: .\berlinbuehnen\apps\productions\models.py:171
-#: .\berlinbuehnen\apps\productions\models.py:580
+#: .\berlinbuehnen\apps\productions\models.py:581
 msgid "Tickets website"
 msgstr "Ticketlink"
 
 #: .\berlinbuehnen\apps\productions\models.py:172
-#: .\berlinbuehnen\apps\productions\models.py:581
+#: .\berlinbuehnen\apps\productions\models.py:582
 msgid "Additional price information"
 msgstr "Zusätzliche Preisinformation"
 
 #: .\berlinbuehnen\apps\productions\models.py:174
-#: .\berlinbuehnen\apps\productions\models.py:583
+#: .\berlinbuehnen\apps\productions\models.py:584
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:257
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:366
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:39
 msgid "Characteristics"
 msgstr "Merkmale"
 
@@ -2035,8 +2034,8 @@ msgstr "Importquelle"
 
 #: .\berlinbuehnen\apps\productions\models.py:339
 #: .\berlinbuehnen\apps\productions\models.py:368
-#: .\berlinbuehnen\apps\productions\models.py:761
-#: .\berlinbuehnen\apps\productions\models.py:790
+#: .\berlinbuehnen\apps\productions\models.py:762
+#: .\berlinbuehnen\apps\productions\models.py:791
 #: .\berlinbuehnen\apps\productions\forms\gallery.py:47
 #: .\berlinbuehnen\apps\productions\forms\gallery.py:200
 msgid "Link or embed code"
@@ -2053,144 +2052,148 @@ msgid "Videos/Audios"
 msgstr "Videos/Audios"
 
 #: .\berlinbuehnen\apps\productions\models.py:373
-#: .\berlinbuehnen\apps\productions\models.py:795
+#: .\berlinbuehnen\apps\productions\models.py:796
 msgid "Live Stream"
 msgstr "Live Stream"
 
 #: .\berlinbuehnen\apps\productions\models.py:374
-#: .\berlinbuehnen\apps\productions\models.py:796
+#: .\berlinbuehnen\apps\productions\models.py:797
 msgid "Live Streams"
 msgstr "Live Streams"
 
 #: .\berlinbuehnen\apps\productions\models.py:423
-#: .\berlinbuehnen\apps\productions\models.py:845
+#: .\berlinbuehnen\apps\productions\models.py:846
 msgid "A path to a locally stored PDF file."
 msgstr "Dateipfad zu lokal gespeicherter PDF Datei."
 
 #: .\berlinbuehnen\apps\productions\models.py:428
-#: .\berlinbuehnen\apps\productions\models.py:850
+#: .\berlinbuehnen\apps\productions\models.py:851
 #: .\berlinbuehnen\templates\berlinbuehnen\productions\events\gallery_form.html.py:47
 #: .\berlinbuehnen\templates\berlinbuehnen\productions\forms\gallery_form.html.py:41
 msgid "PDF"
 msgstr "PDF"
 
 #: .\berlinbuehnen\apps\productions\models.py:429
-#: .\berlinbuehnen\apps\productions\models.py:851
+#: .\berlinbuehnen\apps\productions\models.py:852
 msgid "PDFs"
 msgstr "PDFs"
 
 #: .\berlinbuehnen\apps\productions\models.py:449
 #: .\berlinbuehnen\apps\productions\models.py:469
 #: .\berlinbuehnen\apps\productions\models.py:490
-#: .\berlinbuehnen\apps\productions\models.py:871
-#: .\berlinbuehnen\apps\productions\models.py:891
-#: .\berlinbuehnen\apps\productions\models.py:912
+#: .\berlinbuehnen\apps\productions\models.py:872
+#: .\berlinbuehnen\apps\productions\models.py:892
+#: .\berlinbuehnen\apps\productions\models.py:913
 msgid "Person"
 msgstr "Person"
 
 #: .\berlinbuehnen\apps\productions\models.py:452
 #: .\berlinbuehnen\apps\productions\models.py:473
 #: .\berlinbuehnen\apps\productions\models.py:496
-#: .\berlinbuehnen\apps\productions\models.py:874
-#: .\berlinbuehnen\apps\productions\models.py:895
-#: .\berlinbuehnen\apps\productions\models.py:918
+#: .\berlinbuehnen\apps\productions\models.py:875
+#: .\berlinbuehnen\apps\productions\models.py:896
+#: .\berlinbuehnen\apps\productions\models.py:919
 #, fuzzy
 msgid "Imported sort order"
 msgstr "Anordnung"
 
 #: .\berlinbuehnen\apps\productions\models.py:456
-#: .\berlinbuehnen\apps\productions\models.py:878
+#: .\berlinbuehnen\apps\productions\models.py:879
 msgid "Leadership"
 msgstr "Leitung"
 
 #: .\berlinbuehnen\apps\productions\models.py:457
-#: .\berlinbuehnen\apps\productions\models.py:879
+#: .\berlinbuehnen\apps\productions\models.py:880
 msgid "Leaderships"
 msgstr "Leitungen"
 
 #: .\berlinbuehnen\apps\productions\models.py:470
 #: .\berlinbuehnen\apps\productions\models.py:491
-#: .\berlinbuehnen\apps\productions\models.py:892
-#: .\berlinbuehnen\apps\productions\models.py:913
+#: .\berlinbuehnen\apps\productions\models.py:893
+#: .\berlinbuehnen\apps\productions\models.py:914
 msgid "Type"
 msgstr "Typ"
 
 #: .\berlinbuehnen\apps\productions\models.py:471
-#: .\berlinbuehnen\apps\productions\models.py:893
+#: .\berlinbuehnen\apps\productions\models.py:894
 msgid "Work title"
 msgstr "Werktitel"
 
 #: .\berlinbuehnen\apps\productions\models.py:477
-#: .\berlinbuehnen\apps\productions\models.py:899
+#: .\berlinbuehnen\apps\productions\models.py:900
 msgid "Authorship"
 msgstr "Autor"
 
 #: .\berlinbuehnen\apps\productions\models.py:478
-#: .\berlinbuehnen\apps\productions\models.py:900
+#: .\berlinbuehnen\apps\productions\models.py:901
 msgid "Authorships"
 msgstr "Autoren"
 
 #: .\berlinbuehnen\apps\productions\models.py:493
-#: .\berlinbuehnen\apps\productions\models.py:915
+#: .\berlinbuehnen\apps\productions\models.py:916
 msgid "Role"
 msgstr "Rolle"
 
 #: .\berlinbuehnen\apps\productions\models.py:494
-#: .\berlinbuehnen\apps\productions\models.py:916
+#: .\berlinbuehnen\apps\productions\models.py:917
 msgid "Instrument"
 msgstr "Instrument"
 
 #: .\berlinbuehnen\apps\productions\models.py:500
-#: .\berlinbuehnen\apps\productions\models.py:922
+#: .\berlinbuehnen\apps\productions\models.py:923
 msgid "Involvement"
 msgstr "Beteiligung"
 
 #: .\berlinbuehnen\apps\productions\models.py:501
-#: .\berlinbuehnen\apps\productions\models.py:923
+#: .\berlinbuehnen\apps\productions\models.py:924
 msgid "Involvements"
 msgstr "Beteiligungen"
 
-#: .\berlinbuehnen\apps\productions\models.py:522
+#: .\berlinbuehnen\apps\productions\models.py:516
+msgid "Show as main category"
+msgstr "Als Hauptkategorie anzeigen"
+
 #: .\berlinbuehnen\apps\productions\models.py:523
+#: .\berlinbuehnen\apps\productions\models.py:524
 msgid "Event Characteristics"
 msgstr "Terminmerkmale"
 
-#: .\berlinbuehnen\apps\productions\models.py:541
+#: .\berlinbuehnen\apps\productions\models.py:542
 #: .\berlinbuehnen\apps\productions\forms\events.py:74
 msgid "Start time"
 msgstr "Beginn"
 
-#: .\berlinbuehnen\apps\productions\models.py:542
+#: .\berlinbuehnen\apps\productions\models.py:543
 #: .\berlinbuehnen\apps\productions\forms\events.py:77
 msgid "End time"
 msgstr "Ende"
 
-#: .\berlinbuehnen\apps\productions\models.py:543
+#: .\berlinbuehnen\apps\productions\models.py:544
 msgid "Duration in seconds"
 msgstr "Dauer (in Sek.)"
 
-#: .\berlinbuehnen\apps\productions\models.py:544
+#: .\berlinbuehnen\apps\productions\models.py:545
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:143
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:196
 msgid "Pauses"
 msgstr "Pausen"
 
-#: .\berlinbuehnen\apps\productions\models.py:574
+#: .\berlinbuehnen\apps\productions\models.py:575
 msgid "Event status"
 msgstr "Status"
 
-#: .\berlinbuehnen\apps\productions\models.py:575
+#: .\berlinbuehnen\apps\productions\models.py:576
 msgid "Ticket status"
 msgstr "Ticketstatus"
 
-#: .\berlinbuehnen\apps\productions\models.py:592
-#: .\berlinbuehnen\apps\productions\models.py:759
-#: .\berlinbuehnen\apps\productions\models.py:788
-#: .\berlinbuehnen\apps\productions\models.py:817
-#: .\berlinbuehnen\apps\productions\models.py:844
-#: .\berlinbuehnen\apps\productions\models.py:870
-#: .\berlinbuehnen\apps\productions\models.py:890
-#: .\berlinbuehnen\apps\productions\models.py:911
+#: .\berlinbuehnen\apps\productions\models.py:593
+#: .\berlinbuehnen\apps\productions\models.py:760
+#: .\berlinbuehnen\apps\productions\models.py:789
+#: .\berlinbuehnen\apps\productions\models.py:818
+#: .\berlinbuehnen\apps\productions\models.py:845
+#: .\berlinbuehnen\apps\productions\models.py:871
+#: .\berlinbuehnen\apps\productions\models.py:891
+#: .\berlinbuehnen\apps\productions\models.py:912
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail.html.py:3
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:3
 #: .\berlinbuehnen\templates\berlinbuehnen\productions\events\overview.html.py:45
@@ -2198,11 +2201,11 @@ msgstr "Ticketstatus"
 msgid "Event"
 msgstr "Termin"
 
-#: .\berlinbuehnen\apps\productions\models.py:766
+#: .\berlinbuehnen\apps\productions\models.py:767
 msgid "Video"
 msgstr "Video"
 
-#: .\berlinbuehnen\apps\productions\models.py:767
+#: .\berlinbuehnen\apps\productions\models.py:768
 #: .\berlinbuehnen\templates\berlinbuehnen\events\event_detail_old.html.py:396
 msgid "Videos"
 msgstr "Videos"
@@ -3182,7 +3185,7 @@ msgid "Login for Theaters"
 msgstr "Login für Bühnen"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\cms\start.html.py:21
-#: .\berlinbuehnen\templates\berlinbuehnen\events\event_list.html.py:97
+#: .\berlinbuehnen\templates\berlinbuehnen\events\event_list.html.py:103
 msgid "Calender"
 msgstr "Kalender"
 
@@ -3368,7 +3371,13 @@ msgstr "Filter"
 msgid "Current selection"
 msgstr "Aktuelle Auswahl"
 
-#: .\berlinbuehnen\templates\berlinbuehnen\events\event_list.html.py:85
+#: .\berlinbuehnen\templates\berlinbuehnen\events\event_list.html.py:83
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:50
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:54
+msgid "Evening"
+msgstr "Abends"
+
+#: .\berlinbuehnen\templates\berlinbuehnen\events\event_list.html.py:91
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
@@ -3729,9 +3738,8 @@ msgid "Add PDF document"
 msgstr "PDF Dokument hinzufügen"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\productions\includes\other_productions.html.py:7
-#, fuzzy
 msgid "to calender"
-msgstr "Kalender"
+msgstr "zum Kalender"
 
 #: .\berlinbuehnen\templates\berlinbuehnen\productions\includes\other_productions.html.py:11
 msgid "Further productions at this venue"
@@ -3852,15 +3860,14 @@ msgstr "Logout"
 msgid "current"
 msgstr "Aktuell"
 
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:55
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:124
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:143
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:173
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:77
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:146
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:165
 msgid "filter by"
 msgstr "Filter"
 
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:59
-#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:63
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:81
+#: .\berlinbuehnen\templates\berlinbuehnen\utils\filter_events.html.py:85
 msgid "All"
 msgstr "Alle"
 
