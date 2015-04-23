@@ -59,7 +59,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <a class="fawesome back uc" href="{% url 'event_list' %}">{% trans "back to overview" %}</a>
+                        <a class="fawesome back uc" href="{% url 'event_list' %}{% remove_from_query "page" %}">{% trans "back to overview" %}</a>
                         <article>
                             
                             <!-- headlines -->

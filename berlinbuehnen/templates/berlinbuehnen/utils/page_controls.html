@@ -1,7 +1,7 @@
-{% load i18n %}
+{% load i18n base_tags %}
 <div id="page-controls" class="hidden-xs">
     {% if prev_item %}
-        <a href="{{ prev_item.get_url_path }}" class="prev">
+        <a href="{{ prev_item.get_url_path }}{% remove_from_query "page" %}" class="prev">
             <span>
                 {% if prev_item.production %}
                     <span class="title">{{ prev_item.production.title }}</span>
@@ -12,7 +12,7 @@
         </a>
     {% endif %}
     {% if next_item %}
-        <a href="{{ next_item.get_url_path }}" class="next">
+        <a href="{{ next_item.get_url_path }}{% remove_from_query "page" %}" class="next">
             <span>
                 {% if next_item.production %}
                     <span class="title">{{ next_item.production.title }}</span>

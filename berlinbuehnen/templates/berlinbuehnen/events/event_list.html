@@ -159,7 +159,7 @@
                                         
                                         <!-- list item body -->
                                         <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
-                                            <a class="list-item-link" href="{{ event.get_url_path }}">
+                                            <a class="list-item-link" href="{{ event.get_url_path }}{% remove_from_query "page" %}">
                                                 {% if event.production.in_program_of.exists or event.location_title or event.ev_or_prod_play_locations %}
                                                     <dl>
                                                         {% if event.production.in_program_of.exists %}
