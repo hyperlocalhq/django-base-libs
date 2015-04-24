@@ -86,7 +86,7 @@ def event_list(request, year=None, month=None, day=None):
     facets = {
         'selected': {},
         'categories': {
-            'locations': Location.objects.all(),
+            'locations': Location.objects.all().filter(status="published"),
             'categories': ProductionCategory.objects.filter(parent=None),
             'subcategories': ProductionCategory.objects.exclude(parent=None),
             'language_and_subtitles': LanguageAndSubtitles.objects.all(),
