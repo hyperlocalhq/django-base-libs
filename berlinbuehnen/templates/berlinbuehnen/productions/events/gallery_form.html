@@ -13,9 +13,15 @@
 {% endblock %}
 
 {% block event_tabs %}
-    <li><a class="txt" href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}"> {% trans "Details" %} </a></li>
-    <li><a class="txt" href="{% url "change_event_description" slug=production.slug event_id=event.pk %}"> {% trans "Description" %} </a></li>
-    <li class="active"><a class="txt" href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}"> {% trans "Media" %} </a></li>
+    {% if 'new_production=1' in request.get_full_path %}
+        <li><a class="txt" href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}?new_production=1"> {% trans "Details" %} </a></li>
+        <li><a class="txt" href="{% url "change_event_description" slug=production.slug event_id=event.pk %}?new_production=1"> {% trans "Description" %} </a></li>
+        <li class="active"><a class="txt" href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}?new_production=1"> {% trans "Media" %} </a></li>
+    {% else %}
+        <li><a class="txt" href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}"> {% trans "Details" %} </a></li>
+        <li><a class="txt" href="{% url "change_event_description" slug=production.slug event_id=event.pk %}"> {% trans "Description" %} </a></li>
+        <li class="active"><a class="txt" href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}"> {% trans "Media" %} </a></li>
+    {% endif %}
 {% endblock %}
 
 {% block multistep_form %}

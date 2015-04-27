@@ -285,14 +285,20 @@ def add_events(request, slug):
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
-        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+        if request.REQUEST.get('new_production'):
+            return redirect(reverse("add_production") + '?step=4')
+        else:
+            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
 
     if request.method == "POST":
         form = AddEventsForm(production, data=request.POST)
         if form.is_valid():
             # create new events
             form.save()
-            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+            if request.REQUEST.get('new_production'):
+                return redirect(reverse("add_production") + '?step=4')
+            else:
+                return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
     else:
         form = AddEventsForm(production)
 
@@ -308,13 +314,19 @@ def change_event_basic_info(request, slug, event_id):
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
-        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+        if request.REQUEST.get('new_production'):
+            return redirect(reverse("add_production") + '?step=4')
+        else:
+            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
 
     if request.method == "POST":
         form = EventBasicInfoForm(data=request.POST, instance=event)
         if form.is_valid():
             form.save()
-            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+            if request.REQUEST.get('new_production'):
+                return redirect(reverse("add_production") + '?step=4')
+            else:
+                return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
     else:
         form = EventBasicInfoForm(instance=event)
         initial = event.__dict__
@@ -340,7 +352,10 @@ def change_event_description(request, slug, event_id):
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
-        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+        if request.REQUEST.get('new_production'):
+            return redirect(reverse("add_production") + '?step=4')
+        else:
+            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
 
     from_production = []
 
@@ -462,7 +477,10 @@ def change_event_description(request, slug, event_id):
                     obj.save()
                     event.sponsors.add(obj)
 
-            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+            if request.REQUEST.get('new_production'):
+                return redirect(reverse("add_production") + '?step=4')
+            else:
+                return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
     else:
         initial = {}
         form = EventDescriptionForm(instance=event)
@@ -629,13 +647,20 @@ def change_event_gallery(request, slug, event_id):
         return access_denied(request)
 
     if request.REQUEST.get('reset'):
-        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+        if request.REQUEST.get('new_production'):
+            return redirect(reverse("add_production") + '?step=4')
+        else:
+            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
 
     if request.method == "POST":
         # TODO: exchange the form with some gallery form
         form = GalleryForm(data=request.POST, instance=event)
         if form.is_valid():
-            return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+            if request.REQUEST.get('new_production'):
+                return redirect(reverse("add_production") + '?step=4')
+            else:
+                return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+                
     else:
         form = GalleryForm(instance=event)
 
@@ -652,4 +677,8 @@ def delete_event(request, slug, event_id):
     if request.method == "POST" and request.is_ajax():
         event.delete()
         return HttpResponse("OK")
-    return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
+        
+    if request.REQUEST.get('new_production'):
+        return redirect(reverse("add_production") + '?step=4')
+    else:
+        return redirect(reverse("change_production", kwargs={'slug': production.slug}) + '?step=4')
