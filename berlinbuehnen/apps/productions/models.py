@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+from datetime import datetime
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
@@ -528,11 +530,23 @@ class EventManager(models.Manager):
     def published_upcoming(self, timestamp=tz_now):
         if callable(timestamp):
             timestamp = timestamp()
-        return self.filter(
+        
+        qs = self.filter(
             models.Q(end_date__gte=timestamp.date()) |
             models.Q(end_date=None, start_date__gte=timestamp.date()),
             production__status="published",
         )
+        
+        today = datetime.today()
+        qs = qs.exclude(
+            start_date__exact=today,
+            start_time__lt=today,
+        ).distinct()
+        
+        return qs
+        
+        
+        
 
 
 class Event(CreationModificationMixin, UrlMixin):
