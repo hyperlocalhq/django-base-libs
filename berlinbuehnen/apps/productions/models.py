@@ -741,6 +741,9 @@ class Event(CreationModificationMixin, UrlMixin):
         if ch:
             return ch[0].title
         return u""
+        
+    def is_canceled(self):
+        return self.event_status == 'canceled'
 
 class EventSocialMediaChannel(models.Model):
     event = models.ForeignKey(Event)

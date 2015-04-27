@@ -80,6 +80,7 @@ def event_list(request, year=None, month=None, day=None):
 
     # exclude the parts of multipart productions
     qs = qs.filter(production__part=None)
+    
 
     form = EventFilterForm(data=request.REQUEST)
     
@@ -102,7 +103,15 @@ def event_list(request, year=None, month=None, day=None):
         qs = qs.filter(
             start_date__gte=cat,
         ).distinct()
+    
+        # excluding all events in the past
+        today = datetime.today()
+        qs = qs.exclude(
+            start_date__exact=today,
+            start_time__lt=today,
+        ).distinct()
 
+        
         cat = form.cleaned_data['starttime']
         if cat:
             facets['selected']['starttime'] = cat
@@ -201,8 +210,9 @@ def event_detail(request, slug, event_id=None):
         qs = Event.objects.filter(production__status__in=('published', 'expired'))
 
     if event_id:
+        production = get_object_or_404(Production, slug=slug)
         obj = get_object_or_404(qs, production__slug=slug, pk=event_id)
-        if obj.production.status not in ('published', 'expired') and not request.user.has_perm("events.change_event", obj):
+        if obj.production.status not in ('published', 'expired') and not request.user.has_perm("productions.change_production", production):
             return access_denied(request)
     else:
         production = get_object_or_404(Production, slug=slug)

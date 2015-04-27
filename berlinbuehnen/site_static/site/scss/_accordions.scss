@@ -163,6 +163,12 @@
                         position: relative;
                         left: -10px;
                     }
+                    &.canceled {
+                        background: $red;
+                        &:before {
+                            content: url(../img/label_red_22px.png);
+                        }
+                    }
                     span {
                         margin: 0;
                         vertical-align: top;

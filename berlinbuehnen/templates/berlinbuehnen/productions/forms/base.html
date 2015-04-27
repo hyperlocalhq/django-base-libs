@@ -65,7 +65,7 @@
             {% endif %}
 
             {% if production.slug %}
-                <a class="btn btn-primary" id="preview_page" href="{% url "production_detail" slug=production.slug %}?preview" ><span>{% trans "Preview" %}</span></a>
+                <a class="btn btn-primary" id="preview_page" href="{% url "production_detail" slug=production.slug %}?preview" target="_blank"><span>{% trans "Preview" %}</span></a>
             {% endif %}
         </div>
 

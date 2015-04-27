@@ -184,11 +184,16 @@
                 font-size: 0.875em;
                 width: 23%;
                 text-transform: uppercase;
-                
                 &:before {
                     content: url(../img/label_28px.png);
                     position: relative;
                     left: -11px;
+                }
+                &.canceled {
+                    background: $red;
+                    &:before {
+                        content: url(../img/label_red_28px.png);
+                    }
                 }
                 span {
                     margin: 3px auto 0;
@@ -303,11 +308,16 @@ body.is-xs {
                 font-size: 0.875em;
                 width: 160px;
                 text-transform: uppercase;
-                
                 &:before {
                     content: url(../img/label_22px.png);
                     position: relative;
                     left: -10px;
+                }
+                &.canceled {
+                    background: $red;
+                    &:before {
+                        content: url(../img/label_red_22px.png);
+                    }
                 }
                 span {
                     margin: 1px auto 0;

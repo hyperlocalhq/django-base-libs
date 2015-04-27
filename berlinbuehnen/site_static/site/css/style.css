@@ -2697,7 +2697,7 @@ input::-webkit-slider-thumb {
 }
 
 .control-group.error label {
-  color: #ff4582 !important;
+  color: #cf0000 !important;
 }
 
 .help-block {
@@ -2707,7 +2707,7 @@ input::-webkit-slider-thumb {
 }
 
 .error {
-  color: #ff4582;
+  color: #cf0000;
 }
 .error input,
 .error select,
@@ -2718,7 +2718,7 @@ input::-webkit-slider-thumb {
 .error input[type=search] {
   box-shadow: inset 0 0 0 0px rgba(255, 0, 0, 0.1) !important;
   background-color: rgba(255, 0, 0, 0.1) !important;
-  color: #ff4582 !important;
+  color: #cf0000 !important;
 }
 .error input:hover,
 .error select:hover,
@@ -2745,7 +2745,7 @@ input::-webkit-slider-thumb {
 .error input[type=email]::-webkit-input-placeholder,
 .error input[type=password]::-webkit-input-placeholder,
 .error input[type=search]::-webkit-input-placeholder {
-  color: #ff4582 !important;
+  color: #cf0000 !important;
 }
 .error input:-moz-placeholder,
 .error select:-moz-placeholder,
@@ -2754,7 +2754,7 @@ input::-webkit-slider-thumb {
 .error input[type=email]:-moz-placeholder,
 .error input[type=password]:-moz-placeholder,
 .error input[type=search]:-moz-placeholder {
-  color: #ff4582 !important;
+  color: #cf0000 !important;
 }
 .error input:-ms-input-placeholder,
 .error select:-ms-input-placeholder,
@@ -2763,10 +2763,10 @@ input::-webkit-slider-thumb {
 .error input[type=email]:-ms-input-placeholder,
 .error input[type=password]:-ms-input-placeholder,
 .error input[type=search]:-ms-input-placeholder {
-  color: #ff4582 !important;
+  color: #cf0000 !important;
 }
 .error .control-group label {
-  color: #ff4582 !important;
+  color: #cf0000 !important;
 }
 .error .help-block,
 .error .help-inline {
@@ -2779,7 +2779,7 @@ input::-webkit-slider-thumb {
   position: absolute;
   top: 0px;
   right: 0px;
-  color: #ff4582 !important;
+  color: #cf0000 !important;
 }
 .error .help-block#error_1_id_media_file,
 .error .help-inline#error_1_id_media_file {
@@ -5283,6 +5283,12 @@ select {
   position: relative;
   left: -10px;
 }
+.sidebar-accordion .accordion-item ul.dates li .extra.canceled {
+  background: #cf0000;
+}
+.sidebar-accordion .accordion-item ul.dates li .extra.canceled:before {
+  content: url(../img/label_red_22px.png);
+}
 .sidebar-accordion .accordion-item ul.dates li .extra span {
   margin: 0;
   vertical-align: top;
@@ -5624,6 +5630,12 @@ select {
   position: relative;
   left: -11px;
 }
+.list .list-item .list-item-body .extra.canceled {
+  background: #cf0000;
+}
+.list .list-item .list-item-body .extra.canceled:before {
+  content: url(../img/label_red_28px.png);
+}
 .list .list-item .list-item-body .extra span {
   margin: 3px auto 0;
   vertical-align: top;
@@ -5724,6 +5736,12 @@ body.is-xs .list .list-item-body .extra:before {
   content: url(../img/label_22px.png);
   position: relative;
   left: -10px;
+}
+body.is-xs .list .list-item-body .extra.canceled {
+  background: #cf0000;
+}
+body.is-xs .list .list-item-body .extra.canceled:before {
+  content: url(../img/label_red_22px.png);
 }
 body.is-xs .list .list-item-body .extra span {
   margin: 1px auto 0;
