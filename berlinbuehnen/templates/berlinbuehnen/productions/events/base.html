@@ -65,8 +65,11 @@
                     });
                 </script>
             {% endif %}
-            
-            <a class="btn btn-primary" id="preview_page" href="{% url "event_detail" slug=production.slug event_id=event.pk %}?preview" target="_blank" ><span>{% trans "Preview" %}</span></a>
+            {% if event.pk %}
+                <a class="btn btn-primary" id="preview_page" href="{% url "event_detail" slug=production.slug event_id=event.pk %}?preview" target="_blank" ><span>{% trans "Preview" %}</span></a>
+            {% elif production.slug %}
+                <a class="btn btn-primary" id="preview_page" href="{% url "production_detail" slug=production.slug %}?preview" target="_blank"><span>{% trans "Preview" %}</span></a>
+            {% endif %}
         </div>
 
         {% if 'new_production=1' in request.get_full_path %}
