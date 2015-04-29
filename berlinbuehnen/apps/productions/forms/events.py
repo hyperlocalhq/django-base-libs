@@ -697,7 +697,7 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
         self.fields['sort_order'].widget = forms.HiddenInput()
         self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
-        self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
+        self.fields['person'].label = ugettext('Choose person') + ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('click here to enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
 
         self.helper = FormHelper()
@@ -803,7 +803,7 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
         self.fields['sort_order'].widget = forms.HiddenInput()
         self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
-        self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
+        self.fields['person'].label = ugettext('Choose person') + ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('click here to enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
         self.fields['work_title'].help_text = _("When differs from the title of the production.")
 
@@ -930,7 +930,7 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
         self.fields['sort_order'].widget = forms.HiddenInput()
         self.fields['imported_sort_order'].widget = forms.HiddenInput()
         self.fields['person'].required = False
-        self.fields['person'].label += ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('enter a new person') + '</a>)'
+        self.fields['person'].label = ugettext('Choose person') + ' (' + ugettext('or') + ' <a href="" class="enter_person">' + ugettext('click here to enter a new person') + '</a>)'
         self.fields['first_name'].label += ' (' + ugettext('or') + ' <a href="" class="choose_person">' + ugettext('choose a person from the database') + '</a>)'
 
         self.helper = FormHelper()
