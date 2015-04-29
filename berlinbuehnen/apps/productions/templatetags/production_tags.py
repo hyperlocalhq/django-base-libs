@@ -13,7 +13,7 @@ def other_productions(context, current_event=False, current_location=False, amou
     if current_location:
         locations = [current_location]
     elif current_event:
-        locations = list(current_event.production.in_program_of.all()) + list(current_event.ev_or_prod_play_locations())
+        locations = list(current_event.production.in_program_of.all()) # + list(current_event.ev_or_prod_play_locations())
     else:
         locations = []
         

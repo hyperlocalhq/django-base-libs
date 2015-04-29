@@ -11,7 +11,6 @@
     <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
-    <script src="{{ STATIC_URL }}site/js/SortingByOrder.js"></script>
     <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
 {% endblock %}
 
@@ -381,8 +380,8 @@
 
         });
         
-        //new SortingByOrder('leaderships', 'leadership', 'sort_order');
-        //new SortingByOrder('authorships', 'authorship', 'sort_order');
-        //new SortingByOrder('involvements', 'involvement', 'sort_order');
+        new SortingByOrder('leaderships', 'leadership', 'sort_order');
+        new SortingByOrder('authorships', 'authorship', 'sort_order');
+        new SortingByOrder('involvements', 'involvement', 'sort_order');
     </script>
 {% endblock %}
