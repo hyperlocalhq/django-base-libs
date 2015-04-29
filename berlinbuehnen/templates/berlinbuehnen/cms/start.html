@@ -126,7 +126,7 @@
                     <div class="row">
                         
                         <!-- NEWS -->
-                        {% get_objects objects.latest_published articles.Article 2 as newest_articles %}
+                        {% get_objects objects.latest_published articles.Article 4 as newest_articles %}
                         {% for article in newest_articles %}
                             <div class="col-xs-12 col-md-6 news-item">
                                 <a href="{{ article.get_url_path }}">
@@ -145,8 +145,11 @@
                                     <p class="more fawesome">{% trans "read on" %}</p>
                                 </a>
                             </div>
+                            {% if forloop.counter|divisibleby:2 %}
+                                <div class="clearfix"></div>
+                            {% endif %}
                         {% endfor %}
-
+                        
                         <div class="clearfix"></div>
                         
                         <!-- BLOG -->
