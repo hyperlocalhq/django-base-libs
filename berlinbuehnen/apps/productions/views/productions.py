@@ -511,7 +511,7 @@ def change_event_description(request, slug, event_id):
                 'function_en': obj.function_en,
                 'sort_order': obj.sort_order,
                 'imported_sort_order': obj.imported_sort_order,
-            } for obj in EventLeadership.objects.filter(event=event).order_by('imported_sort_order')]
+            } for obj in EventLeadership.objects.filter(event=event).order_by('sort_order', 'imported_sort_order')]
         else:
             initial = [{
                 'person': obj.person,
@@ -519,7 +519,7 @@ def change_event_description(request, slug, event_id):
                 'function_en': obj.function_en,
                 'sort_order': obj.sort_order,
                 'imported_sort_order': obj.imported_sort_order,
-            } for obj in ProductionLeadership.objects.filter(production=production).order_by('imported_sort_order')]
+            } for obj in ProductionLeadership.objects.filter(production=production).order_by('sort_order', 'imported_sort_order')]
         leadership_formset = EventLeadershipFormset(
             prefix="leaderships",
             instance=event,
@@ -534,7 +534,7 @@ def change_event_description(request, slug, event_id):
                 'work_title': obj.work_title,
                 'sort_order': obj.sort_order,
                 'imported_sort_order': obj.imported_sort_order,
-            } for obj in EventAuthorship.objects.filter(event=event).order_by('imported_sort_order')]
+            } for obj in EventAuthorship.objects.filter(event=event).order_by('sort_order', 'imported_sort_order')]
         else:
             initial = [{
                 'person': obj.person,
@@ -542,7 +542,7 @@ def change_event_description(request, slug, event_id):
                 'work_title': obj.work_title,
                 'sort_order': obj.sort_order,
                 'imported_sort_order': obj.imported_sort_order,
-            } for obj in ProductionAuthorship.objects.filter(production=production).order_by('imported_sort_order')]
+            } for obj in ProductionAuthorship.objects.filter(production=production).order_by('sort_order', 'imported_sort_order')]
         authorship_formset = EventAuthorshipFormset(
             prefix="authorships",
             instance=event,
@@ -562,7 +562,7 @@ def change_event_description(request, slug, event_id):
                 'involvement_instrument_en': obj.involvement_instrument_en,
                 'sort_order': obj.sort_order,
                 'imported_sort_order': obj.imported_sort_order,
-            } for obj in EventInvolvement.objects.filter(event=event).order_by('imported_sort_order')]
+            } for obj in EventInvolvement.objects.filter(event=event).order_by('sort_order', 'imported_sort_order')]
         else:
             initial = [{
                 'person': obj.person,
@@ -575,7 +575,7 @@ def change_event_description(request, slug, event_id):
                 'involvement_instrument_en': obj.involvement_instrument_en,
                 'sort_order': obj.sort_order,
                 'imported_sort_order': obj.imported_sort_order,
-            } for obj in ProductionInvolvement.objects.filter(production=production).order_by('imported_sort_order')]
+            } for obj in ProductionInvolvement.objects.filter(production=production).order_by('sort_order', 'imported_sort_order')]
         involvement_formset = EventInvolvementFormset(
             prefix="involvements",
             instance=event,
