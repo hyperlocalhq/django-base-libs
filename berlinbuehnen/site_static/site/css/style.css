@@ -4646,6 +4646,44 @@ select {
   font-size: 0.875em;
 }
 
+.theater-of-the-week .article-header {
+  margin-bottom: 24px;
+}
+.theater-of-the-week .article-header h1 {
+  margin-bottom: 13px;
+  font-weight: 200;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+.theater-of-the-week .article-header .article-date {
+  font-weight: 200;
+  font-size: 1.125em;
+  position: absolute;
+  right: 30px;
+  top: -20px;
+}
+.theater-of-the-week .article-header .article-category {
+  font-size: 1.125em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.theater-of-the-week .article-header .subtitle {
+  font-weight: 400;
+  font-size: 1.125em;
+}
+.theater-of-the-week .article-image {
+  margin-bottom: 24px;
+}
+.theater-of-the-week .article-image img {
+  width: 100%;
+}
+.theater-of-the-week .article-image .article-image-caption {
+  font-size: 0.9em;
+}
+.theater-of-the-week .article-decription {
+  margin-bottom: 10px;
+}
+
 .details .back {
   color: black;
   font-weight: 200;

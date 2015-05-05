@@ -213,6 +213,7 @@ INSTALLED_APPS = (
 
     ### berlin buehnen apps ###
     "berlinbuehnen.apps.articles",
+    "berlinbuehnen.apps.theater_of_the_week",
     "berlinbuehnen.apps.blog",
     "berlinbuehnen.apps.mailchimp",
     "berlinbuehnen.apps.mega_menu",
@@ -263,6 +264,10 @@ ADMIN_APP_INDEX = (
             }),
             ('articles', {
                 'models': ('ArticleCategory','Article',),
+            }),
+            ('theater_of_the_week', {
+                'verbose_name': gettext("Theater of the week"),
+                'models': ('TheaterOfTheWeek',),
             }),
             ('blog', {
                 'models': ('Blog','Post',),
@@ -385,7 +390,7 @@ CMS_PLACEHOLDER_CONF = {
     },
 
     'main_content': {
-        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin", "FootnotePlugin"),
+        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin", "TheaterOfTheWeekSelectionPlugin", "FootnotePlugin"),
         'name': _("Main Content")
     },
 

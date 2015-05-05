@@ -126,7 +126,28 @@
                     <div class="row">
                         
                         <!-- NEWS -->
-                        {% get_objects objects.latest_published articles.Article 4 as newest_articles %}
+                        {% get_objects objects.latest_published theater_of_the_week.TheaterOfTheWeek 1 as newest_articles %}
+                        {% for article in newest_articles %}
+                            <div class="col-xs-12 col-md-6 news-item">
+                                <a href="{{ article.get_url_path }}">
+                                    <h3>{% trans "Theater of the week" %}</h3>
+                                    {% if article.image %}
+                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
+                                    {% endif %}
+                                    <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
+                                    <p>
+                                        {% if article.description %}
+                                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
+                                        {% else %}
+                                            {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
+                                        {% endif %}
+                                    </p>
+                                    <p class="more fawesome">{% trans "read on" %}</p>
+                                </a>
+                            </div>
+                        {% endfor %}
+                        
+                        {% get_objects objects.latest_published articles.Article 3 as newest_articles %}
                         {% for article in newest_articles %}
                             <div class="col-xs-12 col-md-6 news-item">
                                 <a href="{{ article.get_url_path }}">
@@ -145,7 +166,7 @@
                                     <p class="more fawesome">{% trans "read on" %}</p>
                                 </a>
                             </div>
-                            {% if forloop.counter|divisibleby:2 %}
+                            {% if not forloop.counter|divisibleby:2 %}
                                 <div class="clearfix"></div>
                             {% endif %}
                         {% endfor %}
