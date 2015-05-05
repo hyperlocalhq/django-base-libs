@@ -29,7 +29,7 @@ from import_base import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 
-class Command(NoArgsCommand):
+class ImportFromCulturebaseBase(object):
     option_list = NoArgsCommand.option_list + (
         make_option('--skip-images', action='store_true', dest='skip_images', default=False,
             help='Tells Django to NOT download images.'),
@@ -164,52 +164,54 @@ class Command(NoArgsCommand):
         45: (u'Ensemble', u'Ensemble'),
     }
 
-    def handle_noargs(self, *args, **options):
-        self.verbosity = int(options.get("verbosity", NORMAL))
-        self.skip_images = options.get('skip_images')
+    in_program_of = None
 
-        self.load_and_parse_locations()
-
-        Service = models.get_model("external_services", "Service")
-
-        self.service, created = Service.objects.get_or_create(
-            sysname="culturebase_prods",
-            defaults={
-                'url': "https://export.culturebase.org/studio_38/event/berlin-buehnen.xml",
-                'title': "Culturebase Productions",
-            },
-        )
-
-        self.authorship_types_de = AuthorshipType.objects.all().values_list("title_de", flat="True")
-
-        r = requests.get(self.service.url, params={})
-        self.helper_dict = {
-            'prefix': '{http://export.culturebase.org/schema/event/CultureBaseExport}'
-        }
-
-        if self.verbosity >= NORMAL:
-            print u"=== Importing Productions ==="
-
-        self.stats = {
-            'prods_added': 0,
-            'prods_updated': 0,
-            'prods_skipped': 0,
-            'events_added': 0,
-            'events_updated': 0,
-            'events_skipped': 0,
-        }
-
-        root_node = ElementTree.fromstring(r.content)
-        self.save_page(root_node)
-
-        if self.verbosity >= NORMAL:
-            print u"Productions added: %d" % self.stats['prods_added']
-            print u"Productions updated: %d" % self.stats['prods_updated']
-            print u"Productions skipped: %d" % self.stats['prods_skipped']
-            print u"Events added: %d" % self.stats['events_added']
-            print u"Events updated: %d" % self.stats['events_updated']
-            print u"Events skipped: %d" % self.stats['events_skipped']
-            print
+    # def handle_noargs(self, *args, **options):
+    #     self.verbosity = int(options.get("verbosity", NORMAL))
+    #     self.skip_images = options.get('skip_images')
+    #
+    #     self.load_and_parse_locations()
+    #
+    #     Service = models.get_model("external_services", "Service")
+    #
+    #     self.service, created = Service.objects.get_or_create(
+    #         sysname="culturebase_prods",
+    #         defaults={
+    #             'url': "https://export.culturebase.org/studio_38/event/berlin-buehnen.xml",
+    #             'title': "Culturebase Productions",
+    #         },
+    #     )
+    #
+    #     self.authorship_types_de = AuthorshipType.objects.all().values_list("title_de", flat="True")
+    #
+    #     r = requests.get(self.service.url, params={})
+    #     self.helper_dict = {
+    #         'prefix': '{http://export.culturebase.org/schema/event/CultureBaseExport}'
+    #     }
+    #
+    #     if self.verbosity >= NORMAL:
+    #         print u"=== Importing Productions ==="
+    #
+    #     self.stats = {
+    #         'prods_added': 0,
+    #         'prods_updated': 0,
+    #         'prods_skipped': 0,
+    #         'events_added': 0,
+    #         'events_updated': 0,
+    #         'events_skipped': 0,
+    #     }
+    #
+    #     root_node = ElementTree.fromstring(r.content)
+    #     self.save_page(root_node)
+    #
+    #     if self.verbosity >= NORMAL:
+    #         print u"Productions added: %d" % self.stats['prods_added']
+    #         print u"Productions updated: %d" % self.stats['prods_updated']
+    #         print u"Productions skipped: %d" % self.stats['prods_skipped']
+    #         print u"Events added: %d" % self.stats['events_added']
+    #         print u"Events updated: %d" % self.stats['events_updated']
+    #         print u"Events skipped: %d" % self.stats['events_skipped']
+    #         print
 
     def load_and_parse_locations(self):
         response = requests.get("http://web2.heimat.de/cb-out/exports/address/address_id.php?city=berlin")
