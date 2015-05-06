@@ -1,0 +1,54 @@
+{% extends "theater_of_the_week/theater_of_the_week_base.html" %}
+{% load base_tags babel i18n auth_extended image_modifications %}
+
+
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
+{% endblock %}
+
+{% block details %}
+    <!-- <a class="fawesome back" href="{{ rel_root_dir }}">{% trans "back to overview" %}</a> -->
+    <div id="article_detail" class="details">
+        <div class="article-content main">
+                
+            <div class="article-header">
+                <div class="article-date">{{ article.published_from|datefmt:"long" }}</div>
+                <h2 class="article-category">{% trans 'Theater of the week' %}</h2>
+                <h1>{{ article.title|escape }}</h1>
+                {% if article.subtitle %}
+                    <h4 class="subtitle">{{ article.subtitle }}</h4>
+                {% endif %}
+            </div>
+                
+            <div class="row">
+                <div class="col-xs-12  col-md-8 left">
+                    {% if article.image %}
+                        <div class="article-image">
+                            <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                            {% if article.image_description %}
+                                <div class="article-image-caption">
+                                    {{ article.get_rendered_image_description }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if article.description %}
+                        <div class="article-decription">
+                            {{ article.get_rendered_description }}
+                        </div>
+                    {% endif %}
+                    <div class="article-content">
+                        {{ article.get_rendered_content }} 
+                    </div>
+                </div>
+                                            
+                <!-- main sidebar -->
+                <div class="col-xs-12 col-md-4 right">
+                    {% include "locations/includes/sidebar.html" with location=article.theater %}
+                </div>
+                
+            </div>
+                                        
+        </div>
+    </div>
+{% endblock %}

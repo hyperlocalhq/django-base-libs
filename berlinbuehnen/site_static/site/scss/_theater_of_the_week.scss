@@ -1,0 +1,49 @@
+.theater-of-the-week {
+        
+    .article-header {
+        margin-bottom: 24px;
+        
+        h1 {
+            margin-bottom: 13px;
+            font-weight: $light;
+            font-size: 2em;
+            text-transform: uppercase;
+        }
+        
+        .article-date {
+            font-weight: $light;
+            font-size: 1.125em;
+            position: absolute;
+            right: 30px;
+            top: -20px;
+        }
+        
+        .article-category {
+            font-size: 1.125em;
+            text-transform: uppercase;
+            font-weight: $bold;
+        }
+        
+        .subtitle {
+            font-weight: $regular;
+            font-size: 1.125em;
+        }
+    }
+    
+    .article-image {
+        margin-bottom: 24px;
+        
+        img {
+            width: 100%;
+        }
+        
+        .article-image-caption {
+            font-size: 0.9em;
+        }
+    }
+    
+    .article-decription {
+        margin-bottom: 10px;
+    }
+    
+}

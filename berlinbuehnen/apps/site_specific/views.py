@@ -101,7 +101,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 @login_required
 def dashboard(request):
     owned_locations = Location.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
-    owned_productions = Production.objects.accessible_to(request.user).filter(status__in=("published", "draft", "expired")).order_by("-modified_date", "-creation_date")[:3]
+    owned_productions = Production.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_date", "-creation_date")[:3]
     owned_multiparts = Parent.objects.accessible_to(request.user).order_by("-modified_date", "-creation_date")[:3]
     context = {
         'owned_locations': owned_locations,
@@ -161,7 +161,7 @@ def dashboard_productions(request):
     owned_production_qs = Production.objects.accessible_to(request.user)
 
     status = request.REQUEST.get('status', 'published')
-    if status in ('published', 'draft', 'expired', 'not_listed'):
+    if status in ('published', 'draft', 'expired', 'not_listed', 'import'):
         owned_production_qs = owned_production_qs.filter(status=status)
 
     q = request.REQUEST.get('q', '')
