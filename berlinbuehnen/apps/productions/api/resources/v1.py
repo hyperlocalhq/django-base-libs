@@ -13,7 +13,7 @@ from tastypie.serializers import Serializer
 from tastypie.cache import SimpleCache
 
 from base_libs.utils.misc import get_website_url
-from base_libs.utils.misc import strip_html
+from base_libs.utils.misc import strip_html as strip_html_base
 
 from filebrowser.models import FileDescription
 
@@ -61,6 +61,11 @@ def valid_XML_char_ordinal(i):
 
 def strip_invalid_chars(text):
     return u''.join(c for c in text if valid_XML_char_ordinal(ord(c)))
+
+
+def strip_html(text):
+    text = text.replace('<br />', '\n')
+    return strip_html_base(text)
 
 
 class BaseMetaForModelResource(object):
