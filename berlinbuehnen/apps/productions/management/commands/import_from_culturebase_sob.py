@@ -31,6 +31,8 @@ SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 
 class Command(NoArgsCommand, ImportFromCulturebaseBase):
+    help = "Imports productions and events from Culturebase / Staatsoper im Schiller Theater"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))

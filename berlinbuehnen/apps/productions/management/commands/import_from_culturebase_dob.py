@@ -30,6 +30,8 @@ SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
 
 class Command(NoArgsCommand, ImportFromCulturebaseBase):
+    help = "Imports productions and events from Culturebase / Deutsche Oper Berlin"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -38,12 +40,12 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
         self.load_and_parse_locations()
 
         self.in_program_of, created = Location.objects.get_or_create(
-            title_de=u"Berliner Philharmonie",
+            title_de=u"Deutsche Oper Berlin",
             defaults={
-                'title_en': u"Berliner Philharmonie",
-                'slug': 'berliner-philharmonie',
-                'street_address': u'Herbert-von-Karajan-Str. 1',
-                'postal_code': u'10785',
+                'title_en': u"Deutsche Oper Berlin",
+                'slug': 'deutsche-oper-berlin',
+                'street_address': u'Bismarckstraße 35',
+                'postal_code': u'10627',
                 'city': u'Berlin',
             },
         )

@@ -291,14 +291,17 @@ class ImportFromCulturebaseBase(object):
 
         location.save()
 
+        if location == self.in_program_of:
+            location = None
+
         stage = None
         if stage_settings:
             if stage_settings.should_create_stage_object:
                 try:
-                    stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+                    stage = Stage.objects.get(location=location or self.in_program_of, title_de=stage_settings.internal_stage_title)
                 except Stage.DoesNotExist:
                     stage = Stage()
-                    stage.location = location
+                    stage.location = location or self.in_program_of
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
                 if not stage.street_address:
@@ -382,14 +385,17 @@ class ImportFromCulturebaseBase(object):
 
         location.save()
 
+        if location == self.in_program_of:
+            location = None
+
         stage = None
         if stage_settings:
             if stage_settings.should_create_stage_object:
                 try:
-                    stage = Stage.objects.get(location=location, title_de=stage_settings.internal_stage_title)
+                    stage = Stage.objects.get(location=location or self.in_program_of, title_de=stage_settings.internal_stage_title)
                 except Stage.DoesNotExist:
                     stage = Stage()
-                    stage.location = location
+                    stage.location = location or self.in_program_of
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
 
                 if not stage.street_address:
@@ -647,7 +653,7 @@ class ImportFromCulturebaseBase(object):
                 )
             except models.ObjectDoesNotExist:
                 # or create a new exhibition and then create a mapper
-                prod = Production()
+                prod = Production(status="import")
             else:
                 prod = mapper.content_object
                 if not prod or prod.status == "trashed":
@@ -714,6 +720,9 @@ class ImportFromCulturebaseBase(object):
                     else:
                         prod.play_stages.clear()
                         prod.play_stages.add(stage)
+
+            if self.in_program_of:
+                prod.in_program_of.add(self.in_program_of)
 
             organizers_list = []
             for organisation_node in prod_node.findall('./%(prefix)sOrganisation' % self.helper_dict):

@@ -730,7 +730,7 @@ class ImportFromHeimatBase(object):
                 )
             except models.ObjectDoesNotExist:
                 # or create a new exhibition and then create a mapper
-                prod = Production()
+                prod = Production(status="import")
             else:
                 prod = mapper.content_object
                 if not prod or prod.status == "trashed":
