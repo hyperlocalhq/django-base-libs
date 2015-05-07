@@ -272,11 +272,11 @@ class JobOfferForm: # namespace
             initial=False,
             required=False,
             )
-        report_creativeset = forms.BooleanField(
-            label=_("Report to Creativeset.net"),
-            initial=False,
-            required=False,
-            )
+        # report_creativeset = forms.BooleanField(
+        #     label=_("Report to Creativeset.net"),
+        #     initial=False,
+        #     required=False,
+        #     )
         report_talent_in_berlin = forms.BooleanField(
             label=_("Report to talent-in-berlin.de"),
             initial=False,
@@ -413,9 +413,9 @@ class JobOfferForm: # namespace
                 sender_email=sender_email,
                 send_immediately=False,
                 )
-        if step_confirm_data.get('report_creativeset', False):
-            from ccb.apps.external_services.export_to_creativeset import export_job_offer_to_creativeset
-            export_job_offer_to_creativeset(job_offer)
+        # if step_confirm_data.get('report_creativeset', False):
+        #     from ccb.apps.external_services.export_to_creativeset import export_job_offer_to_creativeset
+        #     export_job_offer_to_creativeset(job_offer)
         
         
         form_steps['success_url'] = job_offer.get_url()
