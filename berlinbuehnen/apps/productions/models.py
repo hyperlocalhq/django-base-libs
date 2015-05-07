@@ -267,6 +267,11 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
                 start_date=event.start_date,
                 start_time=event.start_time,
             )
+            now = tz_now()
+            if self.status != "expired" and ((event.end_date is None and event.start_date < now.date()) or (event.end_date is not None and event.end_date < now.date())):
+                Production.objects.filter(pk=self.pk).update(
+                    status="expired",
+                )
 
     def get_nearest_occurrence(self, timestamp=tz_now):
         """ returns current or closest future or closest past event time """

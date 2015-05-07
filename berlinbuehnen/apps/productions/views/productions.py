@@ -269,7 +269,7 @@ def change_production_status(request, slug):
     instance = get_object_or_404(Production, slug=slug)
     if not request.user.has_perm("productions.change_production", instance):
         return access_denied(request)
-    if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed"):
+    if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed", "expired"):
         instance.status = request.POST['status']
         instance.save()
         return HttpResponse("OK")

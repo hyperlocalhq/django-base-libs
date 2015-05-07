@@ -47,6 +47,7 @@
                         <option value="draft"{% if production.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
                         <option value="published"{% if production.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
                         <option value="not_listed"{% if production.status == "not_listed" %} selected="selected"{% endif %}>{% trans "Not listed" %}</option>
+                        <option value="expired"{% if production.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
                     </select>
                 </div>
                 <script>
