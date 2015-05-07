@@ -7,7 +7,7 @@
   </button>
   <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
 	{% for lang_code, lang_name in languages %}
-    {% if lang_code in "en|de|pl|fr|it" %}
+    {% if lang_code in "en|de|pl|fr|it|es|tr" %}
 	    <li class="{% if current_language == lang_code %}active{% endif %}">
         <a href="/{{ lang_code }}/">{{ lang_name }}</a>
       </li>
