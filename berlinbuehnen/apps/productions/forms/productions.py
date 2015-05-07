@@ -1085,7 +1085,7 @@ def load_data(instance=None):
         form_step_data['description']['related_productions'] = instance.related_productions.all()
         form_step_data['description']['characteristics'] = instance.characteristics.all()
 
-        for leadership in instance.productionleadership_set.order_by('imported_sort_order'):
+        for leadership in instance.productionleadership_set.order_by('sort_order'):
             leadership_dict = {}
             leadership_dict['id'] = leadership.pk
             leadership_dict['person'] = leadership.person
@@ -1095,7 +1095,7 @@ def load_data(instance=None):
                 leadership_dict['function_%s' % lang_code] = getattr(leadership, 'function_%s' % lang_code)
             form_step_data['description']['sets']['leaderships'].append(leadership_dict)
 
-        for authorship in instance.productionauthorship_set.order_by('imported_sort_order'):
+        for authorship in instance.productionauthorship_set.order_by('sort_order'):
             authorship_dict = {}
             authorship_dict['id'] = authorship.pk
             authorship_dict['person'] = authorship.person
@@ -1104,7 +1104,7 @@ def load_data(instance=None):
             authorship_dict['authorship_type'] = authorship.authorship_type
             form_step_data['description']['sets']['authorships'].append(authorship_dict)
 
-        for involvement in instance.productioninvolvement_set.order_by('imported_sort_order'):
+        for involvement in instance.productioninvolvement_set.order_by('sort_order'):
             involvement_dict = {}
             involvement_dict['id'] = involvement.pk
             involvement_dict['person'] = involvement.person
