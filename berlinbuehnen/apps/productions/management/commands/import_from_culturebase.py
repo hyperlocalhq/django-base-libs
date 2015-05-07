@@ -802,7 +802,7 @@ class ImportFromCulturebaseBase(object):
                         prod.productionauthorship_set.create(
                             person=p,
                             authorship_type=authorship_type,
-                            sort_order=person_node.get('Position'),
+                            imported_sort_order=person_node.get('Position'),
                         )
                     elif role_de in (u"Regie", u"Regisseur", u"Regisseurin"):
                         p, created = Person.objects.get_or_create(
@@ -813,7 +813,7 @@ class ImportFromCulturebaseBase(object):
                             person=p,
                             function_de=role_de,
                             function_en=role_en,
-                            sort_order=person_node.get('Position'),
+                            imported_sort_order=person_node.get('Position'),
                         )
                     else:
                         p, created = Person.objects.get_or_create(
@@ -824,8 +824,17 @@ class ImportFromCulturebaseBase(object):
                             person=p,
                             involvement_role_de=role_de,
                             involvement_role_en=role_en,
-                            sort_order=person_node.get('Position'),
+                            imported_sort_order=person_node.get('Position'),
                         )
+                for sort_order, item in enumerate(prod.productionauthorship_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
+                for sort_order, item in enumerate(prod.productionleadership_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
+                for sort_order, item in enumerate(prod.productioninvolvement_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
 
             if not prod.sponsors.count():
                 for sponsor_node in prod_node.findall('./%(prefix)sSponsor' % self.helper_dict):
@@ -1019,7 +1028,7 @@ class ImportFromCulturebaseBase(object):
                             event.eventauthorship_set.create(
                                 person=p,
                                 authorship_type=authorship_type,
-                                sort_order=person_node.get('Position'),
+                                imported_sort_order=person_node.get('Position'),
                             )
                         elif role_de in (u"Regie",):
                             p, created = Person.objects.get_or_create(
@@ -1030,7 +1039,7 @@ class ImportFromCulturebaseBase(object):
                                 person=p,
                                 function_de=role_de,
                                 function_en=role_en,
-                                sort_order=person_node.get('Position'),
+                                imported_sort_order=person_node.get('Position'),
                             )
                         else:
                             p, created = Person.objects.get_or_create(
@@ -1041,8 +1050,17 @@ class ImportFromCulturebaseBase(object):
                                 person=p,
                                 involvement_role_de=role_de,
                                 involvement_role_en=role_en,
-                                sort_order=person_node.get('Position'),
+                                imported_sort_order=person_node.get('Position'),
                             )
+                    for sort_order, item in enumerate(event.eventauthorship_set.order_by('imported_sort_order'), 0):
+                        item.sort_order = sort_order
+                        item.save()
+                    for sort_order, item in enumerate(event.eventleadership_set.order_by('imported_sort_order'), 0):
+                        item.sort_order = sort_order
+                        item.save()
+                    for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
+                        item.sort_order = sort_order
+                        item.save()
 
                 if not event_mapper:
                     event_mapper = ObjectMapper(

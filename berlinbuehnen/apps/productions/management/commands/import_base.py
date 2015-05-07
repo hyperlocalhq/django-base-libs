@@ -96,6 +96,7 @@ STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
     u"Volksbühne am Rosa-Luxemburg-Platz / Books": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Books", True),
     u"Volksbühne am Rosa-Luxemburg-Platz / Grüner Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Grüner Salon", True),
     u"Volksbühne am Rosa-Luxemburg-Platz / Roter Salon": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Roter Salon", True),
+    u"Volksbühne am Rosa-Luxemburg-Platz / Sternfoyer": StageSettings(u"Volksbühne am Rosa-Luxemburg-Platz", u"Sternfoyer", True),
 
     u"Admiralspalast 101": StageSettings(u"Admiralspalast", u"F101", True),
     u"Admiralspalast Studio": StageSettings(u"Admiralspalast", u"Studio", True),
@@ -326,9 +327,10 @@ class ImportFromHeimatBase(object):
                 if child_node.get(name) != val:
                     all_attributes_match = False
                     break
-            if all_attributes_match and child_node.text:
-                return force_unicode(child_node.text)
-        return u""
+            if all_attributes_match:
+                # return force_unicode(child_node.text or u''.join([t for t in child_node.itertext()]))
+                return force_unicode(u''.join([t for t in child_node.itertext()]))
+        return u''
 
     def get_updated_location_and_stage(self, venue_node):
         """
@@ -513,9 +515,11 @@ class ImportFromHeimatBase(object):
         return LocationAndStage(location, stage)
 
     def cleanup_text(self, text):
+        import re
         from BeautifulSoup import BeautifulStoneSoup
         from django.utils.html import strip_tags
         text = text.replace('</div>', '\n')
+        text = re.sub(r'\n\s+', '\n', text)  # change multiple new-line symbols to one new-line symbol
         text = strip_tags(text)
         text = unicode(BeautifulStoneSoup(text, convertEntities=BeautifulStoneSoup.ALL_ENTITIES))
         return text

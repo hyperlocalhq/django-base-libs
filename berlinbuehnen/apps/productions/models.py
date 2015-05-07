@@ -548,9 +548,6 @@ class EventManager(models.Manager):
         
         return qs
         
-        
-        
-
 
 class Event(CreationModificationMixin, UrlMixin):
     production = models.ForeignKey(Production, verbose_name=_("Production"))
