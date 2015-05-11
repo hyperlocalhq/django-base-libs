@@ -298,6 +298,7 @@ class ImportFromHeimatBase(object):
     }
 
     in_program_of = None
+    DEFAULT_PUBLISHING_STATUS = "import"
 
     def load_and_parse_locations(self):
         response = requests.get("http://web2.heimat.de/cb-out/exports/address/address_id.php?city=berlin")
@@ -734,7 +735,7 @@ class ImportFromHeimatBase(object):
                 )
             except models.ObjectDoesNotExist:
                 # or create a new exhibition and then create a mapper
-                prod = Production(status="import")
+                prod = Production(status=self.DEFAULT_PUBLISHING_STATUS)
             else:
                 prod = mapper.content_object
                 if not prod or prod.status == "trashed":

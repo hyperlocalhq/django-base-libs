@@ -1,11 +1,15 @@
 # -*- coding: UTF-8 -*-
 
+import os
 import requests
+import shutil
 from xml.etree import ElementTree
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 from django.db import models
+from django.utils.encoding import smart_str, force_unicode
+from django.conf import settings
 
 from import_base import ImportFromHeimatBase
 
@@ -19,10 +23,30 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from GRIPS Theater"
 
+    IMPORT_URL = "http://www.grips-theater.de/assets/bb-upload.xml"
+    DEFAULT_PUBLISHING_STATUS = "published"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
+
+        Service = models.get_model("external_services", "Service")
+
+        self.service, created = Service.objects.get_or_create(
+            sysname="grips_theater_prods",
+            defaults={
+                'url': self.IMPORT_URL,
+                'title': "GRIPS Theater Productions",
+            },
+        )
+
+        if not self.should_reimport(self.service):
+            if self.verbosity >= NORMAL:
+                print u"=== Nothing to update ==="
+            return
+
+        self.delete_existing_productions_and_events(self.service)
 
         self.in_program_of, created = Location.objects.get_or_create(
             title_de=u"GRIPS Theater",
@@ -32,16 +56,6 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 'street_address': u'Altonaer Straße 22',
                 'postal_code': u'10557',
                 'city': u'Berlin',
-            },
-        )
-
-        Service = models.get_model("external_services", "Service")
-
-        self.service, created = Service.objects.get_or_create(
-            sysname="grips_theater_prods",
-            defaults={
-                'url': "http://www.grips-theater.de/assets/bb-upload.xml",
-                'title': "GRIPS Theater Productions",
             },
         )
 
@@ -70,3 +84,46 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
             print u"Events updated: %d" % self.stats['events_updated']
             print u"Events skipped: %d" % self.stats['events_skipped']
             print
+
+    def should_reimport(self, service):
+        from dateutil.parser import parse
+
+        # read the last-modified header from the feed
+        response = requests.head(self.IMPORT_URL)
+        last_modified_str = response.headers.get('last-modified', '')
+        if not last_modified_str:
+            return False
+        feed_last_modified = parse(last_modified_str)
+
+        # compare feed_last_modified with the last updated production creation date
+        mappers = service.objectmapper_set.filter(content_type__model__iexact="production").order_by('-pk')
+        if mappers:
+            productions_last_modified = mappers[0].content_object.creation_date
+            return feed_last_modified > productions_last_modified
+        return True
+
+    def delete_existing_productions_and_events(self, service):
+        if self.verbosity >= NORMAL:
+            print u"=== Deleting existing productions ==="
+
+        # deleting productions and their mappers
+        prods_count = service.objectmapper_set.filter(content_type__model__iexact="production").count()
+        for prod_index, mapper in enumerate(service.objectmapper_set.filter(content_type__model__iexact="production"), 1):
+            if mapper.content_object:
+                if self.verbosity >= NORMAL:
+                    print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(mapper.content_object.title_de), smart_str(mapper.content_object.title_en))
+
+                # delete media files
+                try:
+                    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, "productions", mapper.content_object.slug))
+                except OSError as err:
+                    pass
+
+                mapper.content_object.delete()
+            mapper.delete()
+
+        # deleting events and their mappers
+        for mapper in service.objectmapper_set.filter(content_type__model__iexact="event"):
+            if mapper.content_object:
+                mapper.content_object.delete()
+            mapper.delete()
