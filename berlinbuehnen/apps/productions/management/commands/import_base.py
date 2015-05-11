@@ -796,7 +796,7 @@ class ImportFromHeimatBase(object):
                     prod.in_program_of.add(self.in_program_of)
 
                 if not self.skip_images and not prod.productionimage_set.count():
-                    for picture_node in prod_node.findall('picture'):
+                    for picture_node in prod_node.findall('./picture'):
                         image_url = picture_node.get('url')
                         if not image_url.startswith('http'):
                             continue
@@ -836,11 +836,14 @@ class ImportFromHeimatBase(object):
                         cats = ProductionCategory.objects.filter(pk=internal_cat_id)
                         if cats:
                             prod.categories.add(cats[0])
+                            if cats[0].parent:
+                                prod.categories.add(cats[0].parent)
 
                 for status_id_node in prod_node.findall('statusId'):
-                    internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
-                    if internal_ch_slug:
-                        prod.characteristics.add(ProductionCharacteristics.objects.get(slug=internal_ch_slug))
+                    if status_id_node.text:
+                        internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
+                        if internal_ch_slug:
+                            prod.characteristics.add(ProductionCharacteristics.objects.get(slug=internal_ch_slug))
 
                 if not prod.productioninvolvement_set.count():
                     for person_node in prod_node.findall('person'):
@@ -1037,9 +1040,10 @@ class ImportFromHeimatBase(object):
                             event.play_stages.add(stage)
 
                 for status_id_node in event_node.findall('statusId'):
-                    internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
-                    if internal_ch_slug:
-                        event.characteristics.add(EventCharacteristics.objects.get(slug=internal_ch_slug))
+                    if status_id_node.text:
+                        internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_id_node.text), None)
+                        if internal_ch_slug:
+                            event.characteristics.add(EventCharacteristics.objects.get(slug=internal_ch_slug))
 
                 if not event.eventinvolvement_set.count():
                     for person_node in event_node.findall('person'):
