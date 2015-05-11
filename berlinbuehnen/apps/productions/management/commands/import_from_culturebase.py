@@ -795,7 +795,7 @@ class ImportFromCulturebaseBase(object):
 
                     if role_de in self.authorship_types_de:
                         authorship_type = AuthorshipType.objects.get(title_de=role_de)
-                        p, created = Person.objects.get_or_create(
+                        p, created = Person.objects.get_first_or_create(
                             first_name=first_name,
                             last_name=last_name,
                         )
@@ -805,7 +805,7 @@ class ImportFromCulturebaseBase(object):
                             imported_sort_order=person_node.get('Position'),
                         )
                     elif role_de in (u"Regie", u"Regisseur", u"Regisseurin"):
-                        p, created = Person.objects.get_or_create(
+                        p, created = Person.objects.get_first_or_create(
                             first_name=first_name,
                             last_name=last_name,
                         )
@@ -816,7 +816,7 @@ class ImportFromCulturebaseBase(object):
                             imported_sort_order=person_node.get('Position'),
                         )
                     else:
-                        p, created = Person.objects.get_or_create(
+                        p, created = Person.objects.get_first_or_create(
                             first_name=first_name,
                             last_name=last_name,
                         )
@@ -1021,7 +1021,7 @@ class ImportFromCulturebaseBase(object):
 
                         if role_de in self.authorship_types_de:
                             authorship_type = AuthorshipType.objects.get(title_de=role_de)
-                            p, created = Person.objects.get_or_create(
+                            p, created = Person.objects.get_first_or_create(
                                 first_name=first_name,
                                 last_name=last_name,
                             )
@@ -1031,7 +1031,7 @@ class ImportFromCulturebaseBase(object):
                                 imported_sort_order=person_node.get('Position'),
                             )
                         elif role_de in (u"Regie",):
-                            p, created = Person.objects.get_or_create(
+                            p, created = Person.objects.get_first_or_create(
                                 first_name=first_name,
                                 last_name=last_name,
                             )
@@ -1042,7 +1042,7 @@ class ImportFromCulturebaseBase(object):
                                 imported_sort_order=person_node.get('Position'),
                             )
                         else:
-                            p, created = Person.objects.get_or_create(
+                            p, created = Person.objects.get_first_or_create(
                                 first_name=first_name,
                                 last_name=last_name,
                             )
