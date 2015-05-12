@@ -129,7 +129,7 @@
                         {% get_objects objects.latest_published theater_of_the_week.TheaterOfTheWeek 1 as newest_theater %}
                         {% for article in newest_theater %}
                             <div class="col-xs-12 col-md-6 news-item">
-                                <a href="{{ article.get_url_path }}">
+                                <a href="{% url 'theater_of_the_week' %}">
                                     <h3>{% trans "Theater of the week" %}</h3>
                                     {% if article.image %}
                                         <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 

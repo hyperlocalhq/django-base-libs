@@ -14,11 +14,16 @@ theater_of_the_week_feeds = {
 
 urlpatterns = patterns(path_in_installed_app('theater_of_the_week.views'),
     # articles aggregated overview
-    url(r'^$', 
-        'theater_of_the_week_archive_index',
-        dict(num_latest=5, 
-            type_sysname='all'),
-        name="theater_of_the_week_archive",
+    #url(r'^$', 
+    #    'theater_of_the_week_archive_index',
+    #    dict(num_latest=5, 
+    #        type_sysname='all'),
+    #    name="theater_of_the_week_archive",
+    #),
+    
+    url(r'^$',
+        'theater_of_the_week',
+        name="theater_of_the_week",
     ),
     
     # articles aggregated syndication feeds

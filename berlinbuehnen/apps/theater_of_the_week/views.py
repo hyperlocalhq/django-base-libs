@@ -206,6 +206,22 @@ def theater_of_the_week_object_detail(
     return render(request, template_name, context_dict)
     
     
+    
+def theater_of_the_week(request, template_name=None, template_object_name='article', type_sysname=None, status=STATUS_CODE_PUBLISHED, extra_context={}):    
+
+    queryset = get_theaters(type_sysname, status)
+    article = queryset.order_by('-published_from')[0]
+    
+    context_dict = extra_context
+    
+    if template_name is None:
+        template_name = 'theater_of_the_week/theater_of_the_week_object_detail.html' 
+
+    context_dict[template_object_name] = article
+
+    return render(request, template_name, context_dict)
+    
+    
 
 def theater_of_the_week_feed(
     request,
