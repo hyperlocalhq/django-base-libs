@@ -38,7 +38,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         Service = models.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
-            sysname="staatsballett_berlin _prods",
+            sysname="staatsballett_berlin_prods",
             defaults={
                 'url': "http://www.staatsballett-berlin.de/xml/cb_staging.xml",
                 'title': "Staatsballett Berlin Productions",
