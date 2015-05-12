@@ -119,7 +119,7 @@ def theater_of_the_week_archive_index(
         )
     
     if template_name is None:
-        template_name = 'articles/articles_archive.html' 
+        template_name = 'theater_of_the_week/theater_of_the_week_overview.html'
     
     # this part is taken from django/views/generic/date_based.py, 
     # function "archive_index" 
@@ -136,7 +136,7 @@ def theater_of_the_week_archive_index(
         else:
             queryset = queryset.order_by('-'+date_field)
     else:
-        queryset = Article.objects.none()
+        queryset = Theater.objects.none()
         
     extra_context['date_list'] = date_list
     

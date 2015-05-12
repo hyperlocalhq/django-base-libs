@@ -126,13 +126,19 @@
                     <div class="row">
                         
                         <!-- NEWS -->
-                        {% get_objects objects.latest_published theater_of_the_week.TheaterOfTheWeek 1 as newest_articles %}
-                        {% for article in newest_articles %}
+                        {% get_objects objects.latest_published theater_of_the_week.TheaterOfTheWeek 1 as newest_theater %}
+                        {% for article in newest_theater %}
                             <div class="col-xs-12 col-md-6 news-item">
                                 <a href="{{ article.get_url_path }}">
                                     <h3>{% trans "Theater of the week" %}</h3>
                                     {% if article.image %}
                                         <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
+                                    {% elif article.theater.cover_image %}
+                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{article.theater.cover_image.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" /></div>
+                                    {% elif article.theater.image_set.exists %}
+                                        {% with article.theater.image_set.all|first as first %}
+                                            <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{first.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" /></div>
+                                        {% endwith %}
                                     {% endif %}
                                     <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
                                     <p>
@@ -166,8 +172,14 @@
                                     <p class="more fawesome">{% trans "read on" %}</p>
                                 </a>
                             </div>
-                            {% if not forloop.counter|divisibleby:2 %}
-                                <div class="clearfix"></div>
+                            {% if newest_theater|length > 0 %}
+                                {% if not forloop.counter|divisibleby:2 %}
+                                    <div class="clearfix"></div>
+                                {% endif %}
+                            {% else %}
+                                {% if forloop.counter|divisibleby:2 %}
+                                    <div class="clearfix"></div>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
                         
