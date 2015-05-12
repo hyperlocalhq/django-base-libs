@@ -705,8 +705,16 @@ class Event(CreationModificationMixin, UrlMixin):
 
     def ev_or_prod_sponsors(self):
         if self.pk and self.sponsors.exists():
-            return self.sponsors.all()
-        return self.production.sponsors.all()
+            sponsors = self.sponsors.all()
+        else:
+            sponsors = self.production.sponsors.all()
+            
+        final = []
+        for sponsor in sponsors:
+            if sponsor.image or sponsor.title:
+                final.append(sponsor)
+            
+        return final
 
     ### media ###
 
