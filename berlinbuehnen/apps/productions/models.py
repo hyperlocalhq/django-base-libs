@@ -32,6 +32,7 @@ STATUS_CHOICES = (
     ('published', _("Published")),
     ('not_listed', _("Not Listed")),
     ('import', _("Imported")),
+    ('expired', _("Expired")),
     ('trashed', _("Trashed")),
 )
 

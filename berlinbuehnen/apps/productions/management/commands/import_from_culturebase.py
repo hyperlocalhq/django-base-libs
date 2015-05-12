@@ -165,6 +165,7 @@ class ImportFromCulturebaseBase(object):
     }
 
     in_program_of = None
+    DEFAULT_PUBLISHING_STATUS = "published"  # "import"
 
     # def handle_noargs(self, *args, **options):
     #     self.verbosity = int(options.get("verbosity", NORMAL))
@@ -653,7 +654,7 @@ class ImportFromCulturebaseBase(object):
                 )
             except models.ObjectDoesNotExist:
                 # or create a new exhibition and then create a mapper
-                prod = Production(status="import")
+                prod = Production(status=self.DEFAULT_PUBLISHING_STATUS)
             else:
                 prod = mapper.content_object
                 if not prod or prod.status == "trashed":
