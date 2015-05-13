@@ -160,7 +160,7 @@
                                         <!-- list item body -->
                                         <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
                                             <a class="list-item-link" href="{{ event.get_url_path }}{% remove_from_query "page" %}">
-                                                {% if event.production.in_program_of.exists or event.location_title or event.ev_or_prod_play_locations %}
+                                                {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or event.ev_or_prod_play_locations|length > 0 or event.ev_or_prod_play_stages|length > 0 %}
                                                     <dl>
                                                         {% if event.production.in_program_of.exists %}
                                                             {% for location in event.production.in_program_of.all %}
@@ -173,10 +173,19 @@
                                                             <dd>
                                                                 {{ event.location_title }}
                                                             </dd>
+                                                        {% elif event.production.location_title %}
+                                                            <dd>
+                                                                {{ event.production.location_title }}
+                                                            </dd>
                                                         {% endif %}
                                                         {% for location in event.ev_or_prod_play_locations %}
                                                             <dd>
                                                                 {{ location.title }}
+                                                            </dd>
+                                                        {% endfor %}
+                                                        {% for stage in event.ev_or_prod_play_stages %}
+                                                            <dd>
+                                                                {{ stage.title }}
                                                             </dd>
                                                         {% endfor %}
                                                     </dl>
