@@ -251,6 +251,13 @@
                                                                         {% if stage.city %}{{ stage.postal_code }} {{ stage.city }}<br />{% endif %}
                                                                     </p>
                                                                 {% endfor %}
+                                                                {% if event.ev_or_prod_social_media %}
+                                                                    <ul class="social_link_list">
+                                                                        {% for social in event.ev_or_prod_social_media %}
+                                                                            <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     {% endif %}
@@ -401,8 +408,8 @@
                                                             {% if event.ev_or_prod_age_text %}
                                                                 <p>{{ event.ev_or_prod_age_text|disarm_user_input }}</p>
                                                             {% endif %}
-                                                            {% if event.production.age_from and event.production.age_till %}
-                                                                <p>{{ event.production.age_from }}{% if event.production.age_till %} - {{ event.production.age_till }}{% endif %}</p>
+                                                            {% if event.production.age_from or event.production.age_till %}
+                                                                <p>{% if event.production.age_from %}{% trans "from" %} {{ event.production.age_from }} {% endif %}{% if event.production.age_till %}{% trans "till" %} {{ event.production.age_till }} {% endif %}{% trans "years" %}</p>
                                                             {% endif %}
                                                             {% if event.production.edu_offer_website %}
                                                                 <p><strong>{% trans "Educational offer" %}: </strong><a href="{{ event.production.edu_offer_website }}">{{ event.production.edu_offer_website|humanize_url:30 }}</a></p>
@@ -564,11 +571,11 @@
                                                         </div>
                                                     </div>
                                                 {% endif %}
-                                                {% if event.ev_or_prod_supporting_programm %}
+                                                {% if event.ev_or_prod_supporting_program %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Supporting program" %}</h4>
                                                         <div class="accordion-item-content">
-                                                            {{ event.ev_or_prod_supporting_programm|disarm_user_input }}
+                                                            {{ event.ev_or_prod_supporting_program|disarm_user_input }}
                                                         </div>
                                                     </div>
                                                 {% endif %}

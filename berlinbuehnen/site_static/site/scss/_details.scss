@@ -9,7 +9,32 @@
             color: $blue;
         }
     }
-    header {
+    
+    .social_link_list {
+        list-style:none;
+        margin-top: 20px;
+        li {
+            float:left;
+            margin:0 0 10px 10px;
+            a {
+                color:white;
+                &:after, &:before {
+                    padding:0;
+                }
+                &:before {
+                    width:35px;
+                    height:35px;
+                    background: black;
+                    border-radius: 50%;
+                    text-align:center;
+                    line-height:35px;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+    
+    header { 
         margin-bottom: 24px;
         ul.header-top {
             width: 100%;

@@ -339,6 +339,18 @@ class ProductionSocialMediaChannel(models.Model):
 
     def __unicode__(self):
         return self.channel_type
+        
+    def get_class(self):
+        social = self.channel_type.lower()
+        if social == "google+":
+            return u"googleplus"
+        return social
+        
+    def get_class(self):
+        social = self.channel_type.lower()
+        if social == "google+":
+            return u"googleplus"
+        return social
 
 
 class ProductionVideo(CreationModificationDateMixin):
@@ -733,6 +745,11 @@ class Event(CreationModificationMixin, UrlMixin):
         if self.pk and self.eventpdf_set.exists():
             return self.eventpdf_set.all()
         return self.production.productionpdf_set.all()
+        
+    def ev_or_prod_social_media(self):
+        if self.pk and self.eventsocialmediachannel_set.exists():
+            return self.eventsocialmediachannel_set.all()
+        return self.production.productionsocialmediachannel_set.all()
 
     ### people ###
 
@@ -785,6 +802,12 @@ class EventSocialMediaChannel(models.Model):
 
     def __unicode__(self):
         return self.channel_type
+        
+    def get_class(self):
+        social = self.channel_type.lower()
+        if social == "google+":
+            return u"googleplus"
+        return social
 
 
 class EventVideo(CreationModificationDateMixin):

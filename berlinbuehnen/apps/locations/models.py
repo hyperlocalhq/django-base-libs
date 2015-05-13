@@ -215,6 +215,10 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
         except:
             return []
         return role.users.all()
+        
+        
+    def get_social_media(self):
+        return self.socialmediachannel_set.all()
 
 
 class Stage(CreationModificationMixin, SlugMixin()):
@@ -278,4 +282,10 @@ class SocialMediaChannel(models.Model):
 
     def __unicode__(self):
         return self.channel_type
+        
+    def get_class(self):
+        social = self.channel_type.lower()
+        if social == "google+":
+            return u"googleplus"
+        return social
 
