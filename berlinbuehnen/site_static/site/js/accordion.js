@@ -39,6 +39,8 @@
             $head.data('me', me);
             $head.data('content', $content_wrapper);
             $head.click(me.click);
+            
+            $('img', $content).load(function() {me.initHeights();});
         });
         
         me.onResize();
