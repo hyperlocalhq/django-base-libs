@@ -445,7 +445,7 @@ class ImageForm(forms.Form):
                         {% else %}
                             {% parse "{{ production.get_url_path }}gallery/" as goto_next %}
                         {% endif %}
-                        <input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
+                        <!--<input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;-->
                     {% endif %}
                 </div>
             </div>
