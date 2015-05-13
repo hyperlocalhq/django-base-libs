@@ -639,11 +639,21 @@ class Event(CreationModificationMixin, UrlMixin):
 
     def humanized_duration(self):
         from dateutil.relativedelta import relativedelta
-        attrs = ['years', 'months', 'days', 'hours', 'minutes', 'seconds']
-        human_readable = lambda delta: ['%d %s' % (getattr(delta, attr), ugettext(getattr(delta, attr) > 1 and attr or attr[:-1]))
-            for attr in attrs if getattr(delta, attr)
+        if not self.duration:
+            return u''
+        attrs = (
+            ('years', ugettext('year'), ugettext('years')),
+            ('months', ugettext('month'), ugettext('months')),
+            ('days', ugettext('day'), ugettext('days')),
+            ('hours', ugettext('hour'), ugettext('hours')),
+            ('minutes', ugettext('minute'), ugettext('minutes')),
+            ('seconds', ugettext('second'), ugettext('seconds')),
+        )
+        human_readable = lambda delta: [
+            '%d %s' % (getattr(delta, attr), getattr(delta, attr) > 1 and plural or singular)
+            for attr, singular, plural in attrs if getattr(delta, attr)
         ]
-        return u" ".join(human_readable(relativedelta(seconds=self.duration)))
+        return u' '.join(human_readable(relativedelta(seconds=self.duration)))
 
     ### venues ###
 
