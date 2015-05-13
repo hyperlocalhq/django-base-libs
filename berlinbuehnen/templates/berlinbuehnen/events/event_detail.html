@@ -411,9 +411,14 @@
                                                             {% if event.production.age_from or event.production.age_till %}
                                                                 <p>{% if event.production.age_from %}{% trans "From" %} {{ event.production.age_from }} {% endif %}{% if event.production.age_till %}{% trans "till" %} {{ event.production.age_till }} {% endif %}{% trans "years" %}</p>
                                                             {% endif %}
-                                                            {% if event.production.edu_offer_website %}
-                                                                <p><strong>{% trans "Educational offer" %}: </strong><a href="{{ event.production.edu_offer_website }}">{{ event.production.edu_offer_website|humanize_url:30 }}</a></p>
-                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if event.production.edu_offer_website %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Educational offer" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            <p><a href="{{ event.production.edu_offer_website }}">{{ event.production.edu_offer_website|humanize_url:30 }}</a></p>
                                                         </div>
                                                     </div>
                                                 {% endif %}
