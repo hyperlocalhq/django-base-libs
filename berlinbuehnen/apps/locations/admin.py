@@ -138,7 +138,11 @@ class LocationAdmin(ExtendedModelAdmin):
     get_owners_list.short_description = _("Owners")
 
     def owners_view(self, request, location_id):
+        from base_libs.views.views import access_denied
         location = get_object_or_404(Location, pk=location_id)
+
+        if not request.user.has_perm('locations.change_location', location):
+            return access_denied(request)
 
         if request.method == "POST":
             form = OwnersForm(request.POST)
@@ -168,7 +172,7 @@ class LocationAdmin(ExtendedModelAdmin):
                 'users': location.get_owners()
             })
 
-        return render(request, 'admin/locations/owners.html', {
+        return render(request, 'admin/locations/location/owners.html', {
             'location': location,
             'original': location,
             'app_label': Location._meta.app_label,
