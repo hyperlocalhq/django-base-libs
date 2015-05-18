@@ -138,7 +138,7 @@ class ImageFileForm(forms.Form):
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     {% if media_file.path %}
                         {% parse "{{ location.get_url_path }}change/" as goto_next %}
-                        <input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;
+                        <!--<input type="button" id="button-id-crop-photo" class="crop btn btn-primary" data-href="{% cropping_url media_file.path "medium" request goto_next %}" value="{% trans "Crop image" %}" />&zwnj;-->
                     {% endif %}
                 </div>
             </div>

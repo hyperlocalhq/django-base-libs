@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 @font-face {
     font-family: 'Webfont';
     src: url('../fonts/web/TitilliumWeb-Regular.eot');
@@ -237,6 +239,9 @@ strong {
 }
 .fawesome.flickr:before {
     content: "\f16e";
+}
+.fawesome.blog:before {
+    content: "\f039";
 }
 
 .subcategory:before {
