@@ -3,6 +3,10 @@
 from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
+from django.conf.urls import patterns, include, url
+from django import forms
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
@@ -79,6 +83,13 @@ class SocialMediaChannelInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 
+class OwnersForm(forms.Form):
+    users = forms.ModelMultipleChoiceField(
+        label=_("Users"),
+        queryset=User.objects.filter(is_active=True),
+        required=False,
+    )
+
 class LocationAdmin(ExtendedModelAdmin):
     class Media:
         js = (
@@ -117,12 +128,57 @@ class LocationAdmin(ExtendedModelAdmin):
 
     def get_owners_list(self, obj):
         owners_list = []
+        manage_owners_link = '<br /><a href="%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners'))
         for o in obj.get_owners():
             owners_list.append('<a href="/admin/auth/user/%s/">%s</a>' % (o.pk, o.username))
         if owners_list:
-            return '<br />'.join(owners_list)
-        return '<a href="/claiming-invitation/?location_id=%s">%s</a>' % (obj.pk, ugettext("Invite owners"))
+            return '<br />'.join(owners_list) + manage_owners_link
+        return '<a href="/claiming-invitation/?location_id=%s">%s</a>%s' % (obj.pk, ugettext("Invite owners"), manage_owners_link)
     get_owners_list.allow_tags = True
     get_owners_list.short_description = _("Owners")
+
+    def owners_view(self, request, location_id):
+        location = get_object_or_404(Location, pk=location_id)
+
+        if request.method == "POST":
+            form = OwnersForm(request.POST)
+            if form.is_valid():
+                existing_owners = set(location.get_owners())
+                changed_owners = set(form.cleaned_data['users'])
+
+                removed_owners = existing_owners - changed_owners
+                new_owners = changed_owners - existing_owners
+
+                for u in removed_owners:
+                    location.remove_owner(u)
+                    for p in location.program_productions.all():
+                        p.remove_owner(u)
+                    for p in location.located_productions.all():
+                        p.remove_owner(u)
+
+                for u in new_owners:
+                    location.set_owner(u)
+                    for p in location.program_productions.all():
+                        p.set_owner(u)
+                    for p in location.located_productions.all():
+                        p.set_owner(u)
+                return redirect('../../?id__exact=%d' % location.pk)
+        else:
+            form = OwnersForm(initial={
+                'users': location.get_owners()
+            })
+
+        return render(request, 'admin/locations/owners.html', {
+            'location': location,
+            'original': location,
+            'app_label': Location._meta.app_label,
+            'opts': Location._meta,
+            'form': form,
+            'title': ugettext('The owners of %(location)s') % {'location': location},
+        })
+
+    def get_urls(self):
+        urls = super(LocationAdmin, self).get_urls()
+        return patterns('', url(r'^(?P<location_id>\d+)/owners/$', self.owners_view)) + urls
 
 admin.site.register(Location, LocationAdmin)
