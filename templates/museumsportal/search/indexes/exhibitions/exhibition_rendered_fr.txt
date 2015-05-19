@@ -1,7 +1,7 @@
 {% load base_tags image_modifications %}
 {% with object as exhibition %}
     <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-        <a href="/fr/exhibitions/{{ exhibition.slug }}/">
+        <a href="/fr/expositions/{{ exhibition.slug }}/">
             <h4>
                 {% if exhibition.permanent %}
                     Permanent exhibition{% if exhibition.start %}: <span>{{ exhibition.start|date:"d.m.Y" }} until further notice</span>{% endif %}

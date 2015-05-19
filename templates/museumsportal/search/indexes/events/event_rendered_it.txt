@@ -1,7 +1,7 @@
 {% load base_tags image_modifications %}
 {% with object as event %}
     <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-        <a href="/it/events/{{ event.slug }}/">
+        <a href="/it/manifestazioni-culturale/{{ event.slug }}/">
             <h4>
                 <span>{% with event.get_closest_event_time as event_time %}{{ event_time.get_humanized_date_it }} {{ event_time.start|time:"H:i" }}{% endwith %}</span>
             </h4>

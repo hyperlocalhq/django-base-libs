@@ -1,7 +1,7 @@
 {% load base_tags image_modifications %}
 {% with object as workshop %}
     <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-        <a href="/tr/workshops/{{ workshop.slug }}/">
+        <a href="/tr/rehberli-turlar-ve-atolyeler/{{ workshop.slug }}/">
             <h4>
                 <span>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.get_humanized_date_tr }} {{ workshop_time.start|time:"H:i" }}{% endwith %}</span>
             </h4>
