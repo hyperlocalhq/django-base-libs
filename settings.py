@@ -243,6 +243,7 @@ INSTALLED_APPS = (
     "museumsportal.apps.comments",
     "museumsportal.apps.mega_menu",
     "museumsportal.apps.mailing",
+    "museumsportal.apps.tracker",
 )
 
 
@@ -359,8 +360,15 @@ ADMIN_APP_INDEX = (
                 'models': ("SiteSettings",),
             }),
         )
-    }
-
+    },
+    {
+        'title': gettext('Control'),
+        'apps': (
+            ('tracker', {
+                'models': ("Concern", "Ticket"),
+            }),
+        ),
+    },
 )
 
 PREPEND_WWW = False
