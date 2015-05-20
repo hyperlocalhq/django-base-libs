@@ -121,24 +121,36 @@
             <span class="sr-only">{% trans "Back to top" %}</span>
         </a>
         
-        <div id="footer" class="hidden-xs">
+        <div id="footer">
             {% block footer %}
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-xs-6 col-sm-3 col-md-2">
                                 <h3>{% trans "Links" %}</h3>
                                 <ul class="navigation">
                                     {% show_menu_below_id "meta" 0 0 1 1 %}
                                 </ul>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-xs-6 col-sm-3 col-md-2">
                                 <h3>{% trans "Follow us" %}</h3>
                                 <ul class="social_links">
                                     <li><a class="fawesome facebook" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank"><span class="sr-only">Facebook</span></a></li>
                                     <li><a class="fawesome twitter" href="https://twitter.com/#!/berlinbuehnen" target="_blank"><span class="sr-only">Twitter</span></a></li>
                                     <li><a class="fawesome instagram" href="https://instagram.com/berlinbuehnen" target="_blank"><span class="sr-only">Instagram</span></a></li>
                                 </ul>
+                            </div>
+                            <div class="clearfix visible-xs"></div>
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <p>Ein Service von Kulturprojekte Berlin GmbH gemeinsam mit den Berliner Bühnen</p>
+                                <a href="http://www.kulturprojekte-berlin.de" target="_blank"><img src="{{ STATIC_URL }}site/img/logos/kpb.gif" height="40"/></a>
+                            </div>
+                            <div class="clearfix visible-sm"></div>
+                            <div class="col-xs-12 col-md-5">
+                                <p>Gefördert durch:</p>
+                                <a href="http://www.berlin.de/sen/strukturfonds/ab2007/efre/efre.html" target="_blank"><img src="{{ STATIC_URL }}site/img/logos/efre.gif" height="60"/></a>
+                                <a href="http://www.berlin.de/sen/kultur/index.de.php" target="_blank"><img src="{{ STATIC_URL }}site/img/logos/berlin.gif" height="70"/></a>
+                                <a href="http://europa.eu/legislation_summaries/agriculture/general_framework/g24234_de.htm" target="_blank"><img src="{{ STATIC_URL }}site/img/logos/eu.gif" height="70"/></a>
                             </div>
                         </div>
                     </div>
