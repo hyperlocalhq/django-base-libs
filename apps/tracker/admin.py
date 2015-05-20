@@ -33,9 +33,9 @@ class TicketOptions(admin.ModelAdmin):
 
     def get_url(self, obj):
         if obj.url:
-            return '<a href="%s" target="_blank">URL</a>' % obj.url
+            return '<a href="%s" target="_blank">%s</a>' % (obj.url, _("Edit"))
         return ''
-    get_url.short_description = Ticket._meta.get_field('url').verbose_name
+    get_url.short_description = _("Related Object")
     get_url.allow_tags = True
 
 admin.site.register(Concern, ConcernOptions)
