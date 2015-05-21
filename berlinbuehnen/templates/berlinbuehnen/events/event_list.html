@@ -190,10 +190,12 @@
                                                         {% endfor %}
                                                     </dl>
                                                 {% endif %}
+                                                {% if event.production.ensembles %}<h3>{{ event.production.ensembles }}</h3>{% endif %}
                                                 {% if event.production.title %}<h2>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}</h2>{% endif %}
                                                 {% if event.production.subtitle %}<h3>{{ event.production.subtitle }}</h3>
                                                 {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text }}</h3>{% endif %}
                                                 {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
+                                                {% if event.production.language_and_subtitles %}<h3>{{ event.production.language_and_subtitles }}</h3>{% endif %}
                                                 {% if event.ev_or_prod_teaser %}<div class="copy"><p>{{ event.ev_or_prod_teaser }}</p></div>{% endif %}
                                                 {% if event.get_special_text and not event.is_canceled %}<div class="extra"><span>{{ event.get_special_text }}</span></div>{% endif %}
                                                 {% if event.is_canceled %}<div class="extra canceled"><span>{% trans 'canceled' %}</span></div>{% endif %}

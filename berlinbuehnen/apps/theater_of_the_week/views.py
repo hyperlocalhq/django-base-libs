@@ -190,9 +190,9 @@ def theater_of_the_week_object_detail(
     context_dict = extra_context
 
     try:
-        context_dict['rel_root_dir'] = reverse("%s:theater_of_the_week_archive" % request.LANGUAGE_CODE)
+        context_dict['rel_root_dir'] = reverse("%s:theater_of_the_week" % request.LANGUAGE_CODE)
     except:
-        context_dict['rel_root_dir'] = reverse("theater_of_the_week_archive")
+        context_dict['rel_root_dir'] = reverse("theater_of_the_week")
     
     context_dict['links_to_articles'] = queryset.exclude(
         slug=theater_of_the_week_slug
