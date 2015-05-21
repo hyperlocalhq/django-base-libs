@@ -32,7 +32,7 @@ COPYRIGHT_RESTRICTION_CHOICES = (
     ('protected', _("Released for this and own site only"))
 )
 
-TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
+TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
 
 
 class Service(CreationModificationDateMixin, SlugMixin()):
@@ -269,6 +269,7 @@ class Image(CreationModificationDateMixin):
     @staticmethod
     def token_to_pk(token):
         return int(token) - TOKENIZATION_SUMMAND
+
 
 class SocialMediaChannel(models.Model):
     location = models.ForeignKey(Location)

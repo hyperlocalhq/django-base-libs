@@ -9,6 +9,7 @@ from base_libs.models.models import UrlMixin
 from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import CreationModificationDateMixin
+from base_libs.models.models import OpeningHoursMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualTextField
@@ -32,6 +33,8 @@ COPYRIGHT_RESTRICTION_CHOICES = (
     ('protected', _("Released for this and own site only"))
 )
 
+TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
+
 
 class FestivalManager(models.Manager):
     def owned_by(self, user):
@@ -47,14 +50,58 @@ class FestivalManager(models.Manager):
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
 
-class Festival(CreationModificationMixin, UrlMixin, SlugMixin()):
+class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
+    logo = FileBrowseField(_('Logo'), max_length=255, directory="festivals/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
+
+    street_address = models.CharField(_("Street address"), max_length=255, blank=True)
+    street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
+    postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
+    city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
+    latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
+    longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
+
+    phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    email = models.EmailField(_("Email"), max_length=255, blank=True)
     website = URLField("Website", blank=True)
+
+    tickets_street_address = models.CharField(_("Street address"), max_length=255, blank=True)
+    tickets_street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
+    tickets_postal_code = models.CharField(_("Postal code"), max_length=255, blank=True)
+    tickets_city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
+    tickets_email = models.EmailField(_("Tickets Email"), max_length=255, blank=True)
+    tickets_website = URLField("Tickets Website", blank=True)
+
+    tickets_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    tickets_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    tickets_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    tickets_fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    tickets_fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    tickets_fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+
+    tickets_calling_prices = MultilingualTextField(_("Phone calling prices"), blank=True)
+
+    press_contact_name = models.CharField(_("Press contact name"), max_length=255, blank=True)
+    press_phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    press_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    press_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    press_fax_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
+    press_fax_area = models.CharField(_("Area Code"), max_length=6, blank=True)
+    press_fax_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
+    press_email = models.EmailField(_("Press Email"), max_length=255, blank=True)
+    press_website = URLField("Press Website", blank=True)
 
     start = models.DateField(_("Start date"))
     end = models.DateField(_("End date"))
+
+    organizers = models.ManyToManyField("locations.Location", verbose_name=_("Organizers"), blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
@@ -150,3 +197,34 @@ class Image(CreationModificationDateMixin):
         if self.path:
             return self.path.path
         return "Missing file (id=%s)" % self.pk
+
+    def get_token(self):
+        if self.pk:
+            return int(self.pk) + TOKENIZATION_SUMMAND
+        else:
+            return None
+
+    @staticmethod
+    def token_to_pk(token):
+        return int(token) - TOKENIZATION_SUMMAND
+
+
+class SocialMediaChannel(models.Model):
+    festival = models.ForeignKey(Festival)
+    channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))
+    url = URLField(_("URL"), max_length=255)
+
+    class Meta:
+        ordering = ['channel_type']
+        verbose_name = _("Social media channel")
+        verbose_name_plural = _("Social media channels")
+
+    def __unicode__(self):
+        return self.channel_type
+
+    def get_class(self):
+        social = self.channel_type.lower()
+        if social == "google+":
+            return u"googleplus"
+        return social
+

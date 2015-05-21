@@ -266,6 +266,8 @@ class EventInvolvementInline(ExtendedStackedInline):
 class EventAdmin(ExtendedModelAdmin):
     list_display = ['title', 'start_date', 'start_time']
     search_fields = ['production__title']
+    date_hierarchy = 'start_date'
+
     fieldsets = [(_("Main Data"), {'fields': ('production', 'start_date', 'start_time', 'end_date', 'end_time', 'duration', 'pauses')}),]
     fieldsets += [(_("Location"), {'fields': ['play_locations', 'play_stages', 'organizers']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
