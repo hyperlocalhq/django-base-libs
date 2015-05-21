@@ -130,8 +130,8 @@ class ProductionInvolvementInline(ExtendedStackedInline):
 
 
 class ProductionAdmin(ExtendedModelAdmin):
-    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'show_among_others', 'status')
-    list_editable = ('show_among_others', 'status')
+    list_display = ('title_de', 'get_locations', 'get_import_source', 'get_external_id', 'get_owners_list', 'show_among_others', 'no_overwriting', 'status')
+    list_editable = ('show_among_others', 'no_overwriting', 'status')
     search_fields = ('title_de', 'title_en')
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'prefix', 'subtitle', 'original', 'website'])
     fieldsets += [(None, {'fields': ('slug', )}),]
@@ -143,8 +143,8 @@ class ProductionAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Prices"), {'fields': ['price_from', 'price_till', 'free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['price_information'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['characteristics', get_admin_lang_section(_("Other characteristics"), ['other_characteristics',]), 'age_from', 'age_till', 'edu_offer_website']}),]
     fieldsets += [(_("Sponsors"), {'fields': ['sponsors',]}),]
-    fieldsets += [(_("Status"), {'fields': ['show_among_others', 'status',]}),]
-    list_filter = ['show_among_others', 'status']
+    fieldsets += [(_("Status"), {'fields': ['show_among_others', 'no_overwriting', 'status',]}),]
+    list_filter = ['show_among_others', 'no_overwriting', 'status']
 
     filter_horizontal = ['in_program_of', 'play_locations', 'play_stages', 'categories', 'festivals', 'related_productions', 'characteristics', 'sponsors']
     inlines = [

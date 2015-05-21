@@ -183,6 +183,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
     show_among_others = models.BooleanField(_("Show among others"), default=True, help_text=_("Should this production be shown in event details among other productions at the same venue?"))
+    no_overwriting = models.BooleanField(_("Do not overwrite by the next import"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     start_date = models.DateField(_("Actual start date"), blank=True, null=True, editable=False)
