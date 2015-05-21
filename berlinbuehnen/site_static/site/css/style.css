@@ -1855,8 +1855,8 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-body a:hover { color: black; }
 .list .list-item .list-item-body h2, .list .list-item .list-item-body h4 { width: 72%; }
 .list .list-item .list-item-body dl, .list .list-item .list-item-body h3 { width: auto; }
-.list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4, .list .list-item .list-item-body div.copy { margin: 0 0 0 15px; }
-.list .list-item .list-item-body dl { float: none; padding-top: 10px; margin-top: 0px; }
+.list .list-item .list-item-body dl, .list .list-item .list-item-body h2, .list .list-item .list-item-body h3, .list .list-item .list-item-body h4, .list .list-item .list-item-body div.copy { margin: 0 0 0 15px !important; }
+.list .list-item .list-item-body dl { float: none; padding-top: 10px; margin-top: 0px  !important; }
 .list .list-item .list-item-body dl dd { float: left; }
 .list .list-item .list-item-body dl dd:after { content: "–"; padding-right: 3px; }
 .list .list-item .list-item-body dl dd:last-child:after { content: none; }
@@ -1888,7 +1888,7 @@ body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head
 body.is-xs .list .list-item .list-item-head .list-item-head-image { position: absolute; top: 0; left: 0; }
 body.is-xs .list .list-item .list-item-head .list-item-head-image img { width: 50px; float: none; }
 body.is-xs .list .list-item-body { padding-bottom: 40px; height: auto; max-height: 350px; }
-body.is-xs .list .list-item-body dl, body.is-xs .list .list-item-body h2, body.is-xs .list .list-item-body h3, body.is-xs .list .list-item-body h4, body.is-xs .list .list-item-body div.copy { margin: 0 0 0 5px; width: auto; }
+body.is-xs .list .list-item-body dl, body.is-xs .list .list-item-body h2, body.is-xs .list .list-item-body h3, body.is-xs .list .list-item-body h4, body.is-xs .list .list-item-body div.copy { margin: 0 0 0 5px  !important; width: auto; }
 body.is-xs .list .list-item-body .extra { top: inherit; bottom: -40px; height: 22px; color: white; font-weight: 700; font-size: 0.875em; width: 160px; text-transform: uppercase; }
 body.is-xs .list .list-item-body .extra:before { content: url(../img/label_22px.png); position: relative; left: -10px; }
 body.is-xs .list .list-item-body .extra.canceled { background: #cf0000; }

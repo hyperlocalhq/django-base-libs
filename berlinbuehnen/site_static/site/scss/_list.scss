@@ -123,13 +123,13 @@
             }
             
             dl, h2, h3, h4, div.copy {
-                margin: 0 0 0 15px;
+                margin: 0 0 0 15px !important;
             }
             
             dl {
                 float: none;
                 padding-top: 10px;
-                margin-top: 0px;
+                margin-top: 0px  !important;
                 dd {
                     float: left;
                     &:after {
@@ -302,7 +302,7 @@ body.is-xs {
             max-height: 350px;
             
             dl, h2, h3, h4, div.copy {
-                margin: 0 0 0 5px;
+                margin: 0 0 0 5px  !important;
                 width: auto;
             }
             
