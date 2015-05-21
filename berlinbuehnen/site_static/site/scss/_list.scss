@@ -145,17 +145,17 @@
             h2 {
                 font-weight: $bold;
                 font-size: 1.125em;
-                padding-top: 10px;
-                padding-bottom: 10px;
+                padding-top: 5px;
+                padding-bottom: 5px;
                 text-transform: uppercase;
             }
             
             h3 {
                 font-weight: $regular;
-                font-size: 1em;
+                font-size: 0.9em;
                 line-height: 125%;
                 &:last-of-type {
-                    padding-bottom: 10px;
+                    padding-bottom: 5px;
                 }
             }
             
@@ -168,6 +168,7 @@
             
             p {
                 padding: 0;
+                font-size:0.9em;
                 p {
                     margin: 0;
                 }
@@ -224,6 +225,10 @@
             }
         }
     }
+}
+
+.location-list .list-item-body p {
+    font-size: 1em !important;
 }
 
 body.is-xs {

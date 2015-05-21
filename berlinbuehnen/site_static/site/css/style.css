@@ -1860,11 +1860,11 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-body dl dd { float: left; }
 .list .list-item .list-item-body dl dd:after { content: "–"; padding-right: 3px; }
 .list .list-item .list-item-body dl dd:last-child:after { content: none; }
-.list .list-item .list-item-body h2 { font-weight: 700; font-size: 1.125em; padding-top: 10px; padding-bottom: 10px; text-transform: uppercase; }
-.list .list-item .list-item-body h3 { font-weight: 400; font-size: 1em; line-height: 125%; }
-.list .list-item .list-item-body h3:last-of-type { padding-bottom: 10px; }
+.list .list-item .list-item-body h2 { font-weight: 700; font-size: 1.125em; padding-top: 5px; padding-bottom: 5px; text-transform: uppercase; }
+.list .list-item .list-item-body h3 { font-weight: 400; font-size: 0.9em; line-height: 125%; }
+.list .list-item .list-item-body h3:last-of-type { padding-bottom: 5px; }
 .list .list-item .list-item-body h4 { font-weight: 400; font-size: 1em; line-height: 125%; padding-top: 10px; }
-.list .list-item .list-item-body p { padding: 0; }
+.list .list-item .list-item-body p { padding: 0; font-size: 0.9em; }
 .list .list-item .list-item-body p p { margin: 0; }
 .list .list-item .list-item-body .extra { background: #4583c8; position: absolute; top: 0; right: 0; padding: 0; height: 28px; color: white; font-weight: 700; font-size: 0.875em; width: 23%; text-transform: uppercase; }
 .list .list-item .list-item-body .extra:before { content: url(../img/label_28px.png); position: relative; left: -11px; }
@@ -1874,6 +1874,8 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item:hover { background-color: #eee; }
 .list.location-list .list-item .list-item-head { max-width: 148px; }
 .list.location-list .list-item .list-item-body h2, .list.location-list .list-item .list-item-body h4 { width: auto; }
+
+.location-list .list-item-body p { font-size: 1em !important; }
 
 body.is-xs .list { margin-left: -20px; margin-right: -20px; }
 body.is-xs .list .list-item .list-item-head { max-width: none; height: 50px; border-bottom: 1px solid #ccc; }
