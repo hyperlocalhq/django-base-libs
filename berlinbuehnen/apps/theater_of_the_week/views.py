@@ -155,7 +155,7 @@ def theater_of_the_week_object_detail(
     day,
     theater_of_the_week_slug,
     type_sysname=None,
-    status=STATUS_CODE_PUBLISHED,
+    status=STATUS_CODE_DRAFT,
     date_field='published_from',
     month_format='%m',
     day_format='%d',
