@@ -1,4 +1,4 @@
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites production_tags %}
 <div class="accordion sidebar-accordion">
     <div class="accordion-item">
         <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
@@ -115,6 +115,12 @@
             </div>
         </div>
     {% endif %}
+    <div class="accordion-item">
+        <h4 class="accordion-item-head">{% trans "Public transport" %}</h4>
+        <div class="accordion-item-content">
+            {% bvg address=location.street_address address_2=location.street_address2 postal_code=location.postal_code city=location.city %}
+        </div>
+    </div>
     {% if location.services.all %}
         <div class="accordion-item">
             <h4 class="accordion-item-head">{% trans "Service" %}</h4>

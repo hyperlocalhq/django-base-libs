@@ -1818,6 +1818,14 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .sidebar-accordion .accordion-item a.less-dates { display: none; }
 .sidebar-accordion .accordion-item img.logo { width: 74px; display: block; margin: 10px 0 0 10px; }
 .sidebar-accordion .accordion-item .maincategory .subcategory:last-of-type { margin-bottom: 3px; display: inline-block; }
+.sidebar-accordion .accordion-item form { margin: 20px 10px 20px; width: auto; }
+.sidebar-accordion .accordion-item form .split { overflow: hidden; position: relative; }
+.sidebar-accordion .accordion-item form .split div { width: 45%; float: left; }
+.sidebar-accordion .accordion-item form .split div:last-child { position: absolute; right: 0; }
+.sidebar-accordion .accordion-item form input { background-color: transparent; font-size: 1em !important; }
+.sidebar-accordion .accordion-item form input#submit { background-color: black; margin-top: 20px; }
+.sidebar-accordion .accordion-item form textarea.form-control { resize: none; height: 70px; color: rgba(0, 0, 0, 0.75); font-size: 1em !important; }
+.sidebar-accordion .accordion-item form .sbHolder { color: rgba(0, 0, 0, 0.75); font-size: 1em !important; }
 
 .gallery { position: relative; margin-left: -10px; margin-right: -10px; }
 .gallery .col-xs-12, .gallery .col-sm-6, .gallery .col-md-8, .gallery .col-md-4 { padding-left: 10px; padding-right: 10px; }
