@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.db import models
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from django.utils.timezone import now as tz_now
 
 register = template.Library()
@@ -58,4 +58,51 @@ def date_slider(context, page, active=0, id=''):
         'months': months,
         'page': page,
         'STATIC_URL': context['STATIC_URL'],
+    }
+    
+    
+@register.inclusion_tag('productions/includes/bvg.html', takes_context=True)
+def bvg(context, address="", address_2=False, postal_code=False, city=False, event_date=False, event_time=False, delta=0, timesel="depart"):
+
+    to = address
+    if address_2:
+        to += "\n" + address_2
+    if postal_code:
+        to += "\n" + postal_code
+    if city:
+        if postal_code:
+            to += " "
+        else:
+            to += "\n"
+        to += city
+        
+        
+
+    today = datetime.now()
+    
+    if event_date and event_time:
+        event_datetime = datetime(year=event_date.year, month=event_date.month, day=event_date.day, hour=event_time.hour, minute=event_time.minute)
+        if (event_datetime < today):
+            event_date = False
+            event_time = False
+            delta = 0
+            timesel = "depart"
+    
+    if event_date:
+        today = datetime(year=event_date.year, month=event_date.month, day=event_date.day, hour=today.hour, minute=today.minute)
+    if event_time:
+        today = datetime(year=today.year, month=today.month, day=today.day, hour=event_time.hour, minute=event_time.minute)
+    
+    if (delta < 0):
+        delta *= -1;
+        today -= timedelta(minutes=delta)
+    else:
+        today += timedelta(minutes=delta)
+        
+    
+    return {
+        'to': to,
+        'date': today.strftime('%d.%m.%Y'),
+        'time': today.strftime('%H:%M'),
+        'timesel': timesel,
     }

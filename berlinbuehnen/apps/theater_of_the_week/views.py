@@ -179,14 +179,24 @@ def theater_of_the_week_object_detail(
     queryset = get_theaters(type_sysname, status)
     
     # get the requested article
+    fail = False
     try:
         article = queryset.get(slug=theater_of_the_week_slug)
     except:
-        raise Http404
-    else:
+        fail = True
+        #raise Http404
+    #else:
         #update the "views field"
-        article.increase_views()
+        #article.increase_views()
     
+    if fail:
+        queryset = get_theaters(type_sysname, STATUS_CODE_DRAFT)
+        try:
+            article = queryset.get(slug=theater_of_the_week_slug)
+        except:
+            raise Http404
+    
+		
     context_dict = extra_context
 
     try:

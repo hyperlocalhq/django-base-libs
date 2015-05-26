@@ -389,6 +389,34 @@
                                                         {% endif %}
                                                     {% endif %}
                                                 {% endwith %}
+                                                {% with locations=event.ev_or_prod_play_locations stages=event.ev_or_prod_play_stages %}
+                                                    {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or locations|length > 0 or stages|length > 0 %}
+                                                        <div class="accordion-item">
+                                                            <h4 class="accordion-item-head">{% trans "Public transport" %}</h4>
+                                                            <div class="accordion-item-content">
+                                                                {% if not stages or not stages.0.street_address %}
+                                                                    {% with locations|first as location %}
+                                                                        {% if event.location_title %}
+                                                                            {% bvg address=event.street_address address_2=event.street_address2 postal_code=event.postal_code city=event.city event_date=event.start_date event_time=event.start_time timesel="arrive" delta=-30 %}
+                                                                        {% elif event.production.location_title %}
+                                                                            {% bvg address=event.production.street_address address_2=event.production.street_address2 postal_code=event.production.postal_code city=event.production.city event_date=event.start_date event_time=event.start_time timesel="arrive" delta=-30 %}
+                                                                        {% elif location %}
+                                                                            {% bvg address=location.street_address address_2=location.street_address2 postal_code=location.postal_code city=location.city event_date=event.start_date event_time=event.start_time timesel="arrive" delta=-30 %}
+                                                                        {% elif event.production.in_program_of.exists %}
+                                                                            {% with event.production.in_program_of.all|first as program %}
+                                                                                {% bvg address=program.street_address address_2=program.street_address2 postal_code=program.postal_code city=program.city event_date=event.start_date event_time=event.start_time timesel="arrive" delta=-30 %}
+                                                                            {% endwith %}
+                                                                        {% endif %}
+                                                                    {% endwith %}
+                                                                {% else %}
+                                                                    {% with stages|first as stage %}
+                                                                        {% bvg address=stage.street_address address_2=stage.street_address2 postal_code=stage.postal_code city=stage.city event_date=event.start_date event_time=event.start_time timesel="arrive" delta=-30 %}
+                                                                    {% endwith %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endwith %}
                                                 {% if event.production.organizers or event.organizers %}
                                                     <div class="accordion-item">
                                                         <h4 class="accordion-item-head">{% trans "Organizers" %}</h4>
