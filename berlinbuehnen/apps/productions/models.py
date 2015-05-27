@@ -189,6 +189,8 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     start_date = models.DateField(_("Actual start date"), blank=True, null=True, editable=False)
     start_time = models.TimeField(_("Actual start time"), blank=True, null=True, editable=False)
 
+    import_source = models.ForeignKey('external_services.Service', editable=False, blank=True, null=True)
+
     objects = ProductionManager()
 
     row_level_permissions = True
