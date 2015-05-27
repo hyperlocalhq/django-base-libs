@@ -112,6 +112,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
             if mapper.content_object:
                 if self.verbosity >= NORMAL:
                     print "%d/%d %s | %s" % (prod_index, prods_count, smart_str(mapper.content_object.title_de), smart_str(mapper.content_object.title_en))
+                if mapper.content_object.no_overwriting:  # don't delete items with no_overwriting == True
+                    continue
 
                 # delete media files
                 try:
@@ -125,5 +127,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         # deleting events and their mappers
         for mapper in service.objectmapper_set.filter(content_type__model__iexact="event"):
             if mapper.content_object:
+                if mapper.content_object.production.no_overwriting:  # don't delete items with no_overwriting == True
+                    continue
+
                 mapper.content_object.delete()
             mapper.delete()
