@@ -668,6 +668,11 @@ class ImportFromCulturebaseBase(object):
                 #         self.stats['prods_skipped'] += 1
                 #         continue
 
+            if prod.no_overwriting:
+                self.stats['prods_skipped'] += 1
+                continue
+
+            prod.status = self.DEFAULT_PUBLISHING_STATUS
             prod.title_de = title_de
             prod.title_en = title_en or title_de
             prod.website_de = prod.website_en = self.get_child_text(prod_node, 'Url')
@@ -734,7 +739,11 @@ class ImportFromCulturebaseBase(object):
                 prod.organizers = u', '.join(organizers_list)
                 prod.save()
 
-            if not self.skip_images and not prod.productionimage_set.count():
+            if not self.skip_images:
+                for mf in prod.productionimage_set.all():
+                    if mf.path:
+                        image_mods.FileManager.delete_file(mf.path.name)
+                    mf.delete()
                 for picture_node in prod_node.findall('./%(prefix)sPicture' % self.helper_dict):
                     image_url = self.get_child_text(picture_node, 'Url')
                     mf = ProductionImage(production=prod)
@@ -768,6 +777,7 @@ class ImportFromCulturebaseBase(object):
                         file_description.save()
                         #time.sleep(1)
 
+            prod.categories.clear()
             for category_id_node in prod_node.findall('./%(prefix)sContentCategory/%(prefix)sCategoryId' % self.helper_dict):
                 internal_cat_id = self.CATEGORY_MAPPER.get(int(category_id_node.text), None)
                 if internal_cat_id:
@@ -777,6 +787,7 @@ class ImportFromCulturebaseBase(object):
                         if cats[0].parent:
                             prod.categories.add(cats[0].parent)
 
+            prod.characteristics.clear()
             for status_node in prod_node.findall('./%(prefix)sStatus' % self.helper_dict):
                 internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)
                 if internal_ch_slug:
@@ -784,81 +795,83 @@ class ImportFromCulturebaseBase(object):
                 elif int(status_node.get('Id')) == 25:
                     prod.categories.add(ProductionCategory.objects.get(slug="kinder-jugend"))
 
-            if not prod.productionleadership_set.count() and not prod.productionauthorship_set.count() and not prod.productioninvolvement_set.count():
-                for person_node in prod_node.findall('./%(prefix)sPerson' % self.helper_dict):
-                    first_and_last_name = self.get_child_text(person_node, 'Name')
-                    if u" " in first_and_last_name:
-                        first_name, last_name = first_and_last_name.rsplit(" ", 1)
-                    else:
-                        first_name = ""
-                        last_name = first_and_last_name
-                    role_de = self.get_child_text(person_node, 'RoleDescription', Language="de")
-                    role_en = self.get_child_text(person_node, 'RoleDescription', Language="en")
-                    if not role_de and person_node.find('%(prefix)sCategory' % self.helper_dict) is not None:
-                        role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.find('%(prefix)sCategory' % self.helper_dict).get("Id"))]
+            prod.productionleadership_set.all().delete()
+            prod.productionauthorship_set.all().delete()
+            prod.productioninvolvement_set.all().delete()
+            for person_node in prod_node.findall('./%(prefix)sPerson' % self.helper_dict):
+                first_and_last_name = self.get_child_text(person_node, 'Name')
+                if u" " in first_and_last_name:
+                    first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                else:
+                    first_name = ""
+                    last_name = first_and_last_name
+                role_de = self.get_child_text(person_node, 'RoleDescription', Language="de")
+                role_en = self.get_child_text(person_node, 'RoleDescription', Language="en")
+                if not role_de and person_node.find('%(prefix)sCategory' % self.helper_dict) is not None:
+                    role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.find('%(prefix)sCategory' % self.helper_dict).get("Id"))]
 
-                    if role_de in self.authorship_types_de:
-                        authorship_type = AuthorshipType.objects.get(title_de=role_de)
-                        p, created = Person.objects.get_first_or_create(
-                            first_name=first_name,
-                            last_name=last_name,
-                        )
-                        prod.productionauthorship_set.create(
-                            person=p,
-                            authorship_type=authorship_type,
-                            imported_sort_order=person_node.get('Position'),
-                        )
-                    elif role_de in (u"Regie", u"Regisseur", u"Regisseurin"):
-                        p, created = Person.objects.get_first_or_create(
-                            first_name=first_name,
-                            last_name=last_name,
-                        )
-                        prod.productionleadership_set.create(
-                            person=p,
-                            function_de=role_de,
-                            function_en=role_en,
-                            imported_sort_order=person_node.get('Position'),
-                        )
-                    else:
-                        p, created = Person.objects.get_first_or_create(
-                            first_name=first_name,
-                            last_name=last_name,
-                        )
-                        prod.productioninvolvement_set.create(
-                            person=p,
-                            involvement_role_de=role_de,
-                            involvement_role_en=role_en,
-                            imported_sort_order=person_node.get('Position'),
-                        )
-                for sort_order, item in enumerate(prod.productionauthorship_set.order_by('imported_sort_order'), 0):
-                    item.sort_order = sort_order
-                    item.save()
-                for sort_order, item in enumerate(prod.productionleadership_set.order_by('imported_sort_order'), 0):
-                    item.sort_order = sort_order
-                    item.save()
-                for sort_order, item in enumerate(prod.productioninvolvement_set.order_by('imported_sort_order'), 0):
-                    item.sort_order = sort_order
-                    item.save()
+                if role_de in self.authorship_types_de:
+                    authorship_type = AuthorshipType.objects.get(title_de=role_de)
+                    p, created = Person.objects.get_first_or_create(
+                        first_name=first_name,
+                        last_name=last_name,
+                    )
+                    prod.productionauthorship_set.create(
+                        person=p,
+                        authorship_type=authorship_type,
+                        imported_sort_order=person_node.get('Position'),
+                    )
+                elif role_de in (u"Regie", u"Regisseur", u"Regisseurin"):
+                    p, created = Person.objects.get_first_or_create(
+                        first_name=first_name,
+                        last_name=last_name,
+                    )
+                    prod.productionleadership_set.create(
+                        person=p,
+                        function_de=role_de,
+                        function_en=role_en,
+                        imported_sort_order=person_node.get('Position'),
+                    )
+                else:
+                    p, created = Person.objects.get_first_or_create(
+                        first_name=first_name,
+                        last_name=last_name,
+                    )
+                    prod.productioninvolvement_set.create(
+                        person=p,
+                        involvement_role_de=role_de,
+                        involvement_role_en=role_en,
+                        imported_sort_order=person_node.get('Position'),
+                    )
+            for sort_order, item in enumerate(prod.productionauthorship_set.order_by('imported_sort_order'), 0):
+                item.sort_order = sort_order
+                item.save()
+            for sort_order, item in enumerate(prod.productionleadership_set.order_by('imported_sort_order'), 0):
+                item.sort_order = sort_order
+                item.save()
+            for sort_order, item in enumerate(prod.productioninvolvement_set.order_by('imported_sort_order'), 0):
+                item.sort_order = sort_order
+                item.save()
 
-            if not prod.sponsors.count():
-                for sponsor_node in prod_node.findall('./%(prefix)sSponsor' % self.helper_dict):
-                    sponsor = Sponsor()
-                    sponsor.title_de = self.get_child_text(sponsor_node, 'Description', Language="de")
-                    sponsor.title_en = self.get_child_text(sponsor_node, 'Description', Language="en")
-                    sponsor.website = self.get_child_text(sponsor_node, 'Url')
-                    sponsor.save()
-                    image_url = self.get_child_text(sponsor_node, 'ImageUrl')
-                    filename = image_url.split("/")[-1]
-                    image_response = requests.get(image_url)
-                    if image_response.status_code == 200:
-                        image_mods.FileManager.save_file_for_object(
-                            sponsor,
-                            filename,
-                            image_response.content,
-                            field_name="image",
-                            subpath="sponsors/",
-                        )
-                    prod.sponsors.add(sponsor)
+            prod.sponsors.clear()
+            for sponsor_node in prod_node.findall('./%(prefix)sSponsor' % self.helper_dict):
+                sponsor = Sponsor()
+                sponsor.title_de = self.get_child_text(sponsor_node, 'Description', Language="de")
+                sponsor.title_en = self.get_child_text(sponsor_node, 'Description', Language="en")
+                sponsor.website = self.get_child_text(sponsor_node, 'Url')
+                sponsor.save()
+                image_url = self.get_child_text(sponsor_node, 'ImageUrl')
+                filename = image_url.split("/")[-1]
+                image_response = requests.get(image_url)
+                if image_response.status_code == 200:
+                    image_mods.FileManager.save_file_for_object(
+                        sponsor,
+                        filename,
+                        image_response.content,
+                        field_name="image",
+                        subpath="sponsors/",
+                    )
+                prod.sponsors.add(sponsor)
 
             if not mapper:
                 mapper = ObjectMapper(
@@ -889,8 +902,7 @@ class ImportFromCulturebaseBase(object):
                 else:
                     event = event_mapper.content_object
                     if not event:
-                        # if exhibition was deleted after import,
-                        # don't import it again
+                        # don't import deleted events again
                         self.stats['events_skipped'] += 1
                         continue
 
@@ -932,7 +944,11 @@ class ImportFromCulturebaseBase(object):
 
                 event.save()
 
-                if not self.skip_images and not event.eventimage_set.count():
+                if not self.skip_images:
+                    for mf in event.eventimage_set.all():
+                        if mf.path:
+                            image_mods.FileManager.delete_file(mf.path.name)
+                        mf.delete()
                     for picture_node in event_node.findall('%(prefix)sPicture' % self.helper_dict):
                         image_url = self.get_child_text(picture_node, 'Url')
                         mf = EventImage(event=event)
@@ -1005,66 +1021,69 @@ class ImportFromCulturebaseBase(object):
                             event.play_stages.clear()
                             event.play_stages.add(stage)
 
+                event.characteristics.clear()
                 for status_node in event_node.findall('%(prefix)sStatus' % self.helper_dict):
                     internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)
                     if internal_ch_slug:
                         event.characteristics.add(EventCharacteristics.objects.get(slug=internal_ch_slug))
 
-                if not event.eventauthorship_set.count() and not event.eventleadership_set.count() and not event.eventinvolvement_set.count():
-                    for person_node in event_node.findall('%(prefix)sPerson' % self.helper_dict):
-                        first_and_last_name = self.get_child_text(person_node, 'Name')
-                        if u" " in first_and_last_name:
-                            first_name, last_name = first_and_last_name.rsplit(" ", 1)
-                        else:
-                            first_name = ""
-                            last_name = first_and_last_name
-                        role_de = self.get_child_text(person_node, 'RoleDescription', Language="de")
-                        role_en = self.get_child_text(person_node, 'RoleDescription', Language="en")
-                        if not role_de and person_node.find('%(prefix)sCategory' % self.helper_dict) is not None:
-                            role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.find('%(prefix)sCategory' % self.helper_dict).get("Id"))]
+                event.eventauthorship_set.all().delete()
+                event.eventleadership_set.all().delete()
+                event.eventinvolvement_set.all().delete()
+                for person_node in event_node.findall('%(prefix)sPerson' % self.helper_dict):
+                    first_and_last_name = self.get_child_text(person_node, 'Name')
+                    if u" " in first_and_last_name:
+                        first_name, last_name = first_and_last_name.rsplit(" ", 1)
+                    else:
+                        first_name = ""
+                        last_name = first_and_last_name
+                    role_de = self.get_child_text(person_node, 'RoleDescription', Language="de")
+                    role_en = self.get_child_text(person_node, 'RoleDescription', Language="en")
+                    if not role_de and person_node.find('%(prefix)sCategory' % self.helper_dict) is not None:
+                        role_de, role_en = self.ROLE_ID_MAPPER[int(person_node.find('%(prefix)sCategory' % self.helper_dict).get("Id"))]
 
-                        if role_de in self.authorship_types_de:
-                            authorship_type = AuthorshipType.objects.get(title_de=role_de)
-                            p, created = Person.objects.get_first_or_create(
-                                first_name=first_name,
-                                last_name=last_name,
-                            )
-                            event.eventauthorship_set.create(
-                                person=p,
-                                authorship_type=authorship_type,
-                                imported_sort_order=person_node.get('Position'),
-                            )
-                        elif role_de in (u"Regie",):
-                            p, created = Person.objects.get_first_or_create(
-                                first_name=first_name,
-                                last_name=last_name,
-                            )
-                            event.eventleadership_set.create(
-                                person=p,
-                                function_de=role_de,
-                                function_en=role_en,
-                                imported_sort_order=person_node.get('Position'),
-                            )
-                        else:
-                            p, created = Person.objects.get_first_or_create(
-                                first_name=first_name,
-                                last_name=last_name,
-                            )
-                            event.eventinvolvement_set.create(
-                                person=p,
-                                involvement_role_de=role_de,
-                                involvement_role_en=role_en,
-                                imported_sort_order=person_node.get('Position'),
-                            )
-                    for sort_order, item in enumerate(event.eventauthorship_set.order_by('imported_sort_order'), 0):
-                        item.sort_order = sort_order
-                        item.save()
-                    for sort_order, item in enumerate(event.eventleadership_set.order_by('imported_sort_order'), 0):
-                        item.sort_order = sort_order
-                        item.save()
-                    for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
-                        item.sort_order = sort_order
-                        item.save()
+                    if role_de in self.authorship_types_de:
+                        authorship_type = AuthorshipType.objects.get(title_de=role_de)
+                        p, created = Person.objects.get_first_or_create(
+                            first_name=first_name,
+                            last_name=last_name,
+                        )
+                        event.eventauthorship_set.create(
+                            person=p,
+                            authorship_type=authorship_type,
+                            imported_sort_order=person_node.get('Position'),
+                        )
+                    elif role_de in (u"Regie",):
+                        p, created = Person.objects.get_first_or_create(
+                            first_name=first_name,
+                            last_name=last_name,
+                        )
+                        event.eventleadership_set.create(
+                            person=p,
+                            function_de=role_de,
+                            function_en=role_en,
+                            imported_sort_order=person_node.get('Position'),
+                        )
+                    else:
+                        p, created = Person.objects.get_first_or_create(
+                            first_name=first_name,
+                            last_name=last_name,
+                        )
+                        event.eventinvolvement_set.create(
+                            person=p,
+                            involvement_role_de=role_de,
+                            involvement_role_en=role_en,
+                            imported_sort_order=person_node.get('Position'),
+                        )
+                for sort_order, item in enumerate(event.eventauthorship_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
+                for sort_order, item in enumerate(event.eventleadership_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
+                for sort_order, item in enumerate(event.eventinvolvement_set.order_by('imported_sort_order'), 0):
+                    item.sort_order = sort_order
+                    item.save()
 
                 if not event_mapper:
                     event_mapper = ObjectMapper(

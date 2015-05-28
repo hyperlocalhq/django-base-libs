@@ -19,6 +19,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from Schaubühne am Lehniner Platz"
 
+    IMPORT_URL = "http://schaubuehne.de/export/kulturserver.php"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -40,7 +42,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.service, created = Service.objects.get_or_create(
             sysname="schaubuehne_prods",
             defaults={
-                'url': "http://schaubuehne.de/export/kulturserver.php",
+                'url': self.IMPORT_URL,
                 'title': u"Schaubühne am Lehniner Platz Productions",
             },
         )

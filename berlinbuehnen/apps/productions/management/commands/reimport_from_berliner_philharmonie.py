@@ -6,6 +6,7 @@ from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 from django.db import models
+from django.utils.encoding import smart_str
 
 from import_base import ImportFromHeimatBase
 
@@ -17,33 +18,35 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         make_option('--skip-images', action='store_true', dest='skip_images', default=False,
             help='Tells Django to NOT download images.'),
     )
-    help = "Imports productions and events from Komische Oper Berlin"
+    help = "Imports productions and events from Berliner Philharmonie"
 
-    IMPORT_URL = "http://www.komische-oper-berlin.de/cbstage/export.xml"
+    IMPORT_URL = "http://www.berliner-philharmoniker.de/api/kulturserver/"
 
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
 
-        self.in_program_of, created = Location.objects.get_or_create(
-            title_de=u"Komische Oper Berlin",
-            defaults={
-                'title_en': u"Komische Oper Berlin",
-                'slug': 'komische-oper-berlin',
-                'street_address': u'Behrenstraße 55-57',
-                'postal_code': u'10117',
-                'city': u'Berlin',
-            },
-        )
-
         Service = models.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
-            sysname="komische_oper_berlin_prods",
+            sysname="berliner_philharmonie_prods",
             defaults={
                 'url': self.IMPORT_URL,
-                'title': "Komische Oper Berlin Productions",
+                'title': "Berliner Philharmonie Productions",
+            },
+        )
+
+        self.delete_existing_productions_and_events(self.service)
+
+        self.in_program_of, created = Location.objects.get_or_create(
+            title_de=u"Berliner Philharmonie",
+            defaults={
+                'title_en': u"Berliner Philharmonie",
+                'slug': 'berliner-philharmonie',
+                'street_address': u'Herbert-von-Karajan-Str. 1',
+                'postal_code': u'10785',
+                'city': u'Berlin',
             },
         )
 
@@ -61,7 +64,15 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
             'events_skipped': 0,
         }
 
-        root_node = ElementTree.fromstring(r.content)
+        content = r.content
+        content = content.replace('&Auml;', smart_str(u'Ä'))
+        content = content.replace('&Ouml;', smart_str(u'Ö'))
+        content = content.replace('&Uuml;', smart_str(u'Ü'))
+        content = content.replace('&auml;', smart_str(u'ä'))
+        content = content.replace('&ouml;', smart_str(u'ö'))
+        content = content.replace('&uuml;', smart_str(u'ü'))
+        content = content.replace('&szlig;', smart_str(u'ß'))
+        root_node = ElementTree.fromstring(content)
         self.save_page(root_node)
 
         if self.verbosity >= NORMAL:

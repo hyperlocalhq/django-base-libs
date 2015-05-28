@@ -19,6 +19,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from Deutsches Theater"
 
+    IMPORT_URL = "http://www.deutschestheater.de/cbstage/export.xml"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -40,7 +42,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.service, created = Service.objects.get_or_create(
             sysname="deutsches_theater_prods",
             defaults={
-                'url': "http://www.deutschestheater.de/cbstage/export.xml",
+                'url': self.IMPORT_URL,
                 'title': "Deutsches Theater Productions",
             },
         )

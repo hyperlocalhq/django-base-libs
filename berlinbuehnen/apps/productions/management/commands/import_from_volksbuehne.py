@@ -19,6 +19,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from Volksbühne am Rosa-Luxemburg-Platz"
 
+    IMPORT_URL = "http://www.volksbuehne-berlin.de/redaktion/spielplan/cbstage.xml"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -40,7 +42,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.service, created = Service.objects.get_or_create(
             sysname="volksbuehne_berlin_prods",
             defaults={
-                'url': "http://www.volksbuehne-berlin.de/redaktion/spielplan/cbstage.xml",
+                'url': self.IMPORT_URL,
                 'title': "Volksbühne am Rosa-Luxemburg-Platz Productions",
             },
         )

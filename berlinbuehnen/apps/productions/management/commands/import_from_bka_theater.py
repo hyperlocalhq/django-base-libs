@@ -19,6 +19,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from BKA Theater"
 
+    IMPORT_URL = "https://shb01.de.inter.net:8443/login_up.php3"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -40,7 +42,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.service, created = Service.objects.get_or_create(
             sysname="bka_theater_prods",
             defaults={
-                'url': "https://shb01.de.inter.net:8443/login_up.php3",
+                'url': self.IMPORT_URL,
                 'title': "BKA Theater Productions",
                 'user': '24729',
                 'password': 'Ameisenbaer12',

@@ -19,6 +19,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from Sophiensaele"
 
+    IMPORT_URL = "http://sophiensaele.com/tool/cbstage.php"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -40,7 +42,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.service, created = Service.objects.get_or_create(
             sysname="sophiensaele_prods",
             defaults={
-                'url': "http://sophiensaele.com/tool/cbstage.php",
+                'url': self.IMPORT_URL,
                 'title': "Sophiensaele Productions",
                 'user': 'sophadmin', # not used
                 'password': 'I09Z2606', # not used

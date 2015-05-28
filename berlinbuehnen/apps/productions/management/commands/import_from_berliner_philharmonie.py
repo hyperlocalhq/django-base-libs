@@ -20,6 +20,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from Berliner Philharmonie"
 
+    IMPORT_URL = "http://www.berliner-philharmoniker.de/api/kulturserver/"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -41,7 +43,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.service, created = Service.objects.get_or_create(
             sysname="berliner_philharmonie_prods",
             defaults={
-                'url': "http://www.berliner-philharmoniker.de/api/kulturserver/",
+                'url': self.IMPORT_URL,
                 'title': "Berliner Philharmonie Productions",
             },
         )

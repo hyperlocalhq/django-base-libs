@@ -19,6 +19,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from Wühlmäuse"
 
+    IMPORT_URL = "https://www.wuehlmaeuse.de/export"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -40,7 +42,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.service, created = Service.objects.get_or_create(
             sysname="wuehlmaeuse_prods",
             defaults={
-                'url': "https://www.wuehlmaeuse.de/export",
+                'url': self.IMPORT_URL,
                 'title': u"Wühlmäuse Productions",
             },
         )

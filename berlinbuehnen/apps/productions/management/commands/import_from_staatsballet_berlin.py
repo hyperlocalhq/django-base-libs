@@ -19,6 +19,8 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
     )
     help = "Imports productions and events from Staatsballett Berlin"
 
+    IMPORT_URL = "http://www.staatsballett-berlin.de/xml/cb_staging.xml"
+
     def handle_noargs(self, *args, **options):
         from berlinbuehnen.apps.locations.models import Location
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -40,7 +42,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.service, created = Service.objects.get_or_create(
             sysname="staatsballett_berlin_prods",
             defaults={
-                'url': "http://www.staatsballett-berlin.de/xml/cb_staging.xml",
+                'url': self.IMPORT_URL,
                 'title': "Staatsballett Berlin Productions",
             },
         )
