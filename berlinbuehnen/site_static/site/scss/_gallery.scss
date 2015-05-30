@@ -28,6 +28,12 @@
         &.image {
             cursor: pointer;
         }
+        &.chevron:after {
+            right: 18px;
+        }
+        span.pin a {
+            right: 16px;
+        }
     }
 }
 

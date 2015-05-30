@@ -3,6 +3,9 @@ from django import template
 from django.db import models
 from datetime import datetime, date, timedelta
 from django.utils.timezone import now as tz_now
+from urllib import urlencode
+from filebrowser.models import FileDescription
+from django.utils.translation import ugettext as _
 
 register = template.Library()
 
@@ -105,4 +108,36 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
         'date': today.strftime('%d.%m.%Y'),
         'time': today.strftime('%H:%M'),
         'timesel': timesel,
+    }
+    
+@register.inclusion_tag('productions/includes/pin.html', takes_context=True)
+def pin(context, image, description=""):
+
+    file_description = FileDescription.objects.filter(file_path=image).order_by("pk")[0]
+    protected = image.copyright_restrictions == "protected"
+
+    description = description.encode('utf-8')
+    if file_description and file_description.author:
+        if not description == "":
+            description += ", "
+        description = description + _('Photo').encode('utf-8') + ': ' + file_description.author.encode('utf-8')
+    
+    
+    param = {
+        'url': context['request'].get_full_path(),
+        'media': context['MEDIA_URL']+image.path.path,
+        'description': description
+    }
+    href = "https://www.pinterest.com/pin/create/button/?"+urlencode(param)
+        
+    return {
+        'href': href,
+        'protected': protected
+    }
+
+@register.inclusion_tag('productions/includes/add_to_calender.html', takes_context=True)
+def add_to_calender(context, event):
+
+    return {
+        'event': event
     }
