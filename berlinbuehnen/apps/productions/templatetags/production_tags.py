@@ -124,7 +124,7 @@ def pin(context, image, description=""):
     
     
     param = {
-        'url': context['request'].get_full_path(),
+        'url': context['request'].build_absolute_uri(context['request'].get_full_path()),
         'media': context['request'].build_absolute_uri(context['MEDIA_URL']+image.path.path),
         'description': description
     }
