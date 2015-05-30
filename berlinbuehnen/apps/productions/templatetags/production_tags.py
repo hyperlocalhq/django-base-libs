@@ -125,7 +125,7 @@ def pin(context, image, description=""):
     
     param = {
         'url': context['request'].get_full_path(),
-        'media': context['MEDIA_URL']+image.path.path,
+        'media': context['request'].build_absolute_uri(context['MEDIA_URL']+image.path.path),
         'description': description
     }
     href = "https://www.pinterest.com/pin/create/button/?"+urlencode(param)
