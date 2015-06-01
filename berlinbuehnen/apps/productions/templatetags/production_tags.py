@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.db import models
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, time
 from django.utils.timezone import now as tz_now
+from urllib import urlencode
+from filebrowser.models import FileDescription
+from django.utils.translation import ugettext as _
 
 register = template.Library()
 
@@ -105,4 +108,50 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
         'date': today.strftime('%d.%m.%Y'),
         'time': today.strftime('%H:%M'),
         'timesel': timesel,
+    }
+    
+@register.inclusion_tag('productions/includes/pin.html', takes_context=True)
+def pin(context, image, description=""):
+
+    file_description = FileDescription.objects.filter(file_path=image).order_by("pk")[0]
+    protected = image.copyright_restrictions == "protected"
+
+    description = description.encode('utf-8')
+    if file_description and file_description.author:
+        if not description == "":
+            description += ", "
+        description = description + _('Photo').encode('utf-8') + ': ' + file_description.author.encode('utf-8')
+    
+    
+    param = {
+        'url': context['request'].build_absolute_uri(context['request'].get_full_path()),
+        'media': context['request'].build_absolute_uri(context['MEDIA_URL']+image.path.path),
+        'description': description
+    }
+    href = "https://www.pinterest.com/pin/create/button/?"+urlencode(param)
+        
+    return {
+        'href': href,
+        'protected': protected
+    }
+
+@register.inclusion_tag('productions/includes/add_to_calender.html', takes_context=True)
+def add_to_calender(context, event):
+
+    end_date = event.end_date
+    end_time = event.end_time
+    two_hours = timedelta(hours=2)
+    
+    if end_date and not end_time:
+        end_time = event.start_time + two_hours
+    elif not end_date and not end_time:
+        start_datetime = datetime(year=event.start_date.year, month=event.start_date.month, day=event.start_date.day, hour=event.start_time.hour, minute=event.start_time.minute)
+        end_datetime = start_datetime + two_hours
+        end_date = date(year=end_datetime.year, month=end_datetime.month, day=end_datetime.day)
+        end_time = time(hour=end_datetime.hour, minute=end_datetime.minute)
+
+    return {
+        'event': event,
+        'end_date': end_date,
+        'end_time': end_time
     }

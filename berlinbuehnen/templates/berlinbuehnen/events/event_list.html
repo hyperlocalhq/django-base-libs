@@ -9,6 +9,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list_filter.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/date_slider.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 {% endblock %}
 
@@ -134,6 +135,7 @@
                                                             {{ event.start_time|time:"H:i" }}
                                                         </div>
                                                         <div class="list-item-head-date-icons col-xs-3 col-sm-12">
+                                                            {% add_to_calender event=event %}
                                                             {% if event.ev_or_prod_tickets_website %}
                                                                 <a class="fawesome tickets" href="{{ event.ev_or_prod_tickets_website }}" target="_blank"></a>
                                                             {% endif %}

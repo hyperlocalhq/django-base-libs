@@ -51,6 +51,17 @@
         });
         
     </script>
+    
+    <script type="text/javascript">
+        (function(d){
+            var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+            p.type = 'text/javascript';
+            p.async = true;
+            p.src = '//assets.pinterest.com/js/pinit.js';
+            f.parentNode.insertBefore(p, f);
+        }(document));
+    </script>
+
 {% endblock %}
 
 {% block content %}
@@ -125,10 +136,10 @@
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if event.cover_image %}
-                                                <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ event.cover_image.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  /></div> 
+                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ event.cover_image.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=event.cover_image description=event.production.title %}</div> 
                                             {% elif event.ev_or_prod_images %}
                                                 {% with event.ev_or_prod_images|first as first %}
-                                                    <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  /></div> 
+                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=first description=event.production.title %}</div> 
                                                 {% endwith %}
                                             {% endif %}
                                             <div class="description">
@@ -666,9 +677,9 @@
                                                     {% endif %}
                                                     {% if event.ev_or_prod_images %}
                                                         {% for image in event.ev_or_prod_images %}
-                                                            <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img">
+                                                            <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
                                                                 {% with image.path|file_description as file_desc %}
-                                                                    <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />
+                                                                    <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=event.production.title %}
                                                                     <div class="gallery-image-text">
                                                                         <div class="gallery-image-text-description">
                                                                             {% if file_desc.title %}
