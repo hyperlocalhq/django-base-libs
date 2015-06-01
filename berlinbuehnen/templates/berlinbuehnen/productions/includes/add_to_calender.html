@@ -2,11 +2,7 @@
 <span class="addtocalendar atc-style-blue">
     <var class="atc_event">
         <var class="atc_date_start">{{ event.start_date|date:"Y-m-d" }} {{ event.start_time|time:"G:i:s" }}</var>
-        {% if event.end_date and event.end_time %}
-            <var class="atc_date_end">{{ event.end_date|date:"Y-m-d" }} {{ event.end_time|time:"G:i:s" }}</var>
-        {% else %}
-            <var class="atc_date_end">{{ event.start_date|date:"Y-m-d" }}</var>
-        {% endif %}
+        <var class="atc_date_end">{{ end_date|date:"Y-m-d" }} {{ end_time|time:"G:i:s" }}</var>
         <var class="atc_timezone">Europe/Berlin</var>
         {% if event.production.title %}
             <var class="atc_title">{{ event.production.title }}</var>

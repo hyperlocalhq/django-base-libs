@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.db import models
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, time
 from django.utils.timezone import now as tz_now
 from urllib import urlencode
 from filebrowser.models import FileDescription
@@ -138,6 +138,20 @@ def pin(context, image, description=""):
 @register.inclusion_tag('productions/includes/add_to_calender.html', takes_context=True)
 def add_to_calender(context, event):
 
+    end_date = event.end_date
+    end_time = event.end_time
+    two_hours = timedelta(hours=2)
+    
+    if end_date and not end_time:
+        end_time = event.start_time + two_hours
+    elif not end_date and not end_time:
+        start_datetime = datetime(year=event.start_date.year, month=event.start_date.month, day=event.start_date.day, hour=event.start_time.hour, minute=event.start_time.minute)
+        end_datetime = start_datetime + two_hours
+        end_date = date(year=end_datetime.year, month=end_datetime.month, day=end_datetime.day)
+        end_time = time(hour=end_datetime.hour, minute=end_datetime.minute)
+
     return {
-        'event': event
+        'event': event,
+        'end_date': end_date,
+        'end_time': end_time
     }
