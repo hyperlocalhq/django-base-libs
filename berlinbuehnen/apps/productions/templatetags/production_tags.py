@@ -154,8 +154,14 @@ def add_to_calender(context, event):
         end_date = date(year=end_datetime.year, month=end_datetime.month, day=end_datetime.day)
         end_time = time(hour=end_datetime.hour, minute=end_datetime.minute)
 
+    description = event.ev_or_prod_teaser()
+    if description:
+        description += "\n\n"
+    description += context['request'].build_absolute_uri(event.get_url_path())
+        
     return {
         'event': event,
         'end_date': end_date,
-        'end_time': end_time
+        'end_time': end_time,
+        'description': description
     }
