@@ -1,0 +1,199 @@
+<div class="module"><!-- // Begin Template Exhibitions \\ -->
+    {% load i18n image_modifications babel base_tags %}
+    <table border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+            <td valign="top">
+                <h2 class="h2">Neue Festivals</h2>
+            </td>
+
+            <td align="right" valign="top">
+                <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                    <tr>
+                        <td align="center" style="" valign="middle">
+                            <a class="btn-content" href="http://www.berlin-buehnen.de/de/festivals/" target="_blank">Mehr</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center" colspan="2" valign="top">
+                <div class="festivals">
+                    <table border="0" cellpadding="0" cellspacing="0" width="600">
+                        {% get_objects for_newsletter festivals.Festival 4 as newest_objects %}
+                        <tr>
+                            {% with newest_objects.0 as festival %}
+                                <td align="left" valign="top" width="290">
+                                    <div class="festival">
+                                        <div class="image">
+                                            {% if festival.cover_image %}
+                                                <a href="{{ festival.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ festival.cover_image|modified_path:"festival_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                            {% else %}
+                                                <a href="{{ festival.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ festival.museum.cover_image|modified_path:"festival_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="text">
+                                            <h4 class="h4 time"><a class="black-link" href="{{ festival.get_url }}" target="_blank"><span class="from_date">{{ festival.start|date:"d.m.Y" }}</span> {% if festival.permanent %}{% trans "until further notice" %}{% else %}{% if festival.end %}{% trans "till" %} {{ festival.end|date:"d.m.Y" }}{% endif %}{% endif %}</a></h4>
+
+                                            <h3 class="h3 title"><a class="black-link" href="{{ festival.get_url }}" target="_blank">{{ festival.title }}</a></h3>
+
+                                            {% if festival.subtitle %}
+                                                <h4 class="h4 subtitle"><a class="black-link" href="{{ festival.get_url }}" target="_blank">{{ festival.subtitle }}</a></h4>
+                                            {% endif %}
+
+                                            {% if festival.location_name %}
+                                                <h5 class="h5 location">{{ festival.location_name }}</h5>
+                                            {% else %}
+                                                <h5 class="h5 location">{{ festival.museum.title }}</h5>
+                                            {% endif %}
+
+                                            <p class="description">{{ festival.get_rendered_description|striptags|truncatewords:"35" }}</p>
+                                        </div>
+
+                                        <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                            <tr>
+                                                <td align="center" style="" valign="middle">
+                                                    <a class="btn-content" href="{{ festival.get_url }}" target="_blank">Mehr</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            {% endwith %}
+
+                            <td valign="top" width="20"><img border="0" class="img" alt="" height="20" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_30px.gif" style="max-width:30px"
+                            width="20" /></td>
+
+                            {% with newest_objects.1 as festival %}
+                                <td align="left" valign="top" width="290">
+                                    <div class="festival">
+                                        <div class="image">
+                                            {% if festival.cover_image %}
+                                                <a href="{{ festival.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ festival.cover_image|modified_path:"festival_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                            {% else %}
+                                                <a href="{{ festival.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ festival.museum.cover_image|modified_path:"festival_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="text">
+                                            <h4 class="h4 time"><a class="black-link" href="{{ festival.get_url }}" target="_blank"><span class="from_date">{{ festival.start|date:"d.m.Y" }}</span> {% if festival.permanent %}{% trans "until further notice" %}{% else %}{% if festival.end %}{% trans "till" %} {{ festival.end|date:"d.m.Y" }}{% endif %}{% endif %}</a></h4>
+
+                                            <h3 class="h3 title"><a class="black-link" href="{{ festival.get_url }}" target="_blank">{{ festival.title }}</a></h3>
+
+                                            {% if festival.subtitle %}
+                                                <h4 class="h4 subtitle"><a class="black-link" href="{{ festival.get_url }}" target="_blank">{{ festival.subtitle }}</a></h4>
+                                            {% endif %}
+
+                                            {% if festival.location_name %}
+                                                <h5 class="h5 location">{{ festival.location_name }}</h5>
+                                            {% else %}
+                                                <h5 class="h5 location">{{ festival.museum.title }}</h5>
+                                            {% endif %}
+
+                                            <p class="description">{{ festival.get_rendered_description|striptags|truncatewords:"35" }}</p>
+                                        </div>
+
+                                        <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                            <tr>
+                                                <td align="center" style="" valign="middle">
+                                                    <a class="btn-content" href="{{ festival.get_url }}" target="_blank">Mehr</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            {% endwith %}
+                        </tr>
+
+                        <tr>
+                            {% with newest_objects.2 as festival %}
+                                <td align="left" valign="top" width="290">
+                                    <div class="festival">
+                                        <div class="image">
+                                            {% if festival.cover_image %}
+                                                <a href="{{ festival.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ festival.cover_image|modified_path:"festival_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                            {% else %}
+                                                <a href="{{ festival.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ festival.museum.cover_image|modified_path:"festival_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="text">
+                                            <h4 class="h4 time"><a class="black-link" href="{{ festival.get_url }}" target="_blank"><span class="from_date">{{ festival.start|date:"d.m.Y" }}</span> {% if festival.permanent %}{% trans "until further notice" %}{% else %}{% if festival.end %}{% trans "till" %} {{ festival.end|date:"d.m.Y" }}{% endif %}{% endif %}</a></h4>
+
+                                            <h3 class="h3 title"><a class="black-link" href="{{ festival.get_url }}" target="_blank">{{ festival.title }}</a></h3>
+
+                                            {% if festival.subtitle %}
+                                                <h4 class="h4 subtitle"><a class="black-link" href="{{ festival.get_url }}" target="_blank">{{ festival.subtitle }}</a></h4>
+                                            {% endif %}
+
+                                            {% if festival.location_name %}
+                                                <h5 class="h5 location">{{ festival.location_name }}</h5>
+                                            {% else %}
+                                                <h5 class="h5 location">{{ festival.museum.title }}</h5>
+                                            {% endif %}
+
+                                            <p class="description">{{ festival.get_rendered_description|striptags|truncatewords:"35" }}</p>
+
+                                        </div>
+
+                                        <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                            <tr>
+                                                <td align="center" style="" valign="middle">
+                                                    <a class="btn-content" href="{{ festival.get_url }}" target="_blank">Mehr</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            {% endwith %}
+
+                            <td valign="top" width="20"><img border="0" class="img" alt="" height="20" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_30px.gif" style="max-width:30px" width="20" /></td>
+
+                            {% with newest_objects.3 as festival %}
+                                <td align="left" valign="top" width="290">
+                                    <div class="festival">
+                                        <div class="image">
+                                            {% if festival.cover_image %}
+                                                <a href="{{ festival.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ festival.cover_image|modified_path:"festival_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                            {% else %}
+                                                <a href="{{ festival.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ festival.museum.cover_image|modified_path:"festival_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="text">
+                                            <h4 class="h4 time"><a class="black-link" href="{{ festival.get_url }}" target="_blank"><span class="from_date">{{ festival.start|date:"d.m.Y" }}</span> {% if festival.permanent %}{% trans "until further notice" %}{% else %}{% if festival.end %}{% trans "till" %} {{ festival.end|date:"d.m.Y" }}{% endif %}{% endif %}</a></h4>
+
+                                            <h3 class="h3 title"><a class="black-link" href="{{ festival.get_url }}" target="_blank">{{ festival.title }}</a></h3>
+
+                                            {% if festival.subtitle %}
+                                                <h4 class="h4 subtitle"><a class="black-link" href="{{ festival.get_url }}" target="_blank">{{ festival.subtitle }}</a></h4>
+                                            {% endif %}
+
+                                            {% if festival.location_name %}
+                                                <h5 class="h5 location">{{ festival.location_name }}</h5>
+                                            {% else %}
+                                                <h5 class="h5 location">{{ festival.museum.title }}</h5>
+                                            {% endif %}
+
+                                            <p class="description">{{ festival.get_rendered_description|striptags|truncatewords:"35" }}</p>
+                                        </div>
+
+                                        <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                                            <tr>
+                                                <td align="center" style="" valign="middle">
+                                                    <a class="btn-content" href="{{ festival.get_url }}" target="_blank">Mehr</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            {% endwith %}
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div><!-- // End Module: Exhibitions \\ -->

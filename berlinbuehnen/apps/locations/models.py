@@ -86,6 +86,11 @@ class LocationManager(models.Manager):
         ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
+    def for_newsletter(self):
+        return self.filter(
+            status="published",
+            newsletter=True
+        )
 
 class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -138,6 +143,7 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     services = models.ManyToManyField(Service, verbose_name=_("Service"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
 
+    newsletter = models.BooleanField(_("Show in newsletter"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     objects = LocationManager()

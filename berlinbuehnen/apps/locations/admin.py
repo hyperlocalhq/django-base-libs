@@ -96,9 +96,9 @@ class LocationAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
 
-    list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'status')
-    list_editable = ('status', )
-    list_filter = ('status', )
+    list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'newsletter', 'status')
+    list_editable = ('newsletter', 'status', )
+    list_filter = ('newsletter', 'status', )
 
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description',])
     fieldsets += [(None, {'fields': ('slug', 'logo')}),]
@@ -118,7 +118,7 @@ class LocationAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Press Contact"), {'fields': ('press_contact_name', 'press_email', 'press_website', (_("Phone"), {'fields': ('press_phone_country', 'press_phone_area', 'press_phone_number')}), (_("Fax"), {'fields': ('press_fax_country', 'press_fax_area', 'press_fax_number')}))}),]
     fieldsets += [(_("Service"), {'fields': ('services',)}),]
     fieldsets += [(_("Accessibility"), {'fields': ('accessibility_options',)}),]
-    fieldsets += [(_("Status"), {'fields': ('status',)}),]
+    fieldsets += [(_("Status"), {'fields': ('newsletter', 'status',)}),]
 
     inlines = [StageInline, ImageInline, SocialMediaChannelInline]
 

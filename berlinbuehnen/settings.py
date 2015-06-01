@@ -16,9 +16,9 @@ ADMINS = (
     ('Museumsportal Berlin Webmaster', 'bendoraitis@studio38.de'),
 )
 
-DEFAULT_FROM_EMAIL = 'kontakt@berlin-buehnen.de'
+DEFAULT_FROM_EMAIL = 'berlin-buehnen@kulturprojekte-berlin.de'
 MANAGERS = (
-    ('Berlin Bühnen Webmaster', 'kontakt@berlin-buehnen.de'),
+    ('Berlin Bühnen Webmaster', 'berlin-buehnen@kulturprojekte-berlin.de'),
 )
 
 TIME_ZONE = 'Europe/Berlin'
@@ -599,17 +599,15 @@ GALLERY_IMAGE_MIN_DIMENSIONS = (100, 100)
 CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 MAILING_CONTENT_TYPE_CHOICES = (
-    ('exhibitions', _("Exhibitions")),
-    ('magazine', _("Magazine")),
-    ('events', _("Events")),
-    ('social', _("Social")),
-    ('authorship', _("Image authorship")),
-    #('image_and_text', _("Image and text")),
-    #('text', _("Text only")),
+    ('locations', _("Theaters")),
+    ('productions', _("Productions")),
+    ('festivals', _("Festivals")),
+    ('image_and_text', _("Image and text")),
+    ('text', _("Text only")),
 )
 
 MAILING_DEFAULT_FROM_NAME = "Berlin Bühnen"
-MAILING_DEFAULT_FROM_EMAIL = "kontakt@berlinbuehnen.de"
+MAILING_DEFAULT_FROM_EMAIL = "berlin-buehnen@kulturprojekte-berlin.de"
 
 ROSETTA_STORAGE_CLASS = "rosetta.storage.SessionRosettaStorage"
 

@@ -1,0 +1,59 @@
+<div class="module"><!-- // Begin Module: Veranstaltungstipps \\ -->
+    {% load image_modifications babel base_tags %}
+    <table border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+            <td valign="top">
+                <h2 class="h2">Spielplan</h2>
+            </td>
+
+            <td align="right" valign="top">
+                <table border="0" cellpadding="2" cellspacing="0" class="btn" style="">
+                    <tr>
+                        <td align="center" style="" valign="middle">
+                            <a class="btn-content" href="http://www.berlin-buehnen.de/de/spielplan/" target="_blank">Mehr</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center" colspan="2">
+                <div class="block">
+                    <table border="0" cellpadding="0" cellspacing="0" width="600">
+                        <tr>
+                            <td align="left" valign="top">
+                                {% get_objects for_newsletter productions.Production 3 as newest_objects %}
+                                {% for production in newest_objects %}
+                                    <div class="production-wrapper">
+                                        <table border="0" cellpadding="0" cellspacing="0" class="production" width="600">
+                                            <tr>
+                                                <td align="left" style="background-color: #f2f2f2;" valign="top" width="600">
+                                                    <div>
+                                                        <h4><a class="black-link" href="{{ production.get_url }}" target="_blank">{% for cat in production.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
+                                                            {% with production.get_closest_production_time as production_time %}{{ production_time.production_date|date:"j. F Y" }} {{ production_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}
+                                                        </a></h4>
+
+                                                        <h3><a class="black-link" href="{{ production.get_url }}" target="_blank">{{ production.title }}</a></h3>
+                                                        {% if production.subtitle %}
+                                                            <h4><a class="black-link" href="{{ production.get_url }}" target="_blank">{{ production.subtitle }}</a></h4>
+                                                        {% endif %}
+                                                        {% if production.location_name %}
+                                                            <h5>{{ production.location_name }}</h5>
+                                                        {% else %}
+                                                            <h5>{{ production.museum.title }}</h5>
+                                                        {% endif %}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div><!-- // End Module: Veranstaltungstipps \\ -->

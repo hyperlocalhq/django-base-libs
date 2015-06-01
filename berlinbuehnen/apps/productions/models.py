@@ -123,6 +123,12 @@ class ProductionManager(models.Manager):
         ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
+    def for_newsletter(self):
+        return self.filter(
+            status="published",
+            newsletter=True
+        )
+
 
 class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     prefix = MultilingualCharField(_("Title prefix"), max_length=255, blank=True)
@@ -184,6 +190,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     show_among_others = models.BooleanField(_("Show among others"), default=True, help_text=_("Should this production be shown in event details among other productions at the same venue?"))
     no_overwriting = models.BooleanField(_("Do not overwrite by the next import"))
+    newsletter = models.BooleanField(_("Show in newsletter"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     start_date = models.DateField(_("Actual start date"), blank=True, null=True, editable=False)

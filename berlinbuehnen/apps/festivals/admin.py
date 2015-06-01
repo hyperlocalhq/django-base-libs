@@ -34,9 +34,9 @@ class FestivalAdmin(ExtendedModelAdmin):
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
-    list_display = ('title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'status')
-    list_editable = ('status', )
-    list_filter = ('start', 'creation_date', 'modified_date', 'status')
+    list_display = ('title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'newsletter', 'status')
+    list_editable = ('newsletter', 'status', )
+    list_filter = ('start', 'creation_date', 'modified_date', 'newsletter', 'status')
     date_hierarchy = 'start'
     search_fields = ('title_de', 'title_en')
 
@@ -57,7 +57,7 @@ class FestivalAdmin(ExtendedModelAdmin):
        get_admin_lang_section(_("Exceptions"), ['exceptions',]),
     )}),]
     fieldsets += [(_("Press Contact"), {'fields': ('press_contact_name', 'press_email', 'press_website', (_("Phone"), {'fields': ('press_phone_country', 'press_phone_area', 'press_phone_number')}), (_("Fax"), {'fields': ('press_fax_country', 'press_fax_area', 'press_fax_number')}))}),]
-    fieldsets += [(_("Status"), {'fields': ('status',)}),]
+    fieldsets += [(_("Status"), {'fields': ('newsletter', 'status',)}),]
 
     inlines = [ImageInline, SocialMediaChannelInline]
 

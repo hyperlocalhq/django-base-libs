@@ -49,6 +49,11 @@ class FestivalManager(models.Manager):
         ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
+    def for_newsletter(self):
+        return self.filter(
+            status="published",
+            newsletter=True
+        )
 
 class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -103,6 +108,7 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
 
     organizers = models.ManyToManyField("locations.Location", verbose_name=_("Organizers"), blank=True)
 
+    newsletter = models.BooleanField(_("Show in newsletter"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     objects = FestivalManager()
