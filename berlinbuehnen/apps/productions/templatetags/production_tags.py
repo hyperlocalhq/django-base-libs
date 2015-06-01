@@ -39,7 +39,8 @@ def other_productions(context, current_event=False, current_location=False, amou
         'MEDIA_URL': context['MEDIA_URL'],
         'STATIC_URL': context['STATIC_URL'],
     }
-    
+
+
 @register.inclusion_tag('productions/includes/date_slider.html', takes_context=True)
 def date_slider(context, page, active=0, id=''):
     
@@ -78,8 +79,6 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
         else:
             to += "\n"
         to += city
-        
-        
 
     today = datetime.now()
     
@@ -96,20 +95,20 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
     if event_time:
         today = datetime(year=today.year, month=today.month, day=today.day, hour=event_time.hour, minute=event_time.minute)
     
-    if (delta < 0):
+    if delta < 0:
         delta *= -1;
         today -= timedelta(minutes=delta)
     else:
         today += timedelta(minutes=delta)
-        
-    
+
     return {
         'to': to,
         'date': today.strftime('%d.%m.%Y'),
         'time': today.strftime('%H:%M'),
         'timesel': timesel,
     }
-    
+
+
 @register.inclusion_tag('productions/includes/pin.html', takes_context=True)
 def pin(context, image, description=""):
 
@@ -121,8 +120,7 @@ def pin(context, image, description=""):
         if not description == "":
             description += ", "
         description = description + _('Photo').encode('utf-8') + ': ' + file_description.author.encode('utf-8')
-    
-    
+
     param = {
         'url': context['request'].build_absolute_uri(context['request'].get_full_path()),
         'media': context['request'].build_absolute_uri(context['MEDIA_URL']+image.path.path),
@@ -135,18 +133,24 @@ def pin(context, image, description=""):
         'protected': protected
     }
 
+
 @register.inclusion_tag('productions/includes/add_to_calender.html', takes_context=True)
 def add_to_calender(context, event):
 
+    start_datetime = None
+    if event.start_date and event.start_time:
+        start_datetime = datetime(year=event.start_date.year, month=event.start_date.month, day=event.start_date.day, hour=event.start_time.hour, minute=event.start_time.minute)
+    end_datetime = None
+
     end_date = event.end_date
     end_time = event.end_time
+
     two_hours = timedelta(hours=2)
     
-    if end_date and not end_time:
-        end_time = event.start_time + two_hours
-    elif not end_date and not end_time:
-        start_datetime = datetime(year=event.start_date.year, month=event.start_date.month, day=event.start_date.day, hour=event.start_time.hour, minute=event.start_time.minute)
+    if start_datetime and not end_time:
         end_datetime = start_datetime + two_hours
+
+    if end_datetime:
         end_date = date(year=end_datetime.year, month=end_datetime.month, day=end_datetime.day)
         end_time = time(hour=end_datetime.hour, minute=end_datetime.minute)
 
