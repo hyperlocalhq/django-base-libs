@@ -9,9 +9,7 @@
         {% else %}
             <var class="atc_title">Berlin Bühnen</var>
         {% endif %}
-        {% if event.ev_or_prod_teaser %}
-            <var class="atc_description">{{ event.ev_or_prod_teaser|striptags }}</var>
-        {% endif %}
+        <var class="atc_description">{{ description|striptags }}</var>
         {% with locations=event.ev_or_prod_play_locations stages=event.ev_or_prod_play_stages %}
             {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or locations|length > 0 or stages|length > 0 %}     
                 {% if not stages or not stages.0.street_address %}
@@ -33,7 +31,8 @@
                         <var class="atc_location">{{ stage.title }}, {{ stage.street_address }}, {% if stage.street_address2 %}{{ stage.street_address2 }}, {% endif %}{{stage.postal_code}} {{ stage.city }}</var>
                     {% endwith %}
                 {% endif %}
-                
+            {% else %}
+                <var class="atc_location">Berlin</var>
             {% endif %}
         {% endwith %}
     </var>
