@@ -137,7 +137,9 @@ def pin(context, image, description=""):
 @register.inclusion_tag('productions/includes/add_to_calender.html', takes_context=True)
 def add_to_calender(context, event):
 
-    start_datetime = datetime(year=event.start_date.year, month=event.start_date.month, day=event.start_date.day, hour=event.start_time.hour, minute=event.start_time.minute)
+    start_datetime = None
+    if event.start_date and event.start_time:
+        start_datetime = datetime(year=event.start_date.year, month=event.start_date.month, day=event.start_date.day, hour=event.start_time.hour, minute=event.start_time.minute)
     end_datetime = None
 
     end_date = event.end_date
@@ -145,7 +147,7 @@ def add_to_calender(context, event):
 
     two_hours = timedelta(hours=2)
     
-    if not end_time:
+    if start_datetime and not end_time:
         end_datetime = start_datetime + two_hours
 
     if end_datetime:
