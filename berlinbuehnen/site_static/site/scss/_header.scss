@@ -17,6 +17,27 @@
             background-color: white;
             position: fixed;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07);
+            visibility:hidden;
+        }
+        
+        
+        
+        ul.social_links {
+            position: absolute;
+            right: -13px;
+            top: 13px;
+
+            li {
+                display: inline-block;
+                margin-right: 3px;
+                a {
+                    font-size: 12px;
+                    color: black;
+                    &:hover {
+                        color: black;
+                    }
+                }
+            }
         }
     }
     
@@ -68,25 +89,6 @@
                 color: black;
                 &:hover {
                     color: $blue;
-                }
-            }
-        }
-        
-        
-        ul.social_links {
-            position: absolute;
-            right: -13px;
-            top: 13px;
-
-            li {
-                display: inline-block;
-                margin-right: 3px;
-                a {
-                    font-size: 12px;
-                    color: black;
-                    &:hover {
-                        color: black;
-                    }
                 }
             }
         }
@@ -238,9 +240,17 @@
         background-color: white;
         .background {
             height: 110px;
+            visibility: visible;
         }
         .navbar-header {
             min-height: 110px;    
         }
+    }
+}
+
+#meta_social_links {
+    margin-right: 10px !important;
+    ul.social_links {
+        position: static !important;
     }
 }
