@@ -2,7 +2,7 @@
 from django import forms
 from django.db import models
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.forms.util import ErrorList
@@ -129,7 +129,7 @@ class MailingContentBlockInline(ExtendedStackedInline):
     inline_classes = ('grp-collapse grp-open',)
 
 class CampaignAdmin(ExtendedModelAdmin):
-    list_display = ('subject', 'get_mailinglist_with_link', 'status',)
+    list_display = ('subject', 'get_mailinglist_with_link', 'get_preview_link', 'status',)
     list_filter = ('mailinglist',)
     fieldsets = [(None, {'fields': ('sender_name', 'sender_email', 'mailinglist', 'template', 'status',)}),]
     fieldsets += [(_("Content"), {'fields': ['subject', 'body_html']})]
@@ -137,10 +137,11 @@ class CampaignAdmin(ExtendedModelAdmin):
     radio_fields = {
         'status': admin.HORIZONTAL,
     }
+
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
+        )
     save_on_top = True
 
     def get_urls(self):
@@ -163,5 +164,10 @@ class CampaignAdmin(ExtendedModelAdmin):
         obj = self.get_object(request, unquote(object_id))
         html = obj.get_rendered_html()
         return HttpResponse(html)
+
+    def get_preview_link(self, obj):
+        return '<a href="%d/preview" target="_blank">%s</a>' % (obj.pk, ugettext("Preview"))
+    get_preview_link.short_description = _("Preview")
+    get_preview_link.allow_tags = True
 
 admin.site.register(Campaign, CampaignAdmin)

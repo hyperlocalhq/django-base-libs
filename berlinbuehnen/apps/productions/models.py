@@ -337,6 +337,12 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         return ""
     get_import_source.short_description = _("Import Source")
 
+    def _get_cover_image(self):
+        qs = self.productionimage_set.all()
+        if qs.count():
+            return qs[0].path
+    cover_image = property(_get_cover_image)
+
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
     channel_type = models.CharField(_("Social media type"), max_length=255, help_text=_("e.g. twitter, facebook, etc."))
@@ -796,6 +802,15 @@ class Event(CreationModificationMixin, UrlMixin):
             return self.eventinvolvement_set.all().order_by('sort_order')
         # return self.production.productioninvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
         return self.production.productioninvolvement_set.all().order_by('sort_order')
+
+    def _get_cover_image(self):
+        qs = self.eventimage_set.all()
+        if qs.count():
+            return qs[0].path
+        qs = self.production.productionimage_set.all()
+        if qs.count():
+            return qs[0].path
+    cover_image = property(_get_cover_image)
 
     ### special text ###
 

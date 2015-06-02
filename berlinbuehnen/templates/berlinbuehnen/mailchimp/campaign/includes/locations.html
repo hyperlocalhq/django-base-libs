@@ -28,25 +28,15 @@
                                     <div class="location">
                                         <div class="image">
                                             {% if location.cover_image %}
-                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ location.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
-                                            {% else %}
-                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ location.museum.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.berlin-buehnen.de/media/{{ location.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
                                             {% endif %}
                                         </div>
 
                                         <div class="text">
-                                            <h4 class="h4 time"><a class="black-link" href="{{ location.get_url }}" target="_blank"><span class="from_date">{{ location.start|date:"d.m.Y" }}</span> {% if location.permanent %}{% trans "until further notice" %}{% else %}{% if location.end %}{% trans "till" %} {{ location.end|date:"d.m.Y" }}{% endif %}{% endif %}</a></h4>
-
                                             <h3 class="h3 title"><a class="black-link" href="{{ location.get_url }}" target="_blank">{{ location.title }}</a></h3>
 
                                             {% if location.subtitle %}
                                                 <h4 class="h4 subtitle"><a class="black-link" href="{{ location.get_url }}" target="_blank">{{ location.subtitle }}</a></h4>
-                                            {% endif %}
-
-                                            {% if location.location_name %}
-                                                <h5 class="h5 location">{{ location.location_name }}</h5>
-                                            {% else %}
-                                                <h5 class="h5 location">{{ location.museum.title }}</h5>
                                             {% endif %}
 
                                             <p class="description">{{ location.get_rendered_description|striptags|truncatewords:"35" }}</p>
@@ -71,25 +61,15 @@
                                     <div class="location">
                                         <div class="image">
                                             {% if location.cover_image %}
-                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ location.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
-                                            {% else %}
-                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ location.museum.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.berlin-buehnen.de/media/{{ location.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
                                             {% endif %}
                                         </div>
 
                                         <div class="text">
-                                            <h4 class="h4 time"><a class="black-link" href="{{ location.get_url }}" target="_blank"><span class="from_date">{{ location.start|date:"d.m.Y" }}</span> {% if location.permanent %}{% trans "until further notice" %}{% else %}{% if location.end %}{% trans "till" %} {{ location.end|date:"d.m.Y" }}{% endif %}{% endif %}</a></h4>
-
                                             <h3 class="h3 title"><a class="black-link" href="{{ location.get_url }}" target="_blank">{{ location.title }}</a></h3>
 
                                             {% if location.subtitle %}
                                                 <h4 class="h4 subtitle"><a class="black-link" href="{{ location.get_url }}" target="_blank">{{ location.subtitle }}</a></h4>
-                                            {% endif %}
-
-                                            {% if location.location_name %}
-                                                <h5 class="h5 location">{{ location.location_name }}</h5>
-                                            {% else %}
-                                                <h5 class="h5 location">{{ location.museum.title }}</h5>
                                             {% endif %}
 
                                             <p class="description">{{ location.get_rendered_description|striptags|truncatewords:"35" }}</p>
@@ -108,30 +88,24 @@
                         </tr>
 
                         <tr>
+                            <td colspan="3"><img border="0" class="img" alt="" height="20" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_30px.gif" style="max-width:30px" width="20" /></td>
+                        </tr>
+
+                        <tr>
                             {% with newest_objects.2 as location %}
                                 <td align="left" valign="top" width="290">
                                     <div class="location">
                                         <div class="image">
                                             {% if location.cover_image %}
-                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ location.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
-                                            {% else %}
-                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ location.museum.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.berlin-buehnen.de/media/{{ location.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
                                             {% endif %}
                                         </div>
 
                                         <div class="text">
-                                            <h4 class="h4 time"><a class="black-link" href="{{ location.get_url }}" target="_blank"><span class="from_date">{{ location.start|date:"d.m.Y" }}</span> {% if location.permanent %}{% trans "until further notice" %}{% else %}{% if location.end %}{% trans "till" %} {{ location.end|date:"d.m.Y" }}{% endif %}{% endif %}</a></h4>
-
                                             <h3 class="h3 title"><a class="black-link" href="{{ location.get_url }}" target="_blank">{{ location.title }}</a></h3>
 
                                             {% if location.subtitle %}
                                                 <h4 class="h4 subtitle"><a class="black-link" href="{{ location.get_url }}" target="_blank">{{ location.subtitle }}</a></h4>
-                                            {% endif %}
-
-                                            {% if location.location_name %}
-                                                <h5 class="h5 location">{{ location.location_name }}</h5>
-                                            {% else %}
-                                                <h5 class="h5 location">{{ location.museum.title }}</h5>
                                             {% endif %}
 
                                             <p class="description">{{ location.get_rendered_description|striptags|truncatewords:"35" }}</p>
@@ -156,25 +130,15 @@
                                     <div class="location">
                                         <div class="image">
                                             {% if location.cover_image %}
-                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ location.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
-                                            {% else %}
-                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.museumsportal-berlin.de/media/{{ location.museum.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
+                                                <a href="{{ location.get_url }}" target="_blank"><img border="0" class="img" alt="" height="164" src="http://www.berlin-buehnen.de/media/{{ location.cover_image|modified_path:"location_newsletter" }}" style="max-width:290px" width="290" /></a>
                                             {% endif %}
                                         </div>
 
                                         <div class="text">
-                                            <h4 class="h4 time"><a class="black-link" href="{{ location.get_url }}" target="_blank"><span class="from_date">{{ location.start|date:"d.m.Y" }}</span> {% if location.permanent %}{% trans "until further notice" %}{% else %}{% if location.end %}{% trans "till" %} {{ location.end|date:"d.m.Y" }}{% endif %}{% endif %}</a></h4>
-
                                             <h3 class="h3 title"><a class="black-link" href="{{ location.get_url }}" target="_blank">{{ location.title }}</a></h3>
 
                                             {% if location.subtitle %}
                                                 <h4 class="h4 subtitle"><a class="black-link" href="{{ location.get_url }}" target="_blank">{{ location.subtitle }}</a></h4>
-                                            {% endif %}
-
-                                            {% if location.location_name %}
-                                                <h5 class="h5 location">{{ location.location_name }}</h5>
-                                            {% else %}
-                                                <h5 class="h5 location">{{ location.museum.title }}</h5>
                                             {% endif %}
 
                                             <p class="description">{{ location.get_rendered_description|striptags|truncatewords:"35" }}</p>
@@ -190,6 +154,10 @@
                                     </div>
                                 </td>
                             {% endwith %}
+                        </tr>
+
+                        <tr>
+                            <td colspan="3"><img border="0" class="img" alt="" height="20" src="http://gallery.mailchimp.com/d7c71420a69df471f30ab850e/images/bmw2013_30px.gif" style="max-width:30px" width="20" /></td>
                         </tr>
                     </table>
                 </div>
