@@ -113,8 +113,7 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
 def pin(context, image, description=""):
 
     file_description = FileDescription.objects.filter(file_path=image).order_by("pk")[0]
-    protected = False # image.copyright_restrictions == "protected"
-    # TODO: image is a FileObject, not the instance of the Image model
+    protected = image.copyright_restrictions == "protected"
 
     description = description.encode('utf-8')
     if file_description and file_description.author:
@@ -124,7 +123,7 @@ def pin(context, image, description=""):
 
     param = {
         'url': context['request'].build_absolute_uri(context['request'].get_full_path()),
-        'media': context['request'].build_absolute_uri("%s%s" % (context['MEDIA_URL'], image.path)),
+        'media': context['request'].build_absolute_uri(context['MEDIA_URL']+image.path.path),
         'description': description
     }
     href = "https://www.pinterest.com/pin/create/button/?"+urlencode(param)

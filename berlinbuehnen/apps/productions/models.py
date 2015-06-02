@@ -340,7 +340,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def _get_cover_image(self):
         qs = self.productionimage_set.all()
         if qs.count():
-            return qs[0].path
+            return qs[0]
     cover_image = property(_get_cover_image)
 
 class ProductionSocialMediaChannel(models.Model):
@@ -806,10 +806,10 @@ class Event(CreationModificationMixin, UrlMixin):
     def _get_cover_image(self):
         qs = self.eventimage_set.all()
         if qs.count():
-            return qs[0].path
+            return qs[0]
         qs = self.production.productionimage_set.all()
         if qs.count():
-            return qs[0].path
+            return qs[0]
     cover_image = property(_get_cover_image)
 
     ### special text ###
