@@ -113,7 +113,8 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
 def pin(context, image, description=""):
 
     file_description = FileDescription.objects.filter(file_path=image).order_by("pk")[0]
-    protected = image.copyright_restrictions == "protected"
+    protected = False # image.copyright_restrictions == "protected"
+    # TODO: image is a FileObject, not the instance of the Image model
 
     description = description.encode('utf-8')
     if file_description and file_description.author:
