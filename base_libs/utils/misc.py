@@ -415,24 +415,27 @@ def smart_truncate(text, length=100, suffix='...'):
                 return match.group(1) + suffix    
     return text
 
-def get_unused_languages():
+
+def get_unused_languages(exclude=("id",)):
+    """ get a list of language codes which are unused (except Indonesian)"""
     from django.conf import global_settings
     installed_languages = [
         lang[0]
         for lang in settings.LANGUAGES
-        ]
+    ]
     available_languages = [
         lang[0]
         for lang in global_settings.LANGUAGES
         if len(lang[0])==2
-        ]
+    ]
     unused_languages = [
         lang
         for lang in available_languages
-        if lang not in installed_languages
-        ]
+        if lang not in installed_languages and lang not in exclude
+    ]
     return unused_languages
-    
+
+
 def south_clean_multilingual_fields(models_dict):
     """
     takes a dictionary of models and fields and
