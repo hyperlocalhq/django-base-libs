@@ -225,11 +225,11 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     def get_social_media(self):
         return self.socialmediachannel_set.all()
 
-    def _get_cover_image(self):
-        qs = self.image_set.all()
-        if qs.count():
-            return qs[0]
-    cover_image = property(_get_cover_image)
+    # def _get_cover_image(self):
+    #     qs = self.image_set.all()
+    #     if qs.count():
+    #         return qs[0]
+    # cover_image = property(_get_cover_image)
 
 
 class Stage(CreationModificationMixin, SlugMixin()):
