@@ -52,8 +52,8 @@
                                         
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
-                                            {% if location.cover_image %}
-                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ location.cover_image.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  />{% pin image=location.cover_image description=location.title %}</div> 
+                                            {% if location.first_image %}
+                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  />{% pin image=location.first_image description=location.title %}</div>
                                             {% elif location.image_set.exists %}
                                                 {% with location.image_set.all|first as first %}
                                                     <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  />{% pin image=first description=location.title %}</div> 

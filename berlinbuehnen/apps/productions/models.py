@@ -337,11 +337,14 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         return ""
     get_import_source.short_description = _("Import Source")
 
-    # def _get_cover_image(self):
-    #     qs = self.productionimage_set.all()
-    #     if qs.count():
-    #         return qs[0]
-    # cover_image = property(_get_cover_image)
+    def _get_first_image(self):
+        if not hasattr(self, '_first_image_cache'):
+            self._first_image_cache = None
+            qs = self.productionimage_set.all()
+            if qs.count():
+                self._first_image_cache = qs[0]
+        return self._first_image_cache
+    first_image = property(_get_first_image)
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
@@ -803,14 +806,14 @@ class Event(CreationModificationMixin, UrlMixin):
         # return self.production.productioninvolvement_set.all().order_by('involvement_type__title_%s' % lang_code, 'involvement_role_%s' % lang_code, 'involvement_instrument_%s' % lang_code, 'sort_order')
         return self.production.productioninvolvement_set.all().order_by('sort_order')
 
-    # def _get_cover_image(self):
-    #     qs = self.eventimage_set.all()
-    #     if qs.count():
-    #         return qs[0]
-    #     qs = self.production.productionimage_set.all()
-    #     if qs.count():
-    #         return qs[0]
-    # cover_image = property(_get_cover_image)
+    def _get_first_image(self):
+        if not hasattr(self, '_first_image_cache'):
+            self._first_image_cache = None
+            qs = self.ev_or_prod_images()
+            if qs.count():
+                self._first_image_cache = qs[0]
+        return self._first_image_cache
+    first_image = property(_get_first_image)
 
     ### special text ###
 

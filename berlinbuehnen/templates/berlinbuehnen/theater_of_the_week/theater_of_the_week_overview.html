@@ -13,12 +13,6 @@
                                 <a href="{{ article.get_url_path }}">
                                     {% if article.image %}
                                         <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
-                                    {% elif article.theater.cover_image %}
-                                        <img src="{{ MEDIA_URL }}{{ article.theater.cover_image.path|modified_path:"list_image" }}" class="hidden-xs"/>
-                                    {% elif article.theater.image_set.exists %}
-                                        {% with article.theater.image_set.all|first as first %}
-                                            <img src="{{ MEDIA_URL }}{{ first.path|modified_path:"list_image" }}" class="hidden-xs"/>
-                                        {% endwith %}
                                     {% endif %}
                                     <span class="article-more-list-date">{{ article.published_from|datefmt:"long" }}{% if article.category.title %}<span>{{ article.category.title }}</span>{% endif %}</span>
                                     <h6>{{ article.get_title }}</h6>

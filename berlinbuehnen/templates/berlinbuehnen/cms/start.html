@@ -64,8 +64,8 @@
 
                                             <!-- image -->
                                             <div class="list-item-head-image img hidden-xs col-sm-8">
-                                                {% if event.cover_image %}
-                                                    <img src="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                                                {% if event.first_image %}
+                                                    <img src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
                                                 {% elif event.ev_or_prod_images %}
                                                     {% with event.ev_or_prod_images|first as image %}
                                                         <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "events.change_event" event %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
@@ -135,12 +135,6 @@
                                     <h3>{% trans "Theater of the week" %}</h3>
                                     {% if article.image %}
                                         <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
-                                    {% elif article.theater.cover_image %}
-                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{article.theater.cover_image.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" /></div>
-                                    {% elif article.theater.image_set.exists %}
-                                        {% with article.theater.image_set.all|first as first %}
-                                            <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{first.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" /></div>
-                                        {% endwith %}
                                     {% endif %}
                                     <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
                                     <p>

@@ -34,8 +34,8 @@
                                                 <div class="list-item-head-image img col-xs-1 col-sm-12">
                                                     {% comment %}{% if festival.logo %}
                                                         <img src="{{ MEDIA_URL }}{{ festival.logo|modified_path:"list_logo" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ festival.title|escape }}" />{% endcomment %}
-                                                    {% if festival.cover_image %}
-                                                        <img src="{{ MEDIA_URL }}{{ festival.cover_image|modified_path:"list_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                                    {% if festival.first_image %}
+                                                        <img src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"list_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
                                                     {% elif festival.image_set.exists %}
                                                         {% with festival.image_set.all|first as image %}
                                                             <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "festival.change_festival" festival %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ festival.title|escape }}" />

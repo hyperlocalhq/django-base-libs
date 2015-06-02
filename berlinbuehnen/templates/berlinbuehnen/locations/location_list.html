@@ -35,8 +35,8 @@
                                                 <div class="list-item-head-image img col-xs-1 col-sm-12">
                                                     {% comment %}{% if location.logo %}
                                                         <img src="{{ MEDIA_URL }}{{ location.logo|modified_path:"list_logo" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />{% endcomment %}
-                                                    {% if location.cover_image %}
-                                                        <img src="{{ MEDIA_URL }}{{ location.cover_image|modified_path:"list_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                                    {% if location.first_image %}
+                                                        <img src="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"list_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
                                                     {% elif location.image_set.exists %}
                                                         {% with location.image_set.all|first as image %}
                                                             <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />

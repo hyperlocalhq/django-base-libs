@@ -135,8 +135,8 @@
                                         
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
-                                            {% if event.cover_image %}
-                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ event.cover_image.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=event.cover_image description=event.production.title %}</div> 
+                                            {% if event.first_image %}
+                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=event.first_image description=event.production.title %}</div>
                                             {% elif event.ev_or_prod_images %}
                                                 {% with event.ev_or_prod_images|first as first %}
                                                     <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ event.production.title|escape }}"  />{% pin image=first description=event.production.title %}</div> 

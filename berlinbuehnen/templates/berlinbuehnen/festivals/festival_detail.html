@@ -52,8 +52,8 @@
                                         
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
-                                            {% if festival.cover_image %}
-                                                <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ festival.cover_image.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}"  /></div> 
+                                            {% if festival.first_image %}
+                                                <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}"  /></div>
                                             {% elif festival.image_set.exists %}
                                                 {% with festival.image_set.all|first as first %}
                                                     <div class="top-image img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}"  /></div> 
