@@ -102,7 +102,15 @@ class ExtendedTextField(TextField):
                 mt = getattr(self, "%s_markup_type" % name)
                 
                 if mt == markup_settings.MARKUP_PLAIN_TEXT:
-                    field_value = linebreaks(urlize(escape(field_value)))
+                    field_value = field_value.strip()
+                    if field_value:
+                        field_value = escape(field_value)
+                        try:
+                            # try to urlize if there are no invalid IPv6 URLs
+                            field_value = urlize(field_value)
+                        except ValueError:
+                            pass
+                        field_value = linebreaks(field_value)
                 elif mt == markup_settings.MARKUP_RAW_HTML:
                     pass
                 elif mt == markup_settings.MARKUP_HTML_WYSIWYG:
@@ -116,7 +124,10 @@ class ExtendedTextField(TextField):
                         return field_value
                     else:
                         field_value = markdown.markdown(field_value)
-                
+
+                # remove empty paragraphs
+                field_value = field_value.replace('<p></p>', '')
+
                 return mark_safe(field_value)
             get_rendered.needs_autoescape = False
             return get_rendered
@@ -404,7 +415,15 @@ class MultilingualTextField(models.Field):
                         return ""
                 
                 if mt == markup_settings.MARKUP_PLAIN_TEXT:
-                    field_value = linebreaks(urlize(escape(field_value)))
+                    field_value = field_value.strip()
+                    if field_value:
+                        field_value = escape(field_value)
+                        try:
+                            # try to urlize if there are no invalid IPv6 URLs
+                            field_value = urlize(field_value)
+                        except ValueError:
+                            pass
+                        field_value = linebreaks(field_value)
                 elif mt == markup_settings.MARKUP_RAW_HTML:
                     pass
                 elif mt == markup_settings.MARKUP_HTML_WYSIWYG:
@@ -418,6 +437,9 @@ class MultilingualTextField(models.Field):
                         return field_value
                     else:
                         field_value = markdown.markdown(field_value)
+
+                # remove empty paragraphs
+                field_value = field_value.replace('<p></p>', '')
                 
                 return mark_safe(field_value)
             get_rendered.needs_autoescape = False
@@ -444,6 +466,16 @@ class URLField(models.URLField):
             }
         defaults.update(kwargs)
         return super(URLField, self).formfield(**defaults)
+
+
+class MultilingualURLField(MultilingualCharField):
+    def formfield(self, **kwargs):
+        defaults = {
+            'form_class': URLFormField,
+            #'verify_exists': self.verify_exists,
+            }
+        defaults.update(kwargs)
+        return super(MultilingualURLField, self).formfield(**defaults)
 
 
 class TemplatePathField(models.FilePathField):
@@ -642,37 +674,40 @@ else:
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.ExtendedTextField"],
-        )
+    )
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.PlainTextField"],
-        )
+    )
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.PlainTextModelField"],
-        )
+    )
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.MultilingualCharField"],
-        )
+    )
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.MultilingualTextField"],
-        )
+    )
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.MultilingualPlainTextField"],
-        )
+    )
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.URLField"],
-        )
+    )
+    add_introspection_rules(
+        [],
+        ["^base_libs\.models\.fields\.MultilingualURLField"],
+    )
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.TemplatePathField"],
-        )
+    )
     add_introspection_rules(
         [],
         ["^base_libs\.models\.fields\.PositionField"],
-        )
-
+    )
