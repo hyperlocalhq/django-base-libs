@@ -112,7 +112,11 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
 @register.inclusion_tag('productions/includes/pin.html', takes_context=True)
 def pin(context, image, description=""):
 
-    file_description = FileDescription.objects.filter(file_path=image).order_by("pk")[0]
+    file_description = None
+    file_descriptions = FileDescription.objects.filter(file_path=image).order_by("pk")
+    if file_descriptions:
+        file_description = file_descriptions[0]
+
     protected = image.copyright_restrictions == "protected"
 
     description = description.encode('utf-8')
