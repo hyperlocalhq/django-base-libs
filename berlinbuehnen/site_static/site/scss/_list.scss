@@ -261,6 +261,9 @@ body.is-xs {
                         position: absolute;
                         top: 32px;
                         left: 5px;
+                        span {
+                            white-space: nowrap;
+                        }
                     }
                     .list-item-head-date-time {
                         width: 115px;

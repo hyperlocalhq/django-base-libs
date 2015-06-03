@@ -1920,6 +1920,7 @@ body.is-xs .list .list-item .list-item-head { max-width: none; height: 50px; bor
 body.is-xs .list .list-item .list-item-head .list-item-head-date { margin: 0; position: absolute; top: -2px; right: 0; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-day { width: 45px; height: auto; position: absolute; top: 6px; left: 5px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month { width: 45px; height: auto; position: absolute; top: 32px; left: 5px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month span { white-space: nowrap; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time { width: 115px; height: auto; font-size: 3em; position: absolute; top: 8px; left: 55px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type { width: auto; height: auto; position: absolute; top: 8px; right: 5px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { width: auto; height: auto; position: absolute; top: 24px; right: -4px; }
