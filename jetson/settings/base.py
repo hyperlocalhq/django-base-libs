@@ -26,22 +26,22 @@ SERVER_EMAIL = "jetsonadmin@studio38.de"
 
 ### PATHS AND URLS ###
 
-EXTERNAL_LIBS_PATH = os.path.join(ROOT_PATH, "jetson", "externals", "libs")
-EXTERNAL_APPS_PATH = os.path.join(ROOT_PATH, "jetson", "externals", "apps")
+EXTERNAL_LIBS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "libs")
+EXTERNAL_APPS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "apps")
 sys.path = ["", EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH, ROOT_PATH] + sys.path
 
 from jetson.apps.utils.utils import get_git_changeset
 
 TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
-    os.path.join(ROOT_PATH, "jetson", "templates", "default"),
-    os.path.join(ROOT_PATH, "jetson", "templates", "admin"),
+    os.path.join(JETSON_PATH, "jetson", "templates", "default"),
+    os.path.join(JETSON_PATH, "jetson", "templates", "admin"),
     # http://code.djangoproject.com/wiki/ExtendingTemplates
-    os.path.join(ROOT_PATH, "jetson", "externals", "apps", "grappelli", "templates", "grappelli"),
-    os.path.join(ROOT_PATH, "jetson", "externals", "apps", "grappelli", "templates"),
+    os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates", "grappelli"),
+    os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates"),
     ]
 
 ADMIN_MEDIA_PREFIX = "/static/admin/"
-JETSON_MEDIA_ROOT = os.path.join(ROOT_PATH, "jetson", "media")
+JETSON_MEDIA_ROOT = os.path.join(JETSON_PATH, "jetson", "media")
 JETSON_MEDIA_URL = "/jetson-media/%s/" % get_git_changeset(JETSON_MEDIA_ROOT)
 
 LOGIN_URL = "/login/"
@@ -49,7 +49,7 @@ LOGOUT_URL = "/logout/"
 LOGIN_REDIRECT_URL = "/"
 
 LOCALE_PATHS = (
-    os.path.join(ROOT_PATH, "jetson", "locale"),
+    os.path.join(JETSON_PATH, "jetson", "locale"),
     )
 
 TAGGING_AUTOCOMPLETE_JS_BASE_URL = "%sjs/jquery/autocomplete_1.0" % JETSON_MEDIA_URL

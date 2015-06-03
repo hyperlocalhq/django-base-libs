@@ -3,9 +3,10 @@
 import os
 from datetime import timedelta
 
+JETSON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "."))
 ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/base.py"))
+execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"))
 
 
 ### DOMAINS ###
@@ -400,7 +401,7 @@ if not DEVELOPMENT_MODE:
 
 ### FILEBROWSER ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/filebrowser.py"))
+execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"))
 
 FILEBROWSER_VERSIONS = {
     'fb_thumb': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop upscale'},
@@ -433,17 +434,17 @@ MAILING_HTML_REPLACE = ()
 
 ### DEBUG TOOLBAR ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/debug_toolbar.py"))
+execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
 
 
 ### GRAPPELLI ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/grappelli.py"))
+execfile(os.path.join(JETSON_PATH, "jetson/settings/grappelli.py"))
 GRAPPELLI_ADMIN_HEADLINE = "Creative City Admin"
 
 ### COMPRESS ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/pipeline.py"))
+execfile(os.path.join(JETSON_PATH, "jetson/settings/pipeline.py"))
 PIPELINE_ROOT = os.path.join(ROOT_PATH, "ccb", "site_static")
 PIPELINE = False
 
@@ -672,7 +673,7 @@ HAYSTACK_ENABLE_REGISTRATIONS = True
 
 ### MULTILINGUAL URLS ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/multilingual_urls.py"))
+execfile(os.path.join(JETSON_PATH, "jetson/settings/multilingual_urls.py"))
 
 
 ### OTHER SITE-SPECIFIC SETTINGS ###
