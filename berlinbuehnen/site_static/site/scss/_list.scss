@@ -55,6 +55,9 @@
                     font-size: 0.75em;
                     line-height: 12px;
                     text-transform: uppercase;
+                    span {
+                        white-space: nowrap;
+                    }
                 }
                 .list-item-head-date-type {
                     height: 32px;
@@ -261,9 +264,6 @@ body.is-xs {
                         position: absolute;
                         top: 32px;
                         left: 5px;
-                        span {
-                            white-space: nowrap;
-                        }
                     }
                     .list-item-head-date-time {
                         width: 115px;
