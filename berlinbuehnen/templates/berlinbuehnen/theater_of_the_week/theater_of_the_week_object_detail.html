@@ -39,6 +39,42 @@
                                 {% endwith %}
                             {% endif %}
                         </div>
+                    {% elif article.theater.cover_image %}
+                        <div class="article-image">
+                            <img src="{{ UPLOADS_URL }}{{ article.theater.cover_image.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                            {% if article.image_description %}
+                                <div class="article-image-caption">
+                                    {{ article.get_rendered_image_description }}
+                                </div>
+                            {% else %}
+                                {% with article.theater.cover_image.path|file_description as file_desc %}
+                                    {% if file_desc.title or file_desc.author %}
+                                        <div class="article-image-caption">
+                                            {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endif %}
+                        </div>
+                    {% elif article.theater.image_set.exists %}
+                        {% with article.theater.image_set.all|first as first %}
+                            <div class="article-image">
+                                <img src="{{ UPLOADS_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                {% if article.image_description %}
+                                    <div class="article-image-caption">
+                                        {{ article.get_rendered_image_description }}
+                                    </div>
+                                {% else %}
+                                    {% with first.path|file_description as file_desc %}
+                                        {% if file_desc.title or file_desc.author %}
+                                            <div class="article-image-caption">
+                                                {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endif %}
+                            </div>
+                        {% endwith %}
                     {% endif %}
                     {% if article.description %}
                         <div class="article-decription">
