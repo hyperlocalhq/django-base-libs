@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n base_tags nav_menu auth_extended blog %}
+{% if
+{% block title %}Blog{% endblock %}
+{% block extrahead %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Blog" %}</h2>
+{% endblock %}
+
+
+{% block formstart %}
+{% endblock %}
+
+{% block formclose %}
+{% endblock %}
+
+{% block content %}
+    {% block details %}
+    {% endblock %}
+{% endblock %}
+

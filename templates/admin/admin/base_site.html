@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %}
+
+<!-- LOADING -->
+{% load i18n adminmedia %}
+
+<!-- TITLE/BRANDING/NAV -->
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+{% block branding %}<h1 id="site-name">{% trans 'Django administration' %}</h1>{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+<!-- STYLES & SCRIPTS -->
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{{ jetson_media_url }}css/admin/additional.css" type="text/css" media="screen" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+	<script type="text/javascript" src="/jssettings/"></script>
+{% endblock %}

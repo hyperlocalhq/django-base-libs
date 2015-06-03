@@ -1,0 +1,40 @@
+{% extends "admin/base_site.html" %}
+{% load i18n babel %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="../../../../">{% trans 'Home' %}</a> &rsaquo; <a href="../../">{{ module_name }}</a> &rsaquo; <a href="../">{{ object|truncatewords:"18" }}</a> &rsaquo; {% trans 'History' %}</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="module">
+
+{% if action_list %}
+    <table id="change-history">
+        <thead>
+        <tr>
+            <th scope="col">{% trans 'Date/time' %}</th>
+            <th scope="col">{% trans 'Object' %}</th>
+            <th scope="col">{% trans 'Action' %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for action in action_list %}
+        <tr>
+            <th scope="row">{{ action.action_time|datetimefmt }}</th>
+            <td>
+            {% if action.content_object %}
+                <a href="/admin/{{ action.content_type.app_label }}/{{ action.content_type.model }}/{{ action.object_id }}/">{{ action.content_object }}</a>
+            {% endif %}
+            </td>
+            <td>{{ action.change_message }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>{% trans "This user has no change history." %}</p>
+{% endif %}
+</div>
+</div>
+{% endblock %}

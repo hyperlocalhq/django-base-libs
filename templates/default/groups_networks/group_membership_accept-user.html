@@ -1,0 +1,10 @@
+{% load i18n %}
+<div id="popup_content">
+    <form action="" method="post">
+        <p>{% blocktrans with group.get_title as group_name and person.get_title as person_name %}Do you really want to accept {{ person_name }} to {{ group_name }}?{% endblocktrans %}</p>
+        <div class="buttons">
+            <input class="button_bad" type="button" name="cancel" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" />
+            <input class="button_good" type="submit" id="post" name="post" value="{% filter upper %}{% trans "Accept" %}{% endfilter %}"/>
+        </div>
+    </form>
+</div>
