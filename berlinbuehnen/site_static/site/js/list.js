@@ -21,6 +21,14 @@
      */
     function List($main) {
         
+        // check for safari
+        // needed for some style issues regarding the different rendering of the font
+        var agent = navigator.userAgent.toLowerCase();
+        if (agent.indexOf('safari') > -1 && !(agent.indexOf('chrome') > -1)) {
+            $('body').addClass('safari');
+        }
+        
+        
         var me = this;
         this.me = me;
         
