@@ -1644,6 +1644,7 @@ select { visibility: hidden; }
 .article .article-content .article-image { width: 100%; padding: 10px 0 10px 0; }
 .article .article-content .article-image .article-image-caption { font-size: 0.9em; }
 .article .article-content .article-image img { width: 100%; }
+.article .article-content-cms img { max-width: 100%; height: auto; }
 .article .article-more-list a { color: black; overflow: hidden; display: block; margin-bottom: 15px; }
 .article .article-more-list a:hover { color: black; }
 .article .article-more-list img { float: left; padding: 5px 15px 5px 0; }
@@ -1668,6 +1669,7 @@ select { visibility: hidden; }
 .theater-of-the-week .article-image img { width: 100%; }
 .theater-of-the-week .article-image .article-image-caption { font-size: 0.9em; }
 .theater-of-the-week .article-decription { margin-bottom: 10px; }
+.theater-of-the-week .article-content-cms img { max-width: 100%; height: auto; }
 
 .chevron { position: relative; }
 .chevron:after { content: url("../img/chevron.png"); display: inline-block; width: 12px; height: 12px; position: absolute; right: 8px; bottom: 11px; }
