@@ -246,7 +246,7 @@ body.is-xs {
                 .list-item-head-date {
                     margin: 0;
                     position: absolute;
-                    top: 0;
+                    top: -2px;
                     right: 0;
                     .list-item-head-date-day {
                         width: 45px;
@@ -259,30 +259,30 @@ body.is-xs {
                         width: 45px;
                         height: auto;
                         position: absolute;
-                        top: 30px;
+                        top: 32px;
                         left: 5px;
                     }
                     .list-item-head-date-time {
                         width: 115px;
                         height: auto;
-                        font-size: 2.9em;
+                        font-size: 3em;
                         position: absolute;
-                        top: 7px;
+                        top: 8px;
                         left: 50px;
                     }
                     .list-item-head-date-type {
                         width: auto;
                         height: auto;
                         position: absolute;
-                        top: 10px;
+                        top: 8px;
                         right: 5px;
                     }
                     .list-item-head-date-icons {
                         width: auto;
                         height: auto;
                         position: absolute;
-                        top: 27px;
-                        right: 0;
+                        top: 24px;
+                        right: -4px;
                     }
                 }
                 .list-item-head-image {
@@ -341,6 +341,22 @@ body.is-xs {
         .list-item {
             .list-item-head {
                 max-width: none;
+            }
+        }
+    }
+    
+    &.safari {
+        .list-item-head-date {
+            top: 2px !important;
+            .list-item-head-date-month {
+                top: 31px !important;
+            }
+            .list-item-head-date-time {
+                font-size: 3.05em !important;
+                top: 12px !important;   
+            }
+            .list-item-head-date-icons {
+                top: 21px !important;
             }
         }
     }

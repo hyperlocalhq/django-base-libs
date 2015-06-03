@@ -1915,12 +1915,12 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 
 body.is-xs .list { margin-left: -20px; margin-right: -20px; }
 body.is-xs .list .list-item .list-item-head { max-width: none; height: 50px; border-bottom: 1px solid #ccc; }
-body.is-xs .list .list-item .list-item-head .list-item-head-date { margin: 0; position: absolute; top: 0; right: 0; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date { margin: 0; position: absolute; top: -2px; right: 0; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-day { width: 45px; height: auto; position: absolute; top: 6px; left: 5px; }
-body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month { width: 45px; height: auto; position: absolute; top: 30px; left: 5px; }
-body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time { width: 115px; height: auto; font-size: 2.9em; position: absolute; top: 7px; left: 50px; }
-body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type { width: auto; height: auto; position: absolute; top: 10px; right: 5px; }
-body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { width: auto; height: auto; position: absolute; top: 27px; right: 0; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-month { width: 45px; height: auto; position: absolute; top: 32px; left: 5px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time { width: 115px; height: auto; font-size: 3em; position: absolute; top: 8px; left: 50px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type { width: auto; height: auto; position: absolute; top: 8px; right: 5px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { width: auto; height: auto; position: absolute; top: 24px; right: -4px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-image { position: absolute; top: 0; left: 0; }
 body.is-xs .list .list-item .list-item-head .list-item-head-image img { width: 50px; float: none; }
 body.is-xs .list .list-item-body { padding-bottom: 40px; height: auto; max-height: 350px; }
@@ -1931,6 +1931,10 @@ body.is-xs .list .list-item-body .extra.canceled { background: #cf0000; }
 body.is-xs .list .list-item-body .extra.canceled:before { content: url(../img/label_red_22px.png); }
 body.is-xs .list .list-item-body .extra span { margin: 1px auto 0; vertical-align: top; display: inline-block; width: 138px; text-align: center; }
 body.is-xs.location-list .list-item .list-item-head { max-width: none; }
+body.is-xs.safari .list-item-head-date { top: 2px !important; }
+body.is-xs.safari .list-item-head-date .list-item-head-date-month { top: 31px !important; }
+body.is-xs.safari .list-item-head-date .list-item-head-date-time { font-size: 3.05em !important; top: 12px !important; }
+body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !important; }
 
 .filter-wrapper { width: 100%; margin: 0 0 25px; position: relative; }
 .filter-wrapper .row { margin: 0 -15px; }
