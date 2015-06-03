@@ -740,13 +740,26 @@ class ImportFromCulturebaseBase(object):
                 prod.save()
 
             if not self.skip_images:
-                for mf in prod.productionimage_set.all():
-                    if mf.path:
-                        image_mods.FileManager.delete_file(mf.path.name)
-                    mf.delete()
+                image_ids_to_keep = []
                 for picture_node in prod_node.findall('./%(prefix)sPicture' % self.helper_dict):
                     image_url = self.get_child_text(picture_node, 'Url')
-                    mf = ProductionImage(production=prod)
+
+                    image_mapper = None
+                    try:
+                        # get image model instance from saved mapper
+                        image_mapper = self.service.objectmapper_set.get(
+                            external_id=image_url,
+                            content_type__app_label="productions",
+                            content_type__model="productionimage",
+                        )
+                    except models.ObjectDoesNotExist:
+                        # or create a new exhibition and then create a mapper
+                        mf = ProductionImage(production=prod)
+                    else:
+                        mf = image_mapper.content_object
+                        image_ids_to_keep.append(mf.pk)
+                        continue
+
                     filename = image_url.split("/")[-1]
                     image_response = requests.get(image_url)
                     if image_response.status_code == 200:
@@ -762,6 +775,8 @@ class ImportFromCulturebaseBase(object):
                         else:
                             mf.copyright_restrictions = "protected"
                         mf.save()
+                        image_ids_to_keep.append(mf.pk)
+
                         try:
                             file_description = FileDescription.objects.filter(
                                 file_path=mf.path,
@@ -775,7 +790,27 @@ class ImportFromCulturebaseBase(object):
                         file_description.description_en = self.get_child_text(picture_node, 'Description', Language="en")
                         file_description.author = self.get_child_text(picture_node, 'Photographer')
                         file_description.save()
-                        #time.sleep(1)
+
+                        if not image_mapper:
+                            image_mapper = ObjectMapper(
+                                service=self.service,
+                                external_id=image_url,
+                            )
+                            image_mapper.content_object = mf
+                            image_mapper.save()
+
+                for mf in prod.productionimage_set.exclude(id__in=image_ids_to_keep):
+                    if mf.path:
+                        # remove the file from the file system
+                        image_mods.FileManager.delete_file(mf.path.name)
+                    # delete image mapper
+                    self.service.objectmapper_set.filter(
+                        object_id=mf.pk,
+                        content_type__app_label="productions",
+                        content_type__model="productionimage",
+                    ).delete()
+                    # delete image model instance
+                    mf.delete()
 
             prod.categories.clear()
             for category_id_node in prod_node.findall('./%(prefix)sContentCategory/%(prefix)sCategoryId' % self.helper_dict):
@@ -945,13 +980,26 @@ class ImportFromCulturebaseBase(object):
                 event.save()
 
                 if not self.skip_images:
-                    for mf in event.eventimage_set.all():
-                        if mf.path:
-                            image_mods.FileManager.delete_file(mf.path.name)
-                        mf.delete()
+                    image_ids_to_keep = []
                     for picture_node in event_node.findall('%(prefix)sPicture' % self.helper_dict):
                         image_url = self.get_child_text(picture_node, 'Url')
-                        mf = EventImage(event=event)
+
+                        image_mapper = None
+                        try:
+                            # get image model instance from saved mapper
+                            image_mapper = self.service.objectmapper_set.get(
+                                external_id=image_url,
+                                content_type__app_label="productions",
+                                content_type__model="eventimage",
+                            )
+                        except models.ObjectDoesNotExist:
+                            # or create a new exhibition and then create a mapper
+                            mf = EventImage(event=event)
+                        else:
+                            mf = image_mapper.content_object
+                            image_ids_to_keep.append(mf.pk)
+                            continue
+
                         filename = image_url.split("/")[-1]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
@@ -967,6 +1015,7 @@ class ImportFromCulturebaseBase(object):
                             else:
                                 mf.copyright_restrictions = "protected"
                             mf.save()
+                            image_ids_to_keep.append(mf.pk)
                             try:
                                 file_description = FileDescription.objects.filter(
                                     file_path=mf.path,
@@ -980,7 +1029,27 @@ class ImportFromCulturebaseBase(object):
                             file_description.description_en = self.get_child_text(picture_node, 'Description', Language="en")
                             file_description.author = self.get_child_text(picture_node, 'Photographer')
                             file_description.save()
-                            #time.sleep(1)
+
+                            if not image_mapper:
+                                image_mapper = ObjectMapper(
+                                    service=self.service,
+                                    external_id=image_url,
+                                )
+                                image_mapper.content_object = mf
+                                image_mapper.save()
+
+                    for mf in event.eventimage_set.exclude(pk__in=image_ids_to_keep):
+                        if mf.path:
+                            # remove the file from the file system
+                            image_mods.FileManager.delete_file(mf.path.name)
+                        # delete image mapper
+                        self.service.objectmapper_set.filter(
+                            object_id=mf.pk,
+                            content_type__app_label="productions",
+                            content_type__model="eventimage",
+                        ).delete()
+                        # delete image model instance
+                        mf.delete()
 
                 venue_node = event_node.find('%(prefix)sVenue' % self.helper_dict)
                 if venue_node is not None:
