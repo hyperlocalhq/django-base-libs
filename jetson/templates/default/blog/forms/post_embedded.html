@@ -1,0 +1,86 @@
+{% load base_tags i18n auth_extended blog %}
+
+<div class="first-item-txt">	    
+    <form action="" method="post">
+        {% if form_preview %}
+            <div class="preview">
+                <div class="headline"><h3>{{ form.title.data }}</h3></div>
+                    
+                {{ form.body.data|disarm_user_input }}
+                
+                {% if form.tags.data %}
+	                <div class="post-meta">
+	                    <span>{% trans "Tags" %}: </span> 
+	                    {{ form.tags.data }}
+	                </div>
+                {% endif %}
+                	<input type="submit" class="button_good" id="post" name="{{ post_stage_field }}" value={% if post.is_draft %}'{% filter upper %}{% trans "Save as Draft" %}{% endfilter %}'{% else %}'{% filter upper %}{% trans "Save" %}{% endfilter %}'{% endif %}/>
+            </div>
+		{% endif %}
+            
+        <div class="field_layout">
+	        <fieldset class="fieldset_end">
+	            <legend>
+	                {% ifequal form_action "new" %}
+	                    {% trans "Post To the Blog" %}
+	                {% else %}
+	                    {% ifequal form_action "edit" %}
+	                        {% trans "Edit Post" %}
+	                    {% endifequal %}	                
+	                {% endifequal %}	                
+	            </legend>
+	            <ul>
+	                <li>
+	                    {{ form.title.label_tag }}
+	                    {{ form.title }}
+	                    {{ form.title.help_text_tag }}
+	                    {{ form.title.error_tag }}
+	                </li>
+	                <li>
+	                    {{ form.body.label_tag }}
+	                    {{ form.body }}
+	                    {{ form.body.help_text_tag }}	                    
+	                    {{ form.body.error_tag }}
+	                </li>
+	                <li>
+	                    {{ form.tags.label_tag }}
+	                    {{ form.tags }}
+	                    {{ form.tags.help_text_tag }}	                    
+	                    {{ form.tags.error_tag }}
+	                </li>
+	                <li>
+	                    {{ form.enable_comment_form }}
+	                    {{ form.enable_comment_form.label_tag }}
+	                    {{ form.enable_comment_form.error_tag }}
+	                </li>
+	                <li>
+	                    {{ form.status.label_tag }}
+	                    {{ form.status }}
+	                    {{ form.status.error_tag }}
+	                </li>
+	                <li>
+	                    {{ form.published_from.label_tag }}
+	                    {{ form.published_from }}
+	                    {{ form.published_from.help_text_tag }}	                    
+	                    {{ form.published_from.error_tag }}
+	                </li>
+                    <li>
+	                    {{ form.published_till.label_tag }}
+	                    {{ form.published_till }}
+	                    {{ form.published_till.help_text_tag }}	                    
+	                    {{ form.published_till.error_tag }}
+	                </li>
+	            </ul>
+	        </fieldset>
+	        
+	        <div class="buttons space_correction_more">
+		        <input id="id_cancel" type="submit" class="button_bad" name="{{ cancel_stage_field }}" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
+		        <input id="id_preview" class="button_good" type="submit" name="{{ preview_stage_field }}" value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}" />
+		        {% comment %}this one is used for security reasons -->{% endcomment %}
+		        <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
+		        <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/blog/{% endif %}" />
+		    </div>
+        </div>
+    </form>
+</div>
+

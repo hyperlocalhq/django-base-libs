@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load base_tags i18n infoblocks %}
+
+{% block title %}{% trans "Contact us" %}{% endblock %}
+
+{% block content %}
+    {% infoblock "contact_info" %}   
+	<form action="" method="post">
+        <div>
+            {% spaceless %} 
+            <fieldset>
+                <legend>{% trans "Contact us" %}</legend>
+                <ul>
+                    <li>
+                        {{ form.sender_name.label_tag }}
+                        {{ form.sender_name }}
+                        {{ form.sender_name.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.sender_email.label_tag }}
+                        {{ form.sender_email }}
+                        {{ form.sender_email.error_tag }}
+                    </li>
+                    {% if form.contact_form_category %}
+                        <li>
+                            {{ form.contact_form_category.label_tag }}
+                            {{ form.contact_form_category }}
+                            {{ form.contact_form_category.error_tag }}
+                        </li>
+                    {% endif %}
+                    <li>
+                        {{ form.subject.label_tag }}
+                        {{ form.subject }}
+                        {{ form.subject.error_tag }}
+                    </li>
+                
+                    <li>
+                        {{ form.body.label_tag }}
+                        {{ form.body }}
+                        {{ form.body.error_tag }}
+                        {{ form.prevent_spam }}
+                        {{ form.prevent_spam.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            {% endspaceless %}
+            <div class="buttons">
+                <input class="button_good" id="id_submit" type="submit" value="{% filter upper %}{% trans "Submit" %}{% endfilter %}"/>
+            </div>
+        </div>
+    </form>
+{% endblock %}

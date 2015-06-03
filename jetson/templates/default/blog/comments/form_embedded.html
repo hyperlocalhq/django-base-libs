@@ -1,0 +1,82 @@
+{% load base_tags babel i18n image_modifications %}
+
+<form action="{{ current_post.get_url }}comments/add/" method="post">{% csrf_token %}
+    <div class="field_layout">
+        <fieldset class="fieldset_end">
+            <legend>{% trans "Post a comment" %}</legend>
+            <ul>
+	    	{% if comment_form.is_valid %}
+            <li>
+		        <div class="preview">
+		            <div>
+		                {% if comment.user %}
+		                    <span class="no_link">
+		                        {{ comment.user.username }}
+		                    </span><br />
+		                {% else %}
+		                    <span class="no_link">
+		                        {{ comment.name }}
+		                    </span><br />
+		                {% endif %}
+		                 {{ comment.submit_date|datefmt:"long" }}
+		             </div>
+		             <div class="post_comment">
+		           {{ comment.comment|disarm_user_input }}
+		           </div>
+		            <div>
+		                <input type="submit" id="but_post" class="button_good" name="post" value='{% filter upper %}{% trans "Post public comment" %}{% endfilter %}' />
+		            </div>
+		        </div>
+            </li>
+	        {% endif %}
+		
+			{% if not request.user.is_authenticated %}
+				<li>
+					<label>
+                        {{ comment_form.name.label }}*
+                    </label>
+                    {{ comment_form.name }}
+					{{ comment_form.name.error_tag }}
+				</li>
+				<li>
+                    <label>
+                    {{ comment_form.email.label }}*
+                    </label>
+					{{ comment_form.email }}
+					{{ comment_form.email.error_tag }}
+				</li>
+				<li>
+					<label>
+                        {{ comment_form.url_link.label }}
+                    </label>
+                    {{ comment_form.url_link }}
+					{{ comment_form.url_link.error_tag }}
+				</li>
+			{% endif %}
+			
+            <li>
+        		<label>
+                    {{ comment_form.comment.label }}* 
+                </label>
+                {{ comment_form.comment }}
+				{{ comment_form.comment.error_tag }}
+            </li>
+            	{{ comment_form.prevent_spam.error_tag }}
+        </ul>
+    </fieldset>
+    {% comment %} Hidden Field for spam protection {% endcomment %}
+    {{ comment_form.prevent_spam }}
+    <span id="last">*{% trans "required fields" %}</span>
+    <div class="buttons">
+        <input type="hidden" class="form_hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}" />
+        <input type="hidden" class="form_hidden" name="options" value="{{ options }}" />
+        <input type="hidden" class="form_hidden" name="target" value="{{ target }}" />
+        <input type="hidden" class="form_hidden" name="gonzo" value="{{ hash }}" />
+        {% if comment_form.is_valid %}
+            <input type="button" id="but_cancel" class="button_bad" value='{% filter upper %}{% trans "Cancel" %}{% endfilter %}' />
+        {% endif %}
+        <input type="submit" id="but_preview" class="button_good" name="preview" value="{% filter upper %}{% trans "Preview" %}{% endfilter %}"/>
+    </div>
+    </div>	
+</form>
+

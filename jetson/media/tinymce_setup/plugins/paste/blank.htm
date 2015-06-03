@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>blank_page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="css/blank.css" rel="stylesheet" type="text/css" />
+<base target="_self" />
+<script type="text/javascript">
+    domain_bits = document.location.hostname.split(".");
+    if (!(domain_bits.length==4 && !isNaN(domain_bits[3]))) {
+        document.domain = domain_bits.slice(-2).join(".");
+    }
+
+function init() {
+	if (parent.tinymce.isIE)
+		document.body.contentEditable = true;
+	else
+		document.designMode = 'on';
+
+	parent.initIframe(document);
+	window.focus();
+}
+</script>
+</head>
+<body onload="init();">
+
+</body>
+</html>

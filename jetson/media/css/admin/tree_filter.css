@@ -1,0 +1,67 @@
+.tree_filter li.filtered_out div a
+{
+	color: #888888;
+	text-decoration:line-through;
+}
+
+.tree_filter li div {
+	margin-bottom: 1px;
+}
+.tree_filter li div .expander {
+	background-image: url(../../img/admin/bullet_toggle_plus_small.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	padding: 0;
+	zoom: 1; /* Hack for IE, works in IE7, IE6 or older's behavior is unchecked */
+}
+
+.tree_filter li div .expander:hover {
+	background-image: url(../../img/admin/bullet_toggle_plus_hover_small.png);
+}
+
+.tree_filter li.expanded div .expander {
+	background-image: url(../../img/admin/bullet_toggle_minus_small.png);
+}
+
+.tree_filter li.expanded div .expander:hover {
+	background-image: url(../../img/admin/bullet_toggle_minus_hover_small.png);
+}
+
+.tree_filter_buttons div {
+	margin-top: 2px;
+	padding-left: 12px;
+	margin-bottom: -6px;
+}
+
+.tree_filter_buttons div div {
+	display: inline;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+.tree_filter_buttons span{
+	background-position: left center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	margin-left: 4px;
+	padding-left: 13px;
+	zoom: 1; /* Hack for IE, works in IE7, IE6 or older's behavior is unchecked */
+}
+
+.tree_filter_buttons .expand_all {
+	background-image: url(../../img/admin/bullet_toggle_plus.png);
+}
+
+.tree_filter_buttons .expand_all:hover {
+	background-image: url(../../img/admin/bullet_toggle_plus_hover.png);
+}
+
+.tree_filter_buttons .collapse_all {
+	background-image: url(../../img/admin/bullet_toggle_minus.png);
+}
+
+.tree_filter_buttons .collapse_all:hover {
+	background-image: url(../../img/admin/bullet_toggle_minus_hover.png);
+}
+

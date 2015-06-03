@@ -1,0 +1,72 @@
+
+#cchangelist-filter ul li {display:block; margin:0; padding:1px 0 1px 10px; color:#aaa; line-height:13px !important; background:#f9f9f9}
+
+.tree_table tr th {
+	padding-left: 8px;
+}
+
+.tree_table tr.filtered_out
+{
+	filter:alpha(opacity=60); 
+	-moz-opacity: 0.6; 
+	opacity: 0.6;
+}
+
+.tree_table tr th .expander {
+	background-image: url(../../img/admin/bullet_toggle_plus.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	padding: 0;
+	zoom: 1; /* Hack for IE, works in IE7, IE6 or older's behavior is unchecked */
+}
+
+.tree_table tr th .draggable {
+	background-image: url(../../img/admin/cursor_move_small.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	padding: 0;
+}
+
+.tree_table tr.collapsed th .expander {
+	background-image: url(../../img/admin/bullet_toggle_plus.png);
+}
+
+.tree_table tr.expanded th .expander {
+	background-image: url(../../img/admin/bullet_toggle_minus.png);
+}
+
+/* this class is used for table rows when hovered */
+.showHoverHandle {
+	background-image: url(../../img/admin/dnd_hover.png);
+}
+
+/* this class is used for all children of a table row when hovered or dragged */
+.showHoverHandleChildren {
+	background-image: url(../../img/admin/dnd_hover_children.png);
+}
+
+/* this class marks a drop row that the target should be inserted before the row */
+.showDragHandleBefore {
+	background-image: url(../../img/admin/arrow-up.gif);
+	background-repeat: no-repeat;
+	background-position: left top;	
+}
+
+/* this class marks a drop row that the target should be inserted after the row */
+.showDragHandleAfter {
+	background-image: url(../../img/admin/arrow-down.gif);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+
+/* this class marks a drop row that the target should be inserted inside the row */
+.showDragHandleInside {
+	background-color: #00FF00
+	background-repeat: no-repeat;
+}
+
+.markDirty {
+	background-color: #FFFFDD
+}

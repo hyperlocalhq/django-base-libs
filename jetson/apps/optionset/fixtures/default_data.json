@@ -1,0 +1,749 @@
+[
+    {
+        "pk": 1, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Herr", 
+            "gender": "M", 
+            "sort_order": 0, 
+            "slug": "mr", 
+            "title": "Mr."
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Frau", 
+            "gender": "F", 
+            "sort_order": 1, 
+            "slug": "ms", 
+            "title": "Mrs./Ms."
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Dr.", 
+            "gender": "", 
+            "sort_order": 3, 
+            "slug": "dr", 
+            "title": "Dr."
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Prof.", 
+            "gender": "", 
+            "sort_order": 4, 
+            "slug": "prof", 
+            "title": "Prof."
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Herr Dr.", 
+            "gender": "M", 
+            "sort_order": 5, 
+            "slug": "mr-dr", 
+            "title": "Mr. Dr."
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Frau Dr.", 
+            "gender": "F", 
+            "sort_order": 6, 
+            "slug": "ms-dr", 
+            "title": "Ms. Dr."
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Herr Prof.", 
+            "gender": "M", 
+            "sort_order": 7, 
+            "slug": "mr-prof", 
+            "title": "Mr. Prof."
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Frau Prof.", 
+            "gender": "F", 
+            "sort_order": 8, 
+            "slug": "ms-prof", 
+            "title": "Ms. Prof."
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Herr Prof. Dr.", 
+            "gender": "M", 
+            "sort_order": 9, 
+            "slug": "mr-prof-dr", 
+            "title": "Mr. Prof. Dr."
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "optionset.prefix", 
+        "fields": {
+            "title_de": "Frau Prof. Dr.", 
+            "gender": "F", 
+            "sort_order": 10, 
+            "slug": "ms-prof-dr", 
+            "title": "Ms. Prof. Dr."
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "optionset.salutation", 
+        "fields": {
+            "title_de": "Sehr geehrte/r [Vorname] [Nachname]", 
+            "title": "Dear [first] [last]", 
+            "template_de": "Sehr geehrte{% if not person.gender %}/r{% endif %}{% ifequal person.gender 'M' %}r{% endifequal %} {{ person.get_first_name }} {{ person.get_last_name }}", 
+            "sort_order": 0, 
+            "template": "Dear {{ person.get_first_name }} {{ person.get_last_name }}", 
+            "slug": "dear-first-last"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "optionset.salutation", 
+        "fields": {
+            "title_de": "Hallo [Vorname]!", 
+            "title": "Hello [first]!", 
+            "template_de": "Hallo {{ person.get_first_name }}!", 
+            "sort_order": 1, 
+            "template": "Hallo {{ person.get_first_name }}!", 
+            "slug": "hello-first"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "optionset.salutation", 
+        "fields": {
+            "title_de": "Sehr geehrte/r [Anrede/Titel] [Vorname] [Nachname]", 
+            "title": "Dear [prefix] [first] [last]", 
+            "template_de": "Sehr geehrte{% if not person.gender %}/r{% endif %}{% ifequal person.gender 'M' %}r{% endifequal %} {{ person.prefix }} {{ person.get_first_name }} {{ person.get_last_name }}", 
+            "sort_order": 2, 
+            "template": "Dear {{ person.prefix }} {{ person.user.first_name }} {{ person.user.last_name }}", 
+            "slug": "dear-prefix-first-last"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "optionset.salutation", 
+        "fields": {
+            "title_de": "Sehr geehrte/r [Anrede/Titel] [Nachname]", 
+            "title": "Dear [prefix] [last]", 
+            "template_de": "Sehr geehrte{% if not person.gender %}/r{% endif %}{% ifequal person.gender 'M' %}r{% endifequal %} {{ person.prefix }} {{ person.get_last_name }}", 
+            "sort_order": 3, 
+            "template": "Dear {{ person.prefix }} {{ person.user.last_name }}", 
+            "slug": "dear-prefix-last"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "optionset.salutation", 
+        "fields": {
+            "title_de": "Sehr geehrte Damen und Herren", 
+            "title": "Dear Sir or Madam", 
+            "template_de": "Sehr geehrte Damen und Herren", 
+            "sort_order": 100, 
+            "template": "Dear Sir or Madam", 
+            "slug": "dear-sir-or-madam"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "optionset.individuallocationtype", 
+        "fields": {
+            "title_de": "Gesch\u00e4ftlich", 
+            "sort_order": 0, 
+            "slug": "work", 
+            "title": "Work"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "optionset.individuallocationtype", 
+        "fields": {
+            "title_de": "Privat", 
+            "sort_order": 1, 
+            "slug": "home", 
+            "title": "Home"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "optionset.individuallocationtype", 
+        "fields": {
+            "title_de": "Standard", 
+            "sort_order": 3, 
+            "slug": "main", 
+            "title": "Main"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "optionset.individuallocationtype", 
+        "fields": {
+            "title_de": "Sonstige", 
+            "sort_order": 100, 
+            "slug": "other", 
+            "title": "Other"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "optionset.institutionallocationtype", 
+        "fields": {
+            "title_de": "Hauptsitz", 
+            "sort_order": 0, 
+            "slug": "main", 
+            "title": "Main"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "optionset.institutionallocationtype", 
+        "fields": {
+            "title_de": "Niederlassung", 
+            "sort_order": 1, 
+            "slug": "branch", 
+            "title": "Branch"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "optionset.institutionallocationtype", 
+        "fields": {
+            "title_de": "Sonstige", 
+            "sort_order": 100, 
+            "slug": "other", 
+            "title": "Other"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "optionset.phonetype", 
+        "fields": {
+            "title_de": "Durchwahl", 
+            "vcard_name": "voice", 
+            "sort_order": 0, 
+            "slug": "direct-extension", 
+            "title": "Direct Extension"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "optionset.phonetype", 
+        "fields": {
+            "title_de": "Hotline", 
+            "vcard_name": "voice", 
+            "sort_order": 0, 
+            "slug": "hotline", 
+            "title": "Hotline"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "optionset.phonetype", 
+        "fields": {
+            "title_de": "Telefon", 
+            "vcard_name": "voice", 
+            "sort_order": 0, 
+            "slug": "phone", 
+            "title": "Phone"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "optionset.phonetype", 
+        "fields": {
+            "title_de": "Zentrale", 
+            "vcard_name": "voice", 
+            "sort_order": 0, 
+            "slug": "reception", 
+            "title": "Reception"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "optionset.phonetype", 
+        "fields": {
+            "title_de": "Fax", 
+            "vcard_name": "fax", 
+            "sort_order": 3, 
+            "slug": "fax", 
+            "title": "Fax"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "optionset.phonetype", 
+        "fields": {
+            "title_de": "Mobil", 
+            "vcard_name": "cell", 
+            "sort_order": 4, 
+            "slug": "mobile", 
+            "title": "Mobile"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "optionset.phonetype", 
+        "fields": {
+            "title_de": "Sonstige", 
+            "vcard_name": "voice", 
+            "sort_order": 100, 
+            "slug": "other", 
+            "title": "Other"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "optionset.emailtype", 
+        "fields": {
+            "title_de": "Email", 
+            "sort_order": 0, 
+            "slug": "email", 
+            "title": "Email"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Web", 
+            "sort_order": 0, 
+            "slug": "web", 
+            "title": "Web"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Blog", 
+            "sort_order": 1, 
+            "slug": "blog", 
+            "title": "Blog"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Portfolio", 
+            "sort_order": 2, 
+            "slug": "portfolio", 
+            "title": "Portfolio"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Profil", 
+            "sort_order": 3, 
+            "slug": "profile", 
+            "title": "Profile"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Shop", 
+            "sort_order": 4, 
+            "slug": "shop", 
+            "title": "Shop"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "News", 
+            "sort_order": 5, 
+            "slug": "news", 
+            "title": "News"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "RSS Feed", 
+            "sort_order": 10, 
+            "slug": "feed", 
+            "title": "RSS Feed"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Kalender", 
+            "sort_order": 11, 
+            "slug": "calendar", 
+            "title": "Calendar"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Xing", 
+            "sort_order": 20, 
+            "slug": "xing", 
+            "title": "Xing"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "LinkedIn", 
+            "sort_order": 21, 
+            "slug": "linkedin", 
+            "title": "LinkedIn"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Myspace", 
+            "sort_order": 22, 
+            "slug": "myspace", 
+            "title": "Myspace"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Facebook", 
+            "sort_order": 23, 
+            "slug": "facebook", 
+            "title": "Facebook"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Virb", 
+            "sort_order": 24, 
+            "slug": "virb", 
+            "title": "Virb"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Ning", 
+            "sort_order": 25, 
+            "slug": "ning", 
+            "title": "Ning"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Wikipedia", 
+            "sort_order": 26, 
+            "slug": "wikipedia", 
+            "title": "Wikipedia"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Digg", 
+            "sort_order": 27, 
+            "slug": "digg", 
+            "title": "Digg"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Reddit", 
+            "sort_order": 28, 
+            "slug": "reddit", 
+            "title": "Reddit"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Pownce", 
+            "sort_order": 29, 
+            "slug": "pownce", 
+            "title": "Pownce"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Twitter", 
+            "sort_order": 29, 
+            "slug": "twitter", 
+            "title": "Twitter"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "del.icio.us", 
+            "sort_order": 30, 
+            "slug": "delicious", 
+            "title": "del.icio.us"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Mister Wong", 
+            "sort_order": 31, 
+            "slug": "mister-wong", 
+            "title": "Mister Wong"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "flickr", 
+            "sort_order": 32, 
+            "slug": "flickr", 
+            "title": "flickr"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Youtube", 
+            "sort_order": 33, 
+            "slug": "youtube", 
+            "title": "Youtube"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Sevenload", 
+            "sort_order": 34, 
+            "slug": "sevenload", 
+            "title": "Sevenload"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Photobucket", 
+            "sort_order": 35, 
+            "slug": "photobucket", 
+            "title": "Photobucket"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Last.FM", 
+            "sort_order": 36, 
+            "slug": "lastfm", 
+            "title": "Last.FM"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Plazes", 
+            "sort_order": 40, 
+            "slug": "plazes", 
+            "title": "Plazes"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Dopplr", 
+            "sort_order": 41, 
+            "slug": "dopplr", 
+            "title": "Dopplr"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "qype", 
+            "sort_order": 42, 
+            "slug": "qype", 
+            "title": "qype"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Lokalisten", 
+            "sort_order": 43, 
+            "slug": "lokalisten", 
+            "title": "Lokalisten"
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Etsy", 
+            "sort_order": 44, 
+            "slug": "etsy", 
+            "title": "Etsy"
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "ebay", 
+            "sort_order": 45, 
+            "slug": "ebay", 
+            "title": "ebay"
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Amazon", 
+            "sort_order": 46, 
+            "slug": "amazon", 
+            "title": "Amazon"
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "StudiVZ", 
+            "sort_order": 47, 
+            "slug": "studivz", 
+            "title": "StudiVZ"
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "MeinVZ", 
+            "sort_order": 48, 
+            "slug": "meinvz", 
+            "title": "MeinVZ"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "optionset.urltype", 
+        "fields": {
+            "title_de": "Sonstige", 
+            "sort_order": 100, 
+            "slug": "other", 
+            "title": "Other"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "optionset.imtype", 
+        "fields": {
+            "title_de": "", 
+            "sort_order": 0, 
+            "slug": "skype", 
+            "title": "Skype"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "optionset.imtype", 
+        "fields": {
+            "title_de": "", 
+            "sort_order": 1, 
+            "slug": "aim", 
+            "title": "AIM"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "optionset.imtype", 
+        "fields": {
+            "title_de": "", 
+            "sort_order": 2, 
+            "slug": "yahoo", 
+            "title": "Yahoo!"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "optionset.imtype", 
+        "fields": {
+            "title_de": "", 
+            "sort_order": 3, 
+            "slug": "msn", 
+            "title": "MSN"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "optionset.imtype", 
+        "fields": {
+            "title_de": "", 
+            "sort_order": 4, 
+            "slug": "icq", 
+            "title": "ICQ"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "optionset.imtype", 
+        "fields": {
+            "title_de": "", 
+            "sort_order": 5, 
+            "slug": "jabber", 
+            "title": "Jabber"
+        }
+    }
+]

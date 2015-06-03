@@ -1,0 +1,60 @@
+fieldset.collapse ul.multilingual-langs {
+    display: block;
+    float: right;
+    position: relative;
+    top:-28px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+}
+
+.multilingual-langs li {
+	float: left;
+	display: block;
+	list-style-type: none;
+}
+
+.multilingual-langs a {
+	display: block;
+	width: 18px;
+	height: 26px;
+	overflow: hidden;
+	position: relative;
+	padding-left: 10px;
+}
+
+.multilingual-langs a span {
+	display: none;
+}
+
+
+
+.multilingual-langs a.lang-de {
+	background: url(../../img/icons/lang-de-inactive.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-de:hover,
+.multilingual-language-de .multilingual-langs a.lang-de {
+	background: url(../../img/icons/lang-de.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-en {
+	background: url(../../img/icons/lang-en-inactive.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-en:hover,
+.multilingual-language-en .multilingual-langs a.lang-en {
+	background: url(../../img/icons/lang-en.png) no-repeat center center;
+}
+
+
+
+fieldset.multilingual-set-container fieldset {
+    border: 0;
+    margin: 0;
+}
+
+fieldset.multilingual-set-container fieldset.collapse h2.collapse-toggle {
+	display: none !important;
+}
+

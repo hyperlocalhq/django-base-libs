@@ -1,0 +1,440 @@
+{% extends "admin/change_form.html" %}
+
+<!-- LOADING -->
+{% load base_tags i18n auth_extended adminmedia extended_admin compressed_jetson %}
+{% load admin_modify grp_tags %}
+
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ jetson_media_url }}js/core.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectBox.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectFilter2.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/DateTimeShortcuts.js"></script>
+    
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}filebrowser/js/AddFileBrowser.js"></script>
+    {% compressed_jetson_js "admin_person_change" %}
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/URLField.js"></script>
+    
+    <script type="text/javascript" src="{% admin_media_prefix %}js/collapse.min.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/inlines.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        (function($) {
+            $(document).ready(function() {
+                grappelli.initDateAndTimePicker();
+                $("div.container-flexible div.group").grp_collapsible_group();
+                $("div#content .collapse").grp_collapsible({
+                    on_init: function(elem, options) {
+                        // open collapse (and all collapse parents) in case of errors
+                        if (elem.find("ul.errorlist").length > 0) {
+                            elem.removeClass("closed")
+                                .addClass("open");
+                            elem.parents(".collapse")
+                                .removeClass("closed")
+                                .addClass("open");
+                        }
+                    }
+                });
+            });
+        })(django.jQuery);
+    </script>
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS -->
+{% block bodyclass %}change-form person{% endblock %}
+{% block content-class %}content-flexible{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumbs %}
+    {% if not is_popup %}
+        <div id="breadcrumbs">
+             <a href="../../../">{% trans "Home" %}</a> &rsaquo;
+             <a href="../../">{{ "People"|app_verbose_name }}</a> &rsaquo; 
+             <a href="../">{% trans "Persons" %}</a> &rsaquo; 
+             {% if original %}{{ original|truncatewords:"18" }}{% else %}{% trans "Add" %} {% trans "Person" %}{% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+<!-- OBJECT TOOLS -->
+{% block object-tools %}
+    {% if change %}
+        {% if not is_popup %}
+            <ul class="tools">
+                <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+                {% if original.row_level_permissions %}
+                    {% if_has_perm "auth.change_rowlevelpermission" original %}
+                        <li><a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a></li>
+                    {% end_if_has_perm %}
+                {% endif %}
+                {% if original.get_url_path %}
+                    <li><a href="{{ original.get_url_path }}" class="viewsitelink">{% trans "View on site" %}</a></li>
+                {% endif%}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+    <div id="content-main" class="container-flexible">
+        <div class="form-container">
+            <form action="" method="post" id="person_form">
+                <div>
+                    <!-- Popup Hidden Field -->
+                    {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+                    
+                    <!-- Errors -->
+                    {% if form.errors %}
+                        <p class="errornote">
+                        {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                        </p>
+                        {{ form.non_field_errors }}
+                    {% endif %}
+                    
+                    <!-- Fieldsets -->
+                    <fieldset class="module aligned collapse open">
+                        <h2>{% trans "Person" %}</h2>
+                        {{ form.user_id }}
+                        <div class="row{% if form.prefix.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_prefix"{% if form.prefix.field.required %} class="required"{% endif %}>{% trans "Prefix" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.prefix }}
+                                    {{ form.prefix.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.first_name.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_first_name"{% if form.first_name.field.required %} class="required"{% endif %}>{% trans "First name" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.first_name }}
+                                    {{ form.first_name.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.last_name.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_last_name"{% if form.last_name.field.required %} class="required"{% endif %}>{% trans "Last name" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.last_name }}
+                                    {{ form.last_name.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.salutation.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_salutation"{% if form.salutation.field.required %} class="required"{% endif %}>{% trans "Salutation" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.salutation }}
+                                    {{ form.salutation.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.nickname.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_nickname"{% if form.nickname.field.required %} class="required"{% endif %}>{% trans "Nickname" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.nickname }}
+                                    {{ form.nickname.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.birthname.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_birthname"{% if form.birthname.field.required %} class="required"{% endif %}>{% trans "Birth / Maiden Name" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.birthname }}
+                                    {{ form.birthname.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.individual_type.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_individual_type"{% if form.individual_type.field.required %} class="required"{% endif %}>{% trans "Individual type" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.individual_type }}
+                                    {{ form.individual_type.errors }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="module aligned collapse closed">
+                        <h2 class="collapse-handler">{% trans "User Account" %}</h2>
+                        <div class="row{% if form.username.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_username"{% if form.username.field.required %} class="required"{% endif %}>{% trans "Username" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.username }}
+                                    {{ form.username.errors }}
+                                    <p class="help">{% trans "Required. 30 characters or fewer. Alphanumeric characters only (letters, digits and underscores)." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.email.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_email"{% if form.email.field.required %} class="required"{% endif %}>{% trans "E-mail address" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.email }}
+                                    {{ form.email.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        {% if change %}
+                        <div class="row{% if form.old_password.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_old_password"{% if form.old_password.field.required %} class="required"{% endif %}>{% trans "Old password" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.old_password }}
+                                    {{ form.old_password.errors }}
+                                    <p class="help">{% trans "Enter the old password only if you want to change it" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="row{% if form.new_password.errors or form.new_password_confirm.errors %} errors{% endif %}">
+                            <div class="cell">
+                                <div class="column span-4"><label for="id_new_password"{% if form.new_password.field.required %} class="required"{% endif %}>{% if change %}{% trans "New password" %}{% else %}{% trans "Password" %}{% endif %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.new_password }}
+                                    {{ form.new_password.errors }}
+                                </div>
+                            </div>
+                            <div class="cell">
+                                <div class="column span-4"><label for="id_new_password_confirm"{% if form.new_password_confirm.field.required %} class="required"{% endif %}>{% if change %}{% trans "Confirm new password" %}{% else %}{% trans "Confirm password" %}{% endif %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.new_password_confirm }}
+                                    {{ form.new_password_confirm.errors }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div id="individualcontact_set-group" class="group collapse close">
+                        <h2>{% trans "Contacts" %}</h2>
+                        <ul class="tools">
+                            <li class="open-handler-container"><a href="javascript://" class="icon open-handler" title="{% trans 'Open All Items' %}"></a></li>
+                            <li class="close-handler-container"><a href="javascript://" class="icon close-handler" title="{% trans 'Close All Items' %}"></a></li>
+                            <li class="add-handler-container"><a href="javascript://" class="icon add-handler" title="{% trans 'Add Item' %}"> </a></li>
+                        </ul>
+                        {{ contact_formset.management_form }}
+                        {{ contact_formset.non_form_errors }}
+                        <!-- container -->
+                        <div id="contact_container" class="items">
+                        {% for contact_form in contact_formset.forms %}
+                            {% with forloop.counter0 as prefix %}
+                                {% with forloop.counter as counter %}
+                                    {% include "extendedadmin/individual_contact_change.html" %}
+                                {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                        {% with contact_formset.empty_form as contact_form %}
+                            {% with "__prefix__" as prefix %}
+                                {% with 0 as counter %}
+                                    {% include "extendedadmin/individual_contact_change.html" %}
+                                {% endwith %}
+                            {% endwith %}
+                        {% endwith %}
+                        </div>
+                        <div class="module add-item">
+                            <a class="add-handler" href="javascript://">{% trans "Add Contact" %}</a>
+                            <ul class="tools">
+                                <li class="add-handler-container"><a title="{% trans "Add Contact" %}" class="icon add-handler" href="javascript://"> </a></li>
+                            </ul><br clear="all">
+                        </div>
+                    </div>
+                    
+                    {% include "extendedadmin/includes/fieldset_details.html" %}
+                    
+                    {% include "extendedadmin/includes/fieldset_categories.html" %}
+                    
+                    <fieldset class="module aligned collapse closed">
+                        <h2 class="collapse-handler">{% trans "Personal Information" %}</h2>
+                        <div class="row gender{% if form.gender.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_gender_0"{% if form.gender.field.required %} class="required"{% endif %}>{% trans "Gender" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.gender }}
+                                    {{ form.gender.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row birthday {% if form.birthday_mm.errors or form.birthday_dd.errors or form.birthday_yyyy.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_birthday_yyyy"{% if form.birthday_yyyy.field.required %} class="required"{% endif %}>{% trans "Birthday" %}:</label></div>
+                                <div class="column span-flexible">
+                                    <span class="inline-fields">{{ form.birthday_dd }}</span>
+                                    <span class="inline-fields">{{ form.birthday_mm }}</span>
+                                    <span class="inline-fields">{{ form.birthday_yyyy }}</span>
+                                    {{ form.birthday_dd.errors }}
+                                    {{ form.birthday_mm.errors }}
+                                    {{ form.birthday_yyyy.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.nationality.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_nationality"{% if form.nationality.field.required %} class="required"{% endif %}>{% trans "Nationality" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.nationality }}
+                                    {{ form.nationality.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.degree.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_degree"{% if form.degree.field.required %} class="required"{% endif %}>{% trans "Academic Degree" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.degree }}
+                                    {{ form.degree.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.occupation.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_occupation"{% if form.occupation.field.required %} class="required"{% endif %}>{% trans "Current Occupation" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.occupation }}
+                                    {{ form.occupation.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.interests.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_interests"{% if form.interests.field.required %} class="required"{% endif %}>{% trans "Interests" %}:</label></div>
+                                <div class="column span-flexible">
+                                    {{ form.interests }}
+                                    {{ form.interests.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row{% if form.spoken_languages.errors %} errors{% endif %}">
+                            <div>
+                                <div class="column span-4"><label for="id_spoken_languages"{% if form.spoken_languages.field.required %} class="required"{% endif %}>{% trans "Spoken languages" %}:</label></div>
+                                <div class="column span-flexible">
+                                    <div class="many-to-many">{{ form.spoken_languages }}</div>
+                                    {{ form.spoken_languages.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                        addEvent(window, "load", function(e) { SelectFilter.init("id_spoken_languages", "{% trans "Spoken languages" %}", 0, "{{ jetson_media_url }}"); });
+                        </script>
+                        <fieldset class="module aligned nested">
+                            <h2>{% trans "Preferences" %}</h2>
+                            <div class="row{% if form.preferred_language.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_preferred_language"{% if form.preferred_language.field.required %} class="required"{% endif %}>{% trans "Preferred Language" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.preferred_language }}
+                                        {{ form.preferred_language.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.timezone.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_timezone"{% if form.timezone.field.required %} class="required"{% endif %}>{% trans "Current Timezone" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.timezone }}
+                                        {{ form.timezone.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="module aligned nested ceckbox-list collapse closed">
+                            <h2 class="collapse-handler">{% trans "Privacy Settings" %}</h2>
+                            <div class="row{% if form.display_birthday.errors or form.display_email.errors %} errors{% endif %}">
+                                <div class="cell">
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-6">
+                                        {{ form.display_birthday }}<label for="id_display_birthday" class="vCheckboxLabel{% if form.display_birthday.field.required %} required{% endif %}">{{ form.display_birthday.label }}</label>
+                                        {{ form.display_birthday.errors }}
+                                    </div>
+                                </div>
+                                <div class="cell">
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-flexible">
+                                        {{ form.display_email }}<label for="id_display_email" class="vCheckboxLabel{% if form.display_email.field.required %} required{% endif %}">{{ form.display_email.label }}</label>
+                                        {{ form.display_email.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.display_address.errors or form.display_phone.errors %} errors{% endif %}">
+                                <div class="cell">
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-6">
+                                        {{ form.display_address }}<label for="id_display_address" class="vCheckboxLabel{% if form.display_address.field.required %} required{% endif %}">{{ form.display_address.label }}</label>
+                                        {{ form.display_address.errors }}
+                                    </div>
+                                </div>
+                                <div class="cell">
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-flexible">
+                                        {{ form.display_phone }}<label for="id_display_phone" class="vCheckboxLabel{% if form.display_phone.field.required %} required{% endif %}">{{ form.display_phone.label }}</label>
+                                        {{ form.display_phone.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.display_fax.errors or form.display_mobile.errors %} errors{% endif %}">
+                                <div class="cell">
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-6">
+                                        {{ form.display_fax }}<label for="id_display_fax" class="vCheckboxLabel{% if form.display_fax.field.required %} required{% endif %}">{{ form.display_fax.label }}</label>
+                                        {{ form.display_fax.errors }}
+                                    </div>
+                                </div>
+                                <div class="cell">
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-flexible">
+                                        {{ form.display_mobile }}<label for="id_display_mobile" class="vCheckboxLabel{% if form.display_mobile.field.required %} required{% endif %}">{{ form.display_mobile.label }}</label>
+                                        {{ form.display_mobile.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.display_im.errors or form.display_username.errors %} errors{% endif %}">
+                                <div class="cell">
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-6">
+                                        {{ form.display_im }}<label for="id_display_im" class="vCheckboxLabel{% if form.display_im.field.required %} required{% endif %}">{{ form.display_im.label }}</label>
+                                        {{ form.display_im.errors }}
+                                    </div>
+                                </div>
+                                <div class="cell">
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-flexible">
+                                        {{ form.display_username }}<label for="id_display_username" class="vCheckboxLabel{% if form.display_username.field.required %} required{% endif %}">{{ form.display_username.label }}</label>
+                                        {{ form.display_username.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.allow_search_engine_indexing.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-flexible">
+                                        {{ form.allow_search_engine_indexing }}<label for="id_allow_search_engine_indexing" class="vCheckboxLabel{% if form.allow_search_engine_indexing.field.required %} required{% endif %}">{{ form.allow_search_engine_indexing.label }}</label>
+                                        {{ form.allow_search_engine_indexing.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </fieldset>
+                    {% include "extendedadmin/includes/fieldset_status.html" %}
+                    <!-- Submit-Row -->
+                    <div class="module footer">
+                        <ul class="submit-row">
+                            <li class="left delete-link-container"><a href="delete/" class="delete-link">Delete</a></li>
+                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save' %}" class="default" name="_save" /></li>
+                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" /></li>
+                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
