@@ -640,6 +640,9 @@ class ProductionLeadershipForm(autocomplete_light.ModelForm):
         if not cleaned.get('last_name') and not cleaned.get('person'):
             msg = _("Choose a person from the database or enter his name.")
             self._errors["person"] = self.error_class([msg])
+            self._errors["last_name"] = self.error_class([_('This field is required.')])
+            if not cleaned.get('first_name'):
+                self._errors["first_name"] = self.error_class([_('This field is required.')])
             del cleaned['last_name']
             del cleaned['person']
         return cleaned
@@ -729,6 +732,9 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
         if not cleaned.get('last_name') and not cleaned.get('person'):
             msg = _("Choose a person from the database or enter his name.")
             self._errors["person"] = self.error_class([msg])
+            self._errors["last_name"] = self.error_class([_('This field is required.')])
+            if not cleaned.get('first_name'):
+                self._errors["first_name"] = self.error_class([_('This field is required.')])
             del cleaned['last_name']
             del cleaned['person']
         return cleaned
@@ -877,6 +883,9 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
         if not cleaned.get('last_name') and not cleaned.get('person'):
             msg = _("Choose a person from the database or enter his name.")
             self._errors["person"] = self.error_class([msg])
+            self._errors["last_name"] = self.error_class([_('This field is required.')])
+            if not cleaned.get('first_name'):
+                self._errors["first_name"] = self.error_class([_('This field is required.')])
             del cleaned['last_name']
             del cleaned['person']
         return cleaned
