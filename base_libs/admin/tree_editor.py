@@ -256,9 +256,8 @@ class TreeEditor(admin.ModelAdmin):
         position = request.POST.get('position')
 
         if position in ('last-child', 'left'):
-            if "johnny" in django_settings.INSTALLED_APPS:
-                from johnny.cache import invalidate
-                invalidate(self.model)
+            import johnny
+            johnny.cache.invalidate(self.model)
             
             try:
                 self.model._tree_manager.move_node(cut_item, pasted_on, position)

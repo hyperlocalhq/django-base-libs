@@ -750,16 +750,6 @@ disarm_user_input.is_safe = True
 disarm_user_input = defaultfilters.stringfilter(disarm_user_input)
 register.filter('disarm_user_input', disarm_user_input)
 
-def humanize_url(url, letter_count):
-    letter_count = int(letter_count)
-    re_start = re.compile(r'^https?://')
-    re_end = re.compile(r'/$')
-    url = re_end.sub("", re_start.sub("", url))
-    if len(url) > letter_count:
-        url = url[:letter_count - 1] + u"…"
-    return url
-register.filter('humanize_url', humanize_url)
-
 def truncated_multiply(value, arg):
     """
     Multiplies the arg with the value and returns 

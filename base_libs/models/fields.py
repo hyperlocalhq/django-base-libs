@@ -348,7 +348,7 @@ class MultilingualTextField(ExtendedTextField):
                         self,
                         "%s_markup_type" % _language_field_name(_name, settings.LANGUAGE_CODE),
                         )
-                    if not field_value and not self._meta.get_field(_name).blank:
+                    if not field_value and not self._field.blank:
                         # No value set for mandatory field for the current language! Has the default language been changed recently?
                         return ""
                 

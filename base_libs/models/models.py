@@ -17,11 +17,9 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.template.defaultfilters import slugify
 from django.template.defaultfilters import escape
-from django.db.models.fields import NOT_PROVIDED
 
 from babel.numbers import format_currency
 
-from base_libs.models.fields import MultilingualProxy
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # needed for south to work
@@ -500,10 +498,6 @@ class SingleSiteContainerMixin(ObjectRelationMixin(), SingleSiteMixin, UrlMixin)
         self.site = Site.objects.get_current()
         self.save()
             
-    def create_for_site(self, site):
-        self.site = site
-        self.save()
-            
     class Meta:
         abstract = True  
         
@@ -619,10 +613,6 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
     def create_for_current_site(self):
         self.save()
         self.sites.add(Site.objects.get_current())
-
-    def create_for_site(self, site):
-        self.save()
-        self.sites.add(site)
 
 class RootDoesNotExist(Exception):
     pass
@@ -813,11 +803,11 @@ def SlugMixin(
     """
     
     slug_field = models.SlugField(
-        verbose_name=verbose_name,
-        max_length=max_length,
-        unique=unique and not unique_for,
-        **kwargs
-        )
+         verbose_name=verbose_name,
+         max_length=max_length,
+         unique=unique and not unique_for,
+         **kwargs
+         )
     
     class klass(BaseModel):
         def save(self, *args, **kwargs):
@@ -881,111 +871,6 @@ def SysnameMixin(**kwargs):
         class Meta:
             abstract = True
     return klass
-
-def MultilingualSlugMixin(
-        name="slug",
-        prepopulate_from=("title",),
-        proposal="",
-        separator="-",
-        verbose_name=_("Slug for URIs"),
-        max_length=255,
-        unique=True,
-        unique_for=(),
-        **kwargs
-        ):
-    """
-    returns a mixin class for a slug field used for URLs. 
-    This function is just a class generator
-    
-    Parameters:
-    name:               name of the slug field.
-    prepopulate_from:   a tuple of field names to prepopulate from if name is
-                        empty.
-    separator:          a symbol to separate different parts of the slug.
-    proposal:           a string or a callable taking model instance as 
-                        a parameter and returning a string with a proposed value
-    unique_for:         defines the tuple of fields for which the slug should be
-                        unique
-    The other parameters are as for a models.SlugField().
-    """
-    _blank = False
-    if "blank" in kwargs:
-        _blank = kwargs.pop("blank")
-    
-    class klass(BaseModel):
-        def save(self, *args, **kwargs):
-            for lang_code, lang_name in settings.LANGUAGES:
-                slug_field = self._meta.get_field("%s_%s" % (name, lang_code))
-                # PYTHON BUG? callable() doesn't recognize variables from outer scope
-                _proposal = proposal
-                if callable(_proposal):
-                    _proposal = _proposal(self)
-                slug = ""
-                slug_proposal = getattr(self, "%s_%s" % (name, lang_code), _proposal)
-                if not slug_field.blank or slug_proposal or prepopulate_from:
-                    if not slug_proposal or slug_field.default == slug_proposal:
-                        slug_proposal = separator.join([
-                            getattr(self, "%s_%s" % (fname, lang_code), "")
-                            for fname in prepopulate_from
-                            ])
-                        if slug_field.default != NOT_PROVIDED:
-                            slug_proposal = slug_proposal or slug_field.default
-                    slug_proposal = slugify(slug_proposal).replace(
-                        "-",
-                        separator,
-                        )[:slug_field.max_length-5]
-                    slug = slug_proposal
-                    if slug_field.unique or unique_for:
-                        qs = type(self)
-                        if unique_for:
-                            qs_filter = {}
-                            for field_name in unique_for:
-                                qs_filter[field_name] = getattr(self, field_name)
-                            qs = qs._default_manager.filter(**qs_filter)
-                        slug = get_unique_value(
-                            model=qs,
-                            proposal=slug_proposal,
-                            field_name="%s_%s" % (name, lang_code),
-                            instance_pk=self.pk,
-                            separator=separator,
-                            )
-                setattr(self, "%s_%s" % (name, lang_code), slug)
-            super(klass, self).save(*args, **kwargs)
-        save.alters_data = True
-        
-        class Meta:
-            abstract = True
-    
-    # localized fields
-    for lang_code, lang_name in settings.LANGUAGES:
-        if lang_code == settings.LANGUAGE_CODE:
-            blank = _blank
-        else:
-            blank = True
-        slug_field = models.SlugField(
-            verbose_name=verbose_name,
-            max_length=max_length,
-            unique=unique and not unique_for,
-            blank=blank,
-            **kwargs
-            )
-        klass.add_to_class("%s_%s" % (name, lang_code), slug_field)
-
-    # dummy field
-    kwargs['editable'] = False
-    kwargs['null'] = True
-    kwargs['blank'] = _blank
-    slug_field = models.SlugField(
-        verbose_name=verbose_name,
-        max_length=max_length,
-        unique=unique and not unique_for,
-        **kwargs
-        )
-    klass.add_to_class(name, slug_field)
-
-    setattr(klass, name, MultilingualProxy(slug_field))
-    
-    return klass    
 
 class ContentBaseMixinDraftManager(PublishingMixinDraftManager):
     def get_query_set(self):

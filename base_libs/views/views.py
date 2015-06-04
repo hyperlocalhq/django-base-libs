@@ -154,10 +154,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
             sysname=sysname,
             )
         if create:
-            if site:
-                obj.create_for_site(site)
-            else:
-                obj.save()
+            obj.create_for_current_site()
         return obj
         
     # at last filter the site
@@ -175,10 +172,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
                      sysname=sysname,
                      )
                 if create:
-                    if site:
-                        obj.create_for_site(site)
-                    else:
-                        obj.save()
+                    obj.create_for_current_site()
                 return obj
             else:
                 return qs.filter(site__isnull=True)[0]
@@ -204,10 +198,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
                      sysname=sysname,
                      )
                 if create:
-                    if site:
-                        obj.create_for_site(site)
-                    else:
-                        obj.save()
+                    obj.create_for_current_site()
                 return obj
             else:
                 return qs.filter(sites__isnull=True)[0]

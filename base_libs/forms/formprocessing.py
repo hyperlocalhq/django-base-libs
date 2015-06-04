@@ -63,8 +63,7 @@ class FormHandler(object):
             """ Checks for allowed actions """
             if action not in ALLOWED_ACTIONS:
                 raise AttributeError, "You have defined an invalid action '%s' in your %s form call. Allowed actions are %s." % (action, self.__class__.__name__, str(ALLOWED_ACTIONS))
-            self.context['form_handler_action'] = self.context['form_action'] = self._check_name(action)
-            # TODO: self.context['form_action'] is deprecated as it is conflicting with crispy forms
+            self.context['form_action'] = self._check_name(action)
             self.action = action
         else:
             raise AttributeError, "You must provide an 'action' parameter in your %s call. Please correct." % self.__class__.__name__
