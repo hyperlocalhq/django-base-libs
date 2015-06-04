@@ -3,11 +3,6 @@ admin_tools
     Last update: 2010-08-03
     http://bitbucket.org/fetzig/grappelli-admin-tools/
 
-ajaxuploader
-    ajax-based file uploader
-    Last update: 2012-05-30
-    https://github.com/GoodCloud/django-ajax-uploader
-    
 babeldjango
     django app having templatetags which are using the babel library
     Revision 467
@@ -18,28 +13,6 @@ captcha
     Last update: 2013-04-08
     https://github.com/praekelt/django-recaptcha
 
-classytags
-    used by django cms
-    Last update: 2011-10-25    
-    https://github.com/ojii/django-classy-tags/
-    
-cms
-    django cms
-    Last update: 2011-10-25 v2.2 final
-    https://github.com/divio/django-cms/
-    /*
-    Changes:
-    * migrations fixed (?)
-    * 'cms.middleware.multilingual.MultilingualURLMiddleware' in settings.MIDDLEWARE_CLASSES changed to 
-    ("cms.middleware.multilingual.MultilingualURLMiddleware" in settings.MIDDLEWARE_CLASSES or
-     "jetson.apps.cms_extensions.middleware.MultilingualURLMiddleware" in settings.MIDDLEWARE_CLASSES)
-    */
-
-cms_search
-    cms search for haystack
-    Last update: 2011-10-25
-    https://github.com/piquadrat/django-cms-search
-     
 chronograph
     used for managing django cron jobs
     Last update: 2010-04-20
@@ -72,7 +45,7 @@ grappelli
     Version 2.3.6
     https://github.com/sehmaschine/django-grappelli
 
-johny
+johnny
     Caching
     Version 0.3.1
     https://bitbucket.org/jmoiron/johnny-cache/downloads
@@ -82,11 +55,6 @@ haystack
     Version: 1.1.0
     https://github.com/toastdriven/django-haystack/downloads
 
-menus
-    django cms menus
-    Last update: 2011-10-25 v2.2 final
-    https://github.com/divio/django-cms/
-    
 mptt
     helper for hierarchical structures
     Version 0.5.1
@@ -117,16 +85,6 @@ rosetta
     Version 0.6.5
     https://github.com/mbi/django-rosetta
 
-sekizai
-    used by django cms
-    Version: 0.4.2
-    https://github.com/ojii/django-sekizai
-
-snippetscream
-    profiling with ?prof
-    Version: 0.0.6
-    http://pypi.python.org/pypi/django-snippetscream
-    
 south
     database schema migrations
     Version: 0.7.3; Last update: 2011-05-13
@@ -137,11 +95,6 @@ staticgenerator
     Version: 1.4.1; Last update: 2010-10-27
     http://github.com/luckythetourist/staticgenerator/archives/1.4.1
 
-speedtracer
-    SpeedTraceMiddleware
-    Last update: 2011-09-08
-    https://github.com/acdha/django-speedtracer
-    
 tagging
     marking objects with tags
     Last update: 2010-12-13
@@ -151,11 +104,6 @@ tagging_autocomplete
     autocompleting tags
     Revision 23 (modified)
     http://code.google.com/p/django-tagging-autocomplete/
-
-test_utils
-    not used anywhere at the moment
-    Last update: 2009-02-10
-    http://github.com/ericholscher/django-test-utils
 
 tinymce
     rich-text field used by cms

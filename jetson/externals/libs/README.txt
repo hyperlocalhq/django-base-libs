@@ -48,16 +48,6 @@ guess_language
     http://code.google.com/p/guess-language/
     Revision 10
 
-html5lib
-    used by django cms
-    Version 0.11
-    http://code.google.com/p/html5lib/
-
-importlib
-    Backport of importlib.import_module() from Python 2.7
-    Version 1.0.2
-    http://pypi.python.org/pypi/importlib/1.0.2
-
 kombu
     AMQP Messaging Framework for Python
     Version 2.1.1
@@ -68,11 +58,6 @@ mailsnake
     Last update: 2014-01-12
     https://github.com/michaelhelmick/python-mailsnake
 
-ordereddict
-    A drop-in substitute for Py2.7's new collections
-    Version 1.1
-    http://pypi.python.org/pypi/ordereddict
-    
 poster
     used for sending multipart post requests to facebook
     Last update: 2010-05-06
@@ -112,13 +97,3 @@ whoosh
     used by haystack for full-text search
     Version: 2.3.0
     http://pypi.python.org/pypi/Whoosh/
-
-xlrd
-    used for reading Excel files
-    Version 0.7.1
-    http://pypi.python.org/pypi/xlrd
-
-xlwt
-    used for creating Excel files
-    Version 0.7.2
-    http://pypi.python.org/pypi/xlwt
