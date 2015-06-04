@@ -21,11 +21,6 @@ chronograph
 compress
     Revision 98
     http://django-compress.googlecode.com/svn/trunk/compress
-    
-djcelery
-    provides Celery integration for Django
-    Version 2.5.0
-    https://github.com/ask/django-celery
 
 debug_toolbar
     used for all projects if there is a cookie set DjDT=1
@@ -34,36 +29,6 @@ debug_toolbar
 
 example
     added as a part of cms for testing purposes
-    
-filebrowser
-    filebrowser 3
-    Version 3.4.1
-    https://github.com/sehmaschine/django-filebrowser
-
-grappelli
-    Admin theme
-    Version 2.3.6
-    https://github.com/sehmaschine/django-grappelli
-
-johnny
-    Caching
-    Version 0.3.1
-    https://bitbucket.org/jmoiron/johnny-cache/downloads
-
-haystack
-    full-text search engine
-    Version: 1.1.0
-    https://github.com/toastdriven/django-haystack/downloads
-
-mptt
-    helper for hierarchical structures
-    Version 0.5.1
-    https://github.com/django-mptt/django-mptt/tree/0.5.1
-
-picklefield
-    pickled object field; required by django-celery
-    Version 0.2.0
-    http://pypi.python.org/pypi/django-picklefield
 
 pipeline
     asset packaging
@@ -75,25 +40,10 @@ publisher
     Last update: 2009-08-03
     http://github.com/digi604/django-cms-2.0/tree/master/publisher/
 
-reversion
-    model-version control used by cms
-    Version 1.4
-    https://github.com/etianen/django-reversion
-    
-rosetta
-    translating po files in a browser
-    Version 0.6.5
-    https://github.com/mbi/django-rosetta
-
 south
     database schema migrations
     Version: 0.7.3; Last update: 2011-05-13
     http://south.aeracode.org/wiki/Download
-
-staticgenerator
-    generates static files from views
-    Version: 1.4.1; Last update: 2010-10-27
-    http://github.com/luckythetourist/staticgenerator/archives/1.4.1
 
 tagging
     marking objects with tags
@@ -109,8 +59,3 @@ tinymce
     rich-text field used by cms
     Always latest revision
     http://django-tinymce.googlecode.com/svn/trunk/tinymce
-
-uni_form
-    django-uni-form
-    v0.7.0
-    https://github.com/pydanny/django-uni-form
