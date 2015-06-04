@@ -1,26 +1,26 @@
-django-celery==3.1.16
-django-picklefield==0.3.1
-Django==1.3.1
-MySQL-python==1.2.5
-Pillow==2.8.1
-twython==2.10.1
 dicttoxml==1.5.6
+Django==1.3.1
+-e git://github.com/archatas/django-base-libs.git@f57ee59038b0261cbee17b8c3a7e9e3c22af9207#egg=django_base_libs-dev
+django-celery==3.1.16
+-e hg+https://bitbucket.org/wnielson/django-chronograph/@10#egg=django_chronograph-dev
+django-compress==1.0.1
 django-filebrowser==3.4.1
 django-haystack==1.1.0
-johnny-cache==0.3.1
 django-mptt==0.5.1
-django-rosetta==0.6.5
-django-reversion==1.5.1
-django-uni-form==0.7.0
-Whoosh==2.3.0
-south==0.7.3
--e hg+https://bitbucket.org/wnielson/django-chronograph/@10#egg=django-chronograph
-poster==0.8.1
+django-picklefield==0.3.1
 django-recaptcha==0.0.6
--e git+git://github.com/michaelhelmick/python-mailsnake@29b648aad262dd503f9b7dca8f59f26fc1cecc03#egg=python-mailsnake
-django-compress==1.0.1
-recaptcha-client==1.0.6
-guess-language==0.2
+django-reversion==1.5.1
+django-rosetta==0.6.5
 -e git://github.com/archatas/django-tagging.git@211d9f526e5a8bb1a63c0f6047ec390a9ae3eb04#egg=django_tagging-dev
--e git://github.com/archatas/django-base-libs.git@f57ee59038b0261cbee17b8c3a7e9e3c22af9207#egg=django_base_libs-dev
 -e git://github.com/archatas/django-tagging-autocomplete@abac8ae00f4ad52440b25095e3e29da87f17204a#egg=django_tagging_autocomplete-zx
+django-uni-form==0.7.0
+guess-language==0.2
+johnny-cache==0.3.1
+-e git+git://github.com/michaelhelmick/python-mailsnake@29b648aad262dd503f9b7dca8f59f26fc1cecc03#egg=mailsnake-dev
+MySQL-python==1.2.5
+Pillow==2.8.1
+poster==0.8.1
+recaptcha-client==1.0.6
+south==0.7.3
+twython==2.10.1
+Whoosh==2.3.0
