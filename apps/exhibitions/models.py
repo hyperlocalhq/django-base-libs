@@ -83,7 +83,8 @@ class ExhibitionManager(models.Manager):
         ).order_by("-featured", "-start", "title_%s" % lang_code)
         
     def featured(self):
-        return self.filter(featured=True, status="published").order_by('-start')
+        lang_code = get_current_language()
+        return self.filter(featured=True, status="published").order_by('start', 'title_%s' % lang_code)
         
     def featured_in_magazine(self):
         return self.filter(featured_in_magazine=True, status="published")
