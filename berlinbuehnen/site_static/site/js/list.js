@@ -95,6 +95,8 @@
             else $headline.css('display', 'none');
         });
         
+        window.addToCalenderReset();
+        
         me.onResize(new_items);
     }
     
