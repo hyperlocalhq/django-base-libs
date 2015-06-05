@@ -1858,7 +1858,7 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 #gallery-layer #gallery-layer-prev { left: 5%; background: url(../img/prev.png) no-repeat left top; }
 #gallery-layer #gallery-layer-next { right: 5%; background: url(../img/next.png) no-repeat right top; }
 #gallery-layer .gallery-image-wrapper { width: 80%; height: 100%; margin: 0 auto; text-align: center; position: relative; opacity: 0; }
-#gallery-layer .gallery-image-wrapper img { max-width: 100%; max-height: 100%; }
+#gallery-layer .gallery-image-wrapper img { max-width: 100%; max-height: 100%; width: auto; height: auto; }
 #gallery-layer .gallery-image-wrapper .gallery-image-text { width: 100%; position: absolute; }
 #gallery-layer .gallery-image-wrapper .gallery-image-text .gallery-image-text-copyright { text-align: right; font-size: 0.875em; padding-bottom: 3px; }
 #gallery-layer .gallery-image-wrapper .gallery-image-text .gallery-image-text-description { text-align: left; }
@@ -2167,7 +2167,7 @@ em { color: black; font-style: italic; }
 #page-controls a { width: 215px; height: 140px; line-height: 95px; text-align: center; font-size: 22px; position: fixed; top: 50%; margin-top: -70px; transition-property: all; transition-duration: 0.75s; color: white; background-color: #000; background-clip: padding-box; background-repeat: no-repeat; background-size: 33px auto; border-top: 20px solid transparent; border-bottom: 20px solid transparent; overflow: hidden; }
 #page-controls a > span { display: table; width: 90%; height: 100%; position: absolute; }
 #page-controls a > span span.title { display: table-cell; vertical-align: middle; font-size: 14px; line-height: 20px; font-weight: 700; width: 150px; padding-left: 20px; padding-right: 20px; }
-#page-controls a.prev { left: 0px; border-right: 20px solid transparent; text-align: right; margin-left: -190px; background-image: url("../img/icons/left.png"); background-position: left center; }
+#page-controls a.prev { left: 0px; border-right: 20px solid transparent; text-align: left; margin-left: -190px; background-image: url("../img/icons/left.png"); background-position: left center; }
 #page-controls a.prev:hover { margin-left: 0px; }
 #page-controls a.prev > span { right: 0px; }
 #page-controls a.next { right: 0px; border-left: 20px solid transparent; text-align: left; margin-right: -190px; background-image: url("../img/icons/right.png"); background-position: right center; }
