@@ -1659,7 +1659,7 @@ select { visibility: hidden; }
 .article .article-more-list .article-more-list-more { float: right; font-weight: 700; text-transform: uppercase; font-size: 0.875em; }
 
 .is-xs .article .main-container { padding-left: 10px; padding-right: 10px; }
-.is-xs .article .main-container .article-more-list a { padding-bottom: 10px; border-bottom: 1px solid black; }
+.is-xs .article .main-container .article-more-list a { padding-top: 10px; border-top: 1px solid black; }
 .is-xs .article .main-container .article-more-list img { float: none; padding: 0 0 10px; width: 100%; height: auto; }
 
 .theater-of-the-week h1 { margin-bottom: 13px; font-weight: 200; font-size: 2em; text-transform: uppercase; }
@@ -1764,6 +1764,9 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .slider.small .slider-item-text p { display: none; }
 .slider.small-margin .slider-prev:before { font-size: 40px; padding-top: 40px; padding-left: 5px; }
 .slider.small-margin .slider-next:after { font-size: 40px; padding-top: 40px; padding-right: 5px; }
+
+.location_detail .slider.small-margin .slider-prev:before { padding-top: 50px; }
+.location_detail .slider.small-margin .slider-next:after { ppadding-top: 50px; }
 
 .is-xs .slider .slider-head .more { float: none; }
 

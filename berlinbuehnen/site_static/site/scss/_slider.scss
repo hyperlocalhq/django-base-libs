@@ -182,6 +182,17 @@
     
 }
 
+.location_detail {
+    .slider.small-margin {
+        .slider-prev:before {
+            padding-top: 50px;
+        }
+        .slider-next:after {
+            ppadding-top: 50px;
+        }
+    }
+}
+
 .is-xs {
     .slider {
         .slider-head {
