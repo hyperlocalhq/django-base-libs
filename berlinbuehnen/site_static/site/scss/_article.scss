@@ -124,3 +124,26 @@
         }
     }
 }
+
+
+.is-xs {
+    .article {
+        .main-container {
+            padding-left: 10px;
+            padding-right: 10px;
+            
+            .article-more-list {
+                a {
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid black;
+                }
+                img {
+                    float: none;
+                    padding: 0 0 10px;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+}

@@ -167,13 +167,15 @@
         .slider-prev {
             &:before {
                 font-size: 40px;
-                padding-top: 30px;
+                padding-top: 40px;
+                padding-left: 5px
             }
         }
         .slider-next {
             &:after {
                 font-size: 40px;
-                padding-top: 30px;
+                padding-top: 40px;
+                padding-right: 5px;
             }
         }
     }

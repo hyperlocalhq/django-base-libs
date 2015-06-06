@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="content default article">
-		<div class="container">
+		<div class="container main-container">
             <div class="row">
                  <div class="col-xs-12">
                     <h1>{% trans "News" %}</h1>
@@ -13,6 +13,7 @@
                                 <a href="{{ article.get_url_path }}">
                                     {% if article.image %}
                                         <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
+                                        <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"news_image" }}" class="visible-xs"/>
                                     {% endif %}
                                     <span class="article-more-list-date">{{ article.published_from|datefmt:"long" }}{% if article.category.title %}<span>{{ article.category.title }}</span>{% endif %}</span>
                                     <h6>{{ article.get_title }}</h6>
