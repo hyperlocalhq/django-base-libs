@@ -79,7 +79,7 @@
         if ($layer.length) {
             me.$layer = $layer;
         } else {
-            me.$layer = $('<div id="gallery-layer"><div id="gallery-layer-close"></div><div id="gallery-layer-prev"></div><div id="gallery-layer-next"></div></div>');
+            me.$layer = $('<div id="gallery-layer"><div id="gallery-layer-close"></div><div id="gallery-layer-prev" class="fawesome back"></div><div id="gallery-layer-next" class="fawesome more"></div></div>');
             $('body').append(me.$layer);
             $('#gallery-layer-close').click(function() {me.closeLayer();});
         }

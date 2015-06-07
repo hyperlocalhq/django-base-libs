@@ -81,7 +81,7 @@
         me.slider_x = 0;
         
         
-        var $content = $('<div><div class="date-slider-month"/><div class="date-slider-days"/></div><div class="date-slider-prev"></div><div class="date-slider-next"></div><div class="date-slider-field"><hr/><div class="date-slider-field-button"/></div>');
+        var $content = $('<div><div class="date-slider-month"/><div class="date-slider-days"/></div><div class="date-slider-prev fawesome backback"></div><div class="date-slider-next fawesome moremore"></div><div class="date-slider-field"><hr/><div class="date-slider-field-button"/></div>');
         me.$main.append($content);
         
         me.$prev = $('.date-slider-prev', me.$main);
