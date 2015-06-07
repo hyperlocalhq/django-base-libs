@@ -97,6 +97,10 @@ input {
   box-shadow:         inset 0 0 10px rgba(0,0,0,0.05);
 }
 
+#wrapper {
+    overflow: hidden;
+}
+
 
 ::selection {background: #ffb7b7; /* Safari */ }
 ::-moz-selection {background: #ffb7b7; /* Firefox */ }
