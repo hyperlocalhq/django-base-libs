@@ -99,10 +99,18 @@
         
         me.$prev.click(function() {me.onPrev();});
         me.$next.click(function() {me.onNext();});
+        //me.$month.on('swiperight', function() {me.onPrev();});
+        //me.$month.on('swipeleft', function() {me.onNext();});
+        //me.$days.on('swiperight', function() {me.onPrev();});
+        //me.$days.on('swipeleft', function() {me.onNext();});
         
         me.$slider.mousedown(function() {me.onSliderStart();});
         $(window).mouseup(function() {me.onSliderEnd();});
         me.$slider.mousemove(function(event) {me.onSliderMove(event);});
+        
+        me.$slider.on('vmousedown', function() {me.onSliderStart();});
+        $(window).on('vmouseup', function() {me.onSliderEnd();});
+        me.$slider.on('vmousemove', function(event) {me.onSliderMove(event);});
         
         me.onResize();
         $(window).resize(function() {me.onResize();});
@@ -294,6 +302,8 @@
     DateSlider.prototype.onNext = function() {
         
         if (this.me) var me = this.me;
+        
+        if (me.$next.css("display") == "none") return;
        
         me.first_date.setDate(me.first_date.getDate() + me.max_days);
         
@@ -306,6 +316,8 @@
     DateSlider.prototype.onPrev = function() {
         
         if (this.me) var me = this.me;
+        
+        if (me.$prev.css("display") == "none") return;
              
         me.first_date.setDate(me.first_date.getDate() - me.max_days);
         

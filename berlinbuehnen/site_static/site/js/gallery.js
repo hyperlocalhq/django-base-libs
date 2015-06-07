@@ -196,6 +196,9 @@
         me.$prev.off();
         me.$next.off();
         
+        me.$layer.off('swiperight');
+        me.$layer.off('swipeleft');
+        
         if (me.images.length == 1) {
             me.$prev.css('display', 'none');
             me.$next.css('display', 'none');
@@ -204,6 +207,8 @@
             me.$next.css('display', 'block');
             me.$prev.click(function() {me.prevImage();});
             me.$next.click(function() {me.nextImage();});
+            me.$layer.on('swiperight', function() {me.prevImage();});
+            me.$layer.on('swipeleft', function() {me.nextImage();});
         }
         
         $('body').css('overflow', 'hidden');
