@@ -724,7 +724,7 @@ class Event(CreationModificationMixin, UrlMixin):
         return self.subtitles_text or self.production.subtitles_text
 
     def ev_or_prod_age_text(self):
-        return self.age_text or self.production.age_text
+        return self.age_text.strip() or self.production.age_text.strip()
 
     ### prices ###
 
