@@ -239,7 +239,7 @@ def exhibition_list(request):
 
     if closing_soon:
         qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
-    elif facets['selected'].get("smart", None) == "upcoming":
+    elif facets['selected'].get("smart", ("", ""))[0] == "upcoming":
         qs = qs.order_by("start", "title_%s" % request.LANGUAGE_CODE)
     else:
         qs = qs.order_by("-start", "title_%s" % request.LANGUAGE_CODE)
