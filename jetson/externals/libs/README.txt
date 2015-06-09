@@ -8,11 +8,6 @@ facebook
     https://github.com/mscheibe/python-sdk/blob/master/src/facebook.py
     Revision 100644; modified to work on python2.4
 
-pyExcelerator
-    used for creating Excel files from model data
-    Last update: 2009-02-11
-    http://pypi.python.org/pypi/pyExcelerator/
-
 rest
     used for retrieving data from external resources
     Last update: 2009-03-09
