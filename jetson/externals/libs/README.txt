@@ -1,9 +1,3 @@
-babel
-    used for displaying dates and numbers in a localized format
-    Last update: 2009-02-13
-    http://babel.edgewall.org/wiki/Download
-    Changes: localedata filled in
-
 BeautifulSoup
     used for ensuring that email body html is formed correctly
     Last update: 2009-02-10

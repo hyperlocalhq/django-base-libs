@@ -3,11 +3,6 @@ admin_tools
     Last update: 2010-08-03
     http://bitbucket.org/fetzig/grappelli-admin-tools/
 
-babeldjango
-    django app having templatetags which are using the babel library
-    Revision 467
-    http://svn.edgewall.org/repos/babel/contrib/django/babeldjango
-
 example
     added as a part of cms for testing purposes
 
