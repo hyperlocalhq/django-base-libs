@@ -8,11 +8,6 @@ babeldjango
     Revision 467
     http://svn.edgewall.org/repos/babel/contrib/django/babeldjango
 
-debug_toolbar
-    used for all projects if there is a cookie set DjDT=1
-    Version 0.9.1
-    https://github.com/django-debug-toolbar/django-debug-toolbar
-
 example
     added as a part of cms for testing purposes
 
