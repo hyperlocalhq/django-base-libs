@@ -19,11 +19,6 @@ pyExcelerator
     Last update: 2009-02-11
     http://pypi.python.org/pypi/pyExcelerator/
 
-requests
-    used by mailsnake
-    Version: 2.5.1
-    https://pypi.python.org/pypi/requests/2.5.1
-
 rest
     used for retrieving data from external resources
     Last update: 2009-03-09
