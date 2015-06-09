@@ -12,8 +12,3 @@ rest
     used for retrieving data from external resources
     Last update: 2009-03-09
     ???
-
-vobject
-    used for vCards and iCallendar
-    Always latest revision
-    http://svn.osafoundation.org/vobject/trunk/vobject
