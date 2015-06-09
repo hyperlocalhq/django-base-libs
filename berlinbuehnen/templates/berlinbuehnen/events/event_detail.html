@@ -20,6 +20,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     <script type="text/javascript">
     
         $(document).ready(function() {
@@ -112,6 +113,7 @@
                                             </li>
                                     {% endif %}
                                 </ul>
+                                {% add_to_calender event=event %}
                                 {% if event.production.ensembles %}<h3>{{ event.production.ensembles }}</h3>{% endif %}
                                 <h1>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}
                                     {% if_has_perm "productions.change_production" object %}

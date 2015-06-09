@@ -53,11 +53,14 @@
     
     header { 
         margin-bottom: 24px;
+        position: relative;
+        
         ul.header-top {
             width: 100%;
             list-style: none;
             padding-bottom: 4px;
             margin-bottom: 29px;
+            margin-top: 18px;
             border-bottom: 4px solid #000;
             li {
                 display: inline-block;
@@ -69,6 +72,7 @@
                     margin: 0 10px;
                 }
                 &:last-child {
+                    padding-right: 30px;
                     &:after {
                         content: none;
                         margin: 0;
@@ -76,6 +80,7 @@
                 }
                 
                 dl {
+                    margin-top: 0;
                     dd {
                         &:after {
                             content: "–";
@@ -86,6 +91,22 @@
                         }
                     }
                 }
+            }
+        }
+        .addtocalendar {
+            position: absolute;
+            right: -5px;
+            top: 2px;
+            a {
+                font-size: 14px;
+                color: black;
+                &:hover {
+                    color: black;
+                }
+            }
+            .atcb-list {
+                left: inherit;
+                right: 0;
             }
         }
         h1 {

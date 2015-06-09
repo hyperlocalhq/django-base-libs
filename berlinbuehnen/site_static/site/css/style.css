@@ -1691,13 +1691,19 @@ select { visibility: hidden; }
 .details .social_link_list li a { color: white; }
 .details .social_link_list li a:after, .details .social_link_list li a:before { padding: 0; }
 .details .social_link_list li a:before { width: 35px; height: 35px; background: black; border-radius: 50%; text-align: center; line-height: 35px; font-size: 18px; }
-.details header { margin-bottom: 24px; }
-.details header ul.header-top { width: 100%; list-style: none; padding-bottom: 4px; margin-bottom: 29px; border-bottom: 4px solid #000; }
+.details header { margin-bottom: 24px; position: relative; }
+.details header ul.header-top { width: 100%; list-style: none; padding-bottom: 4px; margin-bottom: 29px; margin-top: 18px; border-bottom: 4px solid #000; }
 .details header ul.header-top li { display: inline-block; text-transform: uppercase; font-size: 1.125em; font-weight: 700; }
 .details header ul.header-top li:after { content: "|"; margin: 0 10px; }
+.details header ul.header-top li:last-child { padding-right: 30px; }
 .details header ul.header-top li:last-child:after { content: none; margin: 0; }
+.details header ul.header-top li dl { margin-top: 0; }
 .details header ul.header-top li dl dd:after { content: "–"; padding-right: 3px; }
 .details header ul.header-top li dl dd:last-child:after { content: none; }
+.details header .addtocalendar { position: absolute; right: -5px; top: 2px; }
+.details header .addtocalendar a { font-size: 14px; color: black; }
+.details header .addtocalendar a:hover { color: black; }
+.details header .addtocalendar .atcb-list { left: inherit; right: 0; }
 .details header h1 { font-weight: 200; font-size: 2em; text-transform: uppercase; margin-bottom: 13px; }
 .details header h2 { font-weight: 400; font-size: 1.125em; margin-bottom: 13px; }
 .details .main .container { padding-left: 0; padding-right: 0; }
