@@ -523,9 +523,11 @@ class ImportFromHeimatBase(object):
         import re
         from BeautifulSoup import BeautifulStoneSoup
         from django.utils.html import strip_tags
+        text = text.replace('<![CDATA[', '')
+        text = text.replace(']]>', '')
         text = text.replace('</div>', '\n')
         text = re.sub(r'\n\s+', '\n', text)  # change multiple new-line symbols to one new-line symbol
-        text = strip_tags(text)
+        text = strip_tags(text).strip()
         text = unicode(BeautifulStoneSoup(text, convertEntities=BeautifulStoneSoup.ALL_ENTITIES))
         return text
 
