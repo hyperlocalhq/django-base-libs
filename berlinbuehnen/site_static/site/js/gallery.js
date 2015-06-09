@@ -79,7 +79,7 @@
         if ($layer.length) {
             me.$layer = $layer;
         } else {
-            me.$layer = $('<div id="gallery-layer"><div id="gallery-layer-close"></div><div id="gallery-layer-prev"></div><div id="gallery-layer-next"></div></div>');
+            me.$layer = $('<div id="gallery-layer"><div id="gallery-layer-close"></div><div id="gallery-layer-prev" class="fawesome back"></div><div id="gallery-layer-next" class="fawesome more"></div></div>');
             $('body').append(me.$layer);
             $('#gallery-layer-close').click(function() {me.closeLayer();});
         }
@@ -196,6 +196,9 @@
         me.$prev.off();
         me.$next.off();
         
+        me.$layer.off('swiperight');
+        me.$layer.off('swipeleft');
+        
         if (me.images.length == 1) {
             me.$prev.css('display', 'none');
             me.$next.css('display', 'none');
@@ -204,6 +207,8 @@
             me.$next.css('display', 'block');
             me.$prev.click(function() {me.prevImage();});
             me.$next.click(function() {me.nextImage();});
+            me.$layer.on('swiperight', function() {me.prevImage();});
+            me.$layer.on('swipeleft', function() {me.nextImage();});
         }
         
         $('body').css('overflow', 'hidden');

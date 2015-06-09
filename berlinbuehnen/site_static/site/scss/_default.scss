@@ -37,3 +37,12 @@
         font-size: 0.9em;
     }
 }
+
+.is-xs {
+    .default {
+        .main-container {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}

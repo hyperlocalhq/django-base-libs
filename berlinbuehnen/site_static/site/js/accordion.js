@@ -61,6 +61,7 @@
             var $head = $('.accordion-item-head', $item);
             var $content_wrapper = $('.accordion-item-content-wrapper', $item);
             
+            $item.css('display', 'block');
             $content_wrapper.css('height', 'auto');
             var height = $content_wrapper.height();
             
@@ -68,6 +69,8 @@
             else $content_wrapper.height(1);
             
             $content_wrapper.data('height', height);        
+            
+            if (height == 0) $item.css('display', 'none');
         });
     }
     

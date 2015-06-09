@@ -1,6 +1,13 @@
 @charset "utf-8";
 
 .accordion {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
     .accordion-item-head {
         cursor: pointer;
         margin-bottom: 0;

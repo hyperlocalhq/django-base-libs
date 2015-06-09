@@ -67,6 +67,8 @@
         
         me.$prev.click(function() {me.prevItems();});
         me.$next.click(function() {me.nextItems();});
+        me.$main.on('swiperight', function() {me.prevItems();});
+        me.$main.on('swipeleft', function() {me.nextItems();});
         
         
         if (me.timer_time) {
@@ -74,6 +76,7 @@
             me.$main.mouseenter(function() {me.onTimerOver();});
             me.$main.mouseleave(function() {me.onTimerOut();});
             me.$main.click(function() {me.onTimerClicked();});
+            me.$main.on('swipe', function() {me.onTimerClicked();});
         }
     }
     
@@ -120,12 +123,18 @@
                 }
             }
             
+            
+            me.$main.off('swiperight');
+            me.$main.off('swipeleft');
+            
             if (me.initial_items_length <= me.max_items) {
                 me.$prev.css('display', 'none');
                 me.$next.css('display', 'none');
             } else {
                 me.$prev.css('display', 'block');
                 me.$next.css('display', 'block');
+                me.$main.on('swiperight', function() {me.prevItems();});
+                me.$main.on('swipeleft', function() {me.nextItems();});
             }
         }
     }
@@ -351,6 +360,11 @@
     Slider.prototype.onTimerClicked = function() {
         
         if (this.me) var me = this.me;
+        
+        if (me.timer) {
+            window.clearTimeout(me.timer);
+            me.timer = null;
+        }
         
         me.$main.off('mouseenter');
         me.$main.off('mouseleave');  
