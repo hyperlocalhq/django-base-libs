@@ -4,39 +4,15 @@ babel
     http://babel.edgewall.org/wiki/Download
     Changes: localedata filled in
 
-base_libs
-    mixins and helper functions for Jetson projects
-    Currently developed right here
-
 BeautifulSoup
     used for ensuring that email body html is formed correctly
     Last update: 2009-02-10
     http://www.crummy.com/software/BeautifulSoup/#Download
 
-dateutil
-    used by vobject and twitter app for parsing
-    Last update: 2009-02-17
-    http://labix.org/python-dateutil
-
 facebook
     helper for facebook graph API
     https://github.com/mscheibe/python-sdk/blob/master/src/facebook.py
     Revision 100644; modified to work on python2.4
-
-guess_language
-    finds out what language is used for the given text
-    http://code.google.com/p/guess-language/
-    Revision 10
-
-mailsnake
-    Python wrapper for MailChimp API 1.3
-    Last update: 2014-01-12
-    https://github.com/michaelhelmick/python-mailsnake
-
-poster
-    used for sending multipart post requests to facebook
-    Last update: 2010-05-06
-    http://atlee.ca/software/poster/index.html
 
 pyDes
     used for encrypting and decrypting strings
@@ -47,11 +23,6 @@ pyExcelerator
     used for creating Excel files from model data
     Last update: 2009-02-11
     http://pypi.python.org/pypi/pyExcelerator/
-
-recaptcha
-    Recaptcha API not used anywhere at the moment
-    Always latest revision
-    http://recaptcha.googlecode.com/svn/trunk/recaptcha-plugins/python/recaptcha
 
 requests
     used by mailsnake
