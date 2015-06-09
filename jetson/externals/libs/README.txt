@@ -14,11 +14,6 @@ facebook
     https://github.com/mscheibe/python-sdk/blob/master/src/facebook.py
     Revision 100644; modified to work on python2.4
 
-pyDes
-    used for encrypting and decrypting strings
-    Last update: 2009-02-11
-    http://pypi.python.org/pypi/pyDes/
-
 pyExcelerator
     used for creating Excel files from model data
     Last update: 2009-02-11
