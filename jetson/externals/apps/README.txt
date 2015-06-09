@@ -3,9 +3,6 @@ admin_tools
     Last update: 2010-08-03
     http://bitbucket.org/fetzig/grappelli-admin-tools/
 
-example
-    added as a part of cms for testing purposes
-
 tinymce
     rich-text field used by cms
     Always latest revision
