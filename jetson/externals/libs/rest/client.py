@@ -3,11 +3,12 @@ import re
   
 """ 
 Thanks to Evan Long for this nice generic Rest client
-http://www.infectmac.com/2008/08/restful-python.html
+https://web.archive.org/web/20120120143054/http://www.infectmac.com/2008/08/restful-python.html
+(original URL http://www.infectmac.com/2008/08/restful-python.html no longer available)
 """
 
 class WebApiOpener(urllib.FancyURLopener):  
-    ''''' 
+    '''
     Provides a way for HTTP Basic authentication to take place without 
     prompting the user for a username and password like FancyURLopener 
     would. 
@@ -21,7 +22,7 @@ class WebApiOpener(urllib.FancyURLopener):
         return (self.username,self.password)  
   
 def webcall(**apiargs):  
-    ''''' 
+    '''
     Decorator that is used to create a python function that communicates with 
     a RESTful web service. The function it generates will be able to to do HTTP 
     basic authorization. The generated function only accepts a keyword  
@@ -77,7 +78,7 @@ def webcall(**apiargs):
             return url  
           
         def new(**kwargs):  
-            ''''' 
+            '''
             auth_username and auth_password are reserved 
             '''  
             opener = WebApiOpener(kwargs.get('auth_username',''),  
@@ -95,10 +96,11 @@ def webcall(**apiargs):
         return new  
     return dec  
   
-''''' 
+'''
 A set of example functions from pownce and twitter 
 '''  
-""" 
+
+'''
 @webcall(url='http://twitter.com/statuses/public_timeline.{format=json}')  
 def public_timeline(): pass  
  
@@ -113,4 +115,4 @@ def pownce_note_list(): pass
  
 @webcall(url='http://api.pownce.com/2.0/send/link.{format=json}', method='POST')  
 def pownce_send_link(): pass  
-"""
+'''
