@@ -6,11 +6,6 @@ admin_tools
 example
     added as a part of cms for testing purposes
 
-pipeline
-    asset packaging
-    Last update: 2011-02-13
-    https://github.com/cyberdelia/django-pipeline
-
 publisher
     publisher mixin used by cms
     Last update: 2009-08-03
