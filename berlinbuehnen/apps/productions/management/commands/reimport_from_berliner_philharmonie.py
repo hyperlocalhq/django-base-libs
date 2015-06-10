@@ -51,6 +51,9 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         )
 
         r = requests.get(self.service.url, params={})
+        if r.status_code != 200:
+            print(u"Error status: %s" % r.status_code)
+            return
 
         if self.verbosity >= NORMAL:
             print u"=== Importing Productions ==="

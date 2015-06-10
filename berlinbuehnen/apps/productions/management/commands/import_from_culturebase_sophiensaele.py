@@ -64,6 +64,9 @@ class Command(NoArgsCommand, ImportFromCulturebaseBase):
         self.authorship_types_de = AuthorshipType.objects.all().values_list("title_de", flat="True")
 
         r = requests.get(self.service.url, params={})
+        if r.status_code != 200:
+            print(u"Error status: %s" % r.status_code)
+            return
         self.helper_dict = {
             'prefix': '{http://export.culturebase.org/schema/event/CultureBaseExport}'
         }

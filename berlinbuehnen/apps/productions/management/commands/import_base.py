@@ -145,11 +145,11 @@ STAGE_TO_LOCATION_MAPPER = dict((k.lower(), v) for k, v in {
 
     u"Alten Feuerwache Eichwalde": StageSettings(u"Neuköllner Oper", u"Alten Feuerwache Eichwalde", True),
 
-    u"Gorki Foyer Berlin": StageSettings(u"Gorki Theater", u"Foyer", True),
-	u"Gorki Studio R": StageSettings(u"Gorki Theater", u"Studio Я", True),
-	u"Studio Я": StageSettings(u"Gorki Theater", u"Studio Я", True),
-	u"Vorplatz GORKI": StageSettings(u"Gorki Theater", u"Vorplatz GORKI", True),
-	u"Maxim Gorki Theater": StageSettings(u"Gorki Theater", u"Gorki Theater", True),
+    u"Gorki Foyer Berlin": StageSettings(u"Maxim Gorki Theater", u"Foyer", True),
+	u"Gorki Studio R": StageSettings(u"Maxim Gorki Theater", u"Studio Я", True),
+	u"Studio Я": StageSettings(u"Maxim Gorki Theater", u"Studio Я", True),
+	u"Vorplatz GORKI": StageSettings(u"Maxim Gorki Theater", u"Vorplatz GORKI", True),
+	u"Maxim Gorki Theater": StageSettings(u"Maxim Gorki Theater", u"Gorki Theater", True),
 
     u"Tempodrom": StageSettings(u"Die Wühlmäuse", u"Tempodrom", False),
 }.iteritems())

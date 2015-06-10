@@ -27,9 +27,9 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         self.skip_images = options.get('skip_images')
 
         self.in_program_of, created = Location.objects.get_or_create(
-            title_de=u"Gorki Theater",
+            title_de=u"Maxim Gorki Theater",
             defaults={
-                'title_en': u"Gorki Theater",
+                'title_en': u"Maxim Gorki Theater",
                 'slug': 'gorki-theater',
                 'street_address': u'Am Festungsgraben 2',
                 'postal_code': u'10117',
@@ -48,6 +48,9 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         )
 
         r = requests.get(self.service.url, params={})
+        if r.status_code != 200:
+            print (u"Error status: %s" % r.status_code)
+            return
 
         if self.verbosity >= NORMAL:
             print u"=== Importing Productions ==="
