@@ -8,4 +8,5 @@ register = template.Library()
 def subscribe(context):
         
     return {
+        'STATIC_URL': context['STATIC_URL'],
     }

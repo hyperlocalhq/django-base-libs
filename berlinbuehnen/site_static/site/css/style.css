@@ -2082,6 +2082,8 @@ span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointe
 #mc_embed_signup div.mce_inline_error { width: 100%; margin: 2px auto 1em !important; background: #aa0000 !important; font-size: 1em; }
 #mc_embed_signup #mc-embedded-subscribe { width: auto !important; border: none; text-transform: uppercase; background: #4583c8; color: white; font-weight: 700; padding: 5px 40px; }
 #mc_embed_signup #mce-success-response { padding: 10px 0; font-size: 1em; }
+#mc_embed_signup #mc-embedded-ok { width: 100%; display: none; text-align: center; }
+#mc_embed_signup #mc-embedded-ok span { background: #4583c8; height: 30px; padding: 5px 40px; font-weight: 700; color: white; text-transform: uppercase; cursor: pointer; font-size: 1em; display: inline-block; margin: 10px auto; }
 
 html { height: 100%; }
 
