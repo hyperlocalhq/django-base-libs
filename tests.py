@@ -4,11 +4,9 @@ import unittest
 
 class PageTest(unittest.TestCase):
     def __init__(self, url_path='', expected_status_code=200):
-        # print 'initing with {}'.format(url_path)
         super(PageTest, self).__init__()
         self.url_path = url_path
         self.expected_status_code = expected_status_code
-        # self.__doc__ = url_path
 
     def setUp(self):
         setup_test_environment()
@@ -23,16 +21,12 @@ class PageTest(unittest.TestCase):
             self.expected_status_code,
         )
 
-    def __unicode__(self):
-        return 'OpenPage({})'.format(self.url_path)
-
     def runTest(self):
         assert isinstance(self.url_path, str)
         response = self.client.get(
             self.url_path,
             **{'HTTP_USER_AGENT':'silly-human', 'REMOTE_ADDR':'127.0.0.1'}
         )
-        # print self.url_path
         self.assertEqual(
             response.status_code,
             self.expected_status_code,
