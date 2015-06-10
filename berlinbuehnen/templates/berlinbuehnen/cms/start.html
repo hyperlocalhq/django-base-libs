@@ -1,5 +1,5 @@
 {% extends "cms/default.html" %}
-{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags auth_extended infoblocks %}
+{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags auth_extended infoblocks mailchimp_tags %}
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
@@ -214,6 +214,7 @@
                         </div>
                     </div>
                     {% endcomment %}
+                    {% subscribe %}
                 </div>
                 
             </div>
