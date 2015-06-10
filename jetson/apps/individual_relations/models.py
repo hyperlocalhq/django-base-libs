@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.utils.encoding import force_unicode
 from django.utils.functional import lazy
 from django.conf import settings
+from django.db.models.signals import post_init
+from django.dispatch import receiver
 
 from base_libs.models import HierarchyMixin
 from base_libs.models import SlugMixin
@@ -20,8 +22,6 @@ from jetson.apps.utils.models import XFieldList
 from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
-
-Person = models.get_model("people", "Person")
 
 verbose_name = _("Individual Relations")
 
@@ -384,6 +384,8 @@ class IndividualRelation(models.Model):
             raise ValidationError(_("%(user)s has been already related to %(to_user)s.") % {'user': existing.user, 'to_user': existing.to_user})
 
     def _remove_existing_permissions(self):
+        Person = models.get_model("people", "Person")
+
         from django.contrib.contenttypes.models import ContentType
         from jetson.apps.permissions.models import RowLevelPermission
         person = Person.objects.get(user=self.user)
@@ -405,6 +407,8 @@ class IndividualRelation(models.Model):
     _remove_existing_permissions.alters_data = True
             
     def _add_proper_permissions(self):
+        Person = models.get_model("people", "Person")
+
         from jetson.apps.permissions.models import RowLevelPermission
         person = Person.objects.get(user=self.user)
         for f_name, perm_codename in PERSON2PERSON_PERMISSION_MAP.items():
@@ -417,7 +421,10 @@ class IndividualRelation(models.Model):
     _add_proper_permissions.alters_data = True
 
 ### Additional methods to Person model
-def add_methods_to_person():
+@receiver(post_init, sender=IndividualRelation)
+def add_methods_to_person(sender, instance, **kwargs):
+    Person = models.get_model("people", "Person")
+
     def _get_individual_relation_status(self, user=None):
         if not hasattr(self, "_get_individual_relation_status_cache"):
             user = get_current_user(user)
@@ -441,13 +448,13 @@ def add_methods_to_person():
             status = self._get_individual_relation_status(user)
             self._is_contact_removable_cache = status == "confirmed"
         return self._is_contact_removable_cache
-        
+
     def is_contact_blockable(self, user=None):
         if not hasattr(self, "_is_contact_blockable_cache"):
             status = self._get_individual_relation_status(user)
             self._is_contact_blockable_cache = status in ("invited", "none", "denied", "denying")
         return self._is_contact_blockable_cache
-        
+
     def is_contact_unblockable(self, user=None):
         if not hasattr(self, "_is_contact_unblockable_cache"):
             status = self._get_individual_relation_status(user)
@@ -465,13 +472,13 @@ def add_methods_to_person():
             status = self._get_individual_relation_status(user)
             self._is_contact_denyable_cache = status == "invited"
         return self._is_contact_denyable_cache
-        
+
     def is_contact_cancelable(self, user=None):
         if not hasattr(self, "_is_contact_cancelable_cache"):
             status = self._get_individual_relation_status(user)
             self._is_contact_cancelable_cache = status == "inviting"
         return self._is_contact_cancelable_cache
-        
+
     def is_contactable(self, user=None):
         if not hasattr(self, "_is_contactable_cache"):
             user = get_current_user(user)
@@ -483,7 +490,7 @@ def add_methods_to_person():
                 and user.email
                 )
         return self._is_contactable_cache
-        
+
     def is_addable_to_memos(self, user=None):
         if not hasattr(self, "_is_addable_to_memos_cache"):
             user = get_current_user(user)
@@ -524,47 +531,49 @@ def add_methods_to_person():
         return self._individual_relations_cache
 
     def get_all_person_invitations(self):
+        Person = models.get_model("people", "Person")
+
         ir_db_table = IndividualRelation._meta.db_table
         qs = Person.objects.filter(
                user__individualrelation__to_user=self.user
              ).extra(
                  select={
-                     'individualrelation_id': 
+                     'individualrelation_id':
                          '%s.id' % ir_db_table,
-                     'individualrelation_timestamp': 
+                     'individualrelation_timestamp':
                          '%s.timestamp' % ir_db_table,
-                     'individualrelation_message': 
+                     'individualrelation_message':
                          '%s.message' % ir_db_table,
-                     'individualrelation_status': 
+                     'individualrelation_status':
                          '%s.status' % ir_db_table,
                  },
              ).select_related().distinct().order_by('-individualrelation_timestamp')
         return qs
-        
+
     def get_person_invitation_requests(self, status_filter=None):
         """
         invititaions to an indvivdual relationship you sent
         """
         if not status_filter:
             status_filter = ["invited", "denying"]
-        
+
         qs = self.get_all_person_invitations()
         qs = qs.filter(
             user__individualrelation__status__in=status_filter,
             # for any reason, it does not work loke this. But WHY??
             #user__to_user__status__in=status_filter,
             )
-        
+
         return qs
 
     def get_person_invitation_requested(self, status_filter=None):
         """
         invititaions to an indvivdual relationship which has to be confirmed
         """
-        
+
         if not status_filter:
             status_filter = ["inviting", "denied"]
-        
+
         qs = self.get_all_person_invitations()
         qs = qs.filter(
             user__individualrelation__status__in=status_filter,
@@ -572,6 +581,7 @@ def add_methods_to_person():
             #user__to_user__status__in=status_filter,
             )
         return qs
+
     Person._get_individual_relation_status = _get_individual_relation_status
     Person.is_contact_addable = is_contact_addable
     Person.is_contact_editable = is_contact_editable
@@ -589,8 +599,7 @@ def add_methods_to_person():
     Person.get_all_person_invitations = get_all_person_invitations
     Person.get_person_invitation_requests = get_person_invitation_requests
     Person.get_person_invitation_requested = get_person_invitation_requested
-    
-add_methods_to_person()
+
 
 # Notify appropriate users about relation requests
 def individual_relation_requested(sender, instance, **kwargs):
