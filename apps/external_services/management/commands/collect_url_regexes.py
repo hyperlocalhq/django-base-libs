@@ -1,3 +1,6 @@
+# -*- coding: UTF-8 -*-
+# inspired by recipe from http://code.activestate.com/recipes/576974-show-all-url-patterns-in-django/
+
 from django.core.management.base import NoArgsCommand
 import pprint
 
