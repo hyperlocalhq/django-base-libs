@@ -281,9 +281,6 @@ urlpatterns += staticfiles_urlpatterns()
 
 ### HELPERS (system urls not visible directly for the users) ###
 urlpatterns += patterns('',
-    # default document for TinyMCE iframe
-    url(r'^helper/blank_doc/$', 'django.views.generic.simple.direct_to_template', {'template': 'admin/blank_doc.html'}, name="blank_doc"),
-    
     # ajax lookups
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^helper/country_lookup/$', 'jetson.apps.utils.views.jquery_autocomplete_lookup', country_lookup, name="country_lookup"),
