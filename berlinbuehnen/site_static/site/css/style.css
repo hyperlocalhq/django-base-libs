@@ -2074,6 +2074,15 @@ body.is-xs .info { margin-left: -30px; margin-right: -30px; }
 
 span.pin a { position: absolute !important; top: 6px; right: 6px; cursor: pointer; background-image: url(../img/pin.png) !important; background-size: 21px 21px !important; width: 21px !important; height: 21px !important; }
 
+#mc_embed_signup { background: black; color: white; padding: 10px 20px 20px; margin-top: 20px; }
+#mc_embed_signup h3 { text-transform: uppercase; font-size: 1em; text-align: center; padding: 5px 0; }
+#mc_embed_signup input { width: 100% !important; height: 30px; padding: 5px 10px; margin: 10px auto; display: block; background: white; font-size: 1em; color: black; }
+#mc_embed_signup input:hover { background: white; }
+#mc_embed_signup input:focus { box-shadow: none; }
+#mc_embed_signup div.mce_inline_error { width: 100%; margin: 2px auto 1em !important; background: #aa0000 !important; font-size: 1em; }
+#mc_embed_signup #mc-embedded-subscribe { width: auto !important; border: none; text-transform: uppercase; background: #4583c8; color: white; font-weight: 700; padding: 5px 40px; }
+#mc_embed_signup #mce-success-response { padding: 10px 0; font-size: 1em; }
+
 html { height: 100%; }
 
 .nobr { display: inline-block; }
