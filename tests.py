@@ -2,10 +2,10 @@ from django.test.utils import setup_test_environment
 from django.test import Client
 import unittest
 
-class OpenPage(unittest.TestCase):
+class PageTest(unittest.TestCase):
     def __init__(self, url_path='', expected_status_code=200):
         # print 'initing with {}'.format(url_path)
-        super(OpenPage, self).__init__()
+        super(PageTest, self).__init__()
         self.url_path = url_path
         self.expected_status_code = expected_status_code
         # self.__doc__ = url_path
@@ -480,7 +480,7 @@ def suite():
     suite = unittest.TestSuite()
     # suite.addTests(OpenPage(url_path) for url_path in constant_urls)
     suite.addTests(
-        OpenPage(url_path, expected_status_code) for url_path, expected_status_code in constant_urls
+        PageTest(url_path, expected_status_code) for url_path, expected_status_code in constant_urls
     )
     return suite
 
