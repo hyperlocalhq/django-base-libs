@@ -305,7 +305,7 @@ ADMIN_APP_INDEX = (
                 'icon': 'email',
             }),
             ('mailchimp', {
-                'models': ("Settings", "MList", "Subscription", "Campaign"),
+                'models': ("Settings", "MList", "Campaign"),
                 'icon': 'email',
             }),
             ('advertising', {
