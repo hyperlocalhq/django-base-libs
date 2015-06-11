@@ -267,11 +267,6 @@ def suite():
         ('/admin/tracker/concern/add/', 'Django site admin'),
         ('/admin/tracker/ticket/', 'Django site admin'),
         ('/admin/tracker/ticket/add/', 'Django site admin'),
-        ('/helper/bookmark/', 'Creative City Berlin'), # FIXME empty title
-        ('/helper/country_lookup/', 'Creative City Berlin'), # FIXME empty title
-        ('/helper/site-visitors/', 'Creative City Berlin'), # FIXME empty title
-        # ('/recrop/', 'Creative City Berlin'),
-        ('/tagging_autocomplete/list', 'Creative City Berlin'), # FIXME empty title
         ('/de/', 'Creative City Berlin'),
         ('/de/account/', 'Creative City Berlin'),
         ('/de/compatibility/', 'Creative City Berlin'),
@@ -335,6 +330,11 @@ def suite():
         # ('/de/tagging_autocomplete/list', 'Creative City Berlin'),
         ('/de/ticket/', 'Creative City Berlin'),
         ('/de/tweets/', 'Creative City Berlin'), # FIXME empty title
+        ('/helper/bookmark/', 'Creative City Berlin'), # FIXME empty title
+        ('/helper/country_lookup/', 'Creative City Berlin'), # FIXME empty title
+        ('/helper/site-visitors/', 'Creative City Berlin'), # FIXME empty title
+        # ('/recrop/', 'Creative City Berlin'),
+        ('/tagging_autocomplete/list', 'Creative City Berlin'), # FIXME empty title
     )
 
     suite = unittest.TestSuite()
