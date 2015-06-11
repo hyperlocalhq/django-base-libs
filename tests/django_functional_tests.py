@@ -1,3 +1,6 @@
+# -*- coding: UTF-8 -*-
+# inspired by http://stackoverflow.com/a/3772008
+
 from django.test.utils import setup_test_environment
 from django.test import Client
 import unittest

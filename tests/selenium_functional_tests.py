@@ -1,3 +1,6 @@
+# -*- coding: UTF-8 -*-
+# inspired by http://stackoverflow.com/a/3772008
+
 from selenium import webdriver
 import unittest
 
