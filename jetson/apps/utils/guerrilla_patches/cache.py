@@ -2,6 +2,7 @@
 
 from django.templatetags.cache import *
 from django.conf import settings
+from base_libs.django_compatibility import force_bytes
 
 def cache_node_render(self, context):
     key_prefix = settings.CACHE_MIDDLEWARE_KEY_PREFIX
@@ -14,7 +15,8 @@ def cache_node_render(self, context):
     except (ValueError, TypeError):
         raise TemplateSyntaxError('"cache" tag got a non-integer timeout value: %r' % expire_time)
     # Build a unicode key for this fragment and all vary-on's.
-    args = md5_constructor(u':'.join([urlquote(resolve_variable(var, context)) for var in self.vary_on]))
+    key = ':'.join([urlquote(resolve_variable(var, context)) for var in self.vary_on])
+    args = hashlib.md5(force_bytes(key))
     cache_key = 'template.cache.%s.%s.%s' % (key_prefix, self.fragment_name, args.hexdigest())
     value = cache.get(cache_key)
     if value is None:
