@@ -9,7 +9,6 @@ from filebrowser.settings import MEDIA_URL as UPLOADS_URL
 
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import get_website_ssl_url
-from base_libs.utils.misc import get_media_svn_revision
 from base_libs.models.settings import JQUERY_URL
 from base_libs.models.settings import JQUERY_UI_URL
 
@@ -28,7 +27,6 @@ def general(request=None):
         'https': getattr(settings, "HTTPS_PROTOCOL", "https"),
         'website_url' : get_website_url(),
         'website_ssl_url' : get_website_ssl_url(),
-        'revision': get_media_svn_revision(prefix="."),
         'UPLOADS_URL': UPLOADS_URL,
         'JQUERY_URL': JQUERY_URL,
         'JQUERY_UI_URL': JQUERY_UI_URL,
