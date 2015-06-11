@@ -160,7 +160,6 @@ def patch_admin():
         context = {
             'title': _('Site administration'),
             'app_list': app_list,
-            'root_path': self.root_path,
         }
         context.update(extra_context or {})
         return render_to_response(self.index_template or 'admin/index.html', context,
