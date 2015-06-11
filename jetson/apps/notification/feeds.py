@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from datetime import datetime
 
-from django.contrib.syndication.feeds import Feed
+from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.sites.models import Site

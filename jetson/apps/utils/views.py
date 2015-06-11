@@ -17,7 +17,7 @@ from django.shortcuts import render_to_response
 from django.template import loader, RequestContext, Template, Context
 from django.template.defaultfilters import slugify
 from django.contrib.auth.views import redirect_to_login
-from django.contrib.syndication import feeds
+from django.contrib.syndication.views import FeedDoesNotExist
 from django.contrib.contenttypes.models import ContentType
 from django.views.generic.simple import direct_to_template
 from django.views.decorators.cache import cache_control
@@ -138,7 +138,7 @@ def feed(request, feed_type, language="de", **kwargs):
 
     try:
         feedgen = f(feed_slug, request, **kwargs).get_feed(param)
-    except feeds.FeedDoesNotExist:
+    except FeedDoesNotExist:
         raise Http404, "Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not." % feed_slug
 
     response = HttpResponse(mimetype=feedgen.mime_type)

@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import re
-from django.contrib.syndication.feeds import Feed
+from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
@@ -143,4 +143,3 @@ class LatestPublishedObjectsAtomFeed(LatestPublishedObjectsRssFeed):
     title_template = "site_specific/feeds/feed_title.html"
     description_template = "site_specific/feeds/feed_description.html"
     feed_type = Atom1Feed
-    

@@ -2,7 +2,7 @@
 import re
 from datetime import datetime
 
-from django.contrib.syndication.feeds import Feed
+from django.contrib.syndication.views import Feed
 from django.utils import translation
 from django.template import RequestContext, loader, Context
 from django.http import Http404, HttpResponse
