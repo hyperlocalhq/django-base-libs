@@ -110,3 +110,5 @@ SUBDOMAINS_SUPPORTED = False
 TEST_RUNNER = "jetson.apps.utils.test_runner.ExtendedDjangoTestSuiteRunner"
 TEST_CHARSET = "utf8"
 
+from base_libs import register_template_tags
+register_template_tags()
