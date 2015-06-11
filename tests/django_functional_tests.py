@@ -467,7 +467,7 @@ def suite():
         ('/styleguide/typography/', 301),
         ('/subscribe4info/', 301),
         ('/subscribe4info/done/', 301),
-        ('/tagging_autocomplete/list', 200),
+        ('/tagging_autocomplete/list', 200), # FIXME NameError: global name 'MultiValueDictKeyError' is not defined ####
         ('/ticket/', 301),
         ('/tweets/', 301),
     )
