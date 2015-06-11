@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites production_tags %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites production_tags favorites %}
 {% block title %}{% trans "Event" %} – {{ object.production.title }} – {% endblock %}
 {% block bodyclass %}event-detail{% endblock %}
 
@@ -21,6 +21,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
     <script type="text/javascript">
     
         $(document).ready(function() {
@@ -128,6 +129,9 @@
                                     <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</h2>
                                 {% endif %}
                                 {% if event.production.original %}<h2>{{ event.production.original }}</h2>{% endif %}
+                                {% if request.user.is_authenticated %}
+                                    {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+                                {% endif %}
                             </header>
                             
                             <!-- main  part (including sidebar) -->

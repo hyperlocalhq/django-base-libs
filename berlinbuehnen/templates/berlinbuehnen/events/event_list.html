@@ -139,6 +139,9 @@
                                                             {% if event.ev_or_prod_tickets_website %}
                                                                 <a class="fawesome tickets" href="{{ event.ev_or_prod_tickets_website }}" target="_blank"></a>
                                                             {% endif %}
+                                                            {% if request.user.is_authenticated %}
+                                                                {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>

@@ -53,6 +53,11 @@
                                         <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
                                             <a class="list-item-link" href="{{ location.get_url_path }}">
                                                 {% if location.title %}<h2>{{ location.title }}</h2>{% endif %}
+
+                                                {% if request.user.is_authenticated %}
+                                                    {% adding2favorites for location using "favorites/includes/favorite_detail.html" %}
+                                                {% endif %}
+
                                                 {% if location.subtitle %}<h3>{{ location.subtitle }}</h3>{% endif %}
                                                 {% if location.description %}<div class="copy">{{ location.get_rendered_description }}</div>{% endif %}
                                             </a>

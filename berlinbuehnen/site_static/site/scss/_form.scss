@@ -169,6 +169,12 @@ select {
   padding-left: 17px;
 }
 
+.btn {
+  &:first-letter {
+    text-transform: none;
+  }
+}
+
 // .btn, 
 // input[type=submit], 
 // input[type=reset], 
