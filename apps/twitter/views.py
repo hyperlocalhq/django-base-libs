@@ -1,5 +1,6 @@
 import re
 import calendar
+import json
 from datetime import datetime
 from dateutil.parser import parse as datetime_parse
 from urllib2 import urlopen, HTTPError, URLError
@@ -9,7 +10,6 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.utils.html import urlize
 from django.utils import dateformat
-from django.utils import simplejson as json
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import timesince
 from django.utils.translation import ugettext_lazy as _, ugettext

@@ -492,10 +492,10 @@ def upload_image(access_token, fb_album_id, image_path, message):
     """
     Upload an image without loading it all to the memory
     """
+    import json
     import urllib2
     from poster.encode import multipart_encode
     from poster.streaminghttp import register_openers
-    from django.utils import simplejson
     register_openers()
     datagen, headers = multipart_encode({
         "access_token": access_token,
@@ -508,7 +508,7 @@ def upload_image(access_token, fb_album_id, image_path, message):
         headers,
         )
     response = urllib2.urlopen(request).read()
-    return simplejson.loads(response)
+    return json.loads(response)
 
 def sync_personal_portfolio(request, slug):
     """

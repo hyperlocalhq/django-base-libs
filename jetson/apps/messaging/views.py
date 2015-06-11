@@ -1,10 +1,10 @@
 # -*- coding: UTF-8 -*-
 import md5, re
+import json
 
 from django.http import HttpResponse
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
-from django.utils import simplejson
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -69,8 +69,8 @@ def json_change_message(request):
                 result['error'] = _("You are not allowed to perform this operation")
             
     # currently, no data is returned, a page reload should be performed....  
-    json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
 
 json_change_message = never_cache(json_change_message)
 

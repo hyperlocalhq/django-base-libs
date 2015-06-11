@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
+import json
 from django.db import models
-from django.utils import simplejson
 from django.template import RequestContext
 from django.http import Http404, HttpResponse
 from django.shortcuts import render_to_response
@@ -95,6 +95,6 @@ def json_manage_bookmark(request):
                 bookmark.delete()
     else:
         result['error'] = force_unicode(_("You do not have the permission for this action."))
-    json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
 json_manage_bookmark = never_cache(json_manage_bookmark)

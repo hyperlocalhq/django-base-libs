@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
+import json
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils import simplejson
 from django.views.decorators.cache import never_cache
 from django.db import models
 
@@ -51,7 +51,7 @@ if Institution:
         """
         Gets attributes from a given institution, such as address, phone numbers, etc...
         """
-        json = "false"
+        json_data = "false"
         
         institution = Institution.objects.get(id=institution_id)
         contacts = institution.get_primary_contact()
@@ -60,9 +60,9 @@ if Institution:
                 if getattr(institution, "%s_%s" % (day, field)):
                     contacts["%s_%s" % (day, field)] = getattr(institution, "%s_%s" % (day, field)).strftime("%H:%M")
         contacts['title'] = institution.get_title();
-        json = simplejson.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
+        json_data = json.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
         
-        return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+        return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
     
     json_get_institution_attrs = never_cache(json_get_institution_attrs)
 

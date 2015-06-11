@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import os, fnmatch
+import json
 from os.path import isfile, isdir
 from datetime import datetime, timedelta
 
@@ -15,7 +16,6 @@ from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import slugify
 from django.conf import settings
 # json related stuff
-from django.utils import simplejson
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.cache import never_cache
 from django.utils.encoding import force_unicode
@@ -278,7 +278,7 @@ def json_review_add_rating(request, rate_index, object_id):
     """
     Increments the review rating. 
     """
-    json = "false"
+    json_data = "false"
     result = {}
     
     comment = Comment.objects.get(id = object_id)
@@ -299,8 +299,8 @@ def json_review_add_rating(request, rate_index, object_id):
         'can_rate3': UserRating.objects.can_rate(comment, request.user, 3),
         })
     
-    json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
 
 json_review_add_rating = never_cache(json_review_add_rating)
 
@@ -745,11 +745,12 @@ def site_visitors(request):
                 user__isnull=True,
                 )
         except Visit.DoesNotExist:
-            Visit.objects.create(
-                ip_address=ip_address,
-                user_agent=user_agent,
-                session_key=request.session.session_key,
-                )
+            if request.session.session_key:
+                Visit.objects.create(
+                    ip_address=ip_address,
+                    user_agent=user_agent,
+                    session_key=request.session.session_key,
+                    )
         else:
             visit.ip_address = ip_address
             visit.user_agent = user_agent
@@ -986,7 +987,7 @@ def newsfeed(request, rss, number_of_news):
     from xml.dom.minidom import parseString
     
     from django.utils import dateformat
-    from django.utils import simplejson as json
+    import json
 
     from base_libs.utils.client import Connection
 
