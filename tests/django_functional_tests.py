@@ -371,7 +371,7 @@ def suite():
         ('/de/search/', 200),
         ('/de/search/full/', 200),
         ('/de/simplesearch/', 200),
-        # ('/de/sitemap.xml', 200), # TODO reenable this test, currently disabled due to being very slow
+        # ('/de/sitemap.xml', 200), # FIXME AttributeError in apps/site_specific/models.py line 274
         ('/de/styleguide/', 200),
         ('/de/styleguide/colors/', 200),
         ('/de/styleguide/forms/', 200),
