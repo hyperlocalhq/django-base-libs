@@ -15,7 +15,7 @@ def export_accounts(filename_postfix="", **filters):
     from django.conf import settings
     from django.contrib.auth.models import User
     
-    from base_libs.middleware.threading import set_current_user
+    from base_libs.middleware.threadlocals import set_current_user
     from pyExcelerator import Workbook, Font, XFStyle, UnicodeUtils
     
     from ccb.apps.people.models import Person

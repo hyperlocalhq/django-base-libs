@@ -123,7 +123,7 @@ MIDDLEWARE_CLASSES = (
     "jetson.apps.utils.middleware.urlrewrite.URLRewriteMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "jetson.apps.flatpages.middleware.FlatpageMiddleware",
-    "base_libs.middleware.threading.ThreadLocalsMiddleware",
+    "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
     "django.middleware.doc.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
