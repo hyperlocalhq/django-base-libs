@@ -827,7 +827,8 @@ class ImportFromHeimatBase(object):
                         mf = ProductionImage(production=prod)
                     else:
                         mf = image_mapper.content_object
-                        image_ids_to_keep.append(mf.pk)
+                        if mf:
+                            image_ids_to_keep.append(mf.pk)
                         continue
 
                     filename = image_url.split("/")[-1]
@@ -1056,7 +1057,8 @@ class ImportFromHeimatBase(object):
                             mf = EventImage(event=event)
                         else:
                             mf = image_mapper.content_object
-                            image_ids_to_keep.append(mf.pk)
+                            if mf:
+                                image_ids_to_keep.append(mf.pk)
                             continue
 
                         filename = image_url.split("/")[-1]
