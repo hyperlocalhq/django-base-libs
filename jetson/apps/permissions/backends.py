@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.db import connection
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import User, AnonymousUser, Group, Permission
 from django.contrib.auth.backends import ModelBackend
 from django.db import models
 
@@ -59,6 +59,8 @@ class RowLevelPermissionsBackend(ModelBackend):
         
     def has_perm(self, user_obj, perm, obj=None):
         "Returns True if the user has the specified permission."
+        if isinstance(user_obj, AnonymousUser):
+            return False
         if obj and getattr(obj, "row_level_permissions", False):
             # Since we use the content type for row level perms, we don't need the application name.
             permission_str = perm[perm.index('.')+1:]

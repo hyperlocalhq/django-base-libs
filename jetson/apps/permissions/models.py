@@ -434,11 +434,14 @@ def add_methods_to_user():
     User.contains_row_level_perm = contains_row_level_perm
     User.contains_group_row_level_perms = contains_group_row_level_perms
     
+    AnonymousUser.contains_permission = lambda perm, model=None: False
+    AnonymousUser.contains_row_level_perm = lambda perm, model: False
+    AnonymousUser.contains_group_row_level_perms = lambda perm, ct: False
+
     gen_rel = generic.GenericRelation(
         RowLevelPermission,
         object_id_field="owner_object_id",
         content_type_field="owner_content_type",
-        related_name="owner"
         )
     User.add_to_class("row_level_permissions_owned", gen_rel)
 
