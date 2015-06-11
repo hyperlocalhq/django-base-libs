@@ -20,7 +20,7 @@ from django.utils.encoding import force_unicode, smart_str
 
 from django.db import models
 from django.db.models.query import QuerySet
-from django.contrib.admin.views.main import PAGE_VAR, ALL_VAR, IS_POPUP_VAR, ERROR_FLAG, SEARCH_VAR, ORDER_VAR, ORDER_TYPE_VAR, MAX_SHOW_ALL_ALLOWED
+from django.contrib.admin.views.main import PAGE_VAR, ALL_VAR, IS_POPUP_VAR, ERROR_FLAG, SEARCH_VAR, ORDER_VAR, ORDER_TYPE_VAR
 
 from jetson.apps.location.models import Address
 from jetson.apps.mailing.recipient import Recipient
