@@ -22,11 +22,8 @@ class TitleTest(unittest.TestCase):
         )
 
     def runTest(self):
-        Edith has heard about a cool new online to-do app. She goes
-        to check out its homepage
         self.browser.get(self.base_url + self.url_path)
 
-        She notices the page title and header mention to-do lists
         self.assertIn(self.title, self.browser.title)
 
 
