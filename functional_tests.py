@@ -115,8 +115,8 @@ def suite():
         ('/admin/filebrowser/delete/', 'Django site admin'),
         ('/admin/filebrowser/delete_confirm/', 'Django site admin'),
         ('/admin/filebrowser/detail/', 'Django site admin'),
-        ('/admin/filebrowser/get-version/', 'Django site admin'), # FIXME test is failing
-        ('/admin/filebrowser/upload_file/', 'Django site admin'), # FIXME test is failing
+        ('/admin/filebrowser/get-version/', 'Django site admin'), # FIXME empty title
+        ('/admin/filebrowser/upload_file/', 'Django site admin'), # FIXME AttributeError
         ('/admin/filebrowser/version/', 'Django site admin'),
         ('/admin/filebrowser/versions/', 'Django site admin'),
         ('/admin/flatpages/flatpage/', 'Django site admin'),
@@ -265,23 +265,23 @@ def suite():
         ('/admin/tagging/tag/add/', 'Django site admin'),
         ('/admin/tagging/taggeditem/', 'Django site admin'),
         ('/admin/tagging/taggeditem/add/', 'Django site admin'),
-        ('/admin/templates/', 'Django site admin'), # FIXME test is failing
+        ('/admin/templates/', 'Django site admin'), # FIXME current title is 'Creative City Berlin - login'
         ('/admin/tracker/concern/', 'Django site admin'),
         ('/admin/tracker/concern/add/', 'Django site admin'),
         ('/admin/tracker/ticket/', 'Django site admin'),
         ('/admin/tracker/ticket/add/', 'Django site admin'),
-        ('/helper/bookmark/', 'Creative City Berlin'), # FIXME test is failing
-        ('/helper/country_lookup/', 'Creative City Berlin'), # FIXME test is failing
-        ('/helper/site-visitors/', 'Creative City Berlin'), # FIXME test is failing
+        ('/helper/bookmark/', 'Creative City Berlin'), # FIXME empty title
+        ('/helper/country_lookup/', 'Creative City Berlin'), # FIXME empty title
+        ('/helper/site-visitors/', 'Creative City Berlin'), # FIXME empty title
         # ('/recrop/', 'Creative City Berlin'),
-        ('/tagging_autocomplete/list', 'Creative City Berlin'), # FIXME test is failing
+        ('/tagging_autocomplete/list', 'Creative City Berlin'), # FIXME empty title
         ('/de/', 'Creative City Berlin'),
         ('/de/account/', 'Creative City Berlin'),
         ('/de/compatibility/', 'Creative City Berlin'),
         ('/de/contact/', 'Creative City Berlin'),
         ('/de/contact/alldone/', 'Creative City Berlin'),
         ('/de/documents/', 'Creative City Berlin'),
-        ('/de/gmap/', 'Creative City Berlin'), # FIXME test is failing
+        ('/de/gmap/', 'Creative City Berlin'), # FIXME current title is 'Multipurpose Google Maps View'
         ('/de/groups/', 'Creative City Berlin'),
         # ('/de/helper/blank_doc/', 'Creative City Berlin'),
         # ('/de/helper/bookmark/', 'Creative City Berlin'),
@@ -289,24 +289,24 @@ def suite():
         # ('/de/helper/site-visitors/', 'Creative City Berlin'),
         ('/de/institutions/', 'Creative City Berlin'),
         ('/de/invite/done/', 'Creative City Berlin'),
-        ('/de/jobs/create-berlin-jobboard/', 'Creative City Berlin'), # FIXME test is failing
-        ('/de/jobs/talent-in-berlin/', 'Creative City Berlin'), # FIXME test is failing
-        ('/de/jsi18n/', 'Creative City Berlin'), # FIXME test is failing
-        ('/de/jssettings/', 'Creative City Berlin'), # FIXME test is failing
+        ('/de/jobs/create-berlin-jobboard/', 'Creative City Berlin'), # FIXME current title is 'Job Board'
+        ('/de/jobs/talent-in-berlin/', 'Creative City Berlin'), # FIXME empty title
+        ('/de/jsi18n/', 'Creative City Berlin'), # FIXME empty title
+        ('/de/jssettings/', 'Creative City Berlin'), # FIXME empty title
         ('/de/kreativarbeiten/best-practice/', 'Creative City Berlin'),
         ('/de/kreativarbeiten/blog/', 'Creative City Berlin'),
         ('/de/kreativarbeiten/blog/all/', 'Creative City Berlin'),
         ('/de/kreativarbeiten/blog/drafts/', 'Creative City Berlin'),
         ('/de/kreativarbeiten/contact/', 'Creative City Berlin'),
         ('/de/kreativarbeiten/contact/done/', 'Creative City Berlin'),
-        ('/de/kreativarbeiten/newsfeed/', 'Creative City Berlin'), # FIXME test is failing
-        ('/de/kreativarbeiten/tweets/', 'Creative City Berlin'), # FIXME test is failing
+        ('/de/kreativarbeiten/newsfeed/', 'Creative City Berlin'), # FIXME empty title
+        ('/de/kreativarbeiten/tweets/', 'Creative City Berlin'), # FIXME empty title
         ('/de/lists/', 'Creative City Berlin'),
         ('/de/livestream/', 'Creative City Berlin'),
         ('/de/login', 'Creative City Berlin'),
         ('/de/map/', 'Creative City Berlin'),
         ('/de/map/object-list/', 'Creative City Berlin'),
-        ('/de/my-messages/json/', 'Creative City Berlin'), # FIXME test is failing
+        ('/de/my-messages/json/', 'Creative City Berlin'), # FIXME empty title
         ('/de/my-profile/bookmarks/', 'Creative City Berlin'),
         ('/de/my-profile/delete/done/', 'Creative City Berlin'),
         ('/de/my-profile/favorites/', 'Creative City Berlin'),
@@ -314,7 +314,7 @@ def suite():
         ('/de/news/', 'Creative City Berlin'),
         ('/de/news/articles/', 'Creative City Berlin'),
         ('/de/news/interviews/', 'Creative City Berlin'),
-        ('/de/notification/feed/', 'Creative City Berlin'), # FIXME test is failing
+        ('/de/notification/feed/', 'Creative City Berlin'), # FIXME empty title
         ('/de/password_change/done/', 'Creative City Berlin'),
         ('/de/password_reset/', 'Creative City Berlin'),
         ('/de/password_reset/complete/', 'Creative City Berlin'),
@@ -337,7 +337,7 @@ def suite():
         ('/de/subscribe4info/done/', 'Creative City Berlin'),
         # ('/de/tagging_autocomplete/list', 'Creative City Berlin'),
         ('/de/ticket/', 'Creative City Berlin'),
-        ('/de/tweets/', 'Creative City Berlin'), # FIXME test is failing
+        ('/de/tweets/', 'Creative City Berlin'), # FIXME empty title
     )
 
     suite = unittest.TestSuite()
