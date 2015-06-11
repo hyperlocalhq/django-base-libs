@@ -15,7 +15,7 @@ from django.template.loader import select_template
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
 from django.template.defaultfilters import stringfilter
-from django.utils.encoding import force_str
+from base_libs.django_compatibility import force_str
 
 from base_libs.utils.loader import select_template_for_object
 from base_libs.utils.user import get_user_title
