@@ -18,9 +18,9 @@ def _institution_list_filter(request, queryset, show):
 
     queryset = queryset.defer(
         "description", "description_de", "description_en",
-        "description_markup_type", "description_de_markup_type", "description_en_markup_type",
+        "description_de_markup_type", "description_en_markup_type",
         "exceptions", "exceptions_de", "exceptions_en",
-        "exceptions_markup_type", "exceptions_de_markup_type", "exceptions_en_markup_type",
+        "exceptions_de_markup_type", "exceptions_en_markup_type",
         )
     
     if show=="favorites":

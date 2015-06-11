@@ -65,9 +65,9 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
     if not(kwargs.has_key('feed') and kwargs['feed'] == True):
         kwargs['queryset'] = kwargs['queryset'].defer(
             "description", "description_de", "description_en",
-            "description_markup_type", "description_de_markup_type", "description_en_markup_type",
+            "description_de_markup_type", "description_en_markup_type",
             "exceptions", "exceptions_de", "exceptions_en",
-            "exceptions_markup_type", "exceptions_de_markup_type", "exceptions_en_markup_type",
+            "exceptions_de_markup_type", "exceptions_en_markup_type",
             "additional_info", "additional_info_de", "additional_info_en",
             "additional_info_markup_type", "additional_info_de_markup_type", "additional_info_en_markup_type",
             )

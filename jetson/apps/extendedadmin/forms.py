@@ -212,7 +212,7 @@ if is_installed("people.models"):
             
         class Meta:
             model = Person
-            exclude = ("user", "description_markup_type")
+            exclude = ("user",)
             
         old_password = forms.CharField(
             widget=forms.PasswordInput,
@@ -378,8 +378,7 @@ if is_installed("institutions.models"):
         
         class Meta:
             model = Institution
-            exclude=("description_markup_type", "exceptions_markup_type")
-    
+
     class InstitutionalContactForm(forms.ModelForm):
         """
         Institutional-contact form for administration
@@ -474,5 +473,4 @@ if is_installed("resources.models"):
         
         class Meta:
             model = Document
-            exclude=("description_markup_type",)
 

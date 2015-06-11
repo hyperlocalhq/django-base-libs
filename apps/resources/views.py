@@ -10,7 +10,7 @@ class AccessDenied(Warning):
 def _document_list_filter(request, queryset, show):
     queryset = queryset.defer(
         "description", "description_de", "description_en",
-        "description_markup_type", "description_de_markup_type", "description_en_markup_type",
+        "description_de_markup_type", "description_en_markup_type",
         )
     
     if show=="favorites":
