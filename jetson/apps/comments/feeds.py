@@ -4,6 +4,8 @@ from django.contrib.sites.models import Site
 
 from jetson.apps.comments.models import Comment
 
+COMMENTS_BANNED_USERS_GROUP = getattr(settings, "COMMENTS_BANNED_USERS_GROUP", "")
+
 class LatestCommentsFeed(Feed):
     "Feed of latest comments on the current site."
 
@@ -27,9 +29,9 @@ class LatestCommentsFeed(Feed):
     def get_query_set(self):
         qs = self.comments_class.objects.filter(site__pk=settings.SITE_ID, is_public=True)
         qs = qs.filter(is_removed=False)
-        if settings.COMMENTS_BANNED_USERS_GROUP:
+        if COMMENTS_BANNED_USERS_GROUP:
             where = ['user_id NOT IN (SELECT user_id FROM auth_users_group WHERE group_id = %s)']
-            params = [settings.COMMENTS_BANNED_USERS_GROUP]
+            params = [COMMENTS_BANNED_USERS_GROUP]
             qs = qs.extra(where=where, params=params)
         return qs
 
