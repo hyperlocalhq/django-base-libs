@@ -18,7 +18,7 @@ from django.utils.encoding import force_unicode
 from django import template
 from django.shortcuts import render_to_response
 from django.core.exceptions import PermissionDenied
-from django.http.response import Http404
+from django.http import Http404
 
 from mptt.exceptions import InvalidMove
 from mptt.forms import MoveNodeForm
@@ -123,7 +123,7 @@ class TreeEditor(admin.ModelAdmin):
     def get_urls(self):
         from django.utils.functional import update_wrapper
         from django.conf.urls import patterns, url
-        
+
         def wrap(view):
             def wrapper(*args, **kwargs):
                 return self.admin_site.admin_view(view)(*args, **kwargs)
@@ -139,16 +139,16 @@ class TreeEditor(admin.ModelAdmin):
                 name='%s_%s_move' % info
             ),
         )
-        
+
         urlpatterns += super(TreeEditor, self).get_urls()
-        
+
         return urlpatterns
 
     @csrf_protect_m
     @transaction.commit_on_success
     def move_view(self, request, object_id, extra_context=None):
         "The 'move node' admin view for this model."
-        
+
         opts = self.model._meta
         app_label = opts.app_label
 
@@ -166,7 +166,7 @@ class TreeEditor(admin.ModelAdmin):
                 if "johnny" in django_settings.INSTALLED_APPS:
                     from johnny.cache import invalidate
                     invalidate(self.model)
-                
+
                 form.save()
 
             self.message_user(request, ugettext('%s has been moved to a new position.') %
@@ -268,7 +268,7 @@ class TreeEditor(admin.ModelAdmin):
             if "johnny" in django_settings.INSTALLED_APPS:
                 from johnny.cache import invalidate
                 invalidate(self.model)
-            
+
             try:
                 self.model._tree_manager.move_node(cut_item, pasted_on, position)
             except InvalidMove, e:
