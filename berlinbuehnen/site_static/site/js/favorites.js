@@ -15,7 +15,9 @@ var gettext = window.gettext || function(text) {return text;};
             $(document).on('click', '.favorite', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                oSelf.toggle($(this).get(), $(this).data('content_type_id'), $(this).data('object_id'));
+                var $button = $(this);
+                oSelf.toggle($button.get(), $button.data('content_type_id'), $button.data('object_id'));
+                return false;
             });
         },
         destruct: function() {
