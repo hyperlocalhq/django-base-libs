@@ -26,7 +26,9 @@ memcache-toolbar==0.5.2
 MySQL-python==1.2.5
 Pillow==2.8.1
 poster==0.8.1
--e git://github.com/toddw-as/pyDes@4e4eed64fdf140df861d817913a1bf0f94767b7b#egg=pyDes-dev
+--allow-external pyDes
+--allow-unverified pyDes
+pyDes==1.2
 pyExcelerator==0.6.4.1
 -e git://github.com/mscheibe/python-sdk@13d5849eb0b54b9cda5cf03c35ea6df61094107e#egg=python-sdk-dev
 recaptcha-client==1.0.6
