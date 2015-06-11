@@ -44,4 +44,21 @@
         padding: 10px 0;
         font-size: 1em;
     }
+    #mc-embedded-ok {
+        width: 100%;
+        display: none;
+        text-align: center;
+        span {
+            background: $blue;
+            height: 30px;
+            padding: 5px 40px;
+            font-weight: $bold;
+            color: white;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-size: 1em;
+            display: inline-block;
+            margin: 10px auto;
+        }
+    }
 }

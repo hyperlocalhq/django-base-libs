@@ -14,27 +14,71 @@
 	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
     <div style="position: absolute; left: -5000px;"><input type="text" name="b_d7c71420a69df471f30ab850e_3f2c5c590a" tabindex="-1" value=""></div>
     <div class="clear"><input type="submit" value="{% trans 'subscribe' %}" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    <div id="mc-embedded-ok"><span>{% trans 'OK' %}</span></div>
     </div>
 </form>
 </div>
-<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email'; /*
- * Translated default messages for the $ validation plugin.
- * Locale: DE
- */
-$.extend($.validator.messages, {
-	required: "{% trans 'This field is required.' %}", //Dieses Feld ist ein Pflichtfeld.
-	maxlength: $.validator.format("Geben Sie bitte maximal {0} Zeichen ein."),
-	minlength: $.validator.format("Geben Sie bitte mindestens {0} Zeichen ein."),
-	rangelength: $.validator.format("Geben Sie bitte mindestens {0} und maximal {1} Zeichen ein."),
-	email: "{% trans 'Please enter a valid email address.' %}", //Geben Sie bitte eine gültige E-Mail Adresse ein.
-	url: "Geben Sie bitte eine gültige URL ein.",
-	date: "Bitte geben Sie ein gültiges Datum ein.",
-	number: "Geben Sie bitte eine Nummer ein.",
-	digits: "Geben Sie bitte nur Ziffern ein.",
-	equalTo: "Bitte denselben Wert wiederholen.",
-	range: $.validator.format("Geben Sie bitten einen Wert zwischen {0} und {1}."),
-	max: $.validator.format("Geben Sie bitte einen Wert kleiner oder gleich {0} ein."),
-	min: $.validator.format("Geben Sie bitte einen Wert größer oder gleich {0} ein."),
-	creditcard: "Geben Sie bitte ein gültige Kreditkarten-Nummer ein."
-});}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+<script type='text/javascript'>
+    (function($) {
+    
+        ////////////////////////////////////////////////
+        // start altering original behavior of mailchimp
+        
+        var mce_success_cb_original = window.mc.mce_success_cb;
+        window.mc.mce_success_cb = function(resp) {
+            if (resp.result == "success") {
+                $('#mce-EMAIL').css('display', 'none');
+                $('#mc-embedded-subscribe').css('display', 'none');
+                $('#mc-embedded-ok').css('display', 'block');
+            }
+            mce_success_cb_original(resp);
+        };
+        window.mc.ajaxOptions.success = window.mc.mce_success_cb;
+        
+        $('#mc-embedded-ok').click(function() {
+           $('#mc_embed_signup').css('display', 'none');
+        });
+        
+        $('#mce-EMAIL').change(function() {
+            $('div.mce_inline_error').css('display', 'none');
+        });
+        
+        $('#mce-EMAIL').focus(function() {
+            $('div.mce_inline_error').css('display', 'none');
+        });
+        
+        // end altering
+        //////////////////////////////////////////////////
+        
+    
+        window.fnames = new Array(); 
+        window.ftypes = new Array();
+        fnames[0]='EMAIL';
+        ftypes[0]='email'; 
+        /*
+        * Translated default messages for the $ validation plugin.
+        * Locale: DE
+        */
+        $.extend($.validator.messages, {
+            required: "{% trans 'This field is required.' %}", //Dieses Feld ist ein Pflichtfeld.
+            maxlength: $.validator.format("Geben Sie bitte maximal {0} Zeichen ein."),
+            minlength: $.validator.format("Geben Sie bitte mindestens {0} Zeichen ein."),
+            rangelength: $.validator.format("Geben Sie bitte mindestens {0} und maximal {1} Zeichen ein."),
+            email: "{% trans 'Please enter a valid email address.' %}", //Geben Sie bitte eine gültige E-Mail Adresse ein.
+            url: "Geben Sie bitte eine gültige URL ein.",
+            date: "Bitte geben Sie ein gültiges Datum ein.",
+            number: "Geben Sie bitte eine Nummer ein.",
+            digits: "Geben Sie bitte nur Ziffern ein.",
+            equalTo: "Bitte denselben Wert wiederholen.",
+            range: $.validator.format("Geben Sie bitten einen Wert zwischen {0} und {1}."),
+            max: $.validator.format("Geben Sie bitte einen Wert kleiner oder gleich {0} ein."),
+            min: $.validator.format("Geben Sie bitte einen Wert größer oder gleich {0} ein."),
+            creditcard: "Geben Sie bitte ein gültige Kreditkarten-Nummer ein."
+        });
+        
+        
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+</script>
 <!--End mc_embed_signup-->
