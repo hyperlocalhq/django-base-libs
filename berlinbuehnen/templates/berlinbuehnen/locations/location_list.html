@@ -6,7 +6,7 @@
 
 
 {% block js %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
 {% endblock %}
 
@@ -21,46 +21,33 @@
                     
                     <!-- the list -->
                     {% if object_list %}
-                        <div id="main_list" class="list list-autoload location-list row">
+                        <div id="main_grid" class="grid location-grid grid-autoload row">
                             {% for location in object_list %}
-                                {% ifchanged location.title.0|upper %}<h1 class="list-headline">{{ location.title.0|upper }}</h1>{% endifchanged %}
-                                <div class="list-item col-xs-12">
-                                    <div class="row">
-                                        
-                                        <!-- list item head (date and image) -->
-                                        <div class="list-item-head col-xs-12 col-sm-5 col-md-4 col-lg-3">
-                                            <div class="row">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3" href="{{ location.get_url_path }}">
                                                 
-                                                <!-- image -->
-                                                <div class="list-item-head-image img col-xs-1 col-sm-12">
-                                                    {% comment %}{% if location.logo %}
-                                                        <img src="{{ MEDIA_URL }}{{ location.logo|modified_path:"list_logo" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />{% endcomment %}
-                                                    {% if location.first_image %}
-                                                        <img src="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"list_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
-                                                    {% elif location.image_set.exists %}
-                                                        {% with location.image_set.all|first as image %}
-                                                            <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />
-                                                        {% endwith %}
-                                                    {% else %}
-                                                        <img src="{{ STATIC_URL }}site/img/placeholder_location.png" />
-                                                    {% endif %}
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- list item body -->
-                                        <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
-                                            <a class="list-item-link" href="{{ location.get_url_path }}">
-                                                {% if location.title %}<h2>{{ location.title }}</h2>{% endif %}
-                                                {% if location.subtitle %}<h3>{{ location.subtitle }}</h3>{% endif %}
-                                                {% if location.description %}<div class="copy">{{ location.get_rendered_description }}</div>{% endif %}
-                                            </a>
-                                        </div>
-                            
-                                    </div>
-                                </div>  
+                                    <!-- image -->
+                                    <span class="grid-item-image img">
+                                        {% comment %}{% if location.logo %}
+                                            <img src="{{ MEDIA_URL }}{{ location.logo|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />{% endcomment %}
+                                        {% if location.first_image %}
+                                            <img src="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ event.production.title|escape }}" />
+                                        {% elif location.image_set.exists %}
+                                            {% with location.image_set.all|first as image %}
+                                                <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"detail_image" }}{% if_has_perm "location.change_location" location %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ location.title|escape }}" />
+                                            {% endwith %}
+                                        {% else %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                        {% endif %}
+                                    </span>
+                                    
+                                    {% if location.title %}<h2>{{ location.title }}</h2>{% endif %}
+                                    {% if location.subtitle %}<h3>{{ location.subtitle }}</h3>{% endif %}
+                                    {% if location.description %}<div class="copy">{{ location.get_rendered_description|truncatewords:20 }}</div>{% endif %}
+                                    
+                                </a>
+                                
                             {% endfor %}
+                            
                             {% include "utils/pagination.html" %}
                         </div>
                     {% else %}

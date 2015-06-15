@@ -1967,6 +1967,16 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 
 .jscroll-inner .list { margin: 0 !important; padding: 0 !important; }
 
+.grid { margin: 0 -8px; }
+.grid .grid-item { display: block; padding: 0 8px 56px; color: black; }
+.grid .grid-item:hover { color: black; }
+.grid .grid-item .grid-item-image { display: block; width: 100%; margin-bottom: 16px; }
+.grid .grid-item .grid-item-image img { width: 100%; height: auto; }
+.grid .grid-item h2 { text-transform: uppercase; font-size: 1.25em; margin-bottom: 16px; }
+.grid .grid-item h3 { font-size: 1em; margin-top: -10px; margin-bottom: 16px; }
+
+body.is-xs .grid { margin: 0 -28px; }
+
 .filter-wrapper { width: 100%; margin: 0 0 25px; position: relative; }
 .filter-wrapper .row { margin: 0 -15px; }
 .filter-wrapper .filter-button { border: none; width: 33px; height: 33px; color: white; background: black; padding: 0; }

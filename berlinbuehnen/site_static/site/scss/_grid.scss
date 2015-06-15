@@ -1,0 +1,36 @@
+.grid {
+    margin: 0 -8px;
+    .grid-item {
+        display: block;
+        padding: 0 8px 56px;
+        color: black;
+        &:hover {
+            color: black;
+        }
+        .grid-item-image {
+            display: block;
+            width: 100%;
+            margin-bottom: 16px;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        h2 {
+            text-transform: uppercase;
+            font-size: 1.25em;
+            margin-bottom: 16px;
+        }
+        h3 {
+            font-size: 1em;
+            margin-top: -10px;
+            margin-bottom: 16px;
+        }
+    }
+}
+
+body.is-xs {
+    .grid {
+        margin: 0 -28px;
+    }
+}
