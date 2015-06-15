@@ -1,4 +1,5 @@
-var gettext = window.gettext || function(text) {return text};
+/* global self:false */
+var gettext = window.gettext || function(text) {return text;};
 
 (function($, undefined) {
     
@@ -11,7 +12,13 @@ var gettext = window.gettext || function(text) {return text};
         sTitleToRemove: gettext("Remove from favorites"),
         init: function() {
             var oSelf = self.FavoriteManager; 
-            var aUrlBits = window.website.path.substr(1).split("/");
+            $(document).on('click', '.favorite', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var $button = $(this);
+                oSelf.toggle($button.get(), $button.data('content_type_id'), $button.data('object_id'));
+                return false;
+            });
         },
         destruct: function() {
             self.FavoriteManager = null;
@@ -27,14 +34,13 @@ var gettext = window.gettext || function(text) {return text};
                 },
                 "JSON"
             );
-            return false;
         },
         showResults: function(oData, oElement) {
             var oSelf = self.FavoriteManager;
             var $oEl = $(oElement);
             if (oData) {
-                $oSpan = $oEl.children("span:first");
-                if (oData["action"] == "added") {
+                var $oSpan = $oEl.children("span:first");
+                if (oData.action === "added") {
                     $oEl.attr({
                         title: oSelf.sTitleToRemove
                     }).addClass("active");
@@ -47,8 +53,8 @@ var gettext = window.gettext || function(text) {return text};
                     $oSpan.html(oSelf.sInnerTextToAdd);
                     $oEl.attr("data-original-title",oSelf.sInnerTextToAdd);
                 }
-                if (oData["count"] != undefined) {
-                    $oEl.children(".favorites_count").text(oData["count"]);
+                if (oData.count !== undefined) {
+                    $oEl.children(".favorites_count").text(oData.count);
                 }
             }
             $oEl.removeClass("progress").css({cursor: "pointer"});

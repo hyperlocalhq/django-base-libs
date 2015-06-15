@@ -827,7 +827,8 @@ class ImportFromHeimatBase(object):
                         mf = ProductionImage(production=prod)
                     else:
                         mf = image_mapper.content_object
-                        image_ids_to_keep.append(mf.pk)
+                        if mf:
+                            image_ids_to_keep.append(mf.pk)
                         continue
 
                     filename = image_url.split("/")[-1]
@@ -1056,7 +1057,8 @@ class ImportFromHeimatBase(object):
                             mf = EventImage(event=event)
                         else:
                             mf = image_mapper.content_object
-                            image_ids_to_keep.append(mf.pk)
+                            if mf:
+                                image_ids_to_keep.append(mf.pk)
                             continue
 
                         filename = image_url.split("/")[-1]
@@ -1245,4 +1247,16 @@ class ImportFromHeimatBase(object):
                     continue
 
                 mapper.content_object.delete()
+            mapper.delete()
+
+        # deleting production images and their mappers if a production was deleted
+        for mapper in service.objectmapper_set.filter(content_type__model__iexact="productionimage"):
+            if mapper.content_object:
+                continue
+            mapper.delete()
+
+        # deleting event images and their mappers if an event was deleted
+        for mapper in service.objectmapper_set.filter(content_type__model__iexact="eventimage"):
+            if mapper.content_object:
+                continue
             mapper.delete()

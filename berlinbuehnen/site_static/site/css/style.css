@@ -42,6 +42,8 @@ strong { font-weight: 700; }
 
 .fawesome.calender:before { content: "\f073"; }
 
+.fawesome.favorite:before { content: "\f005"; }
+
 .fawesome.more:after { content: "\f105"; }
 
 .fawesome.delete:before { content: "\f00d"; color: white; background: black; padding-right: 0; margin-right: 3px; font-size: 1em; width: 15px; height: 15px; line-height: 14px; text-align: center; margin-bottom: 2px; }
@@ -1222,6 +1224,8 @@ select[multiple] { height: 185px; line-height: 80px; -webkit-padding-end: 10px; 
 
 .sbOptions .sbSub { padding-left: 17px; }
 
+.btn:first-letter { text-transform: none; }
+
 input[type=range] { -webkit-appearance: none; -moz-apperance: none; }
 
 ​ input::-webkit-slider-thumb { -webkit-appearance: none; -moz-apperance: none; }
@@ -1695,15 +1699,17 @@ select { visibility: hidden; }
 .details header ul.header-top { width: 100%; list-style: none; padding-bottom: 4px; margin-bottom: 29px; margin-top: 18px; border-bottom: 4px solid #000; }
 .details header ul.header-top li { display: inline-block; text-transform: uppercase; font-size: 1.125em; font-weight: 700; }
 .details header ul.header-top li:after { content: "|"; margin: 0 10px; }
-.details header ul.header-top li:last-child { padding-right: 30px; }
+.details header ul.header-top li:last-child { padding-right: 60px; }
 .details header ul.header-top li:last-child:after { content: none; margin: 0; }
 .details header ul.header-top li dl { margin-top: 0; }
 .details header ul.header-top li dl dd:after { content: "–"; padding-right: 3px; }
 .details header ul.header-top li dl dd:last-child:after { content: none; }
-.details header .addtocalendar { position: absolute; right: -5px; top: 2px; }
-.details header .addtocalendar a { font-size: 14px; color: black; }
-.details header .addtocalendar a:hover { color: black; }
-.details header .addtocalendar .atcb-list { left: inherit; right: 0; }
+.details header .header-icons { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; position: absolute; right: -5px; top: 2px; }
+.details header .header-icons a { font-size: 14px; color: black; cursor: pointer; }
+.details header .header-icons a:hover { color: black; }
+.details header .header-icons a.favorite.active:before { color: #4583c8; }
+.details header .header-icons a.favorite.active:before:hover, .details header .header-icons a.favorite.active:before:focus { color: #4583c8; }
+.details header .header-icons .atcb-list { left: inherit; right: 0; }
 .details header h1 { font-weight: 200; font-size: 2em; text-transform: uppercase; margin-bottom: 13px; }
 .details header h2 { font-weight: 400; font-size: 1.125em; margin-bottom: 13px; }
 .details .main .container { padding-left: 0; padding-right: 0; }
@@ -1732,6 +1738,9 @@ select { visibility: hidden; }
 .details a.tickets:hover { color: black; }
 .details a.tickets.tickets-link { margin-top: 5px; display: inline-block; }
 .details a.tickets.tickets-link:before { padding-right: 5px; }
+
+#location.details header h1 { margin-right: 30px; }
+#location.details header .header-icons { top: 9px; }
 
 .is-xs .details .main-container { padding-left: 10px; padding-right: 10px; }
 
@@ -1913,6 +1922,10 @@ top: 0;*/ width: 110px; height: 100%; display: block; background-image: url(../i
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { height: 23px; margin: 0; padding: 0; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a { font-size: 14px; color: black; margin-left: 2px; }
 .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:hover, .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:focus { color: black; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:before { padding-right: 6px; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.tickets:before { padding-right: 0px; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before { color: #4583c8; }
+.list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before:hover, .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.favorite.active:before:focus { color: #4583c8; }
 .list .list-item .list-item-head .list-item-head-image { margin: 0; padding: 0; }
 .list .list-item .list-item-head .list-item-head-image img { width: 148px; float: right; }
 .list .list-item .list-item-body { margin: 0; padding: 0; height: 148px; overflow: hidden; }
@@ -1950,6 +1963,8 @@ body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-time { width: 115px; height: auto; font-size: 3em; position: absolute; top: 8px; left: 55px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-type { width: auto; height: auto; position: absolute; top: 8px; right: 5px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons { width: auto; height: auto; position: absolute; top: 24px; right: -4px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a:before { padding-right: 10px; }
+body.is-xs .list .list-item .list-item-head .list-item-head-date .list-item-head-date-icons a.tickets:before { padding-right: 10px; }
 body.is-xs .list .list-item .list-item-head .list-item-head-image { position: absolute; top: 0; left: 0; }
 body.is-xs .list .list-item .list-item-head .list-item-head-image img { width: 50px; float: none; }
 body.is-xs .list .list-item-body { padding-bottom: 40px; height: auto; max-height: 350px; }
@@ -2104,9 +2119,6 @@ body { height: 100%; position: relative; background-color: white; overflow-y: sc
 input { font-size: 16px !important; }
 
 .uc { text-transform: uppercase; }
-
-.favorite.active { background-color: #00aefd; }
-.favorite.active .icon { color: white; }
 
 .relative { position: relative; }
 
