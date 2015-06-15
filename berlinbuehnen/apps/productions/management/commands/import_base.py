@@ -1248,3 +1248,15 @@ class ImportFromHeimatBase(object):
 
                 mapper.content_object.delete()
             mapper.delete()
+
+        # deleting production images and their mappers if a production was deleted
+        for mapper in service.objectmapper_set.filter(content_type__model__iexact="productionimage"):
+            if mapper.content_object:
+                continue
+            mapper.delete()
+
+        # deleting event images and their mappers if an event was deleted
+        for mapper in service.objectmapper_set.filter(content_type__model__iexact="eventimage"):
+            if mapper.content_object:
+                continue
+            mapper.delete()
