@@ -1,2 +1,2 @@
 {% load base_tags i18n %}
-<a class="fawesome favorite {% if not is_not_favorite_for_user %} active{% endif %}" data-content_type_id="{{ content_type_id }}" data-object_id="{{ object.id }}">{% if not is_not_favorite_for_user %}<span class="sr-only">{% trans "Add to Favorites" %}</span>{% else %}<span class="sr-only">{% trans "Remove from Favorites" %}</span>{% endif %}</a>
+<a class="fawesome favorite {% if not is_not_favorite_for_user %} active{% endif %}" data-content_type_id="{{ content_type_id }}" data-object_id="{{ object.id }}" href="javascript:void(0);">{% if not is_not_favorite_for_user %}<span class="sr-only">{% trans "Add to Favorites" %}</span>{% else %}<span class="sr-only">{% trans "Remove from Favorites" %}</span>{% endif %}</a>
