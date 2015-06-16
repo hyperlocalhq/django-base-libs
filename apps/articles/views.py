@@ -5,7 +5,7 @@ from django.db import models
 from django.template import loader
 from django.http import Http404, HttpResponseRedirect
 from django.db.models.fields import DateTimeField
-from django.views.generic.date_based import object_detail as date_based_object_detail
+from django.views.generic.dates import DateDetailView
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
@@ -557,15 +557,19 @@ def article_object_detail(
     if template_name is None:
         template_name = 'articles/articles_detail.html' 
     
-    return date_based_object_detail(
+    return django.views.generic.dates.DateDetailView(
         request, year, month, day, queryset, date_field,
         month_format=month_format, day_format=day_format, 
-        object_id=None, slug=article_slug,
-        slug_field='slug', template_name=template_name,
+        object_id=None,
+        slug=article_slug,
+        slug_field='slug',
+        template_name=template_name,
         template_name_field=template_name_field,
-        template_loader=template_loader, extra_context=extra_context, 
+        template_loader=template_loader,
+        extra_context=extra_context,
         context_processors=context_processors,
-        template_object_name=template_object_name, mimetype=mimetype,
+        template_object_name=template_object_name,
+        mimetype=mimetype,
         allow_future=allow_future
         )    
     

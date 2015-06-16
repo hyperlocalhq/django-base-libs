@@ -13,7 +13,7 @@ from django.views.decorators.cache import never_cache
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.db.models.fields import DateTimeField
-from django.views.generic.date_based import object_detail as date_based_object_detail
+from django.views.generic.dates import DateDetailView
 
 from tagging.models import TaggedItem
 
@@ -323,7 +323,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
         else:
             post.increase_views()
 
-        return date_based_object_detail(
+        return DateDetailView(
             request, year, month, day, Post.objects.all(), 'published_from',
             month_format='%m', day_format='%d', slug=post_slug, slug_field='slug',
             template_name=template_name, template_name_field=None,
