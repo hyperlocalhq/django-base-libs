@@ -19,7 +19,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
         make_option('--skip-images', action='store_true', dest='skip_images', default=False,
             help='Tells Django to NOT download images.'),
     )
-    help = "Deletes all productions and events with their relationships"
+    help = "Fixes productions ownership"
 
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", NORMAL))
@@ -37,11 +37,11 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 for location in prod.in_program_of.all():
                     for owner in location.get_owners():
                         prod.set_owner(owner)
-                for location in prod.play_locations.all():
-                    for owner in location.get_owners():
-                        prod.set_owner(owner)
-                for event in prod.event_set.all():
-                    for location in event.play_locations.all():
-                        for owner in location.get_owners():
-                            prod.set_owner(owner)
+                # for location in prod.play_locations.all():
+                #     for owner in location.get_owners():
+                #         prod.set_owner(owner)
+                # for event in prod.event_set.all():
+                #     for location in event.play_locations.all():
+                #         for owner in location.get_owners():
+                #             prod.set_owner(owner)
 
