@@ -169,11 +169,13 @@ class PersonProfile: # namespace
             required=True,
             label=_("Last Name"),
             )
+
         def __init__(self, person, index, *args, **kwargs):
+            super(IdentityForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['first_name'].initial = person.user.first_name
                 self.fields['last_name'].initial = person.user.last_name
         def save(self):
@@ -199,11 +201,13 @@ class PersonProfile: # namespace
             required=False,
             widget=forms.Textarea(),
             )
+
         def __init__(self, person, index, *args, **kwargs):
+            super(DescriptionForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = person.description_en
                 self.fields['description_de'].initial = person.description_de
         def save(self):
@@ -223,7 +227,9 @@ class PersonProfile: # namespace
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
             )
+
         def __init__(self, person, index, *args, **kwargs):
+            super(AvatarForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -456,16 +462,13 @@ class PersonProfile: # namespace
                     }
                 ),
             )
+
         def __init__(self, person, index, *args, **kwargs):
+            super(ContactForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            #INSTITUTION_CHOICES = [("", "---------")]
-            #INSTITUTION_CHOICES.extend([(str(el.id), force_unicode(el))
-            #    for el in person.get_institutions()
-            #    ])
-            #self.fields['institution'].choices = self.fields['institution'].widget.choices = INSTITUTION_CHOICES
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 if index is not None and index.isdigit():
                     index = int(index)
                     contact = person.get_contacts()[index]
@@ -690,11 +693,13 @@ class PersonProfile: # namespace
             label=_("Preferred Language"),
             choices=PREFERRED_LANGUAGE_CHOICES,
             )
+
         def __init__(self, person, index, *args, **kwargs):
+            super(DetailsForm, self).__init__()
             self.person = person
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['individual_type'].initial = person.individual_type_id
                 self.fields['salutation'].initial = person.salutation_id
                 self.fields['birthday_dd'].initial = person.birthday_dd
@@ -756,37 +761,34 @@ class PersonProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one context category."))
             return True
-            
+
         def __init__(self, person, index, *args, **kwargs):
+            super(CategoriesForm, self).__init__()
             self.person = person
             super(type(self), self).__init__(*args, **kwargs)
-            
             self.creative_sectors = {}
             for item in get_related_queryset(Person, "creative_sectors"):
                 self.creative_sectors[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_CI + str(item.id),
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_CI + str(item.id),
+                }
             self.context_categories = {}
             for item in get_related_queryset(Person, "context_categories"):
                 self.context_categories[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_BC + str(item.id),
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_BC + str(item.id),
+                }
             for s in self.creative_sectors.values():
                 self.fields[s['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in person.get_creative_sectors():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_CI + str(ancestor.id)].initial = True
-            
             for c in self.context_categories.values():
                 self.fields[c['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in person.get_context_categories():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_BC + str(ancestor.id)].initial = True
@@ -842,11 +844,13 @@ class InstitutionProfile: # namespace
             required=False,
             label=_("Institution Name 2nd line"),
             )
+
         def __init__(self, institution, index, *args, **kwargs):
+            super(IdentityForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['title'].initial = institution.title
                 self.fields['title2'].initial = institution.title2
         def save(self):
@@ -869,11 +873,13 @@ class InstitutionProfile: # namespace
             required=False,
             widget=forms.Textarea(),
             )
+
         def __init__(self, institution, index, *args, **kwargs):
+            super(DescriptionForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = institution.description_en
                 self.fields['description_de'].initial = institution.description_de
         def save(self):
@@ -892,7 +898,9 @@ class InstitutionProfile: # namespace
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
             )
+
         def __init__(self, institution, index, *args, **kwargs):
+            super(AvatarForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -1086,11 +1094,13 @@ class InstitutionProfile: # namespace
                     }
                 ),
             )
+
         def __init__(self, institution, index, *args, **kwargs):
+            super(ContactForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 if index is not None and index.isdigit():
                     index = int(index)
                     contact = institution.get_contacts()[index]
@@ -1261,12 +1271,13 @@ class InstitutionProfile: # namespace
             required=False,
             label=_("Number of Employees")
             )
-        
+
         def __init__(self, institution, index, *args, **kwargs):
+            super(DetailsForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['legal_form'].initial = institution.legal_form_id
                 self.fields['establishment_yyyy'].initial = institution.establishment_yyyy
                 self.fields['establishment_mm'].initial = institution.establishment_mm
@@ -1348,12 +1359,14 @@ class InstitutionProfile: # namespace
             label=_("Giropay"),
             required=False,
             initial=False,
-        )  
+        )
+
         def __init__(self, institution, index, *args, **kwargs):
+            super(PaymentForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['is_card_visa_ok'].initial = institution.is_card_visa_ok
                 self.fields['is_card_mastercard_ok'].initial = institution.is_card_mastercard_ok
                 self.fields['is_card_americanexpress_ok'].initial = institution.is_card_americanexpress_ok
@@ -1477,12 +1490,13 @@ class InstitutionProfile: # namespace
             required=False,
             widget=forms.Textarea,
             )
-        
+
         def __init__(self, institution, index, *args, **kwargs):
+            super(OpeningHoursForm, self).__init__()
             self.institution = institution
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['is_appointment_based'].initial = institution.is_appointment_based
                 show_breaks = False
                 for d in WEEK_DAYS:
@@ -1490,23 +1504,23 @@ class InstitutionProfile: # namespace
                         institution,
                         '%s_open' % d,
                         None,
-                        )
+                    )
                     time_break_close = getattr(
                         institution,
                         '%s_break_close' % d,
                         None,
-                        )
+                    )
                     time_break_open = getattr(
                         institution,
                         '%s_break_open' % d,
                         None,
-                        )
+                    )
                     time_close = getattr(
                         institution,
                         '%s_close' % d,
                         None,
-                        )
-                    
+                    )
+
                     self.fields['%s_open0' % d].initial = time_open
                     if not time_break_close:
                         self.fields['%s_close0' % d].initial = time_close
@@ -1658,51 +1672,47 @@ class InstitutionProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one object type."))
             return True
-            
+
         def __init__(self, institution, index, *args, **kwargs):
+            super(CategoriesForm, self).__init__()
             self.institution = institution
             super(type(self), self).__init__(*args, **kwargs)
-            
             self.creative_sectors = {}
             for item in get_related_queryset(Institution, "creative_sectors"):
                 self.creative_sectors[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_CI + str(item.id),
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_CI + str(item.id),
+                }
             self.context_categories = {}
             for item in get_related_queryset(Institution, "context_categories"):
                 self.context_categories[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_BC + str(item.id),
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_BC + str(item.id),
+                }
             self.object_types = {}
             for item in get_related_queryset(Institution, "institution_types"):
                 self.object_types[item.slug] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_OT + str(item.id),
-                    }
+                    'id': item.id,
+                    'field_name': PREFIX_OT + str(item.id),
+                }
             for s in self.creative_sectors.values():
-                self.fields[s['field_name']] =  forms.BooleanField(
+                self.fields[s['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in institution.get_creative_sectors():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_CI + str(ancestor.id)].initial = True
-            
             for c in self.context_categories.values():
-                self.fields[c['field_name']] =  forms.BooleanField(
+                self.fields[c['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in institution.get_context_categories():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_BC + str(ancestor.id)].initial = True
-            
             for t in self.object_types.values():
-                self.fields[t['field_name']] =  forms.BooleanField(
+                self.fields[t['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in institution.get_object_types():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_OT + str(ancestor.id)].initial = True
@@ -1777,11 +1787,13 @@ class EventProfile: # namespace
             choices=EVENT_TYPE_CHOICES,
             label=_("Event Type"),
             )
+
         def __init__(self, event, index, *args, **kwargs):
+            super(IdentityForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['title_de'].initial = event.title_de
                 self.fields['title_en'].initial = event.title_en
                 self.fields['event_type'].initial = event.event_type_id
@@ -1807,11 +1819,13 @@ class EventProfile: # namespace
             required=False,
             widget=forms.Textarea(),
             )
+
         def __init__(self, event, index, *args, **kwargs):
+            super(DescriptionForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = event.description_en
                 self.fields['description_de'].initial = event.description_de
         def save(self):
@@ -1830,7 +1844,9 @@ class EventProfile: # namespace
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
             )
+
         def __init__(self, event, index, *args, **kwargs):
+            super(AvatarForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2026,11 +2042,13 @@ class EventProfile: # namespace
             max_length=255,
             label=_("Address"),
             )
+
         def __init__(self, event, index, *args, **kwargs):
+            super(ContactForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 contact = event.get_contacts()[0]
                 postal_address = contact.postal_address
                 geopos = postal_address.get_geoposition()
@@ -2187,20 +2205,18 @@ class EventProfile: # namespace
             )
 
         def __init__(self, event, index, *args, **kwargs):
+            super(OrganizerForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            
             self.fields['organizing_institution'].initial = event.organizing_institution_id
             self.fields['organizer_title'].initial = event.organizer_title
             self.fields['organizer_url_link'].initial = event.organizer_url_link
-            
             current_user = get_current_user()
-            
             self.fields['is_organized_by_myself'].initial = bool(event.organizing_person)
-            
             if event.creator and current_user != event.creator:
-                self.fields['is_organized_by_myself'].label = _("Organized by %s") % event.creator.get_profile().get_title()
+                self.fields['is_organized_by_myself'].label = _(
+                    "Organized by %s") % event.creator.get_profile().get_title()
                 
         def save(self):
             event = self.event
@@ -2239,12 +2255,12 @@ class EventProfile: # namespace
             queryset=get_related_queryset(Event, "related_events").all(),
             required=False,
         )
-        
+
         def __init__(self, event, index, *args, **kwargs):
+            super(AdditionalInfoForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            
             self.fields['related_events'].initial = event.related_events.values_list("pk", flat=True)
             self.fields['additional_info_en'].initial = event.additional_info_en
             self.fields['additional_info_de'].initial = event.additional_info_de
@@ -2268,7 +2284,9 @@ class EventProfile: # namespace
         """
         Dummy form for using together with a formset of EventTimeForm
         """
+
         def __init__(self, event, index, *args, **kwargs):
+            super(EventTimesForm, self).__init__()
             self.event = event
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2356,8 +2374,9 @@ class EventProfile: # namespace
             required=False,
             label=_("All Day")
             )
-        
+
         def __init__(self, event, index, *args, **kwargs):
+            super(EventTimeForm, self).__init__()
             self.event = event
             self.index = index
             kwargs.setdefault('initial', {})
@@ -2589,39 +2608,39 @@ class EventProfile: # namespace
             required=False,
             widget=forms.Textarea,
             )
-        
+
         def __init__(self, event, index, *args, **kwargs):
+            super(FeesOpeningHoursForm, self).__init__()
             self.event = event
             self.index = index
             kwargs['initial'] = {
                 'fees_en': event.fees_en,
                 'fees_de': event.fees_de,
-                }
+            }
             super(type(self), self).__init__(*args, **kwargs)
-            
             show_breaks = False
             for d in WEEK_DAYS:
                 time_open = getattr(
                     event,
                     '%s_open' % d,
                     None,
-                    )
+                )
                 time_break_close = getattr(
                     event,
                     '%s_break_close' % d,
                     None,
-                    )
+                )
                 time_break_open = getattr(
                     event,
                     '%s_break_open' % d,
                     None,
-                    )
+                )
                 time_close = getattr(
                     event,
                     '%s_close' % d,
                     None,
-                    )
-                
+                )
+
                 self.fields['%s_open0' % d].initial = time_open
                 if not time_break_close:
                     self.fields['%s_close0' % d].initial = time_close
@@ -2736,28 +2755,24 @@ class EventProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one creative sector."))
             return True
-            
-            
-            
+
         def __init__(self, event, index, *args, **kwargs):
+            super(CategoriesForm, self).__init__()
             self.event = event
             super(type(self), self).__init__(*args, **kwargs)
-            
             self.creative_sectors = {}
             for item in get_related_queryset(Event, "creative_sectors"):
                 self.creative_sectors[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_CI + str(item.id),
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_CI + str(item.id),
+                }
             for s in self.creative_sectors.values():
-                self.fields[s['field_name']] =  forms.BooleanField(
+                self.fields[s['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in event.get_creative_sectors():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_CI + str(ancestor.id)].initial = True
-            
             self.fields['tags'].initial = event.tags
             
         def save(self, *args, **kwargs):
@@ -2821,11 +2836,13 @@ class DocumentProfile: # namespace
             required=False,
             widget=forms.Textarea(),
             )
+
         def __init__(self, document, index, *args, **kwargs):
+            super(DescriptionForm, self).__init__()
             self.document = document
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = document.description_en
                 self.fields['description_de'].initial = document.description_de
         def save(self):
@@ -2845,8 +2862,9 @@ class DocumentProfile: # namespace
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
             )
-        
+
         def __init__(self, document, index, *args, **kwargs):
+            super(AvatarForm, self).__init__()
             self.document = document
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -2880,12 +2898,13 @@ class DocumentProfile: # namespace
             queryset=get_related_queryset(Document, "medium"),
             required=False,
             )
-        
+
         def __init__(self, document, index, *args, **kwargs):
+            super(DetailsForm, self).__init__()
             self.document = document
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['document_type'].initial = self.document.document_type
                 self.fields['medium'].initial = self.document.medium
                 self.fields['url_link'].initial = self.document.url_link
@@ -2938,37 +2957,34 @@ class DocumentProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one context category."))
             return True
-            
+
         def __init__(self, document, index, *args, **kwargs):
+            super(CategoriesForm, self).__init__()
             self.document = document
             super(type(self), self).__init__(*args, **kwargs)
-            
             self.creative_sectors = {}
             for item in get_related_queryset(Document, "creative_sectors"):
                 self.creative_sectors[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_CI + str(item.id),
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_CI + str(item.id),
+                }
             self.context_categories = {}
             for item in get_related_queryset(Document, "context_categories"):
                 self.context_categories[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_BC + str(item.id),
+                    'id': item.id,
+                    'field_name': PREFIX_BC + str(item.id),
                 }
-            
             for s in self.creative_sectors.values():
-                self.fields[s['field_name']] =  forms.BooleanField(
+                self.fields[s['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in document.get_creative_sectors():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_CI + str(ancestor.id)].initial = True
-            
             for c in self.context_categories.values():
-                self.fields[c['field_name']] =  forms.BooleanField(
+                self.fields[c['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in document.get_context_categories():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_BC + str(ancestor.id)].initial = True
@@ -3025,11 +3041,13 @@ class GroupProfile: # namespace
             required=False,
             widget=forms.Textarea(),
             )
+
         def __init__(self, group, index, *args, **kwargs):
+            super(DescriptionForm, self).__init__()
             self.group = group
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['description_en'].initial = group.description_en
                 self.fields['description_de'].initial = group.description_de
         def save(self):
@@ -3049,7 +3067,9 @@ class GroupProfile: # namespace
             required=False,
             min_dimensions=MIN_LOGO_SIZE,
             )
+
         def __init__(self, group, index, *args, **kwargs):
+            super(AvatarForm, self).__init__()
             self.group = group
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
@@ -3100,21 +3120,18 @@ class GroupProfile: # namespace
             )
 
         def __init__(self, group, index, *args, **kwargs):
+            super(DetailsForm, self).__init__()
             self.group = group
             self.index = index
-            
             super(type(self), self).__init__(*args, **kwargs)
-            
             user = get_current_user()
             person = user.get_profile()
-            
             INSTITUTION_CHOICES = [("", "---------")]
             INSTITUTION_CHOICES.extend([(str(el.id), force_unicode(el))
-                for el in person.get_institutions()
-                ])
+                                        for el in person.get_institutions()
+                                        ])
             self.fields['institution'].choices = self.fields['institution'].widget.choices = INSTITUTION_CHOICES
-            
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['group_type'].initial = group.group_type_id
                 self.fields['access_type'].initial = group.access_type_id
                 self.fields['institution'].initial = group.organizing_institution_id
@@ -3203,37 +3220,34 @@ class GroupProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one object type."))
             return True
-            
+
         def __init__(self, group, index, *args, **kwargs):
+            super(CategoriesForm, self).__init__()
             self.group = group
             super(type(self), self).__init__(*args, **kwargs)
-            
             self.creative_sectors = {}
             for item in get_related_queryset(PersonGroup, "creative_sectors"):
                 self.creative_sectors[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_CI + str(item.id),
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_CI + str(item.id),
+                }
             self.context_categories = {}
             for item in get_related_queryset(PersonGroup, "context_categories"):
                 self.context_categories[item.sysname] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_BC + str(item.id),
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_BC + str(item.id),
+                }
             for s in self.creative_sectors.values():
-                self.fields[s['field_name']] =  forms.BooleanField(
+                self.fields[s['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in group.get_creative_sectors():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_CI + str(ancestor.id)].initial = True
-            
             for c in self.context_categories.values():
-                self.fields[c['field_name']] =  forms.BooleanField(
+                self.fields[c['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for el in group.get_context_categories():
                 for ancestor in el.get_ancestors(include_self=True):
                     self.fields[PREFIX_BC + str(ancestor.id)].initial = True
@@ -3317,12 +3331,12 @@ class JobOfferProfile: # namespace
             label=_("End Day"),
         )
 
-
         def __init__(self, job_offer, index, *args, **kwargs):
+            super(DetailsForm, self).__init__()
             self.job_offer = job_offer
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['position'].initial = job_offer.position
                 self.fields['job_type'].initial = job_offer.job_type_id
                 self.fields['qualifications'].initial = [q.pk for q in job_offer.qualifications.all()]
@@ -3558,23 +3572,25 @@ class JobOfferProfile: # namespace
             max_length=255,
             label=_("Address"),
             )
+
         def __init__(self, job_offer, index, *args, **kwargs):
+            super(ContactForm, self).__init__()
             self.job_offer = job_offer
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
-            if not args and not kwargs: # if nothing is posted
+            if not args and not kwargs:  # if nothing is posted
                 self.fields['contact_person_name'].initial = job_offer.contact_person_name
-                
+
                 if job_offer.creator and job_offer.creator != get_current_user():
                     self.fields['contact_person_ind'].choices = (
                         (0, _("%s is the contact person") % job_offer.creator.get_profile().get_title()),
                         (1, _("%s is not the contact person") % job_offer.creator.get_profile().get_title()),
-                        )
+                    )
                 if job_offer.contact_person:
                     self.fields['contact_person_ind'].initial = 0
                 else:
                     self.fields['contact_person_ind'].initial = 1
-                
+
                 contact = job_offer.get_contacts()[0]
                 postal_address = contact.postal_address
                 geopos = postal_address.get_geoposition()
@@ -3710,28 +3726,26 @@ class JobOfferProfile: # namespace
             if not el_count:
                 raise forms.ValidationError(_("Please choose at least one job sector."))
             return True
-            
+
         def __init__(self, job_offer, index, *args, **kwargs):
+            super(CategoriesForm, self).__init__()
             self.job_offer = job_offer
             super(type(self), self).__init__(*args, **kwargs)
-            
             self.job_sectors = {}
             for item in get_related_queryset(JobOffer, "job_sectors"):
                 self.job_sectors[item.slug] = {
-                    'id' : item.id,
-                    'field_name' : PREFIX_JS + str(item.id),
-                    'title' : item.title,
-                    }
-            
+                    'id': item.id,
+                    'field_name': PREFIX_JS + str(item.id),
+                    'title': item.title,
+                }
             js_ids = [el.id for el in job_offer.job_sectors.all()]
             for s in self.job_sectors.values():
-                self.fields[s['field_name']] =  forms.BooleanField(
+                self.fields[s['field_name']] = forms.BooleanField(
                     required=False
-                    )
+                )
             for s in self.job_sectors.values():
                 if s['id'] in js_ids:
                     self.fields[PREFIX_JS + str(s['id'])].initial = True
-            
             self.fields['tags'].initial = job_offer.tags
             
         def save(self, *args, **kwargs):

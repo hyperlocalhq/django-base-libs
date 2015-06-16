@@ -55,7 +55,9 @@ class XFieldList(list):
     "title_" => "title", "title_de", or "title_es"
     "__str__" => "__str__"
     """
+
     def __init__(self, sequence=[]):
+        super(XFieldList, self).__init__()
         self.sequence = sequence
     def __iter__(self):
         return iter(self._get_list())

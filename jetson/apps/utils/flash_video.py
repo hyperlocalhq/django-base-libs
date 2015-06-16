@@ -12,12 +12,12 @@ class FLVReader(dict):
     META = 18
     UNDEFINED = 0
 
-    def __init__(self, filename):
+    def __init__(self, filename, **kwargs):
         """
-        Pass the filename of an flv file and it will return a dictionary of meta
-        data.
-        """
-        # Lock on to the file
+            Pass the filename of an flv file and it will return a dictionary of meta
+            data.
+            """
+        super(FLVReader, self).__init__(**kwargs)
         self.file = open(filename, 'rb')
         self.signature = self.file.read(3)
         assert self.signature == 'FLV', 'Not an flv file'
