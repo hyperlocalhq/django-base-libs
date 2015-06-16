@@ -1,12 +1,12 @@
 {% extends "admin/change_form.html" %}
-{% load i18n admin_modify adminmedia auth_extended row_level_permission %}
+{% load i18n admin_modify staticfiles auth_extended row_level_permission %}
 
 {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
 
 {% block javascripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{% admin_media_prefix %}js/collapse.min.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/inlines.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/collapse.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/inlines.min.js' %}"></script>
 {% endblock %}
 
 {% block breadcrumbs %}

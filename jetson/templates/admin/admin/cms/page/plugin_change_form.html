@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_modify adminmedia cms_admin %}
+{% load i18n admin_modify staticfiles cms_admin %}
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="{{ CMS_MEDIA_URL }}js/lib/jquery.js"></script>
@@ -60,7 +60,7 @@ body {
 
 {% endblock %}
  
-{% block extrastyle %}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />{% endblock %}
+{% block extrastyle %}<link rel="stylesheet" type="text/css" href="{% static 'css/forms.css' %}" />{% endblock %}
  
 {% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
  

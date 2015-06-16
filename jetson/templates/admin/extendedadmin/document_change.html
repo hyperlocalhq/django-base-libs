@@ -1,7 +1,7 @@
 {% extends "admin/change_form.html" %}
 
 <!-- LOADING -->
-{% load base_tags i18n auth_extended extended_admin adminmedia compressed_jetson %}
+{% load base_tags i18n auth_extended extended_admin staticfiles compressed_jetson %}
 
 <!-- STYLES -->
 {% block extrastyle %}
@@ -13,10 +13,10 @@
 {% block javascripts %}
     {{ block.super }}
     <script type="text/javascript" src="{{ jetson_media_url }}js/core.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectBox.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectFilter2.js"></script>
-    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/DateTimeShortcuts.js"></script>
+    <script type="text/javascript" src="{% static 'js/admin/RelatedObjectLookups.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/SelectBox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/SelectFilter2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/admin/DateTimeShortcuts.js' %}"></script>
 
 
     <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.autocomplete.js"></script>
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/URLField.js"></script>
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/change_form.js"></script>
     
-    <script type="text/javascript" src="{% admin_media_prefix %}js/collapse.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/collapse.min.js' %}"></script>
     <script type="text/javascript" charset="utf-8">
         (function($) {
             $(document).ready(function() {

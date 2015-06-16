@@ -2,7 +2,7 @@
 
 <!-- LOADING -->
 {% load url from future %}
-{% load i18n admin_modify adminmedia grp_tags %}
+{% load i18n admin_modify staticfiles grp_tags %}
 {% load static %}
 
 <!-- STYLESHEETS -->
@@ -21,7 +21,7 @@
     <script type="text/javascript" src="{{ JQUERY_URL }}"></script>
     <script type="text/javascript" src="{{ JQUERY_UI_URL }}"></script>
 
-    <script src="{% admin_media_prefix %}js/grappelli/jquery.grp_inline.js" type="text/javascript"></script>
+    <script src="{% static 'js/grappelli/jquery.grp_inline.js' %}" type="text/javascript"></script>
 
     <script type="text/javascript" src="{{ jetson_media_url }}js/admin/MultilingualFieldHelper.js"></script>
 	<script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>

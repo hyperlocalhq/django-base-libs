@@ -1,12 +1,12 @@
 {% extends "admin/base_site.html" %}
 
 <!-- LOADING -->
-{% load i18n adminmedia fb_tags fb_versions image_modifications base_tags %}
+{% load i18n staticfiles fb_tags fb_versions image_modifications base_tags %}
 
 <!-- STYLESHEETS -->
 {% block stylesheets %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/changelists.css' %}" />
     <link rel="stylesheet" type="text/css" href="{{ settings_var.URL_FILEBROWSER_MEDIA }}css/filebrowser.css" />
     <link rel="stylesheet" href="{{ jetson_media_url }}Jcrop/css/jquery.Jcrop.css" type="text/css" />
     <link rel="stylesheet" media="screen" type="text/css" href="{{ jetson_media_url }}colorpicker/css/colorpicker.css" />
