@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
+import json
+
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils import simplejson
 from django.views.decorators.cache import never_cache
 from django.db import models
 from django.contrib.auth.models import User
@@ -72,7 +73,7 @@ def json_get_institution_attrs(request, institution_id):
             if getattr(institution, "%s_%s" % (day, field)):
                 contacts["%s_%s" % (day, field)] = getattr(institution, "%s_%s" % (day, field)).strftime("%H:%M")
     contacts['title'] = institution.get_title();
-    json = simplejson.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    json = json.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
     
     return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
 

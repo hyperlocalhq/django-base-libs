@@ -1,7 +1,9 @@
 # coding: utf-8
 
 # general imports
-import os, re
+import os
+import json
+import re
 from time import gmtime, strftime
 
 # django imports
@@ -295,7 +297,7 @@ def _check_file(request):
                 if os.path.isfile(os.path.join(MEDIA_ROOT, DIRECTORY, folder, v)):
                     fileArray[k] = v
     
-    return HttpResponse(simplejson.dumps(fileArray))
+    return HttpResponse(json.dumps(fileArray))
 
 
 # upload signals

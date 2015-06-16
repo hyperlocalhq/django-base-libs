@@ -1,7 +1,8 @@
 # -*- coding: UTF-8 -*-
 import datetime
 
-from django.utils import simplejson
+import json
+
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -36,7 +37,7 @@ PersonGroup, GroupMembership, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS = (
 
 def json_manage_ss_membership(request, slug):
     "Sets the object as a favorite for the current user"
-    json = "false"
+    json_data = "false"
     person_group = None
     try:
         institution = Institution.objects.get(slug=slug)
@@ -67,8 +68,8 @@ def json_manage_ss_membership(request, slug):
         result = relation.__dict__
         result = dict([(item[0], unicode(item[1])) for item in result.items() if not item[0].startswith("_")])
         result['action'] = is_created and "added" or "removed"
-        json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+        json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
 json_manage_ss_membership = never_cache(json_manage_ss_membership)
 
 def manage_group_membership(request, action="edit", slug=None, username=""):

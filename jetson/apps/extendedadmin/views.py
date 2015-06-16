@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import operator
+import json
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -14,7 +15,6 @@ from django.views.decorators.cache import never_cache
 
 from django.http import Http404
 
-from django.utils import simplejson
 from django.conf import settings
 from django.utils.encoding import force_unicode, smart_str
 
@@ -304,8 +304,8 @@ def json_institutional_contacts(request, object_id):
             for field in ("open", "break_close", "break_open", "close"):
                 if getattr(institution, "%s_%s" % (day, field)):
                     contacts["%s_%s" % (day, field)] = getattr(institution, "%s_%s" % (day, field)).strftime("%H:%M")
-        json = simplejson.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
-        return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+        json_data = json.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
+        return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
     else:
         return HttpResponse('false', mimetype='text/javascript; charset=utf-8')
 #json_institutional_contacts = staff_member_required(never_cache(json_institutional_contacts))

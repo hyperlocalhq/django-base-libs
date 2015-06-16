@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
-from django.utils import simplejson
+import json
+
 from django.http import HttpResponse
 from django.views.decorators.cache import never_cache
 from django.contrib.contenttypes.models import ContentType
@@ -12,7 +13,7 @@ from jetson.apps.rating.models import UserRating
 
 def json_set_userrating(request, content_type_id, object_id, score):
     "Sets a vote by user for an object"
-    json = "false"
+    json_data = "false"
     #if request.user.has_perm("ratings.can_rate"):
     if not request.user.is_anonymous():
         content_type = ContentType.objects.get(id=content_type_id)
@@ -27,7 +28,7 @@ def json_set_userrating(request, content_type_id, object_id, score):
         result = rating.__dict__
         #result.update(object_ratings)
         result = dict([(item[0], item[1]) for item in result.items() if not item[0].startswith("_")])
-        json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+        json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
 
 json_set_userrating = never_cache(json_set_userrating)

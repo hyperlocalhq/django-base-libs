@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 import datetime
+import json
 
 from django.db import models
-from django.utils import simplejson
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response
@@ -26,7 +26,7 @@ Person = models.get_model("people", "Person")
 
 def json_manage_individual_relation(request, username):
     "Sets the object as a favorite for the current user"
-    json = "false"
+    json_data = "false"
     try:
         to_user = User.objects.get(username=username)
     except:
@@ -42,8 +42,8 @@ def json_manage_individual_relation(request, username):
         result = dict([(item[0], unicode(item[1])) for item in result.items() if not item[0].startswith("_")])
         # ("waiting", "to_confirm", "active", "removed")
         result['status'] = is_created and "added" or "removed"
-        json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+        json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
 json_manage_individual_relation = never_cache(json_manage_individual_relation)
 
 def manage_individual_relationship(request, action="edit", username=None):

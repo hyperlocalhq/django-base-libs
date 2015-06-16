@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import os
+import json
 import re
 from datetime import datetime, timedelta
 from copy import deepcopy
@@ -34,7 +35,7 @@ class JsonResponse(HttpResponse):
         self["Content-Type"] = "text/javascript; charset=UTF-8"
 
     def serialize(self):
-        return(simplejson.dumps(self.original_obj, ensure_ascii=False, cls=ExtendedJSONEncoder))
+        return(json.dumps(self.original_obj, ensure_ascii=False, cls=ExtendedJSONEncoder))
 
 def json_lookup(request, queryset, field=False, limit=10, login_required=False):
     """

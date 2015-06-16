@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
+import json
 
 from datetime import datetime, timedelta
 
-from django.utils import simplejson
 from django.template import RequestContext
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -34,8 +34,8 @@ def json_set_memo(request, content_type_id, object_id):
         'action': action,
         'memo_count': collection.memo_set.count(),
         }
-    json = simplejson.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    response = HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+    response = HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
     if collection.memo_set.count():
         # update expiration date
         collection.expiration = datetime.now() + MEMO_COOKIE_AGE

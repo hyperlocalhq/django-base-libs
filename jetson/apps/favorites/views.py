@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
+import json
+
 from django.db import models
-from django.utils import simplejson
 from django.http import HttpResponse
 from django.views.decorators.cache import never_cache
 from django.contrib.contenttypes.models import ContentType
@@ -17,7 +18,7 @@ from templatetags.favorites import get_favorites_count
 
 def json_set_favorite(request, content_type_id, object_id):
     "Sets the object as a favorite for the current user"
-    json = "false"
+    json_data = "false"
     if request.user.is_authenticated():
         content_type = ContentType.objects.get(id=content_type_id)
         instance = content_type.get_object_for_this_type(pk=object_id)
@@ -36,12 +37,12 @@ def json_set_favorite(request, content_type_id, object_id):
             ])
         result['action'] = is_created and "added" or "removed"
         result['count'] = get_favorites_count(instance)
-        json = simplejson.dumps(
+        json_data = json.dumps(
             result,
             ensure_ascii=False,
             cls=ExtendedJSONEncoder,
             )
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
 json_set_favorite = never_cache(json_set_favorite)
 
 def favorites(request, **kwargs):
