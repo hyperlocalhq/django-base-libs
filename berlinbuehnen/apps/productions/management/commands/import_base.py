@@ -301,6 +301,7 @@ class ImportFromHeimatBase(object):
     }
 
     in_program_of = None
+    owners = []
     IMPORT_URL = None
     DEFAULT_PUBLISHING_STATUS = "published"  # "import"
 
@@ -806,6 +807,9 @@ class ImportFromHeimatBase(object):
 
             if self.in_program_of:
                 prod.in_program_of.add(self.in_program_of)
+
+            for owner in self.owners:
+                prod.set_owner(owner)
 
             if not self.skip_images:
                 image_ids_to_keep = []

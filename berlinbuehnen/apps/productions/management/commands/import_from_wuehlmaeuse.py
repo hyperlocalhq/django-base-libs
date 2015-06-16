@@ -36,6 +36,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 'city': u'Berlin',
             },
         )
+        self.owners = list(self.in_program_of.get_owners())
 
         Service = models.get_model("external_services", "Service")
 

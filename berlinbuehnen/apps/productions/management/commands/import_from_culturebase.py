@@ -165,6 +165,7 @@ class ImportFromCulturebaseBase(object):
     }
 
     in_program_of = None
+    owners = []
     DEFAULT_PUBLISHING_STATUS = "published"  # "import"
 
     # def handle_noargs(self, *args, **options):
@@ -730,6 +731,9 @@ class ImportFromCulturebaseBase(object):
 
             if self.in_program_of:
                 prod.in_program_of.add(self.in_program_of)
+
+            for owner in self.owners:
+                prod.set_owner(owner)
 
             organizers_list = []
             for organisation_node in prod_node.findall('./%(prefix)sOrganisation' % self.helper_dict):

@@ -54,6 +54,7 @@ class Command(NoArgsCommand, ImportFromHeimatBase):
                 'city': u'Berlin',
             },
         )
+        self.owners = list(self.in_program_of.get_owners())
 
         r = requests.get(self.service.url, params={})
         if r.status_code != 200:
