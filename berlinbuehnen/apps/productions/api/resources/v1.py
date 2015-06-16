@@ -552,8 +552,13 @@ class ProductionResource(ModelResource):
             'website',
             'free_entrance', 'price_from', 'price_till', 'tickets_website',
             'age_from', 'age_till', 'edu_offer_website',
+            'status',
         ]
         filtering = {
+            'creation_date': ALL,
+            'modified_date': ALL,
+            'status': ALL,
+            'categories': ALL_WITH_RELATIONS,
             'in_program_of': ALL_WITH_RELATIONS,
             'play_locations': ALL_WITH_RELATIONS,
         }
