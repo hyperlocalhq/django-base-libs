@@ -303,8 +303,8 @@ def suite():
         ('/groups/invitations/', 301),
         ('/helper/bookmark/', 200),
         ('/helper/country_lookup/', 200),
-        ('/helper/institution_lookup/', 302),
-        ('/helper/person_lookup/', 302),
+        ('/helper/institution_lookup/', 302), # login required
+        ('/helper/person_lookup/', 302), # login required
         ('/helper/site-visitors/', 200),
         ('/i18n/setlang/', 301),
         ('/institutions/', 301),
@@ -383,33 +383,33 @@ def suite():
         ('/de/compatibility/', 200),
         ('/de/contact/', 200),
         ('/de/contact/alldone/', 200),
-        ('/de/creative-sector/', 302),
-        ('/de/dashboard/', 302),
+        ('/de/creative-sector/', 302), # login required
+        ('/de/dashboard/', 302), # login required
         ('/de/documents/', 200),
-        ('/de/events/add/', 302),
-        ('/de/facebook/', 302),
-        ('/de/facebook/data-exchange/', 302),
-        ('/de/facebook/link/', 302),
-        ('/de/facebook/link/login/', 302),
-        ('/de/facebook/link/register/', 302),
-        ('/de/facebook/manage/', 302),
-        ('/de/facebook/pages/', 302),
+        ('/de/events/add/', 302), # login required
+        ('/de/facebook/', 302), # login required
+        ('/de/facebook/data-exchange/', 302), # login required
+        ('/de/facebook/link/', 302), # login required
+        ('/de/facebook/link/login/', 302), # login required
+        ('/de/facebook/link/register/', 302), # login required
+        ('/de/facebook/manage/', 302), # login required
+        ('/de/facebook/pages/', 302), # login required
         ('/de/gmap/', 200),
         ('/de/groups/', 200),
-        ('/de/groups/add/', 302),
-        ('/de/groups/invitations/', 302),
+        ('/de/groups/add/', 302), # login required
+        ('/de/groups/invitations/', 302), # login required
         # ('/de/helper/blank_doc/', 200), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/bookmark/', 200), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/country_lookup/', 200), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/institution_lookup/', 302), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/person_lookup/', 302), # included in PATHS_NO_REDIRECTION
         # ('/de/helper/site-visitors/', 200), # included in PATHS_NO_REDIRECTION
-        ('/de/i18n/setlang/', 302),
+        ('/de/i18n/setlang/', 302), # login required
         ('/de/institutions/', 200),
-        ('/de/institutions/add/', 302),
-        ('/de/invite/', 302),
+        ('/de/institutions/add/', 302), # login required
+        ('/de/invite/', 302), # login required
         ('/de/invite/done/', 200),
-        ('/de/jobs/add/', 302),
+        ('/de/jobs/add/', 302), # login required
         ('/de/jobs/create-berlin-jobboard/', 200),
         ('/de/jobs/talent-in-berlin/', 200),
         ('/de/jsi18n/', 200),
@@ -426,26 +426,26 @@ def suite():
         ('/de/lists/', 200),
         ('/de/livestream/', 200),
         ('/de/login', 200),
-        ('/de/logout', 302),
+        ('/de/logout', 302), # login required
         ('/de/map/', 200),
         ('/de/map/object-list/', 200), # FIXME currently returns 403, should probably redirect to login page
         ('/de/my-messages/json/', 200),
-        ('/de/my-messages/new/', 302),
-        ('/de/my-profile/', 302),
+        ('/de/my-messages/new/', 302), # login required
+        ('/de/my-profile/', 302), # login required
         ('/de/my-profile/bookmarks/', 200),
-        ('/de/my-profile/delete/', 302),
+        ('/de/my-profile/delete/', 302), # login required
         ('/de/my-profile/delete/done/', 200),
         ('/de/my-profile/favorites/', 200),
         ('/de/my-profile/memos/', 200),
-        ('/de/my-profile/privacy/', 302),
+        ('/de/my-profile/privacy/', 302), # login required
         ('/de/news/', 200),
         ('/de/news/articles/', 200),
         ('/de/news/interviews/', 200),
-        ('/de/notification/', 302),
+        ('/de/notification/', 302), # login required
         ('/de/notification/feed/', 200), # FIXME currently returns 401 (HTTP login dialog)
-        ('/de/notification/mark_all_seen/', 302),
-        ('/de/notification/settings/', 302),
-        ('/de/password_change/', 302),
+        ('/de/notification/mark_all_seen/', 302), # login required
+        ('/de/notification/settings/', 302), # login required
+        ('/de/password_change/', 302), # login required
         ('/de/password_change/done/', 200),
         ('/de/password_reset/', 200),
         ('/de/password_reset/complete/', 200),
@@ -453,11 +453,11 @@ def suite():
         ('/de/people/', 200),
         # ('/de/recrop/', 200), # included in PATHS_NO_REDIRECTION
         ('/de/register/', 200),
-        ('/de/register/alldone/', 302),
+        ('/de/register/alldone/', 302), # login required
         ('/de/register/done/', 200),
-        ('/de/rosetta/', 302),
-        ('/de/rosetta/download/', 302),
-        ('/de/rosetta/pick/', 302),
+        ('/de/rosetta/', 302), # login required
+        ('/de/rosetta/download/', 302), # login required
+        ('/de/rosetta/pick/', 302), # login required
         ('/de/search/', 200),
         ('/de/search/full/', 200),
         ('/de/simplesearch/', 200),
