@@ -114,7 +114,12 @@
                                             </li>
                                     {% endif %}
                                 </ul>
-                                {% add_to_calender event=event %}
+                                <div class="header-icons">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+                                    {% endif %}
+                                    {% add_to_calender event=event %}
+                                </div>
                                 {% if event.production.ensembles %}<h3>{{ event.production.ensembles }}</h3>{% endif %}
                                 <h1>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}
                                     {% if_has_perm "productions.change_production" object %}
@@ -129,9 +134,6 @@
                                     <h2>{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</h2>
                                 {% endif %}
                                 {% if event.production.original %}<h2>{{ event.production.original }}</h2>{% endif %}
-                                {% if request.user.is_authenticated %}
-                                    {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
-                                {% endif %}
                             </header>
                             
                             <!-- main  part (including sidebar) -->

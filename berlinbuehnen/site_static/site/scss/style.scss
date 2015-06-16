@@ -16,6 +16,7 @@
 @import 'accordions';
 @import 'gallery';
 @import 'list';
+@import 'grid';
 @import 'filter';
 @import 'info';
 @import 'twitter';
@@ -78,13 +79,6 @@ input {
 
 .uc {
     text-transform: uppercase;
-}
-
-.favorite {
-  &.active{
-    background-color: #00aefd;
-    .icon { color: white; }
-  }
 }
 
 .relative {

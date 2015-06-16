@@ -34,6 +34,11 @@
                             
                             <!-- headlines -->
                             <header>
+                                <div class="header-icons">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for location using "favorites/includes/favorite_detail.html" %}
+                                    {% endif %}
+                                </div>
                                 <h1>{{ location.title }}
                                     {% if_has_perm "locations.change_location" object %}
                                         {% if not request.is_mobile %}
@@ -43,9 +48,6 @@
                                 </h1>
                                 {% if location.subtitle %}
                                     <h2>{{ location.subtitle }}</h2>
-                                {% endif %}
-                                {% if request.user.is_authenticated %}
-                                    {% adding2favorites for location using "favorites/includes/favorite_detail.html" %}
                                 {% endif %}
                             </header>
                             
