@@ -42,6 +42,244 @@ class PageTest(unittest.TestCase):
 
 
 def suite():
+    non_localized_slug_urls = ( # most should redirect, i.e. return 301
+        # /contact/(?P<slug>[-\w]+)/
+        # /contact/(?P<slug>[-\w]+)/alldone/
+        # /creative-sector/(?P<creative_sector_slug>[^/]+)/
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        # /document/(?P<slug>[^/]+)/
+        # /document/(?P<slug>[^/]+)/network/
+        # /document/(?P<slug>[^/]+)/reviews/
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        ('/event/workshop-booking-tour-rockpop/post/', 301),
+        # /event/(?P<slug>[^/]+)/claim/
+        ('/event/workshop-booking-tour-rockpop/claim/', 301),
+        # /event/(?P<slug>[^/]+)/delete/
+        ('/event/workshop-booking-tour-rockpop/delete/', 301),
+        # /event/(?P<slug>[^/]+)/map/
+        ('/event/workshop-booking-tour-rockpop/map/', 301),
+        # /event/(?P<slug>[^/]+)/network/
+        ('/event/workshop-booking-tour-rockpop/network/', 301),
+        # /event/(?P<slug>[^/]+)/portfolio/
+        ('/event/workshop-booking-tour-rockpop/portfolio/', 301),
+        # /event/(?P<slug>[^/]+)/portfolio/album/add/
+        ('/event/workshop-booking-tour-rockpop/portfolio/album/add/', 301),
+        # /event/(?P<slug>[^/]+)/portfolio/manage/
+        ('/event/workshop-booking-tour-rockpop/portfolio/manage/', 301),
+        # /event/(?P<slug>[^/]+)/portfolio/section/add/
+        ('/event/workshop-booking-tour-rockpop/portfolio/section/add/', 301),
+        # /event/(?P<slug>[^/]+)/portfolio/settings/
+        ('/event/workshop-booking-tour-rockpop/portfolio/settings/', 301),
+        # /event/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
+        ('/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/', 301),
+        # /event/(?P<slug>[^/]+)/reviews/
+        ('/event/workshop-booking-tour-rockpop/reviews/', 301),
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        # /group/(?P<slug>[^/]+)/
+        # /group/(?P<slug>[^/]+)/events/
+        # /group/(?P<slug>[^/]+)/members/invite/
+        # /group/(?P<slug>[^/]+)/projects/
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        ('/institution/a_s_theater_film_ltd/post/', 301),
+        # /institution/(?P<slug>[^/]+)/
+        ('/institution/a_s_theater_film_ltd/', 301),
+        # /institution/(?P<slug>[^/]+)/jobs/
+        ('/institution/a_s_theater_film_ltd/jobs/', 301),
+        # /institution/(?P<slug>[^/]+)/map/
+        ('/institution/a_s_theater_film_ltd/map/', 301),
+        # /institution/(?P<slug>[^/]+)/message/
+        ('/institution/a_s_theater_film_ltd/message/', 301),
+        # /institution/(?P<slug>[^/]+)/message/alldone/
+        ('/institution/a_s_theater_film_ltd/message/alldone/', 301),
+        # /institution/(?P<slug>[^/]+)/network/
+        ('/institution/a_s_theater_film_ltd/network/', 301),
+        # /institution/(?P<slug>[^/]+)/network/groups/
+        ('/institution/a_s_theater_film_ltd/network/groups/', 301),
+        # /institution/(?P<slug>[^/]+)/network/partners/
+        ('/institution/a_s_theater_film_ltd/network/partners/', 301),
+        # /institution/(?P<slug>[^/]+)/network/staff/
+        ('/institution/a_s_theater_film_ltd/network/staff/', 301),
+        # /institution/(?P<slug>[^/]+)/portfolio/
+        ('/institution/a_s_theater_film_ltd/portfolio/', 301),
+        # /institution/(?P<slug>[^/]+)/portfolio/album/add/
+        ('/institution/a_s_theater_film_ltd/portfolio/album/add/', 301),
+        # /institution/(?P<slug>[^/]+)/portfolio/fb-sync/
+        ('/institution/a_s_theater_film_ltd/portfolio/fb-sync/', 301),
+        # /institution/(?P<slug>[^/]+)/portfolio/manage/
+        ('/institution/a_s_theater_film_ltd/portfolio/manage/', 301),
+        # /institution/(?P<slug>[^/]+)/portfolio/section/add/
+        ('/institution/a_s_theater_film_ltd/portfolio/section/add/', 301),
+        # /institution/(?P<slug>[^/]+)/portfolio/settings/
+        ('/institution/a_s_theater_film_ltd/portfolio/settings/', 301),
+        # /institution/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
+        ('/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/', 301),
+        # /institution/(?P<slug>[^/]+)/projects/
+        ('/institution/a_s_theater_film_ltd/projects/', 301),
+        # /institution/(?P<slug>[^/]+)/reviews/
+        ('/institution/a_s_theater_film_ltd/reviews/', 301),
+        # /job/(?P<slug>[^/]+)/delete/
+        ('/job/7654237/delete/', 301),
+        # /news/creative-sector/(?P<creative_sector_slug>[^/]+)/
+        # /news/creative-sector/(?P<creative_sector_slug>[^/]+)/features/
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        ('/person/aidas_bendoraitis/post/', 301),
+        # /person/(?P<slug>[^/]+)/
+        ('/person/aidas_bendoraitis/', 301),
+        # /person/(?P<slug>[^/]+)/jobs/
+        ('/person/aidas_bendoraitis/jobs/', 301),
+        # /person/(?P<slug>[^/]+)/map/
+        ('/person/aidas_bendoraitis/map/', 301),
+        # /person/(?P<slug>[^/]+)/message/
+        ('/person/aidas_bendoraitis/message/', 301),
+        # /person/(?P<slug>[^/]+)/message/alldone/
+        ('/person/aidas_bendoraitis/message/alldone/', 301),
+        # /person/(?P<slug>[^/]+)/network/
+        ('/person/aidas_bendoraitis/network/', 301),
+        # /person/(?P<slug>[^/]+)/network/groups/
+        ('/person/aidas_bendoraitis/network/groups/', 301),
+        # /person/(?P<slug>[^/]+)/network/institution_contacts/
+        ('/person/aidas_bendoraitis/network/institution_contacts/', 301),
+        # /person/(?P<slug>[^/]+)/network/person_contacts/
+        ('/person/aidas_bendoraitis/network/person_contacts/', 301),
+        # /person/(?P<slug>[^/]+)/portfolio/
+        ('/person/aidas_bendoraitis/portfolio/', 301),
+        # /person/(?P<slug>[^/]+)/portfolio/album/add/
+        ('/person/aidas_bendoraitis/portfolio/album/add/', 301),
+        # /person/(?P<slug>[^/]+)/portfolio/fb-sync/
+        ('/person/aidas_bendoraitis/portfolio/fb-sync/', 301),
+        # /person/(?P<slug>[^/]+)/portfolio/manage/
+        ('/person/aidas_bendoraitis/portfolio/manage/', 301),
+        # /person/(?P<slug>[^/]+)/portfolio/section/add/
+        ('/person/aidas_bendoraitis/portfolio/section/add/', 301),
+        # /person/(?P<slug>[^/]+)/portfolio/settings/
+        ('/person/aidas_bendoraitis/portfolio/settings/', 301),
+        # /person/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
+        ('/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', 301),
+        # /person/(?P<slug>[^/]+)/projects/
+        ('/person/aidas_bendoraitis/projects/', 301),
+        # /person/(?P<slug>[^/]+)/reviews/
+        ('/person/aidas_bendoraitis/reviews/', 301),
+    )
+
+    localized_slug_urls = (
+        # /contact/(?P<slug>[-\w]+)/
+        # /contact/(?P<slug>[-\w]+)/alldone/
+        # /creative-sector/(?P<creative_sector_slug>[^/]+)/
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        # /document/(?P<slug>[^/]+)/
+        # /document/(?P<slug>[^/]+)/network/
+        # /document/(?P<slug>[^/]+)/reviews/
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        ('/de/event/workshop-booking-tour-rockpop/post/', 302), # login required
+        # /event/(?P<slug>[^/]+)/claim/
+        ('/de/event/workshop-booking-tour-rockpop/claim/', 302), # login required
+        # /event/(?P<slug>[^/]+)/delete/
+        ('/de/event/workshop-booking-tour-rockpop/delete/', 302), # login required
+        # /event/(?P<slug>[^/]+)/map/
+        ('/de/event/workshop-booking-tour-rockpop/map/', 200),
+        # /event/(?P<slug>[^/]+)/network/
+        ('/de/event/workshop-booking-tour-rockpop/network/', 200),
+        # /event/(?P<slug>[^/]+)/portfolio/
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/', 200),
+        # /event/(?P<slug>[^/]+)/portfolio/album/add/
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/album/add/', 403), # access denied
+        # /event/(?P<slug>[^/]+)/portfolio/manage/
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/manage/', 403), # access denied
+        # /event/(?P<slug>[^/]+)/portfolio/section/add/
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/section/add/', 403), # access denied
+        # /event/(?P<slug>[^/]+)/portfolio/settings/
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/settings/', 403), # access denied
+        # /event/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
+        ('/de/event/workshop-booking-tour-rockpop/portfolio/settings/delete-landing-page-image/', 403), # access denied
+        # /event/(?P<slug>[^/]+)/reviews/
+        ('/de/event/workshop-booking-tour-rockpop/reviews/', 200),
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        # /group/(?P<slug>[^/]+)/
+        # /group/(?P<slug>[^/]+)/events/
+        # /group/(?P<slug>[^/]+)/members/invite/
+        # /group/(?P<slug>[^/]+)/projects/
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        ('/de/institution/a_s_theater_film_ltd/post/', 302), # login required
+        # /institution/(?P<slug>[^/]+)/
+        ('/de/institution/a_s_theater_film_ltd/', 200),
+        # /institution/(?P<slug>[^/]+)/jobs/
+        ('/de/institution/a_s_theater_film_ltd/jobs/', 200),
+        # /institution/(?P<slug>[^/]+)/map/
+        ('/de/institution/a_s_theater_film_ltd/map/', 200),
+        # /institution/(?P<slug>[^/]+)/message/
+        ('/de/institution/a_s_theater_film_ltd/message/', 302), # login required
+        # /institution/(?P<slug>[^/]+)/message/alldone/
+        ('/de/institution/a_s_theater_film_ltd/message/alldone/', 200),
+        # /institution/(?P<slug>[^/]+)/network/
+        ('/de/institution/a_s_theater_film_ltd/network/', 200),
+        # /institution/(?P<slug>[^/]+)/network/groups/
+        ('/de/institution/a_s_theater_film_ltd/network/groups/', 200),
+        # /institution/(?P<slug>[^/]+)/network/partners/
+        ('/de/institution/a_s_theater_film_ltd/network/partners/', 404), # page not found
+        # /institution/(?P<slug>[^/]+)/network/staff/
+        ('/de/institution/a_s_theater_film_ltd/network/staff/', 200),
+        # /institution/(?P<slug>[^/]+)/portfolio/
+        ('/de/institution/a_s_theater_film_ltd/portfolio/', 200),
+        # /institution/(?P<slug>[^/]+)/portfolio/album/add/
+        ('/de/institution/a_s_theater_film_ltd/portfolio/album/add/', 403), # access denied
+        # /institution/(?P<slug>[^/]+)/portfolio/fb-sync/
+        ('/de/institution/a_s_theater_film_ltd/portfolio/fb-sync/', 302), # login required
+        # /institution/(?P<slug>[^/]+)/portfolio/manage/
+        ('/de/institution/a_s_theater_film_ltd/portfolio/manage/', 403), # access denied
+        # /institution/(?P<slug>[^/]+)/portfolio/section/add/
+        ('/de/institution/a_s_theater_film_ltd/portfolio/section/add/', 403), # access denied
+        # /institution/(?P<slug>[^/]+)/portfolio/settings/
+        ('/de/institution/a_s_theater_film_ltd/portfolio/settings/', 403), # access denied
+        # /institution/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
+        ('/de/institution/a_s_theater_film_ltd/portfolio/settings/delete-landing-page-image/', 403), # access denied
+        # /institution/(?P<slug>[^/]+)/projects/
+        ('/de/institution/a_s_theater_film_ltd/projects/', 200),
+        # /institution/(?P<slug>[^/]+)/reviews/
+        ('/de/institution/a_s_theater_film_ltd/reviews/', 200),
+        # /job/(?P<slug>[^/]+)/delete/
+        ('/de/job/7654237/delete/', 302), # login required
+        # /news/creative-sector/(?P<creative_sector_slug>[^/]+)/
+        # /news/creative-sector/(?P<creative_sector_slug>[^/]+)/features/
+        # /(event|document|group|institution|person)/(?P<slug>[^/]+)/post/
+        ('/de/person/aidas_bendoraitis/post/', 302), # login required
+        # /person/(?P<slug>[^/]+)/
+        ('/de/person/aidas_bendoraitis/', 200),
+        # /person/(?P<slug>[^/]+)/jobs/
+        ('/de/person/aidas_bendoraitis/jobs/', 200),
+        # /person/(?P<slug>[^/]+)/map/
+        ('/de/person/aidas_bendoraitis/map/', 200),
+        # /person/(?P<slug>[^/]+)/message/
+        ('/de/person/aidas_bendoraitis/message/', 302), # login required
+        # /person/(?P<slug>[^/]+)/message/alldone/
+        ('/de/person/aidas_bendoraitis/message/alldone/', 200),
+        # /person/(?P<slug>[^/]+)/network/
+        ('/de/person/aidas_bendoraitis/network/', 200),
+        # /person/(?P<slug>[^/]+)/network/groups/
+        ('/de/person/aidas_bendoraitis/network/groups/', 200),
+        # /person/(?P<slug>[^/]+)/network/institution_contacts/
+        ('/de/person/aidas_bendoraitis/network/institution_contacts/', 200),
+        # /person/(?P<slug>[^/]+)/network/person_contacts/
+        ('/de/person/aidas_bendoraitis/network/person_contacts/', 200),
+        # /person/(?P<slug>[^/]+)/portfolio/
+        ('/de/person/aidas_bendoraitis/portfolio/', 302), # login required
+        # /person/(?P<slug>[^/]+)/portfolio/album/add/
+        ('/de/person/aidas_bendoraitis/portfolio/album/add/', 403), # access denied
+        # /person/(?P<slug>[^/]+)/portfolio/fb-sync/
+        ('/de/person/aidas_bendoraitis/portfolio/fb-sync/', 302), # login required
+        # /person/(?P<slug>[^/]+)/portfolio/manage/
+        ('/de/person/aidas_bendoraitis/portfolio/manage/', 403), # access denied
+        # /person/(?P<slug>[^/]+)/portfolio/section/add/
+        ('/de/person/aidas_bendoraitis/portfolio/section/add/', 403), # access denied
+        # /person/(?P<slug>[^/]+)/portfolio/settings/
+        ('/de/person/aidas_bendoraitis/portfolio/settings/', 403), # access denied
+        # /person/(?P<slug>[^/]+)/portfolio/settings/delete-landing-page-image/
+        ('/de/person/aidas_bendoraitis/portfolio/settings/delete-landing-page-image/', 403), # access denied
+        # /person/(?P<slug>[^/]+)/projects/
+        ('/de/person/aidas_bendoraitis/projects/', 200),
+        # /person/(?P<slug>[^/]+)/reviews/
+        ('/de/person/aidas_bendoraitis/reviews/', 200),
+    )
+
     non_localized_constant_urls  = ( # most should redirect, i.e. return 301
         ('/', 301),
         ('/account/', 301),
@@ -479,6 +717,8 @@ def suite():
     )
 
     url_lists = (
+        non_localized_slug_urls,
+        localized_slug_urls,
         non_localized_constant_urls,
         localized_constant_urls,
         admin_urls,
