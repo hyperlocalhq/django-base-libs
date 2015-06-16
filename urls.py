@@ -6,7 +6,7 @@ from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib.auth.models import User
 from django.contrib import admin
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -236,9 +236,9 @@ urlpatterns = patterns('',
     
     # info subscription
     url(r'^subscribe4info/$', 'jetson.apps.mailchimp.views.subscribe_for_info', name="subscribe4info"),
-    url(r'^subscribe4info/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'mailchimp/subscription_done.html'}, name="subscribe4info_done"),
+    url(r'^subscribe4info/done/$', TemplateView.as_view(template_name='mailchimp/subscription_done.html'), name="subscribe4info_done"),
 
-    url(r'^compatibility/$', 'django.views.generic.simple.direct_to_template', {'template': 'site_specific/compatibility.html'}, name="compatibility"),
+    url(r'^compatibility/$', TemplateView.as_view(template_name='site_specific/compatibility.html'), name="compatibility"),
 
      # info trouble-tickets
     url(r'^ticket/$', _project_name + '.apps.tracker.views.create_ticket', name="create_ticket"),
@@ -717,34 +717,34 @@ urlpatterns += patterns('',
     url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': 'ccb'}),
 
     # gmap
-    url(r'^gmap/$', 'django.views.generic.simple.direct_to_template', {'template': 'gmap/index.html'}),
-    url(r'^map/$', 'django.views.generic.simple.direct_to_template', {'template': 'gmap/object_list.html'}),
+    url(r'^gmap/$', TemplateView.as_view(template_name='gmap/index.html')),
+    url(r'^map/$', TemplateView.as_view(template_name='gmap/object_list.html')),
     url(r'^map/object-list/$', 'ccb.apps.site_specific.views.object_list_for_map'),
 
     url(r'^admin/site_specific/claimrequest/(?P<object_id>.+)/(?P<action>approve|deny)/$', 'ccb.apps.site_specific.views.claim_action', name="admin_claim_action"),
     url(r'^admin/', include('jetson.apps.extendedadmin.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
 
-    url(r'^dashboard/$', login_required(direct_to_template), {'template': 'accounts/my_profile/view_profile.html'}, name="dashboard"),
+    url(r'^dashboard/$', login_required(TemplateView.as_view(template_name='accounts/my_profile/view_profile.html')), name="dashboard"),
     url(r'^my-profile/$', "ccb.apps.site_specific.views.my_profile", name="my_profile"),
     url(r'^my-profile/memos/$', 'jetson.apps.memos.views.memos', {'template_name': 'memos/memos.html'}),
     url(r'^my-profile/favorites/$', 'ccb.apps.favorites.views.favorites', {'template_name': 'generic/favorites.html'}),
     url(r'^my-profile/bookmarks/$', 'jetson.apps.bookmarks.views.bookmarks', {'template_name': 'generic/bookmarklist.html'}),
     url(r'^my-profile/privacy/$', _project_name + '.apps.people.views.change_privacy_settings'),
     url(r'^my-profile/delete/$',  _project_name + '.apps.site_specific.views.delete_profile'),
-    url(r'^my-profile/delete/done/$',  direct_to_template, {'template': 'accounts/my_profile/delete_profile_done.html'}),
+    url(r'^my-profile/delete/done/$',  TemplateView.as_view(template_name='accounts/my_profile/delete_profile_done.html')),
 
     url(r'^my-messages/', include("jetson.apps.messaging.urls")),
 
-    # accounts and registration 
-    url(r'^account/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/index.html'}),
+    # accounts and registration
+    url(r'^account/$', TemplateView.as_view(template_name='accounts/index.html')),
     url(r'^login', _project_name + '.apps.people.views.login', {'template_name': 'accounts/login.html'}, name="login"),
     url(r'^logout', 'ccb.apps.facebook_app.views.logout', {'next_page': "/"}),
     url(r'^changeuser/', 'django.contrib.auth.views.logout_then_login' ),
     url(r'^register/$', _project_name + '.apps.people.views.register' ),
-    url(r'^register/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/register_verify_required.html'}),
-    url(r'^register/alldone/$', login_required(direct_to_template), {'template': 'accounts/register_done.html'}),
-    url(r'^register/(?P<encrypted_email>[a-zA-Z0-9\+\/_\-=]+)/$', _project_name + '.apps.people.views.confirm_registration'),
+    url(r'^register/done/$', TemplateView.as_view(template_name='accounts/register_verify_required.html')),
+    url(r'^register/alldone/$', login_required(TemplateView.as_view(template_name='accounts/register_done.html'))),
+    url(r'^register/(?P<encrypted_email>[a-zA-Z0-9\+/_\-=]+)/$', _project_name + '.apps.people.views.confirm_registration'),
     url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', {'template_name': 'accounts/password_reset_form.html', 'email_template_name': 'accounts/password_reset_email.html'}),
     url(r'^password_reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', {'template_name': 'accounts/password_reset_confirm.html'}),
     url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', {'template_name': 'accounts/password_reset_done.html'}),
@@ -762,9 +762,8 @@ urlpatterns += patterns('',
     ),
     
     # articles for creative sector overview
-    url(r'^creative-sector/(?P<creative_sector_slug>[^/]+)/$', 
-        'django.views.generic.simple.direct_to_template',
-        {'template': 'site_specific/creative_sector_overview.html'}
+    url(r'^creative-sector/(?P<creative_sector_slug>[^/]+)/$',
+        TemplateView.as_view(template_name='site_specific/creative_sector_overview.html')
     ),
 
     url(r'^creative-sector/[^/]+/(?P<url>.*)$',
@@ -774,8 +773,8 @@ urlpatterns += patterns('',
     url(r'^contact/', include("jetson.apps.contact_form.urls")),
         
     url(r'^invite/$', "ccb.apps.site_specific.views.invite", name="invite"),
-    url(r'^invite/done/$', "django.views.generic.simple.direct_to_template", {'template': "site_specific/invitation_done.html"}, name="invite_done"),
-        
+    url(r'^invite/done/$', TemplateView.as_view(template_name="site_specific/invitation_done.html"), name="invite_done"),
+
     url(r'^notification/', include("jetson.apps.notification.urls")),
         
     # claiming
@@ -832,7 +831,7 @@ urlpatterns += patterns('',
         ),
     url(r'^kreativarbeiten/best-practice/$', "ccb.apps.site_specific.views.kreativarbeiten_best_practice"),
     url(r'^kreativarbeiten/contact/$', "ccb.apps.site_specific.views.kreativarbeiten_contact_form"),
-    url(r'^kreativarbeiten/contact/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'site_specific/kreativarbeiten_contact_form_done.html'}),
+    url(r'^kreativarbeiten/contact/done/$', TemplateView.as_view(template_name='site_specific/kreativarbeiten_contact_form_done.html')),
 
     (r'^kreativarbeiten/tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
         'twitter_username': "dirkkiefer",
@@ -844,7 +843,7 @@ urlpatterns += patterns('',
         }),
 
 
-    url(r'^livestream/$', 'django.views.generic.simple.direct_to_template', {'template': 'site_specific/livestream.html'}),
+    url(r'^livestream/$', TemplateView.as_view(template_name='site_specific/livestream.html')),
 
     # general FAQs and Help
     url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>faqs|help|contacts)/', include('ccb.apps.faqs.urls'),

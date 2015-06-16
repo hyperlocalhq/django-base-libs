@@ -1,36 +1,31 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls.defaults import *
 from django.conf import settings
+from django.views.generic import TemplateView
 
-urlpatterns = patterns('django.views.generic.simple',
+urlpatterns = patterns('',
     (
         r'^$',
-        "direct_to_template",
-        {'template': 'styleguide/grid.html'},
-        ),
+        TemplateView.as_view(template_name='styleguide/grid.html'),
+    ),
     (
         r'^grid/$',
-        "direct_to_template",
-        {'template': 'styleguide/grid.html'},
-        ),
+        TemplateView.as_view(template_name='styleguide/grid.html'),
+    ),
     (
         r'^forms/$',
-        "direct_to_template",
-        {'template': 'styleguide/forms.html'},
-        ),
+        TemplateView.as_view(template_name='styleguide/forms.html'),
+    ),
     (
         r'^typography/$',
-        "direct_to_template",
-        {'template': 'styleguide/typography.html'},
-        ),
+        TemplateView.as_view(template_name='styleguide/typography.html'),
+    ),
     (
         r'^colors/$',
-        "direct_to_template",
-        {'template': 'styleguide/colors.html'},
-        ),
+        TemplateView.as_view(template_name='styleguide/colors.html'),
+    ),
     (
         r'^images/$',
-        "direct_to_template",
-        {'template': 'styleguide/images.html'},
-        ),
-    )
+        TemplateView.as_view(template_name='styleguide/images.html'),
+    ),
+)

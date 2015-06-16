@@ -7,6 +7,7 @@ from django.conf.urls.defaults import *
 from django.contrib.auth.models import User
 from django.contrib import admin
 from django.db import models
+from django.views.generic import TemplateView
 
 from filebrowser.settings import MEDIA_ROOT as UPLOADS_ROOT
 from filebrowser.settings import MEDIA_URL as UPLOADS_URL
@@ -198,7 +199,7 @@ urlpatterns += patterns('django.views.static',
 ### HELPERS (system urls not visible directly for the users) ###
 urlpatterns += patterns('',
     # default document for TinyMCE iframe
-    url(r'^helper/blank_doc/$', 'django.views.generic.simple.direct_to_template', {'template': 'admin/blank_doc.html'}),
+    url(r'^helper/blank_doc/$', TemplateView.as_view(template_name='admin/blank_doc.html')),
     url(r'^helper/objects_to_select/(?P<app_name>[^/]+)/(?P<model_name>[^/]+)/(?P<obj_pk>[^/]+)/(?P<field_name>[^/]+)/of/(?P<content_type_id>[0-9]+)/$', 'base_libs.views.views.json_objects_to_select'),    
     
     # ajax lookups
@@ -463,19 +464,19 @@ urlpatterns += patterns('',
     url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': 'jetson'}),
 
     # gmap
-    url(r'^gmap/$', 'django.views.generic.simple.direct_to_template', {'template': 'gmap/index.html'}),
+    url(r'^gmap/$', TemplateView.as_view(template_name='gmap/index.html')),
 
     url(r'^admin/', include('jetson.apps.extendedadmin.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
 
     # accounts and registration 
-    url(r'^account/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/index.html'}),
+    url(r'^account/$', TemplateView.as_view(template_name='accounts/index.html')),
     url(r'^login', 'jetson.apps.people.views.login', {'template_name': 'accounts/login.html'}),
     url(r'^logout', 'django.contrib.auth.views.logout', {'next_page': "/"}),
     url(r'^changeuser/', 'django.contrib.auth.views.logout_then_login' ),
     url(r'^register/$', 'jetson.apps.people.views.register' ),
-    url(r'^register/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/register_verify_required.html'}),
-    url(r'^register/alldone/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/register_done.html'}),
+    url(r'^register/done/$', TemplateView.as_view(template_name='accounts/register_verify_required.html')),
+    url(r'^register/alldone/$', TemplateView.as_view(template_name='accounts/register_done.html')),
     url(r'^register/(?P<encrypted_email>[a-zA-Z0-9\+\/=]+)/$', 'jetson.apps.people.views.confirm_registration'),
     url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', {'template_name': 'accounts/password_reset_form.html', 'email_template_name': 'accounts/password_reset_email.html'}),
     url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', {'template_name': 'accounts/password_reset_done.html'}),

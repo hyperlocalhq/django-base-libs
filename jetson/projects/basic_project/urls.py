@@ -7,6 +7,7 @@ from django.conf.urls.defaults import *
 from django.contrib.auth.models import User
 from django.contrib import admin
 from django.db import models
+from django.views.generic import TemplateView
 
 from filebrowser.settings import MEDIA_ROOT as UPLOADS_ROOT
 from filebrowser.settings import MEDIA_URL as UPLOADS_URL
@@ -37,7 +38,7 @@ urlpatterns += patterns('',
     url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': 'jetson'}),
 
     # gmap
-    url(r'^gmap/$', 'django.views.generic.simple.direct_to_template', {'template': 'gmap/index.html'}),
+    url(r'^gmap/$', TemplateView.as_view(template_name='gmap/index.html')),
 
     url(r'^admin/', include('jetson.apps.extendedadmin.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
