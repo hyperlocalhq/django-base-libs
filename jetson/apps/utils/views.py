@@ -60,9 +60,9 @@ def json_lookup(request, queryset, field=False, limit=10, login_required=False):
                 if obj[1].lower().startswith(search):
                     obj_list.append([obj[1], obj[0]])
             obj_list = obj_list[:limit]
-            t = Template('[{% for el in obj_list %}{% ifnotequal forloop.counter0 0 %}, {% endifnotequal %}["{{ el.0 }}", "{{ el.1 }}"]{% endfor %}]');
-            c = Context({'obj_list': obj_list});
-            r = HttpResponse(t.render(c));
+            t = Template('[{% for el in obj_list %}{% ifnotequal forloop.counter0 0 %}, {% endifnotequal %}["{{ el.0 }}", "{{ el.1 }}"]{% endfor %}]')
+            c = Context({'obj_list': obj_list})
+            r = HttpResponse(t.render(c))
             r['Content-Type'] = 'text/javascript; charset=UTF-8'
             return r
 

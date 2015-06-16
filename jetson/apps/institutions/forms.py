@@ -635,10 +635,10 @@ class InstitutionForm: # Namespace
                     form_step_data[2].get('%s_%s' % (d, f), None)
                     )
 
-        institution.exceptions_en = form_step_data[2].get('exceptions_en', '');
-        institution.exceptions_de = form_step_data[2].get('exceptions_de', '');
-        institution.is_appointment_based = form_step_data[2].get('is_appointment_based', False);
-                
+        institution.exceptions_en = form_step_data[2].get('exceptions_en', '')
+        institution.exceptions_de = form_step_data[2].get('exceptions_de', '')
+        institution.is_appointment_based = form_step_data[2].get('is_appointment_based', False)
+
         # payment
         institution.is_card_visa_ok = form_step_data[2].get('is_card_visa_ok', None) 
         institution.is_card_mastercard_ok = form_step_data[2].get('is_card_mastercard_ok', None) 

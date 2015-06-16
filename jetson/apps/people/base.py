@@ -262,8 +262,8 @@ class PersonManager(models.Manager):
         """
         for p in self.all():
             p.creation_date =  p.user.date_joined
-            p.save();
-                       
+            p.save()
+
 
 class PersonBase(CreationModificationDateMixin, UrlMixin):
     """

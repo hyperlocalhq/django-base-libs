@@ -323,7 +323,9 @@ def event_list_feed(request, **kwargs):
 
 @never_cache
 def add_event(request):
-    return show_form_step(request, ADD_EVENT_FORM_STEPS, extra_context={});
+    return show_form_step(request, ADD_EVENT_FORM_STEPS, extra_context={})
+
+
 add_event = login_required(add_event)
 
 def event_detail(request, event_time=None, ical=False, *args, **kwargs):

@@ -214,7 +214,7 @@ class Address(models.Model):
 
 
 class Locality(models.Model):
-    address = models.ForeignKey(Address);
+    address = models.ForeignKey(Address)
     district = models.CharField(_("District"), max_length=255, blank=True)
     neighborhood = models.CharField(_("Neighborhood"), max_length=255, blank=True)
     class Meta:
@@ -225,7 +225,7 @@ class Locality(models.Model):
 
 
 class Geoposition(models.Model):
-    address = models.ForeignKey(Address);
+    address = models.ForeignKey(Address)
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
     altitude = models.IntegerField(_("Altitude"), help_text=_("The elevation above the sea level measured in meters"), blank=True, null=True)

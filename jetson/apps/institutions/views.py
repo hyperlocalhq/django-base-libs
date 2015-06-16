@@ -27,7 +27,9 @@ from jetson.apps.groups_networks.models import PersonGroup
 ADD_INSTITUTION_FORM_STEPS = get_installed("institutions.forms.ADD_INSTITUTION_FORM_STEPS")
 
 def add_institution(request):
-    return show_form_step(request, ADD_INSTITUTION_FORM_STEPS, extra_context={});
+    return show_form_step(request, ADD_INSTITUTION_FORM_STEPS, extra_context={})
+
+
 add_institution = login_required(add_institution)
 
 def _institution_list_filter(request, queryset, show):

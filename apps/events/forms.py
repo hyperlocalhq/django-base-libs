@@ -842,9 +842,9 @@ class EventForm: # namespace
         event.additional_info_en="" # TODO we do not have that in the mockups 
         event.additional_info_de="" # TODO we do not have that in the mockups
 
-        event.fees_en = step_fees_opening_hours.get('fees_en', '');
-        event.fees_de = step_fees_opening_hours.get('fees_de', '');
-              
+        event.fees_en = step_fees_opening_hours.get('fees_en', '')
+        event.fees_de = step_fees_opening_hours.get('fees_de', '')
+
         event.is_registration_required=False # TODO we do not have that in the mockups
                             
         event.phone0_type=PhoneType.objects.get(slug='phone')

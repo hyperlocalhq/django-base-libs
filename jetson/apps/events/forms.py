@@ -742,9 +742,9 @@ class EventForm: # namespace
         event.additional_info_en="" # TODO we do not have that in the mockups 
         event.additional_info_de="" # TODO we do not have that in the mockups
 
-        event.fees_en = step_fees_opening_hours.get('fees_en', '');
-        event.fees_de = step_fees_opening_hours.get('fees_de', '');
-              
+        event.fees_en = step_fees_opening_hours.get('fees_en', '')
+        event.fees_de = step_fees_opening_hours.get('fees_de', '')
+
         event.is_registration_required=False # TODO we do not have that in the mockups
                             
         event.phone0_type=PhoneType.objects.get(slug='phone')
@@ -771,13 +771,13 @@ class EventForm: # namespace
                     step_fees_opening_hours.get('%s_%s' % (d, f), None)
                     )
                 
-        event.exceptions_en = step_fees_opening_hours.get('exceptions_en', '');
-        event.exceptions_de = step_fees_opening_hours.get('exceptions_de', '');
-        event.is_appointment_based = step_fees_opening_hours.get('is_appointment_based', False);                
+        event.exceptions_en = step_fees_opening_hours.get('exceptions_en', '')
+        event.exceptions_de = step_fees_opening_hours.get('exceptions_de', '')
+        event.is_appointment_based = step_fees_opening_hours.get('is_appointment_based', False)
 
-        event.tags = step_categories.get('tags', '');
+        event.tags = step_categories.get('tags', '')
 
-         # TODO should we really publish the event immediately?
+        # TODO should we really publish the event immediately?
         event.status="published"
 
         event.save()

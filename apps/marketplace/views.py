@@ -48,7 +48,9 @@ class JobOfferFeed(Feed):
 
 @never_cache
 def add_job_offer(request):
-    return show_form_step(request, ADD_JOB_OFFER_FORM_STEPS, extra_context={});
+    return show_form_step(request, ADD_JOB_OFFER_FORM_STEPS, extra_context={})
+
+
 add_job_offer = login_required(add_job_offer)
 
 @never_cache

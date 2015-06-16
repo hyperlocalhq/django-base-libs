@@ -120,7 +120,7 @@ class PublicCommentForm(dynamicforms.Form):
         #        cleaned[key] = value.encode(settings.DEFAULT_CHARSET)
 
         if self.user and self.user.is_authenticated():
-            self.name = self.user.username;
+            self.name = self.user.username
         else:
             self.name = cleaned.get("name", None)
             
@@ -424,8 +424,8 @@ def filter_rating(queryset, rating_map, filter_value):
     for rating in rating_map:
         if rating[1] == filter_value:
             rating_index = rating[0]
-            break;
-            
+            break
+
     if rating_index:
         return queryset.filter(**{"rating" + str(rating_index) + "__gt" : 0}).order_by("-rating" + str(rating_index))
     return queryset

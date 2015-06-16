@@ -218,7 +218,7 @@ class DoCommentForm:
         
         template_dir_lookup_var = None
         if tokens[1] == 'using':
-            token_index = 3;
+            token_index = 3
             template_dir_lookup_var = tokens[2]
         
         if tokens[token_index] != 'for':

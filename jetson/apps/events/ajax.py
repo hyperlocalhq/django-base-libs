@@ -59,7 +59,7 @@ if Institution:
             for field in ("open", "break_close", "break_open", "close"):
                 if getattr(institution, "%s_%s" % (day, field)):
                     contacts["%s_%s" % (day, field)] = getattr(institution, "%s_%s" % (day, field)).strftime("%H:%M")
-        contacts['title'] = institution.get_title();
+        contacts['title'] = institution.get_title()
         json_data = json.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
         
         return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')

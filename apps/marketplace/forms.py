@@ -345,7 +345,7 @@ class JobOfferForm: # namespace
         job_offer.url0_link=step_main_data.get('url0_link', '')
         job_offer.publish_emails=step_main_data.get('publish_emails', '')
         
-        job_offer.tags = step_categories.get('tags', '');
+        job_offer.tags = step_categories.get('tags', '')
 
         job_offer.status = STATUS_CODE_PUBLISHED
 
