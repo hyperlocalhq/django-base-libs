@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import os
 
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('jetson.apps.messaging.views',
     url(r"^((?P<box>inbox|drafts|sent|deleted)/)?$", "messages_list", name="messages_list"),

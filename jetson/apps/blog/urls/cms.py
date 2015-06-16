@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 from base_libs.forms.formprocessing import ID_ACTION_NEW
 from base_libs.forms.formprocessing import ID_ACTION_EDIT
 from base_libs.forms.formprocessing import ID_ACTION_DELETE

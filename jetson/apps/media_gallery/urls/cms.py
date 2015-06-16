@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('jetson.apps.media_gallery.views.cms',
     url(r'^$', 'gallery_detail', ),

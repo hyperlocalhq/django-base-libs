@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('jetson.apps.comments.views',
     (r'^post/$', 'comments.post_comment'),

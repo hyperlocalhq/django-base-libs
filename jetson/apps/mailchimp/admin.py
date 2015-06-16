@@ -15,7 +15,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.views.decorators.cache import never_cache
 from django.forms.util import ErrorList
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.contrib.admin.util import unquote
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA

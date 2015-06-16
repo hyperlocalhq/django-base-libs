@@ -154,7 +154,7 @@ class PortfolioSite(object):
         return update_wrapper(inner, view)
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url, include
+        from django.conf.urls import patterns, url, include
 
         def wrap(view, cacheable=False, admin=False):
             def wrapper(*args, **kwargs):

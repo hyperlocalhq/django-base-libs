@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 from ccb.apps.search.forms import ModelSearchForm
 from ccb.apps.search.views import SearchView

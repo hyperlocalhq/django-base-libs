@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('jetson.apps.templatesadmin.views',
     url(r'^$', 'overview', name='templatesadmin-overview'),
