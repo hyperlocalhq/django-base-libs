@@ -19,11 +19,11 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.syndication.views import FeedDoesNotExist
 from django.contrib.contenttypes.models import ContentType
-from django.views.generic.simple import direct_to_template
 from django.views.decorators.cache import cache_control
 from django.views.decorators.cache import never_cache
 from django.utils.http import urlencode
 from django.conf import settings
+from django.shortcuts import render
 
 from base_libs.utils.misc import ExtendedJSONEncoder
 
@@ -94,13 +94,13 @@ def jquery_autocomplete_lookup(request, queryset, field=False, limit=10, login_r
     return r
 
 def direct_to_js_template(request, cache=True, *args, **kwargs):
-    response = direct_to_template(request, *args, **kwargs)
+    response = render(request, *args, **kwargs)
     response['Content-Type'] = "application/x-javascript"
     if cache:
         #response['Cache-Control'] = "max-age=2678400" # cached for one month
-        now = datetime.utcnow()
+        now = datetime.datetime.utcnow()
         response['Last-Modified'] = now.strftime('%a, %d %b %Y %H:%M:%S GMT')
-        expires = now + timedelta(0, 2678400)
+        expires = now + datetime.timedelta(0, 2678400)
         response['Expires'] = expires.strftime('%a, %d %b %Y %H:%M:%S GMT')
     else:
         response['Pragma'] = "No-Cache"
