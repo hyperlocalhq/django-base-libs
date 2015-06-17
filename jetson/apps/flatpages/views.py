@@ -13,7 +13,6 @@ from django.utils.cache import patch_vary_headers
 from django.views.decorators.cache import cache_control
 from django.conf import settings
 
-FlatPage = models.get_model("flatpages", "FlatPage")
 
 DEFAULT_TEMPLATE = 'flatpages/default.html'
 
@@ -30,6 +29,7 @@ def flatpage(request, url):
         flatpage
             `flatpages.flatpages` object
     """
+    FlatPage = models.get_model("flatpages", "FlatPage")
     if url.startswith("/"):
         url = url[1:]
         
