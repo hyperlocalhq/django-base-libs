@@ -18,7 +18,7 @@ from django.core.files import base
 from django.template.defaultfilters import slugify
 
 from filebrowser.fields import FileBrowseField
-from filebrowser.functions import get_version_path
+from filebrowser_functions import get_version_path
 from filebrowser.settings import *
 from filebrowser.base import FileObject
 
