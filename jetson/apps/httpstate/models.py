@@ -4,7 +4,7 @@ import cPickle as pickle
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.utils.hashcompat import md5_constructor
+from hashlib import md5
 
 verbose_name = _("HTTP State")
 
@@ -14,7 +14,7 @@ class HttpStateManager(models.Manager):
         Returns the given httpstate dictionary pickled and encoded as a string.
         """
         pickled = pickle.dumps(httpstate_dict)
-        pickled_md5 = md5_constructor(pickled + settings.SECRET_KEY).hexdigest()
+        pickled_md5 = md5(pickled + settings.SECRET_KEY).hexdigest()
         return base64.encodestring(pickled + pickled_md5)
 
     def save(self, httpstate_key, httpstate_dict, expire_date):
@@ -56,7 +56,7 @@ class HttpState(models.Model):
     def get_decoded(self):
         encoded_data = base64.decodestring(self.httpstate_data)
         pickled, tamper_check = encoded_data[:-32], encoded_data[-32:]
-        if md5_constructor(pickled + settings.SECRET_KEY).hexdigest() != tamper_check:
+        if md5(pickled + settings.SECRET_KEY).hexdigest() != tamper_check:
             from django.core.exceptions import SuspiciousOperation
             raise SuspiciousOperation, "User tampered with httpstate cookie."
         try:
