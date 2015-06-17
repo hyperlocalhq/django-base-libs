@@ -913,8 +913,8 @@ def disarm_user_input(html):
         html = defaultfilters.linebreaks(html)
     html = defaultfilters.safe(html)
     return html
-disarm_user_input = defaultfilters.stringfilter(disarm_user_input, is_safe=True)
-register.filter('disarm_user_input', disarm_user_input)
+disarm_user_input = defaultfilters.stringfilter(disarm_user_input)
+register.filter('disarm_user_input', disarm_user_input, is_safe=True)
 
 def humanize_url(url, letter_count):
     letter_count = int(letter_count)
