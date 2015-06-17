@@ -987,8 +987,8 @@ def remove_newlines(text):
     normalized_text = normalize_newlines(text)
     # Then simply remove the newlines like so.
     return mark_safe(normalized_text.replace('\n', ' '))
-remove_newlines = defaultfilters.stringfilter(remove_newlines, is_safe=True)
-register.filter(remove_newlines)
+remove_newlines = defaultfilters.stringfilter(remove_newlines)
+register.filter(remove_newlines, is_safe=True)
 
 @register.filter
 @stringfilter
