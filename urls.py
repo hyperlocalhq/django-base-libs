@@ -232,7 +232,7 @@ urlpatterns = patterns('',
     url(r'^$', 'ccb.apps.site_specific.views.splash_page', name="splash_page"),
 
     # global js settings
-    url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template', {'template': 'settings.js'}, name="jssettings"),
+    url(r'^jssettings/$', 'jetson.apps.utils.views.direct_to_js_template', {'template_name': 'settings.js'}, name="jssettings"),
     
     # info subscription
     url(r'^subscribe4info/$', 'jetson.apps.mailchimp.views.subscribe_for_info', name="subscribe4info"),
