@@ -18,7 +18,7 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.sql.SQLDebugPanel',
     'debug_toolbar.panels.template.TemplateDebugPanel',
     #'debug_toolbar.panels.cache.CacheDebugPanel'
-    'memcache_toolbar.panels.memcache.MemcachePanel',
+    # 'memcache_toolbar.panels.memcache.MemcachePanel',
     'debug_toolbar.panels.signals.SignalDebugPanel',
     'debug_toolbar.panels.logger.LoggingPanel',
     )
