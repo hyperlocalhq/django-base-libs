@@ -99,9 +99,9 @@ def direct_to_js_template(request, cache=True, *args, **kwargs):
     response['Content-Type'] = "application/x-javascript"
     if cache:
         #response['Cache-Control'] = "max-age=2678400" # cached for one month
-        now = datetime.datetime.utcnow()
+        now = datetime.utcnow()
         response['Last-Modified'] = now.strftime('%a, %d %b %Y %H:%M:%S GMT')
-        expires = now + datetime.timedelta(0, 2678400)
+        expires = now + timedelta(0, 2678400)
         response['Expires'] = expires.strftime('%a, %d %b %Y %H:%M:%S GMT')
     else:
         response['Pragma'] = "No-Cache"
