@@ -128,7 +128,7 @@ class PortfolioSite(object):
             class MyPortfolioSite(PortfolioSite):
 
                 def get_urls(self):
-                    from django.conf.urls.defaults import patterns, url
+                    from django.conf.urls import patterns, url
 
                     urls = super(MyPortfolioSite, self).get_urls()
                     urls += patterns('',
