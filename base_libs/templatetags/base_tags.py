@@ -751,9 +751,8 @@ def mark_first_and_last(value, tag):
             parts[-3] += ' class="last-child"'
         value = "".join(parts)
     return value
-    
-mark_first_and_last.is_safe = True
-register.filter('mark_first_and_last', mark_first_and_last)
+
+register.filter('mark_first_and_last', mark_first_and_last, is_safe=True)
 
 media_file_regex = re.compile(r'<object .+?</object>|<(img|embed) [^>]+>')
 
@@ -765,8 +764,7 @@ def get_first_media(content):
         media_tag = m.group()
     return media_tag
 
-get_first_media.is_safe = True
-get_first_media = register.filter(get_first_media)           
+get_first_media = register.filter(get_first_media, is_safe=True)
 
 
 media_src_regex = re.compile(r'src=(["\'])([^\1]+?)\1')    
@@ -779,8 +777,7 @@ def get_media_src(media_file):
         media_src = m.group(2)
     return media_src
 
-get_media_src.is_safe = True
-get_media_src = register.filter(get_media_src)           
+get_media_src = register.filter(get_media_src, is_safe=True)
 
 
 def content_type_id(value):
@@ -916,8 +913,7 @@ def disarm_user_input(html):
         html = defaultfilters.linebreaks(html)
     html = defaultfilters.safe(html)
     return html
-disarm_user_input.is_safe = True
-disarm_user_input = defaultfilters.stringfilter(disarm_user_input)
+disarm_user_input = defaultfilters.stringfilter(disarm_user_input, is_safe=True)
 register.filter('disarm_user_input', disarm_user_input)
 
 def humanize_url(url, letter_count):
@@ -937,9 +933,7 @@ def truncated_multiply(value, arg):
     """
     return int(value * arg)
 
-truncated_multiply.is_safe = False
-
-register.filter('truncated_multiply', truncated_multiply)
+register.filter('truncated_multiply', truncated_multiply, is_safe=False)
 
 register.filter('get_user_title', get_user_title)
 
@@ -993,8 +987,7 @@ def remove_newlines(text):
     normalized_text = normalize_newlines(text)
     # Then simply remove the newlines like so.
     return mark_safe(normalized_text.replace('\n', ' '))
-remove_newlines.is_safe = True
-remove_newlines = defaultfilters.stringfilter(remove_newlines)
+remove_newlines = defaultfilters.stringfilter(remove_newlines, is_safe=True)
 register.filter(remove_newlines)
 
 @register.filter
