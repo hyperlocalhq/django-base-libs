@@ -24,7 +24,7 @@ from base_libs.middleware import get_current_language
 from base_libs.forms.fields import PlainTextFormField
 from base_libs.forms.fields import URLField as URLFormField
 from base_libs.forms.fields import TemplateChoiceField
-from base_libs.models import settings as markup_settings 
+from base_libs.models import base_libs_settings as markup_settings
 
 qn = connection.ops.quote_name
 

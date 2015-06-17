@@ -35,7 +35,7 @@ from base_libs.utils.betterslugify import better_slugify
 from base_libs.middleware import get_current_user
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_unique_value
-from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 
 class BaseModel(models.Model):
     """

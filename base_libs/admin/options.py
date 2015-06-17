@@ -23,9 +23,9 @@ try:
 except:
     from django.utils.encoding import force_unicode as force_text
 
-from base_libs.models.settings import MARKUP_PLAIN_TEXT  
-from base_libs.models.settings import MARKUP_HTML_WYSIWYG
-from base_libs.models.settings import MARKUP_RAW_HTML
+from base_libs.models.base_libs_settings import MARKUP_PLAIN_TEXT
+from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
+from base_libs.models.base_libs_settings import MARKUP_RAW_HTML
 from base_libs.models.fields import ExtendedTextField
 from base_libs.widgets import TreeSelectWidget, TreeSelectMultipleWidget
 
