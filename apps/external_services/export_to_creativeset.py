@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from sha import sha
+from hashlib import sha1
 
 from django.utils.encoding import smart_str
 from django.utils.encoding import force_unicode
@@ -35,7 +35,7 @@ def export_job_offer_to_creativeset(job_offer, test=False):
     if job_offer.offering_institution:
         company_name = job_offer.offering_institution.get_title()
     
-    key = sha(settings.CREATIVESET_KEY_COMPONENT + smart_str(job_offer.position)).hexdigest()
+    key = sha1(settings.CREATIVESET_KEY_COMPONENT + smart_str(job_offer.position)).hexdigest()
     
     how_to_apply = [company_name]
     if job_offer.postal_address:

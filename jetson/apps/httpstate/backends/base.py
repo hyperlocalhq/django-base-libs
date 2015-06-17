@@ -11,7 +11,7 @@ except ImportError:
 
 from django.conf import settings
 from django.core.exceptions import SuspiciousOperation
-from django.utils.hashcompat import md5_constructor
+from hashlib import md5
 
 from jetson.apps.httpstate import settings as httpstate_settings
 
@@ -88,13 +88,13 @@ class HttpStateBase(object):
     def encode(self, httpstate_dict):
         "Returns the given httpstate dictionary pickled and encoded as a string."
         pickled = pickle.dumps(httpstate_dict, pickle.HIGHEST_PROTOCOL)
-        pickled_md5 = md5_constructor(pickled + settings.SECRET_KEY).hexdigest()
+        pickled_md5 = md5(pickled + settings.SECRET_KEY).hexdigest()
         return base64.encodestring(pickled + pickled_md5)
 
     def decode(self, httpstate_data):
         encoded_data = base64.decodestring(httpstate_data)
         pickled, tamper_check = encoded_data[:-32], encoded_data[-32:]
-        if md5_constructor(pickled + settings.SECRET_KEY).hexdigest() != tamper_check:
+        if md5(pickled + settings.SECRET_KEY).hexdigest() != tamper_check:
             raise SuspiciousOperation("User tampered with httpstate cookie.")
         try:
             return pickle.loads(pickled)
@@ -140,7 +140,7 @@ class HttpStateBase(object):
             # No getpid() in Jython, for example
             pid = 1
         while 1:
-            httpstate_key = md5_constructor("%s%s%s%s"
+            httpstate_key = md5("%s%s%s%s"
                     % (randrange(0, MAX_HTTPSTATE_KEY), pid, time.time(),
                        settings.SECRET_KEY)).hexdigest()
             if not self.exists(httpstate_key):

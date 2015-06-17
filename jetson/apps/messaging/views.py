@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
-import md5, re
+import re
 import json
+from hashlib import md5
 
 from django.http import HttpResponse
 from django.utils.translation import ugettext as _
