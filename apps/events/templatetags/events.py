@@ -7,7 +7,7 @@ from django import template
 from django.conf import settings
 from django.template import loader
 from django.utils import dateformat
-from django.utils.translation import get_date_formats, get_partial_date_formats
+from django.utils.formats import get_format
 from django.db import models
 
 Institution = models.get_model("institutions", "Institution")
@@ -34,8 +34,11 @@ class DatePeriodNode(template.Node):
         
     def _get_start_date_formatted(self):
         
-        year_month_format, month_day_format = get_partial_date_formats()
-        (date_format, datetime_format, time_format) = get_date_formats()
+        year_month_format = get_format('%Y-%m')
+        month_day_format = get_format('%m-%d')
+        date_format = get_format('%Y-%m-%d')
+        datetime_format = get_format('%Y-%m-%d %H:%M:%S')
+        time_format = get_format('%H:%M:%S')
 
         start_date_format = date_format
 
