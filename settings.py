@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     ### third-party apps ###
     "grappelli",
     "filebrowser",
+    "crispy_forms",
 
     ### django core apps ###
     "django.contrib.sitemaps",
@@ -765,6 +766,10 @@ djcelery.setup_loader()
 RECAPTCHA_PUBLIC_KEY = '6LfWkt8SAAAAAPnRowSBDg1GJOk6umAqdwVcpUFK'
 RECAPTCHA_PRIVATE_KEY = '6LfWkt8SAAAAABAOx3-qsJYDt76jSpUlIkg8ZgcD'
 RECAPTCHA_USE_SSL = False
+
+### DJANGO CRISPY FORMS ###
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 ### LOCAL SETTINGS ###
 
