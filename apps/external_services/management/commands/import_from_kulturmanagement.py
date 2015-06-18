@@ -18,7 +18,7 @@ class Command(NoArgsCommand):
         from django.db import models
 
         from base_libs.utils.misc import get_related_queryset
-        from base_libs.models.settings import STATUS_CODE_PUBLISHED
+        from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         
         from jetson.apps.external_services.utils import get_first
         from jetson.apps.external_services.utils import get_value

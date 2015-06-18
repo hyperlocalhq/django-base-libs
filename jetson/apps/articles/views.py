@@ -8,7 +8,7 @@ from django.db.models.fields import DateTimeField
 from django.views.generic.dates import DateDetailView
 from django.core.urlresolvers import reverse
 
-from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
 from base_libs.views import access_denied
 

@@ -12,7 +12,7 @@ from django.db import models
 from django.utils.encoding import smart_unicode, force_unicode
 from django.db.models.query import QuerySet
 
-from base_libs.models.settings import STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import AutocompleteField
 from base_libs.forms.fields import HierarchicalModelChoiceField

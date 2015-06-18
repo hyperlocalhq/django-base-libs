@@ -3,7 +3,7 @@ from django.conf.urls import patterns
 from base_libs.forms.formprocessing import ID_ACTION_NEW
 from base_libs.forms.formprocessing import ID_ACTION_EDIT
 from base_libs.forms.formprocessing import ID_ACTION_DELETE
-from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 
 from jetson.apps.blog.forms import BlogPostForm
 from jetson.apps.blog.views import BlogPostFormPreviewHandler

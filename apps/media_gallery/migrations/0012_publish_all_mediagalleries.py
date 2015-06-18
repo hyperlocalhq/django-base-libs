@@ -9,7 +9,7 @@ from base_libs.utils.misc import south_cleaned_fields
 class Migration(DataMigration):
     
     def forwards(self, orm):
-        from base_libs.models.settings import STATUS_CODE_PUBLISHED
+        from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         for mg in orm.MediaGallery.objects.all():
             mg.status = STATUS_CODE_PUBLISHED
             mg.save()

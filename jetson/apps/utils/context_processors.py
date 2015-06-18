@@ -9,8 +9,8 @@ from filebrowser.settings import MEDIA_URL as UPLOADS_URL
 
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import get_website_ssl_url
-from base_libs.models.settings import JQUERY_URL
-from base_libs.models.settings import JQUERY_UI_URL
+from base_libs.models.base_libs_settings import JQUERY_URL
+from base_libs.models.base_libs_settings import JQUERY_UI_URL
 
 from jetson.apps.httpstate import settings as httpstate_settings
 

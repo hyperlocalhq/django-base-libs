@@ -25,8 +25,8 @@ from base_libs.forms.formprocessing import FormPreviewHandler
 from base_libs.forms.formprocessing import ID_ACTION_NEW
 from base_libs.forms.formprocessing import ID_ACTION_EDIT
 from base_libs.forms.formprocessing import ID_ACTION_DELETE
-from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
-from base_libs.models.settings import MARKUP_HTML_WYSIWYG
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
 
 from jetson.apps.utils.views import object_list
 from jetson.apps.utils.decorators import login_required

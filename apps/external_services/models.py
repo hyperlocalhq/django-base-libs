@@ -3,7 +3,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
-from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.models.fields import URLField
 
 from jetson.apps.external_services.models import *

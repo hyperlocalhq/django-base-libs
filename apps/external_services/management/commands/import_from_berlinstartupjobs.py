@@ -20,7 +20,7 @@ class Command(NoArgsCommand):
 
         from base_libs.utils.misc import get_related_queryset
         from base_libs.utils.misc import html_to_plain_text
-        from base_libs.models.settings import STATUS_CODE_PUBLISHED
+        from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         from base_libs.templatetags.base_tags import decode_entities
         
         from jetson.apps.external_services.utils import get_first

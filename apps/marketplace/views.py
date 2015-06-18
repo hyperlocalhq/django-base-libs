@@ -12,7 +12,7 @@ from django.views.decorators.cache import never_cache
 from django.db import models
 from django.shortcuts import render_to_response
 
-from base_libs.models.settings import STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.utils.misc import get_website_url
 from base_libs.views import access_denied
 
