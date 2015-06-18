@@ -1,6 +1,6 @@
 {
 "CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
-"creatorBuild": "18027",
+"creatorBuild": "19033",
 "files": {
 	"\/css\/_junk\/bootstrap-customized.css": {
 		"fileType": 16,
@@ -205,6 +205,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/css\/normalize.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/css\/style.css": {
+		"fileType": 16,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/css\/style.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -1529,7 +1538,7 @@
 		},
 	"\/js\/base.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/base.min.js",
 		"outputAbbreviatedPath": "\/js\/base.min.min.js",
@@ -1573,7 +1582,7 @@
 		},
 	"\/js\/bootstrap\/bootstrap-jetson-datepicker.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/bootstrap\/bootstrap-jetson-datepicker.min.js",
 		"outputAbbreviatedPath": "\/js\/bootstrap\/bootstrap-jetson-datepicker.min.min.js",
@@ -1595,7 +1604,7 @@
 		},
 	"\/js\/bootstrap\/bootstrap-jetson-timepicker.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/bootstrap\/bootstrap-jetson-timepicker.min.js",
 		"outputAbbreviatedPath": "\/js\/bootstrap\/bootstrap-jetson-timepicker.min.min.js",
@@ -1617,7 +1626,7 @@
 		},
 	"\/js\/bootstrap\/bootstrap.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/bootstrap\/bootstrap.min.js",
 		"outputAbbreviatedPath": "\/js\/bootstrap\/bootstrap.min.min.js",
@@ -1727,7 +1736,7 @@
 		},
 	"\/js\/filter.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/filter.min.js",
 		"outputAbbreviatedPath": "\/js\/filter.min.min.js",
@@ -1749,7 +1758,7 @@
 		},
 	"\/js\/form.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/form.min.js",
 		"outputAbbreviatedPath": "\/js\/form.min.min.js",
@@ -1771,7 +1780,7 @@
 		},
 	"\/js\/gallery_form.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/gallery_form.min.js",
 		"outputAbbreviatedPath": "\/js\/gallery_form.min.min.js",
@@ -1804,7 +1813,7 @@
 		},
 	"\/js\/gmaps_for_address.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/gmaps_for_address.min.js",
 		"outputAbbreviatedPath": "\/js\/gmaps_for_address.min.min.js",
@@ -1826,7 +1835,7 @@
 		},
 	"\/js\/header-disappear.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/header-disappear.min.js",
 		"outputAbbreviatedPath": "\/js\/header-disappear.min.min.js",
@@ -1848,10 +1857,21 @@
 		},
 	"\/js\/headroom.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/headroom.min.js",
 		"outputAbbreviatedPath": "\/js\/headroom.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/isotope\/isotope.pkgd.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/isotope\/isotope.pkgd.min.js",
+		"outputAbbreviatedPath": "\/js\/isotope\/isotope.pkgd.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -1881,7 +1901,7 @@
 		},
 	"\/js\/jquery.autosize.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.autosize.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.autosize.min.min.js",
@@ -1925,7 +1945,7 @@
 		},
 	"\/js\/jquery.hammer-full.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.hammer-full.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.hammer-full.min.min.js",
@@ -1947,7 +1967,7 @@
 		},
 	"\/js\/jquery.headroom.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.headroom.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.headroom.min.min.js",
@@ -1969,7 +1989,7 @@
 		},
 	"\/js\/jquery.isotope.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.isotope.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.isotope.min.min.js",
@@ -2002,7 +2022,7 @@
 		},
 	"\/js\/jquery.jscroll.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.jscroll.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.jscroll.min.min.js",
@@ -2024,7 +2044,7 @@
 		},
 	"\/js\/jquery.lazyload.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.lazyload.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.lazyload.min.min.js",
@@ -2035,7 +2055,7 @@
 		},
 	"\/js\/jquery.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.min.min.js",
@@ -2057,7 +2077,7 @@
 		},
 	"\/js\/jquery.scrollstop.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.scrollstop.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.scrollstop.min.min.js",
@@ -2079,7 +2099,7 @@
 		},
 	"\/js\/jquery.selectbox-0.2.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.selectbox-0.2.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.selectbox-0.2.min.min.js",
@@ -2112,7 +2132,7 @@
 		},
 	"\/js\/jquery.tagsinput.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.tagsinput.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.tagsinput.min.min.js",
@@ -2145,7 +2165,7 @@
 		},
 	"\/js\/jquery.viewport.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.viewport.min.js",
 		"outputAbbreviatedPath": "\/js\/jquery.viewport.min.min.js",
@@ -2167,7 +2187,7 @@
 		},
 	"\/js\/list.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/list.min.js",
 		"outputAbbreviatedPath": "\/js\/list.min.min.js",
@@ -2189,7 +2209,7 @@
 		},
 	"\/js\/listing_map.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/listing_map.min.js",
 		"outputAbbreviatedPath": "\/js\/listing_map.min.min.js",
@@ -2244,7 +2264,7 @@
 		},
 	"\/js\/mega_drop_down_menu.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/mega_drop_down_menu.min.js",
 		"outputAbbreviatedPath": "\/js\/mega_drop_down_menu.min.min.js",
@@ -2277,7 +2297,7 @@
 		},
 	"\/js\/navbar_search.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/navbar_search.min.js",
 		"outputAbbreviatedPath": "\/js\/navbar_search.min.min.js",
@@ -2321,7 +2341,7 @@
 		},
 	"\/js\/share.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/share.min.js",
 		"outputAbbreviatedPath": "\/js\/share.min.min.js",
@@ -2354,7 +2374,7 @@
 		},
 	"\/js\/StickyScroller.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/StickyScroller.min.js",
 		"outputAbbreviatedPath": "\/js\/StickyScroller.min.min.js",
@@ -2398,7 +2418,7 @@
 		},
 	"\/js\/twitter.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/twitter.min.js",
 		"outputAbbreviatedPath": "\/js\/twitter.min.min.js",
@@ -2487,6 +2507,22 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
+	"\/scss\/_detail-pages.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 5,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scss\/_detail-pages.scss",
+		"outputAbbreviatedPath": "\/css\/_detail-pages.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
 	"\/scss\/_ding.scss": {
 		"createSourceMap": 0,
 		"debugStyle": 0,
@@ -2496,6 +2532,22 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scss\/_ding.scss",
 		"outputAbbreviatedPath": "\/css\/_ding.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/scss\/_favorites.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 5,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scss\/_favorites.scss",
+		"outputAbbreviatedPath": "\/css\/_favorites.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -2807,6 +2859,22 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
+	"\/scss\/_shop.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 5,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scss\/_shop.scss",
+		"outputAbbreviatedPath": "\/css\/_shop.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
 	"\/scss\/_shop_overview.scss": {
 		"createSourceMap": 0,
 		"debugStyle": 0,
@@ -2832,6 +2900,22 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scss\/_sidenav.scss",
 		"outputAbbreviatedPath": "\/css\/_sidenav.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/scss\/_slideshow.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 5,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scss\/_slideshow.scss",
+		"outputAbbreviatedPath": "\/css\/_slideshow.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -3636,6 +3720,22 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scss\/maps.scss",
 		"outputAbbreviatedPath": "\/css\/maps.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/scss\/style.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 5,
+		"fileType": 4,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scss\/style.scss",
+		"outputAbbreviatedPath": "\/css\/style.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -6035,7 +6135,7 @@
 		},
 	"\/tinymce_setup\/frontend_setup.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/tinymce_setup\/frontend_setup.min.js",
 		"outputAbbreviatedPath": "\/tinymce_setup\/frontend_setup.min.min.js",
@@ -6069,7 +6169,7 @@
 	},
 "hooks": [
 	],
-"lastSavedByUser": "Aidas Bendoraitis",
+"lastSavedByUser": "Aidas",
 "manualImportLinks": {
 	},
 "projectAttributes": {
@@ -6115,6 +6215,10 @@
 			},
 		"empty_constructor_needs_parens": {
 			"active": 0,
+			"flagValue": -1
+			},
+		"ensure_comprehensions": {
+			"active": 1,
 			"flagValue": -1
 			},
 		"indentation": {
@@ -6208,6 +6312,10 @@
 		"space_operators": {
 			"active": 0,
 			"flagValue": -1
+			},
+		"spacing_after_comma": {
+			"active": 1,
+			"flagValue": -1
 			}
 		},
 	"coffeeMinifyOutput": 1,
@@ -6264,6 +6372,10 @@
 			"active": 1,
 			"flagValue": -1
 			},
+		"browserify": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"camelcase": {
 			"active": 0,
 			"flagValue": -1
@@ -6286,6 +6398,10 @@
 			},
 		"dojo": {
 			"active": 0,
+			"flagValue": -1
+			},
+		"elision": {
+			"active": 1,
 			"flagValue": -1
 			},
 		"eqeqeq": {
@@ -6324,6 +6440,10 @@
 			"active": 0,
 			"flagValue": -1
 			},
+		"futurehostile": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"globalstrict": {
 			"active": 0,
 			"flagValue": -1
@@ -6337,6 +6457,10 @@
 			"flagValue": 4
 			},
 		"iterator": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"jasmine": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -6384,6 +6508,10 @@
 			"active": 0,
 			"flagValue": 4
 			},
+		"mocha": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"mootools": {
 			"active": 0,
 			"flagValue": -1
@@ -6402,6 +6530,10 @@
 			},
 		"noarg": {
 			"active": 1,
+			"flagValue": -1
+			},
+		"nocomma": {
+			"active": 0,
 			"flagValue": -1
 			},
 		"node": {
@@ -6452,6 +6584,10 @@
 			"active": 0,
 			"flagValue": -1
 			},
+		"qunit": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"regexp": {
 			"active": 1,
 			"flagValue": -1
@@ -6469,6 +6605,10 @@
 			"flagValue": -1
 			},
 		"shelljs": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"singleGroups": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -6494,6 +6634,10 @@
 			},
 		"unused": {
 			"active": 1,
+			"flagValue": -1
+			},
+		"varstmt": {
+			"active": 0,
 			"flagValue": -1
 			},
 		"withstmt": {
@@ -6619,6 +6763,14 @@
 			"flagValue": -1
 			}
 		},
+	"jsonAutoOutputPathEnabled": 0,
+	"jsonAutoOutputPathFilenamePattern": "*-min.json",
+	"jsonAutoOutputPathRelativePath": "",
+	"jsonAutoOutputPathReplace1": "",
+	"jsonAutoOutputPathReplace2": "",
+	"jsonAutoOutputPathStyle": 0,
+	"jsonOrderOutput": 0,
+	"jsonOutputStyle": 1,
 	"kitAutoOutputPathEnabled": 1,
 	"kitAutoOutputPathFilenamePattern": "*.html",
 	"kitAutoOutputPathRelativePath": "",
@@ -6646,9 +6798,18 @@
 	"markdownAutoOutputPathReplace1": "",
 	"markdownAutoOutputPathReplace2": "",
 	"markdownAutoOutputPathStyle": 0,
+	"markdownCriticStyle": 0,
 	"markdownEnableFootnotes": 0,
-	"markdownEnableSmartyPants": 1,
-	"markdownExpandTabs": 1,
+	"markdownEnableLabels": 1,
+	"markdownEnableSmartQuotes": 1,
+	"markdownEscapeLineBreaks": 0,
+	"markdownMaskEmailAddresses": 1,
+	"markdownOutputFormat": 0,
+	"markdownOutputStyle": 0,
+	"markdownParseMetadata": 1,
+	"markdownProcessHTML": 0,
+	"markdownRandomFootnoteNumbers": 0,
+	"markdownUseCompatibilityMode": 0,
 	"reloadFileURLs": 0,
 	"sassAutoOutputPathEnabled": 1,
 	"sassAutoOutputPathFilenamePattern": "*.css",
@@ -6672,6 +6833,7 @@
 	"slimAutoOutputPathStyle": 0,
 	"slimCompileOnly": 0,
 	"slimLogicless": 0,
+	"slimOutputFormat": 0,
 	"slimOutputStyle": 1,
 	"slimRailsCompatible": 0,
 	"stylusAutoOutputPathEnabled": 1,
@@ -6696,12 +6858,17 @@
 	"typescriptMinifyOutput": 0,
 	"typescriptModuleType": 0,
 	"typescriptNoImplicitAny": 0,
-	"typescriptNoResolve": 0,
+	"typescriptPreserveConstEnums": 0,
 	"typescriptRemoveComments": 0,
+	"typescriptSuppressImplicitAnyIndexErrors": 0,
 	"typescriptTargetECMAVersion": 0,
 	"uglifyDefinesString": "",
 	"uglifyFlags2": {
 		"ascii-only": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"bare-returns": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -6734,6 +6901,10 @@
 			"flagValue": -1
 			},
 		"dead_code": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"drop_console": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -6777,6 +6948,14 @@
 			"active": 1,
 			"flagValue": -1
 			},
+		"keep_fargs": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"keep_fnames": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"loops": {
 			"active": 1,
 			"flagValue": -1
@@ -6789,8 +6968,16 @@
 			"active": 1,
 			"flagValue": 32000
 			},
+		"negate_iife": {
+			"active": 1,
+			"flagValue": -1
+			},
 		"properties": {
 			"active": 1,
+			"flagValue": -1
+			},
+		"pure_getters": {
+			"active": 0,
 			"flagValue": -1
 			},
 		"quote-keys": {

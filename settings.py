@@ -488,6 +488,11 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Main Content")
     },
 
+    'ad': {
+        'plugins': ("AdZonePlugin"),
+        'name': _("Ad"),
+    },
+
     'footnotes': {
         'plugins': ("RichTextPlugin",),
         'name': _("Footnotes")
@@ -576,6 +581,7 @@ CMS_TEMPLATES = [
     ('cms/plan_organize_third.html', gettext(u'Plan & Organize - Third')),              # previous: visitor_info.html
 
     ('cms/magazine_first.html', gettext(u'Magazine – First')),
+    ('cms/magazine_first_with_ad.html', gettext(u'Magazine – First with ad')),
     ('cms/magazine_second.html', gettext(u'Magazine – Second')),                   # previous: series.html
     ('cms/magazine_second_featured.html', gettext(u'Magazine – Second - Featured')), # previous: series_with_featured.html
     ('cms/magazine_third.html', gettext(u'Magazine - Third')),
