@@ -166,7 +166,15 @@ def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, pa
         page_max = min(paginator.num_pages + 1, page_min + pages_to_display)
         if page_max == paginator.num_pages + 1:
             page_min = max(page_max - pages_to_display, 1)
-                
+
+        previous_page_number = None
+        if current_page.has_previous():
+            previous_page_number = current_page.previous_page_number()
+
+        next_page_number = None
+        if current_page.has_next():
+            next_page_number = current_page.next_page_number()
+
         c = RequestContext(request, {
             '%s_list' % template_object_name: object_list,
             'is_paginated': current_page.has_other_pages(),
@@ -174,8 +182,8 @@ def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, pa
             'has_next': current_page.has_next(),
             'has_previous': current_page.has_previous(),
             'page': page,
-            'next': current_page.next_page_number(),
-            'previous': current_page.previous_page_number(),
+            'next': next_page_number,
+            'previous': previous_page_number,
             'pages': paginator.num_pages,
             'pagelist': [i for i in range(page_min, page_max)],
             'page_numbers': paginator.page_range,
