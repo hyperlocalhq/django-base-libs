@@ -48,7 +48,7 @@
             </a>
         </h5>
         <form method="get" id="object_list_filter_form" class="uniForm">
-            {% url job_offer_list_global as base_url %}
+            {% url "job_offer_list_global" as base_url %}
             <div class="object_search_form">
                 {{ form.job_sector|as_uni_field }}
                 {{ form.job_type|as_uni_field }}
