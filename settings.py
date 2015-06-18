@@ -73,7 +73,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.contenttypes", 
     "django.contrib.staticfiles",
-    
+    "django.contrib.messages",
+
     ### more third-party apps ###
     "babeldjango",
     "tagging",
@@ -155,13 +156,14 @@ MIDDLEWARE_CLASSES = [
     "django.middleware.common.CommonMiddleware",
     "babeldjango.middleware.LocaleMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
     "jetson.apps.flatpages.middleware.FlatpageMiddleware",
     "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
     "django.middleware.doc.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    ]
+]
 #if not DEVELOPMENT_MODE:
 #    MIDDLEWARE_CLASSES.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
 #    MIDDLEWARE_CLASSES.append("django.middleware.cache.FetchFromCacheMiddleware")
