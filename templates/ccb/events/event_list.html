@@ -50,7 +50,7 @@
         </div>
     {% endblock %}
         <form method="get" id="object_list_filter_form" class="clearfix">
-            {% url event_list_global as base_url %}
+            {% url "event_list_global" as base_url %}
             {% include "events/includes/list_period_quicklinks.html" %}
         </form>
         {% if object_list %}
