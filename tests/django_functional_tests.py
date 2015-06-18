@@ -432,7 +432,7 @@ def suite():
         ('/de/login', 200),
         ('/de/logout', 302), # login required
         ('/de/map/', 200),
-        ('/de/map/object-list/', 200), # FIXME currently returns 403, should probably redirect to login page
+        ('/de/map/object-list/', 403), # used by Ajax. Returns access denied if accessed directly or when given wrong query params.
         ('/de/my-messages/json/', 200),
         ('/de/my-messages/new/', 302), # login required
         ('/de/my-profile/', 302), # login required
