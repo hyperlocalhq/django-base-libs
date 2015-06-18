@@ -4981,7 +4981,7 @@ def suite():
         ('/de/person/congaz_berlin/', 200),
         ('/de/person/connie/', 200),
         ('/de/person/conniedevine/', 200),
-        ('/de/person/conor/', 200),
+        ('/de/person/conor/', 200), # TODO failed in tests with 'ProgrammingError: (2014, "Commands out of sync; you can't run this command now")'
         ('/de/person/conradinio/', 200),
         ('/de/person/constance_klemenz/', 200),
         ('/de/person/constanzaontiver/', 200),
@@ -10031,11 +10031,11 @@ def suite():
     )
 
     url_lists = (
-        # non_localized_slug_urls,
-        # localized_slug_urls,
-        # non_localized_constant_urls,
-        # localized_constant_urls,
-        # admin_urls,
+        non_localized_slug_urls,
+        localized_slug_urls,
+        non_localized_constant_urls,
+        localized_constant_urls,
+        admin_urls,
         sitemap_urls,
     )
 
