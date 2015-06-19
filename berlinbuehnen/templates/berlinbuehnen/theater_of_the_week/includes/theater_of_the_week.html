@@ -12,7 +12,7 @@
                     <span class="sr-only">{% trans "close theater of the week" %}</span>
                 </button>
                 <div class="row">
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-xs-12 {% if article.image or article.theater.cover_image or article.theater.image_set.exists %}col-md-6{% endif %}">
                         <div class="article-header hidden-md hidden-lg">
                             <h1>{{ article.title|escape }}</h1>
                             {% if article.subtitle %}
@@ -74,7 +74,7 @@
                             {% endwith %}
                         {% endif %}
                     </div>
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-xs-12 {% if article.image or article.theater.cover_image or article.theater.image_set.exists %}col-md-6{% endif %}">
                         <div class="article-header visible-md visible-lg">
                             <h1>{{ article.title|escape }}</h1>
                             {% if article.subtitle %}
