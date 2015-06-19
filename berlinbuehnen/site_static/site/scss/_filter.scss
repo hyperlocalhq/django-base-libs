@@ -1,4 +1,25 @@
 @charset "utf-8";
+    
+.filter-button {
+    border: none;
+    width: 33px;
+    height: 33px;
+    color: white;
+    background: black;
+    padding: 0;
+    &:before {
+        font-size: 1.7em;
+        width: 33px;
+        height: 33px;
+        line-height: 33px;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+    &.up:before {
+        line-height: 31px;
+    }
+}
 
 .filter-wrapper {
     width: 100%;
@@ -7,27 +28,6 @@
             
     .row {
         margin: 0 -15px;
-    }
-    
-    .filter-button {
-        border: none;
-        width: 33px;
-        height: 33px;
-        color: white;
-        background: black;
-        padding: 0;
-        &:before {
-            font-size: 1.7em;
-            width: 33px;
-            height: 33px;
-            line-height: 33px;
-            text-align: center;
-            padding: 0;
-            margin: 0;
-        }
-        &.up:before {
-            line-height: 31px;
-        }
     }
     
     .filter-reset-button {
@@ -45,7 +45,6 @@
     
     .filter-space {
         width: 100%;
-        //max-width: 1280px;
         background: #F1F6FA;
         margin: 0 auto -25px auto;
         position: relative;

@@ -1683,6 +1683,19 @@ select { visibility: hidden; }
 .theater-of-the-week .article-decription { margin-bottom: 10px; }
 .theater-of-the-week .article-content-cms img { max-width: 100%; height: auto; }
 
+.theater-of-the-week-widget-wrapper { width: 100%; margin: 0 0 25px; position: relative; color: white; }
+.theater-of-the-week-widget-wrapper .theater-of-the-week-widget-space { width: 100%; margin: 0 auto -25px auto; position: relative; top: -33px; background: #4583c8; }
+.theater-of-the-week-widget-wrapper .row { margin: 50px -10px 15px; }
+.theater-of-the-week-widget-wrapper .col-xs-12, .theater-of-the-week-widget-wrapper col-md-6 { padding-left: 10px; padding-right: 10px; }
+.theater-of-the-week-widget-wrapper .article-image { padding-top: 10px; padding-bottom: 10px; }
+.theater-of-the-week-widget-wrapper .article-image img { width: 100%; }
+.theater-of-the-week-widget-wrapper .article-image-caption { font-size: 0.9em; }
+.theater-of-the-week-widget-wrapper .article-header { padding-top: 10px; margin-bottom: 10px; }
+.theater-of-the-week-widget-wrapper .article-header h1 { margin-bottom: 13px; font-weight: 200; font-size: 2em; text-transform: uppercase; margin-top: -8px; }
+.theater-of-the-week-widget-wrapper .article-header h4 { font-size: 1em; }
+.theater-of-the-week-widget-wrapper .article-decription { padding-bottom: 10px; }
+.theater-of-the-week-widget-wrapper .article-decription a { color: white; font-weight: 700; }
+
 .is-xs .theater-of-the-week .main-container { padding-left: 10px; padding-right: 10px; }
 
 .chevron { position: relative; }
@@ -1992,11 +2005,12 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons { top: 21px !i
 
 body.is-xs .grid { margin: 0 -28px; }
 
+.filter-button { border: none; width: 33px; height: 33px; color: white; background: black; padding: 0; }
+.filter-button:before { font-size: 1.7em; width: 33px; height: 33px; line-height: 33px; text-align: center; padding: 0; margin: 0; }
+.filter-button.up:before { line-height: 31px; }
+
 .filter-wrapper { width: 100%; margin: 0 0 25px; position: relative; }
 .filter-wrapper .row { margin: 0 -15px; }
-.filter-wrapper .filter-button { border: none; width: 33px; height: 33px; color: white; background: black; padding: 0; }
-.filter-wrapper .filter-button:before { font-size: 1.7em; width: 33px; height: 33px; line-height: 33px; text-align: center; padding: 0; margin: 0; }
-.filter-wrapper .filter-button.up:before { line-height: 31px; }
 .filter-wrapper .filter-reset-button { border: none; background: transparent; text-transform: uppercase; font-size: 0.875em; padding: 0; font-weight: 700; color: black; }
 .filter-wrapper .filter-reset-button:hover { color: #4583c8; }
 .filter-wrapper .filter-space { width: 100%; background: #F1F6FA; margin: 0 auto -25px auto; position: relative; top: -33px; }

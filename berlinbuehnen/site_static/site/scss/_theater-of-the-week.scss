@@ -94,6 +94,62 @@
     
 }
 
+.theater-of-the-week-widget-wrapper {
+    width: 100%;
+    margin: 0 0 25px;
+    position: relative;
+    color: white;
+    
+    .theater-of-the-week-widget-space {
+        width: 100%;
+        margin: 0 auto -25px auto;
+        position: relative;
+        top: -33px;
+        background: $blue;
+        .theater-of-the-week-widget {
+            
+        }
+    }
+    
+    .row {
+        margin: 50px -10px 15px;
+    }
+    .col-xs-12, col-md-6 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .article-image {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        img {
+            width: 100%;
+        }
+    }
+    .article-image-caption {
+        font-size: 0.9em;
+    }
+    .article-header {
+        padding-top: 10px;
+        margin-bottom: 10px;
+        h1 {
+            margin-bottom: 13px;
+            font-weight: 200;
+            font-size: 2em;
+            text-transform: uppercase;
+            margin-top: -8px;
+        }
+        h4 {
+            font-size: 1em;
+        }
+    }
+    .article-decription {
+        padding-bottom: 10px;
+        a {
+            color: white;
+            font-weight: $bold;
+        }
+    }
+}
 
 .is-xs {
     .theater-of-the-week {

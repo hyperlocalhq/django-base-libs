@@ -1,0 +1,94 @@
+{% load base_tags i18n image_modifications fb_tags %}
+{% if article %}
+    <div class="theater-of-the-week-widget-wrapper">
+        <div class="container">
+            <button class="filter-button fawesome down pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget">
+                <span class="sr-only">{% trans "open theater of the week" %}</span>
+            </button>
+        </div>
+        <div class="theater-of-the-week-widget-space">
+            <div id="theater_of_the_week_widget" class="theater-of-the-week-widget container relative collapse in">
+                <button class="filter-button fawesome up pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget">
+                    <span class="sr-only">{% trans "close theater of the week" %}</span>
+                </button>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="article-header hidden-md hidden-lg">
+                            <h1>{{ article.title|escape }}</h1>
+                            {% if article.subtitle %}
+                                <h4 class="subtitle">{{ article.subtitle }}</h4>
+                            {% endif %}
+                        </div>
+                        {% if article.image %}
+                            <div class="article-image">
+                                <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                {% if article.image_description %}
+                                    <div class="article-image-caption">
+                                        {{ article.get_rendered_image_description }}
+                                    </div>
+                                {% else %}
+                                    {% with article.image|file_description as file_desc %}
+                                        {% if file_desc.title or file_desc.author %}
+                                            <div class="article-image-caption">
+                                                {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endif %}
+                            </div>
+                        {% elif article.theater.cover_image %}
+                            <div class="article-image">
+                                <img src="{{ UPLOADS_URL }}{{ article.theater.cover_image.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                {% if article.image_description %}
+                                    <div class="article-image-caption">
+                                        {{ article.get_rendered_image_description }}
+                                    </div>
+                                {% else %}
+                                    {% with article.theater.cover_image.path|file_description as file_desc %}
+                                        {% if file_desc.title or file_desc.author %}
+                                            <div class="article-image-caption">
+                                                {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endif %}
+                            </div>
+                        {% elif article.theater.image_set.exists %}
+                            {% with article.theater.image_set.all|first as first %}
+                                <div class="article-image">
+                                    <img src="{{ UPLOADS_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                    {% if article.image_description %}
+                                        <div class="article-image-caption">
+                                            {{ article.get_rendered_image_description }}
+                                        </div>
+                                    {% else %}
+                                        {% with first.path|file_description as file_desc %}
+                                            {% if file_desc.title or file_desc.author %}
+                                                <div class="article-image-caption">
+                                                    {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                                </div>
+                                            {% endif %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </div>
+                            {% endwith %}
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="article-header visible-md visible-lg">
+                            <h1>{{ article.title|escape }}</h1>
+                            {% if article.subtitle %}
+                                <h4 class="subtitle">{{ article.subtitle }}</h4>
+                            {% endif %}
+                        </div>
+                        {% if article.description %}
+                            <div class="article-decription">
+                                {{ article.get_rendered_description }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+{% endif %}
