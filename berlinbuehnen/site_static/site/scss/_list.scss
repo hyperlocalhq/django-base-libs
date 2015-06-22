@@ -11,6 +11,12 @@
     margin: 0;
     padding: 0;
     
+    .list {
+        margin:0 !important;
+        padding:0 !important;
+    }
+
+    
     .row {
         margin: 0;
         padding: 0;
@@ -256,7 +262,7 @@ body.is-xs {
     .list {
         margin-left: -20px;
         margin-right: -20px;
-        
+                
         .list-item {
             
             .list-item-head {
@@ -386,13 +392,6 @@ body.is-xs {
                 top: 21px !important;
             }
         }
-    }
-}
-
-.jscroll-inner {
-    .list {
-        margin:0 !important;
-        padding:0 !important;
     }
 }
 

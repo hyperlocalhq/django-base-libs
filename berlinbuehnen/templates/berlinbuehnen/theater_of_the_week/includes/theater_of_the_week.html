@@ -1,19 +1,22 @@
 {% load base_tags i18n image_modifications fb_tags %}
 {% if article %}
-    <div class="theater-of-the-week-widget-wrapper">
-        <div class="container">
-            <button class="filter-button fawesome down pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget">
-                <span class="sr-only">{% trans "open theater of the week" %}</span>
-            </button>
+    <div class="theater-of-the-week-widget-wrapper top-widget-wrapper">
+        <div class="top-widget-button-up-wrapper">
+            <div class="container">
+                <button class="top-widget-button fawesome down pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget">
+                    <span class="sr-only">{% trans "open theater of the week" %}</span>
+                </button>
+            </div>
         </div>
-        <div class="theater-of-the-week-widget-space">
+        <div class="theater-of-the-week-widget-space top-widget-space">
             <div id="theater_of_the_week_widget" class="theater-of-the-week-widget container relative collapse in">
-                <button class="filter-button fawesome up pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget">
+                <button class="top-widget-button fawesome up pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget">
                     <span class="sr-only">{% trans "close theater of the week" %}</span>
                 </button>
                 <div class="row">
                     <div class="col-xs-12 {% if article.image or article.theater.cover_image or article.theater.image_set.exists %}col-md-6{% endif %}">
                         <div class="article-header hidden-md hidden-lg">
+                            <h2>{% trans 'Theater of the week' %}</h2>
                             <h1>{{ article.title|escape }}</h1>
                             {% if article.subtitle %}
                                 <h4 class="subtitle">{{ article.subtitle }}</h4>
@@ -76,6 +79,7 @@
                     </div>
                     <div class="col-xs-12 {% if article.image or article.theater.cover_image or article.theater.image_set.exists %}col-md-6{% endif %}">
                         <div class="article-header visible-md visible-lg">
+                            <h2>{% trans 'Theater of the week' %}</h2>
                             <h1>{{ article.title|escape }}</h1>
                             {% if article.subtitle %}
                                 <h4 class="subtitle">{{ article.subtitle }}</h4>
