@@ -148,10 +148,20 @@
         }
     }
     .article-decription {
-        padding-bottom: 24px;
         a {
             color: white;
             font-weight: $bold;
+        }
+    }
+    a.more {
+        display: block;
+        color: white;
+        text-transform: uppercase;
+        padding-bottom: 24px;
+        padding-top: 10px;
+        font-weight: $bold;
+        &:hover {
+            color: white;
         }
     }
 }
