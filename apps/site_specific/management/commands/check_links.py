@@ -3,7 +3,7 @@ import re
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_unicode, smart_str
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
@@ -151,9 +151,9 @@ class Command(NoArgsCommand):
                             )
             if fields_with_broken_links:
                 if self.verbosity > NORMAL:
-                    print "  %s" % p.get_title()
+                    print "  %s" % smart_str(p.get_title())
                     for f, links in fields_with_broken_links:
-                        print "    %s:" % force_unicode(f.verbose_name)
+                        print "    %s:" % smart_str(force_unicode(f.verbose_name))
                         for link in links:
                             print "        %s" % link
                 self.report_broken_links(
@@ -166,22 +166,22 @@ class Command(NoArgsCommand):
 
         # 2-tuple of "app_name.model_name" and a callable returning the object to edit, if a link is broken
         models_to_check = (
-            ("museums.Museum", (lambda o: o)),
-            ("exhibitions.Exhibition", (lambda o: o)),
-            ("events.Event", (lambda o: o)),
-            ("workshops.Workshop", (lambda o: o)),
-            ("shop.ShopProduct", (lambda o: o)),
-            #("institutions.InstitutionalContact", (lambda o: o.institution)),
-            #("blog.Post", (lambda o: o)),
-            )
+            ("museums.Museum", (lambda o: o), {'status': 'published'}),
+            ("exhibitions.Exhibition", (lambda o: o), {'status': 'published'}),
+            ("events.Event", (lambda o: o), {'status': 'published'}),
+            ("workshops.Workshop", (lambda o: o), {'status': 'published'}),
+            ("shop.ShopProduct", (lambda o: o), {'status': 'published'}),
+            #("institutions.InstitutionalContact", (lambda o: o.institution), {'status': 'published'}),
+            #("blog.Post", (lambda o: o), {'status': 'published'}),
+        )
 
         # traverse models
-        for app_model, get_obj in models_to_check:
+        for app_model, get_obj, filter_params in models_to_check:
             model = models.get_model(*app_model.split("."))
             if self.verbosity > NORMAL:
                 print "Checking %s model..." % model.__name__
             # traverse instances
-            for el in model._default_manager.all():
+            for el in model._default_manager.filter(**filter_params):
                 fields_with_broken_links = []
                 # traverse fields
                 for f in model._meta.fields:
@@ -208,9 +208,9 @@ class Command(NoArgsCommand):
                         )
                 if fields_with_broken_links:
                     if self.verbosity > NORMAL:
-                        print "  %s" % el
+                        print "  %s" % smart_str(el)
                         for f, links in fields_with_broken_links:
-                            print "    %s:" % force_unicode(f.verbose_name)
+                            print "    %s:" % smart_str(force_unicode(f.verbose_name))
                             for link in links:
                                 print "        %s" % link
                     self.report_broken_links(

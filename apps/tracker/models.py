@@ -134,40 +134,39 @@ class TicketModifications(models.Model):
         
 # Notify appropriate users about new tickets
 def ticket_reported(sender, instance, **kwargs):
-    if models.get_model("notification", "Notice"):
-        from django.contrib.sites.models import Site
-        from django.contrib.auth.models import User
-        from jetson.apps.notification import models as notification
-        
-        if 'created' in kwargs:   
-            if kwargs['created']:
-                if instance.submitter_email:
-                    submitter_email = instance.submitter_email
-                else:
-                    submitter_email = instance.submitter.email
-                if instance.submitter_name:
-                    submitter_name = instance.submitter_name
-                else:
-                    submitter_name = get_user_title(instance.submitter)
-                if instance.submitter and getattr(settings, 'AUTH_PROFILE_MODULE', False):
-                    submitter_url = instance.submitter.get_profile().get_absolute_url()
-                else:
-                    submitter_url = "http://%s/admin/tracker/ticket/%s/" % (
-                        Site.objects.get_current().domain,
-                        instance.id,
-                        )
-                recipients = User.objects.all()
-                notification.send(
-                    recipients,
-                    "ticket_reported",
-                    {
-                        "object_description": urlize(instance.description),
-                        "object_creator_url": submitter_url,
-                        "object_creator_title": submitter_name,
-                        "object_creator_email": submitter_email,
-                        },
-                    instance=instance,
-                    on_site=False,
-                    )
-            
+    from django.contrib.sites.models import Site
+    from django.contrib.auth.models import User
+    from museumsportal.apps.mailing.recipient import Recipient
+    from museumsportal.apps.mailing.views import send_email_using_template
+
+    if kwargs.get("created", False):
+
+        current_site = Site.objects.get_current()
+
+        sender_name, sender_email = settings.MANAGERS[0]
+        submitter_name, submitter_email = settings.MANAGERS[0]
+        submitter_url = "http://%s/admin/tracker/ticket/%s/" % (
+            Site.objects.get_current().domain,
+            instance.id,
+        )
+
+        send_email_using_template(
+            [Recipient(
+                name=settings.MANAGERS[0][0],
+                email=settings.MANAGERS[0][1]
+            )],
+            "ticket_reported",
+            obj_placeholders={
+                "object_description": urlize(instance.description),
+                "object_creator_url": submitter_url,
+                "object_creator_title": submitter_name,
+                "object_creator_email": submitter_email,
+                "site_name": current_site.name,
+            },
+            delete_after_sending=False,
+            sender_name=sender_name,
+            sender_email=sender_email,
+            send_immediately=True,
+        )
+
 models.signals.post_save.connect(ticket_reported, sender=Ticket)        
