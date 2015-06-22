@@ -43,6 +43,7 @@
         
         me.initGridItems();
         if (me.autoload) me.initAutoscroll();
+        lazyload_images();
     }    
     
     /**
