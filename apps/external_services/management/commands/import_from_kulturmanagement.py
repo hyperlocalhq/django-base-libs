@@ -74,7 +74,9 @@ class Command(NoArgsCommand):
                     content_type__model="joboffer",
                     )
                 job_offer = mapper.content_object
-            except:
+            except ObjectMapper.MultipleObjectsReturned:
+                continue
+            except ObjectMapper.DoesNotExist:
                 # or create a new job offer and then create a mapper
                 job_offer = JobOffer()
                 job_offer.position = get_value(node_job, "Jobname")

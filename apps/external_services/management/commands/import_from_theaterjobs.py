@@ -98,7 +98,9 @@ class Command(NoArgsCommand):
                 job_offer = mapper.content_object
                 if job_offer.modified_date > change_date:
                     continue
-            except:
+            except ObjectMapper.MultipleObjectsReturned:
+                continue
+            except ObjectMapper.DoesNotExist:
                 # or create a new job offer and then create a mapper
                 job_offer = JobOffer()
                 
