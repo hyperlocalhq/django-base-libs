@@ -102,7 +102,7 @@
         
         $('.pagination').removeClass('item').hide();
         me.initGridItems();
-        //lazyload_images();
+        lazyload_images();
     }
     
     function init() {
