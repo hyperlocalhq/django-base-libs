@@ -242,7 +242,7 @@ ADMIN_APP_INDEX = (
                 'models': ('InfoBlock',),
             }),
             ('locations', {
-                'models': ('Service', 'AccessibilityOption', 'Location',),
+                'models': ('Service', 'AccessibilityOption', 'LocationCategory', 'Location',),
             }),
             ('people', {
                 'models': ('Prefix', 'InvolvementType', 'AuthorshipType', 'Person'),
