@@ -14,84 +14,82 @@
                     <span class="sr-only">{% trans "close theater of the week" %}</span>
                 </button>
                 <div class="row">
-                    <div class="col-xs-12 {% if article.image or article.theater.cover_image or article.theater.image_set.exists %}col-md-6{% endif %}">
-                        <div class="article-header hidden-md hidden-lg">
-                            <h2>{% trans 'Theater of the week' %}</h2>
+                    <a href="{% url 'theater_of_the_week' %}"  class="col-xs-12 theater-of-the-week-widget-header"><h2>{% trans 'Theater of the week' %}</h2></a>
+                    <a href="{% url 'theater_of_the_week' %}"  class="col-xs-12 {% if article.image or article.theater.cover_image or article.theater.image_set.exists %}col-md-6{% endif %}">
+                        <span class="article-header hidden-md hidden-lg">
                             <h1>{{ article.title|escape }}</h1>
                             {% if article.subtitle %}
                                 <h4 class="subtitle">{{ article.subtitle }}</h4>
                             {% endif %}
-                        </div>
+                        </span>
                         {% if article.image %}
-                            <div class="article-image">
+                            <span class="article-image">
                                 <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
                                 {% if article.image_description %}
-                                    <div class="article-image-caption">
+                                    <span class="article-image-caption">
                                         {{ article.get_rendered_image_description }}
-                                    </div>
+                                    </span>
                                 {% else %}
                                     {% with article.image|file_description as file_desc %}
                                         {% if file_desc.title or file_desc.author %}
-                                            <div class="article-image-caption">
+                                            <span class="article-image-caption">
                                                 {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
-                                            </div>
+                                            </span>
                                         {% endif %}
                                     {% endwith %}
                                 {% endif %}
-                            </div>
+                            </span>
                         {% elif article.theater.cover_image %}
-                            <div class="article-image">
+                            <span class="article-image">
                                 <img src="{{ UPLOADS_URL }}{{ article.theater.cover_image.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
                                 {% if article.image_description %}
-                                    <div class="article-image-caption">
+                                    <span class="article-image-caption">
                                         {{ article.get_rendered_image_description }}
-                                    </div>
+                                    </span>
                                 {% else %}
                                     {% with article.theater.cover_image.path|file_description as file_desc %}
                                         {% if file_desc.title or file_desc.author %}
-                                            <div class="article-image-caption">
+                                            <span class="article-image-caption">
                                                 {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
-                                            </div>
+                                            </span>
                                         {% endif %}
                                     {% endwith %}
                                 {% endif %}
-                            </div>
+                            </span>
                         {% elif article.theater.image_set.exists %}
                             {% with article.theater.image_set.all|first as first %}
-                                <div class="article-image">
+                                <span class="article-image">
                                     <img src="{{ UPLOADS_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
                                     {% if article.image_description %}
-                                        <div class="article-image-caption">
+                                        <span class="article-image-caption">
                                             {{ article.get_rendered_image_description }}
-                                        </div>
+                                        </span>
                                     {% else %}
                                         {% with first.path|file_description as file_desc %}
                                             {% if file_desc.title or file_desc.author %}
-                                                <div class="article-image-caption">
+                                                <span class="article-image-caption">
                                                     {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
-                                                </div>
+                                                </span>
                                             {% endif %}
                                         {% endwith %}
                                     {% endif %}
-                                </div>
+                                </span>
                             {% endwith %}
                         {% endif %}
-                    </div>
-                    <div class="col-xs-12 {% if article.image or article.theater.cover_image or article.theater.image_set.exists %}col-md-6{% endif %}">
-                        <div class="article-header visible-md visible-lg">
-                            <h2>{% trans 'Theater of the week' %}</h2>
+                    </a>
+                    <a href="{% url 'theater_of_the_week' %}" class="col-xs-12 {% if article.image or article.theater.cover_image or article.theater.image_set.exists %}col-md-6{% endif %}">
+                        <span class="article-header visible-md visible-lg">
                             <h1>{{ article.title|escape }}</h1>
                             {% if article.subtitle %}
                                 <h4 class="subtitle">{{ article.subtitle }}</h4>
                             {% endif %}
-                        </div>
+                        </span>
                         {% if article.description %}
-                            <div class="article-decription">
-                                {{ article.get_rendered_description }}
-                            </div>
+                            <span class="article-decription">
+                                {{ article.get_rendered_description|removetags:"a" }}
+                            </span>
                         {% endif %}
-                        <a href="{% url 'theater_of_the_week' %}" class="more fawesome">{% trans "read on" %}</a>
-                    </div>
+                    </a>
                 </div> 
             </div>
         </div>

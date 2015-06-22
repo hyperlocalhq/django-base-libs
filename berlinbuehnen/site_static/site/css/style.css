@@ -1686,16 +1686,19 @@ select { visibility: hidden; }
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper .top-widget-button-up-wrapper { background: #4583c8; }
 
 .theater-of-the-week-widget-wrapper { width: 100%; margin: 0 0 25px; position: relative; color: white; }
+.theater-of-the-week-widget-wrapper a { display: block; color: white; }
+.theater-of-the-week-widget-wrapper a:hover { color: white; }
 .theater-of-the-week-widget-wrapper .theater-of-the-week-widget-space { background: #4583c8; }
 .theater-of-the-week-widget-wrapper .row { margin: 50px -10px 11px; }
 .theater-of-the-week-widget-wrapper .col-xs-12, .theater-of-the-week-widget-wrapper col-md-6 { padding-left: 10px; padding-right: 10px; }
-.theater-of-the-week-widget-wrapper .article-image { padding-top: 10px; padding-bottom: 24px; }
+.theater-of-the-week-widget-wrapper .theater-of-the-week-widget-header h2 { text-transform: uppercase; font-size: 1.125em; margin-bottom: 5px !important; }
+.theater-of-the-week-widget-wrapper .article-image { padding-top: 10px; padding-bottom: 24px; display: block; }
 .theater-of-the-week-widget-wrapper .article-image img { width: 100%; }
-.theater-of-the-week-widget-wrapper .article-image-caption { font-size: 0.9em; }
-.theater-of-the-week-widget-wrapper .article-header { padding-top: 10px; margin-bottom: 10px; }
-.theater-of-the-week-widget-wrapper .article-header h1 { margin-bottom: 13px; font-weight: 200; font-size: 2em; text-transform: uppercase; }
-.theater-of-the-week-widget-wrapper .article-header h2 { text-transform: uppercase; margin-top: -5px; font-size: 1.125em; margin-bottom: 10px; }
+.theater-of-the-week-widget-wrapper .article-image-caption { font-size: 0.9em; display: block; }
+.theater-of-the-week-widget-wrapper .article-header { padding-top: 10px; margin-bottom: 10px; display: block; }
+.theater-of-the-week-widget-wrapper .article-header h1 { margin-bottom: 13px; font-weight: 200; font-size: 2em; text-transform: uppercase; margin-top: -8px; }
 .theater-of-the-week-widget-wrapper .article-header h4 { font-size: 1em; }
+.theater-of-the-week-widget-wrapper .article-decription { display: block; }
 .theater-of-the-week-widget-wrapper .article-decription a { color: white; font-weight: 700; }
 .theater-of-the-week-widget-wrapper a.more { display: block; color: white; text-transform: uppercase; padding-bottom: 24px; margin-top: 15px; font-weight: 700; }
 .theater-of-the-week-widget-wrapper a.more:hover { color: white; }
