@@ -88,7 +88,18 @@ class Command(NoArgsCommand):
                 job_offer = mapper.content_object
                 if job_offer.modified_date > change_date:
                     continue
-            except:
+            except ObjectMapper.MultipleObjectsReturned:
+                # delete duplicates
+                for mapper in s.objectmapper_set.filter(
+                    external_id=external_id,
+                    content_type__app_label="marketplace",
+                    content_type__model="joboffer",
+                ).order_by("object_id")[1:]:
+                    if mapper.content_object:
+                        mapper.content_object.delete()
+                    mapper.delete()
+                continue
+            except ObjectMapper.DoesNotExist:
                 # or create a new job offer and then create a mapper
                 job_offer = JobOffer()
                 
