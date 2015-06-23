@@ -90,6 +90,11 @@
                         {% endfor %}
                     </dl>
                 {% endif %}
+                {% if location.tickets_additional_info %}
+                    <div>
+                        {{ location.get_rendered_tickets_additional_info }}
+                    </div>
+                {% endif %}
                 {% if location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website %}
                     {% if location.get_opening_hours %}<br/>{% endif %}
                     <dl>

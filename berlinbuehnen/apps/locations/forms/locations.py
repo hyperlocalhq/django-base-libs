@@ -73,6 +73,7 @@ class BasicInfoForm(forms.ModelForm):
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
+                'tickets_additional_info_%s' % lang_code,
                 'teaser_%s' % lang_code,
             ]
 
@@ -86,6 +87,7 @@ class BasicInfoForm(forms.ModelForm):
                 'description_%s' % lang_code,
                 'teaser_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
+                'tickets_additional_info_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
@@ -344,6 +346,13 @@ class BasicInfoForm(forms.ModelForm):
                 css_class="row-md",
                 *[layout.Div(
                     layout.Field('tickets_calling_prices_%s' % lang_code),
+                    css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+                ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+            ),
+            layout.Row(
+                css_class="row-md",
+                *[layout.Div(
+                    layout.Field('tickets_additional_info_%s' % lang_code),
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                 ) for lang_code, lang_name in FRONTEND_LANGUAGES]
             ),
@@ -834,6 +843,7 @@ def load_data(instance=None):
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
+                'tickets_additional_info_%s' % lang_code,
                 'teaser_%s' % lang_code,
             ]
         for fname in fields:
@@ -901,6 +911,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'subtitle_%s' % lang_code,
                 # 'description_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
+                'tickets_additional_info_%s' % lang_code,
                 # 'teaser_%s' % lang_code,
             ]
         for fname in fields:
@@ -909,6 +920,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             # setattr(instance, 'description_%s_markup_type' % lang_code, 'pt')
             setattr(instance, 'tickets_calling_prices_%s_markup_type' % lang_code, 'pt')
+            setattr(instance, 'tickets_additional_info_%s_markup_type' % lang_code, 'pt')
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             form_step_data[current_step]['description_%s' % lang_code] = getattr(instance, 'description_%s' % lang_code)
