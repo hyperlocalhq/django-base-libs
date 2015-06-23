@@ -171,7 +171,7 @@ class SecurityField(forms.CharField):
     """
     time_elapsed = 0
     default_error_messages = {
-        'invalid': ugettext(u"The data transfer didn't pass the security test. You are considered as a spambot."),
+        'invalid': _(u"The data transfer didn't pass the security test. You are considered as a spambot."),
         }
     def generate_value(self):
         started = cryptString(str(int(time.mktime(datetime.datetime.now().timetuple()))))

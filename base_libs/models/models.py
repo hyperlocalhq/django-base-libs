@@ -17,6 +17,7 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.template.defaultfilters import escape
 from django.db.models.fields import NOT_PROVIDED
+from django.utils.translation import string_concat
 
 try:
     from django.utils.timezone import now as tz_now
@@ -381,10 +382,12 @@ def ObjectRelationMixin(
     content_type_field = "%scontent_type" % p
     object_id_field = "%sobject_id" % p
     content_object_field = "%scontent_object" % p
-    admin_content_object_name = _("%(obj)s Content Object") % {
-        'obj': (prefix_verbose or ""),
-        } 
-    
+    admin_content_object_name = _("Content Object")
+    admin_content_type_name = _("Related object's type (model)")
+    if prefix_verbose:
+        admin_content_object_name = string_concat(prefix_verbose, " ", _("Content Object"))
+        admin_content_type_name = string_concat(prefix_verbose, _("'s type (model)"))
+
     class klass(BaseModel):
         class Meta:
             abstract = True
@@ -398,7 +401,7 @@ def ObjectRelationMixin(
     
     content_type = models.ForeignKey(
         ContentType, 
-        verbose_name=(prefix_verbose and _("%s's type (model)") % prefix_verbose or _("Related object's type (model)")), 
+        verbose_name=admin_content_type_name,
         related_name=related_name,
         blank=not is_required, 
         null=not is_required,
