@@ -27,8 +27,24 @@
         
         me.initGridItems();
         if (me.autoload) me.initAutoscroll();
+        
+        me.$main.data('list', me);
     }
     
+    /**
+     * Reinitialises the components of the grid
+     * after new content got loaded by a filter.
+     * 
+     * Gets called internaly.
+     */
+    Grid.prototype.reinitByFilter = function() {
+        
+        if (this.me) var me = this.me;
+        
+        me.initGridItems();
+        if (me.autoload) me.initAutoscroll();
+        lazyload_images();
+    }    
     
     /**
      * Handles work which needs to be done on each grid item.
@@ -87,7 +103,7 @@
         
         $('.pagination').removeClass('item').hide();
         me.initGridItems();
-        //lazyload_images();
+        lazyload_images();
     }
     
     function init() {

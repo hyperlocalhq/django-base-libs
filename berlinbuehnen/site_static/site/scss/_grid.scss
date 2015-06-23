@@ -1,5 +1,10 @@
 .grid {
     margin: 0 -8px;
+    
+    .grid {
+        margin: 0 !important;
+    }
+    
     .grid-item {
         display: block;
         padding: 0 8px 56px;

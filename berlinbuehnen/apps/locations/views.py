@@ -54,29 +54,37 @@ def location_list(request, year=None, month=None, day=None):
             'accessibility': AccessibilityOption.objects.all(),
         },
     }
+            
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE)
     
     if form.is_valid():
         cats = form.cleaned_data['services']
         if cats:
             facets['selected']['services'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    services=cat,
-                ).distinct()
+            qs = qs.filter(
+                services__in=cats,
+            ).distinct()
+            #for cat in cats:
+            #    qs = qs.filter(
+            #        services=cat,
+            #    ).distinct()
+                
         cats = form.cleaned_data['accessibility']
         if cats:
             facets['selected']['accessibility'] = cats
-            for cat in cats:
-                qs = qs.filter(
-                    accessibility_options=cat,
-                ).distinct()
+            qs = qs.filter(
+                accessibility_options__in=cats,
+            ).distinct()
+            #for cat in cats:
+            #    qs = qs.filter(
+            #        accessibility_options=cat,
+            #    ).distinct()
 
     abc_filter = request.GET.get('abc', None)
     if abc_filter:
         facets['selected']['abc'] = abc_filter
-    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
-    if abc_filter:
-        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+        for letter in abc_filter:
+            qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, letter)
 
     # qs = qs.extra(select={
     #     'title_uni': "IF (events_event.title_%(lang_code)s = '', events_event.title_de, events_event.title_%(lang_code)s)" % {

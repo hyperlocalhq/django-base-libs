@@ -47,7 +47,7 @@ class BasicInfoForm(forms.ModelForm):
     class Meta:
         model = Location
         fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
@@ -65,7 +65,7 @@ class BasicInfoForm(forms.ModelForm):
             'press_contact_name', 'press_email', 'press_website',
             'press_phone_country', 'press_phone_area', 'press_phone_number',
             'press_fax_country', 'press_fax_area', 'press_fax_number',
-            'services', 'accessibility_options',
+            'services', 'accessibility_options', 'categories'
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -73,6 +73,7 @@ class BasicInfoForm(forms.ModelForm):
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
+                'teaser_%s' % lang_code,
             ]
 
     def __init__(self, *args, **kwargs):
@@ -83,12 +84,17 @@ class BasicInfoForm(forms.ModelForm):
                 'title_%s' % lang_code,
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
+                'teaser_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
             ]:
                 self.fields[f].label += """ <span class="lang">%s</span>""" % lang_code.upper()
 
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
+
+        self.fields['categories'].widget = forms.CheckboxSelectMultiple()
+        self.fields['categories'].help_text = ""
+        self.fields['categories'].empty_label = None
 
         self.fields['services'].widget = forms.CheckboxSelectMultiple()
         self.fields['services'].help_text = ""
@@ -129,6 +135,13 @@ class BasicInfoForm(forms.ModelForm):
             css_class="row-md",
             *[layout.Div(
                 layout.Field('description_%s' % lang_code, disabled="disabled"),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('teaser_%s' % lang_code, disabled="disabled"),
                 css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
             ) for lang_code, lang_name in FRONTEND_LANGUAGES]
         ))
@@ -176,6 +189,7 @@ class BasicInfoForm(forms.ModelForm):
                     "street_address2",
                     "postal_code",
                     "city",
+                    "district",
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
                 layout.Div(
@@ -524,6 +538,11 @@ class BasicInfoForm(forms.ModelForm):
         ))
 
         layout_blocks.append(layout.Fieldset(
+            _("Categories"),
+            "categories",
+            css_class="fieldset-services",
+        ))
+        layout_blocks.append(layout.Fieldset(
             _("Service"),
             "services",
             css_class="fieldset-services",
@@ -780,7 +799,7 @@ def load_data(instance=None):
             '_pk': instance.pk,
         }
         fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'district',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
@@ -805,10 +824,12 @@ def load_data(instance=None):
                 'subtitle_%s' % lang_code,
                 'description_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
+                'teaser_%s' % lang_code,
             ]
         for fname in fields:
             form_step_data['basic'][fname] = getattr(instance, fname)
 
+        form_step_data['basic']['categories'] = instance.categories.all()
         form_step_data['basic']['services'] = instance.services.all()
         form_step_data['basic']['accessibility_options'] = instance.accessibility_options.all()
 
@@ -844,7 +865,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance = Location()
 
         fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'district',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
@@ -869,6 +890,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 'subtitle_%s' % lang_code,
                 # 'description_%s' % lang_code,
                 'tickets_calling_prices_%s' % lang_code,
+                # 'teaser_%s' % lang_code,
             ]
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
@@ -915,6 +937,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             del form_step_data[current_step]['logo_path']
 
         instance.save()
+
+        instance.categories.clear()
+        for cat in form_step_data['basic']['categories']:
+            instance.categories.add(cat)
 
         instance.services.clear()
         for cat in form_step_data['basic']['services']:

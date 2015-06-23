@@ -19,6 +19,10 @@ from base_libs.utils.misc import get_translation
 
 from filebrowser.fields import FileBrowseField
 
+from mptt.models import MPTTModel
+from mptt.managers import TreeManager
+from mptt.fields import TreeForeignKey, TreeManyToManyField
+
 STATUS_CHOICES = (
     ('draft', _("Draft")),
     ('published', _("Published")),
@@ -30,6 +34,22 @@ STATUS_CHOICES = (
 COPYRIGHT_RESTRICTION_CHOICES = (
     ('general_use', _("Released for general use")),
     ('protected', _("Released for this and own site only"))
+)
+
+DISTRICT_CHOICES = (
+    (0, _("Please choose")),
+    (1, _("Mitte")),
+    (2, _("Friedrichshain-Kreuzberg")),
+    (3, _("Pankow")),
+    (4, _("Charlottenburg-Wilmersdorf")),
+    (5, _("Spandau")),
+    (6, _("Steglitz-Zehlendorf")),
+    (7, _(u"Tempelhof-Schöneberg")),
+    (8, _(u"Neukölln")),
+    (9, _(u"Treptow-Köpenick")),
+    (10, _("Marzahn-Hellersdorf")),
+    (11, _("Lichtenberg")),
+    (12, _("Reinickendorf")),
 )
 
 TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
@@ -61,6 +81,26 @@ class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
         ordering = ['sort_order']
         verbose_name = _("Accessibility option")
         verbose_name_plural = _("Accessibility options")
+
+
+class LocationCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
+    parent = TreeForeignKey('self', blank=True, null=True, related_name="children")
+    title = MultilingualCharField(_('Title'), max_length=200)
+
+    objects = TreeManager()
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ["tree_id", "lft"]
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            LocationCategory.objects.insert_node(self, self.parent)
+        super(LocationCategory, self).save(*args, **kwargs)
 
 
 class LocationManager(models.Manager):
@@ -97,6 +137,8 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     subtitle = MultilingualCharField(_("Subtitle"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
     logo = FileBrowseField(_('Logo'), max_length=255, directory="locations/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
+    teaser = MultilingualTextField(_("Teaser"), blank=True)
+    categories = TreeManyToManyField(LocationCategory, verbose_name=_("Categories"), blank=True)
 
     street_address = models.CharField(_("Street address"), max_length=255)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
@@ -104,6 +146,7 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     city = models.CharField(_("City"), default="Berlin", max_length=255)
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
+    district = models.IntegerField(_("District"), choices=DISTRICT_CHOICES, default=0)
 
     phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)

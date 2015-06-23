@@ -8,6 +8,35 @@
         <div class="background affix-offset-visible"></div>
     
         <div class="container">
+
+            <!-- logo -->
+            <div class="navbar-header">		
+                <a class="navbar-brand hidden-xs" href="/{{ LANGUAGE_CODE }}/">
+                    <img src="{{ STATIC_URL }}site/img/logo.png" alt="Berlin Bühnen" />
+                </a>
+                <a class="navbar-brand visible-xs" href="/{{ LANGUAGE_CODE }}/">
+                    <img src="{{ STATIC_URL }}site/img/logo.png" alt="Berlin Bühnen" />
+                </a>
+            </div>
+            
+            <!-- navi -->
+            <div class="top_nav hidden-xs">
+                <ul class="nav navbar-nav">
+                    {% show_menu_below_id "start_page" 0 2 2 2 "menu/top_menu.html" %}
+                </ul>
+                <ul class="social_links visible-md visible-lg">
+                    <li><a class="fawesome facebook" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank"><span class="sr-only">Facebook</span></a></li>
+                    <li><a class="fawesome twitter" href="https://twitter.com/#!/berlinbuehnen" target="_blank"><span class="sr-only">Twitter</span></a></li>
+                    <li><a class="fawesome instagram" href="https://instagram.com/berlinbuehnen" target="_blank"><span class="sr-only">Instagram</span></a></li>
+                </ul>
+            </div>
+            <div class="visible-xs">
+                <div  class="top_nav collapse navbar-collapse collapse-navbar">
+                    <ul class="nav navbar-nav">
+                        {% show_menu_below_id "start_page" 0 2 2 2 "menu/top_menu.html" %}
+                    </ul>
+                </div>
+            </div>
             
             <!-- meta -->
             <div class="container meta-wrapper">
@@ -60,35 +89,6 @@
                     </li>
                 </ul>
                 
-            </div>
-
-            <!-- logo -->
-            <div class="navbar-header">		
-                <a class="navbar-brand hidden-xs" href="/{{ LANGUAGE_CODE }}/">
-                    <img src="{{ STATIC_URL }}site/img/logo.png" alt="Berlin Bühnen" />
-                </a>
-                <a class="navbar-brand visible-xs" href="/{{ LANGUAGE_CODE }}/">
-                    <img src="{{ STATIC_URL }}site/img/logo.png" alt="Berlin Bühnen" />
-                </a>
-            </div>
-            
-            <!-- navi -->
-            <div class="top_nav hidden-xs">
-                <ul class="nav navbar-nav">
-                    {% show_menu_below_id "start_page" 0 2 2 2 "menu/top_menu.html" %}
-                </ul>
-                <ul class="social_links visible-md visible-lg">
-                    <li><a class="fawesome facebook" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank"><span class="sr-only">Facebook</span></a></li>
-                    <li><a class="fawesome twitter" href="https://twitter.com/#!/berlinbuehnen" target="_blank"><span class="sr-only">Twitter</span></a></li>
-                    <li><a class="fawesome instagram" href="https://instagram.com/berlinbuehnen" target="_blank"><span class="sr-only">Instagram</span></a></li>
-                </ul>
-            </div>
-            <div class="visible-xs">
-                <div  class="top_nav collapse navbar-collapse collapse-navbar">
-                    <ul class="nav navbar-nav">
-                        {% show_menu_below_id "start_page" 0 2 2 2 "menu/top_menu.html" %}
-                    </ul>
-                </div>
             </div>
         </div>
     </nav>

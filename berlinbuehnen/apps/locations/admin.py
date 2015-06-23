@@ -11,6 +11,7 @@ from django import forms
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
+from base_libs.admin.tree_editor import TreeEditor
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
@@ -20,6 +21,19 @@ from models import Location
 from models import Stage
 from models import Image
 from models import SocialMediaChannel
+from models import LocationCategory
+
+
+class LocationCategoryAdmin(TreeEditor, ExtendedModelAdmin):
+    save_on_top = True
+    list_display = ['actions_column', 'indented_short_title', ]
+
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug', 'parent')}),]
+
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+admin.site.register(LocationCategory, LocationCategoryAdmin)
 
 class ServiceAdmin(ExtendedModelAdmin):
 
@@ -100,9 +114,9 @@ class LocationAdmin(ExtendedModelAdmin):
     list_editable = ('newsletter', 'status', )
     list_filter = ('newsletter', 'status', )
 
-    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description',])
+    fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description', 'teaser',])
     fieldsets += [(None, {'fields': ('slug', 'logo')}),]
-    fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
+    fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude')}),]
     fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
     fieldsets += [(_("Tickets"), {'fields': ('tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city', 'tickets_email', 'tickets_website', (_("Phone"), {'fields': ('tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number')}), (_("Fax"), {'fields': ('tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number')}), get_admin_lang_section(_("Calling prices"), ['tickets_calling_prices',]))}),]
     fieldsets += [(_("Tickets Opening Hours"), {'fields': ('is_appointment_based',
@@ -116,13 +130,14 @@ class LocationAdmin(ExtendedModelAdmin):
        get_admin_lang_section(_("Exceptions"), ['exceptions',]),
     )}),]
     fieldsets += [(_("Press Contact"), {'fields': ('press_contact_name', 'press_email', 'press_website', (_("Phone"), {'fields': ('press_phone_country', 'press_phone_area', 'press_phone_number')}), (_("Fax"), {'fields': ('press_fax_country', 'press_fax_area', 'press_fax_number')}))}),]
+    fieldsets += [(_("Categories"), {'fields': ('categories',)}),]
     fieldsets += [(_("Service"), {'fields': ('services',)}),]
     fieldsets += [(_("Accessibility"), {'fields': ('accessibility_options',)}),]
     fieldsets += [(_("Status"), {'fields': ('newsletter', 'status',)}),]
 
     inlines = [StageInline, ImageInline, SocialMediaChannelInline]
 
-    filter_horizontal = ['services', 'accessibility_options']
+    filter_horizontal = ['services', 'accessibility_options', 'categories']
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
