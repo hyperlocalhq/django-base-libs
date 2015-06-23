@@ -10,7 +10,7 @@
 
 {% block details %}
     {% include "site_specific/count_of.html" %}
-    {% url person_job_offer_list slug=object.slug as base_url %}
+    {% url "person_job_offer_list" slug=object.slug as base_url %}
     {% if object_list %}
         {% include "utils/includes/sorting_and_pagination.html" %}
     
