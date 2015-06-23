@@ -25,8 +25,6 @@ from ccb.apps.search.fulltextsearch import SearchQuerySet
 
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
-Term = models.get_model("structure", "Term")
-ContextCategory = models.get_model("structure", "ContextCategory")
 Comment = models.get_model("comments", "Comment")
 Favorite = models.get_model("favorites", "Favorite")
 
@@ -202,11 +200,11 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
     title = MultilingualCharField(_("Title"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
 
-    creative_sectors = TreeManyToManyField(Term, verbose_name=_("Creative sectors"), limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},  related_name="creative_industry_contextitems", blank=True)
+    creative_sectors = TreeManyToManyField("structure.Term", verbose_name=_("Creative sectors"), limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},  related_name="creative_industry_contextitems", blank=True)
     
-    context_categories = TreeManyToManyField(ContextCategory, verbose_name=_("Context categories"), blank=True)
+    context_categories = TreeManyToManyField("structure.ContextCategory", verbose_name=_("Context categories"), blank=True)
 
-    location_type = TreeForeignKey(Term, verbose_name=_("Location type"), limit_choices_to={'vocabulary__sysname': 'basics_locality'}, blank=True, null=True, related_name="locality_contextitems")
+    location_type = TreeForeignKey("structure.Term", verbose_name=_("Location type"), limit_choices_to={'vocabulary__sysname': 'basics_locality'}, blank=True, null=True, related_name="locality_contextitems")
     
     status = models.CharField(max_length=20, blank=True)
 
