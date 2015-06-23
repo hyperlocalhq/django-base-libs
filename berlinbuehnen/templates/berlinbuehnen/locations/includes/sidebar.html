@@ -93,7 +93,10 @@
                 {% if location.tickets_phone_number or location.tickets_fax_number or location.tickets_email or location.tickets_website %}
                     {% if location.get_opening_hours %}<br/>{% endif %}
                     <dl>
-                        {% if location.tickets_phone_number %}
+                        {% if location.tickets_calling_prices %}
+                            <dt class="width_50">{% trans "Phone" %}</dt>
+                            <dd><a class="phone" href="tel:{{ location.tickets_calling_prices }}">{{ location.tickets_calling_prices }}</a></dd>
+                        {% elif location.tickets_phone_number %}
                             <dt class="width_50">{% trans "Phone" %}</dt>
                             <dd><a class="phone" href="tel:{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}{% endif %}{{ location.tickets_phone_area }}{{ location.tickets_phone_number }}">{% if location.tickets_phone_country %}+{{ location.tickets_phone_country }}-{% endif %}{{ location.tickets_phone_area }}-{{ location.tickets_phone_number }}</a> {{ location.get_rendered_tickets_calling_prices }}
                             </dd>
