@@ -1,6 +1,0 @@
-{% for contact in object.get_contacts %}
-    {% if contact.postal_address.get_geoposition %}
-        {% include "events/profile/map_contact.html" %}
-    {% endif %}
-{% endfor %}
-
