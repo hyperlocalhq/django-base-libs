@@ -15,6 +15,7 @@
         function reinit_widgets() {
             $('[rel=tooltip]').tooltip();
             self.reinit_maps();
+            $("select").not('[name*="__prefix__"]').not('[sb]').not('[multiple]').selectbox();
         }
 
         function set_index_for_fields($formset_form, index) {

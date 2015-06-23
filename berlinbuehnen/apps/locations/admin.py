@@ -15,6 +15,7 @@ from base_libs.admin.tree_editor import TreeEditor
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
+from models import District
 from models import Service
 from models import AccessibilityOption
 from models import Location
@@ -34,6 +35,18 @@ class LocationCategoryAdmin(TreeEditor, ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 
 admin.site.register(LocationCategory, LocationCategoryAdmin)
+
+class DistrictAdmin(ExtendedModelAdmin):
+
+    save_on_top = True
+    list_display = ['title',]
+
+    fieldsets = get_admin_lang_section(_("Title"), ['title'])
+    fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
+
+    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+
+admin.site.register(District, DistrictAdmin)
 
 class ServiceAdmin(ExtendedModelAdmin):
 
@@ -78,7 +91,7 @@ class StageInline(ExtendedStackedInline):
     extra = 0
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'description',])
     fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
-    fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
+    fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude')}),]
     # classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
@@ -116,7 +129,8 @@ class LocationAdmin(ExtendedModelAdmin):
 
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'subtitle', 'description', 'teaser',])
     fieldsets += [(None, {'fields': ('slug', 'logo')}),]
-    fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude')}),]
+    fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
+    fieldsets += [(_("District"), {'fields': ('districts',)}),]
     fieldsets += [(_("Contacts"), {'fields': ((_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
     fieldsets += [(_("Tickets"), {'fields': ('tickets_street_address', 'tickets_street_address2', 'tickets_postal_code', 'tickets_city', 'tickets_email', 'tickets_website', (_("Phone"), {'fields': ('tickets_phone_country', 'tickets_phone_area', 'tickets_phone_number')}), (_("Fax"), {'fields': ('tickets_fax_country', 'tickets_fax_area', 'tickets_fax_number')}), get_admin_lang_section(_("Calling prices"), ['tickets_calling_prices',]))}),]
     fieldsets += [(_("Tickets Opening Hours"), {'fields': ('is_appointment_based',
@@ -137,7 +151,7 @@ class LocationAdmin(ExtendedModelAdmin):
 
     inlines = [StageInline, ImageInline, SocialMediaChannelInline]
 
-    filter_horizontal = ['services', 'accessibility_options', 'categories']
+    filter_horizontal = ['services', 'accessibility_options', 'categories', 'districts']
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
 

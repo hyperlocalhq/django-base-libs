@@ -22,7 +22,7 @@ from crispy_forms import layout, bootstrap
 from base_libs.middleware.threadlocals import get_current_user
 from base_libs.utils.misc import get_unique_value
 
-from berlinbuehnen.apps.locations.models import Location, Stage, Image, SocialMediaChannel
+from berlinbuehnen.apps.locations.models import Location, Stage, Image, SocialMediaChannel, District
 from jetson.apps.image_mods.models import FileManager
 
 FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
@@ -47,7 +47,7 @@ class BasicInfoForm(forms.ModelForm):
     class Meta:
         model = Location
         fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude',
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'districts',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
@@ -91,6 +91,10 @@ class BasicInfoForm(forms.ModelForm):
 
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
+
+        self.fields['districts'].widget = forms.CheckboxSelectMultiple()
+        self.fields['districts'].help_text = ""
+        self.fields['districts'].empty_label = None
 
         self.fields['categories'].widget = forms.CheckboxSelectMultiple()
         self.fields['categories'].help_text = ""
@@ -189,7 +193,6 @@ class BasicInfoForm(forms.ModelForm):
                     "street_address2",
                     "postal_code",
                     "city",
-                    "district",
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
                 layout.Div(
@@ -213,6 +216,12 @@ class BasicInfoForm(forms.ModelForm):
                 css_class="row-md",
             ),
             css_class="fieldset-where",
+        ))
+
+        layout_blocks.append(layout.Fieldset(
+            _("Districts"),
+            "districts",
+            css_class="fieldset-services",
         ))
 
         layout_blocks.append(layout.Fieldset(
@@ -660,7 +669,7 @@ class StageForm(forms.ModelForm):
     class Meta:
         model = Stage
         fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'sort_order',
+            'street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude', 'sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -715,6 +724,7 @@ class StageForm(forms.ModelForm):
                     "street_address2",
                     "postal_code",
                     "city",
+                    "district",
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
                 ),
                 layout.Div(
@@ -799,7 +809,7 @@ def load_data(instance=None):
             '_pk': instance.pk,
         }
         fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'district',
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
@@ -829,6 +839,7 @@ def load_data(instance=None):
         for fname in fields:
             form_step_data['basic'][fname] = getattr(instance, fname)
 
+        form_step_data['basic']['districts'] = instance.districts.all()
         form_step_data['basic']['categories'] = instance.categories.all()
         form_step_data['basic']['services'] = instance.services.all()
         form_step_data['basic']['accessibility_options'] = instance.accessibility_options.all()
@@ -840,7 +851,7 @@ def load_data(instance=None):
             form_step_data['basic']['sets']['social'].append(social_media_channel_dict)
 
         stage_fields = [
-            'id', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'sort_order',
+            'id', 'street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude', 'sort_order',
         ]
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             stage_fields += [
@@ -865,7 +876,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance = Location()
 
         fields = [
-            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude', 'district',
+            'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude',
             'phone_country', 'phone_area', 'phone_number',
             'fax_country', 'fax_area', 'fax_number',
             'email', 'website',
@@ -938,6 +949,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
 
         instance.save()
 
+        instance.districts.clear()
+        for cat in form_step_data['basic']['districts']:
+            instance.districts.add(cat)
+
         instance.categories.clear()
         for cat in form_step_data['basic']['categories']:
             instance.categories.add(cat)
@@ -997,6 +1012,12 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 stage_dict['description_%s' % lang_code] = getattr(stage, 'description_%s' % lang_code)
 
+            new_district = None
+            if stage_dict["district"]:
+                new_district = District.objects.get(id=stage_dict["district"])
+            stage.district = new_district
+                
+                
             stage.save()
             stage_ids_to_keep.append(stage.pk)
         instance.stage_set.exclude(pk__in=stage_ids_to_keep).delete()

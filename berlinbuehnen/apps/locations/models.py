@@ -36,23 +36,21 @@ COPYRIGHT_RESTRICTION_CHOICES = (
     ('protected', _("Released for this and own site only"))
 )
 
-DISTRICT_CHOICES = (
-    (0, _("Please choose")),
-    (1, _("Mitte")),
-    (2, _("Friedrichshain-Kreuzberg")),
-    (3, _("Pankow")),
-    (4, _("Charlottenburg-Wilmersdorf")),
-    (5, _("Spandau")),
-    (6, _("Steglitz-Zehlendorf")),
-    (7, _(u"Tempelhof-Schöneberg")),
-    (8, _(u"Neukölln")),
-    (9, _(u"Treptow-Köpenick")),
-    (10, _("Marzahn-Hellersdorf")),
-    (11, _("Lichtenberg")),
-    (12, _("Reinickendorf")),
-)
 
 TOKENIZATION_SUMMAND = 56436  # used to hide the ids of media files
+
+
+class District(CreationModificationDateMixin, SlugMixin()):
+    title = MultilingualCharField(_('Title'), max_length=200)
+    sort_order = models.IntegerField(_("Sort Order"), default=0)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = _("District")
+        verbose_name_plural = _("Districts")
 
 
 class Service(CreationModificationDateMixin, SlugMixin()):
@@ -146,7 +144,6 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     city = models.CharField(_("City"), default="Berlin", max_length=255)
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
-    district = models.IntegerField(_("District"), choices=DISTRICT_CHOICES, default=0)
 
     phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, default="49")
     phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
@@ -183,6 +180,7 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
     press_email = models.EmailField(_("Press Email"), max_length=255, blank=True)
     press_website = URLField("Press Website", blank=True)
 
+    districts = models.ManyToManyField(District, verbose_name=_("District"), blank=True)
     services = models.ManyToManyField(Service, verbose_name=_("Service"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
 
@@ -289,6 +287,7 @@ class Stage(CreationModificationMixin, SlugMixin()):
     city = models.CharField(_("City"), default="Berlin", max_length=255, blank=True)
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
+    district = models.ForeignKey(District, verbose_name=_("District"), blank=True, null=True)
 
     sort_order = models.IntegerField(_("Sort Order"), default=0)
 
