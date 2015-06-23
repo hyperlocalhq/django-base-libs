@@ -720,6 +720,11 @@ def suite():
         ('/admin/tracker/ticket/add/', 200),
     )
 
+    # URLs extracted from sitemap.xml
+    #  366 pages: /de/document
+    #  529 pages: /de/event
+    # 2601 pages: /de/institution
+    # 7943 pages: /de/person
     sitemap_urls = (
         ('/de/document/12designer/', 200),
         ('/de/document/1st-blue-das-modemagazin/', 200),
