@@ -1,0 +1,14 @@
+{% load i18n %}
+<fieldset class="module aligned collapse closed">
+    <h2 class="collapse-handler">{% trans "Status" %}</h2>
+    <div class="row{% if form.status.errors %} errors{% endif %}">
+        <div>
+            <div class="column span-4"><label for="id_status"{% if form.status.field.required %} class="required"{% endif %}>{% trans "Status" %}:</label></div>
+            <div class="column span-flexible">
+                {{ form.status }}
+                {{ form.status.errors }}
+            </div>
+        </div>
+    </div>
+</fieldset>
+

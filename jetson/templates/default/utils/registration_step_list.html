@@ -1,0 +1,62 @@
+{% load i18n %}
+<ul class="nav_menu">
+    <li class="nav_group first_item">
+    <h4 class="head">{% trans "Registration" %}</h4>
+    {% for step in steps %}
+        {% if forloop.first %}
+            <ul class="steps">
+        {% else %}
+            <li>
+                {% comment %}<!-- The number of the step -->{% endcomment %}
+                <span class="count{% if step.current %} active{% endif %}">
+                    {{ forloop.counter0 }}.
+                </span>
+                
+                {% comment %}<!-- Bold, link, or span for step title -->{% endcomment %}
+                {% if step.current %}
+                    <strong>
+                {% else %}
+                    {% if step.filled or step.active %}
+                        <a class="txt" href="?step={{ forloop.counter }}">
+                    {% else %}
+                        <span class="txt">
+                    {% endif %}
+                {% endif %}
+                
+                {% comment %}<!-- Step title -->{% endcomment %}
+                {{ step.title|escape }}
+                
+                {% comment %}<!-- Closing bold, link, or span -->{% endcomment %}
+                {% if step.current %}
+                    </strong>
+                {% else %}
+                    {% if step.filled or step.active %}
+                        </a>
+                    {% else %}
+                        </span>
+                    {% endif %}
+                {% endif %}
+            </li>
+        {% endif %}
+        {% if forloop.last %}
+            <li>
+                <span class="count">{{ forloop.counter }}.</span>
+                {% if not form_step_data.current_step %}
+                    <strong>
+                {% else %}
+                    <span class="txt">
+                {% endif %}
+                
+                {% trans "approve your identity" %}
+                
+                {% if not form_step_data.current_step %}
+                    </strong>
+                {% else %}
+                    </span>
+                {% endif %}
+            </li>
+            </ul>
+        {% endif %}
+    {% endfor %}
+    </li>
+</ul>

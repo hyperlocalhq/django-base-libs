@@ -1,0 +1,37 @@
+{% extends "admin/change_list.html" %}
+{% load admin_list i18n %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{{ jetson_media_url }}css/admin/mptt_tree.css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        var mptt = {
+            "jQuery": jQuery,
+            "tree_structure": {{ tree_structure|default:"null" }}
+        };
+    </script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/mptt_tree.js"></script>
+{% endblock %}
+
+
+{% block filters %}
+	{% if cl.has_filters %}
+		<div id="changelist-filter">
+			<h2>{% trans 'Shortcuts' %}</h2>
+			<ul>
+				<li><a id="collapse_entire_tree" href="#">{% trans 'Collapse tree' %}</a></li>
+				<li><a id="open_entire_tree" href="#">{% trans 'Expand tree' %}</a></li>
+			</ul>
+
+			<h2>{% trans 'Filter' %}</h2>
+			{% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
+		</div>
+	{% endif %}
+{% endblock %}

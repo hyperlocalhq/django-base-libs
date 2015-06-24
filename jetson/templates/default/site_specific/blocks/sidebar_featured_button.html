@@ -1,0 +1,51 @@
+{% load i18n %}
+<div class="categories" id="dynamic_but_{{ LANGUAGE_CODE }}">
+    {% if request.user.is_authenticated %}
+        {% if object.is_contact_addable %}
+            <a href="#" id="featured_add_to_contacts">
+                <b>
+                    {% trans "Add to contacts" %}
+                </b>
+            </a>
+        {% else %}
+            {% if object.is_membership_requestable %}
+                <a href="#" id="featured_join_group">
+                    <b>
+                        {% trans "Join this group" %}
+                    </b>
+                </a>
+            {% else %}
+                {% if object.is_participation_addable %}
+                    <a href="#" id="featured_participate">
+                        <b>
+                            {% trans "Join this event" %}
+                        </b>
+                    </a>
+                {% else %}
+                    {% if object.are_members_invitable %}
+                        <h3>
+                            <a href="{{ object.get_url_path }}members/invite/" id="featured_invite_members">
+                                <b>
+                                    {% trans "Invite Members" %}
+                                </b>
+                            </a>
+                        </h3>
+                    {% else %}
+                        <a href="/my-messages/new/" id="featured_invite_contacts">
+                            <b>
+                                {% trans "Invite Contacts" %}
+                            </b>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <a href="/register/" id="featured_sign_up">
+            <b>
+                {% trans "Sign up" %}
+            </b>
+        </a>
+    {% endif %}
+</div>
+

@@ -1,0 +1,74 @@
+{% load i18n base_tags auth_extended %}
+
+
+{% if object.gender %}
+    <dl>
+        <dt>{% trans "gender" %}</dt>
+        <dd>{{ object.get_gender_display }}</dd>
+    </dl>
+{% endif %}	
+
+{% if object.get_birthday %}
+    {% if object.is_birthday_displayed %}
+    <dl>
+        <dt>{% trans "birthday" %}</dt>
+        <dd>{{ object.get_birthday|date:_("DATE_FORMAT") }}</dd>
+    </dl>
+    {% endif %}
+{% endif %}
+
+{% if object.nationality %}
+    <dl>
+        <dt>{% trans "nationality" %}</dt>
+        <dd>{{ object.nationality.get_name }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.degree %}
+    <dl>
+        <dt>{% trans "degree" %}</dt>
+        <dd>{{ object.degree }}</dd>
+    </dl>
+{% endif %}	
+
+{% if object.occupation %}
+    <dl>
+        <dt>{% trans "Position in the company" %}</dt>
+        <dd>{{ object.occupation }}</dd>
+    </dl>
+{% endif %}	
+
+{% if object.individual_type %}
+    <dl>
+        <dt>{% trans "status" %}</dt>
+        <dd>{{ object.individual_type.get_title }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.interests %}
+    <dl>
+        <dt>{% trans "interests" %}</dt>
+        <dd>{{ object.interests }}</dd>
+    </dl>
+{% endif %}	
+
+
+{% for language in object.get_spoken_languages %}
+    {% if forloop.first %} 
+        <dl>
+        <dt>{% trans "spoken languages" %}</dt>
+        <dd>
+    {% endif %}
+            {{ language.get_name }}
+    {% if forloop.last %}
+        </dd>
+    </dl>{% else %}, {% endif %}
+{% endfor %}
+
+{% if object.preferred_language %}
+    <dl>
+    <dt>{% trans "preferred language" %}</dt>
+    <dd>{{ object.preferred_language.get_name }}</dd>
+    </dl>
+{% endif %}	
+
