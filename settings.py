@@ -81,8 +81,8 @@ INSTALLED_APPS = [
     "tagging_autocomplete",
     "rosetta",
     "south",
-    "debug_toolbar",
-    "memcache_toolbar",
+    # "debug_toolbar",
+    # "memcache_toolbar",
     "pipeline",
     "haystack",
     "uni_form",
@@ -96,7 +96,7 @@ INSTALLED_APPS = [
     ### jetson apps ###
     "jetson.apps.image_mods", 
     "jetson.apps.httpstate", 
-    "jetson.apps.templatesadmin",
+    # "jetson.apps.templatesadmin",
     "jetson.apps.i18n",
     "jetson.apps.location",
     "jetson.apps.utils",
@@ -162,7 +162,7 @@ MIDDLEWARE_CLASSES = [
     "django.middleware.doc.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 #if not DEVELOPMENT_MODE:
 #    MIDDLEWARE_CLASSES.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
