@@ -42,6 +42,58 @@ class PageTest(unittest.TestCase):
 
 
 def suite():
+    non_localized_static_pages = (
+        ('/about/', 301),
+        ('/coworking/', 301),
+        ('/creative-sector/advertising-and-pr/location/', 301),
+        ('/creative-sector/architecture/location/', 301),
+        ('/creative-sector/design/location/', 301),
+        ('/creative-sector/events/location/', 301),
+        ('/creative-sector/fashion-and-textile/location/', 301),
+        ('/creative-sector/film-and-broadcast/location/', 301),
+        ('/creative-sector/fine-art/location/', 301),
+        ('/creative-sector/games-and-interactive/location/', 301),
+        ('/creative-sector/literature-and-publishing/location/', 301),
+        ('/creative-sector/music/location/', 301),
+        ('/creative-sector/photography/location/', 301),
+        ('/creative-sector/theatre-and-dance/location/', 301),
+        ('/education/', 301),
+        ('/imprint/', 301),
+        ('/KKI/', 301),
+        ('/kreativarbeiten/orientierungsberatung/', 301),
+        ('/kreativarbeiten/ueber-uns/', 301),
+        ('/location/', 301),
+        ('/privacy/', 301),
+        ('/spread-the-word/', 301),
+        ('/terms-of-use/', 301),
+    )
+
+    localized_static_pages = (
+        ('/de/about/', 200),
+        ('/de/coworking/', 200),
+        ('/de/creative-sector/advertising-and-pr/location/', 200),
+        ('/de/creative-sector/architecture/location/', 200),
+        ('/de/creative-sector/design/location/', 200),
+        ('/de/creative-sector/events/location/', 200),
+        ('/de/creative-sector/fashion-and-textile/location/', 200),
+        ('/de/creative-sector/film-and-broadcast/location/', 200),
+        ('/de/creative-sector/fine-art/location/', 200),
+        ('/de/creative-sector/games-and-interactive/location/', 200),
+        ('/de/creative-sector/literature-and-publishing/location/', 200),
+        ('/de/creative-sector/music/location/', 200),
+        ('/de/creative-sector/photography/location/', 200),
+        ('/de/creative-sector/theatre-and-dance/location/', 200),
+        ('/de/education/', 200),
+        ('/de/imprint/', 200),
+        ('/de/KKI/', 200),
+        ('/de/kreativarbeiten/orientierungsberatung/', 200),
+        ('/de/kreativarbeiten/ueber-uns/', 200),
+        ('/de/location/', 200),
+        ('/de/privacy/', 200),
+        ('/de/spread-the-word/', 200),
+        ('/de/terms-of-use/', 200),
+    )
+
     non_localized_slug_urls = ( # most should redirect, i.e. return 301
         # /contact/(?P<slug>[-\w]+)/
         # /contact/(?P<slug>[-\w]+)/alldone/
@@ -12168,6 +12220,8 @@ def suite():
     )
 
     url_lists = (
+        non_localized_static_pages,
+        localized_static_pages,
         non_localized_slug_urls,
         localized_slug_urls,
         non_localized_constant_urls,
