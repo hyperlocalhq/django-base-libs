@@ -6,11 +6,13 @@
 # If this script is distributed, it must be accompanied by the Licence
 
 import datetime
+from datetime import date, timedelta
 
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.template.defaultfilters import date as date_filter
 
 from base_libs.models.models import MultilingualCharField, MultilingualTextField
 from base_libs.models.models import SysnameMixin
@@ -102,6 +104,9 @@ class AdBase(CreationModificationMixin, UrlMixin):
 
     show_ad_label = models.BooleanField(_('Show label "Advertisement"'), default=True)
 
+    impressions_stats = models.TextField(verbose_name=_("Impressions"), blank=True, editable=False)
+    clicks_stats = models.TextField(verbose_name=_("CLicks"), blank=True, editable=False)
+
     # Our Custom Manager
     objects = AdManager()
 
@@ -115,6 +120,44 @@ class AdBase(CreationModificationMixin, UrlMixin):
     @models.permalink
     def get_url_path(self):
         return ('advertising_ad_view', [self.id])
+
+    def collect_impressions(self):
+        current_month = date.today().replace(day=1)
+        current_month_minus_1 = current_month - timedelta(days=1)
+        current_month_minus_2 = current_month_minus_1.replace(day=1) - timedelta(days=1)
+        impressions_by_month = []
+        impressions_by_month.append(date_filter(current_month_minus_2, "F") + (": <strong>%d</strong>" % self.adimpression_set.filter(
+            impression_date__year=current_month_minus_2.year,
+            impression_date__month=current_month_minus_2.month,
+        ).count()))
+        impressions_by_month.append(date_filter(current_month_minus_1, "F") + (": <strong>%d</strong>" % self.adimpression_set.filter(
+            impression_date__year=current_month_minus_1.year,
+            impression_date__month=current_month_minus_1.month,
+        ).count()))
+        impressions_by_month.append(date_filter(current_month, "F") + (": <strong>%d</strong>" % self.adimpression_set.filter(
+            impression_date__year=current_month.year,
+            impression_date__month=current_month.month,
+        ).count()))
+        self.impressions_stats = "<br />".join(impressions_by_month)
+
+    def collect_clicks(self):
+        current_month = date.today().replace(day=1)
+        current_month_minus_1 = current_month - timedelta(days=1)
+        current_month_minus_2 = current_month_minus_1.replace(day=1) - timedelta(days=1)
+        clicks_by_month = []
+        clicks_by_month.append(date_filter(current_month_minus_2, "F") + (": <strong>%d</strong>" % self.adclick_set.filter(
+            click_date__year=current_month_minus_2.year,
+            click_date__month=current_month_minus_2.month,
+        ).count()))
+        clicks_by_month.append(date_filter(current_month_minus_1, "F") + (": <strong>%d</strong>" % self.adclick_set.filter(
+            click_date__year=current_month_minus_1.year,
+            click_date__month=current_month_minus_1.month,
+        ).count()))
+        clicks_by_month.append(date_filter(current_month, "F") + (": <strong>%d</strong>" % self.adclick_set.filter(
+            click_date__year=current_month.year,
+            click_date__month=current_month.month,
+        ).count()))
+        self.clicks_stats = "<br />".join(clicks_by_month)
 
 
 class AdImpression(models.Model):
