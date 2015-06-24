@@ -334,7 +334,6 @@ class PostIndex(indexes.SearchIndex):
 site.register(Article, ArticleIndex)
 site.register(Event, EventIndex)
 site.register(Institution, InstitutionIndex)
-site.register(FlatPage, FlatPageIndex)
 site.register(JobOffer, JobOfferIndex)
 site.register(Person, PersonIndex)
 site.register(Document, DocumentIndex)
