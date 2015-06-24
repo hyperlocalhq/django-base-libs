@@ -271,7 +271,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
     """    
     __metaclass__ = PersonCreator
     
-    user = models.OneToOneField(User, verbose_name=_("User"), unique=True)
+    user = models.OneToOneField(User, verbose_name=_("User"), unique=True, related_name="profile")
     user.primary_key = False
     
     
