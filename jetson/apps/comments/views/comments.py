@@ -501,7 +501,7 @@ def get_comments(content_type_id, object_id, sort_order = "", extra_kwargs=None)
     }
     if extra_kwargs:
         kwargs.update(extra_kwargs)
-    if settings.COMMENTS_BANNED_USERS_GROUP:
+    if getattr(settings, 'COMMENTS_BANNED_USERS_GROUP', ''):
         kwargs['select'] = {'is_hidden': 'user_id IN (SELECT user_id FROM auth_user_groups WHERE group_id = %s)' % settings.COMMENTS_BANNED_USERS_GROUP}
         
     return get_list_function(**kwargs).order_by(sort_order + 'submit_date').select_related()

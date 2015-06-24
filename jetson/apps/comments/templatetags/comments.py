@@ -174,7 +174,7 @@ class CommentListNode(template.Node):
             'site__id__exact': settings.SITE_ID,
         }
         kwargs.update(self.extra_kwargs)
-        if settings.COMMENTS_BANNED_USERS_GROUP:
+        if getattr(settings, 'COMMENTS_BANNED_USERS_GROUP', ''):
             kwargs['select'] = {'is_hidden': 'user_id IN (SELECT user_id FROM auth_user_groups WHERE group_id = %s)' % settings.COMMENTS_BANNED_USERS_GROUP}
         comment_list = get_list_function(**kwargs).order_by(self.sort_order + 'submit_date').select_related()
         
@@ -185,7 +185,7 @@ class CommentListNode(template.Node):
             user_id = None
             context['user_can_moderate_comments'] = False
         # Only display comments by banned users to those users themselves.
-        if settings.COMMENTS_BANNED_USERS_GROUP:
+        if getattr(settings, 'COMMENTS_BANNED_USERS_GROUP', ''):
             comment_list = [c for c in comment_list if not c.is_hidden or (user_id == c.user_id)]
 
         context[self.var_name] = comment_list
