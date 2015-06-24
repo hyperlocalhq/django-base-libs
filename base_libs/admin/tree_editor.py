@@ -121,7 +121,7 @@ class TreeEditor(admin.ModelAdmin):
             ]
 
     def get_urls(self):
-        from django.utils.functional import update_wrapper
+        from functools import update_wrapper
         from django.conf.urls import patterns, url
 
         def wrap(view):
