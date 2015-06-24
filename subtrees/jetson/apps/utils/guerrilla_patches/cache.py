@@ -25,4 +25,4 @@ def cache_node_render(self, context):
         cache.set(cache_key, value, expire_time)
     return value
     
-CacheNode.render = cache_node_render
+# CacheNode.render = cache_node_render
