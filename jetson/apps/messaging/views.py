@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-import md5, re
 import json
 
 from django.http import HttpResponse

@@ -1,6 +1,4 @@
 # -*- coding: UTF-8 -*-
-import md5, re
-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.shortcuts import redirect
