@@ -471,7 +471,7 @@ urlpatterns += patterns('',
     url(r'^register/alldone/$', 'django.views.generic.simple.direct_to_template', {'template': 'accounts/register_done.html'}, name="register_alldone"),
     url(r'^register/(?P<encrypted_email>[a-zA-Z0-9\+\/=]+)/$', 'jetson.apps.people.views.confirm_registration'),
     url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', {'template_name': 'accounts/password_reset_form.html', 'email_template_name': 'accounts/password_reset_email.html'}),
-    url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', {'template_name': 'accounts/password_reset_done.html'}),
+    url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', {'template_name': 'accounts/password_reset_done.html'}, name="password_reset_done"),
     url(r'^password_change/$', 'django.contrib.auth.views.password_change', {'template_name': 'accounts/password_change_form.html'}),
     url(r'^password_change/done/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'accounts/password_change_done.html'}),
 
