@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load base_tags i18n site_specific %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
+{% endblock %}
+
+
+
+{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Registration" %}</h2>
+    <h2 class="sub">{% trans "Group" %}</h2>
+    
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+	<div class="field_layout">
+        <fieldset class="fieldset">
+            <legend>{% trans "Confirm Entered Data" %}</legend>
+            <ul>
+                <li>
+                    <h3>{{ form_step_data.0.title }}</h3>
+                    {% if form_step_data.0.title2 %}
+                        <h4 class="type">{{ form_step_data.0.title2 }}</h4>
+                    {% endif %}
+                    {% if form_step_data.0.group_type %}
+                        <h4 class="type">{{ form_step_data.0.get_group_type_display }}</h4>
+                    {% endif %}
+                </li>
+                <li>
+                    <img class="confirm" src="{% if form_step_data.2.avatar %}/helper/tmpimage/{{ form_step_data.2.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_PERSONGROUP }}{% endif %}" alt="{% trans "Image" %}" />
+                    {% ifequal LANGUAGE_CODE "de" %}
+                        <div>{{ form_step_data.2.description_de }}</div>
+                    {% else %}
+                        <div>{{ form_step_data.2.description_en }}</div>
+                    {% endifequal %}
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>{% trans "main data" %}</legend>
+            <ul>
+                {% if form_step_data.0.institution %}
+                    <li>
+                        <label>{% trans "Attached to" %}:</label>
+                        <p class="confirm">{{ form_step_data.0.get_institution_display }}</p>
+                    </li>
+                {% endif %}
+                {% if get_membership_options_display %}
+                    <li>
+                        <label>{% trans "Security" %}:</label>
+                        <p class="confirm">{{ form_step_data.0.get_access_type_display }}</p>
+                    </li>
+                {% endif %}
+               {% if get_membership_options_display %}
+                    <li>
+                        <label>{% trans "Membership" %}:</label>
+                        <p class="confirm">{{ form_step_data.0.get_membership_options_display }}</p>
+                    </li>
+                {% endif %}
+                <li>
+                    <label>{% trans "Main language" %}:</label>
+                   <p class="confirm">{{ form_step_data.0.get_main_language_display }}</p>
+                </li>
+                {% get_context_categories form_step_data.1 as context_categories %}
+            </ul>
+        </fieldset>
+                    
+        {% if context_categories %}
+            <fieldset class="fieldset_end">
+                <legend>{% trans "Category" %}</legend>
+                <ul>
+                    <li>
+                        <label>{% trans "Context Category" %}:</label>
+                        {% for context_category in context_categories %}
+                            <p class="confirm">{{ context_category.get_title }}{% if not forloop.last %}, {% endif %}</p>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </fieldset>
+        {% endif %}	            
+        {% include "utils/step_buttons.html" %}
+    </div>
+</form>
+{% endblock %}
+

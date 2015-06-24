@@ -1,0 +1,6 @@
+{% load advertising_tags %}
+{% if object.category %}
+    {% random_category_ad object.zone.sysname object.category.sysname %}
+{% else %}
+    {% random_zone_ad object.zone.sysname %}
+{% endif %}
