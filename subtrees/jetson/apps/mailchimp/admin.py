@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _, ugettext, get_language, activate
 from django.http import HttpResponseRedirect, HttpResponse
-from django.utils.functional import update_wrapper
+from functools import update_wrapper
 from django.utils.encoding import force_unicode
 from django.utils.text import capfirst, get_text_list
 from django.core.urlresolvers import reverse

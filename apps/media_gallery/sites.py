@@ -11,7 +11,7 @@ from django import http, template
 from django.views.decorators.csrf import csrf_protect
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
-from django.utils.functional import update_wrapper
+from functools import update_wrapper
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy, ugettext as _
 from django.views.decorators.cache import never_cache
