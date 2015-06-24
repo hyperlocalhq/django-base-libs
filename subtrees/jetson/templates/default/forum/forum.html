@@ -1,0 +1,64 @@
+{% extends base_template %}
+
+{% load i18n base_tags %}
+
+{% comment %}<!--
+	This is the main template rendered by the handle_request view in the
+	forum application. To minimize code, this is the "main template".
+	 
+	context vars used:
+	
+	base_template	A "base template" used for template inheritance.
+    object       	The object related to the forum (or None)
+    container    	The forum container (defined by the rel. object)
+    current_forum   The "root forum": Children of that forum should be 
+                 	displayed (or None)
+    forum_path   	The "Path" from the current_forum through all its parents.
+                 	We need that for the breadcrumbs.
+    current_thread 	the current a thread to display (or None) 
+    
+    thread_list		List of threads to be displayed (may not be available)
+    reply_list		List of replies for a given thread (may not be available)
+
+-->{% endcomment %}
+
+{% block extrahead %}
+	{{ block.super }}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/forum.js"></script>
+{% endblock %}
+
+{% block details %}
+    {% block breadcrumbs %}
+	    <div class="breadcrumbs">
+	    	<a href="/">{% trans "Overview" %}</a> |
+	        <a {% if not current_forum %}class="active_toplevel"{% endif %} href="{{ container.get_url }}">{% trans "Forums" %}</a>
+	        {% for forum in forum_path %}
+	             :: <a {% ifequal current_forum forum %} class="active"{% endifequal %} href="{{ forum.get_url }}">{{ forum.short_title }}</a>
+	        {% endfor %}
+	    </div>
+	{% endblock %}    
+    
+	
+	{% comment %}<!--
+        if only one forum is allowed (container.maxlevels==0), directly go to the forum
+	-->{% endcomment %}
+	{% ifequal container.max_levels 0 %} 
+		{% include_selected "thread_list.html" for object under "forum" %}
+	{% else %}
+		{% if not current_forum %}
+			{% include_selected "forum_list_level_0.html" for object under "forum" %}
+		{% else %}
+			{% if current_thread %}
+				{% include_selected "reply_list.html" for object under "forum" %}
+			{% else %}
+				{% if current_forum.is_leaf %}
+					{% include_selected "thread_list.html" for object under "forum" %}
+				{% else %}
+					{% include_selected "forum_list_level_1.html" for object under "forum" %}
+				{% endif %}
+			{% endif %}
+		{% endif %}
+	{% endifequal %}
+	    
+{% endblock %}
+

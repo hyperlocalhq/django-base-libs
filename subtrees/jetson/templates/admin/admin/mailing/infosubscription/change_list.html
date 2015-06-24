@@ -1,0 +1,30 @@
+{% extends "admin/change_list.html" %}
+{% load i18n base_tags mailing %}
+
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript">
+// <![CDATA[
+function createMailWithTemplate(templateName) {
+    if (templateName) {
+        var sUrl = "send_mail/";
+        if (templateName!="*") {
+            sUrl += templateName + "/";
+        }
+        sUrl += document.location.search;
+        document.location.href = sUrl;
+    }
+}
+// ]]>
+</script>
+{% endblock %}
+
+{% block sidebar %}
+<form method="post" action="">
+    <p>
+		<strong>{% trans "Choose an email template to send a message to the institutions" %}:</strong>
+       	{% email_templates "createMailWithTemplate(this.value)" %}
+    </p>
+</form>
+{% endblock %}
+

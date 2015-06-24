@@ -1,0 +1,59 @@
+{% load base_tags babel i18n auth_extended %}
+
+<div class="breadcrumbs-paginated">
+    <div class="last">
+        {% if is_paginated %}
+            <div class="paginated">
+                <div class="previous">
+                    {% if has_previous %}
+                        <a  href="{% append_to_get page=previous %}">
+                            <span class="enabled">
+                                <span class="hidden">
+                                    {% trans "previous" %}
+                                </span>
+                            </span>
+                        </a>
+                    {% else %}
+                        <span class="disabled">
+                            <span class="hidden">{% trans "previous" %}</span>
+                        </span>
+                    {% endif %}
+                </div>
+                <form action="">
+                    <div><select class="page_skip" onchange="append_to_get({page: this.value});">
+                        {% for pnumber in page_numbers %}
+                        <option value="{{ pnumber }}"{% ifequal pnumber page %} selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
+                        {% endfor %}
+                   </select></div>
+                </form>
+                <div class="next">
+                    {% if has_next %}
+                        <a href="{% append_to_get page=next %}">
+                            <span class="enabled">
+                                <span class="hidden">
+                                    {% trans "next" %}
+                                </span>
+                            </span>
+                        </a>
+                    {% else %}
+                        <span class="disabled">
+                            <span class="hidden">
+                                {% trans "next" %}
+                            </span>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+		<form action="">
+			<div class="skip">
+			{% trans "show" %}<select id="id_list_pagination" class="page_count">
+				<option value="5"{% ifequal results_per_page 5 %} selected="selected"{% endifequal %} >5</option>
+				<option value="10"{% ifequal results_per_page 10 %} selected="selected"{% endifequal %} >10</option>
+				<option value="20"{% ifequal results_per_page 20 %} selected="selected"{% endifequal %}>20</option>
+				<option value="50"{% ifequal results_per_page 50 %} selected="selected"{% endifequal %}>50</option>
+			</select>{% trans "items per page" %}
+			</div>
+		</form>
+ 	</div>
+ </div>
