@@ -18,7 +18,7 @@ from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # needed for south to work
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import html_to_plain_text
-from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
 
 from filebrowser.fields import FileBrowseField

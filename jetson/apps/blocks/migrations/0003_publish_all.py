@@ -11,7 +11,7 @@ class Migration:
     
     def forwards(self, orm):
         "Write your forwards migration here"
-        from base_libs.models.settings import STATUS_CODE_PUBLISHED
+        from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         
         for infoblock in orm['blocks.infoblock'].objects.all():
             infoblock.status = STATUS_CODE_PUBLISHED

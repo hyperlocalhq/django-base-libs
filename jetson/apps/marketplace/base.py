@@ -29,7 +29,7 @@ from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # for south
-from base_libs.models.settings import STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
 from tagging.fields import TagField
 from tagging.models import Tag

@@ -3,7 +3,7 @@ import re
 from django.db import models
 from django import template
 from base_libs.utils.misc import truncwords
-from base_libs.models.settings import STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
 register = template.Library()
 
