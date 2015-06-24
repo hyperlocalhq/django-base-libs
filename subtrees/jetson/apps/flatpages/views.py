@@ -4,7 +4,6 @@ import datetime, time
 from django.template import loader, RequestContext, Template
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, Http404
-from django.core.xheaders import populate_xheaders
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
@@ -58,5 +57,4 @@ def flatpage(request, url):
         'flatpage': f,
     })
     response = HttpResponse(t.render(c))
-    populate_xheaders(request, response, FlatPage, f.id)
     return response

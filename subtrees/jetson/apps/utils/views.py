@@ -12,7 +12,6 @@ from django.utils.translation import check_for_language, ugettext_lazy as _
 from django.utils import translation
 from django.utils.encoding import force_unicode
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.core.xheaders import populate_xheaders
 from django.core.paginator import Paginator, Page, InvalidPage
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response
@@ -440,7 +439,6 @@ def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slu
             c[key] = value
 
     response = HttpResponse(t.render(c), mimetype=mimetype)
-    populate_xheaders(request, response, model, getattr(obj, obj._meta.pk.name))
     return response
 
 
