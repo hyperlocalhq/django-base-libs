@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from django.contrib.syndication.views import feed
+from django.contrib.syndication.views import Feed
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -17,7 +17,7 @@ from jetson.apps.notification.feeds import NoticeUserFeed
 @basic_auth_required(realm='Notices Feed', callback_func=simple_basic_auth_callback)
 def feed_for_user(request):
     url = "feed/%s" % request.user.username
-    return feed(request, url, {
+    return Feed(request, url, {
         "feed": NoticeUserFeed,
     })
 
@@ -141,4 +141,3 @@ def mark_all_seen(request):
         notice.unseen = False
         notice.save()
     return HttpResponseRedirect(reverse("notification_notices"))
-    
