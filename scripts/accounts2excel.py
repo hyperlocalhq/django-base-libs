@@ -2,13 +2,13 @@ import os
 import sys
 
 def configure_django_project():
-    ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-    EXTERNAL_LIBS_PATH = os.path.join(ROOT_PATH, "jetson", "externals", "libs")
-    EXTERNAL_APPS_PATH = os.path.join(ROOT_PATH, "jetson", "externals", "apps")
+    PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    EXTERNAL_LIBS_PATH = os.path.join(PROJECT_PATH, "jetson", "externals", "libs")
+    EXTERNAL_APPS_PATH = os.path.join(PROJECT_PATH, "jetson", "externals", "apps")
     
-    sys.path = ["", EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH, ROOT_PATH] + sys.path
+    sys.path = ["", EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH, PROJECT_PATH] + sys.path
     os.environ["DJANGO_SETTINGS_MODULE"] = "ccb.settings"
-    os.environ["PYTHON_EGG_CACHE"] = os.path.abspath(os.path.join(ROOT_PATH, "ccb", "tmp", "python_cache"))
+    os.environ["PYTHON_EGG_CACHE"] = os.path.abspath(os.path.join(PROJECT_PATH, "ccb", "tmp", "python_cache"))
 
 def export_accounts(filename_postfix="", **filters):
     from django.utils.encoding import force_unicode
@@ -165,7 +165,7 @@ def export_accounts(filename_postfix="", **filters):
             col += 1
 
     w.save(os.path.join(
-        settings.ROOT_PATH,
+        settings.PROJECT_PATH,
         'ccb',
         'data',
         'accounts%s.xls' % filename_postfix,

@@ -14,8 +14,8 @@ except NameError:
 
 pythonize_re = re.compile(r'\n\s*//')
 
-JETSON_PATH = os.path.join(settings.ROOT_PATH, "jetson")
-EXTERNAL_APPS_PATH = os.path.join(settings.ROOT_PATH, "jetson", "externals", "apps")
+JETSON_PATH = os.path.join(settings.PROJECT_PATH, "jetson")
+EXTERNAL_APPS_PATH = os.path.join(settings.PROJECT_PATH, "jetson", "externals", "apps")
 
 def handle_extensions(extensions=('html',)):
     """

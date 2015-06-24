@@ -3,11 +3,11 @@
 import os, sys
 
 def configure_django_project():
-    ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-    EXTERNAL_LIBS_PATH = os.path.join(ROOT_PATH, "jetson", "externals", "libs")
-    EXTERNAL_APPS_PATH = os.path.join(ROOT_PATH, "jetson", "externals", "apps")
+    PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    EXTERNAL_LIBS_PATH = os.path.join(PROJECT_PATH, "jetson", "externals", "libs")
+    EXTERNAL_APPS_PATH = os.path.join(PROJECT_PATH, "jetson", "externals", "apps")
     
-    sys.path = ["", EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH, ROOT_PATH] + sys.path
+    sys.path = ["", EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH, PROJECT_PATH] + sys.path
     os.environ["DJANGO_SETTINGS_MODULE"] = "jetson.settings"
     os.environ["PYTHON_EGG_CACHE"] = "/srv/www/vhosts/jetsonproject.com/python_cache"
 

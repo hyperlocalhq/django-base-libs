@@ -4,9 +4,9 @@ import os
 from datetime import timedelta
 
 JETSON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "."))
-ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"))
+execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
 
 
 ### DOMAINS ###
@@ -31,16 +31,16 @@ DEFAULT_FROM_EMAIL = "contact@creative-city-berlin.de"
 ### DIRS AND URLS ###
 
 TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
-    os.path.join(ROOT_PATH, "ccb", "templates", "ccb"),
-    os.path.join(ROOT_PATH, "ccb", "templates", "admin"),
+    os.path.join(PROJECT_PATH, "ccb", "templates", "ccb"),
+    os.path.join(PROJECT_PATH, "ccb", "templates", "admin"),
     ] + TEMPLATE_DIRS
 
-MEDIA_ROOT = os.path.join(ROOT_PATH, "ccb", "media")
-STATIC_ROOT = os.path.join(ROOT_PATH, "ccb", "static")
-STATICFILES_DIRS = [os.path.join(ROOT_PATH, "ccb", "site_static")]
+MEDIA_ROOT = os.path.join(PROJECT_PATH, "ccb", "media")
+STATIC_ROOT = os.path.join(PROJECT_PATH, "ccb", "static")
+STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "ccb", "site_static")]
 MEDIA_URL = "/media/"
 STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(STATIC_ROOT)
-PATH_TMP = os.path.join(ROOT_PATH, "ccb", "tmp")
+PATH_TMP = os.path.join(PROJECT_PATH, "ccb", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
 FILE_UPLOAD_TEMP_DIR = SESSION_FILE_PATH = PATH_TMP
@@ -448,7 +448,7 @@ GRAPPELLI_ADMIN_HEADLINE = "Creative City Admin"
 ### COMPRESS ###
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/pipeline.py"))
-PIPELINE_ROOT = os.path.join(ROOT_PATH, "ccb", "site_static")
+PIPELINE_ROOT = os.path.join(PROJECT_PATH, "ccb", "site_static")
 PIPELINE = False
 
 PIPELINE_CSS['screen'] = {
@@ -751,7 +751,7 @@ CELERY_RESULT_BACKEND = 'database'
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler" 
 CELERY_TRACK_STARTED = True 
 CELERY_SEND_EVENTS = True 
-CELERYD_LOG_FILE = os.path.join(ROOT_PATH, "ccb/tmp/celery.log")
+CELERYD_LOG_FILE = os.path.join(PROJECT_PATH, "ccb/tmp/celery.log")
 
 BROKER_URL = "django://"
 BROKER_HOST = "localhost"

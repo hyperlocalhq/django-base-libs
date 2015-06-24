@@ -2,11 +2,11 @@
 # Django settings for the basic example project.
 import os
 
-ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", 
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..",
 ".."))
-JETSON_PROJECTS_PATH = os.path.join(ROOT_PATH, "jetson", "projects")
+JETSON_PROJECTS_PATH = os.path.join(PROJECT_PATH, "jetson", "projects")
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/base.py"))
+execfile(os.path.join(PROJECT_PATH, "jetson/settings/base.py"))
 
 ### HOST ###
 
@@ -114,7 +114,7 @@ CACHE_BACKEND = "dummy:///"  # doesn't pass cache-session test
 
 ### FILEBROWSER ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/filebrowser.py"))
+execfile(os.path.join(PROJECT_PATH, "jetson/settings/filebrowser.py"))
 
 FILEBROWSER_VERSIONS = {
     'fb_thumb': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop upscale'},
@@ -127,7 +127,7 @@ FILEBROWSER_ADMIN_VERSIONS = ['nd','nt']
 
 ### GRAPPELLI ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/grappelli.py"))
+execfile(os.path.join(PROJECT_PATH, "jetson/settings/grappelli.py"))
 
 
 ### OTHER SITE-SPECIFIC SETTINGS ###

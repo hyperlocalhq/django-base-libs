@@ -3,10 +3,10 @@
 import os
 gettext = lambda s: s
 
-ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
-JETSON_PROJECTS_PATH = os.path.join(ROOT_PATH, "jetson", "projects")
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+JETSON_PROJECTS_PATH = os.path.join(PROJECT_PATH, "jetson", "projects")
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/base.py"))
+execfile(os.path.join(PROJECT_PATH, "jetson/settings/base.py"))
 
 ### HOST ###
 
@@ -184,7 +184,7 @@ CACHE_BACKEND = "dummy:///"  # doesn't pass cache-session test
 
 ### FILEBROWSER ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/filebrowser.py"))
+execfile(os.path.join(PROJECT_PATH, "jetson/settings/filebrowser.py"))
 
 FILEBROWSER_VERSIONS = {}
 FILEBROWSER_ADMIN_VERSIONS = []
@@ -192,12 +192,12 @@ FILEBROWSER_ADMIN_VERSIONS = []
 
 ### GRAPPELLI ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/grappelli.py"))
+execfile(os.path.join(PROJECT_PATH, "jetson/settings/grappelli.py"))
 
 ### COMPRESS ###
 
-execfile(os.path.join(ROOT_PATH, "jetson/settings/pipeline.py"))
-PIPELINE_ROOT = os.path.join(ROOT_PATH, "ccb", "site_static")
+execfile(os.path.join(PROJECT_PATH, "jetson/settings/pipeline.py"))
+PIPELINE_ROOT = os.path.join(PROJECT_PATH, "ccb", "site_static")
 PIPELINE = False
 
 COMPRESS_JETSON_JS['admin_person_change'] = {
