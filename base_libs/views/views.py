@@ -229,7 +229,7 @@ def json_get_objects_from_contenttype(request, content_type_id):
         json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
     else:
         pass
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 
 json_get_objects_from_contenttype = never_cache(json_get_objects_from_contenttype)        
 
@@ -274,7 +274,7 @@ def json_objects_to_select(request, app_name, model_name, obj_pk, field_name, co
                 for pk, text in result
                 ]
             json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 
 json_objects_to_select = never_cache(json_objects_to_select)
 
