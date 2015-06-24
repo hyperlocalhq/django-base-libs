@@ -4,7 +4,7 @@ import os
 gettext = lambda s: s
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
-JETSON_PROJECTS_PATH = os.path.join(PROJECT_PATH, "jetson", "projects")
+JETSON_PROJECTS_PATH = os.path.join(PROJECT_PATH, "subtrees", "jetson", "projects")
 
 execfile(os.path.join(PROJECT_PATH, "jetson/settings/base.py"))
 

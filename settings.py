@@ -3,7 +3,7 @@
 import os
 from datetime import timedelta
 
-JETSON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "."))
+JETSON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "subtrees"))
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
