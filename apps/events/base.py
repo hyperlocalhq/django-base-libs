@@ -44,7 +44,6 @@ from jetson.apps.structure.models import ContextCategory
 from jetson.apps.location.models import Address
 from jetson.apps.i18n.models import Language
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType, IMType
-from jetson.apps.utils.models import XFieldList
 from jetson.apps.utils.models import MONTH_CHOICES
 from jetson.apps.image_mods.models import FileManager
 
@@ -245,7 +244,7 @@ class EventBase(CreationModificationMixin, UrlMixin):
         abstract = True
         verbose_name = _("event")
         verbose_name_plural = _("events")
-        ordering = XFieldList(['title_', 'creation_date'])
+        ordering = ['title', 'creation_date']
         
     def __unicode__(self):
         return force_unicode(self.get_title())
@@ -577,7 +576,7 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
         abstract = True
         verbose_name = _("event")
         verbose_name_plural = _("events")
-        ordering = XFieldList(['title_', 'creation_date'])
+        ordering = ['title', 'creation_date']
         
     def get_tags(self):
         return Tag.objects.get_for_object(self)

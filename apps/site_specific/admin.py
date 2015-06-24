@@ -5,8 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
 from base_libs.models.admin import ObjectRelationMixinAdminForm
 
-from jetson.apps.utils.models import XFieldList
-
 from ccb.apps.site_specific.models import ContextItem, ClaimRequest, Visit
 
 class VisitAdmin(admin.ModelAdmin):
@@ -16,9 +14,9 @@ class VisitAdmin(admin.ModelAdmin):
 
 class ContextItemOptions(ObjectRelationMixinAdminOptions()):
     save_on_top = True
-    list_display = XFieldList(['title_', 'creation_date', 'status'])
+    list_display = ['title', 'creation_date', 'status']
     list_filter = ('creation_date', 'status', 'content_type')
-    search_fieldsets = XFieldList(['title_', 'description_'])
+    search_fieldsets = ['title', 'description']
     save_on_top = True
     filter_vertical = ('context_categories',)
 

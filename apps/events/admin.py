@@ -22,8 +22,6 @@ from base_libs.admin.tree_editor import TreeEditor
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
-from jetson.apps.utils.models import XFieldList
-
 Address = models.get_model("location", "Address")
 Locality = models.get_model("location", "Locality")
 Geoposition = models.get_model("location", "Geoposition")
@@ -235,11 +233,10 @@ class EventOptions(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
             )
     save_on_top = True
-    #list_display = XFieldList(['title_', 'get_venue_display', 'get_start_date_string', 'get_end_date_string', 'event_type', 'status', 'is_featured', 'importance', 'creation_date'])
     list_display = ['title', 'get_venue_display', 'get_start_date_string', 'get_end_date_string', 'event_type', 'status', 'is_featured', 'importance', 'creation_date']
     list_editable = ['status', 'is_featured', 'importance']
     list_filter = ('creation_date', 'event_type', 'status', 'is_featured')
-    search_fields = XFieldList(['title_', 'venue__title', 'venue_title'])
+    search_fields = ['title', 'venue__title', 'venue_title']
     ordering = ('-creation_date',)
     actions = ["publish"]
 

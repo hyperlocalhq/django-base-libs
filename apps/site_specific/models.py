@@ -20,7 +20,6 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import ExtendedTextField # for south
 
-from jetson.apps.utils.models import XFieldList
 from ccb.apps.search.fulltextsearch import SearchQuerySet
 
 from mptt.fields import TreeForeignKey, TreeManyToManyField
@@ -231,7 +230,7 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
         verbose_name = _("context item")
         verbose_name_plural = _("context items")
         db_table = "system_contextitem"
-        ordering = XFieldList(['title_', 'creation_date'])
+        ordering = ['title', 'creation_date']
         
     def __unicode__(self):
         return force_unicode(self.get_title())

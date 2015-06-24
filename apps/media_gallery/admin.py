@@ -25,7 +25,7 @@ class CCBMediaGalleryOptions(MediaGalleryOptions):
 class PortfolioSettingsAdminForm(ObjectRelationMixinAdminForm()):
     pass
 
-class PortfolioSettingsOptions(ObjectRelationMixinAdminOptions(admin_order_field=XFieldList(["content_object_repr_"])[0])):
+class PortfolioSettingsOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
@@ -35,7 +35,7 @@ class PortfolioSettingsOptions(ObjectRelationMixinAdminOptions(admin_order_field
     list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date', 'landing_page')
     list_display_links = ('id', '__unicode__',)
     list_filter = ['creation_date', 'content_type', 'landing_page']
-    search_fields = XFieldList(["content_object_repr_"])
+    search_fields = ["content_object_repr"]
     date_hierarchy = 'creation_date'
     fieldsets = ObjectRelationMixinAdminOptions().fieldsets
     fieldsets += [
@@ -45,7 +45,7 @@ class PortfolioSettingsOptions(ObjectRelationMixinAdminOptions(admin_order_field
 class SectionAdminForm(ObjectRelationMixinAdminForm()):
     pass
 
-class SectionOptions(ObjectRelationMixinAdminOptions(admin_order_field=XFieldList(["content_object_repr_"])[0])):
+class SectionOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
     class Media:
         js = (
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
@@ -55,7 +55,7 @@ class SectionOptions(ObjectRelationMixinAdminOptions(admin_order_field=XFieldLis
     list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date')
     list_display_links = ('id', '__unicode__',)
     list_filter = ['creation_date', 'content_type', 'show_title']
-    search_fields = XFieldList(["title", "content_object_repr_"])
+    search_fields = ["title", "content_object_repr"]
     date_hierarchy = 'creation_date'
     fieldsets = ObjectRelationMixinAdminOptions().fieldsets
     fieldsets += get_admin_lang_section(None, ['title'])

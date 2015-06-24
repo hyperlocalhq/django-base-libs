@@ -11,7 +11,6 @@ from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.admin.tree_editor import TreeEditor
 
-from jetson.apps.utils.models import XFieldList
 from ccb.apps.faqs.models import FaqContainer, FaqCategory, QuestionAnswer
 
 class FaqContainerAdminForm(MultiSiteContainerMixinAdminForm):
@@ -20,7 +19,7 @@ class FaqContainerAdminForm(MultiSiteContainerMixinAdminForm):
 
 class FaqContainerOptions(MultiSiteContainerMixinAdminOptions):
     save_on_top = True
-    search_fields = XFieldList(['title_',])
+    search_fields = ['title']
     list_display = ('title', 'get_sites', 'get_content_object_display', 'sysname')
     list_filter =  ("creation_date", "modified_date",)
 
@@ -56,7 +55,7 @@ class FaqCategoryOptions(TreeEditor):
     form = FaqCategoryAdminForm
     save_on_top = True
     inlines = [QuestionAnswer_Inline]
-    search_fields = XFieldList(['title_', 'short_title_'])    
+    search_fields = ['title', 'short_title_']
     list_display = ['actions_column', 'indented_short_title', 'container', 'short_title', 'questionanswer_count'] 
     list_filter = ('container', "creation_date", "creator", "modified_date", "modifier")
  
@@ -85,7 +84,7 @@ class FaqCategoryOptions(TreeEditor):
 
 class QuestionAnswerOptions(ExtendedModelAdmin):
     save_on_top = True
-    search_fields = XFieldList(['question_','answer_', 'category__title_',]) 
+    search_fields = ['question','answer', 'category__title',]
     list_display = ('get_question', 'get_category', 'sort_order', 'views',)
     list_filter = ('category', "creation_date", "creator", "modified_date", "modifier")    
 
