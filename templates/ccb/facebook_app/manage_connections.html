@@ -10,7 +10,7 @@
 
 {% block content %}
     <div id="fb_connect_form">
-        <form action="{% url manage_facebook_connections %}" method="post" class="uniForm">
+        <form action="{% url 'manage_facebook_connections' %}" method="post" class="uniForm">
             <fieldset class="inlineLabels">
                 <h3>{% trans "Facebook Connect" %}</h3>
                 {% if fass %}

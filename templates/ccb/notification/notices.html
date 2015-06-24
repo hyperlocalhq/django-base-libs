@@ -5,7 +5,7 @@
 {% block head_title %}{% trans "Notification" %}{% endblock %}
 
 {% block extra_head %}
-    <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url notification_feed_for_user %}" />
+    <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url 'notification_feed_for_user' %}" />
 {% endblock %}
 
 {% block title %}{% trans "Notification" %}{% endblock %}
@@ -24,7 +24,7 @@
                 <option value="delete">{% trans "delete" %}</option>
             </select>-->{% endcomment %}
             </div>
-            <a class="mark_all right" href="{% url notification_mark_all_seen %}">{% trans "Mark all unseen notices seen" %}</a>
+            <a class="mark_all right" href="{% url 'notification_mark_all_seen' %}">{% trans "Mark all unseen notices seen" %}</a>
         </div>
         {% regroup notices by added.date as notices_by_date %}
         

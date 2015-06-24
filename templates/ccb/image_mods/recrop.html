@@ -149,7 +149,7 @@
 {% block content %}
     <form action="" method="post" class="uniForm">{% csrf_token %}
         <div class="image-version">
-            <img id="cropbox" src="{% url image_mods_cropping_preview bgcolor=form.bgcolor.data|slice:"1:" %}?orig_path={{ orig_path }}&amp;sysname={{ mod.sysname }}" alt="" />
+            <img id="cropbox" src="{% url 'image_mods_cropping_preview' bgcolor=form.bgcolor.data|slice:"1:" %}?orig_path={{ orig_path }}&amp;sysname={{ mod.sysname }}" alt="" />
         </div>
         <p>{% trans "Press ESC to switch to the default selection area and default canvas color." %}</p>
         <div class="form_field">

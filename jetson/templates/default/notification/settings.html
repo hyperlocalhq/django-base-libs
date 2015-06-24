@@ -5,7 +5,7 @@
 {% block head_title %}{% trans "Notices" %}{% endblock %}
 
 {% block extra_head %}
-    <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url notification_feed_for_user %}" />
+    <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url 'notification_feed_for_user' %}" />
 {% endblock %}
 
 {% block title %}{% trans "Notification Settings" %}{% endblock %}
