@@ -69,7 +69,7 @@ def json_change_message(request):
             
     # currently, no data is returned, a page reload should be performed....  
     json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 
 json_change_message = never_cache(json_change_message)
 

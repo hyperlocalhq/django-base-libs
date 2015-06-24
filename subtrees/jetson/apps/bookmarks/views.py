@@ -97,5 +97,5 @@ def json_manage_bookmark(request):
     else:
         result['error'] = force_unicode(_("You do not have the permission for this action."))
     json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 json_manage_bookmark = never_cache(json_manage_bookmark)

@@ -68,7 +68,7 @@ def json_manage_ss_membership(request, slug):
         result = dict([(item[0], unicode(item[1])) for item in result.items() if not item[0].startswith("_")])
         result['action'] = is_created and "added" or "removed"
         json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 json_manage_ss_membership = never_cache(json_manage_ss_membership)
 
 def manage_group_membership(request, action="edit", slug=None, username=""):

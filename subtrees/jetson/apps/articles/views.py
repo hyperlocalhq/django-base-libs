@@ -79,7 +79,7 @@ def article_archive_index(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
 ):
@@ -146,7 +146,7 @@ def article_archive_index(
        paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
        template_name=template_name, template_loader=template_loader,
        extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, mimetype=mimetype)  
+       template_object_name=template_object_name, content_type=content_type)
 
 def article_archive_year(
     request,
@@ -162,7 +162,7 @@ def article_archive_year(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     make_object_list=True,
     **kwargs
@@ -230,7 +230,7 @@ def article_archive_year(
         paginate_by=paginate_by, page=page, allow_empty=allow_empty,
         template_name=template_name, template_loader=template_loader,
         extra_context=extra_context, context_processors=context_processors,
-        template_object_name=template_object_name, mimetype=mimetype,
+        template_object_name=template_object_name, content_type=content_type,
     )
 
 def article_archive_month(
@@ -249,7 +249,7 @@ def article_archive_month(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
 ):
@@ -323,7 +323,7 @@ def article_archive_month(
        paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
        template_name=template_name, template_loader=template_loader,
        extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, mimetype=mimetype)
+       template_object_name=template_object_name, content_type=content_type)
 
 def article_archive_day(
     request,
@@ -343,7 +343,7 @@ def article_archive_day(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
 ):
@@ -413,13 +413,13 @@ def article_archive_day(
         paginate_by=paginate_by, page=page, allow_empty=allow_empty,
         template_name=template_name, template_loader=template_loader,
         extra_context=extra_context, context_processors=context_processors,
-        template_object_name=template_object_name, mimetype=mimetype)
+        template_object_name=template_object_name, content_type=content_type)
 
 
 def article_object_detail(request, year, month, day, article_slug, type_sysname=None, status=STATUS_CODE_PUBLISHED,
                           date_field='published_from', month_format='%m', day_format='%d', template_name=None,
                           template_loader=loader, template_name_field=None, extra_context=None, context_processors=None,
-                          template_object_name='article', mimetype=None, allow_future=False, **kwargs):
+                          template_object_name='article', content_type=None, allow_future=False, **kwargs):
     
     """
     Detail view from year/month/day/slug 

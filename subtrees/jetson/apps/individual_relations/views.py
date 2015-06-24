@@ -43,7 +43,7 @@ def json_manage_individual_relation(request, username):
         # ("waiting", "to_confirm", "active", "removed")
         result['status'] = is_created and "added" or "removed"
         json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 json_manage_individual_relation = never_cache(json_manage_individual_relation)
 
 def manage_individual_relationship(request, action="edit", username=None):

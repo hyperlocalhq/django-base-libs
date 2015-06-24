@@ -29,6 +29,6 @@ def json_set_userrating(request, content_type_id, object_id, score):
         #result.update(object_ratings)
         result = dict([(item[0], item[1]) for item in result.items() if not item[0].startswith("_")])
         json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 
 json_set_userrating = never_cache(json_set_userrating)

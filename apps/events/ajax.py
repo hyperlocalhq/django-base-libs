@@ -62,7 +62,7 @@ if Institution:
         contacts['title'] = institution.get_title()
         json_data = json.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
         
-        return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
+        return HttpResponse(json_data, content_type='text/javascript; charset=utf-8')
     
     json_get_institution_attrs = never_cache(json_get_institution_attrs)
 

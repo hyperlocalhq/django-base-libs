@@ -140,7 +140,7 @@ def cropping_preview(request, bgcolor=None):
     data = buffer.getvalue()
     buffer.close()
     # serialize to HTTP response
-    response = HttpResponse(mimetype="image/png")
+    response = HttpResponse(content_type="image/png")
     response['Content-Disposition'] = 'filename=cropping-preview.png'
     response.write(data)
     return response

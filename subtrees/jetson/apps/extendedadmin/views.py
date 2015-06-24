@@ -307,9 +307,9 @@ def json_institutional_contacts(request, object_id):
                 if getattr(institution, "%s_%s" % (day, field)):
                     contacts["%s_%s" % (day, field)] = getattr(institution, "%s_%s" % (day, field)).strftime("%H:%M")
         json_str = json.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
-        return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+        return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
     else:
-        return HttpResponse('false', mimetype='text/javascript; charset=utf-8')
+        return HttpResponse('false', content_type='text/javascript; charset=utf-8')
 #json_institutional_contacts = staff_member_required(never_cache(json_institutional_contacts))
 
 def infosubscription_send_mail(request, email_template_slug=None):

@@ -355,7 +355,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
         paginate_by=paginate_by, page=page, allow_empty=True, 
         template_name=template_name, template_loader=loader,
         extra_context=extra_context, context_processors=context_processors,
-        template_object_name=template_object_name, mimetype=None)  
+        template_object_name=template_object_name, content_type=None)
            
 class BlogPostFormPreviewHandler(FormPreviewHandler):    
     """

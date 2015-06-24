@@ -146,7 +146,7 @@ def feed(request, feed_type, language="de", **kwargs):
     except FeedDoesNotExist:
         raise Http404("Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not." % feed_slug)
 
-    response = HttpResponse(mimetype=feedgen.mime_type)
+    response = HttpResponse(content_type=feedgen.mime_type)
     feedgen.write(response, 'utf-8')
     return response
 
@@ -178,7 +178,7 @@ def object_list(request, queryset,
     paginate_by=None, order_by=None, view_type="icons", page=None,
     allow_empty=False, template_name=None, template_loader=loader,
     extra_context=None, context_processors=None, template_object_name="object",
-    mimetype=None, pages_to_display=10, query="", httpstate_prefix="", paginate=True, first_page_delta=0):
+    content_type=None, pages_to_display=10, query="", httpstate_prefix="", paginate=True, first_page_delta=0):
     """
     Generic list of objects.
 
@@ -389,13 +389,13 @@ def object_list(request, queryset,
         model = queryset.model
         template_name = "%s/%s_list.html" % (model._meta.app_label, model._meta.object_name.lower())
     t = template_loader.get_template(template_name)
-    return HttpResponse(t.render(c), mimetype=mimetype)
+    return HttpResponse(t.render(c), content_type=content_type)
 
 def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slug=None,
         slug_field=None, template_name=None, template_name_field=None,
         template_loader=loader, extra_context=None,
         context_processors=None, template_object_name='object',
-        mimetype=None, **kwargs):
+        content_type=None, **kwargs):
     """
     Generic detail of an object.
 
@@ -438,7 +438,7 @@ def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slu
         else:
             c[key] = value
 
-    response = HttpResponse(t.render(c), mimetype=mimetype)
+    response = HttpResponse(t.render(c), content_type=content_type)
     return response
 
 

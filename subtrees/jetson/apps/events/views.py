@@ -193,7 +193,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
     
     if kwargs.has_key('ical') and kwargs['ical'] == True:
         icalstream = create_ics(kwargs['queryset'])
-        response = HttpResponse(icalstream, mimetype="text/calendar")
+        response = HttpResponse(icalstream, content_type="text/calendar")
         response['Filename'] = "CCB-events.ics" # IE needs this
         response['Content-Disposition'] = "attachment; filename=CCB-events.ics"
         return response
@@ -211,7 +211,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
                 ),
             ).get_feed(kwargs['feed_type'])
     
-        response = HttpResponse(mimetype=feedgen.mime_type)
+        response = HttpResponse(content_type=feedgen.mime_type)
         feedgen.write(response, 'utf-8')
         return response
     else:
@@ -243,7 +243,7 @@ def event_detail(request, event_time=None, ical=False, *args, **kwargs):
         
     if ical:
         icalstream = create_ics(event_time or event)
-        response = HttpResponse(icalstream, mimetype="text/calendar")
+        response = HttpResponse(icalstream, content_type="text/calendar")
         response['Filename'] = "event-%s.ics" % event.slug # IE needs this
         response['Content-Disposition'] = "attachment; filename=event-%s.ics" % event.slug
         return response

@@ -182,7 +182,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
                 ),
             ).get_feed(kwargs['feed_type'])
     
-        response = HttpResponse(mimetype=feedgen.mime_type)
+        response = HttpResponse(content_type=feedgen.mime_type)
         feedgen.write(response, 'utf-8')
         return response
     else:
@@ -264,4 +264,4 @@ def jobs_talent_in_berlin(request):
             'categories': [js.title for js in job_offer.job_sectors.all()],
             'source': 'http://www.creative-city-berlin.de/',
         })
-    return HttpResponse(dicttoxml(result, custom_root="job_offers", attr_type=False), mimetype="text/xml")
+    return HttpResponse(dicttoxml(result, custom_root="job_offers", attr_type=False), content_type="text/xml")

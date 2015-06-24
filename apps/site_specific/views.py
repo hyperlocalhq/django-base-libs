@@ -184,8 +184,8 @@ def get_vcard(request, content_type_id, object_id):
             primary_contact = primary_contact[0]
             output = primary_contact.get_vcard().read()
             filename = "%s.vcf" % (instance.get_slug())
-            #response = HttpResponse(output, mimetype="text/x-vcard")
-            response = HttpResponse(output, mimetype="text/javascript")
+            #response = HttpResponse(output, content_type="text/x-vcard")
+            response = HttpResponse(output, content_type="text/javascript")
             response['Content-Disposition'] = 'inline; filename="%s"' % filename
             return response
     
@@ -300,7 +300,7 @@ def json_review_add_rating(request, rate_index, object_id):
         })
     
     json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_data, content_type='text/javascript; charset=utf-8')
 
 json_review_add_rating = never_cache(json_review_add_rating)
 
@@ -939,7 +939,7 @@ def test_view(request, *args, **kwargs):
         request.httpstate['test'] = "OK"
     raise Warning
     result = "\n".join([force_unicode(item) for item in request.httpstate.items()])
-    response = HttpResponse(result, mimetype="text/plain")
+    response = HttpResponse(result, content_type="text/plain")
     return response
 
 
@@ -1015,4 +1015,4 @@ def newsfeed(request, rss, number_of_news):
             'link': get_value(node_article, "link"),
             })
     
-    return HttpResponse(json.dumps(articles), mimetype="application/json")
+    return HttpResponse(json.dumps(articles), content_type="application/json")

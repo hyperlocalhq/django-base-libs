@@ -41,5 +41,5 @@ def latest_tweets(request, twitter_username, number_of_tweets):
         tweet['created_at_formatted'] = dateformat.format(datetime_parse(tweet['created_at']), 'd.m.Y H:i')
         tweet['created_timesince'] = ugettext("%s ago") % timesince(datetime_parse(tweet['created_at']))
         
-    return HttpResponse(json.dumps(tweets), mimetype="application/json")
+    return HttpResponse(json.dumps(tweets), content_type="application/json")
 

@@ -35,7 +35,7 @@ def json_set_recommendation(request, content_type_id, object_id):
             ensure_ascii=False,
             cls=ExtendedJSONEncoder,
             )
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 json_set_recommendation = never_cache(json_set_recommendation)
 
 def recommendations(request, **kwargs):

@@ -35,7 +35,7 @@ def json_set_memo(request, content_type_id, object_id):
         'memo_count': collection.memo_set.count(),
         }
     json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    response = HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    response = HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
     if collection.memo_set.count():
         # update expiration date
         collection.expiration = tz_now() + MEMO_COOKIE_AGE

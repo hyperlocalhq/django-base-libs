@@ -50,7 +50,7 @@ def json_set_favorite(request, content_type_id, object_id):
             ensure_ascii=False,
             cls=ExtendedJSONEncoder,
             )
-    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_data, content_type='text/javascript; charset=utf-8')
 json_set_favorite = never_cache(json_set_favorite)
 
 def favorites(request, **kwargs):

@@ -225,7 +225,7 @@ def image_view(request, width, height, filename="", mod_function=crop_to_square,
     image = crop_to_rect(image, int(width), int(height))
     if mod_function:
         image = mod_function(image, *mod_args, **mod_kwargs)
-    response = HttpResponse(mimetype="image/png")
+    response = HttpResponse(content_type="image/png")
     response['Content-Disposition'] = "inline; filename=tmp.png"
     response['Cache-Control'] = "max-age=0"
     image.save(response, "png") # will call response.write()

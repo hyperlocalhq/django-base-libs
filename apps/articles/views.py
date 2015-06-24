@@ -120,7 +120,7 @@ def article_archive_index(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
     ):
@@ -194,7 +194,7 @@ def article_archive_index(
        paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
        template_name=template_name, template_loader=template_loader,
        extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, mimetype=mimetype)  
+       template_object_name=template_object_name, content_type=content_type)
 
 def article_archive_non_interviews(request, creative_sector_slug, **kwargs):
     if request.LANGUAGE_CODE == "en":
@@ -225,7 +225,7 @@ def article_archive_year(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     make_object_list=True,
     **kwargs
@@ -297,7 +297,7 @@ def article_archive_year(
        paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
        template_name=template_name, template_loader=template_loader,
        extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, mimetype=mimetype)
+       template_object_name=template_object_name, content_type=content_type)
 
 def article_archive_month(
     request,
@@ -316,7 +316,7 @@ def article_archive_month(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
     ):
@@ -395,7 +395,7 @@ def article_archive_month(
        paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
        template_name=template_name, template_loader=template_loader,
        extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, mimetype=mimetype)
+       template_object_name=template_object_name, content_type=content_type)
 
 def article_archive_day(
     request,
@@ -416,7 +416,7 @@ def article_archive_day(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
     ):
@@ -491,7 +491,7 @@ def article_archive_day(
        paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
        template_name=template_name, template_loader=template_loader,
        extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, mimetype=mimetype)
+       template_object_name=template_object_name, content_type=content_type)
 
 def article_object_detail(
     request,
@@ -511,7 +511,7 @@ def article_object_detail(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
     ):
@@ -569,7 +569,7 @@ def article_object_detail(
         extra_context=extra_context,
         context_processors=context_processors,
         template_object_name=template_object_name,
-        mimetype=mimetype,
+        content_type=content_type,
         allow_future=allow_future
         )    
     
