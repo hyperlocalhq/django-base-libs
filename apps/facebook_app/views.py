@@ -274,7 +274,7 @@ def manage_facebook_pages(request):
                 page_details['access_token'] = page['access_token']
                 unlinked_pages.append(page_details)
 
-    unlinked_institutions = request.user.get_profile().get_institutions().exclude(
+    unlinked_institutions = request.user.profile.get_institutions().exclude(
         pk__in=linked_inst_pks,
         )
     

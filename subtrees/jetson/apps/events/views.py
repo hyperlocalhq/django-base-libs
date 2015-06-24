@@ -60,7 +60,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
     abc_list = None
     abc_filter = request.GET.get('by-abc', None)
     
-    if show=="own-%s" % URL_ID_EVENTS and getattr(settings, "AUTH_PROFILE_MODULE", False):
+    if show=="own-%s" % URL_ID_EVENTS:
         if not request.user.is_authenticated():
             return access_denied(request)
         PersonGroup = models.get_model("groups_networks", "PersonGroup")
@@ -72,7 +72,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
             ).distinct().values("object_id")
             ]
         kwargs['queryset'] = kwargs['queryset'].filter(
-            models.Q(organizing_person=request.user.get_profile())
+            models.Q(organizing_person=request.user.profile)
             | models.Q(organizing_institution__pk__in=owned_inst_ids)
             )
     elif show!="related":

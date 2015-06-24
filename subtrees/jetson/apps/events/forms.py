@@ -706,8 +706,7 @@ class EventForm: # namespace
             """    
         # I am the organizer!
         elif organizer_ind == 2:
-            if getattr(settings, "AUTH_PROFILE_MODULE", False):
-                organizing_person = get_current_user().get_profile()
+            organizing_person = get_current_user().profile
         # orgnaizer is selected separately    
         else:
             if step_main_data.get('organizing_institution', None):

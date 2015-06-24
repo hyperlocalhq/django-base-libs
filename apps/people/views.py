@@ -239,7 +239,7 @@ def person_invitation_list(request, show="", **kwargs):
         else:
             filter_by = None
             
-        queryset = request.user.get_profile().get_person_invitation_requested(filter_by)
+        queryset = request.user.profile.get_person_invitation_requested(filter_by)
         
     elif show=="requests":
         extra_context['active_link'] = 'requests'
@@ -251,7 +251,7 @@ def person_invitation_list(request, show="", **kwargs):
         else:
             filter_by = None
         
-        queryset = request.user.get_profile().get_person_invitation_requests(filter_by)
+        queryset = request.user.profile.get_person_invitation_requests(filter_by)
 
     else:
         raise Http404
@@ -277,7 +277,7 @@ def person_person_contacts_list(request, slug, **kwargs):
     Lists a person's individual contacts
     """  
     user = get_object_or_404(User, username=slug)
-    person = user.get_profile()
+    person = user.profile
     kwargs['queryset'] = kwargs['queryset'].filter(
         user__to_user__user=user,
         user__to_user__status="confirmed",
@@ -294,7 +294,7 @@ def person_institution_contacts_list(request, slug, **kwargs):
     Lists a person's institutional contacts
     """  
     user = get_object_or_404(User, username=slug)
-    person = user.get_profile()
+    person = user.profile
 
     # TODO maybe there is a better solution for this:
     # Here we need a queryset but have a list. So we make a queryset from the list...
@@ -316,7 +316,7 @@ def person_groups_list(request, slug, **kwargs):
     Lists a person's groups
     """  
     user = get_object_or_404(User, username=slug)
-    person = user.get_profile()
+    person = user.profile
     
     # TODO maybe there is a better solution for this:
     # Here we need a queryset but have a list. So we make a queryset from the list...
@@ -338,7 +338,7 @@ def person_events_list(request, slug, **kwargs):
     Lists the person's events
     """  
     user = get_object_or_404(User, username=slug)
-    person = user.get_profile()
+    person = user.profile
     kwargs['queryset'] = kwargs['queryset'].filter(
         models.Q(organizing_person=person)
         | models.Q(creator=user)
@@ -362,7 +362,7 @@ def person_job_offer_list(request, slug, **kwargs):
     Lists the person's job offers
     """  
     user = get_object_or_404(User, username=slug)
-    person = user.get_profile()
+    person = user.profile
     kwargs['queryset'] = kwargs['queryset'].filter(
         contact_person=person,
         ).order_by('-creation_date')

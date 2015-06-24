@@ -173,8 +173,6 @@ SECRET_KEY = "*z-g$io@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
 
 ROOT_URLCONF = "complete_project.urls"
 
-AUTH_PROFILE_MODULE = "people.Person"
-
 
 ### CACHING ###
 

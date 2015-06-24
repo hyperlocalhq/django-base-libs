@@ -28,7 +28,7 @@ class InternalMessageOptions(ExtendedModelAdmin):
     def sender_display(self, obj):
         return """<a href="/admin/auth/user/%s/">%s</a>""" % (
             obj.sender.id,
-            obj.sender.get_profile().get_title(),
+            obj.sender.profile.get_title(),
             )
     sender_display.allow_tags = True
     sender_display.short_description = ugettext("Sender")
@@ -36,7 +36,7 @@ class InternalMessageOptions(ExtendedModelAdmin):
     def recipient_display(self, obj):
         return """<a href="/admin/auth/user/%s/">%s</a>""" % (
             obj.recipient.pk,
-            obj.recipient.get_profile().get_title(),
+            obj.recipient.profile.get_title(),
             )
     recipient_display.allow_tags = True
     recipient_display.short_description = ugettext("Recipient")

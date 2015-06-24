@@ -161,12 +161,12 @@ def reply_message(request, pk, **kwargs):
     else:
         form = InternalMessageForm(request.user, None)
         form.fields['recipients_email_list'].choices = (
-            (message.sender.pk, message.sender.get_profile().get_title()),
+            (message.sender.pk, message.sender.profile.get_title()),
             )
         form.fields['recipients_email_list'].initial = [message.sender.pk]
     
     context = {
-        'object' : request.user.get_profile(), 
+        'object' : request.user.profile,
         'form': form,
     }
     return render_to_response(
@@ -199,7 +199,7 @@ def forward_message(request, pk, **kwargs):
         form = InternalMessageForm(request.user, None, initial=message.__dict__)
     
     context = {
-        'object' : request.user.get_profile(), 
+        'object' : request.user.profile,
         'form': form,
     }
     return render_to_response(
@@ -230,7 +230,7 @@ def send_draft_message(request, pk, **kwargs):
         form = InternalMessageForm(request.user, message)
     
     context = {
-        'object' : request.user.get_profile(), 
+        'object' : request.user.profile,
         'form': form,
     }
     return render_to_response(
@@ -256,7 +256,7 @@ def new_message(request, **kwargs):
         form = InternalMessageForm(request.user, None)
     
     context = {
-        'object' : request.user.get_profile(), 
+        'object' : request.user.profile,
         'form': form,
     }
     return render_to_response(

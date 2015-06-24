@@ -2216,7 +2216,7 @@ class EventProfile: # namespace
             self.fields['is_organized_by_myself'].initial = bool(event.organizing_person)
             if event.creator and current_user != event.creator:
                 self.fields['is_organized_by_myself'].label = _(
-                    "Organized by %s") % event.creator.get_profile().get_title()
+                    "Organized by %s") % event.creator.profile.get_title()
                 
         def save(self):
             event = self.event
@@ -2224,7 +2224,7 @@ class EventProfile: # namespace
 
             event.organizing_person = (
                 None,
-                not event.creator and get_current_user().get_profile() or event.creator.get_profile(),
+                not event.creator and get_current_user().profile or event.creator.profile,
                 )[data.get("is_organized_by_myself", False)]
             event.organizing_institution_id=data['organizing_institution'] or None
             event.organizer_title = data.get('organizer_title', None)
@@ -3125,7 +3125,7 @@ class GroupProfile: # namespace
             self.index = index
             super(type(self), self).__init__(*args, **kwargs)
             user = get_current_user()
-            person = user.get_profile()
+            person = user.profile
             INSTITUTION_CHOICES = [("", "---------")]
             INSTITUTION_CHOICES.extend([(str(el.id), force_unicode(el))
                                         for el in person.get_institutions()
@@ -3583,8 +3583,8 @@ class JobOfferProfile: # namespace
 
                 if job_offer.creator and job_offer.creator != get_current_user():
                     self.fields['contact_person_ind'].choices = (
-                        (0, _("%s is the contact person") % job_offer.creator.get_profile().get_title()),
-                        (1, _("%s is not the contact person") % job_offer.creator.get_profile().get_title()),
+                        (0, _("%s is the contact person") % job_offer.creator.profile.get_title()),
+                        (1, _("%s is not the contact person") % job_offer.creator.profile.get_title()),
                     )
                 if job_offer.contact_person:
                     self.fields['contact_person_ind'].initial = 0
@@ -3642,9 +3642,9 @@ class JobOfferProfile: # namespace
             contact_person_name = data.get('contact_person_name', "")
             if contact_person_ind == 0:
                 if job_offer.creator and job_offer.creator != get_current_user():
-                    contact_person = job_offer.creator.get_profile()
+                    contact_person = job_offer.creator.profile
                 else:
-                    contact_person = get_current_user().get_profile()
+                    contact_person = get_current_user().profile
                 contact_person_name = ""
                 
             job_offer.offering_institution_id = data['offering_institution'] or None
@@ -3830,7 +3830,7 @@ class ClaimForm(dynamicforms.Form):
         self.fields["name"].initial = "%s %s" % (self.user.first_name, self.user.last_name)
         self.fields["email"].initial = self.user.email
         
-        person = self.user.get_profile()
+        person = self.user.profile
         contacts = person.get_contacts()
         if contacts:
             for phone in contacts[0].get_phones():
@@ -3902,8 +3902,8 @@ class InvitationForm(dynamicforms.Form):
                 )],
             email_template_slug = "invitation",
             obj_placeholders = {
-                'object_creator_title': self.sender.get_profile().get_title(),
-                'object_creator_url': self.sender.get_profile().get_url(),
+                'object_creator_title': self.sender.profile.get_title(),
+                'object_creator_url': self.sender.profile.get_url(),
                 'object_description': body,
                 },
             sender_name = settings.ADMINS[0][0],
@@ -3957,9 +3957,9 @@ class ProfileDeletionForm(dynamicforms.Form):
         super(ProfileDeletionForm, self).__init__(*args, **kwargs)
         self.user = user
         profile_choices = [
-            ('auth.user', user.get_profile().get_title()),
+            ('auth.user', user.profile.get_title()),
             ]
-        for inst in user.get_profile().get_institutions(clear_cache=True):
+        for inst in user.profile.get_institutions(clear_cache=True):
             profile_choices.append((inst.slug, inst.get_title()))
         
         self.fields['profiles'] = forms.MultipleChoiceField(
@@ -4105,7 +4105,7 @@ class ProfileDeletionForm(dynamicforms.Form):
             # delete institution
             inst.delete()
         # DELETE USER
-        person = self.user.get_profile()
+        person = self.user.profile
         person_content_type = ContentType.objects.get_for_model(person)
         superuser = User.objects.filter(is_superuser=True)[0]
         if self.user_deleted:

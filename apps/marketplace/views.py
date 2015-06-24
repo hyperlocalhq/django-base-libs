@@ -101,7 +101,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
             ]
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(creator=request.user)
-            | models.Q(contact_person=request.user.get_profile())
+            | models.Q(contact_person=request.user.profile)
             | models.Q(offering_institution__pk__in=owned_inst_ids)
             )
     if show not in ("related", "own-%s" % URL_ID_JOB_OFFERS, "memos"):

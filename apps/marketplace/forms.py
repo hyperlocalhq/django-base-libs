@@ -315,7 +315,7 @@ class JobOfferForm: # namespace
         # the creator is contact person
         contact_person = None
         if contact_person_ind == 0:
-            contact_person = get_current_user().get_profile()
+            contact_person = get_current_user().profile
         
         job_offer = JobOffer()
         
@@ -405,8 +405,8 @@ class JobOfferForm: # namespace
                     'object_title': job_offer.position,
                     'object_description': description,
                     'object_url': job_offer.get_url(),
-                    'object_creator_url': job_offer.creator.get_profile().get_url(),
-                    'object_creator_title': job_offer.creator.get_profile().get_title(),
+                    'object_creator_url': job_offer.creator.profile.get_url(),
+                    'object_creator_title': job_offer.creator.profile.get_title(),
                     },
                 delete_after_sending=False,
                 sender_name=sender_name,

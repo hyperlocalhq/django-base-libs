@@ -134,7 +134,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
             ]
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(creator=request.user)
-            | models.Q(organizing_person=request.user.get_profile())
+            | models.Q(organizing_person=request.user.profile)
             | models.Q(organizing_institution__pk__in=owned_inst_ids)
             )
         kwargs['queryset'] = kwargs['queryset'].filter(

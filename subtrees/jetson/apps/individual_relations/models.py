@@ -599,8 +599,8 @@ def individual_relation_requested(sender, instance, **kwargs):
         instance.to_user,
         "individual_relation_requested",
         {
-            "object_creator_url": instance.user.get_profile().get_absolute_url(),
-            "object_creator_title": instance.user.get_profile().get_title(),
+            "object_creator_url": instance.user.profile.get_absolute_url(),
+            "object_creator_title": instance.user.profile.get_title(),
             "object_description": instance.message,
             "object_url": "%speople/requested/?by-status=pending" % get_website_url()
             },
@@ -614,8 +614,8 @@ def individual_relation_confirmed(sender, instance, **kwargs):
         instance.to_user,
         "individual_relation_confirmed",
         {
-            "object_creator_url": instance.user.get_profile().get_absolute_url(),
-            "object_creator_title": instance.user.get_profile().get_title(),
+            "object_creator_url": instance.user.profile.get_absolute_url(),
+            "object_creator_title": instance.user.profile.get_title(),
             "object_description": instance.message,
             },
         )

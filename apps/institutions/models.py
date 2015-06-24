@@ -204,12 +204,12 @@ def institution_added(sender, instance, **kwargs):
     creator_url = (
         not user
         and get_website_url() + "admin/"
-        or user.get_profile().get_url()
+        or user.profile.get_url()
         )
     creator_title = (
         not user
         and ugettext("System")
-        or user.get_profile().get_title()
+        or user.profile.get_title()
         )
     
     recipients = User.objects.all()

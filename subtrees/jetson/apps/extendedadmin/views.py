@@ -299,7 +299,7 @@ def json_institutional_contacts(request, object_id):
     institution = Institution.objects.get(id=object_id)
     if request.user.has_perm("institutions.change_institution", institution) or  (
         request.user.is_authenticated() and
-        request.user.get_profile().get_institutions().filter(pk=institution.id)
+        request.user.profile.get_institutions().filter(pk=institution.id)
         ):
         contacts = institution.get_primary_contact()
         for day in ("mon", "tue", "wed", "thu", "fri", "sat", "sun"):
@@ -386,9 +386,9 @@ def user_send_mail(request, email_template_slug=None):
     recipients_list = []
     for item in qs:
         try:
-            name = item.get_profile().get_title()
+            name = item.profile.get_title()
             email = item.email
-            url = item.get_profile().get_absolute_url()
+            url = item.profile.get_absolute_url()
         except:
             name = (u"%s %s" % (item.first_name, item.last_name)).strip() or item.username
             email = item.email

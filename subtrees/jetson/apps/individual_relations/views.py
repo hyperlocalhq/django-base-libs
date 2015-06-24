@@ -78,7 +78,7 @@ def manage_individual_relationship(request, action="edit", username=None):
     #    ):
     #    return access_denied(request)
     
-    person = user_2.get_profile()
+    person = user_2.profile
     if (
         action=="edit" and not person.is_contact_editable()
         or action=="invite" and not person.is_contact_addable()
@@ -131,7 +131,7 @@ def confirm_invitation(request, slug, encrypted_email):
     user = authenticate(email=email)
     if not user:
         raise Http404()
-    person = user.get_profile()
+    person = user.profile
     obj = Person.objects.get(user__username=slug)
     inviter = obj
     if not user:

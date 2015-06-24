@@ -158,9 +158,9 @@ def ticket_reported(sender, instance, **kwargs):
             if instance.submitter_name:
                 submitter_name = instance.submitter_name
             else:
-                submitter_name = instance.submitter.get_profile().get_title()
+                submitter_name = instance.submitter.profile.get_title()
             if instance.submitter:
-                submitter_url = instance.submitter.get_profile().get_url()
+                submitter_url = instance.submitter.profile.get_url()
             else:
                 submitter_url = ticket_url
             '''

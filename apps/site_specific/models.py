@@ -493,8 +493,8 @@ class ClaimRequest(ObjectRelationForClaimRequest):
         return u"""
         <a href="%s" onclick="open_new_window(event)">%s</a>
         """ % (
-            self.user.get_profile().get_absolute_url(),
-            self.user.get_profile().get_title(),
+            self.user.profile.get_absolute_url(),
+            self.user.profile.get_title(),
             )
         return self.user
     get_claimer.short_description = _('User')
@@ -549,9 +549,9 @@ def institution_claimed(sender, instance, **kwargs):
     if instance.name:
         submitter_name = instance.name
     else:
-        submitter_name = instance.user.get_profile().get_title()
+        submitter_name = instance.user.profile.get_title()
     if instance.user:
-        submitter_url = instance.user.get_profile().get_absolute_url()
+        submitter_url = instance.user.profile.get_absolute_url()
     else:
         submitter_url = "http://%s/admin/site_specific/claimrequest/" % Site.objects.get_current().domain
     '''

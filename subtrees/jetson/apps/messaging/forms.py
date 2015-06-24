@@ -59,7 +59,7 @@ class ContactForm(MessageFormBase):
         sender_name = cleaned.get("sender_name", "")
         sender_email = cleaned.get("sender_email", "")
         if self.sender:
-            sender_name = self.sender.get_profile().get_title()
+            sender_name = self.sender.profile.get_title()
             sender_email = self.sender.email
 
         if hasattr(self.recipient, "user"):
@@ -98,8 +98,8 @@ class InternalMessageForm(MessageFormBase):
         
         if not self.instance:
             recipients = [
-                (r.to_user.pk, r.to_user.get_profile().get_title())
-                for r in sender.get_profile().get_individual_relations()
+                (r.to_user.pk, r.to_user.profile.get_title())
+                for r in sender.profile.get_individual_relations()
                 ]
             self.fields['recipients_email_list'] = forms.MultipleChoiceField(
                 label=_("Recipients"),
@@ -164,7 +164,7 @@ def message_received(sender, instance, **kwargs):
     from jetson.apps.notification import models as notification
     
     submitter_email = instance.sender.email
-    submitter_name = instance.sender.get_profile().get_title()
+    submitter_name = instance.sender.profile.get_title()
     notification.send(
         instance.recipient,
         "message_received",

@@ -38,7 +38,7 @@ class TicketOptions(ObjectRelationMixinAdminOptions()):
     def get_submitter(self, obj):
         if obj.submitter:
             return """<a href="/admin/people/person/%d/">%s</a><br />%s""" % (
-                obj.submitter.get_profile().pk,
+                obj.submitter.profile.pk,
                 obj.submitter_name,
                 obj.submitter_email,
                 )

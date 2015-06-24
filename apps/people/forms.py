@@ -76,7 +76,7 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
         user = super(SimpleRegistrationForm, self).save(activate_immediately=activate_immediately)
         cleaned = self.cleaned_data
         
-        person = user.get_profile()
+        person = user.profile
         
         selected_cs = {}
         for item in get_related_queryset(Person, "creative_sectors"):

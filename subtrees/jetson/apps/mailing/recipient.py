@@ -32,8 +32,8 @@ class Recipient(object):
             self.slug = slug or user.username
             self.first_name = first_name or user.first_name
             self.last_name = last_name or user.last_name
-            if not self.url and getattr(settings, 'AUTH_PROFILE_MODULE', False):
-                self.url = user.get_profile().get_absolute_url()
+            if not self.url:
+                self.url = user.profile.get_absolute_url()
                 
         else:
             self.id = id and unicode(id) or self._generate_id()
@@ -92,8 +92,8 @@ class Recipient(object):
         
         language:            the preferred language ("de" or "en")
         """
-        if self.user and getattr(settings, 'AUTH_PROFILE_MODULE', False):
-            person = self.user.get_profile()
+        if self.user:
+            person = self.user.profile
             if language == 'de':
                 return person.get_salutation(language) or "Hallo %s %s!" %(self.user.first_name, self.user.last_name)
             else:

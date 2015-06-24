@@ -146,7 +146,7 @@ def confirm_registration(request, encrypted_email):
         return HttpResponseRedirect('/register/')
     user.is_active = True
     user.save()
-    person = user.get_profile()
+    person = user.profile
     person.status = "published"
     person.save()
     from django.contrib.auth import login

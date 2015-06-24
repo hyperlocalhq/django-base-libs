@@ -787,7 +787,7 @@ def claim_action(request, object_id, action):
     if action == 'approve':
         obj.status = 1
         if isinstance(content_object, Institution):
-            preferred_language = obj.user.get_profile().preferred_language
+            preferred_language = obj.user.profile.preferred_language
             if not preferred_language:
                 preferred_language = Language.objects.get(
                     iso2_code=get_current_language(),
@@ -821,7 +821,7 @@ def claim_action(request, object_id, action):
                 )
             
         elif isinstance(content_object, Event):
-            content_object.organizing_person = obj.user.get_profile()
+            content_object.organizing_person = obj.user.profile
     
         elif isinstance(content_object, Document):
             raise Http404, "NOT YET IMPLEMENTED!!!"
@@ -928,7 +928,7 @@ def object_list_for_map(request):
         )
     
 def my_profile(request):
-    return HttpResponseRedirect(request.user.get_profile().get_url_path())
+    return HttpResponseRedirect(request.user.profile.get_url_path())
     
 my_profile = login_required(never_cache(my_profile))    
 

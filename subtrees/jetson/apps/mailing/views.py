@@ -57,8 +57,7 @@ def get_sender_placeholders(placeholders=None, language="en", sender_name="", se
         placeholders['sender_name'] = sender_name or get_user_title(user)
         placeholders['sender_email'] = sender_email or user.email
         placeholders['sender_slug'] = user.username
-        if getattr(settings, 'AUTH_PROFILE_MODULE', False):
-            placeholders['sender_url'] = user.get_profile().get_absolute_url()
+        placeholders['sender_url'] = user.profile.get_absolute_url()
     else:
         placeholders['sender_name'] = sender_name
         placeholders['sender_email'] = sender_email

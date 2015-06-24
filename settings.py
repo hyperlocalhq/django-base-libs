@@ -186,9 +186,6 @@ SECRET_KEY = "*z-g$creativeberlinio@_qt9efb5dge+(64aeq4$!gk+62nsyqlgqpf8l6"
 
 ROOT_URLCONF = "ccb.urls"
 
-AUTH_PROFILE_MODULE = "people.Person"
-
-
 ### ADMIN ###
 
 ADMIN_APP_INDEX = (

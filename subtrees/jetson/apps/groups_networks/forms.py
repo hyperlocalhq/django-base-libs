@@ -185,7 +185,7 @@ class GroupAddingForm: # Namespace
         
         def __init__(self, *args, **kwargs):
             super(GroupAddingForm.MainDataForm, self).__init__(*args, **kwargs)
-            self.fields['institution'].queryset = get_current_user().get_profile().get_institutions()
+            self.fields['institution'].queryset = get_current_user().profile.get_institutions()
 
     class ProfileForm(dynamicforms.Form):
         description_en = forms.CharField(

@@ -149,8 +149,8 @@ def ticket_reported(sender, instance, **kwargs):
                     submitter_name = instance.submitter_name
                 else:
                     submitter_name = get_user_title(instance.submitter)
-                if instance.submitter and getattr(settings, 'AUTH_PROFILE_MODULE', False):
-                    submitter_url = instance.submitter.get_profile().get_absolute_url()
+                if instance.submitter:
+                    submitter_url = instance.submitter.profile.get_absolute_url()
                 else:
                     submitter_url = "http://%s/admin/tracker/ticket/%s/" % (
                         Site.objects.get_current().domain,

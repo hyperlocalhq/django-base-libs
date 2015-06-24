@@ -139,7 +139,7 @@ def manage_group_membership(request, action="edit", slug=None, username=""):
         "groups_networks/group_membership_%s.html" % action,
         {
             'form' : form,
-            'person' : user.get_profile(),
+            'person' : user.profile,
             'group' : group,
             },
         RequestContext(request),
@@ -156,11 +156,11 @@ def confirm_invitation(request, slug, encrypted_email):
     user = authenticate(email=email)
     if not user:
         raise Http404()
-    person = user.get_profile()
+    person = user.profile
     obj = Institution.objects.get(slug=slug)
     inviter = None
     try:
-        inviter = obj.get_groups()[0].get_owners()[0].get_profile().get_title()
+        inviter = obj.get_groups()[0].get_owners()[0].profile.get_title()
     except:
         pass
     if not user:
@@ -474,17 +474,17 @@ def persongroup_invitation_list(request, group_ind="", show="", **kwargs):
     #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     if group_ind=="my-%s" % URL_ID_PERSONGROUPS:
         if show=="invitations":
-            queryset = request.user.get_profile().get_my_groups_invitations()
+            queryset = request.user.profile.get_my_groups_invitations()
         else:
-            queryset = request.user.get_profile().get_my_groups_requests()
+            queryset = request.user.profile.get_my_groups_requests()
         abc_list = get_abc_list(queryset, "user__last_name", abc_filter)
         if abc_filter:
             queryset = filter_abc(queryset, "user__last_name", abc_filter)
     elif group_ind=="other-%s" % URL_ID_PERSONGROUPS:
         if show=="invitations":
-            queryset = request.user.get_profile().get_other_groups_invitations()
+            queryset = request.user.profile.get_other_groups_invitations()
         else:
-            queryset = request.user.get_profile().get_other_groups_requests()
+            queryset = request.user.profile.get_other_groups_requests()
         abc_list = get_abc_list(queryset, "title", abc_filter)
         if abc_filter:
             queryset = filter_abc(queryset, "title", abc_filter)
@@ -548,7 +548,7 @@ def invite_persongroup_members(request, slug, **kwargs):
         return access_denied(request)
     recipients_list = [
         Recipient(id=rel.to_user.id, user=rel.to_user)
-        for rel in request.user.get_profile().get_individual_relations().filter(
+        for rel in request.user.profile.get_individual_relations().filter(
             status="confirmed",
             )
         if group.is_member_invitable(rel.to_user)
