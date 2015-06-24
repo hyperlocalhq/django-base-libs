@@ -2,6 +2,8 @@
 
 from django.templatetags.cache import *
 from django.conf import settings
+from django.utils.http import urlquote
+from django.template.base import resolve_variable
 
 def cache_node_render(self, context):
     key_prefix = settings.CACHE_MIDDLEWARE_KEY_PREFIX
