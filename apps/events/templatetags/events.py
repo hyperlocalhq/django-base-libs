@@ -10,6 +10,12 @@ from django.utils import dateformat
 from django.utils.formats import get_format
 from django.db import models
 
+DATE_FORMAT = get_format('DATE_FORMAT')
+DATETIME_FORMAT = get_format('DATETIME_FORMAT')
+TIME_FORMAT = get_format('TIME_FORMAT')
+MONTH_DAY_FORMAT = get_format('MONTH_DAY_FORMAT')
+YEAR_MONTH_FORMAT = get_format('YEAR_MONTH_FORMAT')
+
 Institution = models.get_model("institutions", "Institution")
 
 register = template.Library()
@@ -34,20 +40,14 @@ class DatePeriodNode(template.Node):
         
     def _get_start_date_formatted(self):
         
-        year_month_format = get_format('%Y-%m')
-        month_day_format = get_format('%m-%d')
-        date_format = get_format('%Y-%m-%d')
-        datetime_format = get_format('%Y-%m-%d %H:%M:%S')
-        time_format = get_format('%H:%M:%S')
-
-        start_date_format = date_format
+        start_date_format = DATE_FORMAT
 
         if self.start_dd and self.start_mm and self.start_yyyy:
-             start_date_format = date_format
+             start_date_format = DATE_FORMAT
         elif self.start_dd and self.start_mm:
-            start_date_format = month_day_format
+            start_date_format = MONTH_DAY_FORMAT
         elif self.start_mm and self.start_yyyy:
-            start_date_format = year_month_format
+            start_date_format = YEAR_MONTH_FORMAT
         elif self.start_yyyy:
             start_date_format = "Y"                            
         
@@ -56,12 +56,12 @@ class DatePeriodNode(template.Node):
             if self.start_mm:
                 start_date_format = "F"
                 if self.start_dd:
-                    start_date_format = month_day_format
+                    start_date_format = MONTH_DAY_FORMAT
                 
             if self.start_mm and self.end_mm == self.start_mm:
-                start_date_format = year_month_format
+                start_date_format = YEAR_MONTH_FORMAT
                 if self.start_dd and self.end_dd == self.start_dd:
-                    start_date_format = date_format
+                    start_date_format = DATE_FORMAT
                 elif self.start_dd and self.end_dd != self.start_dd:
                     start_date_format = "j."                    
 
@@ -75,15 +75,12 @@ class DatePeriodNode(template.Node):
     
     def _get_end_date_formatted(self):
 
-        year_month_format, month_day_format = get_partial_date_formats()
-        (date_format, datetime_format, time_format) = get_date_formats()
-        
         if self.end_dd and self.end_mm and self.end_yyyy:
-            end_date_format = date_format
+            end_date_format = DATE_FORMAT
         elif self.end_dd and self.end_mm:
-            end_date_format = month_day_format
+            end_date_format = MONTH_DAY_FORMAT
         elif self.end_mm and self.end_yyyy:
-            end_date_format = year_month_format
+            end_date_format = YEAR_MONTH_FORMAT
         elif self.end_yyyy:
             start_date_format = "Y"                            
         else:

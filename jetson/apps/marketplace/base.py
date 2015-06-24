@@ -11,7 +11,6 @@ from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils import dateformat
 from django.utils.translation import ugettext_lazy as _, ugettext
-from django.utils.translation import get_date_formats, get_partial_date_formats
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.utils.encoding import force_unicode

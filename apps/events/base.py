@@ -51,6 +51,12 @@ from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
+DATE_FORMAT = get_format('DATE_FORMAT')
+DATETIME_FORMAT = get_format('DATETIME_FORMAT')
+TIME_FORMAT = get_format('TIME_FORMAT')
+MONTH_DAY_FORMAT = get_format('MONTH_DAY_FORMAT')
+YEAR_MONTH_FORMAT = get_format('YEAR_MONTH_FORMAT')
+
 Person = models.get_model("people", "Person")
 Institution = models.get_model("institutions", "Institution")
 
@@ -309,8 +315,7 @@ class EventBase(CreationModificationMixin, UrlMixin):
     
     def get_start_date_string(self):
         start_date = self.get_start_date()
-        (date_format, datetime_format, time_format) = get_date_formats()
-        return capfirst(dateformat.format(start_date, datetime_format))
+        return capfirst(dateformat.format(start_date, DATETIME_FORMAT))
     get_start_date_string.short_description = _("Start Date")
     get_start_date_string.admin_order_field = 'start'
     
@@ -324,23 +329,19 @@ class EventBase(CreationModificationMixin, UrlMixin):
     
     def get_end_date_string(self):
         end_date = self.get_end_date()
-        (date_format, datetime_format, time_format) = get_date_formats()
-        return capfirst(dateformat.format(end_date, datetime_format))
+        return capfirst(dateformat.format(end_date, DATETIME_FORMAT))
     get_end_date_string.short_description = _("End Date")
     get_end_date_string.admin_order_field = 'end'
     
-    
     def get_start_time_string(self):
         start_date = self.get_start_date()
-        (date_format, datetime_format, time_format) = get_date_formats()
-        return capfirst(dateformat.format(start_date, time_format))
+        return capfirst(dateformat.format(start_date, TIME_FORMAT))
     get_start_time_string.short_description = _("Start Time")
     get_start_time_string.admin_order_field = 'start_hh'
     
     def get_end_time_string(self):
         end_date = self.get_end_date()
-        (date_format, datetime_format, time_format) = get_date_formats()
-        return capfirst(dateformat.format(end_date, time_format))
+        return capfirst(dateformat.format(end_date, TIME_FORMAT))
     get_end_time_string.short_description = _("End Time")
     get_end_time_string.admin_order_field = 'end_hh'
     
