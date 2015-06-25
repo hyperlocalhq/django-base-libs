@@ -696,6 +696,7 @@ class PortfolioSite(object):
                         content=cleaned['cover_image'],
                         )
                     gallery.cover_image = path
+                section = None
                 if not gallery.pk:
                     gallery.sort_order = MediaGallery.objects.filter(
                         content_type=self.obj_ct,

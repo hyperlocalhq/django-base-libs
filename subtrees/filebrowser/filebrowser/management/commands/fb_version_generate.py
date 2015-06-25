@@ -25,18 +25,17 @@ class Command(BaseCommand):
             path = os.path.join(MEDIA_ROOT, DIRECTORY)
         
         if not os.path.isdir(path):
-            raise CommandError('<media_path> must be a directory in MEDIA_ROOT (If you don\'t add a media_path the default path is FILEBROWSER_DIRECTORY).\n"%s" is no directory.' % path);
-        
+            raise CommandError('<media_path> must be a directory in MEDIA_ROOT (If you don\'t add a media_path the default path is FILEBROWSER_DIRECTORY).\n"%s" is no directory.' % path)
+
         # get version name
         while 1:
             self.stdout.write('\nSelect a version you want to generate:\n')
             for version in VERSIONS:
                 self.stdout.write(' * %s\n' % version)
             
+            selected_version = None
             version_name = raw_input('(leave blank to generate all versions): ')
-            
             if version_name == "":
-                selected_version = None
                 break
             else:
                 try:

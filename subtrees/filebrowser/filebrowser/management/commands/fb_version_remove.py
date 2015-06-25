@@ -24,13 +24,14 @@ class Command(BaseCommand):
         path = os.path.join(MEDIA_ROOT, media_path)
         
         if not os.path.isdir(path):
-            raise CommandError('<media_path> must be a directory in MEDIA_ROOT. "%s" is no directory.' % path);
-        
+            raise CommandError('<media_path> must be a directory in MEDIA_ROOT. "%s" is no directory.' % path)
+
         self.stdout.write("\n%s\n" % self.help)
         self.stdout.write("in this case: %s\n" % path)
         
         # get suffix or prefix
         default_prefix_or_suffix = "s"
+        prefix_or_suffix = None
         while 1:
             self.stdout.write('\nOlder versions of the FileBrowser used to prefix the filename with the version name.\n')
             self.stdout.write('Current version of the FileBrowser adds the version name as suffix.\n')
@@ -45,6 +46,7 @@ class Command(BaseCommand):
             break
         
         # get version name
+        version_name = None
         while 1:
             version_name = raw_input('\nversion name as defined with VERSIONS: ')
             

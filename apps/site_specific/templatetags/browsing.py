@@ -183,11 +183,13 @@ class CategoriesUnder(template.Node):
         self.is_for_browsing = is_for_browsing
         self.is_for_creating = is_for_creating
     def render(self, context):
+        sysname = None
         try:
             sysname = template.resolve_variable(self.sysname, context)
         except:
             pass
         show_4_current_object = False
+        current_object = None
         try:
             current_object = template.resolve_variable("object", context)
         except:

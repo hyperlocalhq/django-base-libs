@@ -228,6 +228,7 @@ class FileBrowserSite(object):
         
         # If we do a search, precompile the search pattern now
         do_search = query.get("q")
+        re_q = None
         if do_search:
             re_q = re.compile(query.get("q").lower(), re.M)
         

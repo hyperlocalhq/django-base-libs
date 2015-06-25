@@ -340,6 +340,7 @@ class UserRatingManager(models.Manager):
         if self.can_rate(comment, user, rate_index):
             f = self.model(None, user.id, comment.id, None, rate_index)
             # do the rating itself!!!
+            rating = None
             exec "rating = comment.rating" + str(rate_index)
             if rating:
                 rating = rating + 1

@@ -76,6 +76,7 @@ class CreativeSectorsNode(template.Node):
     def render(self, context):
         
         # try to resolve vars
+        cleaned = None
         if self.cs_cleaned_data_lookup_var:
             try:
                 cleaned = template.resolve_variable(self.cs_cleaned_data_lookup_var, context)
@@ -107,6 +108,7 @@ class JobSectorsNode(template.Node):
     def render(self, context):
         
         # try to resolve vars
+        cleaned = None
         if self.js_cleaned_data_lookup_var:
             try:
                 cleaned = template.resolve_variable(self.js_cleaned_data_lookup_var, context)
@@ -133,6 +135,7 @@ class ContextCategoriesNode(template.Node):
     def render(self, context):
         
         # try to resolve vars
+        cleaned = None
         if self.cc_cleaned_data_lookup_var:
             try:
                 cleaned = template.resolve_variable(self.cc_cleaned_data_lookup_var, context)
@@ -162,6 +165,7 @@ class InstitutionTypesNode(template.Node):
     def render(self, context):
         
         # try to resolve vars
+        cleaned = None
         if self.ot_cleaned_data_lookup_var:
             try:
                 cleaned = template.resolve_variable(self.ot_cleaned_data_lookup_var, context)

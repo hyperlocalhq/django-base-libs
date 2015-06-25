@@ -545,7 +545,8 @@ def sync_personal_portfolio(request, slug):
         action = request.POST.get("action", "")
         ccb_gallery_token = request.POST.get("ccb_gallery_token", "")
         fb_album_id = request.POST.get("fb_album_id", "")
-        
+        mapper = None
+        gallery = None
         
         if action in ["ccb-to-fb", "sync"]:
             gallery = MediaGallery.objects.get(
@@ -897,7 +898,9 @@ def sync_institutional_portfolio(request, slug):
                                 )
                             file_mapper.content_object = media_file
                         file_mapper.save()
-                
+
+        mapper = None
+        gallery = None
         if action in ["fb-to-ccb", "sync"]:
             fb_album = graph.get_object(fb_album_id)
             try:

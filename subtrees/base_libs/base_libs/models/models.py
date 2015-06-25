@@ -732,6 +732,7 @@ class HierarchyMixin(BaseModel):
         if not parent:
             return self
         else:
+            root = None
             while parent:
                 root = parent
                 parent = parent.parent

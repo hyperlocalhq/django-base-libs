@@ -240,6 +240,7 @@ def delete_review(request, slug, id, year=0, month=0, day=0, template_name='site
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     
     # get the comment and make some security checks...
+    allowed = None
     try:
         comment = Comment.objects.get(id=id)
         if comment.content_type.model == "person" and request.user.has_perm('person.can_change'):

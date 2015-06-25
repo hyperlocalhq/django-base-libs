@@ -75,6 +75,7 @@ class DatePeriodNode(template.Node):
     
     def _get_end_date_formatted(self):
 
+        end_date_format = None
         if self.end_dd and self.end_mm and self.end_yyyy:
             end_date_format = DATE_FORMAT
         elif self.end_dd and self.end_mm:
