@@ -284,6 +284,7 @@ class JobOfferForm: # namespace
             )
 
 
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         if current_step == "step_main_data":
             step_main_data = form_step_data['step_main_data']
@@ -297,9 +298,8 @@ class JobOfferForm: # namespace
                 except:
                     pass
         return form_step_data
-    
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         step_main_data = form_step_data['step_main_data']
         step_categories = form_step_data['step_categories']
@@ -422,7 +422,6 @@ class JobOfferForm: # namespace
         
         return form_step_data
     
-    save_data = staticmethod(save_data)
 
 ADD_JOB_OFFER_FORM_STEPS = {
     'step_main_data': {

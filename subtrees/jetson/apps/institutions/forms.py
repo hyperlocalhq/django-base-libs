@@ -594,10 +594,11 @@ class InstitutionForm: # Namespace
                     required=False
                     )
     
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         return form_step_data
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         
         user = get_current_user()
@@ -759,8 +760,6 @@ class InstitutionForm: # Namespace
         # this is used for redirection to the institution details page
         form_steps['success_url'] = institution.get_url()
         return form_step_data
-    
-    save_data = staticmethod(save_data)
 
 ADD_INSTITUTION_FORM_STEPS = {
     0: {

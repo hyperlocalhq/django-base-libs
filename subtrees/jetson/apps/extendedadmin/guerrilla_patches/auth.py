@@ -16,12 +16,12 @@ def patch_auth():
         # used by grappelli's autocomplete widget
         return (u"%s %s (%s)" % (self.first_name, self.last_name, self.username)).strip()
 
+    @staticmethod
     def autocomplete_search_fields():
         return ("id__iexact", "first_name__icontains", "last_name__icontains", "username__icontains",)
 
     User.get_verbose = auth_user_get_verbose
     User.related_label = related_label
-    User.autocomplete_search_fields = staticmethod(autocomplete_search_fields)
     User._meta.one_to_one_field = None # why?
     User._meta.ordering = ('username',)
     

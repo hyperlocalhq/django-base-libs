@@ -240,10 +240,11 @@ class GroupAddingForm: # Namespace
                     required=False
                     )
     
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         return form_step_data
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         user = get_current_user()
         group = PersonGroup(
@@ -319,8 +320,6 @@ class GroupAddingForm: # Namespace
         # this is used for redirection to the events details page
         form_steps['success_url'] = '%s/%s/' % (URL_ID_PERSONGROUP, group.slug)
         return form_step_data
-    
-    save_data = staticmethod(save_data)
 
 ADD_GROUP_FORM_STEPS = {
     0: {
@@ -732,6 +731,7 @@ class Invitation: # Namespace
                     self.fields['p%d_position' % index].required = False
                     self.fields['p%d_email' % index].required = False
             
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         if current_step == 0:
             for i in range(1,6):
@@ -750,8 +750,8 @@ class Invitation: # Namespace
                         form_step_data[current_step]["p%d_first_name" % i] = p.user.first_name
                         form_step_data[current_step]["p%d_last_name" % i] = p.user.last_name
         return form_step_data
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         existing_additional_contacts = []
         new_additional_contacts = []
@@ -898,7 +898,6 @@ class Invitation: # Namespace
                 )
         
         return form_step_data
-    save_data = staticmethod(save_data)
 
 INVITATION_FORM_STEPS = {
     0: {

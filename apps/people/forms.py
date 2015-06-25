@@ -1419,6 +1419,7 @@ class Registration: # Namespace
             initial=True,
             )
             
+    @staticmethod
     def submit_step(current_step, form_steps, form_step_data):
         if current_step == 0:
             if form_step_data[current_step]['account_type'] == '0':
@@ -1470,8 +1471,8 @@ class Registration: # Namespace
                         form_step_data[current_step]["p%d_last_name" % i] = p.user.last_name
                         
         return form_step_data
-    submit_step = staticmethod(submit_step)
-    
+
+    @staticmethod
     def save_data(form_steps, form_step_data):
         existing_additional_contacts = []
         new_additional_contacts = []
@@ -1903,7 +1904,6 @@ class Registration: # Namespace
             send_immediately=True,
             )
         return form_step_data
-    save_data = staticmethod(save_data)
 
 REGISTRATION_FORM_STEPS = {
     0: {
