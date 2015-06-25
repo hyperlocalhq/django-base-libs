@@ -30,12 +30,14 @@ EXTERNAL_LIBS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "libs")
 EXTERNAL_APPS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "apps")
 BASE_LIBS_PATH = os.path.join(JETSON_PATH, "base_libs")
 TAGGING_PATH = os.path.join(JETSON_PATH, "tagging")
+FILEBROWSER_PATH = os.path.join(JETSON_PATH, "filebrowser")
 sys.path = [
     "",
     EXTERNAL_LIBS_PATH,
     EXTERNAL_APPS_PATH,
     BASE_LIBS_PATH,
     TAGGING_PATH,
+    FILEBROWSER_PATH,
     JETSON_PATH,
     PROJECT_PATH,
 ] + sys.path
