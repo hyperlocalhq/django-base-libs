@@ -16,7 +16,12 @@ from django.contrib.admin.util import get_model_from_relation
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.contrib.admin.forms import ERROR_MESSAGE
+from django.contrib.admin.forms import AdminAuthenticationForm
+try:
+    from django.contrib.admin.forms import ERROR_MESSAGE
+except ImportError:
+    ERROR_MESSAGE = AdminAuthenticationForm.error_messages['invalid_login']
+
 from django.contrib.admin.sites import site
 
 def patch_admin():
