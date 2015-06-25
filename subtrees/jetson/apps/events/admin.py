@@ -22,9 +22,9 @@ from base_libs.admin.tree_editor import TreeEditor
 
 from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
-Address = models.get_model("location", "Address")
-Locality = models.get_model("location", "Locality")
-Geoposition = models.get_model("location", "Geoposition")
+from jetson.apps.location.models import Address
+from jetson.apps.location.models import Locality
+from jetson.apps.location.models import Geoposition
 
 Event = models.get_model("events", "Event")
 EventType = models.get_model("events", "EventType")

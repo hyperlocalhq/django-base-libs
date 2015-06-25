@@ -16,6 +16,7 @@ from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.utils.encoding import force_unicode
 from django.utils.text import capfirst
+from django.apps import apps
 
 from base_libs.models.models import HierarchyMixin
 from base_libs.models.models import UrlMixin
@@ -56,9 +57,6 @@ DATETIME_FORMAT = get_format('DATETIME_FORMAT')
 TIME_FORMAT = get_format('TIME_FORMAT')
 MONTH_DAY_FORMAT = get_format('MONTH_DAY_FORMAT')
 YEAR_MONTH_FORMAT = get_format('YEAR_MONTH_FORMAT')
-
-Person = models.get_model("people", "Person")
-Institution = models.get_model("institutions", "Institution")
 
 verbose_name = _("Events")
 
@@ -430,9 +428,9 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
     event_type = TreeForeignKey(EventType, verbose_name=_("Event type"), related_name="type_events",)
 
     venue_title = models.CharField(_("Title"), max_length=255, blank=True)
-    if Institution:
+    if apps.is_installed("institutions"):
         venue = models.ForeignKey(
-            Institution,
+            "institutions.Institution",
             verbose_name=_("Venue"),
             blank=True,
             null=True,
@@ -449,9 +447,9 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
 
     postal_address = models.ForeignKey(Address, verbose_name=_("Postal Address"), related_name="address_events", null=True, blank=True)
     
-    if Institution:
+    if apps.is_installed("institutions"):
         organizing_institution = models.ForeignKey(
-            Institution,
+            "institutions.Institution",
             verbose_name=_("Organizing institution"),
             blank=True,
             null=True,
@@ -464,9 +462,9 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
                 null="True",
                 ))
         
-    if Person:
+    if apps.is_installed("people"):
         organizing_person = models.ForeignKey(
-            Person,
+            "people.Person",
             verbose_name=_("Organizing person"),
             blank=True,
             null=True,
