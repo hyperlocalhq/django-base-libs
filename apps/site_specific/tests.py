@@ -17,7 +17,3 @@ class URLPatternReverse(TestCase):
 
     def test_urlpatterns_and_views(self):
         return
-        for name, args, kwargs, status_code in test_data:
-            url = reverse(name, args=args, kwargs=kwargs)
-            response = self.client.get(url)
-            self.failUnlessEqual(response.status_code, status_code)

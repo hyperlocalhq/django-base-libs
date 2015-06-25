@@ -436,7 +436,6 @@ def edit_profile(request, object_type, slug, section_name="", index=None):
         return access_denied(request)
     if not section_name:
         return HttpResponse("")
-        raise Http404()
     section_template = "%s/profile/%s_form.html" % (
         specifics['template_folder'],
         section_name,
@@ -939,9 +938,6 @@ def test_view(request, *args, **kwargs):
     else:
         request.httpstate['test'] = "OK"
     raise Warning
-    result = "\n".join([force_unicode(item) for item in request.httpstate.items()])
-    response = HttpResponse(result, content_type="text/plain")
-    return response
 
 
 @never_cache

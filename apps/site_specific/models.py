@@ -500,7 +500,7 @@ class ClaimRequest(ObjectRelationForClaimRequest):
             self.user.profile.get_absolute_url(),
             self.user.profile.get_title(),
             )
-        return self.user
+
     get_claimer.short_description = _('User')
     get_claimer.allow_tags = True
     get_claimer.admin_order_field = 'user' 

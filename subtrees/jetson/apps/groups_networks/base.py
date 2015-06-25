@@ -601,8 +601,7 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
         return bool(
             self.get_unconfirmed().filter(user=user)
             )
-        return False
-        
+
     def is_member_request_acceptable(self, user=None):
         current_user = get_current_user()
         return bool(

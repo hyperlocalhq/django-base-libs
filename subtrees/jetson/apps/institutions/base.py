@@ -682,24 +682,6 @@ class InstitutionalContactBase(models.Model):
                 )
         return self._ims_cache
 
-        if not hasattr(self, '_emails_cache'):
-            if self.institution.is_email_displayed():
-                self._emails_cache = [{
-                    "type": getattr(self, "email%d_type" % pos),
-                    "address": getattr(self, "email%d_address" % pos),
-                    "address_protected": getattr(self, "email%d_address" % pos).replace("@", " %s " % _("(at)")).replace(".", " %s " % _("(dot)")),
-                    "is_default": getattr(self, "is_email%d_default" % pos),
-                    "is_on_hold": getattr(self, "is_email%d_on_hold" % pos),
-                } for pos in range(3)
-                if getattr(self, "email%d_address" % pos) and not getattr(self, "is_email%d_on_hold" % pos)
-                ]
-                self._emails_cache.sort(
-                    lambda p1, p2: cmp(p2['is_default'], p1['is_default'])
-                    )
-            else:
-                self._emails_cache = []
-        return self._emails_cache
-    
     def get_emails(self):
         if not hasattr(self, '_emails_cache'):
             self._emails_cache = [{
