@@ -117,7 +117,7 @@ class JobOfferManager(models.Manager):
     """
     for comments, see institutions.InstitutionManager
     """
-    def get_query_set(self):
+    def get_queryset(self):
         return ExtendedQuerySet(self.model)
     
     def get_sort_order_mapper(self):

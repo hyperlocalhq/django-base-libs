@@ -30,7 +30,7 @@ class AddressManager(models.Manager):
         IndividualContact = models.get_model("people", "IndividualContact")
         InstitutionalContact = models.get_model("institutions", "InstitutionalContact")
         Event = models.get_model("events", "Event")
-        for el in self.get_query_set():
+        for el in self.get_queryset():
             if el.address_events.count() + el.individual_address.count() + el.institutional_address.count() == 0:
                 el.delete()
         for el in InstitutionalContact.objects.all():

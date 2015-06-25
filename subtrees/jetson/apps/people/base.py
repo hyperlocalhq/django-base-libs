@@ -218,7 +218,7 @@ class IndividualType(MPTTModel, SlugMixin()):
 
 
 class PersonManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return ExtendedQuerySet(self.model)
     
     """

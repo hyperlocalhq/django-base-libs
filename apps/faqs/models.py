@@ -63,7 +63,7 @@ FaqContainer.objects.model = FaqContainer
         
 class FaqCategoryManager(TreeManager):
     def get_roots(self, container):
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
                    container=container, 
                    parent__isnull=True
         )

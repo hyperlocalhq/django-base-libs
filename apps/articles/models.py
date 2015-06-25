@@ -39,8 +39,8 @@ class ArticleType(ArticleTypeBase):
         super(ArticleType, self).save(*args, **kwargs)
 
 class PublishedArticleAllLanguagesManager(PublishingMixinPublishedManager):
-    def get_query_set(self):
-        return super(PublishedArticleAllLanguagesManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(PublishedArticleAllLanguagesManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
     def featured_news(self):
@@ -53,8 +53,8 @@ class PublishedArticleAllLanguagesManager(PublishingMixinPublishedManager):
         return self.exclude(article_type__slug="interviews")
 
 class PublishedArticleManager(PublishingMixinPublishedManager):
-    def get_query_set(self):
-        return super(PublishedArticleManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(PublishedArticleManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             language=get_current_language(),
             )
@@ -66,8 +66,8 @@ class PublishedArticleManager(PublishingMixinPublishedManager):
         return self.exclude(article_type__slug="interviews")
 
 class DraftArticleManager(PublishingMixinDraftManager):
-    def get_query_set(self):
-        return super(PublishedArticleManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(PublishedArticleManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             language=get_current_language(),
             )

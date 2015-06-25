@@ -166,14 +166,14 @@ class CreationModificationMixin(
         abstract = True
 
 class PublishingMixinDraftManager(models.Manager):
-    def get_query_set(self):        
+    def get_queryset(self):
         return super(
             PublishingMixinDraftManager,
             self,
-            ).get_query_set().filter(status__exact=STATUS_CODE_DRAFT)
+            ).get_queryset().filter(status__exact=STATUS_CODE_DRAFT)
 
 class PublishingMixinPublishedManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         conditions = []
         now = tz_now()
         conditions.append(models.Q(
@@ -195,7 +195,7 @@ class PublishingMixinPublishedManager(models.Manager):
         return super(
             PublishingMixinPublishedManager,
             self,
-            ).get_query_set().filter(
+            ).get_queryset().filter(
                 reduce(operator.or_, conditions),
                 ).filter(status__exact=STATUS_CODE_PUBLISHED)
 
@@ -432,8 +432,8 @@ def ObjectRelationMixin(prefix=None, prefix_verbose=None, add_related_name=False
     return klass
 
 class SingleSiteMixinManager(models.Manager):
-    def get_query_set(self):
-        return super(SingleSiteMixinManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(SingleSiteMixinManager, self).get_queryset().filter(
             models.Q(site=None) | models.Q(site=Site.objects.get_current())
             )
 
@@ -461,8 +461,8 @@ class SingleSiteMixin(BaseModel):
         abstract = True
 
 class MultiSiteMixinManager(models.Manager):
-    def get_query_set(self):
-        return super(MultiSiteMixinManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(MultiSiteMixinManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
 
@@ -643,7 +643,7 @@ class HierarchyMixinManager(models.Manager):
     A manager for HierarchyMixin abstract class below.
     """
     def get_roots(self):
-        roots = self.get_query_set().filter(parent__isnull=True)
+        roots = self.get_queryset().filter(parent__isnull=True)
         if roots.count() > 0:
             return roots
         else:
@@ -1000,14 +1000,14 @@ def MultilingualSlugMixin(
     return klass    
 
 class ContentBaseMixinDraftManager(PublishingMixinDraftManager):
-    def get_query_set(self):
-        return super(ContentBaseMixinDraftManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(ContentBaseMixinDraftManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
 
 class ContentBaseMixinPublishedManager(PublishingMixinPublishedManager):
-    def get_query_set(self):
-        return super(ContentBaseMixinPublishedManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(ContentBaseMixinPublishedManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
         

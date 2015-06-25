@@ -65,7 +65,7 @@ class ContextItemManager(models.Manager):
         super(ContextItemManager, self).__init__()
         self._search_fields = fields
 
-    def get_query_set(self):
+    def get_queryset(self):
         """
         fulltext search functionality
         """
@@ -82,10 +82,10 @@ class ContextItemManager(models.Manager):
         """
         fulltext search functionality
         """
-        return self.get_query_set().search(query)
+        return self.get_queryset().search(query)
     
     def recreate_all(self):
-        for item in self.get_query_set(): 
+        for item in self.get_queryset():
             if not item.content_object: 
                 item.delete() 
         for Model in CONTEXT_ITEM_MODELS:
@@ -297,7 +297,7 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
 
 class MappedItemManager(models.Manager):
     def recreate_all(self):
-        for item in self.get_query_set(): 
+        for item in self.get_queryset():
             if not item.content_object: 
                 item.delete() 
         for Model in MAPPED_ITEM_MODELS:

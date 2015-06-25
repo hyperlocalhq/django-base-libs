@@ -21,7 +21,7 @@ verbose_name = _("Jovoto")
 
 class IdeaManager(models.Manager):
     
-    def get_query_set(self):
+    def get_queryset(self):
         q = ExtendedQuerySet(self.model)
 
         # we add a field "comments" into the queryset representing the comment count.

@@ -180,7 +180,7 @@ class InstitutionType(MPTTModel, SlugMixin()):
 
 
 class InstitutionManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return ExtendedQuerySet(self.model)
     
     """

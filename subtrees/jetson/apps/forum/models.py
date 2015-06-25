@@ -133,7 +133,7 @@ ForumContainer.objects.model = ForumContainer
         
 class ForumManager(TreeManager):
     def get_roots(self, container, status):
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
                    container=container, 
                    parent__isnull=True,
                    status=status,

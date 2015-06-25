@@ -159,7 +159,7 @@ class GroupType(MPTTModel, SlugMixin()):
 
 class PersonGroupManager(models.Manager):
     
-    def get_query_set(self):
+    def get_queryset(self):
         """
         we need an extended queryset for advanced order_by options
         """

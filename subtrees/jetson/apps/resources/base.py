@@ -129,7 +129,7 @@ class DocumentManager(models.Manager):
     """
     for comments, see institutions.InstitutionManager
     """
-    def get_query_set(self):
+    def get_queryset(self):
         return ExtendedQuerySet(self.model)
     
     def _get_title_fields(self, prefix=''):
