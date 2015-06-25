@@ -216,7 +216,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
             return qs.filter(sites__in=[site_id])[0]
         
 def json_get_objects_from_contenttype(request, content_type_id):
-    "Gets all objects with a given contenttype"
+    """Gets all objects with a given contenttype"""
     json_str = "false"
     if True:
         content_type = ContentType.objects.get(id=content_type_id)

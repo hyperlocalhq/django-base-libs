@@ -151,7 +151,7 @@ def ObjectRelationMixinAdminOptions(
             return field
             
     def get_content_object_display(self, obj):
-        " this method is just used for display in the admin"
+        """this method is just used for display in the admin"""
         co = getattr(obj, content_object_field)
         if not co:
             return "-------"

@@ -451,7 +451,7 @@ class SingleSiteMixin(BaseModel):
     site_objects = SingleSiteMixinManager()
     
     def get_site(self):
-        "used for display in the admin"
+        """used for display in the admin"""
         if not self.site:
             return _("All")
         return self.site.name
@@ -597,7 +597,7 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
     container = MultiSiteContainerMixinManager()
     
     def get_sites(self):
-        "used for display in the admin"
+        """used for display in the admin"""
         if len(self.sites.all()) == 0:
             return _("All")
         sites = ""
