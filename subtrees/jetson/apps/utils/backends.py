@@ -16,7 +16,7 @@ class EmailBackend:
         except User.DoesNotExist:
             pass
         else:
-            if password != None:
+            if password is not None:
                 if not check_password(password, user.password):
                     user = None
         return user

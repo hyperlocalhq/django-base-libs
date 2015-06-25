@@ -87,7 +87,7 @@ class Ticket(ObjectRelationMixin()):
         if not self.id:   
             self.submitter = get_current_user()
             # fill in user name and email
-            if self.submitter != None:
+            if self.submitter is not None:
                 self.submitter_name = self.submitter.first_name + ' ' + self.submitter.last_name 
                 if len(self.submitter_name) < 2:
                     self.submitter_name = self.submitter.username

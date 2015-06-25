@@ -252,7 +252,7 @@ def add_methods_to_user():
                 )
         except RowLevelPermission.DoesNotExist:
             perms = self.check_per_object_group_permissions(permission, obj)
-            if perms!=None:
+            if perms is not None:
                 return perms
             else:
                 return self.check_group_row_level_permissions(permission, obj)

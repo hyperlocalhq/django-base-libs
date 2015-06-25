@@ -98,7 +98,7 @@ class RowLevelPermissionsBackend(ModelBackend):
                 )
         except RowLevelPermission.DoesNotExist:
             perms = self.check_per_object_group_permissions(user_obj, permission, obj)
-            if perms!=None:
+            if perms is not None:
                 return perms
             else:
                 return self.check_group_row_level_permissions(user_obj, permission, obj)

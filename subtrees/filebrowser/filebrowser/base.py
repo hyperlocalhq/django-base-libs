@@ -56,7 +56,7 @@ class FileListing():
 
     _is_folder_stored = None
     def _is_folder(self):
-        if self._is_folder_stored == None:
+        if self._is_folder_stored is None:
             self._is_folder_stored = self.site.storage.isdir(self.path)
         return self._is_folder_stored
     is_folder = property(_is_folder)
@@ -100,7 +100,7 @@ class FileListing():
     
     def files_listing_total(self):
         "Returns FileObjects for all files in listing"
-        if self._fileobjects_total == None:
+        if self._fileobjects_total is None:
             self._fileobjects_total = []
             for item in self.listing():
                 fileobject = FileObject(os.path.join(self.path, item), site=self.site)
@@ -220,7 +220,7 @@ class FileObject():
     # GENERAL ATTRIBUTES
     _filetype_stored = None
     def _filetype(self):
-        if self._filetype_stored != None:
+        if self._filetype_stored is not None:
             return self._filetype_stored
         if self.is_folder:
             self._filetype_stored = 'Folder'
@@ -231,7 +231,7 @@ class FileObject():
     
     _filesize_stored = None
     def _filesize(self):
-        if self._filesize_stored != None:
+        if self._filesize_stored is not None:
             return self._filesize_stored
         if self.exists():
             self._filesize_stored = self.site.storage.size(self.path)
@@ -241,7 +241,7 @@ class FileObject():
     
     _date_stored = None
     def _date(self):
-        if self._date_stored != None:
+        if self._date_stored is not None:
             return self._date_stored
         if self.exists():
             self._date_stored = time.mktime(self.site.storage.modified_time(self.path).timetuple())
@@ -257,7 +257,7 @@ class FileObject():
 
     _exists_stored = None
     def exists(self):
-        if self._exists_stored == None:
+        if self._exists_stored is None:
             self._exists_stored = self.site.storage.exists(self.path)
         return self._exists_stored
     
@@ -278,7 +278,7 @@ class FileObject():
     def _dimensions(self):
         if self.filetype != 'Image':
             return None
-        if self._dimensions_stored != None:
+        if self._dimensions_stored is not None:
             return self._dimensions_stored
         try:
             im = Image.open(self.site.storage.open(self.path))
@@ -327,7 +327,7 @@ class FileObject():
     
     _is_folder_stored = None
     def _is_folder(self):
-        if self._is_folder_stored == None:
+        if self._is_folder_stored is None:
             self._is_folder_stored = self.site.storage.isdir(self.path)
         return self._is_folder_stored
     is_folder = property(_is_folder)
