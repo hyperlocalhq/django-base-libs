@@ -42,6 +42,7 @@ class IncludeSelectNode(template.Node):
                 if settings.TEMPLATE_DEBUG:
                     raise
         # the first case (see below)
+        t = None
         if self.case == 0:
             try:
                 t = select_template(param_list)

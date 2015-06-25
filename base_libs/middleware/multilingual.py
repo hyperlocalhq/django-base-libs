@@ -36,6 +36,7 @@ class MultilingualURLMiddleware:
     def get_language_from_request(self,request):
         changed = False
         prefix = has_lang_prefix(request.path_info)
+        lang = None
         if prefix:
             request.path = "/" + "/".join((request.META.get('SCRIPT_URL', "") or request.path).split("/")[2:])
             request.path_info = "/" + "/".join((request.META.get('SCRIPT_URL', "") or request.path_info).split("/")[2:])
