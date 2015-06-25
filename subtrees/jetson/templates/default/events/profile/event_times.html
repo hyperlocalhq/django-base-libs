@@ -1,0 +1,24 @@
+{% load i18n base_tags auth_extended babel %}
+
+<h6 class="section-header">{% trans "Event Times" %}</h6>
+<div class="section-details">
+    {% if object.has_start_date or object.has_end_date %}
+        <dl id="event-occurrences">
+            <dt>{% trans "When" %}</dt>
+            <dd>
+                {% if event_time %}
+                    {% with event_time as time %}
+                        {% include "events/includes/event_time.html" %}
+                    {% endwith %}
+                    <br/>
+                    <a href="{{ event_time.event.get_absolute_url }}#event-occurrences">{% trans "See all occurrences" %}</a>
+                {% else %}
+                    {% for time in object.eventtime_set.all %}
+                        {% include "events/includes/event_time.html" %}
+                        {% if not forloop.last %}<br />{% endif %}
+                    {% endfor %}
+                {% endif %}
+            </dd>
+        </dl>
+    {% endif %}	
+</div>

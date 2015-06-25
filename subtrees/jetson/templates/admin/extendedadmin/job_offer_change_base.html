@@ -1,0 +1,827 @@
+{% extends "admin/change_form.html" %}
+
+<!-- LOADING -->
+{% load base_tags i18n auth_extended extended_admin adminmedia compressed_jetson %}
+
+<!-- STYLES -->
+{% block extrastyle %}
+    {{ block.super }}
+    <style type="text/css">
+    /*<![CDATA[*/
+        #break_start_row, #break_end_row {
+            display: none;
+        }
+    /*]]>*/
+    </style>
+{% endblock %}
+
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectBox.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/SelectFilter2.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/CollapsedFieldsets.js"></script>
+    
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
+    
+    <script type="text/javascript" src="{% admin_media_prefix %}js/urlify.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}filebrowser/js/AddFileBrowser.js"></script>
+    {% compressed_jetson_js "admin_job_offer_change" %}
+    
+    <script type="text/javascript" src="{% admin_media_prefix %}js/collapse.min.js"></script>
+    <script type="text/javascript" src="{% admin_media_prefix %}js/inlines.min.js"></script>
+    <!--
+    <script type="text/javascript" charset="utf-8">
+        (function($) {
+            $(document).ready(function() {
+                grappelli.initDateAndTimePicker();
+                $("div.container-flexible div.group").grp_collapsible_group();
+                $("div#content .collapse").grp_collapsible({
+                    on_init: function(elem, options) {
+                        // open collapse (and all collapse parents) in case of errors
+                        if (elem.find("ul.errorlist").length > 0) {
+                            elem.removeClass("closed")
+                                .addClass("open");
+                            elem.parents(".collapse")
+                                .removeClass("closed")
+                                .addClass("open");
+                        }
+                    }
+                });
+            });
+        })(django.jQuery);
+    </script>
+    -->
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS -->
+{% block bodyclass %}change-form job-offer{% endblock %}
+{% block content-class %}content-flexible{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumbs %}
+    {% if not is_popup %}
+        <div id="breadcrumbs">
+             <a href="../../../">{% trans "Home" %}</a> &rsaquo;
+             <a href="../../">{{ "Marketplace"|app_verbose_name }}</a> &rsaquo; 
+             <a href="../">{% trans "Job Offers" %}</a> &rsaquo; 
+             {% if original %}{{ original|truncatewords:"18" }}{% else %}{% trans "Add" %} {% trans "Job Offer" %}{% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+<!-- OBJECT TOOLS -->
+{% block object-tools %}
+    {% if change %}
+        {% if not is_popup %}
+            <ul class="tools">
+                <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+                {% if original.row_level_permissions %}
+                    {% if_has_perm "auth.change_rowlevelpermission" original %}
+                        <li><a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a></li>
+                    {% end_if_has_perm %}
+                {% endif %}
+                {% if original.get_url_path %}
+                    <li><a href="{{ original.get_url_path }}" class="viewsitelink">{% trans "View on site" %}</a></li>
+                {% endif%}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+    <div id="content-main" class="container-flexible">
+        <div class="form-container">
+            <form action="" method="post" id="job_offer_form">{% csrf_token %}
+                <div>
+                    <!-- Popup Hidden Field -->
+                    {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+                    
+                    <!-- Errors -->
+                    {% if form.errors %}
+                        <p class="errornote">
+                        {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                        </p>
+                        {{ form.non_field_errors }}
+                    {% endif %}
+                    
+                    <!-- Fieldsets -->
+                    {% block fieldset_job_offer %}
+                        <fieldset class="module aligned collapse open">
+                            <h2>{% trans "Job Offer" %}</h2>
+                            {{ form.user_id }}
+                            <div class="row{% if form.position.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_position"{% if form.position.field.required %} class="required"{% endif %}>{% trans "Position" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.position }}
+                                        {{ form.position.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.job_type.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_job_type"{% if form.job_type.field.required %} class="required"{% endif %}>{% trans "Job Type" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.job_type }}
+                                        {{ form.job_type.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.qualifications.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_qualifications"{% if form.qualifications.field.required %} class="required"{% endif %}>{% trans "Qualifications" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.qualifications }}
+                                        {{ form.qualifications.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.job_sectors.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_job_sectors"{% if form.job_sectors.field.required %} class="required"{% endif %}>{% trans "Job Sectors" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.job_sectors }}
+                                        {{ form.job_sectors.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row checkbox-row">
+                                <div>
+                                    <div class="column span-4">&nbsp;</div>
+                                    <div class="column span-flexible">
+                                        {{ form.is_commercial }}<label for="id_is_commercial" class="vCheckboxLabel">{{ form.is_commercial.label }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    {% endblock %}
+                    
+                    {% block fieldset_job_offer_details %}
+                        <fieldset class="module aligned collapse closed">
+                            <h2 class="collapse-handler">{% trans "Details" %}</h2>
+                            {% if form.description %}
+                                <div class="row description{% if form.description.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4"><label for="id_description"{% if form.description.field.required %} class="required"{% endif %}>{% trans "Description" %}:</label></div>
+                                        <div class="column span-flexible">
+                                            {{ form.description_markup_type }}
+                                            {% if form.description_markup_type.help_text %}<span class="help">{{ form.description_markup_type.help_text|safe }}</span>{% endif %}
+                                            {{ form.description.errors }}
+                                            <p class="help">{{ form.description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </fieldset>
+                    {% endblock %}
+            
+                    {% block fieldset_organizer %}
+                        <fieldset class="module aligned collapse closed">
+                            <h2 class="collapse-handler">{% trans "Offerer" %}</h2>
+                            {% if form.offering_institution %}
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4"><label for="id_offering_institution"{% if form.offering_institution.field.required %} class="required"{% endif %}>{% trans "Select the offering institution" %}:</label></div>
+                                        <div class="column span-flexible">
+                                            {{ form.offering_institution }}
+                                            {{ form.offering_institution.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4"><label for="id_offering_institution_title"{% if form.offering_institution_title.field.required %} class="required"{% endif %}>{% trans "... or enter an institution title" %}:</label></div>
+                                        <div class="column span-flexible">
+                                            {{ form.offering_institution_title }}
+                                            {{ form.offering_institution_title.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4"><label for="id_offering_institution_title"{% if form.offering_institution_title.field.required %} class="required"{% endif %}>{% trans "Offering institution title" %}:</label></div>
+                                        <div class="column span-flexible">
+                                            {{ form.offering_institution_title }}
+                                            {{ form.offering_institution_title.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if form.contact_person %}
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4"><label for="id_contact_person"{% if form.contact_person.field.required %} class="required"{% endif %}>{% trans "Select a contact person" %}:</label></div>
+                                        <div class="column span-flexible">
+                                            {{ form.contact_person }}
+                                            {{ form.contact_person.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4"><label for="id_contact_person_name"{% if form.contact_person_name.field.required %} class="required"{% endif %}>{% trans "... or enter contact person name" %}:</label></div>
+                                        <div class="column span-flexible">
+                                            {{ form.contact_person_name }}
+                                            {{ form.contact_person_name.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4"><label for="id_contact_person_name"{% if form.contact_person_name.field.required %} class="required"{% endif %}>{% trans "Contact person name" %}:</label></div>
+                                        <div class="column span-flexible">
+                                            {{ form.contact_person_name }}
+                                            {{ form.contact_person_name.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </fieldset>
+                    {% endblock %}
+                    
+                    
+                    {% block fieldset_location %}
+                        <fieldset class="module aligned collapse closed">
+                            <h2 class="collapse-handler">{% trans "Contact Info" %}</h2>
+                            <fieldset class="module aligned nested">
+                                <h2>{% trans "Address" %}</h2>
+                                <div class="map-settings">
+                                    <div class="row{% if form.street_address.errors %} errors{% endif %}">
+                                        <div class="span-8">
+                                            <label for="id_street_address"{% if form.street_address.field.required %} class="required"{% endif %}>{% trans "Street Address" %}:</label>
+                                            {{ form.street_address }}
+                                            {{ form.street_address.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.street_address2.errors %} errors{% endif %}">
+                                        <div class="span-8">
+                                            <label for="id_street_address2"{% if form.street_address2.field.required %} class="required"{% endif %}></label>
+                                            {{ form.street_address2 }}
+                                            {{ form.street_address2.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.street_address3.errors %} errors{% endif %}">
+                                        <div class="span-8">
+                                            <label for="id_street_address3"{% if form.street_address3.field.required %} class="required"{% endif %}></label>
+                                            {{ form.street_address3 }}
+                                            {{ form.street_address3.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.postal_code.errors %} errors{% endif %}">
+                                        <div class="span-8">
+                                            <label for="id_postal_code"{% if form.postal_code.field.required %} class="required"{% endif %}>{% trans "Postal Code/ZIP" %}:</label>
+                                            {{ form.postal_code }}
+                                            {{ form.postal_code.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.neighborhood.errors %} errors{% endif %}">
+                                        <div class="span-8">
+                                            <label for="id_neighborhood"{% if form.neighborhood.field.required %} class="required"{% endif %}>{% trans "Neighborhood" %}:</label>
+                                            {{ form.neighborhood }}
+                                            {{ form.neighborhood.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.district.errors %} errors{% endif %}">
+                                        <div class="span-8">
+                                            <label for="id_district"{% if form.district.field.required %} class="required"{% endif %}>{% trans "District" %}:</label>
+                                            {{ form.district }}
+                                            {{ form.district.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.city.errors %} errors{% endif %}">
+                                        <div class="span-8">
+                                            <label for="id_city"{% if form.city.field.required %} class="required"{% endif %}>{% trans "City" %}:</label>
+                                            {{ form.city }}
+                                            {{ form.city.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.state.errors %} errors{% endif %}">
+                                        <div class="span-8">
+                                            <label for="id_state"{% if form.state.field.required %} class="required"{% endif %}>{% trans "State" %}:</label>
+                                            {{ form.state }}
+                                            {{ form.state.errors }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- Add jquery-based Country autoselection -->
+                                        <label for="id_state"{% if form.country.field.required %} class="required"{% endif %}>{% trans "Country" %}:</label>
+                                        {{ form.country }}
+                                        {{ form.country.errors }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <iframe src="/gmap/" id="gmap" style="width: 430px; height: 300px; border: none; margin-bottom: 5px;"></iframe>
+                                    </div>
+                                    <div class="row{% if form.latitude.errors or form.longitude.errors or form.altitude.errors %} errors{% endif %}">
+                                        <div class="cell">
+                                            <div class="column span-4">
+                                                <label for="id_latitude"{% if form.latitude.field.required %} class="required"{% endif %}>{% trans "Latitude" %}</label>
+                                                {{ form.latitude }}
+                                                {{ form.latitude.errors }}
+                                            </div>
+                                        </div>
+                                        <div class="cell">
+                                            <div class="column span-4">
+                                                <label for="id_longitude"{% if form.longitude.field.required %} class="required"{% endif %}>{% trans "Longitude" %}</label>
+                                                {{ form.longitude }}
+                                                {{ form.longitude.errors }}
+                                            </div>
+                                        </div>
+                                        <div class="cell">
+                                            <div class="column span-4">
+                                                <label for="id_altitude"{% if form.altitude.field.required %} class="required"{% endif %}>{% trans "Altitude" %}</label>
+                                                {{ form.altitude }}
+                                                {{ form.altitude.errors }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">&nbsp;</div>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </fieldset>
+                            <fieldset class="module aligned phone nested">
+                                <h2>{% trans "Phones" %}</h2>
+                                <div class="phone-fields">
+                                    <div class="row">
+                                        <div>
+                                            <div class="column span-4">&nbsp;</div>
+                                            <div class="column span-4">
+                                                <a href="../../../optionset/phonetype/add/" id="add_id_individualcontact_set-{{ forloop.counter0 }}-phone0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                                            </div>
+                                        
+                                            <div class="column span-2">
+                                                <div>{% trans "Country" %}</div>
+                                            </div>
+                                            
+                                            <div class="column span-4">
+                                                <div>{% trans "Area" %} {% ifequal LANGUAGE_CODE "de" %}<br/>{% endifequal %}{% trans "w/o (0)" %}</div>
+                                            </div>
+                                            
+                                            <div class="column span-4">
+                                                <div>{% ifequal LANGUAGE_CODE "de" %}{% trans "Number" %} <br/>{% endifequal %}{% trans "plus extension" %}</div>
+                                            </div>
+                                            
+                                            <div class="column span-2">
+                                                <div>{% trans "Default" %}</div>
+                                            </div>
+                                            
+                                            <div class="column span-2">
+                                                <div>{% trans "On hold" %}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.phone0_type.errors or form.phone0_country.errors or form.phone0_area.errors or form.phone0_number.errors or form.is_phone0_default.errors or form.is_phone0_on_hold.errors %} errors{% endif %}">
+                                        <div>
+                                            <div class="column span-4">&nbsp;</div>
+                                            <div class="column span-4">
+                                                {{ form.phone0_type }}
+                                                {{ form.phone0_type.errors }}
+                                            </div>
+                                        
+                                            <div class="column span-2">
+                                                + {{ form.phone0_country }}
+                                                {{ form.phone0_country.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-4">
+                                                {{ form.phone0_area }}
+                                                {{ form.phone0_area.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-4">
+                                                {{ form.phone0_number }}
+                                                {{ form.phone0_number.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-2">
+                                                {{ form.is_phone0_default }}
+                                                {{ form.is_phone0_default.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-2">
+                                                {{ form.is_phone0_on_hold }}
+                                                {{ form.is_phone0_on_hold.errors }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.phone1_type.errors or form.phone1_country.errors or form.phone1_area.errors or form.phone1_number.errors or form.is_phone1_default.errors or form.is_phone1_on_hold.errors %} errors{% endif %}">
+                                        <div>
+                                            <div class="column span-4">&nbsp;</div>
+                                            <div class="column span-4">
+                                                {{ form.phone1_type }}
+                                                {{ form.phone1_type.errors }}
+                                            </div>
+                                        
+                                            <div class="column span-2">
+                                                + {{ form.phone1_country }}
+                                                {{ form.phone1_country.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-4">
+                                                {{ form.phone1_area }}
+                                                {{ form.phone1_area.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-4">
+                                                {{ form.phone1_number }}
+                                                {{ form.phone1_number.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-2">
+                                                {{ form.is_phone1_default }}
+                                                {{ form.is_phone1_default.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-2">
+                                                {{ form.is_phone1_on_hold }}
+                                                {{ form.is_phone1_on_hold.errors }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row{% if form.phone2_type.errors or form.phone2_country.errors or form.phone2_area.errors or form.phone2_number.errors or form.is_phone2_default.errors or form.is_phone2_on_hold.errors %} errors{% endif %}">
+                                        <div>
+                                            <div class="column span-4">&nbsp;</div>
+                                            <div class="column span-4">
+                                                {{ form.phone2_type }}
+                                                {{ form.phone2_type.errors }}
+                                            </div>
+                                        
+                                            <div class="column span-2">
+                                                + {{ form.phone2_country }}
+                                                {{ form.phone2_country.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-4">
+                                                {{ form.phone2_area }}
+                                                {{ form.phone2_area.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-4">
+                                                {{ form.phone2_number }}
+                                                {{ form.phone2_number.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-2">
+                                                {{ form.is_phone2_default }}
+                                                {{ form.is_phone2_default.errors }}
+                                            </div>
+                                            
+                                            <div class="column span-2">
+                                                {{ form.is_phone2_on_hold }}
+                                                {{ form.is_phone2_on_hold.errors }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="module aligned e-mail nested">
+                                <h2>{% trans "E-mail Addresses" %}</h2>
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            <a href="../../../optionset/emailtype/add/" id="add_id_individualcontact_set-{{ forloop.counter0 }}-email0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                                        </div>
+                                        <div class="column span-10">
+                                            <div>{% trans "Email Address" %}</div>
+                                        </div>
+                                        <div class="column span-2">
+                                            <div>{% trans "Default" %}</div>
+                                        </div>
+                                        <div class="column span-2">
+                                            <div>{% trans "On hold" %}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.email0_type.errors or form.email0_address.errors or form.is_email0_default.errors or form.is_email0_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.email0_type }}
+                                            {{ form.email0_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.email0_address }}
+                                            {{ form.email0_address.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_email0_default }}
+                                            {{ form.is_email0_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_email0_on_hold }}
+                                            {{ form.is_email0_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.email1_type.errors or form.email1_address.errors or form.is_email1_default.errors or form.is_email1_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.email1_type }}
+                                            {{ form.email1_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.email1_address }}
+                                            {{ form.email1_address.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_email1_default }}
+                                            {{ form.is_email1_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_email1_on_hold }}
+                                            {{ form.is_email1_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.email2_type.errors or form.email2_address.errors or form.is_email2_default.errors or form.is_email2_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.email2_type }}
+                                            {{ form.email2_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.email2_address }}
+                                            {{ form.email2_address.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_email2_default }}
+                                            {{ form.is_email2_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_email2_on_hold }}
+                                            {{ form.is_email2_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row checkbox-row">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-flexible">
+                                            {{ form.publish_emails }}<label for="id_publish_emails" class="vCheckboxLabel">{{ form.publish_emails.label }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="module aligned websites nested">
+                                <h2>{% trans "Websites" %}</h2>
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            <a href="../../../optionset/urltype/add/" id="add_id_individualcontact_set-{{ forloop.counter0 }}-url0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                                        </div>
+                                        <div class="column span-10">
+                                            <div>{% trans "Website" %}</div>
+                                        </div>
+                                        <div class="column span-2">
+                                            <div>{% trans "Default" %}</div>
+                                        </div>
+                                        <div class="column span-2">
+                                            <div>{% trans "On hold" %}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.url0_type.errors or form.url0_link.errors or form.is_url0_default.errors or form.is_url0_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.url0_type }}
+                                            {{ form.url0_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.url0_link }}
+                                            {{ form.url0_link.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_url0_default }}
+                                            {{ form.is_url0_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_url0_on_hold }}
+                                            {{ form.is_url0_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.url1_type.errors or form.url1_link.errors or form.is_url1_default.errors or form.is_url1_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.url1_type }}
+                                            {{ form.url1_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.url1_link }}
+                                            {{ form.url1_link.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_url1_default }}
+                                            {{ form.is_url1_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_url1_on_hold }}
+                                            {{ form.is_url1_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.url2_type.errors or form.url2_link.errors or form.is_url2_default.errors or form.is_url2_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.url2_type }}
+                                            {{ form.url2_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.url2_link }}
+                                            {{ form.url2_link.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_url2_default }}
+                                            {{ form.is_url2_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_url2_on_hold }}
+                                            {{ form.is_url2_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="module aligned messengers nested">
+                                <h2>{% trans "Instant Messengers" %}</h2>
+                                <div class="row">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            <a href="../../../optionset/imtype/add/" id="add_id_individualcontact_set-{{ forloop.counter0 }}-im0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                                        </div>
+                                        <div class="column span-10">
+                                            <div>{% trans "Instant Messenger" %}</div>
+                                        </div>
+                                        <div class="column span-2">
+                                            <div>{% trans "Default" %}</div>
+                                        </div>
+                                        <div class="column span-2">
+                                            <div>{% trans "On hold" %}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.im0_type.errors or form.im0_address.errors or form.is_im0_default.errors or form.is_im0_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.im0_type }}
+                                            {{ form.im0_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.im0_address }}
+                                            {{ form.im0_address.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_im0_default }}
+                                            {{ form.is_im0_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_im0_on_hold }}
+                                            {{ form.is_im0_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.im1_type.errors or form.im1_address.errors or form.is_im1_default.errors or form.is_im1_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.im1_type }}
+                                            {{ form.im1_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.im1_address }}
+                                            {{ form.im1_address.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_im1_default }}
+                                            {{ form.is_im1_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_im1_on_hold }}
+                                            {{ form.is_im1_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row{% if form.im2_type.errors or form.im2_address.errors or form.is_im2_default.errors or form.is_im2_on_hold.errors %} errors{% endif %}">
+                                    <div>
+                                        <div class="column span-4">&nbsp;</div>
+                                        <div class="column span-4">
+                                            {{ form.im2_type }}
+                                            {{ form.im2_type.errors }}
+                                        </div>
+                                        <div class="column span-10">
+                                            {{ form.im2_address }}
+                                            {{ form.im2_address.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_im2_default }}
+                                            {{ form.is_im2_default.errors }}
+                                        </div>
+                                        <div class="column span-2">
+                                            {{ form.is_im2_on_hold }}
+                                            {{ form.is_im2_on_hold.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </fieldset>
+                    {% endblock %}
+                        
+                    {% block fieldset_additional_info %}
+                        <fieldset class="module aligned collapse closed">
+                            <h2 class="collapse-handler">{% trans "Additional Info" %}</h2>
+                            <div class="row{% if form.additional_info.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_additional_info"{% if form.additional_info.field.required %} class="required"{% endif %}>{% trans "Additional info" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.additional_info_markup_type }}
+                                        {% if form.additional_info_markup_type.help_text %}<span class="help">{{ form.additional_info_markup_type.help_text|safe }}</span>{% endif %}
+                                        <p>{{ form.additional_info }}</p>
+                                        {{ form.additional_info.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <div class="column span-4"><label for="id_state"{% if form.tags.field.required %} class="required"{% endif %}>{% trans "Tags" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.tags }}
+                                        {{ form.tags.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    {% endblock %}
+            
+                    {% block fieldset_status %}
+                        <fieldset class="module aligned collapse closed">
+                            <h2 class="collapse-handler">{% trans "Publish Status" %}</h2>
+                            <div class="row{% if form.author.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_author"{% if form.author.field.required %} class="required"{% endif %}>{% trans "Author" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.author }}
+                                        {{ form.author.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.status.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_status"{% if form.status.field.required %} class="required"{% endif %}>{% trans "Status" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.status }}
+                                        {{ form.status.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.published_from.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_published_from"{% if form.published_from.field.required %} class="required"{% endif %}>{% trans "Publishing date" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.published_from }}
+                                        {{ form.published_from.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row{% if form.published_till.errors %} errors{% endif %}">
+                                <div>
+                                    <div class="column span-4"><label for="id_published_till"{% if form.published_till.field.required %} class="required"{% endif %}>{% trans "Published until" %}:</label></div>
+                                    <div class="column span-flexible">
+                                        {{ form.published_till }}
+                                        {{ form.published_till.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    {% endblock %}
+                    
+                    <!-- Submit-Row -->
+                    <div class="module footer">
+                        <ul class="submit-row">
+                            <li class="left delete-link-container"><a href="delete/" class="delete-link">Delete</a></li>
+                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save' %}" class="default" name="_save" /></li>
+                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" /></li>
+                            <li class="submit-button-container"><input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

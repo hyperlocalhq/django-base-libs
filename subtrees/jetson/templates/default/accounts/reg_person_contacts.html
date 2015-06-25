@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% block extrahead %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/autocomplete.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/gmaps_for_address.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Registration" %} - {% trans "Main Contact Data" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Registration" %}</h2>
+   <h2 class="sub">{% trans "Individual Account" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/registration_step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+<div class="field_layout">
+    <form action="" method="post">
+        {{ form.latitude }}
+        {{ form.longitude }}
+        {{ form.district }}
+        {% comment %}
+        NOT YET IMPLEMENTED
+        <fieldset>
+            <legend>
+                {% trans "Main Data" %}
+            </legend>
+            <ul>
+            </ul>
+        </fieldset>
+        {% endcomment %}
+        <fieldset>
+            <legend>
+                {% trans "Main Data" %}
+            </legend>
+            <ul>
+                <li>
+                    {{ form.individual_type.label_tag }}
+                    {{ form.individual_type }}
+                    {{ form.individual_type.error_tag }}
+                </li>
+                <li>
+                    {{ form.occupation.label_tag }}
+                    {{ form.occupation }}
+                    {{ form.occupation.error_tag }}               
+                </li>
+                <li>
+                    {{ form.institution.label_tag }}
+                    {{ form.institution }}
+                    {{ form.institution.error_tag }}
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset class="fieldset_gmap">
+            <legend>
+                {% trans "Address" %}
+            </legend>
+            <ul>
+                <li>
+                    {{ form.location_type.label_tag }}
+                    {{ form.location_type }}
+                    {{ form.location_type.error_tag }}
+                </li>
+                <li class="label_double_space">
+                    {{ form.location_title.label_tag }}
+                    {{ form.location_title }}
+                    {{ form.location_title.error_tag }}
+                </li>
+                <li>
+                    {{ form.street_address.label_tag }}
+                    {{ form.street_address }}
+                    {{ form.street_address.error_tag }}
+                </li>
+                <li>
+                    {{ form.street_address2.label_tag }}
+                    {{ form.street_address2 }}
+                    {{ form.street_address2.error_tag }}
+                </li>
+                <li>
+                    <label for="id_postal_code">
+                        <strong>{{ form.postal_code.label }} / {{ form.city.label }}*</strong>
+                    </label>
+                    {{ form.postal_code }}
+                    {{ form.city }}
+                    {{ form.city.error_tag }}
+                    {{ form.postal_code.error_tag }}
+                </li>
+                <li>
+                    {{ form.country.label_tag }}
+                    {{ form.country }}
+                    {{ form.country.error_tag }}
+                </li>
+            </ul>
+        </fieldset>
+        {% include "utils/set_geoposition.html" %}
+        <fieldset>
+            <legend>{% trans "Phone" %}</legend>
+            <ul>
+                <li>
+                    <label for="id_phone_number" class="label_with_labelspan">                  {% trans "Phone" %}</label>
+                    <span class="phone">{% trans "Country Code" %}<br />{% trans "without" %} "00"
+                        <span class="phone_label">
+                            {{ form.phone_country }}
+                            {{ form.phone_country.error_tag }}
+                        </span>
+                    </span>
+                    <span class="phone">{% trans "Area Code" %}<br />{% trans "without" %} "0"
+                        <span class="phone_label">
+                            {{ form.phone_area }}
+                            {{ form.phone_area.error_tag }}
+                        </span>
+                    </span>
+                    <span class="phone">{% trans "Number" %}<br />{% trans "with direct dial" %}
+                        <span class="phone_label">
+                            {{ form.phone_number }}
+                            {{ form.phone_number.error_tag }}
+                        </span>
+                    </span>
+                </li>
+                <li class="correction_ie_space_0">
+                    <label for="id_fax_number">{% trans "Fax" %}</label>
+                        {{ form.fax_country }}
+                        {{ form.fax_country.error_tag }}
+                        {{ form.fax_area }}
+                        {{ form.fax_area.error_tag }}
+                        {{ form.fax_number }}
+                        {{ form.fax_number.error_tag }}
+                </li>
+                <li>
+                    <label for="id_mobile_number">{% trans "Mobile" %}</label>
+                        {{ form.mobile_country }}
+                        {{ form.mobile_country.error_tag }}
+                        {{ form.mobile_area }}
+                        {{ form.mobile_area.error_tag }}
+                        {{ form.mobile_number }}
+                        {{ form.mobile_number.error_tag }}
+                </li>
+            </ul>
+        </fieldset>
+
+        <fieldset>
+        <legend>{% trans "Websites" %}</legend>
+            <ul class="line_height">
+                 <li >
+                    <label for="id_url0_type">{{ form.url0_type.label }} / 
+                    {{ form.url0_link.label }}</label>                    
+                    {{ form.url0_type }}
+                    {{ form.url0_type.error_tag }}
+                    {{ form.url0_link }}
+                    {{ form.url0_link.error_tag }}
+                </li>
+                <li>
+                    <label for="id_url1_type">{{ form.url1_type.label }} / {{ form.url1_link.label }}</label>
+                    {{ form.url1_type }}
+                    {{ form.url1_type.error_tag }}
+                    {{ form.url1_link }}
+                    {{ form.url1_link.error_tag }}
+                </li>
+                <li>
+                    <label for="id_url2_type">{{ form.url2_type.label }} / {{ form.url2_link.label }}</label>
+                    {{ form.url2_type }}
+                    {{ form.url2_type.error_tag }}
+                    {{ form.url2_link }}
+                    {{ form.url2_link.error_tag }}
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset class="fieldset_end">
+            <legend>{% trans "Instant Messaging" %}</legend>
+            <ul class="line_height">
+                <li>
+                    <label for="id_im0_type">{{ form.im0_type.label }} / {{ form.im0_address.label }}</label>
+                    {{ form.im0_type }}
+                    {{ form.im0_type.error_tag }}
+                    {{ form.im0_address }}
+                    {{ form.im0_address.error_tag }}
+                </li>
+                <li>
+                    <label for="id_im1_type">{{ form.im1_type.label }} / {{ form.im1_address.label }}</label>
+                    {{ form.im1_type }}
+                    {{ form.im1_type.error_tag }}
+                    {{ form.im1_address }}
+                    {{ form.im1_address.error_tag }}
+                </li>
+                <li>
+                    <label for="id_im2_type">{{ form.im2_type.label }} / {{ form.im2_address.label }}</label>
+                    {{ form.im2_type }}
+                    {{ form.im2_type.error_tag }}
+                    {{ form.im2_address }}
+                    {{ form.im2_address.error_tag }}
+                </li>
+            </ul>
+        </fieldset>
+        <div class="space_correction_less">
+            {% include "utils/step_buttons_reg.html" %}
+        </div>
+    </form>
+</div>
+{% endblock %}
+
