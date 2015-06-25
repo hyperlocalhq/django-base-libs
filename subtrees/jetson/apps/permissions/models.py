@@ -197,7 +197,6 @@ def add_methods_to_user():
     def get_group_permissions(self):
         """Returns a list of permission strings that this user has through his/her groups."""
         if not hasattr(self, '_group_perm_cache'):
-            import sets
             cursor = connection.cursor()
             # The SQL below works out to the following, after DB quoting:
             # cursor.execute("""
@@ -223,13 +222,12 @@ def add_methods_to_user():
                 quote_name('id'), quote_name('content_type_id'),
                 quote_name('user_id'),)
             cursor.execute(sql, [self.id])
-            self._group_perm_cache = sets.Set(["%s.%s" % (row[0], row[1]) for row in cursor.fetchall()])
+            self._group_perm_cache = set(["%s.%s" % (row[0], row[1]) for row in cursor.fetchall()])
         return self._group_perm_cache
     
     def get_all_permissions(self):
         if not hasattr(self, '_perm_cache'):
-            import sets
-            self._perm_cache = sets.Set(["%s.%s" % (p.content_type.app_label, p.codename) for p in self.user_permissions.select_related()])
+            self._perm_cache = set(["%s.%s" % (p.content_type.app_label, p.codename) for p in self.user_permissions.select_related()])
             self._perm_cache.update(self.get_group_permissions())
         return self._perm_cache
     
