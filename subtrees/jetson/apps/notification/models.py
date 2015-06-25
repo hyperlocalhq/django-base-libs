@@ -17,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, get_language, activate
 from django.db.models.query import QuerySet
 from django.utils.timezone import now as tz_now
+from django.apps import apps
 
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import html_to_plain_text
@@ -29,8 +30,7 @@ from base_libs.models.fields import MultilingualPlainTextField
 from base_libs.models.fields import PlainTextModelField # for south to work
 
 from jetson.apps.people.functions import get_user_language
-
-EmailTemplate = models.get_model("mailing", "EmailTemplate")
+from jetson.apps.mailing.models import EmailTemplate
 
 verbose_name = _("Notification")
 
