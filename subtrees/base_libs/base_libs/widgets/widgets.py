@@ -92,9 +92,9 @@ class AutocompleteWidget(Widget):
         if (self.AutocompleteManager) {
             self.AutocompleteManager.register("#%s", %s, %s);
         }"""
-        
+
     def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None):
-        
+        super(AutocompleteWidget, self).__init__()
         if not attrs:
             attrs = {}
         if not options:
@@ -287,7 +287,7 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
 
 class SelectToAutocompleteWidget(AutocompleteWidget):
     def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None):
-        
+        super(SelectToAutocompleteWidget, self).__init__(app, qs_function, display_attr)
         if not attrs:
             attrs = {}
         if not options:

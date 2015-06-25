@@ -154,7 +154,9 @@ class TimeField(forms.TimeField):
 
 class PlainTextFormField(forms.CharField):
     """ a plain text form field """
+
     def __init__(self, *args, **kwargs):
+        super(PlainTextFormField, self).__init__(*args, **kwargs)
         function = super(PlainTextFormField, self).__init__
         arg_names = function.func_code.co_varnames
         new_kwargs = dict(zip(arg_names, args))
