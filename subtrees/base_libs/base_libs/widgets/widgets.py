@@ -93,8 +93,12 @@ class AutocompleteWidget(Widget):
             self.AutocompleteManager.register("#%s", %s, %s);
         }"""
         
-    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options={}, attrs={},):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None):
         
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.app = app
         self.qs_function = qs_function
         self.display_attr = display_attr
@@ -282,8 +286,12 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
     
 
 class SelectToAutocompleteWidget(AutocompleteWidget):
-    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options={}, attrs={}):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None):
         
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.app = app
         self.qs_function = qs_function
         self.display_attr = display_attr
@@ -455,7 +463,9 @@ class TreeSelectWidget(forms.Select):
     """
     Widget to select from tree structures
     """
-    def __init__(self, model, attrs={}, choices=()):
+    def __init__(self, model, attrs=None, choices=()):
+        if not attrs:
+            attrs = {}
         self.model = model
         super(TreeSelectWidget, self).__init__(attrs, choices)
     
@@ -490,7 +500,9 @@ class TreeSelectMultipleWidget(forms.SelectMultiple):
     """
     Widget to select from tree structures
     """
-    def __init__(self, model, attrs={}, choices=()):
+    def __init__(self, model, attrs=None, choices=()):
+        if not attrs:
+            attrs = {}
         self.model = model
         super(TreeSelectMultipleWidget, self).__init__(attrs, choices)
     

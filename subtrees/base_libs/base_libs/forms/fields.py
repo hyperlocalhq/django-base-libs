@@ -241,10 +241,13 @@ class MultiEmailTextField(forms.Field):
     
 class AutocompleteField(forms.CharField):
     """ a forms autocomplete field """
-    def __init__(self, app, qs_function, display_attr,
-        add_display_attr=None, options={}, 
-        attrs={}, *args, **kwargs):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
+                 **kwargs):
         
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.widget = AutocompleteWidget(
             app, qs_function, display_attr, 
             add_display_attr, options, attrs)
@@ -255,9 +258,12 @@ class AutocompleteField(forms.CharField):
         return super(AutocompleteField, self).clean(value)
 
 class AutocompleteModelChoiceField(AutocompleteField):
-    def __init__(self, app, qs_function, display_attr,
-        add_display_attr=None, options={}, 
-        attrs={}, *args, **kwargs):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
+                 **kwargs):
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         super(AutocompleteModelChoiceField, self).__init__(
             app, qs_function, display_attr,
             add_display_attr, options, 
@@ -285,10 +291,13 @@ class AutocompleteModelChoiceField(AutocompleteField):
         return value
 
 class AutocompleteModelMultipleChoiceField(forms.CharField):
-    def __init__(self, app, qs_function, display_attr,
-        add_display_attr=None, options={}, 
-        attrs={}, *args, **kwargs):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
+                 **kwargs):
         
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.widget = AutocompleteMultipleWidget(
             app, qs_function, display_attr, 
             add_display_attr, options, attrs)
@@ -313,10 +322,13 @@ class AutocompleteModelMultipleChoiceField(forms.CharField):
 
 class SelectToAutocompleteField(AutocompleteField):
     """ a forms autocomplete field which renders as select field for non-javascript viewers """
-    def __init__(self, app, qs_function, display_attr,
-        add_display_attr=None, options={}, 
-        attrs={}, *args, **kwargs):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
+                 **kwargs):
         
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.app = app
         self.qs_function = qs_function
         self.func = get_installed("%(app)s.ajax.%(func)s" % {

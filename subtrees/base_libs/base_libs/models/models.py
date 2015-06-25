@@ -343,14 +343,8 @@ class CommentsMixin(BaseModel):
     class Meta:
         abstract = True
         
-def ObjectRelationMixin(
-        prefix=None, 
-        prefix_verbose=None, 
-        add_related_name=False,
-        limit_content_type_choices_to={},
-        limit_object_choices_to={},
-        is_required=False,
-        ):
+def ObjectRelationMixin(prefix=None, prefix_verbose=None, add_related_name=False, limit_content_type_choices_to=None,
+                        limit_object_choices_to=None, is_required=False):
     """
     returns a mixin class for generic foreign keys using 
     "Content type - object Id" with dynamic field names. 
@@ -374,6 +368,10 @@ def ObjectRelationMixin(
     <<prefix>>_content_object : Field name for the "content object"
     
     """
+    if not limit_object_choices_to:
+        limit_object_choices_to = {}
+    if not limit_content_type_choices_to:
+        limit_content_type_choices_to = {}
     if prefix:
         p = "%s_" % prefix
     else:

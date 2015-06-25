@@ -75,7 +75,9 @@ class PortfolioSite(object):
     template_name="institutions/institution_portfolio_delete.html"
     
 
-    def __init__(self, name=None, app_name='media_gallery', object_detail_dict={}):
+    def __init__(self, name=None, app_name='media_gallery', object_detail_dict=None):
+        if not object_detail_dict:
+            object_detail_dict = {}
         self.root_path = None
         self.object_detail_dict = object_detail_dict
         if name is None:

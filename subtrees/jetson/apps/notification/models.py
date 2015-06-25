@@ -271,8 +271,8 @@ def create_notice_type(sysname, display, description, default=2, display_de="", 
         nt.description_de=description_de
         nt.save()
 
-def send(recipients, sysname, extra_context={}, on_site=True,
-    instance=None, sender=None, sender_name="", sender_email=""):
+def send(recipients, sysname, extra_context=None, on_site=True, instance=None, sender=None, sender_name="",
+         sender_email=""):
     """
     This is intended to be how other apps create new notices.
 
@@ -281,6 +281,8 @@ def send(recipients, sysname, extra_context={}, on_site=True,
         'foo': 'bar',
     )
     """
+    if not extra_context:
+        extra_context = {}
     from tasks import send_to_user
     
     # preparing recipients

@@ -59,7 +59,9 @@ CONTEXT_ITEM_MODELS = getattr(
 MAPPED_ITEM_MODELS = DefaultMappedItemModels()
 
 class ContextItemManager(models.Manager):
-    def __init__(self, fields=[]):
+    def __init__(self, fields=None):
+        if not fields:
+            fields = []
         super(ContextItemManager, self).__init__()
         self._search_fields = fields
 
@@ -183,7 +185,9 @@ class ContextItemManager(models.Manager):
         ctype = ContentType.objects.get_for_model(obj)
         self.filter(content_type__pk=ctype.id, object_id=obj.id).delete()
         
-    def publish_all(self, models=['person', 'institution', 'document', 'event', 'persongroup'], status_sysname="published"):
+    def publish_all(self, models=None, status_sysname="published"):
+        if not models:
+            models = ['person', 'institution', 'document', 'event', 'persongroup']
         for item in self.filter(content_type__model__in=models):
             item.content_object.status = status_sysname
             item.content_object.save()
