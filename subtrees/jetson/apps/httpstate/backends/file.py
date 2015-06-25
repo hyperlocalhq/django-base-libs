@@ -12,6 +12,11 @@ class HttpStateStore(HttpStateBase):
     """
     Implements a file based httpstate store.
     """
+
+    @classmethod
+    def clear_expired(cls):
+        pass
+
     def __init__(self, httpstate_key=None):
         self.storage_path = httpstate_settings.HTTPSTATE_FILE_PATH
         if not self.storage_path:
