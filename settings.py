@@ -742,8 +742,7 @@ TIME_INPUT_FORMATS = ('%H:%M:%S', '%H:%M', '%H.%M')
 
 ### CELERY ###
 
-CELERY_RESULT_BACKEND = 'djcelery.backends.database.DatabaseBackend' 
-CELERY_RESULT_BACKEND = 'database' 
+CELERY_RESULT_BACKEND = 'database'
 # For scheduled jobs. 
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler" 
 CELERY_TRACK_STARTED = True 
