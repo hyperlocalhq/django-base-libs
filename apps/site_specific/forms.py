@@ -4298,11 +4298,10 @@ class KreativArbeitenContactForm(dynamicforms.Form):
         sender_name = cleaned["sender_name"]
         sender_email = cleaned["sender_email"]
         
-        recipient_emails = []
-        recipient_emails.append("%s <%s>" % (
+        recipient_emails = ["%s <%s>" % (
             "Dirk Kiefer",
             "kiefer@rkw.de",
-            ))
+        )]
         message = EmailMessage.objects.create(
             sender=sender,
             sender_name=sender_name,

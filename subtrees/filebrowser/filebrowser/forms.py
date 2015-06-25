@@ -88,21 +88,19 @@ class ChangeForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
 
-        layout_blocks = []
-
-        layout_blocks.append(layout.Fieldset(
+        layout_blocks = [layout.Fieldset(
             '',
             layout.Field("name", template="filebrowser/widgets/admin_field.html", css_class="vTextField"),
             css_class="grp-module",
-        ))
-        
-        layout_blocks.append(layout.Fieldset(
+        ), layout.Fieldset(
             '',
             layout.HTML('{% load i18n %}<h2 class="grp-collapse-handler">{% trans "Author" %}</h2>'),
             layout.Field("author", template="filebrowser/widgets/admin_field.html", css_class="vTextField"),
-            layout.Field("copyright_limitations", template="filebrowser/widgets/admin_field.html", css_class="vTextField"),
+            layout.Field("copyright_limitations", template="filebrowser/widgets/admin_field.html",
+                         css_class="vTextField"),
             css_class="grp-module grp-collapse grp-open",
-        ))
+        )]
+
         for lang_code, lang_name in settings.LANGUAGES:
             layout_blocks.append(layout.Fieldset(
                 '',

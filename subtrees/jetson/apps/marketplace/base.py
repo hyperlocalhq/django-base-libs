@@ -328,8 +328,7 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
         
     def get_contacts(self):
         if self.get_postal_address() or self.get_phones() or self.get_urls() or self.get_ims() or self.get_emails():
-            l = []
-            l.append(self)
+            l = [self]
             return l
         return None
         

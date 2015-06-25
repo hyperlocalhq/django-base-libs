@@ -517,8 +517,7 @@ def get_rating_list(queryset, rating_map, selected = None):
                   (2, "interesting", _("interesting")),
                  ]
     """
-    rating_list = []
-    rating_list.append(("all", _("All"), len(queryset) > 0, selected is None))
+    rating_list = [("all", _("All"), len(queryset) > 0, selected is None)]
 
     for rating in rating_map:
         count = queryset.filter(**{"rating" + str(rating[0]) + "__gt" : 0}).count()

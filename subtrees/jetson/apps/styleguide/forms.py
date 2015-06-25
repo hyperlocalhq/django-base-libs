@@ -41,35 +41,30 @@ class DummyForm(forms.Form):
         self.helper.form_action = ""
         self.helper.form_method = "POST"
         
-        layout_blocks = []
-        layout_blocks.append(layout.Fieldset(
+        layout_blocks = [layout.Fieldset(
             "Main data",
             "title",
             "description",
             "content",
             "published",
             "featured",
-            ))
-        layout_blocks.append(layout.Fieldset(
+        ), layout.Fieldset(
             "Categories",
             "color",
             "color2",
             "stars",
             "spoken_languages",
             "written_languages",
-            ))
-        layout_blocks.append(layout.Fieldset(
+        ), layout.Fieldset(
             "Date and time",
             "start",
             "opening",
             "now",
-            ))
-        layout_blocks.append(layout.Fieldset(
+        ), layout.Fieldset(
             "Files",
             "document",
             "image",
-            ))
-        layout_blocks.append(layout.Fieldset(
+        ), layout.Fieldset(
             "The rest",
             "email",
             "website",
@@ -77,12 +72,11 @@ class DummyForm(forms.Form):
             "latitude",
             "number",
             "ip_address",
-            ))
-        layout_blocks.append(bootstrap.FormActions(
+        ), bootstrap.FormActions(
             layout.Submit('reset', 'Reset', css_class="btn-warning"),
             layout.Submit('submit', 'Submit'),
-            ))
-        
+        )]
+
         self.helper.layout = layout.Layout(
             *layout_blocks
             )        

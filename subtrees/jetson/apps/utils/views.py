@@ -884,10 +884,9 @@ def get_abc_list(queryset, filter_field, selected = None):
     help function:
     returns an alphabet list used for filtering
     """
-    abc_list = []
+    abc_list = [("", _("All"), queryset.count(), selected is None)]
     # we need a "key" as first column, because we have to check 
     # for "All" in the tamplates
-    abc_list.append(("", _("All"), queryset.count(), selected is None))
     abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     the_09_filter = models.Q()
     
@@ -945,10 +944,9 @@ def get_year_list(queryset, filter_field, selected = None):
     help function:
     returns a list of years contained in a queryset
     """
-    year_list = []
-    year_list.append(("all", _("All"), len(queryset), selected is None))
-    year_list.append(("latest", _("Topical"), len(queryset), selected == "latest"))
-    
+    year_list = [("all", _("All"), len(queryset), selected is None),
+                 ("latest", _("Topical"), len(queryset), selected == "latest")]
+
     # first, we determine the smallest and largest year
     qs = queryset.order_by(filter_field)
     if len(qs) > 0:

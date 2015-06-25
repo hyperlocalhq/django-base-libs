@@ -341,13 +341,8 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
         """
         Returns the default owners of this object for permission manipulation
         """
-        allowed_groups = []
-        allowed_groups.append(
-            self.perobjectgroup_set.get(sysname__startswith="owners")
-            )
-        allowed_groups.append(
-            self.perobjectgroup_set.get(sysname__startswith="moderators")
-            )
+        allowed_groups = [self.perobjectgroup_set.get(sysname__startswith="owners"),
+                          self.perobjectgroup_set.get(sysname__startswith="moderators")]
         return allowed_groups
         
     def get_context_categories(self):
