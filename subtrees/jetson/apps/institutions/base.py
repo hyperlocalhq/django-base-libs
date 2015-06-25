@@ -772,7 +772,7 @@ def extend_people_app(sender, *args, **kwargs):
     """
     # if people app is registered before institutions app, this function will be called while initiating InstitutionalContact
     # if people app is registered after institutions app, this function will be called for each model registered after Institution initiation until people app gets registered.
-    if "people" in cache.app_models and "institutions" in cache.app_models:
+    if hasattr(cache, "app_models") and "people" in cache.app_models and "institutions" in cache.app_models:
         people_app = cache.app_models["people"]
         Person = people_app.get("person", None)
         IndividualContact = people_app.get("individualcontact", None)
