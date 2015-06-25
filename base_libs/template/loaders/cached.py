@@ -8,7 +8,9 @@ class Loader(DjangoLoader):
     """
     Cached loader that works well with debug toolbar
     """
-    def __init__(self, loaders=[]):
+    def __init__(self, loaders=None):
+        if not loaders:
+            loaders = []
         self.template_cache = {}
         self._loaders = loaders
         self._cached_loaders = []

@@ -85,7 +85,11 @@ class Connection(object):
     def __del__(self):
         if hasattr(self, "response") and self.response:
             self.response.close()
-    def send_request(self, headers={}, values={}):
+    def send_request(self, headers=None, values=None):
+        if not values:
+            values = {}
+        if not headers:
+            headers = {}
         socket.setdefaulttimeout(self.timeout)
         data = None
         encoded_values = {}
@@ -128,7 +132,9 @@ class AuthSSLConnection(SSLConnection):
         self.password = password
         self.base64string = base64.encodestring(
             '%s:%s' % (self.username, self.password))[:-1]
-    def send_request(self, headers={}, values=None):
+    def send_request(self, headers=None, values=None):
+        if not headers:
+            headers = {}
         socket.setdefaulttimeout(self.timeout)
         data = None
         if values:
