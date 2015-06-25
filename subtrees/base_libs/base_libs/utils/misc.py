@@ -140,7 +140,7 @@ def html_to_plain_text(html):
     coded_entity_pattern = re.compile(r'&#[^;];')
     whitespace_pattern = re.compile(r'\s+')
     line_break_pattern = re.compile(r'<br[^>]+>\s*', re.I)
-    new_line_pattern = re.compile(r'<\/(?:p|h1|h2|h3|h4|h5|h6|ul|ol|li|dl)>\s*', re.I)
+    new_line_pattern = re.compile(r'</(?:p|h1|h2|h3|h4|h5|h6|ul|ol|li|dl)>\s*', re.I)
     link_pattern = re.compile(
         r'<a [^>]*?href=(["\'])([^\1]+?)\1[^>]*?>(.+?)</a>',
         re.I,

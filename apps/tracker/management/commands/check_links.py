@@ -8,7 +8,7 @@ from django.utils.encoding import force_unicode
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 url_regex = re.compile(
-    r"^(?#Protocol)(?:(?:ht|f)tp(?:s?)\:\/\/|~/|/)?"
+    r"^(?#Protocol)(?:(?:ht|f)tp(?:s?)://|~/|/)?"
     r"(?#Username:Password)(?:\w+:\w+@)?"
     r"(?#Subdomains)(?:"
         r"(?:[-\w]+\.)+(?#TopLevel Domains)"
