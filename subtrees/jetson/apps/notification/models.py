@@ -11,7 +11,7 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_unicode, force_unicode
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.sites.models import Site
-from django.contrib.auth.models import User, SiteProfileNotAvailable
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, get_language, activate
@@ -33,6 +33,10 @@ from jetson.apps.people.functions import get_user_language
 EmailTemplate = models.get_model("mailing", "EmailTemplate")
 
 verbose_name = _("Notification")
+
+class SiteProfileNotAvailable(Exception):
+    pass
+
 
 class NoticeTypeCategory(models.Model):
     title = MultilingualCharField(_('display'), max_length=50)
