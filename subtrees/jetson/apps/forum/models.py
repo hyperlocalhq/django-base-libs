@@ -313,7 +313,7 @@ class Forum(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_nof_views(self):
         count = 0
         for thread in self.get_threads():
-            count = count + thread.views
+            count += thread.views
         return count
     
     def get_latest_post(self):
