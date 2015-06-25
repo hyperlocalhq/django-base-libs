@@ -180,6 +180,10 @@ class DoGetDatePeriodFormatted:
 
         {% get_date_period_formatted start_date end_date as event_dates %}
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -228,6 +232,10 @@ class DoGetInstitution:
         {% get_institution_data [institution_id] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()

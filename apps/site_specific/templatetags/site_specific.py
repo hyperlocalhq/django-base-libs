@@ -194,6 +194,10 @@ class DoGetCreativeSectors:
         {% get_creative_sectors [cleaned_form_data] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -220,6 +224,10 @@ class DoGetJobSectors:
         {% get_job_sectors [cleaned_form_data] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -246,6 +254,10 @@ class DoGetContextCategories:
         {% get_context_categories [cleaned_form_data] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()
@@ -272,6 +284,10 @@ class DoGetInstitutionTypes:
         {% get_institution_types [cleaned_form_data] as [varname] %}
         
     """
+
+    def __init__(self):
+        pass
+
     def __call__(self, parser, token):
 
         tokens = token.contents.split()

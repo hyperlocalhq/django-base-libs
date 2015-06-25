@@ -20,6 +20,9 @@ SPECIAL_CHARS = u".:;,?!§$%&/()="
 class PorterStemmerGerman:
 
     #   Die Funktion stem nimmt ein Wort und versucht dies durch Regelanwendung zu verkürzen. Wenn Stop auf 'True' gesetzt wird, werden Wörter in der Stopliste nicht 'gestemmt'.
+    def __init__(self):
+        pass
+
     def stem(self, wort, stop = False):
         
         # rupert 17072008 if there is any .:? etc in it, do not any stemming!
