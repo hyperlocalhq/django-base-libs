@@ -479,7 +479,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
     
     # overwritten
     @options.csrf_protect_m
-    @transaction.commit_on_success
+    @transaction.atomic
     def add_view(self, request, form_url='', extra_context=None):
         """
         The 'add' admin view for this model.
@@ -593,7 +593,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
     
     # overwritten    
     @options.csrf_protect_m
-    @transaction.commit_on_success
+    @transaction.atomic
     def change_view(self, request, object_id, form_url='', extra_context=None):
         """
         overwritten change_view. The default behaviour is extended by
