@@ -137,7 +137,7 @@ class AdManagerTestCase(TestCase):
         )
 
     def test_manager_exists(self):
-        AdManager
+        pass # TODO implement test
 
     def test_get_random_ad(self):
         advert = AdBase.objects.get_random_ad('sidebar')

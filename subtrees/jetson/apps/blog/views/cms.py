@@ -283,8 +283,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
     """
     if not extra_context:
         extra_context = {}
-    request.current_page
-    
+
     template_object_name='post'
         
     # first of all, get blog parameters from the url parts...

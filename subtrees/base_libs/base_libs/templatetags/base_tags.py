@@ -950,9 +950,7 @@ def cssclass(value, arg):
     attrs['class'] = arg
     rendered = str(value)
 
-    if orig:
-        attrs['class']
-    else:
+    if not orig:
         del attrs['class']
 
     return rendered
