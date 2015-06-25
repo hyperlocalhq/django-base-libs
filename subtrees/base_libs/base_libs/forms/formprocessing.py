@@ -323,7 +323,7 @@ class FormPreviewHandler(FormHandler):
         return form_hmac(form)
 
     def failed_hash(self, request, action):
-        "Returns an HttpResponse in the case of an invalid security hash."
+        """Returns an HttpResponse in the case of an invalid security hash."""
         self.extra_context['hash_failed'] = True
         self.extra_context['hash_failed_message'] = _("Security check failed. Maybe your form has been tampered. Please try again.")
         return self.preview(request, action)

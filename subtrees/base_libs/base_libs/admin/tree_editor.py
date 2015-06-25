@@ -147,7 +147,7 @@ class TreeEditor(admin.ModelAdmin):
     @csrf_protect_m
     @transaction.commit_on_success
     def move_view(self, request, object_id, extra_context=None):
-        "The 'move node' admin view for this model."
+        """The 'move node' admin view for this model."""
 
         opts = self.model._meta
         app_label = opts.app_label

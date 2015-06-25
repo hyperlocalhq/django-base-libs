@@ -217,7 +217,7 @@ class JobOfferOptions(ExtendedModelAdmin):
     ordering = ('-creation_date',)
 
     def add_view(self, request, form_url='', extra_context=None):
-        "The 'add' admin view for this model."
+        """The 'add' admin view for this model."""
         model = self.model
         opts = model._meta
 
@@ -302,7 +302,7 @@ class JobOfferOptions(ExtendedModelAdmin):
     add_view = transaction.commit_on_success(add_view)
         
     def change_view(self, request, object_id, extra_context=None):
-        "Displays the job offer add/change form and handles job offer saving."
+        """Displays the job offer add/change form and handles job offer saving."""
         "The 'change' admin view for this model."
         model = self.model
         opts = model._meta

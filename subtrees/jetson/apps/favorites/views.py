@@ -18,7 +18,7 @@ from templatetags.favorites import get_favorites_count
 
 
 def json_set_favorite(request, content_type_id, object_id):
-    "Sets the object as a favorite for the current user"
+    """Sets the object as a favorite for the current user"""
     json_str = "false"
     if request.user.is_authenticated():
         content_type = ContentType.objects.get(id=content_type_id)

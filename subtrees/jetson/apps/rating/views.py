@@ -12,7 +12,7 @@ from base_libs.utils.misc import ExtendedJSONEncoder
 from jetson.apps.rating.models import UserRating
 
 def json_set_userrating(request, content_type_id, object_id, score):
-    "Sets a vote by user for an object"
+    """Sets a vote by user for an object"""
     json_str = "false"
     #if request.user.has_perm("ratings.can_rate"):
     if not request.user.is_anonymous():

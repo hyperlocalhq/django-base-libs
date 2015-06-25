@@ -157,7 +157,7 @@ class Comment(ObjectRelationMixin(is_required=True), UrlMixin):
         return "/comments/delete/%s/" % self.id
 
     def _fill_karma_cache(self):
-        "Helper function that populates good/bad karma caches"
+        """Helper function that populates good/bad karma caches"""
         good, bad = 0, 0
         for k in self.karmascore_set:
             if k.score == -1:

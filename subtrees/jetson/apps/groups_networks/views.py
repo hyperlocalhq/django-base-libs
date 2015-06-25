@@ -35,7 +35,7 @@ PersonGroup, GroupMembership, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS = (
     )
 
 def json_manage_ss_membership(request, slug):
-    "Sets the object as a favorite for the current user"
+    """Sets the object as a favorite for the current user"""
     json_str = "false"
     person_group = None
     try:

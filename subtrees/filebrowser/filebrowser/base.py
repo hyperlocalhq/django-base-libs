@@ -62,7 +62,7 @@ class FileListing:
     is_folder = property(_is_folder)
 
     def listing(self):
-        "List all files for path"
+        """List all files for path"""
         if self.is_folder:
             dirs, files = self.site.storage.listdir(self.path)
             return (f for f in dirs + files)
@@ -89,7 +89,7 @@ class FileListing:
 
     
     def walk(self):
-        "Walk all files for path"
+        """Walk all files for path"""
         filelisting = []
         if self.is_folder:
             self._walk(self.path, filelisting)
@@ -99,7 +99,7 @@ class FileListing:
     _fileobjects_total = None
     
     def files_listing_total(self):
-        "Returns FileObjects for all files in listing"
+        """Returns FileObjects for all files in listing"""
         if self._fileobjects_total is None:
             self._fileobjects_total = []
             for item in self.listing():
@@ -117,7 +117,7 @@ class FileListing:
         return files
     
     def files_walk_total(self):
-        "Returns FileObjects for all files in walk"
+        """Returns FileObjects for all files in walk"""
         files = []
         for item in self.walk():
             fileobject = FileObject(os.path.join(self.site.directory, item), site=self.site)
@@ -130,7 +130,7 @@ class FileListing:
         return files
     
     def files_listing_filtered(self):
-        "Returns FileObjects for filtered files in listing"
+        """Returns FileObjects for filtered files in listing"""
         if self.filter_func:
             listing = filter(self.filter_func, self.files_listing_total())
         else:
@@ -139,7 +139,7 @@ class FileListing:
         return listing
     
     def files_walk_filtered(self):
-        "Returns FileObjects for filtered files in walk"
+        """Returns FileObjects for filtered files in walk"""
         if self.filter_func:
             listing = filter(self.filter_func, self.files_walk_total())
         else:
@@ -148,25 +148,25 @@ class FileListing:
         return listing
     
     def results_listing_total(self):
-        "Counter: all files"
+        """Counter: all files"""
         if self._results_listing_total != None:
             return self._results_listing_total
         return len(self.files_listing_total())
     
     def results_walk_total(self):
-        "Counter: all files"
+        """Counter: all files"""
         if self._results_walk_total != None:
             return self._results_walk_total
         return len(self.files_walk_total())
     
     def results_listing_filtered(self):
-        "Counter: filtered files"
+        """Counter: filtered files"""
         if self._results_listing_filtered != None:
             return self._results_listing_filtered
         return len(self.files_listing_filtered())
     
     def results_walk_filtered(self):
-        "Counter: filtered files"
+        """Counter: filtered files"""
         if self._results_walk_filtered != None:
             return self._results_walk_filtered
         return len(self.files_walk_filtered())
@@ -264,7 +264,7 @@ class FileObject:
     # PATH/URL ATTRIBUTES
     
     def _path_relative_directory(self):
-        "path relative to DIRECTORY"
+        """path relative to DIRECTORY"""
         return path_strip(self.path, self.site.directory)
     path_relative_directory = property(_path_relative_directory)
     

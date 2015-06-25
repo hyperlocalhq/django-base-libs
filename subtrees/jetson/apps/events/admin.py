@@ -246,7 +246,7 @@ class EventOptions(ExtendedModelAdmin):
     publish.short_description = _("Publish selected events")
         
     def get_venue_display(self, obj):
-        " this method is just used for display in the admin"
+        """this method is just used for display in the admin"""
         user = get_current_user()
         if obj.venue:
             if user.has_perm("institutions.change_institution", obj.venue):
@@ -264,7 +264,7 @@ class EventOptions(ExtendedModelAdmin):
 
     #@never_cache # doesn't work for class methods with django r11611
     def add_view(self, request, form_url='', extra_context=None):
-        "The 'add' admin view for this model."
+        """The 'add' admin view for this model."""
         model = self.model
         opts = model._meta
 
@@ -349,7 +349,7 @@ class EventOptions(ExtendedModelAdmin):
     
     #@never_cache # doesn't work for class methods with django r11611
     def change_view(self, request, object_id, extra_context=None):
-        "Displays the event add/change form and handles event saving."
+        """Displays the event add/change form and handles event saving."""
         "The 'change' admin view for this model."
         model = self.model
         opts = model._meta

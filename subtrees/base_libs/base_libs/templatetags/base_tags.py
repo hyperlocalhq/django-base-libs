@@ -683,7 +683,7 @@ def try_to_include(parser, token):
 ### FILTERS ### 
 
 def dayssince(value):
-    "Returns number of days between today and value."
+    """Returns number of days between today and value."""
     today = datetime.date.today()
     diff  = today - value
     if diff.days > 1:

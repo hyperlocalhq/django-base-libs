@@ -393,7 +393,7 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
         return self.context_categories.all()
         
     def get_primary_contact(self):
-        "returns a dictionary containing primary contact information"
+        """returns a dictionary containing primary contact information"""
         contact_dict = {}
         primary_contact = self.institutionalcontact_set.filter(is_primary=True)
         if primary_contact:

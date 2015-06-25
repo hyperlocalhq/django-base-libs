@@ -222,7 +222,7 @@ class PublicCommentForm(dynamicforms.Form):
                 )
             
     def get_comment(self):
-        "Helper function"
+        """Helper function"""
         # do character encoding
         cleaned = self.cleaned_data
         #for key, value in cleaned.items():

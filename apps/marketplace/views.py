@@ -55,7 +55,7 @@ add_job_offer = login_required(add_job_offer)
 
 @never_cache
 def job_offer_list(request, criterion="", slug="", show="", title="", **kwargs):
-    "Displays the list of events"
+    """Displays the list of events"""
     
     #abc_list = None
     #abc_filter = request.GET.get('by-abc', None)

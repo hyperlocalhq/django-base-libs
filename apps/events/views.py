@@ -56,7 +56,7 @@ class EventFeed(Feed):
 
 @never_cache
 def event_list(request, criterion="", slug="", show="", start_date=None, end_date=None, unlimited=False, title="", **kwargs):
-    "Displays the list of events"
+    """Displays the list of events"""
     ContextItem = models.get_model("site_specific", "ContextItem")
     
     #abc_list = None

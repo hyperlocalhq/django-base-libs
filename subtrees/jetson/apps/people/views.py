@@ -44,7 +44,7 @@ Person = models.get_model("people", "Person")
 
 @never_cache
 def login(request, template_name='registration/login.html', redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME)):
-    "Displays the login form and handles the login action."
+    """Displays the login form and handles the login action."""
     site_settings = SiteSettings.objects.get_current()
     redirect_to = request.REQUEST.get(redirect_field_name, '')
     if request.method == "POST":
@@ -104,7 +104,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
 NULL_PREFIX_CHOICES = Person._meta.get_field('prefix').get_choices()
 
 def register(request, *arguments, **keywords):
-    "Displays the registration form and handles the registration action"
+    """Displays the registration form and handles the registration action"""
     m = hashlib.md5()
     m.update(request.META['REMOTE_ADDR'])
     request.session.session_id = m.hexdigest()[:20]
@@ -135,7 +135,7 @@ def register(request, *arguments, **keywords):
 register = never_cache(register)
 
 def confirm_registration(request, encrypted_email):
-    "Displays the registration form and handles the registration action"
+    """Displays the registration form and handles the registration action"""
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     try:
         email = decryptString(encrypted_email)
@@ -169,7 +169,7 @@ def confirm_registration(request, encrypted_email):
     return HttpResponseRedirect('/register/alldone/')
 
 def change_privacy_settings(request):
-    "Displays the form for personal privacy settings"
+    """Displays the form for personal privacy settings"""
     person = get_object_or_404(Person, user=request.user)
     if request.method == "POST":
         form = PrivacySettingsForm(request.POST)

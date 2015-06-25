@@ -5,7 +5,7 @@ from django.contrib.sites.models import Site
 from jetson.apps.comments.models import Comment
 
 class LatestCommentsFeed(Feed):
-    "Feed of latest comments on the current site."
+    """Feed of latest comments on the current site."""
 
     comments_class = Comment
 

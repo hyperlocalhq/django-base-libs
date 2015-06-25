@@ -19,7 +19,7 @@ from ccb.apps.resources.models import Document, URL_ID_DOCUMENT, URL_ID_DOCUMENT
 from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
 
 def recreate_avatars():
-    ''' TODO: rewrite
+    """ TODO: rewrite
     for model in (Person, Institution, Event, Document, PersonGroup):
         for obj in model.objects.all():
             rel_path = obj.get_original_image_rel_path()
@@ -32,10 +32,10 @@ def recreate_avatars():
                     rel_path.split("/")[-1],
                     obj.get_original_image_rel_path(True).split("/")[-1]
                     )
-    '''
+    """
 
 def recreate_portfolio_images():
-    ''' TODO: rewrite
+    """ TODO: rewrite
     for model in (Person, Institution, Event, Document, PersonGroup):
         for obj in model.objects.all():
             list_of_files = []
@@ -110,5 +110,5 @@ def recreate_portfolio_images():
                 # wait for one second, because the next image has to have
                 # a different file name
                 time.sleep(1)
-    '''            
+    """
 

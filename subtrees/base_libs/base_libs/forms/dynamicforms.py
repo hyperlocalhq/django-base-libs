@@ -25,7 +25,7 @@ class BaseForm(forms.BaseForm):
             yield BoundField(self, field, name)
 
     def __getitem__(self, name):
-        "Returns a BoundField with the given name."
+        """Returns a BoundField with the given name."""
         try:
             field = self.fields[name]
         except KeyError:
@@ -33,7 +33,7 @@ class BaseForm(forms.BaseForm):
         return BoundField(self, field, name)        
 
 class Form(BaseForm):
-    "A collection of Fields, plus their associated data."
+    """A collection of Fields, plus their associated data."""
     # This is a separate class from BaseForm in order to abstract the way
     # self.fields is specified. This class (Form) is the one that does the
     # fancy metaclass stuff purely for the semantic sugar -- it allows one
@@ -42,7 +42,7 @@ class Form(BaseForm):
     __metaclass__ = DeclarativeFieldsMetaclass
 
 class BoundField(FormsBoundField):
-    "A Field plus data"
+    """A Field plus data"""
     '''
     def __init__(self, *args, **kwargs):
         super(BoundField, self).__init__(*args, **kwargs)

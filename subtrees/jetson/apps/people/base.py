@@ -501,7 +501,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return self._contacts_cache
     
     def get_primary_contact(self):
-        "returns a dictionary containing primary contact information"
+        """returns a dictionary containing primary contact information"""
         contact_dict = {}
         primary_contact = self.individualcontact_set.filter(is_primary=True)
         if primary_contact:

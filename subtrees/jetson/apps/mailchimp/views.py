@@ -11,7 +11,7 @@ from jetson.apps.mailchimp.forms import SubscriptionForm
 
 @never_cache
 def subscribe_for_info(request, *arguments, **keywords):
-    "Displays the info subscription form and handles the subscription action"
+    """Displays the info subscription form and handles the subscription action"""
     if request.method=="POST":
         form = SubscriptionForm(request.POST)
         if form.is_valid():

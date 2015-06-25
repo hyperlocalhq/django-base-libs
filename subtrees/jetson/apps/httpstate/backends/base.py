@@ -87,7 +87,7 @@ class HttpStateBase(object):
         return salted_hmac(key_salt, value).hexdigest()
 
     def encode(self, httpstate_dict):
-        "Returns the given httpstate dictionary serialized and encoded as a string."
+        """Returns the given httpstate dictionary serialized and encoded as a string."""
         serialized = self.serializer().dumps(httpstate_dict)
         hash = self._hash(serialized)
         return base64.b64encode(hash.encode() + b":" + serialized).decode('ascii')
@@ -142,7 +142,7 @@ class HttpStateBase(object):
         self.modified = True
 
     def _get_new_httpstate_key(self):
-        "Returns httpstate key that isn't being used."
+        """Returns httpstate key that isn't being used."""
         httpstate_key = None
         while True:
             httpstate_key = get_random_string(32, VALID_KEY_CHARS)

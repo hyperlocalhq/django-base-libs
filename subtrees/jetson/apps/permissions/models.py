@@ -195,7 +195,7 @@ def add_functionality_to_models(sender, **kwargs):
 ### Additional methods to the User model
 def add_methods_to_user():
     def get_group_permissions(self):
-        "Returns a list of permission strings that this user has through his/her groups."
+        """Returns a list of permission strings that this user has through his/her groups."""
         if not hasattr(self, '_group_perm_cache'):
             import sets
             cursor = connection.cursor()
@@ -315,7 +315,7 @@ def add_methods_to_user():
         return not row[0]
     
     def has_perm(self, perm, obj=None):
-        "Returns True if the user has the specified permission."
+        """Returns True if the user has the specified permission."""
         if not self.is_active:
             return False
         if self.is_superuser:
@@ -379,7 +379,7 @@ def add_methods_to_user():
         return count > 0
     
     def has_module_perms(self, app_label):
-        "Returns True if the user has any permissions in the given app label."
+        """Returns True if the user has any permissions in the given app label."""
         if not self.is_active:
             return False
         if self.is_superuser:

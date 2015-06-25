@@ -38,7 +38,7 @@ def person_add(request):
     return person_change(request, object_id=None)
 
 def person_change(request, object_id=None):
-    "Displays the person add/change form and handles person saving."
+    """Displays the person add/change form and handles person saving."""
     from jetson.apps.extendedadmin.forms import PersonForm
     from jetson.apps.extendedadmin.forms import IndividualContactFormSet
     Person = get_installed("people.models.Person")
@@ -114,7 +114,7 @@ def institution_add(request):
     return institution_change(request, object_id=None)
 
 def institution_change(request, object_id=None):
-    "Displays the institution add/change form and handles institution saving."
+    """Displays the institution add/change form and handles institution saving."""
     from jetson.apps.extendedadmin.forms import InstitutionForm
     from jetson.apps.extendedadmin.forms import InstitutionalContactFormSet
     Institution = get_installed("institutions.models.Institution")
@@ -190,7 +190,7 @@ def document_add(request):
     return document_change(request, object_id=None)
 
 def document_change(request, object_id=None):
-    "Displays the document add/change form and handles document saving."
+    """Displays the document add/change form and handles document saving."""
     from jetson.apps.extendedadmin.forms import DocumentForm
     Document = get_installed("resources.models.Document")
     document = None
@@ -236,7 +236,7 @@ def event_add(request):
     return event_change(request, object_id=None)
 
 def event_change(request, object_id=None):
-    "Displays the event add/change form and handles event saving."
+    """Displays the event add/change form and handles event saving."""
     from jetson.apps.extendedadmin.forms import EventForm
     Event = get_installed("events.models.Event")
     event = None

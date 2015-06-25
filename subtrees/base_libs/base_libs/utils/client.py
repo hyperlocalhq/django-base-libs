@@ -68,7 +68,7 @@ class HttpErrorResponse(object):
         pass
 
 class Connection(object):
-    "Creates a connection to a server"
+    """Creates a connection to a server"""
     protocol = 'http://'
     protocol_pattern = re.compile(r"^\S+://")
     def __init__(self, url, timeout=30, encoding="utf-8"):
@@ -119,11 +119,11 @@ class Connection(object):
         return self.response
 
 class SSLConnection(Connection):
-    "Creates a connection to a server via SSL"
+    """Creates a connection to a server via SSL"""
     protocol = 'https://'
 
 class AuthSSLConnection(SSLConnection):
-    "Creates a connection to authenticated server via SSL (Only Basic authentication)"
+    """Creates a connection to authenticated server via SSL (Only Basic authentication)"""
     def __init__(self, url, username="", password="", timeout=30):
         super(AuthSSLConnection, self).__init__(url, timeout)
         self.username = username
