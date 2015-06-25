@@ -25,7 +25,7 @@ def get_or_404(model, **fields):
     except model.DoesNotExist:
         msg = ""
         for (key, value) in fields.items():
-            msg = msg + "%s '%s', " % (key, value)
+            msg += "%s '%s', " % (key, value)
         msg = msg.strip(", ") 
         raise Http404, "%s with %s cannot be found" %\
          (force_unicode(model._meta.verbose_name), msg)
