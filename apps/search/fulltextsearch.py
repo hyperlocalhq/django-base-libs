@@ -60,8 +60,6 @@ class MySqlFulltextSearchQuerySet(ExtendedQuerySet):
         # in `table_name`.`column_name` style
         columns = [meta.get_field(name, many_to_many=True).column for name in self._search_fields]
         
-        # backward incompatibility: backend no longer exists above django 0.96
-        #full_names = ["%s.%s" % (backend.quote_name(meta.db_table), backend.quote_name(column)) for column in columns]
         full_names = ["%s.%s" % (meta.db_table, column) for column in columns]
 
         # Create the MATCH…AGAINST expressions
