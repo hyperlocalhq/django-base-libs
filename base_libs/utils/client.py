@@ -54,8 +54,6 @@ class HttpErrorResponse(object):
         return ""
     def readlines(self):
         return []
-    def readlines(self):
-        return []
     def geturl(self):
         return self.url
     def headers(self):
