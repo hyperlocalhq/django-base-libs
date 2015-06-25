@@ -1,0 +1,13 @@
+{% extends "events/details_base.html" %}
+{% load i18n base_tags auth_extended events %}
+
+{% block doctype %}
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% endblock %}
+
+
+{% block details %}
+    <div class="form_claim">
+        {% include 'site_specific/claim_object.html' %}        
+    </div>
+{% endblock %}

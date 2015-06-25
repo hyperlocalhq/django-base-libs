@@ -1,0 +1,649 @@
+{% load i18n %}
+<!-- element -->
+<div class="module collapse closed{% if contact_form.instance.pk or contact_form.show_url %} has_original{% endif %}{% if prefix == "__prefix__" %} empty-form{% endif %} dynamic-form" id="individualcontact_set{% if prefix == "__prefix__" %}-empty{% else %}{{ prefix }}{% endif %}">
+    <h3 class="collapse-handler">{% trans "Contact" %}{% if prefix != "__prefix__" %} #{{ counter }}{% endif %}&nbsp;&nbsp;{% if contact_form.instance.pk %}{{ contact_form.instance }}{% endif %}</h3>
+    
+    <ul class="tools">
+        {% if contact_form.show_url %}<li class="viewsite-link-container"><a href="../../../r/{{ contact_form.instance.content_type_id }}/{{ contact_form.instance.id }}/" class="icon viewsite-link" title="{% trans 'View on Site' %}" target="_blank"></a></li>{% endif %}
+        {% comment %}{% if inline_admin_formset.opts.sortable %}<li class="drag-handler-container"><a href="javascript://" class="icon drag-handler" title="{% trans 'Move Item' %}"></a></li>{% endif %}{% endcomment %}
+        {% if contact_formset.can_delete %}
+            {% if contact_form.instance.pk %}
+                <li class="delete-handler-container">{{ contact_form.DELETE }}<a href="javascript://" class="icon delete-handler" title="{% trans 'Delete Item' %}"></a></li>
+            {% else %}
+                <li class="remove-handler-container">{{ contact_form.DELETE }}<a href="javascript://" class="icon remove-handler" title="{% trans 'Delete Item' %}"></a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+    {% if contact_form.form.non_field_errors %}{{ contact_form.form.non_field_errors }}{% endif %}
+    <fieldset class="module aligned">
+        <div class="row{% if contact_form.location_type.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-location_type" class="required">{% trans "Location type" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ contact_form.location_type }}
+                    {{ contact_form.location_type.errors }}
+                    <p class="help">{% trans "This field is required if you want this contact to be saved." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.is_primary.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ contact_form.is_primary }}<label for="id_individualcontact_set-{{ prefix }}-is_primary" class="vCheckboxLabel{% if contact_form.is_primary.field.required %} required{% endif %}">{% trans "Primary for this contact" %}</label>
+                    {{ contact_form.is_primary.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.is_billing_address.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ contact_form.is_billing_address }}<label for="id_individualcontact_set-{{ prefix }}-is_billing_address" class="vCheckboxLabel{% if contact_form.is_billing_address.field.required %} required{% endif %}">{% trans "Billing" %}</label>
+                    {{ contact_form.is_billing_address.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.is_shipping_address.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ contact_form.is_shipping_address }}<label for="id_individualcontact_set-{{ prefix }}-is_shipping_address" class="vCheckboxLabel{% if contact_form.is_shipping_address.field.required %} required{% endif %}">{% trans "Shipping" %}</label>
+                    {{ contact_form.is_shipping_address.errors }}
+                </div>
+            </div>
+        </div>            
+        <div class="row{% if contact_form.location_title.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-location_title"{% if contact_form.location_title.field.required %} class="required"{% endif %}>{% trans "Location title" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ contact_form.location_title }}
+                    {{ contact_form.location_title.errors }}
+                </div>
+            </div>
+        </div>
+        {% if contact_form.institution %}
+            {% comment %}<!--
+            Appears depending on the activation of institutions app
+            -->{% endcomment %}
+            <!-- add jquery based Institution autoselection -->
+            <div class="row{% if contact_form.institution.errors %} errors{% endif %}">
+                <div>
+                    <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-institution"{% if contact_form.institution.field.required %} class="required"{% endif %}>{% trans "Institution" %}:</label></div>
+                    <div class="column span-flexible">
+                        {{ contact_form.institution }}
+                        {{ contact_form.institution.errors }}
+                        <p class="help">{{ contact_form.institution.help_text }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row {% if contact_form.institutional_title.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-institutional_title"{% if contact_form.institutional_title.field.required %} class="required"{% endif %}>{% trans "Title in the institution" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ contact_form.institutional_title }}
+                    {{ contact_form.institutional_title.errors }}
+                    <p class="help">{% trans 'e.g. "director", "manager", "student", "doctor", etc.' %}</p>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="module aligned phone collapse closed">
+        <h4 class="collapse-handler">{% trans "Phones" %}</h4>
+        <div class="phone-fields">
+            <div class="row">
+                <div>
+                    <div class="column span-4">&nbsp;</div>
+                    <div class="column span-4">
+                        <a href="../../../optionset/phonetype/add/" id="add_id_individualcontact_set-{{ prefix }}-phone0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                    </div>
+                
+                    <div class="column span-2">
+                        <div>{% trans "Country" %}</div>
+                    </div>
+                    
+                    <div class="column span-4">
+                        <div>{% trans "Area" %} {% ifequal LANGUAGE_CODE "de" %}<br/>{% endifequal %}{% trans "w/o (0)" %}</div>
+                    </div>
+                    
+                    <div class="column span-4">
+                        <div>{% ifequal LANGUAGE_CODE "de" %}{% trans "Number" %} <br/>{% endifequal %}{% trans "plus extension" %}</div>
+                    </div>
+                    
+                    <div class="column span-2">
+                        <div>{% trans "Default" %}</div>
+                    </div>
+                    
+                    <div class="column span-2">
+                        <div>{% trans "On hold" %}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row{% if contact_form.phone0_type.errors or contact_form.phone0_country.errors or contact_form.phone0_area.errors or contact_form.phone0_number.errors or contact_form.is_phone0_default.errors or contact_form.is_phone0_on_hold.errors %} errors{% endif %}">
+                <div>
+                    <div class="column span-4">&nbsp;</div>
+                    <div class="column span-4">
+                        {{ contact_form.phone0_type }}
+                        {{ contact_form.phone0_type.errors }}
+                    </div>
+                
+                    <div class="column span-2">
+                        + {{ contact_form.phone0_country }}
+                        {{ contact_form.phone0_country.errors }}
+                    </div>
+                    
+                    <div class="column span-4">
+                        {{ contact_form.phone0_area }}
+                        {{ contact_form.phone0_area.errors }}
+                    </div>
+                    
+                    <div class="column span-4">
+                        {{ contact_form.phone0_number }}
+                        {{ contact_form.phone0_number.errors }}
+                    </div>
+                    
+                    <div class="column span-2">
+                        {{ contact_form.is_phone0_default }}
+                        {{ contact_form.is_phone0_default.errors }}
+                    </div>
+                    
+                    <div class="column span-2">
+                        {{ contact_form.is_phone0_on_hold }}
+                        {{ contact_form.is_phone0_on_hold.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row{% if contact_form.phone1_type.errors or contact_form.phone1_country.errors or contact_form.phone1_area.errors or contact_form.phone1_number.errors or contact_form.is_phone1_default.errors or contact_form.is_phone1_on_hold.errors %} errors{% endif %}">
+                <div>
+                    <div class="column span-4">&nbsp;</div>
+                    <div class="column span-4">
+                        {{ contact_form.phone1_type }}
+                        {{ contact_form.phone1_type.errors }}
+                    </div>
+                
+                    <div class="column span-2">
+                        + {{ contact_form.phone1_country }}
+                        {{ contact_form.phone1_country.errors }}
+                    </div>
+                    
+                    <div class="column span-4">
+                        {{ contact_form.phone1_area }}
+                        {{ contact_form.phone1_area.errors }}
+                    </div>
+                    
+                    <div class="column span-4">
+                        {{ contact_form.phone1_number }}
+                        {{ contact_form.phone1_number.errors }}
+                    </div>
+                    
+                    <div class="column span-2">
+                        {{ contact_form.is_phone1_default }}
+                        {{ contact_form.is_phone1_default.errors }}
+                    </div>
+                    
+                    <div class="column span-2">
+                        {{ contact_form.is_phone1_on_hold }}
+                        {{ contact_form.is_phone1_on_hold.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row{% if contact_form.phone2_type.errors or contact_form.phone2_country.errors or contact_form.phone2_area.errors or contact_form.phone2_number.errors or contact_form.is_phone2_default.errors or contact_form.is_phone2_on_hold.errors %} errors{% endif %}">
+                <div>
+                    <div class="column span-4">&nbsp;</div>
+                    <div class="column span-4">
+                        {{ contact_form.phone2_type }}
+                        {{ contact_form.phone2_type.errors }}
+                    </div>
+                
+                    <div class="column span-2">
+                        + {{ contact_form.phone2_country }}
+                        {{ contact_form.phone2_country.errors }}
+                    </div>
+                    
+                    <div class="column span-4">
+                        {{ contact_form.phone2_area }}
+                        {{ contact_form.phone2_area.errors }}
+                    </div>
+                    
+                    <div class="column span-4">
+                        {{ contact_form.phone2_number }}
+                        {{ contact_form.phone2_number.errors }}
+                    </div>
+                    
+                    <div class="column span-2">
+                        {{ contact_form.is_phone2_default }}
+                        {{ contact_form.is_phone2_default.errors }}
+                    </div>
+                    
+                    <div class="column span-2">
+                        {{ contact_form.is_phone2_on_hold }}
+                        {{ contact_form.is_phone2_on_hold.errors }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="module aligned e-mail collapse closed">
+        <h4 class="collapse-handler">{% trans "E-mail Addresses" %}</h4>
+        <div class="row">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    <a href="../../../optionset/emailtype/add/" id="add_id_individualcontact_set-{{ prefix }}-email0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                </div>
+                <div class="column span-10">
+                    <div>{% trans "Email Address" %}</div>
+                </div>
+                <div class="column span-2">
+                    <div>{% trans "Default" %}</div>
+                </div>
+                <div class="column span-2">
+                    <div>{% trans "On hold" %}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.email0_type.errors or contact_form.email0_address.errors or contact_form.is_email0_default.errors or contact_form.is_email0_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.email0_type }}
+                    {{ contact_form.email0_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.email0_address }}
+                    {{ contact_form.email0_address.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_email0_default }}
+                    {{ contact_form.is_email0_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_email0_on_hold }}
+                    {{ contact_form.is_email0_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.email1_type.errors or contact_form.email1_address.errors or contact_form.is_email1_default.errors or contact_form.is_email1_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.email1_type }}
+                    {{ contact_form.email1_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.email1_address }}
+                    {{ contact_form.email1_address.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_email1_default }}
+                    {{ contact_form.is_email1_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_email1_on_hold }}
+                    {{ contact_form.is_email1_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.email2_type.errors or contact_form.email2_address.errors or contact_form.is_email2_default.errors or contact_form.is_email2_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.email2_type }}
+                    {{ contact_form.email2_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.email2_address }}
+                    {{ contact_form.email2_address.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_email2_default }}
+                    {{ contact_form.is_email2_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_email2_on_hold }}
+                    {{ contact_form.is_email2_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="module aligned websites collapse closed">
+        <h4 class="collapse-handler">{% trans "Websites" %}</h4>
+        <div class="row">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    <a href="../../../optionset/urltype/add/" id="add_id_individualcontact_set-{{ prefix }}-url0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                </div>
+                <div class="column span-10">
+                    <div>{% trans "Website" %}</div>
+                </div>
+                <div class="column span-2">
+                    <div>{% trans "Default" %}</div>
+                </div>
+                <div class="column span-2">
+                    <div>{% trans "On hold" %}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.url0_type.errors or contact_form.url0_link.errors or contact_form.is_url0_default.errors or contact_form.is_url0_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.url0_type }}
+                    {{ contact_form.url0_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.url0_link }}
+                    {{ contact_form.url0_link.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_url0_default }}
+                    {{ contact_form.is_url0_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_url0_on_hold }}
+                    {{ contact_form.is_url0_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.url1_type.errors or contact_form.url1_link.errors or contact_form.is_url1_default.errors or contact_form.is_url1_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.url1_type }}
+                    {{ contact_form.url1_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.url1_link }}
+                    {{ contact_form.url1_link.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_url1_default }}
+                    {{ contact_form.is_url1_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_url1_on_hold }}
+                    {{ contact_form.is_url1_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.url2_type.errors or contact_form.url2_link.errors or contact_form.is_url2_default.errors or contact_form.is_url2_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.url2_type }}
+                    {{ contact_form.url2_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.url2_link }}
+                    {{ contact_form.url2_link.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_url2_default }}
+                    {{ contact_form.is_url2_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_url2_on_hold }}
+                    {{ contact_form.is_url2_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="module aligned messengers collapse closed">
+        <h4 class="collapse-handler">{% trans "Instant Messengers" %}</h4>
+        <div class="row">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    <a href="../../../optionset/imtype/add/" id="add_id_individualcontact_set-{{ prefix }}-im0_type" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                </div>
+                <div class="column span-10">
+                    <div>{% trans "Instant Messenger" %}</div>
+                </div>
+                <div class="column span-2">
+                    <div>{% trans "Default" %}</div>
+                </div>
+                <div class="column span-2">
+                    <div>{% trans "On hold" %}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.im0_type.errors or contact_form.im0_address.errors or contact_form.is_im0_default.errors or contact_form.is_im0_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.im0_type }}
+                    {{ contact_form.im0_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.im0_address }}
+                    {{ contact_form.im0_address.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_im0_default }}
+                    {{ contact_form.is_im0_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_im0_on_hold }}
+                    {{ contact_form.is_im0_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.im1_type.errors or contact_form.im1_address.errors or contact_form.is_im1_default.errors or contact_form.is_im1_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.im1_type }}
+                    {{ contact_form.im1_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.im1_address }}
+                    {{ contact_form.im1_address.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_im1_default }}
+                    {{ contact_form.is_im1_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_im1_on_hold }}
+                    {{ contact_form.is_im1_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.im2_type.errors or contact_form.im2_address.errors or contact_form.is_im2_default.errors or contact_form.is_im2_on_hold.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-4">
+                    {{ contact_form.im2_type }}
+                    {{ contact_form.im2_type.errors }}
+                </div>
+                <div class="column span-10">
+                    {{ contact_form.im2_address }}
+                    {{ contact_form.im2_address.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_im2_default }}
+                    {{ contact_form.is_im2_default.errors }}
+                </div>
+                <div class="column span-2">
+                    {{ contact_form.is_im2_on_hold }}
+                    {{ contact_form.is_im2_on_hold.errors }}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="module aligned collapse closed">
+        <h4 class="collapse-handler">{% trans "Address" %}</h4>
+        {{ contact_form.postal_address_id }}
+        <div class="row {% if contact_form.street_address.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-street_address"{% if contact_form.street_address.field.required %} class="required"{% endif %}>{% autoescape on %}{% trans "Street Address" %}{% endautoescape %}:</label></div>
+                <div class="column span-flexible">
+                    {{ contact_form.street_address }}
+                    {{ contact_form.street_address.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row {% if contact_form.street_address2.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-street_address2"{% if contact_form.street_address2.field.required %} class="required"{% endif %}></label>&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ contact_form.street_address2 }}
+                    {{ contact_form.street_address2.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row {% if contact_form.street_address3.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-street_address3"{% if contact_form.street_address3.field.required %} class="required"{% endif %}></label>&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ contact_form.street_address3 }}
+                    {{ contact_form.street_address3.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row{% if contact_form.postal_code.errors or contact_form.city.errors %} errors{% endif %}">
+            <div class="cell">
+                <div class="column span-4"><label class="auto" for="id_individualcontact_set-{{ prefix }}-postal_code"{% if contact_form.postal_code.field.required %} class="required"{% endif %}>{% trans "Postal Code/ZIP" %}</label></div>
+                <div class="column span-4">
+                    {{ contact_form.postal_code }}
+                    {{ contact_form.postal_code.errors }}
+                </div>
+            </div>
+            <div class="cell">
+                <div class="column span-4"><label class="auto" for="id_individualcontact_set-{{ prefix }}-city"{% if contact_form.city.field.required %} class="required"{% endif %}> {% trans " City" %}:</label></div>
+                <div class="column span-12">
+                    {{ contact_form.city }}
+                    {{ contact_form.city.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row state med{% if contact_form.state.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-state"{% if contact_form.state.field.required %} class="required"{% endif %}>{% trans "State" %}:</label></div>
+                <div class="column span-flexible">
+                    {{ contact_form.state }}
+                    {{ contact_form.state.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-country"{% if contact_form.country.field.required %} class="required"{% endif %}>{% trans "Country" %}:</label></div>
+                <div class="column span-flexible">
+                    <!-- Add jquery-based Country autoselection -->
+                    {{ contact_form.country }}
+                    {{ contact_form.country.errors }}
+                </div>
+           </div>
+        </div>
+        <fieldset class="module aligned">
+            <h4>{% trans "Additional Address Information" %}</h4>
+            <div class="row{% if contact_form.district.errors %} errors{% endif %}">
+                <div>
+                    <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-district"{% if contact_form.district.field.required %} class="required"{% endif %}>{% trans "District" %}:</label></div>
+                    <div class="column span-flexible">
+                        {{ contact_form.district }}
+                        {{ contact_form.district.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row {% if contact_form.neighborhood.errors %} errors{% endif %}">
+                <div>
+                    <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-neighborhood"{% if contact_form.neighborhood.field.required %} class="required"{% endif %}>{% trans "Neighborhood" %}:</label></div>
+                    <div class="column span-flexible">
+                        {{ contact_form.neighborhood }}
+                        {{ contact_form.neighborhood.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row{% if contact_form.latitude.errors or contact_form.longitude.errors or contact_form.altitude.errors %} errors{% endif %}">
+                <div class="cell">
+                    <div class="column span-4">&nbsp;</div>
+                    <div class="column span-4">
+                        <label for="id_individualcontact_set-{{ prefix }}-latitude"{% if contact_form.latitude.field.required %} class="required"{% endif %}>{% trans "Latitude" %}</label>
+                        {{ contact_form.latitude }}
+                        {{ contact_form.latitude.errors }}
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="column span-4">
+                        <label for="id_individualcontact_set-{{ prefix }}-longitude"{% if contact_form.longitude.field.required %} class="required"{% endif %}>{% trans "Longitude" %}</label>
+                        {{ contact_form.longitude }}
+                        {{ contact_form.longitude.errors }}
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="column span-flexible">
+                        <label for="id_individualcontact_set-{{ prefix }}-altitude"{% if contact_form.altitude.field.required %} class="required"{% endif %}>{% trans "Altitude" %}</label>
+                        {{ contact_form.altitude }}
+                        {{ contact_form.altitude.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="column span-4">&nbsp;</div>
+                    <div class="column span-flexible">
+                        <div class="map-view">
+                            <iframe src="/gmap/" id="gmap_{{ prefix }}" style="width: 430px; height: 300px; border: none;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </fieldset>
+    <fieldset class="module aligned collapse closed">
+        <h4 class="collapse-handler">{% trans "Availability" %}</h4>
+        <div class="row{% if contact_form.is_seasonal.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4">&nbsp;</div>
+                <div class="column span-flexible">
+                    {{ contact_form.is_seasonal }}
+                    {{ contact_form.is_seasonal.errors }}
+                    <label for="id_individualcontact_set-{{ prefix }}-is_seasonal" class="vCheckboxLabel{% if contact_form.is_seasonal.field.required %} required{% endif %}">{% trans "Seasonal" %}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row availability{% if contact_form.validity_start_mm.errors or contact_form.validity_start_dd.errors or contact_form.validity_start_yyyy.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-validity_start_yyyy"{% if contact_form.validity_start_yyyy.field.required %} class="required"{% endif %}>{% trans "From" %}:</label></div>
+                <div class="column span-flexible">
+                    <span class="inline-fields">
+                    {{ contact_form.validity_start_dd }}
+                    </span>
+                    <span class="inline-fields">
+                    {{ contact_form.validity_start_mm }}
+                    </span>
+                    <span class="inline-fields">
+                    {{ contact_form.validity_start_yyyy }}
+                    </span>
+                    {{ contact_form.validity_start_dd.errors }}
+                    {{ contact_form.validity_start_mm.errors }}
+                    {{ contact_form.validity_start_yyyy.errors }}
+                </div>
+            </div>
+        </div>
+        <div class="row availability{% if contact_form.validity_end_mm.errors or contact_form.validity_end_dd.errors or contact_form.validity_end_yyyy.errors %} errors{% endif %}">
+            <div>
+                <div class="column span-4"><label for="id_individualcontact_set-{{ prefix }}-validity_end_yyyy"{% if contact_form.validity_end_yyyy.field.required %} class="required"{% endif %}>{% trans "To" %}:</label></div>
+                <div class="column span-flexible">
+                    <span class="inline-fields">
+                    {{ contact_form.validity_end_dd }}
+                    </span>
+                    <span class="inline-fields">
+                    {{ contact_form.validity_end_mm }}
+                    </span>
+                    <span class="inline-fields">
+                    {{ contact_form.validity_end_yyyy }}
+                    </span>
+                    {{ contact_form.validity_end_dd.errors }}
+                    {{ contact_form.validity_end_mm.errors }}
+                    {{ contact_form.validity_end_yyyy.errors }}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    {{ contact_form.id }}
+</div>

@@ -1,0 +1,114 @@
+[
+    {
+        "pk": 289, 
+        "model": "people.individualtype", 
+        "fields": {
+            "title_de": "Freiberufler/-in", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Freelancer", 
+            "level": 0, 
+            "title_en": "Freelancer", 
+            "lft": 1, 
+            "sort_order": 102, 
+            "tree_id": 1, 
+            "slug": "freelancer"
+        }
+    }, 
+    {
+        "pk": 290, 
+        "model": "people.individualtype", 
+        "fields": {
+            "title_de": "Angestellte/-r", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Employee", 
+            "level": 0, 
+            "title_en": "Employee", 
+            "lft": 1, 
+            "sort_order": 105, 
+            "tree_id": 2, 
+            "slug": "employee"
+        }
+    }, 
+    {
+        "pk": 295, 
+        "model": "people.individualtype", 
+        "fields": {
+            "title_de": "Management", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Executive", 
+            "level": 0, 
+            "title_en": "Executive", 
+            "lft": 1, 
+            "sort_order": 106, 
+            "tree_id": 3, 
+            "slug": "executive"
+        }
+    }, 
+    {
+        "pk": 293, 
+        "model": "people.individualtype", 
+        "fields": {
+            "title_de": "Unternehmer/-in", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Entrepreneur", 
+            "level": 0, 
+            "title_en": "Entrepreneur", 
+            "lft": 1, 
+            "sort_order": 107, 
+            "tree_id": 4, 
+            "slug": "entrepreneur"
+        }
+    }, 
+    {
+        "pk": 292, 
+        "model": "people.individualtype", 
+        "fields": {
+            "title_de": "Student/-in", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Student", 
+            "level": 0, 
+            "title_en": "Student", 
+            "lft": 1, 
+            "sort_order": 108, 
+            "tree_id": 5, 
+            "slug": "student"
+        }
+    }, 
+    {
+        "pk": 296, 
+        "model": "people.individualtype", 
+        "fields": {
+            "title_de": "Arbeitssuchend", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Seeking-Employment", 
+            "level": 0, 
+            "title_en": "Seeking-Employment", 
+            "lft": 1, 
+            "sort_order": 109, 
+            "tree_id": 6, 
+            "slug": "seeking-employment"
+        }
+    }, 
+    {
+        "pk": 291, 
+        "model": "people.individualtype", 
+        "fields": {
+            "title_de": "Im Ruhestand", 
+            "rght": 2, 
+            "parent": null, 
+            "title": "Retired", 
+            "level": 0, 
+            "title_en": "Retired", 
+            "lft": 1, 
+            "sort_order": 110, 
+            "tree_id": 7, 
+            "slug": "retired"
+        }
+    }
+]

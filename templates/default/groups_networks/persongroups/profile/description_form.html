@@ -1,0 +1,32 @@
+{% load i18n base_tags auth_extended %}
+<div class="form_description_position profile_infos">
+    <h5 class="edit_subline">{% trans "edit Description data" %}</h5>
+    <div class="field_layout">
+        <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/description/" method="post" enctype="multipart/form-data" target="hidden_iframe">
+            <fieldset class="fieldset_end">
+                <legend>{% trans "Description" %}</legend>
+                {{ form.non_field_errors }}
+                <ul>
+                    <li class="correction_space_0">                   
+                        {{ form.description_de.label_tag }}
+                        {{ form.description_de }}
+                        {% if form.description_de.errors %}
+                            {{ form.description_de.errors }}
+                        {% endif %}
+                    </li>
+                    <li class="correction_space_0">
+                        {{ form.description_en.label_tag }}
+                        {{ form.description_en }}
+                        {% if form.description_en.errors %}
+                           {{ form.description_en.errors }}
+                        {% endif %}
+                    </li>
+                </ul>
+            </fieldset>
+            <div class="buttons">
+                <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
+            </div>
+        </form>
+    </div>
+</div>
