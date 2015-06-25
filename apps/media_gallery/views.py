@@ -140,7 +140,7 @@ def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, pa
                     obj._get_pk_val(),
                     )
             queryset_index_dict[key] = index
-            index = index + 1
+            index += 1
 
         if extra_context.get('source_list', None):
            request.httpstate['source_list'] = extra_context['source_list']

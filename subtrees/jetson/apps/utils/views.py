@@ -300,7 +300,7 @@ def object_list(request, queryset,
                 #key = '%s_%s_%s' % (obj.content_type_id, obj.object_id, request.LANGUAGE_CODE)
                 key = '%s_%s' % (obj.content_type_id, obj.object_id)
                 queryset_index_dict[key] = index
-                index = index + 1
+                index += 1
         else:
             ct = ContentType.objects.get_for_model(queryset.model)
             fields_to_select = [queryset.model._meta.pk.name] + queryset.query.extra_select.keys() + queryset.query.aggregate_select.keys()
@@ -308,7 +308,7 @@ def object_list(request, queryset,
                 #key = '%s_%s_%s' % (ct.pk, pk, request.LANGUAGE_CODE)
                 key = '%s_%s' % (ct.pk, d[queryset.model._meta.pk.name])
                 queryset_index_dict[key] = index
-                index = index + 1
+                index += 1
 
         if extra_context.get('source_list', None):
            request.httpstate['source_list'] = extra_context['source_list']

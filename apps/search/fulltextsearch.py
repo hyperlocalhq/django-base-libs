@@ -141,11 +141,11 @@ class MySqlFulltextSearchQuerySet(ExtendedQuerySet):
                 keyword_relevance_part = '("%s"' % item
                 
                 for alternative in alternatives[item]:
-                    keyword_where_part = keyword_where_part + ' "%s"%s' % (alternative[0], alternative[1])
-                    keyword_relevance_part = keyword_relevance_part + ' "%s"%s' % (alternative[0], alternative[1])
-                    
-                keyword_where_part = keyword_where_part + ')'
-                keyword_relevance_part = keyword_relevance_part + ')'
+                    keyword_where_part += ' "%s"%s' % (alternative[0], alternative[1])
+                    keyword_relevance_part += ' "%s"%s' % (alternative[0], alternative[1])
+
+                keyword_where_part += ')'
+                keyword_relevance_part += ')'
             else:
                 keyword_where_part =  '+"%s"' % item
                 keyword_relevance_part = '"%s"' % item
@@ -251,7 +251,7 @@ class SphinxSearchQuerySet(ExtendedQuerySet):
         keywords_where = ""
         
         for item in query_list:
-            keywords_where = keywords_where + '%s ' % item 
+            keywords_where += '%s ' % item
         keywords_where = keywords_where.strip(" ")
 
         search  = djangosphinx.SphinxSearch(index="creativeberlin_sphinx_index")

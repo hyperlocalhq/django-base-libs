@@ -283,7 +283,8 @@ class ViewsMixin(BaseModel):
           * modification dates are not changed
         """
         from django.db import connection
-        self.views = self.views + 1
+
+        self.views += 1
         model_opts = type(self)._meta
         cursor = connection.cursor()
         cursor.execute("UPDATE %s SET views=%%s WHERE %s=%%s" % (
@@ -663,7 +664,7 @@ class HierarchyMixinManager(models.Manager):
         counter = 0
         for item in self.order_by('path'):
             item.sort_order = counter
-            counter = counter + 1
+            counter += 1
             item.save()
 
 def _sort_order_coding(sort_order):

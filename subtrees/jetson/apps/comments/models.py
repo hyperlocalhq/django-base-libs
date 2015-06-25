@@ -343,7 +343,7 @@ class UserRatingManager(models.Manager):
             rating = None
             exec "rating = comment.rating" + str(rate_index)
             if rating:
-                rating = rating + 1
+                rating += 1
             else:
                 rating = 1
             

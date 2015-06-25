@@ -161,7 +161,7 @@ def idea_post_comment(request, ext_id, template_name=None, extra_context=None, u
         if request.POST.has_key('post'):
             post_comment(request, template_name=template_name, use_ajax=use_ajax)
             if not use_ajax:
-                redirect_to = redirect_to + "#comments"
+                redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
             else:
                 return HttpResponse("reload")
@@ -173,7 +173,7 @@ def idea_post_comment(request, ext_id, template_name=None, extra_context=None, u
         #cancel
         else:
             if not use_ajax:
-                redirect_to = redirect_to + "#comments"
+                redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
             
     from django.template import Template
@@ -274,4 +274,3 @@ def idea_mark_as_spam_comment(
         template_name='external_services/jovoto/comments/markasspam.html'    
     
     return mark_as_spam_comment(request, comment_id, template_name, redirect_to, extra_context, use_popup)     
- 

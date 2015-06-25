@@ -492,7 +492,7 @@ def blog_post_comment(request, object_url_part, url_identifier,
             
             post_comment(request, template_name=template_name, use_ajax=use_ajax)
             if not use_ajax:
-                redirect_to = redirect_to + "#comments"
+                redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
             else:
                 return HttpResponse("reload")
@@ -503,7 +503,7 @@ def blog_post_comment(request, object_url_part, url_identifier,
         #cancel
         else:
             if not use_ajax:
-                redirect_to = redirect_to + "#comments"
+                redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
     
     from django.template import Template

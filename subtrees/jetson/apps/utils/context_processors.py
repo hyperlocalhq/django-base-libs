@@ -84,9 +84,9 @@ def prev_next_processor(request):
         if paginate_by:
             page = index / paginate_by + 1
             if last_query_string:
-                current_list = current_list + "?%s&page=%d" % (last_query_string, page)
+                current_list += "?%s&page=%d" % (last_query_string, page)
             else:
-                current_list = current_list + "?page=%d" % page
+                current_list += "?page=%d" % page
     
     return {'current_count' : count,
             'current_index' : index + 1,   # we pass the index 1-based to the template

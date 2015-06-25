@@ -23,7 +23,7 @@ except:
     is_dev_environment = False
 
 if "PYTHONPATH" in os.environ:
-    os.environ["PYTHONPATH"] = os.environ["PYTHONPATH"] + "."
+    os.environ["PYTHONPATH"] += "."
 else:
     os.environ["PYTHONPATH"] = "."
 os.environ["DJANGO_SETTINGS_MODULE"] = "jetson.settings"

@@ -221,8 +221,8 @@ class Forum(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
             for word in self.title.split(' '):
                 if len(short_title) + len(word) < 32:
                     if len(short_title) != 0:
-                        short_title = short_title + " "
-                    short_title = short_title + word
+                        short_title += " "
+                    short_title += word
                 else:
                     break
             self.short_title = short_title

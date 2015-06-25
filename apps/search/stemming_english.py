@@ -81,24 +81,24 @@ class PorterStemmerEnglish:
                 return n
             if not self.cons(i):
                 break
-            i = i + 1
-        i = i + 1
+            i += 1
+        i += 1
         while 1:
             while 1:
                 if i > self.j:
                     return n
                 if self.cons(i):
                     break
-                i = i + 1
-            i = i + 1
-            n = n + 1
+                i += 1
+            i += 1
+            n += 1
             while 1:
                 if i > self.j:
                     return n
                 if not self.cons(i):
                     break
-                i = i + 1
-            i = i + 1
+                i += 1
+            i += 1
 
     def vowelinstem(self):
         """vowelinstem() is TRUE <=> k0,...j contains a vowel"""
@@ -175,24 +175,24 @@ class PorterStemmerEnglish:
         """
         if self.b[self.k] == 's':
             if self.ends("sses"):
-                self.k = self.k - 2
+                self.k -= 2
             elif self.ends("ies"):
                 self.setto("i")
             elif self.b[self.k - 1] != 's':
-                self.k = self.k - 1
+                self.k -= 1
         if self.ends("eed"):
             if self.m() > 0:
-                self.k = self.k - 1
+                self.k -= 1
         elif (self.ends("ed") or self.ends("ing")) and self.vowelinstem():
             self.k = self.j
             if self.ends("at"):   self.setto("ate")
             elif self.ends("bl"): self.setto("ble")
             elif self.ends("iz"): self.setto("ize")
             elif self.doublec(self.k):
-                self.k = self.k - 1
+                self.k -= 1
                 ch = self.b[self.k]
                 if ch == 'l' or ch == 's' or ch == 'z':
-                    self.k = self.k + 1
+                    self.k += 1
             elif self.m() == 1 and self.cvc(self.k):
                 self.setto("e")
 
@@ -312,9 +312,9 @@ class PorterStemmerEnglish:
         if self.b[self.k] == 'e':
             a = self.m()
             if a > 1 or (a == 1 and not self.cvc(self.k-1)):
-                self.k = self.k - 1
+                self.k -= 1
         if self.b[self.k] == 'l' and self.doublec(self.k) and self.m() > 1:
-            self.k = self.k -1
+            self.k -= 1
 
     def stem(self, p, i, j):
         """In stem(p,i,j), p is a char pointer, and the string to be stemmed

@@ -131,7 +131,7 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
                 for word in getattr(self, 'title_%s' % language).split(' '):
                     if len(short_title) + len(word) < 32:
                         if len(short_title) != 0:
-                            short_title = short_title + " "
+                            short_title += " "
                         short_title = short_title + word
                     else:
                         break
