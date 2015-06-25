@@ -71,7 +71,7 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
 
     @staticmethod
     def autocomplete_search_fields():
-        return ("id__iexact", "title__icontains",)
+        return ("id__iexact", "title__icontains")
 
 
 # QUICK HACK: Without the following the Blog.objects.model will be MultiSiteContainerMixin and won't work correctly
