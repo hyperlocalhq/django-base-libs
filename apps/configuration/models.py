@@ -25,7 +25,7 @@ class SiteSettingsManager(models.Manager):
 class SiteSettings(models.Model):
     site = models.ForeignKey(Site, verbose_name=_("Site"), unique=True)
     registration_type = models.CharField(_("Registration type"), max_length=10, choices=ACCOUNT_REGISTRATION_TYPES, default="simple")
-    login_by_email = models.BooleanField(_("Login by email"))
+    login_by_email = models.BooleanField(_("Login by email"), default=False)
     gmaps_api_key = models.CharField(_("Google Maps API Key"), max_length=200, blank=True, help_text=mark_safe("<a href=\"http://www.google.com/apis/maps/signup.html\" onclick=\"window.open(this.href, '', 'width=800,height=600,scrollbars=1,resizable=1');return false\">%s</a>" % force_unicode(_("Sign up for the Google Maps API"))), default="ABQIAAAACeM7_PeKjcwohDMmjxqD1RT1e54QDoeePfsGQUixHoyyb7eTxhTO-Ji1lhmrD0-TMcZt7uteQOa-GQ")
     use_captcha_registration = models.BooleanField(_("Use Captcha for account registration"))
     use_captcha_subscription = models.BooleanField(_("Use Captcha for info subscription"))

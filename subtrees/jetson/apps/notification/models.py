@@ -130,7 +130,7 @@ DIGEST_FREQUENCY = (
 class Digest(CreationDateMixin):
     user = models.ForeignKey(User, verbose_name=_('user'))
     frequency = models.CharField(_('frequency'), max_length=15, choices=DIGEST_FREQUENCY)
-    is_sent = models.BooleanField(_('sent?'))
+    is_sent = models.BooleanField(_('sent?'), default=False)
     
     class Meta:
         verbose_name = _("digest")
