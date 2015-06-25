@@ -415,11 +415,9 @@ def persongroup_list(request, criterion="", slug="", show="", **kwargs):
         if abc_filter:
             queryset = filter_abc(queryset, "title", abc_filter)
 
-        extra_context = {}
-        extra_context['abc_list'] = abc_list
-        extra_context['show'] = ("", "/%s" % show)[bool(show)]
-        extra_context['source_list'] = URL_ID_PERSONGROUPS        
-        kwargs['extra_context'] = extra_context  
+        extra_context = {'abc_list': abc_list, 'show': ("", "/%s" % show)[bool(show)],
+                         'source_list': URL_ID_PERSONGROUPS}
+        kwargs['extra_context'] = extra_context
         kwargs['httpstate_prefix'] = URL_ID_PERSONGROUPS  
         kwargs['queryset'] = queryset  
         return object_list(request, **kwargs)

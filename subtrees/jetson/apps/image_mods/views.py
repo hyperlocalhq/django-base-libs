@@ -330,15 +330,15 @@ def adjust_version(request):
             return HttpResponseRedirect(reverse("fb_versions") + get_query_string(query.copy(), remove=["sysname"]))
     else:
         if cropping:
-            initial = {
-                'bgcolor': cropping.bgcolor,
-                }
-            initial['x1'], initial['y1'] = converter.orig_to_canvas(
+            initial = {'bgcolor': cropping.bgcolor, 'x1': converter.orig_to_canvas(
                 (cropping.x1, cropping.y1),
-                )
-            initial['x2'], initial['y2'] = converter.orig_to_canvas(
+            )[0], 'y1': converter.orig_to_canvas(
+                (cropping.x1, cropping.y1),
+            )[1], 'x2': converter.orig_to_canvas(
                 (cropping.x2, cropping.y2),
-                )
+            )[0], 'y2': converter.orig_to_canvas(
+                (cropping.x2, cropping.y2),
+            )[1]}
         else:
             initial = default_initial
         form = CoordsForm(initial)
@@ -556,15 +556,15 @@ def recrop(request):
             return HttpResponseRedirect(goto_next)
     else:
         if cropping:
-            initial = {
-                'bgcolor': cropping.bgcolor,
-                }
-            initial['x1'], initial['y1'] = converter.orig_to_canvas(
+            initial = {'bgcolor': cropping.bgcolor, 'x1': converter.orig_to_canvas(
                 (cropping.x1, cropping.y1),
-                )
-            initial['x2'], initial['y2'] = converter.orig_to_canvas(
+            )[0], 'y1': converter.orig_to_canvas(
+                (cropping.x1, cropping.y1),
+            )[1], 'x2': converter.orig_to_canvas(
                 (cropping.x2, cropping.y2),
-                )
+            )[0], 'y2': converter.orig_to_canvas(
+                (cropping.x2, cropping.y2),
+            )[1]}
         else:
             initial = default_initial
         form = CoordsForm(initial)

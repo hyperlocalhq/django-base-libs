@@ -115,11 +115,8 @@ class FileBrowseField(CharField):
         return value.path
     
     def formfield(self, **kwargs):
-        attrs = {}
-        attrs["filebrowser_site"] = self.site
-        attrs["directory"] = self.directory
-        attrs["extensions"] = self.extensions
-        attrs["format"] = self.format
+        attrs = {"filebrowser_site": self.site, "directory": self.directory, "extensions": self.extensions,
+                 "format": self.format}
         defaults = {
             'form_class': FileBrowseFormField,
             'widget': FileBrowseWidget(attrs=attrs),

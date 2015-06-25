@@ -201,11 +201,8 @@ def institution_list(
                     )
         
                 
-        extra_context = {}
-        extra_context['form'] = form
-        extra_context['abc_list'] = abc_list
-        extra_context['show'] = ("", "/%s" % show)[bool(show)]
-        extra_context['source_list'] = URL_ID_INSTITUTIONS
+        extra_context = {'form': form, 'abc_list': abc_list, 'show': ("", "/%s" % show)[bool(show)],
+                         'source_list': URL_ID_INSTITUTIONS}
         if request.is_ajax():
             extra_context['base_template'] = "base_ajax.html"
 

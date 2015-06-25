@@ -53,13 +53,12 @@ def parse_idea_details(xml):
     """
     doc = parseString(xml)
     idea = doc.getElementsByTagName('idea')[0]
-    idea_dict = {}
-    idea_dict['name'] = get_value(idea.getElementsByTagName("name"))
-    idea_dict['description'] = get_value(idea.getElementsByTagName("description"))
-    idea_dict['updated_at'] = get_value(idea.getElementsByTagName("updated_at"))
-    idea_dict['pubdate'] = get_value(idea.getElementsByTagName("pubDate"))
-    idea_dict['link'] = get_value(idea.getElementsByTagName("link"))
-    idea_dict['rating'] = get_value(idea.getElementsByTagName("rating"))
+    idea_dict = {'name': get_value(idea.getElementsByTagName("name")),
+                 'description': get_value(idea.getElementsByTagName("description")),
+                 'updated_at': get_value(idea.getElementsByTagName("updated_at")),
+                 'pubdate': get_value(idea.getElementsByTagName("pubDate")),
+                 'link': get_value(idea.getElementsByTagName("link")),
+                 'rating': get_value(idea.getElementsByTagName("rating"))}
 
     author = idea.getElementsByTagName("author")[0]
     idea_dict['author_username'] = get_value(author.getElementsByTagName("username"))

@@ -43,13 +43,9 @@ def get_faq_params(object_url_part, url_identifier, category_slug=None, **kwargs
             cat = cat.parent    
     category_path.reverse()
     
-    extra_context = {}
-    extra_context['container'] = container
-    extra_context['object'] = obj
-    extra_context['root_category'] = root_category
-    extra_context['category_path'] = category_path
-    
-    extra_context['base_template'] = base_template or "faqs/base.html" 
+    extra_context = {'container': container, 'object': obj, 'root_category': root_category,
+                     'category_path': category_path, 'base_template': base_template or "faqs/base.html"}
+
     return extra_context
     
 def handle_request(request, object_url_part, url_identifier, 

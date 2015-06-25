@@ -77,10 +77,7 @@ def document_list(
         if abc_filter:
             queryset = filter_abc(queryset, "title", abc_filter)
 
-        extra_context = {}
-        extra_context['abc_list'] = abc_list
-        extra_context['show'] = ("", "/%s" % show)[bool(show)]
-        extra_context['source_list'] = URL_ID_DOCUMENTS
+        extra_context = {'abc_list': abc_list, 'show': ("", "/%s" % show)[bool(show)], 'source_list': URL_ID_DOCUMENTS}
         if request.is_ajax():
             extra_context['base_template'] = "base_ajax.html"
         kwargs['extra_context'] = extra_context  

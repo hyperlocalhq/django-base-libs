@@ -86,15 +86,10 @@ def get_forum_params(object_url_part, url_identifier, forum_slug=None,
             forum = forum.parent    
     forum_path.reverse()  
     
-    extra_context = {}
-    extra_context['container'] = container
-    extra_context['object'] = obj
-    extra_context['current_forum'] = current_forum
-    extra_context['forum_path'] = forum_path
-    extra_context['current_thread'] = current_thread
-    extra_context['current_reply'] = current_reply
-    extra_context['base_template'] = base_template or "forum/base.html"
-    
+    extra_context = {'container': container, 'object': obj, 'current_forum': current_forum, 'forum_path': forum_path,
+                     'current_thread': current_thread, 'current_reply': current_reply,
+                     'base_template': base_template or "forum/base.html"}
+
     return extra_context
     
 def handle_request(request, object_url_part, url_identifier, 

@@ -293,10 +293,7 @@ def person_list(
                 individualcontact__postal_address__geoposition__latitude__gte=-90,
                 ).distinct()
         
-        extra_context = {}
-        extra_context['abc_list'] = abc_list
-        extra_context['show'] = ("", "/%s" % show)[bool(show)]
-        extra_context['source_list'] = URL_ID_PEOPLE
+        extra_context = {'abc_list': abc_list, 'show': ("", "/%s" % show)[bool(show)], 'source_list': URL_ID_PEOPLE}
         if request.is_ajax():
             extra_context['base_template'] = "base_ajax.html"
 

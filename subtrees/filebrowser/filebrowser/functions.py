@@ -214,33 +214,22 @@ def get_settings_var(directory=DIRECTORY):
     Get settings variables used for FileBrowser listing.
     """
     
-    settings_var = {}
+    settings_var = {'MEDIA_ROOT': MEDIA_ROOT, 'MEDIA_URL': MEDIA_URL, 'DIRECTORY': directory,
+                    'URL_FILEBROWSER_MEDIA': URL_FILEBROWSER_MEDIA, 'PATH_FILEBROWSER_MEDIA': PATH_FILEBROWSER_MEDIA,
+                    'URL_TINYMCE': URL_TINYMCE, 'PATH_TINYMCE': PATH_TINYMCE, 'EXTENSIONS': EXTENSIONS,
+                    'SELECT_FORMATS': SELECT_FORMATS, 'VERSIONS_BASEDIR': VERSIONS_BASEDIR, 'VERSIONS': VERSIONS,
+                    'ADMIN_VERSIONS': ADMIN_VERSIONS, 'ADMIN_THUMBNAIL': ADMIN_THUMBNAIL,
+                    'MAX_UPLOAD_SIZE': MAX_UPLOAD_SIZE, 'NORMALIZE_FILENAME': NORMALIZE_FILENAME,
+                    'CONVERT_FILENAME': CONVERT_FILENAME, 'SEARCH_TRAVERSE': SEARCH_TRAVERSE}
     # Main
-    settings_var['MEDIA_ROOT'] = MEDIA_ROOT
-    settings_var['MEDIA_URL'] = MEDIA_URL
-    settings_var['DIRECTORY'] = directory
     # FileBrowser
-    settings_var['URL_FILEBROWSER_MEDIA'] = URL_FILEBROWSER_MEDIA
-    settings_var['PATH_FILEBROWSER_MEDIA'] = PATH_FILEBROWSER_MEDIA
     # TinyMCE
-    settings_var['URL_TINYMCE'] = URL_TINYMCE
-    settings_var['PATH_TINYMCE'] = PATH_TINYMCE
     # Extensions/Formats (for FileBrowseField)
-    settings_var['EXTENSIONS'] = EXTENSIONS
-    settings_var['SELECT_FORMATS'] = SELECT_FORMATS
     # Versions
-    settings_var['VERSIONS_BASEDIR'] = VERSIONS_BASEDIR
-    settings_var['VERSIONS'] = VERSIONS
-    settings_var['ADMIN_VERSIONS'] = ADMIN_VERSIONS
-    settings_var['ADMIN_THUMBNAIL'] = ADMIN_THUMBNAIL
     # FileBrowser Options
-    settings_var['MAX_UPLOAD_SIZE'] = MAX_UPLOAD_SIZE
     # Normalize Filenames
-    settings_var['NORMALIZE_FILENAME'] = NORMALIZE_FILENAME
     # Convert Filenames
-    settings_var['CONVERT_FILENAME'] = CONVERT_FILENAME
     # Traverse directories when searching
-    settings_var['SEARCH_TRAVERSE'] = SEARCH_TRAVERSE
     return settings_var
 
 

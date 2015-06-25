@@ -418,12 +418,9 @@ def post_comment(
     data.update(request.FILES)
     
     # additional data passed to the form ...
-    additional_data = {}
-    additional_data['content_type_id'] = content_type_id
-    additional_data['object_id'] = object_id
-    additional_data['ip_address'] = request.META.get('REMOTE_ADDR')
-    additional_data['is_public'] = IS_PUBLIC in option_list
-    
+    additional_data = {'content_type_id': content_type_id, 'object_id': object_id,
+                       'ip_address': request.META.get('REMOTE_ADDR'), 'is_public': IS_PUBLIC in option_list}
+
     form = PublicCommentForm(get_current_user(),
         headline_required=headline_required,
         ratings_required=RATINGS_REQUIRED in option_list,
