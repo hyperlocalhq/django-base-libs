@@ -39,7 +39,7 @@ class JsonResponse(HttpResponse):
         self["Content-Type"] = "text/javascript; charset=UTF-8"
 
     def serialize(self):
-        return(json.dumps(self.original_obj, ensure_ascii=False, cls=ExtendedJSONEncoder))
+        return json.dumps(self.original_obj, ensure_ascii=False, cls=ExtendedJSONEncoder)
 
 def json_lookup(request, queryset, field=False, limit=10, login_required=False):
     """
