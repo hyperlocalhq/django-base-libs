@@ -146,7 +146,8 @@ class JobOfferForm(forms.ModelForm):
 
     class Meta:
         model = JobOffer
-    
+        exclude = ()
+
     def __init__(self, *args, **kwargs):
         super(JobOfferForm, self).__init__(*args, **kwargs)
         add_form_fields(self, AddressForm)

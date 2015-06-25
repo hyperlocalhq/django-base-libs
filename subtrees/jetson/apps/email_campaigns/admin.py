@@ -30,7 +30,8 @@ from jetson.apps.history.default_settings import A_CUSTOM1, AS_PUBLIC
 class InfoSubscriptionAdminForm(forms.ModelForm):
     class Meta:
         model = InfoSubscription
-        
+        exclude = ()
+
     def clean(self, *args, **kwargs):
         cleaned = super(InfoSubscriptionAdminForm, self).clean(*args, **kwargs)
         if not cleaned.get("subscriber", None) and not cleaned.get("email", ""):

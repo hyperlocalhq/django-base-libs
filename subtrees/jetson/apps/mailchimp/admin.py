@@ -40,7 +40,8 @@ admin.site.register(Settings, SettingsAdmin)
 class SubscriptionAdminForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        
+        exclude = ()
+
     def clean(self, *args, **kwargs):
         cleaned = super(SubscriptionAdminForm, self).clean(*args, **kwargs)
         if not cleaned.get("subscriber", None) and not cleaned.get("email", ""):
@@ -68,7 +69,8 @@ class MListAdminForm(forms.ModelForm):
 
     class Meta:
         model = MList
-        
+        exclude = ()
+
     def __init__(self, *args, **kwargs):
         super(MListAdminForm, self).__init__(*args, **kwargs)
         mailchimp_list_choices = [("", "---------")]

@@ -76,7 +76,6 @@ class EventForm(forms.ModelForm):
     Event form for administration combines
     * all fields from Event model
     """
-    
     try:
         Event._meta.get_field("venue")
     except models.FieldDoesNotExist:
@@ -162,7 +161,8 @@ class EventForm(forms.ModelForm):
             
     class Meta:
         model = Event
-    
+        exclude = ()
+
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         add_form_fields(self, AddressForm)

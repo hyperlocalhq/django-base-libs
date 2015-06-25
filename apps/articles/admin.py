@@ -34,6 +34,8 @@ class ArticleTypeOptions(TreeEditor):
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
+        exclude = ()
+
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)
         self.fields['article_type'].required = True

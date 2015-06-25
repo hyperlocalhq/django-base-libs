@@ -16,6 +16,7 @@ from ccb.apps.faqs.models import FaqContainer, FaqCategory, QuestionAnswer
 class FaqContainerAdminForm(MultiSiteContainerMixinAdminForm):
     class Meta:
         model = FaqContainer
+        exclude = ()
 
 class FaqContainerOptions(MultiSiteContainerMixinAdminOptions):
     save_on_top = True
@@ -44,7 +45,8 @@ class QuestionAnswer_Inline(ExtendedStackedInline):
 class FaqCategoryAdminForm(ModelForm):
     class Meta:
         model = FaqCategory
-        
+        exclude = ()
+
     def __init__(self, *args, **kwargs):
         # hackish way to display markup types for descriptions
         super(FaqCategoryAdminForm, self).__init__(*args, **kwargs)
