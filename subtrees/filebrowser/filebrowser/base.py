@@ -22,7 +22,7 @@ else:
         import Image
 
 
-class FileListing():
+class FileListing:
     """
     The FileListing represents a group of FileObjects/FileDirObjects.
     
@@ -172,7 +172,7 @@ class FileListing():
         return len(self.files_walk_filtered())
 
 
-class FileObject():
+class FileObject:
     """
     The FileObject represents a file (or directory) on the server.
     

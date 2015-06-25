@@ -62,7 +62,7 @@ class PorterStemmerGerman:
         #   Wortstämme werden klein geschrieben
         wort = wort.lower()
         #   Wenn 'stop' und Wort in Stopliste gib 'wort' zurück
-        if ((stop == True) and (wort in stopliste)):
+        if (stop == True) and (wort in stopliste):
             return wort
         #   Ersetze alle 'ß' durch 'ss'
         while u'ß' in wort:
@@ -72,33 +72,33 @@ class PorterStemmerGerman:
             if e[1] == 0: continue
             if u'u' in e:
                 try:
-                    if ((wort[(e[1]-1)] in vokale) and (wort[(e[1]+1)] in vokale)): wort = wort[:e[1]] + u'U' + wort[(e[1]+1):]
+                    if (wort[(e[1]-1)] in vokale) and (wort[(e[1]+1)] in vokale): wort = wort[:e[1]] + u'U' + wort[(e[1]+1):]
                 except : pass
             if  u'y' in e:
                 try:
-                    if ((wort[(e[1]-1)] in vokale) and (wort[(e[1]+1)] in vokale)): wort = wort[:e[1]] + u'Y' + wort[(e[1]+1):]
+                    if (wort[(e[1]-1)] in vokale) and (wort[(e[1]+1)] in vokale): wort = wort[:e[1]] + u'Y' + wort[(e[1]+1):]
                 except: pass
         #   r1, r2, p1 & p2 werden mit Werten belegt
         try:
             Bedingung = False
             for e in map(None, wort, range(len(wort))):
                 if e[0] in vokale: Bedingung = True
-                if ((e[0] in konsonanten) and (Bedingung)):
+                if (e[0] in konsonanten) and Bedingung:
                     p1 = e[1] + 1
                     r1 = wort[p1:]
                     break
             Bedingung = False
             for e in map(None, r1, range(len(r1))):
                 if e[0] in vokale: Bedingung = True
-                if ((e[0] in konsonanten) and (Bedingung)):
+                if (e[0] in konsonanten) and Bedingung:
                     p2 = e[1] + 1
                     r2 = r1[p2:]
                     break
-            if ((p1 < 3)and(p1 > 0)):
+            if (p1 < 3)and(p1 > 0):
                 p1 = 3
                 r1 = wort[p1:]
             if p1 == 0:
-                return (self.end_stemming(wort))
+                return self.end_stemming(wort)
         except: pass
         #   Die Schritte 1 bis 3 d) u'stemmen' das übergebene Wort.
         #   Schritt 1
@@ -156,14 +156,14 @@ class PorterStemmerGerman:
                         wort = wort[:-(len(e))]
                         r2 = r2[:-(len(e))]
                         r1 = r1[:-(len(e))]
-                    return (self.end_stemming(wort))
+                    return self.end_stemming(wort)
         except: pass
         #   Schritt 3 b)
         dSuffixe_2 = [u'ig', u'ik', u'isch']
         try:
             for e in dSuffixe_2:
                 if e in r2[-(len(e)):]:
-                    if ((u'e' in wort[-(len(e)+1)])):
+                    if u'e' in wort[-(len(e)+1)]:
                         pass
                     else:
                         wort = wort[:-(len(e))]
@@ -204,7 +204,7 @@ class PorterStemmerGerman:
                         wort = wort[:-(len(e))]
     
         except: pass
-        return(self.end_stemming(wort))
+        return self.end_stemming(wort)
     
     #   end_stemming verwandelt u'ä', u'ö', u'ü' in den "Grundvokal" und macht u'U' bzw. u'Y' klein.
     def end_stemming(self, wort):

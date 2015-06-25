@@ -60,7 +60,7 @@ class PorterStemmerEnglish:
             if i == self.k0:
                 return 1
             else:
-                return (not self.cons(i - 1))
+                return not self.cons(i - 1)
         return 1
 
     def m(self):
@@ -111,7 +111,7 @@ class PorterStemmerEnglish:
         """doublec(j) is TRUE <=> j,(j-1) contain a double consonant."""
         if j < (self.k0 + 1):
             return 0
-        if (self.b[j] != self.b[j-1]):
+        if self.b[j] != self.b[j-1]:
             return 0
         return self.cons(j)
 
@@ -193,12 +193,12 @@ class PorterStemmerEnglish:
                 ch = self.b[self.k]
                 if ch == 'l' or ch == 's' or ch == 'z':
                     self.k = self.k + 1
-            elif (self.m() == 1 and self.cvc(self.k)):
+            elif self.m() == 1 and self.cvc(self.k):
                 self.setto("e")
 
     def step1c(self):
         """step1c() turns terminal y to i when there is another vowel in the stem."""
-        if (self.ends("y") and self.vowelinstem()):
+        if self.ends("y") and self.vowelinstem():
             self.b = self.b[:self.k] + 'i' + self.b[self.k+1:]
 
     def step2(self):

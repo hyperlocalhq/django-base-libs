@@ -22,7 +22,7 @@ register = Library()
 class VersionNode(Node):
     def __init__(self, src, version_prefix):
         self.src = Variable(src)
-        if (version_prefix[0] == version_prefix[-1] and version_prefix[0] in ('"', "'")):
+        if version_prefix[0] == version_prefix[-1] and version_prefix[0] in ('"', "'"):
             self.version_prefix = version_prefix[1:-1]
         else:
             self.version_prefix = None
@@ -87,7 +87,7 @@ class VersionObjectNode(Node):
     def __init__(self, src, version_prefix, var_name):
         self.var_name = var_name
         self.src = Variable(src)
-        if (version_prefix[0] == version_prefix[-1] and version_prefix[0] in ('"', "'")):
+        if version_prefix[0] == version_prefix[-1] and version_prefix[0] in ('"', "'"):
             self.version_prefix = version_prefix[1:-1]
         else:
             self.version_prefix = None
@@ -160,7 +160,7 @@ def version_object(parser, token):
 
 class VersionSettingNode(Node):
     def __init__(self, version_prefix):
-        if (version_prefix[0] == version_prefix[-1] and version_prefix[0] in ('"', "'")):
+        if version_prefix[0] == version_prefix[-1] and version_prefix[0] in ('"', "'"):
             self.version_prefix = version_prefix[1:-1]
         else:
             self.version_prefix = None

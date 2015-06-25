@@ -33,7 +33,7 @@ def url_to_path(value):
     Returns a PATH relative to MEDIA_ROOT.
     """
 
-    mediaurl_re = re.compile(r'^(%s)' % (MEDIA_URL))
+    mediaurl_re = re.compile(r'^(%s)' % MEDIA_URL)
     value = mediaurl_re.sub('', value)
     return value
 
@@ -46,7 +46,7 @@ def path_to_url(value):
     Return an URL relative to MEDIA_ROOT.
     """
 
-    mediaroot_re = re.compile(r'^(%s)' % (MEDIA_ROOT))
+    mediaroot_re = re.compile(r'^(%s)' % MEDIA_ROOT)
     value = mediaroot_re.sub('', value)
     return url_join(MEDIA_URL, value)
 
@@ -58,9 +58,9 @@ def dir_from_url(value):
     an URL relative to MEDIA_URL.
     """
 
-    mediaurl_re = re.compile(r'^(%s)' % (MEDIA_URL))
+    mediaurl_re = re.compile(r'^(%s)' % MEDIA_URL)
     value = mediaurl_re.sub('', value)
-    directory_re = re.compile(r'^(%s)' % (DIRECTORY))
+    directory_re = re.compile(r'^(%s)' % DIRECTORY)
     value = directory_re.sub('', value)
     return os.path.split(value)[0]
 

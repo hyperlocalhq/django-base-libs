@@ -395,7 +395,7 @@ class EventForm: # namespace
         
         def __init__(self, *args, **kwargs):
             initial_label = kwargs.get("initial", {}).get("label", None)
-            if (initial_label and isinstance(initial_label, models.Model)):
+            if initial_label and isinstance(initial_label, models.Model):
                 kwargs['initial']['label'] = force_unicode(initial_label.pk)
             dynamicforms.Form.__init__(self, *args, **kwargs)
             

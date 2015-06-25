@@ -51,7 +51,7 @@ def json_lookup(request, queryset, field=False, limit=10, login_required=False):
     if request.GET:
         search = request.GET['q']
         obj_list = []
-        if (field): 
+        if field:
             lookup = {
                 '%s__istartswith' % field: search,
             }
@@ -80,7 +80,7 @@ def jquery_autocomplete_lookup(request, queryset, field=False, limit=10, login_r
     obj_list = []
     if request.GET:
         search = request.GET['q']
-        if (field): 
+        if field:
             lookup = {
                 '%s__istartswith' % field: search,
             }

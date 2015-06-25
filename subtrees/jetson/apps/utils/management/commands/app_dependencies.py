@@ -58,7 +58,7 @@ class Command(NoArgsCommand):
             app_info = installed[app.split(".")[-1]]
             print colored(app_info['path'], "yellow")
             
-            if (app_info['used_by']):
+            if app_info['used_by']:
                 print "    used by:"
                 for dep in sorted(app_info['used_by']):
                     print "        ", colored(dep, "white")

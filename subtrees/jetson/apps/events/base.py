@@ -131,7 +131,7 @@ class EventManager(models.Manager):
     def _get_title_fields(self, prefix=''):
         language = get_current_language()
         if language and language != 'en':
-            return ["%stitle_%s" % (prefix, language), "%stitle" % (prefix)]
+            return ["%stitle_%s" % (prefix, language), "%stitle" % prefix]
         else:
             return ["%stitle" % prefix]
         

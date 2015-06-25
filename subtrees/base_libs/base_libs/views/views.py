@@ -106,10 +106,10 @@ def get_object_from_url(object_url_part, **kwargs):
     # now test, if model is supported and allowed!
     if kwargs.has_key('include'):
         if not model_identifier in kwargs['include']:
-            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % (object_identifier)
+            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier
     if kwargs.has_key('exclude'):
         if model_identifier in kwargs['exclude']:
-            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % (object_identifier)
+            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier
 
     return (obj, base_template)
 

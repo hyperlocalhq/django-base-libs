@@ -22,7 +22,7 @@ urlpatterns = patterns('jetson.apps.forum.views',
     (r'^apply_forum_options/$', ForumOptionsFormHandler(ForumOptionsForm, use_ajax=False), {'action' : ID_ACTION_EDIT}),
     
     # new forum on the root level
-    (r'^(?P<action>%s)/$' %(ID_ACTION_NEW), ForumFormPreviewHandler(ForumForm, use_ajax=False)),
+    (r'^(?P<action>%s)/$' % ID_ACTION_NEW, ForumFormPreviewHandler(ForumForm, use_ajax=False)),
     
     # displays a forum
     (r'^(?P<forum_slug>[^/]+)/$', 'handle_request'),
@@ -41,7 +41,7 @@ urlpatterns = patterns('jetson.apps.forum.views',
     (r'^(?P<forum_slug>[^/]+)/(?P<thread_slug>[^/]+)/(?P<action>%s|%s)/$' % (ID_ACTION_EDIT, ID_ACTION_DELETE), ThreadFormPreviewHandler(ThreadForm, use_ajax=False)),
     
     # new reply to thread!
-    (r'^(?P<forum_slug>[^/]+)/(?P<thread_slug>[^/]+)/(?P<action>%s)/$' % (ID_ACTION_NEW), ReplyFormPreviewHandler(ReplyForm, use_ajax=False)),
+    (r'^(?P<forum_slug>[^/]+)/(?P<thread_slug>[^/]+)/(?P<action>%s)/$' % ID_ACTION_NEW, ReplyFormPreviewHandler(ReplyForm, use_ajax=False)),
     
     # new reply to a reply, edit or delete reply
     (r'^(?P<forum_slug>[^/]+)/(?P<thread_slug>[^/]+)/(?P<reply_slug>[^/]+)/(?P<action>%s|%s|%s)/$' % (ID_ACTION_NEW, ID_ACTION_EDIT, ID_ACTION_DELETE), ReplyFormPreviewHandler(ReplyForm, use_ajax=False)),

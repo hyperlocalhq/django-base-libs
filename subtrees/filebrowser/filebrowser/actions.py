@@ -48,7 +48,7 @@ def transpose_image(request, fileobjects, operation):
             tmpfile.close()
             f.close()
             
-        messages.add_message(request, messages.SUCCESS, _("Action applied successfully to '%s'" % (fileobject.filename)))
+        messages.add_message(request, messages.SUCCESS, _("Action applied successfully to '%s'" % fileobject.filename))
 
 
 def flip_horizontal(request, fileobjects):

@@ -243,7 +243,7 @@ class Fieldset(object):
 
     def __iter__(self):
         for field in self.fields:
-            if (len(field)==2 and isinstance(field[1], dict)):
+            if len(field)==2 and isinstance(field[1], dict):
                 # nested fieldset
                 yield Fieldset(self.form,
                     name=field[0],
@@ -271,7 +271,7 @@ class InlineFieldset(Fieldset):
         for field in self.fields:
             if fk and fk.name == field:
                 continue
-            if (len(field)==2 and isinstance(field[1], dict)):
+            if len(field)==2 and isinstance(field[1], dict):
                 # nested fieldset
                 yield Fieldset(self.form,
                     name=field[0],

@@ -17,7 +17,7 @@ class LatestCommentsFeed(Feed):
     def link(self):
         if not hasattr(self, '_site'):
             self._site = Site.objects.get_current()
-        return "http://%s/" % (self._site.domain)
+        return "http://%s/" % self._site.domain
 
     def description(self):
         if not hasattr(self, '_site'):

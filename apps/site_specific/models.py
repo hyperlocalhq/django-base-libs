@@ -74,7 +74,7 @@ class ContextItemManager(models.Manager):
     def _get_title_fields(self, prefix=''):
         language = get_current_language()
         if language and language != 'en':
-            return ["%stitle_%s" % (prefix, language), "%stitle" % (prefix)]
+            return ["%stitle_%s" % (prefix, language), "%stitle" % prefix]
         else:
             return ["%stitle" % prefix]
         
@@ -308,7 +308,7 @@ class MappedItemManager(models.Manager):
         if obj.is_public and obj.postal_address:
             address_dict = obj.postal_address.get_dict()
             # check the status of the object
-            if (address_dict['latitude'] and address_dict['longitude']):
+            if address_dict['latitude'] and address_dict['longitude']:
                 from django.utils.translation import activate
                 from django.template import loader
                 from django.template.context import Context

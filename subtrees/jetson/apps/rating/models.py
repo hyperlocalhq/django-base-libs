@@ -97,4 +97,4 @@ class UserRating(CreationDateMixin, ObjectRelationMixin()):
     objects         = UserRatingManager()
 
     class Meta:
-        unique_together = (('content_type', 'object_id', 'user', 'key'))
+        unique_together = ('content_type', 'object_id', 'user', 'key')

@@ -203,4 +203,4 @@ class RowLevelPermissionsBackend(ModelBackend):
             quote_name('owner_content_type_id'))
         cursor.execute(sql, [user_obj.id, app_label, False, ContentType.objects.get_for_model(Group).id])
         count = int(cursor.fetchone()[0])
-        return (count>0)
+        return count>0

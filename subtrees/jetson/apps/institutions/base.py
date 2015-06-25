@@ -708,7 +708,7 @@ class InstitutionalContactBase(models.Model):
         v.n.charset_param = 'utf-8'
         v.n.value = vobject.vcard.Name(family=self.institution.title, given="")
         v.add('fn')
-        v.fn.value = "%s" % (self.institution.title)
+        v.fn.value = "%s" % self.institution.title
         v.add('email')
         v.email.value = self.email0_address
         
@@ -779,7 +779,7 @@ def extend_people_app(sender, *args, **kwargs):
         institutions_app = cache.app_models["institutions"]
         Institution = institutions_app.get("institution", None)
         # if people app is installed
-        if (Person and IndividualContact and Institution):
+        if Person and IndividualContact and Institution:
             # add institution field to IndividualContact
             institution = models.ForeignKey(
                 Institution,

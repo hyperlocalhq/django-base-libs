@@ -25,7 +25,7 @@ def get_notification_setting(user, notice_type, medium):
     try:
         return NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
     except NoticeSetting.DoesNotExist:
-        if (NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default):
+        if NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default:
             frequency = "immediately"
         else:
             frequency = "never"

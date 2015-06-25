@@ -74,7 +74,7 @@ class RowLevelPermissionManager(models.Manager):
         ret_dict = {}
         content_type = ContentType.objects.get_for_model(model_instance)
         if change:
-            change_str = "change_%s" % (content_type.model)
+            change_str = "change_%s" % content_type.model
             ret_dict[change_str] = self.create_row_level_permission(
                 model_instance,
                 owner,
@@ -82,7 +82,7 @@ class RowLevelPermissionManager(models.Manager):
                 negative=negChange,
                 )
         if delete:
-            delete_str = "delete_%s" % (content_type.model)
+            delete_str = "delete_%s" % content_type.model
             ret_dict[delete_str] = self.create_row_level_permission(
                 model_instance,
                 owner,
@@ -431,7 +431,7 @@ def add_methods_to_user():
             quote_name('owner_content_type_id'))
         cursor.execute(sql, [self.id, app_label, False, ContentType.objects.get_for_model(Group).id])
         count = int(cursor.fetchone()[0])
-        return (count>0)
+        return count>0
         
     User.contains_permission = contains_permission
     User.contains_row_level_perm = contains_row_level_perm
