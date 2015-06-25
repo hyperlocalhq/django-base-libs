@@ -88,7 +88,7 @@ def paginator(context, adjacent_pages=2):
     in addition to those already populated by the object_list generic view."""
     page_numbers = [n for n in \
                     range(context["page"] - adjacent_pages, context["page"] + adjacent_pages + 1) \
-                    if n > 0 and n <= context["pages"]]
+                    if 0 < n <= context["pages"]]
     return {
         "hits": context["hits"],
         "results_per_page": context["results_per_page"],
