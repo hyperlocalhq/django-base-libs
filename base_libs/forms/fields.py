@@ -421,6 +421,7 @@ class ObjectChoiceField(forms.Field):
             value = ObjectChoiceField.returnObject(value)
         return value
         
+    @staticmethod
     def returnObject(data):
         app_label, model, pk = data.split('/')
         ct = ContentType.objects.get(
@@ -430,13 +431,12 @@ class ObjectChoiceField(forms.Field):
         obj = ct.get_object_for_this_type(pk=pk)
         return obj
 
+    @staticmethod
     def returnKey(obj):
         ct = ContentType.objects.get_for_model(obj)
         return "/".join((ct.app_label, ct.model, str(obj._get_pk_val())))
 
-    returnObject = staticmethod(returnObject)
-    returnKey = staticmethod(returnKey)                 
-        
+
 class ImageField(forms.FileField):
     """
     Form field handling image uploads
