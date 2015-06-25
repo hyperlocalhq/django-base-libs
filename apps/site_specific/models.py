@@ -9,6 +9,7 @@ from django.utils.functional import lazy
 from django.contrib.auth.models import User
 from django.utils.encoding import force_unicode
 from django.conf import settings
+from django.apps import apps
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
@@ -23,9 +24,6 @@ from base_libs.models.fields import ExtendedTextField # for south
 from ccb.apps.search.fulltextsearch import SearchQuerySet
 
 from mptt.fields import TreeForeignKey, TreeManyToManyField
-
-Comment = models.get_model("comments", "Comment")
-Favorite = models.get_model("favorites", "Favorite")
 
 verbose_name = _("Site Specific")
 
@@ -275,6 +273,7 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
         return self.content_object.get_url_path()
         
     def get_reviewed(self):
+        Comment = apps.get_model("comments", "Comment")
         # here we must take the id of contenttype and the object_id!!!!!!
         nof = Comment.objects.filter(content_type__exact=self.content_type, object_id__exact=self.object_id).count()
         return nof
@@ -579,53 +578,3 @@ def institution_claimed(sender, instance, **kwargs):
         instance=instance.content_object,
         on_site=False,
         )
-
-### Additional methods to Institution model
-def add_methods_to_institution():
-    Institution = models.get_model("institutions", "Institution")
-
-    def is_addable_to_favorites(self, user=None):
-        if not hasattr(self, "_is_addable_to_favorites_cache"):
-            from ccb.apps.site_specific.templatetags.browsing import get_context_item
-            Favorite = models.get_model("favorites", "Favorite")
-            user = get_current_user(user)
-            group = self._get_related_group()
-            self._is_addable_to_favorites_cache = not(
-                group
-                and group.get_owners().filter(user=user)
-                ) and not Favorite.objects.is_favorite(get_context_item(self), user)
-        return self._is_addable_to_favorites_cache
-
-    def is_removable_from_favorites(self, user=None):
-        if not hasattr(self, "_is_removable_from_favorites_cache"):
-            from ccb.apps.site_specific.templatetags.browsing import get_context_item
-            Favorite = models.get_model("favorites", "Favorite")
-            user = get_current_user(user)
-            self._is_removable_from_favorites_cache = Favorite.objects.is_favorite(get_context_item(self), user)
-        return self._is_removable_from_favorites_cache
-        
-    def is_addable_to_memos(self, user=None):
-        if not hasattr(self, "_is_addable_to_memos_cache"):
-            user = get_current_user(user)
-            group = self._get_related_group()
-            self._is_addable_to_memos_cache = not(
-                group
-                and group.get_owners().filter(user=user)
-                )
-        return self._is_addable_to_memos_cache
-
-    def is_claimable(self, user=None):
-        if not hasattr(self, "_is_claimable_cache"):
-            user = get_current_user(user)
-            group = self._get_related_group()
-            self._is_claimable_cache = user and not (group and group.get_owners())
-        return self._is_claimable_cache
-        
-
-    Institution.is_addable_to_favorites = is_addable_to_favorites
-    Institution.is_removable_from_favorites = is_removable_from_favorites
-    Institution.is_addable_to_memos = is_addable_to_memos
-    Institution.is_claimable = is_claimable
-
-add_methods_to_institution()
-
