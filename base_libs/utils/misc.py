@@ -211,7 +211,9 @@ class XChoiceList(list):
     """ List of choices.
     Takes a function, queryset or list as a parameter and returns the list only when iterating,
     """
-    def __init__(self, sequence=None, null_choice_text="-"*9):
+
+    def __init__(self, sequence=None, null_choice_text="-" * 9):
+        super(XChoiceList, self).__init__()
         self.sequence = sequence
         self.null_choice_text = null_choice_text
     def __iter__(self):
