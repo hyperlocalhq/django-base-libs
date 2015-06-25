@@ -33,6 +33,10 @@ class MultilingualURLMiddleware:
     """
     Applies multilingual url change only to non-admin and non media pages
     """
+
+    def __init__(self):
+        pass
+
     def get_language_from_request(self,request):
         changed = False
         prefix = has_lang_prefix(request.path_info)
