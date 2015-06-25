@@ -92,11 +92,11 @@ class FileBrowseField(CharField):
     __metaclass__ = models.SubfieldBase
     
     def __init__(self, *args, **kwargs):
-        super(FileBrowseField, self).__init__(*args, **kwargs)
         self.site = kwargs.pop('filebrowser_site', site)
         self.directory = kwargs.pop('directory', '')
         self.extensions = kwargs.pop('extensions', '')
         self.format = kwargs.pop('format', '')
+        super(FileBrowseField, self).__init__(*args, **kwargs)
 
     def to_python(self, value):
         if not value or isinstance(value, FileObject):
