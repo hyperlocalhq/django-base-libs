@@ -25,7 +25,7 @@ class CommentOptions(ObjectRelationMixinAdminOptions()):
     list_display = ('name', 'submit_date', 'content_type', 'get_content_object_display')
     list_filter = ('submit_date',)
     date_hierarchy = 'submit_date'
-    search_fieldsets = ('comment')
+    search_fieldsets = ('comment',)
 
 class ModeratorDeletionReasonOptions(ExtendedModelAdmin):
     save_on_top = True

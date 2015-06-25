@@ -275,7 +275,7 @@ class DoCommentForm:
                     # VALIDATION ENDS #########################################
                     kwargs[option] = True
                     kwargs['rating_options'] = args
-                elif option in ('is_public'):
+                elif option in ('is_public',):
                     kwargs[option] = (args == 'true')
                 else:
                     raise template.TemplateSyntaxError, "%r tag got invalid parameter '%s'" % (tokens[0], option)
