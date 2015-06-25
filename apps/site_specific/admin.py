@@ -13,7 +13,6 @@ class VisitAdmin(admin.ModelAdmin):
     
 
 class ContextItemOptions(ObjectRelationMixinAdminOptions()):
-    save_on_top = True
     list_display = ['title', 'creation_date', 'status']
     list_filter = ('creation_date', 'status', 'content_type')
     search_fieldsets = ['title', 'description']

@@ -23,7 +23,6 @@ from captcha.fields import ReCaptchaField
 class TicketForm(dynamicforms.Form):
     
     content_type_id = None
-    concern = None
     object_id = None
     url = None
     

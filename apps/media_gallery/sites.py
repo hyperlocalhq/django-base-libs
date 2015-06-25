@@ -69,9 +69,6 @@ class PortfolioSite(object):
     The concept is based on django.contrib.admin.sites.AdminSite
     """
     
-    template_name="institutions/institution_portfolio.html"
-    template_name="institutions/institution_portfolio_change.html"
-    template_name="institutions/institution_portfolio_change.html"
     template_name="institutions/institution_portfolio_delete.html"
     
 

@@ -43,8 +43,7 @@ class FileListing():
     _results_listing_total = None
     _results_walk_total = None
     _results_listing_filtered = None
-    _results_walk_total = None
-    
+
     def __init__(self, path, filter_func=None, sorting_by=None, sorting_order=None, site=None):
         self.path = path
         self.filter_func = filter_func

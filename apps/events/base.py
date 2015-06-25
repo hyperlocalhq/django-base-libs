@@ -258,9 +258,6 @@ class EventBase(CreationModificationMixin, UrlMixin):
     def is_event(self):
         return True
     
-    def get_slug(self):
-        return self.slug
-        
     def get_url_path(self):
         from django.conf import settings
         return "/%s/%s/" % (URL_ID_EVENT, self.slug)

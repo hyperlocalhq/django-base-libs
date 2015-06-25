@@ -502,7 +502,6 @@ class HierarchyMixinAdminForm(forms.ModelForm):
 class ContentBaseMixinAdminOptions(PublishingMixinAdminOptions):
     save_on_top = True
     list_display = ('get_id', 'title', 'author', 'status', 'published_from', 'published_till')
-    list_display_links = ('title',)
     list_filter =  ('sites', 'creation_date', 'modified_date', 'creator', 'modifier')
     
     fieldsets = get_admin_lang_section(

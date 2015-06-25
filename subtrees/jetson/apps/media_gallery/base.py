@@ -36,8 +36,6 @@ image_mods = models.get_app("image_mods")
 verbose_name = _("Media Gallery")
 
 
-URL_ID_PORTFOLIO = getattr(settings, "URL_ID_PORTFOLIO", "portfolio")
-
 VIDEO_SPLASH_URL = getattr(
     settings,
     "VIDEO_SPLASH_PATH",
