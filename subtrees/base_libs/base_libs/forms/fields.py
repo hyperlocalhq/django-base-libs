@@ -8,10 +8,6 @@ try:
 except ImportError:
     from StringIO import StringIO
 
-try:
-    set
-except NameError:
-    from sets import Set as set     # Python 2.3 fallback
 
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _

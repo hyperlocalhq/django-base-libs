@@ -7,11 +7,6 @@ from optparse import make_option
 from django.core.management.base import CommandError, BaseCommand
 from django.conf import settings
 
-try:
-    set
-except NameError:
-    from sets import Set as set     # For Python 2.3
-
 pythonize_re = re.compile(r'\n\s*//')
 
 JETSON_PATH = os.path.join(settings.PROJECT_PATH, "jetson")
