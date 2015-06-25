@@ -611,7 +611,9 @@ def invite_institution_members(request, slug, **kwargs):
         extra_context={
             'object': institution,
             'user': request.user,
-            });
+            })
+
+
 invite_institution_members = login_required(never_cache(invite_institution_members))
 
 @never_cache
@@ -667,5 +669,7 @@ def edit_group_member(request, slug, user_id):
         )
 
 def add_group(request):
-    return show_form_step(request, ADD_GROUP_FORM_STEPS, extra_context={});
+    return show_form_step(request, ADD_GROUP_FORM_STEPS, extra_context={})
+
+
 add_group = login_required(never_cache(add_group))
