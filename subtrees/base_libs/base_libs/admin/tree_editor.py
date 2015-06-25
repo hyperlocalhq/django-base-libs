@@ -145,7 +145,7 @@ class TreeEditor(admin.ModelAdmin):
         return urlpatterns
 
     @csrf_protect_m
-    @transaction.commit_on_success
+    @transaction.atomic
     def move_view(self, request, object_id, extra_context=None):
         """The 'move node' admin view for this model."""
 

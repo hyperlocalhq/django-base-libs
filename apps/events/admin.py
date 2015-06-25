@@ -264,6 +264,7 @@ class EventOptions(ExtendedModelAdmin):
 
 
     #@never_cache # doesn't work for class methods with django r11611
+    @transaction.atomic
     def add_view(self, request, form_url='', extra_context=None):
         """The 'add' admin view for this model."""
         model = self.model
@@ -346,9 +347,9 @@ class EventOptions(ExtendedModelAdmin):
         }
         context.update(extra_context or {})
         return self.render_change_form(request, context, form_url=form_url, add=True)
-    add_view = transaction.commit_on_success(add_view)
-    
+
     #@never_cache # doesn't work for class methods with django r11611
+    @transaction.atomic
     def change_view(self, request, object_id, extra_context=None):
         """Displays the event add/change form and handles event saving."""
         "The 'change' admin view for this model."
@@ -438,7 +439,6 @@ class EventOptions(ExtendedModelAdmin):
         }
         context.update(extra_context or {})
         return self.render_change_form(request, context, change=True, obj=obj)
-    change_view = transaction.commit_on_success(change_view)
 
     def save_form(self, request, form, change):
         """
