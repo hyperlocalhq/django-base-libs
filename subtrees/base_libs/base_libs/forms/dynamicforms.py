@@ -8,7 +8,7 @@ from django import forms
 from django.forms.forms import BoundField as FormsBoundField
 #from django.utils.datastructures import SortedDict
 from django.utils.html import escape
-from django.utils.encoding import StrAndUnicode, smart_unicode, force_unicode
+from django.utils.encoding import smart_unicode, force_unicode
 from django.forms.forms import DeclarativeFieldsMetaclass
 from django.template.loader import render_to_string
 #from django.forms.fields import *
