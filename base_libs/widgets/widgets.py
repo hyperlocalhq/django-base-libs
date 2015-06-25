@@ -6,7 +6,7 @@ from copy import deepcopy
 
 from django import forms
 from django.utils.html import escape, conditional_escape
-from django.utils.encoding import StrAndUnicode, force_unicode
+from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.forms.util import flatatt
 from django.forms.widgets import Widget
