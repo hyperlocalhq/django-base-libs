@@ -201,7 +201,10 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
     title = MultilingualCharField(_("Title"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
 
-    creative_sectors = TreeManyToManyField("structure.Term", verbose_name=_("Creative sectors"), limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},  related_name="creative_industry_contextitems", blank=True)
+    creative_sectors = TreeManyToManyField("structure.Term",
+                                           verbose_name=_("Creative sectors"),
+                                           limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
+                                           related_name="+", blank=True)
     
     context_categories = TreeManyToManyField("structure.ContextCategory", verbose_name=_("Context categories"),
                                              blank=True, related_name="+")
