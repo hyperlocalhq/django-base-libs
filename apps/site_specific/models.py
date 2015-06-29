@@ -454,7 +454,7 @@ class ClaimRequest(ObjectRelationForClaimRequest):
     
     created_date = models.DateTimeField(_("Created"), auto_now_add=True)
     modified_date = models.DateTimeField(_("Modified"), auto_now=True)
-    modifier = models.ForeignKey(User, verbose_name=_("Modifier"), related_name="claimrequest_modifier", blank=True, null=True)
+    modifier = models.ForeignKey(User, verbose_name=_("Modifier"), related_name="+", blank=True, null=True)
     
     status = models.IntegerField(_("Status"), choices=CLAIM_STATUS, blank=True, null=True)
     
