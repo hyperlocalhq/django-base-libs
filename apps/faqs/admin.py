@@ -78,8 +78,8 @@ class FaqCategoryOptions(TreeEditor):
         return obj.questionanswer_count
     questionanswer_count.short_description = _('# FAQs')
 
-    def queryset(self, request):
-        return super(FaqCategoryOptions, self).queryset(request).annotate(
+    def get_queryset(self, request):
+        return super(FaqCategoryOptions, self).get_queryset(request).annotate(
             questionanswer_count=models.Count('questionanswer'),
             )
     
