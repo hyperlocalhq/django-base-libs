@@ -201,18 +201,11 @@ class ContextItem(CreationModificationDateMixin, ContextItemObjectRelation, UrlM
     title = MultilingualCharField(_("Title"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
 
-    creative_sectors = TreeManyToManyField("structure.Term",
-                                           verbose_name=_("Creative sectors"),
-                                           limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
-                                           related_name="+", blank=True)
+    creative_sectors = TreeManyToManyField("structure.Term", verbose_name=_("Creative sectors"), limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},  related_name="creative_industry_contextitems", blank=True)
     
-    context_categories = TreeManyToManyField("structure.ContextCategory", verbose_name=_("Context categories"),
-                                             blank=True, related_name="+")
+    context_categories = TreeManyToManyField("structure.ContextCategory", verbose_name=_("Context categories"), blank=True)
 
-    location_type = TreeForeignKey("structure.Term", verbose_name=_("Location type"),
-                                   limit_choices_to={'vocabulary__sysname': 'basics_locality'},
-                                   blank=True, null=True, related_name="+",
-                                   )
+    location_type = TreeForeignKey("structure.Term", verbose_name=_("Location type"), limit_choices_to={'vocabulary__sysname': 'basics_locality'}, blank=True, null=True, related_name="locality_contextitems")
     
     status = models.CharField(max_length=20, blank=True)
 
@@ -400,7 +393,7 @@ class VisitManager(models.Manager):
             ).distinct()
 
 class Visit(CreationModificationDateMixin):
-    user = models.ForeignKey(User, verbose_name=_("User"), null=True, blank=True, related_name="+")
+    user = models.ForeignKey(User, verbose_name=_("User"), null=True, blank=True)
     last_activity = models.DateTimeField(default=datetime.now)
     ip_address = models.IPAddressField(_("IP Address"))
     user_agent = models.CharField(_("User Agent"), max_length=255)
@@ -448,8 +441,8 @@ ObjectRelationForClaimRequest = ObjectRelationMixin(
 
 class ClaimRequest(ObjectRelationForClaimRequest):
 
+    user = models.ForeignKey(User, verbose_name=_("User"), related_name="claimrequest_user")
     name = models.CharField(_('Name'),  max_length=80) 
-    user = models.ForeignKey(User, verbose_name=_("User"), related_name="+")
     email = models.EmailField(_('Email'))
     phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, null=True)
     phone_area = models.CharField(_("Area Code"), max_length=5, blank=True, null=True)
@@ -460,7 +453,7 @@ class ClaimRequest(ObjectRelationForClaimRequest):
     
     created_date = models.DateTimeField(_("Created"), auto_now_add=True)
     modified_date = models.DateTimeField(_("Modified"), auto_now=True)
-    modifier = models.ForeignKey(User, verbose_name=_("Modifier"), related_name="+", blank=True, null=True)
+    modifier = models.ForeignKey(User, verbose_name=_("Modifier"), related_name="claimrequest_modifier", blank=True, null=True)
     
     status = models.IntegerField(_("Status"), choices=CLAIM_STATUS, blank=True, null=True)
     
