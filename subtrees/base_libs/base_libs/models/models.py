@@ -401,7 +401,7 @@ def ObjectRelationMixin(prefix=None, prefix_verbose=None, add_related_name=False
     content_type = models.ForeignKey(
         ContentType, 
         verbose_name=admin_content_type_name,
-        related_name=related_name,
+        related_name="+",
         blank=not is_required, 
         null=not is_required,
         help_text=_("Please select the type (model) for the relation, you want to build."),
