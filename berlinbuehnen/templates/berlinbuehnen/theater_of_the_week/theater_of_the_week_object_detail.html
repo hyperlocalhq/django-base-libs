@@ -76,11 +76,11 @@
                             </div>
                         {% endwith %}
                     {% endif %}
-                    {% if article.description %}
+                    {% comment %}{% if article.description %}
                         <div class="article-decription">
                             {{ article.get_rendered_description }}
                         </div>
-                    {% endif %}
+                    {% endif %}{% endcomment %}
                     <div class="article-content-cms">
                         {{ article.get_rendered_content }} 
                     </div>
