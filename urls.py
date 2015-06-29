@@ -12,11 +12,11 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.location.models import Address
-from jetson.apps.media_gallery.models import URL_ID_PORTFOLIO
 from jetson.apps.utils.views import object_detail
-from jetson.apps.media_gallery.models import MediaGallery
 from jetson.apps.utils.context_processors import prev_next_processor
 
+from ccb.apps.media_gallery.models import URL_ID_PORTFOLIO
+from ccb.apps.media_gallery.models import MediaGallery
 from ccb.apps.people.models import Person, URL_ID_PERSON, URL_ID_PEOPLE
 from ccb.apps.people.views import _person_list_filter
 from ccb.apps.institutions.models import Institution, URL_ID_INSTITUTION, URL_ID_INSTITUTIONS

@@ -4,7 +4,7 @@ from django.apps import AppConfig, apps
 from base_libs.middleware import get_current_user
 
 class SiteSpecificConfig(AppConfig):
-    name = "apps.site_specific"
+    name = "ccb.apps.site_specific"
 
     def ready(self):
         add_methods_to_institution()
