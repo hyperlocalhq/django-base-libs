@@ -394,7 +394,7 @@ class VisitManager(models.Manager):
             ).distinct()
 
 class Visit(CreationModificationDateMixin):
-    user = models.ForeignKey(User, verbose_name=_("User"), null=True, blank=True)
+    user = models.ForeignKey(User, verbose_name=_("User"), null=True, blank=True, related_name="+")
     last_activity = models.DateTimeField(default=datetime.now)
     ip_address = models.IPAddressField(_("IP Address"))
     user_agent = models.CharField(_("User Agent"), max_length=255)
@@ -442,8 +442,8 @@ ObjectRelationForClaimRequest = ObjectRelationMixin(
 
 class ClaimRequest(ObjectRelationForClaimRequest):
 
-    user = models.ForeignKey(User, verbose_name=_("User"), related_name="claimrequest_user")
     name = models.CharField(_('Name'),  max_length=80) 
+    user = models.ForeignKey(User, verbose_name=_("User"), related_name="+")
     email = models.EmailField(_('Email'))
     phone_country = models.CharField(_("Country Code"), max_length=4, blank=True, null=True)
     phone_area = models.CharField(_("Area Code"), max_length=5, blank=True, null=True)
