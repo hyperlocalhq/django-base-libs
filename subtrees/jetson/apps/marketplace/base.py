@@ -24,6 +24,7 @@ from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import PublishingMixin
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.misc import is_installed
 from base_libs.middleware import get_current_language, get_current_user
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.fields import URLField
@@ -170,7 +171,7 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
         blank=True,
         )
     
-    if apps.is_installed("institutions"):
+    if is_installed("institutions.models"):
         offering_institution = models.ForeignKey(
             "institutions.Institution",
             verbose_name=_("Organizing institution"),
