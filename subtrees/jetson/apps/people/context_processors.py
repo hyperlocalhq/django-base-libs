@@ -1,10 +1,7 @@
 # -*- coding: UTF-8 -*-
-import re
+from django.apps import apps
 
-from django.db import models
-from django.conf import settings
-
-people_models = models.get_app("people")
+people_models = apps.get_app("people")
 
 def people(request=None):
     d = {
