@@ -11,6 +11,7 @@ from django.db import models
 from django.contrib.auth import authenticate, login
 from django.views.decorators.cache import never_cache
 from django.conf import settings
+from django.apps import apps
 
 from base_libs.utils.misc import get_installed
 
@@ -22,7 +23,7 @@ Institution, URL_ID_INSTITUTION, URL_ID_INSTITUTIONS = (
     app.Institution, app.URL_ID_INSTITUTION, app.URL_ID_INSTITUTIONS,
     )
 
-from jetson.apps.groups_networks.models import PersonGroup
+PersonGroup = apps.get_model("groups_networks", "PersonGroup")
 
 ADD_INSTITUTION_FORM_STEPS = get_installed("institutions.forms.ADD_INSTITUTION_FORM_STEPS")
 

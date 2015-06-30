@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
+from django.apps import apps
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
@@ -18,12 +19,17 @@ from base_libs.forms.fields import ImageField
 image_mods = models.get_app("image_mods")
 
 from base_libs.middleware import get_current_user
-from jetson.apps.groups_networks.models import PersonGroup, GroupMembership, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
-from jetson.apps.location.models import Address
-from jetson.apps.optionset.models import IndividualLocationType, InstitutionalLocationType, PhoneType
 from base_libs.utils.misc import get_related_queryset,get_unique_value, XChoiceList
 from base_libs.utils.crypt import cryptString
 from jetson.apps.mailing.views import Recipient, send_email_using_template
+from jetson.apps.location.models import Address
+from jetson.apps.optionset.models import IndividualLocationType, InstitutionalLocationType, PhoneType
+
+groups_networks_models = apps.get_app("groups_networks")
+PersonGroup = groups_networks_models.PersonGroup
+GroupMembership = groups_networks_models.GroupMembership
+URL_ID_PERSONGROUP = groups_networks_models.URL_ID_PERSONGROUP
+URL_ID_PERSONGROUPS = groups_networks_models.URL_ID_PERSONGROUPS
 
 Person = models.get_model("people", "Person")
 Institution = models.get_model("institutions", "Institution")
