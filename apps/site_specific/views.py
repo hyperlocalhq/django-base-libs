@@ -274,35 +274,35 @@ def delete_review(request, slug, id, year=0, month=0, day=0, template_name='site
         settings.REDIRECT_FIELD_NAME: redirect_to,
     }, context_instance=RequestContext(request))  
     
-def json_review_add_rating(request, rate_index, object_id):
-    """
-    Increments the review rating. 
-    """
-    json_data = "false"
-    result = {}
-    
-    comment = Comment.objects.get(id = object_id)
-    
-    """
-    As Reinhard decided, only authenticated users may access the rating!!!
-    """
-    if request.user and request.user.is_authenticated():
-        UserRating.objects.rate(comment, request.user, int(rate_index))
-     
-    result.update({
-        'id': comment.id,
-        'rating1': comment.rating1,
-        'rating2': comment.rating2,
-        'rating3': comment.rating3,
-        'can_rate1': UserRating.objects.can_rate(comment, request.user, 1),
-        'can_rate2': UserRating.objects.can_rate(comment, request.user, 2),
-        'can_rate3': UserRating.objects.can_rate(comment, request.user, 3),
-        })
-    
-    json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_data, content_type='text/javascript; charset=utf-8')
-
-json_review_add_rating = never_cache(json_review_add_rating)
+# def json_review_add_rating(request, rate_index, object_id):
+#     """
+#     Increments the review rating.
+#     """
+#     json_data = "false"
+#     result = {}
+#
+#     comment = Comment.objects.get(id = object_id)
+#
+#     """
+#     As Reinhard decided, only authenticated users may access the rating!!!
+#     """
+#     if request.user and request.user.is_authenticated():
+#         UserRating.objects.rate(comment, request.user, int(rate_index))
+#
+#     result.update({
+#         'id': comment.id,
+#         'rating1': comment.rating1,
+#         'rating2': comment.rating2,
+#         'rating3': comment.rating3,
+#         'can_rate1': UserRating.objects.can_rate(comment, request.user, 1),
+#         'can_rate2': UserRating.objects.can_rate(comment, request.user, 2),
+#         'can_rate3': UserRating.objects.can_rate(comment, request.user, 3),
+#         })
+#
+#     json_data = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+#     return HttpResponse(json_data, content_type='text/javascript; charset=utf-8')
+#
+# json_review_add_rating = never_cache(json_review_add_rating)
 
 
 """
