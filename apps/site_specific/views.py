@@ -29,7 +29,6 @@ from base_libs.middleware import get_current_user, get_current_language
 from base_libs.utils.misc import get_installed
 from base_libs.views import access_denied
 
-from jetson.apps.media_gallery.models import URL_ID_PORTFOLIO
 from jetson.apps.utils.views import object_list, object_detail, direct_to_js_template
 from jetson.apps.utils.images import save_jpg_image
 from jetson.apps.utils.decorators import login_required
