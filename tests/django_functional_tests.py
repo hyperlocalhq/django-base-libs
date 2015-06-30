@@ -12,6 +12,8 @@ class PageTest(unittest.TestCase):
         self.expected_status_code = expected_status_code
 
     def setUp(self):
+        import django
+        django.setup()
         setup_test_environment()
         self.client = Client()
 
@@ -12220,14 +12222,14 @@ def suite():
     )
 
     url_lists = (
-        non_localized_static_pages,
-        localized_static_pages,
-        non_localized_slug_urls,
-        localized_slug_urls,
-        non_localized_constant_urls,
+        # non_localized_static_pages,
+        # localized_static_pages,
+        # non_localized_slug_urls,
+        # localized_slug_urls,
+        # non_localized_constant_urls,
         localized_constant_urls,
-        admin_urls,
-        sitemap_urls,
+        # admin_urls,
+        # sitemap_urls,
     )
 
     suite = unittest.TestSuite()
