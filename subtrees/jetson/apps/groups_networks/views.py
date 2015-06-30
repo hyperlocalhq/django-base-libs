@@ -26,7 +26,7 @@ from jetson.apps.mailing.views import do_generic_mail, send_email_using_template
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 
 Person = models.get_model("people", "Person")
-Institution = models.get_model("institution", "Institution")
+Institution = models.get_model("institutions", "Institution")
 
 app = models.get_app("groups_networks")
 PersonGroup, GroupMembership, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS = (
