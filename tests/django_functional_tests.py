@@ -14,11 +14,6 @@ class PageTest(unittest.TestCase):
         self.expected_status_code = expected_status_code
 
     def setUp(self):
-        PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        sys.path = ["", PROJECT_PATH] + sys.path
-        os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
-        import django
-        django.setup()
         setup_test_environment()
         self.client = Client()
 
@@ -12246,5 +12241,10 @@ def suite():
 
 
 if __name__ == '__main__':
+    PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    sys.path = ["", PROJECT_PATH] + sys.path
+    os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
+    import django
+    django.setup()
     unittest.TextTestRunner().run(suite())
 
