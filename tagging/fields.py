@@ -19,6 +19,7 @@ class TagField(CharField):
         kwargs['max_length'] = kwargs.get('max_length', 255)
         kwargs['blank'] = kwargs.get('blank', True)
         kwargs['default'] = kwargs.get('default', '')
+        kwargs['help_text'] = kwargs.get('help_text', _("Separate different tags by comma"))
         super(TagField, self).__init__(*args, **kwargs)
 
     def contribute_to_class(self, cls, name):

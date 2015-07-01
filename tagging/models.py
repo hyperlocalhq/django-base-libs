@@ -13,12 +13,16 @@ from django.db import connection, models
 from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
+from django.conf import settings as django_settings
 
 from tagging import settings
 from tagging.utils import calculate_cloud, get_tag_list, get_queryset_and_model, parse_tag_input
 from tagging.utils import LOGARITHMIC
 
 qn = connection.ops.quote_name
+
+from base_libs.models.models import MultilingualSlugMixin
+from base_libs.models.fields import MultilingualCharField
 
 ############
 # Managers #
@@ -38,16 +42,16 @@ class TagManager(models.Manager):
 
         # Remove tags which no longer apply
         tags_for_removal = [tag for tag in current_tags \
-                            if tag.name not in updated_tag_names]
+                            if getattr(tag, "name_%s" % django_settings.LANGUAGE_CODE) not in updated_tag_names]
         if len(tags_for_removal):
             TaggedItem._default_manager.filter(content_type__pk=ctype.pk,
                                                object_id=obj.pk,
                                                tag__in=tags_for_removal).delete()
         # Add new tags
-        current_tag_names = [tag.name for tag in current_tags]
+        current_tag_names = [getattr(tag, "name_%s" % django_settings.LANGUAGE_CODE) for tag in current_tags]
         for tag_name in updated_tag_names:
             if tag_name not in current_tag_names:
-                tag, created = self.get_or_create(name=tag_name)
+                tag, created = self.get_or_create(**{'name_%s' % django_settings.LANGUAGE_CODE: tag_name})
                 TaggedItem._default_manager.create(tag=tag, object=obj)
 
     def add_tag(self, obj, tag_name):
@@ -62,7 +66,7 @@ class TagManager(models.Manager):
         tag_name = tag_names[0]
         if settings.FORCE_LOWERCASE_TAGS:
             tag_name = tag_name.lower()
-        tag, created = self.get_or_create(name=tag_name)
+        tag, created = self.get_or_create(**{'name_%s' % django_settings.LANGUAGE_CODE: tag_name})
         ctype = ContentType.objects.get_for_model(obj)
         TaggedItem._default_manager.get_or_create(
             tag=tag, content_type=ctype, object_id=obj.pk)
@@ -86,7 +90,7 @@ class TagManager(models.Manager):
         model_table = qn(model._meta.db_table)
         model_pk = '%s.%s' % (model_table, qn(model._meta.pk.column))
         query = """
-        SELECT DISTINCT %(tag)s.id, %(tag)s.name, %(tag)s.slug%(count_sql)s
+        SELECT DISTINCT %(tag)s.id, %(tag)s.*%(count_sql)s
         FROM
             %(tag)s
             INNER JOIN %(tagged_item)s
@@ -100,7 +104,7 @@ class TagManager(models.Manager):
         %%s
         ORDER BY %(tag)s.name ASC""" % {
             'tag': qn(self.model._meta.db_table),
-            'count_sql': counts and (', COUNT(%s)' % model_pk) or '',
+            'count_sql': counts and (', COUNT(%s) AS counter' % model_pk) or '',
             'tagged_item': qn(TaggedItem._meta.db_table),
             'model': model_table,
             'model_pk': model_pk,
@@ -111,6 +115,9 @@ class TagManager(models.Manager):
         if min_count is not None:
             min_count_sql = 'HAVING COUNT(%s) >= %%s' % model_pk
             params.append(min_count)
+
+        tags = Tag.objects.raw(query % (extra_joins, extra_criteria, min_count_sql), params)
+        return tags
 
         cursor = connection.cursor()
         cursor.execute(query % (extra_joins, extra_criteria, min_count_sql), params)
@@ -454,12 +461,12 @@ class TaggedItemManager(models.Manager):
 # Models #
 ##########
 
-class Tag(models.Model):
+class Tag(MultilingualSlugMixin(prepopulate_from=("name",), unique=False, max_length=50, db_index=True,
+)):
     """
     A tag.
     """
-    name = models.CharField(_('name'), max_length=50, unique=True, db_index=True)
-    slug = models.SlugField(_('slug'), max_length=50, db_index=True)
+    name = MultilingualCharField(_('name'), max_length=50, db_index=True)
 
     objects = TagManager()
 
