@@ -48,12 +48,12 @@ def get_admin_lang_section(heading, field_list, default_expanded=True):
     for lang_code, lang_verbose in settings.LANGUAGES:
         
         if len(settings.LANGUAGES) > 1:
-            if heading:
+            if heading is not None:
                 section = string_concat(heading, " (", lang_verbose, ")")
             else:
                 section = lang_verbose
         else:
-            if heading:
+            if heading is not None:
                 section = heading
             else:
                 section = None
