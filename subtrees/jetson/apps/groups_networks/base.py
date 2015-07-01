@@ -392,6 +392,8 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
         return self.group_type and [self.group_type] or []
         
     def get_all(self):
+        from django.apps import apps
+        Person = apps.get_model("people", "Person")
         qs = Person.objects.filter(
             user__groupmembership__person_group=self
             ).extra(
