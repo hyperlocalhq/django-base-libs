@@ -293,14 +293,8 @@ def person_institution_contacts_list(request, slug, **kwargs):
     user = get_object_or_404(User, username=slug)
     person = user.profile
 
-    # TODO maybe there is a better solution for this:
-    # Here we need a queryset but have a list. So we make a queryset from the list...
     institutions = person.get_institutions()
-    extra_clause = "id in (%s)" % ", ".join([
-        "%d" % institution.id
-        for institution in institutions
-        ])
-    kwargs['queryset'] = kwargs['queryset'].extra(where=[extra_clause])
+    kwargs['queryset'] = kwargs['queryset'].filter(id__in=[institution.id for institution in institutions])
     
     kwargs.setdefault("extra_context", {})
     kwargs['extra_context']['object'] = person
@@ -315,14 +309,8 @@ def person_groups_list(request, slug, **kwargs):
     user = get_object_or_404(User, username=slug)
     person = user.profile
     
-    # TODO maybe there is a better solution for this:
-    # Here we need a queryset but have a list. So we make a queryset from the list...
     groups = person.get_groups()
-    extra_clause = "id in (%s)" % ", ".join([
-        "%d" % group.id
-        for group in groups
-        ])
-    kwargs['queryset'] = kwargs['queryset'].extra(where=[extra_clause])
+    kwargs['queryset'] = kwargs['queryset'].filter(id__in=[group.id for group in groups])
 
     kwargs.setdefault("extra_context", {})
     kwargs['extra_context']['object'] = person
