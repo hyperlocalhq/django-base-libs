@@ -160,7 +160,7 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "jetson.apps.flatpages.middleware.FlatpageMiddleware",
     "base_libs.middleware.threadlocals.ThreadLocalsMiddleware",
-    "django.middleware.doc.XViewMiddleware",
+    "django.contrib.admindocs.middleware.XViewMiddleware",
     "jetson.apps.utils.middleware.generic.AdminScriptUpdateMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
