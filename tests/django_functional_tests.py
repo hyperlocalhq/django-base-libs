@@ -12222,14 +12222,14 @@ def suite():
     )
 
     url_lists = (
-        # non_localized_static_pages,
-        # localized_static_pages,
-        # non_localized_slug_urls,
-        # localized_slug_urls,
-        # non_localized_constant_urls,
         localized_constant_urls,
-        # admin_urls,
-        # sitemap_urls,
+        localized_slug_urls,
+        localized_static_pages,
+        non_localized_constant_urls,
+        non_localized_slug_urls,
+        non_localized_static_pages,
+        admin_urls,
+        sitemap_urls,
     )
 
     suite = unittest.TestSuite()
